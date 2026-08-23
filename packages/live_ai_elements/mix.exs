@@ -12,6 +12,8 @@ defmodule LiveAiElements.MixProject do
       elixirc_options: [warnings_as_errors: true],
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
+      # A recorded stream and its golden are data, not a suite to run.
+      test_ignore_filters: [&String.starts_with?(&1, "test/fixtures/")],
       deps: deps(),
       description:
         "AI Elements for Phoenix LiveView: streaming message parts, reasoning, and tool calls.",

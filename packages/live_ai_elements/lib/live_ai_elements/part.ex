@@ -28,8 +28,8 @@ defmodule LiveAiElements.Part do
       part opens on one event out of many.
     * `text` — the part's text, and empty while the text is still arriving.
       See "Text arrives twice" below.
-    * `meta` — everything type-specific: a tool's name and arguments, a
-      source's URL and title, an error's code.
+    * `meta` — everything type-specific: a tool's name and result, a source's
+      URL and title, an error's code. See "What goes in meta" below.
 
   ## The status ladder
 
@@ -69,6 +69,27 @@ defmodule LiveAiElements.Part do
   The cost is stated plainly: a reader who reconnects mid-part loses the tokens
   of that one part until it completes. That is the price of never re-rendering
   a conversation to append a token, and it is paid once per interrupted part.
+
+  ## What goes in meta
+
+  `meta` merges rather than replaces, so an adapter that learns a tool's name
+  now and its result later reports only what it just learned.
+
+  | Type | Keys |
+  |---|---|
+  | `:tool_call` | `tool`, `input`, `output`, `kind`, `call_id`, `phase`, `error` |
+  | `:source` | `url`, `title`, `filename`, `file_id`, `kind` |
+  | `:error` | `code` |
+
+  A tool's input appears in one of two places, and which one says something
+  true about the provider. `text` holds it when the provider streamed it as
+  text — Open Responses sends a tool's arguments token by token, and a reader
+  watches them being typed. `meta.input` holds it when the provider handed over
+  a finished value — Jido gives the whole `params` map at once, and there is
+  nothing to watch.
+
+  An adapter reports what its provider gave and does not convert one into the
+  other. A component reads `meta.input` first and falls back to `text`.
   """
 
   @typedoc """

@@ -62,6 +62,10 @@ defmodule LiveAiElements.Adapter do
   `normalize/2` is pure. Everything it has to remember between events — which
   output index carries which item, what type an item was declared as — goes in
   the state it returns.
+
+  An adapter must return the state it was given for an event that carries only
+  a delta. That is the one rule with teeth, and `LiveAiElements.Stream` says
+  under "A delta never touches an assign" why.
   """
 
   alias LiveAiElements.Part
@@ -90,4 +94,41 @@ defmodule LiveAiElements.Adapter do
   ignores it.
   """
   @callback normalize(event :: term(), state()) :: {[op()], state()}
+
+  @doc """
+  Reads a key from an event, whether its keys are strings or atoms.
+
+  A JSON decoder gives string keys and a typed client gives structs with atom
+  keys. Which one arrives is the caller's decision, and converting one to the
+  other before handing it over is work no adapter should ask for.
+
+      iex> LiveAiElements.Adapter.field(%{"delta" => "hi"}, :delta)
+      "hi"
+      iex> LiveAiElements.Adapter.field(%{delta: "hi"}, :delta)
+      "hi"
+      iex> LiveAiElements.Adapter.field("not a map", :delta)
+      nil
+  """
+  @spec field(term(), atom()) :: term()
+  def field(map, key) when is_map(map) do
+    case Map.fetch(map, Atom.to_string(key)) do
+      {:ok, value} -> value
+      :error -> Map.get(map, key)
+    end
+  end
+
+  def field(_other, _key), do: nil
+
+  @doc """
+  Drops the keys whose value is `nil`.
+
+  A part's `meta` merges rather than replaces, so a `nil` written now would
+  overwrite something real learned earlier. Adapters build meta out of whatever
+  an event happened to carry, so they prune before reporting it.
+
+      iex> LiveAiElements.Adapter.prune(%{tool: "search", output: nil})
+      %{tool: "search"}
+  """
+  @spec prune(map()) :: map()
+  def prune(map), do: Map.reject(map, fn {_key, value} -> is_nil(value) end)
 end

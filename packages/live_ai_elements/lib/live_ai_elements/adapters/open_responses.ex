@@ -61,14 +61,13 @@ defmodule LiveAiElements.Adapters.OpenResponses do
   the token. Only the first delta of a part can do this, so the rule that a
   delta returns unchanged state still holds for every token after it.
 
-  ## Maps with either kind of key
-
-  A JSON decoder gives string keys and a typed client gives atom keys. Both are
-  read, because which one arrives is the caller's decision and not a reason to
-  make them convert.
+  Events may arrive with string keys or with atom keys — see
+  `LiveAiElements.Adapter.field/2`.
   """
 
   @behaviour LiveAiElements.Adapter
+
+  import LiveAiElements.Adapter, only: [field: 2, prune: 1]
 
   # Output item types that become one tool-call part, with the label the `tool`
   # component shows when the item carries no name of its own.
@@ -371,15 +370,4 @@ defmodule LiveAiElements.Adapters.OpenResponses do
 
   defp error_of(nil), do: %{}
   defp error_of(container), do: field(container, :error) || container
-
-  defp field(map, key) when is_map(map) do
-    case Map.fetch(map, Atom.to_string(key)) do
-      {:ok, value} -> value
-      :error -> Map.get(map, key)
-    end
-  end
-
-  defp field(_other, _key), do: nil
-
-  defp prune(map), do: Map.reject(map, fn {_key, value} -> is_nil(value) end)
 end

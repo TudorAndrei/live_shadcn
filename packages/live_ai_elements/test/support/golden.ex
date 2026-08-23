@@ -3,13 +3,20 @@ defmodule LiveAiElements.Golden do
   Reads a recorded provider stream, and compares the part list it produces
   against a committed one.
 
-  A recording is a `.jsonl` file: one provider event per line, in the order the
-  socket delivered them. Its golden is the same name with `.parts.json`, and it
-  holds the part list the reducer must produce.
+  A recording is one file per turn under `test/fixtures/<adapter>/`:
 
-  Both are committed, so a change to the reducer arrives in a pull request as a
-  diff of what a reader would see rather than as a failing assertion nobody can
-  picture.
+    * `.jsonl` — one JSON event per line, which is what a provider sends over
+      the wire and what a recorder can write without interpreting anything
+    * `.exs` — a list of Elixir terms, for a provider whose events are structs
+      and never were JSON
+
+  Its golden is the same name with `.parts.exs`, and it holds the part list the
+  reducer must produce, as `inspect/2` prints it. Both are committed, so a
+  change to the reducer arrives in a pull request as a diff of what a reader
+  would see rather than as a failing assertion nobody can picture.
+
+  The golden is the parts themselves rather than a projection of them, because
+  a projection is a second thing to keep right.
 
   ## Rewriting a golden
 
@@ -24,13 +31,15 @@ defmodule LiveAiElements.Golden do
   @dir Path.expand("../fixtures", __DIR__)
 
   @doc "Every recorded event in a fixture, in order."
-  @spec events(String.t()) :: [map()]
+  @spec events(String.t()) :: [term()]
   def events(name) do
-    @dir
-    |> Path.join(name <> ".jsonl")
-    |> File.read!()
-    |> String.split("\n", trim: true)
-    |> Enum.map(&Jason.decode!/1)
+    jsonl = Path.join(@dir, name <> ".jsonl")
+
+    if File.exists?(jsonl) do
+      jsonl |> File.read!() |> String.split("\n", trim: true) |> Enum.map(&Jason.decode!/1)
+    else
+      @dir |> Path.join(name <> ".exs") |> eval()
+    end
   end
 
   @doc """
@@ -48,29 +57,26 @@ defmodule LiveAiElements.Golden do
   does not exist yet — a fixture with no golden is a new recording, and failing
   on it would only ask for the same file to be typed by hand.
   """
-  @spec expected(String.t(), [LiveAiElements.Part.t()]) :: [map()]
+  @spec expected(String.t(), [LiveAiElements.Part.t()]) :: [LiveAiElements.Part.t()]
   def expected(name, parts) do
-    path = Path.join(@dir, name <> ".parts.json")
-    actual = Enum.map(parts, &encode/1)
+    path = Path.join(@dir, name <> ".parts.exs")
 
     if System.get_env("GOLDEN") == "overwrite" or not File.exists?(path) do
-      File.write!(path, Jason.encode_to_iodata!(actual, pretty: true) ++ ["\n"])
+      File.write!(path, format(parts))
     end
 
-    path |> File.read!() |> Jason.decode!()
+    eval(path)
   end
 
-  @doc "One part, as the golden records it."
-  @spec encode(LiveAiElements.Part.t()) :: map()
-  def encode(part) do
-    %{
-      "id" => part.id,
-      "type" => Atom.to_string(part.type),
-      "status" => Atom.to_string(part.status),
-      "seq" => part.seq,
-      "text" => part.text,
-      "meta" => Map.new(part.meta, fn {key, value} -> {to_string(key), value} end)
-    }
+  # Written the way `mix format` would write it. A golden the formatter rewrites
+  # is a generated file edited by a hook, and this repository has already paid
+  # for that once: the next run fails and the diff shows nothing to explain why.
+  defp format(parts) do
+    parts
+    |> inspect(pretty: true, limit: :infinity, printable_limit: :infinity)
+    |> Code.format_string!()
+    |> IO.iodata_to_binary()
+    |> Kernel.<>("\n")
   end
 
   @doc """
@@ -85,4 +91,9 @@ defmodule LiveAiElements.Golden do
   def summarize({:insert_part, part}), do: "insert #{part.id}"
   def summarize({:set_state, part}), do: "set #{part.id} #{part.status}"
   def summarize({:append_delta, id, _chunk}), do: "delta #{id}"
+
+  defp eval(path) do
+    {term, _bindings} = Code.eval_file(path)
+    term
+  end
 end
