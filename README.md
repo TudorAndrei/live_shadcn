@@ -92,11 +92,22 @@ registry/spec/               generated component IR
 storybook/                   demo application
 ```
 
+## Status
+
+| | |
+|---|---|
+| [ROADMAP.md](ROADMAP.md) | milestones and their exit criteria |
+| [docs/INVENTORY.md](docs/INVENTORY.md) | 112 components, status derived from disk |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | layers, contract, pipeline stages |
+
+Eight core recipes cover 102 of the 112 components.
+
 ## Development
 
 ```bash
 cd tools && mix deps.get
 mix ui.fetch --only accordion     # pin and download one component
+mix ui.status                     # regenerate docs/INVENTORY.md
 ```
 
 ## License

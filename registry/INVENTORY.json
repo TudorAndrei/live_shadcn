@@ -1,0 +1,698 @@
+{
+  "_comment": "Recipe and tier are design decisions and are edited by hand. Status is NOT stored here: `mix ui.status` derives it from the files on disk.",
+  "recipes": {
+    "core": [
+      "disclosure",
+      "dialog",
+      "popover",
+      "listbox",
+      "menu",
+      "tabs",
+      "form-control",
+      "presentational"
+    ],
+    "specialist": [
+      "scroller",
+      "toast",
+      "carousel",
+      "chart",
+      "calendar",
+      "resizable",
+      "utility"
+    ]
+  },
+  "components": [
+    {
+      "name": "agent",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "artifact",
+      "source": "ai_elements",
+      "recipe": "disclosure",
+      "tier": 2
+    },
+    {
+      "name": "attachments",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "audio-player",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "canvas",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "chain-of-thought",
+      "source": "ai_elements",
+      "recipe": "disclosure",
+      "tier": 1
+    },
+    {
+      "name": "checkpoint",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "code-block",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "commit",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "confirmation",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "connection",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "context",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "controls",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "conversation",
+      "source": "ai_elements",
+      "recipe": "scroller",
+      "tier": 1
+    },
+    {
+      "name": "edge",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "environment-variables",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "file-tree",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "image",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "inline-citation",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "jsx-preview",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "message",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "mic-selector",
+      "source": "ai_elements",
+      "recipe": "listbox",
+      "tier": 3
+    },
+    {
+      "name": "model-selector",
+      "source": "ai_elements",
+      "recipe": "listbox",
+      "tier": 2
+    },
+    {
+      "name": "node",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "open-in-chat",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "package-info",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "panel",
+      "source": "ai_elements",
+      "recipe": "disclosure",
+      "tier": 2
+    },
+    {
+      "name": "persona",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "plan",
+      "source": "ai_elements",
+      "recipe": "disclosure",
+      "tier": 2
+    },
+    {
+      "name": "prompt-input",
+      "source": "ai_elements",
+      "recipe": "form-control",
+      "tier": 1
+    },
+    {
+      "name": "question",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "queue",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "reasoning",
+      "source": "ai_elements",
+      "recipe": "disclosure",
+      "tier": 1
+    },
+    {
+      "name": "sandbox",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "schema-display",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "shimmer",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "snippet",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "sources",
+      "source": "ai_elements",
+      "recipe": "popover",
+      "tier": 1
+    },
+    {
+      "name": "speech-input",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "stack-trace",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "suggestion",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "task",
+      "source": "ai_elements",
+      "recipe": "disclosure",
+      "tier": 1
+    },
+    {
+      "name": "terminal",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "test-results",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "tool",
+      "source": "ai_elements",
+      "recipe": "disclosure",
+      "tier": 1
+    },
+    {
+      "name": "toolbar",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "transcription",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "voice-selector",
+      "source": "ai_elements",
+      "recipe": "listbox",
+      "tier": 3
+    },
+    {
+      "name": "web-preview",
+      "source": "ai_elements",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "accordion",
+      "source": "shadcn",
+      "recipe": "disclosure",
+      "tier": 1
+    },
+    {
+      "name": "alert",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "alert-dialog",
+      "source": "shadcn",
+      "recipe": "dialog",
+      "tier": 2
+    },
+    {
+      "name": "aspect-ratio",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "attachment",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "avatar",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "badge",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "breadcrumb",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "bubble",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "button",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "button-group",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "calendar",
+      "source": "shadcn",
+      "recipe": "calendar",
+      "tier": 3
+    },
+    {
+      "name": "card",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "carousel",
+      "source": "shadcn",
+      "recipe": "carousel",
+      "tier": 3
+    },
+    {
+      "name": "chart",
+      "source": "shadcn",
+      "recipe": "chart",
+      "tier": 3
+    },
+    {
+      "name": "checkbox",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 1
+    },
+    {
+      "name": "collapsible",
+      "source": "shadcn",
+      "recipe": "disclosure",
+      "tier": 1
+    },
+    {
+      "name": "combobox",
+      "source": "shadcn",
+      "recipe": "listbox",
+      "tier": 2
+    },
+    {
+      "name": "command",
+      "source": "shadcn",
+      "recipe": "listbox",
+      "tier": 2
+    },
+    {
+      "name": "context-menu",
+      "source": "shadcn",
+      "recipe": "menu",
+      "tier": 2
+    },
+    {
+      "name": "dialog",
+      "source": "shadcn",
+      "recipe": "dialog",
+      "tier": 1
+    },
+    {
+      "name": "direction",
+      "source": "shadcn",
+      "recipe": "utility",
+      "tier": 2
+    },
+    {
+      "name": "drawer",
+      "source": "shadcn",
+      "recipe": "dialog",
+      "tier": 2
+    },
+    {
+      "name": "dropdown-menu",
+      "source": "shadcn",
+      "recipe": "menu",
+      "tier": 1
+    },
+    {
+      "name": "empty",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "field",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 2
+    },
+    {
+      "name": "form",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 2
+    },
+    {
+      "name": "hover-card",
+      "source": "shadcn",
+      "recipe": "popover",
+      "tier": 2
+    },
+    {
+      "name": "input",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 1
+    },
+    {
+      "name": "input-group",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 2
+    },
+    {
+      "name": "input-otp",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 2
+    },
+    {
+      "name": "item",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "kbd",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "label",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 1
+    },
+    {
+      "name": "marker",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "menubar",
+      "source": "shadcn",
+      "recipe": "menu",
+      "tier": 2
+    },
+    {
+      "name": "message",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "message-scroller",
+      "source": "shadcn",
+      "recipe": "scroller",
+      "tier": 2
+    },
+    {
+      "name": "native-select",
+      "source": "shadcn",
+      "recipe": "listbox",
+      "tier": 2
+    },
+    {
+      "name": "navigation-menu",
+      "source": "shadcn",
+      "recipe": "menu",
+      "tier": 2
+    },
+    {
+      "name": "pagination",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "popover",
+      "source": "shadcn",
+      "recipe": "popover",
+      "tier": 1
+    },
+    {
+      "name": "progress",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "questionnaire",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 3
+    },
+    {
+      "name": "radio-group",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 2
+    },
+    {
+      "name": "resizable",
+      "source": "shadcn",
+      "recipe": "resizable",
+      "tier": 3
+    },
+    {
+      "name": "scroll-area",
+      "source": "shadcn",
+      "recipe": "scroller",
+      "tier": 2
+    },
+    {
+      "name": "select",
+      "source": "shadcn",
+      "recipe": "listbox",
+      "tier": 1
+    },
+    {
+      "name": "separator",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "sheet",
+      "source": "shadcn",
+      "recipe": "dialog",
+      "tier": 2
+    },
+    {
+      "name": "sidebar",
+      "source": "shadcn",
+      "recipe": "disclosure",
+      "tier": 2
+    },
+    {
+      "name": "skeleton",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "slider",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 2
+    },
+    {
+      "name": "sonner",
+      "source": "shadcn",
+      "recipe": "toast",
+      "tier": 2
+    },
+    {
+      "name": "spinner",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "switch",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 1
+    },
+    {
+      "name": "table",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 1
+    },
+    {
+      "name": "tabs",
+      "source": "shadcn",
+      "recipe": "tabs",
+      "tier": 1
+    },
+    {
+      "name": "textarea",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 1
+    },
+    {
+      "name": "toast",
+      "source": "shadcn",
+      "recipe": "toast",
+      "tier": 2
+    },
+    {
+      "name": "toggle",
+      "source": "shadcn",
+      "recipe": "form-control",
+      "tier": 2
+    },
+    {
+      "name": "toggle-group",
+      "source": "shadcn",
+      "recipe": "tabs",
+      "tier": 2
+    },
+    {
+      "name": "tooltip",
+      "source": "shadcn",
+      "recipe": "popover",
+      "tier": 1
+    }
+  ]
+}
