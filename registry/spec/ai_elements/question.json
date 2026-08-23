@@ -19,7 +19,7 @@
         "onSubmit": null,
         "onValueChange": null,
         "selectionMode": "single",
-        "value: controlledValue": null
+        "value": null
       },
       "primitive": null,
       "tree": {

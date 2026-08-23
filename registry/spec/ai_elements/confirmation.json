@@ -2,69 +2,160 @@
   "anatomy": [],
   "css_vars": [],
   "folds": [
+    "shadcn/alert",
     "shadcn/button"
   ],
   "generated_by": "mix ui.spec",
-  "name": "artifact",
+  "name": "confirmation",
   "parts": [
     {
-      "export": "Artifact",
-      "name": "artifact",
+      "export": "Confirmation",
+      "name": "confirmation",
       "params": {
-        "className": null
-      },
-      "primitive": null,
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_class": null,
-        "vars": []
-      }
-    },
-    {
-      "export": "ArtifactHeader",
-      "name": "artifact_header",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex items-center justify-between border-b bg-muted/50 px-4 py-3",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_class": null,
-        "vars": []
-      }
-    },
-    {
-      "export": "ArtifactClose",
-      "name": "artifact_close",
-      "params": {
-        "children": null,
+        "approval": null,
         "className": null,
-        "size": "sm",
-        "variant": "ghost"
+        "state": null,
+        "variant": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "role",
+                "value": "alert"
+              }
+            ],
+            "children": [],
+            "class": "flex flex-col gap-2",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "alert",
+            "tag": "div",
+            "type": "element",
+            "variant_class": "alertVariants",
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ConfirmationTitle",
+      "name": "confirmation_title",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-alert-description [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground inline",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "alert-description",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ConfirmationRequest",
+      "name": "confirmation_request",
+      "params": {
+        "children": null
+      },
+      "primitive": null,
+      "tree": {
+        "type": "children"
+      }
+    },
+    {
+      "export": "ConfirmationAccepted",
+      "name": "confirmation_accepted",
+      "params": {
+        "children": null
+      },
+      "primitive": null,
+      "tree": {
+        "type": "children"
+      }
+    },
+    {
+      "export": "ConfirmationRejected",
+      "name": "confirmation_rejected",
+      "params": {
+        "children": null
+      },
+      "primitive": null,
+      "tree": {
+        "type": "children"
+      }
+    },
+    {
+      "export": "ConfirmationActions",
+      "name": "confirmation_actions",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "flex items-center justify-end gap-2 self-end",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ConfirmationAction",
+      "name": "confirmation_action",
+      "params": {
+        "className": null,
+        "size": "default",
+        "variant": "default"
       },
       "primitive": null,
       "tree": {
@@ -75,55 +166,8 @@
             "value": "button"
           }
         ],
-        "children": [
-          {
-            "default": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "size-4",
-                "icons": {
-                  "lucide": "XIcon"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_class": null,
-                "vars": []
-              }
-            ],
-            "type": "children"
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "text",
-                "value": "Close"
-              }
-            ],
-            "class": "sr-only",
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_class": null,
-            "vars": []
-          }
-        ],
-        "class": "size-8 p-0 text-muted-foreground hover:text-foreground",
+        "children": [],
+        "class": "h-8 px-3 text-sm",
         "merges_class": true,
         "module": "button",
         "part": "Button",
@@ -140,124 +184,6 @@
         "tag": "button",
         "type": "primitive",
         "variant_class": "buttonVariants",
-        "vars": []
-      }
-    },
-    {
-      "export": "ArtifactTitle",
-      "name": "artifact_title",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "font-medium text-foreground text-sm",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "p",
-        "type": "element",
-        "variant_class": null,
-        "vars": []
-      }
-    },
-    {
-      "export": "ArtifactDescription",
-      "name": "artifact_description",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "text-muted-foreground text-sm",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "p",
-        "type": "element",
-        "variant_class": null,
-        "vars": []
-      }
-    },
-    {
-      "export": "ArtifactActions",
-      "name": "artifact_actions",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex items-center gap-1",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_class": null,
-        "vars": []
-      }
-    },
-    {
-      "export": "ArtifactAction",
-      "name": "artifact_action",
-      "params": {
-        "children": null,
-        "className": null,
-        "icon": null,
-        "label": null,
-        "size": "sm",
-        "tooltip": null,
-        "variant": "ghost"
-      },
-      "primitive": null,
-      "tree": {
-        "code": "button",
-        "type": "value"
-      }
-    },
-    {
-      "export": "ArtifactContent",
-      "name": "artifact_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex-1 overflow-auto p-4",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_class": null,
         "vars": []
       }
     }
@@ -306,17 +232,54 @@
       "summary": "A button component that can be used to trigger actions."
     }
   },
-  "recipe": "disclosure",
+  "recipe": "presentational",
   "source": "ai_elements",
-  "styles": {},
+  "styles": {
+    "luma": {
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
+    },
+    "lyra": {
+      "cn-alert-description": "text-muted-foreground text-xs/relaxed text-balance md:text-pretty [&_p:not(:last-child)]:mb-2"
+    },
+    "maia": {
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
+    },
+    "mira": {
+      "cn-alert-description": "text-muted-foreground text-xs/relaxed text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
+    },
+    "nova": {
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
+    },
+    "rhea": {
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
+    },
+    "sera": {
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
+    },
+    "vega": {
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
+    }
+  },
   "upstream": {
     "base_ui": {},
     "shadcn": {
-      "file": "ai_elements/artifact.tsx",
-      "sha256": "6e5017f85105164b95861b1d10a78c956c312682c5ecd17e2619870ba5993aba"
+      "file": "ai_elements/confirmation.tsx",
+      "sha256": "7cc0befed99499ed9010643e7a90ec619180a3f6e79cba5668cfc84126b96a10"
     }
   },
   "variants": {
+    "alertVariants": {
+      "base": "cn-alert group/alert relative w-full",
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": {
+        "variant": {
+          "default": "cn-alert-variant-default",
+          "destructive": "cn-alert-variant-destructive"
+        }
+      }
+    },
     "buttonVariants": {
       "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
       "defaults": {

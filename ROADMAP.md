@@ -383,6 +383,63 @@ change: the fold then found the Base UI parts the recipe was looking for. What
 an AI Elements component's recipe is, is decided by the shadcn component it
 composes, not by what it looks like on the page.
 
+### Four parser bugs, each of which cut a component short
+
+Every one of them was silent, and every one dropped markup rather than failing.
+
+**A rescue said "not a component".** An arrow function whose markup could not
+be read was dropped, and the file that rendered it failed thirty lines later
+with "the spec reader does not know what `<CodeBlockContent>` is". The reason
+travels with the name now. Whether it matters is the spec reader's decision,
+because a file is full of small arrow helpers that render nothing and one
+nobody exports is not a component.
+
+**A statement ended at its own signature.** `const CheckpointIcon = ({ … }: T) =>`
+closes its brackets on the line before its body, so reading to the first
+balanced line stopped at the arrow and left the component with no markup.
+
+**The first `return (` was not the component's.** A body is full of other
+people's returns — `useEffect(() => { … return () => clearTimeout(t) })` writes
+one — and taking the first in the text picked that cleanup out of `Reasoning`
+and then asked for a JSX element and found nothing.
+
+**A bracketed return is not always one element.**
+`return (!isAtBottom && <Button />)` is an expression that decides which, and
+reading it as an element found `!`.
+
+Together they were hiding seven components' worth of markup, and `reasoning`,
+`prompt-input` and `code-block` had been specced with their root part missing.
+
+### An icon can be a prop
+
+`{ icon: Icon = DotIcon }`, then `<Icon />`. React renames a prop that holds a
+component, because JSX reads a lowercase tag as an HTML element — `<icon />`
+would be an element nobody has heard of. So the rename is a signal, and what it
+signals is that this prop is a thing to render.
+
+The generated component takes `icon` as a name — `attr :icon, :string, default:
+"dot"` — because a name is what a caller passes when the icon set is
+configuration.
+
+### What stops the other nine
+
+Not markup. The reader reads every one of them now. What stops them is that
+upstream computes something in JavaScript, and a template cannot:
+
+| Component | Stopped by |
+|---|---|
+| chain-of-thought, message | React state — `isOpen`, `currentBranch` |
+| tool, context, prompt-input | a local computed from props — `derivedName` |
+| code-block | a local holding one of two icons, by state |
+| reasoning | a render prop — `getThinkingMessage` |
+| shimmer | `motion`, which here is a CSS animation |
+| conversation | `use-stick-to-bottom`, so the `scroller` recipe |
+
+The first three rows are one thing: logic. A recipe owns behaviour — the
+disclosure recipe owns opening and closing, and that is why `task` and `sources`
+generate at all. So each of these needs either a recipe that owns what upstream
+is computing, or a prop the caller supplies. Neither is a reader change.
+
 **`data-[state=open]` is read by nobody.** This one is not fixed, and it is the
 larger of the two things left.
 

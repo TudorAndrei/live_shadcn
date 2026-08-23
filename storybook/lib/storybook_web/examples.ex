@@ -58,6 +58,7 @@ defmodule StorybookWeb.Examples do
   # The AI Elements package ships its components compiled, so they are imported
   # from their own namespace rather than copied in by `mix ui.add`.
   import LiveAiElements.Components.Checkpoint
+  import LiveAiElements.Components.Confirmation
   import LiveAiElements.Components.Sources
   import LiveAiElements.Components.Suggestion
   import LiveAiElements.Components.Task
@@ -66,7 +67,7 @@ defmodule StorybookWeb.Examples do
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog dropdown-menu empty hover-card input item kbd label marker message
-       navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint textarea toggle tooltip)
+       navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation textarea toggle tooltip)
   end
 
   @doc "The examples for a component."
@@ -251,6 +252,17 @@ defmodule StorybookWeb.Examples do
         "A point a turn can go back to",
         "A label with a rule running off it.",
         &checkpoint_default/1
+      )
+    ]
+  end
+
+  def all("confirmation") do
+    [
+      one(
+        "default",
+        "A question the model has to have answered",
+        "The body of a tool call waiting on a person.",
+        &confirmation_default/1
       )
     ]
   end
@@ -782,6 +794,12 @@ defmodule StorybookWeb.Examples do
     <.checkpoint class="max-w-md">
       Reverted to the spec before the fold
     </.checkpoint>
+    """
+  end
+
+  defp confirmation_default(assigns) do
+    ~H"""
+    <.confirmation class="max-w-md">Delete the branch?</.confirmation>
     """
   end
 

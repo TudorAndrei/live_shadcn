@@ -109,6 +109,9 @@
   "collapsible": [
     "default"
   ],
+  "confirmation": [
+    "default"
+  ],
   "button-group": [
     "default"
   ],

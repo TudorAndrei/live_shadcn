@@ -1,0 +1,448 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "carousel",
+  "parts": [
+    {
+      "export": "Carousel",
+      "name": "carousel",
+      "params": {
+        "children": null,
+        "className": null,
+        "opts": null,
+        "orientation": "horizontal",
+        "plugins": null,
+        "setApi": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "{\n        carouselRef,\n        api: api,\n        opts,\n        orientation:\n          orientation || (opts?.axis === \"y\" ? \"vertical\" : \"horizontal\"),\n        scrollPrev,\n        scrollNext,\n        canScrollPrev,\n        canScrollNext,\n      }"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "onKeyDownCapture",
+                "value": "handleKeyDown"
+              },
+              {
+                "kind": "text",
+                "name": "role",
+                "value": "region"
+              },
+              {
+                "kind": "text",
+                "name": "aria-roledescription",
+                "value": "carousel"
+              }
+            ],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "relative",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "carousel",
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "CarouselContent",
+      "name": "carousel_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "ref",
+            "value": "carouselRef"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "flex",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "overflow-hidden",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "carousel-content",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "CarouselItem",
+      "name": "carousel_item",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "group"
+          },
+          {
+            "kind": "text",
+            "name": "aria-roledescription",
+            "value": "slide"
+          }
+        ],
+        "children": [],
+        "class": "min-w-0 shrink-0 grow-0 basis-full",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "carousel-item",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "CarouselPrevious",
+      "name": "carousel_previous",
+      "params": {
+        "className": null,
+        "size": "icon-sm",
+        "variant": "outline"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "variant",
+            "value": "variant"
+          },
+          {
+            "kind": "code",
+            "name": "size",
+            "value": "size"
+          },
+          {
+            "kind": "code",
+            "name": "disabled",
+            "value": "!canScrollPrev"
+          },
+          {
+            "kind": "code",
+            "name": "onClick",
+            "value": "scrollPrev"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "lucide",
+                "value": "ChevronLeftIcon"
+              },
+              {
+                "kind": "text",
+                "name": "tabler",
+                "value": "IconChevronLeft"
+              },
+              {
+                "kind": "text",
+                "name": "hugeicons",
+                "value": "ArrowLeft01Icon"
+              },
+              {
+                "kind": "text",
+                "name": "phosphor",
+                "value": "CaretLeftIcon"
+              },
+              {
+                "kind": "text",
+                "name": "remixicon",
+                "value": "RiArrowLeftSLine"
+              }
+            ],
+            "children": [],
+            "class": "cn-rtl-flip",
+            "icons": {
+              "hugeicons": "ArrowLeft01Icon",
+              "lucide": "ChevronLeftIcon",
+              "phosphor": "CaretLeftIcon",
+              "remixicon": "RiArrowLeftSLine",
+              "tabler": "IconChevronLeft"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "icon",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "Previous slide"
+              }
+            ],
+            "class": "sr-only",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "cn-carousel-previous absolute touch-manipulation",
+        "component": "button",
+        "function": "button",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "carousel-previous",
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "CarouselNext",
+      "name": "carousel_next",
+      "params": {
+        "className": null,
+        "size": "icon-sm",
+        "variant": "outline"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "variant",
+            "value": "variant"
+          },
+          {
+            "kind": "code",
+            "name": "size",
+            "value": "size"
+          },
+          {
+            "kind": "code",
+            "name": "disabled",
+            "value": "!canScrollNext"
+          },
+          {
+            "kind": "code",
+            "name": "onClick",
+            "value": "scrollNext"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "lucide",
+                "value": "ChevronRightIcon"
+              },
+              {
+                "kind": "text",
+                "name": "tabler",
+                "value": "IconChevronRight"
+              },
+              {
+                "kind": "text",
+                "name": "hugeicons",
+                "value": "ArrowRight01Icon"
+              },
+              {
+                "kind": "text",
+                "name": "phosphor",
+                "value": "CaretRightIcon"
+              },
+              {
+                "kind": "text",
+                "name": "remixicon",
+                "value": "RiArrowRightSLine"
+              }
+            ],
+            "children": [],
+            "class": "cn-rtl-flip",
+            "icons": {
+              "hugeicons": "ArrowRight01Icon",
+              "lucide": "ChevronRightIcon",
+              "phosphor": "CaretRightIcon",
+              "remixicon": "RiArrowRightSLine",
+              "tabler": "IconChevronRight"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "icon",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "Next slide"
+              }
+            ],
+            "class": "sr-only",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "cn-carousel-next absolute touch-manipulation",
+        "component": "button",
+        "function": "button",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "carousel-next",
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "carousel",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-carousel-next": "rounded-full",
+      "cn-carousel-previous": "rounded-full"
+    },
+    "maia": {
+      "cn-carousel-next": "rounded-full",
+      "cn-carousel-previous": "rounded-full"
+    },
+    "mira": {
+      "cn-carousel-next": "rounded-full",
+      "cn-carousel-previous": "rounded-full"
+    },
+    "nova": {
+      "cn-carousel-next": "rounded-full",
+      "cn-carousel-previous": "rounded-full"
+    },
+    "rhea": {
+      "cn-carousel-next": "rounded-2xl",
+      "cn-carousel-previous": "rounded-2xl"
+    },
+    "vega": {
+      "cn-carousel-next": "rounded-full",
+      "cn-carousel-previous": "rounded-full"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/carousel.tsx",
+      "sha256": "f96cbdfe39d65ccb9052507598b421eba6625c0677cc25d771b7953e2f3e9385"
+    }
+  },
+  "variants": {}
+}

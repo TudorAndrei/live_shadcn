@@ -52,8 +52,11 @@ defmodule LiveShadcnTools.Tsx do
   Both are components' facts, so both are read.
   """
   def parse!(source) do
+    read = declared(source) ++ arrows(source)
+
     %{
-      functions: functions(source),
+      functions: Enum.filter(read, &is_map/1),
+      unreadable: Map.new(for {:unreadable, name, why} <- read, do: {name, why}),
       consts: consts(source),
       imports: imports(source),
       exports: exports(source)
@@ -105,7 +108,10 @@ defmodule LiveShadcnTools.Tsx do
       depth = depth + bracket_delta(line)
       lines = [line | lines]
 
-      if started? and depth <= 0,
+      # A line ending in `=>` has closed its brackets and not finished its
+      # statement: the arrow's body is on the lines after it. Halting there cut
+      # `CheckpointIcon` off at its own signature and left it with no markup.
+      if started? and depth <= 0 and not String.ends_with?(String.trim_trailing(line), "=>"),
         do: {:halt, {lines, depth, true}},
         else: {:cont, {lines, depth, started? or depth > 0 or String.trim(line) != ""}}
     end)
@@ -142,8 +148,6 @@ defmodule LiveShadcnTools.Tsx do
     Enum.uniq(listed ++ inline)
   end
 
-  defp functions(source), do: declared(source) ++ arrows(source)
-
   defp declared(source) do
     ~r/^(?:export )?function ([A-Z][A-Za-z0-9_]*)\(/m
     |> Regex.scan(source, return: :index)
@@ -155,6 +159,7 @@ defmodule LiveShadcnTools.Tsx do
         name: name,
         props_type: props_type(signature),
         params: params(signature),
+        renames: renames(signature),
         jsx: rest |> body!(name) |> return_jsx!(name)
       }
     end)
@@ -172,29 +177,51 @@ defmodule LiveShadcnTools.Tsx do
 
       case arrow(statement(source, at + length), name) do
         nil -> []
-        function -> [function]
+        read -> [read]
       end
     end)
   end
 
   defp arrow(code, name) do
-    code = unwrap(String.trim(code))
+    case signature(unwrap(String.trim(code))) do
+      # Not an arrow function. It is a value, and `consts/1` already has it.
+      nil ->
+        nil
 
+      {signature, body} ->
+        %{
+          name: name,
+          props_type: props_type(signature),
+          params: params(signature),
+          renames: renames(signature),
+          jsx: arrow_jsx!(String.trim(body), name)
+        }
+    end
+  rescue
+    # An arrow function whose markup could not be read. Whether that matters
+    # depends on something this module cannot see: a file is full of small
+    # arrow helpers that render nothing, and a helper nobody exports is not a
+    # component. `mix ui.spec` knows what the file exports, so it decides.
+    #
+    # What must not happen is what happened before this was recorded at all:
+    # `CodeBlockContent` was dropped as "not a component", and the file that
+    # rendered it failed thirty lines later with "the spec reader does not know
+    # what <CodeBlockContent> is".
+    error -> {:unreadable, name, Exception.message(error)}
+  end
+
+  # `(args) => body`, and nothing else. A const whose value merely starts with a
+  # bracket is not one.
+  defp signature(code) do
     with {at, _} <- :binary.match(code, "("),
          {signature, rest} <- balanced(code, at + 1, ?(, ?)),
          "=>" <> body <- String.trim_leading(rest) do
-      %{
-        name: name,
-        props_type: props_type(signature),
-        params: params(signature),
-        jsx: arrow_jsx!(String.trim(body), name)
-      }
+      {signature, body}
     else
       _ -> nil
     end
   rescue
-    # A const whose value merely starts with a bracket is not an arrow
-    # function. It is a value, and `consts/1` already has it.
+    # An unbalanced bracket means the brackets were never a signature.
     _error -> nil
   end
 
@@ -215,7 +242,15 @@ defmodule LiveShadcnTools.Tsx do
     do: rest |> balanced(0, ?{, ?}) |> elem(0) |> return_jsx!(name)
 
   defp arrow_jsx!("<" <> _rest = body, _name), do: parse_jsx!(body)
-  defp arrow_jsx!(_body, name), do: raise("#{name}: no markup to read")
+
+  # An expression body: `({ children }) => children ?? (<BookmarkIcon />)`. It
+  # is the same shape as `return toasts.map(…)`, without the `return`, so it is
+  # handed on the same way — the spec decides what the expression means.
+  defp arrow_jsx!(body, name) do
+    if String.contains?(body, "<"),
+      do: %{type: :expr, code: String.trim(body)},
+      else: raise("#{name}: no markup to read")
+  end
 
   # Only this function's own body. Reading past it would let a function with no
   # `return (` quietly adopt the next function's markup, which is worse than
@@ -241,11 +276,44 @@ defmodule LiveShadcnTools.Tsx do
       |> split_args()
       |> Enum.reject(&String.starts_with?(&1, "..."))
       |> Map.new(fn entry ->
-        case String.split(entry, "=", parts: 2) do
-          [name] -> {String.trim(name), nil}
-          [name, default] -> {String.trim(name), default |> String.trim() |> String.trim("\"")}
+        {name, default} =
+          case String.split(entry, "=", parts: 2) do
+            [name] -> {String.trim(name), nil}
+            [name, default] -> {String.trim(name), default |> String.trim() |> String.trim("\"")}
+          end
+
+        {name |> String.split(":") |> hd() |> String.trim(), default}
+      end)
+    else
+      _ -> %{}
+    end
+  end
+
+  @doc """
+  The props a function destructured under another name, by the name it gave
+  them.
+
+  `{ icon: Icon = DotIcon }` yields `%{"Icon" => "icon"}`. React renames a prop
+  when it holds a component, because JSX reads a lowercase tag as an HTML
+  element: `<Icon />` renders what the caller passed and `<icon />` would render
+  an element nobody has heard of. So a renamed prop is a signal, not a style,
+  and what it signals is that this prop is a thing to render.
+  """
+  def renames(signature) do
+    with {at, _} <- :binary.match(signature, "{"),
+         {body, _rest} <- balanced(signature, at + 1, ?{, ?}) do
+      body
+      |> split_args()
+      |> Enum.reject(&String.starts_with?(&1, "..."))
+      |> Enum.flat_map(fn entry ->
+        with [name, rest] <- String.split(entry, ":", parts: 2),
+             binding when binding != "" <- rest |> String.split("=") |> hd() |> String.trim() do
+          [{binding, String.trim(name)}]
+        else
+          _ -> []
         end
       end)
+      |> Map.new()
     else
       _ -> %{}
     end
@@ -263,6 +331,12 @@ defmodule LiveShadcnTools.Tsx do
 
   # The three shapes a registry component returns in.
   defp return_jsx!(body, fun) do
+    # Only this function's own return. A component's body is full of other
+    # people's returns — `useEffect(() => { … return () => clearTimeout(t) })`
+    # writes one — and taking the first `return (` in the text picked that
+    # cleanup out of `Reasoning` and then failed with an empty JSX element.
+    body = own_return(body)
+
     parenthesised = :binary.match(body, "return (")
     use_render = :binary.match(body, "return useRender(")
     bare = :binary.match(body, "return <")
@@ -278,7 +352,7 @@ defmodule LiveShadcnTools.Tsx do
         body
         |> balanced(elem(parenthesised, 0) + byte_size("return ("), ?(, ?))
         |> elem(0)
-        |> parse_jsx!()
+        |> jsx_or_expression!()
 
       bare != :nomatch ->
         at = elem(bare, 0) + byte_size("return ")
@@ -296,10 +370,50 @@ defmodule LiveShadcnTools.Tsx do
     end
   end
 
+  # The body from its own first `return` onwards, where "its own" means at the
+  # nesting level of the body itself. Anything deeper belongs to a callback.
+  defp own_return(body) do
+    at = at_own_return(body, 0, 0)
+    binary_part(body, at, byte_size(body) - at)
+  end
+
+  defp at_own_return(body, at, depth) when at < byte_size(body) do
+    case body do
+      <<_::binary-size(^at), c, _::binary>> when c in [?{, ?(, ?[] ->
+        at_own_return(body, at + 1, depth + 1)
+
+      <<_::binary-size(^at), c, _::binary>> when c in [?}, ?), ?]] ->
+        at_own_return(body, at + 1, depth - 1)
+
+      <<_::binary-size(^at), c, _::binary>> when c in [?", ?\', ?`] ->
+        at_own_return(body, scan(body, at + 1, :quoted, c, c) + 1, depth)
+
+      <<_::binary-size(^at), "return", _::binary>> when depth == 0 ->
+        at
+
+      _ ->
+        at_own_return(body, at + 1, depth)
+    end
+  end
+
+  # No return at this level. The caller decides what that means, and its own
+  # clauses read the whole body as they did before.
+  defp at_own_return(_body, _at, _depth), do: 0
+
   defp returns_expression(body) do
     case Regex.run(~r/\breturn\s+(.+)$/s, body, capture: :all_but_first) do
-      [expression] -> String.trim(expression)
+      [expression] -> expression |> String.trim() |> String.trim_trailing(";")
       nil -> nil
+    end
+  end
+
+  # What a bracketed return holds is usually one element and sometimes an
+  # expression that decides which. `return (!isAtBottom && <Button />)` is the
+  # second, and reading it as the first asked for a JSX element and found `!`.
+  defp jsx_or_expression!(code) do
+    case String.trim(code) do
+      "<" <> _rest = jsx -> parse_jsx!(jsx)
+      expression -> %{type: :expr, code: expression}
     end
   end
 

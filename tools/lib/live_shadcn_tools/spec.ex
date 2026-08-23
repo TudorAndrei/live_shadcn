@@ -64,11 +64,10 @@ defmodule LiveShadcnTools.Spec do
       variants: Map.keys(variants)
     }
 
-    parts =
-      tsx.exports
-      |> Enum.reject(&Map.has_key?(variants, &1))
-      |> Enum.filter(&component?(&1, ctx))
-      |> Enum.map(&part(&1, ctx))
+    exports = Enum.reject(tsx.exports, &Map.has_key?(variants, &1))
+    unreadable!(exports, tsx.unreadable)
+
+    parts = exports |> Enum.filter(&component?(&1, ctx)) |> Enum.map(&part(&1, ctx))
 
     # A spec with no parts renders nothing, and it is indistinguishable on disk
     # from one the reader understood and found empty. That is the silent skip
@@ -131,6 +130,24 @@ defmodule LiveShadcnTools.Spec do
 
   defp folds(spec, folded),
     do: Map.put(spec, "folds", folded |> Enum.map(&ref(&1["source"], &1["name"])) |> Enum.sort())
+
+  # An arrow function whose markup `LiveShadcnTools.Tsx` could not read.
+  #
+  # A file is full of small helpers that render nothing, and one nobody exports
+  # is not a component: dropping it is right. An exported one is a part of this
+  # component, and dropping it means generating a component that is missing a
+  # part. So the export list is what decides, and the reason travels with the
+  # name rather than turning up later as "the spec reader does not know what
+  # <CodeBlockContent> is".
+  defp unreadable!(exports, unreadable) do
+    case Enum.filter(exports, &Map.has_key?(unreadable, &1)) do
+      [] ->
+        :ok
+
+      [name | _rest] ->
+        raise "#{name} is exported and its markup could not be read: #{unreadable[name]}"
+    end
+  end
 
   # Markdown is content, not children.
   #
@@ -449,11 +466,13 @@ defmodule LiveShadcnTools.Spec do
   defp part(export, ctx) do
     case Map.fetch(ctx.functions, export) do
       {:ok, function} ->
+        ctx = ctx |> Map.put(:renames, function.renames) |> Map.put(:params_of, function.params)
+
         %{
           "name" => Macro.underscore(export),
           "export" => export,
           "primitive" => primitive_of(function.props_type),
-          "params" => function.params,
+          "params" => Map.new(function.params, &icon_default(&1, ctx)),
           "tree" => node(function.jsx, ctx)
         }
 
@@ -669,6 +688,7 @@ defmodule LiveShadcnTools.Spec do
       Map.has_key?(ctx.functions, tag) -> %{"type" => "part_ref", "part" => Macro.underscore(tag)}
       base_ui?(tag, ctx) -> base_ui_node(tag, ctx)
       set = icon_set(tag, ctx) -> %{"type" => "icon", "icons" => %{set => tag}}
+      prop = icon_prop(tag, ctx) -> %{"type" => "icon", "prop" => prop}
       registry_component(tag, ctx) -> registry_node(tag, ctx)
       role = external_role(tag, ctx) -> %{"type" => "external", "role" => role}
       context_provider?(tag) -> %{"type" => "transparent", "reason" => "a React context"}
@@ -703,6 +723,39 @@ defmodule LiveShadcnTools.Spec do
   }
 
   defp icon_set(tag, ctx), do: Map.get(@icon_packages, Map.get(ctx.imports, tag, ""))
+
+  # `{ icon: Icon = DotIcon }`, then `<Icon />`. React renames a prop that holds
+  # a component, because JSX reads a lowercase tag as an HTML element. So the
+  # rename says this prop is a thing to render, and the default says what kind
+  # of thing: an icon, here, which is a name the caller passes rather than a
+  # module it imports.
+  defp icon_prop(tag, ctx) do
+    with prop when is_binary(prop) <- Map.get(Map.get(ctx, :renames, %{}), tag),
+         default when is_binary(default) <- Map.get(Map.get(ctx, :params_of) || %{}, prop),
+         true <- icon_set(default, ctx) != nil do
+      Macro.underscore(prop)
+    else
+      _ -> nil
+    end
+  end
+
+  # An icon prop's default is a component upstream imported. Here it is the
+  # icon's name, because that is what the caller passes.
+  defp icon_default({name, default}, ctx) do
+    if is_binary(default) and icon_set(default, ctx) do
+      {name, icon_name(default)}
+    else
+      {name, default}
+    end
+  end
+
+  @doc "`DotIcon` -> `dot`, the name a caller passes and every icon set uses."
+  def icon_name(component) do
+    component
+    |> String.replace_suffix("Icon", "")
+    |> Macro.underscore()
+    |> String.replace("_", "-")
+  end
 
   defp third_party(tag, ctx), do: Map.get(ctx.imports, tag |> String.split(".") |> hd())
 

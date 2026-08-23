@@ -19,8 +19,8 @@
         "defaultValue": null,
         "onOpenChange": null,
         "onValueChange": null,
-        "open: openProp": null,
-        "value: valueProp": null
+        "open": null,
+        "value": null
       },
       "primitive": null,
       "tree": {

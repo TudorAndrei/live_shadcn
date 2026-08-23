@@ -209,6 +209,21 @@
     "pass": true,
     "spec": "c55f345c63a0b4dc4742937fe1f0dce266ee11c419a1e28d05615075ce56e76a"
   },
+  "ai_elements/confirmation": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "66e6137f2f2dea2c00157f0af32c91f1f9e146720532752ba02eb2a8fae1b39a"
+  },
   "shadcn/skeleton": {
     "checks": {
       "browser": {

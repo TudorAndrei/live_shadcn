@@ -7,10 +7,10 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 1 | ························ |
-| `fetched` | 45 | ██████████·············· |
-| `spec` | 20 | ████···················· |
+| `fetched` | 42 | █████████··············· |
+| `spec` | 22 | █████··················· |
 | `generated` | 0 | ························ |
-| `verified` | 46 | ██████████·············· |
+| `verified` | 47 | ██████████·············· |
 
 ## Recipes
 
@@ -98,7 +98,7 @@ Only the recipes are written by hand; every component is data.
 | `toggle` | 2 | `form-control` | ✅ verified |
 | `toggle-group` | 2 | `tabs` | 🟨 spec |
 | `calendar` | 3 | `calendar` | 🟦 fetched |
-| `carousel` | 3 | `carousel` | 🟦 fetched |
+| `carousel` | 3 | `carousel` | 🟨 spec |
 | `chart` | 3 | `chart` | 🟦 fetched |
 | `questionnaire` | 3 | `presentational` | 🟦 fetched |
 | `resizable` | 3 | `resizable` | 🟦 fetched |
@@ -107,7 +107,7 @@ Only the recipes are written by hand; every component is data.
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `chain-of-thought` | 1 | `disclosure` | 🟦 fetched |
+| `chain-of-thought` | 1 | `disclosure` | 🟨 spec |
 | `code-block` | 1 | `presentational` | 🟦 fetched |
 | `context` | 1 | `presentational` | 🟨 spec |
 | `conversation` | 1 | `scroller` | 🟦 fetched |
@@ -124,7 +124,7 @@ Only the recipes are written by hand; every component is data.
 | `attachments` | 2 | `presentational` | 🟨 spec |
 | `checkpoint` | 2 | `presentational` | ✅ verified |
 | `commit` | 2 | `presentational` | 🟦 fetched |
-| `confirmation` | 2 | `presentational` | 🟦 fetched |
+| `confirmation` | 2 | `presentational` | ✅ verified |
 | `controls` | 2 | `presentational` | 🟦 fetched |
 | `environment-variables` | 2 | `presentational` | 🟦 fetched |
 | `file-tree` | 2 | `presentational` | 🟦 fetched |
