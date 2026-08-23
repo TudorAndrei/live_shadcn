@@ -1,0 +1,1002 @@
+{
+  "anatomy": [
+    {
+      "children": [
+        {
+          "children": [],
+          "part": "Trigger"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "part": "Backdrop"
+            },
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "part": "Title"
+                    },
+                    {
+                      "children": [],
+                      "part": "Description"
+                    },
+                    {
+                      "children": [],
+                      "part": "Close"
+                    }
+                  ],
+                  "part": "Popup"
+                }
+              ],
+              "part": "Viewport"
+            }
+          ],
+          "part": "Portal"
+        }
+      ],
+      "part": "Root"
+    }
+  ],
+  "css_vars": [
+    "--nested-dialogs"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "dialog",
+  "parts": [
+    {
+      "export": "Dialog",
+      "name": "dialog",
+      "params": {},
+      "primitive": "Root",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "merges_class": false,
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "renders no element",
+        "render_as": null,
+        "slot": "dialog",
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DialogClose",
+      "name": "dialog_close",
+      "params": {},
+      "primitive": "Close",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "merges_class": false,
+        "module": "dialog",
+        "part": "Close",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "dialog-close",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DialogContent",
+      "name": "dialog_content",
+      "params": {
+        "children": null,
+        "className": null,
+        "showCloseButton": "true"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "",
+            "merges_class": false,
+            "part": "dialog_overlay",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "part_ref",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              },
+              {
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "attrs": [
+                          {
+                            "kind": "text",
+                            "name": "lucide",
+                            "value": "XIcon"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "tabler",
+                            "value": "IconX"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "hugeicons",
+                            "value": "Cancel01Icon"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "phosphor",
+                            "value": "XIcon"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "remixicon",
+                            "value": "RiCloseLine"
+                          }
+                        ],
+                        "children": [],
+                        "class": "",
+                        "icons": {
+                          "hugeicons": "Cancel01Icon",
+                          "lucide": "XIcon",
+                          "phosphor": "XIcon",
+                          "remixicon": "RiCloseLine",
+                          "tabler": "IconX"
+                        },
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "type": "icon",
+                        "variant_class": null,
+                        "vars": []
+                      },
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Close"
+                          }
+                        ],
+                        "class": "sr-only",
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "span",
+                        "type": "element",
+                        "variant_class": null,
+                        "vars": []
+                      }
+                    ],
+                    "class": "",
+                    "merges_class": false,
+                    "module": "dialog",
+                    "part": "Close",
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": {
+                      "attrs": [
+                        {
+                          "kind": "text",
+                          "name": "variant",
+                          "value": "ghost"
+                        },
+                        {
+                          "kind": "text",
+                          "name": "size",
+                          "value": "icon-sm"
+                        }
+                      ],
+                      "children": [],
+                      "class": "cn-dialog-close",
+                      "component": "button",
+                      "merges_class": false,
+                      "props": false,
+                      "reads": {
+                        "group": [],
+                        "self": []
+                      },
+                      "render_as": null,
+                      "slot": null,
+                      "type": "component_ref",
+                      "variant_class": null,
+                      "vars": []
+                    },
+                    "slot": "dialog-close",
+                    "tag": "button",
+                    "type": "primitive",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "type": "optional",
+                "when": "showCloseButton"
+              }
+            ],
+            "class": "cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+            "merges_class": true,
+            "module": "dialog",
+            "part": "Popup",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": [
+                "data-open",
+                "data-closed"
+              ]
+            },
+            "render_as": null,
+            "slot": "dialog-content",
+            "tag": "div",
+            "type": "primitive",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "part": "dialog_portal",
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "type": "part_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DialogDescription",
+      "name": "dialog_description",
+      "params": {
+        "className": null
+      },
+      "primitive": "Description",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-dialog-description",
+        "merges_class": true,
+        "module": "dialog",
+        "part": "Description",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "dialog-description",
+        "tag": "p",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DialogFooter",
+      "name": "dialog_footer",
+      "params": {
+        "children": null,
+        "className": null,
+        "showCloseButton": "false"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          },
+          {
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Close"
+                  }
+                ],
+                "class": "",
+                "merges_class": false,
+                "module": "dialog",
+                "part": "Close",
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": {
+                  "attrs": [
+                    {
+                      "kind": "text",
+                      "name": "variant",
+                      "value": "outline"
+                    }
+                  ],
+                  "children": [],
+                  "class": "",
+                  "component": "button",
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "component_ref",
+                  "variant_class": null,
+                  "vars": []
+                },
+                "slot": null,
+                "tag": "button",
+                "type": "primitive",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "optional",
+            "when": "showCloseButton"
+          }
+        ],
+        "class": "cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "dialog-footer",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DialogHeader",
+      "name": "dialog_header",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-dialog-header flex flex-col",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "dialog-header",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DialogOverlay",
+      "name": "dialog_overlay",
+      "params": {
+        "className": null
+      },
+      "primitive": "Backdrop",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-dialog-overlay fixed inset-0 isolate z-50",
+        "merges_class": true,
+        "module": "dialog",
+        "part": "Backdrop",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-open",
+            "data-closed"
+          ]
+        },
+        "render_as": null,
+        "slot": "dialog-overlay",
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DialogPortal",
+      "name": "dialog_portal",
+      "params": {},
+      "primitive": "Portal",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "merges_class": false,
+        "module": "dialog",
+        "part": "Portal",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "dialog-portal",
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DialogTitle",
+      "name": "dialog_title",
+      "params": {
+        "className": null
+      },
+      "primitive": "Title",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-dialog-title cn-font-heading",
+        "merges_class": true,
+        "module": "dialog",
+        "part": "Title",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "dialog-title",
+        "tag": "h2",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DialogTrigger",
+      "name": "dialog_trigger",
+      "params": {},
+      "primitive": "Trigger",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "merges_class": false,
+        "module": "dialog",
+        "part": "Trigger",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "dialog-trigger",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "dialog.Backdrop": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the backdrop is forced to render even when nested.",
+          "name": "forceRender",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Dialog.Backdrop.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Dialog.Backdrop.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Dialog.Backdrop.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "An overlay displayed beneath the popup."
+    },
+    "dialog.Close": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Dialog.Close.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Dialog.Close.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Dialog.Close.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button that closes the dialog."
+    },
+    "dialog.Description": {
+      "css_vars": [],
+      "data": [],
+      "element": "p",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Dialog.Description.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Dialog.Description.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Dialog.Description.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A paragraph with additional information about the dialog."
+    },
+    "dialog.Popup": {
+      "css_vars": [
+        "--nested-dialogs"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-nested",
+        "data-nested-dialog-open",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "React.RefObject<HTMLElement \\",
+          "doc": "null> \\",
+          "name": "initialFocus",
+          "type": "boolean \\"
+        },
+        {
+          "default": "React.RefObject<HTMLElement \\",
+          "doc": "null> \\",
+          "name": "finalFocus",
+          "type": "boolean \\"
+        },
+        {
+          "default": "((state: Dialog.Popup.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Dialog.Popup.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Dialog.Popup.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A container for the dialog contents."
+    },
+    "dialog.Portal": {
+      "css_vars": [],
+      "data": [],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "ShadowRoot \\",
+          "doc": "React.RefObject<HTMLElement \\",
+          "name": "container",
+          "type": "HTMLElement \\"
+        },
+        {
+          "default": "((state: Dialog.Portal.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Dialog.Portal.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the portal mounted in the DOM while the popup is hidden.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: Dialog.Portal.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A portal element that moves the popup to a different part of the DOM."
+    },
+    "dialog.Root": {
+      "css_vars": [],
+      "data": [],
+      "element": null,
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the dialog is initially open. To render a controlled dialog, use the `open` prop instead.",
+          "name": "defaultOpen",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the dialog is currently open.",
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called when the dialog is opened or closed.",
+          "name": "onOpenChange",
+          "type": "((open: boolean, eventDetails: Dialog.Root.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "null>",
+          "doc": "-",
+          "name": "actionsRef",
+          "type": "React.RefObject<Dialog.Root.Actions \\"
+        },
+        {
+          "default": "null",
+          "doc": "-",
+          "name": "defaultTriggerId",
+          "type": "string \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to prevent the dialog from closing on outside presses. For non-modal dialogs, this also prevents the dialog from closing when focus moves outside of it.",
+          "name": "disablePointerDismissal",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "A handle to associate the dialog with a trigger. If specified, allows external triggers to control the dialog's open state. Can be created with the Dialog.createHandle() method.",
+          "name": "handle",
+          "type": "Dialog.Handle<Payload>"
+        },
+        {
+          "default": "'trap-focus'",
+          "doc": "true",
+          "name": "modal",
+          "type": "boolean \\"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called after any animations complete when the dialog is opened or closed.",
+          "name": "onOpenChangeComplete",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "default": "null",
+          "doc": "-",
+          "name": "triggerId",
+          "type": "string \\"
+        },
+        {
+          "default": "PayloadChildRenderFunction<Payload>",
+          "doc": "-",
+          "name": "children",
+          "type": "React.ReactNode \\"
+        }
+      ],
+      "renders": false,
+      "summary": "Groups all parts of the dialog."
+    },
+    "dialog.Title": {
+      "css_vars": [],
+      "data": [],
+      "element": "h2",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Dialog.Title.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Dialog.Title.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Dialog.Title.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A heading that labels the dialog."
+    },
+    "dialog.Trigger": {
+      "css_vars": [],
+      "data": [
+        "data-popup-open",
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "A handle to associate the trigger with a dialog. Can be created with the Dialog.createHandle() method.",
+          "name": "handle",
+          "type": "Dialog.Handle<Payload>"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "A payload to pass to the dialog when it is opened.",
+          "name": "payload",
+          "type": "Payload"
+        },
+        {
+          "default": null,
+          "doc": "ID of the trigger. In addition to being forwarded to the rendered element, it is also used to specify the active trigger for the dialog in controlled mode (with the Dialog.Root `triggerId` prop).",
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "default": "((state: Dialog.Trigger.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Dialog.Trigger.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Dialog.Trigger.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button that opens the dialog."
+    },
+    "dialog.Viewport": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-nested",
+        "data-nested-dialog-open",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Dialog.Viewport.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Dialog.Viewport.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Dialog.Viewport.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A positioning container for the dialog popup that can be made scrollable."
+    }
+  },
+  "recipe": "dialog",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 dark:ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-4xl p-6 text-sm shadow-xl ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-footer": "gap-2",
+      "cn-dialog-header": "gap-1.5",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/30 duration-100 supports-backdrop-filter:backdrop-blur-sm",
+      "cn-dialog-title": "text-base leading-none font-medium"
+    },
+    "lyra": {
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-none p-4 text-xs/relaxed ring-1 duration-100 sm:max-w-sm",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-xs/relaxed *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-header": "gap-1 text-left",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-dialog-title": "text-sm font-medium"
+    },
+    "maia": {
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 grid max-w-[calc(100%-2rem)] gap-6 rounded-4xl p-6 text-sm ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-footer": "gap-2",
+      "cn-dialog-header": "gap-2",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/80 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-dialog-title": "text-base leading-none font-medium"
+    },
+    "mira": {
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-xs/relaxed ring-1 duration-100 sm:max-w-sm",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-xs/relaxed *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-footer": "gap-2",
+      "cn-dialog-header": "gap-1",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/80 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-dialog-title": "text-sm font-medium"
+    },
+    "nova": {
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-sm ring-1 duration-100 sm:max-w-sm",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-footer": "bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4",
+      "cn-dialog-header": "gap-2",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-dialog-title": "text-base leading-none font-medium"
+    },
+    "rhea": {
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 dark:ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-[min(var(--radius-4xl),24px)] p-6 text-sm shadow-xl ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-footer": "gap-2",
+      "cn-dialog-header": "gap-1.5",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/30 duration-100 supports-backdrop-filter:backdrop-blur-sm",
+      "cn-dialog-title": "text-base leading-none font-medium"
+    },
+    "sera": {
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-none p-6 text-sm shadow-md ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3 leading-relaxed mt-0.5",
+      "cn-dialog-footer": "gap-2",
+      "cn-dialog-header": "gap-2",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/20 duration-100 supports-backdrop-filter:backdrop-blur-sm",
+      "cn-dialog-title": "text-lg font-semibold leading-none uppercase tracking-wider"
+    },
+    "vega": {
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-xl p-6 text-sm ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-footer": "gap-2",
+      "cn-dialog-header": "gap-2",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-dialog-title": "leading-none font-medium"
+    }
+  },
+  "upstream": {
+    "base_ui": {
+      "dialog": "cd3f2f1d3d6adcd6be24602e1eecd26e18a2bffd1b72577e5983c6064f663ced"
+    },
+    "shadcn": {
+      "file": "shadcn/ui/dialog.tsx",
+      "sha256": "85f9a33d1a8c495b0faecd066dae1581b8feb5d27f912ecf65f814386f6da3a9"
+    }
+  },
+  "variants": {}
+}

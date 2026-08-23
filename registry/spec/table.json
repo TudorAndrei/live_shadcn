@@ -1,0 +1,327 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "table",
+  "parts": [
+    {
+      "export": "Table",
+      "name": "table",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "cn-table",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "table",
+            "tag": "table",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "cn-table-container",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "table-container",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "TableHeader",
+      "name": "table_header",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-table-header",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "table-header",
+        "tag": "thead",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "TableBody",
+      "name": "table_body",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-table-body",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "table-body",
+        "tag": "tbody",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "TableFooter",
+      "name": "table_footer",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-table-footer",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "table-footer",
+        "tag": "tfoot",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "TableHead",
+      "name": "table_head",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-table-head",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "table-head",
+        "tag": "th",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "TableRow",
+      "name": "table_row",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-table-row has-aria-expanded:bg-muted/50",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "table-row",
+        "tag": "tr",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "TableCell",
+      "name": "table_cell",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-table-cell",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "table-cell",
+        "tag": "td",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "TableCaption",
+      "name": "table_caption",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-table-caption",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "table-caption",
+        "tag": "caption",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-table": "w-full caption-bottom text-sm",
+      "cn-table-body": "[&_tr:last-child]:border-0",
+      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
+      "cn-table-cell": "p-3 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-container": "relative w-full overflow-x-auto",
+      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
+      "cn-table-head": "text-foreground h-12 px-3 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-header": "[&_tr]:border-b",
+      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+    },
+    "lyra": {
+      "cn-table": "w-full caption-bottom text-xs",
+      "cn-table-body": "[&_tr:last-child]:border-0",
+      "cn-table-caption": "text-muted-foreground mt-4 text-xs",
+      "cn-table-cell": "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-container": "relative w-full overflow-x-auto",
+      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
+      "cn-table-head": "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-header": "[&_tr]:border-b",
+      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+    },
+    "maia": {
+      "cn-table": "w-full caption-bottom text-sm",
+      "cn-table-body": "[&_tr:last-child]:border-0",
+      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
+      "cn-table-cell": "p-3 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-container": "relative w-full overflow-x-auto",
+      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
+      "cn-table-head": "text-foreground h-12 px-3 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-header": "[&_tr]:border-b",
+      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+    },
+    "mira": {
+      "cn-table": "w-full caption-bottom text-xs",
+      "cn-table-body": "[&_tr:last-child]:border-0",
+      "cn-table-caption": "text-muted-foreground mt-4 text-xs",
+      "cn-table-cell": "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-container": "relative w-full overflow-x-auto",
+      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
+      "cn-table-head": "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-header": "[&_tr]:border-b",
+      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+    },
+    "nova": {
+      "cn-table": "w-full caption-bottom text-sm",
+      "cn-table-body": "[&_tr:last-child]:border-0",
+      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
+      "cn-table-cell": "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-container": "relative w-full overflow-x-auto",
+      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
+      "cn-table-head": "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-header": "[&_tr]:border-b",
+      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+    },
+    "rhea": {
+      "cn-table": "w-full caption-bottom text-sm",
+      "cn-table-body": "[&_tr:last-child]:border-0",
+      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
+      "cn-table-cell": "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-container": "relative w-full overflow-x-auto",
+      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
+      "cn-table-head": "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-header": "[&_tr]:border-b",
+      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+    },
+    "sera": {
+      "cn-table": "w-full caption-bottom text-sm",
+      "cn-table-body": "[&_tr:last-child]:border-0",
+      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
+      "cn-table-cell": "p-3 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-container": "relative w-full overflow-x-auto",
+      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
+      "cn-table-head": "text-muted-foreground h-12 px-3 text-left align-middle text-xs font-medium uppercase tracking-wider whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-header": "[&_tr]:border-b",
+      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+    },
+    "vega": {
+      "cn-table": "w-full caption-bottom text-sm",
+      "cn-table-body": "[&_tr:last-child]:border-0",
+      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
+      "cn-table-cell": "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-container": "relative w-full overflow-x-auto",
+      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
+      "cn-table-head": "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+      "cn-table-header": "[&_tr]:border-b",
+      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/table.tsx",
+      "sha256": "4e90502c6dd7478e2baa19a4010e52718c2fd958ead136d31b18eacd5b3cd1fb"
+    }
+  },
+  "variants": {}
+}

@@ -1,0 +1,215 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "native-select",
+  "parts": [
+    {
+      "export": "NativeSelect",
+      "name": "native_select",
+      "params": {
+        "className": null,
+        "size": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-size",
+            "value": "size"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "data-size",
+                "value": "size"
+              }
+            ],
+            "children": [],
+            "class": "cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed",
+            "merges_class": false,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": [
+                "aria-invalid"
+              ]
+            },
+            "render_as": null,
+            "slot": "native-select",
+            "tag": "select",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "lucide",
+                "value": "ChevronDownIcon"
+              },
+              {
+                "kind": "text",
+                "name": "tabler",
+                "value": "IconSelector"
+              },
+              {
+                "kind": "text",
+                "name": "hugeicons",
+                "value": "UnfoldMoreIcon"
+              },
+              {
+                "kind": "text",
+                "name": "phosphor",
+                "value": "CaretDownIcon"
+              },
+              {
+                "kind": "text",
+                "name": "remixicon",
+                "value": "RiArrowDownSLine"
+              },
+              {
+                "kind": "text",
+                "name": "aria-hidden",
+                "value": "true"
+              }
+            ],
+            "children": [],
+            "class": "cn-native-select-icon pointer-events-none absolute select-none",
+            "icons": {
+              "hugeicons": "UnfoldMoreIcon",
+              "lucide": "ChevronDownIcon",
+              "phosphor": "CaretDownIcon",
+              "remixicon": "RiArrowDownSLine",
+              "tabler": "IconSelector"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "native-select-icon",
+            "type": "icon",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50",
+        "merges_class": true,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "native-select-wrapper",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "NativeSelectOptGroup",
+      "name": "native_select_opt_group",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "bg-[Canvas] text-[CanvasText]",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "native-select-optgroup",
+        "tag": "optgroup",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "NativeSelectOption",
+      "name": "native_select_option",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "bg-[Canvas] text-[CanvasText]",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "native-select-option",
+        "tag": "option",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "listbox",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-native-select": "bg-input/50 border-transparent placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 w-full min-w-0 appearance-none rounded-3xl border py-1 pr-8 pl-3 text-sm transition-[color,box-shadow,background-color] select-none focus-visible:ring-3 aria-invalid:ring-3 data-[size=sm]:h-8",
+      "cn-native-select-icon": "text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2"
+    },
+    "lyra": {
+      "cn-native-select": "border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 w-full min-w-0 appearance-none rounded-none border bg-transparent py-1 pr-8 pl-2.5 text-xs transition-colors select-none focus-visible:ring-1 aria-invalid:ring-1 data-[size=sm]:h-7 data-[size=sm]:rounded-none data-[size=sm]:py-0.5",
+      "cn-native-select-icon": "text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2"
+    },
+    "maia": {
+      "cn-native-select": "border-input bg-input/30 placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 w-full min-w-0 appearance-none rounded-4xl border py-1 pr-8 pl-3 text-sm transition-colors select-none focus-visible:ring-[3px] aria-invalid:ring-[3px] data-[size=sm]:h-8",
+      "cn-native-select-icon": "text-muted-foreground top-1/2 right-3.5 size-4 -translate-y-1/2"
+    },
+    "mira": {
+      "cn-native-select": "border-input bg-input/20 placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-7 w-full min-w-0 appearance-none rounded-md border py-0.5 pr-6 pl-2 text-xs/relaxed transition-colors select-none focus-visible:ring-2 aria-invalid:ring-2 data-[size=sm]:h-6 data-[size=sm]:text-[0.625rem]",
+      "cn-native-select-icon": "text-muted-foreground top-1/2 right-1.5 size-3.5 -translate-y-1/2 group-data-[size=sm]/native-select:size-3 group-data-[size=sm]/native-select:-translate-y-[calc(--spacing(1.25))]"
+    },
+    "nova": {
+      "cn-native-select": "border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 w-full min-w-0 appearance-none rounded-lg border bg-transparent py-1 pr-8 pl-2.5 text-sm transition-colors select-none focus-visible:ring-3 aria-invalid:ring-3 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-[size=sm]:py-0.5",
+      "cn-native-select-icon": "text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2"
+    },
+    "rhea": {
+      "cn-native-select": "bg-input/50 border-transparent placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 w-full min-w-0 appearance-none rounded-2xl border py-1 pr-8 pl-2.5 text-sm transition-[color,box-shadow] duration-200 select-none focus-visible:ring-3 aria-invalid:ring-3 data-[size=sm]:h-7",
+      "cn-native-select-icon": "text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2"
+    },
+    "sera": {
+      "cn-native-select": "border-transparent border-b-input bg-transparent placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground focus-visible:border-b-ring aria-invalid:border-b-destructive dark:aria-invalid:border-b-destructive/50 h-10 w-full min-w-0 appearance-none rounded-none border py-2 pr-8 pl-0 text-sm transition-[color,border-color] select-none data-[size=sm]:h-9",
+      "cn-native-select-icon": "text-muted-foreground top-1/2 right-0 size-3.5 -translate-y-1/2"
+    },
+    "vega": {
+      "cn-native-select": "border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 w-full min-w-0 appearance-none rounded-md border bg-transparent py-1 pr-8 pl-2.5 text-sm shadow-xs transition-[color,box-shadow] select-none focus-visible:ring-3 aria-invalid:ring-3 data-[size=sm]:h-8",
+      "cn-native-select-icon": "text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/native-select.tsx",
+      "sha256": "6150b0918261c617cfe2c6186bcf7fff3954b0225187b46bdc0204cfa164347a"
+    }
+  },
+  "variants": {}
+}

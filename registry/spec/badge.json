@@ -1,0 +1,70 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "badge",
+  "parts": [
+    {
+      "export": "Badge",
+      "name": "badge",
+      "params": {
+        "className": null,
+        "render": null,
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "aria-invalid"
+          ]
+        },
+        "render_as": null,
+        "slot": "badge",
+        "tag": "span",
+        "type": "element",
+        "variant_class": "badgeVariants",
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/badge.tsx",
+      "sha256": "ba9be2fcd4eac13c482f77663f4cca797553e53d2efb9c6dc52eb1e3af9a0d2f"
+    }
+  },
+  "variants": {
+    "badgeVariants": {
+      "base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": {
+        "variant": {
+          "default": "cn-badge-variant-default",
+          "destructive": "cn-badge-variant-destructive",
+          "ghost": "cn-badge-variant-ghost",
+          "link": "cn-badge-variant-link",
+          "outline": "cn-badge-variant-outline",
+          "secondary": "cn-badge-variant-secondary"
+        }
+      }
+    }
+  }
+}

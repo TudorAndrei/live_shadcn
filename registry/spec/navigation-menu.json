@@ -1,0 +1,1207 @@
+{
+  "anatomy": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "part": "Icon"
+                    }
+                  ],
+                  "part": "Trigger"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "part": "Link"
+                    }
+                  ],
+                  "part": "Content"
+                }
+              ],
+              "part": "Item"
+            }
+          ],
+          "part": "List"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "part": "Backdrop"
+            },
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "part": "Arrow"
+                    },
+                    {
+                      "children": [],
+                      "part": "Viewport"
+                    }
+                  ],
+                  "part": "Popup"
+                }
+              ],
+              "part": "Positioner"
+            }
+          ],
+          "part": "Portal"
+        }
+      ],
+      "part": "Root"
+    }
+  ],
+  "css_vars": [
+    "--anchor-height",
+    "--anchor-width",
+    "--available-height",
+    "--available-width",
+    "--popup-height",
+    "--popup-width",
+    "--positioner-height",
+    "--positioner-width",
+    "--transform-origin"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "navigation-menu",
+  "parts": [
+    {
+      "export": "NavigationMenu",
+      "name": "navigation_menu",
+      "params": {
+        "align": "start",
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          },
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "align",
+                "value": "align"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "merges_class": false,
+            "part": "navigation_menu_positioner",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "part_ref",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
+        "merges_class": true,
+        "module": "navigation-menu",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "navigation-menu",
+        "tag": "nav",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "NavigationMenuContent",
+      "name": "navigation_menu_content",
+      "params": {
+        "className": null
+      },
+      "primitive": "Content",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-navigation-menu-content data-ending-style:data-activation-direction=left:translate-x-[50%] data-ending-style:data-activation-direction=right:translate-x-[-50%] data-starting-style:data-activation-direction=left:translate-x-[-50%] data-starting-style:data-activation-direction=right:translate-x-[50%] h-full w-auto transition-[opacity,transform,translate] duration-[0.35s] data-ending-style:opacity-0 data-starting-style:opacity-0 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
+        "merges_class": true,
+        "module": "navigation-menu",
+        "part": "Content",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-ending-style",
+            "data-starting-style",
+            "data-open",
+            "data-closed"
+          ]
+        },
+        "render_as": null,
+        "slot": "navigation-menu-content",
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "NavigationMenuIndicator",
+      "name": "navigation_menu_indicator",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "cn-navigation-menu-indicator-arrow relative top-[60%] h-2 w-2 rotate-45",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "cn-navigation-menu-indicator top-full z-1 flex h-1.5 items-end justify-center overflow-hidden",
+        "merges_class": true,
+        "part": "Icon",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "renders no element",
+        "render_as": null,
+        "slot": "navigation-menu-indicator",
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "NavigationMenuItem",
+      "name": "navigation_menu_item",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-navigation-menu-item relative",
+        "merges_class": true,
+        "module": "navigation-menu",
+        "part": "Item",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "navigation-menu-item",
+        "tag": "li",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "NavigationMenuLink",
+      "name": "navigation_menu_link",
+      "params": {
+        "className": null
+      },
+      "primitive": "Link",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-navigation-menu-link",
+        "merges_class": true,
+        "module": "navigation-menu",
+        "part": "Link",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-active"
+          ]
+        },
+        "render_as": null,
+        "slot": "navigation-menu-link",
+        "tag": "a",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "NavigationMenuList",
+      "name": "navigation_menu_list",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-navigation-menu-list group flex flex-1 list-none items-center justify-center",
+        "merges_class": true,
+        "module": "navigation-menu",
+        "part": "List",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "navigation-menu-list",
+        "tag": "ul",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "NavigationMenuTrigger",
+      "name": "navigation_menu_trigger",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": "Trigger",
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "lucide",
+                "value": "ChevronDownIcon"
+              },
+              {
+                "kind": "text",
+                "name": "tabler",
+                "value": "IconChevronDown"
+              },
+              {
+                "kind": "text",
+                "name": "hugeicons",
+                "value": "ArrowDown01Icon"
+              },
+              {
+                "kind": "text",
+                "name": "phosphor",
+                "value": "CaretDownIcon"
+              },
+              {
+                "kind": "text",
+                "name": "remixicon",
+                "value": "RiArrowDownSLine"
+              },
+              {
+                "kind": "text",
+                "name": "aria-hidden",
+                "value": "true"
+              }
+            ],
+            "children": [],
+            "class": "cn-navigation-menu-trigger-icon",
+            "icons": {
+              "hugeicons": "ArrowDown01Icon",
+              "lucide": "ChevronDownIcon",
+              "phosphor": "CaretDownIcon",
+              "remixicon": "RiArrowDownSLine",
+              "tabler": "IconChevronDown"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [
+                {
+                  "attr": "data-open",
+                  "group": "navigation-menu-trigger"
+                },
+                {
+                  "attr": "data-popup-open",
+                  "group": "navigation-menu-trigger"
+                }
+              ],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "icon",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "group",
+        "merges_class": true,
+        "module": "navigation-menu",
+        "part": "Trigger",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-open",
+            "data-popup-open"
+          ]
+        },
+        "render_as": null,
+        "slot": "navigation-menu-trigger",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": "navigationMenuTriggerStyle",
+        "vars": []
+      }
+    },
+    {
+      "export": "NavigationMenuPositioner",
+      "name": "navigation_menu_positioner",
+      "params": {
+        "align": "start",
+        "alignOffset": "0",
+        "className": null,
+        "side": "bottom",
+        "sideOffset": "8"
+      },
+      "primitive": "Positioner",
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "side",
+                "value": "side"
+              },
+              {
+                "kind": "code",
+                "name": "sideOffset",
+                "value": "sideOffset"
+              },
+              {
+                "kind": "code",
+                "name": "align",
+                "value": "align"
+              },
+              {
+                "kind": "code",
+                "name": "alignOffset",
+                "value": "alignOffset"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "relative size-full overflow-hidden",
+                    "merges_class": false,
+                    "module": "navigation-menu",
+                    "part": "Viewport",
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "div",
+                    "type": "primitive",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "class": "cn-navigation-menu-popup data-[ending-style]:easing-[ease] xs:w-(--popup-width) relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]",
+                "merges_class": false,
+                "module": "navigation-menu",
+                "part": "Popup",
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": [
+                    "data-ending-style",
+                    "data-starting-style"
+                  ]
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "nav",
+                "type": "primitive",
+                "variant_class": null,
+                "vars": [
+                  "--popup-width",
+                  "--popup-height",
+                  "--transform-origin"
+                ]
+              }
+            ],
+            "class": "cn-navigation-menu-positioner isolate z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-[0.35s] data-instant:transition-none",
+            "merges_class": true,
+            "module": "navigation-menu",
+            "part": "Positioner",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": [
+                "data-instant"
+              ]
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "primitive",
+            "variant_class": null,
+            "vars": [
+              "--positioner-height",
+              "--positioner-width",
+              "--available-width"
+            ]
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "module": "navigation-menu",
+        "part": "Portal",
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "navigation-menu.Arrow": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-uncentered",
+        "data-align",
+        "data-side"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: NavigationMenu.Arrow.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Arrow.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.Arrow.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Displays an element pointing toward the navigation menu's current anchor."
+    },
+    "navigation-menu.Backdrop": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: NavigationMenu.Backdrop.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Backdrop.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.Backdrop.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A backdrop for the navigation menu popup."
+    },
+    "navigation-menu.Content": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-activation-direction",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: NavigationMenu.Content.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Content.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the content mounted in the DOM while the popup is closed. Ensures the content is present during server-side rendering for web crawlers.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.Content.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A container for the content of the navigation menu item that is moved into the popup"
+    },
+    "navigation-menu.Icon": {
+      "css_vars": [],
+      "data": [
+        "data-popup-open"
+      ],
+      "element": null,
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: NavigationMenu.Icon.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Icon.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.Icon.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": false,
+      "summary": "An icon that indicates that the trigger button opens a menu."
+    },
+    "navigation-menu.Item": {
+      "css_vars": [],
+      "data": [],
+      "element": "li",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "A unique value that identifies this navigation menu item. If no value is provided, a unique ID will be generated automatically. Use when controlling the navigation menu programmatically.",
+          "name": "value",
+          "type": "any"
+        },
+        {
+          "default": "((state: NavigationMenu.Item.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Item.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.Item.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "An individual navigation menu item."
+    },
+    "navigation-menu.Link": {
+      "css_vars": [],
+      "data": [
+        "data-active"
+      ],
+      "element": "a",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether to close the navigation menu when the link is clicked.",
+          "name": "closeOnClick",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the link is the currently active page.",
+          "name": "active",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: NavigationMenu.Link.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Link.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, state: NavigationMenu.Link.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A link in the navigation menu that can be used to navigate to a different page or section."
+    },
+    "navigation-menu.List": {
+      "css_vars": [],
+      "data": [],
+      "element": "ul",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: NavigationMenu.List.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.List.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.List.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Contains a list of navigation menu items."
+    },
+    "navigation-menu.Popup": {
+      "css_vars": [
+        "--popup-height",
+        "--popup-width"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-anchor-hidden",
+        "data-align",
+        "data-side",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "nav",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: NavigationMenu.Popup.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Popup.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.Popup.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A container for the navigation menu contents."
+    },
+    "navigation-menu.Portal": {
+      "css_vars": [],
+      "data": [],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "ShadowRoot \\",
+          "doc": "React.RefObject<HTMLElement \\",
+          "name": "container",
+          "type": "HTMLElement \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Portal.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Portal.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the portal mounted in the DOM while the popup is hidden.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.Portal.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A portal element that moves the popup to a different part of the DOM."
+    },
+    "navigation-menu.Positioner": {
+      "css_vars": [
+        "--anchor-height",
+        "--anchor-width",
+        "--available-height",
+        "--available-width",
+        "--positioner-height",
+        "--positioner-width",
+        "--transform-origin"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-anchor-hidden",
+        "data-align",
+        "data-instant",
+        "data-side"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether to disable the popup from tracking any layout shift of its positioning anchor.",
+          "name": "disableAnchorTracking",
+          "type": "boolean"
+        },
+        {
+          "default": "'center'",
+          "doc": "How to align the popup relative to the specified side.",
+          "name": "align",
+          "type": "Align"
+        },
+        {
+          "default": "OffsetFunction",
+          "doc": "0",
+          "name": "alignOffset",
+          "type": "number \\"
+        },
+        {
+          "default": "'bottom'",
+          "doc": "Which side of the anchor element to align the popup against. May automatically change to avoid collisions.",
+          "name": "side",
+          "type": "Side"
+        },
+        {
+          "default": "OffsetFunction",
+          "doc": "0",
+          "name": "sideOffset",
+          "type": "number \\"
+        },
+        {
+          "default": "5",
+          "doc": "Minimum distance to maintain between the arrow and the edges of the popup. Use it to prevent the arrow element from hanging out of the rounded corners of a popup.",
+          "name": "arrowPadding",
+          "type": "number"
+        },
+        {
+          "default": "VirtualElement \\",
+          "doc": "React.RefObject<Element \\",
+          "name": "anchor",
+          "type": "Element \\"
+        },
+        {
+          "default": null,
+          "doc": "Determines how to handle collisions when positioning the popup. `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`): `'flip'`: keep the requested side when it fits; otherwise try the opposite side (`top` and `bottom`, or `left` and `right`).`'shift'`: never change side; keep the requested side and move the popup within the clipping boundary so it stays visible.`'none'`: do not correct side-axis overflow. `align` controls overflow on the alignment axis (`start`/`center`/`end`): `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.`'shift'`: keep side and requested alignment, then nudge the popup along the alignment axis to fit.`'none'`: do not correct alignment-axis overflow. `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the preferred axis cannot fit: `'start'`: allow perpendicular fallback and try the logical start side first (`top` before `bottom`, or `left` before `right` in LTR).`'end'`: allow perpendicular fallback and try the logical end side first (`bottom` before `top`, or `right` before `left` in LTR).`'none'`: do not fallback to the perpendicular axis. When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`. If `align` is omitted, it defaults to `'flip'`.",
+          "name": "collisionAvoidance",
+          "type": "CollisionAvoidance"
+        },
+        {
+          "default": "'clipping-ancestors'",
+          "doc": "An element or a rectangle that delimits the area that the popup is confined to.",
+          "name": "collisionBoundary",
+          "type": "Boundary"
+        },
+        {
+          "default": "5",
+          "doc": "Additional space to maintain from the edge of the collision boundary.",
+          "name": "collisionPadding",
+          "type": "Padding"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to maintain the popup in the viewport after the anchor element was scrolled out of view.",
+          "name": "sticky",
+          "type": "boolean"
+        },
+        {
+          "default": "'fixed'",
+          "doc": "'absolute'",
+          "name": "positionMethod",
+          "type": "'absolute' \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Positioner.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Positioner.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.Positioner.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Positions the navigation menu against the currently active trigger."
+    },
+    "navigation-menu.Root": {
+      "css_vars": [],
+      "data": [],
+      "element": "nav",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "null",
+          "doc": "null",
+          "name": "defaultValue",
+          "type": "Value \\"
+        },
+        {
+          "default": "null",
+          "doc": "null",
+          "name": "value",
+          "type": "Value \\"
+        },
+        {
+          "default": "null, eventDetails: NavigationMenu.Root.ChangeEventDetails) => void)",
+          "doc": "-",
+          "name": "onValueChange",
+          "type": "((value: Value \\"
+        },
+        {
+          "default": "null>",
+          "doc": "-",
+          "name": "actionsRef",
+          "type": "React.RefObject<NavigationMenu.Root.Actions \\"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called after any animations complete when the navigation menu is closed.",
+          "name": "onOpenChangeComplete",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "default": "50",
+          "doc": "How long to wait before opening the navigation popup. Specified in milliseconds.",
+          "name": "delay",
+          "type": "number"
+        },
+        {
+          "default": "50",
+          "doc": "How long to wait before closing the navigation popup. Specified in milliseconds.",
+          "name": "closeDelay",
+          "type": "number"
+        },
+        {
+          "default": "'vertical'",
+          "doc": "'horizontal'",
+          "name": "orientation",
+          "type": "'horizontal' \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Root.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Root.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.Root.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Groups all parts of the navigation menu."
+    },
+    "navigation-menu.Trigger": {
+      "css_vars": [],
+      "data": [
+        "data-popup-open",
+        "data-pressed"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: NavigationMenu.Trigger.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Trigger.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.Trigger.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Opens the navigation menu popup when hovered or clicked, revealing the"
+    },
+    "navigation-menu.Viewport": {
+      "css_vars": [],
+      "data": [],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: NavigationMenu.Viewport.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: NavigationMenu.Viewport.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: NavigationMenu.Viewport.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "The clipping viewport of the navigation menu's current content."
+    }
+  },
+  "recipe": "menu",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-navigation-menu": "max-w-max",
+      "cn-navigation-menu-content": "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-open:animate-in group-data-[viewport=false]/navigation-menu:data-closed:animate-out group-data-[viewport=false]/navigation-menu:data-closed:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-open:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-open:fade-in-0 group-data-[viewport=false]/navigation-menu:data-closed:fade-out-0 group-data-[viewport=false]/navigation-menu:ring-foreground/5 group-data-[viewport=false]/navigation-menu:dark:ring-foreground/10 p-2.5 pr-3 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[viewport=false]/navigation-menu:rounded-3xl group-data-[viewport=false]/navigation-menu:shadow-lg group-data-[viewport=false]/navigation-menu:ring-1 group-data-[viewport=false]/navigation-menu:duration-300",
+      "cn-navigation-menu-indicator": "data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+      "cn-navigation-menu-indicator-arrow": "bg-border rounded-tl-sm shadow-md",
+      "cn-navigation-menu-link": "data-[active=true]:focus:bg-muted data-[active=true]:hover:bg-muted data-[active=true]:bg-muted/50 focus-visible:ring-ring/30 hover:bg-muted focus:bg-muted flex items-center gap-1.5 rounded-3xl p-3 text-sm transition-all outline-none focus-visible:ring-3 focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 in-data-[slot=navigation-menu-content]:rounded-2xl",
+      "cn-navigation-menu-list": "gap-0",
+      "cn-navigation-menu-popup": "bg-popover text-popover-foreground ring-foreground/5 dark:ring-foreground/10 rounded-3xl shadow-lg ring-1 transition-all ease-[cubic-bezier(0.22,1,0.36,1)] outline-none data-ending-style:scale-90 data-ending-style:opacity-0 data-ending-style:duration-150 data-starting-style:scale-90 data-starting-style:opacity-0",
+      "cn-navigation-menu-positioner": "transition-[top,left,right,bottom] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0",
+      "cn-navigation-menu-trigger-icon": "relative top-px ml-1 size-3 transition duration-300 group-data-open/navigation-menu-trigger:rotate-180 group-data-popup-open/navigation-menu-trigger:rotate-180"
+    },
+    "lyra": {
+      "cn-navigation-menu": "max-w-max",
+      "cn-navigation-menu-content": "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-open:animate-in group-data-[viewport=false]/navigation-menu:data-closed:animate-out group-data-[viewport=false]/navigation-menu:data-closed:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-open:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-open:fade-in-0 group-data-[viewport=false]/navigation-menu:data-closed:fade-out-0 group-data-[viewport=false]/navigation-menu:ring-foreground/10 p-1 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[viewport=false]/navigation-menu:rounded-none group-data-[viewport=false]/navigation-menu:shadow group-data-[viewport=false]/navigation-menu:ring-1 group-data-[viewport=false]/navigation-menu:duration-300",
+      "cn-navigation-menu-indicator": "data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+      "cn-navigation-menu-indicator-arrow": "bg-border rounded-none shadow-md",
+      "cn-navigation-menu-link": "data-active:focus:bg-muted data-active:hover:bg-muted data-active:bg-muted/50 focus-visible:ring-ring/50 hover:bg-muted focus:bg-muted flex items-center gap-2 rounded-none p-2 text-xs transition-all outline-none focus-visible:ring-1 focus-visible:outline-1 in-data-[slot=navigation-menu-content]:rounded-none [&_svg:not([class*='size-'])]:size-4",
+      "cn-navigation-menu-list": "gap-0",
+      "cn-navigation-menu-popup": "bg-popover text-popover-foreground ring-foreground/10 rounded-none shadow ring-1 transition-all ease-[cubic-bezier(0.22,1,0.36,1)] outline-none data-ending-style:scale-90 data-ending-style:opacity-0 data-ending-style:duration-150 data-starting-style:scale-90 data-starting-style:opacity-0",
+      "cn-navigation-menu-positioner": "transition-[top,left,right,bottom] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0",
+      "cn-navigation-menu-trigger-icon": "relative top-px ml-1 size-3 transition duration-300 group-data-open/navigation-menu-trigger:rotate-180 group-data-popup-open/navigation-menu-trigger:rotate-180"
+    },
+    "maia": {
+      "cn-navigation-menu": "max-w-max",
+      "cn-navigation-menu-content": "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-open:animate-in group-data-[viewport=false]/navigation-menu:data-closed:animate-out group-data-[viewport=false]/navigation-menu:data-closed:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-open:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-open:fade-in-0 group-data-[viewport=false]/navigation-menu:data-closed:fade-out-0 group-data-[viewport=false]/navigation-menu:ring-foreground/5 p-2.5 pr-3 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[viewport=false]/navigation-menu:rounded-2xl group-data-[viewport=false]/navigation-menu:shadow-2xl group-data-[viewport=false]/navigation-menu:ring-1 group-data-[viewport=false]/navigation-menu:duration-300 isolate z-50",
+      "cn-navigation-menu-indicator": "data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+      "cn-navigation-menu-indicator-arrow": "bg-border rounded-tl-sm shadow-md",
+      "cn-navigation-menu-link": "data-[active=true]:focus:bg-muted data-[active=true]:hover:bg-muted data-[active=true]:bg-muted/50 focus-visible:ring-ring/50 hover:bg-muted focus:bg-muted flex items-center gap-1.5 rounded-2xl p-3 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 in-data-[slot=navigation-menu-content]:rounded-xl",
+      "cn-navigation-menu-list": "gap-0",
+      "cn-navigation-menu-popup": "bg-popover text-popover-foreground ring-foreground/5 rounded-2xl shadow ring-1 transition-all ease-[cubic-bezier(0.22,1,0.36,1)] outline-none data-ending-style:scale-90 data-ending-style:opacity-0 data-ending-style:duration-150 data-starting-style:scale-90 data-starting-style:opacity-0",
+      "cn-navigation-menu-positioner": "transition-[top,left,right,bottom] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0",
+      "cn-navigation-menu-trigger-icon": "relative top-px ml-1 size-3 transition duration-300 group-data-open/navigation-menu-trigger:rotate-180 group-data-popup-open/navigation-menu-trigger:rotate-180"
+    },
+    "mira": {
+      "cn-navigation-menu": "max-w-max",
+      "cn-navigation-menu-content": "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-open:animate-in group-data-[viewport=false]/navigation-menu:data-closed:animate-out group-data-[viewport=false]/navigation-menu:data-closed:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-open:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-open:fade-in-0 group-data-[viewport=false]/navigation-menu:data-closed:fade-out-0 group-data-[viewport=false]/navigation-menu:ring-foreground/10 p-1.5 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[viewport=false]/navigation-menu:rounded-xl group-data-[viewport=false]/navigation-menu:shadow-md group-data-[viewport=false]/navigation-menu:ring-1 group-data-[viewport=false]/navigation-menu:duration-300",
+      "cn-navigation-menu-indicator": "data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+      "cn-navigation-menu-indicator-arrow": "bg-border rounded-tl-sm shadow-md",
+      "cn-navigation-menu-link": "data-[active=true]:focus:bg-muted data-[active=true]:hover:bg-muted data-[active=true]:bg-muted/50 focus-visible:ring-ring/30 hover:bg-muted focus:bg-muted flex items-center gap-1.5 rounded-lg p-2 text-xs/relaxed transition-all outline-none focus-visible:ring-2 focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 in-data-[slot=navigation-menu-content]:rounded-md",
+      "cn-navigation-menu-list": "gap-0",
+      "cn-navigation-menu-popup": "bg-popover text-popover-foreground ring-foreground/10 rounded-xl shadow ring-1 transition-all ease-[cubic-bezier(0.22,1,0.36,1)] outline-none data-ending-style:scale-90 data-ending-style:opacity-0 data-ending-style:duration-150 data-starting-style:scale-90 data-starting-style:opacity-0",
+      "cn-navigation-menu-positioner": "transition-[top,left,right,bottom] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0",
+      "cn-navigation-menu-trigger-icon": "relative top-px ml-1 size-3 transition duration-300 group-data-open/navigation-menu-trigger:rotate-180 group-data-popup-open/navigation-menu-trigger:rotate-180"
+    },
+    "nova": {
+      "cn-navigation-menu": "max-w-max",
+      "cn-navigation-menu-content": "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-open:animate-in group-data-[viewport=false]/navigation-menu:data-closed:animate-out group-data-[viewport=false]/navigation-menu:data-closed:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-open:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-open:fade-in-0 group-data-[viewport=false]/navigation-menu:data-closed:fade-out-0 group-data-[viewport=false]/navigation-menu:ring-foreground/10 p-1 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[viewport=false]/navigation-menu:rounded-lg group-data-[viewport=false]/navigation-menu:shadow group-data-[viewport=false]/navigation-menu:ring-1 group-data-[viewport=false]/navigation-menu:duration-300",
+      "cn-navigation-menu-indicator": "data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+      "cn-navigation-menu-indicator-arrow": "bg-border rounded-tl-sm shadow-md",
+      "cn-navigation-menu-link": "data-active:focus:bg-muted data-active:hover:bg-muted data-active:bg-muted/50 focus-visible:ring-ring/50 hover:bg-muted focus:bg-muted flex items-center gap-2 rounded-lg p-2 text-sm transition-all outline-none focus-visible:ring-3 focus-visible:outline-1 in-data-[slot=navigation-menu-content]:rounded-md [&_svg:not([class*='size-'])]:size-4",
+      "cn-navigation-menu-list": "gap-0",
+      "cn-navigation-menu-popup": "bg-popover text-popover-foreground ring-foreground/10 rounded-lg shadow ring-1 transition-all ease-[cubic-bezier(0.22,1,0.36,1)] outline-none data-ending-style:scale-90 data-ending-style:opacity-0 data-ending-style:duration-150 data-starting-style:scale-90 data-starting-style:opacity-0",
+      "cn-navigation-menu-positioner": "transition-[top,left,right,bottom] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0",
+      "cn-navigation-menu-trigger-icon": "relative top-px ml-1 size-3 transition duration-300 group-data-open/navigation-menu-trigger:rotate-180 group-data-popup-open/navigation-menu-trigger:rotate-180"
+    },
+    "rhea": {
+      "cn-navigation-menu": "max-w-max",
+      "cn-navigation-menu-content": "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-open:animate-in group-data-[viewport=false]/navigation-menu:data-closed:animate-out group-data-[viewport=false]/navigation-menu:data-closed:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-open:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-open:fade-in-0 group-data-[viewport=false]/navigation-menu:data-closed:fade-out-0 group-data-[viewport=false]/navigation-menu:ring-foreground/5 group-data-[viewport=false]/navigation-menu:dark:ring-foreground/10 p-1.5 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[viewport=false]/navigation-menu:rounded-2xl group-data-[viewport=false]/navigation-menu:shadow-lg group-data-[viewport=false]/navigation-menu:ring-1 group-data-[viewport=false]/navigation-menu:duration-300",
+      "cn-navigation-menu-indicator": "data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+      "cn-navigation-menu-indicator-arrow": "bg-border rounded-tl-sm shadow-md",
+      "cn-navigation-menu-link": "data-[active=true]:focus:bg-muted data-[active=true]:hover:bg-muted data-[active=true]:bg-muted/50 focus-visible:ring-ring/30 hover:bg-muted focus:bg-muted flex items-center gap-2 rounded-2xl px-2.5 py-1.5 text-sm transition-all outline-none focus-visible:ring-3 focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 in-data-[slot=navigation-menu-content]:rounded-xl font-medium in-data-[slot=navigation-menu-content]:font-normal in-data-[slot=navigation-menu-content]:p-2 in-data-[slot=navigation-menu-content]:w-full",
+      "cn-navigation-menu-list": "gap-0",
+      "cn-navigation-menu-popup": "bg-popover text-popover-foreground ring-foreground/5 dark:ring-foreground/10 rounded-3xl shadow-lg ring-1 transition-all ease-[cubic-bezier(0.22,1,0.36,1)] outline-none data-ending-style:scale-90 data-ending-style:opacity-0 data-ending-style:duration-150 data-starting-style:scale-90 data-starting-style:opacity-0",
+      "cn-navigation-menu-positioner": "transition-[top,left,right,bottom] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0",
+      "cn-navigation-menu-trigger-icon": "relative top-px ml-1 size-3 transition duration-300 group-data-open/navigation-menu-trigger:rotate-180 group-data-popup-open/navigation-menu-trigger:rotate-180"
+    },
+    "sera": {
+      "cn-navigation-menu": "max-w-max",
+      "cn-navigation-menu-content": "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-open:animate-in group-data-[viewport=false]/navigation-menu:data-closed:animate-out group-data-[viewport=false]/navigation-menu:data-closed:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-open:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-open:fade-in-0 group-data-[viewport=false]/navigation-menu:data-closed:fade-out-0 group-data-[viewport=false]/navigation-menu:ring-foreground/10 p-2.5 pr-3 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[viewport=false]/navigation-menu:rounded-none group-data-[viewport=false]/navigation-menu:shadow-md group-data-[viewport=false]/navigation-menu:ring-1 group-data-[viewport=false]/navigation-menu:duration-300",
+      "cn-navigation-menu-indicator": "data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+      "cn-navigation-menu-indicator-arrow": "bg-border rounded-none shadow-md",
+      "cn-navigation-menu-link": "data-[active=true]:focus:bg-muted data-[active=true]:hover:bg-muted data-[active=true]:bg-muted/50 focus-visible:ring-ring/30 hover:bg-muted focus:bg-muted flex items-center gap-1.5 rounded-none p-3 text-sm transition-all outline-none focus-visible:ring-2 focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-3.5 in-data-[slot=navigation-menu-content]:rounded-none",
+      "cn-navigation-menu-list": "gap-0",
+      "cn-navigation-menu-popup": "bg-popover text-popover-foreground ring-foreground/10 rounded-none shadow-md ring-1 transition-all ease-[cubic-bezier(0.22,1,0.36,1)] outline-none data-ending-style:scale-90 data-ending-style:opacity-0 data-ending-style:duration-150 data-starting-style:scale-90 data-starting-style:opacity-0",
+      "cn-navigation-menu-positioner": "transition-[top,left,right,bottom] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0",
+      "cn-navigation-menu-trigger-icon": "relative top-px ml-1 size-3 transition duration-300 group-data-open/navigation-menu-trigger:rotate-180 group-data-popup-open/navigation-menu-trigger:rotate-180"
+    },
+    "vega": {
+      "cn-navigation-menu": "max-w-max",
+      "cn-navigation-menu-content": "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-open:animate-in group-data-[viewport=false]/navigation-menu:data-closed:animate-out group-data-[viewport=false]/navigation-menu:data-closed:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-open:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-open:fade-in-0 group-data-[viewport=false]/navigation-menu:data-closed:fade-out-0 group-data-[viewport=false]/navigation-menu:ring-foreground/10 p-2 pr-2.5 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[viewport=false]/navigation-menu:rounded-md group-data-[viewport=false]/navigation-menu:shadow group-data-[viewport=false]/navigation-menu:ring-1 group-data-[viewport=false]/navigation-menu:duration-300",
+      "cn-navigation-menu-indicator": "data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+      "cn-navigation-menu-indicator-arrow": "bg-border rounded-tl-sm shadow-md",
+      "cn-navigation-menu-link": "data-[active=true]:focus:bg-muted data-[active=true]:hover:bg-muted data-[active=true]:bg-muted/50 focus-visible:ring-ring/50 hover:bg-muted focus:bg-muted flex items-center gap-1.5 rounded-md p-2 text-sm transition-all outline-none focus-visible:ring-3 focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 in-data-[slot=navigation-menu-content]:rounded-sm",
+      "cn-navigation-menu-list": "gap-0",
+      "cn-navigation-menu-popup": "bg-popover text-popover-foreground ring-foreground/10 rounded-lg shadow ring-1 transition-all ease-[cubic-bezier(0.22,1,0.36,1)] outline-none data-ending-style:scale-90 data-ending-style:opacity-0 data-ending-style:duration-150 data-starting-style:scale-90 data-starting-style:opacity-0",
+      "cn-navigation-menu-positioner": "transition-[top,left,right,bottom] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0",
+      "cn-navigation-menu-trigger-icon": "relative top-px ml-1 size-3 transition duration-300 group-data-open/navigation-menu-trigger:rotate-180 group-data-popup-open/navigation-menu-trigger:rotate-180"
+    }
+  },
+  "upstream": {
+    "base_ui": {
+      "navigation-menu": "d07f63f71374cdf7d33eb493d98967fb78357d63d9a28b1be6c2d4c5c4c1e656"
+    },
+    "shadcn": {
+      "file": "shadcn/ui/navigation-menu.tsx",
+      "sha256": "40629a60998e13c173c141a604dd47ee3766f1fee580cceb92c4ba0f5af3a6f5"
+    }
+  },
+  "variants": {
+    "navigationMenuTriggerStyle": {
+      "base": "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none",
+      "defaults": {},
+      "variants": {}
+    }
+  }
+}

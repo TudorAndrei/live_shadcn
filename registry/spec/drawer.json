@@ -1,0 +1,1249 @@
+{
+  "anatomy": [
+    {
+      "children": [
+        {
+          "children": [],
+          "part": "IndentBackground"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [],
+                  "part": "Trigger"
+                },
+                {
+                  "children": [],
+                  "part": "SwipeArea"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "part": "Backdrop"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [],
+                                  "part": "Title"
+                                },
+                                {
+                                  "children": [],
+                                  "part": "Description"
+                                },
+                                {
+                                  "children": [],
+                                  "part": "Close"
+                                }
+                              ],
+                              "part": "Content"
+                            }
+                          ],
+                          "part": "Popup"
+                        }
+                      ],
+                      "part": "Viewport"
+                    }
+                  ],
+                  "part": "Portal"
+                }
+              ],
+              "part": "Root"
+            }
+          ],
+          "part": "Indent"
+        }
+      ],
+      "part": "Provider"
+    }
+  ],
+  "css_vars": [
+    "--drawer-frontmost-height",
+    "--drawer-height",
+    "--drawer-keyboard-inset",
+    "--drawer-snap-point-offset",
+    "--drawer-swipe-movement-x",
+    "--drawer-swipe-movement-y",
+    "--drawer-swipe-progress",
+    "--drawer-swipe-strength",
+    "--nested-drawers"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "drawer",
+  "parts": [
+    {
+      "export": "Drawer",
+      "name": "drawer",
+      "params": {
+        "modal": "true",
+        "showSwipeHandle": "false",
+        "snapPoints": null,
+        "swipeDirection": "down"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "modal",
+                "value": "modal"
+              },
+              {
+                "kind": "code",
+                "name": "snapPoints",
+                "value": "snapPoints"
+              },
+              {
+                "kind": "code",
+                "name": "swipeDirection",
+                "value": "swipeDirection"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "merges_class": false,
+            "part": "Root",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "reason": "renders no element",
+            "render_as": null,
+            "slot": "drawer",
+            "type": "transparent",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DrawerPortal",
+      "name": "drawer_portal",
+      "params": {},
+      "primitive": "Portal",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "merges_class": false,
+        "module": "drawer",
+        "part": "Portal",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "drawer-portal",
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DrawerOverlay",
+      "name": "drawer_overlay",
+      "params": {
+        "className": null
+      },
+      "primitive": "Backdrop",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-drawer-overlay fixed inset-0 z-50 min-h-dvh opacity-[max(var(--drawer-overlay-min-opacity,0),calc(1-var(--drawer-swipe-progress)))] transition-opacity duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] select-none data-ending-style:pointer-events-none data-ending-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-snap-points:[--drawer-overlay-min-opacity:0.5] data-starting-style:opacity-0 data-swiping:duration-0 supports-[-webkit-touch-callout:none]:absolute",
+        "merges_class": true,
+        "module": "drawer",
+        "part": "Backdrop",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-ending-style",
+            "data-snap-points",
+            "data-starting-style",
+            "data-swiping"
+          ]
+        },
+        "render_as": null,
+        "slot": "drawer-overlay",
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": [
+          "--drawer-swipe-progress",
+          "--drawer-swipe-strength"
+        ]
+      }
+    },
+    {
+      "export": "DrawerSwipeHandle",
+      "name": "drawer_swipe_handle",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "aria-hidden",
+            "value": "true"
+          }
+        ],
+        "children": [],
+        "class": "cn-drawer-swipe-handle relative z-10 flex shrink-0 cursor-grab transition-opacity duration-200 group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 group-data-[swipe-direction=left]/drawer-popup:order-last group-data-[swipe-direction=up]/drawer-popup:order-last active:cursor-grabbing",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [
+            {
+              "attr": "data-nested-drawer-open",
+              "group": "drawer-popup"
+            },
+            {
+              "attr": "data-nested-drawer-swiping",
+              "group": "drawer-popup"
+            }
+          ],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "drawer-swipe-handle",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DrawerTrigger",
+      "name": "drawer_trigger",
+      "params": {},
+      "primitive": "Trigger",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "merges_class": false,
+        "module": "drawer",
+        "part": "Trigger",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "drawer-trigger",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DrawerClose",
+      "name": "drawer_close",
+      "params": {},
+      "primitive": "Close",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "merges_class": false,
+        "module": "drawer",
+        "part": "Close",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "drawer-close",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DrawerContent",
+      "name": "drawer_content",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": "Popup",
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "children": [
+              {
+                "attrs": [
+                  {
+                    "kind": "code",
+                    "name": "data-snap-points",
+                    "value": "hasSnapPoints ? \"\" : undefined"
+                  }
+                ],
+                "children": [],
+                "class": "",
+                "merges_class": false,
+                "part": "drawer_overlay",
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "part_ref",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "optional",
+            "when": "modal === true"
+          },
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "data-modal",
+                "value": "modal"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [
+                  {
+                    "kind": "code",
+                    "name": "data-swipe-axis",
+                    "value": "swipeAxis"
+                  },
+                  {
+                    "kind": "code",
+                    "name": "data-snap-points",
+                    "value": "hasSnapPoints ? \"\" : undefined"
+                  }
+                ],
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [],
+                        "class": "",
+                        "merges_class": false,
+                        "part": "drawer_swipe_handle",
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "type": "part_ref",
+                        "variant_class": null,
+                        "vars": []
+                      }
+                    ],
+                    "type": "optional",
+                    "when": "showSwipeHandle"
+                  },
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "type": "children"
+                      }
+                    ],
+                    "class": "cn-drawer-content-base flex min-h-0 flex-1 flex-col overflow-hidden overscroll-contain rounded-[inherit] transition-opacity duration-300 ease-[cubic-bezier(0.45,1.005,0,1.005)] select-text group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 group-data-swiping/drawer-popup:select-none",
+                    "merges_class": false,
+                    "module": "drawer",
+                    "part": "Content",
+                    "props": false,
+                    "reads": {
+                      "group": [
+                        {
+                          "attr": "data-nested-drawer-open",
+                          "group": "drawer-popup"
+                        },
+                        {
+                          "attr": "data-nested-drawer-swiping",
+                          "group": "drawer-popup"
+                        },
+                        {
+                          "attr": "data-swiping",
+                          "group": "drawer-popup"
+                        }
+                      ],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": "drawer-content",
+                    "tag": "div",
+                    "type": "primitive",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "merges_class": true,
+                "module": "drawer",
+                "part": "Popup",
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "drawer-popup",
+                "tag": "div",
+                "type": "primitive",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "pointer-events-none fixed inset-0 z-50 select-none data-[modal=true]:pointer-events-auto",
+            "merges_class": false,
+            "module": "drawer",
+            "part": "Viewport",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "drawer-viewport",
+            "tag": "div",
+            "type": "primitive",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "part": "drawer_portal",
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "drawer-portal",
+        "type": "part_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DrawerHeader",
+      "name": "drawer_header",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-drawer-header-base flex shrink-0 flex-col group-data-[swipe-axis=y]/drawer-popup:text-center",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "drawer-header",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DrawerFooter",
+      "name": "drawer_footer",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-drawer-footer-base mt-auto flex shrink-0 flex-col",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "drawer-footer",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DrawerTitle",
+      "name": "drawer_title",
+      "params": {
+        "className": null
+      },
+      "primitive": "Title",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-drawer-title cn-font-heading",
+        "merges_class": true,
+        "module": "drawer",
+        "part": "Title",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "drawer-title",
+        "tag": "h2",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "DrawerDescription",
+      "name": "drawer_description",
+      "params": {
+        "className": null
+      },
+      "primitive": "Description",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-drawer-description text-balance",
+        "merges_class": true,
+        "module": "drawer",
+        "part": "Description",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "drawer-description",
+        "tag": "p",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "drawer.Backdrop": {
+      "css_vars": [
+        "--drawer-swipe-progress"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the backdrop is forced to render even when nested.",
+          "name": "forceRender",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Drawer.Backdrop.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.Backdrop.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.Backdrop.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "An overlay displayed beneath the popup."
+    },
+    "drawer.Close": {
+      "css_vars": [],
+      "data": [],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Drawer.Close.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.Close.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.Close.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button that closes the drawer."
+    },
+    "drawer.Content": {
+      "css_vars": [],
+      "data": [],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Drawer.Content.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.Content.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.Content.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A container for the drawer contents."
+    },
+    "drawer.Description": {
+      "css_vars": [],
+      "data": [],
+      "element": "p",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Drawer.Description.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.Description.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.Description.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A paragraph with additional information about the drawer."
+    },
+    "drawer.Indent": {
+      "css_vars": [],
+      "data": [],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Drawer.Indent.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.Indent.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.Indent.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A wrapper element intended to contain your app's main UI."
+    },
+    "drawer.IndentBackground": {
+      "css_vars": [],
+      "data": [],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Drawer.IndentBackground.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.IndentBackground.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.IndentBackground.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "An element placed before `<Drawer.Indent>` to render a background layer that can be styled based on whether any drawer is open."
+    },
+    "drawer.Popup": {
+      "css_vars": [
+        "--drawer-frontmost-height",
+        "--drawer-height",
+        "--drawer-snap-point-offset",
+        "--drawer-swipe-movement-x",
+        "--drawer-swipe-movement-y",
+        "--drawer-swipe-strength",
+        "--nested-drawers"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-expanded",
+        "data-nested-drawer-open",
+        "data-nested-drawer-swiping",
+        "data-swipe-direction",
+        "data-swipe-dismiss",
+        "data-swiping",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "React.RefObject<HTMLElement \\",
+          "doc": "null> \\",
+          "name": "initialFocus",
+          "type": "boolean \\"
+        },
+        {
+          "default": "React.RefObject<HTMLElement \\",
+          "doc": "null> \\",
+          "name": "finalFocus",
+          "type": "boolean \\"
+        },
+        {
+          "default": "((state: Drawer.Popup.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.Popup.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.Popup.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A container for the drawer contents."
+    },
+    "drawer.Portal": {
+      "css_vars": [],
+      "data": [],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "ShadowRoot \\",
+          "doc": "React.RefObject<HTMLElement \\",
+          "name": "container",
+          "type": "HTMLElement \\"
+        },
+        {
+          "default": "((state: Drawer.Portal.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.Portal.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the portal mounted in the DOM while the popup is hidden.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.Portal.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A portal element that moves the popup to a different part of the DOM."
+    },
+    "drawer.Provider": {
+      "css_vars": [],
+      "data": [],
+      "element": null,
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "-",
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ],
+      "renders": false,
+      "summary": "Provides a shared context for coordinating global Drawer UI, such as indent/background effects based on whether any Drawer is open."
+    },
+    "drawer.Root": {
+      "css_vars": [],
+      "data": [],
+      "element": null,
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the drawer is initially open. To render a controlled drawer, use the `open` prop instead.",
+          "name": "defaultOpen",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the drawer is currently open.",
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called when the drawer is opened or closed.",
+          "name": "onOpenChange",
+          "type": "((open: boolean, eventDetails: Drawer.Root.ChangeEventDetails) => void)"
+        },
+        {
+          "default": null,
+          "doc": "Snap points used to position the drawer. Use numbers between 0 and 1 to represent fractions of the viewport height, numbers greater than 1 as pixel values, or strings in `px`/`rem` units (for example, `'148px'` or `'30rem'`).",
+          "name": "snapPoints",
+          "type": "DrawerSnapPoint[]"
+        },
+        {
+          "default": "null",
+          "doc": "-",
+          "name": "defaultSnapPoint",
+          "type": "DrawerSnapPoint \\"
+        },
+        {
+          "default": "null",
+          "doc": "-",
+          "name": "snapPoint",
+          "type": "DrawerSnapPoint \\"
+        },
+        {
+          "default": "null, eventDetails: Drawer.Root.SnapPointChangeEventDetails) => void)",
+          "doc": "-",
+          "name": "onSnapPointChange",
+          "type": "((snapPoint: DrawerSnapPoint \\"
+        },
+        {
+          "default": "null>",
+          "doc": "-",
+          "name": "actionsRef",
+          "type": "React.RefObject<Drawer.Root.Actions \\"
+        },
+        {
+          "default": "null",
+          "doc": "-",
+          "name": "defaultTriggerId",
+          "type": "string \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to prevent the drawer from closing on outside presses. For non-modal drawers, this also prevents the drawer from closing when focus moves outside of it.",
+          "name": "disablePointerDismissal",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "A handle to associate the drawer with a trigger. If specified, allows detached triggers to control the drawer's open state. Can be created with the Drawer.createHandle() method.",
+          "name": "handle",
+          "type": "Drawer.Handle<Payload>"
+        },
+        {
+          "default": "'trap-focus'",
+          "doc": "true",
+          "name": "modal",
+          "type": "boolean \\"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called after any animations complete when the drawer is opened or closed.",
+          "name": "onOpenChangeComplete",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "default": "false",
+          "doc": "Disables velocity-based snap skipping so drag distance determines the next snap point.",
+          "name": "snapToSequentialPoints",
+          "type": "boolean"
+        },
+        {
+          "default": "'down'",
+          "doc": "The swipe direction used to dismiss the drawer.",
+          "name": "swipeDirection",
+          "type": "DrawerSwipeDirection"
+        },
+        {
+          "default": "null",
+          "doc": "-",
+          "name": "triggerId",
+          "type": "string \\"
+        },
+        {
+          "default": "PayloadChildRenderFunction<Payload>",
+          "doc": "-",
+          "name": "children",
+          "type": "React.ReactNode \\"
+        }
+      ],
+      "renders": false,
+      "summary": "Groups all parts of the drawer."
+    },
+    "drawer.SwipeArea": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-disabled",
+        "data-swipe-direction",
+        "data-swiping"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "The swipe direction that opens the drawer. Defaults to the opposite of `Drawer.Root` `swipeDirection`.",
+          "name": "swipeDirection",
+          "type": "DrawerSwipeDirection"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the swipe area is disabled.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Drawer.SwipeArea.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.SwipeArea.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.SwipeArea.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "An invisible area that listens for swipe gestures to open the drawer."
+    },
+    "drawer.Title": {
+      "css_vars": [],
+      "data": [],
+      "element": "h2",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Drawer.Title.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.Title.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.Title.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A heading that labels the drawer."
+    },
+    "drawer.Trigger": {
+      "css_vars": [],
+      "data": [],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "A handle to associate the trigger with a drawer. Can be created with the Drawer.createHandle() method.",
+          "name": "handle",
+          "type": "Drawer.Handle<Payload>"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "A payload to pass to the drawer when it is opened.",
+          "name": "payload",
+          "type": "Payload"
+        },
+        {
+          "default": null,
+          "doc": "ID of the trigger. In addition to being forwarded to the rendered element, it is also used to specify the active trigger for drawers in controlled mode (with the Drawer.Root `triggerId` prop).",
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "default": "((state: Drawer.Trigger.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.Trigger.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.Trigger.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button that opens the drawer."
+    },
+    "drawer.Viewport": {
+      "css_vars": [
+        "--drawer-keyboard-inset"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-nested",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Drawer.Viewport.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Drawer.Viewport.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Drawer.Viewport.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A positioning container for the drawer popup that can be made scrollable."
+    },
+    "drawer.VirtualKeyboardProvider": {
+      "css_vars": [],
+      "data": [],
+      "element": null,
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "-",
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ],
+      "renders": false,
+      "summary": "Provides keyboard-aware focus and scroll handling for bottom-sheet drawers with form fields."
+    }
+  },
+  "recipe": "dialog",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-drawer-description": "text-muted-foreground text-sm",
+      "cn-drawer-footer-base": "gap-2 p-4 pt-0",
+      "cn-drawer-header-base": "gap-0.5 p-4 pb-0 md:gap-1.5 md:text-left",
+      "cn-drawer-overlay": "bg-black/30 supports-backdrop-filter:backdrop-blur-sm",
+      "cn-drawer-swipe-handle": "after:bg-muted after:block after:shrink-0 after:rounded-full group-data-[swipe-axis=y]/drawer-popup:h-3 group-data-[swipe-axis=y]/drawer-popup:w-full group-data-[swipe-axis=y]/drawer-popup:justify-center group-data-[swipe-axis=y]/drawer-popup:after:h-1.5 group-data-[swipe-axis=y]/drawer-popup:after:w-[100px] group-data-[swipe-direction=down]/drawer-popup:items-end group-data-[swipe-direction=up]/drawer-popup:items-start group-data-[swipe-axis=x]/drawer-popup:h-full group-data-[swipe-axis=x]/drawer-popup:w-3 group-data-[swipe-axis=x]/drawer-popup:items-center group-data-[swipe-axis=x]/drawer-popup:after:h-[100px] group-data-[swipe-axis=x]/drawer-popup:after:w-1.5 group-data-[swipe-direction=left]/drawer-popup:justify-start group-data-[swipe-direction=right]/drawer-popup:justify-end",
+      "cn-drawer-title": "text-foreground text-base font-medium"
+    },
+    "lyra": {
+      "cn-drawer-description": "text-muted-foreground text-xs/relaxed",
+      "cn-drawer-footer-base": "gap-2 p-4 pt-0",
+      "cn-drawer-header-base": "gap-0.5 p-4 pb-0 md:gap-0.5 md:text-left",
+      "cn-drawer-overlay": "bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-drawer-swipe-handle": "after:bg-muted after:block after:shrink-0 after:rounded-none group-data-[swipe-axis=y]/drawer-popup:h-3 group-data-[swipe-axis=y]/drawer-popup:w-full group-data-[swipe-axis=y]/drawer-popup:justify-center group-data-[swipe-axis=y]/drawer-popup:after:h-1 group-data-[swipe-axis=y]/drawer-popup:after:w-12 group-data-[swipe-direction=down]/drawer-popup:items-end group-data-[swipe-direction=up]/drawer-popup:items-start group-data-[swipe-axis=x]/drawer-popup:h-full group-data-[swipe-axis=x]/drawer-popup:w-3 group-data-[swipe-axis=x]/drawer-popup:items-center group-data-[swipe-axis=x]/drawer-popup:after:h-12 group-data-[swipe-axis=x]/drawer-popup:after:w-1 group-data-[swipe-direction=left]/drawer-popup:justify-start group-data-[swipe-direction=right]/drawer-popup:justify-end",
+      "cn-drawer-title": "text-foreground text-sm font-medium"
+    },
+    "maia": {
+      "cn-drawer-description": "text-muted-foreground text-sm",
+      "cn-drawer-footer-base": "gap-2 p-4 pt-0",
+      "cn-drawer-header-base": "gap-0.5 p-4 pb-0 md:gap-1.5 md:text-left",
+      "cn-drawer-overlay": "bg-black/80 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-drawer-swipe-handle": "after:bg-muted after:block after:shrink-0 after:rounded-full group-data-[swipe-axis=y]/drawer-popup:h-3 group-data-[swipe-axis=y]/drawer-popup:w-full group-data-[swipe-axis=y]/drawer-popup:justify-center group-data-[swipe-axis=y]/drawer-popup:after:h-1.5 group-data-[swipe-axis=y]/drawer-popup:after:w-[100px] group-data-[swipe-direction=down]/drawer-popup:items-end group-data-[swipe-direction=up]/drawer-popup:items-start group-data-[swipe-axis=x]/drawer-popup:h-full group-data-[swipe-axis=x]/drawer-popup:w-3 group-data-[swipe-axis=x]/drawer-popup:items-center group-data-[swipe-axis=x]/drawer-popup:after:h-[100px] group-data-[swipe-axis=x]/drawer-popup:after:w-1.5 group-data-[swipe-direction=left]/drawer-popup:justify-start group-data-[swipe-direction=right]/drawer-popup:justify-end",
+      "cn-drawer-title": "text-foreground text-base font-medium"
+    },
+    "mira": {
+      "cn-drawer-description": "text-muted-foreground text-xs/relaxed",
+      "cn-drawer-footer-base": "gap-2 p-4 pt-0",
+      "cn-drawer-header-base": "gap-1 p-4 pb-0 md:text-left",
+      "cn-drawer-overlay": "bg-black/80 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-drawer-swipe-handle": "after:bg-muted after:block after:shrink-0 after:rounded-full group-data-[swipe-axis=y]/drawer-popup:h-3 group-data-[swipe-axis=y]/drawer-popup:w-full group-data-[swipe-axis=y]/drawer-popup:justify-center group-data-[swipe-axis=y]/drawer-popup:after:h-1 group-data-[swipe-axis=y]/drawer-popup:after:w-12 group-data-[swipe-direction=down]/drawer-popup:items-end group-data-[swipe-direction=up]/drawer-popup:items-start group-data-[swipe-axis=x]/drawer-popup:h-full group-data-[swipe-axis=x]/drawer-popup:w-3 group-data-[swipe-axis=x]/drawer-popup:items-center group-data-[swipe-axis=x]/drawer-popup:after:h-12 group-data-[swipe-axis=x]/drawer-popup:after:w-1 group-data-[swipe-direction=left]/drawer-popup:justify-start group-data-[swipe-direction=right]/drawer-popup:justify-end",
+      "cn-drawer-title": "text-foreground text-sm font-medium"
+    },
+    "nova": {
+      "cn-drawer-description": "text-muted-foreground text-sm",
+      "cn-drawer-footer-base": "gap-2 p-4 pt-0",
+      "cn-drawer-header-base": "gap-0.5 p-4 pb-0 md:gap-0.5 md:text-left",
+      "cn-drawer-overlay": "bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-drawer-swipe-handle": "after:block after:shrink-0 after:rounded-full after:bg-muted group-data-[swipe-axis=y]/drawer-popup:h-3 group-data-[swipe-axis=y]/drawer-popup:w-full group-data-[swipe-axis=y]/drawer-popup:justify-center group-data-[swipe-axis=y]/drawer-popup:after:h-1 group-data-[swipe-axis=y]/drawer-popup:after:w-24 group-data-[swipe-direction=down]/drawer-popup:items-end group-data-[swipe-direction=up]/drawer-popup:items-start group-data-[swipe-axis=x]/drawer-popup:h-full group-data-[swipe-axis=x]/drawer-popup:w-3 group-data-[swipe-axis=x]/drawer-popup:items-center group-data-[swipe-axis=x]/drawer-popup:after:h-24 group-data-[swipe-axis=x]/drawer-popup:after:w-1 group-data-[swipe-direction=left]/drawer-popup:justify-start group-data-[swipe-direction=right]/drawer-popup:justify-end",
+      "cn-drawer-title": "text-foreground text-base font-medium"
+    },
+    "rhea": {
+      "cn-drawer-description": "text-muted-foreground text-sm",
+      "cn-drawer-footer-base": "gap-2 p-4 pt-0",
+      "cn-drawer-header-base": "gap-0.5 p-4 pb-0 md:gap-1.5 md:text-left",
+      "cn-drawer-overlay": "bg-black/30 supports-backdrop-filter:backdrop-blur-sm",
+      "cn-drawer-swipe-handle": "after:bg-muted after:block after:shrink-0 after:rounded-full group-data-[swipe-axis=y]/drawer-popup:h-3 group-data-[swipe-axis=y]/drawer-popup:w-full group-data-[swipe-axis=y]/drawer-popup:justify-center group-data-[swipe-axis=y]/drawer-popup:after:h-1.5 group-data-[swipe-axis=y]/drawer-popup:after:w-[100px] group-data-[swipe-direction=down]/drawer-popup:items-end group-data-[swipe-direction=up]/drawer-popup:items-start group-data-[swipe-axis=x]/drawer-popup:h-full group-data-[swipe-axis=x]/drawer-popup:w-3 group-data-[swipe-axis=x]/drawer-popup:items-center group-data-[swipe-axis=x]/drawer-popup:after:h-[100px] group-data-[swipe-axis=x]/drawer-popup:after:w-1.5 group-data-[swipe-direction=left]/drawer-popup:justify-start group-data-[swipe-direction=right]/drawer-popup:justify-end",
+      "cn-drawer-title": "text-foreground text-base font-medium"
+    },
+    "sera": {
+      "cn-drawer-description": "text-muted-foreground text-sm leading-relaxed mt-0.5",
+      "cn-drawer-footer-base": "gap-2 p-4 pt-0",
+      "cn-drawer-header-base": "gap-1 p-4 pb-0 md:gap-2 md:text-left",
+      "cn-drawer-overlay": "bg-black/20 supports-backdrop-filter:backdrop-blur-sm",
+      "cn-drawer-swipe-handle": "after:bg-muted after:block after:shrink-0 after:rounded-none group-data-[swipe-axis=y]/drawer-popup:h-3 group-data-[swipe-axis=y]/drawer-popup:w-full group-data-[swipe-axis=y]/drawer-popup:justify-center group-data-[swipe-axis=y]/drawer-popup:after:h-1.5 group-data-[swipe-axis=y]/drawer-popup:after:w-[100px] group-data-[swipe-direction=down]/drawer-popup:items-end group-data-[swipe-direction=up]/drawer-popup:items-start group-data-[swipe-axis=x]/drawer-popup:h-full group-data-[swipe-axis=x]/drawer-popup:w-3 group-data-[swipe-axis=x]/drawer-popup:items-center group-data-[swipe-axis=x]/drawer-popup:after:h-[100px] group-data-[swipe-axis=x]/drawer-popup:after:w-1.5 group-data-[swipe-direction=left]/drawer-popup:justify-start group-data-[swipe-direction=right]/drawer-popup:justify-end",
+      "cn-drawer-title": "text-foreground text-lg font-semibold uppercase tracking-wider"
+    },
+    "vega": {
+      "cn-drawer-description": "text-muted-foreground text-sm",
+      "cn-drawer-footer-base": "gap-2 p-4 pt-0",
+      "cn-drawer-header-base": "gap-0.5 p-4 pb-0 md:gap-1.5 md:text-left",
+      "cn-drawer-overlay": "bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-drawer-swipe-handle": "after:bg-muted after:block after:shrink-0 after:rounded-full group-data-[swipe-axis=y]/drawer-popup:h-3 group-data-[swipe-axis=y]/drawer-popup:w-full group-data-[swipe-axis=y]/drawer-popup:justify-center group-data-[swipe-axis=y]/drawer-popup:after:h-1.5 group-data-[swipe-axis=y]/drawer-popup:after:w-[100px] group-data-[swipe-direction=down]/drawer-popup:items-end group-data-[swipe-direction=up]/drawer-popup:items-start group-data-[swipe-axis=x]/drawer-popup:h-full group-data-[swipe-axis=x]/drawer-popup:w-3 group-data-[swipe-axis=x]/drawer-popup:items-center group-data-[swipe-axis=x]/drawer-popup:after:h-[100px] group-data-[swipe-axis=x]/drawer-popup:after:w-1.5 group-data-[swipe-direction=left]/drawer-popup:justify-start group-data-[swipe-direction=right]/drawer-popup:justify-end",
+      "cn-drawer-title": "text-foreground font-medium"
+    }
+  },
+  "upstream": {
+    "base_ui": {
+      "drawer": "06e18a642563ba92e71fe756dbadfc3fc8789c9458a37bba6b7b359f3ae8fbcd"
+    },
+    "shadcn": {
+      "file": "shadcn/ui/drawer.tsx",
+      "sha256": "c3b8efa83260e1622d88b216bb794dbe46b803ced695040e7750f172d91bec79"
+    }
+  },
+  "variants": {}
+}

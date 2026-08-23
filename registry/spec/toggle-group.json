@@ -1,0 +1,357 @@
+{
+  "anatomy": [
+    {
+      "children": [],
+      "part": "ToggleGroup"
+    }
+  ],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "toggle-group",
+  "parts": [
+    {
+      "export": "ToggleGroup",
+      "name": "toggle_group",
+      "params": {
+        "children": null,
+        "className": null,
+        "orientation": "horizontal",
+        "size": null,
+        "spacing": "2",
+        "variant": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          },
+          {
+            "kind": "code",
+            "name": "data-size",
+            "value": "size"
+          },
+          {
+            "kind": "code",
+            "name": "data-spacing",
+            "value": "spacing"
+          },
+          {
+            "kind": "code",
+            "name": "data-orientation",
+            "value": "orientation"
+          },
+          {
+            "kind": "style",
+            "name": "style",
+            "value": [
+              {
+                "kind": "code",
+                "property": "--gap",
+                "value": "spacing"
+              }
+            ]
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "value",
+                "value": "{ variant, size, spacing, orientation }"
+              }
+            ],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "reason": "a React context",
+            "render_as": null,
+            "slot": null,
+            "type": "transparent",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "cn-toggle-group group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch",
+        "merges_class": true,
+        "part": "ToggleGroup",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-vertical"
+          ]
+        },
+        "reason": "renders no element",
+        "render_as": null,
+        "slot": "toggle-group",
+        "type": "transparent",
+        "variant_class": null,
+        "vars": [
+          "--gap"
+        ]
+      }
+    },
+    {
+      "export": "ToggleGroupItem",
+      "name": "toggle_group_item",
+      "params": {
+        "children": null,
+        "className": null,
+        "size": "default",
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-variant",
+            "value": "context.variant || variant"
+          },
+          {
+            "kind": "code",
+            "name": "data-size",
+            "value": "context.size || size"
+          },
+          {
+            "kind": "code",
+            "name": "data-spacing",
+            "value": "context.spacing"
+          }
+        ],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
+        "merges_class": true,
+        "module": "toggle",
+        "part": "Toggle",
+        "props": true,
+        "reads": {
+          "group": [
+            {
+              "attr": "data-horizontal",
+              "group": "toggle-group"
+            },
+            {
+              "attr": "data-vertical",
+              "group": "toggle-group"
+            }
+          ],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "toggle-group-item",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "toggle-group.ToggleGroup": {
+      "css_vars": [],
+      "data": [
+        "data-orientation",
+        "data-disabled",
+        "data-multiple"
+      ],
+      "element": null,
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "The pressed state of the toggle group represented by an array of the values of all pressed toggle buttons. This is the uncontrolled counterpart of `value`.",
+          "name": "defaultValue",
+          "type": "string[]"
+        },
+        {
+          "default": null,
+          "doc": "The pressed state of the toggle group represented by an array of the values of all pressed toggle buttons. This is the controlled counterpart of `defaultValue`.",
+          "name": "value",
+          "type": "string[]"
+        },
+        {
+          "default": null,
+          "doc": "Callback fired when the pressed states of the toggle group changes.",
+          "name": "onValueChange",
+          "type": "((groupValue: string[], eventDetails: ToggleGroup.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "true",
+          "doc": "Whether to loop keyboard focus back to the first item when the end of the list is reached while using the arrow keys.",
+          "name": "loopFocus",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "When `false` only one item in the group can be pressed. If any item in the group becomes pressed, the others will become unpressed. When `true` multiple items can be pressed.",
+          "name": "multiple",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the toggle group should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "'horizontal'",
+          "doc": "-",
+          "name": "orientation",
+          "type": "Orientation"
+        },
+        {
+          "default": "((state: ToggleGroup.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: ToggleGroup.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: ToggleGroup.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": false,
+      "summary": "Provides a shared state to a series of toggle buttons."
+    },
+    "toggle.Toggle": {
+      "css_vars": [],
+      "data": [
+        "data-pressed",
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "A unique string that identifies the toggle when used inside a toggle group.",
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the toggle button is currently pressed. This is the uncontrolled counterpart of `pressed`.",
+          "name": "defaultPressed",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the toggle button is currently pressed. This is the controlled counterpart of `defaultPressed`.",
+          "name": "pressed",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Callback fired when the pressed state is changed.",
+          "name": "onPressedChange",
+          "type": "((pressed: boolean, eventDetails: Toggle.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Toggle.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Toggle.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Toggle.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A two-state button that can be on or off."
+    }
+  },
+  "recipe": "tabs",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-toggle-group": "data-[spacing=0]:data-[variant=outline]:rounded-3xl",
+      "cn-toggle-group-item": "data-[state=on]:bg-muted group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-3 group-data-[spacing=0]/toggle-group:shadow-none group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-3xl group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-3xl group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-3xl group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-3xl group-data-[spacing=0]/toggle-group:has-data-[icon=inline-end]:pr-2.5 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-2.5"
+    },
+    "lyra": {
+      "cn-toggle-group": "rounded-none data-[size=sm]:rounded-none",
+      "cn-toggle-group-item": "group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-end]:pr-1.5 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-1.5 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-none group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-none group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-none group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-none"
+    },
+    "maia": {
+      "cn-toggle-group": "data-[spacing=0]:data-[variant=outline]:rounded-4xl",
+      "cn-toggle-group-item": "data-[state=on]:bg-muted group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-3 group-data-[spacing=0]/toggle-group:shadow-none group-data-[spacing=0]/toggle-group:has-data-[icon=inline-end]:pr-2.5 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-2.5 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-3xl group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-3xl group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-3xl group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-3xl"
+    },
+    "mira": {
+      "cn-toggle-group": "rounded-md data-[size=sm]:rounded-[min(var(--radius-md),8px)]",
+      "cn-toggle-group-item": "group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-end]:pr-1.5 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-1.5 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-md group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-md group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-md group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-md"
+    },
+    "nova": {
+      "cn-toggle-group": "rounded-lg data-[size=sm]:rounded-[min(var(--radius-md),10px)]",
+      "cn-toggle-group-item": "group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-end]:pr-1.5 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-1.5 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg"
+    },
+    "rhea": {
+      "cn-toggle-group": "data-[spacing=0]:data-[variant=outline]:rounded-2xl",
+      "cn-toggle-group-item": "data-[state=on]:bg-muted group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-[spacing=0]/toggle-group:shadow-none group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-2xl group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-2xl group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-2xl group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-2xl group-data-[spacing=0]/toggle-group:has-data-[icon=inline-end]:pr-1.5 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-1.5"
+    },
+    "sera": {
+      "cn-toggle-group": "data-[spacing=0]:data-[variant=outline]:rounded-none",
+      "cn-toggle-group-item": "data-[state=on]:bg-muted data-[state=on]:text-foreground group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-6 group-data-[spacing=0]/toggle-group:shadow-none group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-none group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-none group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-none group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-none group-data-[spacing=0]/toggle-group:has-data-[icon=inline-end]:pr-4 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-4"
+    },
+    "vega": {
+      "cn-toggle-group": "rounded-md data-[spacing=0]:data-[variant=outline]:shadow-xs",
+      "cn-toggle-group-item": "data-[state=on]:bg-muted group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-[spacing=0]/toggle-group:shadow-none group-data-[spacing=0]/toggle-group:has-data-[icon=inline-end]:pr-1.5 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-1.5 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-md group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-md group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-md group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-md"
+    }
+  },
+  "upstream": {
+    "base_ui": {
+      "toggle": "a95df4178538ac35f3d51b5586ed7cccb980d2a15de01b6a9e6d37db9894ad7e",
+      "toggle-group": "4a19b1f1ed82381e3ca03ef4745875e2bfe59f6e84de52e20376f777c9cecf31"
+    },
+    "shadcn": {
+      "file": "shadcn/ui/toggle-group.tsx",
+      "sha256": "806a823d1ec998652e6db0d1a6498016276825ae0edbc8c59cd20164815123f0"
+    }
+  },
+  "variants": {}
+}

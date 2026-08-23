@@ -1,0 +1,437 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "breadcrumb",
+  "parts": [
+    {
+      "export": "Breadcrumb",
+      "name": "breadcrumb",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "aria-label",
+            "value": "breadcrumb"
+          }
+        ],
+        "children": [],
+        "class": "cn-breadcrumb",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "breadcrumb",
+        "tag": "nav",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "BreadcrumbList",
+      "name": "breadcrumb_list",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-breadcrumb-list flex flex-wrap items-center wrap-break-word",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "breadcrumb-list",
+        "tag": "ol",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "BreadcrumbItem",
+      "name": "breadcrumb_item",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-breadcrumb-item inline-flex items-center",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "breadcrumb-item",
+        "tag": "li",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "BreadcrumbLink",
+      "name": "breadcrumb_link",
+      "params": {
+        "className": null,
+        "render": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "cn-breadcrumb-link",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "breadcrumb-link",
+        "tag": "a",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "BreadcrumbPage",
+      "name": "breadcrumb_page",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "link"
+          },
+          {
+            "kind": "text",
+            "name": "aria-disabled",
+            "value": "true"
+          },
+          {
+            "kind": "text",
+            "name": "aria-current",
+            "value": "page"
+          }
+        ],
+        "children": [],
+        "class": "cn-breadcrumb-page",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "breadcrumb-page",
+        "tag": "span",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "BreadcrumbSeparator",
+      "name": "breadcrumb_separator",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "presentation"
+          },
+          {
+            "kind": "text",
+            "name": "aria-hidden",
+            "value": "true"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "lucide",
+                    "value": "ChevronRightIcon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "tabler",
+                    "value": "IconChevronRight"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "hugeicons",
+                    "value": "ArrowRight01Icon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "phosphor",
+                    "value": "CaretRightIcon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "remixicon",
+                    "value": "RiArrowRightSLine"
+                  }
+                ],
+                "children": [],
+                "class": "cn-rtl-flip",
+                "icons": {
+                  "hugeicons": "ArrowRight01Icon",
+                  "lucide": "ChevronRightIcon",
+                  "phosphor": "CaretRightIcon",
+                  "remixicon": "RiArrowRightSLine",
+                  "tabler": "IconChevronRight"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "cn-breadcrumb-separator",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "breadcrumb-separator",
+        "tag": "li",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "BreadcrumbEllipsis",
+      "name": "breadcrumb_ellipsis",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "presentation"
+          },
+          {
+            "kind": "text",
+            "name": "aria-hidden",
+            "value": "true"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "lucide",
+                "value": "MoreHorizontalIcon"
+              },
+              {
+                "kind": "text",
+                "name": "tabler",
+                "value": "IconDots"
+              },
+              {
+                "kind": "text",
+                "name": "hugeicons",
+                "value": "MoreHorizontalCircle01Icon"
+              },
+              {
+                "kind": "text",
+                "name": "phosphor",
+                "value": "DotsThreeIcon"
+              },
+              {
+                "kind": "text",
+                "name": "remixicon",
+                "value": "RiMoreLine"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "icons": {
+              "hugeicons": "MoreHorizontalCircle01Icon",
+              "lucide": "MoreHorizontalIcon",
+              "phosphor": "DotsThreeIcon",
+              "remixicon": "RiMoreLine",
+              "tabler": "IconDots"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "icon",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "More"
+              }
+            ],
+            "class": "sr-only",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "cn-breadcrumb-ellipsis flex items-center justify-center",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "breadcrumb-ellipsis",
+        "tag": "span",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-breadcrumb-ellipsis": "size-5 [&>svg]:size-4",
+      "cn-breadcrumb-item": "gap-1.5",
+      "cn-breadcrumb-link": "hover:text-foreground transition-colors",
+      "cn-breadcrumb-list": "text-muted-foreground gap-1.5 text-sm sm:gap-2.5",
+      "cn-breadcrumb-page": "text-foreground font-normal",
+      "cn-breadcrumb-separator": "[&>svg]:size-3.5"
+    },
+    "lyra": {
+      "cn-breadcrumb-ellipsis": "size-5 [&>svg]:size-4",
+      "cn-breadcrumb-item": "gap-1",
+      "cn-breadcrumb-link": "hover:text-foreground transition-colors",
+      "cn-breadcrumb-list": "text-muted-foreground gap-1.5 text-xs",
+      "cn-breadcrumb-page": "text-foreground font-normal",
+      "cn-breadcrumb-separator": "[&>svg]:size-3.5"
+    },
+    "maia": {
+      "cn-breadcrumb-ellipsis": "size-5 [&>svg]:size-4",
+      "cn-breadcrumb-item": "gap-1.5",
+      "cn-breadcrumb-link": "hover:text-foreground transition-colors",
+      "cn-breadcrumb-list": "text-muted-foreground gap-1.5 text-sm sm:gap-2.5",
+      "cn-breadcrumb-page": "text-foreground font-normal",
+      "cn-breadcrumb-separator": "[&>svg]:size-3.5"
+    },
+    "mira": {
+      "cn-breadcrumb-ellipsis": "size-4 [&>svg]:size-3.5",
+      "cn-breadcrumb-item": "gap-1",
+      "cn-breadcrumb-link": "hover:text-foreground transition-colors",
+      "cn-breadcrumb-list": "text-muted-foreground gap-1.5 text-xs/relaxed",
+      "cn-breadcrumb-page": "text-foreground font-normal",
+      "cn-breadcrumb-separator": "[&>svg]:size-3.5"
+    },
+    "nova": {
+      "cn-breadcrumb-ellipsis": "size-5 [&>svg]:size-4",
+      "cn-breadcrumb-item": "gap-1",
+      "cn-breadcrumb-link": "hover:text-foreground transition-colors",
+      "cn-breadcrumb-list": "text-muted-foreground gap-1.5 text-sm",
+      "cn-breadcrumb-page": "text-foreground font-normal",
+      "cn-breadcrumb-separator": "[&>svg]:size-3.5"
+    },
+    "rhea": {
+      "cn-breadcrumb-ellipsis": "size-5 [&>svg]:size-4",
+      "cn-breadcrumb-item": "gap-1.5",
+      "cn-breadcrumb-link": "hover:text-foreground transition-colors",
+      "cn-breadcrumb-list": "text-muted-foreground gap-1.5 text-sm sm:gap-2.5",
+      "cn-breadcrumb-page": "text-foreground font-normal",
+      "cn-breadcrumb-separator": "[&>svg]:size-3.5"
+    },
+    "sera": {
+      "cn-breadcrumb-ellipsis": "size-5 [&>svg]:size-4",
+      "cn-breadcrumb-item": "gap-1.5",
+      "cn-breadcrumb-link": "hover:text-foreground transition-colors",
+      "cn-breadcrumb-list": "text-muted-foreground gap-1.5 text-xs uppercase tracking-wide sm:gap-2.5",
+      "cn-breadcrumb-page": "text-foreground font-normal",
+      "cn-breadcrumb-separator": "[&>svg]:size-3.5"
+    },
+    "vega": {
+      "cn-breadcrumb-ellipsis": "size-5 [&>svg]:size-4",
+      "cn-breadcrumb-item": "gap-1.5",
+      "cn-breadcrumb-link": "hover:text-foreground transition-colors",
+      "cn-breadcrumb-list": "text-muted-foreground gap-1.5 text-sm sm:gap-2.5",
+      "cn-breadcrumb-page": "text-foreground font-normal",
+      "cn-breadcrumb-separator": "[&>svg]:size-3.5"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/breadcrumb.tsx",
+      "sha256": "06ee78c43f8e36fa32cb470c5e8bef969981c27aa25e9e4e4f7ec571b7fe0d6b"
+    }
+  },
+  "variants": {}
+}

@@ -1,0 +1,181 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "alert",
+  "parts": [
+    {
+      "export": "Alert",
+      "name": "alert",
+      "params": {
+        "className": null,
+        "variant": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "alert"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "alert",
+        "tag": "div",
+        "type": "element",
+        "variant_class": "alertVariants",
+        "vars": []
+      }
+    },
+    {
+      "export": "AlertTitle",
+      "name": "alert_title",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-alert-title [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "alert-title",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AlertDescription",
+      "name": "alert_description",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-alert-description [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "alert-description",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AlertAction",
+      "name": "alert_action",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-alert-action",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "alert-action",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-alert-action": "absolute top-2.5 right-3",
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
+      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
+    },
+    "lyra": {
+      "cn-alert-action": "absolute top-[calc(--spacing(1.25))] right-[calc(--spacing(1.25))]",
+      "cn-alert-description": "text-muted-foreground text-xs/relaxed text-balance md:text-pretty [&_p:not(:last-child)]:mb-2",
+      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
+    },
+    "maia": {
+      "cn-alert-action": "absolute top-2.5 right-3",
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
+      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
+    },
+    "mira": {
+      "cn-alert-action": "absolute top-1.5 right-2",
+      "cn-alert-description": "text-muted-foreground text-xs/relaxed text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
+      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
+    },
+    "nova": {
+      "cn-alert-action": "absolute top-2 right-2",
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
+      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
+    },
+    "rhea": {
+      "cn-alert-action": "absolute top-2.5 right-3",
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
+      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
+    },
+    "sera": {
+      "cn-alert-action": "absolute top-2.5 right-3",
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
+      "cn-alert-title": "font-semibold group-has-[>svg]/alert:col-start-2 text-sm"
+    },
+    "vega": {
+      "cn-alert-action": "absolute top-2.5 right-3",
+      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
+      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/alert.tsx",
+      "sha256": "b28974495ba119b6c5bbbdff1bdec6e998537be20fc70f45d899814e4680c408"
+    }
+  },
+  "variants": {
+    "alertVariants": {
+      "base": "cn-alert group/alert relative w-full",
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": {
+        "variant": {
+          "default": "cn-alert-variant-default",
+          "destructive": "cn-alert-variant-destructive"
+        }
+      }
+    }
+  }
+}

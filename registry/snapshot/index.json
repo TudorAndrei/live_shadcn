@@ -1,0 +1,131 @@
+{
+  "dialog": [
+    "default"
+  ],
+  "sheet": [
+    "default"
+  ],
+  "badge": [
+    "variants"
+  ],
+  "bubble": [
+    "default"
+  ],
+  "skeleton": [
+    "default"
+  ],
+  "textarea": [
+    "default"
+  ],
+  "marker": [
+    "default"
+  ],
+  "message": [
+    "default"
+  ],
+  "select": [
+    "default"
+  ],
+  "popover": [
+    "default"
+  ],
+  "switch": [
+    "default"
+  ],
+  "avatar": [
+    "default"
+  ],
+  "input": [
+    "default"
+  ],
+  "aspect-ratio": [
+    "default"
+  ],
+  "tooltip": [
+    "default"
+  ],
+  "alert": [
+    "default"
+  ],
+  "progress": [
+    "default"
+  ],
+  "tabs": [
+    "default"
+  ],
+  "toggle": [
+    "default"
+  ],
+  "pagination": [
+    "default"
+  ],
+  "table": [
+    "default"
+  ],
+  "kbd": [
+    "default"
+  ],
+  "dropdown-menu": [
+    "default"
+  ],
+  "combobox": [
+    "default"
+  ],
+  "empty": [
+    "default"
+  ],
+  "spinner": [
+    "default"
+  ],
+  "navigation-menu": [
+    "default"
+  ],
+  "checkbox": [
+    "default"
+  ],
+  "breadcrumb": [
+    "default"
+  ],
+  "attachment": [
+    "default"
+  ],
+  "accordion": [
+    "default",
+    "multiple",
+    "states"
+  ],
+  "collapsible": [
+    "default"
+  ],
+  "button-group": [
+    "default"
+  ],
+  "radio-group": [
+    "default"
+  ],
+  "button": [
+    "variants",
+    "sizes"
+  ],
+  "separator": [
+    "default"
+  ],
+  "item": [
+    "default"
+  ],
+  "alert-dialog": [
+    "default"
+  ],
+  "label": [
+    "default"
+  ],
+  "hover-card": [
+    "default"
+  ],
+  "card": [
+    "default"
+  ],
+  "context-menu": [
+    "default"
+  ]
+}

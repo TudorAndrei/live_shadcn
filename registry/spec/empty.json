@@ -1,0 +1,247 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "empty",
+  "parts": [
+    {
+      "export": "Empty",
+      "name": "empty",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-empty flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "empty",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "EmptyHeader",
+      "name": "empty_header",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-empty-header flex max-w-sm flex-col items-center",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "empty-header",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "EmptyTitle",
+      "name": "empty_title",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-empty-title cn-font-heading",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "empty-title",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "EmptyDescription",
+      "name": "empty_description",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-empty-description text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "empty-description",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "EmptyContent",
+      "name": "empty_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-empty-content flex w-full max-w-sm min-w-0 flex-col items-center text-balance",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "empty-content",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "EmptyMedia",
+      "name": "empty_media",
+      "params": {
+        "className": null,
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "empty-icon",
+        "tag": "div",
+        "type": "element",
+        "variant_class": "emptyMediaVariants",
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-empty": "gap-4 rounded-2xl border-dashed p-12",
+      "cn-empty-content": "gap-4 text-sm",
+      "cn-empty-description": "text-sm/relaxed",
+      "cn-empty-header": "gap-2",
+      "cn-empty-title": "text-lg font-medium tracking-tight"
+    },
+    "lyra": {
+      "cn-empty": "gap-4 rounded-none border-dashed p-6",
+      "cn-empty-content": "gap-2.5 text-xs",
+      "cn-empty-description": "text-xs/relaxed",
+      "cn-empty-header": "gap-2",
+      "cn-empty-title": "text-sm font-medium"
+    },
+    "maia": {
+      "cn-empty": "gap-4 rounded-lg border-dashed p-12",
+      "cn-empty-content": "gap-4 text-sm",
+      "cn-empty-description": "text-sm/relaxed",
+      "cn-empty-header": "gap-2",
+      "cn-empty-title": "text-lg font-medium tracking-tight"
+    },
+    "mira": {
+      "cn-empty": "gap-4 rounded-xl border-dashed p-6",
+      "cn-empty-content": "gap-2 text-xs/relaxed",
+      "cn-empty-description": "text-xs/relaxed",
+      "cn-empty-header": "gap-1",
+      "cn-empty-title": "text-sm font-medium tracking-tight"
+    },
+    "nova": {
+      "cn-empty": "gap-4 rounded-xl border-dashed p-6",
+      "cn-empty-content": "gap-2.5 text-sm",
+      "cn-empty-description": "text-sm/relaxed",
+      "cn-empty-header": "gap-2",
+      "cn-empty-title": "text-sm font-medium tracking-tight"
+    },
+    "rhea": {
+      "cn-empty": "gap-4 rounded-3xl border-dashed p-12",
+      "cn-empty-content": "gap-4 text-sm",
+      "cn-empty-description": "text-sm/relaxed",
+      "cn-empty-header": "gap-2",
+      "cn-empty-title": "text-lg font-medium tracking-tight"
+    },
+    "sera": {
+      "cn-empty": "gap-4 border-dashed p-12",
+      "cn-empty-content": "gap-4 text-sm",
+      "cn-empty-description": "text-sm/relaxed mt-0.5",
+      "cn-empty-header": "gap-2",
+      "cn-empty-title": "text-lg font-semibold tracking-wider uppercase"
+    },
+    "vega": {
+      "cn-empty": "gap-4 rounded-lg border-dashed p-12",
+      "cn-empty-content": "gap-4 text-sm",
+      "cn-empty-description": "text-sm/relaxed",
+      "cn-empty-header": "gap-2",
+      "cn-empty-title": "text-lg font-medium tracking-tight"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/empty.tsx",
+      "sha256": "f022b2014448c212e3545d12e09a0fbe038ceebdb4dca848e9c3c9b1e1c640aa"
+    }
+  },
+  "variants": {
+    "emptyMediaVariants": {
+      "base": "cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": {
+        "variant": {
+          "default": "cn-empty-media-default",
+          "icon": "cn-empty-media-icon"
+        }
+      }
+    }
+  }
+}

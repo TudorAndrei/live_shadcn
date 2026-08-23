@@ -1,0 +1,170 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "button-group",
+  "parts": [
+    {
+      "export": "ButtonGroup",
+      "name": "button_group",
+      "params": {
+        "className": null,
+        "orientation": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "group"
+          },
+          {
+            "kind": "code",
+            "name": "data-orientation",
+            "value": "orientation"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-slot"
+          ]
+        },
+        "render_as": null,
+        "slot": "button-group",
+        "tag": "div",
+        "type": "element",
+        "variant_class": "buttonGroupVariants",
+        "vars": []
+      }
+    },
+    {
+      "export": "ButtonGroupSeparator",
+      "name": "button_group_separator",
+      "params": {
+        "className": null,
+        "orientation": "vertical"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "orientation",
+            "value": "orientation"
+          }
+        ],
+        "children": [],
+        "class": "cn-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto",
+        "component": "separator",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-horizontal",
+            "data-vertical"
+          ]
+        },
+        "render_as": null,
+        "slot": "button-group-separator",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ButtonGroupText",
+      "name": "button_group_text",
+      "params": {
+        "className": null,
+        "render": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "button-group-text",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-button-group-separator": "bg-input",
+      "cn-button-group-text": "bg-muted gap-2 rounded-4xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "lyra": {
+      "cn-button-group-separator": "bg-input",
+      "cn-button-group-text": "bg-muted gap-2 rounded-none border px-2.5 text-xs font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "maia": {
+      "cn-button-group-separator": "bg-input",
+      "cn-button-group-text": "bg-muted gap-2 rounded-4xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "mira": {
+      "cn-button-group-separator": "bg-input",
+      "cn-button-group-text": "bg-muted gap-2 rounded-md border px-2.5 text-xs/relaxed font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "nova": {
+      "cn-button-group-separator": "bg-input",
+      "cn-button-group-text": "bg-muted gap-2 rounded-lg border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "rhea": {
+      "cn-button-group-separator": "bg-input",
+      "cn-button-group-text": "bg-muted gap-2 rounded-2xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "sera": {
+      "cn-button-group-separator": "bg-input",
+      "cn-button-group-text": "gap-2 border border-transparent border-b-input bg-transparent px-2.5 text-xs font-semibold [&_svg:not([class*='size-'])]:size-3.5 group-has-[>[data-variant=outline]]/button-group:border-border uppercase"
+    },
+    "vega": {
+      "cn-button-group-separator": "bg-input",
+      "cn-button-group-text": "bg-muted gap-2 rounded-md border px-2.5 text-sm font-medium shadow-xs [&_svg:not([class*='size-'])]:size-4"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/button-group.tsx",
+      "sha256": "477d5a41df71387495797b0a643adf77e678df6dc410e90d6b7446ade9566b92"
+    }
+  },
+  "variants": {
+    "buttonGroupVariants": {
+      "base": "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+      "defaults": {
+        "orientation": "horizontal"
+      },
+      "variants": {
+        "orientation": {
+          "horizontal": "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
+          "vertical": "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0"
+        }
+      }
+    }
+  }
+}

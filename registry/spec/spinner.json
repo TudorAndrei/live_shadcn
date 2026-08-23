@@ -1,0 +1,87 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "spinner",
+  "parts": [
+    {
+      "export": "Spinner",
+      "name": "spinner",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "lucide",
+            "value": "Loader2Icon"
+          },
+          {
+            "kind": "text",
+            "name": "tabler",
+            "value": "IconLoader"
+          },
+          {
+            "kind": "text",
+            "name": "hugeicons",
+            "value": "Loading03Icon"
+          },
+          {
+            "kind": "text",
+            "name": "phosphor",
+            "value": "SpinnerIcon"
+          },
+          {
+            "kind": "text",
+            "name": "remixicon",
+            "value": "RiLoaderLine"
+          },
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "status"
+          },
+          {
+            "kind": "text",
+            "name": "aria-label",
+            "value": "Loading"
+          }
+        ],
+        "children": [],
+        "class": "size-4 animate-spin",
+        "icons": {
+          "hugeicons": "Loading03Icon",
+          "lucide": "Loader2Icon",
+          "phosphor": "SpinnerIcon",
+          "remixicon": "RiLoaderLine",
+          "tabler": "IconLoader"
+        },
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "spinner",
+        "type": "icon",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/spinner.tsx",
+      "sha256": "2200e06760fe9f9eb78bcc57f38ed1d4fdf7eb9e8228b33ec0abaf5e55170742"
+    }
+  },
+  "variants": {}
+}

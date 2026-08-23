@@ -1,0 +1,244 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "message",
+  "parts": [
+    {
+      "export": "MessageGroup",
+      "name": "message_group",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-message-group flex min-w-0 flex-col",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "message-group",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "Message",
+      "name": "message",
+      "params": {
+        "align": "start",
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-align",
+            "value": "align"
+          }
+        ],
+        "children": [],
+        "class": "cn-message group/message relative flex w-full min-w-0 data-[align=end]:flex-row-reverse",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "message",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageAvatar",
+      "name": "message_avatar",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-message-avatar flex w-fit shrink-0 items-center justify-center self-end overflow-hidden rounded-full bg-muted",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "message-avatar",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageContent",
+      "name": "message_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-message-content flex w-full min-w-0 flex-col wrap-break-word",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-slot"
+          ]
+        },
+        "render_as": null,
+        "slot": "message-content",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageFooter",
+      "name": "message_footer",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-message-footer flex max-w-full min-w-0 items-center group-data-[align=end]/message:justify-end",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "message-footer",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageHeader",
+      "name": "message_header",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-message-header flex max-w-full min-w-0 items-center",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "message-header",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-message": "text-sm gap-2",
+      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
+      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
+      "cn-message-footer": "text-xs font-medium text-muted-foreground px-3.5 group-has-data-[variant=ghost]/message:px-0",
+      "cn-message-group": "gap-2",
+      "cn-message-header": "text-xs font-medium text-muted-foreground px-3.5 group-has-data-[variant=ghost]/message:px-0"
+    },
+    "lyra": {
+      "cn-message": "text-xs gap-1.5",
+      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
+      "cn-message-content": "gap-2 group-data-[align=end]/message:*:data-slot:self-end",
+      "cn-message-footer": "text-xs font-medium text-muted-foreground px-2.5 group-has-data-[variant=ghost]/message:px-0",
+      "cn-message-group": "gap-1.5",
+      "cn-message-header": "text-xs font-medium text-muted-foreground px-2.5 group-has-data-[variant=ghost]/message:px-0"
+    },
+    "maia": {
+      "cn-message": "text-sm gap-2",
+      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
+      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
+      "cn-message-footer": "text-xs font-medium text-muted-foreground px-3.5 group-has-data-[variant=ghost]/message:px-0",
+      "cn-message-group": "gap-2",
+      "cn-message-header": "text-xs font-medium text-muted-foreground px-3.5 group-has-data-[variant=ghost]/message:px-0"
+    },
+    "mira": {
+      "cn-message": "text-xs/relaxed gap-1.5",
+      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
+      "cn-message-content": "gap-2 group-data-[align=end]/message:*:data-slot:self-end",
+      "cn-message-footer": "text-[0.625rem] font-medium text-muted-foreground px-2.5 group-has-data-[variant=ghost]/message:px-0",
+      "cn-message-group": "gap-1.5",
+      "cn-message-header": "text-[0.625rem] font-medium text-muted-foreground px-2.5 group-has-data-[variant=ghost]/message:px-0"
+    },
+    "nova": {
+      "cn-message": "text-sm gap-2",
+      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
+      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
+      "cn-message-footer": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0",
+      "cn-message-group": "gap-2",
+      "cn-message-header": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0"
+    },
+    "rhea": {
+      "cn-message": "text-sm gap-2",
+      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
+      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
+      "cn-message-footer": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0",
+      "cn-message-group": "gap-2",
+      "cn-message-header": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0"
+    },
+    "sera": {
+      "cn-message": "text-sm gap-2",
+      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
+      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
+      "cn-message-footer": "text-xs font-medium text-muted-foreground px-4 group-has-data-[variant=ghost]/message:px-0 uppercase tracking-wide",
+      "cn-message-group": "gap-2",
+      "cn-message-header": "text-xs font-medium text-muted-foreground px-4 group-has-data-[variant=ghost]/message:px-0 uppercase tracking-wide"
+    },
+    "vega": {
+      "cn-message": "text-sm gap-2",
+      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
+      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
+      "cn-message-footer": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0",
+      "cn-message-group": "gap-2",
+      "cn-message-header": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/message.tsx",
+      "sha256": "197803d433247e93f9b457f66e2c2e94c3bd30280e3079ff342753bba430edc8"
+    }
+  },
+  "variants": {}
+}

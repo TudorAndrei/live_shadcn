@@ -1,0 +1,633 @@
+{
+  "anatomy": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [],
+                  "part": "Trigger"
+                }
+              ],
+              "part": "Header"
+            },
+            {
+              "children": [],
+              "part": "Panel"
+            }
+          ],
+          "part": "Item"
+        }
+      ],
+      "part": "Root"
+    }
+  ],
+  "css_vars": [
+    "--accordion-panel-height",
+    "--accordion-panel-width"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "accordion",
+  "parts": [
+    {
+      "export": "Accordion",
+      "name": "accordion",
+      "params": {
+        "className": null
+      },
+      "primitive": "Root",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-accordion flex w-full flex-col",
+        "merges_class": true,
+        "module": "accordion",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "accordion",
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AccordionItem",
+      "name": "accordion_item",
+      "params": {
+        "className": null
+      },
+      "primitive": "Item",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-accordion-item",
+        "merges_class": true,
+        "module": "accordion",
+        "part": "Item",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-open"
+          ]
+        },
+        "render_as": null,
+        "slot": "accordion-item",
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AccordionTrigger",
+      "name": "accordion_trigger",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": "Trigger",
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              },
+              {
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "lucide",
+                    "value": "ChevronDownIcon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "tabler",
+                    "value": "IconChevronDown"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "hugeicons",
+                    "value": "ArrowDown01Icon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "phosphor",
+                    "value": "CaretDownIcon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "remixicon",
+                    "value": "RiArrowDownSLine"
+                  }
+                ],
+                "children": [],
+                "class": "cn-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden",
+                "icons": {
+                  "hugeicons": "ArrowDown01Icon",
+                  "lucide": "ChevronDownIcon",
+                  "phosphor": "CaretDownIcon",
+                  "remixicon": "RiArrowDownSLine",
+                  "tabler": "IconChevronDown"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [
+                    {
+                      "attr": "aria-expanded",
+                      "group": "accordion-trigger"
+                    }
+                  ],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "accordion-trigger-icon",
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "lucide",
+                    "value": "ChevronUpIcon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "tabler",
+                    "value": "IconChevronUp"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "hugeicons",
+                    "value": "ArrowUp01Icon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "phosphor",
+                    "value": "CaretUpIcon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "remixicon",
+                    "value": "RiArrowUpSLine"
+                  }
+                ],
+                "children": [],
+                "class": "cn-accordion-trigger-icon pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline",
+                "icons": {
+                  "hugeicons": "ArrowUp01Icon",
+                  "lucide": "ChevronUpIcon",
+                  "phosphor": "CaretUpIcon",
+                  "remixicon": "RiArrowUpSLine",
+                  "tabler": "IconChevronUp"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [
+                    {
+                      "attr": "aria-expanded",
+                      "group": "accordion-trigger"
+                    }
+                  ],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "accordion-trigger-icon",
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "cn-accordion-trigger group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50",
+            "merges_class": true,
+            "module": "accordion",
+            "part": "Trigger",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": [
+                "aria-disabled"
+              ]
+            },
+            "render_as": null,
+            "slot": "accordion-trigger",
+            "tag": "button",
+            "type": "primitive",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "flex",
+        "merges_class": false,
+        "module": "accordion",
+        "part": "Header",
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "h3",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AccordionContent",
+      "name": "accordion_content",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": "Panel",
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "cn-accordion-content-inner h-(--accordion-panel-height) data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
+            "merges_class": true,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": [
+                "data-ending-style",
+                "data-starting-style"
+              ]
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": [
+              "--accordion-panel-height"
+            ]
+          }
+        ],
+        "class": "cn-accordion-content overflow-hidden",
+        "merges_class": false,
+        "module": "accordion",
+        "part": "Panel",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-open",
+            "data-closed"
+          ]
+        },
+        "render_as": null,
+        "slot": "accordion-content",
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "accordion.Header": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-disabled",
+        "data-index"
+      ],
+      "element": "h3",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Accordion.Header.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Accordion.Header.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Accordion.Header.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A heading that labels the corresponding panel."
+    },
+    "accordion.Item": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-disabled",
+        "data-index"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "A unique value that identifies this accordion item. If no value is provided, a unique ID will be generated automatically. Use when controlling the accordion programmatically, or to set an initial open state.",
+          "name": "value",
+          "type": "any"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called when the panel is opened or closed.",
+          "name": "onOpenChange",
+          "type": "((open: boolean, eventDetails: Accordion.Item.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Accordion.Item.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Accordion.Item.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Accordion.Item.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Groups an accordion header with the corresponding panel."
+    },
+    "accordion.Panel": {
+      "css_vars": [
+        "--accordion-panel-height",
+        "--accordion-panel-width"
+      ],
+      "data": [
+        "data-open",
+        "data-orientation",
+        "data-disabled",
+        "data-index",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
+          "name": "hiddenUntilFound",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Accordion.Panel.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Accordion.Panel.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the element in the DOM while the panel is closed. This prop is ignored when `hiddenUntilFound` is used.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: Accordion.Panel.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A collapsible panel with the accordion item contents."
+    },
+    "accordion.Root": {
+      "css_vars": [],
+      "data": [
+        "data-orientation",
+        "data-disabled"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "The uncontrolled value of the item(s) that should be initially expanded. To render a controlled accordion, use the `value` prop instead.",
+          "name": "defaultValue",
+          "type": "Value[]"
+        },
+        {
+          "default": null,
+          "doc": "The controlled value of the item(s) that should be expanded. To render an uncontrolled accordion, use the `defaultValue` prop instead.",
+          "name": "value",
+          "type": "Value[]"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called when an accordion item is expanded or collapsed. Provides the new value as an argument.",
+          "name": "onValueChange",
+          "type": "((value: Value[], eventDetails: Accordion.Root.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "false",
+          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
+          "name": "hiddenUntilFound",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Deprecated following the [APG guidance update](https://github.com/w3c/aria-practices/pull/3434) to remove roving focus. This prop no longer affects keyboard focus behavior.",
+          "name": "loopFocus",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "Whether multiple items can be open at the same time.",
+          "name": "multiple",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "'vertical'",
+          "doc": "Deprecated following the [APG guidance update](https://github.com/w3c/aria-practices/pull/3434) to remove roving focus. This prop no longer affects keyboard focus behavior.",
+          "name": "orientation",
+          "type": "Orientation"
+        },
+        {
+          "default": "((state: Accordion.Root.State<Value>) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Accordion.Root.State<Value>) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the element in the DOM while the panel is closed. This prop is ignored when `hiddenUntilFound` is used.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: Accordion.Root.State<Value>) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Groups all parts of the accordion."
+    },
+    "accordion.Trigger": {
+      "css_vars": [],
+      "data": [
+        "data-panel-open",
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Accordion.Trigger.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Accordion.Trigger.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Accordion.Trigger.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button that opens and closes the corresponding panel."
+    }
+  },
+  "recipe": "disclosure",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-accordion": "overflow-hidden rounded-2xl border",
+      "cn-accordion-content": "data-open:animate-accordion-down data-closed:animate-accordion-up px-4 text-sm",
+      "cn-accordion-content-inner": "pt-0 pb-4",
+      "cn-accordion-item": "data-open:bg-muted/50 not-last:border-b",
+      "cn-accordion-trigger": "**:data-[slot=accordion-trigger-icon]:text-muted-foreground gap-6 p-4 text-left text-sm font-medium hover:underline **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4"
+    },
+    "lyra": {
+      "cn-accordion-content": "data-open:animate-accordion-down data-closed:animate-accordion-up text-xs",
+      "cn-accordion-content-inner": "pt-0 pb-2.5",
+      "cn-accordion-item": "not-last:border-b",
+      "cn-accordion-trigger": "focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground rounded-none py-2.5 text-left text-xs font-medium hover:underline focus-visible:ring-1 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4"
+    },
+    "maia": {
+      "cn-accordion": "overflow-hidden rounded-2xl border",
+      "cn-accordion-content": "data-open:animate-accordion-down data-closed:animate-accordion-up px-4 text-sm",
+      "cn-accordion-content-inner": "pt-0 pb-4",
+      "cn-accordion-item": "data-open:bg-muted/50 not-last:border-b",
+      "cn-accordion-trigger": "**:data-[slot=accordion-trigger-icon]:text-muted-foreground gap-6 p-4 text-left text-sm font-medium hover:underline **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4"
+    },
+    "mira": {
+      "cn-accordion": "overflow-hidden rounded-md border",
+      "cn-accordion-content": "data-open:animate-accordion-down data-closed:animate-accordion-up px-2 text-xs/relaxed",
+      "cn-accordion-content-inner": "pt-0 pb-4",
+      "cn-accordion-item": "data-open:bg-muted/50 not-last:border-b",
+      "cn-accordion-trigger": "**:data-[slot=accordion-trigger-icon]:text-muted-foreground gap-6 p-2 text-left text-xs/relaxed font-medium hover:underline **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4"
+    },
+    "nova": {
+      "cn-accordion-content": "data-open:animate-accordion-down data-closed:animate-accordion-up text-sm",
+      "cn-accordion-content-inner": "pt-0 pb-2.5",
+      "cn-accordion-item": "not-last:border-b",
+      "cn-accordion-trigger": "focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground rounded-lg py-2.5 text-left text-sm font-medium hover:underline focus-visible:ring-3 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4"
+    },
+    "rhea": {
+      "cn-accordion": "overflow-hidden rounded-2xl border",
+      "cn-accordion-content": "data-open:animate-accordion-down data-closed:animate-accordion-up px-4 text-sm",
+      "cn-accordion-content-inner": "pt-0 pb-4",
+      "cn-accordion-item": "data-open:bg-muted/50 not-last:border-b",
+      "cn-accordion-trigger": "**:data-[slot=accordion-trigger-icon]:text-muted-foreground gap-6 p-4 text-left text-sm font-medium hover:underline **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4"
+    },
+    "sera": {
+      "cn-accordion-content": "data-open:animate-accordion-down data-closed:animate-accordion-up text-sm",
+      "cn-accordion-content-inner": "pt-0 pb-4",
+      "cn-accordion-item": "not-last:border-b",
+      "cn-accordion-trigger": "focus-visible:ring-ring/30 focus-visible:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground rounded-none gap-6 py-4 text-left text-sm font-semibold hover:underline focus-visible:ring-2 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-3.5"
+    },
+    "vega": {
+      "cn-accordion-content": "data-open:animate-accordion-down data-closed:animate-accordion-up text-sm",
+      "cn-accordion-content-inner": "pt-0 pb-4",
+      "cn-accordion-item": "not-last:border-b",
+      "cn-accordion-trigger": "focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground rounded-md py-4 text-left text-sm font-medium hover:underline focus-visible:ring-3 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4"
+    }
+  },
+  "upstream": {
+    "base_ui": {
+      "accordion": "e3e22cc82ffe5b0d2c5662fbbc5950a26d414a2f05e0b0cb0b006a7f379d0971"
+    },
+    "shadcn": {
+      "file": "shadcn/ui/accordion.tsx",
+      "sha256": "3fbd0fd128f90598e5387f55646f66fff0775ba95bc152a7252ddb24a601be5c"
+    }
+  },
+  "variants": {}
+}

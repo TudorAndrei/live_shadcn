@@ -1,0 +1,21 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "sonner",
+  "parts": [],
+  "primitives": {},
+  "recipe": "toast",
+  "source": "shadcn",
+  "styles": {},
+  "upstream": {
+    "base_ui": {
+      "sonner": "bf6873fe9a954a20bc88c37178afc092438ff5d3b0c12847f7590466a99a2761"
+    },
+    "shadcn": {
+      "file": "shadcn/ui/sonner.tsx",
+      "sha256": "d5178ce4c7834d3f46d261698395b498b8f45fef29975585df7e26cb43aa3cc7"
+    }
+  },
+  "variants": {}
+}

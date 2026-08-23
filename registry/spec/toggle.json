@@ -1,0 +1,146 @@
+{
+  "anatomy": [
+    {
+      "children": [],
+      "part": "Toggle"
+    }
+  ],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "toggle",
+  "parts": [
+    {
+      "export": "Toggle",
+      "name": "toggle",
+      "params": {
+        "className": null,
+        "size": "default",
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "merges_class": true,
+        "module": "toggle",
+        "part": "Toggle",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "aria-pressed",
+            "aria-invalid"
+          ]
+        },
+        "render_as": null,
+        "slot": "toggle",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": "toggleVariants",
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "toggle.Toggle": {
+      "css_vars": [],
+      "data": [
+        "data-pressed",
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "A unique string that identifies the toggle when used inside a toggle group.",
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the toggle button is currently pressed. This is the uncontrolled counterpart of `pressed`.",
+          "name": "defaultPressed",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the toggle button is currently pressed. This is the controlled counterpart of `defaultPressed`.",
+          "name": "pressed",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Callback fired when the pressed state is changed.",
+          "name": "onPressedChange",
+          "type": "((pressed: boolean, eventDetails: Toggle.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Toggle.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Toggle.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Toggle.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A two-state button that can be on or off."
+    }
+  },
+  "recipe": "form-control",
+  "source": "shadcn",
+  "styles": {},
+  "upstream": {
+    "base_ui": {
+      "toggle": "a95df4178538ac35f3d51b5586ed7cccb980d2a15de01b6a9e6d37db9894ad7e"
+    },
+    "shadcn": {
+      "file": "shadcn/ui/toggle.tsx",
+      "sha256": "3ebc898aff16f6c119158abaae18fd749789ccded65c678fdc15994fd403b006"
+    }
+  },
+  "variants": {
+    "toggleVariants": {
+      "base": "cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-toggle-size-default",
+          "lg": "cn-toggle-size-lg",
+          "sm": "cn-toggle-size-sm"
+        },
+        "variant": {
+          "default": "cn-toggle-variant-default",
+          "outline": "cn-toggle-variant-outline"
+        }
+      }
+    }
+  }
+}

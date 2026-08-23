@@ -1,0 +1,832 @@
+{
+  "anatomy": [
+    {
+      "children": [
+        {
+          "children": [],
+          "part": "Label"
+        },
+        {
+          "children": [],
+          "part": "Control"
+        },
+        {
+          "children": [],
+          "part": "Description"
+        },
+        {
+          "children": [],
+          "part": "Item"
+        },
+        {
+          "children": [],
+          "part": "Error"
+        },
+        {
+          "children": [],
+          "part": "Validity"
+        }
+      ],
+      "part": "Root"
+    }
+  ],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "field",
+  "parts": [
+    {
+      "export": "Field",
+      "name": "field",
+      "params": {
+        "className": null,
+        "orientation": "vertical"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "group"
+          },
+          {
+            "kind": "code",
+            "name": "data-orientation",
+            "value": "orientation"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "field",
+        "tag": "div",
+        "type": "element",
+        "variant_class": "fieldVariants",
+        "vars": []
+      }
+    },
+    {
+      "export": "FieldLabel",
+      "name": "field_label",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-field-label group/field-label peer/field-label flex w-fit has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col",
+        "component": "label",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "field-label",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "FieldDescription",
+      "name": "field_description",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-field-description leading-normal font-normal group-has-data-horizontal/field:text-balance last:mt-0 nth-last-2:-mt-1 [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "field-description",
+        "tag": "p",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "FieldError",
+      "name": "field_error",
+      "params": {
+        "children": null,
+        "className": null,
+        "errors": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "children": [
+              {
+                "attrs": [
+                  {
+                    "kind": "code",
+                    "name": "key",
+                    "value": "index"
+                  }
+                ],
+                "children": [
+                  {
+                    "code": "error.message",
+                    "type": "value"
+                  }
+                ],
+                "class": "",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "li",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "optional",
+            "when": "uniqueErrors.map(\n          (error, index) =>\n            error?.message"
+          }
+        ],
+        "class": "ml-4 flex list-disc flex-col gap-1",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "ul",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "FieldGroup",
+      "name": "field_group",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-field-group group/field-group @container/field-group flex w-full flex-col",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "field-group",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "FieldLegend",
+      "name": "field_legend",
+      "params": {
+        "className": null,
+        "variant": "legend"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
+        "children": [],
+        "class": "cn-field-legend",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "field-legend",
+        "tag": "legend",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "FieldSeparator",
+      "name": "field_separator",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-content",
+            "value": "!!children"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "absolute inset-0 top-1/2",
+            "component": "separator",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "component_ref",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "children"
+                  }
+                ],
+                "class": "cn-field-separator-content relative mx-auto block w-fit bg-background",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "field-separator-content",
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "optional",
+            "when": "children"
+          }
+        ],
+        "class": "cn-field-separator relative",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "field-separator",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "FieldSet",
+      "name": "field_set",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-field-set flex flex-col",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "field-set",
+        "tag": "fieldset",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "FieldContent",
+      "name": "field_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-field-content group/field-content flex flex-1 flex-col leading-snug",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "field-content",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "FieldTitle",
+      "name": "field_title",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-field-title flex w-fit items-center",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "field-label",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "field.Control": {
+      "css_vars": [],
+      "data": [
+        "data-disabled",
+        "data-valid",
+        "data-invalid",
+        "data-dirty",
+        "data-touched",
+        "data-filled",
+        "data-focused"
+      ],
+      "element": "input",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "number \\",
+          "doc": "string[]",
+          "name": "defaultValue",
+          "type": "string \\"
+        },
+        {
+          "default": null,
+          "doc": "Callback fired when the `value` changes. Use when controlled.",
+          "name": "onValueChange",
+          "type": "((value: string, eventDetails: Field.Control.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "((state: Field.Control.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Field.Control.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Field.Control.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "The form control to label and validate."
+    },
+    "field.Description": {
+      "css_vars": [],
+      "data": [
+        "data-disabled",
+        "data-valid",
+        "data-invalid",
+        "data-dirty",
+        "data-touched",
+        "data-filled",
+        "data-focused"
+      ],
+      "element": "p",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Field.Description.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Field.Description.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Field.Description.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A paragraph with additional information about the field."
+    },
+    "field.Error": {
+      "css_vars": [],
+      "data": [
+        "data-disabled",
+        "data-valid",
+        "data-invalid",
+        "data-dirty",
+        "data-touched",
+        "data-filled",
+        "data-focused",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "'valid' \\",
+          "doc": "'badInput' \\",
+          "name": "match",
+          "type": "boolean \\"
+        },
+        {
+          "default": "((state: Field.Error.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Field.Error.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Field.Error.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "An error message displayed if the field control fails validation."
+    },
+    "field.Item": {
+      "css_vars": [],
+      "data": [
+        "data-disabled",
+        "data-valid",
+        "data-invalid",
+        "data-dirty",
+        "data-touched",
+        "data-filled",
+        "data-focused"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the wrapped control should ignore user interaction. The `disabled` prop on `<Field.Root>` takes precedence over this.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Field.Item.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Field.Item.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Field.Item.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Groups individual items in a checkbox group or radio group with a label and description."
+    },
+    "field.Label": {
+      "css_vars": [],
+      "data": [
+        "data-disabled",
+        "data-valid",
+        "data-invalid",
+        "data-dirty",
+        "data-touched",
+        "data-filled",
+        "data-focused"
+      ],
+      "element": "label",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<label>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a label (for example, `<div>`). This is useful to avoid inheriting label behaviors on `<button>` controls (such as `<Select.Trigger>` and `<Combobox.Trigger>`), including avoiding `:hover` on the button when hovering the label, and preventing clicks on the label from firing on the button.",
+          "name": "nativeLabel",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Field.Label.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Field.Label.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Field.Label.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "An accessible label that is automatically associated with the field control."
+    },
+    "field.Root": {
+      "css_vars": [],
+      "data": [
+        "data-disabled",
+        "data-valid",
+        "data-invalid",
+        "data-dirty",
+        "data-touched",
+        "data-filled",
+        "data-focused"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "Identifies the field when a form is submitted. Takes precedence over the `name` prop on the `<Field.Control>` component.",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "default": "null>",
+          "doc": "-",
+          "name": "actionsRef",
+          "type": "React.RefObject<Field.Root.Actions \\"
+        },
+        {
+          "default": null,
+          "doc": "Whether the field's value has been changed from its initial value. Useful when the field state is controlled by an external library.",
+          "name": "dirty",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the field has been touched. Useful when the field state is controlled by an external library.",
+          "name": "touched",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component should ignore user interaction. Takes precedence over the `disabled` prop on the `<Field.Control>` component.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the field is invalid. Useful when the field state is controlled by an external library.",
+          "name": "invalid",
+          "type": "boolean"
+        },
+        {
+          "default": "string[] \\",
+          "doc": "Promise<string \\",
+          "name": "validate",
+          "type": "((value: unknown, formValues: Form.Values) => string \\"
+        },
+        {
+          "default": "'onSubmit'",
+          "doc": "Determines when the field should be validated. This takes precedence over the `validationMode` prop on `<Form>`. `onSubmit`: triggers validation when the form is submitted, and re-validates on change after submission.`onBlur`: triggers validation when the control loses focus.`onChange`: triggers validation on every change to the control value.",
+          "name": "validationMode",
+          "type": "Form.ValidationMode"
+        },
+        {
+          "default": "0",
+          "doc": "How long to wait between `validate` callbacks if `validationMode=\"onChange\"` is used. Specified in milliseconds.",
+          "name": "validationDebounceTime",
+          "type": "number"
+        },
+        {
+          "default": "((state: Field.Root.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Field.Root.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Field.Root.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Groups all parts of the field."
+    },
+    "field.Validity": {
+      "css_vars": [],
+      "data": [],
+      "element": null,
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "A function that accepts the field validity state as an argument.",
+          "name": "children\\*",
+          "type": "((state: Field.Validity.State) => React.ReactNode)"
+        }
+      ],
+      "renders": false,
+      "summary": "Used to display a custom message based on the field's validity."
+    }
+  },
+  "recipe": "form-control",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-field-content": "gap-1",
+      "cn-field-description": "text-muted-foreground text-left text-sm [[data-variant=legend]+&]:-mt-1.5",
+      "cn-field-group": "gap-7 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
+      "cn-field-label": "has-data-checked:bg-input/30 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-2xl has-[>[data-slot=field]]:border has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-input/40 has-[>[data-slot=field]]:has-[:focus-visible]:border-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/50 has-[>[data-slot=field]]:has-[:focus-visible]:ring-3 *:data-[slot=field]:p-4",
+      "cn-field-legend": "mb-3 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base",
+      "cn-field-separator": "-my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
+      "cn-field-separator-content": "text-muted-foreground px-2",
+      "cn-field-set": "gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
+      "cn-field-title": "gap-2 leading-snug text-sm font-medium group-data-[disabled=true]/field:opacity-50"
+    },
+    "lyra": {
+      "cn-field-content": "gap-0.5",
+      "cn-field-description": "text-muted-foreground text-left text-xs/relaxed [[data-variant=legend]+&]:-mt-1.5",
+      "cn-field-group": "gap-5 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
+      "cn-field-label": "has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-none has-[>[data-slot=field]]:border has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-muted/50 has-[>[data-slot=field]]:has-[:focus-visible]:border-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/50 has-[>[data-slot=field]]:has-[:focus-visible]:ring-1 *:data-[slot=field]:p-2",
+      "cn-field-legend": "mb-2.5 font-medium data-[variant=label]:text-xs data-[variant=legend]:text-sm",
+      "cn-field-separator": "-my-2 h-5 text-xs group-data-[variant=outline]/field-group:-mb-2",
+      "cn-field-separator-content": "text-muted-foreground px-2",
+      "cn-field-set": "gap-4 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
+      "cn-field-title": "gap-2 text-xs/relaxed group-data-[disabled=true]/field:opacity-50"
+    },
+    "maia": {
+      "cn-field-content": "gap-1",
+      "cn-field-description": "text-muted-foreground text-left text-sm [[data-variant=legend]+&]:-mt-1.5",
+      "cn-field-group": "gap-7 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
+      "cn-field-label": "has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-xl has-[>[data-slot=field]]:border has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-input/40 has-[>[data-slot=field]]:has-[:focus-visible]:border-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/50 has-[>[data-slot=field]]:has-[:focus-visible]:ring-[3px] *:data-[slot=field]:p-4",
+      "cn-field-legend": "mb-3 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base",
+      "cn-field-separator": "-my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
+      "cn-field-separator-content": "text-muted-foreground px-2",
+      "cn-field-set": "gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
+      "cn-field-title": "gap-2 leading-snug text-sm font-medium group-data-[disabled=true]/field:opacity-50"
+    },
+    "mira": {
+      "cn-field-content": "gap-0.5",
+      "cn-field-description": "text-muted-foreground text-left text-xs/relaxed [[data-variant=legend]+&]:-mt-1.5",
+      "cn-field-group": "gap-4 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
+      "cn-field-label": "has-data-checked:bg-primary/5 dark:has-data-checked:bg-primary/10 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-input/40 has-[>[data-slot=field]]:has-[:focus-visible]:border-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/30 has-[>[data-slot=field]]:has-[:focus-visible]:ring-2 *:data-[slot=field]:p-2",
+      "cn-field-legend": "mb-2 font-medium data-[variant=label]:text-xs/relaxed data-[variant=legend]:text-sm",
+      "cn-field-separator": "-my-2 h-5 text-xs/relaxed group-data-[variant=outline]/field-group:-mb-2",
+      "cn-field-separator-content": "text-muted-foreground px-2",
+      "cn-field-set": "gap-4 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
+      "cn-field-title": "gap-2 text-xs/relaxed font-medium group-data-[disabled=true]/field:opacity-50"
+    },
+    "nova": {
+      "cn-field-content": "gap-0.5",
+      "cn-field-description": "text-muted-foreground text-left text-sm [[data-variant=legend]+&]:-mt-1.5",
+      "cn-field-group": "gap-5 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
+      "cn-field-label": "has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-lg has-[>[data-slot=field]]:border has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-muted/50 has-[>[data-slot=field]]:has-[:focus-visible]:border-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/50 has-[>[data-slot=field]]:has-[:focus-visible]:ring-3 *:data-[slot=field]:p-2.5",
+      "cn-field-legend": "mb-1.5 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base",
+      "cn-field-separator": "-my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
+      "cn-field-separator-content": "text-muted-foreground px-2",
+      "cn-field-set": "gap-4 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
+      "cn-field-title": "gap-2 leading-snug text-sm font-medium group-data-[disabled=true]/field:opacity-50"
+    },
+    "rhea": {
+      "cn-field-content": "gap-1",
+      "cn-field-description": "text-muted-foreground text-left text-sm [[data-variant=legend]+&]:-mt-1.5",
+      "cn-field-group": "gap-6 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
+      "cn-field-label": "has-data-checked:bg-input/30 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-2xl has-[>[data-slot=field]]:border has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-input/40 has-[>[data-slot=field]]:has-[:focus-visible]:border-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/50 has-[>[data-slot=field]]:has-[:focus-visible]:ring-3 *:data-[slot=field]:p-4",
+      "cn-field-legend": "mb-3 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base",
+      "cn-field-separator": "-my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
+      "cn-field-separator-content": "text-muted-foreground px-2",
+      "cn-field-set": "gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
+      "cn-field-title": "gap-2 leading-snug text-sm font-medium group-data-[disabled=true]/field:opacity-50"
+    },
+    "sera": {
+      "cn-field-content": "gap-1",
+      "cn-field-description": "text-muted-foreground text-left text-sm [[data-variant=legend]+&]:-mt-1.5 normal-case tracking-normal",
+      "cn-field-group": "gap-10 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
+      "cn-field-label": "has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-none has-[>[data-slot=field]]:border has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-muted/50 has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/30 has-[>[data-slot=field]]:has-[:focus-visible]:ring-2 *:data-[slot=field]:p-4 leading-relaxed",
+      "cn-field-legend": "mb-3 font-semibold uppercase data-[variant=label]:text-xs data-[variant=legend]:text-xs",
+      "cn-field-separator": "-my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
+      "cn-field-separator-content": "text-muted-foreground px-2",
+      "cn-field-set": "gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
+      "cn-field-title": "gap-2 group-data-[disabled=true]/field:opacity-50 leading-normal font-semibold uppercase in-data-[slot=field-label]:font-semibold text-xs"
+    },
+    "vega": {
+      "cn-field-content": "gap-1",
+      "cn-field-description": "text-muted-foreground text-left text-sm [[data-variant=legend]+&]:-mt-1.5",
+      "cn-field-group": "gap-7 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
+      "cn-field-label": "has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-muted/50 has-[>[data-slot=field]]:has-[:focus-visible]:border-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/50 has-[>[data-slot=field]]:has-[:focus-visible]:ring-3 *:data-[slot=field]:p-3",
+      "cn-field-legend": "mb-3 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base",
+      "cn-field-separator": "-my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
+      "cn-field-separator-content": "text-muted-foreground px-2",
+      "cn-field-set": "gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
+      "cn-field-title": "gap-2 leading-snug text-sm font-medium group-data-[disabled=true]/field:opacity-50"
+    }
+  },
+  "upstream": {
+    "base_ui": {
+      "field": "592fd96a5b4a4175823e90ae6a8d4c0960d47b4516d6b411e8908ea8fcae5688"
+    },
+    "shadcn": {
+      "file": "shadcn/ui/field.tsx",
+      "sha256": "b965ae608453b047c11c71154df817764dbe5c5e38b5c6bb1a2c6a07c38edd68"
+    }
+  },
+  "variants": {
+    "fieldVariants": {
+      "base": "cn-field group/field flex w-full",
+      "defaults": {
+        "orientation": "vertical"
+      },
+      "variants": {
+        "orientation": {
+          "horizontal": "cn-field-orientation-horizontal flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+          "responsive": "cn-field-orientation-responsive flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+          "vertical": "cn-field-orientation-vertical flex-col *:w-full [&>.sr-only]:w-auto"
+        }
+      }
+    }
+  }
+}

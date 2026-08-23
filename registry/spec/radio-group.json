@@ -1,0 +1,376 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "radio-group",
+  "parts": [
+    {
+      "export": "RadioGroup",
+      "name": "radio_group",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-radio-group w-full",
+        "merges_class": true,
+        "module": "radio",
+        "part": "RadioGroup",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "radio-group",
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "RadioGroupItem",
+      "name": "radio_group_item",
+      "params": {
+        "className": null
+      },
+      "primitive": "Root",
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "cn-radio-group-indicator-icon",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "cn-radio-group-indicator",
+            "merges_class": false,
+            "module": "radio",
+            "part": "Indicator",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "radio-group-indicator",
+            "tag": "span",
+            "type": "primitive",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "cn-radio-group-item group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
+        "merges_class": true,
+        "module": "radio",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-checked",
+            "aria-invalid",
+            "aria-checked"
+          ]
+        },
+        "render_as": null,
+        "slot": "radio-group-item",
+        "tag": "span",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "radio.Indicator": {
+      "css_vars": [],
+      "data": [
+        "data-checked",
+        "data-unchecked",
+        "data-disabled",
+        "data-readonly",
+        "data-required",
+        "data-valid",
+        "data-invalid",
+        "data-dirty",
+        "data-touched",
+        "data-filled",
+        "data-focused",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "span",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Radio.Indicator.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Radio.Indicator.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the HTML element in the DOM when the radio button is inactive.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: Radio.Indicator.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Indicates whether the radio button is selected."
+    },
+    "radio.RadioGroup": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "Identifies the field when a form is submitted.",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "default": null,
+          "doc": "The uncontrolled value of the radio button that should be initially selected. To render a controlled radio group, use the `value` prop instead.",
+          "name": "defaultValue",
+          "type": "Value"
+        },
+        {
+          "default": null,
+          "doc": "The controlled value of the radio item that should be currently selected. To render an uncontrolled radio group, use the `defaultValue` prop instead.",
+          "name": "value",
+          "type": "Value"
+        },
+        {
+          "default": null,
+          "doc": "Callback fired when the value changes.",
+          "name": "onValueChange",
+          "type": "((value: Value, eventDetails: RadioGroup.ChangeEventDetails) => void)"
+        },
+        {
+          "default": null,
+          "doc": "Identifies the form that owns the radio inputs. Useful when the radio group is rendered outside the form.",
+          "name": "form",
+          "type": "string"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the user should be unable to select a different radio button in the group.",
+          "name": "readOnly",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the user must choose a value before submitting a form.",
+          "name": "required",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "A ref to access the hidden input element.",
+          "name": "inputRef",
+          "type": "React.Ref<HTMLInputElement>"
+        },
+        {
+          "default": "((state: RadioGroup.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: RadioGroup.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: RadioGroup.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Provides a shared state to a series of radio buttons."
+    },
+    "radio.Root": {
+      "css_vars": [],
+      "data": [
+        "data-checked",
+        "data-unchecked",
+        "data-disabled",
+        "data-readonly",
+        "data-required",
+        "data-valid",
+        "data-invalid",
+        "data-dirty",
+        "data-touched",
+        "data-filled",
+        "data-focused"
+      ],
+      "element": "span",
+      "hidden_input": true,
+      "props": [
+        {
+          "default": null,
+          "doc": "The unique identifying value of the radio in a group.",
+          "name": "value\\*",
+          "type": "Value"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the component should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the user should be unable to select the radio button.",
+          "name": "readOnly",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the user must choose a value before submitting a form.",
+          "name": "required",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "A ref to access the hidden input element.",
+          "name": "inputRef",
+          "type": "React.Ref<HTMLInputElement>"
+        },
+        {
+          "default": "((state: Radio.Root.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Radio.Root.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Radio.Root.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Represents the radio button itself."
+    }
+  },
+  "recipe": "form-control",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-radio-group": "grid gap-3",
+      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
+      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full dark:size-2.5",
+      "cn-radio-group-item": "bg-input/90 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary border-transparent aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full border focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent"
+    },
+    "lyra": {
+      "cn-radio-group": "grid gap-2",
+      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
+      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
+      "cn-radio-group-item": "border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-primary"
+    },
+    "maia": {
+      "cn-radio-group": "grid gap-3",
+      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
+      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
+      "cn-radio-group-item": "border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-primary"
+    },
+    "mira": {
+      "cn-radio-group": "grid gap-3",
+      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
+      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
+      "cn-radio-group-item": "border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-primary"
+    },
+    "nova": {
+      "cn-radio-group": "grid gap-2",
+      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
+      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
+      "cn-radio-group-item": "border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-primary"
+    },
+    "rhea": {
+      "cn-radio-group": "grid gap-3",
+      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
+      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full dark:size-2.5",
+      "cn-radio-group-item": "bg-input/90 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary border-transparent aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-2xl border focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent"
+    },
+    "sera": {
+      "cn-radio-group": "grid gap-3",
+      "cn-radio-group-indicator": "flex size-4.5 items-center justify-center",
+      "cn-radio-group-indicator-icon": "bg-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
+      "cn-radio-group-item": "border-input bg-transparent data-checked:border-foreground aria-invalid:aria-checked:border-foreground aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4.5 rounded-full border focus-visible:ring-2 aria-invalid:ring-2 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-foreground"
+    },
+    "vega": {
+      "cn-radio-group": "grid gap-3",
+      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
+      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
+      "cn-radio-group-item": "border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-primary"
+    }
+  },
+  "upstream": {
+    "base_ui": {
+      "radio": "abd2d336d02fa7c04608c5ae1d21a903a447350e35b362e9770ff02d01e70dfd"
+    },
+    "shadcn": {
+      "file": "shadcn/ui/radio-group.tsx",
+      "sha256": "0023e241c867f90fbd5ebe7e7c6aa9e5be3485557c3ccb396cba207a0ad7337a"
+    }
+  },
+  "variants": {}
+}

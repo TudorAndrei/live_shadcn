@@ -1,0 +1,356 @@
+{
+  "anatomy": [
+    {
+      "children": [
+        {
+          "children": [],
+          "part": "Image"
+        },
+        {
+          "children": [],
+          "part": "Fallback"
+        }
+      ],
+      "part": "Root"
+    }
+  ],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "avatar",
+  "parts": [
+    {
+      "export": "Avatar",
+      "name": "avatar",
+      "params": {
+        "className": null,
+        "size": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-size",
+            "value": "size"
+          }
+        ],
+        "children": [],
+        "class": "cn-avatar group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten",
+        "merges_class": true,
+        "module": "avatar",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "avatar",
+        "tag": "span",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AvatarImage",
+      "name": "avatar_image",
+      "params": {
+        "className": null
+      },
+      "primitive": "Image",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-avatar-image aspect-square size-full object-cover",
+        "merges_class": true,
+        "module": "avatar",
+        "part": "Image",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "avatar-image",
+        "tag": "img",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AvatarFallback",
+      "name": "avatar_fallback",
+      "params": {
+        "className": null
+      },
+      "primitive": "Fallback",
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-avatar-fallback flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs",
+        "merges_class": true,
+        "module": "avatar",
+        "part": "Fallback",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "avatar-fallback",
+        "tag": "span",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AvatarGroup",
+      "name": "avatar_group",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-avatar-group group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "avatar-group",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AvatarGroupCount",
+      "name": "avatar_group_count",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-avatar-group-count relative flex shrink-0 items-center justify-center ring-2 ring-background",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "avatar-group-count",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AvatarBadge",
+      "name": "avatar_badge",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "avatar-badge",
+        "tag": "span",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "avatar.Fallback": {
+      "css_vars": [],
+      "data": [],
+      "element": "span",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "0",
+          "doc": "How long to wait before showing the fallback. Specified in milliseconds.",
+          "name": "delay",
+          "type": "number"
+        },
+        {
+          "default": "((state: Avatar.Fallback.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Avatar.Fallback.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Avatar.Fallback.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Rendered when the image fails to load or when no image is provided."
+    },
+    "avatar.Image": {
+      "css_vars": [],
+      "data": [
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "img",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "Callback fired when the loading status changes.",
+          "name": "onLoadingStatusChange",
+          "type": "((status: ImageLoadingStatus) => void)"
+        },
+        {
+          "default": "((state: Avatar.Image.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Avatar.Image.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, state: Avatar.Image.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "The image to be displayed in the avatar."
+    },
+    "avatar.Root": {
+      "css_vars": [],
+      "data": [],
+      "element": "span",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Avatar.Root.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Avatar.Root.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Avatar.Root.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Displays a user's profile picture, initials, or fallback icon."
+    }
+  },
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
+      "cn-avatar-badge": "bg-primary text-primary-foreground ring-background",
+      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full",
+      "cn-avatar-group-count": "bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3",
+      "cn-avatar-image": "rounded-full"
+    },
+    "lyra": {
+      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
+      "cn-avatar-badge": "bg-primary text-primary-foreground ring-background",
+      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full",
+      "cn-avatar-group-count": "bg-muted text-muted-foreground size-8 rounded-full text-xs group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3",
+      "cn-avatar-image": "rounded-full"
+    },
+    "maia": {
+      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
+      "cn-avatar-badge": "bg-primary text-primary-foreground ring-background",
+      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full",
+      "cn-avatar-group-count": "bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3",
+      "cn-avatar-image": "rounded-full"
+    },
+    "mira": {
+      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
+      "cn-avatar-badge": "bg-primary text-primary-foreground ring-background",
+      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full",
+      "cn-avatar-group-count": "bg-muted text-muted-foreground size-8 rounded-full text-xs/relaxed group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3",
+      "cn-avatar-image": "rounded-full"
+    },
+    "nova": {
+      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
+      "cn-avatar-badge": "bg-primary text-primary-foreground ring-background",
+      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full",
+      "cn-avatar-group-count": "bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3",
+      "cn-avatar-image": "rounded-full"
+    },
+    "rhea": {
+      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
+      "cn-avatar-badge": "bg-primary text-primary-foreground ring-background",
+      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full",
+      "cn-avatar-group-count": "bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3",
+      "cn-avatar-image": "rounded-full"
+    },
+    "sera": {
+      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
+      "cn-avatar-badge": "bg-primary text-primary-foreground ring-background",
+      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full",
+      "cn-avatar-group-count": "bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3",
+      "cn-avatar-image": "rounded-full"
+    },
+    "vega": {
+      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
+      "cn-avatar-badge": "bg-primary text-primary-foreground ring-background",
+      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full",
+      "cn-avatar-group-count": "bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3",
+      "cn-avatar-image": "rounded-full"
+    }
+  },
+  "upstream": {
+    "base_ui": {
+      "avatar": "4843f408ba65889f1085b18348400472d5c27fbc491506bb29076d0809a1d22b"
+    },
+    "shadcn": {
+      "file": "shadcn/ui/avatar.tsx",
+      "sha256": "b159c0a5b7e9ba8a2462c6dddd11c6ab63bd44925203486551eae93250e474bb"
+    }
+  },
+  "variants": {}
+}

@@ -1,0 +1,410 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "item",
+  "parts": [
+    {
+      "export": "Item",
+      "name": "item",
+      "params": {
+        "className": null,
+        "render": null,
+        "size": "default",
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "item",
+        "tag": "div",
+        "type": "element",
+        "variant_class": "itemVariants",
+        "vars": []
+      }
+    },
+    {
+      "export": "ItemMedia",
+      "name": "item_media",
+      "params": {
+        "className": null,
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "item-media",
+        "tag": "div",
+        "type": "element",
+        "variant_class": "itemMediaVariants",
+        "vars": []
+      }
+    },
+    {
+      "export": "ItemContent",
+      "name": "item_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-item-content flex flex-1 flex-col [&+[data-slot=item-content]]:flex-none",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "item-content",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ItemActions",
+      "name": "item_actions",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-item-actions flex items-center",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "item-actions",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ItemGroup",
+      "name": "item_group",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "list"
+          }
+        ],
+        "children": [],
+        "class": "cn-item-group group/item-group flex w-full flex-col",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "item-group",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ItemSeparator",
+      "name": "item_separator",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "orientation",
+            "value": "horizontal"
+          }
+        ],
+        "children": [],
+        "class": "cn-item-separator",
+        "component": "separator",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "item-separator",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ItemTitle",
+      "name": "item_title",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-item-title line-clamp-1 flex w-fit items-center",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "item-title",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ItemDescription",
+      "name": "item_description",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-item-description line-clamp-2 font-normal [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "item-description",
+        "tag": "p",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ItemHeader",
+      "name": "item_header",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-item-header flex basis-full items-center justify-between",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "item-header",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ItemFooter",
+      "name": "item_footer",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-item-footer flex basis-full items-center justify-between",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "item-footer",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-item-actions": "gap-2",
+      "cn-item-content": "gap-1 group-data-[size=xs]/item:gap-0.5",
+      "cn-item-description": "text-muted-foreground text-left text-sm",
+      "cn-item-footer": "gap-2",
+      "cn-item-group": "gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2",
+      "cn-item-header": "gap-2",
+      "cn-item-separator": "my-2",
+      "cn-item-title": "gap-2 text-sm leading-snug font-medium underline-offset-4"
+    },
+    "lyra": {
+      "cn-item-actions": "gap-2",
+      "cn-item-content": "gap-1 group-data-[size=xs]/item:gap-0",
+      "cn-item-description": "text-muted-foreground text-left text-xs/relaxed group-data-[size=xs]/item:text-xs/relaxed",
+      "cn-item-footer": "gap-2",
+      "cn-item-group": "gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2",
+      "cn-item-header": "gap-2",
+      "cn-item-separator": "my-2",
+      "cn-item-title": "gap-2 text-xs font-medium underline-offset-4"
+    },
+    "maia": {
+      "cn-item-actions": "gap-2",
+      "cn-item-content": "gap-1 group-data-[size=xs]/item:gap-0.5",
+      "cn-item-description": "text-muted-foreground text-left text-sm",
+      "cn-item-footer": "gap-2",
+      "cn-item-group": "gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2",
+      "cn-item-header": "gap-2",
+      "cn-item-separator": "my-2",
+      "cn-item-title": "gap-2 text-sm leading-snug font-medium underline-offset-4"
+    },
+    "mira": {
+      "cn-item-actions": "gap-2",
+      "cn-item-content": "gap-1 group-data-[size=xs]/item:gap-0.5",
+      "cn-item-description": "text-muted-foreground text-left text-xs/relaxed",
+      "cn-item-footer": "gap-2",
+      "cn-item-group": "gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2",
+      "cn-item-header": "gap-2",
+      "cn-item-separator": "my-2",
+      "cn-item-title": "gap-2 text-xs/relaxed leading-snug font-medium underline-offset-4"
+    },
+    "nova": {
+      "cn-item-actions": "gap-2",
+      "cn-item-content": "gap-1 group-data-[size=xs]/item:gap-0",
+      "cn-item-description": "text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs",
+      "cn-item-footer": "gap-2",
+      "cn-item-group": "gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2",
+      "cn-item-header": "gap-2",
+      "cn-item-separator": "my-2",
+      "cn-item-title": "gap-2 text-sm leading-snug font-medium underline-offset-4"
+    },
+    "rhea": {
+      "cn-item-actions": "gap-2",
+      "cn-item-content": "gap-1 group-data-[size=xs]/item:gap-0.5",
+      "cn-item-description": "text-muted-foreground text-left text-sm",
+      "cn-item-footer": "gap-2",
+      "cn-item-group": "gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2",
+      "cn-item-header": "gap-2",
+      "cn-item-separator": "my-2",
+      "cn-item-title": "gap-2 text-sm leading-snug font-medium underline-offset-4"
+    },
+    "sera": {
+      "cn-item-actions": "gap-2",
+      "cn-item-content": "gap-1 group-data-[size=xs]/item:gap-0.5",
+      "cn-item-description": "text-muted-foreground text-left text-sm leading-relaxed",
+      "cn-item-footer": "gap-2",
+      "cn-item-group": "gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2",
+      "cn-item-header": "gap-2",
+      "cn-item-separator": "my-2",
+      "cn-item-title": "gap-2 text-xs leading-snug font-semibold uppercase underline-offset-4"
+    },
+    "vega": {
+      "cn-item-actions": "gap-2",
+      "cn-item-content": "gap-1 group-data-[size=xs]/item:gap-0",
+      "cn-item-description": "text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs",
+      "cn-item-footer": "gap-2",
+      "cn-item-group": "gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2",
+      "cn-item-header": "gap-2",
+      "cn-item-separator": "my-2",
+      "cn-item-title": "gap-2 text-sm leading-snug font-medium underline-offset-4"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/item.tsx",
+      "sha256": "901a5260fa629bdb88bb2b56b7addd3188ca24220c78028c97f6364e8272bd58"
+    }
+  },
+  "variants": {
+    "itemMediaVariants": {
+      "base": "cn-item-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none",
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": {
+        "variant": {
+          "default": "cn-item-media-variant-default",
+          "icon": "cn-item-media-variant-icon",
+          "image": "cn-item-media-variant-image"
+        }
+      }
+    },
+    "itemVariants": {
+      "base": "cn-item group/item flex w-full flex-wrap items-center transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-item-size-default",
+          "sm": "cn-item-size-sm",
+          "xs": "cn-item-size-xs"
+        },
+        "variant": {
+          "default": "cn-item-variant-default",
+          "muted": "cn-item-variant-muted",
+          "outline": "cn-item-variant-outline"
+        }
+      }
+    }
+  }
+}

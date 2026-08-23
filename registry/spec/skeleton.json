@@ -1,0 +1,70 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "skeleton",
+  "parts": [
+    {
+      "export": "Skeleton",
+      "name": "skeleton",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-skeleton animate-pulse",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "skeleton",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-skeleton": "bg-muted rounded-2xl"
+    },
+    "lyra": {
+      "cn-skeleton": "bg-muted rounded-none"
+    },
+    "maia": {
+      "cn-skeleton": "bg-muted rounded-xl"
+    },
+    "mira": {
+      "cn-skeleton": "bg-muted rounded-md"
+    },
+    "nova": {
+      "cn-skeleton": "bg-muted rounded-md"
+    },
+    "rhea": {
+      "cn-skeleton": "bg-muted rounded-2xl"
+    },
+    "sera": {
+      "cn-skeleton": "bg-muted"
+    },
+    "vega": {
+      "cn-skeleton": "bg-muted rounded-md"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/skeleton.tsx",
+      "sha256": "f813fbd2ec0eab4eee518fff9847943929ab3ef2de0aa1330913647311bfb095"
+    }
+  },
+  "variants": {}
+}
