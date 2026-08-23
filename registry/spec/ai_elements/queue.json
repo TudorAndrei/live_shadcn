@@ -152,25 +152,17 @@
       "export": "QueueItemAction",
       "name": "queue_item_action",
       "params": {
-        "className": null
+        "className": null,
+        "size": "default",
+        "variant": "default"
       },
       "primitive": null,
       "tree": {
         "attrs": [
           {
             "kind": "text",
-            "name": "size",
-            "value": "icon"
-          },
-          {
-            "kind": "text",
             "name": "type",
             "value": "button"
-          },
-          {
-            "kind": "text",
-            "name": "variant",
-            "value": "ghost"
           }
         ],
         "children": [],

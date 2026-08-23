@@ -12,6 +12,7 @@
     "--transform-origin"
   ],
   "folds": [
+    "shadcn/button",
     "shadcn/dropdown-menu"
   ],
   "generated_by": "mix ui.spec",
@@ -71,17 +72,15 @@
       "export": "OpenInContent",
       "name": "open_in_content",
       "params": {
-        "className": null
+        "align": "start",
+        "alignOffset": "0",
+        "className": null,
+        "side": "bottom",
+        "sideOffset": "4"
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "align",
-            "value": "start"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -173,7 +172,11 @@
     {
       "export": "OpenInItem",
       "name": "open_in_item",
-      "params": {},
+      "params": {
+        "className": null,
+        "inset": null,
+        "variant": "default"
+      },
       "primitive": null,
       "tree": {
         "attrs": [
@@ -212,7 +215,10 @@
     {
       "export": "OpenInLabel",
       "name": "open_in_label",
-      "params": {},
+      "params": {
+        "className": null,
+        "inset": null
+      },
       "primitive": null,
       "tree": {
         "attrs": [
@@ -245,7 +251,9 @@
     {
       "export": "OpenInSeparator",
       "name": "open_in_separator",
-      "params": {},
+      "params": {
+        "className": null
+      },
       "primitive": null,
       "tree": {
         "attrs": [],
@@ -271,7 +279,10 @@
       "export": "OpenInTrigger",
       "name": "open_in_trigger",
       "params": {
-        "children": null
+        "children": null,
+        "className": null,
+        "size": "default",
+        "variant": "default"
       },
       "primitive": null,
       "tree": {
@@ -285,11 +296,6 @@
                     "kind": "text",
                     "name": "type",
                     "value": "button"
-                  },
-                  {
-                    "kind": "text",
-                    "name": "variant",
-                    "value": "outline"
                   }
                 ],
                 "children": [
@@ -318,19 +324,22 @@
                   }
                 ],
                 "class": "",
-                "component": "button",
-                "function": "button",
-                "merges_class": false,
-                "props": false,
+                "merges_class": true,
+                "module": "button",
+                "part": "Button",
+                "props": true,
                 "reads": {
                   "group": [],
-                  "self": []
+                  "self": [
+                    "aria-invalid",
+                    "aria-expanded"
+                  ]
                 },
                 "render_as": null,
-                "slot": null,
-                "source": "shadcn",
-                "type": "component_ref",
-                "variant_class": null,
+                "slot": "button",
+                "tag": "button",
+                "type": "primitive",
+                "variant_class": "buttonVariants",
                 "vars": []
               }
             ],
@@ -357,7 +366,11 @@
     {
       "export": "OpenInChatGPT",
       "name": "open_in_chat_gpt",
-      "params": {},
+      "params": {
+        "className": null,
+        "inset": null,
+        "variant": "default"
+      },
       "primitive": null,
       "tree": {
         "attrs": [
@@ -494,7 +507,11 @@
     {
       "export": "OpenInClaude",
       "name": "open_in_claude",
-      "params": {},
+      "params": {
+        "className": null,
+        "inset": null,
+        "variant": "default"
+      },
       "primitive": null,
       "tree": {
         "attrs": [
@@ -631,7 +648,11 @@
     {
       "export": "OpenInT3",
       "name": "open_in_t3",
-      "params": {},
+      "params": {
+        "className": null,
+        "inset": null,
+        "variant": "default"
+      },
       "primitive": null,
       "tree": {
         "attrs": [
@@ -768,7 +789,11 @@
     {
       "export": "OpenInScira",
       "name": "open_in_scira",
-      "params": {},
+      "params": {
+        "className": null,
+        "inset": null,
+        "variant": "default"
+      },
       "primitive": null,
       "tree": {
         "attrs": [
@@ -905,7 +930,11 @@
     {
       "export": "OpenInv0",
       "name": "open_inv0",
-      "params": {},
+      "params": {
+        "className": null,
+        "inset": null,
+        "variant": "default"
+      },
       "primitive": null,
       "tree": {
         "attrs": [
@@ -1042,7 +1071,11 @@
     {
       "export": "OpenInCursor",
       "name": "open_in_cursor",
-      "params": {},
+      "params": {
+        "className": null,
+        "inset": null,
+        "variant": "default"
+      },
       "primitive": null,
       "tree": {
         "attrs": [
@@ -2959,6 +2992,48 @@
       "renders": true,
       "summary": "A link in the menu that can be used to navigate to a different page or section."
     },
+    "button.Button": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the button should be focusable when disabled.",
+          "name": "focusableWhenDisabled",
+          "type": "boolean"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Button.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Button.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button component that can be used to trigger actions."
+    },
     "dropdown-menu.RadioItemIndicator": {
       "css_vars": [],
       "data": [
@@ -3509,5 +3584,33 @@
       "sha256": "0370a813ed09e9b23857717cff0704a028049d2cf014dbd11e5f56d05db6db33"
     }
   },
-  "variants": {}
+  "variants": {
+    "buttonVariants": {
+      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-button-size-default",
+          "icon": "cn-button-size-icon",
+          "icon-lg": "cn-button-size-icon-lg",
+          "icon-sm": "cn-button-size-icon-sm",
+          "icon-xs": "cn-button-size-icon-xs",
+          "lg": "cn-button-size-lg",
+          "sm": "cn-button-size-sm",
+          "xs": "cn-button-size-xs"
+        },
+        "variant": {
+          "default": "cn-button-variant-default",
+          "destructive": "cn-button-variant-destructive",
+          "ghost": "cn-button-variant-ghost",
+          "link": "cn-button-variant-link",
+          "outline": "cn-button-variant-outline",
+          "secondary": "cn-button-variant-secondary"
+        }
+      }
+    }
+  }
 }

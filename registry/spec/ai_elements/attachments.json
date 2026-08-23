@@ -202,7 +202,9 @@
       "params": {
         "children": null,
         "className": null,
-        "label": "Remove"
+        "label": "Remove",
+        "size": "default",
+        "variant": "default"
       },
       "primitive": null,
       "tree": {
@@ -216,11 +218,6 @@
             "kind": "text",
             "name": "type",
             "value": "button"
-          },
-          {
-            "kind": "text",
-            "name": "variant",
-            "value": "ghost"
           }
         ],
         "children": [
@@ -348,17 +345,14 @@
       "name": "attachment_hover_card_content",
       "params": {
         "align": "start",
-        "className": null
+        "alignOffset": "4",
+        "className": null,
+        "side": "bottom",
+        "sideOffset": "4"
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "align",
-            "value": "align"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [

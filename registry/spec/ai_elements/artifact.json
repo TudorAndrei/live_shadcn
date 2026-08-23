@@ -81,19 +81,9 @@
       "tree": {
         "attrs": [
           {
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
             "kind": "text",
             "name": "type",
             "value": "button"
-          },
-          {
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
           }
         ],
         "children": [
@@ -243,10 +233,15 @@
       "export": "ArtifactAction",
       "name": "artifact_action",
       "params": {
+        "align": "center",
+        "alignOffset": "0",
         "children": null,
         "className": null,
+        "delay": "0",
         "icon: Icon": null,
         "label": null,
+        "side": "top",
+        "sideOffset": "4",
         "size": "sm",
         "tooltip": null,
         "variant": "ghost"
@@ -265,13 +260,7 @@
             "attrs": [],
             "children": [
               {
-                "attrs": [
-                  {
-                    "kind": "flag",
-                    "name": "asChild",
-                    "value": null
-                  }
-                ],
+                "attrs": [],
                 "children": [
                   {
                     "code": "button",
@@ -279,24 +268,112 @@
                   }
                 ],
                 "class": "",
-                "component": "tooltip",
-                "function": "tooltip_trigger",
                 "merges_class": false,
-                "props": false,
+                "module": "tooltip",
+                "part": "Trigger",
+                "props": true,
                 "reads": {
                   "group": [],
                   "self": []
                 },
                 "render_as": null,
-                "slot": null,
-                "source": "shadcn",
-                "type": "component_ref",
+                "slot": "tooltip-trigger",
+                "tag": "button",
+                "type": "primitive",
                 "variant_class": null,
                 "vars": []
               },
               {
                 "attrs": [],
                 "children": [
+                  {
+                    "attrs": [
+                      {
+                        "kind": "code",
+                        "name": "align",
+                        "value": "align"
+                      },
+                      {
+                        "kind": "code",
+                        "name": "alignOffset",
+                        "value": "alignOffset"
+                      },
+                      {
+                        "kind": "code",
+                        "name": "side",
+                        "value": "side"
+                      },
+                      {
+                        "kind": "code",
+                        "name": "sideOffset",
+                        "value": "sideOffset"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "type": "children"
+                          },
+                          {
+                            "attrs": [],
+                            "children": [],
+                            "class": "cn-tooltip-arrow cn-tooltip-arrow-logical z-50 bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5",
+                            "merges_class": false,
+                            "module": "tooltip",
+                            "part": "Arrow",
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "tag": "div",
+                            "type": "primitive",
+                            "variant_class": null,
+                            "vars": []
+                          }
+                        ],
+                        "class": "cn-tooltip-content cn-tooltip-content-logical z-50 w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background",
+                        "merges_class": true,
+                        "module": "tooltip",
+                        "part": "Popup",
+                        "props": true,
+                        "reads": {
+                          "group": [],
+                          "self": [
+                            "data-open",
+                            "data-closed"
+                          ]
+                        },
+                        "render_as": null,
+                        "slot": "tooltip-content",
+                        "tag": "div",
+                        "type": "primitive",
+                        "variant_class": null,
+                        "vars": [
+                          "--transform-origin"
+                        ]
+                      }
+                    ],
+                    "class": "isolate z-50",
+                    "merges_class": false,
+                    "module": "tooltip",
+                    "part": "Positioner",
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "div",
+                    "type": "primitive",
+                    "variant_class": null,
+                    "vars": []
+                  },
                   {
                     "attrs": [],
                     "children": [
@@ -321,9 +398,9 @@
                   }
                 ],
                 "class": "",
-                "component": "tooltip",
-                "function": "tooltip_content",
                 "merges_class": false,
+                "module": "tooltip",
+                "part": "Portal",
                 "props": false,
                 "reads": {
                   "group": [],
@@ -331,25 +408,24 @@
                 },
                 "render_as": null,
                 "slot": null,
-                "source": "shadcn",
-                "type": "component_ref",
+                "tag": "div",
+                "type": "primitive",
                 "variant_class": null,
                 "vars": []
               }
             ],
             "class": "",
-            "component": "tooltip",
-            "function": "tooltip",
             "merges_class": false,
-            "props": false,
+            "part": "Root",
+            "props": true,
             "reads": {
               "group": [],
               "self": []
             },
+            "reason": "renders no element",
             "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "type": "component_ref",
+            "slot": "tooltip",
+            "type": "transparent",
             "variant_class": null,
             "vars": []
           }
@@ -893,7 +969,56 @@
   },
   "recipe": "disclosure",
   "source": "ai_elements",
-  "styles": {},
+  "styles": {
+    "luma": {
+      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px] data-[side=left]:translate-x-[-1.5px] data-[side=right]:translate-x-[1.5px]",
+      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:translate-x-[1.5px] data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:translate-x-[-1.5px] data-[side=inline-start]:-translate-y-1/2",
+      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-lg",
+      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "lyra": {
+      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-none",
+      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2",
+      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-none px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-none",
+      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "maia": {
+      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px] data-[side=left]:translate-x-[-1.5px] data-[side=right]:translate-x-[1.5px]",
+      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:translate-x-[1.5px] data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:translate-x-[-1.5px] data-[side=inline-start]:-translate-y-1/2",
+      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-2xl px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-4xl",
+      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "mira": {
+      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px]",
+      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2",
+      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm",
+      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "nova": {
+      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px]",
+      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2",
+      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm",
+      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "rhea": {
+      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px] data-[side=left]:translate-x-[-1.5px] data-[side=right]:translate-x-[1.5px]",
+      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:translate-x-[1.5px] data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:translate-x-[-1.5px] data-[side=inline-start]:-translate-y-1/2",
+      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-lg",
+      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "sera": {
+      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-none",
+      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:translate-x-[1.5px] data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:translate-x-[-1.5px] data-[side=inline-start]:-translate-y-1/2",
+      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-none px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-none",
+      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "vega": {
+      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px]",
+      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2",
+      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm",
+      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    }
+  },
   "upstream": {
     "base_ui": {},
     "shadcn": {

@@ -424,8 +424,29 @@ defmodule LiveShadcnTools.Gen.Heex do
       negation = negation(code, ctx) -> negation
       fallback = fallback(code, ctx) -> fallback
       ternary = ternary(code, ctx) -> ternary
-      Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, code) -> raise unbound(code)
-      true -> code
+      literal?(code) -> code
+      member = member(code, ctx) -> member
+      true -> raise unbound(code)
+    end
+  end
+
+  # A quoted string, and a template literal with nothing interpolated. Both
+  # already mean in Elixir what they meant in JavaScript.
+  defp literal?(code) do
+    Regex.match?(~r/^"[^"]*"$/, code) or
+      (Regex.match?(~r/^`[^`$]*`$/, code) and not String.contains?(code, "${"))
+  end
+
+  # `item.title` — a field of something upstream destructured. The head has to
+  # be a prop; a path rooted anywhere else reads a binding nobody made.
+  defp member(code, ctx) do
+    with [head | rest] when rest != [] <- String.split(code, "."),
+         true <- Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, head),
+         true <- Enum.all?(rest, &Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, &1)),
+         true <- Map.has_key?(Map.get(ctx, :params) || %{}, head) do
+      Enum.join(["@" <> Macro.underscore(head) | rest], ".")
+    else
+      _ -> nil
     end
   end
 
@@ -462,6 +483,11 @@ defmodule LiveShadcnTools.Gen.Heex do
     A generated component can only read what upstream declared as a prop. Teach
     the reader where this value comes from, or the component is not ready to
     generate.
+
+    Writing it through unread is the one thing that must not happen. It is
+    JavaScript, and HEEx that reads a variable nobody bound either fails to
+    compile — `providers.chatgpt.createUrl(query)` did — or compiles and is
+    wrong.
     """
   end
 

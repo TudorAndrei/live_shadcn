@@ -307,6 +307,36 @@ yesterday and does not today left its module on disk, where it broke the build.
 The generator owns those files, so it takes one back when it can no longer
 write it.
 
+**A reference's own children were never read.** `<DropdownMenuTrigger><Button /></…>`
+is two references, and folding the outer one spliced its children straight into
+the tree without looking at them. The inner one arrived unread, and `mix ui.gen`
+then reported a component as unreachable that was one recursion away.
+
+**A folded part's props come with it.** shadcn's scroll-area computes an
+attribute from its own `orientation`, and once that markup is here so is the
+prop — with the default shadcn gave it, because that is the value React used
+when upstream rendered `<ScrollArea>` without one.
+
+**An argument to a component is not an attribute of an element.** Two tests,
+both learned by putting the wrong thing in generated HEEx. A camelCase name is
+React's, which is how `asChild` and `defaultOpen={@default_open}` got there. A
+name the target destructured is React's too: `<Button size="sm">` put
+`size={@size}` on a `<button>`, where the size is a class string that the
+folded markup already computes from the same prop.
+
+**The generator wrote through what it could not read.** An expression it did
+not understand was emitted verbatim, so `href={providers.chatgpt.createUrl(query)}`
+reached a `.ex` file and failed to compile. It refuses now, which is what the
+rest of the pipeline already did.
+
+**A fold can render the content twice.** shadcn's scroll-area puts `{children}`
+inside its viewport, and the AI Elements component that renders `<ScrollArea>`
+puts its own children inside the reference. `suggestion` drew three buttons six
+times, in two wrappers, and each copy looked right on its own — valid markup, a
+stable snapshot, nothing for axe to object to. Where the content belongs when a
+fold produces two markers is a decision the fold does not make yet, so the
+generator refuses instead.
+
 **`data-[state=open]` is read by nobody.** This one is not fixed, and it is the
 larger of the two things left.
 

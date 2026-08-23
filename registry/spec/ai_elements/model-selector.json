@@ -65,7 +65,10 @@
       "params": {
         "children": null,
         "className": null,
-        "title": "Model Selector"
+        "showCloseButton": "true",
+        "size": "default",
+        "title": "Model Selector",
+        "variant": "default"
       },
       "primitive": null,
       "tree": {
@@ -80,17 +83,22 @@
           {
             "attrs": [],
             "children": [],
-            "class": "",
-            "merges_class": false,
-            "part": "dialog_overlay",
-            "props": false,
+            "class": "cn-dialog-overlay fixed inset-0 isolate z-50",
+            "merges_class": true,
+            "module": "dialog",
+            "part": "Backdrop",
+            "props": true,
             "reads": {
               "group": [],
-              "self": []
+              "self": [
+                "data-open",
+                "data-closed"
+              ]
             },
             "render_as": null,
-            "slot": null,
-            "type": "part_ref",
+            "slot": "dialog-overlay",
+            "tag": "div",
+            "type": "primitive",
             "variant_class": null,
             "vars": []
           },
@@ -187,18 +195,7 @@
                       "self": []
                     },
                     "render_as": {
-                      "attrs": [
-                        {
-                          "kind": "text",
-                          "name": "variant",
-                          "value": "ghost"
-                        },
-                        {
-                          "kind": "text",
-                          "name": "size",
-                          "value": "icon-sm"
-                        }
-                      ],
+                      "attrs": [],
                       "children": [],
                       "class": "cn-dialog-close",
                       "merges_class": true,
@@ -257,19 +254,19 @@
                 "type": "value"
               }
             ],
-            "class": "sr-only",
-            "component": "dialog",
-            "function": "dialog_title",
-            "merges_class": false,
-            "props": false,
+            "class": "cn-dialog-title cn-font-heading sr-only",
+            "merges_class": true,
+            "module": "dialog",
+            "part": "Title",
+            "props": true,
             "reads": {
               "group": [],
               "self": []
             },
             "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "type": "component_ref",
+            "slot": "dialog-title",
+            "tag": "h2",
+            "type": "primitive",
             "variant_class": null,
             "vars": []
           },
@@ -1048,28 +1045,44 @@
   "source": "ai_elements",
   "styles": {
     "luma": {
-      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 dark:ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-4xl p-6 text-sm shadow-xl ring-1 duration-100 sm:max-w-md"
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 dark:ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-4xl p-6 text-sm shadow-xl ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/30 duration-100 supports-backdrop-filter:backdrop-blur-sm",
+      "cn-dialog-title": "text-base leading-none font-medium"
     },
     "lyra": {
-      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-none p-4 text-xs/relaxed ring-1 duration-100 sm:max-w-sm"
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-none p-4 text-xs/relaxed ring-1 duration-100 sm:max-w-sm",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-dialog-title": "text-sm font-medium"
     },
     "maia": {
-      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 grid max-w-[calc(100%-2rem)] gap-6 rounded-4xl p-6 text-sm ring-1 duration-100 sm:max-w-md"
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 grid max-w-[calc(100%-2rem)] gap-6 rounded-4xl p-6 text-sm ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/80 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-dialog-title": "text-base leading-none font-medium"
     },
     "mira": {
-      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-xs/relaxed ring-1 duration-100 sm:max-w-sm"
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-xs/relaxed ring-1 duration-100 sm:max-w-sm",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/80 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-dialog-title": "text-sm font-medium"
     },
     "nova": {
-      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-sm ring-1 duration-100 sm:max-w-sm"
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-sm ring-1 duration-100 sm:max-w-sm",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-dialog-title": "text-base leading-none font-medium"
     },
     "rhea": {
-      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 dark:ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-[min(var(--radius-4xl),24px)] p-6 text-sm shadow-xl ring-1 duration-100 sm:max-w-md"
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 dark:ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-[min(var(--radius-4xl),24px)] p-6 text-sm shadow-xl ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/30 duration-100 supports-backdrop-filter:backdrop-blur-sm",
+      "cn-dialog-title": "text-base leading-none font-medium"
     },
     "sera": {
-      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-none p-6 text-sm shadow-md ring-1 duration-100 sm:max-w-md"
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-none p-6 text-sm shadow-md ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/20 duration-100 supports-backdrop-filter:backdrop-blur-sm",
+      "cn-dialog-title": "text-lg font-semibold leading-none uppercase tracking-wider"
     },
     "vega": {
-      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-xl p-6 text-sm ring-1 duration-100 sm:max-w-md"
+      "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-xl p-6 text-sm ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+      "cn-dialog-title": "leading-none font-medium"
     }
   },
   "upstream": {

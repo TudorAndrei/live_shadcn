@@ -163,6 +163,7 @@
         "className": null,
         "disabled": null,
         "onClick": null,
+        "size": "default",
         "value": null,
         "variant": null
       },
@@ -188,11 +189,6 @@
             "kind": "text",
             "name": "type",
             "value": "button"
-          },
-          {
-            "kind": "code",
-            "name": "variant",
-            "value": "variant ?? (isSelected ? \"default\" : \"outline\")"
           }
         ],
         "children": [
@@ -296,7 +292,10 @@
       "name": "question_submit",
       "params": {
         "children": "Submit",
-        "disabled": null
+        "className": null,
+        "disabled": null,
+        "size": "default",
+        "variant": "default"
       },
       "primitive": null,
       "tree": {

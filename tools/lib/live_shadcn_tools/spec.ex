@@ -155,41 +155,67 @@ defmodule LiveShadcnTools.Spec do
   guessing at markup it has not read.
   """
   def fold(parts, source, resolve) do
-    {parts, specs} =
-      Enum.map_reduce(parts, %{}, fn part, specs ->
-        {tree, specs} = fold_node(part["tree"], source, resolve, specs)
-        {Map.put(part, "tree", tree), specs}
+    {parts, acc} =
+      Enum.map_reduce(parts, %{specs: %{}, params: %{}}, fn part, acc ->
+        {tree, acc} = fold_node(part["tree"], source, resolve, %{acc | params: %{}})
+
+        # A folded part's props come with it. shadcn's scroll-area computes an
+        # attribute from its own `orientation`, and once that markup is here,
+        # `orientation` is a prop of this component too — with the default
+        # shadcn gave it, because that is the value React used when upstream
+        # rendered `<ScrollArea>` without one.
+        #
+        # The component's own props win: it destructured them itself, and a
+        # folded default cannot know better.
+        params = Map.merge(acc.params, Map.get(part, "params") || %{})
+
+        {part |> Map.put("tree", tree) |> Map.put("params", params), acc}
       end)
 
-    {parts, Map.values(specs)}
+    {parts, Map.values(acc.specs)}
   end
 
-  defp fold_node(%{"type" => "component_ref", "source" => other} = node, source, resolve, specs)
+  defp fold_node(%{"type" => "component_ref", "source" => other} = node, source, resolve, acc)
        when other != source do
     with spec when is_map(spec) <- resolve.(other, node["component"]),
          target when is_map(target) <- find_part(spec, node["function"]) do
-      specs = Map.put(specs, {other, node["component"]}, spec)
+      acc = %{
+        acc
+        | specs: Map.put(acc.specs, {other, node["component"]}, spec),
+          params: Map.merge(acc.params, Map.get(target, "params") || %{})
+      }
+
+      # The reference's own children first. `<DropdownMenuTrigger><Button /></…>`
+      # is two references, and matching the outer one here means nothing else
+      # will ever look inside it: the children go straight into the tree the
+      # outer one folds to, and the inner reference would arrive unread.
+      {node, acc} = fold_children(node, source, resolve, acc)
 
       # The target may itself reference a third component, and from here that
       # one is just as far away.
-      {tree, specs} = fold_node(inline_parts(target["tree"], spec, []), source, resolve, specs)
-      {absorb(tree, node), specs}
+      {tree, acc} = fold_node(inline_parts(target["tree"], spec, []), source, resolve, acc)
+      {absorb(tree, node, Map.get(target, "params") || %{}), acc}
     else
-      _unresolved -> {node, specs}
+      _unresolved -> {node, acc}
     end
   end
 
-  defp fold_node(node, source, resolve, specs) when is_map(node) do
-    Enum.reduce(node, {node, specs}, fn {key, value}, {node, specs} ->
-      {folded, specs} = fold_node(value, source, resolve, specs)
-      {Map.put(node, key, folded), specs}
+  defp fold_node(node, source, resolve, acc) when is_map(node) do
+    Enum.reduce(node, {node, acc}, fn {key, value}, {node, acc} ->
+      {folded, acc} = fold_node(value, source, resolve, acc)
+      {Map.put(node, key, folded), acc}
     end)
   end
 
-  defp fold_node(nodes, source, resolve, specs) when is_list(nodes),
-    do: Enum.map_reduce(nodes, specs, &fold_node(&1, source, resolve, &2))
+  defp fold_node(nodes, source, resolve, acc) when is_list(nodes),
+    do: Enum.map_reduce(nodes, acc, &fold_node(&1, source, resolve, &2))
 
-  defp fold_node(value, _source, _resolve, specs), do: {value, specs}
+  defp fold_node(value, _source, _resolve, acc), do: {value, acc}
+
+  defp fold_children(node, source, resolve, acc) do
+    {children, acc} = fold_node(Map.get(node, "children") || [], source, resolve, acc)
+    {Map.put(node, "children", children), acc}
+  end
 
   defp find_part(spec, function),
     do: Enum.find(spec["parts"] || [], &(&1["name"] == function))
@@ -205,7 +231,14 @@ defmodule LiveShadcnTools.Spec do
   defp inline_parts(%{"type" => "part_ref", "part" => name} = node, spec, seen) do
     with false <- name in seen,
          part when is_map(part) <- find_part(spec, name) do
-      part["tree"] |> inline_parts(spec, [name | seen]) |> absorb(node)
+      # The reference's own children too, for the reason `fold_children/4`
+      # gives: they land inside the tree this folds to, and nothing else walks
+      # them afterwards.
+      node = Map.put(node, "children", inline_parts(Map.get(node, "children") || [], spec, seen))
+
+      part["tree"]
+      |> inline_parts(spec, [name | seen])
+      |> absorb(node, Map.get(part, "params") || %{})
     else
       _ -> node
     end
@@ -222,9 +255,10 @@ defmodule LiveShadcnTools.Spec do
   # The reference's own markup, merged onto the markup it points at. Upstream
   # writes `<CollapsibleTrigger className="flex w-full …">`, and both class
   # strings apply: shadcn's, then the one AI Elements added.
-  defp absorb(tree, node) do
+  defp absorb(tree, node, params) do
     Map.merge(tree, %{
-      "attrs" => (Map.get(tree, "attrs") || []) ++ markup_attrs(Map.get(node, "attrs") || []),
+      "attrs" =>
+        (Map.get(tree, "attrs") || []) ++ markup_attrs(Map.get(node, "attrs") || [], params),
       "class" =>
         [tree["class"], node["class"]] |> Enum.reject(&(&1 in [nil, ""])) |> Enum.join(" "),
       "children" => (Map.get(tree, "children") || []) ++ (Map.get(node, "children") || []),
@@ -234,18 +268,22 @@ defmodule LiveShadcnTools.Spec do
     })
   end
 
-  # `<Collapsible asChild defaultOpen={defaultOpen} onOpenChange={handle}>` sets
-  # three things, and only one of them survives the fold — because the React
-  # component those arguments configured is gone, replaced by the markup its
-  # recipe generates. `asChild` is React's composition, `defaultOpen` and
-  # `onOpenChange` are React's state, and the recipe owns opening and closing.
+  # What a reference writes is markup for the element, or an argument to the
+  # React component that is no longer there. Two things tell them apart, and
+  # both had to be learned by putting the wrong thing in generated HEEx:
   #
-  # HTML attribute names are lowercase and React props are camelCase, which is
-  # the whole test. Writing them through unread put `asChild` and
-  # `defaultOpen={@default_open}` in generated markup, and neither is an
-  # attribute a browser or an assign has ever heard of.
-  defp markup_attrs(attrs),
-    do: Enum.reject(attrs, &(&1["name"] =~ ~r/[A-Z]/))
+  # A camelCase name is React's. `<Collapsible asChild defaultOpen={…}>` put
+  # `asChild` and `defaultOpen={@default_open}` in the markup, and neither is an
+  # attribute a browser or an assign has heard of.
+  #
+  # A name the target destructured is React's too. `<Button size="sm">` put
+  # `size={@size}` on a `<button>`, where it means nothing — the size is a class
+  # string, and the folded markup already computes it from the same prop.
+  defp markup_attrs(attrs, params) do
+    Enum.reject(attrs, fn attr ->
+      attr["name"] =~ ~r/[A-Z]/ or Map.has_key?(params, attr["name"])
+    end)
+  end
 
   defp merged(specs, key),
     do: Enum.reduce(specs, %{}, fn spec, acc -> Map.merge(acc, Map.get(spec, key) || %{}) end)

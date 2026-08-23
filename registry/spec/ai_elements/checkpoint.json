@@ -12,7 +12,8 @@
       "name": "checkpoint",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "orientation": "horizontal"
       },
       "primitive": null,
       "tree": {

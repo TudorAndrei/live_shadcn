@@ -42,6 +42,7 @@ defmodule LiveShadcnTools.Gen do
   def module(spec, opts) do
     recipe = spec["recipe"]
     reachable!(spec)
+    single_content!(spec)
 
     case Map.fetch(@recipes, recipe) do
       {:ok, implementation} -> spec |> implementation.module(opts) |> format()
@@ -103,6 +104,42 @@ defmodule LiveShadcnTools.Gen do
 
   defp other("ai_elements"), do: "the shadcn registry"
   defp other(_source), do: "AI Elements"
+
+  @doc """
+  Refuses a part that would render its content in two places.
+
+  A part has one place its children go. A fold can produce two: shadcn's
+  scroll-area puts `{children}` inside its viewport, and the AI Elements
+  component that renders `<ScrollArea>` puts its own children inside the
+  reference — so the marker arrives twice and every child is drawn twice.
+
+  That is not a tidiness problem. `suggestion` rendered three buttons six
+  times, in two different wrappers, and both copies looked plausible on their
+  own. Nothing downstream would have caught it: the markup is valid, the
+  snapshot is stable, and axe has no opinion about being shown a thing twice.
+
+  Where the content belongs when a fold produces two is a decision the fold has
+  to make, and it does not make it yet. Until it does, this says so.
+  """
+  def single_content!(spec) do
+    doubled =
+      for part <- spec["parts"] || [], markers(part["tree"]) > 1, do: part["name"]
+
+    if doubled != [] do
+      raise """
+      #{Enum.join(doubled, ", ")} would render its content in more than one place.
+
+      The fold left two `{children}` markers in one part, so everything the \
+      caller passes is drawn twice. The fold has to choose which one the \
+      content belongs in.
+      """
+    end
+  end
+
+  defp markers(%{"type" => "children"}), do: 1
+  defp markers(node) when is_map(node), do: node |> Map.values() |> markers()
+  defp markers(nodes) when is_list(nodes), do: Enum.sum(Enum.map(nodes, &markers/1))
+  defp markers(_node), do: 0
 
   @doc "The module name a component is generated under."
   def module_name(namespace, name),

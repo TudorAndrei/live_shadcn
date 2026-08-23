@@ -8,8 +8,8 @@
 |---|---:|---|
 | `planned` | 1 | ························ |
 | `fetched` | 45 | ██████████·············· |
-| `spec` | 23 | █████··················· |
-| `generated` | 0 | ························ |
+| `spec` | 22 | █████··················· |
+| `generated` | 1 | ························ |
 | `verified` | 43 | █████████··············· |
 
 ## Recipes
@@ -122,7 +122,7 @@ Only the recipes are written by hand; every component is data.
 | `agent` | 2 | `presentational` | 🟦 fetched |
 | `artifact` | 2 | `disclosure` | 🟨 spec |
 | `attachments` | 2 | `presentational` | 🟨 spec |
-| `checkpoint` | 2 | `presentational` | 🟨 spec |
+| `checkpoint` | 2 | `presentational` | 🟩 generated |
 | `commit` | 2 | `presentational` | 🟦 fetched |
 | `confirmation` | 2 | `presentational` | 🟦 fetched |
 | `controls` | 2 | `presentational` | 🟦 fetched |

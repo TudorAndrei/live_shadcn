@@ -2,6 +2,7 @@
   "anatomy": [],
   "css_vars": [],
   "folds": [
+    "shadcn/button",
     "shadcn/hover-card",
     "shadcn/progress"
   ],
@@ -65,7 +66,10 @@
       "export": "ContextTrigger",
       "name": "context_trigger",
       "params": {
-        "children": null
+        "children": null,
+        "className": null,
+        "size": "default",
+        "variant": "default"
       },
       "primitive": null,
       "tree": {
@@ -79,11 +83,6 @@
                     "kind": "text",
                     "name": "type",
                     "value": "button"
-                  },
-                  {
-                    "kind": "text",
-                    "name": "variant",
-                    "value": "ghost"
                   }
                 ],
                 "children": [
@@ -128,19 +127,22 @@
                   }
                 ],
                 "class": "",
-                "component": "button",
-                "function": "button",
-                "merges_class": false,
+                "merges_class": true,
+                "module": "button",
+                "part": "Button",
                 "props": true,
                 "reads": {
                   "group": [],
-                  "self": []
+                  "self": [
+                    "aria-invalid",
+                    "aria-expanded"
+                  ]
                 },
                 "render_as": null,
-                "slot": null,
-                "source": "shadcn",
-                "type": "component_ref",
-                "variant_class": null,
+                "slot": "button",
+                "tag": "button",
+                "type": "primitive",
+                "variant_class": "buttonVariants",
                 "vars": []
               }
             ],
@@ -168,7 +170,11 @@
       "export": "ContextContent",
       "name": "context_content",
       "params": {
-        "className": null
+        "align": "center",
+        "alignOffset": "4",
+        "className": null,
+        "side": "bottom",
+        "sideOffset": "4"
       },
       "primitive": null,
       "tree": {
@@ -262,7 +268,8 @@
       "name": "context_content_header",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "value": null
       },
       "primitive": null,
       "tree": {
@@ -352,11 +359,6 @@
                             "kind": "code",
                             "name": "value",
                             "value": "value"
-                          },
-                          {
-                            "kind": "code",
-                            "name": "value",
-                            "value": "usedPercent * PERCENT_MAX"
                           }
                         ],
                         "children": [
@@ -369,17 +371,19 @@
                               {
                                 "attrs": [],
                                 "children": [],
-                                "class": "",
-                                "merges_class": false,
-                                "part": "progress_indicator",
-                                "props": false,
+                                "class": "cn-progress-indicator h-full transition-all",
+                                "merges_class": true,
+                                "module": "progress",
+                                "part": "Indicator",
+                                "props": true,
                                 "reads": {
                                   "group": [],
                                   "self": []
                                 },
                                 "render_as": null,
-                                "slot": null,
-                                "type": "part_ref",
+                                "slot": "progress-indicator",
+                                "tag": "div",
+                                "type": "primitive",
                                 "variant_class": null,
                                 "vars": []
                               }
@@ -900,6 +904,48 @@
     }
   ],
   "primitives": {
+    "button.Button": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the button should be focusable when disabled.",
+          "name": "focusableWhenDisabled",
+          "type": "boolean"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Button.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Button.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button component that can be used to trigger actions."
+    },
     "preview-card.Arrow": {
       "css_vars": [],
       "data": [
@@ -1569,5 +1615,33 @@
       "sha256": "e511015bd0d58d4dcc179d672fe2de980ff923654a53541d4396f209bf02c243"
     }
   },
-  "variants": {}
+  "variants": {
+    "buttonVariants": {
+      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-button-size-default",
+          "icon": "cn-button-size-icon",
+          "icon-lg": "cn-button-size-icon-lg",
+          "icon-sm": "cn-button-size-icon-sm",
+          "icon-xs": "cn-button-size-icon-xs",
+          "lg": "cn-button-size-lg",
+          "sm": "cn-button-size-sm",
+          "xs": "cn-button-size-xs"
+        },
+        "variant": {
+          "default": "cn-button-variant-default",
+          "destructive": "cn-button-variant-destructive",
+          "ghost": "cn-button-variant-ghost",
+          "link": "cn-button-variant-link",
+          "outline": "cn-button-variant-outline",
+          "secondary": "cn-button-variant-secondary"
+        }
+      }
+    }
+  }
 }
