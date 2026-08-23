@@ -1,7 +1,7 @@
 defmodule LiveBase.MixProject do
   use Mix.Project
 
-  @version "0.1.0-dev"
+  @version "0.1.0"
   @source_url "https://github.com/TudorAndrei/live_shadcn"
 
   def project do
@@ -28,13 +28,37 @@ defmodule LiveBase.MixProject do
     ]
   end
 
+  # Apache-2.0 asks that the licence and the NOTICE travel with the work, so
+  # both are in the package rather than only in the repository.
   defp package do
     [
       licenses: ["Apache-2.0"],
-      links: %{"GitHub" => @source_url},
-      files: ~w(lib assets .formatter.exs mix.exs README.md package.json)
+      links: %{
+        "GitHub" => @source_url,
+        "Changelog" => "#{@source_url}/blob/main/packages/live_base/CHANGELOG.md"
+      },
+      files: ~w(lib assets .formatter.exs mix.exs package.json README.md CHANGELOG.md
+                LICENSE NOTICE)
     ]
   end
 
-  defp docs, do: [main: "readme", source_url: @source_url, extras: ["README.md"]]
+  defp docs do
+    [
+      main: "readme",
+      source_url: @source_url,
+      source_ref: "v#{@version}",
+      extras: ["README.md", "CHANGELOG.md"],
+      groups_for_modules: [
+        Recipes: [
+          LiveBase.Disclosure,
+          LiveBase.Dialog,
+          LiveBase.Popover,
+          LiveBase.Menu,
+          LiveBase.Listbox,
+          LiveBase.Tabs,
+          LiveBase.FormControl
+        ]
+      ]
+    ]
+  end
 end

@@ -1,0 +1,25 @@
+{
+  "name": "live_base",
+  "version": "0.1.0",
+  "description": "Client hooks for live_base: the behavior no Phoenix.LiveView.JS command can express.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "assets/js/live_base.js",
+  "module": "assets/js/live_base.js",
+  "exports": {
+    ".": "./assets/js/live_base.js"
+  },
+  "files": [
+    "assets/js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TudorAndrei/live_shadcn.git"
+  },
+  "peerDependencies": {
+    "@floating-ui/dom": "^1.6.0"
+  },
+  "devDependencies": {
+    "@floating-ui/dom": "^1.6.0"
+  }
+}
