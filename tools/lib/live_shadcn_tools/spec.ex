@@ -86,7 +86,9 @@ defmodule LiveShadcnTools.Spec do
     source = Keyword.fetch!(opts, :source)
 
     {parts, folded} =
-      fold(parts, source, Keyword.get(opts, :resolve, fn _source, _name -> nil end))
+      parts
+      |> Enum.map(&markdown_content/1)
+      |> fold(source, Keyword.get(opts, :resolve, fn _source, _name -> nil end))
 
     own_primitives =
       for {module, page} <- docs, {key, part} <- page.parts, into: %{} do
@@ -129,6 +131,45 @@ defmodule LiveShadcnTools.Spec do
 
   defp folds(spec, folded),
     do: Map.put(spec, "folds", folded |> Enum.map(&ref(&1["source"], &1["name"])) |> Enum.sort())
+
+  # Markdown is content, not children.
+  #
+  # `<Streamdown>{children}</Streamdown>` looks like a wrapper and is not one:
+  # AI Elements types those children as a `string`, because a markdown renderer
+  # takes source text and produces the markup itself. A HEEx slot holds rendered
+  # markup, which is the wrong end of the same pipe — by the time a slot has
+  # been rendered, the markdown is gone.
+  #
+  # So a part that renders markdown takes a `content` prop and no slot, and the
+  # marker inside the renderer is dropped rather than becoming one.
+  defp markdown_content(part) do
+    if markdown?(part["tree"]) do
+      part
+      |> Map.put("params", Map.put(Map.get(part, "params") || %{}, "content", nil))
+      |> Map.put("tree", drop_markdown_children(part["tree"]))
+    else
+      part
+    end
+  end
+
+  defp markdown?(%{"type" => "external", "role" => "markdown"}), do: true
+
+  defp markdown?(node) when is_map(node),
+    do: node |> Map.values() |> Enum.any?(&markdown?/1)
+
+  defp markdown?(nodes) when is_list(nodes), do: Enum.any?(nodes, &markdown?/1)
+  defp markdown?(_node), do: false
+
+  defp drop_markdown_children(%{"type" => "external", "role" => "markdown"} = node),
+    do: Map.put(node, "children", [])
+
+  defp drop_markdown_children(node) when is_map(node),
+    do: Map.new(node, fn {key, value} -> {key, drop_markdown_children(value)} end)
+
+  defp drop_markdown_children(nodes) when is_list(nodes),
+    do: Enum.map(nodes, &drop_markdown_children/1)
+
+  defp drop_markdown_children(value), do: value
 
   @doc """
   Replaces every reference to a component in another registry with its markup.
@@ -256,16 +297,63 @@ defmodule LiveShadcnTools.Spec do
   # writes `<CollapsibleTrigger className="flex w-full …">`, and both class
   # strings apply: shadcn's, then the one AI Elements added.
   defp absorb(tree, node, params) do
-    Map.merge(tree, %{
+    tree
+    |> Map.merge(%{
       "attrs" =>
         (Map.get(tree, "attrs") || []) ++ markup_attrs(Map.get(node, "attrs") || [], params),
       "class" =>
         [tree["class"], node["class"]] |> Enum.reject(&(&1 in [nil, ""])) |> Enum.join(" "),
-      "children" => (Map.get(tree, "children") || []) ++ (Map.get(node, "children") || []),
       "merges_class" => node["merges_class"] || tree["merges_class"],
       "props" => node["props"] || tree["props"],
       "slot" => node["slot"] || tree["slot"]
     })
+    |> place(Map.get(node, "children") || [])
+  end
+
+  @doc """
+  Puts what a reference wrapped where the component it names renders it.
+
+  `<ScrollArea>{buttons}</ScrollArea>` does not put the buttons after the scroll
+  area. It puts them where the scroll area renders `{children}`, which is inside
+  its viewport, and everything the scroll area draws around that stays around
+  it. React decides this and so does the fold.
+
+  Appending instead is not untidy, it is wrong twice over: the content lands
+  outside the box that scrolls, and the marker it should have replaced is still
+  there, so every child is drawn a second time. `suggestion` rendered three
+  buttons six times that way, and each copy looked right on its own.
+
+  A reference that wrapped nothing leaves the marker alone. A component whose
+  markup has no marker takes the content at the end, which is the only place
+  left.
+  """
+  def place(tree, []), do: tree
+
+  def place(tree, children) do
+    case replace(tree, children) do
+      {tree, true} -> tree
+      {tree, false} -> Map.put(tree, "children", (Map.get(tree, "children") || []) ++ children)
+    end
+  end
+
+  defp replace(node, children) when is_map(node) do
+    {placed, done?} = replace(Map.get(node, "children") || [], children)
+    {Map.put(node, "children", placed), done?}
+  end
+
+  defp replace(nodes, children) when is_list(nodes) do
+    Enum.flat_map_reduce(nodes, false, fn
+      %{"type" => "children"}, false -> {children, true}
+      node, done? when is_map(node) -> replace_one(node, children, done?)
+      node, done? -> {[node], done?}
+    end)
+  end
+
+  defp replace_one(node, _children, true), do: {[node], true}
+
+  defp replace_one(node, children, false) do
+    {node, done?} = replace(node, children)
+    {[node], done?}
   end
 
   # What a reference writes is markup for the element, or an argument to the
@@ -582,11 +670,24 @@ defmodule LiveShadcnTools.Spec do
       base_ui?(tag, ctx) -> base_ui_node(tag, ctx)
       set = icon_set(tag, ctx) -> %{"type" => "icon", "icons" => %{set => tag}}
       registry_component(tag, ctx) -> registry_node(tag, ctx)
+      role = external_role(tag, ctx) -> %{"type" => "external", "role" => role}
       context_provider?(tag) -> %{"type" => "transparent", "reason" => "a React context"}
       package = third_party(tag, ctx) -> raise not_base_ui(tag, package)
       true -> raise "the spec reader does not know what <#{tag}> is"
     end
   end
+
+  # A third-party component whose job Elixir already does, mapped to the job
+  # rather than to the library. The spec records `markdown`, not `Streamdown`
+  # and not `PhoenixStreamdown`, so which renderer an application uses stays an
+  # application's decision and the generated component names a seam.
+  #
+  # This table is short on purpose. A library goes in it only when the same job
+  # exists in Elixir and is not worth writing again; everything else is still a
+  # specialist recipe, and `not_base_ui/2` still says so.
+  @external_roles %{"streamdown" => "markdown"}
+
+  defp external_role(tag, ctx), do: Map.get(@external_roles, third_party(tag, ctx) || "")
 
   # shadcn writes an icon as `<IconPlaceholder lucide="ChevronDown" …>`, which
   # names the same icon in five sets at once. AI Elements imports the icon

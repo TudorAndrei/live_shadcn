@@ -31,9 +31,17 @@ defmodule LiveAiElements.MixProject do
     [
       {:live_shadcn, dep_spec("live_shadcn", "~> 0.1")},
       {:phoenix_live_view, "~> 1.2"},
-      # Reading a recorded stream, and writing a golden back. Test only: the
-      # package itself never decodes anything.
-      {:jason, "~> 1.4", only: :test},
+      # AI Elements renders assistant prose with Streamdown, a markdown renderer
+      # built for text that is still arriving. Elixir has that already, so this
+      # package uses it rather than writing another one — and keeps it optional,
+      # because everybody who renders LLM output already has a renderer.
+      # `LiveAiElements.Markdown` is the seam.
+      {:phoenix_streamdown, "~> 1.0.0-beta", optional: true},
+      # Reading a recorded stream, and writing a golden back. The package itself
+      # never decodes anything, so this would be test-only — except that an
+      # optional dependency wants it in every environment, and a restriction
+      # here refuses to resolve rather than being relaxed.
+      {:jason, "~> 1.4"},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false}
     ]
   end

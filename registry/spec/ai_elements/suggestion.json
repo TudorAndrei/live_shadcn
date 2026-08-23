@@ -33,7 +33,78 @@
             "attrs": [],
             "children": [
               {
-                "type": "children"
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "children"
+                  }
+                ],
+                "class": "flex w-max flex-nowrap items-center gap-2",
+                "merges_class": true,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [
+                  {
+                    "kind": "code",
+                    "name": "data-orientation",
+                    "value": "orientation"
+                  },
+                  {
+                    "kind": "code",
+                    "name": "orientation",
+                    "value": "orientation"
+                  }
+                ],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "cn-scroll-area-thumb relative flex-1 bg-border",
+                    "merges_class": false,
+                    "module": "scroll-area",
+                    "part": "Thumb",
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": "scroll-area-thumb",
+                    "tag": "div",
+                    "type": "primitive",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "class": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none hidden",
+                "merges_class": true,
+                "module": "scroll-area",
+                "part": "Scrollbar",
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": [
+                    "data-horizontal",
+                    "data-vertical"
+                  ]
+                },
+                "render_as": null,
+                "slot": "scroll-area-scrollbar",
+                "tag": "div",
+                "type": "primitive",
+                "variant_class": null,
+                "vars": []
               }
             ],
             "class": "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
@@ -119,80 +190,6 @@
             },
             "render_as": null,
             "slot": null,
-            "tag": "div",
-            "type": "primitive",
-            "variant_class": null,
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "flex w-max flex-nowrap items-center gap-2",
-            "merges_class": true,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_class": null,
-            "vars": []
-          },
-          {
-            "attrs": [
-              {
-                "kind": "code",
-                "name": "data-orientation",
-                "value": "orientation"
-              },
-              {
-                "kind": "code",
-                "name": "orientation",
-                "value": "orientation"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "cn-scroll-area-thumb relative flex-1 bg-border",
-                "merges_class": false,
-                "module": "scroll-area",
-                "part": "Thumb",
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": "scroll-area-thumb",
-                "tag": "div",
-                "type": "primitive",
-                "variant_class": null,
-                "vars": []
-              }
-            ],
-            "class": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none hidden",
-            "merges_class": true,
-            "module": "scroll-area",
-            "part": "Scrollbar",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": [
-                "data-horizontal",
-                "data-vertical"
-              ]
-            },
-            "render_as": null,
-            "slot": "scroll-area-scrollbar",
             "tag": "div",
             "type": "primitive",
             "variant_class": null,

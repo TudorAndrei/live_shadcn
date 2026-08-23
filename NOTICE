@@ -15,3 +15,10 @@ This product includes work derived from:
 Component anatomy, class strings, and behavior contracts are ported from
 these projects. No source code is redistributed verbatim; generated Elixir
 modules are derived works produced by the pipeline in tools/.
+
+Where an upstream component uses a JavaScript library, live_ai_elements uses
+the Elixir library that does the same job rather than porting it. Each is an
+optional dependency, so an application that wants none pulls in none:
+
+  phoenix_streamdown — https://github.com/dannote/phoenix_streamdown
+  Streaming markdown for LiveView, in place of AI Elements' use of Streamdown.

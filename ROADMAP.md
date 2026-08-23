@@ -337,6 +337,46 @@ stable snapshot, nothing for axe to object to. Where the content belongs when a
 fold produces two markers is a decision the fold does not make yet, so the
 generator refuses instead.
 
+### A JavaScript library is not a reason to write one
+
+An AI Elements component that renders a third-party React component used to be
+refused outright: no Base UI contract, so nothing to generate against. That is
+right for a library whose job is behaviour, and wrong for one whose job Elixir
+already does.
+
+The reader now maps a package to the **job**, not to a library. `<Streamdown>`
+becomes an `external` node with the role `markdown`, and the generated
+component calls `LiveAiElements.Markdown` — a seam. Which renderer sits behind
+it is an application's decision, the way the icon set already is.
+
+| Upstream | Used by | Elixir | Decision |
+|---|---|---|---|
+| `streamdown` | reasoning, message | `phoenix_streamdown` | adopted, optional |
+| `shiki` | code-block | `lumis` | documented, not yet wired |
+| `nanoid` | prompt-input | `nanoid` | available when needed |
+| `motion/react` | shimmer | — | the shimmer is a CSS animation |
+| `use-stick-to-bottom` | conversation | — | a scroll hook, so the `scroller` recipe |
+| `tokenlens` | context | — | a table of model context windows, so data |
+| `cmdk` | shadcn command | — | the `listbox` recipe |
+
+`phoenix_streamdown` is the same idea as this repository, one layer up: it
+re-renders only the block still changing rather than the whole message, and it
+closes the syntax a half-finished message left open so a lone `**` does not
+turn the rest of the conversation bold.
+
+**It has a trap, and the seam walks around it.** It always asks MDEx for syntax
+highlighting, and MDEx raises unless a highlighter is installed. It catches
+that and renders the block as escaped text — every block, not only the code
+ones — so a conversation shows `**bold**` and nothing says why. The adapter
+asks for no highlighting when none is configured, and says in one place how to
+add `lumis` and get it.
+
+**Markdown is content, not children.** `<Streamdown>{children}</Streamdown>`
+looks like a wrapper and is not one: AI Elements types those children as a
+`string`, because a renderer takes source text and produces the markup itself.
+A HEEx slot holds rendered markup, which is the wrong end of the same pipe. So
+a part that renders markdown takes a `content` prop and no slot.
+
 **`data-[state=open]` is read by nobody.** This one is not fixed, and it is the
 larger of the two things left.
 

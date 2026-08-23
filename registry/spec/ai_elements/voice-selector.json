@@ -148,7 +148,51 @@
             "attrs": [],
             "children": [
               {
-                "type": "children"
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "title",
+                    "type": "value"
+                  }
+                ],
+                "class": "cn-dialog-title cn-font-heading sr-only",
+                "merges_class": true,
+                "module": "dialog",
+                "part": "Title",
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "dialog-title",
+                "tag": "h2",
+                "type": "primitive",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "children"
+                  }
+                ],
+                "class": "**:data-[slot=command-input-wrapper]:h-auto",
+                "component": "command",
+                "function": "command",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "source": "shadcn",
+                "type": "component_ref",
+                "variant_class": null,
+                "vars": []
               },
               {
                 "children": [
@@ -285,53 +329,6 @@
             "slot": "dialog-content",
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "code": "title",
-                "type": "value"
-              }
-            ],
-            "class": "cn-dialog-title cn-font-heading sr-only",
-            "merges_class": true,
-            "module": "dialog",
-            "part": "Title",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "dialog-title",
-            "tag": "h2",
-            "type": "primitive",
-            "variant_class": null,
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "**:data-[slot=command-input-wrapper]:h-auto",
-            "component": "command",
-            "function": "command",
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "type": "component_ref",
             "variant_class": null,
             "vars": []
           }

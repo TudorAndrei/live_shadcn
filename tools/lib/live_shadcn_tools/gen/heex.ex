@@ -124,6 +124,18 @@ defmodule LiveShadcnTools.Gen.Heex do
     call("#{inspect(namespace)}.#{module}.#{function}", node, ctx, indent)
   end
 
+  # A job Elixir already does, so the generated component calls the seam that
+  # names the job. Which library sits behind it is the application's decision,
+  # and nothing in the spec or in this file knows.
+  def render(%{"type" => "external", "role" => "markdown"} = node, ctx, indent) do
+    tag(
+      "LiveAiElements.Markdown.markdown",
+      [{"content", :code, "@content"}] ++ class_attr(node, ctx),
+      [],
+      indent
+    )
+  end
+
   def render(%{"type" => "icon"} = node, ctx, indent) do
     tag(
       "LiveShadcn.Icon.icon",

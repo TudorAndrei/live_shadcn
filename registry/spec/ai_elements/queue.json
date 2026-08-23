@@ -340,7 +340,43 @@
             "attrs": [],
             "children": [
               {
-                "type": "children"
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "type": "children"
+                      }
+                    ],
+                    "class": "",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "ul",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "class": "max-h-40 pr-4",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
               }
             ],
             "class": "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
@@ -428,45 +464,6 @@
             "slot": null,
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "type": "children"
-                  }
-                ],
-                "class": "",
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "ul",
-                "type": "element",
-                "variant_class": null,
-                "vars": []
-              }
-            ],
-            "class": "max-h-40 pr-4",
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
             "variant_class": null,
             "vars": []
           }

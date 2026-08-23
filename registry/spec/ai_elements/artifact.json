@@ -314,7 +314,26 @@
                         "attrs": [],
                         "children": [
                           {
-                            "type": "children"
+                            "attrs": [],
+                            "children": [
+                              {
+                                "code": "tooltip",
+                                "type": "value"
+                              }
+                            ],
+                            "class": "",
+                            "merges_class": false,
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "tag": "p",
+                            "type": "element",
+                            "variant_class": null,
+                            "vars": []
                           },
                           {
                             "attrs": [],
@@ -371,28 +390,6 @@
                     "slot": null,
                     "tag": "div",
                     "type": "primitive",
-                    "variant_class": null,
-                    "vars": []
-                  },
-                  {
-                    "attrs": [],
-                    "children": [
-                      {
-                        "code": "tooltip",
-                        "type": "value"
-                      }
-                    ],
-                    "class": "",
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "tag": "p",
-                    "type": "element",
                     "variant_class": null,
                     "vars": []
                   }
