@@ -8,9 +8,9 @@
 |---|---:|---|
 | `planned` | 1 | ························ |
 | `fetched` | 45 | ██████████·············· |
-| `spec` | 21 | █████··················· |
-| `generated` | 2 | ························ |
-| `verified` | 43 | █████████··············· |
+| `spec` | 20 | ████···················· |
+| `generated` | 0 | ························ |
+| `verified` | 46 | ██████████·············· |
 
 ## Recipes
 
@@ -21,11 +21,11 @@ Only the recipes are written by hand; every component is data.
 |---|---|---:|
 | `presentational` | core | 58 |
 | `form-control` | core | 13 |
-| `disclosure` | core | 10 |
+| `disclosure` | core | 11 |
 | `listbox` | core | 7 |
 | `dialog` | core | 4 |
 | `menu` | core | 4 |
-| `popover` | core | 4 |
+| `popover` | core | 3 |
 | `tabs` | core | 2 |
 | `scroller` | specialist | 3 |
 | `toast` | specialist | 2 |
@@ -115,14 +115,14 @@ Only the recipes are written by hand; every component is data.
 | `prompt-input` | 1 | `form-control` | 🟦 fetched |
 | `reasoning` | 1 | `disclosure` | 🟦 fetched |
 | `shimmer` | 1 | `presentational` | 🟦 fetched |
-| `sources` | 1 | `popover` | 🟨 spec |
-| `suggestion` | 1 | `presentational` | 🟩 generated |
+| `sources` | 1 | `disclosure` | ✅ verified |
+| `suggestion` | 1 | `presentational` | ✅ verified |
 | `task` | 1 | `disclosure` | ✅ verified |
 | `tool` | 1 | `disclosure` | 🟦 fetched |
 | `agent` | 2 | `presentational` | 🟦 fetched |
 | `artifact` | 2 | `disclosure` | 🟨 spec |
 | `attachments` | 2 | `presentational` | 🟨 spec |
-| `checkpoint` | 2 | `presentational` | 🟩 generated |
+| `checkpoint` | 2 | `presentational` | ✅ verified |
 | `commit` | 2 | `presentational` | 🟦 fetched |
 | `confirmation` | 2 | `presentational` | 🟦 fetched |
 | `controls` | 2 | `presentational` | 🟦 fetched |

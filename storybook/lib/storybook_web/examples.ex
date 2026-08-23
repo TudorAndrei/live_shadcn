@@ -57,13 +57,16 @@ defmodule StorybookWeb.Examples do
 
   # The AI Elements package ships its components compiled, so they are imported
   # from their own namespace rather than copied in by `mix ui.add`.
+  import LiveAiElements.Components.Checkpoint
+  import LiveAiElements.Components.Sources
+  import LiveAiElements.Components.Suggestion
   import LiveAiElements.Components.Task
 
   @doc "Every component that has examples, in the order they are listed."
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog dropdown-menu empty hover-card input item kbd label marker message
-       navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task textarea toggle tooltip)
+       navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint textarea toggle tooltip)
   end
 
   @doc "The examples for a component."
@@ -237,6 +240,39 @@ defmodule StorybookWeb.Examples do
         "AI Elements builds this out of shadcn's collapsible, so the disclosure " <>
           "recipe generates it and the panel opens with no round trip.",
         &task_default/1
+      )
+    ]
+  end
+
+  def all("checkpoint") do
+    [
+      one(
+        "default",
+        "A point a turn can go back to",
+        "A label with a rule running off it.",
+        &checkpoint_default/1
+      )
+    ]
+  end
+
+  def all("sources") do
+    [
+      one(
+        "default",
+        "What the answer was drawn from",
+        "The citations a turn produced, folded away until a reader asks.",
+        &sources_default/1
+      )
+    ]
+  end
+
+  def all("suggestion") do
+    [
+      one(
+        "default",
+        "What to ask next",
+        "A row of buttons that scrolls sideways, built on shadcn's button and scroll area.",
+        &suggestion_default/1
       )
     ]
   end
@@ -738,6 +774,34 @@ defmodule StorybookWeb.Examples do
     <.collapsible id="more" title="What the pipeline does" class="max-w-80">
       Fetch, spec, generate, verify. Four stages, each one deterministic.
     </.collapsible>
+    """
+  end
+
+  defp checkpoint_default(assigns) do
+    ~H"""
+    <.checkpoint class="max-w-md">
+      Reverted to the spec before the fold
+    </.checkpoint>
+    """
+  end
+
+  defp sources_default(assigns) do
+    ~H"""
+    <.sources id="citations" title="3 sources" class="max-w-80">
+      <a href="https://base-ui.com" class="block underline">base-ui.com</a>
+      <a href="https://ui.shadcn.com" class="block underline">ui.shadcn.com</a>
+      <a href="https://hexdocs.pm/phoenix_live_view" class="block underline">Phoenix LiveView</a>
+    </.sources>
+    """
+  end
+
+  defp suggestion_default(assigns) do
+    ~H"""
+    <.suggestions class="max-w-md">
+      <.suggestion>What does mix ui.spec read?</.suggestion>
+      <.suggestion>Why four hooks?</.suggestion>
+      <.suggestion>Show me the accordion</.suggestion>
+    </.suggestions>
     """
   end
 

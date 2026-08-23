@@ -418,7 +418,7 @@
       "summary": "A button that opens and closes the collapsible panel."
     }
   },
-  "recipe": "popover",
+  "recipe": "disclosure",
   "source": "ai_elements",
   "styles": {},
   "upstream": {

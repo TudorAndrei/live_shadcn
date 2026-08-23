@@ -223,9 +223,9 @@ The components are the small part. The reducer is the product.
       per part and `sequence_number` for ordering, which is exactly what
       `phx-update="stream"` needs
 - [x] Delta hook: a token append must never touch an assign
-- [ ] Tier-1 AI components: chain-of-thought, reasoning, tool, **task**,
-      sources, message, conversation, prompt-input, code-block, context,
-      shimmer, suggestion — 1 of 12, `task` generated and verified
+- [ ] Tier-1 AI components — 3 of 12 generated and verified: **sources**,
+      **suggestion**, **task**. The other nine are chain-of-thought, reasoning,
+      tool, message, conversation, prompt-input, code-block, context, shimmer
 - [x] Jido adapter, built second on purpose, to prove the adapter boundary holds
 
 **Exit:** a golden test replays a recorded Open Responses stream and produces the
@@ -376,6 +376,12 @@ looks like a wrapper and is not one: AI Elements types those children as a
 `string`, because a renderer takes source text and produces the markup itself.
 A HEEx slot holds rendered markup, which is the wrong end of the same pipe. So
 a part that renders markdown takes a `content` prop and no slot.
+
+**A recipe is what a component is built on.** `sources` was down as a popover.
+It renders `<Collapsible>`, so it is a disclosure, and saying so was the whole
+change: the fold then found the Base UI parts the recipe was looking for. What
+an AI Elements component's recipe is, is decided by the shadcn component it
+composes, not by what it looks like on the page.
 
 **`data-[state=open]` is read by nobody.** This one is not fixed, and it is the
 larger of the two things left.

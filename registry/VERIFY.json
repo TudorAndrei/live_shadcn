@@ -254,6 +254,21 @@
     "pass": true,
     "spec": "8d39c00fd809b8e4eb39030a56e1fba5875cf5bc24fbe1cebae88f0359b9ff72"
   },
+  "ai_elements/checkpoint": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "294c5beb5f4ebb8dd10c3f84eb075dcc2eaa229db841707b673025e9023726f8"
+  },
   "shadcn/message": {
     "checks": {
       "browser": {
@@ -283,6 +298,21 @@
     },
     "pass": true,
     "spec": "385e3c7068815db7bf35bacf31bba005e53c7a7dc6fb62cbf58730c2e8037db6"
+  },
+  "ai_elements/sources": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "387e7f39cd54bb41f1efd277fd7e9d672e618441302efb7ec2e7cd9fdc4efd95"
   },
   "shadcn/dropdown-menu": {
     "checks": {
@@ -508,6 +538,21 @@
     },
     "pass": true,
     "spec": "b48e76356b822bbdc75c05f262d7c7c69cc683e4ac21c9529f439c83ac651504"
+  },
+  "ai_elements/suggestion": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "1393b39712ce38930d37f8badf4512409a85d0ae5bc21787735e2799610efc33"
   },
   "shadcn/separator": {
     "checks": {

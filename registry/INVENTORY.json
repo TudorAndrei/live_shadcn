@@ -247,7 +247,7 @@
     {
       "name": "sources",
       "source": "ai_elements",
-      "recipe": "popover",
+      "recipe": "disclosure",
       "tier": 1
     },
     {
