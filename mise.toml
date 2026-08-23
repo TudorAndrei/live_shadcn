@@ -1,0 +1,23 @@
+[tools]
+erlang = "29"
+elixir = "1.20-otp-29"
+
+hk = "1.56.1"
+pkl = "0.32.1"
+
+# actionlint shells out to shellcheck for every `run:` block. Without it the
+# workflow lint reports an error instead of a finding.
+actionlint = "latest"
+shellcheck = "latest"
+gitleaks = "latest"
+pinact = "latest"
+rumdl = "latest"
+tombi = "latest"
+typos = "latest"
+zizmor = "latest"
+
+[env]
+HK_MISE = 1
+
+[hooks]
+postinstall = "hk install --mise"

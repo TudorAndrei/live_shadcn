@@ -17,3 +17,11 @@ node_modules/
 
 # OS
 .DS_Store
+node_modules/
+
+# Built hex packages
+*.tar
+doc/
+
+# Unpacked hex packages inspected by hand
+tools/pkg/

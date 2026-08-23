@@ -2,7 +2,7 @@
 
 ## Three layers
 
-```
+```text
 live_ai_elements   parts model, stream reducer, AI components
         |
    live_shadcn     63 components, copy-in through mix ui.add
@@ -114,7 +114,7 @@ and templating.
 A scheduled workflow runs fetch, spec, gen, and verify, then opens a pull
 request:
 
-```
+```text
 sync shadcn @ ac60ef5 — 4 class strings changed, 1 new component, 0 behavior changes
 ```
 

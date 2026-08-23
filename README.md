@@ -28,7 +28,7 @@ scheduled job that opens a pull request, not a person remembering to look.
 shadcn is **class strings keyed on data attributes**. Base UI is **the behavior
 that sets those attributes**.
 
-```
+```text
 data-panel-open   data-starting-style   data-ending-style
 data-side         data-highlighted      data-disabled
 ```
@@ -67,7 +67,7 @@ floating position, arrow-key roving focus, typeahead, and scroll lock.
 
 ## The pipeline
 
-```
+```text
 mix ui.fetch  ->  mix ui.spec  ->  mix ui.gen  ->  mix ui.verify
    upstream        registry/spec     HEEx +          snapshots,
    sources         (our IR)          hooks           Playwright, axe
@@ -82,7 +82,7 @@ per upstream file, so drift is visible without redistributing anyone's source.
 
 ## Layout
 
-```
+```text
 packages/live_base/          headless primitives
 packages/live_shadcn/        components + mix ui.add / mix ui.sync
 packages/live_ai_elements/   AI parts model, reducer, components

@@ -19,7 +19,8 @@ Monorepo, three packages, and stage one of the pipeline.
 - [x] `mix ui.status` derives the inventory from disk
 - [x] CI matrix, and a weekly sync workflow
 
-**Exit:** a fresh clone runs `mix ui.fetch --only accordion` and gets a manifest. ✅
+**Exit:** a fresh clone runs `mix ui.fetch --only accordion` and gets a
+manifest. ✅
 
 ---
 

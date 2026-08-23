@@ -1,0 +1,20 @@
+# In `dir` mode gitleaks walks the whole working tree, including the git-ignored
+# Mix trees. Those hold third-party sources with example keys in their docs.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "vendored and build artifacts (deps/, _build/, node_modules/, tools/pkg/)"
+paths = [
+  '''(^|/)deps/''',
+  '''(^|/)_build/''',
+  '''(^|/)node_modules/''',
+  '''^tools/pkg/''',
+]
+
+# `mix ui.fetch` writes upstream documentation pages here, HTML and all. The
+# pages carry the page tokens of the site they came from, which are neither ours
+# nor secret. The directory is git-ignored, so nothing in it can be committed.
+[[allowlists]]
+description = "fetched upstream sources (registry/upstream/)"
+paths = ['''^registry/upstream/''']
