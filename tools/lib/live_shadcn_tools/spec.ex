@@ -576,6 +576,19 @@ defmodule LiveShadcnTools.Spec do
           "children" => [node(jsx!(jsx), ctx)]
         }
 
+      # `{getStatusBadge(state)}` — a helper in this file that renders markup.
+      # It is not a component, because JSX would read a lowercase tag as an HTML
+      # element, so upstream calls it instead. Its markup belongs to whoever
+      # called it, and the argument it was called with takes the place of the
+      # parameter it was written against.
+      inlined = local_call(code, ctx) ->
+        inlined
+
+      # `{statusLabels[status]}` — a table upstream declared once, read by a
+      # prop. The table is data and the prop is a prop, so both come across.
+      lookup = lookup(code, ctx) ->
+        lookup
+
       # `{getThinkingMessage(isStreaming, duration)}` — a prop that is a
       # function, called to produce markup. React calls it a render prop; HEEx
       # calls it a slot, and they mean the same thing: the caller decides what
@@ -623,6 +636,94 @@ defmodule LiveShadcnTools.Spec do
   # is, and `{currentBranch + 1}` is a value however the number is reached.
   @value ~r/^[a-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$/
   @arithmetic ~r/^[a-z_][A-Za-z0-9_.]*(\s*(\+|-|\*|\/|\?\?)\s*([a-z_][A-Za-z0-9_.]*|-?\d+))+$/
+  # `errorText ? "Error" : "Result"` — a choice between two values, which is a
+  # value. A choice between two pieces of markup contains `<` and is not one.
+  @ternary ~r/^[^?<]+\?[^:<]+:[^<]+$/s
+
+  defp local_call(code, ctx) do
+    with [callee, args] <-
+           Regex.run(~r/^([a-z_][A-Za-z0-9_]*)\((.*)\)$/s, String.trim(code),
+             capture: :all_but_first
+           ),
+         {:ok, helper} <- Map.fetch(ctx.functions, callee) do
+      helper.jsx
+      |> node(%{ctx | params_of: helper.params, renames: helper.renames})
+      |> substitute(bind(helper.params, args))
+    else
+      _ -> nil
+    end
+  end
+
+  # The helper's parameters, by the expressions it was called with. A helper
+  # written against `status` and called with `state` reads `state` here.
+  defp bind(params, args) do
+    args
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    |> Enum.zip(params |> Map.keys() |> Enum.sort())
+    |> Map.new(fn {argument, param} -> {param, argument} end)
+  end
+
+  defp substitute(node, bindings) when is_map(node) do
+    node
+    |> Map.new(fn {key, value} -> {key, substitute(value, bindings)} end)
+    |> rebind(bindings)
+  end
+
+  defp substitute(nodes, bindings) when is_list(nodes),
+    do: Enum.map(nodes, &substitute(&1, bindings))
+
+  defp substitute(value, _bindings), do: value
+
+  defp rebind(%{"type" => "lookup", "key" => key} = node, bindings),
+    do: %{node | "key" => Map.get(bindings, key, key)}
+
+  defp rebind(%{"type" => "value", "code" => code} = node, bindings),
+    do: %{node | "code" => Map.get(bindings, code, code)}
+
+  defp rebind(node, _bindings), do: node
+
+  # `table[key]`, where `table` is an object this file declared at the top level.
+  #
+  # React writes a lookup table for the same reason a `cva` table exists: a
+  # value per state, written once, read by whichever state the caller is in.
+  # `cva` is already read as data, and this is the same fact in a plainer shape.
+  #
+  # The entries come across as nodes, because a table's values are as often
+  # markup as they are strings — `statusIcons` holds one icon per tool state.
+  defp lookup(code, ctx) do
+    with [name, key] <-
+           Regex.run(~r/^([A-Za-z_][A-Za-z0-9_]*)\[([a-z_][A-Za-z0-9_]*)\]$/, String.trim(code),
+             capture: :all_but_first
+           ),
+         source when is_binary(source) <- Map.get(ctx.consts, name),
+         {:ok, table} <- table(source) do
+      %{
+        "type" => "lookup",
+        "key" => key,
+        "entries" =>
+          for {value, entry} <- Enum.sort(table) do
+            %{"value" => value, "node" => entry_node(entry, ctx)}
+          end
+      }
+    else
+      _ -> nil
+    end
+  end
+
+  defp table(source) do
+    {:ok, Tsx.object!(source)}
+  rescue
+    _error -> :error
+  end
+
+  defp entry_node({:string, value}, _ctx), do: %{"type" => "text", "value" => value}
+
+  defp entry_node({:code, code}, ctx) do
+    if String.contains?(code, "<"), do: node(jsx!(code), ctx), else: expression(code, ctx)
+  end
+
+  defp entry_node(_other, _ctx), do: %{"type" => "text", "value" => ""}
 
   # A call whose callee is a prop this component destructured. A call to
   # anything else is a local function, and porting one means porting whatever it
@@ -642,7 +743,8 @@ defmodule LiveShadcnTools.Spec do
   defp value?(code) do
     code = String.trim(code)
 
-    Regex.match?(@value, code) or Regex.match?(@arithmetic, code)
+    Regex.match?(@value, code) or Regex.match?(@arithmetic, code) or
+      Regex.match?(@ternary, code)
   end
 
   defp string_literal(code) do

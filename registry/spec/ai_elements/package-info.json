@@ -1,0 +1,825 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "folds": [
+    "shadcn/badge"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "package-info",
+  "parts": [
+    {
+      "export": "PackageInfoHeader",
+      "name": "package_info_header",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "flex items-center justify-between gap-2",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PackageInfoName",
+      "name": "package_info_name",
+      "params": {
+        "children": null,
+        "className": null,
+        "name": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "size-4 text-muted-foreground",
+            "icons": {
+              "lucide": "PackageIcon"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "icon",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "default": [
+                  {
+                    "code": "name",
+                    "type": "value"
+                  }
+                ],
+                "type": "children"
+              }
+            ],
+            "class": "font-medium font-mono text-sm",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "flex items-center gap-2",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PackageInfoChangeType",
+      "name": "package_info_change_type",
+      "params": {
+        "changeType": null,
+        "children": null,
+        "className": null,
+        "render": null,
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "entries": [
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-3",
+                  "icons": {
+                    "lucide": "PlusIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_class": null,
+                  "vars": []
+                },
+                "value": "added"
+              },
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-3",
+                  "icons": {
+                    "lucide": "ArrowRightIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_class": null,
+                  "vars": []
+                },
+                "value": "major"
+              },
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-3",
+                  "icons": {
+                    "lucide": "ArrowRightIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_class": null,
+                  "vars": []
+                },
+                "value": "minor"
+              },
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-3",
+                  "icons": {
+                    "lucide": "ArrowRightIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_class": null,
+                  "vars": []
+                },
+                "value": "patch"
+              },
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-3",
+                  "icons": {
+                    "lucide": "MinusIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_class": null,
+                  "vars": []
+                },
+                "value": "removed"
+              }
+            ],
+            "key": "changeType",
+            "type": "lookup"
+          },
+          {
+            "default": [
+              {
+                "code": "changeType",
+                "type": "value"
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "gap-1 text-xs capitalize",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "aria-invalid"
+          ]
+        },
+        "render_as": null,
+        "slot": "badge",
+        "tag": "span",
+        "type": "element",
+        "variant_class": "badgeVariants",
+        "vars": []
+      }
+    },
+    {
+      "export": "PackageInfoVersion",
+      "name": "package_info_version",
+      "params": {
+        "children": null,
+        "className": null,
+        "currentVersion": null,
+        "newVersion": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "code": "currentVersion",
+                            "type": "value"
+                          }
+                        ],
+                        "class": "",
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "span",
+                        "type": "element",
+                        "variant_class": null,
+                        "vars": []
+                      }
+                    ],
+                    "type": "optional",
+                    "when": "currentVersion"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [],
+                        "class": "size-3",
+                        "icons": {
+                          "lucide": "ArrowRightIcon"
+                        },
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "type": "icon",
+                        "variant_class": null,
+                        "vars": []
+                      }
+                    ],
+                    "type": "optional",
+                    "when": "currentVersion && newVersion"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "code": "newVersion",
+                            "type": "value"
+                          }
+                        ],
+                        "class": "font-medium text-foreground",
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "span",
+                        "type": "element",
+                        "variant_class": null,
+                        "vars": []
+                      }
+                    ],
+                    "type": "optional",
+                    "when": "newVersion"
+                  }
+                ],
+                "class": "",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "reason": "a fragment",
+                "render_as": null,
+                "slot": null,
+                "type": "transparent",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "mt-2 flex items-center gap-2 font-mono text-muted-foreground text-sm",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PackageInfo",
+      "name": "package_info",
+      "params": {
+        "changeType": null,
+        "children": null,
+        "className": null,
+        "currentVersion": null,
+        "name": null,
+        "newVersion": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "default": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "attrs": [],
+                            "children": [],
+                            "class": "",
+                            "merges_class": false,
+                            "part": "package_info_name",
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "type": "part_ref",
+                            "variant_class": null,
+                            "vars": []
+                          },
+                          {
+                            "children": [
+                              {
+                                "attrs": [],
+                                "children": [],
+                                "class": "",
+                                "merges_class": false,
+                                "part": "package_info_change_type",
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": null,
+                                "type": "part_ref",
+                                "variant_class": null,
+                                "vars": []
+                              }
+                            ],
+                            "type": "optional",
+                            "when": "changeType"
+                          }
+                        ],
+                        "class": "",
+                        "merges_class": false,
+                        "part": "package_info_header",
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "type": "part_ref",
+                        "variant_class": null,
+                        "vars": []
+                      },
+                      {
+                        "children": [
+                          {
+                            "attrs": [],
+                            "children": [],
+                            "class": "",
+                            "merges_class": false,
+                            "part": "package_info_version",
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "type": "part_ref",
+                            "variant_class": null,
+                            "vars": []
+                          }
+                        ],
+                        "type": "optional",
+                        "when": "(currentVersion || newVersion)"
+                      }
+                    ],
+                    "class": "",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "reason": "a fragment",
+                    "render_as": null,
+                    "slot": null,
+                    "type": "transparent",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "type": "children"
+              }
+            ],
+            "class": "rounded-lg border bg-background p-4",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PackageInfoDescription",
+      "name": "package_info_description",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "mt-2 text-muted-foreground text-sm",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "p",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PackageInfoContent",
+      "name": "package_info_content",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "mt-3 border-t pt-3",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PackageInfoDependencies",
+      "name": "package_info_dependencies",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "Dependencies"
+              }
+            ],
+            "class": "font-medium text-muted-foreground text-xs uppercase tracking-wide",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "space-y-1",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "space-y-2",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PackageInfoDependency",
+      "name": "package_info_dependency",
+      "params": {
+        "children": null,
+        "className": null,
+        "name": null,
+        "version": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "code": "name",
+                        "type": "value"
+                      }
+                    ],
+                    "class": "font-mono text-muted-foreground",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  },
+                  {
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "code": "version",
+                            "type": "value"
+                          }
+                        ],
+                        "class": "font-mono text-xs",
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "span",
+                        "type": "element",
+                        "variant_class": null,
+                        "vars": []
+                      }
+                    ],
+                    "type": "optional",
+                    "when": "version"
+                  }
+                ],
+                "class": "",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "reason": "a fragment",
+                "render_as": null,
+                "slot": null,
+                "type": "transparent",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "flex items-center justify-between text-sm",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/package-info.tsx",
+      "sha256": "f6cb384a2f76acd7b305481e5a7b28a78c290e02fcda1867badf8801d29cf242"
+    }
+  },
+  "variants": {
+    "badgeVariants": {
+      "base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": {
+        "variant": {
+          "default": "cn-badge-variant-default",
+          "destructive": "cn-badge-variant-destructive",
+          "ghost": "cn-badge-variant-ghost",
+          "link": "cn-badge-variant-link",
+          "outline": "cn-badge-variant-outline",
+          "secondary": "cn-badge-variant-secondary"
+        }
+      }
+    }
+  }
+}

@@ -7,9 +7,9 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 1 | ························ |
-| `fetched` | 39 | ████████················ |
+| `fetched` | 38 | ████████················ |
 | `spec` | 23 | █████··················· |
-| `generated` | 0 | ························ |
+| `generated` | 1 | ························ |
 | `verified` | 49 | ███████████············· |
 
 ## Recipes
@@ -132,7 +132,7 @@ Only the recipes are written by hand; every component is data.
 | `inline-citation` | 2 | `presentational` | 🟦 fetched |
 | `model-selector` | 2 | `listbox` | 🟨 spec |
 | `open-in-chat` | 2 | `presentational` | 🟨 spec |
-| `package-info` | 2 | `presentational` | 🟦 fetched |
+| `package-info` | 2 | `presentational` | 🟩 generated |
 | `panel` | 2 | `disclosure` | 🟦 fetched |
 | `persona` | 2 | `presentational` | 🟦 fetched |
 | `plan` | 2 | `disclosure` | 🟦 fetched |

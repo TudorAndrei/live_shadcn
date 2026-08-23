@@ -169,8 +169,11 @@ defmodule LiveShadcnTools.Tsx do
   # every AI Elements component is written. A `const` that holds no arrow
   # function — a variant table, a lookup map, a plain value — is not one, and is
   # left to `consts/1`.
+  # Lowercase too. `const getStatusBadge = (status) => (<Badge …/>)` is not a
+  # component — JSX would read `<getStatusBadge />` as an HTML element — but it
+  # renders markup, and the file that calls it needs that markup.
   defp arrows(source) do
-    ~r/^(?:export )?const ([A-Z][A-Za-z0-9_]*)(?::[^=]+)? = /m
+    ~r/^(?:export )?const ([A-Za-z_][A-Za-z0-9_]*)(?::[^=]+)? = /m
     |> Regex.scan(source, return: :index)
     |> Enum.flat_map(fn [{at, length}, {name_at, name_len}] ->
       name = binary_part(source, name_at, name_len)

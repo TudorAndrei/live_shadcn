@@ -77,6 +77,27 @@ defmodule LiveShadcnTools.Gen.Heex do
   def render(%{"type" => "slot", "name" => name}, _ctx, indent),
     do: pad(indent) <> "{render_slot(@#{name})}"
 
+  # A table of values, read by a prop. A table of strings is a map lookup, and
+  # one whose values are markup is one element per entry, each rendered only for
+  # the value it belongs to. Both say the same thing; only one of them can be
+  # written inside `{…}`.
+  def render(%{"type" => "lookup", "key" => key, "entries" => entries}, ctx, indent) do
+    if Enum.all?(entries, &match?(%{"node" => %{"type" => "text"}}, &1)) do
+      pairs =
+        Enum.map_join(entries, ", ", fn %{"value" => value, "node" => text} ->
+          ~s|"#{value}" => "#{text["value"]}"|
+        end)
+
+      pad(indent) <> "{Map.get(%{#{pairs}}, #{expression(key, ctx)})}"
+    else
+      Enum.map_join(entries, "\n", fn %{"value" => value, "node" => entry} ->
+        condition = "#{expression(key, ctx)} == #{inspect(value)}"
+
+        render(with_attr(entry, {":if", :code, condition}), ctx, indent)
+      end)
+    end
+  end
+
   # Base UI says this part renders no element of its own, so neither does the
   # generated component. Its children still have to reach the page.
   def render(%{"type" => "transparent"} = node, ctx, indent),
@@ -135,7 +156,7 @@ defmodule LiveShadcnTools.Gen.Heex do
   def render(%{"type" => "external", "role" => "markdown"} = node, ctx, indent) do
     tag(
       "LiveAiElements.Markdown.markdown",
-      [{"content", :code, "@content"}] ++ class_attr(node, ctx),
+      structural(node) ++ [{"content", :code, "@content"}] ++ class_attr(node, ctx),
       [],
       indent
     )
@@ -144,7 +165,11 @@ defmodule LiveShadcnTools.Gen.Heex do
   def render(%{"type" => "icon"} = node, ctx, indent) do
     tag(
       "LiveShadcn.Icon.icon",
-      [icon_attr(node)] ++ slot_attr(node, ctx) ++ class_attr(node, ctx),
+      # `structural/1` first, because that is where `:if` and `:for` live and an
+      # icon can be conditional like anything else. Leaving it out rendered
+      # every entry of a lookup table at once: five icons, one after another,
+      # where the table meant one.
+      structural(node) ++ [icon_attr(node)] ++ slot_attr(node, ctx) ++ class_attr(node, ctx),
       [],
       indent
     )
