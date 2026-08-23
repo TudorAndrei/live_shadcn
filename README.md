@@ -5,9 +5,13 @@ registries, not hand-copied.
 
 > Status: all eight recipes are written, and every shadcn tier-1 component is
 > generated and verified — markup snapshot, behaviour in a real browser, and
-> axe-core clean — with no line edited by hand. 42 components in all, checked by
-> 118 browser tests. `mix ui.add` and `mix ui.sync` work against a real
-> application. Nothing is published to hex yet.
+> axe-core clean — with no line edited by hand. `mix ui.add` and `mix ui.sync`
+> work against a real application. Nothing is published to hex yet.
+>
+> The AI Elements reducer is done and its two adapters agree on five recorded
+> streams. The reader now reads both registries, and the first AI Elements
+> component is generated and verified. [docs/INVENTORY.md](docs/INVENTORY.md)
+> has the count, derived from disk rather than typed here.
 
 ## Why another component library
 
