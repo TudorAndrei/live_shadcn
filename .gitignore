@@ -1,0 +1,19 @@
+# Elixir
+_build/
+deps/
+*.ez
+*.beam
+.elixir_ls/
+.lexical/
+erl_crash.dump
+cover/
+
+# Fetched upstream sources (regenerate with `mix ui.fetch`)
+registry/upstream/**
+!registry/upstream/.gitkeep
+
+# Node
+node_modules/
+
+# OS
+.DS_Store

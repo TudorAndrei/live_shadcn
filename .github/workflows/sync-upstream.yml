@@ -1,0 +1,63 @@
+name: Sync upstream
+
+# Keeping up with shadcn is a scheduled job, not a person remembering to look.
+# The run re-fetches upstream, regenerates, and opens a pull request when the
+# digests in registry/UPSTREAM.json move.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays, 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: erlef/setup-beam@v1
+        with:
+          elixir-version: "1.20"
+          otp-version: "29"
+
+      - run: mix deps.get
+        working-directory: tools
+
+      - name: Fetch upstream
+        run: mix ui.fetch
+        working-directory: tools
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Added once the generator stages land.
+      # - run: mix ui.spec && mix ui.gen && mix ui.verify
+      #   working-directory: tools
+
+      - name: Summarise the drift
+        id: drift
+        run: |
+          if git diff --quiet -- registry/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            {
+              echo 'body<<DIFF'
+              echo 'Upstream digests moved. Files touched:'
+              echo
+              git diff --stat -- registry/
+              echo DIFF
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open pull request
+        if: steps.drift.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: sync/upstream
+          title: "chore(registry): sync upstream"
+          body: ${{ steps.drift.outputs.body }}
+          commit-message: "chore(registry): sync upstream"

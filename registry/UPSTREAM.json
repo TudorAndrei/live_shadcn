@@ -1,0 +1,30 @@
+{
+  "files": {
+    "base_ui/accordion.md": {
+      "bytes": 42068,
+      "sha256": "e3e22cc82ffe5b0d2c5662fbbc5950a26d414a2f05e0b0cb0b006a7f379d0971",
+      "url": "https://base-ui.com/react/components/accordion.md"
+    },
+    "shadcn/ui/accordion.tsx": {
+      "bytes": 2772,
+      "sha256": "3fbd0fd128f90598e5387f55646f66fff0775ba95bc152a7252ddb24a601be5c",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/ac60ef5c4db4265d71454dd9ecd3f93e255d7211/apps/v4/registry/bases/base/ui/accordion.tsx"
+    }
+  },
+  "generated_by": "mix ui.fetch",
+  "sources": {
+    "ai_elements": {
+      "dir": "packages/elements/src",
+      "ref": "6a9d5b1822ffb10bba4bd97175f01edd7d8651cd",
+      "repo": "vercel/ai-elements"
+    },
+    "base_ui": {
+      "origin": "https://base-ui.com/react/components"
+    },
+    "shadcn": {
+      "dir": "apps/v4/registry/bases/base/ui",
+      "ref": "ac60ef5c4db4265d71454dd9ecd3f93e255d7211",
+      "repo": "shadcn-ui/ui"
+    }
+  }
+}

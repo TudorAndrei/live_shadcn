@@ -1,0 +1,3 @@
+[
+  subdirectories: ["packages/*", "tools"]
+]
