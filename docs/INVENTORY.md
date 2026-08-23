@@ -6,11 +6,11 @@
 
 | Stage | Components | |
 |---|---:|---|
-| `planned` | 111 | ████████████████████████ |
-| `fetched` | 1 | ························ |
-| `spec` | 0 | ························ |
+| `planned` | 1 | ························ |
+| `fetched` | 57 | ████████████············ |
+| `spec` | 11 | ██······················ |
 | `generated` | 0 | ························ |
-| `verified` | 0 | ························ |
+| `verified` | 43 | █████████··············· |
 
 ## Recipes
 
@@ -39,120 +39,120 @@ Only the recipes are written by hand; every component is data.
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `accordion` | 1 | `disclosure` | 🟦 fetched |
-| `alert` | 1 | `presentational` | ⬜ planned |
-| `avatar` | 1 | `presentational` | ⬜ planned |
-| `badge` | 1 | `presentational` | ⬜ planned |
-| `button` | 1 | `presentational` | ⬜ planned |
-| `card` | 1 | `presentational` | ⬜ planned |
-| `checkbox` | 1 | `form-control` | ⬜ planned |
-| `collapsible` | 1 | `disclosure` | ⬜ planned |
-| `dialog` | 1 | `dialog` | ⬜ planned |
-| `dropdown-menu` | 1 | `menu` | ⬜ planned |
-| `input` | 1 | `form-control` | ⬜ planned |
-| `label` | 1 | `form-control` | ⬜ planned |
-| `popover` | 1 | `popover` | ⬜ planned |
-| `select` | 1 | `listbox` | ⬜ planned |
-| `separator` | 1 | `presentational` | ⬜ planned |
-| `skeleton` | 1 | `presentational` | ⬜ planned |
-| `spinner` | 1 | `presentational` | ⬜ planned |
-| `switch` | 1 | `form-control` | ⬜ planned |
-| `table` | 1 | `presentational` | ⬜ planned |
-| `tabs` | 1 | `tabs` | ⬜ planned |
-| `textarea` | 1 | `form-control` | ⬜ planned |
-| `tooltip` | 1 | `popover` | ⬜ planned |
-| `alert-dialog` | 2 | `dialog` | ⬜ planned |
-| `aspect-ratio` | 2 | `presentational` | ⬜ planned |
-| `attachment` | 2 | `presentational` | ⬜ planned |
-| `breadcrumb` | 2 | `presentational` | ⬜ planned |
-| `bubble` | 2 | `presentational` | ⬜ planned |
-| `button-group` | 2 | `presentational` | ⬜ planned |
-| `combobox` | 2 | `listbox` | ⬜ planned |
-| `command` | 2 | `listbox` | ⬜ planned |
-| `context-menu` | 2 | `menu` | ⬜ planned |
-| `direction` | 2 | `utility` | ⬜ planned |
-| `drawer` | 2 | `dialog` | ⬜ planned |
-| `empty` | 2 | `presentational` | ⬜ planned |
-| `field` | 2 | `form-control` | ⬜ planned |
+| `accordion` | 1 | `disclosure` | ✅ verified |
+| `alert` | 1 | `presentational` | ✅ verified |
+| `avatar` | 1 | `presentational` | ✅ verified |
+| `badge` | 1 | `presentational` | ✅ verified |
+| `button` | 1 | `presentational` | ✅ verified |
+| `card` | 1 | `presentational` | ✅ verified |
+| `checkbox` | 1 | `form-control` | ✅ verified |
+| `collapsible` | 1 | `disclosure` | ✅ verified |
+| `dialog` | 1 | `dialog` | ✅ verified |
+| `dropdown-menu` | 1 | `menu` | ✅ verified |
+| `input` | 1 | `form-control` | ✅ verified |
+| `label` | 1 | `form-control` | ✅ verified |
+| `popover` | 1 | `popover` | ✅ verified |
+| `select` | 1 | `listbox` | ✅ verified |
+| `separator` | 1 | `presentational` | ✅ verified |
+| `skeleton` | 1 | `presentational` | ✅ verified |
+| `spinner` | 1 | `presentational` | ✅ verified |
+| `switch` | 1 | `form-control` | ✅ verified |
+| `table` | 1 | `presentational` | ✅ verified |
+| `tabs` | 1 | `tabs` | ✅ verified |
+| `textarea` | 1 | `form-control` | ✅ verified |
+| `tooltip` | 1 | `popover` | ✅ verified |
+| `alert-dialog` | 2 | `dialog` | ✅ verified |
+| `aspect-ratio` | 2 | `presentational` | ✅ verified |
+| `attachment` | 2 | `presentational` | ✅ verified |
+| `breadcrumb` | 2 | `presentational` | ✅ verified |
+| `bubble` | 2 | `presentational` | ✅ verified |
+| `button-group` | 2 | `presentational` | ✅ verified |
+| `combobox` | 2 | `listbox` | ✅ verified |
+| `command` | 2 | `listbox` | 🟦 fetched |
+| `context-menu` | 2 | `menu` | ✅ verified |
+| `direction` | 2 | `utility` | 🟨 spec |
+| `drawer` | 2 | `dialog` | 🟨 spec |
+| `empty` | 2 | `presentational` | ✅ verified |
+| `field` | 2 | `form-control` | 🟨 spec |
 | `form` | 2 | `form-control` | ⬜ planned |
-| `hover-card` | 2 | `popover` | ⬜ planned |
-| `input-group` | 2 | `form-control` | ⬜ planned |
-| `input-otp` | 2 | `form-control` | ⬜ planned |
-| `item` | 2 | `presentational` | ⬜ planned |
-| `kbd` | 2 | `presentational` | ⬜ planned |
-| `marker` | 2 | `presentational` | ⬜ planned |
-| `menubar` | 2 | `menu` | ⬜ planned |
-| `message` | 2 | `presentational` | ⬜ planned |
-| `message-scroller` | 2 | `scroller` | ⬜ planned |
-| `native-select` | 2 | `listbox` | ⬜ planned |
-| `navigation-menu` | 2 | `menu` | ⬜ planned |
-| `pagination` | 2 | `presentational` | ⬜ planned |
-| `progress` | 2 | `presentational` | ⬜ planned |
-| `radio-group` | 2 | `form-control` | ⬜ planned |
-| `scroll-area` | 2 | `scroller` | ⬜ planned |
-| `sheet` | 2 | `dialog` | ⬜ planned |
-| `sidebar` | 2 | `disclosure` | ⬜ planned |
-| `slider` | 2 | `form-control` | ⬜ planned |
-| `sonner` | 2 | `toast` | ⬜ planned |
-| `toast` | 2 | `toast` | ⬜ planned |
-| `toggle` | 2 | `form-control` | ⬜ planned |
-| `toggle-group` | 2 | `tabs` | ⬜ planned |
-| `calendar` | 3 | `calendar` | ⬜ planned |
-| `carousel` | 3 | `carousel` | ⬜ planned |
-| `chart` | 3 | `chart` | ⬜ planned |
-| `questionnaire` | 3 | `presentational` | ⬜ planned |
-| `resizable` | 3 | `resizable` | ⬜ planned |
+| `hover-card` | 2 | `popover` | ✅ verified |
+| `input-group` | 2 | `form-control` | 🟨 spec |
+| `input-otp` | 2 | `form-control` | 🟦 fetched |
+| `item` | 2 | `presentational` | ✅ verified |
+| `kbd` | 2 | `presentational` | ✅ verified |
+| `marker` | 2 | `presentational` | ✅ verified |
+| `menubar` | 2 | `menu` | 🟨 spec |
+| `message` | 2 | `presentational` | ✅ verified |
+| `message-scroller` | 2 | `scroller` | 🟦 fetched |
+| `native-select` | 2 | `listbox` | 🟨 spec |
+| `navigation-menu` | 2 | `menu` | ✅ verified |
+| `pagination` | 2 | `presentational` | ✅ verified |
+| `progress` | 2 | `presentational` | ✅ verified |
+| `radio-group` | 2 | `form-control` | ✅ verified |
+| `scroll-area` | 2 | `scroller` | 🟨 spec |
+| `sheet` | 2 | `dialog` | ✅ verified |
+| `sidebar` | 2 | `disclosure` | 🟦 fetched |
+| `slider` | 2 | `form-control` | 🟨 spec |
+| `sonner` | 2 | `toast` | 🟨 spec |
+| `toast` | 2 | `toast` | 🟨 spec |
+| `toggle` | 2 | `form-control` | ✅ verified |
+| `toggle-group` | 2 | `tabs` | 🟨 spec |
+| `calendar` | 3 | `calendar` | 🟦 fetched |
+| `carousel` | 3 | `carousel` | 🟦 fetched |
+| `chart` | 3 | `chart` | 🟦 fetched |
+| `questionnaire` | 3 | `presentational` | 🟦 fetched |
+| `resizable` | 3 | `resizable` | 🟦 fetched |
 
 ## AI Elements
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `chain-of-thought` | 1 | `disclosure` | ⬜ planned |
-| `code-block` | 1 | `presentational` | ⬜ planned |
-| `context` | 1 | `presentational` | ⬜ planned |
-| `conversation` | 1 | `scroller` | ⬜ planned |
-| `message` | 1 | `presentational` | ⬜ planned |
-| `prompt-input` | 1 | `form-control` | ⬜ planned |
-| `reasoning` | 1 | `disclosure` | ⬜ planned |
-| `shimmer` | 1 | `presentational` | ⬜ planned |
-| `sources` | 1 | `popover` | ⬜ planned |
-| `suggestion` | 1 | `presentational` | ⬜ planned |
-| `task` | 1 | `disclosure` | ⬜ planned |
-| `tool` | 1 | `disclosure` | ⬜ planned |
-| `agent` | 2 | `presentational` | ⬜ planned |
-| `artifact` | 2 | `disclosure` | ⬜ planned |
-| `attachments` | 2 | `presentational` | ⬜ planned |
-| `checkpoint` | 2 | `presentational` | ⬜ planned |
-| `commit` | 2 | `presentational` | ⬜ planned |
-| `confirmation` | 2 | `presentational` | ⬜ planned |
-| `controls` | 2 | `presentational` | ⬜ planned |
-| `environment-variables` | 2 | `presentational` | ⬜ planned |
-| `file-tree` | 2 | `presentational` | ⬜ planned |
-| `image` | 2 | `presentational` | ⬜ planned |
-| `inline-citation` | 2 | `presentational` | ⬜ planned |
-| `model-selector` | 2 | `listbox` | ⬜ planned |
-| `open-in-chat` | 2 | `presentational` | ⬜ planned |
-| `package-info` | 2 | `presentational` | ⬜ planned |
-| `panel` | 2 | `disclosure` | ⬜ planned |
-| `persona` | 2 | `presentational` | ⬜ planned |
-| `plan` | 2 | `disclosure` | ⬜ planned |
-| `question` | 2 | `presentational` | ⬜ planned |
-| `queue` | 2 | `presentational` | ⬜ planned |
-| `schema-display` | 2 | `presentational` | ⬜ planned |
-| `snippet` | 2 | `presentational` | ⬜ planned |
-| `stack-trace` | 2 | `presentational` | ⬜ planned |
-| `test-results` | 2 | `presentational` | ⬜ planned |
-| `toolbar` | 2 | `presentational` | ⬜ planned |
-| `audio-player` | 3 | `presentational` | ⬜ planned |
-| `canvas` | 3 | `presentational` | ⬜ planned |
-| `connection` | 3 | `presentational` | ⬜ planned |
-| `edge` | 3 | `presentational` | ⬜ planned |
-| `jsx-preview` | 3 | `presentational` | ⬜ planned |
-| `mic-selector` | 3 | `listbox` | ⬜ planned |
-| `node` | 3 | `presentational` | ⬜ planned |
-| `sandbox` | 3 | `presentational` | ⬜ planned |
-| `speech-input` | 3 | `presentational` | ⬜ planned |
-| `terminal` | 3 | `presentational` | ⬜ planned |
-| `transcription` | 3 | `presentational` | ⬜ planned |
-| `voice-selector` | 3 | `listbox` | ⬜ planned |
-| `web-preview` | 3 | `presentational` | ⬜ planned |
+| `chain-of-thought` | 1 | `disclosure` | 🟦 fetched |
+| `code-block` | 1 | `presentational` | 🟦 fetched |
+| `context` | 1 | `presentational` | 🟦 fetched |
+| `conversation` | 1 | `scroller` | 🟦 fetched |
+| `message` | 1 | `presentational` | ✅ verified |
+| `prompt-input` | 1 | `form-control` | 🟦 fetched |
+| `reasoning` | 1 | `disclosure` | 🟦 fetched |
+| `shimmer` | 1 | `presentational` | 🟦 fetched |
+| `sources` | 1 | `popover` | 🟦 fetched |
+| `suggestion` | 1 | `presentational` | 🟦 fetched |
+| `task` | 1 | `disclosure` | 🟦 fetched |
+| `tool` | 1 | `disclosure` | 🟦 fetched |
+| `agent` | 2 | `presentational` | 🟦 fetched |
+| `artifact` | 2 | `disclosure` | 🟦 fetched |
+| `attachments` | 2 | `presentational` | 🟦 fetched |
+| `checkpoint` | 2 | `presentational` | 🟦 fetched |
+| `commit` | 2 | `presentational` | 🟦 fetched |
+| `confirmation` | 2 | `presentational` | 🟦 fetched |
+| `controls` | 2 | `presentational` | 🟦 fetched |
+| `environment-variables` | 2 | `presentational` | 🟦 fetched |
+| `file-tree` | 2 | `presentational` | 🟦 fetched |
+| `image` | 2 | `presentational` | 🟦 fetched |
+| `inline-citation` | 2 | `presentational` | 🟦 fetched |
+| `model-selector` | 2 | `listbox` | 🟦 fetched |
+| `open-in-chat` | 2 | `presentational` | 🟦 fetched |
+| `package-info` | 2 | `presentational` | 🟦 fetched |
+| `panel` | 2 | `disclosure` | 🟦 fetched |
+| `persona` | 2 | `presentational` | 🟦 fetched |
+| `plan` | 2 | `disclosure` | 🟦 fetched |
+| `question` | 2 | `presentational` | 🟦 fetched |
+| `queue` | 2 | `presentational` | 🟦 fetched |
+| `schema-display` | 2 | `presentational` | 🟦 fetched |
+| `snippet` | 2 | `presentational` | 🟦 fetched |
+| `stack-trace` | 2 | `presentational` | 🟦 fetched |
+| `test-results` | 2 | `presentational` | 🟦 fetched |
+| `toolbar` | 2 | `presentational` | 🟦 fetched |
+| `audio-player` | 3 | `presentational` | 🟦 fetched |
+| `canvas` | 3 | `presentational` | 🟦 fetched |
+| `connection` | 3 | `presentational` | 🟦 fetched |
+| `edge` | 3 | `presentational` | 🟦 fetched |
+| `jsx-preview` | 3 | `presentational` | 🟦 fetched |
+| `mic-selector` | 3 | `listbox` | 🟦 fetched |
+| `node` | 3 | `presentational` | 🟦 fetched |
+| `sandbox` | 3 | `presentational` | 🟦 fetched |
+| `speech-input` | 3 | `presentational` | 🟦 fetched |
+| `terminal` | 3 | `presentational` | 🟦 fetched |
+| `transcription` | 3 | `presentational` | 🟦 fetched |
+| `voice-selector` | 3 | `listbox` | 🟦 fetched |
+| `web-preview` | 3 | `presentational` | 🟦 fetched |
