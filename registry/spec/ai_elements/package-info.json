@@ -510,7 +510,7 @@
                           }
                         ],
                         "type": "optional",
-                        "when": "(currentVersion || newVersion)"
+                        "when": "currentVersion || newVersion"
                       }
                     ],
                     "class": "",

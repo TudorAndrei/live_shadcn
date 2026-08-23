@@ -103,6 +103,77 @@ defmodule LiveShadcnTools.Ast do
     _error -> nil
   end
 
+  @doc """
+  Splits `a && b`, `a || b` or `a ?? b` into its operator and two sides.
+
+  Both are the same question as a ternary: where does the left stop. Answering
+  it by regular expression took `frame.functionName && (<span>…</span>)` and
+  swallowed the three siblings after it, because `.*$` does not know that a
+  JSX element ended.
+  """
+  def logical(code) do
+    wrapped = "const __x = (\n#{code}\n)"
+
+    case cached_tree(wrapped) do
+      %{"body" => [%{"declarations" => [%{"init" => init}]}]} -> sides(bare(init), wrapped)
+      _ -> nil
+    end
+  rescue
+    _error -> nil
+  end
+
+  @doc """
+  Splits `items.map((item) => …)` into the list, the name, and the body.
+
+  Where the body ends is the same question again, and a regular expression that
+  reads to the end of the string hands back one bracket too many.
+  """
+  def mapped(code) do
+    wrapped = "const __x = (\n#{code}\n)"
+
+    case cached_tree(wrapped) do
+      %{"body" => [%{"declarations" => [%{"init" => init}]}]} -> mapping(bare(init), wrapped)
+      _ -> nil
+    end
+  rescue
+    _error -> nil
+  end
+
+  defp mapping(
+         %{
+           "type" => "CallExpression",
+           "callee" => %{"type" => "MemberExpression", "property" => %{"name" => "map"}} = callee,
+           "arguments" => [argument | _]
+         },
+         source
+       ) do
+    case bare(argument) do
+      %{"type" => "ArrowFunctionExpression", "params" => [binding | _], "body" => body} ->
+        {name, fields} = bound_item(binding)
+        {slice(callee["object"], source), name, fields, slice(bare(body), source)}
+
+      _ ->
+        nil
+    end
+  end
+
+  defp mapping(_node, _source), do: nil
+
+  # `(frame) => …` names the item; `({ token, key }) => …` names its fields and
+  # not the item. HEEx binds one name per generator, so the item gets a name and
+  # the fields are read off it.
+  defp bound_item(%{"type" => "Identifier", "name" => name}), do: {name, []}
+
+  defp bound_item(%{"type" => "ObjectPattern", "properties" => properties}),
+    do: {"item", for(%{"key" => %{"name" => name}} <- properties, do: name)}
+
+  defp bound_item(_pattern), do: {"item", []}
+
+  defp sides(%{"type" => "LogicalExpression"} = node, source),
+    do: {node["operator"], slice(bare(node["left"]), source), slice(bare(node["right"]), source)}
+
+  defp sides(_node, _source), do: nil
+
   defp ternary(%{"type" => "ConditionalExpression"} = node, source),
     do:
       {slice(node["test"], source), slice(bare(node["consequent"]), source),
@@ -135,8 +206,18 @@ defmodule LiveShadcnTools.Ast do
 
     try do
       case System.cmd(node!(), [script, path], stderr_to_stdout: true) do
-        {json, 0} -> Jason.decode!(json)
-        {output, _status} -> raise "the parser could not read this source: #{String.trim(output)}"
+        {json, 0} ->
+          Jason.decode!(json)
+
+        {output, _status} ->
+          # With the source, because "unexpected token" on its own is a message
+          # about a file nobody can find. What reaches here is usually a
+          # fragment this pipeline built, so the fragment is the bug.
+          raise """
+          the parser could not read this source: #{String.trim(output)}
+
+          #{String.slice(source, 0, 400)}
+          """
       end
     after
       File.rm(path)
@@ -264,10 +345,31 @@ defmodule LiveShadcnTools.Ast do
       props_type: type_name(signature["typeAnnotation"]),
       params: props(signature, body, source),
       renames: renames(signature),
+      locals: locals(body, source),
       jsx: jsx(body, source)
     }
   rescue
     error -> {:unreadable, name, Exception.message(error)}
+  end
+
+  @doc """
+  What a render bound under a name, by the source of what it bound.
+
+  `const Icon = isCopied ? CheckIcon : CopyIcon` and then `<Icon />`. The name
+  is local to the render and means nothing outside it, so what the markup
+  refers to is the value, and the value is what comes back here.
+
+  `props/3` records the same names as props, because a name the markup reads is
+  a name the caller has to supply when nothing here can work it out. These two
+  are the same list read for different reasons: one asks what a component takes
+  and the other asks what a name meant.
+  """
+  def locals(body, source) do
+    for %{"type" => "VariableDeclaration", "declarations" => declarations} <- statements(body),
+        %{"id" => %{"type" => "Identifier", "name" => name}, "init" => init} <- declarations,
+        is_map(init),
+        into: %{},
+        do: {name, slice(bare(init), source)}
   end
 
   # ── what a component takes ────────────────────────────────────────────────

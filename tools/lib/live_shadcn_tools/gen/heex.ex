@@ -122,7 +122,10 @@ defmodule LiveShadcnTools.Gen.Heex do
 
     [{"then", yes}, {"else", "!(#{yes})"}]
     |> Enum.flat_map(fn {branch, test} ->
-      node |> Map.get(branch) |> List.wrap() |> Enum.map(&with_attr(&1, {":if", :code, test}))
+      node
+      |> Map.get(branch)
+      |> List.wrap()
+      |> Enum.map(&(&1 |> onto(node) |> with_attr({":if", :code, test})))
     end)
     |> Enum.map_join("\n", &render(&1, ctx, indent))
   end
@@ -133,7 +136,16 @@ defmodule LiveShadcnTools.Gen.Heex do
     # The binding is in scope inside the loop and nowhere else, so it reads like
     # a prop there — `{branch.key}` is a field of the item, not of the
     # component, and `@branch` would be an assign nobody made.
-    inner = bind(ctx, node["binding"])
+    #
+    # A destructured item names its fields and not itself, so each field reads
+    # off the name this generator gave the item.
+    inner =
+      node
+      |> Map.get("fields")
+      |> List.wrap()
+      |> Enum.reduce(bind(ctx, node["binding"]), fn field, ctx ->
+        bind(ctx, field, "#{node["binding"]}.#{field}")
+      end)
 
     node
     |> Map.get("children")
@@ -222,15 +234,33 @@ defmodule LiveShadcnTools.Gen.Heex do
 
   # A name in scope for one subtree: a loop's binding. It is written without an
   # `@`, so `:bindings` is where it goes rather than `:params`.
-  defp bind(ctx, name) when is_binary(name),
-    do: Map.update(ctx, :bindings, %{name => name}, &Map.put(&1 || %{}, name, name))
+  defp bind(ctx, name, reads_as \\ nil)
 
-  defp bind(ctx, _name), do: ctx
+  defp bind(ctx, name, reads_as) when is_binary(name) do
+    reads_as = reads_as || name
+
+    Map.update(ctx, :bindings, %{name => reads_as}, &Map.put(&1 || %{}, name, reads_as))
+  end
+
+  defp bind(ctx, _name, _reads_as), do: ctx
 
   # An icon upstream chose, or one the caller chooses. Both are a name, because
   # the icon set is configuration and a name is what every set has in common.
   defp icon_attr(%{"prop" => prop}), do: {"name", :code, "@" <> prop}
   defp icon_attr(node), do: {"name", :text, icon_name(node)}
+
+  # What was written on the choice belongs to whichever branch is drawn.
+  # `<Icon className="size-4" />` where `Icon` is one of two icons puts the
+  # class on both, because exactly one of them is the icon.
+  defp onto(branch, %{"attrs" => attrs, "class" => class})
+       when attrs != [] or class not in [nil, ""] do
+    Map.merge(branch, %{
+      "attrs" => (Map.get(branch, "attrs") || []) ++ (attrs || []),
+      "class" => [branch["class"], class] |> Enum.reject(&(&1 in [nil, ""])) |> Enum.join(" ")
+    })
+  end
+
+  defp onto(branch, _node), do: branch
 
   defp inline(node, referenced) do
     referenced["tree"]

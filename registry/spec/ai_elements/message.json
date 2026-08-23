@@ -211,6 +211,7 @@
           }
         ],
         "collection": "childrenArray",
+        "fields": [],
         "type": "repeat_over"
       }
     },

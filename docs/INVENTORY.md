@@ -7,8 +7,8 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 1 | ························ |
-| `fetched` | 37 | ████████················ |
-| `spec` | 19 | ████···················· |
+| `fetched` | 36 | ████████················ |
+| `spec` | 20 | ████···················· |
 | `generated` | 3 | █······················· |
 | `verified` | 52 | ███████████············· |
 
@@ -139,7 +139,7 @@ Only the recipes are written by hand; every component is data.
 | `question` | 2 | `presentational` | 🟩 generated |
 | `queue` | 2 | `presentational` | 🟨 spec |
 | `schema-display` | 2 | `presentational` | 🟦 fetched |
-| `snippet` | 2 | `presentational` | 🟦 fetched |
+| `snippet` | 2 | `presentational` | 🟨 spec |
 | `stack-trace` | 2 | `presentational` | 🟦 fetched |
 | `test-results` | 2 | `presentational` | 🟦 fetched |
 | `toolbar` | 2 | `presentational` | 🟦 fetched |

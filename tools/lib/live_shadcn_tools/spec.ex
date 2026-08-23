@@ -180,6 +180,7 @@ defmodule LiveShadcnTools.Spec do
     ctx
     |> Map.put(:renames, function.renames)
     |> Map.put(:params_of, function.params)
+    |> Map.put(:locals, function.locals)
   end
 
   # Markdown is content, not children.
@@ -538,7 +539,11 @@ defmodule LiveShadcnTools.Spec do
   defp part(export, ctx) do
     case Map.fetch(ctx.functions, export) do
       {:ok, function} ->
-        ctx = ctx |> Map.put(:renames, function.renames) |> Map.put(:params_of, function.params)
+        ctx =
+          ctx
+          |> Map.put(:renames, function.renames)
+          |> Map.put(:params_of, function.params)
+          |> Map.put(:locals, function.locals)
 
         %{
           "name" => Macro.underscore(export),
@@ -616,17 +621,15 @@ defmodule LiveShadcnTools.Spec do
 
       # `children ?? <Default />` and `children || suggestion` are the same
       # decision: what to render when the caller passed nothing.
-      match = Regex.run(~r/^children\s*(?:\?\?|\|\|)\s*(.+)$/s, code, capture: :all_but_first) ->
-        %{"type" => "children", "default" => [fallback(hd(match), ctx)]}
+      match = default_for_children(code) ->
+        %{"type" => "children", "default" => [fallback(match, ctx)]}
 
-      match = Regex.run(~r/^(.+?)\s*&&\s*(\(?\s*<.*)$/s, code, capture: :all_but_first) ->
-        [condition, jsx] = match
+      # `{frame.filePath && (<span>…</span>)}` — markup drawn only when the
+      # condition holds.
+      match = only_when(code) ->
+        {condition, jsx} = match
 
-        %{
-          "type" => "optional",
-          "when" => String.trim(condition),
-          "children" => [node(jsx!(jsx), ctx)]
-        }
+        %{"type" => "optional", "when" => condition, "children" => [node(jsx!(jsx), ctx)]}
 
       # `{tooltip ? <Tooltip>…</Tooltip> : button}` — one of two things, chosen
       # at render. `:if` on each is what HEEx has and it says the same: the
@@ -642,12 +645,16 @@ defmodule LiveShadcnTools.Spec do
         }
 
       match = repeat_over(code) ->
-        {collection, binding, jsx} = match
+        {collection, binding, fields, jsx} = match
 
         %{
           "type" => "repeat_over",
           "collection" => collection,
           "binding" => binding,
+          # `({ token, key }) => …` reads two names off the item without naming
+          # the item. HEEx binds one name per generator, so the fields are read
+          # off that name instead.
+          "fields" => fields,
           "children" => [node(jsx!(jsx), ctx)]
         }
 
@@ -847,6 +854,24 @@ defmodule LiveShadcnTools.Spec do
     end
   end
 
+  # `children ?? X`, by the parser rather than by a regular expression: where
+  # the left side stops is the same question a ternary asks.
+  defp default_for_children(code) do
+    case Ast.logical(code) do
+      {operator, "children", default} when operator in ~w(?? ||) -> default
+      _ -> nil
+    end
+  end
+
+  # `condition && <markup>`. Only when the right side is markup: `a && b` with
+  # no element in it is a value, and the generator reads it as one.
+  defp only_when(code) do
+    case Ast.logical(code) do
+      {"&&", condition, right} -> if String.contains?(right, "<"), do: {condition, right}
+      _ -> nil
+    end
+  end
+
   # A ternary with markup on at least one side. Which `?` is the ternary's is a
   # question for the parser, not for a bracket count: a `?` inside a string, or
   # between two JSX tags, is at no depth at all.
@@ -856,22 +881,14 @@ defmodule LiveShadcnTools.Spec do
 
   # One side of a choice: markup, or a value when upstream renders one there.
   defp branch(code, ctx) do
-    code = code |> String.trim() |> String.trim_leading("(") |> String.trim_trailing(")")
+    code = String.trim(code)
 
     if String.contains?(code, "<"), do: node(jsx!(code), ctx), else: expression(code, ctx)
   end
 
   # `toasts.map((toast) => (<Toast />))` — one element per item in a list the
   # caller supplies.
-  defp repeat_over(code) do
-    pattern =
-      ~r/^([A-Za-z_][A-Za-z0-9_.]*)\.map\(\(\s*([A-Za-z_][A-Za-z0-9_]*)[^)]*\)\s*=>\s*(.*)$/s
-
-    case Regex.run(pattern, String.trim(code), capture: :all_but_first) do
-      [collection, binding, body] -> {collection, binding, body}
-      nil -> nil
-    end
-  end
+  defp repeat_over(code), do: Ast.mapped(code)
 
   # `Array.from({ length: values.length }, (_, index) => (<Thumb />))`
   defp repeat(code) do
@@ -891,10 +908,11 @@ defmodule LiveShadcnTools.Spec do
   # to hand it something that parses, so the brackets the expression wrapped it
   # in come off first.
   defp jsx!(code) do
-    trimmed = code |> String.trim() |> String.trim_leading("(") |> String.trim_trailing(")")
-
-    if String.contains?(trimmed, "<"),
-      do: Ast.parse_jsx!(String.trim(trimmed)),
+    # No brackets are stripped. `Ast.parse_jsx!` wraps what it is given in its
+    # own, and `bare/1` looks through however many there are — whereas trimming
+    # took every trailing `)` and left `foo(<A />` behind.
+    if String.contains?(code, "<"),
+      do: Ast.parse_jsx!(String.trim(code)),
       else: raise("the expression `#{String.slice(code, 0, 60)}` renders no markup")
   end
 
@@ -935,6 +953,7 @@ defmodule LiveShadcnTools.Spec do
       base_ui?(tag, ctx) -> base_ui_node(tag, ctx)
       set = icon_set(tag, ctx) -> %{"type" => "icon", "icons" => %{set => tag}}
       prop = icon_prop(tag, ctx) -> %{"type" => "icon", "prop" => prop}
+      local = local_tag(tag, ctx) -> local
       registry_component(tag, ctx) -> registry_node(tag, ctx)
       role = external_role(tag, ctx) -> %{"type" => "external", "role" => role}
       context_provider?(tag) -> %{"type" => "transparent", "reason" => "a React context"}
@@ -969,6 +988,34 @@ defmodule LiveShadcnTools.Spec do
   }
 
   defp icon_set(tag, ctx), do: Map.get(@icon_packages, Map.get(ctx.imports, tag, ""))
+
+  # `const Icon = isCopied ? CheckIcon : CopyIcon`, and then `<Icon />`.
+  #
+  # A copy button shows a tick for a moment after it copies, and upstream writes
+  # that as one name holding one of two icons. The name is local to the render
+  # and means nothing here, so what the tag refers to is the value: two icons
+  # and the condition that chooses between them, which is a choice like any
+  # other.
+  #
+  # A local holding anything else is not a tag this can read, and saying so by
+  # name is better than reading the wrong thing.
+  defp local_tag(tag, ctx) do
+    with value when is_binary(value) <- Map.get(Map.get(ctx, :locals) || %{}, tag),
+         {condition, yes, no} <- Ast.conditional(value) do
+      %{
+        "type" => "choice",
+        "when" => condition,
+        "then" => [node(element(yes), ctx)],
+        "else" => [node(element(no), ctx)]
+      }
+    else
+      _ -> nil
+    end
+  end
+
+  # A component named but not written as a tag. `isCopied ? CheckIcon : CopyIcon`
+  # names two, and each is what `<CheckIcon />` would have been.
+  defp element(name), do: %{type: :element, tag: String.trim(name), attrs: [], children: []}
 
   # `{ icon: Icon = DotIcon }`, then `<Icon />`. React renames a prop that holds
   # a component, because JSX reads a lowercase tag as an HTML element. So the

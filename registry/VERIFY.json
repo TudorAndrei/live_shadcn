@@ -87,7 +87,7 @@
       }
     },
     "pass": true,
-    "spec": "179184177edee086696c179b65c401d99367249caa75e9eec0d83d2d14b4f812"
+    "spec": "493d0f1ea8dd4499e65729881d5ffbdb0e7b2cbd5f1a494a8113295ec5b3a5a2"
   },
   "shadcn/pagination": {
     "checks": {
@@ -541,7 +541,7 @@
       }
     },
     "pass": true,
-    "spec": "b284a398a7b883374f6b1e955539b4625f2b288a0893e46a639a3e19b2fe2a32"
+    "spec": "fbb8b393496a399f0f769f00d667951b26b6e865dc6924b969bbd2a8f8c52caa"
   },
   "shadcn/switch": {
     "checks": {

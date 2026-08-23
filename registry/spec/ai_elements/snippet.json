@@ -1,0 +1,532 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "folds": [
+    "shadcn/button",
+    "shadcn/input",
+    "shadcn/input-group"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "snippet",
+  "parts": [
+    {
+      "export": "Snippet",
+      "name": "snippet",
+      "params": {
+        "children": null,
+        "className": null,
+        "code": null,
+        "contextValue": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "role",
+                "value": "group"
+              }
+            ],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto font-mono",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "input-group",
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "SnippetAddon",
+      "name": "snippet_addon",
+      "params": {
+        "align": "inline-start",
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "group"
+          },
+          {
+            "kind": "code",
+            "name": "data-align",
+            "value": "align"
+          },
+          {
+            "kind": "code",
+            "name": "onClick",
+            "value": "(e) => {\n        if ((e.target as HTMLElement).closest(\"button\")) {\n          return\n        }\n        e.currentTarget.parentElement?.querySelector(\"input\")?.focus()\n      }"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "input-group-addon",
+        "tag": "div",
+        "type": "element",
+        "variant_class": "inputGroupAddonVariants",
+        "vars": []
+      }
+    },
+    {
+      "export": "SnippetText",
+      "name": "snippet_text",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-input-group-text flex items-center [&_svg]:pointer-events-none pl-2 font-normal text-muted-foreground",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "span",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "SnippetInput",
+      "name": "snippet_input",
+      "params": {
+        "className": null,
+        "code": null,
+        "type": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "type",
+            "value": "type"
+          },
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "code"
+          }
+        ],
+        "children": [],
+        "class": "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 cn-input-group-input flex-1 text-foreground",
+        "merges_class": true,
+        "module": "input",
+        "part": "Input",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "aria-invalid"
+          ]
+        },
+        "render_as": null,
+        "slot": "input-group-control",
+        "tag": "input",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "SnippetCopyButton",
+      "name": "snippet_copy_button",
+      "params": {
+        "Icon": null,
+        "children": null,
+        "className": null,
+        "code": null,
+        "copyToClipboard": null,
+        "isCopied": "false",
+        "onCopy": null,
+        "onError": null,
+        "size": "default",
+        "timeout": "2000",
+        "timeoutRef": null,
+        "type": "button",
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "type",
+            "value": "type"
+          },
+          {
+            "kind": "code",
+            "name": "data-size",
+            "value": "size"
+          },
+          {
+            "kind": "text",
+            "name": "aria-label",
+            "value": "Copy"
+          },
+          {
+            "kind": "text",
+            "name": "title",
+            "value": "Copy"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [
+                  {
+                    "kind": "code",
+                    "name": "size",
+                    "value": "14"
+                  }
+                ],
+                "children": [],
+                "class": "size-3.5",
+                "else": [
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "",
+                    "icons": {
+                      "lucide": "CopyIcon"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "then": [
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "",
+                    "icons": {
+                      "lucide": "CheckIcon"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "type": "choice",
+                "variant_class": null,
+                "vars": [],
+                "when": "isCopied"
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "",
+        "merges_class": true,
+        "module": "button",
+        "part": "Button",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "aria-invalid",
+            "aria-expanded"
+          ]
+        },
+        "render_as": null,
+        "slot": "button",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": "buttonVariants",
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "button.Button": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the button should be focusable when disabled.",
+          "name": "focusableWhenDisabled",
+          "type": "boolean"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Button.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Button.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button component that can be used to trigger actions."
+    },
+    "input.Input": {
+      "css_vars": [],
+      "data": [
+        "data-disabled",
+        "data-valid",
+        "data-invalid",
+        "data-dirty",
+        "data-touched",
+        "data-filled",
+        "data-focused"
+      ],
+      "element": "input",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "number \\",
+          "doc": "string[]",
+          "name": "defaultValue",
+          "type": "string \\"
+        },
+        {
+          "default": "string[] \\",
+          "doc": "number",
+          "name": "value",
+          "type": "string \\"
+        },
+        {
+          "default": null,
+          "doc": "Callback fired when the `value` changes. Use when controlled.",
+          "name": "onValueChange",
+          "type": "((value: string, eventDetails: Input.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "((state: Input.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Input.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Input.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A native input element that automatically works with [Field](https://base-ui.com/react/components/field)."
+    }
+  },
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {
+    "luma": {
+      "cn-input": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-3xl border px-3 py-1 text-base transition-[color,box-shadow,background-color] file:h-7 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
+      "cn-input-group": "bg-input/50 border-transparent has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-[color,box-shadow,background-color] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-3xl has-data-[align=block-start]:rounded-3xl has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[textarea]:rounded-2xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
+      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
+      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4"
+    },
+    "lyra": {
+      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-none border bg-transparent px-2.5 py-1 text-xs transition-colors file:h-6 file:text-xs file:font-medium focus-visible:ring-1 aria-invalid:ring-1 md:text-xs",
+      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 h-8 rounded-none border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-1 has-[[data-slot][aria-invalid=true]]:ring-1 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
+      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent",
+      "cn-input-group-text": "text-muted-foreground gap-2 text-xs [&_svg:not([class*='size-'])]:size-4"
+    },
+    "maia": {
+      "cn-input": "bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-4xl border px-3 py-1 text-base transition-colors file:h-7 file:text-sm file:font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] md:text-sm",
+      "cn-input-group": "border-input bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-2xl has-data-[align=block-start]:rounded-2xl has-[[data-slot=input-group-control]:focus-visible]:ring-[3px] has-[[data-slot][aria-invalid=true]]:ring-[3px] has-[textarea]:rounded-xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
+      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
+      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4"
+    },
+    "mira": {
+      "cn-input": "bg-input/20 dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-7 rounded-md border px-2 py-0.5 text-sm transition-colors file:h-6 file:text-xs/relaxed file:font-medium focus-visible:ring-2 aria-invalid:ring-2 md:text-xs/relaxed",
+      "cn-input-group": "border-input bg-input/20 dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-7 rounded-md border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-md has-data-[align=block-start]:rounded-md has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot][aria-invalid=true]]:ring-2 has-[textarea]:rounded-md has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
+      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
+      "cn-input-group-text": "text-muted-foreground gap-2 text-xs/relaxed [&_svg:not([class*='size-'])]:size-4"
+    },
+    "nova": {
+      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-lg border bg-transparent px-2.5 py-1 text-base transition-colors file:h-6 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
+      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 h-8 rounded-lg border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
+      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent",
+      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4"
+    },
+    "rhea": {
+      "cn-input": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 rounded-2xl border px-2.5 py-1 text-base transition-[color,box-shadow] duration-200 file:h-6 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
+      "cn-input-group": "bg-input/50 border-transparent has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-8 rounded-2xl border transition-[color,box-shadow] duration-200 in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
+      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
+      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4"
+    },
+    "sera": {
+      "cn-input": "border-transparent border-b-input bg-transparent focus-visible:border-b-ring aria-invalid:border-b-destructive dark:aria-invalid:border-b-destructive/50 h-10 border px-0 py-1 text-base transition-[color,border-color] file:h-7 file:text-sm file:font-medium md:text-sm",
+      "cn-input-group": "border-transparent border-b-input bg-transparent has-[[data-slot=input-group-control]:focus-visible]:border-b-ring has-[[data-slot][aria-invalid=true]]:border-b-destructive dark:has-[[data-slot][aria-invalid=true]]:border-b-destructive/50 h-10 rounded-none border transition-[color,border-color] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-none has-data-[align=block-start]:rounded-none has-[textarea]:rounded-none has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3",
+      "cn-input-group-input": "border-0 bg-transparent ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent group-has-[>[data-align=inline-start]]/input-group:pl-2 group-has-[>[data-align=inline-end]]/input-group:pr-2",
+      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-3.5"
+    },
+    "vega": {
+      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-md border bg-transparent px-2.5 py-1 text-base shadow-xs transition-[color,box-shadow] file:h-7 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
+      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-md border shadow-xs transition-[color,box-shadow] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
+      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
+      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/snippet.tsx",
+      "sha256": "2b4f1b9ebc82eb2e188d8f71246540446dd89ef9a89bd9e3946cfc6a018a6849"
+    }
+  },
+  "variants": {
+    "buttonVariants": {
+      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-button-size-default",
+          "icon": "cn-button-size-icon",
+          "icon-lg": "cn-button-size-icon-lg",
+          "icon-sm": "cn-button-size-icon-sm",
+          "icon-xs": "cn-button-size-icon-xs",
+          "lg": "cn-button-size-lg",
+          "sm": "cn-button-size-sm",
+          "xs": "cn-button-size-xs"
+        },
+        "variant": {
+          "default": "cn-button-variant-default",
+          "destructive": "cn-button-variant-destructive",
+          "ghost": "cn-button-variant-ghost",
+          "link": "cn-button-variant-link",
+          "outline": "cn-button-variant-outline",
+          "secondary": "cn-button-variant-secondary"
+        }
+      }
+    },
+    "inputGroupAddonVariants": {
+      "base": "cn-input-group-addon flex cursor-text items-center justify-center select-none",
+      "defaults": {
+        "align": "inline-start"
+      },
+      "variants": {
+        "align": {
+          "block-end": "cn-input-group-addon-align-block-end order-last w-full justify-start",
+          "block-start": "cn-input-group-addon-align-block-start order-first w-full justify-start",
+          "inline-end": "cn-input-group-addon-align-inline-end order-last",
+          "inline-start": "cn-input-group-addon-align-inline-start order-first"
+        }
+      }
+    },
+    "inputGroupButtonVariants": {
+      "base": "cn-input-group-button flex items-center shadow-none",
+      "defaults": {
+        "size": "xs"
+      },
+      "variants": {
+        "size": {
+          "icon-sm": "cn-input-group-button-size-icon-sm",
+          "icon-xs": "cn-input-group-button-size-icon-xs",
+          "sm": "cn-input-group-button-size-sm",
+          "xs": "cn-input-group-button-size-xs"
+        }
+      }
+    }
+  }
+}
