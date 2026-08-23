@@ -1,6 +1,10 @@
 {
   "anatomy": [],
   "css_vars": [],
+  "folds": [
+    "shadcn/button",
+    "shadcn/hover-card"
+  ],
   "generated_by": "mix ui.spec",
   "name": "attachments",
   "parts": [
@@ -209,11 +213,6 @@
             "value": "label"
           },
           {
-            "kind": "code",
-            "name": "onClick",
-            "value": "handleClick"
-          },
-          {
             "kind": "text",
             "name": "type",
             "value": "button"
@@ -273,19 +272,22 @@
           }
         ],
         "class": "",
-        "component": "button",
-        "function": "button",
         "merges_class": true,
+        "module": "button",
+        "part": "Button",
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            "aria-invalid",
+            "aria-expanded"
+          ]
         },
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "type": "component_ref",
-        "variant_class": null,
+        "slot": "button",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": "buttonVariants",
         "vars": []
       }
     },
@@ -298,32 +300,20 @@
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "closeDelay",
-            "value": "closeDelay"
-          },
-          {
-            "kind": "code",
-            "name": "openDelay",
-            "value": "openDelay"
-          }
-        ],
+        "attrs": [],
         "children": [],
         "class": "",
-        "component": "hover-card",
-        "function": "hover_card",
         "merges_class": false,
+        "part": "Root",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
+        "reason": "renders no element",
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "type": "component_ref",
+        "slot": "hover-card",
+        "type": "transparent",
         "variant_class": null,
         "vars": []
       }
@@ -337,18 +327,18 @@
         "attrs": [],
         "children": [],
         "class": "",
-        "component": "hover-card",
-        "function": "hover_card_trigger",
         "merges_class": false,
+        "module": "preview-card",
+        "part": "Trigger",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "type": "component_ref",
+        "slot": "hover-card-trigger",
+        "tag": "a",
+        "type": "primitive",
         "variant_class": null,
         "vars": []
       }
@@ -369,20 +359,86 @@
             "value": "align"
           }
         ],
-        "children": [],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "align",
+                "value": "align"
+              },
+              {
+                "kind": "code",
+                "name": "alignOffset",
+                "value": "alignOffset"
+              },
+              {
+                "kind": "code",
+                "name": "side",
+                "value": "side"
+              },
+              {
+                "kind": "code",
+                "name": "sideOffset",
+                "value": "sideOffset"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "cn-hover-card-content cn-hover-card-content-logical z-50 origin-(--transform-origin) outline-hidden",
+                "merges_class": true,
+                "module": "preview-card",
+                "part": "Popup",
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": [
+                    "data-open",
+                    "data-closed"
+                  ]
+                },
+                "render_as": null,
+                "slot": "hover-card-content",
+                "tag": "div",
+                "type": "primitive",
+                "variant_class": null,
+                "vars": [
+                  "--transform-origin"
+                ]
+              }
+            ],
+            "class": "isolate z-50",
+            "merges_class": false,
+            "module": "preview-card",
+            "part": "Positioner",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "primitive",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
         "class": "w-auto p-2",
-        "component": "hover-card",
-        "function": "hover_card_content",
         "merges_class": true,
+        "module": "preview-card",
+        "part": "Portal",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "type": "component_ref",
+        "slot": "hover-card-portal",
+        "tag": "div",
+        "type": "primitive",
         "variant_class": null,
         "vars": []
       }
@@ -424,10 +480,503 @@
       }
     }
   ],
-  "primitives": {},
+  "primitives": {
+    "button.Button": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the button should be focusable when disabled.",
+          "name": "focusableWhenDisabled",
+          "type": "boolean"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Button.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Button.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button component that can be used to trigger actions."
+    },
+    "preview-card.Arrow": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-uncentered",
+        "data-align",
+        "data-side"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: PreviewCard.Arrow.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: PreviewCard.Arrow.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: PreviewCard.Arrow.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Displays an element positioned against the preview card anchor."
+    },
+    "preview-card.Backdrop": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: PreviewCard.Backdrop.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: PreviewCard.Backdrop.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: PreviewCard.Backdrop.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A presentational overlay displayed beneath the popup."
+    },
+    "preview-card.Popup": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-align",
+        "data-side",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: PreviewCard.Popup.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: PreviewCard.Popup.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: PreviewCard.Popup.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A container for the preview card contents."
+    },
+    "preview-card.Portal": {
+      "css_vars": [],
+      "data": [],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "ShadowRoot \\",
+          "doc": "React.RefObject<HTMLElement \\",
+          "name": "container",
+          "type": "HTMLElement \\"
+        },
+        {
+          "default": "((state: PreviewCard.Portal.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: PreviewCard.Portal.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the portal mounted in the DOM while the popup is hidden.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: PreviewCard.Portal.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A portal element that moves the popup to a different part of the DOM."
+    },
+    "preview-card.Positioner": {
+      "css_vars": [
+        "--anchor-height",
+        "--anchor-width",
+        "--available-height",
+        "--available-width",
+        "--positioner-height",
+        "--positioner-width",
+        "--transform-origin"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-anchor-hidden",
+        "data-align",
+        "data-side"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether to disable the popup from tracking any layout shift of its positioning anchor.",
+          "name": "disableAnchorTracking",
+          "type": "boolean"
+        },
+        {
+          "default": "'center'",
+          "doc": "How to align the popup relative to the specified side.",
+          "name": "align",
+          "type": "Align"
+        },
+        {
+          "default": "OffsetFunction",
+          "doc": "0",
+          "name": "alignOffset",
+          "type": "number \\"
+        },
+        {
+          "default": "'bottom'",
+          "doc": "Which side of the anchor element to align the popup against. May automatically change to avoid collisions.",
+          "name": "side",
+          "type": "Side"
+        },
+        {
+          "default": "OffsetFunction",
+          "doc": "0",
+          "name": "sideOffset",
+          "type": "number \\"
+        },
+        {
+          "default": "5",
+          "doc": "Minimum distance to maintain between the arrow and the edges of the popup. Use it to prevent the arrow element from hanging out of the rounded corners of a popup.",
+          "name": "arrowPadding",
+          "type": "number"
+        },
+        {
+          "default": "VirtualElement \\",
+          "doc": "React.RefObject<Element \\",
+          "name": "anchor",
+          "type": "Element \\"
+        },
+        {
+          "default": null,
+          "doc": "Determines how to handle collisions when positioning the popup. `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`): `'flip'`: keep the requested side when it fits; otherwise try the opposite side (`top` and `bottom`, or `left` and `right`).`'shift'`: never change side; keep the requested side and move the popup within the clipping boundary so it stays visible.`'none'`: do not correct side-axis overflow. `align` controls overflow on the alignment axis (`start`/`center`/`end`): `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.`'shift'`: keep side and requested alignment, then nudge the popup along the alignment axis to fit.`'none'`: do not correct alignment-axis overflow. `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the preferred axis cannot fit: `'start'`: allow perpendicular fallback and try the logical start side first (`top` before `bottom`, or `left` before `right` in LTR).`'end'`: allow perpendicular fallback and try the logical end side first (`bottom` before `top`, or `right` before `left` in LTR).`'none'`: do not fallback to the perpendicular axis. When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`. If `align` is omitted, it defaults to `'flip'`.",
+          "name": "collisionAvoidance",
+          "type": "CollisionAvoidance"
+        },
+        {
+          "default": "'clipping-ancestors'",
+          "doc": "An element or a rectangle that delimits the area that the popup is confined to.",
+          "name": "collisionBoundary",
+          "type": "Boundary"
+        },
+        {
+          "default": "5",
+          "doc": "Additional space to maintain from the edge of the collision boundary.",
+          "name": "collisionPadding",
+          "type": "Padding"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to maintain the popup in the viewport after the anchor element was scrolled out of view.",
+          "name": "sticky",
+          "type": "boolean"
+        },
+        {
+          "default": "'fixed'",
+          "doc": "'absolute'",
+          "name": "positionMethod",
+          "type": "'absolute' \\"
+        },
+        {
+          "default": "((state: PreviewCard.Positioner.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: PreviewCard.Positioner.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: PreviewCard.Positioner.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Positions the popup against the trigger."
+    },
+    "preview-card.Root": {
+      "css_vars": [],
+      "data": [],
+      "element": null,
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the preview card is initially open. To render a controlled preview card, use the `open` prop instead.",
+          "name": "defaultOpen",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the preview card is currently open.",
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called when the preview card is opened or closed.",
+          "name": "onOpenChange",
+          "type": "((open: boolean, eventDetails: PreviewCard.Root.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "null>",
+          "doc": "-",
+          "name": "actionsRef",
+          "type": "React.RefObject<PreviewCard.Root.Actions \\"
+        },
+        {
+          "default": "null",
+          "doc": "-",
+          "name": "defaultTriggerId",
+          "type": "string \\"
+        },
+        {
+          "default": null,
+          "doc": "A handle to associate the preview card with a trigger. If specified, allows external triggers to control the card's open state. Can be created with the PreviewCard.createHandle() method.",
+          "name": "handle",
+          "type": "PreviewCard.Handle<Payload>"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called after any animations complete when the preview card is opened or closed.",
+          "name": "onOpenChangeComplete",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "default": "null",
+          "doc": "-",
+          "name": "triggerId",
+          "type": "string \\"
+        },
+        {
+          "default": "PayloadChildRenderFunction<Payload>",
+          "doc": "-",
+          "name": "children",
+          "type": "React.ReactNode \\"
+        }
+      ],
+      "renders": false,
+      "summary": "Groups all parts of the preview card."
+    },
+    "preview-card.Trigger": {
+      "css_vars": [],
+      "data": [
+        "data-popup-open"
+      ],
+      "element": "a",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "A handle to associate the trigger with a preview card.",
+          "name": "handle",
+          "type": "PreviewCard.Handle<Payload>"
+        },
+        {
+          "default": null,
+          "doc": "A payload to pass to the preview card when it is opened.",
+          "name": "payload",
+          "type": "Payload"
+        },
+        {
+          "default": "600",
+          "doc": "How long to wait before the preview card opens. Specified in milliseconds.",
+          "name": "delay",
+          "type": "number"
+        },
+        {
+          "default": "300",
+          "doc": "How long to wait before closing the preview card. Specified in milliseconds.",
+          "name": "closeDelay",
+          "type": "number"
+        },
+        {
+          "default": "((state: PreviewCard.Trigger.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: PreviewCard.Trigger.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, state: PreviewCard.Trigger.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A link that opens the preview card."
+    },
+    "preview-card.Viewport": {
+      "css_vars": [
+        "--popup-height",
+        "--popup-width"
+      ],
+      "data": [
+        "data-activation-direction",
+        "data-current",
+        "data-instant",
+        "data-previous",
+        "data-transitioning"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "The content to render inside the transition container.",
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "default": "((state: PreviewCard.Viewport.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: PreviewCard.Viewport.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: PreviewCard.Viewport.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A viewport for displaying content transitions."
+    }
+  },
   "recipe": "presentational",
   "source": "ai_elements",
-  "styles": {},
+  "styles": {
+    "luma": {
+      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 bg-popover text-popover-foreground w-72 rounded-3xl p-4 text-sm shadow-lg ring-1 duration-100",
+      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "lyra": {
+      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground w-64 rounded-none p-2.5 text-xs/relaxed shadow-md ring-1 duration-100",
+      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "maia": {
+      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 bg-popover text-popover-foreground w-72 rounded-2xl p-4 text-sm shadow-2xl ring-1 duration-100",
+      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "mira": {
+      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground w-72 rounded-lg p-2.5 text-xs/relaxed shadow-md ring-1 duration-100",
+      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "nova": {
+      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground w-64 rounded-lg p-2.5 text-sm shadow-md ring-1 duration-100",
+      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "rhea": {
+      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 bg-popover text-popover-foreground w-72 rounded-3xl p-4 text-sm shadow-lg ring-1 duration-100",
+      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "sera": {
+      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground w-72 p-4 text-sm shadow-md ring-1 duration-100",
+      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "vega": {
+      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground w-64 rounded-lg p-4 text-sm shadow-md ring-1 duration-100",
+      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    }
+  },
   "upstream": {
     "base_ui": {},
     "shadcn": {
@@ -435,5 +984,33 @@
       "sha256": "91c42be9a592fe8ff2468352b8636f6bc364567779618ac3a075f1080b378fad"
     }
   },
-  "variants": {}
+  "variants": {
+    "buttonVariants": {
+      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-button-size-default",
+          "icon": "cn-button-size-icon",
+          "icon-lg": "cn-button-size-icon-lg",
+          "icon-sm": "cn-button-size-icon-sm",
+          "icon-xs": "cn-button-size-icon-xs",
+          "lg": "cn-button-size-lg",
+          "sm": "cn-button-size-sm",
+          "xs": "cn-button-size-xs"
+        },
+        "variant": {
+          "default": "cn-button-variant-default",
+          "destructive": "cn-button-variant-destructive",
+          "ghost": "cn-button-variant-ghost",
+          "link": "cn-button-variant-link",
+          "outline": "cn-button-variant-outline",
+          "secondary": "cn-button-variant-secondary"
+        }
+      }
+    }
+  }
 }

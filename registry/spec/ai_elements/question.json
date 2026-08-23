@@ -1,6 +1,10 @@
 {
   "anatomy": [],
   "css_vars": [],
+  "folds": [
+    "shadcn/button",
+    "shadcn/textarea"
+  ],
   "generated_by": "mix ui.spec",
   "name": "question",
   "parts": [
@@ -177,11 +181,6 @@
           },
           {
             "kind": "code",
-            "name": "onClick",
-            "value": "handleClick"
-          },
-          {
-            "kind": "code",
             "name": "role",
             "value": "role"
           },
@@ -208,19 +207,22 @@
           }
         ],
         "class": "h-auto whitespace-normal",
-        "component": "button",
-        "function": "button",
         "merges_class": true,
+        "module": "button",
+        "part": "Button",
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            "aria-invalid",
+            "aria-expanded"
+          ]
         },
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "type": "component_ref",
-        "variant_class": null,
+        "slot": "button",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": "buttonVariants",
         "vars": []
       }
     },
@@ -242,29 +244,24 @@
           },
           {
             "kind": "code",
-            "name": "onChange",
-            "value": "handleChange"
-          },
-          {
-            "kind": "code",
             "name": "value",
             "value": "question.text"
           }
         ],
         "children": [],
-        "class": "min-h-20",
-        "component": "textarea",
-        "function": "textarea",
+        "class": "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 min-h-20",
         "merges_class": true,
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            "aria-invalid"
+          ]
         },
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "type": "component_ref",
+        "slot": "textarea",
+        "tag": "textarea",
+        "type": "element",
         "variant_class": null,
         "vars": []
       }
@@ -321,27 +318,98 @@
           }
         ],
         "class": "",
-        "component": "button",
-        "function": "button",
-        "merges_class": false,
+        "merges_class": true,
+        "module": "button",
+        "part": "Button",
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            "aria-invalid",
+            "aria-expanded"
+          ]
         },
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "type": "component_ref",
-        "variant_class": null,
+        "slot": "button",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": "buttonVariants",
         "vars": []
       }
     }
   ],
-  "primitives": {},
+  "primitives": {
+    "button.Button": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the button should be focusable when disabled.",
+          "name": "focusableWhenDisabled",
+          "type": "boolean"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Button.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Button.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button component that can be used to trigger actions."
+    }
+  },
   "recipe": "presentational",
   "source": "ai_elements",
-  "styles": {},
+  "styles": {
+    "luma": {
+      "cn-textarea": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-2xl border px-3 py-3 text-base transition-[color,box-shadow,background-color] focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
+    },
+    "lyra": {
+      "cn-textarea": "border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 rounded-none border bg-transparent px-2.5 py-2 text-xs transition-colors focus-visible:ring-1 aria-invalid:ring-1 md:text-xs"
+    },
+    "maia": {
+      "cn-textarea": "border-input bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-xl border px-3 py-3 text-base transition-colors focus-visible:ring-[3px] aria-invalid:ring-[3px] md:text-sm"
+    },
+    "mira": {
+      "cn-textarea": "border-input bg-input/20 dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-md border px-2 py-2 text-sm transition-colors focus-visible:ring-2 aria-invalid:ring-2 md:text-xs/relaxed"
+    },
+    "nova": {
+      "cn-textarea": "border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 rounded-lg border bg-transparent px-2.5 py-2 text-base transition-colors focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
+    },
+    "rhea": {
+      "cn-textarea": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-2xl border px-2.5 py-2 text-base transition-[color,box-shadow] duration-200 focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
+    },
+    "sera": {
+      "cn-textarea": "border-transparent border-b-input bg-transparent focus-visible:border-b-ring aria-invalid:border-b-destructive dark:aria-invalid:border-b-destructive/50 resize-none rounded-none border px-0 py-3 text-base transition-[color,border-color] md:text-sm"
+    },
+    "vega": {
+      "cn-textarea": "border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-md border bg-transparent px-2.5 py-2 text-base shadow-xs transition-[color,box-shadow] focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
+    }
+  },
   "upstream": {
     "base_ui": {},
     "shadcn": {
@@ -349,5 +417,33 @@
       "sha256": "47c69ba8f555734209bc9eae5d62d419fbd0cbe6089ec26c97d2ebcc9114fde3"
     }
   },
-  "variants": {}
+  "variants": {
+    "buttonVariants": {
+      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-button-size-default",
+          "icon": "cn-button-size-icon",
+          "icon-lg": "cn-button-size-icon-lg",
+          "icon-sm": "cn-button-size-icon-sm",
+          "icon-xs": "cn-button-size-icon-xs",
+          "lg": "cn-button-size-lg",
+          "sm": "cn-button-size-sm",
+          "xs": "cn-button-size-xs"
+        },
+        "variant": {
+          "default": "cn-button-variant-default",
+          "destructive": "cn-button-variant-destructive",
+          "ghost": "cn-button-variant-ghost",
+          "link": "cn-button-variant-link",
+          "outline": "cn-button-variant-outline",
+          "secondary": "cn-button-variant-secondary"
+        }
+      }
+    }
+  }
 }

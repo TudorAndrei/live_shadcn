@@ -35,6 +35,7 @@ defmodule Storybook.MixProject do
     [
       {:live_base, path: "../packages/live_base"},
       {:live_shadcn, path: "../packages/live_shadcn"},
+      {:live_ai_elements, path: "../packages/live_ai_elements"},
       {:phoenix, "~> 1.8"},
       {:phoenix_live_view, "~> 1.2"},
       {:phoenix_storybook, "~> 1.3"},

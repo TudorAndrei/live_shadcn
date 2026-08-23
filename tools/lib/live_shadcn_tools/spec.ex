@@ -20,6 +20,8 @@ defmodule LiveShadcnTools.Spec do
   `data-ending-style` while it animates out.
   """
 
+  import LiveShadcnTools, only: [ref: 2]
+
   alias LiveShadcnTools.BaseUi
   alias LiveShadcnTools.Cva
   alias LiveShadcnTools.Tsx
@@ -81,25 +83,174 @@ defmodule LiveShadcnTools.Spec do
       """
     end
 
+    source = Keyword.fetch!(opts, :source)
+
+    {parts, folded} =
+      fold(parts, source, Keyword.get(opts, :resolve, fn _source, _name -> nil end))
+
+    own_primitives =
+      for {module, page} <- docs, {key, part} <- page.parts, into: %{} do
+        {"#{module}.#{key}", primitive(part)}
+      end
+
     %{
       "name" => name,
       "recipe" => Keyword.fetch!(opts, :recipe),
-      "source" => Keyword.fetch!(opts, :source),
+      "source" => source,
       "generated_by" => "mix ui.spec",
       "upstream" => Keyword.fetch!(opts, :upstream),
       "anatomy" => doc.anatomy,
       # Keyed by module and part, because a component built from two Base UI
-      # modules has two `Root` sections and they are not the same part.
-      "primitives" =>
-        for {module, page} <- docs, {key, part} <- page.parts, into: %{} do
-          {"#{module}.#{key}", primitive(part)}
-        end,
-      "css_vars" => doc.parts |> Enum.flat_map(fn {_, p} -> p.css_vars end) |> Enum.sort(),
-      "variants" => variants,
+      # modules has two `Root` sections and they are not the same part. A part
+      # folded in from another registry brings the page that documents it, or
+      # the recipe would meet a primitive with no contract.
+      "primitives" => Map.merge(merged(folded, "primitives"), own_primitives),
+      "css_vars" =>
+        ((doc.parts |> Enum.flat_map(fn {_, p} -> p.css_vars end)) ++ folded_vars(folded))
+        |> Enum.uniq()
+        |> Enum.sort(),
+      "variants" => Map.merge(merged(folded, "variants"), variants),
       "styles" => used_styles(ctx.styles, parts),
       "parts" => parts
     }
+    |> folds(folded)
   end
+
+  # Which components' markup this one absorbed. It is what the generated
+  # `@moduledoc` says a component is built on, and it is the list a drift report
+  # needs: an upstream change to a folded component changes this one too, and
+  # nothing else in the spec would say so.
+  #
+  # A component that folded nothing carries no key rather than an empty list.
+  # Every spec is committed and a component's verification is recorded against
+  # its digest, so a key that is always empty for one registry would demote
+  # every component in it and cost a browser run each to say nothing.
+  defp folds(spec, []), do: spec
+
+  defp folds(spec, folded),
+    do: Map.put(spec, "folds", folded |> Enum.map(&ref(&1["source"], &1["name"])) |> Enum.sort())
+
+  @doc """
+  Replaces every reference to a component in another registry with its markup.
+
+  A reference inside one registry is a call, and stays one: both files are
+  copied into the same application and both are renamed together. A reference
+  across registries cannot be. `live_shadcn` is copied in by `mix ui.add`, which
+  rewrites `LiveShadcn.UI.Collapsible` to the application's own namespace;
+  `live_ai_elements` is compiled once, before any of that, so a call it made
+  would name a module that no longer exists.
+
+  So an AI Elements component that renders `<CollapsibleTrigger>` takes the
+  trigger's markup — its element, its `cn-` class string, its `data-slot`, the
+  Base UI part it draws — and renders it itself. Its own class string and
+  attributes are merged on top, which is what React does with the props it
+  passed.
+
+  What comes back is the folded parts and the specs they were folded from. The
+  second half matters: a folded part draws a Base UI primitive, and the recipe
+  reads that primitive's attribute contract out of the spec it came from.
+
+  `resolve` is `fn source, name -> spec | nil end`. A reference that resolves to
+  nothing is left alone, so `mix ui.gen` reports it rather than the reader
+  guessing at markup it has not read.
+  """
+  def fold(parts, source, resolve) do
+    {parts, specs} =
+      Enum.map_reduce(parts, %{}, fn part, specs ->
+        {tree, specs} = fold_node(part["tree"], source, resolve, specs)
+        {Map.put(part, "tree", tree), specs}
+      end)
+
+    {parts, Map.values(specs)}
+  end
+
+  defp fold_node(%{"type" => "component_ref", "source" => other} = node, source, resolve, specs)
+       when other != source do
+    with spec when is_map(spec) <- resolve.(other, node["component"]),
+         target when is_map(target) <- find_part(spec, node["function"]) do
+      specs = Map.put(specs, {other, node["component"]}, spec)
+
+      # The target may itself reference a third component, and from here that
+      # one is just as far away.
+      {tree, specs} = fold_node(inline_parts(target["tree"], spec, []), source, resolve, specs)
+      {absorb(tree, node), specs}
+    else
+      _unresolved -> {node, specs}
+    end
+  end
+
+  defp fold_node(node, source, resolve, specs) when is_map(node) do
+    Enum.reduce(node, {node, specs}, fn {key, value}, {node, specs} ->
+      {folded, specs} = fold_node(value, source, resolve, specs)
+      {Map.put(node, key, folded), specs}
+    end)
+  end
+
+  defp fold_node(nodes, source, resolve, specs) when is_list(nodes),
+    do: Enum.map_reduce(nodes, specs, &fold_node(&1, source, resolve, &2))
+
+  defp fold_node(value, _source, _resolve, specs), do: {value, specs}
+
+  defp find_part(spec, function),
+    do: Enum.find(spec["parts"] || [], &(&1["name"] == function))
+
+  # A part of the folded component that names another part of the same
+  # component. `<ScrollAreaScrollbar>` is a function in shadcn's scroll-area
+  # module, and after the fold there is no such module to call: the markup
+  # landed in an AI Elements component that has one function. So the sibling's
+  # markup comes with it.
+  #
+  # `seen` stops a part that names itself, directly or through another, from
+  # folding for ever.
+  defp inline_parts(%{"type" => "part_ref", "part" => name} = node, spec, seen) do
+    with false <- name in seen,
+         part when is_map(part) <- find_part(spec, name) do
+      part["tree"] |> inline_parts(spec, [name | seen]) |> absorb(node)
+    else
+      _ -> node
+    end
+  end
+
+  defp inline_parts(node, spec, seen) when is_map(node),
+    do: Map.new(node, fn {key, value} -> {key, inline_parts(value, spec, seen)} end)
+
+  defp inline_parts(nodes, spec, seen) when is_list(nodes),
+    do: Enum.map(nodes, &inline_parts(&1, spec, seen))
+
+  defp inline_parts(value, _spec, _seen), do: value
+
+  # The reference's own markup, merged onto the markup it points at. Upstream
+  # writes `<CollapsibleTrigger className="flex w-full …">`, and both class
+  # strings apply: shadcn's, then the one AI Elements added.
+  defp absorb(tree, node) do
+    Map.merge(tree, %{
+      "attrs" => (Map.get(tree, "attrs") || []) ++ markup_attrs(Map.get(node, "attrs") || []),
+      "class" =>
+        [tree["class"], node["class"]] |> Enum.reject(&(&1 in [nil, ""])) |> Enum.join(" "),
+      "children" => (Map.get(tree, "children") || []) ++ (Map.get(node, "children") || []),
+      "merges_class" => node["merges_class"] || tree["merges_class"],
+      "props" => node["props"] || tree["props"],
+      "slot" => node["slot"] || tree["slot"]
+    })
+  end
+
+  # `<Collapsible asChild defaultOpen={defaultOpen} onOpenChange={handle}>` sets
+  # three things, and only one of them survives the fold — because the React
+  # component those arguments configured is gone, replaced by the markup its
+  # recipe generates. `asChild` is React's composition, `defaultOpen` and
+  # `onOpenChange` are React's state, and the recipe owns opening and closing.
+  #
+  # HTML attribute names are lowercase and React props are camelCase, which is
+  # the whole test. Writing them through unread put `asChild` and
+  # `defaultOpen={@default_open}` in generated markup, and neither is an
+  # attribute a browser or an assign has ever heard of.
+  defp markup_attrs(attrs),
+    do: Enum.reject(attrs, &(&1["name"] =~ ~r/[A-Z]/))
+
+  defp merged(specs, key),
+    do: Enum.reduce(specs, %{}, fn spec, acc -> Map.merge(acc, Map.get(spec, key) || %{}) end)
+
+  defp folded_vars(specs), do: Enum.flat_map(specs, &(Map.get(&1, "css_vars") || []))
 
   # Every top-level binding that holds a `cva` call. These are exported, but
   # they are not components: they are the variant table a component's class

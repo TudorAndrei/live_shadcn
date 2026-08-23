@@ -37,10 +37,13 @@ defmodule Mix.Tasks.Ui.Gen do
     {opts, names, _} = OptionParser.parse(argv, strict: [check: :boolean])
     check? = Keyword.get(opts, :check, false)
 
-    results = names |> specs() |> Enum.map(&one(&1, check?))
+    results = names |> specs() |> Enum.flat_map(&List.wrap(one(&1, check?)))
 
     for {:no_recipe, reference, recipe} <- results,
         do: Mix.shell().info("  skip #{reference}: no `#{recipe}` recipe yet")
+
+    for {:removed, reference} <- results,
+        do: Mix.shell().info("  removed #{reference}: its recipe no longer generates it")
 
     report(results, check?)
   end
@@ -72,7 +75,30 @@ defmodule Mix.Tasks.Ui.Gen do
         write_or_check(source, name, rendered, check?)
     end
   rescue
-    error -> {:failed, spec_reference(path), first_line(error)}
+    error ->
+      reference = spec_reference(path)
+      stale(reference, check?) ++ [{:failed, reference, first_line(error)}]
+  end
+
+  # A module left over from a run that could still generate it. Nothing else
+  # would remove it: the file compiles into a package, so a stale one breaks the
+  # build or, worse, keeps working while the spec it claims to come from has
+  # moved on. The generator owns these files, so it takes this one back.
+  defp stale(reference, check?) do
+    {source, name} = parse_ref(reference)
+    path = module_path(source, name)
+
+    cond do
+      not File.exists?(path) ->
+        []
+
+      check? ->
+        [{:outdated, reference}]
+
+      true ->
+        File.rm!(path)
+        [{:removed, reference}]
+    end
   end
 
   # A spec that cannot even be read has no source to name it by, so the path is

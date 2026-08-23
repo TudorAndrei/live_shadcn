@@ -1,6 +1,9 @@
 {
   "anatomy": [],
   "css_vars": [],
+  "folds": [
+    "shadcn/separator"
+  ],
   "generated_by": "mix ui.spec",
   "name": "checkpoint",
   "parts": [
@@ -19,21 +22,30 @@
             "type": "children"
           },
           {
-            "attrs": [],
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "orientation",
+                "value": "orientation"
+              }
+            ],
             "children": [],
-            "class": "",
-            "component": "separator",
-            "function": "separator",
-            "merges_class": false,
-            "props": false,
+            "class": "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
+            "merges_class": true,
+            "module": "separator",
+            "part": "Separator",
+            "props": true,
             "reads": {
               "group": [],
-              "self": []
+              "self": [
+                "data-horizontal",
+                "data-vertical"
+              ]
             },
             "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "type": "component_ref",
+            "slot": "separator",
+            "tag": "div",
+            "type": "primitive",
             "variant_class": null,
             "vars": []
           }
@@ -54,7 +66,44 @@
       }
     }
   ],
-  "primitives": {},
+  "primitives": {
+    "separator.Separator": {
+      "css_vars": [],
+      "data": [
+        "data-orientation"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "'horizontal'",
+          "doc": "The orientation of the separator.",
+          "name": "orientation",
+          "type": "Orientation"
+        },
+        {
+          "default": "((state: Separator.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Separator.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Separator.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A separator element accessible to screen readers."
+    }
+  },
   "recipe": "presentational",
   "source": "ai_elements",
   "styles": {},

@@ -55,11 +55,15 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Table
   import LiveShadcn.UI.Tabs
 
+  # The AI Elements package ships its components compiled, so they are imported
+  # from their own namespace rather than copied in by `mix ui.add`.
+  import LiveAiElements.Components.Task
+
   @doc "Every component that has examples, in the order they are listed."
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog dropdown-menu empty hover-card input item kbd label marker message
-       navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs textarea toggle tooltip)
+       navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task textarea toggle tooltip)
   end
 
   @doc "The examples for a component."
@@ -223,6 +227,18 @@ defmodule StorybookWeb.Examples do
 
   def all("card") do
     [one("default", "A card", "Header, content, and footer.", &card_default/1)]
+  end
+
+  def all("task") do
+    [
+      one(
+        "default",
+        "A step the model reports",
+        "AI Elements builds this out of shadcn's collapsible, so the disclosure " <>
+          "recipe generates it and the panel opens with no round trip.",
+        &task_default/1
+      )
+    ]
   end
 
   def all("collapsible") do
@@ -722,6 +738,14 @@ defmodule StorybookWeb.Examples do
     <.collapsible id="more" title="What the pipeline does" class="max-w-80">
       Fetch, spec, generate, verify. Four stages, each one deterministic.
     </.collapsible>
+    """
+  end
+
+  defp task_default(assigns) do
+    ~H"""
+    <.task id="search" title="Searched the registry" class="max-w-80">
+      Read 62 component sources and 41 Base UI pages.
+    </.task>
     """
   end
 

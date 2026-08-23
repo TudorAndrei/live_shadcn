@@ -56,6 +56,9 @@
   "toggle": [
     "default"
   ],
+  "task": [
+    "default"
+  ],
   "pagination": [
     "default"
   ],

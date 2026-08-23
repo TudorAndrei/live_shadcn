@@ -104,6 +104,21 @@
     "pass": true,
     "spec": "33bd727d4a95ee3207b2278193faa104f74ea92d7ab3fc0d9a0e536614cc3149"
   },
+  "ai_elements/task": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "5f25cf45340a3f2149c5b5b59346b5030ec1d2122c1ae4a35a3e5a7e7aee4efb"
+  },
   "shadcn/bubble": {
     "checks": {
       "browser": {
@@ -147,7 +162,7 @@
       }
     },
     "pass": true,
-    "spec": "384f763198d211ca64e34efb05de48073e7bf1c4c413efd3c686c2379ce48c2d"
+    "spec": "adf4301a22b4cd4f31f1d9e0e96ac0240c342767591cde962ee397efb024027b"
   },
   "shadcn/toggle": {
     "checks": {

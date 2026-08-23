@@ -8,9 +8,9 @@
 |---|---:|---|
 | `planned` | 1 | ························ |
 | `fetched` | 45 | ██████████·············· |
-| `spec` | 24 | █████··················· |
+| `spec` | 23 | █████··················· |
 | `generated` | 0 | ························ |
-| `verified` | 42 | █████████··············· |
+| `verified` | 43 | █████████··············· |
 
 ## Recipes
 
@@ -117,7 +117,7 @@ Only the recipes are written by hand; every component is data.
 | `shimmer` | 1 | `presentational` | 🟦 fetched |
 | `sources` | 1 | `popover` | 🟨 spec |
 | `suggestion` | 1 | `presentational` | 🟨 spec |
-| `task` | 1 | `disclosure` | 🟨 spec |
+| `task` | 1 | `disclosure` | ✅ verified |
 | `tool` | 1 | `disclosure` | 🟦 fetched |
 | `agent` | 2 | `presentational` | 🟦 fetched |
 | `artifact` | 2 | `disclosure` | 🟨 spec |

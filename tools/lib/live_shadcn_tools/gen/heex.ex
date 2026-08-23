@@ -237,8 +237,20 @@ defmodule LiveShadcnTools.Gen.Heex do
   }
 
   @doc "Base UI's own one-line summary of a component, or an empty string."
-  def summary(spec),
-    do: get_in(spec, ["primitives", "#{spec["name"]}.Root", "summary"]) || ""
+  def summary(spec) do
+    get_in(spec, ["primitives", "#{spec["name"]}.Root", "summary"]) || built_on(spec)
+  end
+
+  # A component with no Base UI page of its own has no sentence of its own
+  # either, and borrowing the sentence of the component it folded in would
+  # describe the wrong thing: a task is not "all parts of the collapsible".
+  # What is true, and worth a reader knowing, is which component it is built on.
+  defp built_on(spec) do
+    case Map.get(spec, "folds") || [] do
+      [] -> ""
+      folds -> "Built on #{Enum.map_join(folds, ", ", &"`#{&1}`")}."
+    end
+  end
 
   @doc """
   The first line of a generated module's `@moduledoc`.

@@ -48,6 +48,15 @@ defmodule Mix.Tasks.Ui.Spec do
     report(results, check?)
   end
 
+  # A component in one registry may be built out of a component in the other,
+  # and the reader folds that one's markup in rather than calling it. So the
+  # spec it folds has to be on disk and current, which is why `fetched/1` puts
+  # shadcn first and why this reads the file rather than a half-built map.
+  defp resolve_spec(source, name) do
+    path = spec_path(source, name)
+    if File.exists?(path), do: read_json!(path)
+  end
+
   # The `cn-` rules, one map per shadcn style. A missing sheet is reported once
   # here rather than per component.
   defp styles(manifest) do
@@ -78,7 +87,10 @@ defmodule Mix.Tasks.Ui.Spec do
     shadcn = for "shadcn/ui/" <> file <- files, do: {"shadcn", Path.basename(file, ".tsx")}
     ai = for "ai_elements/" <> file <- files, do: {"ai_elements", Path.basename(file, ".tsx")}
 
-    Enum.sort(shadcn ++ ai)
+    # shadcn first, and not sorted together. An AI Elements component folds in
+    # the markup of the shadcn component it renders, and it reads that spec off
+    # disk, so the shadcn spec has to have been written this run.
+    Enum.sort(shadcn) ++ Enum.sort(ai)
   end
 
   # One component that the reader cannot understand is a gap in the reader, not
@@ -105,6 +117,7 @@ defmodule Mix.Tasks.Ui.Spec do
           markdown: pages,
           styles: styles,
           source: source,
+          resolve: &resolve_spec/2,
           recipe: Map.get(recipes, {source, name}, "unassigned"),
           upstream: %{
             "shadcn" => %{"file" => tsx_file, "sha256" => digest(tsx)},
