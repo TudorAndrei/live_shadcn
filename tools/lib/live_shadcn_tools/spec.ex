@@ -576,6 +576,17 @@ defmodule LiveShadcnTools.Spec do
           "children" => [node(jsx!(jsx), ctx)]
         }
 
+      # `{getThinkingMessage(isStreaming, duration)}` — a prop that is a
+      # function, called to produce markup. React calls it a render prop; HEEx
+      # calls it a slot, and they mean the same thing: the caller decides what
+      # goes here, and the component decides where.
+      #
+      # Its default is not ported. Upstream writes one as a function full of
+      # conditionals, and a slot has no place to run those; what carries over is
+      # the contract — this content is the caller's — and the caller supplies it.
+      name = render_prop(code, ctx) ->
+        %{"type" => "slot", "name" => name}
+
       # A bare value — `{text}`, `{error.message}` — is content the caller
       # supplies, so it becomes an attribute of the generated component rather
       # than markup.
@@ -612,6 +623,21 @@ defmodule LiveShadcnTools.Spec do
   # is, and `{currentBranch + 1}` is a value however the number is reached.
   @value ~r/^[a-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$/
   @arithmetic ~r/^[a-z_][A-Za-z0-9_.]*(\s*(\+|-|\*|\/|\?\?)\s*([a-z_][A-Za-z0-9_.]*|-?\d+))+$/
+
+  # A call whose callee is a prop this component destructured. A call to
+  # anything else is a local function, and porting one means porting whatever it
+  # computes rather than declaring a slot for it.
+  defp render_prop(code, ctx) do
+    with [callee] <-
+           Regex.run(~r/^([a-z_][A-Za-z0-9_]*)\(.*\)$/s, String.trim(code),
+             capture: :all_but_first
+           ),
+         true <- Map.has_key?(Map.get(ctx, :params_of) || %{}, callee) do
+      Macro.underscore(callee)
+    else
+      _ -> nil
+    end
+  end
 
   defp value?(code) do
     code = String.trim(code)

@@ -7,10 +7,10 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 1 | ························ |
-| `fetched` | 41 | █████████··············· |
+| `fetched` | 39 | ████████················ |
 | `spec` | 23 | █████··················· |
 | `generated` | 0 | ························ |
-| `verified` | 47 | ██████████·············· |
+| `verified` | 49 | ███████████············· |
 
 ## Recipes
 
@@ -107,13 +107,13 @@ Only the recipes are written by hand; every component is data.
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `chain-of-thought` | 1 | `disclosure` | 🟨 spec |
+| `chain-of-thought` | 1 | `disclosure` | ✅ verified |
 | `code-block` | 1 | `presentational` | 🟦 fetched |
 | `context` | 1 | `presentational` | 🟨 spec |
 | `conversation` | 1 | `scroller` | 🟦 fetched |
 | `message` | 1 | `presentational` | 🟨 spec |
 | `prompt-input` | 1 | `form-control` | 🟦 fetched |
-| `reasoning` | 1 | `disclosure` | 🟦 fetched |
+| `reasoning` | 1 | `disclosure` | ✅ verified |
 | `shimmer` | 1 | `presentational` | 🟦 fetched |
 | `sources` | 1 | `disclosure` | ✅ verified |
 | `suggestion` | 1 | `presentational` | ✅ verified |
@@ -148,7 +148,7 @@ Only the recipes are written by hand; every component is data.
 | `connection` | 3 | `presentational` | 🟨 spec |
 | `edge` | 3 | `presentational` | 🟦 fetched |
 | `jsx-preview` | 3 | `presentational` | 🟦 fetched |
-| `mic-selector` | 3 | `listbox` | 🟦 fetched |
+| `mic-selector` | 3 | `listbox` | 🟨 spec |
 | `node` | 3 | `presentational` | 🟦 fetched |
 | `sandbox` | 3 | `presentational` | 🟦 fetched |
 | `speech-input` | 3 | `presentational` | 🟦 fetched |

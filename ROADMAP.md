@@ -223,9 +223,10 @@ The components are the small part. The reducer is the product.
       per part and `sequence_number` for ordering, which is exactly what
       `phx-update="stream"` needs
 - [x] Delta hook: a token append must never touch an assign
-- [ ] Tier-1 AI components — 3 of 12 generated and verified: **sources**,
-      **suggestion**, **task**. The other nine are chain-of-thought, reasoning,
-      tool, message, conversation, prompt-input, code-block, context, shimmer
+- [ ] Tier-1 AI components — 5 of 12 generated and verified:
+      **chain-of-thought**, **reasoning**, **sources**, **suggestion**,
+      **task**. The other seven are tool, message, conversation, prompt-input,
+      code-block, context, shimmer
 - [x] Jido adapter, built second on purpose, to prove the adapter boundary holds
 
 **Exit:** a golden test replays a recorded Open Responses stream and produces the
@@ -446,8 +447,34 @@ a report that said nothing about recursion.
 
 An id is unique on a page, and every `aria-controls` this pipeline emits names
 one. So a generated module that writes `id={@id}` twice has assembled a part
-twice, and `mix ui.gen` refuses it now. `chain-of-thought` reads and does not
-generate, which is the truth about where it stands.
+twice, and `mix ui.gen` refuses it now.
+
+The recipe was rendering whole part trees. That is right when a part holds one
+role and wrappers above it — an accordion trigger comes wrapped in its heading
+— and wrong when a part holds two. `chain-of-thought` puts a whole collapsible
+inside its header and another inside its content, both driven by one React
+context, so the trigger's tree *was* the root. A role whose part wraps it in a
+root of its own contributes only its own node, and the root contributes itself
+without whatever this recipe is about to assemble inside it.
+
+### A render prop is a slot
+
+`{getThinkingMessage(isStreaming, duration)}` is a prop that is a function,
+called to produce markup. React calls that a render prop; HEEx calls it a slot,
+and they mean the same thing — the caller decides what goes here and the
+component decides where.
+
+Its default is not ported. Upstream writes one as a function full of
+conditionals, and a slot has no place to run those. What carries over is the
+contract, and the caller supplies the content.
+
+### A recipe declares what it renders
+
+`reasoning` renders its panel through the markdown seam, which reads
+`@content`, and the disclosure recipe has never heard of markdown. An assign
+that is read and not declared raises on the component's first render — a
+browser run away from the generator that wrote it. So what the markup reads is
+declared, and the recipe still names the ones it means something by.
 
 The recipe declares its class attributes from the parts it renders, too. It
 declared a fixed `trigger_class` and `content_class` until a component had a
@@ -461,7 +488,6 @@ upstream computes something in JavaScript, and a template cannot:
 
 | Component | Stopped by |
 |---|---|
-| chain-of-thought | the disclosure recipe assembles it twice |
 | message, context, prompt-input | a local computed from props — `button`, `inputCostText` |
 | tool | a local function returning markup — `getStatusBadge(state)` |
 | code-block | a local holding one of two icons, by state |
@@ -469,7 +495,7 @@ upstream computes something in JavaScript, and a template cannot:
 | shimmer | `motion`, which here is a CSS animation |
 | conversation | `use-stick-to-bottom`, so the `scroller` recipe |
 
-Four of the seven rows are one thing: a local. Upstream computes a value or a
+Four of the six rows are one thing: a local. Upstream computes a value or a
 piece of markup in JavaScript and then renders it, and a template cannot run
 the computation. Each needs either a recipe that owns what upstream is
 computing — the way the disclosure recipe owns opening and closing, which is

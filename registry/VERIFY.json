@@ -32,9 +32,7 @@
   "ai_elements/chain-of-thought": {
     "checks": {
       "browser": {
-        "detail": "      61 |   });\n      62 | }\n      63 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:60:77\n    Error Context: test-results/accessibility-chain-of-tho-5adfb-ult-is-clean-under-axe-core-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/accessibility-chain-of-tho-5adfb-ult-is-clean-under-axe-core-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/accessibility-chain-of-tho-5adfb-ult-is-clean-under-axe-core-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › accessibility.spec.mjs:47:3 › chain-of-thought / default is clean under axe-core ──",
-        "exit": 1,
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
@@ -43,7 +41,7 @@
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "bed39118509d48c9d1b433d6ed82a588328f83887df10a9e17e30dcd978d48e4"
   },
   "shadcn/context-menu": {
@@ -390,6 +388,21 @@
     },
     "pass": true,
     "spec": "5ddb36cd162ea37e48e04380a5f5c32852ea16674af1bc8fe725d4f2794c8b82"
+  },
+  "ai_elements/reasoning": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "f97af1be6e1efa06fb7b9d2044e2cdeafde1c2c5de5dfece8a0025d526c45ac7"
   },
   "shadcn/tabs": {
     "checks": {

@@ -72,6 +72,11 @@ defmodule LiveShadcnTools.Gen.Heex do
   def render(%{"type" => "value", "code" => code}, ctx, indent),
     do: pad(indent) <> "{#{expression(code, ctx)}}"
 
+  # A render prop. React passes a function and calls it here; HEEx takes a slot
+  # and renders it here, and the caller decides what goes in either way.
+  def render(%{"type" => "slot", "name" => name}, _ctx, indent),
+    do: pad(indent) <> "{render_slot(@#{name})}"
+
   # Base UI says this part renders no element of its own, so neither does the
   # generated component. Its children still have to reach the page.
   def render(%{"type" => "transparent"} = node, ctx, indent),
@@ -325,6 +330,23 @@ defmodule LiveShadcnTools.Gen.Heex do
   @doc "Whether a tree renders the caller's content anywhere."
   def marker?(%{"type" => "children"}), do: true
   def marker?(node), do: node |> Map.get("children") |> List.wrap() |> Enum.any?(&marker?/1)
+
+  @doc """
+  The slots a tree renders, by name.
+
+  A recipe declares one `slot` per name, because a slot rendered but not
+  declared raises on the component's first render — which is a browser run
+  away from the generator that wrote it.
+  """
+  def slots(node) when is_map(node) do
+    case node do
+      %{"type" => "slot", "name" => name} -> [name]
+      _ -> node |> Map.values() |> slots()
+    end
+  end
+
+  def slots(nodes) when is_list(nodes), do: nodes |> Enum.flat_map(&slots/1) |> Enum.uniq()
+  def slots(_node), do: []
 
   @doc "One HTML tag, its attributes, and its already-rendered children."
   def tag(name, attrs, children, indent) do

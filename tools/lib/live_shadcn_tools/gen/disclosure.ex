@@ -106,6 +106,8 @@ defmodule LiveShadcnTools.Gen.Disclosure do
     roles = roles!(spec)
     shape = if roles[:item], do: @many, else: @one
     name = String.replace(spec["name"], "-", "_")
+    markup = markup(spec, roles, shape)
+    declarations = declarations(spec, roles, shape)
 
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
@@ -116,10 +118,10 @@ defmodule LiveShadcnTools.Gen.Disclosure do
       alias LiveBase.Disclosure
 
     #{function_doc(spec, name, shape)}
-    #{declarations(spec, roles, shape)}
+    #{declarations}#{undeclared(markup, declarations)}
       def #{name}(assigns) do
         ~H\"\"\"
-    #{markup(spec, roles, shape)}
+    #{markup}
         \"\"\"
       end
 
@@ -193,24 +195,67 @@ defmodule LiveShadcnTools.Gen.Disclosure do
   # ---- markup ----
 
   defp markup(spec, roles, shape) do
-    trigger = render(spec, roles, shape, roles.trigger.part, shape.title)
-    panel = render(spec, roles, shape, roles.panel.part, shape.body)
+    trigger = render(spec, roles, shape, roles.trigger, shape.title)
+    panel = render(spec, roles, shape, roles.panel, shape.body)
     inside = trigger <> "\n" <> panel
 
     inside =
       case roles[:item] do
         nil -> inside
-        item -> render(spec, roles, shape, item.part, inside)
+        item -> render(spec, roles, shape, item, inside)
       end
 
-    render(spec, roles, shape, roles.root.part, inside, rest: true)
+    render(spec, roles, shape, roles.root, inside, rest: true)
   end
 
-  defp render(spec, roles, shape, part, children, opts \\ []) do
-    Heex.render(Heex.with_children(part["tree"]), %{
+  # A role is rendered from its part's tree, because the part usually holds
+  # wrappers above the role that are as much a part of the markup as the role
+  # itself: an accordion trigger comes wrapped in its heading.
+  #
+  # Not when that part wraps its role in a component root of its own. A
+  # component has one root and this recipe writes it, so a second one is a
+  # second component: `chain-of-thought` puts a whole collapsible inside its
+  # header and another inside its content, both driven by one React context,
+  # and rendering those trees produced a component containing itself twice.
+  # There the role's own node is the whole of what the part contributes.
+  defp subtree(role, roles) do
+    cond do
+      # The root wraps what this recipe assembles, so anything upstream put
+      # inside it is being assembled here instead. `chain-of-thought` renders
+      # its trigger inside its root in one part, and keeping both drew the
+      # trigger twice.
+      role == roles.root and holds_another_role?(role, roles) ->
+        Map.put(role.node, "children", [])
+
+      role != roles.root and locate(role.part["tree"], "Root") ->
+        role.node
+
+      true ->
+        role.part["tree"]
+    end
+  end
+
+  defp holds_another_role?(role, roles) do
+    Enum.any?(roles, fn {name, other} ->
+      name != :root and contains?(role.node["children"], other.node)
+    end)
+  end
+
+  defp contains?(node, node), do: true
+  defp contains?(nodes, wanted) when is_list(nodes), do: Enum.any?(nodes, &contains?(&1, wanted))
+
+  defp contains?(node, wanted) when is_map(node),
+    do: contains?(Map.get(node, "children") || [], wanted)
+
+  defp contains?(_node, _wanted), do: false
+
+  defp render(spec, roles, shape, role, children, opts \\ []) do
+    part = role.part
+
+    Heex.render(Heex.with_children(subtree(role, roles)), %{
       attrs: attributes(spec, roles, shape),
       children: children,
-      class: class_expression(spec, part, shape),
+      class: class_expression(spec, role, roles, shape),
       params: Map.get(part, "params", %{}),
       # Opening and closing is this recipe's, whatever upstream called it. A
       # component that read `isOpen` out of a React context would otherwise
@@ -225,7 +270,17 @@ defmodule LiveShadcnTools.Gen.Disclosure do
   # The caller's class goes on the element shadcn merged `className` into. The
   # name it is exposed under follows the part: `accordion_trigger` becomes
   # `trigger_class`, on the item slot or on the component itself.
-  defp class_expression(spec, part, shape) do
+  # The root is the component, so the caller's own `class` lands there whatever
+  # the part it was found in happens to be called.
+  defp class_expression(spec, role, roles, shape) do
+    if role == roles.root do
+      "@class"
+    else
+      part_class(spec, role.part, shape)
+    end
+  end
+
+  defp part_class(spec, part, shape) do
     suffix = String.replace_prefix(part["name"], String.replace(spec["name"], "-", "_"), "")
 
     case {suffix, shape.subject} do
@@ -328,6 +383,32 @@ defmodule LiveShadcnTools.Gen.Disclosure do
 
   # ---- declarations ----
 
+  # Everything the markup reads and the declarations do not name.
+  #
+  # A recipe declares the props it knows about, and the markup may read one it
+  # does not: `reasoning` renders its panel through the markdown seam, which
+  # reads `@content`, and the recipe has never heard of markdown. An assign that
+  # is read and not declared raises on the component's first render, which is a
+  # browser run away from the generator that wrote it.
+  #
+  # So what is read is declared. The recipe still names the ones it means
+  # something by; this is the remainder, and being the remainder is why it can
+  # say nothing about them.
+  defp undeclared(markup, declarations) do
+    declared =
+      ~r/(?:attr|slot)\s+:([a-z_][A-Za-z0-9_]*)/
+      |> Regex.scan(declarations, capture: :all_but_first)
+      |> List.flatten()
+
+    ~r/@([a-z_][A-Za-z0-9_]*)/
+    |> Regex.scan(markup, capture: :all_but_first)
+    |> List.flatten()
+    |> Enum.uniq()
+    |> Enum.sort()
+    |> Kernel.--(declared)
+    |> Enum.map_join(fn name -> "  attr :#{name}, :any, default: nil\n" end)
+  end
+
   defp declarations(spec, roles, %{subject: "item"}) do
     root = props(spec, roles.root)
     item = props(spec, roles.item)
@@ -369,14 +450,14 @@ defmodule LiveShadcnTools.Gen.Disclosure do
   end
 
   # One class attribute per part this recipe renders, named the way
-  # `class_expression/3` names it. Declaring a fixed pair instead worked until a
+  # `class_expression/4` names it. Declaring a fixed pair instead worked until a
   # component had a part the pair did not cover: `chain-of-thought` has a
   # header, the markup read `@header_class`, and the component raised on its
   # first render with the attribute undeclared. The markup and the declaration
   # come from one place now.
   defp class_attrs(spec, roles, shape) do
     roles
-    |> Enum.map(fn {_role, %{part: part}} -> class_expression(spec, part, shape) end)
+    |> Enum.map(fn {_name, role} -> class_expression(spec, role, roles, shape) end)
     |> Enum.flat_map(fn
       "@" <> rest -> if String.ends_with?(rest, "_class"), do: [rest], else: []
       _other -> []

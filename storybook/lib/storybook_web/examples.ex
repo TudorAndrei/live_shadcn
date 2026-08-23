@@ -57,8 +57,10 @@ defmodule StorybookWeb.Examples do
 
   # The AI Elements package ships its components compiled, so they are imported
   # from their own namespace rather than copied in by `mix ui.add`.
+  import LiveAiElements.Components.ChainOfThought
   import LiveAiElements.Components.Checkpoint
   import LiveAiElements.Components.Confirmation
+  import LiveAiElements.Components.Reasoning
   import LiveAiElements.Components.Sources
   import LiveAiElements.Components.Suggestion
   import LiveAiElements.Components.Task
@@ -67,7 +69,7 @@ defmodule StorybookWeb.Examples do
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog dropdown-menu empty hover-card input item kbd label marker message
-       navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation textarea toggle tooltip)
+       navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning textarea toggle tooltip)
   end
 
   @doc "The examples for a component."
@@ -256,6 +258,17 @@ defmodule StorybookWeb.Examples do
     ]
   end
 
+  def all("chain-of-thought") do
+    [
+      one(
+        "default",
+        "How the model got there",
+        "The steps behind an answer, folded away until a reader asks.",
+        &chain_of_thought_default/1
+      )
+    ]
+  end
+
   def all("confirmation") do
     [
       one(
@@ -263,6 +276,17 @@ defmodule StorybookWeb.Examples do
         "A question the model has to have answered",
         "The body of a tool call waiting on a person.",
         &confirmation_default/1
+      )
+    ]
+  end
+
+  def all("reasoning") do
+    [
+      one(
+        "default",
+        "What the model was thinking",
+        "The panel renders markdown through the seam, so the renderer is the application's choice.",
+        &reasoning_default/1
       )
     ]
   end
@@ -797,9 +821,29 @@ defmodule StorybookWeb.Examples do
     """
   end
 
+  defp chain_of_thought_default(assigns) do
+    ~H"""
+    <.chain_of_thought id="thinking" title="Thought for 4 seconds" class="max-w-80">
+      Read the registry index, then the accordion source, then the Base UI page.
+    </.chain_of_thought>
+    """
+  end
+
   defp confirmation_default(assigns) do
     ~H"""
     <.confirmation class="max-w-md">Delete the branch?</.confirmation>
+    """
+  end
+
+  defp reasoning_default(assigns) do
+    ~H"""
+    <.reasoning
+      id="thought"
+      title="Thought for 4 seconds"
+      class="max-w-80"
+      content="The reader wants **today's** weather, so call the tool."
+    >
+    </.reasoning>
     """
   end
 

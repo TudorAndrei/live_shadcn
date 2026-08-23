@@ -1,0 +1,1224 @@
+{
+  "anatomy": [],
+  "css_vars": [
+    "--anchor-height",
+    "--anchor-width",
+    "--available-height",
+    "--available-width",
+    "--popup-height",
+    "--popup-width",
+    "--positioner-height",
+    "--positioner-width",
+    "--transform-origin"
+  ],
+  "folds": [
+    "shadcn/button",
+    "shadcn/popover"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "mic-selector",
+  "parts": [
+    {
+      "export": "MicSelector",
+      "name": "mic_selector",
+      "params": {
+        "defaultOpen": "false",
+        "defaultValue": null,
+        "devices": null,
+        "hasPermission": null,
+        "loadDevices": null,
+        "loading": null,
+        "onOpenChange": null,
+        "onValueChange": null,
+        "open": null,
+        "value": null,
+        "width": "200"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "open",
+                "value": "open"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "merges_class": false,
+            "part": "Root",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "reason": "renders no element",
+            "render_as": null,
+            "slot": "popover",
+            "type": "transparent",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MicSelectorTrigger",
+      "name": "mic_selector_trigger",
+      "params": {
+        "children": null,
+        "className": null,
+        "size": "default",
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "ref",
+                "value": "ref"
+              }
+            ],
+            "children": [
+              {
+                "type": "children"
+              },
+              {
+                "attrs": [
+                  {
+                    "kind": "code",
+                    "name": "size",
+                    "value": "16"
+                  }
+                ],
+                "children": [],
+                "class": "shrink-0 text-muted-foreground",
+                "icons": {
+                  "lucide": "ChevronsUpDownIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "",
+            "merges_class": true,
+            "module": "button",
+            "part": "Button",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": [
+                "aria-invalid",
+                "aria-expanded"
+              ]
+            },
+            "render_as": null,
+            "slot": "button",
+            "tag": "button",
+            "type": "primitive",
+            "variant_class": "buttonVariants",
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "module": "popover",
+        "part": "Trigger",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "popover-trigger",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MicSelectorContent",
+      "name": "mic_selector_content",
+      "params": {
+        "align": "center",
+        "alignOffset": "0",
+        "className": null,
+        "onValueChange": null,
+        "popoverOptions": null,
+        "side": "bottom",
+        "sideOffset": "4",
+        "value": null,
+        "width": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "style",
+            "name": "style",
+            "value": [
+              {
+                "kind": "code",
+                "property": "width",
+                "value": "width"
+              }
+            ]
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "align",
+                "value": "align"
+              },
+              {
+                "kind": "code",
+                "name": "alignOffset",
+                "value": "alignOffset"
+              },
+              {
+                "kind": "code",
+                "name": "side",
+                "value": "side"
+              },
+              {
+                "kind": "code",
+                "name": "sideOffset",
+                "value": "sideOffset"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
+                "merges_class": true,
+                "module": "popover",
+                "part": "Popup",
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": [
+                    "data-open",
+                    "data-closed"
+                  ]
+                },
+                "render_as": null,
+                "slot": "popover-content",
+                "tag": "div",
+                "type": "primitive",
+                "variant_class": null,
+                "vars": [
+                  "--transform-origin"
+                ]
+              }
+            ],
+            "class": "isolate z-50",
+            "merges_class": false,
+            "module": "popover",
+            "part": "Positioner",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "primitive",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "onValueChange",
+                "value": "onValueChange"
+              },
+              {
+                "kind": "code",
+                "name": "value",
+                "value": "value"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "component": "command",
+            "function": "command",
+            "merges_class": false,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "type": "component_ref",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "p-0",
+        "merges_class": true,
+        "module": "popover",
+        "part": "Portal",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MicSelectorInput",
+      "name": "mic_selector_input",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "placeholder",
+            "value": "Search microphones..."
+          }
+        ],
+        "children": [],
+        "class": "",
+        "component": "command",
+        "function": "command_input",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MicSelectorList",
+      "name": "mic_selector_list",
+      "params": {
+        "children": null,
+        "data": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "name": "children",
+            "type": "slot"
+          }
+        ],
+        "class": "",
+        "component": "command",
+        "function": "command_list",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MicSelectorEmpty",
+      "name": "mic_selector_empty",
+      "params": {
+        "children": "No microphone found."
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "",
+        "component": "command",
+        "function": "command_empty",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MicSelectorItem",
+      "name": "mic_selector_item",
+      "params": {
+        "onOpenChange": null,
+        "onValueChange": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "onSelect",
+            "value": "handleSelect"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "component": "command",
+        "function": "command_item",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MicSelectorLabel",
+      "name": "mic_selector_label",
+      "params": {
+        "className": null,
+        "device": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "code": "name",
+                "type": "value"
+              }
+            ],
+            "class": "",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "("
+              },
+              {
+                "code": "deviceId",
+                "type": "value"
+              },
+              {
+                "type": "text",
+                "value": ")"
+              }
+            ],
+            "class": "text-muted-foreground",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "span",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MicSelectorValue",
+      "name": "mic_selector_value",
+      "params": {
+        "className": null,
+        "data": null,
+        "value": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "device",
+            "value": "currentDevice"
+          }
+        ],
+        "children": [],
+        "class": "flex-1 text-left",
+        "merges_class": true,
+        "part": "mic_selector_label",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "type": "part_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "button.Button": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the button should be focusable when disabled.",
+          "name": "focusableWhenDisabled",
+          "type": "boolean"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Button.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Button.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button component that can be used to trigger actions."
+    },
+    "popover.Arrow": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-uncentered",
+        "data-align",
+        "data-side"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Popover.Arrow.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Popover.Arrow.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Popover.Arrow.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Displays an element positioned against the popover anchor."
+    },
+    "popover.Backdrop": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Popover.Backdrop.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Popover.Backdrop.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Popover.Backdrop.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "An overlay displayed beneath the popover."
+    },
+    "popover.Close": {
+      "css_vars": [],
+      "data": [],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Popover.Close.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Popover.Close.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Popover.Close.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button that closes the popover."
+    },
+    "popover.Description": {
+      "css_vars": [],
+      "data": [],
+      "element": "p",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Popover.Description.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Popover.Description.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Popover.Description.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A paragraph with additional information about the popover."
+    },
+    "popover.Popup": {
+      "css_vars": [
+        "--popup-height",
+        "--popup-width"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-align",
+        "data-instant",
+        "data-side",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "React.RefObject<HTMLElement \\",
+          "doc": "null> \\",
+          "name": "initialFocus",
+          "type": "boolean \\"
+        },
+        {
+          "default": "React.RefObject<HTMLElement \\",
+          "doc": "null> \\",
+          "name": "finalFocus",
+          "type": "boolean \\"
+        },
+        {
+          "default": "((state: Popover.Popup.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Popover.Popup.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Popover.Popup.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A container for the popover contents."
+    },
+    "popover.Portal": {
+      "css_vars": [],
+      "data": [],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "ShadowRoot \\",
+          "doc": "React.RefObject<HTMLElement \\",
+          "name": "container",
+          "type": "HTMLElement \\"
+        },
+        {
+          "default": "((state: Popover.Portal.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Popover.Portal.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the portal mounted in the DOM while the popup is hidden.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: Popover.Portal.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A portal element that moves the popup to a different part of the DOM."
+    },
+    "popover.Positioner": {
+      "css_vars": [
+        "--anchor-height",
+        "--anchor-width",
+        "--available-height",
+        "--available-width",
+        "--positioner-height",
+        "--positioner-width",
+        "--transform-origin"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-anchor-hidden",
+        "data-align",
+        "data-side"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether to disable the popup from tracking any layout shift of its positioning anchor.",
+          "name": "disableAnchorTracking",
+          "type": "boolean"
+        },
+        {
+          "default": "'center'",
+          "doc": "How to align the popup relative to the specified side.",
+          "name": "align",
+          "type": "Align"
+        },
+        {
+          "default": "OffsetFunction",
+          "doc": "0",
+          "name": "alignOffset",
+          "type": "number \\"
+        },
+        {
+          "default": "'bottom'",
+          "doc": "Which side of the anchor element to align the popup against. May automatically change to avoid collisions.",
+          "name": "side",
+          "type": "Side"
+        },
+        {
+          "default": "OffsetFunction",
+          "doc": "0",
+          "name": "sideOffset",
+          "type": "number \\"
+        },
+        {
+          "default": "5",
+          "doc": "Minimum distance to maintain between the arrow and the edges of the popup. Use it to prevent the arrow element from hanging out of the rounded corners of a popup.",
+          "name": "arrowPadding",
+          "type": "number"
+        },
+        {
+          "default": "VirtualElement \\",
+          "doc": "React.RefObject<Element \\",
+          "name": "anchor",
+          "type": "Element \\"
+        },
+        {
+          "default": null,
+          "doc": "Determines how to handle collisions when positioning the popup. `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`): `'flip'`: keep the requested side when it fits; otherwise try the opposite side (`top` and `bottom`, or `left` and `right`).`'shift'`: never change side; keep the requested side and move the popup within the clipping boundary so it stays visible.`'none'`: do not correct side-axis overflow. `align` controls overflow on the alignment axis (`start`/`center`/`end`): `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.`'shift'`: keep side and requested alignment, then nudge the popup along the alignment axis to fit.`'none'`: do not correct alignment-axis overflow. `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the preferred axis cannot fit: `'start'`: allow perpendicular fallback and try the logical start side first (`top` before `bottom`, or `left` before `right` in LTR).`'end'`: allow perpendicular fallback and try the logical end side first (`bottom` before `top`, or `right` before `left` in LTR).`'none'`: do not fallback to the perpendicular axis. When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`. If `align` is omitted, it defaults to `'flip'`.",
+          "name": "collisionAvoidance",
+          "type": "CollisionAvoidance"
+        },
+        {
+          "default": "'clipping-ancestors'",
+          "doc": "An element or a rectangle that delimits the area that the popup is confined to.",
+          "name": "collisionBoundary",
+          "type": "Boundary"
+        },
+        {
+          "default": "5",
+          "doc": "Additional space to maintain from the edge of the collision boundary.",
+          "name": "collisionPadding",
+          "type": "Padding"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to maintain the popup in the viewport after the anchor element was scrolled out of view.",
+          "name": "sticky",
+          "type": "boolean"
+        },
+        {
+          "default": "'fixed'",
+          "doc": "'absolute'",
+          "name": "positionMethod",
+          "type": "'absolute' \\"
+        },
+        {
+          "default": "((state: Popover.Positioner.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Popover.Positioner.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Popover.Positioner.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Positions the popover against the trigger."
+    },
+    "popover.Root": {
+      "css_vars": [],
+      "data": [],
+      "element": null,
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the popover is initially open. To render a controlled popover, use the `open` prop instead.",
+          "name": "defaultOpen",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the popover is currently open.",
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called when the popover is opened or closed.",
+          "name": "onOpenChange",
+          "type": "((open: boolean, eventDetails: Popover.Root.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "null>",
+          "doc": "-",
+          "name": "actionsRef",
+          "type": "React.RefObject<Popover.Root.Actions \\"
+        },
+        {
+          "default": "null",
+          "doc": "-",
+          "name": "defaultTriggerId",
+          "type": "string \\"
+        },
+        {
+          "default": null,
+          "doc": "A handle to associate the popover with a trigger. If specified, allows external triggers to control the popover's open state.",
+          "name": "handle",
+          "type": "Popover.Handle<Payload>"
+        },
+        {
+          "default": "'trap-focus'",
+          "doc": "false",
+          "name": "modal",
+          "type": "boolean \\"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called after any animations complete when the popover is opened or closed.",
+          "name": "onOpenChangeComplete",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "default": "null",
+          "doc": "-",
+          "name": "triggerId",
+          "type": "string \\"
+        },
+        {
+          "default": "PayloadChildRenderFunction<Payload>",
+          "doc": "-",
+          "name": "children",
+          "type": "React.ReactNode \\"
+        }
+      ],
+      "renders": false,
+      "summary": "Groups all parts of the popover."
+    },
+    "popover.Title": {
+      "css_vars": [],
+      "data": [],
+      "element": "h2",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Popover.Title.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Popover.Title.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Popover.Title.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A heading that labels the popover."
+    },
+    "popover.Trigger": {
+      "css_vars": [],
+      "data": [
+        "data-popup-open",
+        "data-pressed"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "A handle to associate the trigger with a popover.",
+          "name": "handle",
+          "type": "Popover.Handle<Payload>"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "A payload to pass to the popover when it is opened.",
+          "name": "payload",
+          "type": "Payload"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the popover should also open when the trigger is hovered.",
+          "name": "openOnHover",
+          "type": "boolean"
+        },
+        {
+          "default": "300",
+          "doc": "How long to wait before the popover may be opened on hover. Specified in milliseconds. Requires the `openOnHover` prop.",
+          "name": "delay",
+          "type": "number"
+        },
+        {
+          "default": "0",
+          "doc": "How long to wait before closing the popover that was opened on hover. Specified in milliseconds. Requires the `openOnHover` prop.",
+          "name": "closeDelay",
+          "type": "number"
+        },
+        {
+          "default": null,
+          "doc": "ID of the trigger. In addition to being forwarded to the rendered element, it is also used to specify the active trigger for the popover in controlled mode (with the Popover.Root `triggerId` prop).",
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "default": "((state: Popover.Trigger.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Popover.Trigger.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Popover.Trigger.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button that opens the popover."
+    },
+    "popover.Viewport": {
+      "css_vars": [
+        "--popup-height",
+        "--popup-width"
+      ],
+      "data": [
+        "data-activation-direction",
+        "data-current",
+        "data-instant",
+        "data-previous",
+        "data-transitioning"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "The content to render inside the transition container.",
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "default": "((state: Popover.Viewport.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Popover.Viewport.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Popover.Viewport.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A viewport for displaying content transitions."
+    }
+  },
+  "recipe": "listbox",
+  "source": "ai_elements",
+  "styles": {
+    "luma": {
+      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 flex flex-col gap-4 rounded-3xl p-4 text-sm shadow-lg ring-1 duration-100",
+      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "lyra": {
+      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex flex-col gap-2.5 rounded-none p-2.5 text-xs shadow-md ring-1 duration-100",
+      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "maia": {
+      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 flex flex-col gap-4 rounded-2xl p-4 text-sm shadow-2xl ring-1 duration-100",
+      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "mira": {
+      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex flex-col gap-4 rounded-lg p-2.5 text-xs shadow-md ring-1 duration-100",
+      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "nova": {
+      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex flex-col gap-2.5 rounded-lg p-2.5 text-sm shadow-md ring-1 duration-100",
+      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "rhea": {
+      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 flex flex-col gap-4 rounded-3xl p-4 text-sm shadow-lg ring-1 duration-100",
+      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "sera": {
+      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex flex-col gap-4 rounded-none p-4 text-sm shadow-md ring-1 duration-100",
+      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    },
+    "vega": {
+      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex flex-col gap-4 rounded-md p-4 text-sm shadow-md ring-1 duration-100",
+      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/mic-selector.tsx",
+      "sha256": "3b69b527315f81114fb99518f5078a183092f16ad4cf4105ef94861da1724dce"
+    }
+  },
+  "variants": {
+    "buttonVariants": {
+      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-button-size-default",
+          "icon": "cn-button-size-icon",
+          "icon-lg": "cn-button-size-icon-lg",
+          "icon-sm": "cn-button-size-icon-sm",
+          "icon-xs": "cn-button-size-icon-xs",
+          "lg": "cn-button-size-lg",
+          "sm": "cn-button-size-sm",
+          "xs": "cn-button-size-xs"
+        },
+        "variant": {
+          "default": "cn-button-variant-default",
+          "destructive": "cn-button-variant-destructive",
+          "ghost": "cn-button-variant-ghost",
+          "link": "cn-button-variant-link",
+          "outline": "cn-button-variant-outline",
+          "secondary": "cn-button-variant-secondary"
+        }
+      }
+    }
+  }
+}

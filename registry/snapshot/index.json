@@ -53,6 +53,9 @@
   "progress": [
     "default"
   ],
+  "chain-of-thought": [
+    "default"
+  ],
   "tabs": [
     "default"
   ],
@@ -63,6 +66,9 @@
     "default"
   ],
   "task": [
+    "default"
+  ],
+  "reasoning": [
     "default"
   ],
   "pagination": [
