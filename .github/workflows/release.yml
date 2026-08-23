@@ -1,0 +1,136 @@
+name: Release
+
+# Publishing to hex cannot be taken back after an hour, so nothing here runs on
+# a push. A `v*` tag is the whole trigger, and the checks run again before the
+# publish rather than being trusted from the commit that was tagged.
+#
+# live_base goes first. live_shadcn depends on it by version under HEX_PUBLISH,
+# so publishing them the other way round would publish a package whose
+# dependency does not exist yet.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: ${{ matrix.package }}
+    runs-on: ubuntu-latest
+    env:
+      MIX_ENV: test
+    strategy:
+      fail-fast: true
+      matrix:
+        package: [packages/live_base, packages/live_shadcn, tools]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          elixir-version: "1.20"
+          otp-version: "29"
+
+      - run: mix deps.get
+        working-directory: ${{ matrix.package }}
+
+      - run: mix format --check-formatted
+        working-directory: ${{ matrix.package }}
+
+      - run: mix compile --warnings-as-errors
+        working-directory: ${{ matrix.package }}
+
+      - run: mix test
+        working-directory: ${{ matrix.package }}
+
+  generated:
+    name: generated output matches its spec
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          elixir-version: "1.20"
+          otp-version: "29"
+
+      - run: mix deps.get
+        working-directory: tools
+
+      # Publishing a component that no longer matches its spec would ship a
+      # hand edit to everybody who installs it.
+      - run: mix ui.gen --check
+        working-directory: tools
+
+      - run: mix ui.status --check
+        working-directory: tools
+
+  publish:
+    name: publish to hex
+    needs: [check, generated]
+    runs-on: ubuntu-latest
+    environment: hex
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          elixir-version: "1.20"
+          otp-version: "29"
+
+      # The tag is the version. A mix.exs that says something else would
+      # publish a release nobody can find from the repository.
+      - name: The tag and mix.exs agree
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          version="${TAG#v}"
+          for package in packages/live_base packages/live_shadcn; do
+            declared=$(grep -m1 -oE '@version "[^"]+"' "$package/mix.exs" | cut -d'"' -f2)
+            if [ "$declared" != "$version" ]; then
+              echo "::error::$package/mix.exs says $declared, the tag says $version"
+              exit 1
+            fi
+          done
+          echo "both packages are at $version"
+
+      # HEX_PUBLISH swaps live_shadcn's path dependency on live_base for a
+      # version dependency, because hex refuses a package that carries a path.
+      - name: Publish live_base
+        working-directory: packages/live_base
+        env:
+          HEX_PUBLISH: "1"
+          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
+        run: |
+          mix deps.get
+          mix hex.publish --yes
+
+      # hex's registry takes a moment to serve a release that was just pushed,
+      # and live_shadcn cannot resolve live_base until it does. Without the
+      # wait this job publishes one package of two and fails, which is the one
+      # outcome that cannot be undone by rerunning it.
+      - name: Publish live_shadcn
+        working-directory: packages/live_shadcn
+        env:
+          HEX_PUBLISH: "1"
+          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            if mix deps.get; then
+              mix hex.publish --yes
+              exit 0
+            fi
+            echo "live_base is not in the registry yet; attempt $attempt of 6"
+            mix hex.registry 2>/dev/null || true
+            sleep 20
+          done
+          echo "::error::live_base never appeared in the registry. It is published; rerun this job."
+          exit 1
