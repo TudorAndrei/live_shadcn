@@ -169,7 +169,8 @@ Three things that took a browser to get right, and each one is now a test:
 - [ ] Storybook deployed, one public URL — the image builds, serves, and
       carries the styling layer. Nothing is deployed yet.
 - [ ] Sync bot proves itself: one real upstream change lands as a pull request
-      whose diff is readable
+      whose diff is readable — the run itself works and has been done by hand.
+      What it has not done is open a pull request, because nothing is pushed.
 - [x] `CONTRIBUTING.md` explains how to add a recipe
 
 **Exit:** somebody who is not us installs it from hex and it works.
@@ -179,8 +180,8 @@ Cloudflare token, and a push. `storybook/deploy/README.md` says what to set.
 
 ### What preparing to publish found
 
-Publishing is the first time the work is looked at from outside, and three
-things did not survive that look.
+Publishing is the first time the work is looked at from outside, and four things
+did not survive that look. Each was in a part nobody had run.
 
 **A name is not an identity.** Upstream has a `message` in the shadcn registry
 and a different `message` in AI Elements. Every stage keyed its files on the
@@ -202,6 +203,20 @@ invited the edit.
 Hub does not publish, and an empty `GITHUB_TOKEN` sent `Bearer` with nothing
 after it, which is a 401 rather than a lower rate limit. Both are fixed, and the
 image now builds, serves, and carries the styling layer.
+
+**The sync bot would have cried wolf every week.** Running it by hand found two
+files whose digests changed on every fetch. shadcn's index points a component
+at whatever documents it, and for one built on a React library that is the
+library's own site — so the fetcher was storing GitHub repository pages as Base
+UI contracts, and GitHub embeds a fresh token in every page it serves. A weekly
+pull request that says nothing changed is a pull request nobody reads, and then
+the one that matters is not read either.
+
+That one has a second lesson. The secret scanner had been reporting those
+tokens all along, and the scan was widened to ignore the directory rather than
+asked why source files had tokens in them. The directory is scanned again now,
+and it is clean: a finding there means the fetcher brought back a web page, and
+the fix is in `mix ui.fetch`.
 
 ---
 

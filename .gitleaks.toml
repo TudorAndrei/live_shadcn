@@ -12,9 +12,15 @@ paths = [
   '''^tools/pkg/''',
 ]
 
-# `mix ui.fetch` writes upstream documentation pages here, HTML and all. The
-# pages carry the page tokens of the site they came from, which are neither ours
-# nor secret. The directory is git-ignored, so nothing in it can be committed.
-[[allowlists]]
-description = "fetched upstream sources (registry/upstream/)"
-paths = ['''^registry/upstream/''']
+# `registry/upstream/` is deliberately NOT allowlisted. It holds what
+# `mix ui.fetch` downloaded, and everything there should be source or Base UI
+# documentation — neither of which carries a token.
+#
+# It did carry two, and they were the evidence: shadcn's registry index points
+# `resizable` and `command` at GitHub repository pages, the fetcher followed the
+# links, and GitHub embeds a fresh page token in the HTML it serves. The finding
+# was the first sign that the fetcher was storing the wrong thing.
+#
+# So this scan is the canary. A finding under registry/upstream/ means a fetch
+# brought back a web page instead of a source file, and the fix is in
+# `mix ui.fetch`, never here.
