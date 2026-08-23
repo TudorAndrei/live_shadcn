@@ -26,6 +26,10 @@ jobs:
           elixir-version: "1.20"
           otp-version: "29"
 
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: "22"
+
       - run: mix deps.get
         working-directory: tools
 
@@ -33,33 +37,63 @@ jobs:
         run: mix ui.fetch
         working-directory: tools
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
 
-      # Added once the generator stages land.
-      # - run: mix ui.spec && mix ui.gen && mix ui.verify
-      #   working-directory: tools
+      # Spec and generate. Both are deterministic, so anything that changes here
+      # changed upstream, and the diff says what.
+      - name: Respec and regenerate
+        run: mix ui.spec && mix ui.gen
+        working-directory: tools
 
+      - name: Redraw the snapshots
+        run: mix setup && mix assets.build && mix snapshot
+        working-directory: storybook
+
+      # A generated file that does not match its own spec means the generator is
+      # not deterministic, and every diff below it is untrustworthy.
+      - name: Generated output matches its spec
+        run: mix ui.gen --check
+        working-directory: tools
+
+      # A sync that opens a pull request nobody can trust is worse than none.
+      # The browser check runs before the diff is offered, so the pull request
+      # says whether upstream still behaves the way it did.
+      - name: Behaviour and accessibility
+        run: |
+          npm ci
+          npm run verify:install
+          npm run verify
+        working-directory: storybook/test/browser
+        env:
+          CI: "true"
+
+      # What moved, in words. `git diff --stat` would say four files and 807
+      # lines, which is true and useless; `mix ui.drift` reads the specs and
+      # says whether a class string moved or an attribute appeared.
       - name: Summarise the drift
         id: drift
         run: |
-          if git diff --quiet -- registry/; then
+          if git diff --quiet -- registry/ packages/live_shadcn/priv/registry/; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-            {
-              echo 'body<<DIFF'
-              echo 'Upstream digests moved. Files touched:'
-              echo
-              git diff --stat -- registry/
-              echo DIFF
-            } >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          {
+            echo "changed=true"
+            echo "title=$(cd tools && mix ui.drift --title | tail -1)"
+            echo 'body<<DIFF'
+            (cd tools && mix ui.drift)
+            echo
+            echo 'Every generated file still matches its spec, and the whole'
+            echo 'browser suite is green. Read the snapshot diff to see what'
+            echo 'a reader would actually notice.'
+            echo DIFF
+          } >> "$GITHUB_OUTPUT"
 
       - name: Open pull request
         if: steps.drift.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
         with:
           branch: sync/upstream
-          title: "chore(registry): sync upstream"
+          title: "chore(registry): ${{ steps.drift.outputs.title }}"
           body: ${{ steps.drift.outputs.body }}
           commit-message: "chore(registry): sync upstream"

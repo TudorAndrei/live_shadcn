@@ -24,6 +24,7 @@ jobs:
           - packages/live_shadcn
           - packages/live_ai_elements
           - tools
+          - storybook
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
@@ -74,3 +75,58 @@ jobs:
       # docs/INVENTORY.md is generated. A stale one is a broken build.
       - run: mix ui.status --check
         working-directory: tools
+
+      # So is every component. A file that no longer matches its spec was
+      # either generated from an older spec or edited by hand, and neither is
+      # allowed.
+      - run: mix ui.gen --check
+        working-directory: tools
+
+  browser:
+    name: behaviour and accessibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          elixir-version: "1.20"
+          otp-version: "29"
+
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: "22"
+
+      - run: mix deps.get
+        working-directory: tools
+
+      # The styling layer is gitignored, so the browser job fetches it. Without
+      # it the demo renders unstyled, and a height that is never animated is a
+      # height this suite cannot check.
+      - run: mix ui.fetch --only accordion
+        working-directory: tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - run: mix setup
+        working-directory: storybook
+
+      - run: mix assets.build
+        working-directory: storybook
+
+      # The markup a reader gets is committed. A diff here is a change to it.
+      - run: mix snapshot --check
+        working-directory: storybook
+
+      - run: npm ci
+        working-directory: storybook/test/browser
+
+      - run: npm run verify:install
+        working-directory: storybook/test/browser
+
+      - run: npm run verify
+        working-directory: storybook/test/browser
+        env:
+          CI: "true"
