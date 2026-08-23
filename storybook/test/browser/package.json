@@ -1,0 +1,14 @@
+{
+  "name": "live_shadcn_browser_verify",
+  "private": true,
+  "type": "module",
+  "description": "The browser half of `mix ui.verify`: behaviour parity and accessibility.",
+  "scripts": {
+    "verify": "playwright test",
+    "verify:install": "playwright install --with-deps chromium"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "@playwright/test": "^1.50.0"
+  }
+}

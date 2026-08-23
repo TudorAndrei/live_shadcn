@@ -1,0 +1,21 @@
+/* The shadcn styling layer, assembled from what `mix ui.fetch` downloaded.
+ *
+ * Nothing here is a class string. `globals.css` carries the design tokens every
+ * rule resolves against, and `vega.css` carries the `cn-` rules themselves. Both
+ * come from shadcn-ui/ui at the commit pinned in registry/UPSTREAM.json, and
+ * both are gitignored — run `mix ui.fetch` before building.
+ *
+ * `npm run upstream` copies both here first, because Tailwind resolves the bare
+ * imports shadcn writes from the directory of the file that wrote them.
+ *
+ * Change the style by importing a different sheet and setting the matching
+ * class in config: the rules are nested inside `.style-<name>`. */
+@import "./upstream/theme/globals.css";
+@import "./upstream/styles/vega.css";
+
+/* Tailwind scans these for the utility classes it has to emit. Generated
+ * components live in the registry, which is why it is listed. */
+@source "../js";
+@source "../../lib/storybook_web";
+@source "../../storybook";
+@source "../../../packages/live_shadcn/priv/registry";

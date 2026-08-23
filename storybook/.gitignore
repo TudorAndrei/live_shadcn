@@ -1,0 +1,12 @@
+/_build/
+/deps/
+/assets/node_modules/
+# Copied from registry/upstream by `npm run upstream`, and gitignored there too.
+/assets/css/upstream/
+/priv/static/assets/
+/priv/static/cache_manifest.json
+# `mix phx.digest` writes a hashed copy and a .gz beside every static file.
+/priv/static/*-????????????????????????????????.*
+/priv/static/*.gz
+erl_crash.dump
+*.ez

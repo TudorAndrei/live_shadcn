@@ -1,0 +1,17 @@
+live_shadcn
+Copyright 2026 Tudor Andrei Dumitrascu
+
+This product includes work derived from:
+
+  shadcn/ui — https://github.com/shadcn-ui/ui
+  Copyright (c) 2023 shadcn, licensed under the MIT License.
+
+  AI Elements — https://github.com/vercel/ai-elements
+  Copyright 2023 Vercel, Inc., licensed under the Apache License 2.0.
+
+  Base UI — https://base-ui.com
+  Copyright (c) Base UI contributors, licensed under the MIT License.
+
+Component anatomy, class strings, and behavior contracts are ported from
+these projects. No source code is redistributed verbatim; generated Elixir
+modules are derived works produced by the pipeline in tools/.

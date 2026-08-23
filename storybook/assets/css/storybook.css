@@ -1,0 +1,3 @@
+/* The storybook sandbox renders components inside `.style-vega`, so it needs
+ * the same styling layer the demo pages use. */
+@import "./app.css";

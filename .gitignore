@@ -25,3 +25,7 @@ doc/
 
 # Unpacked hex packages inspected by hand
 tools/pkg/
+
+# Playwright run artifacts
+storybook/test/browser/test-results/
+storybook/test/browser/playwright-report/

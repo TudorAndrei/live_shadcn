@@ -1,0 +1,44 @@
+defmodule StorybookWeb.PreviewLive do
+  @moduledoc """
+  One example on a page of its own.
+
+  The page carries nothing but the component: no navigation, no headings that
+  are not the component's. That is deliberate. `mix ui.verify` runs axe-core
+  against this page, and a violation has to belong to the component rather than
+  to the chrome around it.
+  """
+
+  use StorybookWeb, :live_view
+
+  alias StorybookWeb.Examples
+
+  defmodule NotFound do
+    @moduledoc "An example nobody defined. A 404, not a blank page."
+    defexception [:message, plug_status: 404]
+  end
+
+  @impl Phoenix.LiveView
+  def mount(%{"component" => component, "example" => id}, _session, socket) do
+    case Examples.fetch(component, id) do
+      {:ok, example} ->
+        {:ok, assign(socket, component: component, example: example, page_title: example.title)}
+
+      :error ->
+        raise NotFound, message: "no #{component} example called #{id}"
+    end
+  end
+
+  @impl Phoenix.LiveView
+  def render(assigns) do
+    ~H"""
+    <div id={"preview-#{@component}-#{@example.id}"} data-preview={@component}>
+      <%!-- A page needs a heading, and a heading level may not be skipped. The
+            accordion's own headings are `h3`, which Base UI documents, so the
+            page supplies the two above them. None of them is shown. --%>
+      <h1 class="sr-only">{@component}</h1>
+      <h2 class="sr-only">{@example.title}</h2>
+      {@example.render.(assigns)}
+    </div>
+    """
+  end
+end
