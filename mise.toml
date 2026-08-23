@@ -2,6 +2,10 @@
 erlang = "29"
 elixir = "1.20-otp-29"
 
+# The pipeline parses upstream TypeScript with `oxc-parser`, and the browser
+# suite drives Playwright. Both are Node, so it is pinned rather than assumed.
+node = "22"
+
 hk = "1.56.1"
 pkl = "0.32.1"
 

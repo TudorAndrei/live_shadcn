@@ -120,6 +120,7 @@ defmodule LiveShadcn.UI.Pagination do
       aria-label="Go to next page"
       size="default"
       class={["cn-pagination-next", @class]}
+      {@rest}
     >
       <span class="cn-pagination-next-text hidden sm:block">
         {@text}
@@ -142,6 +143,7 @@ defmodule LiveShadcn.UI.Pagination do
       aria-label="Go to previous page"
       size="default"
       class={["cn-pagination-previous", @class]}
+      {@rest}
     >
       <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip" />
       <span class="cn-pagination-previous-text hidden sm:block">

@@ -408,6 +408,7 @@
         "changeType": null,
         "children": null,
         "className": null,
+        "contextValue": null,
         "currentVersion": null,
         "name": null,
         "newVersion": null

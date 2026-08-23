@@ -57,6 +57,7 @@ defmodule LiveAiElements.Components.Suggestion do
   end
 
   @doc "The `button` part."
+  attr(:handle_click, :string, default: nil)
   attr(:on_click, :string, default: nil)
 
   attr(:size, :string,

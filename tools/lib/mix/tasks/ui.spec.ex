@@ -43,15 +43,48 @@ defmodule Mix.Tasks.Ui.Spec do
     styles = styles(manifest)
 
     components = if names == [], do: fetched(manifest), else: Enum.map(names, &resolve/1)
-    results = Enum.map(components, &one(&1, manifest, recipes, styles, check?))
+    results = settle(components, manifest, recipes, styles, check?)
 
     report(results, check?)
   end
 
+  # A spec that reads another spec is a fixpoint, not a sequence.
+  #
+  # `combobox` renders shadcn's input group and records the element that ends up
+  # as, and it reads that off the input group's spec. Whether that spec was
+  # current when combobox was built depends on the order the two were built in,
+  # which is alphabetical and means nothing. So the run repeats until no file
+  # moves, and one extra pass is what it costs to stop caring about the order.
+  #
+  # Two passes always settle it today: a reference is one deep. The cap is
+  # three, because a run that has not settled by then has a cycle in it, and a
+  # cycle is a thing to hear about rather than to loop on.
+  @passes 3
+
+  defp settle(components, manifest, recipes, styles, check?, pass \\ 1, written \\ []) do
+    results = Enum.map(components, &one(&1, manifest, recipes, styles, check?))
+    written = written ++ for {:wrote, reference} <- results, do: reference
+
+    if not check? and pass < @passes and Enum.any?(results, &match?({:wrote, _}, &1)) do
+      settle(components, manifest, recipes, styles, check?, pass + 1, written)
+    else
+      # What the run wrote, not what its last pass wrote. By the last pass every
+      # file is already what it should be, which is the point of the pass and
+      # not something to report as having done nothing.
+      Enum.map(results, fn
+        {:current, reference} ->
+          if reference in written, do: {:wrote, reference}, else: {:current, reference}
+
+        result ->
+          result
+      end)
+    end
+  end
+
   # A component in one registry may be built out of a component in the other,
   # and the reader folds that one's markup in rather than calling it. So the
-  # spec it folds has to be on disk and current, which is why `fetched/1` puts
-  # shadcn first and why this reads the file rather than a half-built map.
+  # spec it folds has to be on disk, which is why this reads the file rather
+  # than a half-built map, and why `settle/6` runs until the files stop moving.
   defp resolve_spec(source, name) do
     path = spec_path(source, name)
     if File.exists?(path), do: read_json!(path)
@@ -172,16 +205,23 @@ defmodule Mix.Tasks.Ui.Spec do
     path = spec_path(source, name)
     rendered = json(spec)
 
-    cond do
-      not check? ->
-        write!(path, rendered)
-        {:wrote, ref(source, name)}
+    unchanged? = File.exists?(path) and File.read!(path) == rendered
 
-      File.exists?(path) and File.read!(path) == rendered ->
+    cond do
+      check? and unchanged? ->
+        {:current, ref(source, name)}
+
+      check? ->
+        {:outdated, ref(source, name)}
+
+      # Already what it should be. Saying so rather than "wrote" is what lets
+      # `settle/6` know the run has stopped moving.
+      unchanged? ->
         {:current, ref(source, name)}
 
       true ->
-        {:outdated, ref(source, name)}
+        write!(path, rendered)
+        {:wrote, ref(source, name)}
     end
   end
 

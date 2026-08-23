@@ -42,8 +42,6 @@ defmodule Mix.Tasks.Ui.Verify do
       Mix.raise("nothing to verify: no component has been generated yet. Run `mix ui.gen`.")
     end
 
-    ensure_distinct_examples!(components)
-
     results =
       Map.new(components, fn {source, name} ->
         {ref(source, name), verify(source, name, browser?)}
@@ -69,23 +67,20 @@ defmodule Mix.Tasks.Ui.Verify do
   # `accordion.spec.mjs`.
   #
   # That works while no two components share a name, and upstream has a
-  # `message` in each registry. So check it rather than assume it. A collision
-  # stops the run and names both, instead of verifying one component twice and
-  # marking both green.
-  defp ensure_distinct_examples!(components) do
-    collisions =
-      components
-      |> Enum.group_by(fn {_source, name} -> name end)
-      |> Enum.filter(fn {_name, group} -> length(group) > 1 end)
+  # `message` in each registry. So the storybook names that one `shadcn-message`
+  # and this asks the storybook which key an example is under rather than
+  # assuming the name.
+  #
+  # The source-and-name first, so a component that has its own example is never
+  # verified against somebody else's. Then the name, which is what almost every
+  # example is called, because a unique name is an identity.
+  defp example_key(source, name) do
+    previewed = previewed()
 
-    for {name, group} <- collisions do
-      Mix.raise("""
-      #{length(group)} components are called `#{name}`: #{Enum.map_join(group, ", ", fn {source, n} -> ref(source, n) end)}
-
-      The storybook keys an example by name alone, so it cannot tell them apart
-      and neither can this task. Give the examples distinct names in
-      storybook/lib/storybook_web/examples.ex before verifying either.
-      """)
+    cond do
+      "#{source}-#{name}" in previewed -> "#{source}-#{name}"
+      name in previewed -> name
+      true -> nil
     end
   end
 
@@ -100,12 +95,13 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp verify(source, name, browser?) do
     reference = ref(source, name)
+    key = example_key(source, name)
 
     checks =
       [
         {"generated", generated_check(reference)},
-        {"snapshot", snapshot_check(name)}
-      ] ++ if(browser?, do: [{"browser", browser_check(name)}], else: [])
+        {"snapshot", snapshot_check(key)}
+      ] ++ if(browser?, do: [{"browser", browser_check(name, key)}], else: [])
 
     %{
       "pass" => Enum.all?(checks, fn {_name, check} -> check["pass"] end),
@@ -124,29 +120,32 @@ defmodule Mix.Tasks.Ui.Verify do
   defp generated_check(reference),
     do: run_in(tools_dir(), "mix", ["ui.gen", "--check", reference])
 
-  defp snapshot_check(name),
-    do: run_in(storybook_dir(), "mix", ["snapshot", "--check", name])
+  defp snapshot_check(nil), do: no_example()
+
+  defp snapshot_check(key),
+    do: run_in(storybook_dir(), "mix", ["snapshot", "--check", key])
 
   # A component with behaviour has a suite of its own. One without still has an
   # accessibility contract, and the generic axe run over its preview pages is
   # what checks it. A component with neither has no example yet, which is a
   # real reason not to call it verified.
-  defp browser_check(name) do
-    cond do
-      File.exists?(Path.join(browser_dir(), "#{name}.spec.mjs")) ->
-        run_in(browser_dir(), "npx", ["playwright", "test", "#{name}.spec.mjs"])
+  defp browser_check(_name, nil), do: no_example()
 
-      name in previewed() ->
-        run_in(browser_dir(), "npx", ["playwright", "test", "accessibility.spec.mjs"], %{
-          "PREVIEW_COMPONENT" => name
-        })
-
-      true ->
-        %{
-          "pass" => false,
-          "detail" => "no example yet: add one to storybook/lib/storybook_web/examples.ex"
-        }
+  defp browser_check(name, key) do
+    if File.exists?(Path.join(browser_dir(), "#{name}.spec.mjs")) do
+      run_in(browser_dir(), "npx", ["playwright", "test", "#{name}.spec.mjs"])
+    else
+      run_in(browser_dir(), "npx", ["playwright", "test", "accessibility.spec.mjs"], %{
+        "PREVIEW_COMPONENT" => key
+      })
     end
+  end
+
+  defp no_example do
+    %{
+      "pass" => false,
+      "detail" => "no example yet: add one to storybook/lib/storybook_web/examples.ex"
+    }
   end
 
   defp previewed do

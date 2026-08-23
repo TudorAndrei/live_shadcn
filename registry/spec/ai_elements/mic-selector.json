@@ -22,6 +22,7 @@
       "export": "MicSelector",
       "name": "mic_selector",
       "params": {
+        "contextValue": null,
         "defaultOpen": "false",
         "defaultValue": null,
         "devices": null,
@@ -90,6 +91,7 @@
       "params": {
         "children": null,
         "className": null,
+        "ref": null,
         "size": "default",
         "variant": "default"
       },
@@ -293,6 +295,7 @@
             "render_as": null,
             "slot": null,
             "source": "shadcn",
+            "tag": null,
             "type": "component_ref",
             "variant_class": null,
             "vars": []
@@ -341,6 +344,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -374,6 +378,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -405,6 +410,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -414,6 +420,7 @@
       "export": "MicSelectorItem",
       "name": "mic_selector_item",
       "params": {
+        "handleSelect": null,
         "onOpenChange": null,
         "onValueChange": null
       },
@@ -439,6 +446,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -449,7 +457,9 @@
       "name": "mic_selector_label",
       "params": {
         "className": null,
-        "device": null
+        "device": null,
+        "matches": null,
+        "name": null
       },
       "primitive": null,
       "tree": {
@@ -528,6 +538,7 @@
       "name": "mic_selector_value",
       "params": {
         "className": null,
+        "currentDevice": null,
         "data": null,
         "value": null
       },

@@ -48,6 +48,7 @@ defmodule LiveShadcn.UI.ButtonGroup do
         "cn-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto",
         @class
       ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
     </LiveShadcn.UI.Separator.separator>

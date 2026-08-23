@@ -16,13 +16,19 @@
       "params": {
         "children": null,
         "className": null,
+        "contextValue": null,
         "defaultOpen": null,
         "duration": null,
+        "handleOpenChange": null,
         "hasAutoClosed": "false",
+        "hasEverStreamedRef": null,
+        "isExplicitlyClosed": null,
         "isOpen": null,
         "isStreaming": "false",
         "onOpenChange": null,
-        "open": null
+        "open": null,
+        "resolvedDefaultOpen": null,
+        "startTimeRef": null
       },
       "primitive": null,
       "tree": {

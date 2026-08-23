@@ -1,4 +1,7 @@
 {
+  "field": [
+    "default"
+  ],
   "dialog": [
     "default"
   ],
@@ -7,6 +10,9 @@
   ],
   "badge": [
     "variants"
+  ],
+  "shadcn-message": [
+    "default"
   ],
   "bubble": [
     "default"
@@ -20,7 +26,7 @@
   "marker": [
     "default"
   ],
-  "message": [
+  "package-info": [
     "default"
   ],
   "select": [
@@ -60,6 +66,9 @@
     "default"
   ],
   "toggle": [
+    "default"
+  ],
+  "ai_elements-message": [
     "default"
   ],
   "suggestion": [

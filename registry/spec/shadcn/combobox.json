@@ -197,6 +197,7 @@
               "render_as": null,
               "slot": null,
               "source": "shadcn",
+              "tag": "input",
               "type": "component_ref",
               "variant_class": null,
               "vars": []
@@ -267,6 +268,7 @@
                     },
                     "slot": "input-group-button",
                     "source": "shadcn",
+                    "tag": "button",
                     "type": "component_ref",
                     "variant_class": null,
                     "vars": []
@@ -317,6 +319,7 @@
             "render_as": null,
             "slot": null,
             "source": "shadcn",
+            "tag": "div",
             "type": "component_ref",
             "variant_class": null,
             "vars": []
@@ -337,6 +340,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": "div",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -876,6 +880,7 @@
                   "render_as": null,
                   "slot": null,
                   "source": "shadcn",
+                  "tag": "button",
                   "type": "component_ref",
                   "variant_class": null,
                   "vars": []

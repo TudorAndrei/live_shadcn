@@ -176,6 +176,18 @@ defmodule LiveShadcnTools.Gen do
   end
 
   defp markers(%{"type" => "children"}), do: 1
+
+  # A choice draws one branch or the other, never both, so a marker in each is
+  # one marker and not two. `checkpoint` wraps its content in a tooltip when it
+  # has one and renders it bare when it does not, which is the same content in
+  # the same place under two conditions.
+  defp markers(%{"type" => "choice"} = node),
+    do: max(markers(node["then"]), markers(node["else"]))
+
+  # The same for a table: one entry is drawn, whichever the key selects.
+  defp markers(%{"type" => "lookup", "entries" => entries}),
+    do: entries |> Enum.map(&markers(&1["node"])) |> Enum.max(fn -> 0 end)
+
   defp markers(node) when is_map(node), do: node |> Map.values() |> markers()
   defp markers(nodes) when is_list(nodes), do: Enum.sum(Enum.map(nodes, &markers/1))
   defp markers(_node), do: 0

@@ -145,6 +145,7 @@
         "render_as": null,
         "slot": "menubar-portal",
         "source": "shadcn",
+        "tag": "div",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -170,6 +171,7 @@
         "render_as": null,
         "slot": "menubar-menu",
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -199,6 +201,7 @@
         "render_as": null,
         "slot": "menubar-trigger",
         "source": "shadcn",
+        "tag": "button",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -249,6 +252,7 @@
         "render_as": null,
         "slot": "menubar-content",
         "source": "shadcn",
+        "tag": "div",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -274,6 +278,7 @@
         "render_as": null,
         "slot": "menubar-group",
         "source": "shadcn",
+        "tag": "div",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -301,6 +306,7 @@
         "render_as": null,
         "slot": "menubar-separator",
         "source": "shadcn",
+        "tag": "div",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -337,6 +343,7 @@
         "render_as": null,
         "slot": "menubar-label",
         "source": "shadcn",
+        "tag": "div",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -380,6 +387,7 @@
         "render_as": null,
         "slot": "menubar-item",
         "source": "shadcn",
+        "tag": "div",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -407,6 +415,7 @@
         "render_as": null,
         "slot": "menubar-shortcut",
         "source": "shadcn",
+        "tag": "span",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -567,6 +576,7 @@
         "render_as": null,
         "slot": "menubar-radio-group",
         "source": "shadcn",
+        "tag": "div",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -721,6 +731,7 @@
         "render_as": null,
         "slot": "menubar-sub",
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -758,6 +769,7 @@
         "render_as": null,
         "slot": "menubar-sub-trigger",
         "source": "shadcn",
+        "tag": "div",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -790,6 +802,7 @@
         "render_as": null,
         "slot": "menubar-sub-content",
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []

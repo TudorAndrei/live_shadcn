@@ -98,6 +98,7 @@
       "export": "MessageAction",
       "name": "message_action",
       "params": {
+        "button": null,
         "children": null,
         "label": null,
         "size": "icon-sm",
@@ -116,8 +117,12 @@
       "params": {
         "branches": null,
         "className": null,
+        "contextValue": null,
         "currentBranch": null,
         "defaultBranch": "0",
+        "goToNext": null,
+        "goToPrevious": null,
+        "handleBranchChange": null,
         "onBranchChange": null
       },
       "primitive": null,
@@ -169,6 +174,7 @@
       "params": {
         "branches": null,
         "children": null,
+        "childrenArray": null,
         "currentBranch": null
       },
       "primitive": null,

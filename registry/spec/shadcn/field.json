@@ -93,6 +93,7 @@
         "render_as": null,
         "slot": "field-label",
         "source": "shadcn",
+        "tag": "label",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -129,6 +130,7 @@
       "params": {
         "children": null,
         "className": null,
+        "content": null,
         "errors": null
       },
       "primitive": null,
@@ -250,6 +252,7 @@
             "render_as": null,
             "slot": null,
             "source": "shadcn",
+            "tag": "div",
             "type": "component_ref",
             "variant_class": null,
             "vars": []

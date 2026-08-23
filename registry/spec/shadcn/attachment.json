@@ -240,6 +240,7 @@
         "render_as": null,
         "slot": "attachment-action",
         "source": "shadcn",
+        "tag": "button",
         "type": "component_ref",
         "variant_class": null,
         "vars": []

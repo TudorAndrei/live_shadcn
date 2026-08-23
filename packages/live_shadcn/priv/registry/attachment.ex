@@ -163,7 +163,7 @@ defmodule LiveShadcn.UI.Attachment do
   attr(:size, :string, default: "icon-xs")
   attr(:variant, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
   slot(:inner_block)
 
   def attachment_action(assigns) do
@@ -173,6 +173,7 @@ defmodule LiveShadcn.UI.Attachment do
       variant={@variant || "ghost"}
       size={@size}
       class={["cn-attachment-action", @class]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
     </LiveShadcn.UI.Button.button>

@@ -14,6 +14,7 @@
       "params": {
         "children": null,
         "className": null,
+        "contextValue": null,
         "variant": "grid"
       },
       "primitive": null,
@@ -69,8 +70,11 @@
       "params": {
         "children": null,
         "className": null,
+        "contextValue": null,
         "data": null,
-        "onRemove": null
+        "mediaCategory": null,
+        "onRemove": null,
+        "variant": null
       },
       "primitive": null,
       "tree": {
@@ -120,11 +124,51 @@
       }
     },
     {
+      "export": "AttachmentPreview",
+      "name": "attachment_preview",
+      "params": {
+        "className": null,
+        "data": null,
+        "fallbackIcon": null,
+        "iconSize": null,
+        "mediaCategory": null,
+        "renderContent": null,
+        "renderIcon": null,
+        "variant": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "name": "render_content",
+            "type": "slot"
+          }
+        ],
+        "class": "flex shrink-0 items-center justify-center overflow-hidden",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
       "export": "AttachmentInfo",
       "name": "attachment_info",
       "params": {
         "className": null,
-        "showMediaType": "false"
+        "data": null,
+        "label": null,
+        "showMediaType": "false",
+        "variant": null
       },
       "primitive": null,
       "tree": {
@@ -202,9 +246,11 @@
       "params": {
         "children": null,
         "className": null,
+        "handleClick": null,
         "label": "Remove",
+        "onRemove": null,
         "size": "default",
-        "variant": "default"
+        "variant": null
       },
       "primitive": null,
       "tree": {

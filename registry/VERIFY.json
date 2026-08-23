@@ -12,7 +12,7 @@
       }
     },
     "pass": true,
-    "spec": "2407764ca57c8e67dd29c571f40d50c29d6b5c170cae4e049c4dbd7ae8932e2e"
+    "spec": "245871477477ed757bfd798fe055c44b55a964ed33b10dbdded6951dd82e9ec8"
   },
   "shadcn/checkbox": {
     "checks": {
@@ -42,7 +42,7 @@
       }
     },
     "pass": true,
-    "spec": "bed39118509d48c9d1b433d6ed82a588328f83887df10a9e17e30dcd978d48e4"
+    "spec": "b4214065f5159cf83524e8b1507985ec5886f87e6598a574da1796496c922ec2"
   },
   "shadcn/context-menu": {
     "checks": {
@@ -74,6 +74,21 @@
     "pass": true,
     "spec": "c37023d873c4aaf80c4251c7847586a97f0cee3fa74fbc1455aa6597d33cfb9f"
   },
+  "ai_elements/package-info": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "179184177edee086696c179b65c401d99367249caa75e9eec0d83d2d14b4f812"
+  },
   "shadcn/pagination": {
     "checks": {
       "browser": {
@@ -87,7 +102,7 @@
       }
     },
     "pass": true,
-    "spec": "77e6294385f96cdf1fc90018f8e723214ac24065a24e03c2750dd7ed71d787fb"
+    "spec": "81fd2e4ec5b87162a608994b04706722a5130f453f66cac35ceb5ef5e8e4b057"
   },
   "shadcn/radio-group": {
     "checks": {
@@ -117,7 +132,7 @@
       }
     },
     "pass": true,
-    "spec": "33bd727d4a95ee3207b2278193faa104f74ea92d7ab3fc0d9a0e536614cc3149"
+    "spec": "5cfe1cf573707c3f9598f78aee4f9e0c5007ad2ea72777eabf97dc835a5d5de4"
   },
   "ai_elements/task": {
     "checks": {
@@ -162,7 +177,7 @@
       }
     },
     "pass": true,
-    "spec": "57c602ac12873ee8f2e47420b8ef582948ea08334550829a0fe8143e8dcbd101"
+    "spec": "f7f95107910a2084ad4289828eb883a0b73e863fbb6f0d6534f06a0eac034c8a"
   },
   "shadcn/popover": {
     "checks": {
@@ -178,6 +193,38 @@
     },
     "pass": true,
     "spec": "adf4301a22b4cd4f31f1d9e0e96ac0240c342767591cde962ee397efb024027b"
+  },
+  "ai_elements/attachments": {
+    "checks": {
+      "browser": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      }
+    },
+    "pass": false,
+    "spec": "980e45885b392889009ef6fbb552d2d4cdbbafe0b3dbe9d4982d3aa8bb41581f"
+  },
+  "shadcn/field": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "79e8f22d99f917a9bc4e9c3efb6923d8d05fa5e59fd30d6beab7c5d3196dac8d"
   },
   "shadcn/toggle": {
     "checks": {
@@ -224,6 +271,23 @@
     "pass": true,
     "spec": "c55f345c63a0b4dc4742937fe1f0dce266ee11c419a1e28d05615075ce56e76a"
   },
+  "ai_elements/plan": {
+    "checks": {
+      "browser": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      }
+    },
+    "pass": false,
+    "spec": "791ae444f66a1c6e445e9a0059c82540f084df1ec60962bb02a8607f0fd06ae8"
+  },
   "ai_elements/confirmation": {
     "checks": {
       "browser": {
@@ -237,7 +301,7 @@
       }
     },
     "pass": true,
-    "spec": "cf1142ceea8de5100e1715322eb62ce0500b64fba48f4509d892971d106c14e7"
+    "spec": "9038957885786f1cbb83916a7d136d4624e7aa6f90143bebeb3e1908e0245802"
   },
   "shadcn/skeleton": {
     "checks": {
@@ -282,7 +346,7 @@
       }
     },
     "pass": true,
-    "spec": "8d39c00fd809b8e4eb39030a56e1fba5875cf5bc24fbe1cebae88f0359b9ff72"
+    "spec": "69c7ed52bb0fdf9e488e4198b1bb3d06360c68b30806883439c81143627d73ed"
   },
   "ai_elements/checkpoint": {
     "checks": {
@@ -297,7 +361,7 @@
       }
     },
     "pass": true,
-    "spec": "294c5beb5f4ebb8dd10c3f84eb075dcc2eaa229db841707b673025e9023726f8"
+    "spec": "d2bdb13a8353d4bca3ffa4ee2bc1c97504d0115d6711345def4baa844cc7d878"
   },
   "shadcn/message": {
     "checks": {
@@ -372,7 +436,7 @@
       }
     },
     "pass": true,
-    "spec": "66c6861606d22ccc2293fb4ca08b178ac9762e7c126c87cce1bb2e711b33578f"
+    "spec": "ba8d7035b04ad81a714457523598290504597d8ed744b25d39f0cbc0b2ef96dd"
   },
   "shadcn/accordion": {
     "checks": {
@@ -402,7 +466,7 @@
       }
     },
     "pass": true,
-    "spec": "f97af1be6e1efa06fb7b9d2044e2cdeafde1c2c5de5dfece8a0025d526c45ac7"
+    "spec": "cbf5047ce168586773e256f5eba3519bbd639890606ca2ccb279cbe423fcd684"
   },
   "shadcn/tabs": {
     "checks": {
@@ -464,6 +528,21 @@
     "pass": true,
     "spec": "0c3b0aa20eab38cc1e9c8cbd8998d450e0e80f48bf19b6015834d7a55e748d39"
   },
+  "ai_elements/message": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "b284a398a7b883374f6b1e955539b4625f2b288a0893e46a639a3e19b2fe2a32"
+  },
   "shadcn/switch": {
     "checks": {
       "browser": {
@@ -522,7 +601,7 @@
       }
     },
     "pass": true,
-    "spec": "bab211ba9dd7f39933037992bf645e0c1170adeb24d10d0df45a416cf767cba1"
+    "spec": "24524b584e18e0a5f920818dd32ea85d539854c7c9ce5fd1dd11a554af8c5193"
   },
   "shadcn/breadcrumb": {
     "checks": {
@@ -597,7 +676,24 @@
       }
     },
     "pass": true,
-    "spec": "1393b39712ce38930d37f8badf4512409a85d0ae5bc21787735e2799610efc33"
+    "spec": "63fbf96747597c6902e814cfca10a0a198d787499f2d723734c5487cafe14edc"
+  },
+  "ai_elements/question": {
+    "checks": {
+      "browser": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      }
+    },
+    "pass": false,
+    "spec": "7937414fded9a895554a967db1ff181b0b5c2d7653e9870612b44753ae91e6a1"
   },
   "shadcn/separator": {
     "checks": {
@@ -732,6 +828,6 @@
       }
     },
     "pass": true,
-    "spec": "bcbe134a1d2141b788775ffb199913336eb4fb703f76242107516f5f720ac11f"
+    "spec": "a1c6457cdbea4248bd5545a76df4dc227f2f854757578deb7c5f0ba64e25adfc"
   }
 }

@@ -258,6 +258,7 @@
         },
         "slot": null,
         "source": "shadcn",
+        "tag": "button",
         "type": "component_ref",
         "variant_class": null,
         "vars": []

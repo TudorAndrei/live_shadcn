@@ -11,6 +11,7 @@ defmodule LiveAiElements.Components.Confirmation do
 
   @doc "The `confirmation` part."
   attr(:approval, :string, default: nil)
+  attr(:context_value, :string, default: nil)
   attr(:state, :string, default: nil)
   attr(:variant, :string, default: "default", values: ["default", "destructive"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")

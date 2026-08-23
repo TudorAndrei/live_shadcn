@@ -1,0 +1,11 @@
+{
+  "name": "live_shadcn_tools",
+  "version": "0.1.0-dev",
+  "private": true,
+  "description": "The parser the codegen pipeline reads upstream .tsx with. Maintainer-only; never published.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "oxc-parser": "0.146.0"
+  }
+}

@@ -7,10 +7,10 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 1 | ························ |
-| `fetched` | 38 | ████████················ |
-| `spec` | 23 | █████··················· |
-| `generated` | 1 | ························ |
-| `verified` | 49 | ███████████············· |
+| `fetched` | 37 | ████████················ |
+| `spec` | 19 | ████···················· |
+| `generated` | 3 | █······················· |
+| `verified` | 52 | ███████████············· |
 
 ## Recipes
 
@@ -70,10 +70,10 @@ Only the recipes are written by hand; every component is data.
 | `combobox` | 2 | `listbox` | ✅ verified |
 | `command` | 2 | `listbox` | 🟦 fetched |
 | `context-menu` | 2 | `menu` | ✅ verified |
-| `direction` | 2 | `utility` | 🟨 spec |
+| `direction` | 2 | `utility` | 🟦 fetched |
 | `drawer` | 2 | `dialog` | 🟨 spec |
 | `empty` | 2 | `presentational` | ✅ verified |
-| `field` | 2 | `form-control` | 🟨 spec |
+| `field` | 2 | `form-control` | ✅ verified |
 | `form` | 2 | `form-control` | ⬜ planned |
 | `hover-card` | 2 | `popover` | ✅ verified |
 | `input-group` | 2 | `form-control` | 🟨 spec |
@@ -91,7 +91,7 @@ Only the recipes are written by hand; every component is data.
 | `radio-group` | 2 | `form-control` | ✅ verified |
 | `scroll-area` | 2 | `scroller` | 🟨 spec |
 | `sheet` | 2 | `dialog` | ✅ verified |
-| `sidebar` | 2 | `disclosure` | 🟦 fetched |
+| `sidebar` | 2 | `disclosure` | 🟨 spec |
 | `slider` | 2 | `form-control` | 🟨 spec |
 | `sonner` | 2 | `toast` | 🟦 fetched |
 | `toast` | 2 | `toast` | 🟨 spec |
@@ -111,7 +111,7 @@ Only the recipes are written by hand; every component is data.
 | `code-block` | 1 | `presentational` | 🟦 fetched |
 | `context` | 1 | `presentational` | 🟨 spec |
 | `conversation` | 1 | `scroller` | 🟦 fetched |
-| `message` | 1 | `presentational` | 🟨 spec |
+| `message` | 1 | `presentational` | ✅ verified |
 | `prompt-input` | 1 | `form-control` | 🟦 fetched |
 | `reasoning` | 1 | `disclosure` | ✅ verified |
 | `shimmer` | 1 | `presentational` | 🟦 fetched |
@@ -121,7 +121,7 @@ Only the recipes are written by hand; every component is data.
 | `tool` | 1 | `disclosure` | 🟦 fetched |
 | `agent` | 2 | `presentational` | 🟦 fetched |
 | `artifact` | 2 | `disclosure` | 🟨 spec |
-| `attachments` | 2 | `presentational` | 🟨 spec |
+| `attachments` | 2 | `presentational` | 🟩 generated |
 | `checkpoint` | 2 | `presentational` | ✅ verified |
 | `commit` | 2 | `presentational` | 🟦 fetched |
 | `confirmation` | 2 | `presentational` | ✅ verified |
@@ -132,11 +132,11 @@ Only the recipes are written by hand; every component is data.
 | `inline-citation` | 2 | `presentational` | 🟦 fetched |
 | `model-selector` | 2 | `listbox` | 🟨 spec |
 | `open-in-chat` | 2 | `presentational` | 🟨 spec |
-| `package-info` | 2 | `presentational` | 🟩 generated |
+| `package-info` | 2 | `presentational` | ✅ verified |
 | `panel` | 2 | `disclosure` | 🟦 fetched |
 | `persona` | 2 | `presentational` | 🟦 fetched |
-| `plan` | 2 | `disclosure` | 🟦 fetched |
-| `question` | 2 | `presentational` | 🟨 spec |
+| `plan` | 2 | `disclosure` | 🟩 generated |
+| `question` | 2 | `presentational` | 🟩 generated |
 | `queue` | 2 | `presentational` | 🟨 spec |
 | `schema-display` | 2 | `presentational` | 🟦 fetched |
 | `snippet` | 2 | `presentational` | 🟦 fetched |

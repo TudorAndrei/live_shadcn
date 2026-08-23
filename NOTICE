@@ -22,3 +22,11 @@ optional dependency, so an application that wants none pulls in none:
 
   phoenix_streamdown — https://github.com/dannote/phoenix_streamdown
   Streaming markdown for LiveView, in place of AI Elements' use of Streamdown.
+
+The codegen pipeline in tools/ reads upstream TypeScript with:
+
+  oxc — https://oxc.rs
+  Copyright (c) Boshen and oxc contributors, licensed under the MIT License.
+
+It is a maintainer-only build dependency. Nothing it produces is redistributed,
+and neither published package depends on it.

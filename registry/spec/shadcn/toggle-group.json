@@ -110,6 +110,7 @@
       "params": {
         "children": null,
         "className": null,
+        "context": null,
         "size": "default",
         "variant": "default"
       },

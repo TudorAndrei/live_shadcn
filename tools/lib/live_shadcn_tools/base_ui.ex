@@ -17,7 +17,7 @@ defmodule LiveShadcnTools.BaseUi do
   class strings that read the documented name.
   """
 
-  alias LiveShadcnTools.Tsx
+  alias LiveShadcnTools.Ast
 
   @doc """
   Returns `%{parts: %{name => part}, anatomy: tree, order: [name]}`.
@@ -187,7 +187,7 @@ defmodule LiveShadcnTools.BaseUi do
 
       source ->
         source
-        |> Tsx.parse_jsx!()
+        |> Ast.parse_jsx!()
         |> anatomy_node()
         |> List.wrap()
     end

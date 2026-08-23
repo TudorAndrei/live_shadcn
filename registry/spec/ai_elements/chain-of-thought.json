@@ -15,6 +15,7 @@
       "export": "ChainOfThought",
       "name": "chain_of_thought",
       "params": {
+        "chainOfThoughtContext": null,
         "children": null,
         "className": null,
         "defaultOpen": "false",

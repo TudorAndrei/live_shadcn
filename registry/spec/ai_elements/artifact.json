@@ -222,6 +222,7 @@
       "export": "ArtifactAction",
       "name": "artifact_action",
       "params": {
+        "button": null,
         "children": null,
         "className": null,
         "icon": null,

@@ -137,9 +137,20 @@ defmodule LiveShadcnTools.Gen.Presentational do
   by every part that has variants. It is data, so it stays data.
   """
   def variant_table(spec) do
+    # Only the tables a part reads. A component that folded in another one's
+    # markup inherits its `cva` tables too, and writing one nothing reads is a
+    # private function nobody calls — which is a compiler warning, and this
+    # project compiles generated code with warnings as errors.
+    used =
+      spec["parts"]
+      |> List.wrap()
+      |> Enum.flat_map(&Map.keys(variant_table_of(&1, spec)["variants"] || %{}))
+      |> MapSet.new()
+
     tables =
       for {_binding, table} <- spec["variants"] || %{},
           {group, values} <- table["variants"] || %{},
+          MapSet.member?(used, group),
           into: %{},
           do: {group, values}
 

@@ -22,6 +22,7 @@ defmodule LiveShadcnTools.Spec do
 
   import LiveShadcnTools, only: [ref: 2]
 
+  alias LiveShadcnTools.Ast
   alias LiveShadcnTools.BaseUi
   alias LiveShadcnTools.Cva
   alias LiveShadcnTools.Tsx
@@ -45,7 +46,7 @@ defmodule LiveShadcnTools.Spec do
   that has only seen half of what shadcn styles the component with.
   """
   def build(name, opts) do
-    tsx = Tsx.parse!(Keyword.fetch!(opts, :tsx))
+    tsx = Ast.parse!(Keyword.fetch!(opts, :tsx))
 
     docs =
       Map.new(Keyword.fetch!(opts, :markdown), fn {mod, md} -> {mod, BaseUi.parse!(md, mod)} end)
@@ -61,7 +62,8 @@ defmodule LiveShadcnTools.Spec do
       functions: functions,
       consts: tsx.consts,
       imports: tsx.imports,
-      variants: Map.keys(variants)
+      variants: Map.keys(variants),
+      resolve: Keyword.get(opts, :resolve, fn _source, _name -> nil end)
     }
 
     exports = Enum.reject(tsx.exports, &Map.has_key?(variants, &1))
@@ -87,6 +89,7 @@ defmodule LiveShadcnTools.Spec do
     {parts, folded} =
       parts
       |> Enum.map(&markdown_content/1)
+      |> private_parts(ctx)
       |> fold(source, Keyword.get(opts, :resolve, fn _source, _name -> nil end))
 
     own_primitives =
@@ -147,6 +150,36 @@ defmodule LiveShadcnTools.Spec do
       [name | _rest] ->
         raise "#{name} is exported and its markup could not be read: #{unreadable[name]}"
     end
+  end
+
+  # A component this file declares and does not export.
+  #
+  # `context` renders `<TokensWithCost>` in three of its parts and exports none
+  # of them, because upstream keeps it to itself. A generated module has one
+  # function per exported part, so a call to that name reaches a function
+  # nobody wrote — and only the compiler says so. Its markup comes across
+  # instead, wherever it was called, with the arguments it was called with.
+  defp private_parts(parts, ctx) do
+    exported = MapSet.new(parts, & &1["name"])
+
+    private =
+      for {name, function} <- ctx.functions,
+          underscored = Macro.underscore(name),
+          not MapSet.member?(exported, underscored) do
+        %{
+          "name" => underscored,
+          "params" => function.params,
+          "tree" => node(function.jsx, private_ctx(ctx, function))
+        }
+      end
+
+    Enum.map(parts, &Map.put(&1, "tree", inline_parts(&1["tree"], %{"parts" => private}, [])))
+  end
+
+  defp private_ctx(ctx, function) do
+    ctx
+    |> Map.put(:renames, function.renames)
+    |> Map.put(:params_of, function.params)
   end
 
   # Markdown is content, not children.
@@ -296,6 +329,7 @@ defmodule LiveShadcnTools.Spec do
 
       part["tree"]
       |> inline_parts(spec, [name | seen])
+      |> substitute(arguments(node, part))
       |> absorb(node, Map.get(part, "params") || %{})
     else
       _ -> node
@@ -309,6 +343,21 @@ defmodule LiveShadcnTools.Spec do
     do: Enum.map(nodes, &inline_parts(&1, spec, seen))
 
   defp inline_parts(value, _spec, _seen), do: value
+
+  # What a reference passed, by the name the part reads it under.
+  #
+  # `<TokensWithCost costText={inputCostText} tokens={inputTokens} />` sets two
+  # props, and the part's markup reads `costText` and `tokens`. Once that markup
+  # is here those names mean nothing: what it should read is what the caller
+  # passed.
+  defp arguments(node, part) do
+    params = Map.get(part, "params") || %{}
+
+    for %{"name" => name, "kind" => "code", "value" => value} <- Map.get(node, "attrs") || [],
+        Map.has_key?(params, name),
+        into: %{},
+        do: {name, value}
+  end
 
   # The reference's own markup, merged onto the markup it points at. Upstream
   # writes `<CollapsibleTrigger className="flex w-full …">`, and both class
@@ -340,15 +389,29 @@ defmodule LiveShadcnTools.Spec do
   there, so every child is drawn a second time. `suggestion` rendered three
   buttons six times that way, and each copy looked right on its own.
 
-  A reference that wrapped nothing leaves the marker alone. A component whose
-  markup has no marker takes the content at the end, which is the only place
-  left.
+  A reference that wrapped nothing still replaces the marker — with the default
+  the marker carries, or with nothing at all. `<CheckpointIcon />` renders
+  `children ?? <BookmarkIcon />`, and leaving the marker there made the icon
+  draw whatever the *trigger* was given, a second time.
+
+  A component whose markup has no marker takes the content at the end, which is
+  the only place left.
   """
-  def place(tree, []), do: tree
+  def place(%{"type" => "children"} = marker, children) do
+    # The whole of what the reference points at is the marker: `CheckpointIcon`
+    # is `children ?? <BookmarkIcon />` and nothing else.
+    case {children, Map.get(marker, "default")} do
+      {[], nil} -> %{"type" => "transparent", "reason" => "nothing was passed"}
+      {[], default} -> hd(List.wrap(default))
+      {[child], _default} -> child
+      {children, _default} -> %{"type" => "transparent", "children" => children}
+    end
+  end
 
   def place(tree, children) do
     case replace(tree, children) do
       {tree, true} -> tree
+      {tree, false} when children == [] -> tree
       {tree, false} -> Map.put(tree, "children", (Map.get(tree, "children") || []) ++ children)
     end
   end
@@ -360,9 +423,18 @@ defmodule LiveShadcnTools.Spec do
 
   defp replace(nodes, children) when is_list(nodes) do
     Enum.flat_map_reduce(nodes, false, fn
-      %{"type" => "children"}, false -> {children, true}
-      node, done? when is_map(node) -> replace_one(node, children, done?)
-      node, done? -> {[node], done?}
+      # Nothing was passed, so what the marker falls back to is what is drawn.
+      %{"type" => "children"} = marker, false when children == [] ->
+        {List.wrap(Map.get(marker, "default")), true}
+
+      %{"type" => "children"}, false ->
+        {children, true}
+
+      node, done? when is_map(node) ->
+        replace_one(node, children, done?)
+
+      node, done? ->
+        {[node], done?}
     end)
   end
 
@@ -556,6 +628,19 @@ defmodule LiveShadcnTools.Spec do
           "children" => [node(jsx!(jsx), ctx)]
         }
 
+      # `{tooltip ? <Tooltip>…</Tooltip> : button}` — one of two things, chosen
+      # at render. `:if` on each is what HEEx has and it says the same: the
+      # condition decides, and only one is drawn.
+      match = choice(code) ->
+        {condition, yes, no} = match
+
+        %{
+          "type" => "choice",
+          "when" => condition,
+          "then" => [branch(yes, ctx)],
+          "else" => [branch(no, ctx)]
+        }
+
       match = repeat_over(code) ->
         {collection, binding, jsx} = match
 
@@ -681,6 +766,14 @@ defmodule LiveShadcnTools.Spec do
   defp rebind(%{"type" => "value", "code" => code} = node, bindings),
     do: %{node | "code" => Map.get(bindings, code, code)}
 
+  # An attribute reads a name too — `<Progress value={percent} />` inside a
+  # component called with `percent={usedPercent}` has to read `usedPercent`.
+  defp rebind(%{"kind" => "code", "value" => value} = attr, bindings),
+    do: %{attr | "value" => Map.get(bindings, value, value)}
+
+  defp rebind(%{"when" => condition} = node, bindings),
+    do: %{node | "when" => Map.get(bindings, condition, condition)}
+
   defp rebind(node, _bindings), do: node
 
   # `table[key]`, where `table` is an object this file declared at the top level.
@@ -754,6 +847,20 @@ defmodule LiveShadcnTools.Spec do
     end
   end
 
+  # A ternary with markup on at least one side. Which `?` is the ternary's is a
+  # question for the parser, not for a bracket count: a `?` inside a string, or
+  # between two JSX tags, is at no depth at all.
+  defp choice(code) do
+    if String.contains?(code, "<"), do: Ast.conditional(code)
+  end
+
+  # One side of a choice: markup, or a value when upstream renders one there.
+  defp branch(code, ctx) do
+    code = code |> String.trim() |> String.trim_leading("(") |> String.trim_trailing(")")
+
+    if String.contains?(code, "<"), do: node(jsx!(code), ctx), else: expression(code, ctx)
+  end
+
   # `toasts.map((toast) => (<Toast />))` — one element per item in a list the
   # caller supplies.
   defp repeat_over(code) do
@@ -780,17 +887,15 @@ defmodule LiveShadcnTools.Spec do
     end
   end
 
-  # The JSX inside an expression, found by its own delimiters rather than by
-  # counting the brackets the expression wrapped it in.
+  # The JSX inside an expression. The parser finds where it ends; this only has
+  # to hand it something that parses, so the brackets the expression wrapped it
+  # in come off first.
   defp jsx!(code) do
-    case :binary.match(code, "<") do
-      :nomatch ->
-        raise "the expression `#{String.slice(code, 0, 60)}` renders no markup"
+    trimmed = code |> String.trim() |> String.trim_leading("(") |> String.trim_trailing(")")
 
-      {start, _} ->
-        finish = code |> :binary.matches(">") |> List.last() |> elem(0)
-        Tsx.parse_jsx!(binary_part(code, start, finish - start + 1))
-    end
+    if String.contains?(trimmed, "<"),
+      do: Ast.parse_jsx!(String.trim(trimmed)),
+      else: raise("the expression `#{String.slice(code, 0, 60)}` renders no markup")
   end
 
   # A variant table's own class strings are part of what this element reads, so
@@ -1003,13 +1108,30 @@ defmodule LiveShadcnTools.Spec do
   # dropped the dialog close button's `phx-click` once.
   defp registry_node(tag, ctx) do
     {source, component} = registry_component(tag, ctx)
+    function = Macro.underscore(tag)
 
     %{
       "type" => "component_ref",
       "source" => source,
       "component" => component,
-      "function" => Macro.underscore(tag)
+      "function" => function,
+      # The element the reference ends up as, so the generated component can
+      # declare the attributes that element takes. `field_label` renders
+      # shadcn's `Label`, which renders a `<label>`, and a label without a
+      # `for` names nothing — which axe-core says and a spec that stopped at
+      # "it is a reference" could not.
+      "tag" => referenced_tag(source, component, function, ctx)
     }
+  end
+
+  defp referenced_tag(source, component, function, ctx) do
+    with resolve when is_function(resolve, 2) <- Map.get(ctx, :resolve),
+         spec when is_map(spec) <- resolve.(source, component),
+         part when is_map(part) <- find_part(spec, function) do
+      part["tree"]["tag"]
+    else
+      _ -> nil
+    end
   end
 
   defp context_provider?(tag), do: String.ends_with?(tag, [".Provider", ".Consumer"])
@@ -1088,7 +1210,7 @@ defmodule LiveShadcnTools.Spec do
   defp render_as(element, ctx) do
     with {:expr, code} <- Tsx.attr(element, "render"),
          true <- String.starts_with?(String.trim(code), "<") do
-      node(Tsx.parse_jsx!(String.trim(code)), ctx)
+      node(Ast.parse_jsx!(String.trim(code)), ctx)
     else
       _ -> nil
     end

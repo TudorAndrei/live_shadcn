@@ -137,17 +137,22 @@
           {
             "attrs": [],
             "children": [],
-            "class": "",
-            "merges_class": false,
-            "part": "sheet_overlay",
-            "props": false,
+            "class": "cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
+            "merges_class": true,
+            "module": "dialog",
+            "part": "Backdrop",
+            "props": true,
             "reads": {
               "group": [],
-              "self": []
+              "self": [
+                "data-ending-style",
+                "data-starting-style"
+              ]
             },
             "render_as": null,
-            "slot": null,
-            "type": "part_ref",
+            "slot": "sheet-overlay",
+            "tag": "div",
+            "type": "primitive",
             "variant_class": null,
             "vars": []
           },
@@ -275,6 +280,7 @@
                       "render_as": null,
                       "slot": null,
                       "source": "shadcn",
+                      "tag": "button",
                       "type": "component_ref",
                       "variant_class": null,
                       "vars": []
@@ -312,15 +318,17 @@
         ],
         "class": "",
         "merges_class": false,
-        "part": "sheet_portal",
-        "props": false,
+        "module": "dialog",
+        "part": "Portal",
+        "props": true,
         "reads": {
           "group": [],
           "self": []
         },
         "render_as": null,
-        "slot": null,
-        "type": "part_ref",
+        "slot": "sheet-portal",
+        "tag": "div",
+        "type": "primitive",
         "variant_class": null,
         "vars": []
       }
@@ -1212,6 +1220,7 @@
       "cn-sheet-description": "text-muted-foreground text-sm",
       "cn-sheet-footer": "gap-2 p-6",
       "cn-sheet-header": "gap-1.5 p-6",
+      "cn-sheet-overlay": "bg-black/30 supports-backdrop-filter:backdrop-blur-sm",
       "cn-sheet-title": "text-foreground text-base font-medium"
     },
     "lyra": {
@@ -1219,6 +1228,7 @@
       "cn-sheet-description": "text-muted-foreground text-xs/relaxed",
       "cn-sheet-footer": "gap-2 p-4",
       "cn-sheet-header": "gap-0.5 p-4",
+      "cn-sheet-overlay": "bg-black/10 text-xs/relaxed supports-backdrop-filter:backdrop-blur-xs",
       "cn-sheet-title": "text-foreground text-sm font-medium"
     },
     "maia": {
@@ -1226,6 +1236,7 @@
       "cn-sheet-description": "text-muted-foreground text-sm",
       "cn-sheet-footer": "gap-2 p-6",
       "cn-sheet-header": "gap-1.5 p-6",
+      "cn-sheet-overlay": "bg-black/80 supports-backdrop-filter:backdrop-blur-xs",
       "cn-sheet-title": "text-foreground text-base font-medium"
     },
     "mira": {
@@ -1233,6 +1244,7 @@
       "cn-sheet-description": "text-muted-foreground text-xs/relaxed",
       "cn-sheet-footer": "gap-2 p-6",
       "cn-sheet-header": "gap-1.5 p-6",
+      "cn-sheet-overlay": "bg-black/80 supports-backdrop-filter:backdrop-blur-xs",
       "cn-sheet-title": "text-foreground text-sm font-medium"
     },
     "nova": {
@@ -1240,6 +1252,7 @@
       "cn-sheet-description": "text-muted-foreground text-sm",
       "cn-sheet-footer": "gap-2 p-4",
       "cn-sheet-header": "gap-0.5 p-4",
+      "cn-sheet-overlay": "bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
       "cn-sheet-title": "text-foreground text-base font-medium"
     },
     "rhea": {
@@ -1247,6 +1260,7 @@
       "cn-sheet-description": "text-muted-foreground text-sm",
       "cn-sheet-footer": "gap-2 p-6",
       "cn-sheet-header": "gap-1.5 p-6",
+      "cn-sheet-overlay": "bg-black/30 supports-backdrop-filter:backdrop-blur-sm",
       "cn-sheet-title": "text-foreground text-base font-medium"
     },
     "sera": {
@@ -1254,6 +1268,7 @@
       "cn-sheet-description": "text-muted-foreground text-sm leading-relaxed mt-0.5",
       "cn-sheet-footer": "gap-2 p-8",
       "cn-sheet-header": "gap-1.5 p-8",
+      "cn-sheet-overlay": "bg-black/20 supports-backdrop-filter:backdrop-blur-sm",
       "cn-sheet-title": "text-foreground text-lg font-semibold uppercase tracking-wider"
     },
     "vega": {
@@ -1261,6 +1276,7 @@
       "cn-sheet-description": "text-muted-foreground text-sm",
       "cn-sheet-footer": "gap-2 p-4",
       "cn-sheet-header": "gap-1.5 p-4",
+      "cn-sheet-overlay": "bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
       "cn-sheet-title": "text-foreground font-medium"
     }
   },

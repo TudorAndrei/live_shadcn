@@ -13,6 +13,7 @@
       "export": "Context",
       "name": "context",
       "params": {
+        "contextValue": null,
         "maxTokens": null,
         "modelId": null,
         "usage": null,
@@ -69,7 +70,9 @@
         "children": null,
         "className": null,
         "maxTokens": null,
+        "renderedPercent": null,
         "size": "default",
+        "usedPercent": null,
         "usedTokens": null,
         "variant": "default"
       },
@@ -111,11 +114,185 @@
                     "vars": []
                   },
                   {
-                    "attrs": [],
-                    "children": [],
+                    "attrs": [
+                      {
+                        "kind": "text",
+                        "name": "aria-label",
+                        "value": "Model context usage"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "height",
+                        "value": "20"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "role",
+                        "value": "img"
+                      },
+                      {
+                        "kind": "style",
+                        "name": "style",
+                        "value": [
+                          {
+                            "kind": "text",
+                            "property": "color",
+                            "value": "currentcolor"
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "code",
+                        "name": "viewBox",
+                        "value": "`0 0 ${ICON_VIEWBOX} ${ICON_VIEWBOX}`"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "width",
+                        "value": "20"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "attrs": [
+                          {
+                            "kind": "code",
+                            "name": "cx",
+                            "value": "ICON_CENTER"
+                          },
+                          {
+                            "kind": "code",
+                            "name": "cy",
+                            "value": "ICON_CENTER"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "fill",
+                            "value": "none"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "opacity",
+                            "value": "0.25"
+                          },
+                          {
+                            "kind": "code",
+                            "name": "r",
+                            "value": "ICON_RADIUS"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "stroke",
+                            "value": "currentColor"
+                          },
+                          {
+                            "kind": "code",
+                            "name": "strokeWidth",
+                            "value": "ICON_STROKE_WIDTH"
+                          }
+                        ],
+                        "children": [],
+                        "class": "",
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "circle",
+                        "type": "element",
+                        "variant_class": null,
+                        "vars": []
+                      },
+                      {
+                        "attrs": [
+                          {
+                            "kind": "code",
+                            "name": "cx",
+                            "value": "ICON_CENTER"
+                          },
+                          {
+                            "kind": "code",
+                            "name": "cy",
+                            "value": "ICON_CENTER"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "fill",
+                            "value": "none"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "opacity",
+                            "value": "0.7"
+                          },
+                          {
+                            "kind": "code",
+                            "name": "r",
+                            "value": "ICON_RADIUS"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "stroke",
+                            "value": "currentColor"
+                          },
+                          {
+                            "kind": "code",
+                            "name": "strokeDasharray",
+                            "value": "`${circumference} ${circumference}`"
+                          },
+                          {
+                            "kind": "code",
+                            "name": "strokeDashoffset",
+                            "value": "dashOffset"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "strokeLinecap",
+                            "value": "round"
+                          },
+                          {
+                            "kind": "code",
+                            "name": "strokeWidth",
+                            "value": "ICON_STROKE_WIDTH"
+                          },
+                          {
+                            "kind": "style",
+                            "name": "style",
+                            "value": [
+                              {
+                                "kind": "text",
+                                "property": "transform",
+                                "value": "rotate(-90deg)"
+                              },
+                              {
+                                "kind": "text",
+                                "property": "transformOrigin",
+                                "value": "center"
+                              }
+                            ]
+                          }
+                        ],
+                        "children": [],
+                        "class": "",
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "circle",
+                        "type": "element",
+                        "variant_class": null,
+                        "vars": []
+                      }
+                    ],
                     "class": "",
                     "merges_class": false,
-                    "part": "context_icon",
                     "props": false,
                     "reads": {
                       "group": [],
@@ -123,7 +300,8 @@
                     },
                     "render_as": null,
                     "slot": null,
-                    "type": "part_ref",
+                    "tag": "svg",
+                    "type": "element",
                     "variant_class": null,
                     "vars": []
                   }
@@ -271,7 +449,11 @@
       "params": {
         "children": null,
         "className": null,
+        "displayPct": null,
         "maxTokens": null,
+        "total": null,
+        "used": null,
+        "usedPercent": null,
         "usedTokens": null,
         "value": null
       },
@@ -366,9 +548,6 @@
                           }
                         ],
                         "children": [
-                          {
-                            "type": "children"
-                          },
                           {
                             "attrs": [],
                             "children": [
@@ -510,7 +689,9 @@
       "params": {
         "children": null,
         "className": null,
+        "costUSD": null,
         "modelId": null,
+        "totalCost": null,
         "usage": null
       },
       "primitive": null,
@@ -606,6 +787,9 @@
       "params": {
         "children": null,
         "className": null,
+        "inputCost": null,
+        "inputCostText": null,
+        "inputTokens": null,
         "modelId": null,
         "usage": null
       },
@@ -636,22 +820,55 @@
             "vars": []
           },
           {
-            "attrs": [
+            "attrs": [],
+            "children": [
               {
-                "kind": "code",
-                "name": "costText",
-                "value": "inputCostText"
+                "children": [],
+                "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "type": "value"
               },
               {
-                "kind": "code",
-                "name": "tokens",
-                "value": "inputTokens"
+                "children": [],
+                "else": [
+                  {
+                    "code": "null",
+                    "type": "value"
+                  }
+                ],
+                "then": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "•"
+                      },
+                      {
+                        "code": "inputCostText",
+                        "type": "value"
+                      }
+                    ],
+                    "class": "ml-2 text-muted-foreground",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "type": "choice",
+                "when": "inputCostText"
               }
             ],
-            "children": [],
             "class": "",
             "merges_class": false,
-            "part": "tokens_with_cost",
             "props": false,
             "reads": {
               "group": [],
@@ -659,7 +876,8 @@
             },
             "render_as": null,
             "slot": null,
-            "type": "part_ref",
+            "tag": "span",
+            "type": "element",
             "variant_class": null,
             "vars": []
           }
@@ -686,6 +904,9 @@
         "children": null,
         "className": null,
         "modelId": null,
+        "outputCost": null,
+        "outputCostText": null,
+        "outputTokens": null,
         "usage": null
       },
       "primitive": null,
@@ -715,22 +936,55 @@
             "vars": []
           },
           {
-            "attrs": [
+            "attrs": [],
+            "children": [
               {
-                "kind": "code",
-                "name": "costText",
-                "value": "outputCostText"
+                "children": [],
+                "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "type": "value"
               },
               {
-                "kind": "code",
-                "name": "tokens",
-                "value": "outputTokens"
+                "children": [],
+                "else": [
+                  {
+                    "code": "null",
+                    "type": "value"
+                  }
+                ],
+                "then": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "•"
+                      },
+                      {
+                        "code": "outputCostText",
+                        "type": "value"
+                      }
+                    ],
+                    "class": "ml-2 text-muted-foreground",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "type": "choice",
+                "when": "outputCostText"
               }
             ],
-            "children": [],
             "class": "",
             "merges_class": false,
-            "part": "tokens_with_cost",
             "props": false,
             "reads": {
               "group": [],
@@ -738,7 +992,8 @@
             },
             "render_as": null,
             "slot": null,
-            "type": "part_ref",
+            "tag": "span",
+            "type": "element",
             "variant_class": null,
             "vars": []
           }
@@ -765,6 +1020,9 @@
         "children": null,
         "className": null,
         "modelId": null,
+        "reasoningCost": null,
+        "reasoningCostText": null,
+        "reasoningTokens": null,
         "usage": null
       },
       "primitive": null,
@@ -794,22 +1052,55 @@
             "vars": []
           },
           {
-            "attrs": [
+            "attrs": [],
+            "children": [
               {
-                "kind": "code",
-                "name": "costText",
-                "value": "reasoningCostText"
+                "children": [],
+                "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "type": "value"
               },
               {
-                "kind": "code",
-                "name": "tokens",
-                "value": "reasoningTokens"
+                "children": [],
+                "else": [
+                  {
+                    "code": "null",
+                    "type": "value"
+                  }
+                ],
+                "then": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "•"
+                      },
+                      {
+                        "code": "reasoningCostText",
+                        "type": "value"
+                      }
+                    ],
+                    "class": "ml-2 text-muted-foreground",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "type": "choice",
+                "when": "reasoningCostText"
               }
             ],
-            "children": [],
             "class": "",
             "merges_class": false,
-            "part": "tokens_with_cost",
             "props": false,
             "reads": {
               "group": [],
@@ -817,7 +1108,8 @@
             },
             "render_as": null,
             "slot": null,
-            "type": "part_ref",
+            "tag": "span",
+            "type": "element",
             "variant_class": null,
             "vars": []
           }
@@ -841,6 +1133,9 @@
       "export": "ContextCacheUsage",
       "name": "context_cache_usage",
       "params": {
+        "cacheCost": null,
+        "cacheCostText": null,
+        "cacheTokens": null,
         "children": null,
         "className": null,
         "modelId": null,
@@ -873,22 +1168,55 @@
             "vars": []
           },
           {
-            "attrs": [
+            "attrs": [],
+            "children": [
               {
-                "kind": "code",
-                "name": "costText",
-                "value": "cacheCostText"
+                "children": [],
+                "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "type": "value"
               },
               {
-                "kind": "code",
-                "name": "tokens",
-                "value": "cacheTokens"
+                "children": [],
+                "else": [
+                  {
+                    "code": "null",
+                    "type": "value"
+                  }
+                ],
+                "then": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "•"
+                      },
+                      {
+                        "code": "cacheCostText",
+                        "type": "value"
+                      }
+                    ],
+                    "class": "ml-2 text-muted-foreground",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "type": "choice",
+                "when": "cacheCostText"
               }
             ],
-            "children": [],
             "class": "",
             "merges_class": false,
-            "part": "tokens_with_cost",
             "props": false,
             "reads": {
               "group": [],
@@ -896,7 +1224,8 @@
             },
             "render_as": null,
             "slot": null,
-            "type": "part_ref",
+            "tag": "span",
+            "type": "element",
             "variant_class": null,
             "vars": []
           }

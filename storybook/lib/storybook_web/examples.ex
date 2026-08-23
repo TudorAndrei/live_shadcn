@@ -43,6 +43,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Textarea
   import LiveShadcn.UI.Toggle
   import LiveShadcn.UI.Empty
+  import LiveShadcn.UI.Field
   import LiveShadcn.UI.HoverCard
   import LiveShadcn.UI.Kbd
   import LiveShadcn.UI.Progress
@@ -57,9 +58,14 @@ defmodule StorybookWeb.Examples do
 
   # The AI Elements package ships its components compiled, so they are imported
   # from their own namespace rather than copied in by `mix ui.add`.
+  # Aliased, not imported: `LiveShadcn.UI.Message` exports `message/1` too, and
+  # two registries having a `message` is the same fact at the Elixir level.
+  alias LiveAiElements.Components.Message, as: AiMessage
+
   import LiveAiElements.Components.ChainOfThought
   import LiveAiElements.Components.Checkpoint
   import LiveAiElements.Components.Confirmation
+  import LiveAiElements.Components.PackageInfo
   import LiveAiElements.Components.Reasoning
   import LiveAiElements.Components.Sources
   import LiveAiElements.Components.Suggestion
@@ -68,8 +74,9 @@ defmodule StorybookWeb.Examples do
   @doc "Every component that has examples, in the order they are listed."
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
-       button-group card checkbox collapsible combobox context-menu dialog dropdown-menu empty hover-card input item kbd label marker message
-       navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning textarea toggle tooltip)
+       button-group card checkbox collapsible combobox context-menu dialog dropdown-menu empty hover-card input item kbd label marker
+       navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
+       shadcn-message ai_elements-message)
   end
 
   @doc "The examples for a component."
@@ -146,8 +153,23 @@ defmodule StorybookWeb.Examples do
     [one("default", "A marker", "An icon beside its content.", &marker_default/1)]
   end
 
-  def all("message") do
+  # Named by its source as well as its name: AI Elements has a `message` too,
+  # and an example named after the name alone would belong to neither. The
+  # separator is a dash rather than a slash because this name is a URL segment
+  # and a file name as well as a key.
+  def all("shadcn-message") do
     [one("default", "A message", "An avatar, a header, and the body.", &message_default/1)]
+  end
+
+  def all("ai_elements-message") do
+    [
+      one(
+        "default",
+        "A turn in a conversation",
+        "The assistant's side, with the answer inside it.",
+        &ai_message_default/1
+      )
+    ]
   end
 
   def all("pagination") do
@@ -254,6 +276,21 @@ defmodule StorybookWeb.Examples do
         "A point a turn can go back to",
         "A label with a rule running off it.",
         &checkpoint_default/1
+      )
+    ]
+  end
+
+  def all("field") do
+    [one("default", "A form row", "A label, a control, and the note under it.", &field_default/1)]
+  end
+
+  def all("package-info") do
+    [
+      one(
+        "default",
+        "A dependency the model changed",
+        "The icon comes out of a table keyed by the kind of change.",
+        &package_info_default/1
       )
     ]
   end
@@ -872,6 +909,44 @@ defmodule StorybookWeb.Examples do
     <.task id="search" title="Searched the registry" class="max-w-80">
       Read 62 component sources and 41 Base UI pages.
     </.task>
+    """
+  end
+
+  defp ai_message_default(assigns) do
+    ~H"""
+    <AiMessage.message from="assistant" class="max-w-md">
+      <AiMessage.message_content>
+        <AiMessage.message_response content="It is **18 degrees** and clear in Cluj." />
+      </AiMessage.message_content>
+    </AiMessage.message>
+    """
+  end
+
+  defp field_default(assigns) do
+    ~H"""
+    <.field class="max-w-sm">
+      <.field_label for="registry">Registry</.field_label>
+      <.field_content>
+        <.input id="registry" name="registry" value="shadcn" />
+        <.field_description>Which upstream registry to read.</.field_description>
+      </.field_content>
+    </.field>
+    """
+  end
+
+  defp package_info_default(assigns) do
+    ~H"""
+    <.package_info class="max-w-sm">
+      <.package_info_header>
+        <.package_info_name>phoenix_live_view</.package_info_name>
+        <.package_info_change_type change_type="minor">minor</.package_info_change_type>
+      </.package_info_header>
+      <.package_info_content>
+        <.package_info_description>
+          The framework every component is built on.
+        </.package_info_description>
+      </.package_info_content>
+    </.package_info>
     """
   end
 

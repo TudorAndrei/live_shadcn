@@ -219,6 +219,7 @@
       "params": {
         "children": null,
         "className": null,
+        "handleClick": null,
         "onClick": null,
         "size": "sm",
         "suggestion": null,

@@ -123,6 +123,7 @@ defmodule LiveShadcn.UI.Item do
       data-slot={@rest[:"data-slot"] || "item-separator"}
       orientation="horizontal"
       class={["cn-item-separator", @class]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
     </LiveShadcn.UI.Separator.separator>

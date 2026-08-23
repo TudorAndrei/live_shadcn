@@ -105,6 +105,14 @@ mix ui.fetch  ->  mix ui.spec  ->  mix ui.gen  ->  mix ui.verify
 `registry/upstream/` is gitignored. `registry/UPSTREAM.json` records a SHA-256
 per upstream file, so drift is visible without redistributing anyone's source.
 
+The `.tsx` is read with [oxc](https://oxc.rs), through a nine-line Node script
+that prints the syntax tree and decides nothing. Everything after that — what a
+class string is, what an expression means, what markup to emit — is Elixir. The
+reader used to be regular expressions, and most of what it got wrong it got
+wrong quietly: a `}` inside a template literal, a `return` belonging to a
+callback, a ternary with JSX on both sides. Each one dropped a part and said
+nothing until a browser did.
+
 63 shadcn components collapse onto eight behavior recipes — `disclosure`,
 `dialog`, `popover`, `listbox`, `menu`, `tabs`, `form-control`, and
 `presentational`. All eight are written. Only the recipes are written by hand;
@@ -138,7 +146,7 @@ Eight core recipes cover 102 of the 112 components.
 ## Development
 
 ```bash
-cd tools && mix deps.get
+cd tools && mix deps.get && npm install
 mix ui.fetch --only accordion     # pin and download one component, and the styles
 mix ui.spec                       # upstream -> registry/spec
 mix ui.gen                        # spec -> HEEx modules

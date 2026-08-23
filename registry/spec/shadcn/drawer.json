@@ -82,6 +82,8 @@
       "export": "Drawer",
       "name": "drawer",
       "params": {
+        "contextValue": null,
+        "hasSnapPoints": null,
         "modal": "true",
         "showSwipeHandle": "false",
         "snapPoints": null,
@@ -306,6 +308,7 @@
         "hasSnapPoints": null,
         "modal": null,
         "showSwipeHandle": null,
+        "swipeAxis": null,
         "swipeDirection": null
       },
       "primitive": "Popup",

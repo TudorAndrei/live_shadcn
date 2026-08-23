@@ -61,7 +61,20 @@ defmodule LiveShadcn.UI.Sheet do
       >
         {render_slot(@trigger)}
       </button>
-
+      <div
+        data-slot="sheet-overlay"
+        id={Dialog.backdrop_id(@id)}
+        hidden={not @open}
+        phx-click={if(@dismissable, do: Dialog.close(@id))}
+        phx-mounted={Dialog.owned_attributes(:backdrop)}
+        data-open={flag(@open)}
+        data-closed={flag(not @open)}
+        class={[
+          "cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
+          @class
+        ]}
+        data-lb-style-target
+      />
       <div
         data-slot="sheet-content"
         id={Dialog.popup_id(@id)}

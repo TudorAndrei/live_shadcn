@@ -14,12 +14,17 @@
       "params": {
         "children": null,
         "className": null,
+        "contextValue": null,
         "defaultValue": "EMPTY_VALUE",
         "disabled": "false",
+        "handleSubmit": null,
         "internalValue": null,
         "onSubmit": null,
         "onValueChange": null,
         "selectionMode": "single",
+        "setText": null,
+        "setValue": null,
+        "toggleValue": null,
         "value": null
       },
       "primitive": null,
@@ -164,7 +169,11 @@
         "children": null,
         "className": null,
         "disabled": null,
+        "handleClick": null,
+        "isSelected": null,
         "onClick": null,
+        "question": null,
+        "role": null,
         "size": "default",
         "value": null,
         "variant": null
@@ -230,7 +239,9 @@
       "params": {
         "className": null,
         "disabled": null,
-        "onChange": null
+        "handleChange": null,
+        "onChange": null,
+        "question": null
       },
       "primitive": null,
       "tree": {
@@ -296,6 +307,8 @@
         "children": "Submit",
         "className": null,
         "disabled": null,
+        "hasResponse": null,
+        "question": null,
         "size": "default",
         "variant": "default"
       },

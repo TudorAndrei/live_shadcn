@@ -93,6 +93,7 @@
         "render_as": null,
         "slot": "alert-dialog-action",
         "source": "shadcn",
+        "tag": "button",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -145,6 +146,7 @@
           "render_as": null,
           "slot": null,
           "source": "shadcn",
+          "tag": "button",
           "type": "component_ref",
           "variant_class": null,
           "vars": []

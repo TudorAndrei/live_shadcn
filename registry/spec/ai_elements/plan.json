@@ -1,0 +1,730 @@
+{
+  "anatomy": [],
+  "css_vars": [
+    "--collapsible-panel-height",
+    "--collapsible-panel-width"
+  ],
+  "folds": [
+    "shadcn/button",
+    "shadcn/card",
+    "shadcn/collapsible"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "plan",
+  "parts": [
+    {
+      "export": "Plan",
+      "name": "plan",
+      "params": {
+        "children": null,
+        "className": null,
+        "contextValue": null,
+        "isStreaming": "false",
+        "size": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [
+                  {
+                    "kind": "code",
+                    "name": "data-size",
+                    "value": "size"
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "children"
+                  }
+                ],
+                "class": "cn-card group/card flex flex-col shadow-none",
+                "merges_class": true,
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "card",
+                "tag": "div",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "",
+            "merges_class": false,
+            "module": "collapsible",
+            "part": "Root",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "plan",
+            "tag": "div",
+            "type": "primitive",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PlanHeader",
+      "name": "plan_header",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-card-header group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] flex items-start justify-between",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "plan-header",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PlanTitle",
+      "name": "plan_title",
+      "params": {
+        "children": null,
+        "className": null,
+        "isStreaming": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "else": [
+              {
+                "code": "children",
+                "type": "value"
+              }
+            ],
+            "then": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "children"
+                  }
+                ],
+                "class": "",
+                "component": "shimmer",
+                "function": "shimmer",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "source": "ai_elements",
+                "tag": null,
+                "type": "component_ref",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "choice",
+            "when": "isStreaming"
+          }
+        ],
+        "class": "cn-card-title cn-font-heading",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "plan-title",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PlanDescription",
+      "name": "plan_description",
+      "params": {
+        "children": null,
+        "className": null,
+        "isStreaming": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "else": [
+              {
+                "code": "children",
+                "type": "value"
+              }
+            ],
+            "then": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "children"
+                  }
+                ],
+                "class": "",
+                "component": "shimmer",
+                "function": "shimmer",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "source": "ai_elements",
+                "tag": null,
+                "type": "component_ref",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "choice",
+            "when": "isStreaming"
+          }
+        ],
+        "class": "cn-card-description text-balance",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "plan-description",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PlanAction",
+      "name": "plan_action",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "plan-action",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PlanContent",
+      "name": "plan_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "cn-card-content",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "plan-content",
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "module": "collapsible",
+        "part": "Panel",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "collapsible-content",
+        "tag": "div",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PlanFooter",
+      "name": "plan_footer",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-card-footer flex items-center",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "plan-footer",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "PlanTrigger",
+      "name": "plan_trigger",
+      "params": {
+        "className": null,
+        "size": "default",
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4",
+                "icons": {
+                  "lucide": "ChevronsUpDownIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Toggle plan"
+                  }
+                ],
+                "class": "sr-only",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "size-8",
+            "merges_class": true,
+            "module": "button",
+            "part": "Button",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": [
+                "aria-invalid",
+                "aria-expanded"
+              ]
+            },
+            "render_as": null,
+            "slot": "plan-trigger",
+            "tag": "button",
+            "type": "primitive",
+            "variant_class": "buttonVariants",
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "module": "collapsible",
+        "part": "Trigger",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "collapsible-trigger",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "button.Button": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the button should be focusable when disabled.",
+          "name": "focusableWhenDisabled",
+          "type": "boolean"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Button.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Button.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button component that can be used to trigger actions."
+    },
+    "collapsible.Panel": {
+      "css_vars": [
+        "--collapsible-panel-height",
+        "--collapsible-panel-width"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
+          "name": "hiddenUntilFound",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Collapsible.Panel.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Collapsible.Panel.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the element in the DOM while the panel is hidden. This prop is ignored when `hiddenUntilFound` is used.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: Collapsible.Panel.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A panel with the collapsible contents."
+    },
+    "collapsible.Root": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the collapsible panel is initially open. To render a controlled collapsible, use the `open` prop instead.",
+          "name": "defaultOpen",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the collapsible panel is currently open. To render an uncontrolled collapsible, use the `defaultOpen` prop instead.",
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called when the panel is opened or closed.",
+          "name": "onOpenChange",
+          "type": "((open: boolean, eventDetails: Collapsible.Root.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Collapsible.Root.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Collapsible.Root.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Collapsible.Root.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Groups all parts of the collapsible."
+    },
+    "collapsible.Trigger": {
+      "css_vars": [],
+      "data": [
+        "data-panel-open"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Collapsible.Trigger.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Collapsible.Trigger.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Collapsible.Trigger.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button that opens and closes the collapsible panel."
+    }
+  },
+  "recipe": "disclosure",
+  "source": "ai_elements",
+  "styles": {
+    "luma": {
+      "cn-card": "bg-card text-card-foreground ring-foreground/5 dark:ring-foreground/10 gap-(--card-spacing) overflow-hidden rounded-4xl py-(--card-spacing) text-sm shadow-md ring-1 [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-4xl *:[img:last-child]:rounded-b-4xl",
+      "cn-card-content": "px-(--card-spacing)",
+      "cn-card-description": "text-muted-foreground text-sm",
+      "cn-card-footer": "rounded-b-4xl px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
+      "cn-card-header": "gap-1.5 rounded-t-4xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
+      "cn-card-title": "text-base font-medium"
+    },
+    "lyra": {
+      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-none py-(--card-spacing) text-xs/relaxed ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-none *:[img:last-child]:rounded-none",
+      "cn-card-content": "px-(--card-spacing)",
+      "cn-card-description": "text-muted-foreground text-xs/relaxed",
+      "cn-card-footer": "rounded-none border-t p-(--card-spacing)",
+      "cn-card-header": "gap-1 rounded-none px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
+      "cn-card-title": "text-sm font-medium group-data-[size=sm]/card:text-sm"
+    },
+    "maia": {
+      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-2xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+      "cn-card-content": "px-(--card-spacing)",
+      "cn-card-description": "text-muted-foreground text-sm",
+      "cn-card-footer": "rounded-b-xl px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
+      "cn-card-header": "gap-2 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
+      "cn-card-title": "text-base font-medium"
+    },
+    "mira": {
+      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-lg py-(--card-spacing) text-xs/relaxed ring-1 [--card-spacing:--spacing(4)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] *:[img:first-child]:rounded-t-lg *:[img:last-child]:rounded-b-lg",
+      "cn-card-content": "px-(--card-spacing)",
+      "cn-card-description": "text-muted-foreground text-xs/relaxed",
+      "cn-card-footer": "rounded-b-lg px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
+      "cn-card-header": "gap-1 rounded-t-lg px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
+      "cn-card-title": "text-sm font-medium"
+    },
+    "nova": {
+      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+      "cn-card-content": "px-(--card-spacing)",
+      "cn-card-description": "text-muted-foreground text-sm",
+      "cn-card-footer": "bg-muted/50 rounded-b-xl border-t p-(--card-spacing)",
+      "cn-card-header": "gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
+      "cn-card-title": "text-base leading-snug font-medium group-data-[size=sm]/card:text-sm"
+    },
+    "rhea": {
+      "cn-card": "bg-card text-card-foreground ring-foreground/5 dark:ring-foreground/10 gap-(--card-spacing) overflow-hidden rounded-[min(var(--radius-4xl),24px)] py-(--card-spacing) text-sm shadow-sm ring-1 [--card-spacing:--spacing(5)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-[min(var(--radius-4xl),24px)] *:[img:last-child]:rounded-b-[min(var(--radius-4xl),24px)]",
+      "cn-card-content": "px-(--card-spacing)",
+      "cn-card-description": "text-muted-foreground text-sm",
+      "cn-card-footer": "rounded-b-[min(var(--radius-4xl),24px)] px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
+      "cn-card-header": "gap-1.5 rounded-t-[min(var(--radius-4xl),24px)] px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
+      "cn-card-title": "text-base font-medium"
+    },
+    "sera": {
+      "cn-card": "bg-card text-card-foreground ring-foreground/5 gap-(--card-spacing) overflow-hidden py-(--card-spacing) text-sm shadow-sm ring-1 [--card-spacing:--spacing(8)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(5)] *:[img:first-child]:rounded-none *:[img:last-child]:rounded-none",
+      "cn-card-content": "px-(--card-spacing)",
+      "cn-card-description": "text-muted-foreground text-sm leading-relaxed",
+      "cn-card-footer": "px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
+      "cn-card-header": "gap-1.5 rounded-none px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
+      "cn-card-title": "text-lg font-semibold tracking-wider uppercase"
+    },
+    "vega": {
+      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm shadow-xs ring-1 [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+      "cn-card-content": "px-(--card-spacing)",
+      "cn-card-description": "text-muted-foreground text-sm",
+      "cn-card-footer": "rounded-b-xl px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
+      "cn-card-header": "gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
+      "cn-card-title": "text-base leading-normal font-medium group-data-[size=sm]/card:text-sm"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/plan.tsx",
+      "sha256": "bfa20e90199fa40e5f714be131798406dc07b23051f8c48c590e91c65ade99d8"
+    }
+  },
+  "variants": {
+    "buttonVariants": {
+      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-button-size-default",
+          "icon": "cn-button-size-icon",
+          "icon-lg": "cn-button-size-icon-lg",
+          "icon-sm": "cn-button-size-icon-sm",
+          "icon-xs": "cn-button-size-icon-xs",
+          "lg": "cn-button-size-lg",
+          "sm": "cn-button-size-sm",
+          "xs": "cn-button-size-xs"
+        },
+        "variant": {
+          "default": "cn-button-variant-default",
+          "destructive": "cn-button-variant-destructive",
+          "ghost": "cn-button-variant-ghost",
+          "link": "cn-button-variant-link",
+          "outline": "cn-button-variant-outline",
+          "secondary": "cn-button-variant-secondary"
+        }
+      }
+    }
+  }
+}

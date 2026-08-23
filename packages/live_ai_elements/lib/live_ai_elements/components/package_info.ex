@@ -93,6 +93,7 @@ defmodule LiveAiElements.Components.PackageInfo do
 
   @doc "The `package_info` part."
   attr(:change_type, :string, default: nil)
+  attr(:context_value, :string, default: nil)
   attr(:current_version, :string, default: nil)
   attr(:name, :string, default: nil)
   attr(:new_version, :string, default: nil)

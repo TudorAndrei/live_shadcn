@@ -114,13 +114,31 @@ defmodule LiveShadcnTools.Gen.Heex do
     )
   end
 
+  # `{tooltip ? <Tooltip>…</Tooltip> : button}`. HEEx has `:if` and no `:else`,
+  # so the condition is written twice — once as itself and once negated — and
+  # only one branch is ever drawn.
+  def render(%{"type" => "choice", "when" => condition} = node, ctx, indent) do
+    yes = expression(condition, ctx)
+
+    [{"then", yes}, {"else", "!(#{yes})"}]
+    |> Enum.flat_map(fn {branch, test} ->
+      node |> Map.get(branch) |> List.wrap() |> Enum.map(&with_attr(&1, {":if", :code, test}))
+    end)
+    |> Enum.map_join("\n", &render(&1, ctx, indent))
+  end
+
   def render(%{"type" => "repeat_over", "collection" => collection} = node, ctx, indent) do
     generator = "#{node["binding"]} <- #{expression(collection, ctx)}"
+
+    # The binding is in scope inside the loop and nowhere else, so it reads like
+    # a prop there — `{branch.key}` is a field of the item, not of the
+    # component, and `@branch` would be an assign nobody made.
+    inner = bind(ctx, node["binding"])
 
     node
     |> Map.get("children")
     |> List.wrap()
-    |> Enum.map_join("\n", &render(with_attr(&1, {":for", :code, generator}), ctx, indent))
+    |> Enum.map_join("\n", &render(with_attr(&1, {":for", :code, generator}), inner, indent))
   end
 
   def render(%{"type" => "repeat", "count" => count, "binding" => binding} = node, ctx, indent) do
@@ -201,6 +219,13 @@ defmodule LiveShadcnTools.Gen.Heex do
       indent
     )
   end
+
+  # A name in scope for one subtree: a loop's binding. It is written without an
+  # `@`, so `:bindings` is where it goes rather than `:params`.
+  defp bind(ctx, name) when is_binary(name),
+    do: Map.update(ctx, :bindings, %{name => name}, &Map.put(&1 || %{}, name, name))
+
+  defp bind(ctx, _name), do: ctx
 
   # An icon upstream chose, or one the caller chooses. Both are a name, because
   # the icon set is configuration and a name is what every set has in common.
@@ -389,7 +414,8 @@ defmodule LiveShadcnTools.Gen.Heex do
   defp call(name, node, ctx, indent) do
     attrs =
       slot_attr(node, ctx) ++
-        Map.get(ctx.attrs, Spec.key(node), []) ++ own_attrs(node, ctx) ++ class_attr(node, ctx)
+        Map.get(ctx.attrs, Spec.key(node), []) ++
+        own_attrs(node, ctx) ++ class_attr(node, ctx) ++ rest_attr(node, ctx)
 
     tag(name, attrs, children(node, ctx, indent), indent)
   end
@@ -491,8 +517,45 @@ defmodule LiveShadcnTools.Gen.Heex do
       ternary = ternary(code, ctx) -> ternary
       literal?(code) -> code
       member = member(code, ctx) -> member
+      binary = binary(code, ctx) -> binary
       true -> raise unbound(code)
     end
+  end
+
+  # `totalBranches <= 1`, `currentBranch + 1`, `a && b`. Every one of these
+  # means in Elixir what it meant in JavaScript once both sides are translated,
+  # and both sides are `expression/2` again — so an unknown name in one of them
+  # is still reported by name.
+  #
+  # JavaScript's strict operators are Elixir's ordinary ones. Its loose ones
+  # have no counterpart worth writing: `==` in Elixir is `===` in JavaScript,
+  # and `==` in JavaScript is a rule nobody wants.
+  #
+  # The order is the whole of the list: `<` matches inside `<=`, and trying it
+  # first split `totalBranches <= 1` into a name and `= 1`.
+  @operators [
+    {"===", "=="},
+    {"!==", "!="},
+    {"<=", "<="},
+    {">=", ">="},
+    {"&&", "and"},
+    {"<", "<"},
+    {">", ">"},
+    {"+", "+"},
+    {"*", "*"},
+    {"/", "/"}
+  ]
+
+  defp binary(code, ctx) do
+    Enum.find_value(@operators, fn {javascript, elixir} ->
+      case String.split(code, javascript, parts: 2) do
+        [left, right] when left != "" and right != "" ->
+          "#{expression(left, ctx)} #{elixir} #{expression(right, ctx)}"
+
+        _ ->
+          nil
+      end
+    end)
   end
 
   # A quoted string, and a template literal with nothing interpolated. Both
@@ -508,10 +571,20 @@ defmodule LiveShadcnTools.Gen.Heex do
     with [head | rest] when rest != [] <- String.split(code, "."),
          true <- Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, head),
          true <- Enum.all?(rest, &Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, &1)),
-         true <- Map.has_key?(Map.get(ctx, :params) || %{}, head) do
-      Enum.join(["@" <> Macro.underscore(head) | rest], ".")
+         root when is_binary(root) <- root(head, ctx) do
+      Enum.join([root | rest], ".")
     else
       _ -> nil
+    end
+  end
+
+  # A prop is written `@item`; a loop's binding is written plain. A path rooted
+  # in anything else reads a name nobody bound.
+  defp root(head, ctx) do
+    cond do
+      binding = Map.get(Map.get(ctx, :bindings) || %{}, head) -> binding
+      Map.has_key?(Map.get(ctx, :params) || %{}, head) -> "@" <> Macro.underscore(head)
+      true -> nil
     end
   end
 
@@ -523,7 +596,7 @@ defmodule LiveShadcnTools.Gen.Heex do
 
   # `variant ?? "ghost"` — a default when the caller set nothing.
   defp fallback(code, ctx) do
-    case String.split(code, "??", parts: 2) do
+    case String.split(code, ~r/\?\?|\|\|/, parts: 2) do
       [value, default] -> "#{expression(value, ctx)} || #{expression(default, ctx)}"
       [_] -> nil
     end

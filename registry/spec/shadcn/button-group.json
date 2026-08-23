@@ -75,6 +75,7 @@
         "render_as": null,
         "slot": "button-group-separator",
         "source": "shadcn",
+        "tag": "div",
         "type": "component_ref",
         "variant_class": null,
         "vars": []

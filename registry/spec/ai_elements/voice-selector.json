@@ -20,7 +20,8 @@
         "onOpenChange": null,
         "onValueChange": null,
         "open": null,
-        "value": null
+        "value": null,
+        "voiceSelectorContext": null
       },
       "primitive": null,
       "tree": {
@@ -190,6 +191,7 @@
                 "render_as": null,
                 "slot": null,
                 "source": "shadcn",
+                "tag": null,
                 "type": "component_ref",
                 "variant_class": null,
                 "vars": []
@@ -370,6 +372,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -397,6 +400,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -422,6 +426,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -447,6 +452,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -472,6 +478,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -499,6 +506,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -524,6 +532,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -549,6 +558,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -560,6 +570,7 @@
       "params": {
         "children": null,
         "className": null,
+        "icon": null,
         "value": null
       },
       "primitive": null,
@@ -597,6 +608,7 @@
       "params": {
         "children": null,
         "className": null,
+        "emoji": null,
         "value": null
       },
       "primitive": null,
@@ -774,6 +786,8 @@
       "name": "voice_selector_preview",
       "params": {
         "className": null,
+        "handleClick": null,
+        "icon": null,
         "loading": null,
         "onClick": null,
         "onPlay": null,

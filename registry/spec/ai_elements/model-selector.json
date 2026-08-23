@@ -148,6 +148,7 @@
                 "render_as": null,
                 "slot": null,
                 "source": "shadcn",
+                "tag": null,
                 "type": "component_ref",
                 "variant_class": null,
                 "vars": []
@@ -328,6 +329,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -355,6 +357,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -380,6 +383,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -405,6 +409,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -430,6 +435,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -455,6 +461,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -480,6 +487,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -505,6 +513,7 @@
         "render_as": null,
         "slot": null,
         "source": "shadcn",
+        "tag": null,
         "type": "component_ref",
         "variant_class": null,
         "vars": []

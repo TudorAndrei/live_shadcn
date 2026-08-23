@@ -8,11 +8,18 @@
       "export": "Carousel",
       "name": "carousel",
       "params": {
+        "canScrollNext": "false",
+        "canScrollPrev": "false",
+        "carouselRef": null,
         "children": null,
         "className": null,
+        "handleKeyDown": null,
+        "onSelect": null,
         "opts": null,
         "orientation": "horizontal",
         "plugins": null,
+        "scrollNext": null,
+        "scrollPrev": null,
         "setApi": null
       },
       "primitive": null,
@@ -286,6 +293,7 @@
         "render_as": null,
         "slot": "carousel-previous",
         "source": "shadcn",
+        "tag": "button",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -411,6 +419,7 @@
         "render_as": null,
         "slot": "carousel-next",
         "source": "shadcn",
+        "tag": "button",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
