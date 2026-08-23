@@ -7,7 +7,7 @@ same pages and none of them is behind a login.
 | File | What it is |
 |---|---|
 | `wrangler.jsonc` | the Worker, the container, and which Dockerfile builds it |
-| `src/index.ts` | the Worker — 40 lines, and the only hand-written code here |
+| `src/index.ts` | the Worker: a `Container` subclass and a `fetch` that proxies |
 | `../Dockerfile` | the image: a Phoenix release, built from the repository root |
 
 ## First deploy
@@ -59,8 +59,7 @@ do not commit it.
 
 ## Checking the image without deploying
 
-The image is worth building on its own, and on an arm64 machine it builds
-natively:
+On an arm64 machine the image builds natively, with no emulation:
 
 ```bash
 cd ../..                                        # the repository root

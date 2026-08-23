@@ -13,14 +13,13 @@ paths = [
 ]
 
 # `registry/upstream/` is deliberately NOT allowlisted. It holds what
-# `mix ui.fetch` downloaded, and everything there should be source or Base UI
-# documentation — neither of which carries a token.
+# `mix ui.fetch` downloaded, which should only ever be source files and Base UI
+# documentation. Neither carries a token.
 #
-# It did carry two, and they were the evidence: shadcn's registry index points
-# `resizable` and `command` at GitHub repository pages, the fetcher followed the
-# links, and GitHub embeds a fresh page token in the HTML it serves. The finding
-# was the first sign that the fetcher was storing the wrong thing.
+# Two files there did. shadcn's registry index points `resizable` and `command`
+# at GitHub repository pages, the fetcher followed the links, and GitHub puts a
+# fresh page token in the HTML it serves. That finding was the first sign the
+# fetcher was storing the wrong thing.
 #
-# So this scan is the canary. A finding under registry/upstream/ means a fetch
-# brought back a web page instead of a source file, and the fix is in
-# `mix ui.fetch`, never here.
+# So a finding under registry/upstream/ means a fetch brought back a web page
+# instead of a source file. Fix `mix ui.fetch`, not this file.

@@ -43,10 +43,10 @@ defmodule LiveShadcnTools do
   @doc """
   A component's identity is its source and its name, never its name alone.
 
-  Upstream has two components called `message`: one in the shadcn registry and
-  one in AI Elements. They are different components with different anatomies.
-  Keying a file on the name alone collapses them — the one written second takes
-  the file, and every stage downstream then reports that one's status for both.
+  Upstream has two components called `message`, one in the shadcn registry and
+  one in AI Elements. They have different anatomies. Keying a file on the name
+  alone collapses them: the one written second takes the file, and every later
+  stage reports its status for both.
 
   The reference is what a stage writes into a path or a JSON key:
 

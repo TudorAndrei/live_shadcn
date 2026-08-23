@@ -129,21 +129,19 @@ defmodule Mix.Tasks.Ui.Fetch do
   defp page_url(module), do: "#{@base_ui_docs}/#{module}.md"
 
   # The index's `base.api` link is not always a Base UI page. A component built
-  # on a React library points at that library instead — `resizable` at
+  # on a React library points at that library: `resizable` at
   # react-resizable-panels, `command` at cmdk, `calendar` at react-day-picker,
-  # `sonner` at its own site — and following one stores somebody's home page as
-  # a Base UI contract.
+  # `sonner` at its own site. Following one stored a home page as that
+  # component's Base UI contract.
   #
-  # Two of those are GitHub repository pages, whose HTML carries a fresh page
-  # token on every request. Their digests therefore changed on every fetch, so
-  # the weekly sync would have opened a pull request every week that said
-  # nothing had changed.
+  # Two of those links are GitHub repository pages, and GitHub puts a fresh page
+  # token in every response, so their digests changed on every fetch and the
+  # weekly sync would have opened a pull request saying nothing had changed.
   #
-  # The test is the host, not the path: `direction` is a real Base UI page and
-  # it lives under `/react/utils/` rather than `/react/components/`. A link
-  # somewhere else is not a Base UI page, and the component is recorded as
-  # having none — which is the truth, and what the spec reader already says
-  # about each of them by name.
+  # Match on the host, not the path. `direction` is a real Base UI page and it
+  # lives under `/react/utils/` rather than `/react/components/`. A link
+  # anywhere else means the component has no Base UI page, which is what the
+  # spec reader already reports for each of them.
   defp base_ui_link(item) do
     case get_in(item, ["meta", "links", "base", "api"]) do
       @base_ui_host <> _rest = link -> link

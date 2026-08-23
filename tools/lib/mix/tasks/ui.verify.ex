@@ -53,15 +53,14 @@ defmodule Mix.Tasks.Ui.Verify do
     report(results)
   end
 
-  # The two halves of a verification are keyed differently, and this is the
-  # seam between them. `registry/` knows a component by source and name;
-  # `storybook/` knows it by name alone, because an example is hand-written and
-  # a person names a file `accordion.spec.mjs`.
+  # `registry/` knows a component by source and name. `storybook/` knows it by
+  # name alone, because an example is hand-written and a person names a file
+  # `accordion.spec.mjs`.
   #
-  # That is fine while no two components share a name, and upstream has a
-  # `message` in each registry. So the seam is checked rather than assumed: a
-  # collision stops the run and says which two collided, instead of quietly
-  # verifying one component twice and calling both of them green.
+  # That works while no two components share a name, and upstream has a
+  # `message` in each registry. So check it rather than assume it. A collision
+  # stops the run and names both, instead of verifying one component twice and
+  # marking both green.
   defp ensure_distinct_examples!(components) do
     collisions =
       components

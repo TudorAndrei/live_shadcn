@@ -2,9 +2,9 @@ amends "package://github.com/jdx/hk/releases/download/v1.56.1/hk@1.56.1#/Config.
 import "package://github.com/jdx/hk/releases/download/v1.56.1/hk@1.56.1#/Builtins.pkl"
 
 // Everything a pipeline stage writes. A fixer that touches one of these edits a
-// generated file, which `mix ui.gen --check` and `mix ui.status --check` then
-// fail on — with no visible cause, because the edit was somebody else's.
-// A trailing space stripped out of a generated moduledoc is exactly that bug.
+// generated file, and `mix ui.gen --check` and `mix ui.status --check` then fail
+// with nothing in the diff to explain why. That happened: the whitespace fixer
+// stripped a trailing space out of a generated moduledoc.
 local generated = List(
     "packages/live_shadcn/priv/registry/**",
     "packages/live_ai_elements/lib/live_ai_elements/components/**",

@@ -241,10 +241,10 @@ defmodule LiveShadcnTools.Gen.Heex do
   The first line of a generated module's `@moduledoc`.
 
   Base UI's summary follows the component's name when the page has one, and
-  nothing follows it when it does not. The result is trimmed, because a
-  generated file must never carry trailing whitespace: a formatter that strips
-  it edits a file nobody is allowed to edit, and the next `mix ui.gen --check`
-  then fails with no visible cause.
+  nothing follows it when it does not. The result is trimmed. A generated file
+  must not carry trailing whitespace: a formatter would strip it, which edits a
+  file nobody is allowed to edit, and `mix ui.gen --check` then fails with
+  nothing in the diff to explain why.
   """
   def headline(spec) do
     name = spec["name"] |> String.replace("-", " ") |> String.capitalize()

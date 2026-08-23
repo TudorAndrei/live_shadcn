@@ -50,11 +50,10 @@ is fetched with the rest.
 
 **Enter and exit cannot be `JS.transition`.** `JS.transition` toggles classes;
 shadcn styles these states with data attributes, and `h-(--accordion-panel-height)`
-asks for a number no static class string can compute. So the hooks grow two jobs
-they were not designed for — measurement, and holding a state for the length of
-a transition — and the four steps that takes are shared code rather than a fifth
-hook. The discrete flip is still a `JS` command, so a click still costs no round
-trip.
+asks for a number no static class string can compute. So the hooks take on two
+jobs they were not designed for: measuring, and holding a state for the length
+of a transition. Those four steps are shared code, not a fifth hook. The
+discrete flip is still a `JS` command, so a click still costs no round trip.
 
 **Four exports become one function.** React threads the item's identity through
 context. HEEx cannot, so `<.accordion>` takes an `:item` slot and derives every
@@ -120,8 +119,8 @@ generated component has to make too, so each became a node in the spec rather
 than something dropped.
 
 **Four hooks, and no more.** That is what the architecture reserved, and every
-recipe since has fitted in them. M1 added measurement and transition timing, and
-both went inside the hooks that already existed rather than beside them:
+recipe since has fitted in them. M1 added measurement and transition timing.
+Both went inside the hooks that already existed:
 
 | Hook | Used by | Because |
 |---|---|---|
@@ -131,8 +130,8 @@ both went inside the hooks that already existed rather than beside them:
 | `Roving` | tabs, menu, select | `phx-key` filters one key, and there are four |
 
 `Disclosure`, `Floating` and `Overlay` all show and hide something that
-animates, so the four steps that takes live in one shared module rather than in
-three hooks, each getting them slightly wrong.
+animates. Those four steps live in one shared module, so three hooks cannot each
+get them slightly wrong.
 
 Everything else — every attribute a class string reads, every open and close,
 every choice — is a `Phoenix.LiveView.JS` command. No click reaches the server
@@ -163,60 +162,54 @@ Three things that took a browser to get right, and each one is now a test:
 
 ## M3 — Publish 0.1.0
 
-- [ ] `live_base` and `live_shadcn` on hex — both build and pass `hex.publish
-      --dry-run`; a `v*` tag runs the checks again and publishes them in
-      dependency order. Nothing is tagged yet.
-- [ ] Storybook deployed, one public URL — the image builds, serves, and
-      carries the styling layer. Nothing is deployed yet.
+- [ ] `live_base` and `live_shadcn` on hex. Both build and pass `hex.publish
+      --dry-run`. A `v*` tag runs the checks and publishes them in dependency
+      order. Nothing is tagged yet.
+- [ ] Storybook deployed, one public URL. The image builds, serves, and carries
+      the styling layer. Nothing is deployed yet.
 - [ ] Sync bot proves itself: one real upstream change lands as a pull request
-      whose diff is readable — the run itself works and has been done by hand.
-      What it has not done is open a pull request, because nothing is pushed.
+      whose diff is readable. The run works and has been done by hand. It has
+      not opened a pull request, because nothing is pushed.
 - [x] `CONTRIBUTING.md` explains how to add a recipe
 
 **Exit:** somebody who is not us installs it from hex and it works.
 
-Every remaining box needs an account rather than more code: a hex API key, a
+The three open boxes need an account, not more code: a hex API key, a
 Cloudflare token, and a push. `storybook/deploy/README.md` says what to set.
 
-### What preparing to publish found
+### Four bugs preparing to publish found
 
-Publishing is the first time the work is looked at from outside, and four things
-did not survive that look. Each was in a part nobody had run.
+Each was in a part nobody had run.
 
 **A name is not an identity.** Upstream has a `message` in the shadcn registry
 and a different `message` in AI Elements. Every stage keyed its files on the
-name alone, so they shared one spec and one verification entry, and the
-inventory reported the AI Elements one as verified on the strength of a browser
-run against shadcn's. A derived status that is wrong is worse than a typed one.
-A component is now `{source, name}` everywhere, which is also what M4 needs to
-land 49 AI Elements components in their own package.
+name, so the two shared one spec and one verification entry, and the inventory
+marked the AI Elements one verified on the strength of a browser run against
+shadcn's. A component is now `{source, name}` everywhere. M4 needs that anyway
+to land 49 AI Elements components in their own package.
 
 **The pre-commit hook was editing generated files.** It stripped a trailing
-space from a generated `@moduledoc` and normalised the end of every snapshot.
-Both are files `mix ui.gen --check` compares byte for byte, so the next run
-failed with no visible cause. The fixers now exclude everything a pipeline
-stage writes — and the generator no longer emits the trailing space that
-invited the edit.
+space from a generated `@moduledoc` and rewrote the end of every snapshot.
+`mix ui.gen --check` compares both byte for byte, so the next run failed and
+the diff showed nothing to explain why. The fixers now skip everything a
+pipeline stage writes, and the generator no longer emits the trailing space.
 
 **The image had never been built.** The Dockerfile pinned
 `hexpm/elixir:1.20.3-erlang-29.0.1-debian-bookworm-20250630-slim`, which Docker
-Hub does not publish, and an empty `GITHUB_TOKEN` sent `Bearer` with nothing
-after it, which is a 401 rather than a lower rate limit. Both are fixed, and the
-image now builds, serves, and carries the styling layer.
+Hub does not publish. An empty `GITHUB_TOKEN` sent `Bearer` with nothing after
+it, which is a 401 rather than a lower rate limit. The image now builds and
+serves, styling layer included.
 
-**The sync bot would have cried wolf every week.** Running it by hand found two
-files whose digests changed on every fetch. shadcn's index points a component
-at whatever documents it, and for one built on a React library that is the
-library's own site — so the fetcher was storing GitHub repository pages as Base
-UI contracts, and GitHub embeds a fresh token in every page it serves. A weekly
-pull request that says nothing changed is a pull request nobody reads, and then
-the one that matters is not read either.
+**Two upstream files changed on every fetch.** shadcn's index points each
+component at whatever documents it, and for one built on a React library that
+is the library's own site. The fetcher followed the link and stored a GitHub
+repository page as `resizable`'s Base UI contract. GitHub puts a fresh page
+token in every response, so those digests never settled and the weekly sync
+would have opened a pull request every week saying nothing had changed.
 
-That one has a second lesson. The secret scanner had been reporting those
-tokens all along, and the scan was widened to ignore the directory rather than
-asked why source files had tokens in them. The directory is scanned again now,
-and it is clean: a finding there means the fetcher brought back a web page, and
-the fix is in `mix ui.fetch`.
+The secret scanner had been reporting those tokens all along. Earlier in this
+milestone the scan was widened to skip the directory instead of asking why
+source files had tokens in them. It scans the directory again now, and passes.
 
 ---
 
