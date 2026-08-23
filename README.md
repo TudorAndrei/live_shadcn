@@ -125,6 +125,7 @@ storybook/                   demo application, and the browser suite
 | | |
 |---|---|
 | [ROADMAP.md](ROADMAP.md) | milestones and their exit criteria |
+| [DEFERRED.md](DEFERRED.md) | publishing and deployment, and what each needs |
 | [docs/INVENTORY.md](docs/INVENTORY.md) | 112 components, status derived from disk |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | layers, contract, pipeline stages |
 

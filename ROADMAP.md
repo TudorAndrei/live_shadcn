@@ -175,7 +175,7 @@ Three things that took a browser to get right, and each one is now a test:
 **Exit:** somebody who is not us installs it from hex and it works.
 
 The three open boxes need an account, not more code: a hex API key, a
-Cloudflare token, and a push. `storybook/deploy/README.md` says what to set.
+Cloudflare token, and a push. [DEFERRED.md](DEFERRED.md) has the steps.
 
 ### Four bugs preparing to publish found
 
