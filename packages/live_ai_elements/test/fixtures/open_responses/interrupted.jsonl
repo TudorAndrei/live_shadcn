@@ -1,0 +1,5 @@
+{"type":"response.created","sequence_number":0,"response":{"id":"resp_2","object":"response","status":"in_progress"}}
+{"type":"response.output_item.added","sequence_number":1,"output_index":0,"item":{"id":"msg_2","type":"message","role":"assistant","status":"in_progress","content":[]}}
+{"type":"response.content_part.added","sequence_number":2,"item_id":"msg_2","output_index":0,"content_index":0,"part":{"type":"output_text","text":"","annotations":[]}}
+{"type":"response.output_text.delta","sequence_number":3,"item_id":"msg_2","output_index":0,"content_index":0,"delta":"Here is the first half","logprobs":[]}
+{"type":"response.incomplete","sequence_number":4,"response":{"id":"resp_2","object":"response","status":"incomplete","incomplete_details":{"reason":"max_output_tokens"}}}

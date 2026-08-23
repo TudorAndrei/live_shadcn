@@ -1,0 +1,28 @@
+{"type":"response.created","sequence_number":0,"response":{"id":"resp_1","object":"response","status":"in_progress"}}
+{"type":"response.in_progress","sequence_number":1,"response":{"id":"resp_1","object":"response","status":"in_progress"}}
+{"type":"response.output_item.added","sequence_number":2,"output_index":0,"item":{"id":"rs_1","type":"reasoning","summary":[]}}
+{"type":"response.reasoning_summary_part.added","sequence_number":3,"item_id":"rs_1","output_index":0,"summary_index":0,"part":{"type":"summary_text","text":""}}
+{"type":"response.reasoning_summary_text.delta","sequence_number":4,"item_id":"rs_1","output_index":0,"summary_index":0,"delta":"The reader wants "}
+{"type":"response.reasoning_summary_text.delta","sequence_number":5,"item_id":"rs_1","output_index":0,"summary_index":0,"delta":"today's weather."}
+{"type":"response.reasoning_summary_text.done","sequence_number":6,"item_id":"rs_1","output_index":0,"summary_index":0,"text":"The reader wants today's weather."}
+{"type":"response.reasoning_summary_part.done","sequence_number":7,"item_id":"rs_1","output_index":0,"summary_index":0,"part":{"type":"summary_text","text":"The reader wants today's weather."}}
+{"type":"response.output_item.done","sequence_number":8,"output_index":0,"item":{"id":"rs_1","type":"reasoning","status":"completed","summary":[{"type":"summary_text","text":"The reader wants today's weather."}]}}
+{"type":"response.output_item.added","sequence_number":9,"output_index":1,"item":{"id":"ws_1","type":"web_search_call","status":"in_progress"}}
+{"type":"response.web_search_call.in_progress","sequence_number":10,"item_id":"ws_1","output_index":1}
+{"type":"response.web_search_call.searching","sequence_number":11,"item_id":"ws_1","output_index":1}
+{"type":"response.web_search_call.completed","sequence_number":12,"item_id":"ws_1","output_index":1}
+{"type":"response.output_item.done","sequence_number":13,"output_index":1,"item":{"id":"ws_1","type":"web_search_call","status":"completed","action":{"type":"search","query":"weather Cluj"}}}
+{"type":"response.output_item.added","sequence_number":14,"output_index":2,"item":{"id":"msg_1","type":"message","role":"assistant","status":"in_progress","content":[]}}
+{"type":"response.content_part.added","sequence_number":15,"item_id":"msg_1","output_index":2,"content_index":0,"part":{"type":"output_text","text":"","annotations":[]}}
+{"type":"response.output_text.delta","sequence_number":16,"item_id":"msg_1","output_index":2,"content_index":0,"delta":"It is 18","logprobs":[]}
+{"type":"response.output_text.delta","sequence_number":17,"item_id":"msg_1","output_index":2,"content_index":0,"delta":"°C and clear in Cluj.","logprobs":[]}
+{"type":"response.output_text.annotation.added","sequence_number":18,"item_id":"msg_1","output_index":2,"content_index":0,"annotation_index":0,"annotation":{"type":"url_citation","url":"https://example.com/cluj","title":"Cluj weather","start_index":0,"end_index":29}}
+{"type":"response.output_text.done","sequence_number":19,"item_id":"msg_1","output_index":2,"content_index":0,"text":"It is 18°C and clear in Cluj.","logprobs":[]}
+{"type":"response.content_part.done","sequence_number":20,"item_id":"msg_1","output_index":2,"content_index":0,"part":{"type":"output_text","text":"It is 18°C and clear in Cluj.","annotations":[]}}
+{"type":"response.output_item.done","sequence_number":21,"output_index":2,"item":{"id":"msg_1","type":"message","role":"assistant","status":"completed","content":[{"type":"output_text","text":"It is 18°C and clear in Cluj."}]}}
+{"type":"response.output_item.added","sequence_number":22,"output_index":3,"item":{"id":"fc_1","type":"function_call","name":"save_note","call_id":"call_1","arguments":"","status":"in_progress"}}
+{"type":"response.function_call_arguments.delta","sequence_number":23,"item_id":"fc_1","output_index":3,"delta":"{\"text\":"}
+{"type":"response.function_call_arguments.delta","sequence_number":24,"item_id":"fc_1","output_index":3,"delta":"\"clear\"}"}
+{"type":"response.function_call_arguments.done","sequence_number":25,"item_id":"fc_1","output_index":3,"arguments":"{\"text\":\"clear\"}"}
+{"type":"response.output_item.done","sequence_number":26,"output_index":3,"item":{"id":"fc_1","type":"function_call","name":"save_note","call_id":"call_1","arguments":"{\"text\":\"clear\"}","status":"completed"}}
+{"type":"response.completed","sequence_number":27,"response":{"id":"resp_1","object":"response","status":"completed"}}

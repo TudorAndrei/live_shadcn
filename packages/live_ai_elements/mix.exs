@@ -10,6 +10,7 @@ defmodule LiveAiElements.MixProject do
       version: @version,
       elixir: "~> 1.17",
       elixirc_options: [warnings_as_errors: true],
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description:
@@ -21,10 +22,16 @@ defmodule LiveAiElements.MixProject do
 
   def application, do: [extra_applications: [:logger]]
 
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_env), do: ["lib"]
+
   defp deps do
     [
       {:live_shadcn, dep_spec("live_shadcn", "~> 0.1")},
       {:phoenix_live_view, "~> 1.2"},
+      # Reading a recorded stream, and writing a golden back. Test only: the
+      # package itself never decodes anything.
+      {:jason, "~> 1.4", only: :test},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false}
     ]
   end
