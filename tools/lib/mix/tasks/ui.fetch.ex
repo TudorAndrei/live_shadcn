@@ -21,11 +21,21 @@ defmodule Mix.Tasks.Ui.Fetch do
 
   import LiveShadcnTools
 
+  alias LiveShadcnTools.Style
+
   @shadcn_repo "shadcn-ui/ui"
   @ai_elements_repo "vercel/ai-elements"
   @shadcn_index "https://ui.shadcn.com/r/index.json"
   @shadcn_ui_dir "apps/v4/registry/bases/base/ui"
+  @shadcn_styles_dir "apps/v4/registry/styles"
+  @shadcn_styles_index "apps/v4/registry/styles.tsx"
+
+  # The design tokens every `cn-` rule resolves against. Without them a rule
+  # such as `focus-visible:ring-ring/50` is an unknown utility and the whole
+  # style sheet fails to compile, so they are part of the styling contract.
+  @shadcn_theme ["apps/v4/app/globals.css", "apps/v4/app/legacy-themes.css"]
   @ai_elements_dir "packages/elements/src"
+  @base_ui_docs "https://base-ui.com/react/components"
 
   @impl Mix.Task
   def run(argv) do
@@ -46,10 +56,12 @@ defmodule Mix.Tasks.Ui.Fetch do
     Mix.shell().info("fetching #{length(components)} shadcn components")
 
     shadcn_files = Enum.flat_map(components, &fetch_component(&1, shadcn_ref))
+    {style_files, styles} = fetch_styles(shadcn_ref)
     ai_files = if only, do: [], else: fetch_ai_elements(ai_ref)
 
     manifest = %{
       "generated_by" => "mix ui.fetch",
+      "styles" => styles,
       "sources" => %{
         "shadcn" => %{"repo" => @shadcn_repo, "ref" => shadcn_ref, "dir" => @shadcn_ui_dir},
         "base_ui" => %{"origin" => "https://base-ui.com/react/components"},
@@ -59,7 +71,7 @@ defmodule Mix.Tasks.Ui.Fetch do
           "dir" => @ai_elements_dir
         }
       },
-      "files" => Map.new(shadcn_files ++ ai_files)
+      "files" => Map.new(shadcn_files ++ style_files ++ ai_files)
     }
 
     manifest =
@@ -72,6 +84,12 @@ defmodule Mix.Tasks.Ui.Fetch do
       end
 
     write_json!(registry_path("UPSTREAM.json"), manifest)
+
+    case Process.get(:no_page, []) |> Enum.uniq() |> Enum.sort() do
+      [] -> :ok
+      names -> Mix.shell().info("no Base UI page (presentational): #{Enum.join(names, ", ")}")
+    end
+
     Mix.shell().info("wrote registry/UPSTREAM.json (#{map_size(manifest["files"])} files)")
   end
 
@@ -81,25 +99,101 @@ defmodule Mix.Tasks.Ui.Fetch do
   defp fetch_component(%{"name" => name} = item, ref) do
     tsx_url = raw_url(@shadcn_repo, ref, "#{@shadcn_ui_dir}/#{name}.tsx")
 
-    tsx =
+    {tsx, source} =
       case get(tsx_url) do
-        {:ok, body} -> [store("shadcn/ui/#{name}.tsx", body, tsx_url)]
-        {:error, status} -> warn(name, "component source", status)
+        {:ok, body} -> {[store("shadcn/ui/#{name}.tsx", body, tsx_url)], body}
+        {:error, status} -> {warn(name, "component source", status), ""}
       end
 
-    spec =
-      case get_in(item, ["meta", "links", "base", "api"]) do
-        nil ->
+    # The registry index links a Base UI page for most components and not all.
+    # Where it does not, the page is looked for under the component's own name,
+    # because Base UI publishes more pages than shadcn links to — `button` and
+    # `field` among them.
+    link = get_in(item, ["meta", "links", "base", "api"]) || "#{@base_ui_docs}/#{name}.md"
+
+    # A component may be built from more than one Base UI module: menubar uses
+    # both `menubar` and `menu`, toggle-group both `toggle-group` and `toggle`.
+    # Each module has its own page, and each page is the contract for the parts
+    # it documents, so all of them are fetched.
+    modules = base_ui_modules(source)
+
+    tsx ++
+      fetch_base_ui(name, link) ++ Enum.flat_map(modules, &fetch_base_ui(&1, page_url(&1)))
+  end
+
+  defp page_url(module), do: "#{@base_ui_docs}/#{module}.md"
+
+  defp base_ui_modules(source) do
+    ~r|from "@base-ui/react/([a-z0-9-]+)"|
+    |> Regex.scan(source, capture: :all_but_first)
+    |> List.flatten()
+    |> Enum.uniq()
+  end
+
+  # A page named by two components is downloaded once per run, not twice.
+  defp fetch_base_ui(name, url) do
+    path = "base_ui/#{name}.md"
+
+    if stored?(path) do
+      []
+    else
+      case get(url) do
+        {:ok, body} ->
+          [store(path, body, url)]
+
+        {:error, _status} ->
+          # Normal, not a failure. A card is a `<div>` with a class string, and
+          # Base UI has nothing to say about it.
+          Process.put(:no_page, [name | Process.get(:no_page, [])])
           []
-
-        url ->
-          case get(url) do
-            {:ok, body} -> [store("base_ui/#{name}.md", body, url)]
-            {:error, status} -> warn(name, "Base UI spec", status)
-          end
       end
+    end
+  end
 
-    tsx ++ spec
+  defp stored?(path), do: MapSet.member?(Process.get(:stored, MapSet.new()), path)
+
+  # The `cn-` classes every class string starts with are defined here, one
+  # sheet per shadcn style. They are fetched whatever `--only` says, because a
+  # sheet covers every component at once and a component without its rules is a
+  # component without its styling.
+  defp fetch_styles(ref) do
+    index = raw_url(@shadcn_repo, ref, @shadcn_styles_index)
+
+    case get(index) do
+      {:error, status} ->
+        {warn("styles", "style index", status), %{}}
+
+      {:ok, body} ->
+        names = Style.names(body)
+        Mix.shell().info("fetching #{length(names)} style sheets")
+
+        files =
+          [store("shadcn/styles.tsx", body, index)] ++
+            Enum.flat_map(names, &fetch_style(&1, ref)) ++
+            Enum.flat_map(@shadcn_theme, &fetch_theme(&1, ref))
+
+        {files, %{"available" => names, "default" => List.first(names)}}
+    end
+  end
+
+  # Stored under the name each file imports the next by, so the chain of
+  # `@import` statements upstream wrote still resolves on disk.
+  defp fetch_theme(path, ref) do
+    url = raw_url(@shadcn_repo, ref, path)
+
+    case get(url) do
+      {:ok, body} -> [store("shadcn/theme/#{Path.basename(path)}", body, url)]
+      {:error, status} -> warn(Path.basename(path), "theme", status)
+    end
+  end
+
+  defp fetch_style(name, ref) do
+    url = raw_url(@shadcn_repo, ref, "#{@shadcn_styles_dir}/style-#{name}.css")
+
+    case get(url) do
+      {:ok, body} -> [store("shadcn/styles/#{name}.css", body, url)]
+      {:error, status} -> warn(name, "style sheet", status)
+    end
   end
 
   defp fetch_ai_elements(ref) do
@@ -125,6 +219,7 @@ defmodule Mix.Tasks.Ui.Fetch do
 
   defp store(relative, body, url) do
     write!(registry_path(["upstream", relative]), body)
+    Process.put(:stored, MapSet.put(Process.get(:stored, MapSet.new()), relative))
     {relative, %{"sha256" => digest(body), "url" => url, "bytes" => byte_size(body)}}
   end
 

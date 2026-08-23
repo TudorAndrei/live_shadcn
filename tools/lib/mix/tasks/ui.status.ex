@@ -13,7 +13,7 @@ defmodule Mix.Tasks.Ui.Status do
   | `fetched` | a digest in `registry/UPSTREAM.json` |
   | `spec` | `registry/spec/<name>.json` |
   | `generated` | a module in the owning package |
-  | `verified` | a passing entry in `registry/VERIFY.json` |
+  | `verified` | a passing entry in `registry/VERIFY.json`, for this spec |
 
   `registry/INVENTORY.json` holds only the two decisions a person makes: which
   behavior recipe a component uses, and which tier it ships in.
@@ -145,9 +145,19 @@ defmodule Mix.Tasks.Ui.Status do
     File.exists?(Path.join([repo_root() | package] ++ [module]))
   end
 
+  # A pass counts only while it is a pass about the spec on disk. `mix ui.verify`
+  # records the digest it verified, so a spec that moved on since demotes the
+  # component instead of leaving a green mark nobody earned.
   defp verified?(name) do
-    path = registry_path("VERIFY.json")
-    File.exists?(path) and get_in(read_json!(path), [name, "pass"]) == true
+    verify = registry_path("VERIFY.json")
+    spec = registry_path(["spec", "#{name}.json"])
+
+    with true <- File.exists?(verify) and File.exists?(spec),
+         result when is_map(result) <- get_in(read_json!(verify), [name]) do
+      result["pass"] == true and result["spec"] == digest(File.read!(spec))
+    else
+      _ -> false
+    end
   end
 
   defp render(inventory, components) do
