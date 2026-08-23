@@ -163,13 +163,45 @@ Three things that took a browser to get right, and each one is now a test:
 
 ## M3 — Publish 0.1.0
 
-- [ ] `live_base` and `live_shadcn` on hex
-- [ ] Storybook deployed, one public URL
+- [ ] `live_base` and `live_shadcn` on hex — both build and pass `hex.publish
+      --dry-run`; a `v*` tag runs the checks again and publishes them in
+      dependency order. Nothing is tagged yet.
+- [ ] Storybook deployed, one public URL — the image builds, serves, and
+      carries the styling layer. Nothing is deployed yet.
 - [ ] Sync bot proves itself: one real upstream change lands as a pull request
       whose diff is readable
-- [ ] `CONTRIBUTING.md` explains how to add a recipe
+- [x] `CONTRIBUTING.md` explains how to add a recipe
 
 **Exit:** somebody who is not us installs it from hex and it works.
+
+Every remaining box needs an account rather than more code: a hex API key, a
+Cloudflare token, and a push. `storybook/deploy/README.md` says what to set.
+
+### What preparing to publish found
+
+Publishing is the first time the work is looked at from outside, and three
+things did not survive that look.
+
+**A name is not an identity.** Upstream has a `message` in the shadcn registry
+and a different `message` in AI Elements. Every stage keyed its files on the
+name alone, so they shared one spec and one verification entry, and the
+inventory reported the AI Elements one as verified on the strength of a browser
+run against shadcn's. A derived status that is wrong is worse than a typed one.
+A component is now `{source, name}` everywhere, which is also what M4 needs to
+land 49 AI Elements components in their own package.
+
+**The pre-commit hook was editing generated files.** It stripped a trailing
+space from a generated `@moduledoc` and normalised the end of every snapshot.
+Both are files `mix ui.gen --check` compares byte for byte, so the next run
+failed with no visible cause. The fixers now exclude everything a pipeline
+stage writes — and the generator no longer emits the trailing space that
+invited the edit.
+
+**The image had never been built.** The Dockerfile pinned
+`hexpm/elixir:1.20.3-erlang-29.0.1-debian-bookworm-20250630-slim`, which Docker
+Hub does not publish, and an empty `GITHUB_TOKEN` sent `Bearer` with nothing
+after it, which is a 401 rather than a lower rate limit. Both are fixed, and the
+image now builds, serves, and carries the styling layer.
 
 ---
 
