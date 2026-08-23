@@ -55,7 +55,7 @@ defmodule LiveAiElements.Components.Confirmation do
   end
 
   @doc "The `confirmation_request` part."
-
+  attr(:state, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -67,7 +67,8 @@ defmodule LiveAiElements.Components.Confirmation do
   end
 
   @doc "The `confirmation_accepted` part."
-
+  attr(:approval, :string, default: nil)
+  attr(:state, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -79,7 +80,8 @@ defmodule LiveAiElements.Components.Confirmation do
   end
 
   @doc "The `confirmation_rejected` part."
-
+  attr(:approval, :string, default: nil)
+  attr(:state, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -91,7 +93,7 @@ defmodule LiveAiElements.Components.Confirmation do
   end
 
   @doc "The `confirmation_actions` part."
-
+  attr(:state, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)

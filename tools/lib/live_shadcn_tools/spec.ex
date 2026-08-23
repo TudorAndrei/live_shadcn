@@ -603,8 +603,21 @@ defmodule LiveShadcnTools.Spec do
       else: expression(code, ctx)
   end
 
-  defp value?(code),
-    do: Regex.match?(~r/^[a-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$/, String.trim(code))
+  # A value the caller supplies, possibly with arithmetic or a default around
+  # it: `{count}`, `{error.message}`, `{currentBranch + 1}`, `{title ?? name}`.
+  #
+  # What makes these one kind of thing is that every name in them is a name, and
+  # the generator decides whether it knows it. Refusing them here would refuse
+  # them for the wrong reason — the reader's job is to say what the expression
+  # is, and `{currentBranch + 1}` is a value however the number is reached.
+  @value ~r/^[a-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$/
+  @arithmetic ~r/^[a-z_][A-Za-z0-9_.]*(\s*(\+|-|\*|\/|\?\?)\s*([a-z_][A-Za-z0-9_.]*|-?\d+))+$/
+
+  defp value?(code) do
+    code = String.trim(code)
+
+    Regex.match?(@value, code) or Regex.match?(@arithmetic, code)
+  end
 
   defp string_literal(code) do
     case String.trim(code) do

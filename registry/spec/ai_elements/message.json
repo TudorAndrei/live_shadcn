@@ -1,0 +1,639 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "folds": [
+    "shadcn/button",
+    "shadcn/button-group"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "message",
+  "parts": [
+    {
+      "export": "Message",
+      "name": "message",
+      "params": {
+        "className": null,
+        "from": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "group flex w-full max-w-[95%] flex-col gap-2",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageContent",
+      "name": "message_content",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "is-user:dark flex w-fit min-w-0 max-w-full flex-col gap-2 overflow-hidden text-sm group-[.is-user]:ml-auto group-[.is-user]:rounded-lg group-[.is-user]:bg-secondary group-[.is-user]:px-4 group-[.is-user]:py-3 group-[.is-user]:text-foreground group-[.is-assistant]:text-foreground",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageActions",
+      "name": "message_actions",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "flex items-center gap-1",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageAction",
+      "name": "message_action",
+      "params": {
+        "children": null,
+        "label": null,
+        "size": "icon-sm",
+        "tooltip": null,
+        "variant": "ghost"
+      },
+      "primitive": null,
+      "tree": {
+        "code": "button",
+        "type": "value"
+      }
+    },
+    {
+      "export": "MessageBranch",
+      "name": "message_branch",
+      "params": {
+        "branches": null,
+        "className": null,
+        "currentBranch": null,
+        "defaultBranch": "0",
+        "onBranchChange": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "grid w-full gap-2 [&>div]:pb-0",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageBranchContent",
+      "name": "message_branch_content",
+      "params": {
+        "branches": null,
+        "children": null,
+        "currentBranch": null
+      },
+      "primitive": null,
+      "tree": {
+        "binding": "branch",
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "key",
+                "value": "branch.key"
+              }
+            ],
+            "children": [
+              {
+                "code": "branch",
+                "type": "value"
+              }
+            ],
+            "class": "grid gap-2 overflow-hidden [&>div]:pb-0",
+            "merges_class": false,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "collection": "childrenArray",
+        "type": "repeat_over"
+      }
+    },
+    {
+      "export": "MessageBranchSelector",
+      "name": "message_branch_selector",
+      "params": {
+        "className": null,
+        "orientation": null,
+        "totalBranches": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "group"
+          },
+          {
+            "kind": "code",
+            "name": "data-orientation",
+            "value": "orientation"
+          }
+        ],
+        "children": [],
+        "class": "[&>*:not(:first-child)]:rounded-l-md [&>*:not(:last-child)]:rounded-r-md",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "data-slot"
+          ]
+        },
+        "render_as": null,
+        "slot": "button-group",
+        "tag": "div",
+        "type": "element",
+        "variant_class": "buttonGroupVariants",
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageBranchPrevious",
+      "name": "message_branch_previous",
+      "params": {
+        "children": null,
+        "className": null,
+        "goToPrevious": null,
+        "size": "default",
+        "totalBranches": null,
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "aria-label",
+            "value": "Previous branch"
+          },
+          {
+            "kind": "code",
+            "name": "disabled",
+            "value": "totalBranches <= 1"
+          },
+          {
+            "kind": "text",
+            "name": "type",
+            "value": "button"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [
+                  {
+                    "kind": "code",
+                    "name": "size",
+                    "value": "14"
+                  }
+                ],
+                "children": [],
+                "class": "",
+                "icons": {
+                  "lucide": "ChevronLeftIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "",
+        "merges_class": true,
+        "module": "button",
+        "part": "Button",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "aria-invalid",
+            "aria-expanded"
+          ]
+        },
+        "render_as": null,
+        "slot": "button",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": "buttonVariants",
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageBranchNext",
+      "name": "message_branch_next",
+      "params": {
+        "children": null,
+        "className": null,
+        "goToNext": null,
+        "size": "default",
+        "totalBranches": null,
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "aria-label",
+            "value": "Next branch"
+          },
+          {
+            "kind": "code",
+            "name": "disabled",
+            "value": "totalBranches <= 1"
+          },
+          {
+            "kind": "text",
+            "name": "type",
+            "value": "button"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [
+                  {
+                    "kind": "code",
+                    "name": "size",
+                    "value": "14"
+                  }
+                ],
+                "children": [],
+                "class": "",
+                "icons": {
+                  "lucide": "ChevronRightIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "",
+        "merges_class": true,
+        "module": "button",
+        "part": "Button",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            "aria-invalid",
+            "aria-expanded"
+          ]
+        },
+        "render_as": null,
+        "slot": "button",
+        "tag": "button",
+        "type": "primitive",
+        "variant_class": "buttonVariants",
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageBranchPage",
+      "name": "message_branch_page",
+      "params": {
+        "className": null,
+        "currentBranch": null,
+        "render": null,
+        "totalBranches": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "code": "currentBranch + 1",
+            "type": "value"
+          },
+          {
+            "type": "text",
+            "value": "of"
+          },
+          {
+            "code": "totalBranches",
+            "type": "value"
+          }
+        ],
+        "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none border-none bg-transparent text-muted-foreground shadow-none",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "button-group-text",
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageResponse",
+      "name": "message_response",
+      "params": {
+        "className": null,
+        "content": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "plugins",
+            "value": "streamdownPlugins"
+          }
+        ],
+        "children": [],
+        "class": "size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "role": "markdown",
+        "slot": null,
+        "type": "external",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "MessageToolbar",
+      "name": "message_toolbar",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "mt-4 flex w-full items-center justify-between gap-4",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "button.Button": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the button should be focusable when disabled.",
+          "name": "focusableWhenDisabled",
+          "type": "boolean"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Button.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Button.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button component that can be used to trigger actions."
+    }
+  },
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {
+    "luma": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-4xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "lyra": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-none border px-2.5 text-xs font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "maia": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-4xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "mira": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-md border px-2.5 text-xs/relaxed font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "nova": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-lg border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "rhea": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-2xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "sera": {
+      "cn-button-group-text": "gap-2 border border-transparent border-b-input bg-transparent px-2.5 text-xs font-semibold [&_svg:not([class*='size-'])]:size-3.5 group-has-[>[data-variant=outline]]/button-group:border-border uppercase"
+    },
+    "vega": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-md border px-2.5 text-sm font-medium shadow-xs [&_svg:not([class*='size-'])]:size-4"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/message.tsx",
+      "sha256": "19c7755740e116f221e4247f7b6d4f20b57a44e4c4fcf66d2db5e1f111476509"
+    }
+  },
+  "variants": {
+    "buttonGroupVariants": {
+      "base": "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+      "defaults": {
+        "orientation": "horizontal"
+      },
+      "variants": {
+        "orientation": {
+          "horizontal": "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
+          "vertical": "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0"
+        }
+      }
+    },
+    "buttonVariants": {
+      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-button-size-default",
+          "icon": "cn-button-size-icon",
+          "icon-lg": "cn-button-size-icon-lg",
+          "icon-sm": "cn-button-size-icon-sm",
+          "icon-xs": "cn-button-size-icon-xs",
+          "lg": "cn-button-size-lg",
+          "sm": "cn-button-size-sm",
+          "xs": "cn-button-size-xs"
+        },
+        "variant": {
+          "default": "cn-button-variant-default",
+          "destructive": "cn-button-variant-destructive",
+          "ghost": "cn-button-variant-ghost",
+          "link": "cn-button-variant-link",
+          "outline": "cn-button-variant-outline",
+          "secondary": "cn-button-variant-secondary"
+        }
+      }
+    }
+  }
+}

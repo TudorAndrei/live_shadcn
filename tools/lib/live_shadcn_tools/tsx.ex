@@ -158,7 +158,7 @@ defmodule LiveShadcnTools.Tsx do
       %{
         name: name,
         props_type: props_type(signature),
-        params: params(signature),
+        params: Map.merge(state(body!(rest, name)), params(signature)),
         renames: renames(signature),
         jsx: rest |> body!(name) |> return_jsx!(name)
       }
@@ -192,7 +192,7 @@ defmodule LiveShadcnTools.Tsx do
         %{
           name: name,
           props_type: props_type(signature),
-          params: params(signature),
+          params: Map.merge(state(body), params(signature)),
           renames: renames(signature),
           jsx: arrow_jsx!(String.trim(body), name)
         }
@@ -286,6 +286,71 @@ defmodule LiveShadcnTools.Tsx do
       end)
     else
       _ -> %{}
+    end
+  end
+
+  @doc """
+  The state a component keeps, as props.
+
+  `const [currentBranch, setCurrentBranch] = useState(0)` yields
+  `%{"currentBranch" => "0"}`.
+
+  React state has no counterpart here, and that is a decision rather than a
+  gap: the server owns application state and the client owns ephemeral UI
+  state, and neither of those is a variable inside a render. So a piece of
+  state becomes a prop — the caller holds it and passes it in — and its initial
+  value becomes the prop's default.
+
+  A recipe may own a name instead. Opening and closing is `isOpen` upstream and
+  `@open` in the disclosure recipe, and the recipe says so rather than the
+  component growing a second flag.
+
+  Only a literal initial value is recorded. `useState(defaultBranch)` sets the
+  state from a prop, and the prop is already declared.
+  """
+  def state(body) do
+    Map.merge(from_context(body), from_use_state(body))
+  end
+
+  defp from_use_state(body) do
+    ~r/(?:const|let)\s*\[\s*([A-Za-z_][A-Za-z0-9_]*)\s*,[^\]]*\]\s*=\s*use(?:Controllable)?State[<(]/
+    |> Regex.scan(body, return: :index)
+    |> Map.new(fn [{at, length}, {name_at, name_len}] ->
+      {binary_part(body, name_at, name_len), initial(body, at + length)}
+    end)
+  end
+
+  # `const { isOpen, setIsOpen } = useChainOfThought()` — state read out of a
+  # React context. HEEx has no context, which is the reason `<.accordion>` takes
+  # an `:item` slot rather than exporting four components, and the same answer
+  # applies here: what the context carried is a prop, or a name the recipe owns.
+  #
+  # A setter is not one of them. Nothing renders `setIsOpen`.
+  defp from_context(body) do
+    ~r/(?:const|let)\s*\{([^}]*)\}\s*=\s*use[A-Z][A-Za-z0-9_]*\(/
+    |> Regex.scan(body, capture: :all_but_first)
+    |> List.flatten()
+    |> Enum.flat_map(&String.split(&1, ","))
+    |> Enum.map(&(&1 |> String.split(":") |> List.last() |> String.trim()))
+    |> Enum.reject(&(&1 == "" or String.starts_with?(&1, "set") or String.contains?(&1, "...")))
+    |> Map.new(&{&1, nil})
+  end
+
+  # The value the state starts at, when it is written down. `useState(false)`
+  # says false; `useState(defaultBranch)` says "whatever that prop is", and the
+  # prop is declared already.
+  defp initial(body, at) do
+    rest = binary_part(body, at, min(200, byte_size(body) - at))
+
+    cond do
+      match = Regex.run(~r/^\s*(true|false|-?\d+)\s*\)/, rest, capture: :all_but_first) ->
+        hd(match)
+
+      match = Regex.run(~r/defaultProp:\s*(true|false|-?\d+)/, rest, capture: :all_but_first) ->
+        hd(match)
+
+      true ->
+        nil
     end
   end
 

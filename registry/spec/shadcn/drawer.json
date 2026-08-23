@@ -302,7 +302,11 @@
       "name": "drawer_content",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "hasSnapPoints": null,
+        "modal": null,
+        "showSwipeHandle": null,
+        "swipeDirection": null
       },
       "primitive": "Popup",
       "tree": {

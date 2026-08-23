@@ -29,6 +29,23 @@
     "pass": true,
     "spec": "a83a23278a24d32fc28035cf3a6521fc1d9c12b2de2985b1ef65e28f30b54ef5"
   },
+  "ai_elements/chain-of-thought": {
+    "checks": {
+      "browser": {
+        "detail": "      61 |   });\n      62 | }\n      63 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:60:77\n    Error Context: test-results/accessibility-chain-of-tho-5adfb-ult-is-clean-under-axe-core-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/accessibility-chain-of-tho-5adfb-ult-is-clean-under-axe-core-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/accessibility-chain-of-tho-5adfb-ult-is-clean-under-axe-core-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › accessibility.spec.mjs:47:3 › chain-of-thought / default is clean under axe-core ──",
+        "exit": 1,
+        "pass": false
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": false,
+    "spec": "bed39118509d48c9d1b433d6ed82a588328f83887df10a9e17e30dcd978d48e4"
+  },
   "shadcn/context-menu": {
     "checks": {
       "browser": {
@@ -222,7 +239,7 @@
       }
     },
     "pass": true,
-    "spec": "66e6137f2f2dea2c00157f0af32c91f1f9e146720532752ba02eb2a8fae1b39a"
+    "spec": "cf1142ceea8de5100e1715322eb62ce0500b64fba48f4509d892971d106c14e7"
   },
   "shadcn/skeleton": {
     "checks": {

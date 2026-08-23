@@ -68,7 +68,9 @@
       "params": {
         "children": null,
         "className": null,
+        "maxTokens": null,
         "size": "default",
+        "usedTokens": null,
         "variant": "default"
       },
       "primitive": null,
@@ -269,6 +271,8 @@
       "params": {
         "children": null,
         "className": null,
+        "maxTokens": null,
+        "usedTokens": null,
         "value": null
       },
       "primitive": null,
@@ -505,7 +509,9 @@
       "name": "context_content_footer",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "modelId": null,
+        "usage": null
       },
       "primitive": null,
       "tree": {
@@ -599,7 +605,9 @@
       "name": "context_input_usage",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "modelId": null,
+        "usage": null
       },
       "primitive": null,
       "tree": {
@@ -676,7 +684,9 @@
       "name": "context_output_usage",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "modelId": null,
+        "usage": null
       },
       "primitive": null,
       "tree": {
@@ -753,7 +763,9 @@
       "name": "context_reasoning_usage",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "modelId": null,
+        "usage": null
       },
       "primitive": null,
       "tree": {
@@ -830,7 +842,9 @@
       "name": "context_cache_usage",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "modelId": null,
+        "usage": null
       },
       "primitive": null,
       "tree": {

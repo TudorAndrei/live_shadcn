@@ -421,6 +421,39 @@ The generated component takes `icon` as a name — `attr :icon, :string, default
 "dot"` — because a name is what a caller passes when the icon set is
 configuration.
 
+### State is a prop, because the server owns state
+
+`const [currentBranch, setCurrentBranch] = useState(0)` and
+`const { isOpen } = useChainOfThought()` are both React holding something for
+the length of a render. Neither has a counterpart here, and that is the
+architecture rather than a gap: the server owns application state and the
+client owns ephemeral UI state, and a variable inside a render is neither.
+
+So a piece of state becomes a prop — the caller holds it and passes it in — and
+its initial value becomes the prop's default. A recipe may own the name
+instead: opening and closing is `isOpen` upstream and `@open` in the disclosure
+recipe, and the recipe says so rather than the component growing a second flag.
+
+That, and reading `{currentBranch + 1}` as the value it is, took `message` and
+`chain-of-thought` from unreadable to read.
+
+### A component contained itself
+
+`chain-of-thought` generated. It compiled. Its snapshot was stable. Inside its
+own trigger was a second copy of the whole component, and what caught it was
+axe-core noticing a button with no text — three checks and a browser later, in
+a report that said nothing about recursion.
+
+An id is unique on a page, and every `aria-controls` this pipeline emits names
+one. So a generated module that writes `id={@id}` twice has assembled a part
+twice, and `mix ui.gen` refuses it now. `chain-of-thought` reads and does not
+generate, which is the truth about where it stands.
+
+The recipe declares its class attributes from the parts it renders, too. It
+declared a fixed `trigger_class` and `content_class` until a component had a
+part that pair did not cover: `chain-of-thought` has a header, the markup read
+`@header_class`, and the component raised on its first render.
+
 ### What stops the other nine
 
 Not markup. The reader reads every one of them now. What stops them is that
@@ -428,17 +461,20 @@ upstream computes something in JavaScript, and a template cannot:
 
 | Component | Stopped by |
 |---|---|
-| chain-of-thought, message | React state — `isOpen`, `currentBranch` |
-| tool, context, prompt-input | a local computed from props — `derivedName` |
+| chain-of-thought | the disclosure recipe assembles it twice |
+| message, context, prompt-input | a local computed from props — `button`, `inputCostText` |
+| tool | a local function returning markup — `getStatusBadge(state)` |
 | code-block | a local holding one of two icons, by state |
 | reasoning | a render prop — `getThinkingMessage` |
 | shimmer | `motion`, which here is a CSS animation |
 | conversation | `use-stick-to-bottom`, so the `scroller` recipe |
 
-The first three rows are one thing: logic. A recipe owns behaviour — the
-disclosure recipe owns opening and closing, and that is why `task` and `sources`
-generate at all. So each of these needs either a recipe that owns what upstream
-is computing, or a prop the caller supplies. Neither is a reader change.
+Four of the seven rows are one thing: a local. Upstream computes a value or a
+piece of markup in JavaScript and then renders it, and a template cannot run
+the computation. Each needs either a recipe that owns what upstream is
+computing — the way the disclosure recipe owns opening and closing, which is
+why `task` and `sources` generate at all — or a prop the caller supplies.
+Neither is a reader change, and neither is one change for all four.
 
 **`data-[state=open]` is read by nobody.** This one is not fixed, and it is the
 larger of the two things left.

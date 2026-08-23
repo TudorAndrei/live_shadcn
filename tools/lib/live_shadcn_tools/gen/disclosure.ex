@@ -212,6 +212,10 @@ defmodule LiveShadcnTools.Gen.Disclosure do
       children: children,
       class: class_expression(spec, part, shape),
       params: Map.get(part, "params", %{}),
+      # Opening and closing is this recipe's, whatever upstream called it. A
+      # component that read `isOpen` out of a React context would otherwise
+      # grow a second flag beside the one the recipe already sets.
+      bindings: %{"isOpen" => "@open", "open" => "@open"},
       client_attributes: @client_attributes,
       hook_part: Spec.key(roles.panel.node),
       rest: Keyword.get(opts, :rest, false)
@@ -348,7 +352,7 @@ defmodule LiveShadcnTools.Gen.Disclosure do
     """
   end
 
-  defp declarations(spec, roles, _shape) do
+  defp declarations(spec, roles, shape) do
     root = props(spec, roles.root)
 
     """
@@ -358,12 +362,31 @@ defmodule LiveShadcnTools.Gen.Disclosure do
     #{prop_attr(root, "disabled", ":boolean", "false")}
     #{prop_attr(root, "orientation", ":string", "\"vertical\"")}
       attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."
-      attr :trigger_class, :any, default: nil, doc: "Appended to the trigger class string."
-      attr :content_class, :any, default: nil, doc: "Appended to the panel class string."
-      attr :rest, :global
+    #{class_attrs(spec, roles, shape)}  attr :rest, :global
 
       slot :inner_block, required: true, doc: "The panel body."
     """
+  end
+
+  # One class attribute per part this recipe renders, named the way
+  # `class_expression/3` names it. Declaring a fixed pair instead worked until a
+  # component had a part the pair did not cover: `chain-of-thought` has a
+  # header, the markup read `@header_class`, and the component raised on its
+  # first render with the attribute undeclared. The markup and the declaration
+  # come from one place now.
+  defp class_attrs(spec, roles, shape) do
+    roles
+    |> Enum.map(fn {_role, %{part: part}} -> class_expression(spec, part, shape) end)
+    |> Enum.flat_map(fn
+      "@" <> rest -> if String.ends_with?(rest, "_class"), do: [rest], else: []
+      _other -> []
+    end)
+    |> Enum.uniq()
+    |> Enum.sort()
+    |> Enum.map_join(fn name ->
+      part = name |> String.replace_suffix("_class", "") |> String.replace("_", " ")
+      "  attr :#{name}, :any, default: nil, doc: \"Appended to the #{part} class string.\"\n"
+    end)
   end
 
   defp props(spec, %{node: node}),

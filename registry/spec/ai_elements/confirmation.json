@@ -95,7 +95,8 @@
       "export": "ConfirmationRequest",
       "name": "confirmation_request",
       "params": {
-        "children": null
+        "children": null,
+        "state": null
       },
       "primitive": null,
       "tree": {
@@ -106,7 +107,9 @@
       "export": "ConfirmationAccepted",
       "name": "confirmation_accepted",
       "params": {
-        "children": null
+        "approval": null,
+        "children": null,
+        "state": null
       },
       "primitive": null,
       "tree": {
@@ -117,7 +120,9 @@
       "export": "ConfirmationRejected",
       "name": "confirmation_rejected",
       "params": {
-        "children": null
+        "approval": null,
+        "children": null,
+        "state": null
       },
       "primitive": null,
       "tree": {
@@ -128,7 +133,8 @@
       "export": "ConfirmationActions",
       "name": "confirmation_actions",
       "params": {
-        "className": null
+        "className": null,
+        "state": null
       },
       "primitive": null,
       "tree": {

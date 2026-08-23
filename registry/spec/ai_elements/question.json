@@ -16,6 +16,7 @@
         "className": null,
         "defaultValue": "EMPTY_VALUE",
         "disabled": "false",
+        "internalValue": null,
         "onSubmit": null,
         "onValueChange": null,
         "selectionMode": "single",
@@ -128,7 +129,8 @@
       "export": "QuestionOptions",
       "name": "question_options",
       "params": {
-        "className": null
+        "className": null,
+        "selectionMode": null
       },
       "primitive": null,
       "tree": {

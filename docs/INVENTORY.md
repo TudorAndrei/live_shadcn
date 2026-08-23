@@ -7,8 +7,8 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 1 | ························ |
-| `fetched` | 42 | █████████··············· |
-| `spec` | 22 | █████··················· |
+| `fetched` | 41 | █████████··············· |
+| `spec` | 23 | █████··················· |
 | `generated` | 0 | ························ |
 | `verified` | 47 | ██████████·············· |
 
@@ -111,7 +111,7 @@ Only the recipes are written by hand; every component is data.
 | `code-block` | 1 | `presentational` | 🟦 fetched |
 | `context` | 1 | `presentational` | 🟨 spec |
 | `conversation` | 1 | `scroller` | 🟦 fetched |
-| `message` | 1 | `presentational` | 🟦 fetched |
+| `message` | 1 | `presentational` | 🟨 spec |
 | `prompt-input` | 1 | `form-control` | 🟦 fetched |
 | `reasoning` | 1 | `disclosure` | 🟦 fetched |
 | `shimmer` | 1 | `presentational` | 🟦 fetched |

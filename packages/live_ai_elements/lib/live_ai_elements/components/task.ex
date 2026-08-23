@@ -41,8 +41,8 @@ defmodule LiveAiElements.Components.Task do
 
   attr(:orientation, :string, default: "vertical", doc: "")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:content_class, :any, default: nil, doc: "Appended to the content class string.")
   attr(:trigger_class, :any, default: nil, doc: "Appended to the trigger class string.")
-  attr(:content_class, :any, default: nil, doc: "Appended to the panel class string.")
   attr(:rest, :global)
 
   slot(:inner_block, required: true, doc: "The panel body.")

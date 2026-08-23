@@ -18,6 +18,7 @@
         "children": null,
         "className": null,
         "defaultOpen": "false",
+        "isOpen": null,
         "onOpenChange": null,
         "open": null
       },
@@ -73,7 +74,8 @@
       "name": "chain_of_thought_header",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "isOpen": null
       },
       "primitive": null,
       "tree": {
@@ -406,7 +408,8 @@
       "name": "chain_of_thought_content",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "isOpen": null
       },
       "primitive": null,
       "tree": {

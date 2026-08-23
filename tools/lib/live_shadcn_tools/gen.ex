@@ -45,10 +45,49 @@ defmodule LiveShadcnTools.Gen do
     single_content!(spec)
 
     case Map.fetch(@recipes, recipe) do
-      {:ok, implementation} -> spec |> implementation.module(opts) |> format()
+      {:ok, implementation} -> spec |> implementation.module(opts) |> format() |> unique_ids!()
       :error -> {:error, recipe}
     end
   end
+
+  @doc """
+  Refuses a module that renders the same element id twice.
+
+  An id is unique on a page — the ARIA contract is built on that, and every
+  `aria-controls` and `aria-labelledby` this pipeline emits names one. So a
+  generated component that writes `id={@id}` twice has assembled something
+  twice, and the second copy is a mistake wherever it came from.
+
+  `chain-of-thought` came out with its whole self inside its own trigger. It
+  compiled. Its snapshot was stable. What caught it was axe-core noticing a
+  button with no text, three checks and one browser later, and nothing in that
+  report said "this component contains itself".
+  """
+  def unique_ids!({:ok, source}) do
+    duplicated =
+      ~r/\bid=\{([^}]+)\}/
+      |> Regex.scan(source, capture: :all_but_first)
+      |> List.flatten()
+      |> Enum.frequencies()
+      |> Enum.filter(fn {_expression, count} -> count > 1 end)
+
+    if duplicated == [] do
+      {:ok, source}
+    else
+      names =
+        Enum.map_join(duplicated, ", ", fn {expression, count} -> "#{expression} × #{count}" end)
+
+      raise """
+      the same element id is rendered more than once: #{names}
+
+      An id is unique on a page, and every `aria-controls` this pipeline emits \
+      names one. Rendering it twice means the recipe assembled a part twice — \
+      a component that contains itself, most likely.
+      """
+    end
+  end
+
+  def unique_ids!(other), do: other
 
   @doc """
   Refuses a component that names a module the host application will not have.

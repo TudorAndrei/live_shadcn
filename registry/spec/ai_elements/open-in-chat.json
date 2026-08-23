@@ -369,6 +369,7 @@
       "params": {
         "className": null,
         "inset": null,
+        "query": null,
         "variant": "default"
       },
       "primitive": null,
@@ -510,6 +511,7 @@
       "params": {
         "className": null,
         "inset": null,
+        "query": null,
         "variant": "default"
       },
       "primitive": null,
@@ -651,6 +653,7 @@
       "params": {
         "className": null,
         "inset": null,
+        "query": null,
         "variant": "default"
       },
       "primitive": null,
@@ -792,6 +795,7 @@
       "params": {
         "className": null,
         "inset": null,
+        "query": null,
         "variant": "default"
       },
       "primitive": null,
@@ -933,6 +937,7 @@
       "params": {
         "className": null,
         "inset": null,
+        "query": null,
         "variant": "default"
       },
       "primitive": null,
@@ -1074,6 +1079,7 @@
       "params": {
         "className": null,
         "inset": null,
+        "query": null,
         "variant": "default"
       },
       "primitive": null,

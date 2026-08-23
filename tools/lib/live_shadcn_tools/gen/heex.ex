@@ -139,7 +139,7 @@ defmodule LiveShadcnTools.Gen.Heex do
   def render(%{"type" => "icon"} = node, ctx, indent) do
     tag(
       "LiveShadcn.Icon.icon",
-      [{"name", :text, icon_name(node)}] ++ slot_attr(node, ctx) ++ class_attr(node, ctx),
+      [icon_attr(node)] ++ slot_attr(node, ctx) ++ class_attr(node, ctx),
       [],
       indent
     )
@@ -171,6 +171,11 @@ defmodule LiveShadcnTools.Gen.Heex do
       indent
     )
   end
+
+  # An icon upstream chose, or one the caller chooses. Both are a name, because
+  # the icon set is configuration and a name is what every set has in common.
+  defp icon_attr(%{"prop" => prop}), do: {"name", :code, "@" <> prop}
+  defp icon_attr(node), do: {"name", :text, icon_name(node)}
 
   defp inline(node, referenced) do
     referenced["tree"]
@@ -432,6 +437,7 @@ defmodule LiveShadcnTools.Gen.Heex do
       code in ~w(true false) -> code
       code in ~w(undefined null) -> "nil"
       Regex.match?(~r/^-?\d+(\.\d+)?$/, code) -> code
+      binding = Map.get(Map.get(ctx, :bindings) || %{}, code) -> binding
       Map.has_key?(params, code) -> "@" <> Macro.underscore(code)
       negation = negation(code, ctx) -> negation
       fallback = fallback(code, ctx) -> fallback
