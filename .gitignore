@@ -29,3 +29,8 @@ tools/pkg/
 # Playwright run artifacts
 storybook/test/browser/test-results/
 storybook/test/browser/playwright-report/
+
+# Cloudflare deployment: generated types and the local wrangler state
+storybook/deploy/node_modules/
+storybook/deploy/worker-configuration.d.ts
+storybook/deploy/.wrangler/

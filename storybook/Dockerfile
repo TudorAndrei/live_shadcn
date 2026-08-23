@@ -1,3 +1,5 @@
+# check=skip=SecretsUsedInArgOrEnv
+#
 # The storybook, as one image.
 #
 # It is a demo application, so it holds no data and reaches no database. What it
@@ -7,9 +9,12 @@
 # anybody else's source — and it means the image build needs network access to
 # GitHub and base-ui.com, once, in the builder stage.
 
+# These have to name tags that hexpm/elixir and debian actually publish. The
+# Elixir and OTP versions match the ones mise.toml pins, so the image and a
+# developer's machine build the same tree.
 ARG ELIXIR=1.20.3
-ARG OTP=29.0.1
-ARG DEBIAN=bookworm-20250630-slim
+ARG OTP=29.0.5
+ARG DEBIAN=bookworm-20260803-slim
 
 FROM hexpm/elixir:${ELIXIR}-erlang-${OTP}-debian-${DEBIAN} AS builder
 
@@ -34,7 +39,14 @@ COPY registry ./registry
 COPY tools ./tools
 COPY storybook ./storybook
 
-# The styling layer, from the commit registry/UPSTREAM.json pins.
+# The styling layer, from the commit registry/UPSTREAM.json pins. This is the
+# one step that reaches the network for anything but a package: the layer is
+# git-ignored on purpose, so it is fetched rather than redistributed here.
+# An anonymous fetch works: only three of these requests go to api.github.com
+# and the rest go to raw.githubusercontent.com and base-ui.com. GITHUB_TOKEN is
+# here for the build that does get rate-limited, and it stays in the builder
+# stage — the runtime image below starts from a fresh FROM and never sees it.
+ARG GITHUB_TOKEN=""
 RUN cd tools && mix deps.get --only prod && mix ui.fetch
 
 WORKDIR /build/storybook

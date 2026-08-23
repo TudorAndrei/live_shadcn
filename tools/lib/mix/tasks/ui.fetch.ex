@@ -259,10 +259,16 @@ defmodule Mix.Tasks.Ui.Fetch do
   defp to_binary(body) when is_binary(body), do: body
   defp to_binary(body), do: Jason.encode!(body)
 
-  defp headers do
-    case System.get_env("GITHUB_TOKEN") do
-      nil -> []
-      token -> [{"authorization", "Bearer #{token}"}]
-    end
-  end
+  defp headers, do: auth_headers(System.get_env("GITHUB_TOKEN"))
+
+  @doc """
+  The authorization header a token asks for, if it asks for one.
+
+  An unset token and an empty one mean the same thing: fetch anonymously and
+  live with the lower rate limit. They did not, and an empty one is exactly what
+  a container build passes when nobody supplied a token — `Bearer` with nothing
+  after it is a 401, so the build failed where it should have carried on.
+  """
+  def auth_headers(token) when token in [nil, ""], do: []
+  def auth_headers(token), do: [{"authorization", "Bearer #{token}"}]
 end

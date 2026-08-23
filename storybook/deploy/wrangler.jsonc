@@ -1,0 +1,45 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "live-shadcn-storybook",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-12",
+  "observability": { "enabled": true },
+
+  // The image is the storybook's own Dockerfile, built from the repository
+  // root: the storybook depends on the packages by path and its asset build
+  // reads the registry beside them, so the build context is the whole monorepo.
+  //
+  // Wrangler builds the image where `wrangler deploy` runs, not on Cloudflare.
+  // That matters, because the builder stage runs `mix ui.fetch`: the shadcn
+  // styling layer is git-ignored on purpose, so the build reaches GitHub and
+  // base-ui.com once. `image_vars` carries the token that keeps GitHub from
+  // rate-limiting it.
+  "containers": [
+    {
+      "name": "live-shadcn-storybook",
+      "class_name": "Storybook",
+      "image": "../Dockerfile",
+      "image_build_context": "../..",
+      "image_vars": { "GITHUB_TOKEN": "" },
+      // A Phoenix release serving static assets. `basic` is 1/4 vCPU, 1 GiB and
+      // 4 GB of disk, which fits the image with room to spare.
+      "instance_type": "basic",
+      // One demo, one instance. There is no state to shard and nothing to
+      // scale: every reader sees the same pages.
+      "max_instances": 1
+    }
+  ],
+
+  "durable_objects": {
+    "bindings": [{ "class_name": "Storybook", "name": "STORYBOOK" }]
+  },
+
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Storybook"] }],
+
+  "vars": {
+    // The hostname readers use. Phoenix signs its LiveView socket against this
+    // and refuses an origin that does not match, so a wrong value here is a
+    // storybook whose pages render and whose components do nothing.
+    "PHX_HOST": "live-shadcn-storybook.workers.dev"
+  }
+}
