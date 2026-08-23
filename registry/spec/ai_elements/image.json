@@ -1,0 +1,58 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "image",
+  "parts": [
+    {
+      "export": "Image",
+      "name": "image",
+      "params": {
+        "base64": null,
+        "mediaType": null,
+        "uint8Array: _uint8Array": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "alt",
+            "value": "props.alt"
+          },
+          {
+            "kind": "code",
+            "name": "src",
+            "value": "`data:${mediaType};base64,${base64}`"
+          }
+        ],
+        "children": [],
+        "class": "h-auto max-w-full overflow-hidden rounded-md",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "img",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/image.tsx",
+      "sha256": "91e305eda8139c5ee8024bec75576e0608d7fbf471e1c00395a2bdfda4a65747"
+    }
+  },
+  "variants": {}
+}

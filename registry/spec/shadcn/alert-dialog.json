@@ -83,6 +83,7 @@
         "children": [],
         "class": "cn-alert-dialog-action",
         "component": "button",
+        "function": "button",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -91,6 +92,7 @@
         },
         "render_as": null,
         "slot": "alert-dialog-action",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -133,6 +135,7 @@
           "children": [],
           "class": "",
           "component": "button",
+          "function": "button",
           "merges_class": false,
           "props": false,
           "reads": {
@@ -141,6 +144,7 @@
           },
           "render_as": null,
           "slot": null,
+          "source": "shadcn",
           "type": "component_ref",
           "variant_class": null,
           "vars": []

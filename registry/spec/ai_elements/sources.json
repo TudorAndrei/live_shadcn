@@ -1,0 +1,284 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "sources",
+  "parts": [
+    {
+      "export": "Sources",
+      "name": "sources",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "not-prose mb-4 text-primary text-xs",
+        "component": "collapsible",
+        "function": "collapsible",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "SourcesTrigger",
+      "name": "sources_trigger",
+      "params": {
+        "children": null,
+        "className": null,
+        "count": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Used"
+                      },
+                      {
+                        "code": "count",
+                        "type": "value"
+                      },
+                      {
+                        "type": "text",
+                        "value": "sources"
+                      }
+                    ],
+                    "class": "font-medium",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "p",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  },
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "h-4 w-4",
+                    "icons": {
+                      "lucide": "ChevronDownIcon"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "reason": "a fragment",
+                "render_as": null,
+                "slot": null,
+                "type": "transparent",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "flex items-center gap-2",
+        "component": "collapsible",
+        "function": "collapsible_trigger",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "SourcesContent",
+      "name": "sources_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "mt-3 flex w-fit flex-col gap-2 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "component": "collapsible",
+        "function": "collapsible_content",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "Source",
+      "name": "source",
+      "params": {
+        "children": null,
+        "href": null,
+        "title": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "href",
+            "value": "href"
+          },
+          {
+            "kind": "text",
+            "name": "rel",
+            "value": "noreferrer"
+          },
+          {
+            "kind": "text",
+            "name": "target",
+            "value": "_blank"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "h-4 w-4",
+                    "icons": {
+                      "lucide": "BookIcon"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_class": null,
+                    "vars": []
+                  },
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "code": "title",
+                        "type": "value"
+                      }
+                    ],
+                    "class": "block font-medium",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "reason": "a fragment",
+                "render_as": null,
+                "slot": null,
+                "type": "transparent",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "flex items-center gap-2",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "a",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "popover",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/sources.tsx",
+      "sha256": "1454af3ac2c58766a155a881d119d1f9321632a4922d3f74581ba37f52b4707a"
+    }
+  },
+  "variants": {}
+}

@@ -1,0 +1,158 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "suggestion",
+  "parts": [
+    {
+      "export": "Suggestions",
+      "name": "suggestions",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "flex w-max flex-nowrap items-center gap-2",
+            "merges_class": true,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "orientation",
+                "value": "horizontal"
+              }
+            ],
+            "children": [],
+            "class": "hidden",
+            "component": "scroll-area",
+            "function": "scroll_bar",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "type": "component_ref",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "w-full overflow-x-auto whitespace-nowrap",
+        "component": "scroll-area",
+        "function": "scroll_area",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "Suggestion",
+      "name": "suggestion",
+      "params": {
+        "children": null,
+        "className": null,
+        "onClick": null,
+        "size": "sm",
+        "suggestion": null,
+        "variant": "outline"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "onClick",
+            "value": "handleClick"
+          },
+          {
+            "kind": "code",
+            "name": "size",
+            "value": "size"
+          },
+          {
+            "kind": "text",
+            "name": "type",
+            "value": "button"
+          },
+          {
+            "kind": "code",
+            "name": "variant",
+            "value": "variant"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "code": "suggestion",
+                "type": "value"
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "cursor-pointer rounded-full px-4",
+        "component": "button",
+        "function": "button",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/suggestion.tsx",
+      "sha256": "0703d777b4153ae20e93514acb9e8327eb03dd2ed2fd0230e03cf22271c7a249"
+    }
+  },
+  "variants": {}
+}

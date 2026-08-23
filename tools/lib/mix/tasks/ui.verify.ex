@@ -49,8 +49,19 @@ defmodule Mix.Tasks.Ui.Verify do
         {ref(source, name), verify(source, name, browser?)}
       end)
 
-    write_json!(registry_path("VERIFY.json"), results)
+    write_json!(registry_path("VERIFY.json"), merge(results))
     report(results)
+  end
+
+  # A run over one component says nothing about the others, so it replaces its
+  # own entries and leaves the rest of the file alone. Writing only what this
+  # run proved would demote every component nobody asked about, and demoting a
+  # component is what a spec change is for.
+  defp merge(results) do
+    path = registry_path("VERIFY.json")
+    existing = if File.exists?(path), do: read_json!(path), else: %{}
+
+    Map.merge(existing, results)
   end
 
   # `registry/` knows a component by source and name. `storybook/` knows it by

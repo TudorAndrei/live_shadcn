@@ -230,6 +230,7 @@
         "children": [],
         "class": "cn-attachment-action",
         "component": "button",
+        "function": "button",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -238,6 +239,7 @@
         },
         "render_as": null,
         "slot": "attachment-action",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []

@@ -1,0 +1,452 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "model-selector",
+  "parts": [
+    {
+      "export": "ModelSelector",
+      "name": "model_selector",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "dialog",
+        "function": "dialog",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorTrigger",
+      "name": "model_selector_trigger",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "dialog",
+        "function": "dialog_trigger",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorContent",
+      "name": "model_selector_content",
+      "params": {
+        "children": null,
+        "className": null,
+        "title": "Model Selector"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "aria-describedby",
+            "value": "undefined"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "code": "title",
+                "type": "value"
+              }
+            ],
+            "class": "sr-only",
+            "component": "dialog",
+            "function": "dialog_title",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "type": "component_ref",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "**:data-[slot=command-input-wrapper]:h-auto",
+            "component": "command",
+            "function": "command",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "type": "component_ref",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "outline! border-none! p-0 outline-border! outline-solid!",
+        "component": "dialog",
+        "function": "dialog_content",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorDialog",
+      "name": "model_selector_dialog",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "command",
+        "function": "command_dialog",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorInput",
+      "name": "model_selector_input",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "h-auto py-3.5",
+        "component": "command",
+        "function": "command_input",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorList",
+      "name": "model_selector_list",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "command",
+        "function": "command_list",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorEmpty",
+      "name": "model_selector_empty",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "command",
+        "function": "command_empty",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorGroup",
+      "name": "model_selector_group",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "command",
+        "function": "command_group",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorItem",
+      "name": "model_selector_item",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "command",
+        "function": "command_item",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorShortcut",
+      "name": "model_selector_shortcut",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "command",
+        "function": "command_shortcut",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorSeparator",
+      "name": "model_selector_separator",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "command",
+        "function": "command_separator",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorLogo",
+      "name": "model_selector_logo",
+      "params": {
+        "className": null,
+        "provider": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "alt",
+            "value": "`${provider} logo`"
+          },
+          {
+            "kind": "code",
+            "name": "height",
+            "value": "12"
+          },
+          {
+            "kind": "code",
+            "name": "src",
+            "value": "`https://models.dev/logos/${provider}.svg`"
+          },
+          {
+            "kind": "code",
+            "name": "width",
+            "value": "12"
+          }
+        ],
+        "children": [],
+        "class": "size-3 dark:invert",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "img",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorLogoGroup",
+      "name": "model_selector_logo_group",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "flex shrink-0 items-center -space-x-1 [&>img]:rounded-full [&>img]:bg-background [&>img]:p-px [&>img]:ring-1 dark:[&>img]:bg-foreground",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ModelSelectorName",
+      "name": "model_selector_name",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "flex-1 truncate text-left",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "span",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "listbox",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/model-selector.tsx",
+      "sha256": "a4d51f76ddf5197cb86b7f70ba62bd62327468a9acae1351a0b1adcb3710ec0a"
+    }
+  },
+  "variants": {}
+}

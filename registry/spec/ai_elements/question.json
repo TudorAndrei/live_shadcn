@@ -1,0 +1,353 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "question",
+  "parts": [
+    {
+      "export": "Question",
+      "name": "question",
+      "params": {
+        "children": null,
+        "className": null,
+        "defaultValue": "EMPTY_VALUE",
+        "disabled": "false",
+        "onSubmit": null,
+        "onValueChange": null,
+        "selectionMode": "single",
+        "value: controlledValue": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "onSubmit",
+                "value": "handleSubmit"
+              }
+            ],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "space-y-4 rounded-lg border bg-background p-4",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "form",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "QuestionPrompt",
+      "name": "question_prompt",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "font-medium text-sm",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "p",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "QuestionDescription",
+      "name": "question_description",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "text-muted-foreground text-sm",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "p",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "QuestionOptions",
+      "name": "question_options",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "role",
+            "value": "selectionMode === \"single\" ? \"radiogroup\" : \"group\""
+          }
+        ],
+        "children": [],
+        "class": "flex flex-wrap gap-2",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "QuestionOption",
+      "name": "question_option",
+      "params": {
+        "children": null,
+        "className": null,
+        "disabled": null,
+        "onClick": null,
+        "value": null,
+        "variant": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "aria-checked",
+            "value": "isSelected"
+          },
+          {
+            "kind": "code",
+            "name": "disabled",
+            "value": "question.disabled || disabled"
+          },
+          {
+            "kind": "code",
+            "name": "onClick",
+            "value": "handleClick"
+          },
+          {
+            "kind": "code",
+            "name": "role",
+            "value": "role"
+          },
+          {
+            "kind": "text",
+            "name": "type",
+            "value": "button"
+          },
+          {
+            "kind": "code",
+            "name": "variant",
+            "value": "variant ?? (isSelected ? \"default\" : \"outline\")"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "code": "value",
+                "type": "value"
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "h-auto whitespace-normal",
+        "component": "button",
+        "function": "button",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "QuestionInput",
+      "name": "question_input",
+      "params": {
+        "className": null,
+        "disabled": null,
+        "onChange": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "disabled",
+            "value": "question.disabled || disabled"
+          },
+          {
+            "kind": "code",
+            "name": "onChange",
+            "value": "handleChange"
+          },
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "question.text"
+          }
+        ],
+        "children": [],
+        "class": "min-h-20",
+        "component": "textarea",
+        "function": "textarea",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "QuestionActions",
+      "name": "question_actions",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "flex items-center justify-end gap-2",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "QuestionSubmit",
+      "name": "question_submit",
+      "params": {
+        "children": "Submit",
+        "disabled": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "disabled",
+            "value": "question.disabled || disabled || !hasResponse"
+          },
+          {
+            "kind": "text",
+            "name": "type",
+            "value": "submit"
+          }
+        ],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "",
+        "component": "button",
+        "function": "button",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/question.tsx",
+      "sha256": "47c69ba8f555734209bc9eae5d62d419fbd0cbe6089ec26c97d2ebcc9114fde3"
+    }
+  },
+  "variants": {}
+}

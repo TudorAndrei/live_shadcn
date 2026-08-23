@@ -1,0 +1,816 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "context",
+  "parts": [
+    {
+      "export": "Context",
+      "name": "context",
+      "params": {
+        "maxTokens": null,
+        "modelId": null,
+        "usage": null,
+        "usedTokens": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "closeDelay",
+                "value": "0"
+              },
+              {
+                "kind": "code",
+                "name": "openDelay",
+                "value": "0"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "component": "hover-card",
+            "function": "hover_card",
+            "merges_class": false,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "type": "component_ref",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ContextTrigger",
+      "name": "context_trigger",
+      "params": {
+        "children": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "asChild",
+            "value": null
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "type",
+                    "value": "button"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "variant",
+                    "value": "ghost"
+                  }
+                ],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "code": "renderedPercent",
+                        "type": "value"
+                      }
+                    ],
+                    "class": "font-medium text-muted-foreground",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  },
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "",
+                    "merges_class": false,
+                    "part": "context_icon",
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "part_ref",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "component": "button",
+                "function": "button",
+                "merges_class": false,
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "source": "shadcn",
+                "type": "component_ref",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "",
+        "component": "hover-card",
+        "function": "hover_card_trigger",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ContextContent",
+      "name": "context_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "min-w-60 divide-y overflow-hidden p-0",
+        "component": "hover-card",
+        "function": "hover_card_content",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ContextContentHeader",
+      "name": "context_content_header",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "code": "displayPct",
+                            "type": "value"
+                          }
+                        ],
+                        "class": "",
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "p",
+                        "type": "element",
+                        "variant_class": null,
+                        "vars": []
+                      },
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "code": "used",
+                            "type": "value"
+                          },
+                          {
+                            "type": "text",
+                            "value": "/"
+                          },
+                          {
+                            "code": "total",
+                            "type": "value"
+                          }
+                        ],
+                        "class": "font-mono text-muted-foreground",
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "p",
+                        "type": "element",
+                        "variant_class": null,
+                        "vars": []
+                      }
+                    ],
+                    "class": "flex items-center justify-between gap-3 text-xs",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "div",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  },
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "attrs": [
+                          {
+                            "kind": "code",
+                            "name": "value",
+                            "value": "usedPercent * PERCENT_MAX"
+                          }
+                        ],
+                        "children": [],
+                        "class": "bg-muted",
+                        "component": "progress",
+                        "function": "progress",
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "source": "shadcn",
+                        "type": "component_ref",
+                        "variant_class": null,
+                        "vars": []
+                      }
+                    ],
+                    "class": "space-y-2",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "div",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "reason": "a fragment",
+                "render_as": null,
+                "slot": null,
+                "type": "transparent",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "w-full space-y-2 p-3",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ContextContentBody",
+      "name": "context_content_body",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "w-full p-3",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ContextContentFooter",
+      "name": "context_content_footer",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Total cost"
+                      }
+                    ],
+                    "class": "text-muted-foreground",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  },
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "code": "totalCost",
+                        "type": "value"
+                      }
+                    ],
+                    "class": "",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "reason": "a fragment",
+                "render_as": null,
+                "slot": null,
+                "type": "transparent",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "flex w-full items-center justify-between gap-3 bg-secondary p-3 text-xs",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ContextInputUsage",
+      "name": "context_input_usage",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "Input"
+              }
+            ],
+            "class": "text-muted-foreground",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "costText",
+                "value": "inputCostText"
+              },
+              {
+                "kind": "code",
+                "name": "tokens",
+                "value": "inputTokens"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "merges_class": false,
+            "part": "tokens_with_cost",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "part_ref",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "flex items-center justify-between text-xs",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ContextOutputUsage",
+      "name": "context_output_usage",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "Output"
+              }
+            ],
+            "class": "text-muted-foreground",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "costText",
+                "value": "outputCostText"
+              },
+              {
+                "kind": "code",
+                "name": "tokens",
+                "value": "outputTokens"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "merges_class": false,
+            "part": "tokens_with_cost",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "part_ref",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "flex items-center justify-between text-xs",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ContextReasoningUsage",
+      "name": "context_reasoning_usage",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "Reasoning"
+              }
+            ],
+            "class": "text-muted-foreground",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "costText",
+                "value": "reasoningCostText"
+              },
+              {
+                "kind": "code",
+                "name": "tokens",
+                "value": "reasoningTokens"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "merges_class": false,
+            "part": "tokens_with_cost",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "part_ref",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "flex items-center justify-between text-xs",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "ContextCacheUsage",
+      "name": "context_cache_usage",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "Cache"
+              }
+            ],
+            "class": "text-muted-foreground",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "costText",
+                "value": "cacheCostText"
+              },
+              {
+                "kind": "code",
+                "name": "tokens",
+                "value": "cacheTokens"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "merges_class": false,
+            "part": "tokens_with_cost",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "part_ref",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "flex items-center justify-between text-xs",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/context.tsx",
+      "sha256": "e511015bd0d58d4dcc179d672fe2de980ff923654a53541d4396f209bf02c243"
+    }
+  },
+  "variants": {}
+}

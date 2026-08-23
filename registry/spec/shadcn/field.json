@@ -83,6 +83,7 @@
         "children": [],
         "class": "cn-field-label group/field-label peer/field-label flex w-fit has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col",
         "component": "label",
+        "function": "label",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -91,6 +92,7 @@
         },
         "render_as": null,
         "slot": "field-label",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -262,6 +264,7 @@
             "children": [],
             "class": "absolute inset-0 top-1/2",
             "component": "separator",
+            "function": "separator",
             "merges_class": false,
             "props": false,
             "reads": {
@@ -270,6 +273,7 @@
             },
             "render_as": null,
             "slot": null,
+            "source": "shadcn",
             "type": "component_ref",
             "variant_class": null,
             "vars": []

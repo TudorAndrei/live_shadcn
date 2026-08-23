@@ -135,6 +135,7 @@
         "children": [],
         "class": "",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_portal",
         "merges_class": false,
         "props": true,
         "reads": {
@@ -143,6 +144,7 @@
         },
         "render_as": null,
         "slot": "menubar-portal",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -158,6 +160,7 @@
         "children": [],
         "class": "",
         "component": "dropdown-menu",
+        "function": "dropdown_menu",
         "merges_class": false,
         "props": true,
         "reads": {
@@ -166,6 +169,7 @@
         },
         "render_as": null,
         "slot": "menubar-menu",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -183,6 +187,7 @@
         "children": [],
         "class": "cn-menubar-trigger flex items-center outline-hidden select-none",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_trigger",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -193,6 +198,7 @@
         },
         "render_as": null,
         "slot": "menubar-trigger",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -229,6 +235,7 @@
         "children": [],
         "class": "cn-menubar-content cn-menubar-content-logical cn-menu-target cn-menu-translucent",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_content",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -241,6 +248,7 @@
         },
         "render_as": null,
         "slot": "menubar-content",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -256,6 +264,7 @@
         "children": [],
         "class": "",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_group",
         "merges_class": false,
         "props": true,
         "reads": {
@@ -264,6 +273,7 @@
         },
         "render_as": null,
         "slot": "menubar-group",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -281,6 +291,7 @@
         "children": [],
         "class": "cn-menubar-separator -mx-1 my-1 h-px",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_separator",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -289,6 +300,7 @@
         },
         "render_as": null,
         "slot": "menubar-separator",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -313,6 +325,7 @@
         "children": [],
         "class": "cn-menubar-label",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_label",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -323,6 +336,7 @@
         },
         "render_as": null,
         "slot": "menubar-label",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -353,6 +367,7 @@
         "children": [],
         "class": "cn-menubar-item group/menubar-item",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -364,6 +379,7 @@
         },
         "render_as": null,
         "slot": "menubar-item",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -381,6 +397,7 @@
         "children": [],
         "class": "cn-menubar-shortcut ml-auto",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_shortcut",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -389,6 +406,7 @@
         },
         "render_as": null,
         "slot": "menubar-shortcut",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -539,6 +557,7 @@
         "children": [],
         "class": "",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_radio_group",
         "merges_class": false,
         "props": true,
         "reads": {
@@ -547,6 +566,7 @@
         },
         "render_as": null,
         "slot": "menubar-radio-group",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -691,6 +711,7 @@
         "children": [],
         "class": "",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_sub",
         "merges_class": false,
         "props": true,
         "reads": {
@@ -699,6 +720,7 @@
         },
         "render_as": null,
         "slot": "menubar-sub",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -723,6 +745,7 @@
         "children": [],
         "class": "cn-menubar-sub-trigger",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_sub_trigger",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -734,6 +757,7 @@
         },
         "render_as": null,
         "slot": "menubar-sub-trigger",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -751,6 +775,7 @@
         "children": [],
         "class": "cn-menubar-sub-content cn-menu-target cn-menu-translucent",
         "component": "dropdown-menu",
+        "function": "dropdown_menu_sub_content",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -764,6 +789,7 @@
         },
         "render_as": null,
         "slot": "menubar-sub-content",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []

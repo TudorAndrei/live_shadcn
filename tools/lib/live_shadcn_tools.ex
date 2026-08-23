@@ -56,6 +56,20 @@ defmodule LiveShadcnTools do
   """
   def ref(source, name) when source in @sources, do: source <> "/" <> name
 
+  @namespaces %{"shadcn" => LiveShadcn.UI, "ai_elements" => LiveAiElements.Components}
+
+  @doc """
+  The module namespace a source's components are generated under.
+
+  `mix ui.gen` uses it to name the module it writes, and the generator uses it
+  to name a module it calls. Both have to agree, so there is one mapping.
+
+      iex> LiveShadcnTools.namespace("shadcn")
+      LiveShadcn.UI
+
+  """
+  def namespace(source) when source in @sources, do: Map.fetch!(@namespaces, source)
+
   @doc "Splits a reference back into its source and its name."
   def parse_ref(reference) do
     case String.split(reference, "/", parts: 2) do

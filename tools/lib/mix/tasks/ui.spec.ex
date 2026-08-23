@@ -69,18 +69,23 @@ defmodule Mix.Tasks.Ui.Spec do
     |> Map.new()
   end
 
-  # Only the shadcn registry reads today. AI Elements is a `.tsx` set of its own
-  # with no Base UI page behind it, and reading it is M4.
+  # Both registries. AI Elements has no Base UI page of its own: it is built out
+  # of shadcn components, which have one each, so its contract arrives through
+  # the components it renders rather than through a page named after it.
   defp fetched(manifest) do
     files = Map.keys(manifest["files"] || %{})
-    Enum.sort(for "shadcn/ui/" <> file <- files, do: {"shadcn", Path.basename(file, ".tsx")})
+
+    shadcn = for "shadcn/ui/" <> file <- files, do: {"shadcn", Path.basename(file, ".tsx")}
+    ai = for "ai_elements/" <> file <- files, do: {"ai_elements", Path.basename(file, ".tsx")}
+
+    Enum.sort(shadcn ++ ai)
   end
 
   # One component that the reader cannot understand is a gap in the reader, not
   # a reason to leave the other sixty unspecced. It is reported by name and the
   # run continues, so the gaps are a list somebody can work through.
   defp one({source, name}, manifest, recipes, styles, check?) do
-    tsx_file = "shadcn/ui/#{name}.tsx"
+    tsx_file = tsx_file(source, name)
     md_file = "base_ui/#{name}.md"
 
     with {:ok, tsx} <- source(manifest, tsx_file),
@@ -113,6 +118,9 @@ defmodule Mix.Tasks.Ui.Spec do
     error ->
       {:unreadable, ref(source, name), Exception.message(error) |> String.split("\n") |> hd()}
   end
+
+  defp tsx_file("shadcn", name), do: "shadcn/ui/#{name}.tsx"
+  defp tsx_file("ai_elements", name), do: "ai_elements/#{name}.tsx"
 
   # menubar is built from `@base-ui/react/menubar` and `@base-ui/react/menu`.
   # Both pages are its contract, so both are read.

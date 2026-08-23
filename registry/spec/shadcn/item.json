@@ -167,6 +167,7 @@
         "children": [],
         "class": "cn-item-separator",
         "component": "separator",
+        "function": "separator",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -175,6 +176,7 @@
         },
         "render_as": null,
         "slot": "item-separator",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []

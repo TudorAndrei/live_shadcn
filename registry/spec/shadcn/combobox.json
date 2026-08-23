@@ -187,6 +187,7 @@
               "children": [],
               "class": "",
               "component": "input-group",
+              "function": "input_group_input",
               "merges_class": false,
               "props": false,
               "reads": {
@@ -195,6 +196,7 @@
               },
               "render_as": null,
               "slot": null,
+              "source": "shadcn",
               "type": "component_ref",
               "variant_class": null,
               "vars": []
@@ -237,6 +239,7 @@
                     "children": [],
                     "class": "group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent",
                     "component": "input-group",
+                    "function": "input_group_button",
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -263,6 +266,7 @@
                       "vars": []
                     },
                     "slot": "input-group-button",
+                    "source": "shadcn",
                     "type": "component_ref",
                     "variant_class": null,
                     "vars": []
@@ -303,6 +307,7 @@
             ],
             "class": "",
             "component": "input-group",
+            "function": "input_group_addon",
             "merges_class": false,
             "props": false,
             "reads": {
@@ -311,6 +316,7 @@
             },
             "render_as": null,
             "slot": null,
+            "source": "shadcn",
             "type": "component_ref",
             "variant_class": null,
             "vars": []
@@ -321,6 +327,7 @@
         ],
         "class": "cn-combobox-input w-auto",
         "component": "input-group",
+        "function": "input_group",
         "merges_class": true,
         "props": false,
         "reads": {
@@ -329,6 +336,7 @@
         },
         "render_as": null,
         "slot": null,
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -858,6 +866,7 @@
                   "children": [],
                   "class": "",
                   "component": "button",
+                  "function": "button",
                   "merges_class": false,
                   "props": false,
                   "reads": {
@@ -866,6 +875,7 @@
                   },
                   "render_as": null,
                   "slot": null,
+                  "source": "shadcn",
                   "type": "component_ref",
                   "variant_class": null,
                   "vars": []

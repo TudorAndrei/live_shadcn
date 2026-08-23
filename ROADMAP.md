@@ -217,18 +217,70 @@ source files had tokens in them. It scans the directory again now, and passes.
 
 The components are the small part. The reducer is the product.
 
-- [ ] `LiveAiElements.Part` — the view model: `id`, `type`, `status`, `seq`
-- [ ] `LiveAiElements.Stream.reduce/2` → `insert_part`, `append_delta`, `set_state`
-- [ ] Open Responses adapter, the reference implementation. It carries `item_id`
+- [x] `LiveAiElements.Part` — the view model: `id`, `type`, `status`, `seq`
+- [x] `LiveAiElements.Stream.reduce/2` → `insert_part`, `append_delta`, `set_state`
+- [x] Open Responses adapter, the reference implementation. It carries `item_id`
       per part and `sequence_number` for ordering, which is exactly what
       `phx-update="stream"` needs
-- [ ] Delta hook: a token append must never touch an assign
+- [x] Delta hook: a token append must never touch an assign
 - [ ] Tier-1 AI components: chain-of-thought, reasoning, tool, task, sources,
       message, conversation, prompt-input, code-block, context, shimmer, suggestion
-- [ ] Jido adapter, built second on purpose, to prove the adapter boundary holds
+- [x] Jido adapter, built second on purpose, to prove the adapter boundary holds
 
 **Exit:** a golden test replays a recorded Open Responses stream and produces the
-same part list every time.
+same part list every time. ✅ — five recordings replay to committed part lists,
+three from Open Responses and two from Jido.
+
+### What the reducer decided
+
+**A delta never touches an assign, and that is a test.** `assign/3` pin-matches
+the new value against the old and returns the socket untouched when they match,
+so an event carrying only a delta returns an equal state and no render runs.
+Keeping that means counting nothing on the delta path — one remembered sequence
+number would make every token a render, and would announce itself nowhere. The
+suite checks it over five hundred tokens.
+
+**So the server holds no text while a part streams.** Accumulating it is the
+counting the rule forbids. Every provider's terminal event carries the complete
+text, so the authoritative copy arrives in one step at the end and one
+`stream_insert` replaces what the hook appended. The cost is stated rather than
+hidden: a reader who reconnects mid-part loses that one part until it closes.
+
+**Jido moved nothing.** Its identity is per LLM call rather than per content
+part, nothing announces a part before its first token, and a tool's input
+arrives whole instead of streaming. Three real differences, and none needed a
+fifth operation or a sixth field on a part.
+
+### What reading AI Elements found
+
+The reader now reads both registries: 13 of the 49 AI Elements components spec,
+and every one that does not is named with the reason rather than skipped.
+
+**A spec with no parts was being written.** AI Elements exports where it
+declares — `export const Name = memo(({ … }) => …)` — and the reader only knew
+shadcn's `export { … }` at the foot of the file. So all 49 produced a spec with
+no parts, which on disk is indistinguishable from one the reader understood.
+The reader knows both shapes now, and refuses to write a spec with no parts at
+all.
+
+**A dependency cannot name a module `mix ui.add` renames.** Every AI Elements
+component is built out of shadcn components, and the obvious generated call is
+`LiveShadcn.UI.Collapsible.collapsible`. That module does not exist in an
+application: `mix ui.add` copies the file in and rewrites it to
+`MyAppWeb.Components.UI.Collapsible`, and it cannot reach into a compiled
+dependency to rewrite the call. So the markup has to be folded in the way a
+Base UI part already is. Until the reader does that, `mix ui.gen` names the
+component instead of generating it wrong.
+
+**A `part` key shadowed a `part` key.** `render={<Button />}` merges the
+replacement's keys over the primitive it replaces. A component reference that
+recorded its function under `part` therefore overwrote the Base UI part the
+primitive was documented under, and the dialog's close button silently lost its
+`phx-click`. The key is `function` now.
+
+**A partial verify discarded 41 results.** `mix ui.verify shadcn/dialog` wrote a
+`VERIFY.json` holding one entry. It merges now: a run over one component says
+nothing about the others, and demoting a component is what a spec change is for.
 
 ---
 

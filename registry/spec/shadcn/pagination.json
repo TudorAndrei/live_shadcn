@@ -221,6 +221,7 @@
         "children": [],
         "class": "cn-pagination-link",
         "component": "button",
+        "function": "button",
         "merges_class": true,
         "props": false,
         "reads": {
@@ -256,6 +257,7 @@
           "vars": []
         },
         "slot": null,
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []

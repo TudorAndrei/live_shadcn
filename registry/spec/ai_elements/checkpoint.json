@@ -1,0 +1,69 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "checkpoint",
+  "parts": [
+    {
+      "export": "Checkpoint",
+      "name": "checkpoint",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          },
+          {
+            "attrs": [],
+            "children": [],
+            "class": "",
+            "component": "separator",
+            "function": "separator",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "type": "component_ref",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "flex items-center gap-0.5 overflow-hidden text-muted-foreground",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/checkpoint.tsx",
+      "sha256": "8649b28c7969c6c58bd9a8643279810c13da332198a4fcbc5b8a75000673eb5b"
+    }
+  },
+  "variants": {}
+}

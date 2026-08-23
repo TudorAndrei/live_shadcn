@@ -117,8 +117,11 @@ defmodule LiveShadcnTools.Gen.Heex do
   end
 
   def render(%{"type" => "component_ref", "component" => component} = node, ctx, indent) do
+    namespace = LiveShadcnTools.namespace(Map.get(node, "source", "shadcn"))
     module = component |> String.replace("-", "_") |> Macro.camelize()
-    call("LiveShadcn.UI.#{module}.#{String.replace(component, "-", "_")}", node, ctx, indent)
+    function = Map.get(node, "function") || String.replace(component, "-", "_")
+
+    call("#{inspect(namespace)}.#{module}.#{function}", node, ctx, indent)
   end
 
   def render(%{"type" => "icon"} = node, ctx, indent) do

@@ -1,0 +1,439 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "attachments",
+  "parts": [
+    {
+      "export": "Attachments",
+      "name": "attachments",
+      "params": {
+        "children": null,
+        "className": null,
+        "variant": "grid"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "flex items-start",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "Attachment",
+      "name": "attachment",
+      "params": {
+        "children": null,
+        "className": null,
+        "data": null,
+        "onRemove": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "group relative",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AttachmentInfo",
+      "name": "attachment_info",
+      "params": {
+        "className": null,
+        "showMediaType": "false"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "code": "label",
+                "type": "value"
+              }
+            ],
+            "class": "block truncate",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "data.mediaType",
+                    "type": "value"
+                  }
+                ],
+                "class": "block truncate text-muted-foreground text-xs",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "optional",
+            "when": "showMediaType && data.mediaType"
+          }
+        ],
+        "class": "min-w-0 flex-1",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AttachmentRemove",
+      "name": "attachment_remove",
+      "params": {
+        "children": null,
+        "className": null,
+        "label": "Remove"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "aria-label",
+            "value": "label"
+          },
+          {
+            "kind": "code",
+            "name": "onClick",
+            "value": "handleClick"
+          },
+          {
+            "kind": "text",
+            "name": "type",
+            "value": "button"
+          },
+          {
+            "kind": "text",
+            "name": "variant",
+            "value": "ghost"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "",
+                "icons": {
+                  "lucide": "XIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "code": "label",
+                "type": "value"
+              }
+            ],
+            "class": "sr-only",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "component": "button",
+        "function": "button",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AttachmentHoverCard",
+      "name": "attachment_hover_card",
+      "params": {
+        "closeDelay": "0",
+        "openDelay": "0"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "closeDelay",
+            "value": "closeDelay"
+          },
+          {
+            "kind": "code",
+            "name": "openDelay",
+            "value": "openDelay"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "component": "hover-card",
+        "function": "hover_card",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AttachmentHoverCardTrigger",
+      "name": "attachment_hover_card_trigger",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "hover-card",
+        "function": "hover_card_trigger",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AttachmentHoverCardContent",
+      "name": "attachment_hover_card_content",
+      "params": {
+        "align": "start",
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "align",
+            "value": "align"
+          }
+        ],
+        "children": [],
+        "class": "w-auto p-2",
+        "component": "hover-card",
+        "function": "hover_card_content",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "AttachmentEmpty",
+      "name": "attachment_empty",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "default": [
+              {
+                "type": "text",
+                "value": "No attachments"
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "flex items-center justify-center p-4 text-muted-foreground text-sm",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/attachments.tsx",
+      "sha256": "91c42be9a592fe8ff2468352b8636f6bc364567779618ac3a075f1080b378fad"
+    }
+  },
+  "variants": {}
+}

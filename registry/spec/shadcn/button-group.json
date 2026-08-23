@@ -62,6 +62,7 @@
         "children": [],
         "class": "cn-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto",
         "component": "separator",
+        "function": "separator",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -73,6 +74,7 @@
         },
         "render_as": null,
         "slot": "button-group-separator",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []

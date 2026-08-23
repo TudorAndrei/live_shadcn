@@ -1,0 +1,135 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "connection",
+  "parts": [
+    {
+      "export": "Connection",
+      "name": "connection",
+      "params": {
+        "fromX": null,
+        "fromY": null,
+        "toX": null,
+        "toY": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "d",
+                "value": "`M${fromX},${fromY} C ${fromX + (toX - fromX) * HALF},${fromY} ${fromX + (toX - fromX) * HALF},${toY} ${toX},${toY}`"
+              },
+              {
+                "kind": "text",
+                "name": "fill",
+                "value": "none"
+              },
+              {
+                "kind": "text",
+                "name": "stroke",
+                "value": "var(--color-ring)"
+              },
+              {
+                "kind": "code",
+                "name": "strokeWidth",
+                "value": "1"
+              }
+            ],
+            "children": [],
+            "class": "animated",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "path",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          },
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "cx",
+                "value": "toX"
+              },
+              {
+                "kind": "code",
+                "name": "cy",
+                "value": "toY"
+              },
+              {
+                "kind": "text",
+                "name": "fill",
+                "value": "#fff"
+              },
+              {
+                "kind": "code",
+                "name": "r",
+                "value": "3"
+              },
+              {
+                "kind": "text",
+                "name": "stroke",
+                "value": "var(--color-ring)"
+              },
+              {
+                "kind": "code",
+                "name": "strokeWidth",
+                "value": "1"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "circle",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "g",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/connection.tsx",
+      "sha256": "3da80a551da8a7eb4949a0b64b5329af463037dc15e6945e60ae66dcd903e71f"
+    }
+  },
+  "variants": {}
+}

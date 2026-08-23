@@ -68,6 +68,19 @@ defmodule LiveShadcnTools.Spec do
       |> Enum.filter(&component?(&1, ctx))
       |> Enum.map(&part(&1, ctx))
 
+    # A spec with no parts renders nothing, and it is indistinguishable on disk
+    # from one the reader understood and found empty. That is the silent skip
+    # this reader exists to avoid, so it is a failure with a name instead.
+    if parts == [] do
+      raise """
+      no exported component was found in #{name}.
+
+      The file exports #{length(tsx.exports)} name(s) and the reader recognised \
+      none of them as a component. Either the file declares them in a shape \
+      LiveShadcnTools.Tsx does not read yet, or this is not a component file.
+      """
+    end
+
     %{
       "name" => name,
       "recipe" => Keyword.fetch!(opts, :recipe),
@@ -233,8 +246,10 @@ defmodule LiveShadcnTools.Spec do
       literal = string_literal(code) ->
         %{"type" => "text", "value" => literal}
 
-      match = Regex.run(~r/^children\s*\?\?\s*(.+)$/s, code, capture: :all_but_first) ->
-        %{"type" => "children", "default" => [node(jsx!(hd(match)), ctx)]}
+      # `children ?? <Default />` and `children || suggestion` are the same
+      # decision: what to render when the caller passed nothing.
+      match = Regex.run(~r/^children\s*(?:\?\?|\|\|)\s*(.+)$/s, code, capture: :all_but_first) ->
+        %{"type" => "children", "default" => [fallback(hd(match), ctx)]}
 
       match = Regex.run(~r/^(.+?)\s*&&\s*(\(?\s*<.*)$/s, code, capture: :all_but_first) ->
         [condition, jsx] = match
@@ -280,6 +295,16 @@ defmodule LiveShadcnTools.Spec do
         what this expression means, or the component is not ready to generate.
         """
     end
+  end
+
+  # The other half of `children ?? …`. It is markup when it is markup, and a
+  # prop the caller supplies when it is not: `children ?? suggestion` renders
+  # the `suggestion` prop, and dropping it would leave the component blank
+  # exactly when the caller relied on the default.
+  defp fallback(code, ctx) do
+    if String.contains?(code, "<"),
+      do: node(jsx!(code), ctx),
+      else: expression(code, ctx)
   end
 
   defp value?(code),
@@ -359,16 +384,35 @@ defmodule LiveShadcnTools.Spec do
 
   defp base_node(element, tag, ctx) do
     cond do
+      # `<>…</>` — a React fragment groups children and renders nothing. HEEx
+      # needs no grouping, so the children are simply emitted in place.
+      tag == "" -> %{"type" => "transparent", "reason" => "a fragment"}
       tag == "IconPlaceholder" -> %{"type" => "icon", "icons" => icons(element)}
       tag =~ ~r/^[a-z]/ -> %{"type" => "element", "tag" => tag}
       Map.has_key?(ctx.functions, tag) -> %{"type" => "part_ref", "part" => Macro.underscore(tag)}
       base_ui?(tag, ctx) -> base_ui_node(tag, ctx)
+      set = icon_set(tag, ctx) -> %{"type" => "icon", "icons" => %{set => tag}}
       registry_component(tag, ctx) -> registry_node(tag, ctx)
       context_provider?(tag) -> %{"type" => "transparent", "reason" => "a React context"}
       package = third_party(tag, ctx) -> raise not_base_ui(tag, package)
       true -> raise "the spec reader does not know what <#{tag}> is"
     end
   end
+
+  # shadcn writes an icon as `<IconPlaceholder lucide="ChevronDown" …>`, which
+  # names the same icon in five sets at once. AI Elements imports the icon
+  # itself. Both say the same thing — which icon, from which set — so both
+  # become the same node and the icon package stays a configuration rather than
+  # a dependency.
+  @icon_packages %{
+    "lucide-react" => "lucide",
+    "@tabler/icons-react" => "tabler",
+    "@hugeicons/react" => "hugeicons",
+    "@phosphor-icons/react" => "phosphor",
+    "@remixicon/react" => "remixicon"
+  }
+
+  defp icon_set(tag, ctx), do: Map.get(@icon_packages, Map.get(ctx.imports, tag, ""))
 
   defp third_party(tag, ctx), do: Map.get(ctx.imports, tag |> String.split(".") |> hd())
 
@@ -448,17 +492,40 @@ defmodule LiveShadcnTools.Spec do
     [named, "Root"]
   end
 
-  # `import { Button } from "@/registry/bases/base/ui/button"` — a component
-  # built from another component in the same registry.
+  # A component built from another component that this pipeline also generates.
+  # Two import shapes reach one:
+  #
+  #     import { Button } from "@/registry/bases/base/ui/button"     shadcn
+  #     import { Shimmer } from "./shimmer"                          AI Elements
+  #
+  # Returns the source and the component, because which package the generated
+  # module lands in follows from which registry it came out of.
   defp registry_component(tag, ctx) do
     case Map.get(ctx.imports, tag) do
       nil -> nil
-      path -> if String.contains?(path, "/ui/"), do: Path.basename(path)
+      "./" <> file -> {"ai_elements", Path.basename(file)}
+      path -> if String.contains?(path, "/ui/"), do: {"shadcn", Path.basename(path)}
     end
   end
 
+  # The imported name, not the component, decides which function is called.
+  # `Collapsible`, `CollapsibleTrigger` and `CollapsibleContent` all come out of
+  # one file and are three different parts of it, and a reference that recorded
+  # only the file would call the root three times.
+  #
+  # The key is `function` and not `part` because `render={<Button />}` merges
+  # this node's keys over the primitive it replaces, and a `part` here would
+  # shadow the Base UI part that primitive is documented under. That silently
+  # dropped the dialog close button's `phx-click` once.
   defp registry_node(tag, ctx) do
-    %{"type" => "component_ref", "component" => registry_component(tag, ctx)}
+    {source, component} = registry_component(tag, ctx)
+
+    %{
+      "type" => "component_ref",
+      "source" => source,
+      "component" => component,
+      "function" => Macro.underscore(tag)
+    }
   end
 
   defp context_provider?(tag), do: String.ends_with?(tag, [".Provider", ".Consumer"])

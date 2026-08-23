@@ -7,8 +7,8 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 1 | ························ |
-| `fetched` | 58 | ████████████············ |
-| `spec` | 11 | ██······················ |
+| `fetched` | 45 | ██████████·············· |
+| `spec` | 24 | █████··················· |
 | `generated` | 0 | ························ |
 | `verified` | 42 | █████████··············· |
 
@@ -93,7 +93,7 @@ Only the recipes are written by hand; every component is data.
 | `sheet` | 2 | `dialog` | ✅ verified |
 | `sidebar` | 2 | `disclosure` | 🟦 fetched |
 | `slider` | 2 | `form-control` | 🟨 spec |
-| `sonner` | 2 | `toast` | 🟨 spec |
+| `sonner` | 2 | `toast` | 🟦 fetched |
 | `toast` | 2 | `toast` | 🟨 spec |
 | `toggle` | 2 | `form-control` | ✅ verified |
 | `toggle-group` | 2 | `tabs` | 🟨 spec |
@@ -109,35 +109,35 @@ Only the recipes are written by hand; every component is data.
 |---|---:|---|---|
 | `chain-of-thought` | 1 | `disclosure` | 🟦 fetched |
 | `code-block` | 1 | `presentational` | 🟦 fetched |
-| `context` | 1 | `presentational` | 🟦 fetched |
+| `context` | 1 | `presentational` | 🟨 spec |
 | `conversation` | 1 | `scroller` | 🟦 fetched |
 | `message` | 1 | `presentational` | 🟦 fetched |
 | `prompt-input` | 1 | `form-control` | 🟦 fetched |
 | `reasoning` | 1 | `disclosure` | 🟦 fetched |
 | `shimmer` | 1 | `presentational` | 🟦 fetched |
-| `sources` | 1 | `popover` | 🟦 fetched |
-| `suggestion` | 1 | `presentational` | 🟦 fetched |
-| `task` | 1 | `disclosure` | 🟦 fetched |
+| `sources` | 1 | `popover` | 🟨 spec |
+| `suggestion` | 1 | `presentational` | 🟨 spec |
+| `task` | 1 | `disclosure` | 🟨 spec |
 | `tool` | 1 | `disclosure` | 🟦 fetched |
 | `agent` | 2 | `presentational` | 🟦 fetched |
-| `artifact` | 2 | `disclosure` | 🟦 fetched |
-| `attachments` | 2 | `presentational` | 🟦 fetched |
-| `checkpoint` | 2 | `presentational` | 🟦 fetched |
+| `artifact` | 2 | `disclosure` | 🟨 spec |
+| `attachments` | 2 | `presentational` | 🟨 spec |
+| `checkpoint` | 2 | `presentational` | 🟨 spec |
 | `commit` | 2 | `presentational` | 🟦 fetched |
 | `confirmation` | 2 | `presentational` | 🟦 fetched |
 | `controls` | 2 | `presentational` | 🟦 fetched |
 | `environment-variables` | 2 | `presentational` | 🟦 fetched |
 | `file-tree` | 2 | `presentational` | 🟦 fetched |
-| `image` | 2 | `presentational` | 🟦 fetched |
+| `image` | 2 | `presentational` | 🟨 spec |
 | `inline-citation` | 2 | `presentational` | 🟦 fetched |
-| `model-selector` | 2 | `listbox` | 🟦 fetched |
-| `open-in-chat` | 2 | `presentational` | 🟦 fetched |
+| `model-selector` | 2 | `listbox` | 🟨 spec |
+| `open-in-chat` | 2 | `presentational` | 🟨 spec |
 | `package-info` | 2 | `presentational` | 🟦 fetched |
 | `panel` | 2 | `disclosure` | 🟦 fetched |
 | `persona` | 2 | `presentational` | 🟦 fetched |
 | `plan` | 2 | `disclosure` | 🟦 fetched |
-| `question` | 2 | `presentational` | 🟦 fetched |
-| `queue` | 2 | `presentational` | 🟦 fetched |
+| `question` | 2 | `presentational` | 🟨 spec |
+| `queue` | 2 | `presentational` | 🟨 spec |
 | `schema-display` | 2 | `presentational` | 🟦 fetched |
 | `snippet` | 2 | `presentational` | 🟦 fetched |
 | `stack-trace` | 2 | `presentational` | 🟦 fetched |
@@ -145,7 +145,7 @@ Only the recipes are written by hand; every component is data.
 | `toolbar` | 2 | `presentational` | 🟦 fetched |
 | `audio-player` | 3 | `presentational` | 🟦 fetched |
 | `canvas` | 3 | `presentational` | 🟦 fetched |
-| `connection` | 3 | `presentational` | 🟦 fetched |
+| `connection` | 3 | `presentational` | 🟨 spec |
 | `edge` | 3 | `presentational` | 🟦 fetched |
 | `jsx-preview` | 3 | `presentational` | 🟦 fetched |
 | `mic-selector` | 3 | `listbox` | 🟦 fetched |
@@ -154,5 +154,5 @@ Only the recipes are written by hand; every component is data.
 | `speech-input` | 3 | `presentational` | 🟦 fetched |
 | `terminal` | 3 | `presentational` | 🟦 fetched |
 | `transcription` | 3 | `presentational` | 🟦 fetched |
-| `voice-selector` | 3 | `listbox` | 🟦 fetched |
+| `voice-selector` | 3 | `listbox` | 🟨 spec |
 | `web-preview` | 3 | `presentational` | 🟦 fetched |

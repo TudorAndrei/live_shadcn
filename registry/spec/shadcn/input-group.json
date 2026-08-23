@@ -108,6 +108,7 @@
         "children": [],
         "class": "",
         "component": "button",
+        "function": "button",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -116,6 +117,7 @@
         },
         "render_as": null,
         "slot": null,
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": "inputGroupButtonVariants",
         "vars": []
@@ -158,6 +160,7 @@
         "children": [],
         "class": "cn-input-group-input flex-1",
         "component": "input",
+        "function": "input",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -168,6 +171,7 @@
         },
         "render_as": null,
         "slot": "input-group-control",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []
@@ -185,6 +189,7 @@
         "children": [],
         "class": "cn-input-group-textarea flex-1 resize-none",
         "component": "textarea",
+        "function": "textarea",
         "merges_class": true,
         "props": true,
         "reads": {
@@ -195,6 +200,7 @@
         },
         "render_as": null,
         "slot": "input-group-control",
+        "source": "shadcn",
         "type": "component_ref",
         "variant_class": null,
         "vars": []

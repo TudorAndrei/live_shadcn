@@ -1,9 +1,9 @@
 defmodule LiveShadcnTools.Tsx do
   @moduledoc """
-  A small TSX reader for the shadcn registry sources.
+  A small TSX reader for the two upstream registries.
 
-  This is not a TypeScript compiler. It reads exactly the shape every file in
-  `registry/bases/base/ui/*.tsx` has:
+  This is not a TypeScript compiler. It reads the shapes those two files are
+  written in, and nothing else. shadcn declares and then exports:
 
       function Name({ className, ...props }: Primitive.Part.Props) {
         return (
@@ -13,7 +13,17 @@ defmodule LiveShadcnTools.Tsx do
 
       export { Name, ... }
 
-  It returns the JSX as a tree, so `mix ui.spec` records the anatomy shadcn
+  AI Elements exports where it declares, and wraps the component in `memo`:
+
+      export const Name = memo(({ className }: NameProps) => (
+        <JSX />
+      ))
+
+  Neither shape says anything the other does not. Both give a name, the props
+  the component destructured, and the markup it renders, so both are read into
+  one result and `mix ui.spec` never learns which file it came from.
+
+  It returns the JSX as a tree, so the spec records the anatomy upstream
   renders instead of guessing it. Anything the reader does not understand
   raises rather than being dropped, because a silently skipped element becomes
   a missing element in the generated HEEx.
@@ -110,19 +120,36 @@ defmodule LiveShadcnTools.Tsx do
     opens - closes
   end
 
+  # Two registries write their exports two ways. shadcn declares everything and
+  # exports it in one list at the foot of the file; AI Elements exports each
+  # binding where it is declared. Both lists are read, because which one a file
+  # uses says nothing about what it exports.
   defp exports(source) do
-    case Regex.run(~r/export \{([^}]*)\}/, source, capture: :all_but_first) do
-      [list] -> list |> String.split(",") |> Enum.map(&String.trim/1) |> Enum.reject(&(&1 == ""))
-      nil -> []
-    end
+    listed =
+      case Regex.run(~r/export \{([^}]*)\}/, source, capture: :all_but_first) do
+        [list] ->
+          list |> String.split(",") |> Enum.map(&String.trim/1) |> Enum.reject(&(&1 == ""))
+
+        nil ->
+          []
+      end
+
+    inline =
+      ~r/^export (?:const|function) ([A-Za-z_][A-Za-z0-9_]*)/m
+      |> Regex.scan(source, capture: :all_but_first)
+      |> List.flatten()
+
+    Enum.uniq(listed ++ inline)
   end
 
-  defp functions(source) do
-    ~r/^function ([A-Z][A-Za-z0-9_]*)\(/m
+  defp functions(source), do: declared(source) ++ arrows(source)
+
+  defp declared(source) do
+    ~r/^(?:export )?function ([A-Z][A-Za-z0-9_]*)\(/m
     |> Regex.scan(source, return: :index)
-    |> Enum.map(fn [{at, _}, {name_at, name_len}] ->
+    |> Enum.map(fn [{at, length}, {name_at, name_len}] ->
       name = binary_part(source, name_at, name_len)
-      {signature, rest} = balanced(source, at + 10 + name_len, ?(, ?))
+      {signature, rest} = balanced(source, at + length, ?(, ?))
 
       %{
         name: name,
@@ -132,6 +159,63 @@ defmodule LiveShadcnTools.Tsx do
       }
     end)
   end
+
+  # `export const Name = ({ className }: NameProps) => (<div />)`, which is how
+  # every AI Elements component is written. A `const` that holds no arrow
+  # function — a variant table, a lookup map, a plain value — is not one, and is
+  # left to `consts/1`.
+  defp arrows(source) do
+    ~r/^(?:export )?const ([A-Z][A-Za-z0-9_]*)(?::[^=]+)? = /m
+    |> Regex.scan(source, return: :index)
+    |> Enum.flat_map(fn [{at, length}, {name_at, name_len}] ->
+      name = binary_part(source, name_at, name_len)
+
+      case arrow(statement(source, at + length), name) do
+        nil -> []
+        function -> [function]
+      end
+    end)
+  end
+
+  defp arrow(code, name) do
+    code = unwrap(String.trim(code))
+
+    with {at, _} <- :binary.match(code, "("),
+         {signature, rest} <- balanced(code, at + 1, ?(, ?)),
+         "=>" <> body <- String.trim_leading(rest) do
+      %{
+        name: name,
+        props_type: props_type(signature),
+        params: params(signature),
+        jsx: arrow_jsx!(String.trim(body), name)
+      }
+    else
+      _ -> nil
+    end
+  rescue
+    # A const whose value merely starts with a bracket is not an arrow
+    # function. It is a value, and `consts/1` already has it.
+    _error -> nil
+  end
+
+  # `memo(...)` and `forwardRef(...)` say something about React's rendering and
+  # nothing about the markup, so they are read through rather than read.
+  defp unwrap(code) do
+    case Regex.run(~r/^(?:memo|forwardRef)\s*\(/, code, return: :index) do
+      [{_at, length}] -> code |> balanced(length, ?(, ?)) |> elem(0) |> String.trim() |> unwrap()
+      nil -> code
+    end
+  end
+
+  # An arrow body is markup three ways: wrapped in brackets, a block that
+  # returns, or the element on its own.
+  defp arrow_jsx!("(" <> rest, _name), do: rest |> balanced(0, ?(, ?)) |> elem(0) |> parse_jsx!()
+
+  defp arrow_jsx!("{" <> rest, name),
+    do: rest |> balanced(0, ?{, ?}) |> elem(0) |> return_jsx!(name)
+
+  defp arrow_jsx!("<" <> _rest = body, _name), do: parse_jsx!(body)
+  defp arrow_jsx!(_body, name), do: raise("#{name}: no markup to read")
 
   # Only this function's own body. Reading past it would let a function with no
   # `return (` quietly adopt the next function's markup, which is worse than

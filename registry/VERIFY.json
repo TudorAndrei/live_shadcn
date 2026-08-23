@@ -12,7 +12,7 @@
       }
     },
     "pass": true,
-    "spec": "41f53f46b274a42c377bc56b2b737cb9605e76fe1462ca092c4f01ec4e6001a5"
+    "spec": "2407764ca57c8e67dd29c571f40d50c29d6b5c170cae4e049c4dbd7ae8932e2e"
   },
   "shadcn/checkbox": {
     "checks": {
@@ -72,7 +72,7 @@
       }
     },
     "pass": true,
-    "spec": "9ab0cb86447ce25da1009c63cd796b1e369dd4964ebc8dbd8db505048cfbc5da"
+    "spec": "77e6294385f96cdf1fc90018f8e723214ac24065a24e03c2750dd7ed71d787fb"
   },
   "shadcn/radio-group": {
     "checks": {
@@ -102,7 +102,7 @@
       }
     },
     "pass": true,
-    "spec": "a62ffe80aea18543e27b941930cc1c515862c97d87b0741c66748bea457620cf"
+    "spec": "33bd727d4a95ee3207b2278193faa104f74ea92d7ab3fc0d9a0e536614cc3149"
   },
   "shadcn/bubble": {
     "checks": {
@@ -132,7 +132,7 @@
       }
     },
     "pass": true,
-    "spec": "8983b65913cd1f426b72044f9770d7efbbf1563e30230e1ce30b7bb4ac580b5e"
+    "spec": "57c602ac12873ee8f2e47420b8ef582948ea08334550829a0fe8143e8dcbd101"
   },
   "shadcn/popover": {
     "checks": {
@@ -237,7 +237,7 @@
       }
     },
     "pass": true,
-    "spec": "20c88881b632c1715d888b81d906694a318d4bd89bf00fb7ad04165671b2b75b"
+    "spec": "8d39c00fd809b8e4eb39030a56e1fba5875cf5bc24fbe1cebae88f0359b9ff72"
   },
   "shadcn/message": {
     "checks": {
@@ -297,7 +297,7 @@
       }
     },
     "pass": true,
-    "spec": "ae3557c368ce14891dc7583eff3634cf8996461d2a49a622bbea758ba29807ee"
+    "spec": "66c6861606d22ccc2293fb4ca08b178ac9762e7c126c87cce1bb2e711b33578f"
   },
   "shadcn/accordion": {
     "checks": {
@@ -432,7 +432,7 @@
       }
     },
     "pass": true,
-    "spec": "a66e1b433dd4e403a7d3447313f4b5c814e37173984dd41c45690085c861bc65"
+    "spec": "bab211ba9dd7f39933037992bf645e0c1170adeb24d10d0df45a416cf767cba1"
   },
   "shadcn/breadcrumb": {
     "checks": {
@@ -627,6 +627,6 @@
       }
     },
     "pass": true,
-    "spec": "f6df07ebb03a817eb073f34e5a0230cf100e48764950fbe9334e251515020c51"
+    "spec": "bcbe134a1d2141b788775ffb199913336eb4fb703f76242107516f5f720ac11f"
   }
 }

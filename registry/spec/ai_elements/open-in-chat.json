@@ -1,0 +1,1046 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "open-in-chat",
+  "parts": [
+    {
+      "export": "OpenIn",
+      "name": "open_in",
+      "params": {
+        "query": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "",
+            "component": "dropdown-menu",
+            "function": "dropdown_menu",
+            "merges_class": false,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "type": "component_ref",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "OpenInContent",
+      "name": "open_in_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "align",
+            "value": "start"
+          }
+        ],
+        "children": [],
+        "class": "w-[240px]",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_content",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "OpenInItem",
+      "name": "open_in_item",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "OpenInLabel",
+      "name": "open_in_label",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_label",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "OpenInSeparator",
+      "name": "open_in_separator",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_separator",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "OpenInTrigger",
+      "name": "open_in_trigger",
+      "params": {
+        "children": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "asChild",
+            "value": null
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "type",
+                    "value": "button"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "variant",
+                    "value": "outline"
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Open in chat"
+                  },
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "size-4",
+                    "icons": {
+                      "lucide": "ChevronDownIcon"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "component": "button",
+                "function": "button",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "source": "shadcn",
+                "type": "component_ref",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_trigger",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "OpenInChatGPT",
+      "name": "open_in_chat_gpt",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "asChild",
+            "value": null
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "href",
+                "value": "providers.chatgpt.createUrl(query)"
+              },
+              {
+                "kind": "text",
+                "name": "rel",
+                "value": "noopener"
+              },
+              {
+                "kind": "text",
+                "name": "target",
+                "value": "_blank"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.chatgpt.icon",
+                    "type": "value"
+                  }
+                ],
+                "class": "shrink-0",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.chatgpt.title",
+                    "type": "value"
+                  }
+                ],
+                "class": "flex-1",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4 shrink-0",
+                "icons": {
+                  "lucide": "ExternalLinkIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "flex items-center gap-2",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "a",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "OpenInClaude",
+      "name": "open_in_claude",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "asChild",
+            "value": null
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "href",
+                "value": "providers.claude.createUrl(query)"
+              },
+              {
+                "kind": "text",
+                "name": "rel",
+                "value": "noopener"
+              },
+              {
+                "kind": "text",
+                "name": "target",
+                "value": "_blank"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.claude.icon",
+                    "type": "value"
+                  }
+                ],
+                "class": "shrink-0",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.claude.title",
+                    "type": "value"
+                  }
+                ],
+                "class": "flex-1",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4 shrink-0",
+                "icons": {
+                  "lucide": "ExternalLinkIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "flex items-center gap-2",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "a",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "OpenInT3",
+      "name": "open_in_t3",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "asChild",
+            "value": null
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "href",
+                "value": "providers.t3.createUrl(query)"
+              },
+              {
+                "kind": "text",
+                "name": "rel",
+                "value": "noopener"
+              },
+              {
+                "kind": "text",
+                "name": "target",
+                "value": "_blank"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.t3.icon",
+                    "type": "value"
+                  }
+                ],
+                "class": "shrink-0",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.t3.title",
+                    "type": "value"
+                  }
+                ],
+                "class": "flex-1",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4 shrink-0",
+                "icons": {
+                  "lucide": "ExternalLinkIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "flex items-center gap-2",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "a",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "OpenInScira",
+      "name": "open_in_scira",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "asChild",
+            "value": null
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "href",
+                "value": "providers.scira.createUrl(query)"
+              },
+              {
+                "kind": "text",
+                "name": "rel",
+                "value": "noopener"
+              },
+              {
+                "kind": "text",
+                "name": "target",
+                "value": "_blank"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.scira.icon",
+                    "type": "value"
+                  }
+                ],
+                "class": "shrink-0",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.scira.title",
+                    "type": "value"
+                  }
+                ],
+                "class": "flex-1",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4 shrink-0",
+                "icons": {
+                  "lucide": "ExternalLinkIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "flex items-center gap-2",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "a",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "OpenInv0",
+      "name": "open_inv0",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "asChild",
+            "value": null
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "href",
+                "value": "providers.v0.createUrl(query)"
+              },
+              {
+                "kind": "text",
+                "name": "rel",
+                "value": "noopener"
+              },
+              {
+                "kind": "text",
+                "name": "target",
+                "value": "_blank"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.v0.icon",
+                    "type": "value"
+                  }
+                ],
+                "class": "shrink-0",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.v0.title",
+                    "type": "value"
+                  }
+                ],
+                "class": "flex-1",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4 shrink-0",
+                "icons": {
+                  "lucide": "ExternalLinkIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "flex items-center gap-2",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "a",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "OpenInCursor",
+      "name": "open_in_cursor",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "asChild",
+            "value": null
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "href",
+                "value": "providers.cursor.createUrl(query)"
+              },
+              {
+                "kind": "text",
+                "name": "rel",
+                "value": "noopener"
+              },
+              {
+                "kind": "text",
+                "name": "target",
+                "value": "_blank"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.cursor.icon",
+                    "type": "value"
+                  }
+                ],
+                "class": "shrink-0",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "providers.cursor.title",
+                    "type": "value"
+                  }
+                ],
+                "class": "flex-1",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_class": null,
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4 shrink-0",
+                "icons": {
+                  "lucide": "ExternalLinkIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_class": null,
+                "vars": []
+              }
+            ],
+            "class": "flex items-center gap-2",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "a",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "type": "component_ref",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/open-in-chat.tsx",
+      "sha256": "0370a813ed09e9b23857717cff0704a028049d2cf014dbd11e5f56d05db6db33"
+    }
+  },
+  "variants": {}
+}
