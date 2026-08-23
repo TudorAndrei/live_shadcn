@@ -23,6 +23,27 @@ defmodule Mix.Tasks.Ui.FetchTest do
         assert String.starts_with?(entry["url"], "https://"), "#{path} has no origin"
       end
     end
+
+    # shadcn's registry index points a component at whatever documents it, and
+    # for a component built on a React library that is the library's own site:
+    # `resizable` at react-resizable-panels, `command` at cmdk, `sonner` at
+    # sonner.emilkowal.ski. Following one stored a home page as a Base UI
+    # contract, and two of them are GitHub pages whose HTML carries a fresh
+    # token per request — so their digests changed on every fetch and the weekly
+    # sync would have opened a pull request every week that said nothing had
+    # changed.
+    test "every Base UI page came from Base UI" do
+      manifest = @manifest |> File.read!() |> Jason.decode!()
+
+      pages = for {"base_ui/" <> _ = path, entry} <- manifest["files"], do: {path, entry["url"]}
+
+      assert pages != []
+
+      for {path, url} <- pages do
+        assert String.starts_with?(url, "https://base-ui.com/"),
+               "#{path} was fetched from #{url}, which is not Base UI"
+      end
+    end
   end
 
   describe "the GitHub token" do

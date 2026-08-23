@@ -37,6 +37,11 @@ defmodule Mix.Tasks.Ui.Fetch do
   @ai_elements_dir "packages/elements/src"
   @base_ui_docs "https://base-ui.com/react/components"
 
+  # Base UI is one site, and its pages are not all under one path: most
+  # components live at `/react/components/`, but `direction-provider` lives at
+  # `/react/utils/`. What makes a link a Base UI contract is the host.
+  @base_ui_host "https://base-ui.com/"
+
   @impl Mix.Task
   def run(argv) do
     Mix.Task.run("app.start")
@@ -109,7 +114,7 @@ defmodule Mix.Tasks.Ui.Fetch do
     # Where it does not, the page is looked for under the component's own name,
     # because Base UI publishes more pages than shadcn links to — `button` and
     # `field` among them.
-    link = get_in(item, ["meta", "links", "base", "api"]) || "#{@base_ui_docs}/#{name}.md"
+    link = base_ui_link(item) || page_url(name)
 
     # A component may be built from more than one Base UI module: menubar uses
     # both `menubar` and `menu`, toggle-group both `toggle-group` and `toggle`.
@@ -122,6 +127,29 @@ defmodule Mix.Tasks.Ui.Fetch do
   end
 
   defp page_url(module), do: "#{@base_ui_docs}/#{module}.md"
+
+  # The index's `base.api` link is not always a Base UI page. A component built
+  # on a React library points at that library instead — `resizable` at
+  # react-resizable-panels, `command` at cmdk, `calendar` at react-day-picker,
+  # `sonner` at its own site — and following one stores somebody's home page as
+  # a Base UI contract.
+  #
+  # Two of those are GitHub repository pages, whose HTML carries a fresh page
+  # token on every request. Their digests therefore changed on every fetch, so
+  # the weekly sync would have opened a pull request every week that said
+  # nothing had changed.
+  #
+  # The test is the host, not the path: `direction` is a real Base UI page and
+  # it lives under `/react/utils/` rather than `/react/components/`. A link
+  # somewhere else is not a Base UI page, and the component is recorded as
+  # having none — which is the truth, and what the spec reader already says
+  # about each of them by name.
+  defp base_ui_link(item) do
+    case get_in(item, ["meta", "links", "base", "api"]) do
+      @base_ui_host <> _rest = link -> link
+      _other -> nil
+    end
+  end
 
   defp base_ui_modules(source) do
     ~r|from "@base-ui/react/([a-z0-9-]+)"|

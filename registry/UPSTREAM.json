@@ -190,11 +190,6 @@
       "sha256": "40629a60998e13c173c141a604dd47ee3766f1fee580cceb92c4ba0f5af3a6f5",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/ac60ef5c4db4265d71454dd9ecd3f93e255d7211/apps/v4/registry/bases/base/ui/navigation-menu.tsx"
     },
-    "base_ui/resizable.md": {
-      "bytes": 372396,
-      "sha256": "69f74d48090b1b492b63c6cca4ec6fb7798a72dac5c5389e9ad4ec54b8c5833f",
-      "url": "https://github.com/bvaughn/react-resizable-panels"
-    },
     "ai_elements/code-block.tsx": {
       "bytes": 13845,
       "sha256": "5c7285171c5aa741749a1642a85f492a9b5e80dc4ccb704b5c3f58c45efebd04",
@@ -595,11 +590,6 @@
       "sha256": "a4d51f76ddf5197cb86b7f70ba62bd62327468a9acae1351a0b1adcb3710ec0a",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/model-selector.tsx"
     },
-    "base_ui/calendar.md": {
-      "bytes": 30194,
-      "sha256": "62747d91eb3d577e04be8d285a81a2e20021e835d66684077e511ee1413e040e",
-      "url": "https://react-day-picker.js.org"
-    },
     "base_ui/scroll-area.md": {
       "bytes": 44386,
       "sha256": "17944002e0af2c13b36bfb279249ecbde08dcd11ab5f6a3ab7f5e29f3351dc38",
@@ -634,11 +624,6 @@
       "bytes": 658,
       "sha256": "ead4349ff7b01d696ef89294a81d18ee1d3f732321398896462c834ab9b9e065",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/ac60ef5c4db4265d71454dd9ecd3f93e255d7211/apps/v4/registry/bases/base/ui/collapsible.tsx"
-    },
-    "base_ui/input-otp.md": {
-      "bytes": 100586,
-      "sha256": "ba6630419439ad311793d854b8fc2b9fe6de99ef3da78a60623517b4ee041e4d",
-      "url": "https://input-otp.rodz.dev"
     },
     "ai_elements/chain-of-thought.tsx": {
       "bytes": 6267,
@@ -694,16 +679,6 @@
       "bytes": 6166,
       "sha256": "04b9b534925054cfe67fdc3bc212eb7261b4912e6e970c4844a195907d3a9a93",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/terminal.tsx"
-    },
-    "base_ui/sonner.md": {
-      "bytes": 31476,
-      "sha256": "bf6873fe9a954a20bc88c37178afc092438ff5d3b0c12847f7590466a99a2761",
-      "url": "https://sonner.emilkowal.ski"
-    },
-    "base_ui/command.md": {
-      "bytes": 485056,
-      "sha256": "4cc409cb2da570ca56ea9666fb40bb13275daaf50750412cf704456202863df5",
-      "url": "https://github.com/dip/cmdk"
     },
     "shadcn/ui/questionnaire.tsx": {
       "bytes": 9511,
