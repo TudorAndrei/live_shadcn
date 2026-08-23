@@ -1,560 +1,5 @@
 {
-  "dialog": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "ae3557c368ce14891dc7583eff3634cf8996461d2a49a622bbea758ba29807ee"
-  },
-  "sheet": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "8983b65913cd1f426b72044f9770d7efbbf1563e30230e1ce30b7bb4ac580b5e"
-  },
-  "badge": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "385e3c7068815db7bf35bacf31bba005e53c7a7dc6fb62cbf58730c2e8037db6"
-  },
-  "bubble": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "d171ece792f60805fab5bf1a6e2279a980c6a56395ea282539237a0c46f6fd33"
-  },
-  "skeleton": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "f2d6458dcab7c0510e34d614a2d6337e2223203a1ae9866f57c3a4f9a16bee7c"
-  },
-  "textarea": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "0c3b0aa20eab38cc1e9c8cbd8998d450e0e80f48bf19b6015834d7a55e748d39"
-  },
-  "marker": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "c55f345c63a0b4dc4742937fe1f0dce266ee11c419a1e28d05615075ce56e76a"
-  },
-  "message": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "b7c4d542905b37009cfe6de332e4d9bed256544296e96f7691a372fbab3c7746"
-  },
-  "select": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "5e10cff59d32cc253471c6fb4b95edfe02402f95093d951d2bc1088d9ec8c501"
-  },
-  "popover": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "384f763198d211ca64e34efb05de48073e7bf1c4c413efd3c686c2379ce48c2d"
-  },
-  "switch": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "fdd867ed47d5c3867a797561b9ba392734d54a97dea891e48895136b9f7e49b2"
-  },
-  "avatar": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "02b816f5ed0339b7785dc427ad9b665d5c1743895c26a543daf7f8367be1ca7f"
-  },
-  "input": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "dc6ecf94c705558f96228e98e33b16d49abce2532dfca98ccdfc104d184ad1d1"
-  },
-  "aspect-ratio": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "7a4a0785072b1275998ce5dd852cb6023f0e592eb9233e39243da7de6cb1474c"
-  },
-  "tooltip": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "cde495c35fa5b4d3226c0770d3f5ff482b8c4fa8c1f223fa1808ccae11841d6d"
-  },
-  "alert": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "fe94a8fdd3dde31d96aaf39c33e7f1c986b2fd4ee7954f9034946458d4384527"
-  },
-  "progress": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "4c0ae00ae152070aa11a8395c5735cdd1ae778ed90c7d6b62dbf2fdff4fbc5f1"
-  },
-  "tabs": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "49260e22d39b4fe58fff285be57f1654315e58d6052a1b69eda1713763b951f3"
-  },
-  "toggle": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "d0076ad2f71e60c2c227d6737c88d6b407bf9e2503730583fadf25fca352717a"
-  },
-  "pagination": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "9ab0cb86447ce25da1009c63cd796b1e369dd4964ebc8dbd8db505048cfbc5da"
-  },
-  "table": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "58df127e4f77c1eb9c09c414cc43f358efa71812b2452d3a899182f66c63771f"
-  },
-  "kbd": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "42adf84fe7c2b3ad97ab22655a33d19392ca6de6ed5709d8ffe349ad47c23239"
-  },
-  "dropdown-menu": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "90d0789ef334757d13754c9890eb752c0d95ccc22b7175f2dc362548c1e8f68a"
-  },
-  "combobox": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "f6df07ebb03a817eb073f34e5a0230cf100e48764950fbe9334e251515020c51"
-  },
-  "empty": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "6c7beb171b84f3d166e474803b97b8aa56d3c81c7521e45b348ecfed43ee0bb8"
-  },
-  "spinner": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "ed7aa21a727efac18f63de3947e5782b936d1f84f84af29248dc310c9dbf4186"
-  },
-  "navigation-menu": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "e9225d80cb0e597a13a6f80d4188f0b181284711e3108fadfd9bcff368f7bdad"
-  },
-  "checkbox": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "a83a23278a24d32fc28035cf3a6521fc1d9c12b2de2985b1ef65e28f30b54ef5"
-  },
-  "breadcrumb": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "89c393d1fa67d00ab6dae1f3b53aea65ecf06868ebac9605b825b59f1bbea996"
-  },
-  "attachment": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "a62ffe80aea18543e27b941930cc1c515862c97d87b0741c66748bea457620cf"
-  },
-  "accordion": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "5ddb36cd162ea37e48e04380a5f5c32852ea16674af1bc8fe725d4f2794c8b82"
-  },
-  "collapsible": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "95f7a51c74272b2c8c2e9d2b023f8885ec61972ace16c8abb23ba975fa04cb82"
-  },
-  "button-group": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "20c88881b632c1715d888b81d906694a318d4bd89bf00fb7ad04165671b2b75b"
-  },
-  "radio-group": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "421ae64918af19834a486084dc9ba765eee6fc61a9de6e8f4c3885ce2eef7b8e"
-  },
-  "button": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "6bfb53b99f0f8657f1bd72df944f38661a6cd29d866a7d37284bca790b320cb0"
-  },
-  "separator": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "a0ad50506c474162e2e198fd1d9e92a5c8a80d15c9d8445ab644ff0d8a808ba7"
-  },
-  "item": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "a66e1b433dd4e403a7d3447313f4b5c814e37173984dd41c45690085c861bc65"
-  },
-  "alert-dialog": {
+  "shadcn/alert-dialog": {
     "checks": {
       "browser": {
         "pass": true
@@ -569,7 +14,7 @@
     "pass": true,
     "spec": "41f53f46b274a42c377bc56b2b737cb9605e76fe1462ca092c4f01ec4e6001a5"
   },
-  "label": {
+  "shadcn/checkbox": {
     "checks": {
       "browser": {
         "pass": true
@@ -582,9 +27,24 @@
       }
     },
     "pass": true,
-    "spec": "aeec75bf7e9fce0b2838668b41ccb4871db627f2fd9ecd903ce34c903abe03ca"
+    "spec": "a83a23278a24d32fc28035cf3a6521fc1d9c12b2de2985b1ef65e28f30b54ef5"
   },
-  "hover-card": {
+  "shadcn/context-menu": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "f0e0c2102d94012fb2cf71588b39db8becbba34466d353d4610420f332425bba"
+  },
+  "shadcn/hover-card": {
     "checks": {
       "browser": {
         "pass": true
@@ -599,7 +59,427 @@
     "pass": true,
     "spec": "c37023d873c4aaf80c4251c7847586a97f0cee3fa74fbc1455aa6597d33cfb9f"
   },
-  "card": {
+  "shadcn/pagination": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "9ab0cb86447ce25da1009c63cd796b1e369dd4964ebc8dbd8db505048cfbc5da"
+  },
+  "shadcn/radio-group": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "421ae64918af19834a486084dc9ba765eee6fc61a9de6e8f4c3885ce2eef7b8e"
+  },
+  "shadcn/attachment": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "a62ffe80aea18543e27b941930cc1c515862c97d87b0741c66748bea457620cf"
+  },
+  "shadcn/bubble": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "d171ece792f60805fab5bf1a6e2279a980c6a56395ea282539237a0c46f6fd33"
+  },
+  "shadcn/sheet": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "8983b65913cd1f426b72044f9770d7efbbf1563e30230e1ce30b7bb4ac580b5e"
+  },
+  "shadcn/popover": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "384f763198d211ca64e34efb05de48073e7bf1c4c413efd3c686c2379ce48c2d"
+  },
+  "shadcn/toggle": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "d0076ad2f71e60c2c227d6737c88d6b407bf9e2503730583fadf25fca352717a"
+  },
+  "shadcn/input": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "dc6ecf94c705558f96228e98e33b16d49abce2532dfca98ccdfc104d184ad1d1"
+  },
+  "shadcn/marker": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "c55f345c63a0b4dc4742937fe1f0dce266ee11c419a1e28d05615075ce56e76a"
+  },
+  "shadcn/skeleton": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "f2d6458dcab7c0510e34d614a2d6337e2223203a1ae9866f57c3a4f9a16bee7c"
+  },
+  "shadcn/spinner": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "ed7aa21a727efac18f63de3947e5782b936d1f84f84af29248dc310c9dbf4186"
+  },
+  "shadcn/button-group": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "20c88881b632c1715d888b81d906694a318d4bd89bf00fb7ad04165671b2b75b"
+  },
+  "shadcn/message": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "b7c4d542905b37009cfe6de332e4d9bed256544296e96f7691a372fbab3c7746"
+  },
+  "shadcn/badge": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "385e3c7068815db7bf35bacf31bba005e53c7a7dc6fb62cbf58730c2e8037db6"
+  },
+  "shadcn/dropdown-menu": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "90d0789ef334757d13754c9890eb752c0d95ccc22b7175f2dc362548c1e8f68a"
+  },
+  "shadcn/dialog": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "ae3557c368ce14891dc7583eff3634cf8996461d2a49a622bbea758ba29807ee"
+  },
+  "shadcn/accordion": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "5ddb36cd162ea37e48e04380a5f5c32852ea16674af1bc8fe725d4f2794c8b82"
+  },
+  "shadcn/tabs": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "49260e22d39b4fe58fff285be57f1654315e58d6052a1b69eda1713763b951f3"
+  },
+  "shadcn/tooltip": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "cde495c35fa5b4d3226c0770d3f5ff482b8c4fa8c1f223fa1808ccae11841d6d"
+  },
+  "shadcn/aspect-ratio": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "7a4a0785072b1275998ce5dd852cb6023f0e592eb9233e39243da7de6cb1474c"
+  },
+  "shadcn/textarea": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "0c3b0aa20eab38cc1e9c8cbd8998d450e0e80f48bf19b6015834d7a55e748d39"
+  },
+  "shadcn/switch": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "fdd867ed47d5c3867a797561b9ba392734d54a97dea891e48895136b9f7e49b2"
+  },
+  "shadcn/label": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "aeec75bf7e9fce0b2838668b41ccb4871db627f2fd9ecd903ce34c903abe03ca"
+  },
+  "shadcn/alert": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "fe94a8fdd3dde31d96aaf39c33e7f1c986b2fd4ee7954f9034946458d4384527"
+  },
+  "shadcn/item": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "a66e1b433dd4e403a7d3447313f4b5c814e37173984dd41c45690085c861bc65"
+  },
+  "shadcn/breadcrumb": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "89c393d1fa67d00ab6dae1f3b53aea65ecf06868ebac9605b825b59f1bbea996"
+  },
+  "shadcn/avatar": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "02b816f5ed0339b7785dc427ad9b665d5c1743895c26a543daf7f8367be1ca7f"
+  },
+  "shadcn/select": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "5e10cff59d32cc253471c6fb4b95edfe02402f95093d951d2bc1088d9ec8c501"
+  },
+  "shadcn/card": {
     "checks": {
       "browser": {
         "pass": true
@@ -614,7 +494,7 @@
     "pass": true,
     "spec": "b48e76356b822bbdc75c05f262d7c7c69cc683e4ac21c9529f439c83ac651504"
   },
-  "context-menu": {
+  "shadcn/separator": {
     "checks": {
       "browser": {
         "pass": true
@@ -627,6 +507,126 @@
       }
     },
     "pass": true,
-    "spec": "f0e0c2102d94012fb2cf71588b39db8becbba34466d353d4610420f332425bba"
+    "spec": "a0ad50506c474162e2e198fd1d9e92a5c8a80d15c9d8445ab644ff0d8a808ba7"
+  },
+  "shadcn/empty": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "6c7beb171b84f3d166e474803b97b8aa56d3c81c7521e45b348ecfed43ee0bb8"
+  },
+  "shadcn/navigation-menu": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "e9225d80cb0e597a13a6f80d4188f0b181284711e3108fadfd9bcff368f7bdad"
+  },
+  "shadcn/progress": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "4c0ae00ae152070aa11a8395c5735cdd1ae778ed90c7d6b62dbf2fdff4fbc5f1"
+  },
+  "shadcn/collapsible": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "95f7a51c74272b2c8c2e9d2b023f8885ec61972ace16c8abb23ba975fa04cb82"
+  },
+  "shadcn/button": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "6bfb53b99f0f8657f1bd72df944f38661a6cd29d866a7d37284bca790b320cb0"
+  },
+  "shadcn/kbd": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "42adf84fe7c2b3ad97ab22655a33d19392ca6de6ed5709d8ffe349ad47c23239"
+  },
+  "shadcn/table": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "58df127e4f77c1eb9c09c414cc43f358efa71812b2452d3a899182f66c63771f"
+  },
+  "shadcn/combobox": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "f6df07ebb03a817eb073f34e5a0230cf100e48764950fbe9334e251515020c51"
   }
 }

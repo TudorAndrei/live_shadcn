@@ -7,6 +7,7 @@ defmodule Mix.Tasks.Ui.Verify do
 
       mix ui.verify
       mix ui.verify accordion
+      mix ui.verify shadcn/message    # one component, said unambiguously
       mix ui.verify --browser false   # skip the browser, for a machine without one
 
   Three checks, each answering a different question:
@@ -21,9 +22,9 @@ defmodule Mix.Tasks.Ui.Verify do
   application and drives it with Playwright, because opening a panel is a client
   behaviour: no amount of server-side rendering can tell you whether it works.
 
-  The result is written to `registry/VERIFY.json`, which is what makes
-  `mix ui.status` able to mark a component verified. Status is never typed by
-  hand, here least of all.
+  The result is written to `registry/VERIFY.json`, keyed by `<source>/<name>`,
+  which is what makes `mix ui.status` able to mark a component verified. Status
+  is never typed by hand, here least of all.
   """
   use Mix.Task
 
@@ -35,49 +36,83 @@ defmodule Mix.Tasks.Ui.Verify do
     {opts, names, _} = OptionParser.parse(argv, strict: [browser: :boolean])
     browser? = Keyword.get(opts, :browser, true)
 
-    components = if names == [], do: generated(), else: names
+    components = if names == [], do: generated(), else: Enum.map(names, &resolve/1)
 
     if components == [] do
       Mix.raise("nothing to verify: no component has been generated yet. Run `mix ui.gen`.")
     end
 
-    results = Map.new(components, &{&1, verify(&1, browser?)})
+    ensure_distinct_examples!(components)
+
+    results =
+      Map.new(components, fn {source, name} ->
+        {ref(source, name), verify(source, name, browser?)}
+      end)
 
     write_json!(registry_path("VERIFY.json"), results)
     report(results)
   end
 
+  # The two halves of a verification are keyed differently, and this is the
+  # seam between them. `registry/` knows a component by source and name;
+  # `storybook/` knows it by name alone, because an example is hand-written and
+  # a person names a file `accordion.spec.mjs`.
+  #
+  # That is fine while no two components share a name, and upstream has a
+  # `message` in each registry. So the seam is checked rather than assumed: a
+  # collision stops the run and says which two collided, instead of quietly
+  # verifying one component twice and calling both of them green.
+  defp ensure_distinct_examples!(components) do
+    collisions =
+      components
+      |> Enum.group_by(fn {_source, name} -> name end)
+      |> Enum.filter(fn {_name, group} -> length(group) > 1 end)
+
+    for {name, group} <- collisions do
+      Mix.raise("""
+      #{length(group)} components are called `#{name}`: #{Enum.map_join(group, ", ", fn {source, n} -> ref(source, n) end)}
+
+      The storybook keys an example by name alone, so it cannot tell them apart
+      and neither can this task. Give the examples distinct names in
+      storybook/lib/storybook_web/examples.ex before verifying either.
+      """)
+    end
+  end
+
   defp generated do
     registry_path("spec")
-    |> Path.join("*.json")
+    |> Path.join("*/*.json")
     |> Path.wildcard()
-    |> Enum.map(&Path.basename(&1, ".json"))
-    |> Enum.filter(&File.exists?(module_path(&1)))
+    |> Enum.map(&{Path.basename(Path.dirname(&1)), Path.basename(&1, ".json")})
+    |> Enum.filter(fn {source, name} -> File.exists?(module_path(source, name)) end)
     |> Enum.sort()
   end
 
-  defp verify(name, browser?) do
+  defp verify(source, name, browser?) do
+    reference = ref(source, name)
+
     checks =
       [
-        {"generated", generated_check(name)},
+        {"generated", generated_check(reference)},
         {"snapshot", snapshot_check(name)}
       ] ++ if(browser?, do: [{"browser", browser_check(name)}], else: [])
 
     %{
       "pass" => Enum.all?(checks, fn {_name, check} -> check["pass"] end),
-      "spec" => spec_digest(name),
+      "spec" => spec_digest(source, name),
       "checks" => Map.new(checks)
     }
   end
 
   # The spec digest is recorded with the result, so a passing entry cannot
   # outlive the spec it was true of.
-  defp spec_digest(name) do
-    path = registry_path(["spec", "#{name}.json"])
+  defp spec_digest(source, name) do
+    path = spec_path(source, name)
     if File.exists?(path), do: digest(File.read!(path))
   end
 
-  defp generated_check(name), do: run_in(tools_dir(), "mix", ["ui.gen", "--check", name])
+  defp generated_check(reference),
+    do: run_in(tools_dir(), "mix", ["ui.gen", "--check", reference])
 
   defp snapshot_check(name),
     do: run_in(storybook_dir(), "mix", ["snapshot", "--check", name])
@@ -155,17 +190,6 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp indent(text),
     do: text |> String.split("\n") |> Enum.map_join("\n", &("      " <> &1))
-
-  defp module_path(name) do
-    Path.join([
-      repo_root(),
-      "packages",
-      "live_shadcn",
-      "priv",
-      "registry",
-      "#{String.replace(name, "-", "_")}.ex"
-    ])
-  end
 
   defp tools_dir, do: Path.join(repo_root(), "tools")
   defp storybook_dir, do: Path.join(repo_root(), "storybook")

@@ -71,7 +71,7 @@ defmodule LiveShadcnTools.Spec do
     %{
       "name" => name,
       "recipe" => Keyword.fetch!(opts, :recipe),
-      "source" => "shadcn",
+      "source" => Keyword.fetch!(opts, :source),
       "generated_by" => "mix ui.spec",
       "upstream" => Keyword.fetch!(opts, :upstream),
       "anatomy" => doc.anatomy,

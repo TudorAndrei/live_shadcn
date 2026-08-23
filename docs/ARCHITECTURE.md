@@ -151,7 +151,7 @@ repository while still making drift visible as a diff.
 
 ### `mix ui.spec`
 
-Reads all four into `registry/spec/<name>.json`:
+Reads all four into `registry/spec/<source>/<name>.json`:
 
 ```jsonc
 {

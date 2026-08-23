@@ -35,7 +35,7 @@ defmodule Mix.Tasks.Ui.Drift do
   @doc "What changed, per component, between the last commit and the working tree."
   def drift do
     registry_path("spec")
-    |> Path.join("*.json")
+    |> Path.join("*/*.json")
     |> Path.wildcard()
     |> Enum.sort()
     |> Enum.map(&compare/1)
@@ -43,12 +43,15 @@ defmodule Mix.Tasks.Ui.Drift do
   end
 
   defp compare(path) do
-    name = Path.basename(path, ".json")
+    reference = ref(Path.basename(Path.dirname(path)), Path.basename(path, ".json"))
     current = read_json!(path)
 
     case committed(path) do
-      :error -> %{name: name, new?: true, changes: []}
-      {:ok, previous} -> %{name: name, new?: false, changes: Drift.between(previous, current)}
+      :error ->
+        %{name: reference, new?: true, changes: []}
+
+      {:ok, previous} ->
+        %{name: reference, new?: false, changes: Drift.between(previous, current)}
     end
   end
 

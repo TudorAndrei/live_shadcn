@@ -11,9 +11,14 @@ defmodule Mix.Tasks.Ui.Status do
   |---|---|
   | `planned` | listed in `registry/INVENTORY.json`, nothing else |
   | `fetched` | a digest in `registry/UPSTREAM.json` |
-  | `spec` | `registry/spec/<name>.json` |
+  | `spec` | `registry/spec/<source>/<name>.json` |
   | `generated` | a module in the owning package |
   | `verified` | a passing entry in `registry/VERIFY.json`, for this spec |
+
+  Every one of those is looked up by source *and* name. A name is not an
+  identity: upstream has a `message` in the shadcn registry and a different
+  `message` in AI Elements, and looking either up by name alone reports one
+  component's evidence as the other's.
 
   `registry/INVENTORY.json` holds only the two decisions a person makes: which
   behavior recipe a component uses, and which tier it ships in.
@@ -67,7 +72,7 @@ defmodule Mix.Tasks.Ui.Status do
 
   # A component upstream that nobody has triaged yet must still be visible.
   defp merge_upstream(components) do
-    known = MapSet.new(components, & &1["name"])
+    known = MapSet.new(components, &{&1["source"], &1["name"]})
 
     upstream =
       case File.exists?(registry_path("UPSTREAM.json")) do
@@ -80,13 +85,13 @@ defmodule Mix.Tasks.Ui.Status do
           |> Map.get("files", %{})
           |> Map.keys()
           |> Enum.flat_map(&upstream_entry/1)
-          |> Enum.uniq_by(& &1["name"])
+          |> Enum.uniq_by(&{&1["source"], &1["name"]})
       end
 
-    added = Enum.reject(upstream, &MapSet.member?(known, &1["name"]))
+    added = Enum.reject(upstream, &MapSet.member?(known, {&1["source"], &1["name"]}))
 
     {Enum.sort_by(components ++ added, &{&1["source"], &1["name"]}),
-     Enum.map(added, & &1["name"])}
+     Enum.map(added, &ref(&1["source"], &1["name"]))}
   end
 
   defp upstream_entry("shadcn/ui/" <> file),
@@ -117,15 +122,15 @@ defmodule Mix.Tasks.Ui.Status do
 
   defp status_of(%{"name" => name, "source" => source}) do
     cond do
-      verified?(name) -> :verified
-      generated?(name, source) -> :generated
-      File.exists?(registry_path(["spec", "#{name}.json"])) -> :spec
-      fetched?(name, source) -> :fetched
+      verified?(source, name) -> :verified
+      generated?(source, name) -> :generated
+      File.exists?(spec_path(source, name)) -> :spec
+      fetched?(source, name) -> :fetched
       true -> :planned
     end
   end
 
-  defp fetched?(name, source) do
+  defp fetched?(source, name) do
     path = if source == "shadcn", do: "shadcn/ui/#{name}.tsx", else: "ai_elements/#{name}.tsx"
 
     case File.exists?(registry_path("UPSTREAM.json")) do
@@ -134,26 +139,17 @@ defmodule Mix.Tasks.Ui.Status do
     end
   end
 
-  defp generated?(name, source) do
-    module = String.replace(name, "-", "_") <> ".ex"
-
-    package =
-      if source == "shadcn",
-        do: ["packages", "live_shadcn", "priv", "registry"],
-        else: ["packages", "live_ai_elements", "lib", "live_ai_elements", "components"]
-
-    File.exists?(Path.join([repo_root() | package] ++ [module]))
-  end
+  defp generated?(source, name), do: File.exists?(module_path(source, name))
 
   # A pass counts only while it is a pass about the spec on disk. `mix ui.verify`
   # records the digest it verified, so a spec that moved on since demotes the
   # component instead of leaving a green mark nobody earned.
-  defp verified?(name) do
+  defp verified?(source, name) do
     verify = registry_path("VERIFY.json")
-    spec = registry_path(["spec", "#{name}.json"])
+    spec = spec_path(source, name)
 
     with true <- File.exists?(verify) and File.exists?(spec),
-         result when is_map(result) <- get_in(read_json!(verify), [name]) do
+         result when is_map(result) <- get_in(read_json!(verify), [ref(source, name)]) do
       result["pass"] == true and result["spec"] == digest(File.read!(spec))
     else
       _ -> false

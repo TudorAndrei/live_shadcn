@@ -9,7 +9,7 @@ up in a component is a **recipe**, and this page is about writing one.
 ```bash
 cd tools && mix deps.get
 mix ui.fetch                      # upstream sources, styles and theme
-mix ui.spec                       # -> registry/spec/*.json
+mix ui.spec                       # -> registry/spec/<source>/*.json
 mix ui.gen                        # -> packages/live_shadcn/priv/registry/*.ex
 
 cd ../storybook && mix setup
@@ -40,7 +40,7 @@ has. Those are facts, and the spec already holds them.
 
 ```bash
 cd tools
-mix run -e 'IO.puts(File.read!("../registry/spec/select.json"))'
+mix run -e 'IO.puts(File.read!("../registry/spec/shadcn/select.json"))'
 ```
 
 Look for two things: which parts Base UI documents, and what each part's

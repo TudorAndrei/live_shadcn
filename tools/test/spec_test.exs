@@ -78,6 +78,7 @@ defmodule LiveShadcnTools.SpecTest do
         tsx: @tsx,
         markdown: %{"thing" => @markdown},
         module: "thing",
+        source: "shadcn",
         recipe: "disclosure",
         upstream: %{}
       )
@@ -102,6 +103,7 @@ defmodule LiveShadcnTools.SpecTest do
           tsx: tsx,
           markdown: %{"thing" => @markdown},
           module: "thing",
+          source: "shadcn",
           recipe: "disclosure",
           upstream: %{}
         )
@@ -116,6 +118,7 @@ defmodule LiveShadcnTools.SpecTest do
           tsx: tsx,
           markdown: %{"thing" => @markdown},
           module: "thing",
+          source: "shadcn",
           recipe: "disclosure",
           upstream: %{}
         )
@@ -132,6 +135,7 @@ defmodule LiveShadcnTools.SpecTest do
           tsx: tsx,
           markdown: %{"thing" => @markdown},
           module: "thing",
+          source: "shadcn",
           recipe: "disclosure",
           upstream: %{}
         )

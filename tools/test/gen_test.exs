@@ -5,7 +5,10 @@ defmodule LiveShadcnTools.GenTest do
 
   @specs Path.expand("../../registry/spec", __DIR__)
 
-  defp spec(name), do: @specs |> Path.join("#{name}.json") |> File.read!() |> Jason.decode!()
+  # Every spec here is a shadcn one. The directory is part of the path because
+  # a name is not an identity: AI Elements has a `message` of its own.
+  defp spec(name),
+    do: @specs |> Path.join("shadcn/#{name}.json") |> File.read!() |> Jason.decode!()
 
   defp generated(name) do
     Path.expand("../../packages/live_shadcn/priv/registry/#{name}.ex", __DIR__)

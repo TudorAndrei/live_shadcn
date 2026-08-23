@@ -29,7 +29,7 @@ manifest. ✅
 One component, all the way through, with nothing done by hand.
 
 - [x] `mix ui.spec` parses the shadcn `.tsx`, the Base UI `.md`, **and the
-      shadcn style sheets** into `registry/spec/accordion.json`
+      shadcn style sheets** into `registry/spec/shadcn/accordion.json`
 - [x] `disclosure` recipe in `live_base`: `JS` commands for open and close, a
       hook for measurement and enter and exit, correct `data-panel-open`
 - [x] `mix ui.gen` turns the spec into a HEEx module
@@ -50,9 +50,11 @@ is fetched with the rest.
 
 **Enter and exit cannot be `JS.transition`.** `JS.transition` toggles classes;
 shadcn styles these states with data attributes, and `h-(--accordion-panel-height)`
-asks for a number no static class string can compute. The hook list grows from
-four to five: measurement and timing. The discrete flip is still a `JS` command,
-so a click still costs no round trip.
+asks for a number no static class string can compute. So the hooks grow two jobs
+they were not designed for — measurement, and holding a state for the length of
+a transition — and the four steps that takes are shared code rather than a fifth
+hook. The discrete flip is still a `JS` command, so a click still costs no round
+trip.
 
 **Four exports become one function.** React threads the item's identity through
 context. HEEx cannot, so `<.accordion>` takes an `:item` slot and derives every
@@ -80,7 +82,7 @@ Eight recipes cover 102 of 112 components.
 three components compile under its own namespace, and each renders with the
 contract it was generated with. ✅
 
-43 components verified in all, by 118 browser tests.
+42 components verified in all, by 118 browser tests.
 
 ### Where the reader got to
 
@@ -117,8 +119,9 @@ other components in the same registry all appear. Each is a decision the
 generated component has to make too, so each became a node in the spec rather
 than something dropped.
 
-**Five hooks, and no more.** The architecture reserved four; M1 added
-measurement. Every recipe since fits in those five:
+**Four hooks, and no more.** That is what the architecture reserved, and every
+recipe since has fitted in them. M1 added measurement and transition timing, and
+both went inside the hooks that already existed rather than beside them:
 
 | Hook | Used by | Because |
 |---|---|---|
@@ -126,6 +129,10 @@ measurement. Every recipe since fits in those five:
 | `Overlay` | dialog, alert dialog, sheet | scroll lock, focus containment, timing |
 | `Floating` | popover, tooltip, menu, select | where a popup lands is a measurement |
 | `Roving` | tabs, menu, select | `phx-key` filters one key, and there are four |
+
+`Disclosure`, `Floating` and `Overlay` all show and hide something that
+animates, so the four steps that takes live in one shared module rather than in
+three hooks, each getting them slightly wrong.
 
 Everything else — every attribute a class string reads, every open and close,
 every choice — is a `Phoenix.LiveView.JS` command. No click reaches the server

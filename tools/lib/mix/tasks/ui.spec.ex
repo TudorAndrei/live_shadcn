@@ -1,15 +1,19 @@
 defmodule Mix.Tasks.Ui.Spec do
-  @shortdoc "Turn the fetched upstream sources into registry/spec/<name>.json"
+  @shortdoc "Turn the fetched upstream sources into registry/spec/<source>/<name>.json"
 
   @moduledoc """
   Stage 2 of the codegen pipeline.
 
   Reads the shadcn `.tsx` and the Base UI `.md` that `mix ui.fetch` downloaded
-  and writes one JSON document per component into `registry/spec/`.
+  and writes one JSON document per component into `registry/spec/<source>/`.
 
-      mix ui.spec                  # every component that has both sources
-      mix ui.spec accordion        # one component
-      mix ui.spec --check          # exit 1 if any spec on disk is stale
+      mix ui.spec                     # every component that has both sources
+      mix ui.spec accordion           # one component
+      mix ui.spec shadcn/message      # one component, said unambiguously
+      mix ui.spec --check             # exit 1 if any spec on disk is stale
+
+  The directory is per source because a name is not an identity: upstream has a
+  `message` in the shadcn registry and a different `message` in AI Elements.
 
   The spec is committed and the upstream sources are not, so the spec is the
   reviewable record of what upstream says. Each spec carries the SHA-256 of the
@@ -35,10 +39,10 @@ defmodule Mix.Tasks.Ui.Spec do
 
     manifest = read_json!(registry_path("UPSTREAM.json"))
     inventory = read_json!(registry_path("INVENTORY.json"))
-    recipes = Map.new(inventory["components"], &{&1["name"], &1["recipe"]})
+    recipes = Map.new(inventory["components"], &{{&1["source"], &1["name"]}, &1["recipe"]})
     styles = styles(manifest)
 
-    components = if names == [], do: fetched(manifest), else: names
+    components = if names == [], do: fetched(manifest), else: Enum.map(names, &resolve/1)
     results = Enum.map(components, &one(&1, manifest, recipes, styles, check?))
 
     report(results, check?)
@@ -65,15 +69,17 @@ defmodule Mix.Tasks.Ui.Spec do
     |> Map.new()
   end
 
+  # Only the shadcn registry reads today. AI Elements is a `.tsx` set of its own
+  # with no Base UI page behind it, and reading it is M4.
   defp fetched(manifest) do
     files = Map.keys(manifest["files"] || %{})
-    Enum.sort(for "shadcn/ui/" <> file <- files, do: Path.basename(file, ".tsx"))
+    Enum.sort(for "shadcn/ui/" <> file <- files, do: {"shadcn", Path.basename(file, ".tsx")})
   end
 
   # One component that the reader cannot understand is a gap in the reader, not
   # a reason to leave the other sixty unspecced. It is reported by name and the
   # run continues, so the gaps are a list somebody can work through.
-  defp one(name, manifest, recipes, styles, check?) do
+  defp one({source, name}, manifest, recipes, styles, check?) do
     tsx_file = "shadcn/ui/#{name}.tsx"
     md_file = "base_ui/#{name}.md"
 
@@ -93,17 +99,19 @@ defmodule Mix.Tasks.Ui.Spec do
           module: name,
           markdown: pages,
           styles: styles,
-          recipe: Map.get(recipes, name, "unassigned"),
+          source: source,
+          recipe: Map.get(recipes, {source, name}, "unassigned"),
           upstream: %{
             "shadcn" => %{"file" => tsx_file, "sha256" => digest(tsx)},
             "base_ui" => Map.new(pages, fn {mod, md} -> {mod, digest(md)} end)
           }
         )
 
-      write_or_check(name, spec, check?)
+      write_or_check(source, name, spec, check?)
     end
   rescue
-    error -> {:unreadable, name, Exception.message(error) |> String.split("\n") |> hd()}
+    error ->
+      {:unreadable, ref(source, name), Exception.message(error) |> String.split("\n") |> hd()}
   end
 
   # menubar is built from `@base-ui/react/menubar` and `@base-ui/react/menu`.
@@ -139,20 +147,20 @@ defmodule Mix.Tasks.Ui.Spec do
     end
   end
 
-  defp write_or_check(name, spec, check?) do
-    path = registry_path(["spec", "#{name}.json"])
+  defp write_or_check(source, name, spec, check?) do
+    path = spec_path(source, name)
     rendered = json(spec)
 
     cond do
       not check? ->
         write!(path, rendered)
-        {:wrote, name}
+        {:wrote, ref(source, name)}
 
       File.exists?(path) and File.read!(path) == rendered ->
-        {:current, name}
+        {:current, ref(source, name)}
 
       true ->
-        {:outdated, name}
+        {:outdated, ref(source, name)}
     end
   end
 

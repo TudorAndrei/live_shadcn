@@ -4,13 +4,16 @@ defmodule Mix.Tasks.Ui.Gen do
   @moduledoc """
   Stage 3 of the codegen pipeline.
 
-  Turns each committed spec into a component module under
-  `packages/live_shadcn/priv/registry/`, which is the registry `mix ui.add`
-  copies from.
+  Turns each committed spec into a component module in the package that ships
+  it. A shadcn component lands in `packages/live_shadcn/priv/registry/`, which
+  is the registry `mix ui.add` copies from; an AI Elements component lands in
+  `packages/live_ai_elements/lib/`, because that package is an ordinary
+  dependency rather than a copy-in.
 
-      mix ui.gen                 # every spec whose recipe exists
-      mix ui.gen accordion       # one component
-      mix ui.gen --check         # exit 1 if any generated file is stale
+      mix ui.gen                    # every spec whose recipe exists
+      mix ui.gen accordion          # one component
+      mix ui.gen shadcn/message     # one component, said unambiguously
+      mix ui.gen --check            # exit 1 if any generated file is stale
 
   A spec whose recipe has not been written yet is reported and skipped. That is
   the normal state between milestones: the spec is data and lands as soon as
@@ -26,7 +29,7 @@ defmodule Mix.Tasks.Ui.Gen do
 
   alias LiveShadcnTools.Gen
 
-  @namespace LiveShadcn.UI
+  @namespaces %{"shadcn" => LiveShadcn.UI, "ai_elements" => LiveAiElements.Components}
 
   @impl Mix.Task
   def run(argv) do
@@ -36,73 +39,70 @@ defmodule Mix.Tasks.Ui.Gen do
 
     results = names |> specs() |> Enum.map(&one(&1, check?))
 
-    for {:no_recipe, name, recipe} <- results,
-        do: Mix.shell().info("  skip #{name}: no `#{recipe}` recipe yet")
+    for {:no_recipe, reference, recipe} <- results,
+        do: Mix.shell().info("  skip #{reference}: no `#{recipe}` recipe yet")
 
     report(results, check?)
   end
 
   defp specs([]) do
     registry_path("spec")
-    |> Path.join("*.json")
+    |> Path.join("*/*.json")
     |> Path.wildcard()
     |> Enum.sort()
   end
 
-  defp specs(names), do: Enum.map(names, &registry_path(["spec", "#{&1}.json"]))
+  defp specs(names) do
+    for argument <- names, {source, name} = resolve(argument), do: spec_path(source, name)
+  end
 
   # One component the generator cannot produce is a gap in a recipe, not a
   # reason to leave the rest ungenerated. It is reported by name and the run
   # continues.
-  defp one(spec_path, check?) do
-    spec = read_json!(spec_path)
-    name = spec["name"]
+  defp one(path, check?) do
+    spec = read_json!(path)
+    %{"name" => name, "source" => source} = spec
+    namespace = Map.fetch!(@namespaces, source)
 
-    case Gen.module(spec, module: Gen.module_name(@namespace, name)) do
+    case Gen.module(spec, module: Gen.module_name(namespace, name)) do
       {:error, recipe} ->
-        {:no_recipe, name, recipe}
+        {:no_recipe, ref(source, name), recipe}
 
-      {:ok, source} ->
-        write_or_check(name, source, check?)
+      {:ok, rendered} ->
+        write_or_check(source, name, rendered, check?)
     end
   rescue
-    error -> {:failed, spec_path |> Path.basename(".json"), first_line(error)}
+    error -> {:failed, spec_reference(path), first_line(error)}
   end
+
+  # A spec that cannot even be read has no source to name it by, so the path is
+  # what identifies it.
+  defp spec_reference(path),
+    do: ref(Path.basename(Path.dirname(path)), Path.basename(path, ".json"))
 
   defp first_line(error),
     do: error |> Exception.message() |> String.split("\n") |> Enum.find(&(String.trim(&1) != ""))
 
-  defp write_or_check(name, source, check?) do
-    path = destination(name)
+  defp write_or_check(source, name, rendered, check?) do
+    path = module_path(source, name)
 
     cond do
       not check? ->
-        write!(path, source)
-        {:wrote, name}
+        write!(path, rendered)
+        {:wrote, ref(source, name)}
 
-      File.exists?(path) and File.read!(path) == source ->
-        {:current, name}
+      File.exists?(path) and File.read!(path) == rendered ->
+        {:current, ref(source, name)}
 
       true ->
-        {:outdated, name}
+        {:outdated, ref(source, name)}
     end
   end
 
-  defp destination(name) do
-    Path.join([
-      repo_root(),
-      "packages",
-      "live_shadcn",
-      "priv",
-      "registry",
-      "#{String.replace(name, "-", "_")}.ex"
-    ])
-  end
-
   defp report(results, check?) do
-    outdated = for {:outdated, name} <- results, do: name
-    wrote = for {:wrote, name} <- results, do: name
-    failed = for {:failed, name, why} <- results, do: "#{name}: #{why}"
+    outdated = for {:outdated, reference} <- results, do: reference
+    wrote = for {:wrote, reference} <- results, do: reference
+    failed = for {:failed, reference, why} <- results, do: "#{reference}: #{why}"
 
     if failed != [] do
       Mix.shell().error("""

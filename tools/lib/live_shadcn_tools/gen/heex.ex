@@ -233,6 +233,28 @@ defmodule LiveShadcnTools.Gen.Heex do
     "video" => ~w(src poster controls autoplay loop muted preload width height)
   }
 
+  @doc "Base UI's own one-line summary of a component, or an empty string."
+  def summary(spec),
+    do: get_in(spec, ["primitives", "#{spec["name"]}.Root", "summary"]) || ""
+
+  @doc """
+  The first line of a generated module's `@moduledoc`.
+
+  Base UI's summary follows the component's name when the page has one, and
+  nothing follows it when it does not. The result is trimmed, because a
+  generated file must never carry trailing whitespace: a formatter that strips
+  it edits a file nobody is allowed to edit, and the next `mix ui.gen --check`
+  then fails with no visible cause.
+  """
+  def headline(spec) do
+    name = spec["name"] |> String.replace("-", " ") |> String.capitalize()
+
+    String.trim("#{name}. #{summary(spec)}")
+  end
+
+  @doc "Where the spec a module was generated from lives, for its `@moduledoc`."
+  def spec_ref(spec), do: "registry/spec/#{spec["source"]}/#{spec["name"]}.json"
+
   @doc """
   The attributes a tag needs that Phoenix does not treat as global.
 

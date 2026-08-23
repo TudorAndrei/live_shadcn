@@ -5,7 +5,7 @@ registries, not hand-copied.
 
 > Status: all eight recipes are written, and every shadcn tier-1 component is
 > generated and verified — markup snapshot, behaviour in a real browser, and
-> axe-core clean — with no line edited by hand. 43 components in all, checked by
+> axe-core clean — with no line edited by hand. 42 components in all, checked by
 > 118 browser tests. `mix ui.add` and `mix ui.sync` work against a real
 > application. Nothing is published to hex yet.
 
@@ -114,7 +114,7 @@ packages/live_shadcn/        priv/registry holds the generated components
 packages/live_ai_elements/   AI parts model, reducer, components
 tools/                       the codegen pipeline (never published)
 registry/UPSTREAM.json       pinned refs and digests
-registry/spec/               generated component IR
+registry/spec/<source>/      generated component IR, one directory per registry
 registry/snapshot/           the markup each example renders to
 registry/VERIFY.json         what `mix ui.verify` last proved
 storybook/                   demo application, and the browser suite
