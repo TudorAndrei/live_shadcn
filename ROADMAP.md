@@ -223,10 +223,10 @@ The components are the small part. The reducer is the product.
       per part and `sequence_number` for ordering, which is exactly what
       `phx-update="stream"` needs
 - [x] Delta hook: a token append must never touch an assign
-- [ ] Tier-1 AI components — 5 of 12 generated and verified:
-      **chain-of-thought**, **reasoning**, **sources**, **suggestion**,
-      **task**. The other seven are tool, message, conversation, prompt-input,
-      code-block, context, shimmer
+- [ ] Tier-1 AI components — 6 of 12 generated and verified:
+      **chain-of-thought**, **message**, **reasoning**, **sources**,
+      **suggestion**, **task**. The other six are tool, conversation,
+      prompt-input, code-block, context, shimmer
 - [x] Jido adapter, built second on purpose, to prove the adapter boundary holds
 
 **Exit:** a golden test replays a recorded Open Responses stream and produces the
@@ -481,26 +481,72 @@ declared a fixed `trigger_class` and `content_class` until a component had a
 part that pair did not cover: `chain-of-thought` has a header, the markup read
 `@header_class`, and the component raised on its first render.
 
-### What stops the other nine
+### The reader is a parser now
+
+Everything above was found by hand-written regular expressions over the source,
+and the list is long because that is what they cost. They read most files most
+of the time; what they could not do is know where anything ended. A `}` inside
+a template literal, a ternary with JSX on both sides, a `return` belonging to a
+`useEffect` cleanup rather than to the component — each is a place where
+counting characters gives the wrong answer, and each was got wrong silently.
+
+`oxc-parser` answers all of them exactly, in two milliseconds a file, with a
+byte offset on every node. `tools/priv/parse.mjs` prints the tree and decides
+nothing: what a class string is, what a `cva` call is, what an expression
+means, stay Elixir. One language to review, which is what a pipeline nobody may
+edit by hand has to be.
+
+It found four things that had been wrong since before this milestone:
+
+**The sheet had no backdrop.** Its popup carried `data-lb-backdrop` naming an
+element that was never rendered, so the scrim was missing and the click-away
+target was a dangling id. The ternary that drew it had been read as a value.
+
+**Pagination's previous and next links had no `href`.**
+
+**A component reference did not know what element it became.** `field_label`
+renders shadcn's `Label`, which renders a `<label>`, and the generated
+component would not accept a `for` — a label naming nothing.
+
+**A part whose root is a component reference forwarded none of the caller's
+attributes.**
+
+And one thing the swap had to fix in itself: the node bindings count offsets in
+UTF-16 code units and Elixir slices bytes, so an em dash in a comment on line
+four moved every slice below it by two. What came out was
+`costText="xt={inputCost"` — plausible markup, no error anywhere. The offsets
+are converted in the script, once, on the side that has the string.
+
+**A spec that reads another spec is a fixpoint.** `combobox` records the
+element its input group becomes, and reads that off the input group's spec.
+Whether that spec was current depended on alphabetical order. `mix ui.spec`
+repeats until no file moves, and one extra pass is what it costs to stop caring.
+
+**A name is not an identity, one last time.** `shadcn/message` and
+`ai_elements/message` both generate now, and an example named `message` belongs
+to neither. The storybook names them `shadcn-message` and `ai_elements-message`.
+Two modules exporting `message/1` cannot both be imported either, which is the
+same fact at the Elixir level.
+
+### What stops the other six
 
 Not markup. The reader reads every one of them now. What stops them is that
 upstream computes something in JavaScript, and a template cannot:
 
 | Component | Stopped by |
 |---|---|
-| message, context, prompt-input | a local computed from props — `button`, `inputCostText` |
-| tool | a local function returning markup — `getStatusBadge(state)` |
-| code-block | a local holding one of two icons, by state |
-| reasoning | a render prop — `getThinkingMessage` |
+| context | `Intl.NumberFormat`, so a number formatted in JavaScript |
+| tool | a variable reassigned by three `if`s, each holding different markup |
+| code-block, prompt-input | a local holding one of two icons, chosen by state |
 | shimmer | `motion`, which here is a CSS animation |
 | conversation | `use-stick-to-bottom`, so the `scroller` recipe |
 
-Four of the six rows are one thing: a local. Upstream computes a value or a
-piece of markup in JavaScript and then renders it, and a template cannot run
-the computation. Each needs either a recipe that owns what upstream is
-computing — the way the disclosure recipe owns opening and closing, which is
-why `task` and `sources` generate at all — or a prop the caller supplies.
-Neither is a reader change, and neither is one change for all four.
+None of them is a parsing problem any more. Every one is upstream computing
+something in JavaScript and then rendering it, and a template cannot run the
+computation. Each needs a recipe that owns what is being computed — the way the
+disclosure recipe owns opening and closing, which is why `task` and `sources`
+generate at all — or a prop the caller supplies. That is one decision per
+component, not one change for all of them.
 
 **`data-[state=open]` is read by nobody.** This one is not fixed, and it is the
 larger of the two things left.

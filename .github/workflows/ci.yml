@@ -76,6 +76,9 @@ jobs:
       - run: mix ui.status --check
         working-directory: tools
 
+      # `mix ui.gen` reads the spec and never the source, so this job needs no
+      # parser. `mix ui.spec` does, and the sync workflow is where it runs.
+
       # So is every component. A file that no longer matches its spec was
       # either generated from an older spec or edited by hand, and neither is
       # allowed.
