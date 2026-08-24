@@ -40,6 +40,16 @@ defmodule LiveShadcnTools.SpecTest do
                Spec.reads("data-[orientation=horizontal]:h-px")
     end
 
+    test "a bracket suffix selector records the attribute it reads" do
+      assert %{"self" => [%{"name" => "data-slot", "value" => "-item"}]} =
+               Spec.reads("data-[slot$=-item]:hidden")
+    end
+
+    test "an unbracketed data value records its attribute" do
+      assert %{"self" => [%{"name" => "data-activation-direction", "value" => "left"}]} =
+               Spec.reads("data-activation-direction=left:translate-x-1")
+    end
+
     test "an unsupported data variant names itself" do
       assert_raise RuntimeError, "unsupported data variant: data-[orientation]", fn ->
         Spec.reads("data-[orientation]:h-px")

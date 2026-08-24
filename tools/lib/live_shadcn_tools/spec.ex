@@ -1570,21 +1570,32 @@ defmodule LiveShadcnTools.Spec do
   end
 
   defp classify(<<"data-[", _rest::binary>> = variant) do
-    case Regex.run(~r/^data-\[([a-z][a-z0-9-]*)=([^\]]+)\]$/, variant) do
+    case Regex.run(~r/^data-\[([a-z][a-z0-9-]*)(?:[$^*]?=)([^\]]+)\]$/, variant) do
       [_, attribute, value] -> {:self, read("data-#{attribute}", value)}
       _ -> raise("unsupported data variant: #{variant}")
     end
   end
 
+  defp classify(<<"data-", _rest::binary>> = variant) do
+    case Regex.run(~r/^data-([a-z][a-z0-9-]*)=([^=]+)$/, variant) do
+      [_, attribute, value] -> {:self, read("data-#{attribute}", value)}
+      _ -> classify_state_attr(variant)
+    end
+  end
+
   defp classify(<<prefix::binary-size(5), _rest::binary>> = variant)
        when prefix in ["data-", "aria-"] do
-    if state_attr?(variant),
-      do: {:self, read(variant)},
-      else: raise("unsupported data variant: #{variant}")
+    classify_state_attr(variant)
   end
 
   defp classify(variant) do
     if state_attr?(variant), do: {:self, read(variant)}, else: :ignore
+  end
+
+  defp classify_state_attr(variant) do
+    if state_attr?(variant),
+      do: {:self, read(variant)},
+      else: raise("unsupported data variant: #{variant}")
   end
 
   @doc "The attribute name in a reader state record."
