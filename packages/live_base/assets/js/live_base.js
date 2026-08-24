@@ -16,6 +16,7 @@ import { Carousel } from "./carousel.js";
 import { Floating } from "./floating.js";
 import { Overlay } from "./overlay.js";
 import { Roving } from "./roving.js";
+import { Resizable } from "./resizable.js";
 import { Scroller } from "./scroller.js";
 import { Slider } from "./slider.js";
 import { Toast } from "./toast.js";
@@ -26,10 +27,11 @@ export const hooks = {
   "LiveBase.Floating": Floating,
   "LiveBase.Overlay": Overlay,
   "LiveBase.Roving": Roving,
+  "LiveBase.Resizable": Resizable,
   "LiveBase.Scroller": Scroller,
   "LiveBase.Slider": Slider,
   "LiveBase.Toast": Toast,
 };
 
-export { Carousel, Disclosure, Floating, Overlay, Roving, Scroller, Slider, Toast };
+export { Carousel, Disclosure, Floating, Overlay, Resizable, Roving, Scroller, Slider, Toast };
 export default hooks;
