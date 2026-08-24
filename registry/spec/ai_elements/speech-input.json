@@ -1,0 +1,337 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "folds": [
+    "shadcn/button",
+    "shadcn/spinner"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "speech-input",
+  "parts": [
+    {
+      "export": "SpeechInput",
+      "name": "speech_input",
+      "params": {
+        "audioChunksRef": null,
+        "className": null,
+        "isDisabled": null,
+        "isListening": "false",
+        "isProcessing": "false",
+        "isRecognitionReady": "false",
+        "lang": "en-US",
+        "mediaRecorderRef": null,
+        "mode": null,
+        "onAudioRecorded": null,
+        "onAudioRecordedRef": null,
+        "onTranscriptionChange": null,
+        "onTranscriptionChangeRef": null,
+        "recognitionRef": null,
+        "size": "default",
+        "startMediaRecorder": null,
+        "stopMediaRecorder": null,
+        "streamRef": null,
+        "toggleListening": null,
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "children": [
+              {
+                "binding": "index",
+                "children": [
+                  {
+                    "attrs": [
+                      {
+                        "kind": "code",
+                        "name": "key",
+                        "value": "index"
+                      },
+                      {
+                        "kind": "style",
+                        "name": "style",
+                        "value": [
+                          {
+                            "kind": "code",
+                            "property": "animationDelay",
+                            "value": "`${index * 0.3}s`"
+                          },
+                          {
+                            "kind": "text",
+                            "property": "animationDuration",
+                            "value": "2s"
+                          }
+                        ]
+                      }
+                    ],
+                    "children": [],
+                    "class": "absolute inset-0 animate-ping rounded-full border-2 border-red-400/30",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "div",
+                    "type": "element",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "collection": "[0, 1, 2]",
+                "fields": [],
+                "type": "repeat_over"
+              }
+            ],
+            "type": "optional",
+            "when": "isListening"
+          },
+          {
+            "attrs": [
+              {
+                "kind": "code",
+                "name": "disabled",
+                "value": "isDisabled"
+              }
+            ],
+            "children": [
+              {
+                "children": [
+                  {
+                    "attrs": [
+                      {
+                        "kind": "text",
+                        "name": "lucide",
+                        "value": "Loader2Icon"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "tabler",
+                        "value": "IconLoader"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "hugeicons",
+                        "value": "Loading03Icon"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "phosphor",
+                        "value": "SpinnerIcon"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "remixicon",
+                        "value": "RiLoaderLine"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "role",
+                        "value": "status"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "aria-label",
+                        "value": "Loading"
+                      }
+                    ],
+                    "children": [],
+                    "class": "size-4 animate-spin",
+                    "icons": {
+                      "hugeicons": "Loading03Icon",
+                      "lucide": "Loader2Icon",
+                      "phosphor": "SpinnerIcon",
+                      "remixicon": "RiLoaderLine",
+                      "tabler": "IconLoader"
+                    },
+                    "merges_class": true,
+                    "props": true,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": "spinner",
+                    "type": "icon",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "type": "optional",
+                "when": "isProcessing"
+              },
+              {
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "size-4",
+                    "icons": {
+                      "lucide": "SquareIcon"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "type": "optional",
+                "when": "!isProcessing && isListening"
+              },
+              {
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "size-4",
+                    "icons": {
+                      "lucide": "MicIcon"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_class": null,
+                    "vars": []
+                  }
+                ],
+                "type": "optional",
+                "when": "!(isProcessing || isListening)"
+              }
+            ],
+            "class": "relative z-10 rounded-full transition-all duration-300",
+            "merges_class": true,
+            "module": "button",
+            "part": "Button",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": [
+                "aria-invalid",
+                "aria-expanded"
+              ]
+            },
+            "render_as": null,
+            "slot": "button",
+            "tag": "button",
+            "type": "primitive",
+            "variant_class": "buttonVariants",
+            "vars": []
+          }
+        ],
+        "class": "relative inline-flex items-center justify-center",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {
+    "button.Button": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the button should be focusable when disabled.",
+          "name": "focusableWhenDisabled",
+          "type": "boolean"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Button.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Button.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button component that can be used to trigger actions."
+    }
+  },
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/speech-input.tsx",
+      "sha256": "25747138c9c41cca6f96caf69faa9ff6e39910dabac534c84eba41cbd9ba54d3"
+    }
+  },
+  "variants": {
+    "buttonVariants": {
+      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-button-size-default",
+          "icon": "cn-button-size-icon",
+          "icon-lg": "cn-button-size-icon-lg",
+          "icon-sm": "cn-button-size-icon-sm",
+          "icon-xs": "cn-button-size-icon-xs",
+          "lg": "cn-button-size-lg",
+          "sm": "cn-button-size-sm",
+          "xs": "cn-button-size-xs"
+        },
+        "variant": {
+          "default": "cn-button-variant-default",
+          "destructive": "cn-button-variant-destructive",
+          "ghost": "cn-button-variant-ghost",
+          "link": "cn-button-variant-link",
+          "outline": "cn-button-variant-outline",
+          "secondary": "cn-button-variant-secondary"
+        }
+      }
+    }
+  }
+}

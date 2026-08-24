@@ -1,0 +1,146 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "transcription",
+  "parts": [
+    {
+      "export": "Transcription",
+      "name": "transcription",
+      "params": {
+        "children": null,
+        "className": null,
+        "contextValue": null,
+        "currentTime": null,
+        "onSeek": null,
+        "segments": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "value",
+            "value": "contextValue"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "binding": "segment",
+                "children": [
+                  {
+                    "name": "children",
+                    "type": "slot"
+                  }
+                ],
+                "collection": "segments\n          .filter((segment) => segment.text.trim())",
+                "fields": [],
+                "type": "repeat_over"
+              }
+            ],
+            "class": "flex flex-wrap gap-1 text-sm leading-relaxed",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "transcription",
+            "tag": "div",
+            "type": "element",
+            "variant_class": null,
+            "vars": []
+          }
+        ],
+        "class": "",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_class": null,
+        "vars": []
+      }
+    },
+    {
+      "export": "TranscriptionSegment",
+      "name": "transcription_segment",
+      "params": {
+        "className": null,
+        "currentTime": null,
+        "handleClick": null,
+        "index": null,
+        "isActive": null,
+        "isPast": null,
+        "onClick": null,
+        "onSeek": null,
+        "segment": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-active",
+            "value": "isActive"
+          },
+          {
+            "kind": "code",
+            "name": "data-index",
+            "value": "index"
+          },
+          {
+            "kind": "code",
+            "name": "onClick",
+            "value": "handleClick"
+          },
+          {
+            "kind": "text",
+            "name": "type",
+            "value": "button"
+          }
+        ],
+        "children": [
+          {
+            "code": "segment.text",
+            "type": "value"
+          }
+        ],
+        "class": "inline text-left",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "transcription-segment",
+        "tag": "button",
+        "type": "element",
+        "variant_class": null,
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/transcription.tsx",
+      "sha256": "c9edab6a677ec9fdd09fdd5657bf56fcc674457e52ab7c6f686107c6ba787e29"
+    }
+  },
+  "variants": {}
+}

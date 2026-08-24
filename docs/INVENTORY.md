@@ -7,8 +7,8 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 1 | ························ |
-| `fetched` | 36 | ████████················ |
-| `spec` | 20 | ████···················· |
+| `fetched` | 34 | ███████················· |
+| `spec` | 22 | █████··················· |
 | `generated` | 3 | █······················· |
 | `verified` | 52 | ███████████············· |
 
@@ -151,8 +151,8 @@ Only the recipes are written by hand; every component is data.
 | `mic-selector` | 3 | `listbox` | 🟨 spec |
 | `node` | 3 | `presentational` | 🟦 fetched |
 | `sandbox` | 3 | `presentational` | 🟦 fetched |
-| `speech-input` | 3 | `presentational` | 🟦 fetched |
+| `speech-input` | 3 | `presentational` | 🟨 spec |
 | `terminal` | 3 | `presentational` | 🟦 fetched |
-| `transcription` | 3 | `presentational` | 🟦 fetched |
+| `transcription` | 3 | `presentational` | 🟨 spec |
 | `voice-selector` | 3 | `listbox` | 🟨 spec |
 | `web-preview` | 3 | `presentational` | 🟦 fetched |

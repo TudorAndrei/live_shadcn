@@ -629,7 +629,7 @@ defmodule LiveShadcnTools.Spec do
       match = only_when(code) ->
         {condition, jsx} = match
 
-        %{"type" => "optional", "when" => condition, "children" => [node(jsx!(jsx), ctx)]}
+        %{"type" => "optional", "when" => condition, "children" => [markup(jsx, ctx)]}
 
       # `{tooltip ? <Tooltip>…</Tooltip> : button}` — one of two things, chosen
       # at render. `:if` on each is what HEEx has and it says the same: the
@@ -655,7 +655,7 @@ defmodule LiveShadcnTools.Spec do
           # the item. HEEx binds one name per generator, so the fields are read
           # off that name instead.
           "fields" => fields,
-          "children" => [node(jsx!(jsx), ctx)]
+          "children" => [markup(jsx, ctx)]
         }
 
       match = repeat(code) ->
@@ -665,7 +665,7 @@ defmodule LiveShadcnTools.Spec do
           "type" => "repeat",
           "count" => length,
           "binding" => binding,
-          "children" => [node(jsx!(jsx), ctx)]
+          "children" => [markup(jsx, ctx)]
         }
 
       # `{getStatusBadge(state)}` — a helper in this file that renders markup.
@@ -675,6 +675,12 @@ defmodule LiveShadcnTools.Spec do
       # parameter it was written against.
       inlined = local_call(code, ctx) ->
         inlined
+
+      # `{Icon}` — a component held under a name and rendered by naming it.
+      # JSX lets a capitalised name stand on its own where an element would,
+      # and it means what `<Icon />` means.
+      local = component_named(code, ctx) ->
+        local
 
       # `{statusLabels[status]}` — a table upstream declared once, read by a
       # prop. The table is data and the prop is a prop, so both come across.
@@ -713,11 +719,7 @@ defmodule LiveShadcnTools.Spec do
   # prop the caller supplies when it is not: `children ?? suggestion` renders
   # the `suggestion` prop, and dropping it would leave the component blank
   # exactly when the caller relied on the default.
-  defp fallback(code, ctx) do
-    if String.contains?(code, "<"),
-      do: node(jsx!(code), ctx),
-      else: expression(code, ctx)
-  end
+  defp fallback(code, ctx), do: markup(code, ctx)
 
   # A value the caller supplies, possibly with arithmetic or a default around
   # it: `{count}`, `{error.message}`, `{currentBranch + 1}`, `{title ?? name}`.
@@ -819,9 +821,7 @@ defmodule LiveShadcnTools.Spec do
 
   defp entry_node({:string, value}, _ctx), do: %{"type" => "text", "value" => value}
 
-  defp entry_node({:code, code}, ctx) do
-    if String.contains?(code, "<"), do: node(jsx!(code), ctx), else: expression(code, ctx)
-  end
+  defp entry_node({:code, code}, ctx), do: markup(code, ctx)
 
   defp entry_node(_other, _ctx), do: %{"type" => "text", "value" => ""}
 
@@ -879,12 +879,21 @@ defmodule LiveShadcnTools.Spec do
     if String.contains?(code, "<"), do: Ast.conditional(code)
   end
 
-  # One side of a choice: markup, or a value when upstream renders one there.
-  defp branch(code, ctx) do
-    code = String.trim(code)
+  # What a loop or a condition draws. Usually one element; sometimes another
+  # expression, because `lines.map((line) => line.tokens.map(…))` is a loop
+  # whose body is a loop, and reading that as an element asks for a `<` that is
+  # three tokens further in.
+  defp markup(code, ctx) do
+    trimmed = String.trim(code)
 
-    if String.contains?(code, "<"), do: node(jsx!(code), ctx), else: expression(code, ctx)
+    case Ast.parse_jsx(trimmed) do
+      nil -> expression(trimmed, ctx)
+      parsed -> node(parsed, ctx)
+    end
   end
+
+  # One side of a choice: markup, or a value when upstream renders one there.
+  defp branch(code, ctx), do: markup(code, ctx)
 
   # `toasts.map((toast) => (<Toast />))` — one element per item in a list the
   # caller supplies.
@@ -902,18 +911,6 @@ defmodule LiveShadcnTools.Spec do
       nil ->
         nil
     end
-  end
-
-  # The JSX inside an expression. The parser finds where it ends; this only has
-  # to hand it something that parses, so the brackets the expression wrapped it
-  # in come off first.
-  defp jsx!(code) do
-    # No brackets are stripped. `Ast.parse_jsx!` wraps what it is given in its
-    # own, and `bare/1` looks through however many there are — whereas trimming
-    # took every trailing `)` and left `foo(<A />` behind.
-    if String.contains?(code, "<"),
-      do: Ast.parse_jsx!(String.trim(code)),
-      else: raise("the expression `#{String.slice(code, 0, 60)}` renders no markup")
   end
 
   # A variant table's own class strings are part of what this element reads, so
@@ -1016,6 +1013,21 @@ defmodule LiveShadcnTools.Spec do
   # A component named but not written as a tag. `isCopied ? CheckIcon : CopyIcon`
   # names two, and each is what `<CheckIcon />` would have been.
   defp element(name), do: %{type: :element, tag: String.trim(name), attrs: [], children: []}
+
+  # A capitalised name standing where an element would. Only when this file can
+  # say what it is: a lone `Foo` that nothing declared is a name nobody bound,
+  # and the raise below says so rather than this drawing an empty element.
+  defp component_named(code, ctx) do
+    name = String.trim(code)
+
+    if Regex.match?(~r/^[A-Z][A-Za-z0-9_]*$/, name) and known?(name, ctx),
+      do: node(element(name), ctx)
+  end
+
+  defp known?(name, ctx) do
+    Map.has_key?(Map.get(ctx, :locals) || %{}, name) or Map.has_key?(ctx.functions, name) or
+      Map.has_key?(ctx.imports, name)
+  end
 
   # `{ icon: Icon = DotIcon }`, then `<Icon />`. React renames a prop that holds
   # a component, because JSX reads a lowercase tag as an HTML element. So the

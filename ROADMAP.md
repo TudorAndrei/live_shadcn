@@ -536,9 +536,10 @@ upstream computes something in JavaScript, and a template cannot:
 | Component | Stopped by |
 |---|---|
 | context | `Intl.NumberFormat`, so a number formatted in JavaScript |
-| tool | a variable reassigned by three `if`s, each holding different markup |
-| code-block, prompt-input | a local holding one of two icons, chosen by state |
-| shimmer | `motion`, which here is a CSS animation |
+| tool | `<Output>` — a variable reassigned by three `if`s, each holding different markup |
+| shimmer | `<MotionComponent>` — `motion`, which here is a CSS animation |
+| prompt-input | `<Icon>` — a component chosen by something this cannot compute |
+| code-block | an object literal written inline in JSX |
 | conversation | `use-stick-to-bottom`, so the `scroller` recipe |
 
 None of them is a parsing problem any more. Every one is upstream computing

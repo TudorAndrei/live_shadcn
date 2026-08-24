@@ -127,19 +127,31 @@ defmodule LiveShadcnTools.SpecTest do
                spec["parts"]
     end
 
-    test "an expression the reader cannot render is an error, never a silent drop" do
-      tsx = String.replace(@tsx, "{children}", "{items.map((item) => item.label)}")
+    test "a loop over values renders one value per item, not one element" do
+      # `items.map((item) => item.label)` is markup in JSX: an array of strings
+      # is a list of text nodes. So it reads as a loop whose body is a value.
+      spec = build(String.replace(@tsx, "{children}", "{items.map((item) => item.label)}"))
 
-      assert_raise RuntimeError, ~r/renders no markup/, fn ->
-        Spec.build("thing",
-          tsx: tsx,
-          markdown: %{"thing" => @markdown},
-          module: "thing",
-          source: "shadcn",
-          recipe: "disclosure",
-          upstream: %{}
-        )
-      end
+      assert [%{"tree" => %{"children" => [loop]}}] = spec["parts"]
+      assert %{"type" => "repeat_over", "collection" => "items", "binding" => "item"} = loop
+      assert [%{"type" => "value", "code" => "item.label"}] = loop["children"]
+    end
+
+    test "an expression the reader cannot render is an error, never a silent drop" do
+      tsx = String.replace(@tsx, "{children}", "{new Intl.NumberFormat(\"en\").format(count)}")
+
+      assert_raise RuntimeError, ~r/cannot turn into markup/, fn -> build(tsx) end
+    end
+
+    defp build(tsx) do
+      Spec.build("thing",
+        tsx: tsx,
+        markdown: %{"thing" => @markdown},
+        module: "thing",
+        source: "shadcn",
+        recipe: "disclosure",
+        upstream: %{}
+      )
     end
   end
 end

@@ -50,7 +50,7 @@ defmodule LiveShadcnTools.Ast do
   """
   def parse!(source) do
     program = tree!(source)
-    read = Enum.map(declarations(program), &declaration(&1, source))
+    read = program |> declarations() |> Enum.map(&declaration(&1, source)) |> resolve_aliases()
 
     %{
       functions: Enum.filter(read, &is_map/1),
@@ -100,6 +100,19 @@ defmodule LiveShadcnTools.Ast do
     end
   rescue
     # Not something that parses on its own, so not a ternary either.
+    _error -> nil
+  end
+
+  @doc """
+  One JSX element, or `nil` when the source is something else.
+
+  The caller sometimes has an expression that may or may not be markup — a
+  loop's body is one element, or another loop — and asking is cheaper than
+  guessing from whether a `<` appears somewhere in it.
+  """
+  def parse_jsx(code) do
+    parse_jsx!(code)
+  rescue
     _error -> nil
   end
 
@@ -309,12 +322,35 @@ defmodule LiveShadcnTools.Ast do
       %{"type" => type} = arrow when type in ~w(ArrowFunctionExpression FunctionExpression) ->
         function(name, arrow["params"], arrow["body"], source)
 
+      # `export const Shimmer = memo(ShimmerComponent)` — the export and the
+      # component are two names for one thing, and only the first is exported.
+      %{"type" => "Identifier", "name" => target} ->
+        {:alias, name, target}
+
       _other ->
         nil
     end
   end
 
   defp declaration(_node, _source), do: nil
+
+  # A name that is another name for a component this file already read. The
+  # alias keeps its own name, because that is the one the file exports and the
+  # one every later stage will look for.
+  defp resolve_aliases(read) do
+    by_name = Map.new(for function <- read, is_map(function), do: {function.name, function})
+
+    Enum.flat_map(read, fn
+      {:alias, name, target} ->
+        case Map.fetch(by_name, target) do
+          {:ok, function} -> [%{function | name: name}]
+          :error -> []
+        end
+
+      other ->
+        [other]
+    end)
+  end
 
   # Brackets a person wrote for readability, and a cast written for the type
   # checker. Neither is markup and neither changes what the thing inside is, so
