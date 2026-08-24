@@ -102,8 +102,16 @@ defmodule LiveShadcnTools.Tsx do
   `cn(buttonVariants({ variant, className }))` — and both count.
   """
   def merges_class?({:expr, code}), do: Regex.match?(~r/\bclassName\b/, code)
-  def merges_class?({:expr, code, _node}), do: merges_class?({:expr, code})
+  def merges_class?({:expr, _code, node}), do: identifier?(node, "className")
   def merges_class?(_), do: false
+
+  defp identifier?(%{"type" => "Identifier", "name" => name}, name), do: true
+
+  defp identifier?(node, name) when is_map(node),
+    do: node |> Map.values() |> Enum.any?(&identifier?(&1, name))
+
+  defp identifier?(nodes, name) when is_list(nodes), do: Enum.any?(nodes, &identifier?(&1, name))
+  defp identifier?(_node, _name), do: false
 
   @doc """
   The `cva` tables a class value is built from, and the props each was passed.

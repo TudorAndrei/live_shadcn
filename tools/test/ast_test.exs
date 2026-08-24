@@ -125,6 +125,15 @@ defmodule LiveShadcnTools.AstTest do
       assert {:expr, ~s|"a } brace"|, %{"type" => "Literal"}} = Tsx.attr(row.jsx, "title")
     end
 
+    test "a class name inside a string does not merge the caller class" do
+      source = ~S"""
+      const Row = () => <span className={cn("className")} />;
+      """
+
+      assert [row] = Ast.parse!(source).functions
+      refute Tsx.merges_class?(Tsx.attr(row.jsx, "className"))
+    end
+
     test "memo and forwardRef are read through" do
       source = """
       export const Badge = memo(({ children }) => <span data-slot="badge">{children}</span>);
