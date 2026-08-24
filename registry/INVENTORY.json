@@ -579,7 +579,7 @@
     {
       "name": "radio-group",
       "source": "shadcn",
-      "recipe": "form-control",
+      "recipe": "radio-group",
       "tier": 2
     },
     {

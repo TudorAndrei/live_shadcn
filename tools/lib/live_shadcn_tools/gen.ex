@@ -20,6 +20,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Pagination
   alias LiveShadcnTools.Gen.Popover
   alias LiveShadcnTools.Gen.Progress
+  alias LiveShadcnTools.Gen.RadioGroup
   alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Gen.Scroller
   alias LiveShadcnTools.Gen.Separator
@@ -40,6 +41,7 @@ defmodule LiveShadcnTools.Gen do
     "pagination" => Pagination,
     "popover" => Popover,
     "progress" => Progress,
+    "radio-group" => RadioGroup,
     "presentational" => Presentational,
     "scroller" => Scroller,
     "separator" => Separator,

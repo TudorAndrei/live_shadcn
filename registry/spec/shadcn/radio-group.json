@@ -317,7 +317,7 @@
       "summary": "Represents the radio button itself."
     }
   },
-  "recipe": "form-control",
+  "recipe": "radio-group",
   "source": "shadcn",
   "styles": {
     "luma": {
