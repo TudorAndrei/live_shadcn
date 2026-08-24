@@ -43,9 +43,41 @@ defmodule Mix.Tasks.Ui.Spec do
     styles = styles(manifest)
 
     components = if names == [], do: fetched(manifest), else: Enum.map(names, &resolve/1)
+    if names == [], do: inventoried!(recipes, manifest)
     results = settle(components, manifest, recipes, styles, check?)
 
     report(results, check?)
+  end
+
+  # The inventory names components; the manifest records what was fetched. A
+  # name in one and not the other is a disagreement nobody would see: this task
+  # walks what was fetched, so an inventory entry with no source is never
+  # mentioned at all, and it still counts toward "63 components" wherever
+  # somebody adds the list up.
+  #
+  # `form` was one. shadcn publishes a `form` in its Radix base and not in the
+  # Base UI one this project reads, so a recipe and a tier had been decided for
+  # a file that does not exist.
+  defp inventoried!(recipes, manifest) do
+    fetched = MapSet.new(fetched(manifest))
+
+    case for(
+           name <- Map.keys(recipes),
+           not MapSet.member?(fetched, name),
+           do: ref(elem(name, 0), elem(name, 1))
+         ) do
+      [] ->
+        :ok
+
+      missing ->
+        Mix.raise("""
+        the inventory names #{length(missing)} component(s) that were never fetched: \
+        #{Enum.join(Enum.sort(missing), ", ")}
+
+        Either the registry stopped publishing them, or the name is wrong. \
+        Remove the entry or run `mix ui.fetch`.
+        """)
+    end
   end
 
   # A spec that reads another spec is a fixpoint, not a sequence.

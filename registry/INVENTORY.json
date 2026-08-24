@@ -473,12 +473,6 @@
       "tier": 2
     },
     {
-      "name": "form",
-      "source": "shadcn",
-      "recipe": "form-control",
-      "tier": 2
-    },
-    {
       "name": "hover-card",
       "source": "shadcn",
       "recipe": "popover",
