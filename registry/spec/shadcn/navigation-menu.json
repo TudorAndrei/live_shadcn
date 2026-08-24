@@ -1215,7 +1215,7 @@
       "summary": "The clipping viewport of the navigation menu's current content."
     }
   },
-  "recipe": "menu",
+  "recipe": "navigation-menu",
   "source": "shadcn",
   "styles": {
     "luma": {

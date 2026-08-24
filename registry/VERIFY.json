@@ -1062,15 +1062,14 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/navigation-menu.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "fe2e077b8ad8a413c11147455550aa7b328fe59da2ef68bc024814af374d3178"
+    "pass": true,
+    "spec": "e96824a5489336adb8e6529457b5f338c6ad955ce9933c9f62301ab50e256d25"
   },
   "shadcn/progress": {
     "checks": {
