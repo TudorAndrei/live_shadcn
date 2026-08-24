@@ -152,7 +152,6 @@ defmodule LiveShadcnTools.Gen.Popover do
     """
     <div
       id={@id}
-      data-slot="#{slot(roles.root)}"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
@@ -182,8 +181,6 @@ defmodule LiveShadcnTools.Gen.Popover do
       parts -> Enum.join(parts, "\n")
     end
   end
-
-  defp slot(%{node: node}), do: node["slot"]
 
   defp render(spec, roles, role, children, opts \\ []) do
     tree =

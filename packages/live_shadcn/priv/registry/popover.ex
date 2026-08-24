@@ -57,7 +57,6 @@ defmodule LiveShadcn.UI.Popover do
     ~H"""
     <div
       id={@id}
-      data-slot="popover"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
