@@ -10,6 +10,13 @@ defmodule LiveShadcnTools.Gen.Tree do
     end)
   end
 
+  @doc "Renames an upstream attribute on every node with the given slot."
+  def rename_attr_at_slot(spec, slot, from, to) do
+    Map.update!(spec, "parts", fn parts ->
+      Enum.map(parts, fn part -> Map.update!(part, "tree", &rename_attr(&1, slot, from, to)) end)
+    end)
+  end
+
   defp put_attrs(%{"slot" => slot} = node, slot, attrs), do: Heex.with_attrs(node, attrs)
 
   defp put_attrs(node, slot, attrs) when is_map(node) do
@@ -19,4 +26,20 @@ defmodule LiveShadcnTools.Gen.Tree do
   end
 
   defp put_attrs(node, _slot, _attrs), do: node
+
+  defp rename_attr(%{"slot" => slot} = node, slot, from, to) do
+    Map.update(node, "attrs", [], fn attrs ->
+      Enum.map(attrs, fn attr ->
+        if attr["name"] == from, do: Map.put(attr, "name", to), else: attr
+      end)
+    end)
+  end
+
+  defp rename_attr(node, slot, from, to) when is_map(node) do
+    Map.update(node, "children", [], fn children ->
+      Enum.map(children, &rename_attr(&1, slot, from, to))
+    end)
+  end
+
+  defp rename_attr(node, _slot, _from, _to), do: node
 end

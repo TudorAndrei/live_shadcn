@@ -8,15 +8,12 @@ defmodule LiveShadcnTools.Gen.Separator do
   """
 
   alias LiveShadcnTools.Gen.Presentational
+  alias LiveShadcnTools.Gen.Tree
 
   @doc "The module source for one separator component."
   def module(spec, opts) do
     spec
+    |> Tree.rename_attr_at_slot("separator", "orientation", "data-orientation")
     |> Presentational.module(opts)
-    |> String.replace(
-      " orientation={@orientation}",
-      " data-orientation={@orientation}",
-      global: false
-    )
   end
 end
