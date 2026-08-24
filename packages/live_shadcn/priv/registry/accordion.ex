@@ -87,7 +87,7 @@ defmodule LiveShadcn.UI.Accordion do
           data-open={flag(open?(item))}
           data-disabled={flag(disabled?(item))}
           data-index={index}
-          class="flex"
+          class={["flex", item[:trigger_class]]}
         >
           <button
             data-slot="accordion-trigger"

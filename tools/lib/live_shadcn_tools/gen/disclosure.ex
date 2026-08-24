@@ -95,6 +95,7 @@ defmodule LiveShadcnTools.Gen.Disclosure do
   # not. Every one of these reads `to_string`, which is what React writes.
   def attribute!("aria-disabled", _role, shape), do: {:code, "to_string(#{shape.disabled})"}
   def attribute!("data-index", _role, shape), do: {:code, shape.index}
+  def attribute!("data-slot", _role, _shape), do: :existing
 
   def attribute!(name, role, _shape) do
     raise """
@@ -313,13 +314,14 @@ defmodule LiveShadcnTools.Gen.Disclosure do
   # string reads without Base UI documenting it. Both are contracts.
   defp documented(spec, node, role, shape) do
     documented = get_in(spec, ["primitives", Spec.key(node), "data"]) || []
-    read = get_in(node, ["reads", "self"]) || []
+    read = node |> get_in(["reads", "self"]) |> List.wrap() |> Enum.map(&Spec.read_name/1)
 
     (documented ++ read)
     |> Enum.uniq()
     |> Enum.flat_map(fn name ->
       case attribute!(name, role, shape) do
         :client -> []
+        :existing -> []
         {:code, expression} -> [{name, :code, expression}]
       end
     end)

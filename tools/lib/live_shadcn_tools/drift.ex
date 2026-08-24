@@ -42,7 +42,14 @@ defmodule LiveShadcnTools.Drift do
   end
 
   @doc "Every data or ARIA attribute the component's class strings read."
-  def attributes(spec), do: walk(spec, &(get_in(&1, ["reads", "self"]) || []))
+  def attributes(spec),
+    do:
+      walk(spec, fn node ->
+        node
+        |> get_in(["reads", "self"])
+        |> List.wrap()
+        |> Enum.map(&LiveShadcnTools.Spec.read_name/1)
+      end)
 
   @doc "Every class string the component renders."
   def classes(spec), do: walk(spec, &List.wrap(&1["class"]))

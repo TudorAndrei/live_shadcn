@@ -61,7 +61,10 @@
         "reads": {
           "group": [],
           "self": [
-            "data-horizontal"
+            {
+              "name": "data-horizontal",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -99,15 +102,22 @@
         "reads": {
           "group": [
             {
-              "attr": "data-vertical",
-              "group": "tabs"
+              "group": "tabs",
+              "name": "data-vertical",
+              "value": null
             },
             {
-              "attr": "data-horizontal",
-              "group": "tabs"
+              "group": "tabs",
+              "name": "data-horizontal",
+              "value": null
             }
           ],
-          "self": []
+          "self": [
+            {
+              "name": "data-variant",
+              "value": "line"
+            }
+          ]
         },
         "render_as": null,
         "slot": "tabs-list",
@@ -144,17 +154,35 @@
         "reads": {
           "group": [
             {
-              "attr": "data-vertical",
-              "group": "tabs"
+              "group": "tabs",
+              "name": "data-vertical",
+              "value": null
             },
             {
-              "attr": "data-horizontal",
-              "group": "tabs"
+              "group": "tabs-list",
+              "name": "data-variant",
+              "value": "line"
+            },
+            {
+              "group": "tabs",
+              "name": "data-horizontal",
+              "value": null
+            },
+            {
+              "group": "tabs-list",
+              "name": "data-variant",
+              "value": "default"
             }
           ],
           "self": [
-            "aria-disabled",
-            "data-active"
+            {
+              "name": "aria-disabled",
+              "value": null
+            },
+            {
+              "name": "data-active",
+              "value": null
+            }
           ]
         },
         "render_as": null,

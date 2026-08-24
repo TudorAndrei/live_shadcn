@@ -87,6 +87,9 @@ defmodule LiveShadcnTools.Gen.Dialog do
   # it as `snapPoints != null && snapPoints.length > 0`, which is the same
   # question a list asks in HEEx.
   def attribute!("data-snap-points", _role), do: {:code, "flag(@snap_points != [])"}
+  def attribute!("data-size", _role), do: {:code, "@size"}
+  def attribute!("data-side", _role), do: {:code, "@side"}
+  def attribute!("data-slot", _role), do: :existing
 
   def attribute!(name, role) do
     raise """
@@ -280,7 +283,7 @@ defmodule LiveShadcnTools.Gen.Dialog do
 
   defp documented(spec, node, role) do
     documented = get_in(spec, ["primitives", Spec.key(node), "data"]) || []
-    read = get_in(node, ["reads", "self"]) || []
+    read = node |> get_in(["reads", "self"]) |> List.wrap() |> Enum.map(&Spec.read_name/1)
     claimed = for attr <- node["attrs"] || [], attr["name"] in @claimed, do: attr["name"]
 
     (documented ++ read ++ claimed)
@@ -288,6 +291,7 @@ defmodule LiveShadcnTools.Gen.Dialog do
     |> Enum.flat_map(fn name ->
       case attribute!(name, role) do
         :client -> []
+        :existing -> []
         {:code, expression} -> [{name, :code, expression}]
       end
     end)

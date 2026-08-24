@@ -94,7 +94,13 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "marker",
+              "name": "data-variant",
+              "value": "separator"
+            }
+          ],
           "self": []
         },
         "render_as": null,

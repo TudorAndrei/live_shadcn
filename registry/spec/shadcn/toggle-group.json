@@ -89,10 +89,22 @@
         "reads": {
           "group": [],
           "self": [
-            "data-vertical",
-            "data-spacing",
-            "data-variant",
-            "data-size"
+            {
+              "name": "data-vertical",
+              "value": null
+            },
+            {
+              "name": "data-spacing",
+              "value": "0"
+            },
+            {
+              "name": "data-variant",
+              "value": "outline"
+            },
+            {
+              "name": "data-size",
+              "value": "sm"
+            }
           ]
         },
         "render_as": null,
@@ -149,22 +161,34 @@
         "reads": {
           "group": [
             {
-              "attr": "data-horizontal",
-              "group": "toggle-group"
+              "group": "toggle-group",
+              "name": "data-horizontal",
+              "value": null
             },
             {
-              "attr": "data-vertical",
-              "group": "toggle-group"
+              "group": "toggle-group",
+              "name": "data-vertical",
+              "value": null
             },
             {
-              "attr": "data-spacing",
-              "group": "toggle-group"
+              "group": "toggle-group",
+              "name": "data-spacing",
+              "value": "0"
             }
           ],
           "self": [
-            "data-spacing",
-            "data-variant",
-            "data-state"
+            {
+              "name": "data-spacing",
+              "value": "0"
+            },
+            {
+              "name": "data-variant",
+              "value": "outline"
+            },
+            {
+              "name": "data-state",
+              "value": "on"
+            }
           ]
         },
         "render_as": null,

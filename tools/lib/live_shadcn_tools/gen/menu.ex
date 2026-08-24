@@ -230,7 +230,7 @@ defmodule LiveShadcnTools.Gen.Menu do
 
   defp documented(spec, node, role) do
     documented = get_in(spec, ["primitives", Spec.key(node), "data"]) || []
-    read = get_in(node, ["reads", "self"]) || []
+    read = node |> get_in(["reads", "self"]) |> List.wrap() |> Enum.map(&Spec.read_name/1)
 
     (documented ++ read)
     |> Enum.uniq()

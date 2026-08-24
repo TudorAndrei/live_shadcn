@@ -34,7 +34,22 @@
         "reads": {
           "group": [],
           "self": [
-            "data-slot"
+            {
+              "name": "data-slot",
+              "value": null
+            },
+            {
+              "name": "data-slot",
+              "value": "input-group"
+            },
+            {
+              "name": "data-slot",
+              "value": "select-trigger"
+            },
+            {
+              "name": "data-slot",
+              "value": "input"
+            }
           ]
         },
         "render_as": null,
@@ -79,11 +94,17 @@
         "reads": {
           "group": [],
           "self": [
-            "data-horizontal",
-            "data-vertical"
+            {
+              "name": "data-horizontal",
+              "value": null
+            },
+            {
+              "name": "data-vertical",
+              "value": null
+            }
           ]
         },
-        "recipe": "presentational",
+        "recipe": "separator",
         "render_as": null,
         "slot": "button-group-separator",
         "source": "shadcn",

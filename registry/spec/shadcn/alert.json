@@ -28,7 +28,12 @@
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            {
+              "name": "data-slot",
+              "value": "alert-description"
+            }
+          ]
         },
         "render_as": null,
         "slot": "alert",

@@ -190,10 +190,22 @@
         "reads": {
           "group": [],
           "self": [
-            "data-ending-style",
-            "data-snap-points",
-            "data-starting-style",
-            "data-swiping"
+            {
+              "name": "data-ending-style",
+              "value": null
+            },
+            {
+              "name": "data-snap-points",
+              "value": null
+            },
+            {
+              "name": "data-starting-style",
+              "value": null
+            },
+            {
+              "name": "data-swiping",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -231,12 +243,44 @@
         "reads": {
           "group": [
             {
-              "attr": "data-nested-drawer-open",
-              "group": "drawer-popup"
+              "group": "drawer-popup",
+              "name": "data-nested-drawer-open",
+              "value": null
             },
             {
-              "attr": "data-nested-drawer-swiping",
-              "group": "drawer-popup"
+              "group": "drawer-popup",
+              "name": "data-nested-drawer-swiping",
+              "value": null
+            },
+            {
+              "group": "drawer-popup",
+              "name": "data-swipe-direction",
+              "value": "left"
+            },
+            {
+              "group": "drawer-popup",
+              "name": "data-swipe-direction",
+              "value": "up"
+            },
+            {
+              "group": "drawer-popup",
+              "name": "data-swipe-axis",
+              "value": "y"
+            },
+            {
+              "group": "drawer-popup",
+              "name": "data-swipe-direction",
+              "value": "down"
+            },
+            {
+              "group": "drawer-popup",
+              "name": "data-swipe-axis",
+              "value": "x"
+            },
+            {
+              "group": "drawer-popup",
+              "name": "data-swipe-direction",
+              "value": "right"
             }
           ],
           "self": []
@@ -412,16 +456,19 @@
                     "reads": {
                       "group": [
                         {
-                          "attr": "data-nested-drawer-open",
-                          "group": "drawer-popup"
+                          "group": "drawer-popup",
+                          "name": "data-nested-drawer-open",
+                          "value": null
                         },
                         {
-                          "attr": "data-nested-drawer-swiping",
-                          "group": "drawer-popup"
+                          "group": "drawer-popup",
+                          "name": "data-nested-drawer-swiping",
+                          "value": null
                         },
                         {
-                          "attr": "data-swiping",
-                          "group": "drawer-popup"
+                          "group": "drawer-popup",
+                          "name": "data-swiping",
+                          "value": null
                         }
                       ],
                       "self": []
@@ -460,7 +507,12 @@
             "props": false,
             "reads": {
               "group": [],
-              "self": []
+              "self": [
+                {
+                  "name": "data-modal",
+                  "value": "true"
+                }
+              ]
             },
             "render_as": null,
             "slot": "drawer-viewport",
@@ -502,7 +554,13 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "drawer-popup",
+              "name": "data-swipe-axis",
+              "value": "y"
+            }
+          ],
           "self": []
         },
         "render_as": null,

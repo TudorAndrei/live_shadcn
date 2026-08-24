@@ -364,10 +364,38 @@
         "reads": {
           "group": [],
           "self": [
-            "data-expanded",
-            "data-limited",
-            "data-starting-style",
-            "data-ending-style"
+            {
+              "name": "data-expanded",
+              "value": null
+            },
+            {
+              "name": "data-limited",
+              "value": null
+            },
+            {
+              "name": "data-starting-style",
+              "value": null
+            },
+            {
+              "name": "data-ending-style",
+              "value": null
+            },
+            {
+              "name": "data-swipe-direction",
+              "value": "down"
+            },
+            {
+              "name": "data-swipe-direction",
+              "value": "left"
+            },
+            {
+              "name": "data-swipe-direction",
+              "value": "right"
+            },
+            {
+              "name": "data-swipe-direction",
+              "value": "up"
+            }
           ]
         },
         "render_as": null,
@@ -538,8 +566,14 @@
         "reads": {
           "group": [],
           "self": [
-            "data-behind",
-            "data-expanded"
+            {
+              "name": "data-behind",
+              "value": null
+            },
+            {
+              "name": "data-expanded",
+              "value": null
+            }
           ]
         },
         "render_as": null,

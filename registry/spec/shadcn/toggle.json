@@ -31,8 +31,18 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-pressed",
-            "aria-invalid"
+            {
+              "name": "aria-pressed",
+              "value": null
+            },
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "data-state",
+              "value": "on"
+            }
           ]
         },
         "render_as": null,

@@ -97,6 +97,7 @@ defmodule LiveShadcn.UI.HoverCard do
               "cn-hover-card-content cn-hover-card-content-logical z-50 origin-(--transform-origin) outline-hidden",
               @class
             ]}
+            data-lb-style-target
             data-lb-measure
           >
             {render_slot(@inner_block)}

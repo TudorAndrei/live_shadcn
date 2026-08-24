@@ -1532,7 +1532,8 @@ defmodule LiveShadcnTools.Spec do
       group-aria-expanded/accordion-trigger:hidden -> group accordion-trigger,
                                                        aria-expanded
 
-  Returns `%{"self" => [attr], "group" => [%{"group" => name, "attr" => attr}]}`.
+  Returns `%{"self" => [read], "group" => [group_read]}`, where a read holds
+  an attribute name and, when the class requires one, its value.
   """
   def reads(classes) do
     {self, group} =
@@ -1541,8 +1542,8 @@ defmodule LiveShadcnTools.Spec do
       |> Enum.flat_map(&prefixes/1)
       |> Enum.reduce({[], []}, fn variant, {self, group} ->
         case classify(variant) do
-          {:self, attr} -> {[attr | self], group}
-          {:group, name, attr} -> {self, [%{"group" => name, "attr" => attr} | group]}
+          {:self, read} -> {[read | self], group}
+          {:group, name, read} -> {self, [Map.put(read, "group", name) | group]}
           :ignore -> {self, group}
         end
       end)
@@ -1554,11 +1555,14 @@ defmodule LiveShadcnTools.Spec do
     case String.split(rest, "/", parts: 2) do
       [<<"data-[", _rest::binary>> = attr, name] ->
         case classify(attr) do
-          {:self, attribute} -> {:group, name, attribute}
+          {:self, read} -> {:group, name, read}
         end
 
       [attr, name] ->
-        if state_attr?(attr), do: {:group, name, attr}, else: :ignore
+        case classify(attr) do
+          {:self, read} -> {:group, name, read}
+          :ignore -> :ignore
+        end
 
       _ ->
         :ignore
@@ -1566,15 +1570,32 @@ defmodule LiveShadcnTools.Spec do
   end
 
   defp classify(<<"data-[", _rest::binary>> = variant) do
-    case Regex.run(~r/^data-\[([a-z][a-z0-9-]*)=[^\]]+\]$/, variant) do
-      [_, attribute] -> {:self, "data-#{attribute}"}
+    case Regex.run(~r/^data-\[([a-z][a-z0-9-]*)=([^\]]+)\]$/, variant) do
+      [_, attribute, value] -> {:self, read("data-#{attribute}", value)}
       _ -> raise("unsupported data variant: #{variant}")
     end
   end
 
-  defp classify(variant) do
-    if state_attr?(variant), do: {:self, variant}, else: :ignore
+  defp classify(<<prefix::binary-size(5), _rest::binary>> = variant)
+       when prefix in ["data-", "aria-"] do
+    if state_attr?(variant),
+      do: {:self, read(variant)},
+      else: raise("unsupported data variant: #{variant}")
   end
+
+  defp classify(variant) do
+    if state_attr?(variant), do: {:self, read(variant)}, else: :ignore
+  end
+
+  @doc "The attribute name in a reader state record."
+  def read_name(%{"name" => name}), do: name
+  def read_name(name) when is_binary(name), do: name
+
+  @doc "The value a reader state record requires, if any."
+  def read_value(%{"value" => value}), do: value
+  def read_value(_read), do: nil
+
+  defp read(name, value \\ nil), do: %{"name" => name, "value" => value}
 
   defp state_attr?(variant) do
     Regex.match?(~r/^(data|aria)-[a-z][a-z0-9-]*$/, variant)

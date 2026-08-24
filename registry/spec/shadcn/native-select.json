@@ -38,7 +38,14 @@
             "reads": {
               "group": [],
               "self": [
-                "aria-invalid"
+                {
+                  "name": "aria-invalid",
+                  "value": null
+                },
+                {
+                  "name": "data-size",
+                  "value": "sm"
+                }
               ]
             },
             "render_as": null,
@@ -94,7 +101,13 @@
             "merges_class": false,
             "props": false,
             "reads": {
-              "group": [],
+              "group": [
+                {
+                  "group": "native-select",
+                  "name": "data-size",
+                  "value": "sm"
+                }
+              ],
               "self": []
             },
             "render_as": null,

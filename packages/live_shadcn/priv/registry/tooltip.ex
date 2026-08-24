@@ -102,6 +102,7 @@ defmodule LiveShadcn.UI.Tooltip do
               "cn-tooltip-content cn-tooltip-content-logical z-50 w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background",
               @class
             ]}
+            data-lb-style-target
             data-lb-measure
           >
             {render_slot(@inner_block)}
@@ -110,6 +111,7 @@ defmodule LiveShadcn.UI.Tooltip do
               data-open={flag(@open)}
               data-closed={flag(not @open)}
               class="cn-tooltip-arrow cn-tooltip-arrow-logical z-50 bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
+              data-lb-style-target
             />
           </div>
         </div>

@@ -93,9 +93,18 @@
         "reads": {
           "group": [],
           "self": [
-            "data-checked",
-            "aria-invalid",
-            "aria-checked"
+            {
+              "name": "data-checked",
+              "value": null
+            },
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-checked",
+              "value": null
+            }
           ]
         },
         "render_as": null,

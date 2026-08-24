@@ -63,7 +63,16 @@
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            {
+              "name": "data-slot",
+              "value": "field-label"
+            },
+            {
+              "name": "data-invalid",
+              "value": "true"
+            }
+          ]
         },
         "render_as": null,
         "slot": "field",
@@ -98,8 +107,19 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
-          "self": []
+          "group": [
+            {
+              "group": "field",
+              "name": "data-disabled",
+              "value": "true"
+            }
+          ],
+          "self": [
+            {
+              "name": "data-slot",
+              "value": "field"
+            }
+          ]
         },
         "recipe": "form-control",
         "render_as": null,
@@ -195,7 +215,16 @@
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            {
+              "name": "data-slot",
+              "value": "checkbox-group"
+            },
+            {
+              "name": "data-slot",
+              "value": "field-group"
+            }
+          ]
         },
         "render_as": null,
         "slot": "field-group",
@@ -229,7 +258,16 @@
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            {
+              "name": "data-variant",
+              "value": "label"
+            },
+            {
+              "name": "data-variant",
+              "value": "legend"
+            }
+          ]
         },
         "render_as": null,
         "slot": "field-legend",
@@ -270,7 +308,7 @@
               "group": [],
               "self": []
             },
-            "recipe": "presentational",
+            "recipe": "separator",
             "render_as": null,
             "slot": null,
             "source": "shadcn",
@@ -313,7 +351,13 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "field-group",
+              "name": "data-variant",
+              "value": "outline"
+            }
+          ],
           "self": []
         },
         "render_as": null,
@@ -394,7 +438,13 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "field",
+              "name": "data-disabled",
+              "value": "true"
+            }
+          ],
           "self": []
         },
         "render_as": null,

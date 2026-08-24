@@ -215,8 +215,22 @@
             "reads": {
               "group": [],
               "self": [
-                "data-open",
-                "data-closed"
+                {
+                  "name": "data-open",
+                  "value": null
+                },
+                {
+                  "name": "data-closed",
+                  "value": null
+                },
+                {
+                  "name": "data-size",
+                  "value": "default"
+                },
+                {
+                  "name": "data-size",
+                  "value": "sm"
+                }
               ]
             },
             "render_as": null,
@@ -288,7 +302,13 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "alert-dialog-content",
+              "name": "data-size",
+              "value": "sm"
+            }
+          ],
           "self": []
         },
         "render_as": null,
@@ -315,7 +335,13 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "alert-dialog-content",
+              "name": "data-size",
+              "value": "default"
+            }
+          ],
           "self": []
         },
         "render_as": null,
@@ -342,7 +368,13 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "alert-dialog-content",
+              "name": "data-size",
+              "value": "default"
+            }
+          ],
           "self": []
         },
         "render_as": null,
@@ -373,8 +405,14 @@
         "reads": {
           "group": [],
           "self": [
-            "data-open",
-            "data-closed"
+            {
+              "name": "data-open",
+              "value": null
+            },
+            {
+              "name": "data-closed",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -430,7 +468,13 @@
         "part": "Title",
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "alert-dialog-content",
+              "name": "data-size",
+              "value": "default"
+            }
+          ],
           "self": []
         },
         "render_as": null,

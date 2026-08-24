@@ -118,7 +118,16 @@
             "props": true,
             "reads": {
               "group": [],
-              "self": []
+              "self": [
+                {
+                  "name": "data-side",
+                  "value": "left"
+                },
+                {
+                  "name": "data-side",
+                  "value": "right"
+                }
+              ]
             },
             "render_as": null,
             "slot": "sidebar-container",
@@ -503,7 +512,10 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-expanded"
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -577,9 +589,18 @@
             "reads": {
               "group": [],
               "self": [
-                "aria-disabled",
-                "data-active",
-                "data-open"
+                {
+                  "name": "aria-disabled",
+                  "value": null
+                },
+                {
+                  "name": "data-active",
+                  "value": null
+                },
+                {
+                  "name": "data-open",
+                  "value": null
+                }
               ]
             },
             "render_as": null,
@@ -857,8 +878,22 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-disabled",
-            "data-active"
+            {
+              "name": "aria-disabled",
+              "value": null
+            },
+            {
+              "name": "data-active",
+              "value": null
+            },
+            {
+              "name": "data-size",
+              "value": "md"
+            },
+            {
+              "name": "data-size",
+              "value": "sm"
+            }
           ]
         },
         "render_as": null,
@@ -1052,7 +1087,7 @@
           "group": [],
           "self": []
         },
-        "recipe": "presentational",
+        "recipe": "separator",
         "render_as": null,
         "slot": "sidebar-separator",
         "source": "shadcn",

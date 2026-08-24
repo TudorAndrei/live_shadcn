@@ -106,6 +106,7 @@ defmodule LiveShadcn.UI.Popover do
               "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
               @class
             ]}
+            data-lb-style-target
             data-lb-measure
           >
             <h2

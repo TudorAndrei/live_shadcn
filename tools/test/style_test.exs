@@ -50,7 +50,7 @@ defmodule LiveShadcnTools.StyleTest do
       assert %{"self" => self} =
                LiveShadcnTools.Spec.reads(Style.rules(@sheet)["cn-accordion-content"])
 
-      assert "data-closed" in self
+      assert %{"name" => "data-closed", "value" => nil} in self
     end
   end
 

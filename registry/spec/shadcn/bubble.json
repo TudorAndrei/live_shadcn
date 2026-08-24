@@ -60,8 +60,27 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
-          "self": []
+          "group": [
+            {
+              "group": "message",
+              "name": "data-align",
+              "value": "end"
+            }
+          ],
+          "self": [
+            {
+              "name": "data-align",
+              "value": "end"
+            },
+            {
+              "name": "data-variant",
+              "value": "ghost"
+            },
+            {
+              "name": "data-slot",
+              "value": "bubble-content"
+            }
+          ]
         },
         "render_as": null,
         "slot": "bubble",
@@ -99,7 +118,13 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "bubble",
+              "name": "data-align",
+              "value": "end"
+            }
+          ],
           "self": []
         },
         "render_as": null,

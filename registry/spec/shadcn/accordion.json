@@ -80,7 +80,10 @@
         "reads": {
           "group": [],
           "self": [
-            "data-open"
+            {
+              "name": "data-open",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -152,8 +155,9 @@
                 "reads": {
                   "group": [
                     {
-                      "attr": "aria-expanded",
-                      "group": "accordion-trigger"
+                      "group": "accordion-trigger",
+                      "name": "aria-expanded",
+                      "value": null
                     }
                   ],
                   "self": []
@@ -207,8 +211,9 @@
                 "reads": {
                   "group": [
                     {
-                      "attr": "aria-expanded",
-                      "group": "accordion-trigger"
+                      "group": "accordion-trigger",
+                      "name": "aria-expanded",
+                      "value": null
                     }
                   ],
                   "self": []
@@ -229,7 +234,14 @@
             "reads": {
               "group": [],
               "self": [
-                "aria-disabled"
+                {
+                  "name": "aria-disabled",
+                  "value": null
+                },
+                {
+                  "name": "data-slot",
+                  "value": "accordion-trigger-icon"
+                }
               ]
             },
             "render_as": null,
@@ -284,8 +296,14 @@
             "reads": {
               "group": [],
               "self": [
-                "data-ending-style",
-                "data-starting-style"
+                {
+                  "name": "data-ending-style",
+                  "value": null
+                },
+                {
+                  "name": "data-starting-style",
+                  "value": null
+                }
               ]
             },
             "render_as": null,
@@ -307,8 +325,14 @@
         "reads": {
           "group": [],
           "self": [
-            "data-open",
-            "data-closed"
+            {
+              "name": "data-open",
+              "value": null
+            },
+            {
+              "name": "data-closed",
+              "value": null
+            }
           ]
         },
         "render_as": null,

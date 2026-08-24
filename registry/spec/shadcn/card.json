@@ -28,7 +28,12 @@
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            {
+              "name": "data-size",
+              "value": "sm"
+            }
+          ]
         },
         "render_as": null,
         "slot": "card",
@@ -108,7 +113,13 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "card",
+              "name": "data-size",
+              "value": "sm"
+            }
+          ],
           "self": []
         },
         "render_as": null,

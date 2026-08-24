@@ -65,8 +65,19 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
-          "self": []
+          "group": [
+            {
+              "group": "input-group",
+              "name": "data-disabled",
+              "value": "true"
+            }
+          ],
+          "self": [
+            {
+              "name": "data-slot",
+              "value": "kbd"
+            }
+          ]
         },
         "render_as": null,
         "slot": "input-group-addon",
@@ -187,7 +198,10 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-invalid"
+            {
+              "name": "aria-invalid",
+              "value": null
+            }
           ]
         },
         "recipe": "form-control",
@@ -220,7 +234,10 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-invalid"
+            {
+              "name": "aria-invalid",
+              "value": null
+            }
           ]
         },
         "recipe": "form-control",

@@ -67,6 +67,9 @@ defmodule LiveShadcnTools.Gen.Popover do
   def attribute!("data-pressed", _role), do: {:code, "flag(@open)"}
   def attribute!("data-disabled", _role), do: {:code, "flag(@disabled)"}
   def attribute!("data-trigger-disabled", _role), do: {:code, "flag(@disabled)"}
+  def attribute!("data-side", _role), do: {:code, "@side"}
+  def attribute!("data-state", _role), do: :client
+  def attribute!("data-slot", _role), do: :existing
 
   def attribute!(name, role) do
     raise """
@@ -240,13 +243,14 @@ defmodule LiveShadcnTools.Gen.Popover do
 
   defp documented(spec, node, role) do
     documented = get_in(spec, ["primitives", Spec.key(node), "data"]) || []
-    read = get_in(node, ["reads", "self"]) || []
+    read = node |> get_in(["reads", "self"]) |> List.wrap() |> Enum.map(&Spec.read_name/1)
 
     (documented ++ read)
     |> Enum.uniq()
     |> Enum.flat_map(fn name ->
       case attribute!(name, role) do
         :client -> []
+        :existing -> []
         {:code, expression} -> [{name, :code, expression}]
       end
     end)

@@ -1001,7 +1001,7 @@ defmodule LiveShadcnTools.Gen.Heex do
   defp markers(_node, %{hook_part: nil}, _key), do: []
 
   defp markers(node, ctx, key) do
-    reads = get_in(node, ["reads", "self"]) || []
+    reads = node |> get_in(["reads", "self"]) |> List.wrap() |> Enum.map(&Spec.read_name/1)
     client? = key != ctx.hook_part and Enum.any?(reads, &(&1 in ctx.client_attributes))
     measure? = (node["vars"] || []) != []
 

@@ -61,6 +61,8 @@ defmodule LiveShadcnTools.Gen.Tabs do
   # `[aria-disabled="true"]`, so an empty value styles nothing.
   def attribute!("aria-disabled", _role), do: {:code, "to_string(tab[:disabled] == true)"}
   def attribute!("data-index", _role), do: {:code, "index"}
+  def attribute!("data-variant", _role), do: {:code, "@variant"}
+  def attribute!("data-slot", _role), do: :existing
 
   # Which way the reader moved to get here. It is a fact about the last click,
   # which the server did not see.
@@ -174,13 +176,14 @@ defmodule LiveShadcnTools.Gen.Tabs do
 
   defp documented(spec, node, role) do
     documented = get_in(spec, ["primitives", Spec.key(node), "data"]) || []
-    read = get_in(node, ["reads", "self"]) || []
+    read = node |> get_in(["reads", "self"]) |> List.wrap() |> Enum.map(&Spec.read_name/1)
 
     (documented ++ read)
     |> Enum.uniq()
     |> Enum.flat_map(fn name ->
       case attribute!(name, role) do
         :client -> []
+        :existing -> []
         {:code, expression} -> [{name, :code, expression}]
       end
     end)

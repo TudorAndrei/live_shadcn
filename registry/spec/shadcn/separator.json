@@ -36,8 +36,14 @@
         "reads": {
           "group": [],
           "self": [
-            "data-horizontal",
-            "data-vertical"
+            {
+              "name": "data-horizontal",
+              "value": null
+            },
+            {
+              "name": "data-vertical",
+              "value": null
+            }
           ]
         },
         "render_as": null,

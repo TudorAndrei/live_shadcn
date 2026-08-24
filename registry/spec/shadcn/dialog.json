@@ -279,8 +279,14 @@
             "reads": {
               "group": [],
               "self": [
-                "data-open",
-                "data-closed"
+                {
+                  "name": "data-open",
+                  "value": null
+                },
+                {
+                  "name": "data-closed",
+                  "value": null
+                }
               ]
             },
             "render_as": null,
@@ -474,8 +480,14 @@
         "reads": {
           "group": [],
           "self": [
-            "data-open",
-            "data-closed"
+            {
+              "name": "data-open",
+              "value": null
+            },
+            {
+              "name": "data-closed",
+              "value": null
+            }
           ]
         },
         "render_as": null,

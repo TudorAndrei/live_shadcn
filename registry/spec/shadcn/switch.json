@@ -44,13 +44,25 @@
             "reads": {
               "group": [
                 {
-                  "attr": "data-size",
-                  "group": "switch"
+                  "group": "switch",
+                  "name": "data-size",
+                  "value": "default"
+                },
+                {
+                  "group": "switch",
+                  "name": "data-size",
+                  "value": "sm"
                 }
               ],
               "self": [
-                "data-unchecked",
-                "data-checked"
+                {
+                  "name": "data-unchecked",
+                  "value": null
+                },
+                {
+                  "name": "data-checked",
+                  "value": null
+                }
               ]
             },
             "render_as": null,
@@ -70,11 +82,30 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-checked",
-            "data-unchecked",
-            "aria-invalid",
-            "data-size"
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-checked",
+              "value": null
+            },
+            {
+              "name": "data-unchecked",
+              "value": null
+            },
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "data-size",
+              "value": "default"
+            },
+            {
+              "name": "data-size",
+              "value": "sm"
+            }
           ]
         },
         "render_as": null,

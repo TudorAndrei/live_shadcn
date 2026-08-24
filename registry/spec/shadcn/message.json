@@ -55,7 +55,12 @@
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            {
+              "name": "data-align",
+              "value": "end"
+            }
+          ]
         },
         "render_as": null,
         "slot": "message",
@@ -108,9 +113,18 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "message",
+              "name": "data-align",
+              "value": "end"
+            }
+          ],
           "self": [
-            "data-slot"
+            {
+              "name": "data-slot",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -137,7 +151,13 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "message",
+              "name": "data-align",
+              "value": "end"
+            }
+          ],
           "self": []
         },
         "render_as": null,

@@ -175,7 +175,12 @@
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            {
+              "name": "data-state",
+              "value": "selected"
+            }
+          ]
         },
         "render_as": null,
         "slot": "table-row",

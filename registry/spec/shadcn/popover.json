@@ -141,8 +141,38 @@
                 "reads": {
                   "group": [],
                   "self": [
-                    "data-open",
-                    "data-closed"
+                    {
+                      "name": "data-open",
+                      "value": null
+                    },
+                    {
+                      "name": "data-closed",
+                      "value": null
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "bottom"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "left"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "right"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "top"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "inline-start"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "inline-end"
+                    }
                   ]
                 },
                 "render_as": null,

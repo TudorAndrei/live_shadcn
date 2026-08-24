@@ -5,18 +5,28 @@ defmodule LiveShadcnTools.SpecTest do
 
   describe "what a class string reads" do
     test "a data variant means the element must carry that attribute" do
-      assert %{"self" => ["data-ending-style", "data-starting-style"]} =
+      assert %{
+               "self" => [
+                 %{"name" => "data-ending-style", "value" => nil},
+                 %{"name" => "data-starting-style", "value" => nil}
+               ]
+             } =
                Spec.reads(
                  "h-(--accordion-panel-height) data-ending-style:h-0 data-starting-style:h-0"
                )
     end
 
     test "an aria variant is a contract too, because shadcn styles against it" do
-      assert %{"self" => ["aria-disabled"]} = Spec.reads("aria-disabled:pointer-events-none")
+      assert %{"self" => [%{"name" => "aria-disabled", "value" => nil}]} =
+               Spec.reads("aria-disabled:pointer-events-none")
     end
 
     test "a group variant names the ancestor that must carry the attribute" do
-      assert %{"group" => [%{"group" => "accordion-trigger", "attr" => "aria-expanded"}]} =
+      assert %{
+               "group" => [
+                 %{"group" => "accordion-trigger", "name" => "aria-expanded", "value" => nil}
+               ]
+             } =
                Spec.reads("group-aria-expanded/accordion-trigger:hidden")
     end
 
@@ -26,8 +36,14 @@ defmodule LiveShadcnTools.SpecTest do
     end
 
     test "a bracket data variant records its attribute" do
-      assert %{"self" => ["data-orientation"]} =
+      assert %{"self" => [%{"name" => "data-orientation", "value" => "horizontal"}]} =
                Spec.reads("data-[orientation=horizontal]:h-px")
+    end
+
+    test "an unsupported data variant names itself" do
+      assert_raise RuntimeError, "unsupported data variant: data-[orientation]", fn ->
+        Spec.reads("data-[orientation]:h-px")
+      end
     end
   end
 
