@@ -30,7 +30,7 @@
 // with no error anywhere.
 
 import { readFileSync } from "node:fs";
-import { parseSync } from "oxc-parser";
+import { parseSync, visitorKeys } from "oxc-parser";
 
 const path = process.argv[2];
 
@@ -73,10 +73,14 @@ const convert = (node) => {
   if (typeof node.start === "number") node.start = toBytes[node.start];
   if (typeof node.end === "number") node.end = toBytes[node.end];
 
-  for (const key of Object.keys(node)) convert(node[key]);
+  for (const key of visitorKeys[node.type] ?? []) {
+    const child = node[key];
+
+    if (Array.isArray(child)) child.forEach(convert);
+    else convert(child);
+  }
 };
 
 convert(program);
-convert(module);
 
 process.stdout.write(JSON.stringify({ program, module }));
