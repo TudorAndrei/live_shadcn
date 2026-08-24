@@ -23,6 +23,11 @@
         "size": "default"
       },
       "primitive": null,
+      "refs": [
+        "size",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -114,6 +119,15 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "size": {
+          "optional": true,
+          "values": [
+            "sm",
+            "default"
+          ]
+        }
       }
     }
   ],

@@ -13,6 +13,11 @@
         "ratio": null
       },
       "primitive": null,
+      "refs": [
+        "ratio",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -44,6 +49,12 @@
         "vars": [
           "--ratio"
         ]
+      },
+      "types": {
+        "ratio": {
+          "optional": false,
+          "type": "integer"
+        }
       }
     }
   ],

@@ -27,6 +27,11 @@
         "size": "default"
       },
       "primitive": null,
+      "refs": [
+        "size",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -61,6 +66,16 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "size": {
+          "optional": true,
+          "values": [
+            "default",
+            "sm",
+            "lg"
+          ]
+        }
       }
     },
     {
@@ -71,6 +86,10 @@
         "className": null
       },
       "primitive": "Image",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -90,7 +109,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -100,6 +120,10 @@
         "className": null
       },
       "primitive": "Fallback",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -125,7 +149,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -135,6 +160,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -157,7 +186,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -167,6 +197,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -184,7 +218,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -194,6 +229,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -227,7 +266,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

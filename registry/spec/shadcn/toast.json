@@ -102,6 +102,11 @@
         "toastManager": "toast"
       },
       "primitive": "Provider",
+      "refs": [
+        "toastManager",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
@@ -346,7 +351,8 @@
         "type": "part_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -356,6 +362,10 @@
         "className": null
       },
       "primitive": "Root",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -420,7 +430,8 @@
           "--shrink",
           "--offset-y"
         ]
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -431,6 +442,11 @@
         "render": "<Button variant=\"outline\" size=\"sm\" />"
       },
       "primitive": "Action",
+      "refs": [
+        "render",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -450,7 +466,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -462,6 +479,12 @@
         "render": "<Button variant=\"ghost\" size=\"icon-sm\" />"
       },
       "primitive": "Close",
+      "refs": [
+        "render",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
@@ -548,7 +571,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -558,6 +582,10 @@
         "className": null
       },
       "primitive": "Content",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -586,7 +614,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -596,6 +625,10 @@
         "className": null
       },
       "primitive": "Description",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -615,7 +648,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -623,6 +657,9 @@
       "name": "toast_portal",
       "params": {},
       "primitive": "Portal",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -642,7 +679,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -650,6 +688,9 @@
       "name": "toast_provider",
       "params": {},
       "primitive": "Provider",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -668,7 +709,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -678,6 +720,10 @@
         "className": null
       },
       "primitive": "Title",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -697,7 +743,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -707,6 +754,10 @@
         "className": null
       },
       "primitive": "Viewport",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -726,7 +777,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

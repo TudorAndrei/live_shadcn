@@ -43,6 +43,11 @@
         "orientation": "vertical"
       },
       "primitive": null,
+      "refs": [
+        "orientation",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -87,7 +92,8 @@
           }
         ],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -97,6 +103,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -129,7 +139,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -139,6 +150,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -156,7 +171,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -165,9 +181,18 @@
       "params": {
         "children": null,
         "className": null,
-        "content": null
+        "content": null,
+        "errors": null
       },
       "primitive": null,
+      "refs": [
+        "error",
+        "index",
+        "children",
+        "errors",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -196,7 +221,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -206,6 +232,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -232,7 +262,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -243,6 +274,11 @@
         "variant": "legend"
       },
       "primitive": null,
+      "refs": [
+        "variant",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -275,6 +311,15 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "variant": {
+          "optional": true,
+          "values": [
+            "legend",
+            "label"
+          ]
+        }
       }
     },
     {
@@ -286,6 +331,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "children",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -366,7 +416,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -376,6 +427,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -393,7 +448,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -403,6 +459,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -420,7 +480,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -430,6 +491,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -453,7 +518,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

@@ -41,7 +41,6 @@
       "export": "Slider",
       "name": "slider",
       "params": {
-        "_values": null,
         "className": null,
         "defaultValue": null,
         "max": "100",
@@ -49,6 +48,15 @@
         "value": null
       },
       "primitive": "Root",
+      "refs": [
+        "value",
+        "defaultValue",
+        "min",
+        "max",
+        "className",
+        "props",
+        "index"
+      ],
       "tree": {
         "attrs": [
           {
@@ -229,7 +237,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

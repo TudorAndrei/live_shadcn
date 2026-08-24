@@ -12,11 +12,20 @@
         "children": null,
         "className": null,
         "collapsible": "offcanvas",
+        "dir": null,
         "side": "left",
-        "state": null,
         "variant": "sidebar"
       },
       "primitive": null,
+      "refs": [
+        "collapsible",
+        "className",
+        "props",
+        "children",
+        "dir",
+        "side",
+        "variant"
+      ],
       "tree": {
         "attrs": [
           {
@@ -154,6 +163,31 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "collapsible": {
+          "optional": true,
+          "values": [
+            "offcanvas",
+            "icon",
+            "none"
+          ]
+        },
+        "side": {
+          "optional": true,
+          "values": [
+            "left",
+            "right"
+          ]
+        },
+        "variant": {
+          "optional": true,
+          "values": [
+            "sidebar",
+            "floating",
+            "inset"
+          ]
+        }
       }
     },
     {
@@ -164,6 +198,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -187,7 +225,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -197,6 +236,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -220,7 +263,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -230,6 +274,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -253,7 +301,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -264,6 +313,11 @@
         "render": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "render"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -285,7 +339,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -295,6 +350,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -318,7 +377,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -329,6 +389,11 @@
         "render": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "render"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -350,7 +415,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -360,6 +426,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -383,7 +453,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -393,6 +464,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -420,7 +495,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -430,6 +506,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -447,7 +527,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -457,6 +538,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -480,7 +565,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -492,6 +578,12 @@
         "showOnHover": "false"
       },
       "primitive": null,
+      "refs": [
+        "showOnHover",
+        "className",
+        "props",
+        "render"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -524,6 +616,12 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "showOnHover": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -534,6 +632,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -557,7 +659,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -565,13 +668,22 @@
       "name": "sidebar_menu_button",
       "params": {
         "className": null,
-        "isMobile": null,
+        "isActive": "false",
         "render": null,
         "size": "default",
-        "state": null,
+        "tooltip": null,
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "variant",
+        "size",
+        "className",
+        "props",
+        "tooltip",
+        "render",
+        "isActive"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -675,6 +787,12 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "isActive": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -685,6 +803,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -708,7 +830,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -716,10 +839,14 @@
       "name": "sidebar_menu_skeleton",
       "params": {
         "className": null,
-        "showIcon": "false",
-        "width": null
+        "showIcon": "false"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "showIcon"
+      ],
       "tree": {
         "attrs": [
           {
@@ -819,6 +946,12 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "showIcon": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -829,6 +962,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -852,7 +989,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -860,10 +998,18 @@
       "name": "sidebar_menu_sub_button",
       "params": {
         "className": null,
+        "isActive": "false",
         "render": null,
         "size": "md"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "render",
+        "size",
+        "isActive"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -902,6 +1048,19 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "isActive": {
+          "optional": true,
+          "type": "boolean"
+        },
+        "size": {
+          "optional": true,
+          "values": [
+            "sm",
+            "md"
+          ]
+        }
       }
     },
     {
@@ -912,6 +1071,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -935,7 +1098,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [
@@ -946,9 +1110,23 @@
       "params": {
         "children": null,
         "className": null,
+        "defaultOpen": "true",
+        "open": null,
         "style": null
       },
       "primitive": null,
+      "refs": [
+        "defaultOpen",
+        "openProp",
+        "value",
+        "setOpenProp",
+        "open",
+        "event",
+        "style",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -1010,6 +1188,16 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "defaultOpen": {
+          "optional": true,
+          "type": "boolean"
+        },
+        "open": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -1020,6 +1208,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -1058,7 +1250,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -1068,6 +1261,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -1095,7 +1292,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -1105,6 +1303,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "event",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -1216,7 +1419,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {},

@@ -163,6 +163,14 @@
         "showTrigger": "true"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "disabled",
+        "props",
+        "showTrigger",
+        "showClear",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -445,6 +453,16 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "showClear": {
+          "optional": true,
+          "type": "boolean"
+        },
+        "showTrigger": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -460,6 +478,15 @@
         "sideOffset": "6"
       },
       "primitive": null,
+      "refs": [
+        "side",
+        "sideOffset",
+        "align",
+        "alignOffset",
+        "anchor",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -623,7 +650,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -633,6 +661,10 @@
         "className": null
       },
       "primitive": "List",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -657,7 +689,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -668,6 +701,11 @@
         "className": null
       },
       "primitive": "Item",
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -788,7 +826,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -798,6 +837,10 @@
         "className": null
       },
       "primitive": "Group",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -817,7 +860,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -827,6 +871,10 @@
         "className": null
       },
       "primitive": "GroupLabel",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -846,7 +894,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -854,6 +903,9 @@
       "name": "combobox_collection",
       "params": {},
       "primitive": "Collection",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -872,7 +924,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -882,6 +935,10 @@
         "className": null
       },
       "primitive": "Empty",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -907,7 +964,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -917,6 +975,10 @@
         "className": null
       },
       "primitive": "Separator",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -936,7 +998,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -946,6 +1009,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -965,7 +1032,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -977,6 +1045,12 @@
         "showRemove": "true"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children",
+        "showRemove"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -1114,6 +1188,12 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "showRemove": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -1124,6 +1204,10 @@
         "className": null
       },
       "primitive": "Input",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -1143,7 +1227,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -1154,6 +1239,11 @@
         "className": null
       },
       "primitive": "Trigger",
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -1227,7 +1317,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -1235,6 +1326,9 @@
       "name": "combobox_value",
       "params": {},
       "primitive": "Value",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -1253,7 +1347,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

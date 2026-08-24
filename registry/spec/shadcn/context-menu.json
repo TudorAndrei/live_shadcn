@@ -104,6 +104,9 @@
       "name": "context_menu",
       "params": {},
       "primitive": "Root",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -122,7 +125,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -132,6 +136,10 @@
         "className": null
       },
       "primitive": "Trigger",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -151,7 +159,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -165,6 +174,14 @@
         "sideOffset": "0"
       },
       "primitive": null,
+      "refs": [
+        "align",
+        "alignOffset",
+        "side",
+        "sideOffset",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -307,7 +324,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -319,6 +337,12 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "inset",
+        "variant",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -362,6 +386,19 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "inset": {
+          "optional": true,
+          "type": "boolean"
+        },
+        "variant": {
+          "optional": true,
+          "values": [
+            "default",
+            "destructive"
+          ]
+        }
       }
     },
     {
@@ -375,6 +412,13 @@
         "inset": null
       },
       "primitive": null,
+      "refs": [
+        "inset",
+        "className",
+        "checked",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
@@ -508,6 +552,12 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "inset": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -520,6 +570,12 @@
         "inset": null
       },
       "primitive": null,
+      "refs": [
+        "inset",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
@@ -648,6 +704,12 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "inset": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -659,6 +721,11 @@
         "inset": null
       },
       "primitive": null,
+      "refs": [
+        "inset",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -689,6 +756,12 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "inset": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -699,6 +772,10 @@
         "className": null
       },
       "primitive": "Separator",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -718,7 +795,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -728,6 +806,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -745,7 +827,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -753,6 +836,9 @@
       "name": "context_menu_group",
       "params": {},
       "primitive": "Group",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -772,7 +858,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -780,6 +867,9 @@
       "name": "context_menu_portal",
       "params": {},
       "primitive": "Portal",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -799,7 +889,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -807,6 +898,9 @@
       "name": "context_menu_sub",
       "params": {},
       "primitive": "SubmenuRoot",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -825,7 +919,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -833,6 +928,9 @@
       "name": "context_menu_sub_content",
       "params": {},
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -881,7 +979,8 @@
         "type": "part_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -893,6 +992,12 @@
         "inset": null
       },
       "primitive": null,
+      "refs": [
+        "inset",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
@@ -981,6 +1086,12 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "inset": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -989,6 +1100,9 @@
       "name": "context_menu_radio_group",
       "params": {},
       "primitive": "RadioGroup",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -1008,7 +1122,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

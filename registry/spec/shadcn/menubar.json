@@ -107,6 +107,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -126,7 +130,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -134,6 +139,9 @@
       "name": "menubar_portal",
       "params": {},
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -155,7 +163,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -163,6 +172,9 @@
       "name": "menubar_menu",
       "params": {},
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -184,7 +196,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -194,6 +207,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -220,7 +237,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -233,6 +251,13 @@
         "sideOffset": "8"
       },
       "primitive": null,
+      "refs": [
+        "align",
+        "alignOffset",
+        "sideOffset",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -323,7 +348,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -331,6 +357,9 @@
       "name": "menubar_group",
       "params": {},
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -352,7 +381,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -362,6 +392,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -383,7 +417,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -394,6 +429,11 @@
         "inset": null
       },
       "primitive": null,
+      "refs": [
+        "inset",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -426,6 +466,12 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "inset": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -438,6 +484,12 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "inset",
+        "variant",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -483,7 +535,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -493,6 +546,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -514,7 +571,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -527,6 +585,13 @@
         "inset": null
       },
       "primitive": null,
+      "refs": [
+        "inset",
+        "className",
+        "checked",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
@@ -660,6 +725,12 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "inset": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -668,6 +739,9 @@
       "name": "menubar_radio_group",
       "params": {},
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -689,7 +763,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -701,6 +776,12 @@
         "inset": null
       },
       "primitive": null,
+      "refs": [
+        "inset",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
@@ -829,6 +910,12 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "inset": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -837,6 +924,9 @@
       "name": "menubar_sub",
       "params": {},
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -858,7 +948,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -869,6 +960,11 @@
         "inset": null
       },
       "primitive": null,
+      "refs": [
+        "inset",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -905,6 +1001,12 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "inset": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -915,6 +1017,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -985,7 +1091,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

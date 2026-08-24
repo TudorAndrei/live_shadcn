@@ -18,6 +18,11 @@
         "type": null
       },
       "primitive": null,
+      "refs": [
+        "type",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -48,7 +53,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

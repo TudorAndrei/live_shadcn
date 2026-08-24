@@ -8,10 +8,11 @@
       "contexts": [],
       "export": "Toaster",
       "name": "toaster",
-      "params": {
-        "theme": null
-      },
+      "params": {},
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -77,7 +78,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {},

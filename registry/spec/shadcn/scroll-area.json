@@ -50,6 +50,11 @@
         "className": null
       },
       "primitive": "Root",
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -132,7 +137,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -143,6 +149,11 @@
         "orientation": "vertical"
       },
       "primitive": "Scrollbar",
+      "refs": [
+        "orientation",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -203,7 +214,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

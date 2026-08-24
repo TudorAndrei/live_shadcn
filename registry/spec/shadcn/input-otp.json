@@ -12,9 +12,15 @@
       "export": "InputOTP",
       "name": "input_otp",
       "params": {
-        "className": null
+        "className": null,
+        "containerClassName": null
       },
       "primitive": null,
+      "refs": [
+        "containerClassName",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -40,7 +46,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -50,6 +57,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -67,19 +78,23 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "InputOTPSlot",
       "name": "input_otp_slot",
       "params": {
-        "char": null,
         "className": null,
-        "hasFakeCaret": null,
-        "isActive": null
+        "index": null
       },
       "primitive": null,
+      "refs": [
+        "index",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -160,6 +175,12 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "index": {
+          "optional": false,
+          "type": "integer"
+        }
       }
     },
     {
@@ -168,6 +189,9 @@
       "name": "input_otp_separator",
       "params": {},
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -242,7 +266,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {},

@@ -58,6 +58,9 @@
       "name": "tooltip",
       "params": {},
       "primitive": "Root",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -76,7 +79,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -84,6 +88,9 @@
       "name": "tooltip_trigger",
       "params": {},
       "primitive": "Trigger",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -103,7 +110,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -118,6 +126,15 @@
         "sideOffset": "4"
       },
       "primitive": null,
+      "refs": [
+        "align",
+        "alignOffset",
+        "side",
+        "sideOffset",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -292,7 +309,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -302,6 +320,10 @@
         "delay": "0"
       },
       "primitive": "Provider",
+      "refs": [
+        "delay",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -326,7 +348,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

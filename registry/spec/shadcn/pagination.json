@@ -12,6 +12,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -40,7 +44,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -50,6 +55,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -67,7 +76,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -77,6 +87,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -174,7 +188,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -182,6 +197,9 @@
       "name": "pagination_item",
       "params": {},
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -199,7 +217,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -211,6 +230,12 @@
         "size": "icon"
       },
       "primitive": null,
+      "refs": [
+        "isActive",
+        "size",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -276,6 +301,12 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "isActive": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -287,6 +318,11 @@
         "text": "Next"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "text"
+      ],
       "tree": {
         "attrs": [
           {
@@ -394,7 +430,8 @@
         "type": "part_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -405,6 +442,11 @@
         "text": "Previous"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "text"
+      ],
       "tree": {
         "attrs": [
           {
@@ -512,7 +554,8 @@
         "type": "part_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {},

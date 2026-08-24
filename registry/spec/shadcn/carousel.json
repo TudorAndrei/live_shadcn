@@ -10,9 +10,24 @@
       "name": "carousel",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "opts": null,
+        "orientation": "horizontal",
+        "plugins": null,
+        "setApi": null
       },
       "primitive": null,
+      "refs": [
+        "opts",
+        "orientation",
+        "plugins",
+        "api",
+        "event",
+        "setApi",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -64,6 +79,15 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "orientation": {
+          "optional": true,
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        }
       }
     },
     {
@@ -71,11 +95,13 @@
       "export": "CarouselContent",
       "name": "carousel_content",
       "params": {
-        "carouselRef": null,
-        "className": null,
-        "orientation": null
+        "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -124,17 +150,21 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "CarouselItem",
       "name": "carousel_item",
       "params": {
-        "className": null,
-        "orientation": null
+        "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -169,20 +199,25 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "CarouselPrevious",
       "name": "carousel_previous",
       "params": {
-        "canScrollPrev": null,
         "className": null,
-        "orientation": null,
         "size": "icon-sm",
         "variant": "outline"
       },
       "primitive": null,
+      "refs": [
+        "variant",
+        "size",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -300,20 +335,25 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "CarouselNext",
       "name": "carousel_next",
       "params": {
-        "canScrollNext": null,
         "className": null,
-        "orientation": null,
         "size": "icon-sm",
         "variant": "outline"
       },
       "primitive": null,
+      "refs": [
+        "variant",
+        "size",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -431,7 +471,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {},

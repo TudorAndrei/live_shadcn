@@ -39,6 +39,10 @@
         "className": null
       },
       "primitive": "Root",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -58,7 +62,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -68,6 +73,10 @@
         "className": null
       },
       "primitive": "Item",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -92,7 +101,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -103,6 +113,11 @@
         "className": null
       },
       "primitive": "Trigger",
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -268,7 +283,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -279,6 +295,11 @@
         "className": null
       },
       "primitive": "Panel",
+      "refs": [
+        "props",
+        "className",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -341,7 +362,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

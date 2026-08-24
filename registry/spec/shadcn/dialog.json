@@ -53,6 +53,9 @@
       "name": "dialog",
       "params": {},
       "primitive": "Root",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -71,7 +74,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -79,6 +83,9 @@
       "name": "dialog_close",
       "params": {},
       "primitive": "Close",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -98,7 +105,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -110,6 +118,12 @@
         "showCloseButton": "true"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children",
+        "showCloseButton"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -311,6 +325,12 @@
         "type": "part_ref",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "showCloseButton": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -321,6 +341,10 @@
         "className": null
       },
       "primitive": "Description",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -340,7 +364,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -352,6 +377,12 @@
         "showCloseButton": "false"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children",
+        "showCloseButton"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -431,6 +462,12 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "showCloseButton": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -441,6 +478,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -458,7 +499,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -468,6 +510,10 @@
         "className": null
       },
       "primitive": "Backdrop",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -496,7 +542,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -504,6 +551,9 @@
       "name": "dialog_portal",
       "params": {},
       "primitive": "Portal",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -523,7 +573,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -533,6 +584,10 @@
         "className": null
       },
       "primitive": "Title",
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -552,7 +607,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -560,6 +616,9 @@
       "name": "dialog_trigger",
       "params": {},
       "primitive": "Trigger",
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -579,7 +638,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

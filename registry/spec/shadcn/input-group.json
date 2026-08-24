@@ -12,6 +12,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -35,7 +39,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -46,6 +51,12 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "align",
+        "className",
+        "e",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -92,7 +103,8 @@
           }
         ],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -105,6 +117,13 @@
         "variant": "ghost"
       },
       "primitive": null,
+      "refs": [
+        "type",
+        "size",
+        "variant",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -149,6 +168,16 @@
           }
         ],
         "vars": []
+      },
+      "types": {
+        "type": {
+          "optional": true,
+          "values": [
+            "button",
+            "submit",
+            "reset"
+          ]
+        }
       }
     },
     {
@@ -159,6 +188,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -176,7 +209,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -186,6 +220,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -212,7 +250,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -222,6 +261,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -248,7 +291,8 @@
         "type": "component_ref",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {},

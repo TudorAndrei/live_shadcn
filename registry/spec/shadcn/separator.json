@@ -18,6 +18,11 @@
         "orientation": "horizontal"
       },
       "primitive": null,
+      "refs": [
+        "orientation",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -52,7 +57,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

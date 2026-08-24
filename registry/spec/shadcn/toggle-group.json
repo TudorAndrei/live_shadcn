@@ -22,6 +22,15 @@
         "variant": null
       },
       "primitive": null,
+      "refs": [
+        "variant",
+        "size",
+        "spacing",
+        "orientation",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
@@ -115,6 +124,19 @@
         "vars": [
           "--gap"
         ]
+      },
+      "types": {
+        "orientation": {
+          "optional": true,
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        "spacing": {
+          "optional": true,
+          "type": "integer"
+        }
       }
     },
     {
@@ -124,11 +146,17 @@
       "params": {
         "children": null,
         "className": null,
-        "context": null,
         "size": "default",
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "variant",
+        "size",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
@@ -206,7 +234,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

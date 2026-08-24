@@ -14,6 +14,12 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "variant",
+        "className",
+        "props",
+        "render"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -47,7 +53,8 @@
           }
         ],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {},
