@@ -431,12 +431,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "a15b0f18c0e963e7345921878dea4e56556a08f14dcd1ffe6149eca3e760f033"
+    "spec": "155ada39942eb7376abcf3e8b2951467f13365a57224766a400b7cc4e3ed544a"
   },
   "shadcn/accordion": {
     "checks": {
@@ -527,6 +530,26 @@
     },
     "pass": true,
     "spec": "ccea63cd3f01851eeea69d84fbbff7418276307b2c6e1fb5ce90521056d010fd"
+  },
+  "shadcn/toast": {
+    "checks": {
+      "browser": {
+        "detail": "        at /Users/tudor/cave/live_shadcn/storybook/test/browser/toast.spec.mjs:24:16\n    Error Context: test-results/toast-a-toaster-the-stack--2f381-nce-the-server-has-answered-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/toast-a-toaster-the-stack--2f381-nce-the-server-has-answered-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/toast-a-toaster-the-stack--2f381-nce-the-server-has-answered-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  3 failed\n    [chromium] › toast.spec.mjs:72:3 › a toaster › a pointer over the stack fans it apart ──────────\n    [chromium] › toast.spec.mjs:82:3 › a toaster › closing one is an event, and the server is what removes it \n    [chromium] › toast.spec.mjs:89:3 › a toaster › the stack is renumbered once the server has answered \n  7 passed (31.8s)",
+        "exit": 1,
+        "pass": false
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": false,
+    "spec": "15b9dbcd1fd74804432c70f8a05de9cc0c2328936ff3fe154086fc50bdd29ec2"
   },
   "ai_elements/message": {
     "checks": {
@@ -799,6 +822,28 @@
     },
     "pass": true,
     "spec": "9264594ead163139e3730e1a43aba6b3f169292595619eb3da2f856b8652d702"
+  },
+  "shadcn/slider": {
+    "checks": {
+      "browser": {
+        "detail": "    test-results/slider-a-slider-with-two-v-cfaff-the-track-runs-between-them-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/slider-a-slider-with-two-v-cfaff-the-track-runs-between-them-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  6 failed\n    [chromium] › slider.spec.mjs:27:3 › a slider › the thumb sits where its input says ─────────────\n    [chromium] › slider.spec.mjs:35:3 › a slider › moving the input moves the thumb ────────────────\n    [chromium] › slider.spec.mjs:43:3 › a slider › the filled part of the track reaches the thumb ──\n    [chromium] › slider.spec.mjs:51:3 › a slider › a keypress moves it, because the input is a real one \n    [chromium] › slider.spec.mjs:61:3 › a slider › moving it costs no round trip ───────────────────\n    [chromium] › slider.spec.mjs:93:3 › a slider with two values › the filled part of the track runs between them \n  2 passed (23.6s)",
+        "exit": 1,
+        "pass": false
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "detail": "** (Mix) these snapshots no longer match what the components render:\n  slider-default\n  slider-range\nRun `mix snapshot` and review the diff. A diff here is a change a reader\nwould see.",
+        "exit": 1,
+        "pass": false
+      }
+    },
+    "pass": false,
+    "spec": "015d17895b79be0580f0bb3e3e46fcf3fdc6c20b5c06f49e9c42c8ba9f1880a9"
   },
   "shadcn/button": {
     "checks": {
