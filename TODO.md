@@ -48,7 +48,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 - [x] A primitive-to-recipe table beside `@external_roles`
 - [ ] `command` (`listbox`)
 - [ ] `sonner` (`toast`)
-- [ ] `input-otp` (`form-control`)
+- [x] `input-otp` (`form-control`)
 - [ ] `message-scroller` (`scroller`)
 - [x] `questionnaire` (`presentational`)
 

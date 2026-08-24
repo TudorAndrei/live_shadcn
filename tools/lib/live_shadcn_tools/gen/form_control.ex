@@ -70,23 +70,86 @@ defmodule LiveShadcnTools.Gen.FormControl do
     controls = Enum.filter(spec["parts"], &control?(&1, spec))
     valued!(spec, controls)
 
-    if controls == [] do
-      # Nothing here holds a value. That is markup, and markup has a recipe.
-      Presentational.module(spec, opts)
-    else
-      """
-      defmodule #{inspect(Keyword.fetch!(opts, :module))} do
-      #{moduledoc(spec)}
+    cond do
+      spec["name"] == "input-otp" ->
+        input_otp_module(spec, opts)
 
-        use Phoenix.Component
+      controls == [] ->
+        # Nothing here holds a value. That is markup, and markup has a recipe.
+        Presentational.module(spec, opts)
 
-        alias LiveBase.FormControl
+      true ->
+        """
+        defmodule #{inspect(Keyword.fetch!(opts, :module))} do
+        #{moduledoc(spec)}
 
-      #{Enum.map_join(spec["parts"], "\n", &function(&1, spec))}
-      #{helpers(controls, spec)}
-      end
-      """
+          use Phoenix.Component
+
+          alias LiveBase.FormControl
+
+        #{Enum.map_join(spec["parts"], "\n", &function(&1, spec))}
+        #{helpers(controls, spec)}
+        end
+        """
     end
+  end
+
+  # `input-otp` is still a form control, but its library draws the input over a
+  # separate container. The input is transparent so caller-rendered slots can
+  # show each digit while the native control remains the focus and form target.
+  defp input_otp_module(spec, opts) do
+    root = Enum.find(spec["parts"], &(&1["name"] == "input_otp"))
+
+    """
+    defmodule #{inspect(Keyword.fetch!(opts, :module))} do
+    #{moduledoc(spec)}
+
+      use Phoenix.Component
+
+      alias LiveBase.FormControl
+
+    #{Enum.map_join(spec["parts"], "\n", fn
+      %{"name" => "input_otp"} -> input_otp_control(root, spec)
+      part -> Presentational.function(part, spec)
+    end)}
+    #{helpers([root], spec)}
+    end
+    """
+  end
+
+  defp input_otp_control(part, spec) do
+    """
+    #{doc(part, spec, :field)}
+    #{declarations(part, spec, :field)}
+      def input_otp(assigns) do
+        assigns = FormControl.from_field(assigns)
+
+        ~H\"\"\"
+        <div
+          data-input-otp-container
+          translate="no"
+          style="--root-height: 0px; position: relative; cursor: text; user-select: none; -webkit-user-select: none; pointer-events: none"
+          class="cn-input-otp flex items-center has-disabled:opacity-50"
+        >
+          <input
+            data-slot={@rest[:"data-slot"] || "input-otp"}
+            data-input-otp
+            id={@id}
+            name={@name}
+            value={@value}
+            disabled={@disabled}
+            readonly={@readonly}
+            required={@required}
+            phx-mounted={FormControl.owned_attributes()}
+            spellcheck={false}
+            style="position: absolute; inset: 0; width: 100%; height: 100%; display: flex; text-align: left; opacity: 1; color: transparent; pointer-events: all; background: transparent; caret-color: transparent; border: 0 solid transparent; outline: 0 solid transparent; box-shadow: none; line-height: 1; letter-spacing: -.5em; font-size: var(--root-height, 16px); font-family: monospace; font-variant-numeric: tabular-nums"
+            class={["cn-input-otp-input disabled:cursor-not-allowed", @class]}
+            {Map.drop(@rest, [:"data-slot"])}
+          />
+        </div>
+        \"\"\"
+      end
+    """
   end
 
   # A part is a control when the spec says it carries a value: Base UI's own

@@ -42,6 +42,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Drawer
   import LiveShadcn.UI.DropdownMenu
   import LiveShadcn.UI.Input
+  import LiveShadcn.UI.InputOtp
   import LiveShadcn.UI.InputGroup
   import LiveShadcn.UI.Label
   import LiveShadcn.UI.Switch
@@ -116,7 +117,7 @@ defmodule StorybookWeb.Examples do
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button carousel
        button-group card checkbox collapsible combobox context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
-       input-group native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
+       input-group input-otp native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        toggle-group question questionnaire sidebar snippet toast shadcn-message ai_elements-message)
   end
 
@@ -255,6 +256,10 @@ defmodule StorybookWeb.Examples do
         &input_group_default/1
       )
     ]
+  end
+
+  def all("input-otp") do
+    [one("default", "Verification code", "A six-digit code field.", &input_otp_default/1)]
   end
 
   def all("native-select") do
@@ -879,6 +884,19 @@ defmodule StorybookWeb.Examples do
       <.carousel_previous />
       <.carousel_next />
     </.carousel>
+    """
+  end
+
+  defp input_otp_default(assigns) do
+    ~H"""
+    <.input_otp
+      id="verification-code"
+      name="verification_code"
+      value="123456"
+      maxlength="6"
+      aria-label="Verification code"
+      class="max-w-48"
+    />
     """
   end
 

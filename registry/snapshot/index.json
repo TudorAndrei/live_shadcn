@@ -74,6 +74,9 @@
   "question": [
     "default"
   ],
+  "input-otp": [
+    "default"
+  ],
   "tabs": [
     "default"
   ],

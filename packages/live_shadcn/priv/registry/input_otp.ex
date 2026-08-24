@@ -45,6 +45,8 @@ defmodule LiveShadcn.UI.InputOtp do
       "min",
       "max",
       "step",
+      "minlength",
+      "maxlength",
       "pattern",
       "readonly",
       "multiple"
@@ -55,19 +57,28 @@ defmodule LiveShadcn.UI.InputOtp do
     assigns = FormControl.from_field(assigns)
 
     ~H"""
-    <input
-      data-slot={@rest[:"data-slot"] || "input-otp"}
-      id={@id}
-      name={@name}
-      value={@value}
-      disabled={@disabled}
-      readonly={@readonly}
-      required={@required}
-      phx-mounted={FormControl.owned_attributes()}
-      spellcheck={false}
-      class={["cn-input-otp-input disabled:cursor-not-allowed", @class]}
-      {Map.drop(@rest, [:"data-slot"])}
-    />
+    <div
+      data-input-otp-container
+      translate="no"
+      style="--root-height: 0px; position: relative; cursor: text; user-select: none; -webkit-user-select: none; pointer-events: none"
+      class="cn-input-otp flex items-center has-disabled:opacity-50"
+    >
+      <input
+        data-slot={@rest[:"data-slot"] || "input-otp"}
+        data-input-otp
+        id={@id}
+        name={@name}
+        value={@value}
+        disabled={@disabled}
+        readonly={@readonly}
+        required={@required}
+        phx-mounted={FormControl.owned_attributes()}
+        spellcheck={false}
+        style="position: absolute; inset: 0; width: 100%; height: 100%; display: flex; text-align: left; opacity: 1; color: transparent; pointer-events: all; background: transparent; caret-color: transparent; border: 0 solid transparent; outline: 0 solid transparent; box-shadow: none; line-height: 1; letter-spacing: -.5em; font-size: var(--root-height, 16px); font-family: monospace; font-variant-numeric: tabular-nums"
+        class={["cn-input-otp-input disabled:cursor-not-allowed", @class]}
+        {Map.drop(@rest, [:"data-slot"])}
+      />
+    </div>
     """
   end
 

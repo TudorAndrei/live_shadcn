@@ -400,7 +400,8 @@ defmodule LiveShadcnTools.Gen.Heex do
     "button" => ~w(type value name formaction),
     "form" => ~w(action method enctype novalidate target),
     "img" => ~w(src srcset sizes alt loading decoding width height),
-    "input" => ~w(type name value placeholder checked min max step pattern readonly multiple),
+    "input" =>
+      ~w(type name value placeholder checked min max step minlength maxlength pattern readonly multiple),
     "label" => ~w(for),
     "ol" => ~w(start reversed),
     "option" => ~w(value selected),

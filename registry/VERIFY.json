@@ -333,6 +333,24 @@
     "pass": true,
     "spec": "bcf9a852aeb5c39c6ca2eb101ec17a33524354a38fd1305a098b7671a6776aed"
   },
+  "shadcn/input-otp": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "eec97903a1b11abea319db43d1876386e371b5c3881c0ecb2784c958e5a32798"
+  },
   "shadcn/native-select": {
     "checks": {
       "browser": {
