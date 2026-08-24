@@ -19,7 +19,7 @@ defmodule LiveShadcn.UI.Progress do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "progress"}
-      value={@value}
+      style={"--progress-value: #{@value}"}
       class={["cn-progress-root flex flex-wrap gap-3", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -59,6 +59,7 @@ defmodule LiveShadcn.UI.Progress do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "progress-indicator"}
+      style="width: calc(var(--progress-value) * 1%)"
       class={["cn-progress-indicator h-full transition-all", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >

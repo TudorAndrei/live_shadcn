@@ -17,6 +17,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Listbox
   alias LiveShadcnTools.Gen.Menu
   alias LiveShadcnTools.Gen.Popover
+  alias LiveShadcnTools.Gen.Progress
   alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Gen.Scroller
   alias LiveShadcnTools.Gen.Sidebar
@@ -31,6 +32,7 @@ defmodule LiveShadcnTools.Gen do
     "listbox" => Listbox,
     "menu" => Menu,
     "popover" => Popover,
+    "progress" => Progress,
     "presentational" => Presentational,
     "scroller" => Scroller,
     "sidebar" => Sidebar,

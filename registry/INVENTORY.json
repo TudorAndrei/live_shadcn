@@ -567,7 +567,7 @@
     {
       "name": "progress",
       "source": "shadcn",
-      "recipe": "presentational",
+      "recipe": "progress",
       "tier": 2
     },
     {

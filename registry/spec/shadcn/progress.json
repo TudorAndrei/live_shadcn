@@ -432,7 +432,7 @@
       "summary": "A text element displaying the current value."
     }
   },
-  "recipe": "presentational",
+  "recipe": "progress",
   "source": "shadcn",
   "styles": {
     "luma": {
