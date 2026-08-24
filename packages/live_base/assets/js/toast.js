@@ -59,7 +59,7 @@ export const Toast = {
   // Newest at the front. The server writes them in the order it holds them, so
   // the last one in the list is the one that just arrived.
   arrange() {
-    const toasts = this.toasts().reverse();
+    const toasts = this.toasts();
     const front = toasts[0];
 
     if (front) {

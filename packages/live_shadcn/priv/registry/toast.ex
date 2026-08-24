@@ -85,7 +85,7 @@ defmodule LiveShadcn.UI.Toast do
         {Map.drop(@rest, [:"data-slot"])}
       >
         <div
-          :for={toast <- @toast}
+          :for={toast <- Enum.reverse(@toast)}
           data-slot="toast"
           id={Toast.toast_id(@id, toast[:id])}
           data-type={toast[:type]}
@@ -100,31 +100,42 @@ defmodule LiveShadcn.UI.Toast do
             class="flex h-full items-center gap-3 overflow-hidden p-4 transition-opacity duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100"
             data-lb-style-target
           >
-            <h2
-              :if={toast[:title]}
-              data-slot="toast-title"
-              data-type={toast[:type]}
-              class="text-sm font-medium"
+            <span
+              data-slot="toast-icon"
+              class="shrink-0 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4"
             >
-              {toast[:title]}
-            </h2>
-            <p
-              data-slot="toast-description"
-              data-type={toast[:type]}
-              class="text-sm text-muted-foreground"
-            >
-              {render_slot(toast)}
-            </p>
-            <button
+              <LiveShadcn.Icon.icon name="info" />
+            </span>
+
+            <div class="flex min-w-0 flex-1 flex-col gap-1">
+              <h2
+                :if={toast[:title]}
+                data-slot="toast-title"
+                data-type={toast[:type]}
+                class="text-sm font-medium"
+              >
+                {toast[:title]}
+              </h2>
+              <p
+                data-slot="toast-description"
+                data-type={toast[:type]}
+                class="text-sm text-muted-foreground"
+              >
+                {render_slot(toast)}
+              </p>
+            </div>
+
+            <LiveShadcn.UI.Button.button
               data-slot="toast-close"
-              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label="Close toast"
               phx-click={JS.push(@dismiss, value: %{id: Toast.toast_id(@id, toast[:id])})}
               data-type={toast[:type]}
-              aria-label="Close toast"
               class="relative shrink-0 text-muted-foreground after:absolute after:-inset-2 after:content-[''] hover:text-foreground"
             >
               <LiveShadcn.Icon.icon name="x" />
-            </button>
+            </LiveShadcn.UI.Button.button>
           </div>
         </div>
       </div>

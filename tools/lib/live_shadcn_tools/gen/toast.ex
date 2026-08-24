@@ -98,17 +98,79 @@ defmodule LiveShadcnTools.Gen.Toast do
   # content. shadcn assembles none of this — its `Toaster` maps over a manager
   # — so the recipe nests them, the way the dialog recipe assembles a dialog.
   defp markup(spec, roles) do
+    toaster = Enum.find(spec["parts"], &(&1["name"] == "toaster"))
+    icon = helper!(toaster["tree"], &(&1["slot"] == "toast-icon"))
+
+    text =
+      helper!(toaster["tree"], &(&1["class"] == "flex min-w-0 flex-1 flex-col gap-1"))
+
     body =
       [
-        render(spec, roles, roles.title, "{toast[:title]}"),
-        render(spec, roles, roles.description, "{render_slot(toast)}"),
-        render(spec, roles, roles.close, :default)
+        icon_markup(icon),
+        text_markup(
+          text,
+          render(spec, roles, roles.title, "{toast[:title]}") <>
+            "\n" <> render(spec, roles, roles.description, "{render_slot(toast)}")
+        ),
+        close_markup(spec, roles)
       ]
       |> Enum.join("\n")
 
     content = render(spec, roles, roles.content, body)
     viewport = render(spec, roles, roles.viewport, render(spec, roles, roles.root, content))
     render(spec, roles, roles.portal, viewport)
+  end
+
+  defp helper!(node, predicate) do
+    case find_node(node, predicate) do
+      nil -> raise "toast list has no required helper"
+      found -> found
+    end
+  end
+
+  defp find_node(node, predicate) do
+    if predicate.(node) do
+      node
+    else
+      node
+      |> Map.get("children")
+      |> List.wrap()
+      |> Enum.find_value(&find_node(&1, predicate))
+    end
+  end
+
+  defp icon_markup(icon) do
+    """
+    <span data-slot="toast-icon" class=#{inspect(icon["class"])}>
+      <LiveShadcn.Icon.icon name="info" />
+    </span>
+    """
+  end
+
+  defp text_markup(text, children) do
+    """
+    <div class=#{inspect(text["class"])}>
+    #{children}
+    </div>
+    """
+  end
+
+  defp close_markup(_spec, roles) do
+    class = roles.close.node["class"]
+
+    """
+    <LiveShadcn.UI.Button.button
+      data-slot="toast-close"
+      variant="ghost"
+      size="icon-sm"
+      aria-label="Close toast"
+      phx-click={JS.push(@dismiss, value: %{id: Toast.toast_id(@id, toast[:id])})}
+      data-type={toast[:type]}
+      class=#{inspect(class)}
+    >
+      <LiveShadcn.Icon.icon name="x" />
+    </LiveShadcn.UI.Button.button>
+    """
   end
 
   # A part whose content the recipe supplies takes a children marker; one whose
@@ -178,7 +240,7 @@ defmodule LiveShadcnTools.Gen.Toast do
         {"aria-label", :code, "@label"}
       ],
       Spec.key(roles.root.node) => [
-        {":for", :code, "toast <- @toast"},
+        {":for", :code, "toast <- Enum.reverse(@toast)"},
         {"id", :code, "Toast.toast_id(@id, toast[:id])"},
         {"data-type", :code, "toast[:type]"},
         {"role", :text, "status"},

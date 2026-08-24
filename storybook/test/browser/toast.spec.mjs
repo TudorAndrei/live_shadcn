@@ -80,14 +80,14 @@ test.describe("a toaster", () => {
   });
 
   test("closing one is an event, and the server is what removes it", async ({ page }) => {
-    await toasts(page).nth(2).locator("[data-slot='toast-close']").click();
+    await toasts(page).first().locator("[data-slot='toast-close']").click();
 
     await expect(toasts(page)).toHaveCount(2);
     await expect(page.locator("#notices-drift")).toHaveCount(0);
   });
 
   test("the stack is renumbered once the server has answered", async ({ page }) => {
-    await toasts(page).nth(2).locator("[data-slot='toast-close']").click();
+    await toasts(page).first().locator("[data-slot='toast-close']").click();
     await expect(toasts(page)).toHaveCount(2);
 
     await expect.poll(() => variable(toasts(page).nth(1), "--toast-index")).toBe("0");
