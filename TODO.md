@@ -118,7 +118,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 - [x] 8b — Read `TSTypeAnnotation`. `boolean` → `:boolean`, `number` →
       `:integer`, a union of string literals → `values:`, `?` → optional.
       282 of 845 attributes are `:any` today
-- [ ] 8c — `presentational.ex:135` decides `:any` with a regex over code. A
+- [x] 8c — `presentational.ex:135` decides `:any` with a regex over code. A
       `MemberExpression` is a node
 - [x] 8d — Read `ParseResult.module` and use its export record. Parsed JSX
       behavior now decides whether an export is a component.
