@@ -33,7 +33,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
 
       use Phoenix.Component
 
-    #{Enum.map_join(own, "\n", &function(&1, spec))}
+    #{Enum.map_join(own, "\n", &function(&1, spec, opts))}
     end
     """
   end
@@ -67,7 +67,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
   The form-control recipe borrows this for the parts of its own components that
   hold no value: a `<label>` is markup whichever recipe it appears under.
   """
-  def function(part, spec) do
+  def function(part, spec, opts \\ []) do
     name = part["name"]
     attrs = attributes(part, spec)
 
@@ -79,7 +79,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
     #{slot(part)}
       def #{name}(assigns) do
         ~H\"\"\"
-    #{markup(part, spec)}
+    #{markup(part, spec, opts)}
         \"\"\"
       end
     """
@@ -168,9 +168,9 @@ defmodule LiveShadcnTools.Gen.Presentational do
 
   defp tree(part), do: Heex.with_children(part["tree"])
 
-  defp markup(part, spec) do
+  defp markup(part, spec, opts) do
     Heex.render(tree(part), %{
-      attrs: %{},
+      attrs: Keyword.get(opts, :attrs, %{}),
       children: "{render_slot(@inner_block)}",
       class: "@class",
       variants: spec["variants"] || %{},

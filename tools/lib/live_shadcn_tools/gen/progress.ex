@@ -8,20 +8,25 @@ defmodule LiveShadcnTools.Gen.Progress do
   """
 
   alias LiveShadcnTools.Gen.Presentational
+  alias LiveShadcnTools.Gen.Tree
+  alias LiveShadcnTools.Spec
 
   @doc "The module source for one progress component."
   def module(spec, opts) do
+    root = part!(spec, "progress")
+    indicator = part!(spec, "progress_indicator")
+
     spec
-    |> Presentational.module(opts)
-    |> String.replace(
-      " value={@value}",
-      " style={\"--progress-value: \#{@value}\"}",
-      global: false
-    )
-    |> String.replace(
-      "data-slot={@rest[:\"data-slot\"] || \"progress-indicator\"} class",
-      "data-slot={@rest[:\"data-slot\"] || \"progress-indicator\"} style=\"width: calc(var(--progress-value) * 1%)\" class",
-      global: false
+    |> Tree.drop_attr_at_slot("progress", "value")
+    |> Presentational.module(
+      Keyword.put(opts, :attrs, %{
+        Spec.key(root["tree"]) => [{"style", :code, "\"--progress-value: \#{@value}\""}],
+        Spec.key(indicator["tree"]) => [
+          {"style", :text, "width: calc(var(--progress-value) * 1%)"}
+        ]
+      })
     )
   end
+
+  defp part!(spec, name), do: Enum.find(spec["parts"], &(&1["name"] == name))
 end
