@@ -152,12 +152,66 @@
         "part": "Content",
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "navigation-menu",
+              "name": "data-viewport",
+              "value": "false"
+            }
+          ],
           "self": [
-            "data-ending-style",
-            "data-starting-style",
-            "data-open",
-            "data-closed"
+            {
+              "name": "data-ending-style",
+              "value": null
+            },
+            {
+              "name": "data-activation-direction",
+              "value": "left"
+            },
+            {
+              "name": "data-activation-direction",
+              "value": "right"
+            },
+            {
+              "name": "data-starting-style",
+              "value": null
+            },
+            {
+              "name": "data-slot",
+              "value": "navigation-menu-link"
+            },
+            {
+              "name": "data-motion",
+              "value": "from-"
+            },
+            {
+              "name": "data-motion",
+              "value": "to-"
+            },
+            {
+              "name": "data-motion",
+              "value": "from-end"
+            },
+            {
+              "name": "data-motion",
+              "value": "from-start"
+            },
+            {
+              "name": "data-motion",
+              "value": "to-end"
+            },
+            {
+              "name": "data-motion",
+              "value": "to-start"
+            },
+            {
+              "name": "data-open",
+              "value": null
+            },
+            {
+              "name": "data-closed",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -206,7 +260,16 @@
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            {
+              "name": "data-state",
+              "value": "visible"
+            },
+            {
+              "name": "data-state",
+              "value": "hidden"
+            }
+          ]
         },
         "render_as": null,
         "slot": "navigation-menu-indicator",
@@ -265,7 +328,14 @@
         "reads": {
           "group": [],
           "self": [
-            "data-active"
+            {
+              "name": "data-active",
+              "value": "true"
+            },
+            {
+              "name": "data-active",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -372,12 +442,14 @@
             "reads": {
               "group": [
                 {
-                  "attr": "data-open",
-                  "group": "navigation-menu-trigger"
+                  "group": "navigation-menu-trigger",
+                  "name": "data-open",
+                  "value": null
                 },
                 {
-                  "attr": "data-popup-open",
-                  "group": "navigation-menu-trigger"
+                  "group": "navigation-menu-trigger",
+                  "name": "data-popup-open",
+                  "value": null
                 }
               ],
               "self": []
@@ -398,8 +470,14 @@
         "reads": {
           "group": [],
           "self": [
-            "data-open",
-            "data-popup-open"
+            {
+              "name": "data-open",
+              "value": null
+            },
+            {
+              "name": "data-popup-open",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -487,8 +565,14 @@
                 "reads": {
                   "group": [],
                   "self": [
-                    "data-ending-style",
-                    "data-starting-style"
+                    {
+                      "name": "data-ending-style",
+                      "value": null
+                    },
+                    {
+                      "name": "data-starting-style",
+                      "value": null
+                    }
                   ]
                 },
                 "render_as": null,
@@ -512,7 +596,14 @@
             "reads": {
               "group": [],
               "self": [
-                "data-instant"
+                {
+                  "name": "data-instant",
+                  "value": null
+                },
+                {
+                  "name": "data-side",
+                  "value": "bottom"
+                }
               ]
             },
             "render_as": null,

@@ -1571,8 +1571,14 @@ defmodule LiveShadcnTools.Spec do
 
   defp classify(<<"data-[", _rest::binary>> = variant) do
     case Regex.run(~r/^data-\[([a-z][a-z0-9-]*)(?:[$^*]?=)([^\]]+)\]$/, variant) do
-      [_, attribute, value] -> {:self, read("data-#{attribute}", value)}
-      _ -> raise("unsupported data variant: #{variant}")
+      [_, attribute, value] ->
+        {:self, read("data-#{attribute}", value)}
+
+      _ ->
+        case Regex.run(~r/^data-\[([a-z][a-z0-9-]*)\]$/, variant) do
+          [_, attribute] -> {:self, read("data-#{attribute}")}
+          _ -> raise("unsupported data variant: #{variant}")
+        end
     end
   end
 
