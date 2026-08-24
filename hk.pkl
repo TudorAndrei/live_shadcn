@@ -25,8 +25,14 @@ local linters = new Mapping<String, Step | Group> {
     ["actionlint"] = (Builtins.actionlint) { depends = List("pinact") }
     ["zizmor"] = (Builtins.zizmor) { depends = List("pinact") }
 
-    // ── tier 2: content fixers. `typos` reads every file, so it takes the barrier. ──
-    ["typos"] = (Builtins.typos) { exclusive = true; exclude = generated }
+    // ── tier 2: content fixers. ──
+    //
+    // `typos` was here and is removed. It is a fixer, so it rewrote rather than
+    // reported, and what it rewrote were names: `tucan` to `toucan`, `contex`
+    // to `context`, both real hex packages. A name is not a spelling, this
+    // repository is full of them, and a fixer that edits a fact costs more than
+    // a spell checker returns.
+    //
     // Pins every action to a commit SHA. `zizmor` reads what this writes.
     ["pinact"] = Builtins.pinact
     ["rumdl"] = (Builtins.rumdl) { exclude = generated }

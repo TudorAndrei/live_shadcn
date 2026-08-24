@@ -103,6 +103,10 @@ None of them is a Base UI component, so none has a data-attribute contract to
 generate against. They are the specialist recipes M6 already schedules, and the
 reader says so by name rather than failing obscurely.
 
+`sidebar` left this table in M6. What stopped it was not the state machine but
+the reader: a component whose only part is named after itself had no root, and
+saying so was the whole fix.
+
 ### What the reader had to learn
 
 Two things the accordion never showed:
@@ -132,6 +136,11 @@ Both went inside the hooks that already existed:
 `Disclosure`, `Floating` and `Overlay` all show and hide something that
 animates. Those four steps live in one shared module, so three hooks cannot each
 get them slightly wrong.
+
+M6 added three more — `Scroller`, `Slider`, `Toast` — and each is a
+measurement the four could not have taken: a scrollbar's size, a thumb's
+position, a stack's heights. The rule they are held to is the same one, and
+`Sidebar` is the proof it still binds: it needed no hook at all.
 
 Everything else — every attribute a class string reads, every open and close,
 every choice — is a `Phoenix.LiveView.JS` command. No click reaches the server
@@ -626,13 +635,97 @@ Ouro is the first real application, and the proof the contract survives contact.
 
 ## M6 — Coverage
 
-- [ ] 60 tier-2 components
-- [ ] Specialist recipes: `scroller`, `toast`, `carousel`, `chart`, `calendar`,
+- [ ] shadcn coverage — 52 of 62 generated. What is left is the nine built on a
+      React library plus `direction`, which is not a component
+- [x] Specialist recipes written: `sidebar`, `scroller`, `slider`, `toast`
+- [ ] Specialist recipes still to write: `calendar`, `carousel`, `chart`,
       `resizable`
+- [x] A fourth check: upstream, rendered beside the generated component
 - [ ] Tier-2 AI Elements
 
 Tier 3 is deliberately unscheduled. Canvas, sandbox, terminal, and web preview
 are heavy React. They may never be worth porting.
+
+### Four recipes the eight did not cover
+
+Each one is a job the core recipes have no place for, and each is small because
+it owns one thing.
+
+| Recipe | What it owns | Where the work is |
+|---|---|---|
+| `sidebar` | one attribute, flipped | no hook at all: `JS.toggle_attribute` |
+| `scroller` | a scrollbar the platform did not draw | measurement |
+| `slider` | a thumb over a native `<input type="range">` | placement |
+| `toast` | a stack of messages, and where each one sits | measurement, and a timer |
+
+**A sidebar is one attribute.** Upstream is a state machine several returns
+deep, and every class string it feeds reads one `data-state`. So the whole
+component is `JS.toggle_attribute({"data-state", "collapsed", "expanded"})` —
+no hook, no round trip, and a keyboard shortcut the caller binds. Salad UI got
+there first, and the approach is credited in `LiveBase.Sidebar` under its MIT
+licence.
+
+**A slider is a range input, drawn.** The control is a native
+`<input type="range">` per thumb, one per value, all under one name so a form
+reports a list. What the hook does is put the drawn thumb where the input says
+it is. Everything a slider does for a keyboard, a screen reader, or a form is
+the platform's, and none of it was written here.
+
+**A toast list belongs to the server.** React's toast is a manager the client
+holds. A LiveView already has somewhere to keep a list, and one the client held
+would disagree with the server's the moment it re-rendered — the reader would
+watch a dismissed message come back. So the toasts are a slot, closing one is
+an event, and timing out is the same event on a timer. The hook owns only what
+a browser knows: six CSS variables and three data attributes, which is what
+shadcn's class strings read to stack the toasts, fan them apart under a
+pointer, and slide a pushed one away.
+
+The toast generates and its markup is snapshotted. Its behaviour suite has not
+been run in a browser yet, so it is generated rather than verified.
+
+### Reading upstream by rendering it
+
+`mix ui.verify` had three checks and all three read the same spec: the module
+matches the spec, the snapshot matches the module, the behaviour matches what
+the spec recorded. So a spec that read upstream **wrongly** passed all three —
+a class string the reader dropped is missing from the module, missing from the
+snapshot, and missing from the expectation.
+
+Nothing was reading upstream except the reader. `parity/` does, by rendering
+it: a Vite application that imports the fetched `.tsx` sources unmodified, at
+the commit `registry/UPSTREAM.json` pins, with the storybook's own style sheet.
+A Playwright check then draws the React component and the generated one side by
+side and compares the computed styles.
+
+Three files are shimmed, and each is something upstream imports that the
+registry does not publish: `cn`, the viewport hook `sidebar` reads, and the
+icon placeholder. Nothing is reimplemented.
+
+It paid for itself on the first run, with two things no other check could see:
+
+**`aria-disabled=""` styled nothing.** A Tailwind `aria-disabled:` variant
+matches `aria-disabled="true"`, and the generator was emitting the attribute as
+a presence. Every spec, every snapshot and every axe run agreed with itself,
+because all of them had the same wrong idea. An ARIA state is a word.
+
+**`cn-input-group-button` was missing its base.** The rule layer carries a
+class the reader had not picked up, so the generated button drew without it.
+
+5 of about 60 examples have a React reference so far, so the parity check
+reports the rest as missing rather than as passing.
+
+### What generating the rest of shadcn found
+
+**A component with one part is its own root.** `mix ui.gen` looked for a part
+named `Root`, and a component that exports one part names it after itself.
+
+**An element can wear two `cva` tables.** The fold reads variants off the
+markup that was written rather than off the spec, because a recipe that renders
+a slice of a part disagreed with the spec about which table applied.
+
+**The inventory and the registry have to agree.** `direction` is a utility, not
+a component: it has no markup and nothing to draw. It is named as such rather
+than counted as a gap.
 
 ---
 
