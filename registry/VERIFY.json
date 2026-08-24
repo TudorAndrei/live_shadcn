@@ -193,12 +193,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "80060d126c93d8f4012fe86cceb0fd65370f2168ee64ed7b55eabc8be11b4391"
+    "spec": "042c82a04f5c41a5b2458cc56a2900b08b3dcdb6cd70fcb31215d03a4089d2a5"
   },
   "ai_elements/attachments": {
     "checks": {
