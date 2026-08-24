@@ -69,8 +69,13 @@ export function collect({ selector, properties }) {
   const record = (child, path) => {
     const slot = child.getAttribute("data-slot");
     const here = slot ? [...path, slot] : path;
+    const portal = slot?.endsWith("-portal");
 
-    if (slot) {
+    // A portal is a transport wrapper, not a visible component part. React
+    // mounts it beside the preview root, while LiveView keeps it in the root,
+    // so its host box is different by design. Its children still use the
+    // portal in their path and are compared normally.
+    if (slot && !portal) {
       // A component draws three badges and each is `badge`. The path says
       // where in the anatomy an element sits; the count says which of the
       // ones sitting there it is.
