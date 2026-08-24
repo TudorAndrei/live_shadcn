@@ -19,6 +19,7 @@ defmodule LiveShadcnTools.Cva do
   rather than a person retyping them into an `attr :variant, :string`.
   """
 
+  alias LiveShadcnTools.Ast
   alias LiveShadcnTools.Tsx
 
   @doc """
@@ -28,7 +29,7 @@ defmodule LiveShadcnTools.Cva do
   "defaults" => %{name => value}}`, or `:error` when the code is not a `cva`
   call at all.
   """
-  def parse(code) do
+  def parse(code) when is_binary(code) do
     code = String.trim(code)
 
     if String.starts_with?(code, "cva(") do
@@ -36,6 +37,13 @@ defmodule LiveShadcnTools.Cva do
       {:ok, build(args)}
     else
       :error
+    end
+  end
+
+  def parse({:expr, _code, _node} = expression) do
+    case Ast.call_args(expression, "cva") do
+      [] -> :error
+      arguments -> {:ok, build_nodes(arguments)}
     end
   end
 
@@ -62,11 +70,53 @@ defmodule LiveShadcnTools.Cva do
     }
   end
 
+  defp build_nodes(args) do
+    base = args |> Enum.at(0) |> Ast.string_literal() || ""
+    options = args |> Enum.at(1) |> object()
+
+    %{
+      "base" => base |> String.split() |> Enum.join(" "),
+      "variants" => variants(Map.get(options, "variants")),
+      "defaults" => defaults(Map.get(options, "defaultVariants"))
+    }
+  end
+
   defp options(nil), do: %{}
 
   defp options(code) do
     if String.starts_with?(String.trim(code), "{"), do: Tsx.object!(code), else: %{}
   end
+
+  defp object(nil), do: %{}
+
+  defp object(node) do
+    case bare(node) do
+      %{"type" => "ObjectExpression", "properties" => properties} ->
+        for %{"type" => "Property", "key" => key, "value" => value} <- properties,
+            name = key_name(key),
+            is_binary(name),
+            into: %{},
+            do: {name, value_of(value)}
+
+      _other ->
+        %{}
+    end
+  end
+
+  defp value_of(node) do
+    cond do
+      literal = Ast.string_literal(node) -> {:string, literal |> String.split() |> Enum.join(" ")}
+      true -> {:object, object(node)}
+    end
+  end
+
+  defp key_name(%{"name" => name}) when is_binary(name), do: name
+  defp key_name(%{"value" => name}) when is_binary(name), do: name
+  defp key_name(_key), do: nil
+
+  defp bare(%{"type" => "ParenthesizedExpression", "expression" => inner}), do: bare(inner)
+  defp bare(%{"type" => "TSAsExpression", "expression" => inner}), do: bare(inner)
+  defp bare(node), do: node
 
   defp variants({:object, groups}) do
     Map.new(groups, fn {name, value} ->

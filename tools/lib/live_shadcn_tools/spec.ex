@@ -53,7 +53,7 @@ defmodule LiveShadcnTools.Spec do
 
     doc = Map.get(docs, Keyword.get(opts, :module, name), BaseUi.parse!("", name))
     functions = Map.new(tsx.functions, &{&1.name, &1})
-    variants = variants(tsx.consts)
+    variants = variants(tsx.const_nodes)
 
     ctx = %{
       doc: doc,
@@ -61,6 +61,7 @@ defmodule LiveShadcnTools.Spec do
       styles: Keyword.get(opts, :styles, %{}),
       functions: functions,
       consts: tsx.consts,
+      const_nodes: tsx.const_nodes,
       imports: tsx.imports,
       variants: Map.keys(variants),
       resolve: Keyword.get(opts, :resolve, fn _source, _name -> nil end)
@@ -1142,7 +1143,7 @@ defmodule LiveShadcnTools.Spec do
   # A variant table's own class strings are part of what this element reads, so
   # `data-` variants inside them are found the same way as the inline ones.
   defp variant_classes(binding, ctx) do
-    case Cva.parse(Map.get(ctx.consts, binding, "")) do
+    case Cva.parse(Map.get(ctx.const_nodes, binding)) do
       :error ->
         ""
 

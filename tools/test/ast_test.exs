@@ -2,6 +2,7 @@ defmodule LiveShadcnTools.AstTest do
   use ExUnit.Case, async: true
 
   alias LiveShadcnTools.Ast
+  alias LiveShadcnTools.Cva
   alias LiveShadcnTools.Tsx
 
   describe "reading a registry component" do
@@ -204,6 +205,20 @@ defmodule LiveShadcnTools.AstTest do
                "count" => %{"optional" => false, "type" => "integer"},
                "side" => %{"optional" => true, "values" => ["left", "right"]}
              }
+    end
+
+    test "CVA tables read their nested object nodes" do
+      source = ~S"""
+      const rowVariants = cva("row", {
+        variants: { side: { left: "left", right: "right" } },
+        defaultVariants: { side: "left" },
+      })
+      """
+
+      assert {:ok, table} = Ast.parse!(source).const_nodes["rowVariants"] |> Cva.parse()
+      assert table["base"] == "row"
+      assert table["variants"]["side"] == %{"left" => "left", "right" => "right"}
+      assert table["defaults"] == %{"side" => "left"}
     end
 
     test "member roots come from member expression nodes" do

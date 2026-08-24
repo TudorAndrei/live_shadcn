@@ -67,6 +67,7 @@ defmodule LiveShadcnTools.Ast do
       functions: Enum.filter(read, &is_map/1),
       unreadable: Map.new(for {:unreadable, name, why} <- read, do: {name, why}),
       consts: consts(program, source),
+      const_nodes: const_nodes(program, source),
       imports: imports(program),
       exports: exports(module)
     }
@@ -545,6 +546,18 @@ defmodule LiveShadcnTools.Ast do
         is_map(init),
         into: %{},
         do: {name, slice(init, source)}
+  end
+
+  # Source remains available for the small places that must emit an upstream
+  # expression. Readers that need to understand a constant use this node map.
+  defp const_nodes(program, source) do
+    for declaration <- declarations(program),
+        declaration["type"] == "VariableDeclarator",
+        name = name_of(declaration),
+        init = declaration["init"],
+        is_map(init),
+        into: %{},
+        do: {name, {:expr, slice(init, source), init}}
   end
 
   # ── the top level ─────────────────────────────────────────────────────────
