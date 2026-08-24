@@ -53,7 +53,6 @@ defmodule LiveShadcn.UI.Tooltip do
     ~H"""
     <div
       id={@id}
-      data-slot="tooltip"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}

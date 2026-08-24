@@ -17,6 +17,25 @@
     "pass": true,
     "spec": "474f3f5b69f244699ff0af68cd261a2e438e13c33d19489c3d98222cf71a3b90"
   },
+  "shadcn/scroll-area": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/scroll-area.<example>.tsx",
+        "pass": false
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": false,
+    "spec": "acd3e93986654d5262d900c5ca9140fc3d9e4bafa7a577a019772032e4bb5085"
+  },
   "shadcn/checkbox": {
     "checks": {
       "browser": {
@@ -25,12 +44,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "519528b1a8a996ec83447cc9a275f621773167a63c3a89010718fcf9f4da4fee"
+    "spec": "e52e9fd5699bc434c223f5d53ad72d8b4a61b923f51f56384ef435a05fa31c94"
   },
   "ai_elements/chain-of-thought": {
     "checks": {
@@ -38,14 +60,20 @@
         "pass": true
       },
       "generated": {
-        "pass": true
+        "detail": "** (Mix) generated components do not match their spec: ai_elements/chain-of-thought\nEither the spec changed and `mix ui.gen` has not run, or the file was\nedited by hand. Generated files are not edited by hand.",
+        "exit": 1,
+        "pass": false
+      },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/chain-of-thought.<example>.tsx",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "1bac81b439c29b4b877249c256a8884a9388a18c2b189ab1f771814e31a35998"
+    "pass": false,
+    "spec": "e0fdb1559b19b8a9b7aafd204626e7263fd35fce9ab7d9e71a4324f7ea63ccea"
   },
   "shadcn/context-menu": {
     "checks": {
@@ -55,12 +83,16 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/context-menu.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "7b02b0721f5f9429788cf0949119724be0be801b78c89474bf3a0db92de2bd57"
+    "pass": false,
+    "spec": "b1d23e1c1bc689fedf3218ca0ebdf2677fab700441a99c8d979dbc7c72fd707a"
   },
   "shadcn/hover-card": {
     "checks": {
@@ -68,14 +100,20 @@
         "pass": true
       },
       "generated": {
-        "pass": true
+        "detail": "     warning: function slot/1 is unused\n     │\n 185 │   defp slot(%{node: node}), do: node[\"slot\"]\n     │        ~\n     │\n     └─ lib/live_shadcn_tools/gen/popover.ex:185:8: LiveShadcnTools.Gen.Popover (module)\n** (Mix) generated components do not match their spec: shadcn/hover-card\nEither the spec changed and `mix ui.gen` has not run, or the file was\nedited by hand. Generated files are not edited by hand.",
+        "exit": 1,
+        "pass": false
+      },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/hover-card.<example>.tsx",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "906c440c28774b8d70834435a47d4e0fb939512fcde2e14478afabc53065d9ac"
+    "pass": false,
+    "spec": "88199f3de5cfbc107e9eab64dddea21234815c8ca64b72a3a89da4d4f0c362b8"
   },
   "ai_elements/package-info": {
     "checks": {
@@ -85,12 +123,16 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/package-info.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "3dc9241c2a095ed94cc68ec3f096e21230d67a7dd0f98d68a4b82b0ba2d4d4a5"
+    "pass": false,
+    "spec": "3a51c9f8e55a8925563eb1cd2f9fba25197d383be7f5350c92e64d9dce7af58b"
   },
   "shadcn/pagination": {
     "checks": {
@@ -100,12 +142,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "e6b23085f2fb4ee8deed783faabc244700e414b31aece4e8e56dabe16ca67ce9"
+    "spec": "660cab53e83572869a2f600cb6a12d6fb6e04c2bb8fddedbcd577f8ebd6380dc"
   },
   "shadcn/radio-group": {
     "checks": {
@@ -115,12 +160,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "f75b79588b315b4cb152c9233abdfd515cde94511a0ba0a4fff76a21d1152b53"
+    "spec": "eeaacca8414b1f4c5a3f3d6745ac9a4f16ca541effb1fbfe4727204fe8344351"
   },
   "shadcn/attachment": {
     "checks": {
@@ -130,14 +178,17 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "985dc49a555515ee8be04e3ea8c4d0607cc1195df67023348356551b9ab91ea5"
+    "spec": "4bfa706fbadba5e327552b89e7b4a78d0247e391be37daaa685e8b8814ddcf7e"
   },
-  "ai_elements/task": {
+  "shadcn/sidebar": {
     "checks": {
       "browser": {
         "pass": true
@@ -145,12 +196,37 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/sidebar.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "2f7243202cabb53fea9103c38a103850ddf3662ba3c82768f446885043e7ac16"
+    "pass": false,
+    "spec": "abd485cda801d6a1bc874805f978304a46adc73a249fd9c060b8c6a9cc4686ee"
+  },
+  "ai_elements/task": {
+    "checks": {
+      "browser": {
+        "detail": "      39 |   });\n      40 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/task.spec.mjs:37:31\n    Error Context: test-results/task-a-task-a-click-opens-the-panel-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/task-a-task-a-click-opens-the-panel-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/task-a-task-a-click-opens-the-panel-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › task.spec.mjs:32:3 › a task › a click opens the panel ─────────────────────────────\n  5 passed (8.8s)",
+        "exit": 1,
+        "pass": false
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/task.<example>.tsx",
+        "pass": false
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": false,
+    "spec": "742a36f54fe2c4752c480d297889c9fed1601cc50cfeebdc6e44b6afa68fe158"
   },
   "shadcn/bubble": {
     "checks": {
@@ -160,12 +236,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "2462455c5b9ff137aebbfa418cb6c9bba24c785414efffa9a33fc4a8ac66a81b"
+    "spec": "1ff70df0ac4abbf4af4cad8e72182195560cc07ac7d5467e9677e7496258900b"
   },
   "shadcn/sheet": {
     "checks": {
@@ -212,13 +291,17 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
       "snapshot": {
         "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
         "pass": false
       }
     },
     "pass": false,
-    "spec": "fac1fc77c9858e90ac4fe3bb5a03745969612fcbf4adee247bad4d04c4ada423"
+    "spec": "f205740845ed758c3f5ccc237ad737bd17bd2cb040c844b016f0a67b660a3e3f"
   },
   "shadcn/field": {
     "checks": {
@@ -228,12 +311,52 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "3f733fa7bf7efac74251cdc1d6b9ed132211a32ec054ee6c0d9d0407c0d08221"
+    "spec": "072ea4d975bd2a3a2ac3e34eb69ecae84bacda2230c1817f14b115aaa73db38d"
+  },
+  "shadcn/menubar": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/menubar.<example>.tsx",
+        "pass": false
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": false,
+    "spec": "bcf9a852aeb5c39c6ca2eb101ec17a33524354a38fd1305a098b7671a6776aed"
+  },
+  "shadcn/native-select": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "f2e5fb42890d82d7ea9ccc4215be985f86151b82bbb22ebc6138448f94cb39bf"
   },
   "shadcn/toggle": {
     "checks": {
@@ -243,12 +366,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "17d9ea6a41d74f62190b3142c808c529db8eae5709c698c65e6c90078fa1a9fe"
+    "spec": "7f3f2babb1f2327dbb277c52350c6e47972aef7ab5f7550310a9ea099d42019d"
   },
   "shadcn/input": {
     "checks": {
@@ -258,12 +384,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "1299f9ff7be3d48dd8030d9e7a4750464e2d10a923adb5eb3f3a02ae8d17df73"
+    "spec": "73b945f67b1ff064242901dc8b3256304592795ab0c30dd360366e2aa743f185"
   },
   "shadcn/marker": {
     "checks": {
@@ -273,12 +402,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "312c35c4cf048df0cf1e99ede74e0d8c1b38f8432720c1d4c39efbd60dfd28ef"
+    "spec": "659b69f928dbfc5f2357cc5929ecabf950d35f08e6ac10558013b06f1712bd1c"
   },
   "ai_elements/plan": {
     "checks": {
@@ -289,13 +421,17 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
       "snapshot": {
         "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
         "pass": false
       }
     },
     "pass": false,
-    "spec": "04994ed5c320ba00aeb6c3ecb3a1765602e82074d12697aaf97b5f9648b9aac5"
+    "spec": "5f508e05653a98fd5684c240ecc3a9bea4604b2487db57fd88e42da6623ce515"
   },
   "ai_elements/confirmation": {
     "checks": {
@@ -305,12 +441,16 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/confirmation.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "ce3b8b8f15ed46922eab32a51b68f1650eadcf4325704e0b74800247e2b09f40"
+    "pass": false,
+    "spec": "2360fa498b6ec63291425e420f1ee957cb63a59d6fb132a6723ee6fbfb9432a4"
   },
   "shadcn/skeleton": {
     "checks": {
@@ -320,12 +460,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "08f1f02a3e9f303b484d1460c4ca044b161c30c102e8435ec60b86faf1d683cc"
+    "spec": "64d6c239b3a1f5d7875cf5aaa9b8d2a81831a4fd794bfa7cb980717843a8108b"
   },
   "shadcn/spinner": {
     "checks": {
@@ -335,12 +478,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "37118af85f1fa9ed9fb85f4afbd5a56b34201c4b4665fd2bf712be92652e3190"
+    "spec": "7178a5195ab09b2c0053ef0c5b34ec17bf4a142b39f98bef7835bd65fe82e60c"
   },
   "shadcn/button-group": {
     "checks": {
@@ -350,12 +496,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "bbd9dccc3aab3eda1211d6aff26aee235bf0793561909e6b92c981a8c18cf31e"
+    "spec": "2e7efe8420ab0aeaffe59fb2bff79143bd33cec6343e7d732b3af88dc4216db2"
   },
   "ai_elements/checkpoint": {
     "checks": {
@@ -363,6 +512,30 @@
         "pass": true
       },
       "generated": {
+        "detail": "** (Mix) generated components do not match their spec: ai_elements/checkpoint\nEither the spec changed and `mix ui.gen` has not run, or the file was\nedited by hand. Generated files are not edited by hand.",
+        "exit": 1,
+        "pass": false
+      },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/checkpoint.<example>.tsx",
+        "pass": false
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": false,
+    "spec": "faf44b29a3bd9891c7e71d860379daa324a273b0f81d02acc9b1cd9c42e833d2"
+  },
+  "shadcn/input-group": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
         "pass": true
       },
       "snapshot": {
@@ -370,7 +543,7 @@
       }
     },
     "pass": true,
-    "spec": "ae096e495a525e2f79ee017b009e35568721acc1679dcea87624caa51fc3e445"
+    "spec": "e8f1143b19ebb150acef128efd7503c67b3295e0bc462691d767b40c6705990c"
   },
   "shadcn/message": {
     "checks": {
@@ -380,12 +553,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "0dae7f1b0ecef224feb7c7d0dd7e398d064a06913ac395bcd2008f4a776ddd63"
+    "spec": "d5db852b12b8a464098b5aed180105510aaeab416875276700b33757588534d9"
   },
   "shadcn/badge": {
     "checks": {
@@ -395,12 +571,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "36eefcdfea5b1c41a81f77bb767e4b5070a7620731651d393a936e974968601b"
+    "spec": "cb0b882d07b3723ef5da42c3b5f52a656d79fc01b5fb8c8f434db8791239c7f2"
   },
   "ai_elements/sources": {
     "checks": {
@@ -410,12 +589,16 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/sources.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "88357d7df841f19f55444ca6ea1edc03c10c8c935414790e788e4785ee7c9758"
+    "pass": false,
+    "spec": "603e6b9cbf15c854a4f11400a5bba33dfbe38bfe359a35ccbc8e33d7eb5dc7de"
   },
   "shadcn/dropdown-menu": {
     "checks": {
@@ -425,12 +608,16 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/dropdown-menu.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "296b9f56edf6f383cbff6e63f59e05a6e4e18d65026600b4510659fd103d274c"
+    "pass": false,
+    "spec": "8baa1791c724490b654ce4c187058c188d200e7e7da66a18e049d1da92b231f3"
   },
   "shadcn/dialog": {
     "checks": {
@@ -453,17 +640,22 @@
   "shadcn/accordion": {
     "checks": {
       "browser": {
-        "pass": true
+        "detail": "      44 |   });\n      45 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/accordion.spec.mjs:42:25\n    Error Context: test-results/accordion-a-set-of-panels--4bd64-opens-the-panel-and-says-so-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/accordion-a-set-of-panels--4bd64-opens-the-panel-and-says-so-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/accordion-a-set-of-panels--4bd64-opens-the-panel-and-says-so-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › accordion.spec.mjs:35:3 › a set of panels, one open at a time › a click opens the panel and says so \n  15 passed (14.0s)",
+        "exit": 1,
+        "pass": false
       },
       "generated": {
+        "pass": true
+      },
+      "parity": {
         "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "6bae09a041167d5b16ce35c04f9a017525f6f61c211532034c5d98db8a927be1"
+    "pass": false,
+    "spec": "d97571f42a076a2e5c210cd7cb66f7cd42e91df90a61dac64c00941d98df4bce"
   },
   "ai_elements/reasoning": {
     "checks": {
@@ -473,12 +665,16 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/reasoning.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "30e59311837184b0e1b62db56e3d058861f1a5ff4b5e811617911ec157d7987f"
+    "pass": false,
+    "spec": "56856557b5757a6b000320325111936e54600dacc69764af6f7e7345bf016b31"
   },
   "shadcn/tabs": {
     "checks": {
@@ -488,12 +684,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "80d6e40043d804d14c90b4bd899f75ed7519c8886a2d76b42fed8b7710ffd34b"
+    "spec": "9b57b312b95586e398977fe1f4da3e476ce8c8a5bf337b6dfb0c3d77de8c9ad1"
   },
   "shadcn/tooltip": {
     "checks": {
@@ -503,12 +702,33 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "cb80585edfca458ffa1cccbbe09b517cb672f4cf1638e4226e84d834dc818345"
+    "spec": "a0e101f6638c1f55726c5fe723805e22f8375c4f2ea1b01f010db903067ae2ce"
+  },
+  "shadcn/toggle-group": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "d57c943253741e9c4ebe7f815af58d7152d8a87df25ca51700c4b4a3d787e1bd"
   },
   "shadcn/aspect-ratio": {
     "checks": {
@@ -518,12 +738,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "e53de5ee63f3b2abe00d2f98bf3260a50e57f9d2774d9b496a8af549be366704"
+    "spec": "f4ded5734092f0601affd37f15ff9b6f7002a956baf6e38bceeb9f2bc0754066"
   },
   "shadcn/textarea": {
     "checks": {
@@ -533,12 +756,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "ccea63cd3f01851eeea69d84fbbff7418276307b2c6e1fb5ce90521056d010fd"
+    "spec": "2fc0b678bfe5a33a4052fe59a174dbe58491bdf6627f534b7bc37fc8a4ab918c"
   },
   "shadcn/toast": {
     "checks": {
@@ -566,12 +792,16 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/ai_elements-message.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "276f25b0681f6ec11828320e3800c20069f0e930cbcd201da5c8c1336e97d549"
+    "pass": false,
+    "spec": "c5d19d0fa5527049738adedc2b0c4094375fb83023abd241121bf79e7ce9d7bd"
   },
   "ai_elements/snippet": {
     "checks": {
@@ -581,12 +811,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "4efd8d2dc21daba84cdf9e98893df7d00d457e266653397481ba7041d2ac5211"
+    "spec": "a55373ee61b0349f32613f51a3a08391ec4c6e2a13e49367bfe9cf7584c09452"
   },
   "ai_elements/environment-variables": {
     "checks": {
@@ -597,13 +830,17 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
       "snapshot": {
         "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
         "pass": false
       }
     },
     "pass": false,
-    "spec": "47fceba09e21c03a77b883db282c41fb7306db03303b96f83f96e0e699028576"
+    "spec": "ccffb01372cf8f753b63b5185ccdd64cba4d34bee4c3df155571208e695a29ef"
   },
   "shadcn/switch": {
     "checks": {
@@ -613,12 +850,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "4b796d54196a2e9e4c79341462832a5d0f12647eb115e545e5015e6a694d603d"
+    "spec": "de618870e7fee28a3ff803f34839653ed0637ddc1924436e6f23b2e3eb9d3599"
   },
   "shadcn/label": {
     "checks": {
@@ -628,12 +868,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "b114f2466afffabb24c0ed52bd046a03855f8996ee4e2df351250e5a8dfc06ee"
+    "spec": "4454d14c74228f74f86cddd378ad706d600d50ea09d690afe49c68545dc4d186"
   },
   "shadcn/alert": {
     "checks": {
@@ -643,12 +886,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "a03d50fa58d650e34cb502fb7ffac6f437c69bd3b1fa68c0626bfe2fec778fa2"
+    "spec": "c49fa3f4b2866a43dcfd6fac971e264a1d1b72e82b593191f5e21a2a3876a2b9"
   },
   "shadcn/item": {
     "checks": {
@@ -658,12 +904,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "44e265965ec376964f688c78e5336e216b933a6bae2f1a9dd580f3ac2ae9767f"
+    "spec": "c6c0a236e06a6154995c35d10455245307941b2ddcddc9d58fa3454387b7145f"
   },
   "shadcn/breadcrumb": {
     "checks": {
@@ -673,12 +922,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "e1a3d8c8722bc931650156bd5e76e0d4bd27a2b97dcd4308b018a0771f8b2b33"
+    "spec": "c8180e5fc67fe8c77620b661faa5f32f3186a17867fc6cea59cebde6623bed36"
   },
   "shadcn/avatar": {
     "checks": {
@@ -688,12 +940,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "dc8d7215aada7682e080ae7e2a66b450d75a1f6355f8f479b025c39db35a8720"
+    "spec": "c9414360e999b6eaa1edfe610b7747ebd0daff0c11d4368c7c2c09b1bfa1bc8d"
   },
   "shadcn/select": {
     "checks": {
@@ -703,12 +958,16 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/select.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "956d5f7aa47d13864be2b48eb468c5f669b55f9c337dfc9c188808712db216b7"
+    "pass": false,
+    "spec": "7ad5e239700dba7326de0d5527081738f2cd1e6564df94172b642604b04c6a25"
   },
   "shadcn/card": {
     "checks": {
@@ -718,12 +977,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "8aba53cd68485d6f63103016672f12596af2fdb4e2b9e54a1284ca9aab3b87a0"
+    "spec": "7c234e1bd1f5bd05a75b693d05037445298e3621fefe0d9a812eb72071c40f07"
   },
   "ai_elements/suggestion": {
     "checks": {
@@ -733,12 +995,16 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/suggestion.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "ed1ac3f13723a7fcfb3c1e218756cd73d24b1b7b05e040fc884cbf00ecb5900e"
+    "pass": false,
+    "spec": "ad723f1d4a6fc871493740346b7a8d8d9102a607e07d1e257947d9518aac7308"
   },
   "ai_elements/question": {
     "checks": {
@@ -748,12 +1014,16 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/question.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "7d226d2963b153d3e0c4b3a41f6fca28696d1d77d9e1c5f33697c9c9b51945b5"
+    "pass": false,
+    "spec": "32b60d9a13be30b828719cd0c138957f79dc2355d9fdc39cd8fbd06d598aedfc"
   },
   "shadcn/separator": {
     "checks": {
@@ -763,12 +1033,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "1d6ba74e1a640e6fcb29182cec443b4fc4e09a9ee638400764f08e086f900a36"
+    "spec": "bfd71991ad6d34be893b3bad599f0d8faec235f251c414027a24c4a1243da08b"
   },
   "shadcn/empty": {
     "checks": {
@@ -778,12 +1051,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "97e24f13369a0943babb451bf500501ce7ac2dada0958a236a90bb55ec04fc43"
+    "spec": "50ab9e4c07a925bc7551446277f9d362e88afaba62e223ec0ce9e146ab1d5055"
   },
   "shadcn/navigation-menu": {
     "checks": {
@@ -793,12 +1069,16 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/navigation-menu.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "0cb8dd88419cf756edb1a2b8fcc1eab64dde0257e32fa05f38ecee2e4c223d19"
+    "pass": false,
+    "spec": "fe2e077b8ad8a413c11147455550aa7b328fe59da2ef68bc024814af374d3178"
   },
   "shadcn/progress": {
     "checks": {
@@ -808,12 +1088,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "39d512745147f3bb7eb30ef2f64ef0d849c6d61c518083b7ed1fdb3a48da6d47"
+    "spec": "6ee8f9d2db64ef8e4485d46b23a1b36f383a78d9c05d2e0effe4db637b30ec4e"
   },
   "shadcn/collapsible": {
     "checks": {
@@ -823,12 +1106,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "9264594ead163139e3730e1a43aba6b3f169292595619eb3da2f856b8652d702"
+    "spec": "bcb60d7faedb9185f63dce130b2e89c88df6902ffc3beb7dcf65a4d1511b089f"
   },
   "shadcn/slider": {
     "checks": {
@@ -874,12 +1160,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "8adde83aedc4e8e9fe9875ab396d1227adafa210961d32a1b3457073c0d036c0"
+    "spec": "abcf302f6b2c3a8e298a1f699f8336079bdeab8b4b5017dac8e83728340817cc"
   },
   "shadcn/kbd": {
     "checks": {
@@ -889,12 +1178,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "68fb869ed5cd4eee12980643296ccccef599d9f901dbd28da1ca4d4b6a94a8cc"
+    "spec": "2cc935f3f5effb599da1a395a884bb69db05004c3f76b874d48a08380cbf7074"
   },
   "shadcn/table": {
     "checks": {
@@ -904,12 +1196,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "f7848267f9bf9c72bc6960f7da4eb61c28174ee6cf2db2194be1024a91404710"
+    "spec": "ea610133c5924137f1dd5892f51f360f74f92838c1c5b4990dbede1db4631b88"
   },
   "shadcn/combobox": {
     "checks": {
@@ -919,11 +1214,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "detail": "no React reference yet: add one to parity/src/examples/combobox.<example>.tsx",
+        "pass": false
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "95a9373b98e88a3a9108d73d322832ef2b1398fc15ad002abf59d9db288b6575"
+    "pass": false,
+    "spec": "4be4d9377cbf4b4d274b4dc0651a3163fc91e0a79fb2d34148f74831b1d5140b"
   }
 }
