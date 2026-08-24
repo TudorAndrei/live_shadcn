@@ -54,7 +54,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ### 5b — One recipe, spec already written
 
-- [ ] `carousel` recipe on CSS scroll-snap
+- [x] `carousel` recipe on CSS scroll-snap
 
 ### 5c — Three that need a real decision
 
