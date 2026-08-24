@@ -1100,6 +1100,7 @@ defmodule LiveShadcnTools.Spec do
       prop = icon_prop(tag, ctx) -> %{"type" => "icon", "prop" => prop}
       local = local_tag(tag, ctx) -> local
       registry_component(tag, ctx) -> registry_node(tag, ctx)
+      primitive = external_primitive(tag, ctx) -> primitive
       role = external_role(tag, ctx) -> %{"type" => "external", "role" => role}
       context_provider?(tag) -> %{"type" => "transparent", "reason" => "a React context"}
       package = third_party(tag, ctx) -> raise not_base_ui(tag, package)
@@ -1118,6 +1119,51 @@ defmodule LiveShadcnTools.Spec do
   @external_roles %{"streamdown" => "markdown"}
 
   defp external_role(tag, ctx), do: Map.get(@external_roles, third_party(tag, ctx) || "")
+
+  # A third-party primitive can still be read when an existing recipe owns its
+  # behaviour. The package supplies no Base UI page, so this table supplies the
+  # rendered HTML contract instead. It is deliberately keyed by the imported
+  # primitive, not by a component name: one package can contain controls with
+  # different roles and tags.
+  #
+  # Questionnaire is markup only. Its state machine belongs to the caller, so
+  # the presentational recipe can render its documented shape without adding a
+  # client dependency.
+  @external_primitives %{
+    "@shadcn/react/questionnaire" => %{
+      "QuestionnairePrimitive.Root" => {"Root", "div"},
+      "QuestionnairePrimitive.Progress" => {"Progress", "div"},
+      "QuestionnairePrimitive.Item" => {"Item", "div"},
+      "QuestionnairePrimitive.Title" => {"Title", "h2"},
+      "QuestionnairePrimitive.Description" => {"Description", "p"},
+      "QuestionnairePrimitive.Choices" => {"Choices", "div"},
+      "QuestionnairePrimitive.Choice" => {"Choice", "label"},
+      "QuestionnairePrimitive.ChoiceInput" => {"ChoiceInput", "input"},
+      "QuestionnairePrimitive.ChoiceLabel" => {"ChoiceLabel", "span"},
+      "QuestionnairePrimitive.ChoiceShortcut" => {"ChoiceShortcut", "span"},
+      "QuestionnairePrimitive.Input" => {"Input", "input"},
+      "QuestionnairePrimitive.Error" => {"Error", "p"},
+      "QuestionnairePrimitive.Actions" => {"Actions", "div"},
+      "QuestionnairePrimitive.Previous" => {"Previous", "button"},
+      "QuestionnairePrimitive.Skip" => {"Skip", "button"},
+      "QuestionnairePrimitive.Next" => {"Next", "button"},
+      "QuestionnairePrimitive.Submit" => {"Submit", "button"}
+    }
+  }
+
+  defp external_primitive(tag, ctx) do
+    with package when is_binary(package) <- third_party(tag, ctx),
+         {part, element} <- get_in(@external_primitives, [package, tag]) do
+      %{
+        "type" => "primitive",
+        "module" => "external/#{package}",
+        "part" => part,
+        "tag" => element
+      }
+    else
+      _ -> nil
+    end
+  end
 
   # shadcn writes an icon as `<IconPlaceholder lucide="ChevronDown" …>`, which
   # names the same icon in five sets at once. AI Elements imports the icon

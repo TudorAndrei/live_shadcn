@@ -1,0 +1,940 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "questionnaire",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "Questionnaire",
+      "name": "questionnaire",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-questionnaire flex w-full min-w-0 flex-col",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireActions",
+      "name": "questionnaire_actions",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-questionnaire-actions grid min-h-11 w-full grid-cols-[minmax(0,1fr)_auto_auto] items-center",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-actions",
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireChoice",
+      "name": "questionnaire_choice",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "cn-questionnaire-choice-input absolute inset-0 z-10 size-full cursor-pointer opacity-0",
+            "class_when": [],
+            "merges_class": false,
+            "module": "external/@shadcn/react/questionnaire",
+            "part": "ChoiceInput",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "questionnaire-choice-input",
+            "tag": "input",
+            "type": "primitive",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "aria-hidden",
+                "value": "true"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "cn-questionnaire-choice-indicator-dot hidden rounded-full group-data-[type=checkbox]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [
+                    {
+                      "group": "questionnaire-choice",
+                      "name": "data-type",
+                      "value": "checkbox"
+                    },
+                    {
+                      "group": "questionnaire-choice",
+                      "name": "data-checked",
+                      "value": null
+                    }
+                  ],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "questionnaire-choice-indicator-dot",
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "lucide",
+                    "value": "CheckIcon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "tabler",
+                    "value": "IconCheck"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "hugeicons",
+                    "value": "Tick02Icon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "phosphor",
+                    "value": "CheckIcon"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "remixicon",
+                    "value": "RiCheckLine"
+                  }
+                ],
+                "children": [],
+                "class": "cn-questionnaire-choice-indicator-check hidden group-data-[type=radio]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block",
+                "class_when": [],
+                "icons": {
+                  "hugeicons": "Tick02Icon",
+                  "lucide": "CheckIcon",
+                  "phosphor": "CheckIcon",
+                  "remixicon": "RiCheckLine",
+                  "tabler": "IconCheck"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [
+                    {
+                      "group": "questionnaire-choice",
+                      "name": "data-type",
+                      "value": "radio"
+                    },
+                    {
+                      "group": "questionnaire-choice",
+                      "name": "data-checked",
+                      "value": null
+                    }
+                  ],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "questionnaire-choice-indicator-check",
+                "type": "icon",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "cn-questionnaire-choice-indicator pointer-events-none relative flex shrink-0 items-center justify-center border group-data-[type=radio]/questionnaire-choice:rounded-full",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [
+                {
+                  "group": "questionnaire-choice",
+                  "name": "data-type",
+                  "value": "radio"
+                },
+                {
+                  "group": "questionnaire-choice",
+                  "name": "data-checked",
+                  "value": null
+                },
+                {
+                  "group": "questionnaire-choice",
+                  "name": "data-type",
+                  "value": "checkbox"
+                }
+              ],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "questionnaire-choice-indicator",
+            "tag": "span",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "cn-questionnaire-choice-label cn-questionnaire-choice-content flex min-w-0 flex-1 flex-col leading-snug",
+            "class_when": [],
+            "merges_class": false,
+            "module": "external/@shadcn/react/questionnaire",
+            "part": "ChoiceLabel",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "questionnaire-choice-label",
+            "tag": "span",
+            "type": "primitive",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [],
+            "class": "cn-questionnaire-choice-shortcut cn-questionnaire-shortcut pointer-events-none ms-auto hidden shrink-0 group-data-[shortcut]/questionnaire-choice:inline-flex",
+            "class_when": [],
+            "merges_class": false,
+            "module": "external/@shadcn/react/questionnaire",
+            "part": "ChoiceShortcut",
+            "props": false,
+            "reads": {
+              "group": [
+                {
+                  "group": "questionnaire-choice",
+                  "name": "data-shortcut",
+                  "value": null
+                }
+              ],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "questionnaire-choice-shortcut",
+            "tag": "span",
+            "type": "primitive",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "cn-questionnaire-choice group/questionnaire-choice relative flex min-h-11 cursor-pointer items-start text-start transition-colors outline-none select-none data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Choice",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-checked",
+              "value": null
+            },
+            {
+              "name": "data-invalid",
+              "value": null
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "questionnaire-choice",
+        "tag": "label",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireChoiceDescription",
+      "name": "questionnaire_choice_description",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-questionnaire-choice-description",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-choice-description",
+        "tag": "span",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireChoices",
+      "name": "questionnaire_choices",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-questionnaire-choices group/questionnaire-choices grid min-w-0",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Choices",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-choices",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireDescription",
+      "name": "questionnaire_description",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-questionnaire-description text-pretty text-muted-foreground",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Description",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-description",
+        "tag": "p",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireError",
+      "name": "questionnaire_error",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-questionnaire-error text-destructive",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Error",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-error",
+        "tag": "p",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireInput",
+      "name": "questionnaire_input",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "cn-questionnaire-input min-h-11 w-full min-w-0 transition-[color,box-shadow,background-color] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-0 selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground",
+            "class_when": [],
+            "merges_class": true,
+            "module": "external/@shadcn/react/questionnaire",
+            "part": "Input",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": [
+                {
+                  "name": "aria-invalid",
+                  "value": null
+                }
+              ]
+            },
+            "render_as": null,
+            "slot": "questionnaire-input",
+            "tag": "input",
+            "type": "primitive",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "cn-questionnaire-input-wrapper group/questionnaire-input relative min-w-0",
+        "class_when": [],
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-input-wrapper",
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireItem",
+      "name": "questionnaire_item",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-questionnaire-item min-w-0 border-0 p-0 outline-none",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Item",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-item",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireNext",
+      "name": "questionnaire_next",
+      "params": {
+        "children": null,
+        "className": null,
+        "size": "default",
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-size",
+            "value": "size"
+          },
+          {
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "type": "text",
+                "value": "Next"
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "cn-questionnaire-next col-start-3 row-start-1 min-h-11 justify-self-end sm:min-h-0",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Next",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-next",
+        "tag": "button",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnairePrevious",
+      "name": "questionnaire_previous",
+      "params": {
+        "children": null,
+        "className": null,
+        "size": "default",
+        "variant": "outline"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-size",
+            "value": "size"
+          },
+          {
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "type": "text",
+                "value": "Previous"
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "cn-questionnaire-previous col-start-1 row-start-1 min-h-11 justify-self-start sm:min-h-0",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Previous",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-previous",
+        "tag": "button",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireProgress",
+      "name": "questionnaire_progress",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-questionnaire-progress min-h-[1lh] w-fit min-w-[14ch] font-medium text-muted-foreground tabular-nums",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Progress",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-progress",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireSkip",
+      "name": "questionnaire_skip",
+      "params": {
+        "children": null,
+        "className": null,
+        "size": "default",
+        "variant": "outline"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-size",
+            "value": "size"
+          },
+          {
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "type": "text",
+                "value": "Skip"
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "cn-questionnaire-skip col-start-2 row-start-1 min-h-11 justify-self-end sm:min-h-0",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Skip",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-skip",
+        "tag": "button",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireSubmit",
+      "name": "questionnaire_submit",
+      "params": {
+        "children": null,
+        "className": null,
+        "size": "default",
+        "variant": "default"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-size",
+            "value": "size"
+          },
+          {
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "type": "text",
+                "value": "Submit"
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "cn-questionnaire-submit col-start-3 row-start-1 min-h-11 justify-self-end sm:min-h-0",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Submit",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-submit",
+        "tag": "button",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "QuestionnaireTitle",
+      "name": "questionnaire_title",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-questionnaire-title cn-font-heading text-pretty",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/questionnaire",
+        "part": "Title",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "questionnaire-title",
+        "tag": "h2",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-questionnaire": "gap-6",
+      "cn-questionnaire-actions": "gap-2 sm:min-h-9",
+      "cn-questionnaire-choice": "border-input hover:bg-input/40 data-checked:border-primary/40 data-checked:bg-primary/10 data-invalid:border-destructive has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-ring/50 gap-2.5 rounded-3xl border px-4 py-3 text-sm has-[>input:focus-visible]:ring-3",
+      "cn-questionnaire-choice-content": "gap-1",
+      "cn-questionnaire-choice-description": "text-muted-foreground",
+      "cn-questionnaire-choice-indicator": "bg-input/90 group-data-checked/questionnaire-choice:bg-primary dark:group-data-checked/questionnaire-choice:bg-primary group-data-checked/questionnaire-choice:text-primary-foreground group-data-checked/questionnaire-choice:border-primary size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 rounded-[5px] border-transparent",
+      "cn-questionnaire-choice-indicator-check": "size-3.5",
+      "cn-questionnaire-choice-indicator-dot": "bg-primary-foreground size-2 dark:size-2.5",
+      "cn-questionnaire-choices": "gap-3",
+      "cn-questionnaire-description": "text-sm",
+      "cn-questionnaire-error": "mt-2 text-sm",
+      "cn-questionnaire-input": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-3xl border px-3 py-1 text-base focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
+      "cn-questionnaire-input-wrapper": "w-full",
+      "cn-questionnaire-item": "flex flex-col gap-5",
+      "cn-questionnaire-progress": "text-xs",
+      "cn-questionnaire-shortcut": "border-primary/10 bg-background/80 text-muted-foreground size-5 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 items-center justify-center rounded-full border font-mono text-[0.625rem] font-medium leading-none",
+      "cn-questionnaire-title": "text-base font-semibold [&:not(:has(~[data-slot=questionnaire-description]))]:mb-5"
+    },
+    "lyra": {
+      "cn-questionnaire": "gap-4",
+      "cn-questionnaire-actions": "gap-1.5 sm:min-h-8",
+      "cn-questionnaire-choice": "border-input hover:bg-muted/50 data-checked:bg-muted data-checked:border-foreground/30 data-invalid:border-destructive has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-ring/50 gap-2.5 rounded-none border bg-transparent px-3 py-2.5 text-xs has-[>input:focus-visible]:ring-1",
+      "cn-questionnaire-choice-content": "gap-0.5",
+      "cn-questionnaire-choice-description": "text-muted-foreground",
+      "cn-questionnaire-choice-indicator": "border-input group-data-checked/questionnaire-choice:bg-primary group-data-checked/questionnaire-choice:text-primary-foreground group-data-checked/questionnaire-choice:border-primary size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 rounded-none",
+      "cn-questionnaire-choice-indicator-check": "size-3.5",
+      "cn-questionnaire-choice-indicator-dot": "bg-primary-foreground size-2",
+      "cn-questionnaire-choices": "gap-2",
+      "cn-questionnaire-description": "text-xs/relaxed",
+      "cn-questionnaire-error": "mt-2 text-xs",
+      "cn-questionnaire-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-none border bg-transparent px-2.5 py-1 text-xs focus-visible:ring-1 aria-invalid:ring-1 md:text-xs",
+      "cn-questionnaire-input-wrapper": "w-full",
+      "cn-questionnaire-item": "flex flex-col gap-4",
+      "cn-questionnaire-progress": "text-xs",
+      "cn-questionnaire-shortcut": "border-input bg-background text-muted-foreground size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 items-center justify-center rounded-none border font-mono text-[0.625rem] font-medium leading-none",
+      "cn-questionnaire-title": "text-sm font-medium [&:not(:has(~[data-slot=questionnaire-description]))]:mb-4"
+    },
+    "maia": {
+      "cn-questionnaire": "gap-6",
+      "cn-questionnaire-actions": "gap-2 sm:min-h-9",
+      "cn-questionnaire-choice": "border-input hover:bg-input/40 data-checked:border-primary/40 data-checked:bg-primary/10 data-invalid:border-destructive has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-ring/50 gap-3 rounded-4xl border px-4 py-3.5 text-sm has-[>input:focus-visible]:ring-[3px]",
+      "cn-questionnaire-choice-content": "gap-1",
+      "cn-questionnaire-choice-description": "text-muted-foreground",
+      "cn-questionnaire-choice-indicator": "border-input dark:bg-input/30 group-data-checked/questionnaire-choice:bg-primary dark:group-data-checked/questionnaire-choice:bg-primary group-data-checked/questionnaire-choice:text-primary-foreground group-data-checked/questionnaire-choice:border-primary size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 rounded-[6px]",
+      "cn-questionnaire-choice-indicator-check": "size-3.5",
+      "cn-questionnaire-choice-indicator-dot": "bg-primary-foreground size-2",
+      "cn-questionnaire-choices": "gap-3",
+      "cn-questionnaire-description": "text-sm",
+      "cn-questionnaire-error": "mt-2 text-sm",
+      "cn-questionnaire-input": "bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-4xl border px-3 py-1 text-base focus-visible:ring-[3px] aria-invalid:ring-[3px] md:text-sm",
+      "cn-questionnaire-input-wrapper": "w-full",
+      "cn-questionnaire-item": "flex flex-col gap-5",
+      "cn-questionnaire-progress": "text-xs",
+      "cn-questionnaire-shortcut": "border-input bg-background/80 text-muted-foreground size-5 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 items-center justify-center rounded-full border font-mono text-[0.625rem] font-medium leading-none",
+      "cn-questionnaire-title": "text-base font-semibold [&:not(:has(~[data-slot=questionnaire-description]))]:mb-5"
+    },
+    "mira": {
+      "cn-questionnaire": "gap-4",
+      "cn-questionnaire-actions": "gap-1.5 sm:min-h-7",
+      "cn-questionnaire-choice": "border-input hover:bg-input/40 data-checked:border-primary/40 data-checked:bg-primary/10 data-invalid:border-destructive has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-ring/30 gap-2.5 rounded-xl border px-3 py-2.5 text-xs/relaxed has-[>input:focus-visible]:ring-2",
+      "cn-questionnaire-choice-content": "gap-0.5",
+      "cn-questionnaire-choice-description": "text-muted-foreground",
+      "cn-questionnaire-choice-indicator": "border-input dark:bg-input/30 group-data-checked/questionnaire-choice:bg-primary dark:group-data-checked/questionnaire-choice:bg-primary group-data-checked/questionnaire-choice:text-primary-foreground group-data-checked/questionnaire-choice:border-primary size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 rounded-[4px]",
+      "cn-questionnaire-choice-indicator-check": "size-3.5",
+      "cn-questionnaire-choice-indicator-dot": "bg-primary-foreground size-2",
+      "cn-questionnaire-choices": "gap-1.5",
+      "cn-questionnaire-description": "text-xs/relaxed",
+      "cn-questionnaire-error": "mt-2 text-xs/relaxed",
+      "cn-questionnaire-input": "bg-input/20 dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-7 rounded-md border px-2 py-0.5 text-sm focus-visible:ring-2 aria-invalid:ring-2 md:text-xs/relaxed",
+      "cn-questionnaire-input-wrapper": "w-full",
+      "cn-questionnaire-item": "flex flex-col gap-3",
+      "cn-questionnaire-progress": "text-[0.625rem]",
+      "cn-questionnaire-shortcut": "border-input bg-background/80 text-muted-foreground size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 items-center justify-center rounded-sm border font-mono text-[0.5625rem] font-medium leading-none",
+      "cn-questionnaire-title": "text-sm font-semibold [&:not(:has(~[data-slot=questionnaire-description]))]:mb-3"
+    },
+    "nova": {
+      "cn-questionnaire": "gap-4",
+      "cn-questionnaire-actions": "gap-2 sm:min-h-8",
+      "cn-questionnaire-choice": "border-input dark:bg-input/20 hover:bg-muted/50 data-checked:border-primary/40 data-checked:bg-muted dark:data-checked:bg-muted data-invalid:border-destructive has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-ring/50 gap-2.5 rounded-lg border bg-transparent px-3 py-2.5 text-sm has-[>input:focus-visible]:ring-3",
+      "cn-questionnaire-choice-content": "gap-0.5",
+      "cn-questionnaire-choice-description": "text-muted-foreground",
+      "cn-questionnaire-choice-indicator": "border-input dark:bg-input/30 group-data-checked/questionnaire-choice:bg-primary dark:group-data-checked/questionnaire-choice:bg-primary group-data-checked/questionnaire-choice:text-primary-foreground group-data-checked/questionnaire-choice:border-primary size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 rounded-[4px]",
+      "cn-questionnaire-choice-indicator-check": "size-3.5",
+      "cn-questionnaire-choice-indicator-dot": "bg-primary-foreground size-2",
+      "cn-questionnaire-choices": "gap-2",
+      "cn-questionnaire-description": "text-muted-foreground text-sm",
+      "cn-questionnaire-error": "mt-2 text-sm",
+      "cn-questionnaire-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-lg border bg-transparent px-2.5 py-1 text-base focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
+      "cn-questionnaire-input-wrapper": "w-full",
+      "cn-questionnaire-item": "flex flex-col gap-4",
+      "cn-questionnaire-progress": "text-xs",
+      "cn-questionnaire-shortcut": "border-input bg-background text-muted-foreground size-5 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 items-center justify-center rounded-md border font-mono text-[0.625rem] font-medium leading-none",
+      "cn-questionnaire-title": "text-base leading-snug font-medium [&:not(:has(~[data-slot=questionnaire-description]))]:mb-4"
+    },
+    "rhea": {
+      "cn-questionnaire": "gap-6",
+      "cn-questionnaire-actions": "gap-2 sm:min-h-8",
+      "cn-questionnaire-choice": "border-input hover:bg-input/40 data-checked:border-primary/40 data-checked:bg-primary/10 data-invalid:border-destructive has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-ring/50 gap-3 rounded-2xl border px-4 py-3 text-sm has-[>input:focus-visible]:ring-3",
+      "cn-questionnaire-choice-content": "gap-1",
+      "cn-questionnaire-choice-description": "text-muted-foreground",
+      "cn-questionnaire-choice-indicator": "bg-input/90 group-data-checked/questionnaire-choice:bg-primary dark:group-data-checked/questionnaire-choice:bg-primary group-data-checked/questionnaire-choice:text-primary-foreground group-data-checked/questionnaire-choice:border-primary size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 rounded-[5px] border-transparent",
+      "cn-questionnaire-choice-indicator-check": "size-3.5",
+      "cn-questionnaire-choice-indicator-dot": "bg-primary-foreground size-2 dark:size-2.5",
+      "cn-questionnaire-choices": "gap-3",
+      "cn-questionnaire-description": "text-sm",
+      "cn-questionnaire-error": "mt-2 text-sm",
+      "cn-questionnaire-input": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 rounded-2xl border px-2.5 py-1 text-base duration-200 focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
+      "cn-questionnaire-input-wrapper": "w-full",
+      "cn-questionnaire-item": "flex flex-col gap-5",
+      "cn-questionnaire-progress": "text-xs",
+      "cn-questionnaire-shortcut": "border-primary/10 bg-background/80 text-muted-foreground size-5 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 items-center justify-center rounded-full border font-mono text-[0.625rem] font-medium leading-none",
+      "cn-questionnaire-title": "text-base font-semibold [&:not(:has(~[data-slot=questionnaire-description]))]:mb-5"
+    },
+    "sera": {
+      "cn-questionnaire": "gap-6",
+      "cn-questionnaire-actions": "gap-2 sm:min-h-10",
+      "cn-questionnaire-choice": "hover:bg-muted/50 data-checked:bg-primary/5 data-checked:border-primary/30 dark:data-checked:border-primary/20 dark:data-checked:bg-primary/10 data-invalid:border-destructive has-[>input:focus-visible]:ring-ring/30 gap-3 rounded-none border border-input bg-transparent px-4 py-4 text-sm has-[>input:focus-visible]:ring-2",
+      "cn-questionnaire-choice-content": "gap-1",
+      "cn-questionnaire-choice-description": "text-muted-foreground",
+      "cn-questionnaire-choice-indicator": "border-input group-data-checked/questionnaire-choice:border-foreground group-data-[type=checkbox]/questionnaire-choice:group-data-checked/questionnaire-choice:bg-primary group-data-[type=checkbox]/questionnaire-choice:group-data-checked/questionnaire-choice:text-primary-foreground group-data-[type=checkbox]/questionnaire-choice:group-data-checked/questionnaire-choice:border-primary size-4.5 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5",
+      "cn-questionnaire-choice-indicator-check": "size-3.5",
+      "cn-questionnaire-choice-indicator-dot": "bg-foreground size-2",
+      "cn-questionnaire-choices": "gap-3",
+      "cn-questionnaire-description": "text-sm normal-case tracking-normal",
+      "cn-questionnaire-error": "mt-2 text-sm",
+      "cn-questionnaire-input": "border-transparent border-b-input bg-transparent focus-visible:border-b-ring aria-invalid:border-b-destructive dark:aria-invalid:border-b-destructive/50 h-10 border px-0 py-1 text-base md:text-sm",
+      "cn-questionnaire-input-wrapper": "w-full",
+      "cn-questionnaire-item": "flex flex-col gap-5",
+      "cn-questionnaire-progress": "text-xs uppercase tracking-wide",
+      "cn-questionnaire-shortcut": "border-input bg-background text-muted-foreground size-5 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 items-center justify-center rounded-none border font-mono text-[0.625rem] font-medium leading-none",
+      "cn-questionnaire-title": "text-xs font-semibold uppercase tracking-wide [&:not(:has(~[data-slot=questionnaire-description]))]:mb-5"
+    },
+    "vega": {
+      "cn-questionnaire": "gap-6",
+      "cn-questionnaire-actions": "gap-2 sm:min-h-9",
+      "cn-questionnaire-choice": "border-input dark:bg-input/20 hover:bg-muted/50 data-checked:border-primary/40 data-checked:bg-muted dark:data-checked:bg-muted data-invalid:border-destructive has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-ring/50 gap-3 rounded-md border bg-transparent px-4 py-3.5 text-sm shadow-xs has-[>input:focus-visible]:ring-3",
+      "cn-questionnaire-choice-content": "gap-1",
+      "cn-questionnaire-choice-description": "text-muted-foreground",
+      "cn-questionnaire-choice-indicator": "border-input dark:bg-input/30 group-data-checked/questionnaire-choice:bg-primary dark:group-data-checked/questionnaire-choice:bg-primary group-data-checked/questionnaire-choice:text-primary-foreground group-data-checked/questionnaire-choice:border-primary size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 rounded-[4px]",
+      "cn-questionnaire-choice-indicator-check": "size-3.5",
+      "cn-questionnaire-choice-indicator-dot": "bg-primary-foreground size-2",
+      "cn-questionnaire-choices": "gap-3",
+      "cn-questionnaire-description": "text-sm",
+      "cn-questionnaire-error": "text-sm",
+      "cn-questionnaire-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-md border bg-transparent px-2.5 py-1 text-base shadow-xs focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
+      "cn-questionnaire-input-wrapper": "w-full",
+      "cn-questionnaire-item": "flex flex-col gap-5",
+      "cn-questionnaire-progress": "text-xs",
+      "cn-questionnaire-shortcut": "border-input bg-background text-muted-foreground size-5 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 items-center justify-center rounded-md border font-mono text-[0.625rem] font-medium leading-none shadow-xs",
+      "cn-questionnaire-title": "text-base font-semibold [&:not(:has(~[data-slot=questionnaire-description]))]:mb-5"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/questionnaire.tsx",
+      "sha256": "248cea65a49d2aa108ea945b1bd2e8a180053ce47aa264db66570d657d6acfc1"
+    }
+  },
+  "variants": {}
+}
