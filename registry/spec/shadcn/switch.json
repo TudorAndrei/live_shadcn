@@ -42,7 +42,12 @@
             "part": "Thumb",
             "props": false,
             "reads": {
-              "group": [],
+              "group": [
+                {
+                  "attr": "data-size",
+                  "group": "switch"
+                }
+              ],
               "self": [
                 "data-unchecked",
                 "data-checked"
@@ -68,7 +73,8 @@
             "data-disabled",
             "data-checked",
             "data-unchecked",
-            "aria-invalid"
+            "aria-invalid",
+            "data-size"
           ]
         },
         "render_as": null,
@@ -240,7 +246,7 @@
       "summary": "The movable part of the switch that indicates whether the switch is on or off."
     }
   },
-  "recipe": "form-control",
+  "recipe": "switch",
   "source": "shadcn",
   "styles": {
     "luma": {

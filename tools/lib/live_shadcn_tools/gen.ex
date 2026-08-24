@@ -23,6 +23,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Separator
   alias LiveShadcnTools.Gen.Sidebar
   alias LiveShadcnTools.Gen.Slider
+  alias LiveShadcnTools.Gen.Switch
   alias LiveShadcnTools.Gen.Tabs
   alias LiveShadcnTools.Gen.ToggleGroup
   alias LiveShadcnTools.Gen.Toast
@@ -40,6 +41,7 @@ defmodule LiveShadcnTools.Gen do
     "separator" => Separator,
     "sidebar" => Sidebar,
     "slider" => Slider,
+    "switch" => Switch,
     "tabs" => Tabs,
     "toggle-group" => ToggleGroup,
     "toast" => Toast

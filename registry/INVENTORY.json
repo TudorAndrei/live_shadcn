@@ -645,7 +645,7 @@
     {
       "name": "switch",
       "source": "shadcn",
-      "recipe": "form-control",
+      "recipe": "switch",
       "tier": 1
     },
     {

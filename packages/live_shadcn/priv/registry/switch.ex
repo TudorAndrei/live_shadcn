@@ -77,6 +77,8 @@ defmodule LiveShadcn.UI.Switch do
     >
       <span
         data-slot="switch-thumb"
+        data-checked={flag(@checked)}
+        data-unchecked={flag(not @checked)}
         class="cn-switch-thumb pointer-events-none block ring-0 transition-transform"
       />
       {render_slot(@inner_block)}
