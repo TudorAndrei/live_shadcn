@@ -75,3 +75,52 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 - [ ] Publish to hex — needs a `HEX_API_KEY`
 - [ ] Deploy the storybook — needs a Cloudflare token
 - [ ] Prove the sync bot with one run by hand
+
+## Phase 7 — Close what the backfill left open
+
+### 7a — Three gates are red at HEAD
+
+- [ ] `mix ui.gen` — seven components are stale: `shadcn/input`, `input-group`,
+      `questionnaire`, `sidebar`, `ai_elements/chain-of-thought`, `checkpoint`,
+      `snippet`
+- [ ] `mix snapshot` — `chain-of-thought-default` follows from the above
+- [ ] Delete or wire up the `navigation-menu` recipe. It is 141 lines, no
+      component names it, and `LiveShadcnTools.GenTest` fails on it
+- [ ] All three gates green: `mix ui.gen --check`, `mix snapshot --check`,
+      `mix test` in `tools/`
+
+### 7b — Stop retyping upstream class strings
+
+- [ ] Ten recipe files hold literal `cn-` strings: `pagination` 16,
+      `navigation_menu` 8, `calendar` 4, `carousel` 4, `chart` 2,
+      `form_control` 2, `resizable` 2, `slider` 2, `toast` 1
+- [ ] `gen/toast.ex` is a hand-written `~H` template. Return it to rendering
+      the spec's parts; `class="cn-toast"` drops the whole `h-(--height)` and
+      `[transform:…]` stack upstream wrote
+- [ ] For each retyped string, record the fact in the spec instead
+
+### 7c — A recipe is not a patch on another recipe's output
+
+- [ ] `String.replace` over generated source went 26 → 48. Move each patch into
+      the spec, or say why it is behaviour and belongs in a recipe
+- [ ] `gen/resizable.ex` has eight, two of which inject `attr` declarations
+- [ ] Retire the one-component recipes that exist only to hold a patch:
+      `checkbox`, `separator`, `switch`, `radio_group`, `progress`
+- [ ] Correct the recipe count in `ROADMAP.md:69` and `docs/INVENTORY.md:17`.
+      Both still say eight; there are 24
+
+## Phase 8 — Finish the oxc swap
+
+- [ ] 8a — Carry expression **nodes**, not their source text. Removes about ten
+      of `spec.ex`'s nineteen regexes and most of `tsx.ex`
+      (`split_args/1`, `object!/1`, `merges_class?/1`)
+- [ ] 8b — Read `TSTypeAnnotation`. `boolean` → `:boolean`, `number` →
+      `:integer`, a union of string literals → `values:`, `?` → optional.
+      282 of 845 attributes are `:any` today
+- [ ] 8c — `presentational.ex:135` decides `:any` with a regex over code. A
+      `MemberExpression` is a node
+- [ ] 8d — Read `ParseResult.module`. `parse.mjs` uses two of its four getters,
+      and `spec.ex:651` decides exports with `~r/^[A-Z]/`
+- [ ] 8e — Use `visitorKeys` / `Visitor` instead of the hand-rolled walk in
+      `parse.mjs`. Evaluate `oxc-walker` for scope tracking, which is what
+      `spec.ex:208` asks with a word-boundary regex

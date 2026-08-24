@@ -301,6 +301,181 @@ CI run is green and what is published tells the truth about itself.
 
 ---
 
+## Phase 7 — Close what the backfill left open
+
+Phases 1 to 5 are done: 62 of 62 shadcn components generate, every example has
+a React reference, and the reader reads `data-[attr=value]`. A review of that
+work found four things, and the last one is the one that matters.
+
+### 7a — Three gates are red at HEAD
+
+None of them is large, and all three are one command away.
+
+- **`mix ui.gen --check` fails.** Seven components no longer match their spec:
+  `shadcn/input`, `input-group`, `questionnaire`, `sidebar`, and
+  `ai_elements/chain-of-thought`, `checkpoint`, `snippet`. The generator gained
+  `minlength` and `maxlength` in its global list, a `class` on a `<details>`
+  root and a `{@rest}` on an icon, and nothing re-ran `mix ui.gen`. The diff is
+  12 lines.
+- **`mix snapshot --check` then fails** on `chain-of-thought-default`, for the
+  `class` above.
+- **`mix test` in `tools/` fails.** `LiveShadcnTools.GenTest` reports that the
+  `navigation-menu` recipe is written and no component names it. It is 141
+  lines and dead: the inventory gives `navigation-menu` to the `menu` recipe.
+
+`.github/workflows/ci.yml` runs the first and the third. Phase 2 existed to
+make that gate honest, so leaving it red undoes phase 2.
+
+### 7b — The recipes retype upstream class strings
+
+This is the finding. [ROADMAP.md](ROADMAP.md) states a non-goal:
+
+> **No hand-maintained styling.** If a class string is typed by a person, the
+> pipeline has a gap. Fix the pipeline.
+
+Ten recipe files now hold literal `cn-` class strings — `pagination` 16,
+`navigation_menu` 8, `calendar` 4, `carousel` 4, and six more. Some are whole
+upstream button strings, retyped:
+
+```elixir
+"cn-button group/button inline-flex shrink-0 items-center justify-center
+ whitespace-nowrap transition-all outline-none select-none …"
+```
+
+`gen/toast.ex` goes further. It was a recipe that rendered the spec's parts; it
+is now a hand-written `~H` template with `class="cn-toast"` and
+`class="flex min-w-0 flex-1 flex-col gap-1"` — a Tailwind string that appears
+nowhere upstream, and a `cn-toast` that drops the whole
+`[--gap:…] h-(--height) [transform:…]` stack the class string carried.
+
+A retyped class string is invisible to `mix ui.drift`, so the sync bot will not
+notice when upstream moves it. That is the cost, and it arrives silently.
+
+### 7c — A recipe is becoming a patch on another recipe's output
+
+`String.replace` over generated source went from 26 uses to 48. Eight new
+one-component recipes exist only to hold one:
+
+```elixir
+# gen/separator.ex — the whole module
+spec
+|> Presentational.module(opts)
+|> String.replace(" orientation={@orientation}", " data-orientation={@orientation}",
+     global: false)
+```
+
+`gen/resizable.ex` has eight, and two of them inject `attr` declarations into
+the source by text substitution.
+
+Every one of these patches is a **fact that belongs in the spec** — Base UI
+writes `data-orientation`; a checkbox indicator mounts only when checked —
+applied to the output because the reader did not record it. And a
+`String.replace` on generated source cannot know where anything ends, which is
+the same reason the reader stopped using regular expressions in M4.
+`global: false` means "the first one", which is a decision about position.
+
+The recipe count went 12 → 24, eight of them serving one component. A
+one-component recipe is the recipe absorbing what the reader could not say.
+`ROADMAP.md:69` and `docs/INVENTORY.md:17` both still claim eight.
+
+### The work
+
+For each patch and each retyped class string, ask which of the three it is: a
+fact the reader should record in the spec, a `cva` table the fold read wrongly,
+or a genuine behaviour that belongs in a recipe. Move the first two. Then the
+one-component recipes disappear, and the count returns to something the roadmap
+can state truthfully.
+
+Do this before phase 8. Phase 8 is what makes it cheap.
+
+---
+
+## Phase 8 — Finish the oxc swap
+
+M4 replaced the reader's regular expressions with `oxc-parser` and listed four
+bugs the swap fixed. That swap stopped at the file level. **Expressions are
+still text**, and every argument M4 made applies unchanged one level down.
+
+`parse.mjs` prints the tree; `Ast` reads it and slices the source back out with
+the offsets; then `Spec` and `Tsx` parse those slices again with regular
+expressions. The pipeline parses each file twice, and the second parser is the
+one M4 threw away.
+
+### 8a — Read expressions as nodes, not as source
+
+`spec.ex:925-1027` classifies an expression with five patterns:
+
+```elixir
+@value      ~r/^[a-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$/
+@arithmetic ~r/^[a-z_][A-Za-z0-9_.]*(\s*(\+|-|\*|\/|\?\?)\s*…)+$/
+@ternary    ~r/^[^?<]+\?[^:<]+:[^<]+$/s
+```
+
+`@ternary` cannot tell `a ?. b` from `a ? b : c`, and cannot see a `:` inside a
+string. `tsx.ex` counts bracket depth by hand in `split_args/1`, splits an
+object literal on commas in `object!/1`, and asks `~r/\bclassName\b/` whether a
+`cn()` call merges a class — a regex that matches the word in a comment.
+
+The nodes for all of this already exist. `ConditionalExpression`,
+`CallExpression`, `ObjectExpression`, `MemberExpression`. Carry them instead of
+their source text. This removes about ten of `spec.ex`'s nineteen regular
+expressions and most of `tsx.ex`, and it is what makes phase 7's patches
+movable: a patch exists because the reader could not say something, and this is
+the reader learning to say it.
+
+### 8b — Read the TypeScript
+
+`ast.ex:722` reads a type's *name* and drops the rest. oxc parses every
+`TSTypeAnnotation` in the file already.
+
+Upstream types every prop. The generator guesses instead: `:boolean` only when
+the default is literally `true` or `false` (`presentational.ex:129`), `:any`
+when a regular expression spots `foo.bar`, `:string` otherwise. Across the
+shadcn output that gives 282 `:any` and 224 `:string` out of 845 attributes.
+
+A `boolean` is `:boolean`. A `number` is `:integer`. A union of string literals
+is a `values:` list. A `?` is optional. That is upstream stating the contract,
+in a file this pipeline already parses, and it is the same argument that made
+`cva` tables data rather than something retyped.
+
+### 8c — A regular expression decides `:any`
+
+`presentational.ex:135`:
+
+```elixir
+Regex.scan(~r/\b([a-z_][A-Za-z0-9_]*)\.[a-z_]/, code, capture: :all_but_first)
+```
+
+It matches inside a string literal and inside a comment, and it misses `a?.b`
+and `a["b"]`. A `MemberExpression` is a node with an object and a property.
+
+### 8d — The module record is unread
+
+`ParseResult` has four getters — `program`, `module`, `comments`, `errors` —
+and `parse.mjs` uses two. `module` is the ECMAScript module record:
+`staticImports`, `staticExports`, `dynamicImports`, each exact.
+
+`spec.ex:651` and `:664` currently decide what a file exports with
+`Regex.match?(~r/^[A-Z]/, export)`. Reading exports wrongly is what once gave
+all 49 AI Elements components a spec with no parts, which
+[ROADMAP.md](ROADMAP.md) records under M4 — and on disk a spec with no parts
+looks exactly like one the reader understood.
+
+### 8e — The walk is hand-rolled
+
+`parse.mjs` recurses `Object.keys(node)` on every node, which descends into
+fields that are not nodes. oxc ships `visitorKeys` and a generated `Visitor`
+for this. `oxc-walker` builds on both and adds scope tracking, which is what
+`spec.ex:208` currently asks with `Regex.match?(~r/\b#{name}\b/, code)` —
+"does this expression mention this name", a scope question answered by a word
+boundary.
+
+Semantic analysis proper (`oxc_semantic`: scopes and symbol resolution) is
+Rust-side and is **not** exposed by the npm parser, so `oxc-walker` is the
+reachable version of it.
+
+---
+
 ## Verification
 
 Run this at each phase boundary. It is the list in
