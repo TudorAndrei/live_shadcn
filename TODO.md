@@ -71,7 +71,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ## Phase 6 — Publish 0.1.0
 
-- [ ] Push to GitHub
+- [x] Push to GitHub
 - [ ] Publish to hex — needs a `HEX_API_KEY`
 - [ ] Deploy the storybook — needs a Cloudflare token
 - [ ] Prove the sync bot with one run by hand
