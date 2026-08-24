@@ -122,21 +122,178 @@
                 "children": [
                   {
                     "attrs": [],
-                    "children": [],
+                    "binding": "toastItem",
+                    "children": [
+                      {
+                        "attrs": [
+                          {
+                            "kind": "code",
+                            "name": "toast",
+                            "value": "toastItem"
+                          }
+                        ],
+                        "children": [
+                          {
+                            "attrs": [],
+                            "children": [
+                              {
+                                "attrs": [],
+                                "children": [
+                                  {
+                                    "children": [],
+                                    "code": "icon",
+                                    "type": "value"
+                                  }
+                                ],
+                                "class": "shrink-0 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
+                                "class_when": [],
+                                "merges_class": false,
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": "toast-icon",
+                                "tag": "span",
+                                "type": "element",
+                                "variant_calls": [],
+                                "vars": []
+                              },
+                              {
+                                "attrs": [],
+                                "children": [
+                                  {
+                                    "attrs": [],
+                                    "children": [],
+                                    "class": "",
+                                    "class_when": [],
+                                    "merges_class": false,
+                                    "part": "toast_title",
+                                    "props": false,
+                                    "reads": {
+                                      "group": [],
+                                      "self": []
+                                    },
+                                    "render_as": null,
+                                    "slot": null,
+                                    "type": "part_ref",
+                                    "variant_calls": [],
+                                    "vars": []
+                                  },
+                                  {
+                                    "attrs": [],
+                                    "children": [],
+                                    "class": "",
+                                    "class_when": [],
+                                    "merges_class": false,
+                                    "part": "toast_description",
+                                    "props": false,
+                                    "reads": {
+                                      "group": [],
+                                      "self": []
+                                    },
+                                    "render_as": null,
+                                    "slot": null,
+                                    "type": "part_ref",
+                                    "variant_calls": [],
+                                    "vars": []
+                                  }
+                                ],
+                                "class": "flex min-w-0 flex-1 flex-col gap-1",
+                                "class_when": [],
+                                "merges_class": false,
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": null,
+                                "tag": "div",
+                                "type": "element",
+                                "variant_calls": [],
+                                "vars": []
+                              },
+                              {
+                                "attrs": [],
+                                "children": [],
+                                "class": "",
+                                "class_when": [],
+                                "merges_class": false,
+                                "part": "toast_action",
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": null,
+                                "type": "part_ref",
+                                "variant_calls": [],
+                                "vars": []
+                              },
+                              {
+                                "attrs": [],
+                                "children": [],
+                                "class": "",
+                                "class_when": [],
+                                "merges_class": false,
+                                "part": "toast_close",
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": null,
+                                "type": "part_ref",
+                                "variant_calls": [],
+                                "vars": []
+                              }
+                            ],
+                            "class": "",
+                            "class_when": [],
+                            "merges_class": false,
+                            "part": "toast_content",
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "type": "part_ref",
+                            "variant_calls": [],
+                            "vars": []
+                          }
+                        ],
+                        "class": "",
+                        "class_when": [],
+                        "merges_class": false,
+                        "part": "toast",
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "type": "part_ref",
+                        "variant_calls": [],
+                        "vars": []
+                      }
+                    ],
                     "class": "",
                     "class_when": [],
-                    "merges_class": false,
-                    "part": "toast_list",
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
+                    "collection": "toasts",
+                    "counter": null,
+                    "fields": [],
+                    "merges_class": null,
+                    "props": null,
                     "slot": null,
-                    "type": "part_ref",
-                    "variant_calls": [],
-                    "vars": []
+                    "type": "repeat_over",
+                    "variant_calls": []
                   }
                 ],
                 "class": "",

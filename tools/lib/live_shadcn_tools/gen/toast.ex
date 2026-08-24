@@ -31,6 +31,7 @@ defmodule LiveShadcnTools.Gen.Toast do
 
   @required %{
     viewport: "Viewport",
+    portal: "Portal",
     root: "Root",
     content: "Content",
     title: "Title",
@@ -106,7 +107,8 @@ defmodule LiveShadcnTools.Gen.Toast do
       |> Enum.join("\n")
 
     content = render(spec, roles, roles.content, body)
-    render(spec, roles, roles.viewport, render(spec, roles, roles.root, content))
+    viewport = render(spec, roles, roles.viewport, render(spec, roles, roles.root, content))
+    render(spec, roles, roles.portal, viewport)
   end
 
   # A part whose content the recipe supplies takes a children marker; one whose
