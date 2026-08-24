@@ -19,18 +19,18 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 - [x] `npm run build:css` in `storybook/assets` first
 - [x] `mix ui.spec` → `mix ui.gen` → `mix snapshot` → `mix ui.verify`
-- [ ] Commit the new `registry/VERIFY.json` and `docs/INVENTORY.md`
+- [x] Commit the new `registry/VERIFY.json` and `docs/INVENTORY.md`
 - [x] Add a storybook example for `toggle-group` — the one real gap
 - [x] `CONTRIBUTING.md` says three checks; it makes four
 - [x] `mix ui.status --check` passes on a clean tree
 
 ## Phase 3 — The parity backfill
 
-- [ ] Port the 51 shadcn examples with no reference to
+- [x] Port the 51 shadcn examples with no reference to
       `parity/src/examples/*.tsx`, oldest-generated first
-- [ ] Correct every reported difference in the reader, never in the reference
-- [ ] Every shadcn example has a reference
-- [ ] Every comparison passes
+- [x] Correct every reported difference in the reader, never in the reference
+- [x] Every shadcn example has a reference
+- [x] Every comparison passes
 
 ## Phase 4 — Teach the reader `data-[attr=value]`
 
