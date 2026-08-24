@@ -245,7 +245,7 @@ defmodule Mix.Tasks.Ui.Spec do
 
   defp write_or_check(source, name, spec, check?) do
     path = spec_path(source, name)
-    rendered = json(spec)
+    rendered = spec |> preserve_recipe_facts(path) |> json()
 
     unchanged? = File.exists?(path) and File.read!(path) == rendered
 
@@ -264,6 +264,19 @@ defmodule Mix.Tasks.Ui.Spec do
       true ->
         write!(path, rendered)
         {:wrote, ref(source, name)}
+    end
+  end
+
+  # A specialist recipe can need a server-only class that does not exist in a
+  # readable JSX part. Such facts live in the component spec, next to the
+  # parsed facts, and must survive a later reader run.
+  defp preserve_recipe_facts(spec, path) do
+    with true <- File.exists?(path),
+         {:ok, existing} <- path |> File.read!() |> Jason.decode(),
+         %{} = classes <- existing["classes"] do
+      Map.put(spec, "classes", classes)
+    else
+      _ -> spec
     end
   end
 
