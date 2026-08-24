@@ -67,7 +67,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ### 5d
 
-- [ ] Record `direction` in the roadmap as a utility, not a gap
+- [x] Record `direction` in the roadmap as a utility, not a gap
 
 ## Phase 6 — Publish 0.1.0
 
