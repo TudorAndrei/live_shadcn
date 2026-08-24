@@ -55,6 +55,7 @@ defmodule LiveShadcnTools.Gen.Menu do
   # ones that have an icon beside them.
   def attribute!("data-inset", _role), do: {:code, "flag(@inset)"}
   def attribute!("data-variant", _role), do: {:code, "@variant"}
+  def attribute!("data-slot", _role), do: :existing
 
   # The menu's class string styles a submenu trigger inside it, so the variant
   # scanner sees `aria-expanded` on the menu. It belongs to the trigger, which
@@ -237,6 +238,7 @@ defmodule LiveShadcnTools.Gen.Menu do
     |> Enum.flat_map(fn name ->
       case attribute!(name, role) do
         :client -> []
+        :existing -> []
         {:code, expression} -> [{name, :code, expression}]
       end
     end)

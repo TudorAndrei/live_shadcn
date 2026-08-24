@@ -110,6 +110,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
             phx-mounted={Popover.owned_attributes(:popup)}
             data-open={flag(@open)}
             data-closed={flag(not @open)}
+            data-variant={@variant}
             class={[
               "cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
               @class
@@ -127,8 +128,8 @@ defmodule LiveShadcn.UI.DropdownMenu do
               phx-mounted={Menu.owned_attributes(:item)}
               {Map.take(item, [:"phx-value-value", :navigate, :patch, :href])}
               data-disabled={flag(item[:disabled] == true)}
-              data-inset={flag(@inset)}
               data-variant={@variant}
+              data-inset={flag(@inset)}
               class={[
                 "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
                 @item_class

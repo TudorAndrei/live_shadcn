@@ -72,6 +72,14 @@ defmodule LiveShadcnTools.Gen.Listbox do
   def attribute!("data-placeholder", _role), do: {:code, ~s|flag(@value in [nil, ""])|}
   def attribute!("data-empty", _role), do: {:code, "flag(@option == [])"}
   def attribute!("data-list-empty", _role), do: {:code, "flag(@option == [])"}
+  def attribute!("data-chips", _role), do: {:code, ~s|@anchor not in [nil, false, ""]|}
+  def attribute!("data-align-trigger", _role), do: {:code, "to_string(@align_item_with_trigger)"}
+  # A popup class can inspect a variant on an item rendered in its slot. The
+  # reader assigns that selector to the popup primitive, but this wrapper does
+  # not own the item attribute.
+  def attribute!("data-variant", _role), do: :existing
+  def attribute!("data-size", _role), do: {:code, "@size"}
+  def attribute!("data-slot", _role), do: :existing
 
   # shadcn styles the trigger against the ARIA attribute, which Base UI does
   # not document. Both are contracts; the class string is the one that breaks.
@@ -283,6 +291,7 @@ defmodule LiveShadcnTools.Gen.Listbox do
     |> Enum.flat_map(fn name ->
       case attribute!(name, role) do
         :client -> []
+        :existing -> []
         {:code, expression} -> [{name, :code, expression}]
       end
     end)

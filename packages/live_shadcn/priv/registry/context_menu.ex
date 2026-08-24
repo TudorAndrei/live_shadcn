@@ -112,6 +112,7 @@ defmodule LiveShadcn.UI.ContextMenu do
             phx-mounted={Popover.owned_attributes(:popup)}
             data-open={flag(@open)}
             data-closed={flag(not @open)}
+            data-variant={@variant}
             class={[
               "cn-context-menu-content cn-context-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none",
               @class
@@ -129,8 +130,8 @@ defmodule LiveShadcn.UI.ContextMenu do
               phx-mounted={Menu.owned_attributes(:item)}
               {Map.take(item, [:"phx-value-value", :navigate, :patch, :href])}
               data-disabled={flag(item[:disabled] == true)}
-              data-inset={flag(@inset)}
               data-variant={@variant}
+              data-inset={flag(@inset)}
               class={[
                 "cn-context-menu-item group/context-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
                 @item_class

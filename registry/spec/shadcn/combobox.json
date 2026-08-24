@@ -252,7 +252,10 @@
                     "reads": {
                       "group": [],
                       "self": [
-                        "data-pressed"
+                        {
+                          "name": "data-pressed",
+                          "value": null
+                        }
                       ]
                     },
                     "recipe": "form-control",
@@ -507,10 +510,70 @@
                 "reads": {
                   "group": [],
                   "self": [
-                    "data-open",
-                    "data-closed",
-                    "data-highlighted",
-                    "aria-expanded"
+                    {
+                      "name": "data-chips",
+                      "value": "true"
+                    },
+                    {
+                      "name": "data-open",
+                      "value": null
+                    },
+                    {
+                      "name": "data-closed",
+                      "value": null
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "bottom"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "left"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "right"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "top"
+                    },
+                    {
+                      "name": "data-slot",
+                      "value": "input-group"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "inline-start"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "inline-end"
+                    },
+                    {
+                      "name": "data-slot",
+                      "value": "-item"
+                    },
+                    {
+                      "name": "data-highlighted",
+                      "value": null
+                    },
+                    {
+                      "name": "data-slot",
+                      "value": "-separator"
+                    },
+                    {
+                      "name": "data-slot",
+                      "value": "-trigger"
+                    },
+                    {
+                      "name": "aria-expanded",
+                      "value": null
+                    },
+                    {
+                      "name": "data-variant",
+                      "value": "destructive"
+                    }
                   ]
                 },
                 "render_as": null,
@@ -582,7 +645,10 @@
         "reads": {
           "group": [],
           "self": [
-            "data-empty"
+            {
+              "name": "data-empty",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -706,8 +772,14 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-highlighted"
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-highlighted",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -822,8 +894,9 @@
         "reads": {
           "group": [
             {
-              "attr": "data-empty",
-              "group": "combobox-content"
+              "group": "combobox-content",
+              "name": "data-empty",
+              "value": null
             }
           ],
           "self": []
@@ -975,7 +1048,10 @@
                 "reads": {
                   "group": [],
                   "self": [
-                    "aria-disabled"
+                    {
+                      "name": "aria-disabled",
+                      "value": null
+                    }
                   ]
                 },
                 "render_as": {

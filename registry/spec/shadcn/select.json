@@ -245,10 +245,66 @@
                 "reads": {
                   "group": [],
                   "self": [
-                    "data-open",
-                    "data-closed",
-                    "data-highlighted",
-                    "aria-expanded"
+                    {
+                      "name": "data-align-trigger",
+                      "value": "true"
+                    },
+                    {
+                      "name": "data-open",
+                      "value": null
+                    },
+                    {
+                      "name": "data-closed",
+                      "value": null
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "bottom"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "left"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "right"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "top"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "inline-start"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "inline-end"
+                    },
+                    {
+                      "name": "data-slot",
+                      "value": "-item"
+                    },
+                    {
+                      "name": "data-highlighted",
+                      "value": null
+                    },
+                    {
+                      "name": "data-slot",
+                      "value": "-separator"
+                    },
+                    {
+                      "name": "data-slot",
+                      "value": "-trigger"
+                    },
+                    {
+                      "name": "aria-expanded",
+                      "value": null
+                    },
+                    {
+                      "name": "data-variant",
+                      "value": "destructive"
+                    }
                   ]
                 },
                 "render_as": null,
@@ -462,7 +518,10 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled"
+            {
+              "name": "data-disabled",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -792,8 +851,26 @@
         "reads": {
           "group": [],
           "self": [
-            "data-placeholder",
-            "aria-invalid"
+            {
+              "name": "data-slot",
+              "value": "select-value"
+            },
+            {
+              "name": "data-placeholder",
+              "value": null
+            },
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "data-size",
+              "value": "default"
+            },
+            {
+              "name": "data-size",
+              "value": "sm"
+            }
           ]
         },
         "render_as": null,

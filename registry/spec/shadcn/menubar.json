@@ -206,7 +206,10 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-expanded"
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
           ]
         },
         "recipe": "menu",
@@ -258,9 +261,58 @@
         "reads": {
           "group": [],
           "self": [
-            "data-open",
-            "data-highlighted",
-            "aria-expanded"
+            {
+              "name": "data-open",
+              "value": null
+            },
+            {
+              "name": "data-side",
+              "value": "bottom"
+            },
+            {
+              "name": "data-side",
+              "value": "left"
+            },
+            {
+              "name": "data-side",
+              "value": "right"
+            },
+            {
+              "name": "data-side",
+              "value": "top"
+            },
+            {
+              "name": "data-side",
+              "value": "inline-start"
+            },
+            {
+              "name": "data-side",
+              "value": "inline-end"
+            },
+            {
+              "name": "data-slot",
+              "value": "-item"
+            },
+            {
+              "name": "data-highlighted",
+              "value": null
+            },
+            {
+              "name": "data-slot",
+              "value": "-separator"
+            },
+            {
+              "name": "data-slot",
+              "value": "-trigger"
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            },
+            {
+              "name": "data-variant",
+              "value": "destructive"
+            }
           ]
         },
         "recipe": "menu",
@@ -360,7 +412,10 @@
         "reads": {
           "group": [],
           "self": [
-            "data-inset"
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "recipe": "menu",
@@ -406,8 +461,18 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-inset"
+            {
+              "name": "data-variant",
+              "value": "destructive"
+            },
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "recipe": "menu",
@@ -579,8 +644,14 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-inset"
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -742,8 +813,14 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-inset"
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -810,8 +887,14 @@
         "reads": {
           "group": [],
           "self": [
-            "data-open",
-            "data-inset"
+            {
+              "name": "data-open",
+              "value": null
+            },
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "recipe": "menu",
@@ -844,10 +927,54 @@
         "reads": {
           "group": [],
           "self": [
-            "data-open",
-            "data-closed",
-            "data-highlighted",
-            "aria-expanded"
+            {
+              "name": "data-open",
+              "value": null
+            },
+            {
+              "name": "data-closed",
+              "value": null
+            },
+            {
+              "name": "data-side",
+              "value": "bottom"
+            },
+            {
+              "name": "data-side",
+              "value": "left"
+            },
+            {
+              "name": "data-side",
+              "value": "right"
+            },
+            {
+              "name": "data-side",
+              "value": "top"
+            },
+            {
+              "name": "data-slot",
+              "value": "-item"
+            },
+            {
+              "name": "data-highlighted",
+              "value": null
+            },
+            {
+              "name": "data-slot",
+              "value": "-separator"
+            },
+            {
+              "name": "data-slot",
+              "value": "-trigger"
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            },
+            {
+              "name": "data-variant",
+              "value": "destructive"
+            }
           ]
         },
         "recipe": "menu",
