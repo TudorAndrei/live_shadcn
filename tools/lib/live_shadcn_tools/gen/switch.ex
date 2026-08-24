@@ -7,15 +7,15 @@ defmodule LiveShadcnTools.Gen.Switch do
   """
 
   alias LiveShadcnTools.Gen.FormControl
+  alias LiveShadcnTools.Gen.Tree
 
   @doc "The module source for one switch component."
   def module(spec, opts) do
     spec
+    |> Tree.put_attrs_at_slot("switch-thumb", [
+      {"data-checked", :code, "flag(@checked)"},
+      {"data-unchecked", :code, "flag(not @checked)"}
+    ])
     |> FormControl.module(opts)
-    |> String.replace(
-      "data-slot=\"switch-thumb\"",
-      "data-slot=\"switch-thumb\" data-checked={flag(@checked)} data-unchecked={flag(not @checked)}",
-      global: false
-    )
   end
 end

@@ -6,15 +6,12 @@ defmodule LiveShadcnTools.Gen.RadioGroup do
   """
 
   alias LiveShadcnTools.Gen.FormControl
+  alias LiveShadcnTools.Gen.Tree
 
   @doc "The module source for one radio group component."
   def module(spec, opts) do
     spec
+    |> Tree.put_attrs_at_slot("radio-group-indicator", [{":if", :code, "@checked"}])
     |> FormControl.module(opts)
-    |> String.replace(
-      ~s|data-slot="radio-group-indicator"|,
-      ~s|:if={@checked} data-slot="radio-group-indicator"|,
-      global: false
-    )
   end
 end

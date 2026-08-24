@@ -7,15 +7,12 @@ defmodule LiveShadcnTools.Gen.Checkbox do
   """
 
   alias LiveShadcnTools.Gen.FormControl
+  alias LiveShadcnTools.Gen.Tree
 
   @doc "The module source for one checkbox component."
   def module(spec, opts) do
     spec
+    |> Tree.put_attrs_at_slot("checkbox-indicator", [{":if", :code, "@checked"}])
     |> FormControl.module(opts)
-    |> String.replace(
-      "data-slot=\"checkbox-indicator\"",
-      ":if={@checked} data-slot=\"checkbox-indicator\"",
-      global: false
-    )
   end
 end
