@@ -34,6 +34,7 @@ defmodule LiveShadcnTools.Gen.Scroller do
   """
 
   alias LiveShadcnTools.Gen.Heex
+  alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Spec
 
   @required %{root: "Root", viewport: "Viewport", scrollbar: "Scrollbar", thumb: "Thumb"}
@@ -50,26 +51,51 @@ defmodule LiveShadcnTools.Gen.Scroller do
 
   @doc "The module source for one component."
   def module(spec, opts) do
-    roles = roles!(spec)
-    name = String.replace(spec["name"], "-", "_")
+    if spec["name"] == "message-scroller" do
+      message_scroller_module(spec, opts)
+    else
+      roles = roles!(spec)
+      name = String.replace(spec["name"], "-", "_")
 
-    """
-    defmodule #{inspect(Keyword.fetch!(opts, :module))} do
-    #{moduledoc(spec)}
+      """
+      defmodule #{inspect(Keyword.fetch!(opts, :module))} do
+      #{moduledoc(spec)}
 
-      use Phoenix.Component
+        use Phoenix.Component
 
-      alias LiveBase.Scroller
+        alias LiveBase.Scroller
 
-    #{function_doc(spec, name)}
-    #{declarations()}
-      def #{name}(assigns) do
-        ~H\"\"\"
-    #{markup(spec, roles)}
-        \"\"\"
+      #{function_doc(spec, name)}
+      #{declarations()}
+        def #{name}(assigns) do
+          ~H\"\"\"
+      #{markup(spec, roles)}
+          \"\"\"
+        end
       end
+      """
     end
-    """
+  end
+
+  # Message scroller uses the platform scrollbar, unlike scroll area. Its
+  # independently exported viewport still benefits from the existing hook:
+  # it measures scrolling state and keeps the data attributes its classes read.
+  defp message_scroller_module(spec, opts) do
+    spec
+    |> Presentational.module(opts)
+    |> String.replace(
+      "  use Phoenix.Component\n",
+      "  use Phoenix.Component\n\n  alias LiveBase.Scroller\n",
+      global: false
+    )
+    |> String.replace(
+      ~s|data-slot={@rest[:"data-slot"] \|\| "message-scroller-viewport"}|,
+      ~s|data-slot={@rest[:"data-slot"] \|\| "message-scroller-viewport"}
+      data-lb-scroller
+      phx-hook={Scroller.hook()}
+      phx-mounted={Scroller.owned_attributes()}|,
+      global: false
+    )
   end
 
   defp roles!(spec) do

@@ -774,6 +774,20 @@ defmodule LiveShadcnTools.Spec do
     )
   end
 
+  # These are properties of the message-scroller React primitives. Their
+  # browser-visible values are represented by the data attributes the wrapper
+  # already writes, not by unknown HTML attributes.
+  defp external_defaults(
+         %{"module" => "external/@shadcn/react/message-scroller", "part" => part} = node
+       )
+       when part in ["Item", "Button"] do
+    Map.update!(
+      node,
+      "attrs",
+      &Enum.reject(&1, fn attr -> attr["name"] in ["direction", "scrollAnchor"] end)
+    )
+  end
+
   defp external_defaults(node), do: node
 
   # `<QuestionContext.Provider value={contextValue}>` puts an object in the
