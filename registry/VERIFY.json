@@ -192,14 +192,13 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/sidebar.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "abd485cda801d6a1bc874805f978304a46adc73a249fd9c060b8c6a9cc4686ee"
   },
   "ai_elements/task": {

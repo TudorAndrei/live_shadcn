@@ -478,7 +478,7 @@ defmodule LiveShadcn.UI.Sidebar do
     """
   end
 
-  @doc "The `sidebar_provider` part."
+  @doc "The `sidebar-provider` part."
   attr(:style, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
@@ -490,7 +490,8 @@ defmodule LiveShadcn.UI.Sidebar do
       data-slot={@rest[:"data-slot"] || "sidebar-wrapper"}
       style={"--sidebar-width: 16rem; --sidebar-width-icon: 3rem; #{@style}"}
       class={[
-        "group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar",
+        "group/sidebar-wrapper flex w-full has-data-[variant=inset]:bg-sidebar",
+        minimum_height_class(@class),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -498,6 +499,14 @@ defmodule LiveShadcn.UI.Sidebar do
       {render_slot(@inner_block)}
     </div>
     """
+  end
+
+  defp minimum_height_class(class) do
+    if Enum.any?(List.wrap(class), &(is_binary(&1) and String.starts_with?(&1, "min-h-"))) do
+      nil
+    else
+      "min-h-svh"
+    end
   end
 
   @doc """
@@ -589,7 +598,6 @@ defmodule LiveShadcn.UI.Sidebar do
     ~H"""
     <LiveShadcn.UI.Button.button
       data-lb-sidebar={@for}
-      aria-expanded={to_string(@open)}
       phx-click={Sidebar.toggle(sidebar: @for, collapsible: @collapsible)}
       phx-mounted={Sidebar.owned_attributes(:trigger)}
       data-slot={@rest[:"data-slot"] || "sidebar-trigger"}

@@ -77,6 +77,8 @@ defmodule LiveShadcnTools.Gen.Sidebar do
   defp function(%{"name" => name} = part, spec) when name in @behaving,
     do: behaving(part, spec)
 
+  defp function(%{"name" => "sidebar_provider"}, _spec), do: provider()
+
   defp function(part, spec), do: part |> unwrap() |> Presentational.function(spec)
 
   defp unwrap(%{"name" => name} = part) do
@@ -142,7 +144,15 @@ defmodule LiveShadcnTools.Gen.Sidebar do
     ]
   end
 
-  defp attributes(name) when name in ~w(sidebar_trigger sidebar_rail) do
+  defp attributes("sidebar_trigger") do
+    [
+      {"data-lb-sidebar", :code, "@for"},
+      {"phx-click", :code, "Sidebar.toggle(sidebar: @for, collapsible: @collapsible)"},
+      {"phx-mounted", :code, "Sidebar.owned_attributes(:trigger)"}
+    ]
+  end
+
+  defp attributes("sidebar_rail") do
     [
       {"data-lb-sidebar", :code, "@for"},
       {"aria-expanded", :code, "to_string(@open)"},
@@ -182,6 +192,41 @@ defmodule LiveShadcnTools.Gen.Sidebar do
       attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."
       attr :rest, :global
       slot :inner_block
+    """
+  end
+
+  defp provider do
+    """
+      @doc "The `sidebar-provider` part."
+      attr :style, :string, default: nil
+      attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."
+      attr :rest, :global, include: ["data-slot"]
+      slot :inner_block
+
+      def sidebar_provider(assigns) do
+        ~H\"\"\"
+        <div
+          data-slot={@rest[:"data-slot"] || "sidebar-wrapper"}
+          style={"--sidebar-width: 16rem; --sidebar-width-icon: 3rem; \#{@style}"}
+          class={[
+            "group/sidebar-wrapper flex w-full has-data-[variant=inset]:bg-sidebar",
+            minimum_height_class(@class),
+            @class
+          ]}
+          {Map.drop(@rest, [:"data-slot"])}
+        >
+          {render_slot(@inner_block)}
+        </div>
+        \"\"\"
+      end
+
+      defp minimum_height_class(class) do
+        if Enum.any?(List.wrap(class), &(is_binary(&1) and String.starts_with?(&1, "min-h-"))) do
+          nil
+        else
+          "min-h-svh"
+        end
+      end
     """
   end
 
