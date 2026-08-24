@@ -94,7 +94,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 - [x] No recipe holds a literal `cn-` string. Pagination, calendar, carousel,
       chart, form-control, resizable, slider, toast, and related recipes read
       class facts from component specifications.
-- [ ] `gen/toast.ex` remains a hand-written `~H` template. Represent Sonner's
+- [x] `gen/toast.ex` remains a hand-written `~H` template. Represent Sonner's
       toast parts and geometry in the specification, then render that data.
 - [x] For each former copied `cn-` string, record the fact in the spec instead
 

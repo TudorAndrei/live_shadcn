@@ -220,6 +220,16 @@ defmodule LiveShadcnTools.SpecTest do
       )
       """
 
+      spec =
+        Spec.build("sonner",
+          tsx: tsx,
+          markdown: %{},
+          module: "sonner",
+          source: "shadcn",
+          recipe: "toast",
+          upstream: %{}
+        )
+
       assert [
                %{
                  "tree" => %{
@@ -229,15 +239,7 @@ defmodule LiveShadcnTools.SpecTest do
                    "attrs" => attrs
                  }
                }
-             ] =
-               Spec.build("sonner",
-                 tsx: tsx,
-                 markdown: %{},
-                 module: "sonner",
-                 source: "shadcn",
-                 recipe: "toast",
-                 upstream: %{}
-               )["parts"]
+             ] = spec["parts"]
 
       assert %{"name" => "style", "kind" => "style", "value" => style} =
                Enum.find(attrs, &(&1["name"] == "style"))
@@ -251,6 +253,20 @@ defmodule LiveShadcnTools.SpecTest do
                "kind" => "object",
                "value" => %{"classNames" => %{"toast" => "cn-toast"}}
              } = Enum.find(attrs, &(&1["name"] == "toastOptions"))
+
+      assert %{
+               "container" => %{
+                 "tag" => "section",
+                 "class" => "toaster group",
+                 "role" => "region"
+               },
+               "item" => %{
+                 "tag" => "article",
+                 "class" => "cn-toast",
+                 "order" => "newest_first"
+               },
+               "geometry" => %{"limit" => true}
+             } = spec["toast_stack"]
     end
 
     test "a loop over values renders one value per item, not one element" do

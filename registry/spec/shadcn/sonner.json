@@ -8,7 +8,9 @@
       "contexts": [],
       "export": "Toaster",
       "name": "toaster",
-      "params": {},
+      "params": {
+        "theme": null
+      },
       "primitive": null,
       "refs": [
         "props"
@@ -16,6 +18,10 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "ToasterProps",
+              "theme"
+            ],
             "kind": "code",
             "name": "theme",
             "value": "theme as ToasterProps[\"theme\"]"
@@ -26,6 +32,10 @@
             "value": "{\n        success: (\n          <IconPlaceholder\n            lucide=\"CircleCheckIcon\"\n            tabler=\"IconCircleCheck\"\n            hugeicons=\"CheckmarkCircle02Icon\"\n            phosphor=\"CheckCircleIcon\"\n            remixicon=\"RiCheckboxCircleLine\"\n            className=\"size-4\"\n          />\n        ),\n        info: (\n          <IconPlaceholder\n            lucide=\"InfoIcon\"\n            tabler=\"IconInfoCircle\"\n            hugeicons=\"InformationCircleIcon\"\n            phosphor=\"InfoIcon\"\n            remixicon=\"RiInformationLine\"\n            className=\"size-4\"\n          />\n        ),\n        warning: (\n          <IconPlaceholder\n            lucide=\"TriangleAlertIcon\"\n            tabler=\"IconAlertTriangle\"\n            hugeicons=\"Alert02Icon\"\n            phosphor=\"WarningIcon\"\n            remixicon=\"RiErrorWarningLine\"\n            className=\"size-4\"\n          />\n        ),\n        error: (\n          <IconPlaceholder\n            lucide=\"OctagonXIcon\"\n            tabler=\"IconAlertOctagon\"\n            hugeicons=\"MultiplicationSignCircleIcon\"\n            phosphor=\"XCircleIcon\"\n            remixicon=\"RiCloseCircleLine\"\n            className=\"size-4\"\n          />\n        ),\n        loading: (\n          <IconPlaceholder\n            lucide=\"Loader2Icon\"\n            tabler=\"IconLoader\"\n            hugeicons=\"Loading03Icon\"\n            phosphor=\"SpinnerIcon\"\n            remixicon=\"RiLoaderLine\"\n            className=\"size-4 animate-spin\"\n          />\n        ),\n      }"
           },
           {
+            "identifiers": [
+              "CSSProperties",
+              "React"
+            ],
             "kind": "style",
             "name": "style",
             "value": [
@@ -86,6 +96,51 @@
   "recipe": "toast",
   "source": "shadcn",
   "styles": {},
+  "toast_stack": {
+    "container": {
+      "class": "toaster group",
+      "role": "region",
+      "style": [
+        {
+          "kind": "text",
+          "property": "--border-radius",
+          "value": "var(--radius)"
+        },
+        {
+          "kind": "text",
+          "property": "--normal-bg",
+          "value": "var(--popover)"
+        },
+        {
+          "kind": "text",
+          "property": "--normal-border",
+          "value": "var(--border)"
+        },
+        {
+          "kind": "text",
+          "property": "--normal-text",
+          "value": "var(--popover-foreground)"
+        }
+      ],
+      "tag": "section"
+    },
+    "geometry": {
+      "limit": true,
+      "variables": [
+        "--toast-index",
+        "--toast-height",
+        "--toast-offset-y"
+      ]
+    },
+    "item": {
+      "class": "cn-toast",
+      "live": "polite",
+      "order": "newest_first",
+      "role": "status",
+      "slot": "toast",
+      "tag": "article"
+    }
+  },
   "upstream": {
     "base_ui": {},
     "shadcn": {

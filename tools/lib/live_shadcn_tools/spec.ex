@@ -125,8 +125,43 @@ defmodule LiveShadcnTools.Spec do
       "styles" => used_styles(ctx.styles, parts),
       "parts" => parts
     }
+    |> sonner_stack(name)
     |> folds(folded)
   end
+
+  # Sonner is a client toast manager. The server owns the equivalent list, so
+  # its stack shape is a specification fact rather than a second HEEx design in
+  # the toast recipe. The wrapper contributes its class, style, and toast
+  # class; the hook contract names the geometry that the server must expose.
+  defp sonner_stack(spec, "sonner") do
+    tree = spec["parts"] |> Enum.find(&(&1["name"] == "toaster")) |> Map.fetch!("tree")
+
+    style = tree["attrs"] |> Enum.find(&(&1["name"] == "style")) |> Map.fetch!("value")
+    options = tree["attrs"] |> Enum.find(&(&1["name"] == "toastOptions")) |> Map.fetch!("value")
+
+    Map.put(spec, "toast_stack", %{
+      "container" => %{
+        "tag" => tree["tag"],
+        "class" => tree["class"],
+        "style" => style,
+        "role" => "region"
+      },
+      "item" => %{
+        "tag" => "article",
+        "slot" => "toast",
+        "class" => get_in(options, ["classNames", "toast"]),
+        "role" => "status",
+        "live" => "polite",
+        "order" => "newest_first"
+      },
+      "geometry" => %{
+        "variables" => ~w(--toast-index --toast-height --toast-offset-y),
+        "limit" => true
+      }
+    })
+  end
+
+  defp sonner_stack(spec, _name), do: spec
 
   # Which components' markup this one absorbed. It is what the generated
   # `@moduledoc` says a component is built on, and it is the list a drift report

@@ -76,9 +76,9 @@ defmodule LiveShadcnTools.Gen.Toast do
   # Sonner exposes only a manager. LiveView keeps the corresponding list on
   # the server, then gives the existing toast hook the geometry it cannot know.
   defp sonner_module(spec, opts) do
-    toaster_class = toaster_class(spec)
-    toaster_style = toaster_style(spec)
-    toast_class = toast_class(spec)
+    stack = Map.fetch!(spec, "toast_stack")
+    container = stack["container"]
+    item = stack["item"]
 
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
@@ -93,27 +93,27 @@ defmodule LiveShadcnTools.Gen.Toast do
     #{declarations()}
       def toaster(assigns) do
         ~H\"\"\"
-        <section
+        <#{container["tag"]}
           id={@id}
           data-lb-toasts
           data-lb-dismiss={@dismiss}
           data-lb-duration={@duration}
           data-lb-limit={@limit}
           phx-hook={Toast.hook()}
-          role="region"
+          role=#{inspect(container["role"])}
           aria-label={@label}
-          class={[#{inspect(toaster_class)}, @class]}
-          style=#{inspect(toaster_style)}
+          class={[#{inspect(container["class"])}, @class]}
+          style=#{inspect(style(container["style"]))}
           {@rest}
         >
-          <article
-            :for={toast <- Enum.reverse(@toast)}
+          <#{item["tag"]}
+            :for={toast <- #{order(item["order"])}(@toast)}
             id={Toast.toast_id(@id, toast[:id])}
-            data-slot="toast"
+            data-slot=#{inspect(item["slot"])}
             data-type={toast[:type]}
-            role="status"
-            aria-live="polite"
-            class=#{inspect(toast_class)}
+            role=#{inspect(item["role"])}
+            aria-live=#{inspect(item["live"])}
+            class=#{inspect(item["class"])}
           >
             <span data-slot="toast-icon"><LiveShadcn.Icon.icon name={icon(toast[:type])} /></span>
             <div class="flex min-w-0 flex-1 flex-col gap-1">
@@ -127,8 +127,8 @@ defmodule LiveShadcnTools.Gen.Toast do
             >
               <LiveShadcn.Icon.icon name="x" />
             </button>
-          </article>
-        </section>
+          </#{item["tag"]}>
+        </#{container["tag"]}>
         \"\"\"
       end
 
@@ -141,37 +141,15 @@ defmodule LiveShadcnTools.Gen.Toast do
     """
   end
 
-  defp toast_class(spec) do
-    spec["parts"]
-    |> Enum.find(&(&1["name"] == "toaster"))
-    |> get_in(["tree", "attrs"])
-    |> Enum.find(&(&1["name"] == "toastOptions"))
-    |> get_in(["value", "classNames", "toast"])
-    |> case do
-      class when is_binary(class) -> class
-      _other -> raise "Sonner's toaster has no toastOptions.classNames.toast"
-    end
-  end
-
-  defp toaster_class(spec), do: sonner_tree(spec) |> Map.fetch!("class")
-
-  defp toaster_style(spec) do
-    spec
-    |> sonner_tree()
-    |> Map.fetch!("attrs")
-    |> Enum.find(&(&1["name"] == "style"))
-    |> Map.fetch!("value")
+  defp style(entries) do
+    entries
     |> Enum.map_join("; ", fn
       %{"property" => property, "kind" => "text", "value" => value} -> "#{property}: #{value}"
       entry -> raise "Sonner's style has an unsupported declaration: #{inspect(entry)}"
     end)
   end
 
-  defp sonner_tree(spec) do
-    spec["parts"]
-    |> Enum.find(&(&1["name"] == "toaster"))
-    |> Map.fetch!("tree")
-  end
+  defp order("newest_first"), do: "Enum.reverse"
 
   defp roles!(spec) do
     Map.new(@required, fn {role, primitive} ->
