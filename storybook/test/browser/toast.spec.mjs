@@ -70,7 +70,7 @@ test.describe("a toaster", () => {
   // back to full opacity. Two elements, one attribute, and the hook writes it
   // to both because the generator marked both.
   test("a pointer over the stack fans it apart", async ({ page }) => {
-    await toasts(page).nth(2).hover();
+    await toasts(page).first().hover();
 
     await expect(toasts(page).first()).toHaveAttribute("data-expanded", "");
     await expect(toasts(page).first().locator("[data-slot='toast-content']")).toHaveAttribute(
