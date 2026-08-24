@@ -1134,12 +1134,32 @@ defmodule StorybookWeb.Examples do
   defp menubar_default(assigns) do
     ~H"""
     <.menubar>
-      <.dropdown_menu id="menubar-file">
+      <.dropdown_menu
+        id="menubar-file"
+        trigger_slot="menubar-trigger"
+        popup_slot="menubar-content"
+        item_slot="menubar-item"
+        trigger_class="cn-menubar-trigger flex items-center outline-hidden select-none"
+        class="cn-menubar-content cn-menubar-content-logical cn-menu-target cn-menu-translucent"
+        item_class="cn-menubar-item group/menubar-item"
+        align_offset="-4"
+        side_offset="8"
+      >
         <:trigger>File</:trigger>
         <:item value="fetch">Fetch upstream</:item>
         <:item value="spec">Rebuild specs</:item>
       </.dropdown_menu>
-      <.dropdown_menu id="menubar-view">
+      <.dropdown_menu
+        id="menubar-view"
+        trigger_slot="menubar-trigger"
+        popup_slot="menubar-content"
+        item_slot="menubar-item"
+        trigger_class="cn-menubar-trigger flex items-center outline-hidden select-none"
+        class="cn-menubar-content cn-menubar-content-logical cn-menu-target cn-menu-translucent"
+        item_class="cn-menubar-item group/menubar-item"
+        align_offset="-4"
+        side_offset="8"
+      >
         <:trigger>View</:trigger>
         <:item value="verified">Verified only</:item>
         <:item value="all">Everything</:item>

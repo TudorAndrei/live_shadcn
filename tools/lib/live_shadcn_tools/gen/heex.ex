@@ -608,14 +608,25 @@ defmodule LiveShadcnTools.Gen.Heex do
   defp slot_attr(%{"slot" => nil}, _ctx), do: []
 
   defp slot_attr(%{"slot" => slot} = node, ctx) do
-    if overridable?(node, ctx),
-      do: [{"data-slot", :code, ~s|@rest[:"data-slot"]| <> " || " <> inspect(slot)}],
-      else: [{"data-slot", :text, slot}]
+    if recipe_owns_slot?(node, ctx) do
+      []
+    else
+      if overridable?(node, ctx),
+        do: [{"data-slot", :code, ~s|@rest[:"data-slot"]| <> " || " <> inspect(slot)}],
+        else: [{"data-slot", :text, slot}]
+    end
   end
 
   defp slot_attr(_node, _ctx), do: []
 
   defp overridable?(node, ctx), do: node["props"] == true and Map.get(ctx, :rest) == true
+
+  defp recipe_owns_slot?(node, ctx) do
+    ctx
+    |> Map.get(:attrs, %{})
+    |> Map.get(Spec.key(node), [])
+    |> Enum.any?(&(name_of(&1) == "data-slot"))
+  end
 
   # Everything upstream writes on the element that is not its class string. A
   # value it computes from a prop is emitted as that prop's assign.
@@ -890,7 +901,8 @@ defmodule LiveShadcnTools.Gen.Heex do
   # The spec records which element that was, so the generator never guesses.
   defp class_attr(node, ctx) do
     entries =
-      base_classes(node, ctx) ++
+      layout_classes(node, ctx) ++
+        base_classes(node, ctx) ++
         conditional_classes(node, ctx) ++ variant_classes(node, ctx) ++ caller_class(node, ctx)
 
     case entries do
@@ -902,6 +914,12 @@ defmodule LiveShadcnTools.Gen.Heex do
 
   defp entry({:text, literal}), do: inspect(literal)
   defp entry({:code, code}), do: code
+
+  defp layout_classes(node, ctx) do
+    if Spec.key(node) in Map.get(ctx, :layout_transparent, []),
+      do: [{:text, "contents"}],
+      else: []
+  end
 
   defp base_classes(node, ctx) do
     literal =

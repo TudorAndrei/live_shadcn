@@ -158,6 +158,7 @@ defmodule LiveShadcnTools.Gen.Menu do
     """
     <div
       id={@id}
+      class="contents"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
@@ -181,6 +182,7 @@ defmodule LiveShadcnTools.Gen.Menu do
         nil -> Heex.with_children(role.node)
         key -> Heex.with_children_at(role.node, key)
       end
+      |> Map.put("merges_class", true)
 
     Heex.render(tree, %{
       attrs: attributes(spec, roles),
@@ -193,6 +195,7 @@ defmodule LiveShadcnTools.Gen.Menu do
       variants: spec["variants"] || %{},
       client_attributes: @client_attributes,
       hook_part: Spec.key(roles.positioner.node),
+      layout_transparent: [Spec.key(roles.portal.node)],
       rest: false
     })
   end
@@ -212,9 +215,14 @@ defmodule LiveShadcnTools.Gen.Menu do
           do: trigger_attributes(Heex.tag_of(node)),
           else: role_attributes(role)
 
-      {Spec.key(node), attrs ++ documented(spec, node, role)}
+      {Spec.key(node), attrs ++ slot_attribute(role) ++ documented(spec, node, role)}
     end)
   end
+
+  defp slot_attribute(role) when role in [:trigger, :popup, :item],
+    do: [{"data-slot", :code, "@#{role}_slot"}]
+
+  defp slot_attribute(_role), do: []
 
   defp props(spec, roles) do
     Map.new(roles, fn {_role, %{node: node}} ->
@@ -325,6 +333,9 @@ defmodule LiveShadcnTools.Gen.Menu do
       attr :offset, :integer, default: 4
       attr :class, :any, default: nil, doc: "Appended to the menu's class string."
       attr :inset, :boolean, default: false, doc: "Line the text up with items that have an icon."
+      attr :trigger_slot, :string, default: #{inspect(roles.trigger.node["slot"])}
+      attr :popup_slot, :string, default: #{inspect(roles.popup.node["slot"])}
+    #{item_slot_attr(roles)}
     #{part_classes(spec, roles)}#{own_params(spec, roles)}  attr :rest, :global
 
       slot :trigger, required: true, doc: "What opens it."
@@ -348,6 +359,12 @@ defmodule LiveShadcnTools.Gen.Menu do
     else
       ""
     end
+  end
+
+  defp item_slot_attr(roles) do
+    if roles[:item],
+      do: ~s|  attr :item_slot, :string, default: #{inspect(roles.item.node["slot"])}\n|,
+      else: ""
   end
 
   defp part_classes(spec, roles) do

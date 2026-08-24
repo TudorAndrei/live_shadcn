@@ -325,14 +325,13 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/menubar.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "bcf9a852aeb5c39c6ca2eb101ec17a33524354a38fd1305a098b7671a6776aed"
   },
   "shadcn/native-select": {
