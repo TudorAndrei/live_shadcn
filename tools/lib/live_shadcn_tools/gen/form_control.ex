@@ -118,6 +118,9 @@ defmodule LiveShadcnTools.Gen.FormControl do
   end
 
   defp input_otp_control(part, spec) do
+    container_class = spec["classes"]["container"]
+    input_class = part["tree"]["class"]
+
     """
     #{doc(part, spec, :field)}
     #{declarations(part, spec, :field)}
@@ -129,7 +132,7 @@ defmodule LiveShadcnTools.Gen.FormControl do
           data-input-otp-container
           translate="no"
           style="--root-height: 0px; position: relative; cursor: text; user-select: none; -webkit-user-select: none; pointer-events: none"
-          class="cn-input-otp flex items-center has-disabled:opacity-50"
+          class=#{inspect(container_class)}
         >
           <input
             data-slot={@rest[:"data-slot"] || "input-otp"}
@@ -143,7 +146,7 @@ defmodule LiveShadcnTools.Gen.FormControl do
             phx-mounted={FormControl.owned_attributes()}
             spellcheck={false}
             style="position: absolute; inset: 0; width: 100%; height: 100%; display: flex; text-align: left; opacity: 1; color: transparent; pointer-events: all; background: transparent; caret-color: transparent; border: 0 solid transparent; outline: 0 solid transparent; box-shadow: none; line-height: 1; letter-spacing: -.5em; font-size: var(--root-height, 16px); font-family: monospace; font-variant-numeric: tabular-nums"
-            class={["cn-input-otp-input disabled:cursor-not-allowed", @class]}
+            class={[#{inspect(input_class)}, @class]}
             {Map.drop(@rest, [:"data-slot"])}
           />
         </div>

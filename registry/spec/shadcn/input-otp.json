@@ -1,5 +1,8 @@
 {
   "anatomy": [],
+  "classes": {
+    "container": "cn-input-otp flex items-center has-disabled:opacity-50"
+  },
   "css_vars": [],
   "generated_by": "mix ui.spec",
   "name": "input-otp",
