@@ -134,6 +134,17 @@ defmodule LiveShadcnTools.AstTest do
       refute Tsx.merges_class?(Tsx.attr(row.jsx, "className"))
     end
 
+    test "variant calls read the class expression node" do
+      source = ~S"""
+      const Row = () => <span className={cn(buttonVariants({ variant, size }))} />;
+      """
+
+      assert [row] = Ast.parse!(source).functions
+
+      assert [%{"table" => "buttonVariants", "args" => ["variant", "size"]}] =
+               Tsx.variant_calls(Tsx.attr(row.jsx, "className"), ["buttonVariants"])
+    end
+
     test "member roots come from member expression nodes" do
       source = ~S"""
       const Row = ({ error, label }) => <span title={error?.message ?? label["text"]} />;

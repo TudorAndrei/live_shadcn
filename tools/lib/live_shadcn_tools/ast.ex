@@ -261,7 +261,7 @@ defmodule LiveShadcnTools.Ast do
 
   Returns `[{name, [prop]}]`, outermost first.
   """
-  def calls(code, names) do
+  def calls(code, names) when is_binary(code) do
     wrapped = "const __x = (\n#{code}\n)"
 
     case cached_tree(wrapped) do
@@ -271,6 +271,28 @@ defmodule LiveShadcnTools.Ast do
   rescue
     _error -> []
   end
+
+  def calls(node, names) when is_map(node), do: called(bare(node), names)
+
+  @doc "The arguments of an expression call to `name`, or an empty list."
+  def call_args(node, name) when is_map(node) do
+    case bare(node) do
+      %{
+        "type" => "CallExpression",
+        "callee" => %{"type" => "Identifier", "name" => ^name},
+        "arguments" => arguments
+      } ->
+        arguments
+
+      _node ->
+        []
+    end
+  end
+
+  @doc "The string value of an OXC literal node, or `nil`."
+  def string_literal(%{"type" => "Literal", "value" => value}) when is_binary(value), do: value
+  def string_literal(node) when is_map(node), do: node |> bare() |> string_literal()
+  def string_literal(_node), do: nil
 
   defp called(%{"type" => "CallExpression", "callee" => %{"name" => name}} = call, names) do
     passed = if name in names, do: [{name, object_keys(call["arguments"])}], else: []

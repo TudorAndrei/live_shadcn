@@ -36,7 +36,19 @@ defmodule LiveShadcnTools.Tsx do
     |> normalise()
   end
 
-  def classes({:expr, code, _node}), do: classes({:expr, code})
+  def classes({:expr, _code, node}) do
+    case Ast.string_literal(node) do
+      nil ->
+        node
+        |> Ast.call_args("cn")
+        |> Enum.flat_map(&literal_node/1)
+        |> Enum.join(" ")
+        |> normalise()
+
+      literal ->
+        normalise(literal)
+    end
+  end
 
   def classes(_), do: ""
 
@@ -128,7 +140,9 @@ defmodule LiveShadcnTools.Tsx do
     for {name, args} <- Ast.calls(code, bindings), do: %{"table" => name, "args" => args}
   end
 
-  def variant_calls({:expr, code, _node}, bindings), do: variant_calls({:expr, code}, bindings)
+  def variant_calls({:expr, _code, node}, bindings) do
+    for {name, args} <- Ast.calls(node, bindings), do: %{"table" => name, "args" => args}
+  end
 
   def variant_calls(_value, _bindings), do: []
 
@@ -211,6 +225,13 @@ defmodule LiveShadcnTools.Tsx do
 
   defp literal(<<q, _::binary>> = arg) when q in [?", ?'], do: [String.slice(arg, 1..-2//1)]
   defp literal(_), do: []
+
+  defp literal_node(node) do
+    case Ast.string_literal(node) do
+      nil -> []
+      literal -> [literal]
+    end
+  end
 
   defp normalise(string), do: string |> String.split() |> Enum.join(" ")
 
