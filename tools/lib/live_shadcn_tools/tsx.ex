@@ -178,40 +178,6 @@ defmodule LiveShadcnTools.Tsx do
 
   def variant_calls(_value, _bindings), do: []
 
-  @doc """
-  Reads a JavaScript object literal into a map.
-
-  Values come back tagged: `{:string, literal}`, `{:object, map}`, or
-  `{:code, source}` for anything the reader does not need to understand.
-  """
-  def object!(code) do
-    code = String.trim(code)
-
-    unless String.starts_with?(code, "{"), do: raise("not an object literal: #{code}")
-
-    {body, _rest} = balanced(code, 1, ?{, ?})
-
-    body
-    |> split_args()
-    |> Enum.map(&pair/1)
-    |> Map.new()
-  end
-
-  defp pair(entry) do
-    case String.split(entry, ":", parts: 2) do
-      [key, value] -> {unquote_key(key), value(String.trim(value))}
-      [shorthand] -> {unquote_key(shorthand), {:code, String.trim(shorthand)}}
-    end
-  end
-
-  defp unquote_key(key), do: key |> String.trim() |> String.trim("\"") |> String.trim("'")
-
-  defp value(<<q, _::binary>> = literal) when q in [?", ?'],
-    do: {:string, literal |> String.slice(1..-2//1) |> normalise()}
-
-  defp value("{" <> _ = object), do: {:object, object!(object)}
-  defp value(code), do: {:code, code}
-
   defp call_args(code, fun) do
     prefix = fun <> "("
 

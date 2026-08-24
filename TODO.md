@@ -112,7 +112,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ## Phase 8 — Finish the oxc swap
 
-- [ ] 8a — Carry expression **nodes**, not their source text. Removes about ten
+- [x] 8a — Carry expression **nodes**, not their source text. Removes about ten
       of `spec.ex`'s nineteen regexes and most of `tsx.ex`
       (`split_args/1`, `object!/1`, `merges_class?/1`)
 - [x] 8b — Read `TSTypeAnnotation`. `boolean` → `:boolean`, `number` →
