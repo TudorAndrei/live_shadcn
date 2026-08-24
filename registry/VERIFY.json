@@ -851,6 +851,24 @@
     "pass": false,
     "spec": "015d17895b79be0580f0bb3e3e46fcf3fdc6c20b5c06f49e9c42c8ba9f1880a9"
   },
+  "shadcn/drawer": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "43b3e1fa3473cdda688ffbd0ac3c7515bce7992d70b942a9425ac9bb418775f2"
+  },
   "shadcn/button": {
     "checks": {
       "browser": {
