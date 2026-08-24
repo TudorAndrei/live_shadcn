@@ -45,7 +45,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ### 5a — One reader change unblocks five
 
-- [ ] A primitive-to-recipe table beside `@external_roles`
+- [x] A primitive-to-recipe table beside `@external_roles`
 - [ ] `command` (`listbox`)
 - [ ] `sonner` (`toast`)
 - [ ] `input-otp` (`form-control`)

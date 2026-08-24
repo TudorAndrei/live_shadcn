@@ -1160,6 +1160,29 @@ defmodule LiveShadcnTools.Spec do
       "QuestionnairePrimitive.Skip" => {"Skip", "button"},
       "QuestionnairePrimitive.Next" => {"Next", "button"},
       "QuestionnairePrimitive.Submit" => {"Submit", "button"}
+    },
+    "cmdk" => %{
+      "CommandPrimitive" => {"Root", "div"},
+      "CommandPrimitive.Input" => {"Input", "input"},
+      "CommandPrimitive.List" => {"List", "div"},
+      "CommandPrimitive.Empty" => {"Empty", "div"},
+      "CommandPrimitive.Group" => {"Group", "div"},
+      "CommandPrimitive.Separator" => {"Separator", "div"},
+      "CommandPrimitive.Item" => {"Item", "div"}
+    },
+    "sonner" => %{
+      "Sonner" => {"Toaster", "section"}
+    },
+    "input-otp" => %{
+      "OTPInput" => {"Input", "input"}
+    },
+    "@shadcn/react/message-scroller" => %{
+      "MessageScrollerPrimitive.Provider" => {"Provider", nil},
+      "MessageScrollerPrimitive.Root" => {"Root", "div"},
+      "MessageScrollerPrimitive.Viewport" => {"Viewport", "div"},
+      "MessageScrollerPrimitive.Content" => {"Content", "div"},
+      "MessageScrollerPrimitive.Item" => {"Item", "div"},
+      "MessageScrollerPrimitive.Button" => {"Button", "button"}
     }
   }
 

@@ -1,0 +1,369 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "message-scroller",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "MessageScrollerProvider",
+      "name": "message_scroller_provider",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "part": "Provider",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "an external primitive that renders nothing",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "MessageScroller",
+      "name": "message_scroller",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-message-scroller group/message-scroller relative flex size-full min-h-0 flex-col overflow-hidden",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/message-scroller",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "message-scroller",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "MessageScrollerViewport",
+      "name": "message_scroller_viewport",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-message-scroller-viewport size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/message-scroller",
+        "part": "Viewport",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "data-autoscrolling",
+              "value": null
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "message-scroller-viewport",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "MessageScrollerContent",
+      "name": "message_scroller_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-message-scroller-content flex h-max min-h-full flex-col",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/message-scroller",
+        "part": "Content",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "message-scroller-content",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "MessageScrollerItem",
+      "name": "message_scroller_item",
+      "params": {
+        "className": null,
+        "scrollAnchor": "false"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "scrollAnchor",
+            "value": "scrollAnchor"
+          }
+        ],
+        "children": [],
+        "class": "cn-message-scroller-item min-w-0 shrink-0 [contain-intrinsic-size:auto_10rem] [content-visibility:auto]",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/message-scroller",
+        "part": "Item",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "message-scroller-item",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "MessageScrollerButton",
+      "name": "message_scroller_button",
+      "params": {
+        "children": null,
+        "className": null,
+        "direction": "end",
+        "render": null,
+        "size": "icon-sm",
+        "variant": "secondary"
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "data-direction",
+            "value": "direction"
+          },
+          {
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          },
+          {
+            "kind": "code",
+            "name": "data-size",
+            "value": "size"
+          },
+          {
+            "kind": "code",
+            "name": "direction",
+            "value": "direction"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [
+                      {
+                        "kind": "text",
+                        "name": "lucide",
+                        "value": "ArrowDownIcon"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "tabler",
+                        "value": "IconArrowDown"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "hugeicons",
+                        "value": "ArrowDown02Icon"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "phosphor",
+                        "value": "ArrowDownIcon"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "remixicon",
+                        "value": "RiArrowDownLine"
+                      }
+                    ],
+                    "children": [],
+                    "class": "",
+                    "class_when": [],
+                    "icons": {
+                      "hugeicons": "ArrowDown02Icon",
+                      "lucide": "ArrowDownIcon",
+                      "phosphor": "ArrowDownIcon",
+                      "remixicon": "RiArrowDownLine",
+                      "tabler": "IconArrowDown"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_calls": [],
+                    "vars": []
+                  },
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "code": "direction === \"end\" ? \"Scroll to end\" : \"Scroll to start\"",
+                        "type": "value"
+                      }
+                    ],
+                    "class": "sr-only",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "reason": "a fragment",
+                "render_as": null,
+                "slot": null,
+                "type": "transparent",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "cn-message-scroller-button absolute inset-s-1/2 -translate-x-1/2 border-border bg-background text-foreground transition-[translate,scale,opacity] duration-200 hover:bg-muted hover:text-foreground data-[active=false]:pointer-events-none data-[active=false]:scale-95 data-[active=false]:opacity-0 data-[active=false]:duration-400 data-[active=false]:ease-[cubic-bezier(0.7,0,0.84,0)] data-[active=true]:translate-y-0 data-[active=true]:scale-100 data-[active=true]:opacity-100 data-[active=true]:ease-[cubic-bezier(0.23,1,0.32,1)] data-[direction=end]:bottom-4 data-[direction=end]:data-[active=false]:translate-y-full data-[direction=start]:top-4 data-[direction=start]:data-[active=false]:-translate-y-full rtl:translate-x-1/2 data-[direction=start]:[&_svg]:rotate-180",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@shadcn/react/message-scroller",
+        "part": "Button",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "data-active",
+              "value": "false"
+            },
+            {
+              "name": "data-active",
+              "value": "true"
+            },
+            {
+              "name": "data-direction",
+              "value": "end"
+            },
+            {
+              "name": "data-direction",
+              "value": "start"
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "message-scroller-button",
+        "tag": "button",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "scroller",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-message-scroller-content": "gap-8"
+    },
+    "lyra": {
+      "cn-message-scroller-content": "gap-6"
+    },
+    "maia": {
+      "cn-message-scroller-content": "gap-8"
+    },
+    "mira": {
+      "cn-message-scroller-content": "gap-6"
+    },
+    "nova": {
+      "cn-message-scroller-content": "gap-6"
+    },
+    "rhea": {
+      "cn-message-scroller-content": "gap-8"
+    },
+    "sera": {
+      "cn-message-scroller-content": "gap-8"
+    },
+    "vega": {
+      "cn-message-scroller-content": "gap-8"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/message-scroller.tsx",
+      "sha256": "0cf9e45fc178dcae7d6ef5f60804534d4abbfa73711d8455e44b62782729b533"
+    }
+  },
+  "variants": {}
+}
