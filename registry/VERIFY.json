@@ -7,12 +7,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "7fc4d5098ffd681120505bd35a320cd6bbed3a5fe4ec7c079e202470aaa8cc50"
+    "spec": "474f3f5b69f244699ff0af68cd261a2e438e13c33d19489c3d98222cf71a3b90"
   },
   "shadcn/checkbox": {
     "checks": {
