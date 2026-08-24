@@ -16,7 +16,6 @@ defmodule LiveShadcn.UI.Resizable do
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
-
   attr(:orientation, :string, default: "vertical", values: ["horizontal", "vertical"])
 
   def resizable_handle(assigns) do
@@ -43,7 +42,6 @@ defmodule LiveShadcn.UI.Resizable do
   end
 
   @doc "The `resizable-panel` part."
-
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -62,11 +60,9 @@ defmodule LiveShadcn.UI.Resizable do
   end
 
   @doc "The `resizable-panel-group` part."
-
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
-
   attr(:id, :string, required: true)
   attr(:orientation, :string, default: "horizontal", values: ["horizontal", "vertical"])
 

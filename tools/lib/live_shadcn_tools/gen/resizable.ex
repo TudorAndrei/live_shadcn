@@ -1,60 +1,117 @@
 defmodule LiveShadcnTools.Gen.Resizable do
   @moduledoc "The pointer-resizable panel recipe."
 
-  alias LiveShadcnTools.Gen.Presentational
+  alias LiveShadcnTools.Gen.Heex
 
   @doc "The module source for a resizable panel group."
   def module(spec, opts) do
-    spec
-    |> Presentational.module(opts)
-    |> String.replace(
-      "  use Phoenix.Component\n",
-      "  use Phoenix.Component\n\n  alias LiveBase.Resizable\n",
-      global: false
-    )
-    |> String.replace(
-      ~s|data-slot={@rest[:"data-slot"] \|\| "resizable-panel-group"}|,
-      ~s|data-slot={@rest[:"data-slot"] \|\| "resizable-panel-group"}
-      phx-hook={Resizable.hook()}
-      aria-orientation={@orientation}|,
-      global: false
-    )
-    |> String.replace(
-      ~s|"cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col",|,
-      ~s|"cn-resizable-panel-group flex h-full w-full overflow-hidden aria-[orientation=vertical]:flex-col",|,
-      global: false
-    )
-    |> String.replace(
-      ~s|data-slot={@rest[:"data-slot"] \|\| "resizable-handle"}|,
-      ~s|data-slot={@rest[:"data-slot"] \|\| "resizable-handle"}
-      data-lb-resizable-handle
-      role="separator"
-      tabindex="0"
-      aria-orientation={@orientation}
-      aria-valuemin="0"
-      aria-valuemax="100"
-      aria-valuenow="50"|,
-      global: false
-    )
-    |> String.replace(
-      "  def resizable_handle(assigns) do",
-      "  attr :orientation, :string, default: \"vertical\", values: [\"horizontal\", \"vertical\"]\n\n  def resizable_handle(assigns) do",
-      global: false
-    )
-    |> String.replace(
-      "  def resizable_panel_group(assigns) do",
-      "  attr :id, :string, required: true\n  attr :orientation, :string, default: \"horizontal\", values: [\"horizontal\", \"vertical\"]\n\n  def resizable_panel_group(assigns) do",
-      global: false
-    )
-    |> String.replace(
-      "      phx-hook={Resizable.hook()}",
-      "      id={@id}\n      phx-hook={Resizable.hook()}",
-      global: false
-    )
-    |> String.replace(
-      ~s|<div data-slot={@rest[:"data-slot"] \|\| "resizable-panel"} {Map.drop(@rest, [:"data-slot"])}>|,
-      ~s|<div data-slot={@rest[:"data-slot"] \|\| "resizable-panel"} class={["flex flex-1", @class]} style="border-color: currentColor" {Map.drop(@rest, [:"data-slot"])}>|,
-      global: false
-    )
+    handle = part!(spec, "resizable_handle")
+    group = part!(spec, "resizable_panel_group")
+    icon = handle["tree"] |> Map.fetch!("children") |> hd() |> Map.fetch!("children") |> hd()
+
+    group_class =
+      insert_before(
+        group["tree"]["class"],
+        "aria-[orientation=vertical]:flex-col",
+        "overflow-hidden"
+      )
+
+    """
+    defmodule #{inspect(Keyword.fetch!(opts, :module))} do
+    #{moduledoc(spec)}
+
+      use Phoenix.Component
+
+      alias LiveBase.Resizable
+
+      @doc "The `resizable-handle` part."
+      attr :with_handle, :string, default: nil
+      attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."
+      attr :rest, :global, include: ["data-slot"]
+      slot :inner_block
+      attr :orientation, :string, default: "vertical", values: ["horizontal", "vertical"]
+
+      def resizable_handle(assigns) do
+        ~H\"\"\"
+        <div
+          data-slot={@rest[:"data-slot"] || "resizable-handle"}
+          data-lb-resizable-handle
+          role="separator"
+          tabindex="0"
+          aria-orientation={@orientation}
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="50"
+          class={[#{inspect(handle["tree"]["class"])}, @class]}
+          {Map.drop(@rest, [:"data-slot"])}
+        >
+          <div :if={@with_handle} class=#{inspect(icon["class"])} />
+          {render_slot(@inner_block)}
+        </div>
+        \"\"\"
+      end
+
+      @doc "The `resizable-panel` part."
+      attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."
+      attr :rest, :global, include: ["data-slot"]
+      slot :inner_block
+
+      def resizable_panel(assigns) do
+        ~H\"\"\"
+        <div
+          data-slot={@rest[:"data-slot"] || "resizable-panel"}
+          class={["flex flex-1", @class]}
+          style="border-color: currentColor"
+          {Map.drop(@rest, [:"data-slot"])}
+        >
+          {render_slot(@inner_block)}
+        </div>
+        \"\"\"
+      end
+
+      @doc "The `resizable-panel-group` part."
+      attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."
+      attr :rest, :global, include: ["data-slot"]
+      slot :inner_block
+      attr :id, :string, required: true
+      attr :orientation, :string, default: "horizontal", values: ["horizontal", "vertical"]
+
+      def resizable_panel_group(assigns) do
+        ~H\"\"\"
+        <div
+          data-slot={@rest[:"data-slot"] || "resizable-panel-group"}
+          id={@id}
+          phx-hook={Resizable.hook()}
+          aria-orientation={@orientation}
+          class={[#{inspect(group_class)}, @class]}
+          {Map.drop(@rest, [:"data-slot"])}
+        >
+          {render_slot(@inner_block)}
+        </div>
+        \"\"\"
+      end
+    end
+    """
+  end
+
+  defp part!(spec, name), do: Enum.find(spec["parts"], &(&1["name"] == name))
+
+  defp insert_before(classes, before, class) do
+    classes
+    |> String.split()
+    |> List.insert_at(Enum.find_index(String.split(classes), &(&1 == before)), class)
+    |> Enum.join(" ")
+  end
+
+  defp moduledoc(spec) do
+    """
+      @moduledoc \"\"\"
+      #{Heex.headline(spec)}
+
+      Generated by `mix ui.gen` from `#{Heex.spec_ref(spec)}`. Every
+      class string and every `data-slot` below came from upstream. Change the
+      spec or the recipe, not this file.
+      \"\"\"\\
+    """
   end
 end
