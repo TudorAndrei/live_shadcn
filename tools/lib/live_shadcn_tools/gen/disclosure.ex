@@ -256,7 +256,12 @@ defmodule LiveShadcnTools.Gen.Disclosure do
   defp render(spec, roles, shape, role, children, opts \\ []) do
     part = role.part
 
-    Heex.render(Heex.with_children(subtree(role, roles)), %{
+    node =
+      role
+      |> subtree(roles)
+      |> Map.put("merges_class", role == roles.root or role.node["merges_class"] == true)
+
+    Heex.render(Heex.with_children(node), %{
       attrs: attributes(spec, roles, shape),
       children: children,
       class: class_expression(spec, role, roles, shape),

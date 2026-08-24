@@ -54,6 +54,7 @@ defmodule LiveShadcn.UI.Collapsible do
       id={@id}
       data-open={flag(@open)}
       data-closed={flag(not @open)}
+      class={[@class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <button
