@@ -185,6 +185,8 @@ defmodule LiveShadcn.UI.Questionnaire do
       "min",
       "max",
       "step",
+      "minlength",
+      "maxlength",
       "pattern",
       "readonly",
       "multiple"

@@ -95,6 +95,8 @@ defmodule LiveAiElements.Components.Snippet do
       "min",
       "max",
       "step",
+      "minlength",
+      "maxlength",
       "pattern",
       "readonly",
       "multiple"

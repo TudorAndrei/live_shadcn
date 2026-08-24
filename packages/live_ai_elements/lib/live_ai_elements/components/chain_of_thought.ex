@@ -55,6 +55,7 @@ defmodule LiveAiElements.Components.ChainOfThought do
       data-open={flag(@open)}
       data-closed={flag(not @open)}
       open={@open}
+      class={[@class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <button

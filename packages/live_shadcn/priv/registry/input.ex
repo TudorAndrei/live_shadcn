@@ -46,6 +46,8 @@ defmodule LiveShadcn.UI.Input do
       "min",
       "max",
       "step",
+      "minlength",
+      "maxlength",
       "pattern",
       "readonly",
       "multiple"

@@ -41,7 +41,7 @@ defmodule LiveAiElements.Components.Checkpoint do
   def checkpoint_icon(assigns) do
     ~H"""
     <%= if @inner_block == [] do %>
-      <LiveShadcn.Icon.icon name="bookmark" class={["size-4 shrink-0", @class]} />
+      <LiveShadcn.Icon.icon name="bookmark" class={["size-4 shrink-0", @class]} {@rest} />
     <% end %>
     {render_slot(@inner_block)}
     """

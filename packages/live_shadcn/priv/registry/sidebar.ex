@@ -242,6 +242,8 @@ defmodule LiveShadcn.UI.Sidebar do
       "min",
       "max",
       "step",
+      "minlength",
+      "maxlength",
       "pattern",
       "readonly",
       "multiple"

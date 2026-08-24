@@ -138,6 +138,8 @@ defmodule LiveShadcn.UI.InputGroup do
       "min",
       "max",
       "step",
+      "minlength",
+      "maxlength",
       "pattern",
       "readonly",
       "multiple"
