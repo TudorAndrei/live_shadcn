@@ -9,8 +9,6 @@ defmodule LiveShadcn.UI.MessageScroller do
 
   use Phoenix.Component
 
-  alias LiveBase.Scroller
-
   @doc "The `message_scroller_provider` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -55,8 +53,8 @@ defmodule LiveShadcn.UI.MessageScroller do
     <div
       data-slot={@rest[:"data-slot"] || "message-scroller-viewport"}
       data-lb-scroller
-      phx-hook={Scroller.hook()}
-      phx-mounted={Scroller.owned_attributes()}
+      phx-hook={LiveBase.Scroller.hook()}
+      phx-mounted={LiveBase.Scroller.owned_attributes()}
       class={[
         "cn-message-scroller-viewport size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent",
         @class

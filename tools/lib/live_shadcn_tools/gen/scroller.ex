@@ -81,20 +81,17 @@ defmodule LiveShadcnTools.Gen.Scroller do
   # independently exported viewport still benefits from the existing hook:
   # it measures scrolling state and keeps the data attributes its classes read.
   defp message_scroller_module(spec, opts) do
+    viewport = Enum.find(spec["parts"], &(&1["name"] == "message_scroller_viewport"))
+
     spec
-    |> Presentational.module(opts)
-    |> String.replace(
-      "  use Phoenix.Component\n",
-      "  use Phoenix.Component\n\n  alias LiveBase.Scroller\n",
-      global: false
-    )
-    |> String.replace(
-      ~s|data-slot={@rest[:"data-slot"] \|\| "message-scroller-viewport"}|,
-      ~s|data-slot={@rest[:"data-slot"] \|\| "message-scroller-viewport"}
-      data-lb-scroller
-      phx-hook={Scroller.hook()}
-      phx-mounted={Scroller.owned_attributes()}|,
-      global: false
+    |> Presentational.module(
+      Keyword.put(opts, :attrs, %{
+        Spec.key(viewport["tree"]) => [
+          {"data-lb-scroller", :bare},
+          {"phx-hook", :code, "LiveBase.Scroller.hook()"},
+          {"phx-mounted", :code, "LiveBase.Scroller.owned_attributes()"}
+        ]
+      })
     )
   end
 
