@@ -168,10 +168,9 @@ defmodule LiveShadcnTools.Gen.Dialog do
   # own `DialogContent` already assembles it: portal, then overlay, then popup.
   defp markup(spec, roles) do
     """
-    <div id={@id} data-slot="#{slot(roles.root)}" {@rest}>
     #{render(spec, roles, roles.trigger, "{render_slot(@trigger)}")}
     #{content(spec, roles)}
-    </div>\
+    \
     """
   end
 

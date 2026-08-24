@@ -52,98 +52,92 @@ defmodule LiveShadcn.UI.Sheet do
 
   def sheet(assigns) do
     ~H"""
-    <div id={@id} data-slot="sheet" {@rest}>
-      <button
-        data-slot="sheet-trigger"
-        id={Dialog.trigger_id(@id)}
-        type="button"
-        aria-haspopup="dialog"
-        aria-expanded={to_string(@open)}
-        aria-controls={Dialog.popup_id(@id)}
-        phx-click={Dialog.open(@id)}
-        phx-mounted={Dialog.owned_attributes(:trigger)}
-        data-popup-open={flag(@open)}
-        data-disabled={flag(@disabled)}
-      >
-        {render_slot(@trigger)}
-      </button>
-      <div
-        data-slot="sheet-overlay"
-        id={Dialog.backdrop_id(@id)}
-        hidden={not @open}
-        phx-click={if(@dismissable, do: Dialog.close(@id))}
-        phx-mounted={Dialog.owned_attributes(:backdrop)}
-        data-open={flag(@open)}
-        data-closed={flag(not @open)}
-        class={[
-          "cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
-          @class
-        ]}
-        data-lb-style-target
-      />
-      <div
-        data-slot="sheet-content"
-        id={Dialog.popup_id(@id)}
-        role={if(@alert, do: "alertdialog", else: "dialog")}
-        aria-modal="true"
-        aria-labelledby={Dialog.title_id(@id)}
-        aria-describedby={Dialog.description_id(@id)}
-        tabindex="-1"
-        hidden={not @open}
-        phx-window-keydown={if(@dismissable, do: Dialog.close(@id))}
-        phx-key="Escape"
-        phx-hook={Dialog.hook()}
-        data-lb-backdrop={Dialog.backdrop_id(@id)}
-        data-lb-modal
-        phx-mounted={Dialog.owned_attributes(:popup)}
-        data-open={flag(@open)}
-        data-closed={flag(not @open)}
-        data-side={@side}
-        class={[
-          "cn-sheet-content data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem]",
-          @class
-        ]}
-      >
-        <div data-slot="sheet-header" class="cn-sheet-header flex flex-col">
-          <h2
-            data-slot="sheet-title"
-            id={Dialog.title_id(@id)}
-            class={["cn-sheet-title cn-font-heading", @title_class]}
-          >
-            {render_slot(@title)}
-          </h2>
-          <p
-            data-slot="sheet-description"
-            id={Dialog.description_id(@id)}
-            class={["cn-sheet-description", @description_class]}
-          >
-            {render_slot(@description)}
-          </p>
-        </div>
-        {render_slot(@inner_block)}
-        <div
-          :if={@footer != []}
-          data-slot="sheet-footer"
-          class="cn-sheet-footer mt-auto flex flex-col"
+    <button
+      data-slot="sheet-trigger"
+      id={Dialog.trigger_id(@id)}
+      type="button"
+      aria-haspopup="dialog"
+      aria-expanded={to_string(@open)}
+      aria-controls={Dialog.popup_id(@id)}
+      phx-click={Dialog.open(@id)}
+      phx-mounted={Dialog.owned_attributes(:trigger)}
+      data-popup-open={flag(@open)}
+      data-disabled={flag(@disabled)}
+    >
+      {render_slot(@trigger)}
+    </button>
+    <div
+      data-slot="sheet-overlay"
+      id={Dialog.backdrop_id(@id)}
+      hidden={not @open}
+      phx-click={if(@dismissable, do: Dialog.close(@id))}
+      phx-mounted={Dialog.owned_attributes(:backdrop)}
+      data-open={flag(@open)}
+      data-closed={flag(not @open)}
+      class={[
+        "cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
+        @class
+      ]}
+      data-lb-style-target
+    />
+    <div
+      data-slot="sheet-content"
+      id={Dialog.popup_id(@id)}
+      role={if(@alert, do: "alertdialog", else: "dialog")}
+      aria-modal="true"
+      aria-labelledby={Dialog.title_id(@id)}
+      aria-describedby={Dialog.description_id(@id)}
+      tabindex="-1"
+      hidden={not @open}
+      phx-window-keydown={if(@dismissable, do: Dialog.close(@id))}
+      phx-key="Escape"
+      phx-hook={Dialog.hook()}
+      data-lb-backdrop={Dialog.backdrop_id(@id)}
+      data-lb-modal
+      phx-mounted={Dialog.owned_attributes(:popup)}
+      data-open={flag(@open)}
+      data-closed={flag(not @open)}
+      data-side={@side}
+      class={[
+        "cn-sheet-content data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem]",
+        @class
+      ]}
+    >
+      <div data-slot="sheet-header" class="cn-sheet-header flex flex-col">
+        <h2
+          data-slot="sheet-title"
+          id={Dialog.title_id(@id)}
+          class={["cn-sheet-title cn-font-heading", @title_class]}
         >
-          {render_slot(@footer)}
-        </div>
-        <LiveShadcn.UI.Button.button
-          :if={@show_close_button}
-          data-slot="sheet-close"
-          type="button"
-          phx-click={Dialog.close(@id)}
-          data-disabled={flag(@disabled)}
-          variant="ghost"
-          size="icon-sm"
-          class="cn-sheet-close"
+          {render_slot(@title)}
+        </h2>
+        <p
+          data-slot="sheet-description"
+          id={Dialog.description_id(@id)}
+          class={["cn-sheet-description", @description_class]}
         >
-          <LiveShadcn.Icon.icon name="x" />
-          <span class="sr-only">
-            Close
-          </span>
-        </LiveShadcn.UI.Button.button>
+          {render_slot(@description)}
+        </p>
       </div>
+      {render_slot(@inner_block)}
+      <div :if={@footer != []} data-slot="sheet-footer" class="cn-sheet-footer mt-auto flex flex-col">
+        {render_slot(@footer)}
+      </div>
+      <LiveShadcn.UI.Button.button
+        :if={@show_close_button}
+        data-slot="sheet-close"
+        type="button"
+        phx-click={Dialog.close(@id)}
+        data-disabled={flag(@disabled)}
+        variant="ghost"
+        size="icon-sm"
+        class="cn-sheet-close"
+      >
+        <LiveShadcn.Icon.icon name="x" />
+        <span class="sr-only">
+          Close
+        </span>
+      </LiveShadcn.UI.Button.button>
     </div>
     """
   end

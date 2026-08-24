@@ -67,6 +67,11 @@ export function collect({ selector, properties }) {
   const round = (n) => Math.round(n * 10) / 10;
 
   const record = (child, path) => {
+    // Hidden nodes have no visual or accessibility presence. LiveView keeps
+    // them ready for a client-side state change; Base UI can unmount them.
+    // Compare the state a reader can see, not that implementation detail.
+    if (child.hidden) return;
+
     const slot = child.getAttribute("data-slot");
     const here = slot ? [...path, slot] : path;
     const portal = slot?.endsWith("-portal");

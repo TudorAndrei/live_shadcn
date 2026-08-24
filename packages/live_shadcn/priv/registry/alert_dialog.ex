@@ -54,78 +54,76 @@ defmodule LiveShadcn.UI.AlertDialog do
 
   def alert_dialog(assigns) do
     ~H"""
-    <div id={@id} data-slot="alert-dialog" {@rest}>
-      <button
-        data-slot="alert-dialog-trigger"
-        id={Dialog.trigger_id(@id)}
-        type="button"
-        aria-haspopup="dialog"
-        aria-expanded={to_string(@open)}
-        aria-controls={Dialog.popup_id(@id)}
-        phx-click={Dialog.open(@id)}
-        phx-mounted={Dialog.owned_attributes(:trigger)}
-        data-popup-open={flag(@open)}
-        data-disabled={flag(@disabled)}
-      >
-        {render_slot(@trigger)}
-      </button>
-      <div
-        data-slot="alert-dialog-overlay"
-        id={Dialog.backdrop_id(@id)}
-        hidden={not @open}
-        phx-click={if(@dismissable, do: Dialog.close(@id))}
-        phx-mounted={Dialog.owned_attributes(:backdrop)}
-        data-open={flag(@open)}
-        data-closed={flag(not @open)}
-        class={["cn-alert-dialog-overlay fixed inset-0 isolate z-50", @overlay_class]}
-      />
-      <div
-        data-slot="alert-dialog-content"
-        id={Dialog.popup_id(@id)}
-        role={if(@alert, do: "alertdialog", else: "dialog")}
-        aria-modal="true"
-        aria-labelledby={Dialog.title_id(@id)}
-        aria-describedby={Dialog.description_id(@id)}
-        tabindex="-1"
-        hidden={not @open}
-        phx-window-keydown={if(@dismissable, do: Dialog.close(@id))}
-        phx-key="Escape"
-        phx-hook={Dialog.hook()}
-        data-lb-backdrop={Dialog.backdrop_id(@id)}
-        data-lb-modal
-        phx-mounted={Dialog.owned_attributes(:popup)}
-        data-open={flag(@open)}
-        data-closed={flag(not @open)}
-        data-size={@size}
-        class={[
-          "cn-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 outline-none",
-          @class
-        ]}
-      >
-        <div data-slot="alert-dialog-header" class="cn-alert-dialog-header">
-          <h2
-            data-slot="alert-dialog-title"
-            id={Dialog.title_id(@id)}
-            class={["cn-alert-dialog-title cn-font-heading", @title_class]}
-          >
-            {render_slot(@title)}
-          </h2>
-          <p
-            data-slot="alert-dialog-description"
-            id={Dialog.description_id(@id)}
-            class={["cn-alert-dialog-description", @description_class]}
-          >
-            {render_slot(@description)}
-          </p>
-        </div>
-        {render_slot(@inner_block)}
-        <div
-          :if={@footer != []}
-          data-slot="alert-dialog-footer"
-          class="cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end"
+    <button
+      data-slot="alert-dialog-trigger"
+      id={Dialog.trigger_id(@id)}
+      type="button"
+      aria-haspopup="dialog"
+      aria-expanded={to_string(@open)}
+      aria-controls={Dialog.popup_id(@id)}
+      phx-click={Dialog.open(@id)}
+      phx-mounted={Dialog.owned_attributes(:trigger)}
+      data-popup-open={flag(@open)}
+      data-disabled={flag(@disabled)}
+    >
+      {render_slot(@trigger)}
+    </button>
+    <div
+      data-slot="alert-dialog-overlay"
+      id={Dialog.backdrop_id(@id)}
+      hidden={not @open}
+      phx-click={if(@dismissable, do: Dialog.close(@id))}
+      phx-mounted={Dialog.owned_attributes(:backdrop)}
+      data-open={flag(@open)}
+      data-closed={flag(not @open)}
+      class={["cn-alert-dialog-overlay fixed inset-0 isolate z-50", @overlay_class]}
+    />
+    <div
+      data-slot="alert-dialog-content"
+      id={Dialog.popup_id(@id)}
+      role={if(@alert, do: "alertdialog", else: "dialog")}
+      aria-modal="true"
+      aria-labelledby={Dialog.title_id(@id)}
+      aria-describedby={Dialog.description_id(@id)}
+      tabindex="-1"
+      hidden={not @open}
+      phx-window-keydown={if(@dismissable, do: Dialog.close(@id))}
+      phx-key="Escape"
+      phx-hook={Dialog.hook()}
+      data-lb-backdrop={Dialog.backdrop_id(@id)}
+      data-lb-modal
+      phx-mounted={Dialog.owned_attributes(:popup)}
+      data-open={flag(@open)}
+      data-closed={flag(not @open)}
+      data-size={@size}
+      class={[
+        "cn-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+        @class
+      ]}
+    >
+      <div data-slot="alert-dialog-header" class="cn-alert-dialog-header">
+        <h2
+          data-slot="alert-dialog-title"
+          id={Dialog.title_id(@id)}
+          class={["cn-alert-dialog-title cn-font-heading", @title_class]}
         >
-          {render_slot(@footer)}
-        </div>
+          {render_slot(@title)}
+        </h2>
+        <p
+          data-slot="alert-dialog-description"
+          id={Dialog.description_id(@id)}
+          class={["cn-alert-dialog-description", @description_class]}
+        >
+          {render_slot(@description)}
+        </p>
+      </div>
+      {render_slot(@inner_block)}
+      <div
+        :if={@footer != []}
+        data-slot="alert-dialog-footer"
+        class="cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end"
+      >
+        {render_slot(@footer)}
       </div>
     </div>
     """

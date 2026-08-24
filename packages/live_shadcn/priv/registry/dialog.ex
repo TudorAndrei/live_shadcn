@@ -53,93 +53,91 @@ defmodule LiveShadcn.UI.Dialog do
 
   def dialog(assigns) do
     ~H"""
-    <div id={@id} data-slot="dialog" {@rest}>
-      <button
-        data-slot="dialog-trigger"
-        id={Dialog.trigger_id(@id)}
-        type="button"
-        aria-haspopup="dialog"
-        aria-expanded={to_string(@open)}
-        aria-controls={Dialog.popup_id(@id)}
-        phx-click={Dialog.open(@id)}
-        phx-mounted={Dialog.owned_attributes(:trigger)}
-        data-popup-open={flag(@open)}
-        data-disabled={flag(@disabled)}
-      >
-        {render_slot(@trigger)}
-      </button>
-      <div
-        data-slot="dialog-overlay"
-        id={Dialog.backdrop_id(@id)}
-        hidden={not @open}
-        phx-click={if(@dismissable, do: Dialog.close(@id))}
-        phx-mounted={Dialog.owned_attributes(:backdrop)}
-        data-open={flag(@open)}
-        data-closed={flag(not @open)}
-        class={["cn-dialog-overlay fixed inset-0 isolate z-50", @overlay_class]}
-      />
-      <div
-        data-slot="dialog-content"
-        id={Dialog.popup_id(@id)}
-        role={if(@alert, do: "alertdialog", else: "dialog")}
-        aria-modal="true"
-        aria-labelledby={Dialog.title_id(@id)}
-        aria-describedby={Dialog.description_id(@id)}
-        tabindex="-1"
-        hidden={not @open}
-        phx-window-keydown={if(@dismissable, do: Dialog.close(@id))}
-        phx-key="Escape"
-        phx-hook={Dialog.hook()}
-        data-lb-backdrop={Dialog.backdrop_id(@id)}
-        data-lb-modal
-        phx-mounted={Dialog.owned_attributes(:popup)}
-        data-open={flag(@open)}
-        data-closed={flag(not @open)}
-        class={[
-          "cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
-          @class
-        ]}
-      >
-        <div data-slot="dialog-header" class="cn-dialog-header flex flex-col">
-          <h2
-            data-slot="dialog-title"
-            id={Dialog.title_id(@id)}
-            class={["cn-dialog-title cn-font-heading", @title_class]}
-          >
-            {render_slot(@title)}
-          </h2>
-          <p
-            data-slot="dialog-description"
-            id={Dialog.description_id(@id)}
-            class={["cn-dialog-description", @description_class]}
-          >
-            {render_slot(@description)}
-          </p>
-        </div>
-        {render_slot(@inner_block)}
-        <div
-          :if={@footer != []}
-          data-slot="dialog-footer"
-          class="cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end"
+    <button
+      data-slot="dialog-trigger"
+      id={Dialog.trigger_id(@id)}
+      type="button"
+      aria-haspopup="dialog"
+      aria-expanded={to_string(@open)}
+      aria-controls={Dialog.popup_id(@id)}
+      phx-click={Dialog.open(@id)}
+      phx-mounted={Dialog.owned_attributes(:trigger)}
+      data-popup-open={flag(@open)}
+      data-disabled={flag(@disabled)}
+    >
+      {render_slot(@trigger)}
+    </button>
+    <div
+      data-slot="dialog-overlay"
+      id={Dialog.backdrop_id(@id)}
+      hidden={not @open}
+      phx-click={if(@dismissable, do: Dialog.close(@id))}
+      phx-mounted={Dialog.owned_attributes(:backdrop)}
+      data-open={flag(@open)}
+      data-closed={flag(not @open)}
+      class={["cn-dialog-overlay fixed inset-0 isolate z-50", @overlay_class]}
+    />
+    <div
+      data-slot="dialog-content"
+      id={Dialog.popup_id(@id)}
+      role={if(@alert, do: "alertdialog", else: "dialog")}
+      aria-modal="true"
+      aria-labelledby={Dialog.title_id(@id)}
+      aria-describedby={Dialog.description_id(@id)}
+      tabindex="-1"
+      hidden={not @open}
+      phx-window-keydown={if(@dismissable, do: Dialog.close(@id))}
+      phx-key="Escape"
+      phx-hook={Dialog.hook()}
+      data-lb-backdrop={Dialog.backdrop_id(@id)}
+      data-lb-modal
+      phx-mounted={Dialog.owned_attributes(:popup)}
+      data-open={flag(@open)}
+      data-closed={flag(not @open)}
+      class={[
+        "cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+        @class
+      ]}
+    >
+      <div data-slot="dialog-header" class="cn-dialog-header flex flex-col">
+        <h2
+          data-slot="dialog-title"
+          id={Dialog.title_id(@id)}
+          class={["cn-dialog-title cn-font-heading", @title_class]}
         >
-          {render_slot(@footer)}
-        </div>
-        <LiveShadcn.UI.Button.button
-          :if={@show_close_button}
-          data-slot="dialog-close"
-          type="button"
-          phx-click={Dialog.close(@id)}
-          data-disabled={flag(@disabled)}
-          variant="ghost"
-          size="icon-sm"
-          class="cn-dialog-close"
+          {render_slot(@title)}
+        </h2>
+        <p
+          data-slot="dialog-description"
+          id={Dialog.description_id(@id)}
+          class={["cn-dialog-description", @description_class]}
         >
-          <LiveShadcn.Icon.icon name="x" />
-          <span class="sr-only">
-            Close
-          </span>
-        </LiveShadcn.UI.Button.button>
+          {render_slot(@description)}
+        </p>
       </div>
+      {render_slot(@inner_block)}
+      <div
+        :if={@footer != []}
+        data-slot="dialog-footer"
+        class="cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end"
+      >
+        {render_slot(@footer)}
+      </div>
+      <LiveShadcn.UI.Button.button
+        :if={@show_close_button}
+        data-slot="dialog-close"
+        type="button"
+        phx-click={Dialog.close(@id)}
+        data-disabled={flag(@disabled)}
+        variant="ghost"
+        size="icon-sm"
+        class="cn-dialog-close"
+      >
+        <LiveShadcn.Icon.icon name="x" />
+        <span class="sr-only">
+          Close
+        </span>
+      </LiveShadcn.UI.Button.button>
     </div>
     """
   end

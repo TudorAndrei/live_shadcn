@@ -56,96 +56,94 @@ defmodule LiveShadcn.UI.Drawer do
 
   def drawer(assigns) do
     ~H"""
-    <div id={@id} data-slot="drawer" {@rest}>
-      <button
-        data-slot="drawer-trigger"
-        id={Dialog.trigger_id(@id)}
-        type="button"
-        aria-haspopup="dialog"
-        aria-expanded={to_string(@open)}
-        aria-controls={Dialog.popup_id(@id)}
-        phx-click={Dialog.open(@id)}
-        phx-mounted={Dialog.owned_attributes(:trigger)}
-      >
-        {render_slot(@trigger)}
-      </button>
+    <button
+      data-slot="drawer-trigger"
+      id={Dialog.trigger_id(@id)}
+      type="button"
+      aria-haspopup="dialog"
+      aria-expanded={to_string(@open)}
+      aria-controls={Dialog.popup_id(@id)}
+      phx-click={Dialog.open(@id)}
+      phx-mounted={Dialog.owned_attributes(:trigger)}
+    >
+      {render_slot(@trigger)}
+    </button>
+    <div
+      data-slot="drawer-overlay"
+      id={Dialog.backdrop_id(@id)}
+      hidden={not @open}
+      phx-click={if(@dismissable, do: Dialog.close(@id))}
+      phx-mounted={Dialog.owned_attributes(:backdrop)}
+      data-open={flag(@open)}
+      data-closed={flag(not @open)}
+      data-snap-points={flag(@snap_points != [])}
+      class={[
+        "cn-drawer-overlay fixed inset-0 z-50 min-h-dvh opacity-[max(var(--drawer-overlay-min-opacity,0),calc(1-var(--drawer-swipe-progress)))] transition-opacity duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] select-none data-ending-style:pointer-events-none data-ending-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-snap-points:[--drawer-overlay-min-opacity:0.5] data-starting-style:opacity-0 data-swiping:duration-0 supports-[-webkit-touch-callout:none]:absolute",
+        @overlay_class
+      ]}
+      data-lb-style-target
+      data-lb-measure
+    />
+    <div
+      data-slot="drawer-popup"
+      id={Dialog.popup_id(@id)}
+      role={if(@alert, do: "alertdialog", else: "dialog")}
+      aria-modal="true"
+      aria-labelledby={Dialog.title_id(@id)}
+      aria-describedby={Dialog.description_id(@id)}
+      tabindex="-1"
+      hidden={not @open}
+      phx-window-keydown={if(@dismissable, do: Dialog.close(@id))}
+      phx-key="Escape"
+      phx-hook={Dialog.hook()}
+      data-lb-backdrop={Dialog.backdrop_id(@id)}
+      data-lb-modal
+      phx-mounted={Dialog.owned_attributes(:popup)}
+      data-open={flag(@open)}
+      data-closed={flag(not @open)}
+      data-snap-points={flag(@snap_points != [])}
+      data-swipe-axis={@swipe_axis}
+      class={[@class]}
+    >
       <div
-        data-slot="drawer-overlay"
-        id={Dialog.backdrop_id(@id)}
-        hidden={not @open}
-        phx-click={if(@dismissable, do: Dialog.close(@id))}
-        phx-mounted={Dialog.owned_attributes(:backdrop)}
-        data-open={flag(@open)}
-        data-closed={flag(not @open)}
-        data-snap-points={flag(@snap_points != [])}
+        :if={@show_swipe_handle}
+        data-slot="drawer-swipe-handle"
+        aria-hidden="true"
         class={[
-          "cn-drawer-overlay fixed inset-0 z-50 min-h-dvh opacity-[max(var(--drawer-overlay-min-opacity,0),calc(1-var(--drawer-swipe-progress)))] transition-opacity duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] select-none data-ending-style:pointer-events-none data-ending-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-snap-points:[--drawer-overlay-min-opacity:0.5] data-starting-style:opacity-0 data-swiping:duration-0 supports-[-webkit-touch-callout:none]:absolute",
-          @overlay_class
+          "cn-drawer-swipe-handle relative z-10 flex shrink-0 cursor-grab transition-opacity duration-200 group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 group-data-[swipe-direction=left]/drawer-popup:order-last group-data-[swipe-direction=up]/drawer-popup:order-last active:cursor-grabbing",
+          @class
         ]}
-        data-lb-style-target
-        data-lb-measure
       />
       <div
-        data-slot="drawer-popup"
-        id={Dialog.popup_id(@id)}
-        role={if(@alert, do: "alertdialog", else: "dialog")}
-        aria-modal="true"
-        aria-labelledby={Dialog.title_id(@id)}
-        aria-describedby={Dialog.description_id(@id)}
-        tabindex="-1"
-        hidden={not @open}
-        phx-window-keydown={if(@dismissable, do: Dialog.close(@id))}
-        phx-key="Escape"
-        phx-hook={Dialog.hook()}
-        data-lb-backdrop={Dialog.backdrop_id(@id)}
-        data-lb-modal
-        phx-mounted={Dialog.owned_attributes(:popup)}
-        data-open={flag(@open)}
-        data-closed={flag(not @open)}
-        data-snap-points={flag(@snap_points != [])}
-        data-swipe-axis={@swipe_axis}
-        class={[@class]}
+        data-slot="drawer-content"
+        class="cn-drawer-content-base flex min-h-0 flex-1 flex-col overflow-hidden overscroll-contain rounded-[inherit] transition-opacity duration-300 ease-[cubic-bezier(0.45,1.005,0,1.005)] select-text group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 group-data-swiping/drawer-popup:select-none"
       >
         <div
-          :if={@show_swipe_handle}
-          data-slot="drawer-swipe-handle"
-          aria-hidden="true"
-          class={[
-            "cn-drawer-swipe-handle relative z-10 flex shrink-0 cursor-grab transition-opacity duration-200 group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 group-data-[swipe-direction=left]/drawer-popup:order-last group-data-[swipe-direction=up]/drawer-popup:order-last active:cursor-grabbing",
-            @class
-          ]}
-        />
-        <div
-          data-slot="drawer-content"
-          class="cn-drawer-content-base flex min-h-0 flex-1 flex-col overflow-hidden overscroll-contain rounded-[inherit] transition-opacity duration-300 ease-[cubic-bezier(0.45,1.005,0,1.005)] select-text group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 group-data-swiping/drawer-popup:select-none"
+          data-slot="drawer-header"
+          class="cn-drawer-header-base flex shrink-0 flex-col group-data-[swipe-axis=y]/drawer-popup:text-center"
         >
-          <div
-            data-slot="drawer-header"
-            class="cn-drawer-header-base flex shrink-0 flex-col group-data-[swipe-axis=y]/drawer-popup:text-center"
+          <h2
+            data-slot="drawer-title"
+            id={Dialog.title_id(@id)}
+            class={["cn-drawer-title cn-font-heading", @title_class]}
           >
-            <h2
-              data-slot="drawer-title"
-              id={Dialog.title_id(@id)}
-              class={["cn-drawer-title cn-font-heading", @title_class]}
-            >
-              {render_slot(@title)}
-            </h2>
-            <p
-              data-slot="drawer-description"
-              id={Dialog.description_id(@id)}
-              class={["cn-drawer-description text-balance", @description_class]}
-            >
-              {render_slot(@description)}
-            </p>
-          </div>
-          {render_slot(@inner_block)}
-          <div
-            :if={@footer != []}
-            data-slot="drawer-footer"
-            class="cn-drawer-footer-base mt-auto flex shrink-0 flex-col"
+            {render_slot(@title)}
+          </h2>
+          <p
+            data-slot="drawer-description"
+            id={Dialog.description_id(@id)}
+            class={["cn-drawer-description text-balance", @description_class]}
           >
-            {render_slot(@footer)}
-          </div>
+            {render_slot(@description)}
+          </p>
+        </div>
+        {render_slot(@inner_block)}
+        <div
+          :if={@footer != []}
+          data-slot="drawer-footer"
+          class="cn-drawer-footer-base mt-auto flex shrink-0 flex-col"
+        >
+          {render_slot(@footer)}
         </div>
       </div>
     </div>
