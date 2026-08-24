@@ -170,6 +170,10 @@
                   }
                 ],
                 "count": "_values.length",
+                "member_roots": [
+                  "Array",
+                  "_values"
+                ],
                 "type": "repeat"
               }
             ],

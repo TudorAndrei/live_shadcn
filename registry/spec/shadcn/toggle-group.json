@@ -133,16 +133,25 @@
         "attrs": [
           {
             "kind": "code",
+            "member_roots": [
+              "context"
+            ],
             "name": "data-variant",
             "value": "context.variant || variant"
           },
           {
             "kind": "code",
+            "member_roots": [
+              "context"
+            ],
             "name": "data-size",
             "value": "context.size || size"
           },
           {
             "kind": "code",
+            "member_roots": [
+              "context"
+            ],
             "name": "data-spacing",
             "value": "context.spacing"
           }

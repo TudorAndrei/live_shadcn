@@ -236,6 +236,21 @@ defmodule LiveShadcnTools.Spec do
   def codes(nodes) when is_list(nodes), do: Enum.flat_map(nodes, &codes/1)
   def codes(_node), do: []
 
+  @doc "The identifier roots of member expressions a tree records."
+  def member_roots(%{"member_roots" => roots} = node) when is_list(roots) do
+    roots ++
+      (node
+       |> Map.delete("member_roots")
+       |> Map.values()
+       |> Enum.flat_map(&member_roots/1))
+  end
+
+  def member_roots(node) when is_map(node),
+    do: node |> Map.values() |> Enum.flat_map(&member_roots/1)
+
+  def member_roots(nodes) when is_list(nodes), do: Enum.flat_map(nodes, &member_roots/1)
+  def member_roots(_node), do: []
+
   # A component this file declares and does not export.
   #
   # `context` renders `<TokensWithCost>` in three of its parts and exports none
@@ -716,7 +731,10 @@ defmodule LiveShadcnTools.Spec do
 
   defp node(%{type: :expr, code: "children"}, _ctx), do: %{"type" => "children"}
 
-  defp node(%{type: :expr, code: code}, ctx), do: expression(code, ctx)
+  defp node(%{type: :expr, code: code, node: expression_node}, ctx) do
+    expression(code, ctx)
+    |> record_member_roots(Ast.member_roots(expression_node))
+  end
 
   defp node(%{type: :text, value: value}, _ctx),
     do: %{"type" => "text", "value" => String.trim(value)}
@@ -1543,10 +1561,18 @@ defmodule LiveShadcnTools.Spec do
         not react_handler?(written),
         name = Map.get(@html_names, written, written) do
       case value do
-        {:string, literal} -> %{"name" => name, "kind" => "text", "value" => literal}
-        {:expr, code} -> expression_attr(name, String.trim(code), ctx)
-        {:expr, code, _node} -> expression_attr(name, String.trim(code), ctx)
-        true -> %{"name" => name, "kind" => "flag", "value" => nil}
+        {:string, literal} ->
+          %{"name" => name, "kind" => "text", "value" => literal}
+
+        {:expr, code} ->
+          expression_attr(name, String.trim(code), ctx)
+
+        {:expr, code, node} ->
+          expression_attr(name, String.trim(code), ctx)
+          |> record_member_roots(Ast.member_roots(node))
+
+        true ->
+          %{"name" => name, "kind" => "flag", "value" => nil}
       end
     end
   end
@@ -1589,6 +1615,9 @@ defmodule LiveShadcnTools.Spec do
   end
 
   defp expression_attr(name, code), do: %{"name" => name, "kind" => "code", "value" => code}
+
+  defp record_member_roots(node, []), do: node
+  defp record_member_roots(node, roots), do: Map.put(node, "member_roots", roots)
 
   defp declarations(code, ctx) do
     with {at, _} <- :binary.match(code, "{"),

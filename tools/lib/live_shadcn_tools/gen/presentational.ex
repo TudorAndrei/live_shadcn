@@ -139,7 +139,18 @@ defmodule LiveShadcnTools.Gen.Presentational do
   defp type(name, _default, paths), do: if(name in paths, do: ":any", else: ":string")
 
   # The props the markup reads a field off, rather than rendering whole.
+  #
+  # Specifications written before the OXC reader did not record expression
+  # nodes. Keep their output stable until `mix ui.spec` refreshes them; each
+  # new specification takes the node data path below.
   defp path_roots(part) do
+    case Heex.member_roots(part["tree"]) |> Enum.uniq() |> Enum.sort() do
+      [] -> legacy_path_roots(part)
+      roots -> roots
+    end
+  end
+
+  defp legacy_path_roots(part) do
     for code <- Heex.codes(part["tree"]),
         [root] <- Regex.scan(~r/\b([a-z_][A-Za-z0-9_]*)\.[a-z_]/, code, capture: :all_but_first),
         uniq: true,

@@ -289,6 +289,10 @@
                     "collection": "toasts",
                     "counter": null,
                     "fields": [],
+                    "member_roots": [
+                      "toastItem",
+                      "toasts"
+                    ],
                     "merges_class": null,
                     "props": null,
                     "slot": null,

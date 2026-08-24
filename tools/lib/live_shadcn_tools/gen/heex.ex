@@ -508,6 +508,7 @@ defmodule LiveShadcnTools.Gen.Heex do
 
   @doc "Every piece of JavaScript a tree still holds, wherever it holds one."
   defdelegate codes(tree), to: Spec
+  defdelegate member_roots(tree), to: Spec
 
   @doc "Whether a tree renders the caller's content anywhere."
   def marker?(%{"type" => "children"}), do: true

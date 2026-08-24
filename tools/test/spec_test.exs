@@ -141,7 +141,7 @@ defmodule LiveShadcnTools.SpecTest do
     end
 
     test "a bare value is content the caller supplies, not markup" do
-      tsx = String.replace(@tsx, "{children}", "{title}")
+      tsx = String.replace(@tsx, "{children}", "{title.details}")
 
       spec =
         Spec.build("thing",
@@ -153,7 +153,19 @@ defmodule LiveShadcnTools.SpecTest do
           upstream: %{}
         )
 
-      assert [%{"tree" => %{"children" => [%{"type" => "value", "code" => "title"}]}}] =
+      assert [
+               %{
+                 "tree" => %{
+                   "children" => [
+                     %{
+                       "type" => "value",
+                       "code" => "title.details",
+                       "member_roots" => ["title"]
+                     }
+                   ]
+                 }
+               }
+             ] =
                spec["parts"]
     end
 
