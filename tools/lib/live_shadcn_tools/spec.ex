@@ -1545,6 +1545,7 @@ defmodule LiveShadcnTools.Spec do
       case value do
         {:string, literal} -> %{"name" => name, "kind" => "text", "value" => literal}
         {:expr, code} -> expression_attr(name, String.trim(code), ctx)
+        {:expr, code, _node} -> expression_attr(name, String.trim(code), ctx)
         true -> %{"name" => name, "kind" => "flag", "value" => nil}
       end
     end
@@ -1630,7 +1631,7 @@ defmodule LiveShadcnTools.Spec do
   # A pagination link is a Button that is an `<a>`. The element it becomes is a
   # fact about the markup, so the spec records it rather than losing the tag.
   defp render_as(element, ctx) do
-    with {:expr, code} <- Tsx.attr(element, "render"),
+    with {:expr, code, _node} <- Tsx.attr(element, "render"),
          true <- String.starts_with?(String.trim(code), "<") do
       node(Ast.parse_jsx!(String.trim(code)), ctx)
     else

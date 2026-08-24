@@ -39,7 +39,7 @@ defmodule LiveShadcnTools.Ast do
       %{type: :expr, code: String.t(), node: map()}
       %{type: :text, value: String.t()}
 
-  where an attribute is `{:attr, name, {:string, s} | {:expr, code} | true}` or
+  where an attribute is `{:attr, name, {:string, s} | {:expr, code, node} | true}` or
   `{:spread, code}`. Those are the shapes the rest of the pipeline was written
   against, and they did not need to change: what changed is that they are now
   right.
@@ -835,7 +835,7 @@ defmodule LiveShadcnTools.Ast do
 
   # Anything else is an expression the spec decides the meaning of, exactly as
   # it does for an expression written inside JSX.
-  defp returned(node, source), do: %{type: :expr, code: slice(node, source)}
+  defp returned(node, source), do: %{type: :expr, code: slice(node, source), node: node}
 
   defp object(%{"type" => "ObjectExpression", "properties" => properties}) do
     for %{"type" => "Property", "key" => %{"name" => name}, "value" => value} <- properties,
@@ -853,7 +853,7 @@ defmodule LiveShadcnTools.Ast do
   defp merged_class(%{"type" => "CallExpression", "arguments" => [first | _]}, source) do
     case first |> object() |> Map.get("className") do
       nil -> nil
-      value -> {:attr, "className", {:expr, slice(value, source)}}
+      value -> {:attr, "className", {:expr, slice(value, source), value}}
     end
   end
 
@@ -929,10 +929,10 @@ defmodule LiveShadcnTools.Ast do
     do: {:string, value}
 
   defp attribute_value(%{"type" => "JSXExpressionContainer", "expression" => expression}, source),
-    do: {:expr, slice(expression, source)}
+    do: {:expr, slice(expression, source), expression}
 
   defp attribute_value(%{"type" => type} = node, source) when type in ~w(JSXElement JSXFragment),
-    do: {:expr, slice(node, source)}
+    do: {:expr, slice(node, source), node}
 
   defp attribute_value(_value, _source), do: true
 

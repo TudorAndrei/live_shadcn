@@ -36,6 +36,8 @@ defmodule LiveShadcnTools.Tsx do
     |> normalise()
   end
 
+  def classes({:expr, code, _node}), do: classes({:expr, code})
+
   def classes(_), do: ""
 
   @doc """
@@ -53,6 +55,8 @@ defmodule LiveShadcnTools.Tsx do
     |> call_args("cn")
     |> Enum.flat_map(&condition/1)
   end
+
+  def conditional_classes({:expr, code, _node}), do: conditional_classes({:expr, code})
 
   def conditional_classes(_value), do: []
 
@@ -98,6 +102,7 @@ defmodule LiveShadcnTools.Tsx do
   `cn(buttonVariants({ variant, className }))` — and both count.
   """
   def merges_class?({:expr, code}), do: Regex.match?(~r/\bclassName\b/, code)
+  def merges_class?({:expr, code, _node}), do: merges_class?({:expr, code})
   def merges_class?(_), do: false
 
   @doc """
@@ -114,6 +119,8 @@ defmodule LiveShadcnTools.Tsx do
   def variant_calls({:expr, code}, bindings) do
     for {name, args} <- Ast.calls(code, bindings), do: %{"table" => name, "args" => args}
   end
+
+  def variant_calls({:expr, code, _node}, bindings), do: variant_calls({:expr, code}, bindings)
 
   def variant_calls(_value, _bindings), do: []
 

@@ -122,7 +122,7 @@ defmodule LiveShadcnTools.AstTest do
 
       assert [row] = Ast.parse!(source).functions
       assert row.jsx.tag == "span"
-      assert Tsx.attr(row.jsx, "title") == {:expr, ~s|"a } brace"|}
+      assert {:expr, ~s|"a } brace"|, %{"type" => "Literal"}} = Tsx.attr(row.jsx, "title")
     end
 
     test "memo and forwardRef are read through" do
