@@ -148,6 +148,17 @@ defmodule LiveShadcnTools.Ast do
   def expression({:expr, _code, _parent} = parent, child),
     do: {:expr, source(parent, child), child}
 
+  @doc "The JSX represented by an expression tuple, or `nil` when it is not JSX."
+  def jsx({:expr, code, parent}) do
+    case bare(parent) do
+      %{"type" => type} = node when type in ~w(JSXElement JSXFragment) ->
+        jsx_node(node, {code, parent})
+
+      _other ->
+        nil
+    end
+  end
+
   @doc "The identifier roots of member expressions below an OXC expression node."
   def member_roots(node) do
     node
@@ -212,7 +223,7 @@ defmodule LiveShadcnTools.Ast do
   Where the body ends is the same question again, and a regular expression that
   reads to the end of the string hands back one bracket too many.
   """
-  def mapped(code) do
+  def mapped(code) when is_binary(code) do
     wrapped = "const __x = (\n#{code}\n)"
 
     case cached_tree(wrapped) do
@@ -221,6 +232,29 @@ defmodule LiveShadcnTools.Ast do
     end
   rescue
     _error -> nil
+  end
+
+  def mapped({:expr, _code, node} = expression) do
+    case bare(node) do
+      %{
+        "type" => "CallExpression",
+        "callee" => %{"type" => "MemberExpression", "property" => %{"name" => "map"}} = callee,
+        "arguments" => [argument | _]
+      } ->
+        case bare(argument) do
+          %{"type" => "ArrowFunctionExpression", "params" => [binding | rest], "body" => body} ->
+            {name, fields} = bound_item(binding)
+
+            {expression(expression, callee["object"]), name, fields, counter(rest),
+             expression(expression, bare(body))}
+
+          _other ->
+            nil
+        end
+
+      _other ->
+        nil
+    end
   end
 
   defp mapping(
@@ -253,7 +287,7 @@ defmodule LiveShadcnTools.Ast do
   read to the end of the string — so the body came back with the call's own
   closing bracket on it and parsed as nothing at all.
   """
-  def counted(code) do
+  def counted(code) when is_binary(code) do
     wrapped = "const __x = (\n#{code}\n)"
 
     case cached_tree(wrapped) do
@@ -262,6 +296,33 @@ defmodule LiveShadcnTools.Ast do
     end
   rescue
     _error -> nil
+  end
+
+  def counted({:expr, _code, node} = expression) do
+    case bare(node) do
+      %{
+        "type" => "CallExpression",
+        "callee" => %{
+          "type" => "MemberExpression",
+          "object" => %{"name" => "Array"},
+          "property" => %{"name" => "from"}
+        },
+        "arguments" => [shape, mapper | _rest]
+      } ->
+        with %{"type" => "ObjectExpression", "properties" => properties} <- bare(shape),
+             %{"value" => length} <-
+               Enum.find(properties, &(get_in(&1, ["key", "name"]) == "length")),
+             %{"type" => "ArrowFunctionExpression", "params" => params, "body" => body} <-
+               bare(mapper) do
+          {expression(expression, bare(length)), counter(Enum.drop(params, 1)) || "index",
+           expression(expression, bare(body))}
+        else
+          _other -> nil
+        end
+
+      _other ->
+        nil
+    end
   end
 
   defp counting(
@@ -1130,6 +1191,8 @@ defmodule LiveShadcnTools.Ast do
   # to work it out by counting brackets was a place to be wrong.
   defp slice(%{"start" => start, "end" => finish}, source) when is_binary(source),
     do: binary_part(source, start, finish - start)
+
+  defp slice(node, {code, parent}), do: source({:expr, code, parent}, node)
 
   defp slice(_node, _source), do: ""
 end

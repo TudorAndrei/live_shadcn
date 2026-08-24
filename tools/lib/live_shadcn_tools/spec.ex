@@ -734,7 +734,7 @@ defmodule LiveShadcnTools.Spec do
   defp node(%{type: :expr, code: "children"}, _ctx), do: %{"type" => "children"}
 
   defp node(%{type: :expr, code: code, node: expression_node}, ctx) do
-    expression(code, ctx)
+    expression({:expr, code, expression_node}, ctx)
     |> record_member_roots(Ast.member_roots(expression_node))
   end
 
@@ -821,7 +821,7 @@ defmodule LiveShadcnTools.Spec do
   # The four expressions shadcn actually writes inside JSX. Each one carries a
   # decision the generated component has to make too, so each becomes a node
   # rather than being dropped.
-  defp expression(code, ctx) do
+  defp expression({:expr, code, _node} = expression, ctx) do
     cond do
       literal = string_literal(code) ->
         %{"type" => "text", "value" => literal}
@@ -857,7 +857,7 @@ defmodule LiveShadcnTools.Spec do
           "else" => [branch(no, ctx)]
         }
 
-      match = repeat_over(code) ->
+      match = repeat_over(expression) ->
         {collection, binding, fields, counter, jsx} = match
 
         %{
@@ -872,7 +872,7 @@ defmodule LiveShadcnTools.Spec do
           "children" => [markup(jsx, ctx)]
         }
 
-      match = repeat(code) ->
+      match = repeat(expression) ->
         {length, binding, jsx} = match
 
         %{
@@ -1097,11 +1097,18 @@ defmodule LiveShadcnTools.Spec do
   # expression, because `lines.map((line) => line.tokens.map(…))` is a loop
   # whose body is a loop, and reading that as an element asks for a `<` that is
   # three tokens further in.
-  defp markup(code, ctx) do
+  defp markup(code, ctx) when is_binary(code) do
     trimmed = String.trim(code)
 
     case Ast.parse_jsx(trimmed) do
       nil -> expression(trimmed, ctx)
+      parsed -> node(parsed, ctx)
+    end
+  end
+
+  defp markup({:expr, _code, _node} = expression, ctx) do
+    case Ast.jsx(expression) do
+      nil -> expression(expression, ctx)
       parsed -> node(parsed, ctx)
     end
   end
@@ -1111,10 +1118,10 @@ defmodule LiveShadcnTools.Spec do
 
   # `toasts.map((toast) => (<Toast />))` — one element per item in a list the
   # caller supplies.
-  defp repeat_over(code), do: Ast.mapped(code)
+  defp repeat_over(expression), do: Ast.mapped(expression)
 
   # `Array.from({ length: values.length }, (_, index) => (<Thumb />))`
-  defp repeat(code), do: Ast.counted(code)
+  defp repeat(expression), do: Ast.counted(expression)
 
   # A class string an element wears only sometimes still says what the element
   # reads: `data-open:hidden` is a contract whichever branch carries it.

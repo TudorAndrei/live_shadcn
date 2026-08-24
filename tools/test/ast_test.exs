@@ -157,6 +157,20 @@ defmodule LiveShadcnTools.AstTest do
              ]
     end
 
+    test "mapped JSX reads its collection and body from the expression node" do
+      source = ~S"""
+      const Row = ({ rows }) => <ul>{rows.map((row, index) => <li>{row.label}</li>)}</ul>;
+      """
+
+      assert [row] = Ast.parse!(source).functions
+      [expression] = row.jsx.children
+
+      expression = {:expr, expression.code, expression.node}
+
+      assert {{:expr, "rows", _}, "row", [], "index", {:expr, "<li>{row.label}</li>", _}} =
+               Ast.mapped(expression)
+    end
+
     test "local TypeScript aliases describe component props" do
       source = ~S"""
       type RowProps = {
