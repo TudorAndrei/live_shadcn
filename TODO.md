@@ -20,7 +20,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 - [ ] `npm run build:css` in `storybook/assets` first
 - [ ] `mix ui.spec` → `mix ui.gen` → `mix snapshot` → `mix ui.verify`
 - [ ] Commit the new `registry/VERIFY.json` and `docs/INVENTORY.md`
-- [ ] Add a storybook example for `toggle-group` — the one real gap
+- [x] Add a storybook example for `toggle-group` — the one real gap
 - [ ] `CONTRIBUTING.md` says three checks; it makes four
 - [ ] `mix ui.status --check` passes on a clean tree
 
