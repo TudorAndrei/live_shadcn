@@ -143,6 +143,47 @@ defmodule LiveShadcnTools.SpecTest do
       assert_raise RuntimeError, ~r/cannot turn into markup/, fn -> build(tsx) end
     end
 
+    test "a private helper inside an exported wrapper is expanded" do
+      tsx = """
+      function Wrapper({ children }) {
+        return <section>{children}</section>
+      }
+
+      function PrivateList({ items }) {
+        return items.map((item) => <div data-slot="item">{item}</div>)
+      }
+
+      function Thing() {
+        return <Wrapper><PrivateList items={items} /></Wrapper>
+      }
+
+      export { Thing, Wrapper }
+      """
+
+      spec =
+        Spec.build("thing",
+          tsx: tsx,
+          markdown: %{},
+          module: "thing",
+          source: "shadcn",
+          recipe: "presentational",
+          upstream: %{}
+        )
+
+      thing = Enum.find(spec["parts"], &(&1["name"] == "thing"))
+
+      assert find_repeat(thing["tree"])["collection"] == "items"
+    end
+
+    defp find_repeat(%{"type" => "repeat_over"} = node), do: node
+
+    defp find_repeat(node) when is_map(node) do
+      Enum.find_value(node, fn {_key, value} -> find_repeat(value) end)
+    end
+
+    defp find_repeat(nodes) when is_list(nodes), do: Enum.find_value(nodes, &find_repeat/1)
+    defp find_repeat(_node), do: nil
+
     defp build(tsx) do
       Spec.build("thing",
         tsx: tsx,

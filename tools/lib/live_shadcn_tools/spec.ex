@@ -423,7 +423,11 @@ defmodule LiveShadcnTools.Spec do
       |> substitute(arguments(node, part))
       |> absorb(node, Map.get(part, "params") || %{})
     else
-      _ -> node
+      # An exported wrapper can contain a private helper. We keep the wrapper
+      # as a part reference, but still walk the children passed to it: `Toaster`
+      # passes `<ToastList />` through three exported wrappers before that local
+      # list function is reached. Stopping here loses the list and its markup.
+      _ -> Map.update(node, "children", [], &inline_parts(&1, spec, seen))
     end
   end
 
