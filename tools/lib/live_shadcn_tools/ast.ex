@@ -102,7 +102,7 @@ defmodule LiveShadcnTools.Ast do
 
   The parser knows which `?` is the ternary's, so this asks it.
   """
-  def conditional(code) do
+  def conditional(code) when is_binary(code) do
     wrapped = "const __x = (\n#{code}\n)"
 
     case cached_tree(wrapped) do
@@ -112,6 +112,17 @@ defmodule LiveShadcnTools.Ast do
   rescue
     # Not something that parses on its own, so not a ternary either.
     _error -> nil
+  end
+
+  def conditional({:expr, _code, node} = expression) do
+    case bare(node) do
+      %{"type" => "ConditionalExpression", "test" => test, "consequent" => yes, "alternate" => no} ->
+        {expression(expression, test), expression(expression, bare(yes)),
+         expression(expression, bare(no))}
+
+      _other ->
+        nil
+    end
   end
 
   @doc """
@@ -126,6 +137,16 @@ defmodule LiveShadcnTools.Ast do
   rescue
     _error -> nil
   end
+
+  @doc "The exact source span of a child node within an expression tuple."
+  def source({:expr, code, parent}, child) when is_map(child) do
+    start = child["start"] - parent["start"]
+    binary_part(code, start, child["end"] - child["start"])
+  end
+
+  @doc "A child node as an expression tuple, with its source span retained."
+  def expression({:expr, _code, _parent} = parent, child),
+    do: {:expr, source(parent, child), child}
 
   @doc "The identifier roots of member expressions below an OXC expression node."
   def member_roots(node) do
@@ -164,7 +185,7 @@ defmodule LiveShadcnTools.Ast do
   swallowed the three siblings after it, because `.*$` does not know that a
   JSX element ended.
   """
-  def logical(code) do
+  def logical(code) when is_binary(code) do
     wrapped = "const __x = (\n#{code}\n)"
 
     case cached_tree(wrapped) do
@@ -173,6 +194,16 @@ defmodule LiveShadcnTools.Ast do
     end
   rescue
     _error -> nil
+  end
+
+  def logical({:expr, _code, node} = expression) do
+    case bare(node) do
+      %{"type" => "LogicalExpression", "operator" => operator, "left" => left, "right" => right} ->
+        {operator, expression(expression, bare(left)), expression(expression, bare(right))}
+
+      _other ->
+        nil
+    end
   end
 
   @doc """
@@ -286,6 +317,8 @@ defmodule LiveShadcnTools.Ast do
   def calls(node, names) when is_map(node), do: called(bare(node), names)
 
   @doc "The arguments of an expression call to `name`, or an empty list."
+  def call_args({:expr, _code, node}, name), do: call_args(node, name)
+
   def call_args(node, name) when is_map(node) do
     case bare(node) do
       %{
@@ -301,8 +334,16 @@ defmodule LiveShadcnTools.Ast do
   end
 
   @doc "The string value of an OXC literal node, or `nil`."
+  def string_literal({:expr, _code, node}), do: string_literal(node)
   def string_literal(%{"type" => "Literal", "value" => value}) when is_binary(value), do: value
-  def string_literal(node) when is_map(node), do: node |> bare() |> string_literal()
+
+  def string_literal(node) when is_map(node) do
+    case bare(node) do
+      ^node -> nil
+      inner -> string_literal(inner)
+    end
+  end
+
   def string_literal(_node), do: nil
 
   defp called(%{"type" => "CallExpression", "callee" => %{"name" => name}} = call, names) do

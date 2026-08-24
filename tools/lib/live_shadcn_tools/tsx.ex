@@ -68,11 +68,16 @@ defmodule LiveShadcnTools.Tsx do
     |> Enum.flat_map(&condition/1)
   end
 
-  def conditional_classes({:expr, code, _node}), do: conditional_classes({:expr, code})
+  def conditional_classes({:expr, _code, _node} = expression) do
+    expression
+    |> Ast.call_args("cn")
+    |> Enum.map(&Ast.expression(expression, &1))
+    |> Enum.flat_map(&condition/1)
+  end
 
   def conditional_classes(_value), do: []
 
-  defp condition(arg) do
+  defp condition(arg) when is_binary(arg) do
     arg = String.trim(arg)
 
     cond do
@@ -92,17 +97,44 @@ defmodule LiveShadcnTools.Tsx do
     end
   end
 
+  defp condition({:expr, _code, _node} = expression) do
+    cond do
+      Ast.string_literal(expression) ->
+        []
+
+      parts = Ast.conditional(expression) ->
+        {when_, yes, no} = parts
+        segment(source(when_), class_of(yes), class_of(no))
+
+      match?({"&&", _, _}, Ast.logical(expression)) ->
+        {"&&", left, right} = Ast.logical(expression)
+        segment(source(left), class_of(right), nil)
+
+      true ->
+        []
+    end
+  end
+
   defp segment(_when, nil, nil), do: []
 
   defp segment(when_, yes, no),
     do: [%{"when" => String.trim(when_), "then" => yes, "else" => no}]
 
-  defp class_of(code) do
+  defp class_of(code) when is_binary(code) do
     case literal(String.trim(code)) do
       [literal] -> normalise(literal)
       [] -> nil
     end
   end
+
+  defp class_of({:expr, _code, _node} = expression) do
+    case Ast.string_literal(expression) do
+      nil -> nil
+      literal -> normalise(literal)
+    end
+  end
+
+  defp source({:expr, code, _node}), do: String.trim(code)
 
   @doc """
   Whether this element is the one that merges the caller's class.

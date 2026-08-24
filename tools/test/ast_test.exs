@@ -145,6 +145,18 @@ defmodule LiveShadcnTools.AstTest do
                Tsx.variant_calls(Tsx.attr(row.jsx, "className"), ["buttonVariants"])
     end
 
+    test "conditional classes read the class expression node" do
+      source = ~S"""
+      const Row = ({ active }) => <span className={cn(active ? "is-active" : "is-idle")} />;
+      """
+
+      assert [row] = Ast.parse!(source).functions
+
+      assert Tsx.conditional_classes(Tsx.attr(row.jsx, "className")) == [
+               %{"when" => "active", "then" => "is-active", "else" => "is-idle"}
+             ]
+    end
+
     test "local TypeScript aliases describe component props" do
       source = ~S"""
       type RowProps = {
