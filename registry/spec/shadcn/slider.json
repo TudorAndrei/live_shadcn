@@ -622,7 +622,7 @@
       "summary": "Displays the current value of the slider as text."
     }
   },
-  "recipe": "form-control",
+  "recipe": "slider",
   "source": "shadcn",
   "styles": {
     "luma": {

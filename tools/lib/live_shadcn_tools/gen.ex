@@ -20,6 +20,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Gen.Scroller
   alias LiveShadcnTools.Gen.Sidebar
+  alias LiveShadcnTools.Gen.Slider
   alias LiveShadcnTools.Gen.Tabs
 
   @recipes %{
@@ -32,6 +33,7 @@ defmodule LiveShadcnTools.Gen do
     "presentational" => Presentational,
     "scroller" => Scroller,
     "sidebar" => Sidebar,
+    "slider" => Slider,
     "tabs" => Tabs
   }
 

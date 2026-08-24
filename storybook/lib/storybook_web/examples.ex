@@ -58,6 +58,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Sheet
   import LiveShadcn.UI.Sidebar
   import LiveShadcn.UI.Skeleton
+  import LiveShadcn.UI.Slider
   import LiveShadcn.UI.Spinner
   import LiveShadcn.UI.Table
   import LiveShadcn.UI.Tabs
@@ -83,7 +84,7 @@ defmodule StorybookWeb.Examples do
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
-       input-group native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
+       input-group native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        question sidebar snippet shadcn-message ai_elements-message)
   end
 
@@ -231,6 +232,23 @@ defmodule StorybookWeb.Examples do
         "A box that scrolls",
         "The scrollbar is drawn rather than the platform's, and measured in the browser.",
         &scroll_area_default/1
+      )
+    ]
+  end
+
+  def all("slider") do
+    [
+      one(
+        "default",
+        "One value",
+        "A thumb the platform draws under one it does not.",
+        &slider_default/1
+      ),
+      one(
+        "range",
+        "Two values",
+        "Two inputs under one name, which a form reports as a list.",
+        &slider_range/1
       )
     ]
   end
@@ -1087,6 +1105,24 @@ defmodule StorybookWeb.Examples do
         Pass {n}: the reader settles when no file moves.
       </p>
     </.scroll_area>
+    """
+  end
+
+  defp slider_default(assigns) do
+    ~H"""
+    <.slider id="passes" name="passes" value={[3]} min={1} max={5} label="Passes" class="max-w-sm" />
+    """
+  end
+
+  defp slider_range(assigns) do
+    ~H"""
+    <.slider
+      id="tiers"
+      name="tiers"
+      value={[20, 80]}
+      label="Tier range"
+      class="max-w-sm"
+    />
     """
   end
 

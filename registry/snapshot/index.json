@@ -74,6 +74,10 @@
   "tabs": [
     "default"
   ],
+  "slider": [
+    "default",
+    "range"
+  ],
   "toggle": [
     "default"
   ],

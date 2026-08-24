@@ -16,6 +16,7 @@ import { Floating } from "./floating.js";
 import { Overlay } from "./overlay.js";
 import { Roving } from "./roving.js";
 import { Scroller } from "./scroller.js";
+import { Slider } from "./slider.js";
 
 export const hooks = {
   "LiveBase.Disclosure": Disclosure,
@@ -23,7 +24,8 @@ export const hooks = {
   "LiveBase.Overlay": Overlay,
   "LiveBase.Roving": Roving,
   "LiveBase.Scroller": Scroller,
+  "LiveBase.Slider": Slider,
 };
 
-export { Disclosure, Floating, Overlay, Roving, Scroller };
+export { Disclosure, Floating, Overlay, Roving, Scroller, Slider };
 export default hooks;
