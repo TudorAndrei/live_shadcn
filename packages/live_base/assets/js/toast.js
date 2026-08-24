@@ -70,6 +70,14 @@ export const Toast = {
     const limit = Number(this.el.getAttribute("data-lb-limit") || 0);
 
     toasts.forEach((toast, index) => {
+      if (!toast.style.getPropertyValue("--toast-swipe-movement-x")) {
+        toast.style.setProperty("--toast-swipe-movement-x", "0px");
+      }
+
+      if (!toast.style.getPropertyValue("--toast-swipe-movement-y")) {
+        toast.style.setProperty("--toast-swipe-movement-y", "0px");
+      }
+
       toast.style.setProperty("--toast-index", index);
       toast.style.setProperty("--toast-height", `${toast.offsetHeight}px`);
       toast.style.setProperty("--toast-offset-y", `${offset}px`);

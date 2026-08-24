@@ -45,9 +45,9 @@ test.describe("a toaster", () => {
   // The newest is at the front. The server writes them in the order it holds
   // them, so the last one in the list is the one that just arrived.
   test("the newest sits at the front and the rest fall behind it", async ({ page }) => {
-    expect(await variable(toasts(page).nth(2), "--toast-index")).toBe("0");
+    expect(await variable(toasts(page).nth(0), "--toast-index")).toBe("0");
     expect(await variable(toasts(page).nth(1), "--toast-index")).toBe("1");
-    expect(await variable(toasts(page).nth(0), "--toast-index")).toBe("2");
+    expect(await variable(toasts(page).nth(2), "--toast-index")).toBe("2");
   });
 
   test("every toast is measured, because its height is a class string away", async ({ page }) => {
@@ -57,12 +57,12 @@ test.describe("a toaster", () => {
   });
 
   test("only the one at the front is read", async ({ page }) => {
-    await expect(toasts(page).nth(2)).not.toHaveAttribute("data-behind", /.*/);
+    await expect(toasts(page).first()).not.toHaveAttribute("data-behind", /.*/);
     await expect(toasts(page).nth(1)).toHaveAttribute("data-behind", "");
   });
 
   test("marks toasts beyond the visible limit", async ({ page }) => {
-    await expect(toasts(page).nth(0)).toHaveAttribute("data-limited", "");
+    await expect(toasts(page).nth(2)).toHaveAttribute("data-limited", "");
     await expect(toasts(page).nth(1)).not.toHaveAttribute("data-limited", /.*/);
   });
 
@@ -90,6 +90,6 @@ test.describe("a toaster", () => {
     await toasts(page).first().locator("[data-slot='toast-close']").click();
     await expect(toasts(page)).toHaveCount(2);
 
-    await expect.poll(() => variable(toasts(page).nth(1), "--toast-index")).toBe("0");
+    await expect.poll(() => variable(toasts(page).first(), "--toast-index")).toBe("0");
   });
 });
