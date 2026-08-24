@@ -9,7 +9,15 @@ defmodule StorybookWeb.IndexLive do
 
   @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, components: Examples.components(), page_title: "live_shadcn")}
+    {:ok,
+     socket
+     |> assign(components: Examples.components(), page_title: "live_shadcn")
+     |> assign(Examples.page_assigns())}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("dismiss_toast", %{"id" => id}, socket) do
+    {:noreply, assign(socket, toasts: Examples.dismiss(socket.assigns.toasts, "notices", id))}
   end
 
   @impl Phoenix.LiveView

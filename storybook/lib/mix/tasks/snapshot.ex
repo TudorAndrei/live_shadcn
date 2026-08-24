@@ -124,8 +124,14 @@ defmodule Mix.Tasks.Snapshot do
   defp render(component, example) do
     # A function component is called with change tracking. Rendering one by
     # hand still has to hand it the same marker.
+    #
+    # And the same page assigns. An example may read one — the toaster takes
+    # its list from the page, because the server owns it — so the three places
+    # that render an example ask `Examples` for them rather than each seeding
+    # its own and drifting.
     html =
       %{__changed__: nil}
+      |> Map.merge(Examples.page_assigns())
       |> example.render.()
       |> Phoenix.LiveViewTest.rendered_to_string()
       |> Floki.parse_fragment!()

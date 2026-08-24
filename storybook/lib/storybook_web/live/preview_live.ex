@@ -21,11 +21,19 @@ defmodule StorybookWeb.PreviewLive do
   def mount(%{"component" => component, "example" => id}, _session, socket) do
     case Examples.fetch(component, id) do
       {:ok, example} ->
-        {:ok, assign(socket, component: component, example: example, page_title: example.title)}
+        {:ok,
+         socket
+         |> assign(component: component, example: example, page_title: example.title)
+         |> assign(Examples.page_assigns())}
 
       :error ->
         raise NotFound, message: "no #{component} example called #{id}"
     end
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("dismiss_toast", %{"id" => id}, socket) do
+    {:noreply, assign(socket, toasts: Examples.dismiss(socket.assigns.toasts, "notices", id))}
   end
 
   @impl Phoenix.LiveView

@@ -22,6 +22,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Sidebar
   alias LiveShadcnTools.Gen.Slider
   alias LiveShadcnTools.Gen.Tabs
+  alias LiveShadcnTools.Gen.Toast
 
   @recipes %{
     "dialog" => Dialog,
@@ -34,7 +35,8 @@ defmodule LiveShadcnTools.Gen do
     "scroller" => Scroller,
     "sidebar" => Sidebar,
     "slider" => Slider,
-    "tabs" => Tabs
+    "tabs" => Tabs,
+    "toast" => Toast
   }
 
   @doc "The recipes that have been written."

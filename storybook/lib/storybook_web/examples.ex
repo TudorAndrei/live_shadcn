@@ -62,6 +62,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Spinner
   import LiveShadcn.UI.Table
   import LiveShadcn.UI.Tabs
+  import LiveShadcn.UI.Toast
 
   # The AI Elements package ships its components compiled, so they are imported
   # from their own namespace rather than copied in by `mix ui.add`.
@@ -80,12 +81,40 @@ defmodule StorybookWeb.Examples do
   import LiveAiElements.Components.Suggestion
   import LiveAiElements.Components.Task
 
+  @toasts [
+    %{id: "spec", type: "info", title: "Spec written", description: "53 components read."},
+    %{id: "gen", type: "success", title: "Generated", description: "Nothing was typed by hand."},
+    %{id: "drift", type: "warning", title: "Upstream moved", description: "Two digests changed."}
+  ]
+
+  @doc """
+  The toasts a page starts with.
+
+  The toaster takes its list from an assign, because the server owns it — that
+  is the component's whole design. So the page showing it has to own one too:
+  an example that held the list in its own markup would be demonstrating
+  something the component does not do.
+  """
+  def toasts, do: @toasts
+
+  @doc """
+  What a page assigns before it renders an example.
+
+  Three places render one — the index, the preview, and `mix snapshot` — and an
+  example that reads an assign has to find it in all three.
+  """
+  def page_assigns, do: %{toasts: @toasts}
+
+  @doc "The list with one toast gone, given the id the component pushed back."
+  def dismiss(toasts, toaster, id),
+    do: Enum.reject(toasts, &(LiveBase.Toast.toast_id(toaster, &1.id) == id))
+
   @doc "Every component that has examples, in the order they are listed."
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
-       question sidebar snippet shadcn-message ai_elements-message)
+       question sidebar snippet toast shadcn-message ai_elements-message)
   end
 
   @doc "The examples for a component."
@@ -249,6 +278,17 @@ defmodule StorybookWeb.Examples do
         "Two values",
         "Two inputs under one name, which a form reports as a list.",
         &slider_range/1
+      )
+    ]
+  end
+
+  def all("toast") do
+    [
+      one(
+        "default",
+        "A stack of messages",
+        "The list is the server's. Closing one is an event; only the stacking is measured.",
+        &toast_default/1
       )
     ]
   end
@@ -1123,6 +1163,20 @@ defmodule StorybookWeb.Examples do
       label="Tier range"
       class="max-w-sm"
     />
+    """
+  end
+
+  # `duration={0}` on purpose. Every check on this page — the snapshot, axe, the
+  # behaviour suite — reads the page after it has settled, and a stack that
+  # empties itself five seconds in is a different page each time it is read.
+  # A toast that stays until it is closed is the same page every run.
+  defp toast_default(assigns) do
+    ~H"""
+    <.toaster id="notices" dismiss="dismiss_toast" duration={0}>
+      <:toast :for={notice <- @toasts} id={notice.id} type={notice.type} title={notice.title}>
+        {notice.description}
+      </:toast>
+    </.toaster>
     """
   end
 
