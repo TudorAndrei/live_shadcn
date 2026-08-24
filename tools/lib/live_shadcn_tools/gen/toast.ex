@@ -47,8 +47,35 @@ defmodule LiveShadcnTools.Gen.Toast do
 
   @doc "The module source for one component."
   def module(spec, opts) do
-    roles = roles!(spec)
+    if spec["name"] == "sonner" do
+      sonner_module(spec, opts)
+    else
+      roles = roles!(spec)
 
+      """
+      defmodule #{inspect(Keyword.fetch!(opts, :module))} do
+      #{moduledoc(spec)}
+
+        use Phoenix.Component
+
+        alias LiveBase.Toast
+        alias Phoenix.LiveView.JS
+
+      #{function_doc()}
+      #{declarations()}
+        def toaster(assigns) do
+          ~H\"\"\"
+      #{markup(spec, roles)}
+          \"\"\"
+        end
+      end
+      """
+    end
+  end
+
+  # Sonner exposes only a manager. LiveView keeps the corresponding list on
+  # the server, then gives the existing toast hook the geometry it cannot know.
+  defp sonner_module(spec, opts) do
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
     #{moduledoc(spec)}
@@ -62,9 +89,50 @@ defmodule LiveShadcnTools.Gen.Toast do
     #{declarations()}
       def toaster(assigns) do
         ~H\"\"\"
-    #{markup(spec, roles)}
+        <section
+          id={@id}
+          data-lb-toasts
+          data-lb-dismiss={@dismiss}
+          data-lb-duration={@duration}
+          data-lb-limit={@limit}
+          phx-hook={Toast.hook()}
+          role="region"
+          aria-label={@label}
+          class={["toaster group", @class]}
+          style="--normal-bg: var(--popover); --normal-text: var(--popover-foreground); --normal-border: var(--border); --border-radius: var(--radius)"
+          {@rest}
+        >
+          <article
+            :for={toast <- Enum.reverse(@toast)}
+            id={Toast.toast_id(@id, toast[:id])}
+            data-slot="toast"
+            data-type={toast[:type]}
+            role="status"
+            aria-live="polite"
+            class="cn-toast"
+          >
+            <span data-slot="toast-icon"><LiveShadcn.Icon.icon name={icon(toast[:type])} /></span>
+            <div class="flex min-w-0 flex-1 flex-col gap-1">
+              <p :if={toast[:title]}>{toast[:title]}</p>
+              {render_slot(toast)}
+            </div>
+            <button
+              type="button"
+              aria-label="Close toast"
+              phx-click={JS.push(@dismiss, value: %{id: Toast.toast_id(@id, toast[:id])})}
+            >
+              <LiveShadcn.Icon.icon name="x" />
+            </button>
+          </article>
+        </section>
         \"\"\"
       end
+
+      defp icon("success"), do: "circle-check"
+      defp icon("warning"), do: "triangle-alert"
+      defp icon("error"), do: "octagon-x"
+      defp icon("loading"), do: "loader-2"
+      defp icon(_type), do: "info"
     end
     """
   end

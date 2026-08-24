@@ -65,6 +65,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Sidebar
   import LiveShadcn.UI.Skeleton
   import LiveShadcn.UI.Slider
+  alias LiveShadcn.UI.Sonner
   import LiveShadcn.UI.Spinner
   import LiveShadcn.UI.Table
   import LiveShadcn.UI.Tabs
@@ -120,7 +121,7 @@ defmodule StorybookWeb.Examples do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button carousel
        button-group card checkbox collapsible combobox command context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
-       toggle-group question questionnaire sidebar snippet toast shadcn-message ai_elements-message)
+       toggle-group question questionnaire sidebar snippet sonner toast shadcn-message ai_elements-message)
   end
 
   @doc "The examples for a component."
@@ -325,6 +326,17 @@ defmodule StorybookWeb.Examples do
         "A stack of messages",
         "The list is the server's. Closing one is an event; only the stacking is measured.",
         &toast_default/1
+      )
+    ]
+  end
+
+  def all("sonner") do
+    [
+      one(
+        "default",
+        "Server-owned notifications",
+        "A server list with Sonner styling.",
+        &sonner_default/1
       )
     ]
   end
@@ -951,6 +963,12 @@ defmodule StorybookWeb.Examples do
         </.message_scroller_viewport>
       </.message_scroller>
     </.message_scroller_provider>
+    """
+  end
+
+  defp sonner_default(assigns) do
+    ~H"""
+    <Sonner.toaster id="sonner" dismiss="dismiss_toast" duration={0} />
     """
   end
 

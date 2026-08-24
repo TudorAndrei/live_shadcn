@@ -647,6 +647,24 @@
     "pass": false,
     "spec": "603e6b9cbf15c854a4f11400a5bba33dfbe38bfe359a35ccbc8e33d7eb5dc7de"
   },
+  "shadcn/sonner": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "0d1cabf175567549e26bc3eea53a97d4009972487125eed4a0620982985e325b"
+  },
   "shadcn/dropdown-menu": {
     "checks": {
       "browser": {
