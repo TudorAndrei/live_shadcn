@@ -28,7 +28,8 @@ defmodule LiveShadcnTools.Gen.Heex do
     * `:children` — the HEEx that replaces `{children}`
     * `:class` — an expression appended to the class list of the node that
       merges `className` upstream, or `nil`
-    * `:variants` — the `cva` table this part's class string is built from
+    * `:variants` — every `cva` table the component has, by its binding. A node
+      names the ones it wears, and it can wear more than one.
     * `:params` — the props upstream destructured, which is what makes an
       expression such as `{size}` resolvable to `@size`
     * `:parts` — `%{part_name => part}`, for a recipe that folds every part into
