@@ -44,7 +44,6 @@ defmodule LiveShadcn.UI.AlertDialog do
   attr(:title_class, :any, default: nil)
   attr(:trigger_class, :any, default: nil)
   attr(:size, :string, default: "default")
-  attr(:variant, :string, default: "outline")
   attr(:rest, :global)
 
   slot(:trigger, required: true, doc: "What opens it.")

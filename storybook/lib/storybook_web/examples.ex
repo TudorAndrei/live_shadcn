@@ -23,6 +23,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.ButtonGroup
   import LiveShadcn.UI.Item
   import LiveShadcn.UI.Marker
+  import LiveShadcn.UI.Menubar
   import LiveShadcn.UI.Message
   import LiveShadcn.UI.NativeSelect
   import LiveShadcn.UI.NavigationMenu
@@ -37,6 +38,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Combobox
   import LiveShadcn.UI.ContextMenu
   import LiveShadcn.UI.Dialog
+  import LiveShadcn.UI.Drawer
   import LiveShadcn.UI.DropdownMenu
   import LiveShadcn.UI.Input
   import LiveShadcn.UI.InputGroup
@@ -79,7 +81,7 @@ defmodule StorybookWeb.Examples do
   @doc "Every component that has examples, in the order they are listed."
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
-       button-group card checkbox collapsible combobox context-menu dialog dropdown-menu empty hover-card input item kbd label marker
+       button-group card checkbox collapsible combobox context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group native-select navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        question sidebar snippet shadcn-message ai_elements-message)
   end
@@ -173,6 +175,28 @@ defmodule StorybookWeb.Examples do
         "A turn in a conversation",
         "The assistant's side, with the answer inside it.",
         &ai_message_default/1
+      )
+    ]
+  end
+
+  def all("drawer") do
+    [
+      one(
+        "default",
+        "A sheet from the edge",
+        "The same dialog contract, with a handle a finger would push.",
+        &drawer_default/1
+      )
+    ]
+  end
+
+  def all("menubar") do
+    [
+      one(
+        "default",
+        "A bar of menus",
+        "The bar is this component; each menu inside it is a dropdown menu.",
+        &menubar_default/1
       )
     ]
   end
@@ -979,6 +1003,37 @@ defmodule StorybookWeb.Examples do
         <AiMessage.message_response content="It is **18 degrees** and clear in Cluj." />
       </AiMessage.message_content>
     </AiMessage.message>
+    """
+  end
+
+  defp drawer_default(assigns) do
+    ~H"""
+    <.drawer id="stages">
+      <:trigger>Stages</:trigger>
+      <:title>What the pipeline does</:title>
+      <:description>Four stages, each with an artefact of its own.</:description>
+      <p class="text-sm">Fetch, spec, generate, verify.</p>
+    </.drawer>
+    """
+  end
+
+  # The bar is the component; every menu inside it is a dropdown menu, because
+  # a menu's parts have to agree about which menu they belong to and that is
+  # what the one folded function is for.
+  defp menubar_default(assigns) do
+    ~H"""
+    <.menubar>
+      <.dropdown_menu id="menubar-file">
+        <:trigger>File</:trigger>
+        <:item value="fetch">Fetch upstream</:item>
+        <:item value="spec">Rebuild specs</:item>
+      </.dropdown_menu>
+      <.dropdown_menu id="menubar-view">
+        <:trigger>View</:trigger>
+        <:item value="verified">Verified only</:item>
+        <:item value="all">Everything</:item>
+      </.dropdown_menu>
+    </.menubar>
     """
   end
 

@@ -72,6 +72,21 @@ defmodule LiveShadcnTools.Gen.Dialog do
   # from the client, and so does the hook.
   def attribute!("data-nested", _role), do: :client
   def attribute!("data-nested-dialog-open", _role), do: :client
+  def attribute!("data-nested-drawer-open", _role), do: :client
+  def attribute!("data-nested-drawer-swiping", _role), do: :client
+
+  # `drawer` is a sheet a finger can push. Every one of these is a fact about a
+  # gesture in progress — how far, which way, whether it is still moving — and
+  # the server sees none of it. A drawer generated from here opens and closes
+  # like a sheet, which is the same thing without the finger.
+  def attribute!(name, _role)
+      when name in ~w(data-swiping data-swipe-direction data-swipe-dismiss data-expanded),
+      do: :client
+
+  # Whether the caller gave the drawer heights to settle at. Upstream computes
+  # it as `snapPoints != null && snapPoints.length > 0`, which is the same
+  # question a list asks in HEEx.
+  def attribute!("data-snap-points", _role), do: {:code, "flag(@snap_points != [])"}
 
   def attribute!(name, role) do
     raise """
@@ -86,6 +101,7 @@ defmodule LiveShadcnTools.Gen.Dialog do
   def module(spec, opts) do
     roles = roles!(spec)
     name = String.replace(spec["name"], "-", "_")
+    markup = markup(spec, roles)
 
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
@@ -96,10 +112,10 @@ defmodule LiveShadcnTools.Gen.Dialog do
       alias LiveBase.Dialog
 
     #{function_doc(spec, name)}
-    #{declarations(spec, roles)}
+    #{declarations(spec, roles, markup)}
       def #{name}(assigns) do
         ~H\"\"\"
-    #{markup(spec, roles)}
+    #{markup}
         \"\"\"
       end
 
@@ -221,6 +237,11 @@ defmodule LiveShadcnTools.Gen.Dialog do
       params: Map.get(role.part, "params", %{}),
       contexts: Map.get(role.part, "contexts", []),
       variants: spec["variants"] || %{},
+      # This recipe folds every part into one function, so a reference to a
+      # sibling part has no function to call. `drawer` renders its own
+      # `<DrawerSwipeHandle />` inside its content, and a call to
+      # `drawer_swipe_handle/1` names something nothing defines.
+      parts: Map.new(spec["parts"], &{&1["name"], &1}),
       client_attributes: @client_attributes,
       hook_part: Spec.key(roles.popup.node),
       rest: false
@@ -248,11 +269,21 @@ defmodule LiveShadcnTools.Gen.Dialog do
     end)
   end
 
+  # An attribute shadcn writes on the element itself and this recipe computes
+  # differently. `drawer` writes `data-snap-points={hasSnapPoints ? "" :
+  # undefined}`, and `hasSnapPoints` is a local nobody can pass — here the
+  # question is whether the caller gave the drawer any heights to settle at.
+  #
+  # Claimed rather than answered for everything an element writes: most of what
+  # upstream writes is markup this recipe has no opinion about.
+  @claimed ~w(data-snap-points)
+
   defp documented(spec, node, role) do
     documented = get_in(spec, ["primitives", Spec.key(node), "data"]) || []
     read = get_in(node, ["reads", "self"]) || []
+    claimed = for attr <- node["attrs"] || [], attr["name"] in @claimed, do: attr["name"]
 
-    (documented ++ read)
+    (documented ++ read ++ claimed)
     |> Enum.uniq()
     |> Enum.flat_map(fn name ->
       case attribute!(name, role) do
@@ -319,7 +350,7 @@ defmodule LiveShadcnTools.Gen.Dialog do
 
   # ---- declarations ----
 
-  defp declarations(spec, roles) do
+  defp declarations(spec, roles, markup) do
     """
       attr :id, :string, required: true, doc: "Every id inside the dialog derives from it."
       attr :open, :boolean, default: false, doc: "Whether it starts open."
@@ -327,8 +358,8 @@ defmodule LiveShadcnTools.Gen.Dialog do
       attr :dismissable, :boolean, default: true, doc: "Whether Escape and the backdrop close it."
       attr :disabled, :boolean, default: false, doc: "Whether the trigger refuses interaction."
       attr :show_close_button, :boolean, default: true, doc: "Whether the popup draws its own close button."
-      attr :class, :any, default: nil, doc: "Appended to the dialog's own class string."
-    #{part_classes(spec, roles)}#{own_params(spec, roles)}  attr :rest, :global
+    #{snap_points(markup)}  attr :class, :any, default: nil, doc: "Appended to the dialog's own class string."
+    #{part_classes(spec, roles)}#{own_params(spec, roles, markup)}  attr :rest, :global
 
       slot :trigger, required: true, doc: "What opens it."
     #{part_slots(roles)}  slot :footer, doc: "Actions, along the bottom."
@@ -339,14 +370,31 @@ defmodule LiveShadcnTools.Gen.Dialog do
   # What the parts destructured for themselves, beyond what the recipe already
   # declares. `data-size` on an alert dialog's popup is upstream's prop, and a
   # component that read it without declaring it would raise on first render.
-  @declared ~w(class_name children render id open alert dismissable disabled show_close_button)
+  # `has_snap_points` is upstream's own `snapPoints != null && snapPoints.length
+  # > 0`, and the attribute it fed is claimed above. Left declared, it is a prop
+  # that changes nothing.
+  @declared ~w(class_name children render id open alert dismissable disabled show_close_button
+               snap_points has_snap_points)
 
-  defp own_params(spec, roles) do
+  # Only where the markup reads it. A drawer settles at heights a caller names;
+  # a dialog and a sheet have nowhere to settle, and a prop they declared and
+  # never read would be one more thing to wonder about.
+  defp snap_points(markup) do
+    if String.contains?(markup, "@snap_points"),
+      do: ~s|  attr :snap_points, :list, default: [], doc: "The heights a drawer settles at."\n|,
+      else: ""
+  end
+
+  defp own_params(spec, roles, markup) do
     roles
     |> ordered()
     |> Enum.flat_map(fn {_role, %{part: part}} -> Presentational.attributes(part, spec) end)
     |> Enum.uniq_by(& &1.name)
     |> Enum.reject(&(&1.name in @declared))
+    # A prop the markup does not read is a prop that changes nothing. The dialog
+    # recipe drops whole nodes — a swipe direction nobody sets, an `aria-modal`
+    # it writes itself — and the props those nodes read went on being declared.
+    |> Enum.filter(&Regex.match?(~r/@#{&1.name}\b/, markup))
     |> Enum.sort_by(& &1.name)
     |> Enum.map_join(fn attribute -> "#{Presentational.declaration(attribute)}\n" end)
   end

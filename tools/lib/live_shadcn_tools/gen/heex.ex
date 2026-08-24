@@ -308,6 +308,12 @@ defmodule LiveShadcnTools.Gen.Heex do
   defp inline(node, referenced) do
     referenced["tree"]
     |> Map.merge(%{
+      # `:if` and `:for` belong to the reference: they say whether the thing is
+      # drawn at all. `drawer` renders `{showSwipeHandle && <DrawerSwipeHandle/>}`,
+      # and inlining the handle without the condition drew it always.
+      "__structural__" =>
+        (Map.get(referenced["tree"], "__structural__") || []) ++
+          (Map.get(node, "__structural__") || []),
       "attrs" => (Map.get(referenced["tree"], "attrs") || []) ++ (Map.get(node, "attrs") || []),
       "class" =>
         [referenced["tree"]["class"], node["class"]]

@@ -149,7 +149,11 @@ test.describe("open and disabled", () => {
   test("a disabled item does not open", async ({ page }) => {
     const disabled = item(page, "states-disabled");
 
-    await expect(disabled.trigger).toHaveAttribute("aria-disabled", "");
+    // `"true"`, not presence. ARIA defines the value, and Tailwind compiles
+    // `aria-disabled:` to `[aria-disabled="true"]` — so written as a bare
+    // attribute the trigger carried it and matched none of the rules written
+    // for it, and drew at full opacity beside its enabled neighbours.
+    await expect(disabled.trigger).toHaveAttribute("aria-disabled", "true");
     await disabled.trigger.click({ force: true });
 
     await expect(disabled.panel).toBeHidden();
