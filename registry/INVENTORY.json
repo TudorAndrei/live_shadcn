@@ -411,7 +411,7 @@
     {
       "name": "checkbox",
       "source": "shadcn",
-      "recipe": "form-control",
+      "recipe": "checkbox",
       "tier": 1
     },
     {

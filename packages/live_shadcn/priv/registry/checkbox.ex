@@ -75,6 +75,7 @@ defmodule LiveShadcn.UI.Checkbox do
       {Map.drop(@rest, [:"data-slot"])}
     >
       <span
+        :if={@checked}
         data-slot="checkbox-indicator"
         class="cn-checkbox-indicator grid place-content-center text-current transition-none"
       >

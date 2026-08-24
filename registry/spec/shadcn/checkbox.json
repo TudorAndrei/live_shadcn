@@ -302,7 +302,7 @@
       "summary": "Represents the checkbox itself."
     }
   },
-  "recipe": "form-control",
+  "recipe": "checkbox",
   "source": "shadcn",
   "styles": {
     "luma": {
