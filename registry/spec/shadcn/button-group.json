@@ -83,6 +83,7 @@
             "data-vertical"
           ]
         },
+        "recipe": "presentational",
         "render_as": null,
         "slot": "button-group-separator",
         "source": "shadcn",

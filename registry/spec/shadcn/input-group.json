@@ -123,6 +123,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
         "slot": null,
         "source": "shadcn",
@@ -189,6 +190,7 @@
             "aria-invalid"
           ]
         },
+        "recipe": "form-control",
         "render_as": null,
         "slot": "input-group-control",
         "source": "shadcn",
@@ -221,6 +223,7 @@
             "aria-invalid"
           ]
         },
+        "recipe": "form-control",
         "render_as": null,
         "slot": "input-group-control",
         "source": "shadcn",

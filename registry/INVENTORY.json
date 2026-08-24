@@ -524,7 +524,7 @@
     {
       "name": "menubar",
       "source": "shadcn",
-      "recipe": "menu",
+      "recipe": "presentational",
       "tier": 2
     },
     {
@@ -680,7 +680,7 @@
     {
       "name": "toggle-group",
       "source": "shadcn",
-      "recipe": "tabs",
+      "recipe": "form-control",
       "tier": 2
     },
     {

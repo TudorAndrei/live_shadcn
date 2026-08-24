@@ -26,7 +26,7 @@
         "class_when": [],
         "merges_class": true,
         "module": "toggle",
-        "part": "Toggle",
+        "part": "Root",
         "props": true,
         "reads": {
           "group": [],
@@ -54,7 +54,7 @@
     }
   ],
   "primitives": {
-    "toggle.Toggle": {
+    "toggle.Root": {
       "css_vars": [],
       "data": [
         "data-pressed",

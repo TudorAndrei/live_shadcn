@@ -31,7 +31,7 @@
         "class_when": [],
         "merges_class": true,
         "module": "separator",
-        "part": "Separator",
+        "part": "Root",
         "props": true,
         "reads": {
           "group": [],
@@ -50,7 +50,7 @@
     }
   ],
   "primitives": {
-    "separator.Separator": {
+    "separator.Root": {
       "css_vars": [],
       "data": [
         "data-orientation"

@@ -403,6 +403,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "form-control",
         "render_as": null,
         "slot": "sidebar-input",
         "source": "shadcn",
@@ -625,6 +626,7 @@
               "group": [],
               "self": []
             },
+            "recipe": "popover",
             "render_as": null,
             "slot": null,
             "source": "shadcn",
@@ -644,6 +646,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "popover",
         "render_as": null,
         "slot": null,
         "source": "shadcn",
@@ -726,6 +729,7 @@
                   "group": [],
                   "self": []
                 },
+                "recipe": "presentational",
                 "render_as": null,
                 "slot": null,
                 "source": "shadcn",
@@ -768,6 +772,7 @@
               "group": [],
               "self": []
             },
+            "recipe": "presentational",
             "render_as": null,
             "slot": null,
             "source": "shadcn",
@@ -1047,6 +1052,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
         "slot": "sidebar-separator",
         "source": "shadcn",
@@ -1167,6 +1173,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
         "slot": "sidebar-trigger",
         "source": "shadcn",

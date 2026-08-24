@@ -113,16 +113,17 @@
         "class": "cn-menubar flex items-center",
         "class_when": [],
         "merges_class": true,
-        "part": "Menubar",
+        "module": "menubar",
+        "part": "Root",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
-        "reason": "renders no element",
         "render_as": null,
         "slot": "menubar",
-        "type": "transparent",
+        "tag": "div",
+        "type": "primitive",
         "variant_calls": [],
         "vars": []
       }
@@ -146,6 +147,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-portal",
         "source": "shadcn",
@@ -174,6 +176,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-menu",
         "source": "shadcn",
@@ -206,6 +209,7 @@
             "aria-expanded"
           ]
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-trigger",
         "source": "shadcn",
@@ -259,6 +263,7 @@
             "aria-expanded"
           ]
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-content",
         "source": "shadcn",
@@ -287,6 +292,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-group",
         "source": "shadcn",
@@ -317,6 +323,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-separator",
         "source": "shadcn",
@@ -356,6 +363,7 @@
             "data-inset"
           ]
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-label",
         "source": "shadcn",
@@ -402,6 +410,7 @@
             "data-inset"
           ]
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-item",
         "source": "shadcn",
@@ -432,6 +441,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-shortcut",
         "source": "shadcn",
@@ -600,6 +610,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-radio-group",
         "source": "shadcn",
@@ -762,6 +773,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-sub",
         "source": "shadcn",
@@ -802,6 +814,7 @@
             "data-inset"
           ]
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-sub-trigger",
         "source": "shadcn",
@@ -837,6 +850,7 @@
             "aria-expanded"
           ]
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": "menubar-sub-content",
         "source": "shadcn",
@@ -1976,14 +1990,14 @@
       "renders": true,
       "summary": "A viewport for displaying content transitions."
     },
-    "menubar.Menubar": {
+    "menubar.Root": {
       "css_vars": [],
       "data": [
         "data-orientation",
         "data-has-submenu-open",
         "data-modal"
       ],
-      "element": null,
+      "element": "div",
       "hidden_input": false,
       "props": [
         {
@@ -2029,11 +2043,11 @@
           "type": "ReactElement \\"
         }
       ],
-      "renders": false,
+      "renders": true,
       "summary": "The container for menus."
     }
   },
-  "recipe": "menu",
+  "recipe": "presentational",
   "source": "shadcn",
   "styles": {
     "luma": {

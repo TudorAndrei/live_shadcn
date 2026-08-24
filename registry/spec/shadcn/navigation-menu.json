@@ -201,16 +201,17 @@
         "class": "cn-navigation-menu-indicator top-full z-1 flex h-1.5 items-end justify-center overflow-hidden",
         "class_when": [],
         "merges_class": true,
+        "module": "navigation-menu",
         "part": "Icon",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
-        "reason": "renders no element",
         "render_as": null,
         "slot": "navigation-menu-indicator",
-        "type": "transparent",
+        "tag": "div",
+        "type": "primitive",
         "variant_calls": [],
         "vars": []
       }
@@ -658,7 +659,7 @@
       "data": [
         "data-popup-open"
       ],
-      "element": null,
+      "element": "div",
       "hidden_input": false,
       "props": [
         {
@@ -680,7 +681,7 @@
           "type": "ReactElement \\"
         }
       ],
-      "renders": false,
+      "renders": true,
       "summary": "An icon that indicates that the trigger button opens a menu."
     },
     "navigation-menu.Item": {

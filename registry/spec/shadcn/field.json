@@ -101,6 +101,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "form-control",
         "render_as": null,
         "slot": "field-label",
         "source": "shadcn",
@@ -269,6 +270,7 @@
               "group": [],
               "self": []
             },
+            "recipe": "presentational",
             "render_as": null,
             "slot": null,
             "source": "shadcn",

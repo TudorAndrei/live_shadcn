@@ -83,7 +83,8 @@
         "class": "cn-toggle-group group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch",
         "class_when": [],
         "merges_class": true,
-        "part": "ToggleGroup",
+        "module": "toggle-group",
+        "part": "Root",
         "props": true,
         "reads": {
           "group": [],
@@ -91,10 +92,10 @@
             "data-vertical"
           ]
         },
-        "reason": "renders no element",
         "render_as": null,
         "slot": "toggle-group",
-        "type": "transparent",
+        "tag": "div",
+        "type": "primitive",
         "variant_calls": [],
         "vars": [
           "--gap"
@@ -140,7 +141,7 @@
         "class_when": [],
         "merges_class": true,
         "module": "toggle",
-        "part": "Toggle",
+        "part": "Root",
         "props": true,
         "reads": {
           "group": [
@@ -165,14 +166,14 @@
     }
   ],
   "primitives": {
-    "toggle-group.ToggleGroup": {
+    "toggle-group.Root": {
       "css_vars": [],
       "data": [
         "data-orientation",
         "data-disabled",
         "data-multiple"
       ],
-      "element": null,
+      "element": "div",
       "hidden_input": false,
       "props": [
         {
@@ -236,10 +237,10 @@
           "type": "ReactElement \\"
         }
       ],
-      "renders": false,
+      "renders": true,
       "summary": "Provides a shared state to a series of toggle buttons."
     },
-    "toggle.Toggle": {
+    "toggle.Root": {
       "css_vars": [],
       "data": [
         "data-pressed",
@@ -307,7 +308,7 @@
       "summary": "A two-state button that can be on or off."
     }
   },
-  "recipe": "tabs",
+  "recipe": "form-control",
   "source": "shadcn",
   "styles": {
     "luma": {

@@ -203,6 +203,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
         "slot": "item-separator",
         "source": "shadcn",

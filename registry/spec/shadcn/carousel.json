@@ -292,6 +292,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
         "slot": "carousel-previous",
         "source": "shadcn",
@@ -422,6 +423,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
         "slot": "carousel-next",
         "source": "shadcn",

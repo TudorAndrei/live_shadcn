@@ -156,6 +156,7 @@
                   "group": [],
                   "self": []
                 },
+                "recipe": null,
                 "render_as": null,
                 "slot": null,
                 "source": "ai_elements",
@@ -223,6 +224,7 @@
                   "group": [],
                   "self": []
                 },
+                "recipe": null,
                 "render_as": null,
                 "slot": null,
                 "source": "ai_elements",
@@ -418,7 +420,7 @@
             "class_when": [],
             "merges_class": true,
             "module": "button",
-            "part": "Button",
+            "part": "Root",
             "props": true,
             "reads": {
               "group": [],
@@ -463,7 +465,7 @@
     }
   ],
   "primitives": {
-    "button.Button": {
+    "button.Root": {
       "css_vars": [],
       "data": [
         "data-disabled"

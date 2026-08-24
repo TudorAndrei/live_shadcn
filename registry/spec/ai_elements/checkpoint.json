@@ -48,7 +48,7 @@
             "class_when": [],
             "merges_class": true,
             "module": "separator",
-            "part": "Separator",
+            "part": "Root",
             "props": true,
             "reads": {
               "group": [],
@@ -151,7 +151,7 @@
             "class_when": [],
             "merges_class": true,
             "module": "button",
-            "part": "Button",
+            "part": "Root",
             "props": true,
             "reads": {
               "group": [],
@@ -200,7 +200,7 @@
                     "class_when": [],
                     "merges_class": true,
                     "module": "button",
-                    "part": "Button",
+                    "part": "Root",
                     "props": true,
                     "reads": {
                       "group": [],
@@ -379,7 +379,7 @@
     }
   ],
   "primitives": {
-    "button.Button": {
+    "button.Root": {
       "css_vars": [],
       "data": [
         "data-disabled"
@@ -421,7 +421,7 @@
       "renders": true,
       "summary": "A button component that can be used to trigger actions."
     },
-    "separator.Separator": {
+    "separator.Root": {
       "css_vars": [],
       "data": [
         "data-orientation"

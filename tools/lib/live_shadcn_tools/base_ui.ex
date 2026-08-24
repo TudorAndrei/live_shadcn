@@ -35,6 +35,7 @@ defmodule LiveShadcnTools.BaseUi do
       |> Enum.map(fn {name, body} -> {name, part(name, body)} end)
       |> Enum.filter(fn {_name, part} -> part.part? end)
       |> Enum.uniq_by(&elem(&1, 0))
+      |> rooted(module)
 
     %{
       module: module,
@@ -43,6 +44,27 @@ defmodule LiveShadcnTools.BaseUi do
       anatomy: anatomy!(markdown)
     }
   end
+
+  # A component with one part, named after itself, is its own root.
+  #
+  # Base UI names the outermost part `Root` when there are several — `Accordion.
+  # Root`, `Accordion.Item` — and names it after the component when there is
+  # only one: `Menubar`, `ToggleGroup`, `Separator`. The two are the same fact
+  # spelled two ways, and every recipe here asks for `Root`, so `menubar` was
+  # "not a menu" and `toggle-group` was "not a tab set" for want of a name.
+  #
+  # Named after itself, and not merely alone: a page that documents one part
+  # under some other name has named it on purpose, and upstream writes that
+  # name in the markup.
+  defp rooted([{name, part}], module) when is_binary(module) do
+    if name == capitalised(module), do: [{"Root", part}], else: [{name, part}]
+  end
+
+  defp rooted(parts, _module), do: parts
+
+  defp capitalised(module),
+    do:
+      module |> String.replace("-", " ") |> String.split() |> Enum.map_join(&String.capitalize/1)
 
   # Every `### Name` heading whose name is a bare part, so `Root.Props` and
   # `Root.State` — the TypeScript re-exports — do not become parts of their own.
@@ -65,11 +87,21 @@ defmodule LiveShadcnTools.BaseUi do
     element = element(body)
 
     %{
-      element: element,
       # Base UI writes "Doesn't render its own HTML element." for the parts that
       # exist only to hold context — a provider, a submenu root. They are still
       # parts, and the generator has to render their children.
-      renders?: element != nil,
+      #
+      # Some pages say neither. `ToggleGroup` and `Menubar` are documented
+      # without a "Renders a `<div>`" line and are plainly elements: both take a
+      # `className`, a `style` and a `render`, and shadcn writes a class string
+      # on each. A part that carries a class has an element to carry it on, so
+      # the prop settles what the prose left out — and read as transparent,
+      # both lost the wrapper their children's `group-data-*` classes read.
+      renders?: element != nil or styled?(props, body),
+      # `<div>` when the page says a part renders and does not say what. Base UI
+      # documents a `render` prop for "replace the component's HTML element",
+      # so there is one to replace; a container's is a `<div>`.
+      element: element || if(styled?(props, body), do: "div"),
       # "Renders a `<span>` element and a hidden `<input>` beside." Base UI says
       # so in as many words, and a control without that input submits nothing.
       hidden_input?: String.contains?(body, "hidden `<input>`"),
@@ -88,6 +120,12 @@ defmodule LiveShadcnTools.BaseUi do
       [tag] -> tag
       nil -> nil
     end
+  end
+
+  # A `className` prop with no "Doesn't render" beside it. The prose is the
+  # first thing asked, because a page that says so says which element.
+  defp styled?(props, body) do
+    not transparent?(body) and Enum.any?(props, &(&1["name"] == "className"))
   end
 
   defp transparent?(body), do: String.contains?(body, "render its own HTML element")

@@ -31,7 +31,7 @@
         "class_when": [],
         "merges_class": true,
         "module": "input",
-        "part": "Input",
+        "part": "Root",
         "props": true,
         "reads": {
           "group": [],
@@ -49,7 +49,7 @@
     }
   ],
   "primitives": {
-    "input.Input": {
+    "input.Root": {
       "css_vars": [],
       "data": [
         "data-disabled",

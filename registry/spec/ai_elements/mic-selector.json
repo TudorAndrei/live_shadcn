@@ -129,7 +129,7 @@
             "class_when": [],
             "merges_class": true,
             "module": "button",
-            "part": "Button",
+            "part": "Root",
             "props": true,
             "reads": {
               "group": [],
@@ -286,6 +286,7 @@
               "group": [],
               "self": []
             },
+            "recipe": null,
             "render_as": null,
             "slot": null,
             "source": "shadcn",
@@ -338,6 +339,7 @@
           "group": [],
           "self": []
         },
+        "recipe": null,
         "render_as": null,
         "slot": null,
         "source": "shadcn",
@@ -373,6 +375,7 @@
           "group": [],
           "self": []
         },
+        "recipe": null,
         "render_as": null,
         "slot": null,
         "source": "shadcn",
@@ -407,6 +410,7 @@
           "group": [],
           "self": []
         },
+        "recipe": null,
         "render_as": null,
         "slot": null,
         "source": "shadcn",
@@ -435,6 +439,7 @@
           "group": [],
           "self": []
         },
+        "recipe": null,
         "render_as": null,
         "slot": null,
         "source": "shadcn",
@@ -563,7 +568,7 @@
     }
   ],
   "primitives": {
-    "button.Button": {
+    "button.Root": {
       "css_vars": [],
       "data": [
         "data-disabled"

@@ -94,6 +94,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
         "slot": "alert-dialog-action",
         "source": "shadcn",
@@ -150,6 +151,7 @@
             "group": [],
             "self": []
           },
+          "recipe": "presentational",
           "render_as": null,
           "slot": null,
           "source": "shadcn",

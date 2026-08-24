@@ -1332,8 +1332,23 @@ defmodule LiveShadcnTools.Spec do
       # shadcn's `Label`, which renders a `<label>`, and a label without a
       # `for` names nothing — which axe-core says and a spec that stopped at
       # "it is a reference" could not.
-      "tag" => referenced_tag(source, component, function, ctx)
+      "tag" => referenced_tag(source, component, function, ctx),
+      # And which recipe the component it names is built by, because that
+      # decides whether the function it names will exist. A recipe that folds
+      # writes one function per component; `menubar` names fifteen parts of
+      # `dropdown-menu`, and the menu recipe writes `dropdown_menu/1` and no
+      # others.
+      "recipe" => referenced_recipe(source, component, ctx)
     }
+  end
+
+  defp referenced_recipe(source, component, ctx) do
+    with resolve when is_function(resolve, 2) <- Map.get(ctx, :resolve),
+         spec when is_map(spec) <- resolve.(source, component) do
+      spec["recipe"]
+    else
+      _unresolved -> nil
+    end
   end
 
   defp referenced_tag(source, component, function, ctx) do

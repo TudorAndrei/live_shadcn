@@ -198,6 +198,7 @@
                 "group": [],
                 "self": []
               },
+              "recipe": "form-control",
               "render_as": null,
               "slot": null,
               "source": "shadcn",
@@ -254,6 +255,7 @@
                         "data-pressed"
                       ]
                     },
+                    "recipe": "form-control",
                     "render_as": {
                       "attrs": [],
                       "children": [],
@@ -379,6 +381,7 @@
                         "group": [],
                         "self": []
                       },
+                      "recipe": "form-control",
                       "render_as": null,
                       "slot": null,
                       "source": "shadcn",
@@ -408,6 +411,7 @@
               "group": [],
               "self": []
             },
+            "recipe": "form-control",
             "render_as": null,
             "slot": null,
             "source": "shadcn",
@@ -430,6 +434,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "form-control",
         "render_as": null,
         "slot": null,
         "source": "shadcn",
@@ -997,6 +1002,7 @@
                     "group": [],
                     "self": []
                   },
+                  "recipe": "presentational",
                   "render_as": null,
                   "slot": null,
                   "source": "shadcn",

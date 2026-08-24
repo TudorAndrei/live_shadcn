@@ -240,6 +240,7 @@
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": {
           "attrs": [
             {
