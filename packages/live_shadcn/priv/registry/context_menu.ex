@@ -32,6 +32,10 @@ defmodule LiveShadcn.UI.ContextMenu do
   attr(:offset, :integer, default: 4)
   attr(:class, :any, default: nil, doc: "Appended to the menu's class string.")
   attr(:inset, :boolean, default: false, doc: "Line the text up with items that have an icon.")
+  attr(:trigger_slot, :string, default: "context-menu-trigger")
+  attr(:popup_slot, :string, default: "context-menu-content")
+  attr(:item_slot, :string, default: "context-menu-item")
+
   attr(:item_class, :any, default: nil)
   attr(:label_class, :any, default: nil)
   attr(:separator_class, :any, default: nil)
@@ -59,13 +63,13 @@ defmodule LiveShadcn.UI.ContextMenu do
     ~H"""
     <div
       id={@id}
+      class="contents"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
       {@rest}
     >
       <div
-        data-slot="context-menu-trigger"
         role="button"
         tabindex="0"
         id={Popover.trigger_id(@id)}
@@ -75,13 +79,14 @@ defmodule LiveShadcn.UI.ContextMenu do
         aria-controls={Popover.popup_id(@id)}
         phx-click={if(not @disabled, do: Popover.toggle(@id))}
         phx-mounted={Popover.owned_attributes(:trigger)}
+        data-slot={@trigger_slot}
         data-popup-open={flag(@open)}
         data-pressed={flag(@open)}
         class={["cn-context-menu-trigger select-none", @trigger_class]}
       >
         {render_slot(@trigger)}
       </div>
-      <div>
+      <div class={["contents", @class]}>
         <div
           id={Popover.positioner_id(@id)}
           hidden={not @open}
@@ -97,7 +102,6 @@ defmodule LiveShadcn.UI.ContextMenu do
           class="isolate z-50 outline-none"
         >
           <div
-            data-slot="context-menu-content"
             id={Popover.popup_id(@id)}
             role="menu"
             tabindex="-1"
@@ -109,6 +113,7 @@ defmodule LiveShadcn.UI.ContextMenu do
             data-lb-loop
             data-lb-highlight="data-highlighted"
             phx-mounted={Popover.owned_attributes(:popup)}
+            data-slot={@popup_slot}
             data-open={flag(@open)}
             data-closed={flag(not @open)}
             data-variant={@variant}
@@ -121,13 +126,13 @@ defmodule LiveShadcn.UI.ContextMenu do
           >
             <div
               :for={item <- @item}
-              data-slot="context-menu-item"
               id={Menu.item_id(@id, item[:value])}
               role="menuitem"
               tabindex="-1"
               phx-click={if(item[:disabled] != true, do: Menu.choose(@id, item[:"phx-click"]))}
               phx-mounted={Menu.owned_attributes(:item)}
               {Map.take(item, [:"phx-value-value", :navigate, :patch, :href])}
+              data-slot={@item_slot}
               data-disabled={flag(item[:disabled] == true)}
               data-variant={@variant}
               data-inset={flag(@inset)}
