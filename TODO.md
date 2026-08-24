@@ -34,12 +34,12 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ## Phase 4 — Teach the reader `data-[attr=value]`
 
-- [ ] Make `classify/1` refuse an unknown variant instead of ignoring it
-- [ ] Give `reads/1` a place for a value, not only a name
-- [ ] Update the seven `["reads", "self"]` consumers and each recipe's
+- [x] Make `classify/1` refuse an unknown variant instead of ignoring it
+- [x] Give `reads/1` a place for a value, not only a name
+- [x] Update the seven `["reads", "self"]` consumers and each recipe's
       `attribute!` table
-- [ ] No variant is dropped in silence
-- [ ] Read the list step one produces, then plan step three separately
+- [x] No variant is dropped in silence
+- [x] Read the list step one produces, then plan step three separately
 
 ## Phase 5 — The ten components that are left
 
