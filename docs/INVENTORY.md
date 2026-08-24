@@ -7,10 +7,10 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 0 | ························ |
-| `fetched` | 30 | ██████·················· |
-| `spec` | 14 | ███····················· |
+| `fetched` | 23 | █████··················· |
+| `spec` | 13 | ███····················· |
 | `generated` | 14 | ███····················· |
-| `verified` | 53 | ███████████············· |
+| `verified` | 61 | █████████████··········· |
 
 ## Recipes
 
@@ -77,7 +77,7 @@ Only the recipes are written by hand; every component is data.
 | `bubble` | 2 | `presentational` | ✅ verified |
 | `button-group` | 2 | `presentational` | ✅ verified |
 | `combobox` | 2 | `listbox` | ✅ verified |
-| `command` | 2 | `listbox` | 🟦 fetched |
+| `command` | 2 | `listbox` | ✅ verified |
 | `context-menu` | 2 | `menu` | ✅ verified |
 | `direction` | 2 | `utility` | 🟦 fetched |
 | `drawer` | 2 | `dialog` | ✅ verified |
@@ -85,13 +85,13 @@ Only the recipes are written by hand; every component is data.
 | `field` | 2 | `form-control` | ✅ verified |
 | `hover-card` | 2 | `popover` | ✅ verified |
 | `input-group` | 2 | `form-control` | ✅ verified |
-| `input-otp` | 2 | `form-control` | 🟦 fetched |
+| `input-otp` | 2 | `form-control` | ✅ verified |
 | `item` | 2 | `presentational` | ✅ verified |
 | `kbd` | 2 | `presentational` | ✅ verified |
 | `marker` | 2 | `presentational` | ✅ verified |
 | `menubar` | 2 | `presentational` | ✅ verified |
 | `message` | 2 | `presentational` | ✅ verified |
-| `message-scroller` | 2 | `scroller` | 🟦 fetched |
+| `message-scroller` | 2 | `scroller` | ✅ verified |
 | `native-select` | 2 | `presentational` | ✅ verified |
 | `navigation-menu` | 2 | `menu` | ✅ verified |
 | `pagination` | 2 | `pagination` | ✅ verified |
@@ -101,15 +101,15 @@ Only the recipes are written by hand; every component is data.
 | `sheet` | 2 | `dialog` | ✅ verified |
 | `sidebar` | 2 | `sidebar` | ✅ verified |
 | `slider` | 2 | `slider` | ✅ verified |
-| `sonner` | 2 | `toast` | 🟦 fetched |
+| `sonner` | 2 | `toast` | ✅ verified |
 | `toast` | 2 | `toast` | ✅ verified |
 | `toggle` | 2 | `form-control` | ✅ verified |
 | `toggle-group` | 2 | `toggle-group` | ✅ verified |
-| `calendar` | 3 | `calendar` | 🟦 fetched |
-| `carousel` | 3 | `carousel` | 🟨 spec |
-| `chart` | 3 | `chart` | 🟦 fetched |
+| `calendar` | 3 | `calendar` | ✅ verified |
+| `carousel` | 3 | `carousel` | ✅ verified |
+| `chart` | 3 | `chart` | ✅ verified |
 | `questionnaire` | 3 | `presentational` | ✅ verified |
-| `resizable` | 3 | `resizable` | 🟦 fetched |
+| `resizable` | 3 | `resizable` | ✅ verified |
 
 ## AI Elements
 
