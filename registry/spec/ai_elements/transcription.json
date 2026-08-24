@@ -46,7 +46,7 @@
             "slot": "transcription",
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -62,7 +62,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -140,7 +140,7 @@
         "slot": "transcription-segment",
         "tag": "button",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

@@ -52,7 +52,7 @@
             "slot": "switch-thumb",
             "tag": "span",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -75,7 +75,7 @@
         "slot": "switch",
         "tag": "span",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

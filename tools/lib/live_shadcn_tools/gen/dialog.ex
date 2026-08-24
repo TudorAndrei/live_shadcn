@@ -105,7 +105,7 @@ defmodule LiveShadcnTools.Gen.Dialog do
 
       defp flag(true), do: ""
       defp flag(_state), do: nil
-    end
+    #{Presentational.variant_table(spec)}end
     """
   end
 
@@ -220,6 +220,7 @@ defmodule LiveShadcnTools.Gen.Dialog do
       class: class_expression(spec, role.part),
       params: Map.get(role.part, "params", %{}),
       contexts: Map.get(role.part, "contexts", []),
+      variants: spec["variants"] || %{},
       client_attributes: @client_attributes,
       hook_part: Spec.key(roles.popup.node),
       rest: false

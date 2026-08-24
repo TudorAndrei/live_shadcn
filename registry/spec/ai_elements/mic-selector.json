@@ -51,7 +51,7 @@
             "render_as": null,
             "slot": "popover",
             "type": "transparent",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -67,7 +67,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -121,7 +121,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "icon",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -142,7 +142,14 @@
             "slot": "button",
             "tag": "button",
             "type": "primitive",
-            "variant_class": "buttonVariants",
+            "variant_calls": [
+              {
+                "args": [
+                  "variant"
+                ],
+                "table": "buttonVariants"
+              }
+            ],
             "vars": []
           }
         ],
@@ -160,7 +167,7 @@
         "slot": "popover-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -237,7 +244,7 @@
                 "slot": "popover-content",
                 "tag": "div",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": [
                   "--transform-origin"
                 ]
@@ -257,7 +264,7 @@
             "slot": null,
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -284,7 +291,7 @@
             "source": "shadcn",
             "tag": null,
             "type": "component_ref",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -302,7 +309,7 @@
         "slot": null,
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -336,7 +343,7 @@
         "source": "shadcn",
         "tag": null,
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -371,7 +378,7 @@
         "source": "shadcn",
         "tag": null,
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -405,7 +412,7 @@
         "source": "shadcn",
         "tag": null,
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -433,7 +440,7 @@
         "source": "shadcn",
         "tag": null,
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -469,7 +476,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -500,7 +507,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -516,7 +523,7 @@
         "slot": null,
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -550,7 +557,7 @@
         "render_as": null,
         "slot": null,
         "type": "part_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

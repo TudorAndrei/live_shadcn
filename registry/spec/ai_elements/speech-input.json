@@ -61,7 +61,7 @@
                     "slot": null,
                     "tag": "div",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -142,7 +142,7 @@
                     "render_as": null,
                     "slot": "spinner",
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -168,7 +168,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -194,7 +194,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -225,7 +225,12 @@
             "slot": "button",
             "tag": "button",
             "type": "primitive",
-            "variant_class": "buttonVariants",
+            "variant_calls": [
+              {
+                "args": [],
+                "table": "buttonVariants"
+              }
+            ],
             "vars": []
           }
         ],
@@ -241,7 +246,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

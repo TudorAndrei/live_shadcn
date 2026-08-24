@@ -27,7 +27,7 @@
         "slot": "skeleton",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

@@ -86,7 +86,7 @@
         "render_as": null,
         "slot": "popover",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -149,7 +149,7 @@
                 "slot": "popover-content",
                 "tag": "div",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": [
                   "--transform-origin"
                 ]
@@ -169,7 +169,7 @@
             "slot": null,
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -187,7 +187,7 @@
         "slot": null,
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -216,7 +216,7 @@
         "slot": "popover-description",
         "tag": "p",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -243,7 +243,7 @@
         "slot": "popover-header",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -272,7 +272,7 @@
         "slot": "popover-title",
         "tag": "h2",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -299,7 +299,7 @@
         "slot": "popover-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

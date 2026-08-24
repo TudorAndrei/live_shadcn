@@ -52,9 +52,19 @@ defmodule LiveAiElements.Components.Checkpoint do
   attr(:align_offset, :string, default: "0")
   attr(:side, :string, default: "top")
   attr(:side_offset, :string, default: "4")
-  attr(:size, :string, default: "sm")
+
+  attr(:size, :string,
+    default: "sm",
+    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
+  )
+
   attr(:tooltip, :string, default: nil)
-  attr(:variant, :string, default: "ghost")
+
+  attr(:variant, :string,
+    default: "ghost",
+    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
 
@@ -64,7 +74,12 @@ defmodule LiveAiElements.Components.Checkpoint do
       <button
         data-slot={@rest[:"data-slot"] || "button"}
         type="button"
-        class={[@class]}
+        class={[
+          "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+          variant_class("buttonVariants", "size", @size),
+          variant_class("buttonVariants", "variant", @variant),
+          @class
+        ]}
         {Map.drop(@rest, [:"data-slot"])}
       >
         {render_slot(@inner_block)}
@@ -96,11 +111,42 @@ defmodule LiveAiElements.Components.Checkpoint do
       :if={!@tooltip}
       data-slot={@rest[:"data-slot"] || "button"}
       type="button"
-      class={[@class]}
+      class={[
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        variant_class("buttonVariants", "size", @size),
+        variant_class("buttonVariants", "variant", @variant),
+        @class
+      ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
     </button>
     """
   end
+
+  # The variant tables, from the `cva` calls upstream writes them in.
+  @variants %{
+    "buttonVariants" => %{
+      "size" => %{
+        "default" => "cn-button-size-default",
+        "icon" => "cn-button-size-icon",
+        "icon-lg" => "cn-button-size-icon-lg",
+        "icon-sm" => "cn-button-size-icon-sm",
+        "icon-xs" => "cn-button-size-icon-xs",
+        "lg" => "cn-button-size-lg",
+        "sm" => "cn-button-size-sm",
+        "xs" => "cn-button-size-xs"
+      },
+      "variant" => %{
+        "default" => "cn-button-variant-default",
+        "destructive" => "cn-button-variant-destructive",
+        "ghost" => "cn-button-variant-ghost",
+        "link" => "cn-button-variant-link",
+        "outline" => "cn-button-variant-outline",
+        "secondary" => "cn-button-variant-secondary"
+      }
+    }
+  }
+
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

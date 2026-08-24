@@ -27,7 +27,7 @@
         "slot": "bubble-group",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -67,7 +67,14 @@
         "slot": "bubble",
         "tag": "div",
         "type": "element",
-        "variant_class": "bubbleVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant"
+            ],
+            "table": "bubbleVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -99,7 +106,7 @@
         "slot": "bubble-content",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -139,7 +146,15 @@
         "slot": "bubble-reactions",
         "tag": "div",
         "type": "element",
-        "variant_class": "bubbleReactionsVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "side",
+              "align"
+            ],
+            "table": "bubbleReactionsVariants"
+          }
+        ],
         "vars": []
       }
     }

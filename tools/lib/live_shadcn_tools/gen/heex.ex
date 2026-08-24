@@ -880,8 +880,42 @@ defmodule LiveShadcnTools.Gen.Heex do
     if literal == "", do: [], else: [{:text, literal}]
   end
 
+  # Every `cva` base the element wears, and the class for every group whose call
+  # did not pass it. Both are the same string on every render, so both belong in
+  # the literal rather than behind a lookup.
+  #
+  # `input-group`'s button is two tables: shadcn's `<Button>` builds one and the
+  # group adds `inputGroupButtonVariants({ size })` on top. `size` reaches only
+  # the second, so the first uses its own default — and reading one table lost
+  # the other's base entirely.
   defp variant_base(node, ctx) do
-    if node["variant_class"], do: Map.get(table(ctx), "base")
+    node
+    |> calls(ctx)
+    |> Enum.flat_map(fn {_binding, table, args} -> [table["base"] | unpassed(table, args)] end)
+    |> Enum.reject(&(&1 in [nil, ""]))
+    |> Enum.join(" ")
+  end
+
+  # A group the call did not pass takes the table's own default, which is one
+  # class string forever. `<Button>` inside an input group is given no `size`,
+  # so it wears `cn-button-size-default` and nothing asks.
+  defp unpassed(table, args) do
+    defaults = Map.get(table, "defaults") || %{}
+
+    for {group, values} <- Map.get(table, "variants") || %{},
+        group not in args,
+        chosen = Map.get(defaults, group),
+        do: Map.get(values, chosen)
+  end
+
+  # This node's own calls, each with the table it names. `ctx.variants` is every
+  # table the component has; the node says which of them it wears.
+  defp calls(node, ctx) do
+    tables = Map.get(ctx, :variants) || %{}
+
+    for call <- Map.get(node, "variant_calls") || [],
+        table = Map.get(tables, call["table"]),
+        do: {call["table"], table, call["args"] || []}
   end
 
   # A class string the element wears only when something is true. `nil` on the
@@ -895,19 +929,17 @@ defmodule LiveShadcnTools.Gen.Heex do
     end
   end
 
+  # One lookup per group the call was actually passed, named by its table. Two
+  # tables that both define `size` are two different questions with two
+  # different answers, and a lookup keyed by the group alone answered whichever
+  # table the map happened to iterate last.
   defp variant_classes(node, ctx) do
-    if node["variant_class"] do
-      table(ctx)
-      |> Map.get("variants", %{})
-      |> Map.keys()
-      |> Enum.sort()
-      |> Enum.map(&{:code, ~s|variant_class("#{&1}", @#{Macro.underscore(&1)})|})
-    else
-      []
-    end
+    for {binding, table, args} <- calls(node, ctx),
+        group <- table |> Map.get("variants", %{}) |> Map.keys() |> Enum.sort(),
+        group in args,
+        do:
+          {:code, ~s|variant_class("#{binding}", "#{group}", @#{LiveShadcnTools.assign(group)})|}
   end
-
-  defp table(ctx), do: Map.get(ctx, :variants) || %{}
 
   defp caller_class(node, ctx) do
     case {node["merges_class"], Map.get(ctx, :class)} do

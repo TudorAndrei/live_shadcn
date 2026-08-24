@@ -27,7 +27,7 @@
         "slot": "message-group",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -61,7 +61,7 @@
         "slot": "message",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -88,7 +88,7 @@
         "slot": "message-avatar",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -117,7 +117,7 @@
         "slot": "message-content",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -144,7 +144,7 @@
         "slot": "message-footer",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -171,7 +171,7 @@
         "slot": "message-header",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

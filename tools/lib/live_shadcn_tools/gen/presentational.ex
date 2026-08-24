@@ -66,7 +66,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
   # handled on its own, and the rest arrive through `:global`.
   @doc "The attributes a part exposes, with their defaults and allowed values."
   def attributes(part, spec) do
-    variants = variant_table_of(part, spec)
+    calls = variant_calls_of(part, spec)
     paths = path_roots(part)
 
     # A render prop is declared as a slot, and a name cannot be both.
@@ -80,13 +80,15 @@ defmodule LiveShadcnTools.Gen.Presentational do
     |> Enum.map(fn {name, default} ->
       # The `cva` table's `defaultVariants` is as much upstream's decision as
       # the destructuring default is, and it is the one that decides which
-      # class string is applied.
-      default = default || get_in(variants, ["defaults", name])
+      # class string is applied. The table that was *passed* this prop, not any
+      # table that happens to define a group by the same name.
+      group = Enum.find(calls, &(name in &1["args"]))
+      default = default || get_in(group, ["definition", "defaults", name])
 
       %{
         name: LiveShadcnTools.assign(name),
         default: default,
-        values: variants |> Map.get("variants", %{}) |> Map.get(name) |> values(),
+        values: get_in(group, ["definition", "variants", name]) |> values(),
         type: type(name, default, paths)
       }
     end)
@@ -146,7 +148,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
       attrs: %{},
       children: "{render_slot(@inner_block)}",
       class: "@class",
-      variants: variant_table_of(part, spec),
+      variants: spec["variants"] || %{},
       params: Map.get(part, "params", %{}),
       contexts: Map.get(part, "contexts", []),
       client_attributes: [],
@@ -155,22 +157,43 @@ defmodule LiveShadcnTools.Gen.Presentational do
     })
   end
 
-  @doc "The `cva` table this part's class string is built from, if any."
-  def variant_table_of(part, spec) do
-    case variant_binding(part["tree"]) do
-      nil -> %{}
-      name -> get_in(spec, ["variants", name]) || %{}
-    end
+  @doc """
+  The `cva` tables this part's class string is built from, with the props each
+  call was passed.
+
+  A list, because there can be more than one on one element: `input-group`'s
+  button renders shadcn's `<Button>` and adds `inputGroupButtonVariants` on top,
+  so the element wears two bases and two `size` groups reading two values. Read
+  as one name, the second table's base was lost and the two `size` groups
+  collided by map order.
+  """
+  def variant_calls_of(part, spec), do: calls(part["tree"], spec)
+
+  # Every value, not only `children`. A call sits on whichever element wears the
+  # class string, and that element is as often inside a choice's branch or a
+  # marker's default as it is inside a list of children.
+  defp calls(%{"variant_calls" => [_ | _] = wearing} = node, spec) do
+    resolved =
+      for call <- wearing,
+          table = get_in(spec, ["variants", call["table"]]),
+          do: Map.put(call, "definition", table)
+
+    resolved ++ calls(Map.delete(node, "variant_calls"), spec)
   end
 
-  defp variant_binding(%{"variant_class" => name}) when is_binary(name), do: name
+  defp calls(node, spec) when is_map(node),
+    do: node |> Map.values() |> Enum.flat_map(&calls(&1, spec))
 
-  defp variant_binding(node),
-    do: node |> Map.get("children") |> List.wrap() |> Enum.find_value(&variant_binding/1)
+  defp calls(nodes, spec) when is_list(nodes), do: Enum.flat_map(nodes, &calls(&1, spec))
+  defp calls(_node, _spec), do: []
 
   @doc """
-  The variant table as a module attribute, written once per component and read
-  by every part that has variants. It is data, so it stays data.
+  The variant tables as a module attribute, written once per component and read
+  by every part that has variants. They are data, so they stay data.
+
+  Keyed by the `cva` binding and then by the group. Keyed by group alone, two
+  tables that both define `size` overwrote each other in whichever order the
+  map iterated, and the class string that came out was one of the two.
   """
   def variant_table(spec) do
     # Only the tables a part reads. A component that folded in another one's
@@ -178,27 +201,30 @@ defmodule LiveShadcnTools.Gen.Presentational do
     # private function nobody calls — which is a compiler warning, and this
     # project compiles generated code with warnings as errors.
     used =
-      spec["parts"]
-      |> List.wrap()
-      |> Enum.flat_map(&Map.keys(variant_table_of(&1, spec)["variants"] || %{}))
-      |> MapSet.new()
+      for part <- List.wrap(spec["parts"]),
+          call <- variant_calls_of(part, spec),
+          group <- Map.keys(Map.get(call["definition"], "variants") || %{}),
+          group in call["args"],
+          into: MapSet.new(),
+          do: {call["table"], group}
 
     tables =
-      for {_binding, table} <- spec["variants"] || %{},
+      for {binding, table} <- spec["variants"] || %{},
           {group, values} <- table["variants"] || %{},
-          MapSet.member?(used, group),
-          into: %{},
-          do: {group, values}
+          MapSet.member?(used, {binding, group}),
+          reduce: %{} do
+        acc -> Map.update(acc, binding, %{group => values}, &Map.put(&1, group, values))
+      end
 
     if tables == %{} do
       ""
     else
       """
 
-        # The variant table, from the `cva` call upstream writes it in.
+        # The variant tables, from the `cva` calls upstream writes them in.
         @variants #{inspect(tables, pretty: true, limit: :infinity)}
 
-        defp variant_class(group, value), do: get_in(@variants, [group, value])
+        defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
       """
     end
   end

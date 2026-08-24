@@ -130,7 +130,7 @@
         "render_as": null,
         "slot": "dropdown-menu",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -157,7 +157,7 @@
         "slot": "dropdown-menu-portal",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -184,7 +184,7 @@
         "slot": "dropdown-menu-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -249,7 +249,7 @@
                 "slot": "dropdown-menu-content",
                 "tag": "div",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": [
                   "--available-height",
                   "--anchor-width",
@@ -271,7 +271,7 @@
             "slot": null,
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -289,7 +289,7 @@
         "slot": null,
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -316,7 +316,7 @@
         "slot": "dropdown-menu-group",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -354,7 +354,7 @@
         "slot": "dropdown-menu-label",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -399,7 +399,7 @@
         "slot": "dropdown-menu-item",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -481,7 +481,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -499,7 +499,7 @@
                 "slot": null,
                 "tag": "span",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -515,7 +515,7 @@
             "slot": "dropdown-menu-checkbox-item-indicator",
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -539,7 +539,7 @@
         "slot": "dropdown-menu-checkbox-item",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -566,7 +566,7 @@
         "slot": "dropdown-menu-radio-group",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -642,7 +642,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -660,7 +660,7 @@
                 "slot": null,
                 "tag": "span",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -676,7 +676,7 @@
             "slot": "dropdown-menu-radio-item-indicator",
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -700,7 +700,7 @@
         "slot": "dropdown-menu-radio-item",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -729,7 +729,7 @@
         "slot": "dropdown-menu-separator",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -756,7 +756,7 @@
         "slot": "dropdown-menu-shortcut",
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -782,7 +782,7 @@
         "render_as": null,
         "slot": "dropdown-menu-sub",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -855,7 +855,7 @@
             "render_as": null,
             "slot": null,
             "type": "icon",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -877,7 +877,7 @@
         "slot": "dropdown-menu-sub-trigger",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -934,7 +934,7 @@
         "render_as": null,
         "slot": "dropdown-menu-sub-content",
         "type": "part_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

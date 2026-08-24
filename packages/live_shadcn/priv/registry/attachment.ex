@@ -26,8 +26,8 @@ defmodule LiveShadcn.UI.Attachment do
       data-orientation={@orientation}
       class={[
         "cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
-        variant_class("orientation", @orientation),
-        variant_class("size", @size),
+        variant_class("attachmentVariants", "orientation", @orientation),
+        variant_class("attachmentVariants", "size", @size),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -71,7 +71,7 @@ defmodule LiveShadcn.UI.Attachment do
       data-variant={@variant}
       class={[
         "cn-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive [&_svg]:pointer-events-none",
-        variant_class("variant", @variant),
+        variant_class("attachmentMediaVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -198,23 +198,27 @@ defmodule LiveShadcn.UI.Attachment do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "orientation" => %{
-      "horizontal" => "cn-attachment-orientation-horizontal items-center",
-      "vertical" => "cn-attachment-orientation-vertical flex-col"
+    "attachmentMediaVariants" => %{
+      "variant" => %{
+        "icon" => "cn-attachment-media-variant-icon",
+        "image" =>
+          "cn-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover"
+      }
     },
-    "size" => %{
-      "default" => "cn-attachment-size-default",
-      "sm" => "cn-attachment-size-sm",
-      "xs" => "cn-attachment-size-xs"
-    },
-    "variant" => %{
-      "icon" => "cn-attachment-media-variant-icon",
-      "image" =>
-        "cn-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover"
+    "attachmentVariants" => %{
+      "orientation" => %{
+        "horizontal" => "cn-attachment-orientation-horizontal items-center",
+        "vertical" => "cn-attachment-orientation-vertical flex-col"
+      },
+      "size" => %{
+        "default" => "cn-attachment-size-default",
+        "sm" => "cn-attachment-size-sm",
+        "xs" => "cn-attachment-size-xs"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

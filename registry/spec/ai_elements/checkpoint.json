@@ -61,7 +61,7 @@
             "slot": "separator",
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -77,7 +77,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -109,7 +109,7 @@
             "render_as": null,
             "slot": null,
             "type": "icon",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -164,7 +164,15 @@
             "slot": "button",
             "tag": "button",
             "type": "primitive",
-            "variant_class": "buttonVariants",
+            "variant_calls": [
+              {
+                "args": [
+                  "variant",
+                  "size"
+                ],
+                "table": "buttonVariants"
+              }
+            ],
             "vars": []
           }
         ],
@@ -205,7 +213,15 @@
                     "slot": "button",
                     "tag": "button",
                     "type": "primitive",
-                    "variant_class": "buttonVariants",
+                    "variant_calls": [
+                      {
+                        "args": [
+                          "variant",
+                          "size"
+                        ],
+                        "table": "buttonVariants"
+                      }
+                    ],
                     "vars": []
                   }
                 ],
@@ -223,7 +239,7 @@
                 "slot": "tooltip-trigger",
                 "tag": "button",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               },
               {
@@ -277,7 +293,7 @@
                             "slot": null,
                             "tag": "div",
                             "type": "primitive",
-                            "variant_class": null,
+                            "variant_calls": [],
                             "vars": []
                           }
                         ],
@@ -298,7 +314,7 @@
                         "slot": "tooltip-content",
                         "tag": "div",
                         "type": "primitive",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": [
                           "--transform-origin"
                         ]
@@ -318,7 +334,7 @@
                     "slot": null,
                     "tag": "div",
                     "type": "primitive",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -336,7 +352,7 @@
                 "slot": null,
                 "tag": "div",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -353,7 +369,7 @@
             "render_as": null,
             "slot": "tooltip",
             "type": "transparent",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],

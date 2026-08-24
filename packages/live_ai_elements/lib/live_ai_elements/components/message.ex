@@ -128,7 +128,7 @@ defmodule LiveAiElements.Components.Message do
       data-orientation={@orientation}
       class={[
         "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 [&>*:not(:first-child)]:rounded-l-md [&>*:not(:last-child)]:rounded-r-md",
-        variant_class("orientation", @orientation),
+        variant_class("buttonGroupVariants", "orientation", @orientation),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -164,8 +164,8 @@ defmodule LiveAiElements.Components.Message do
       type="button"
       class={[
         "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        variant_class("size", @size),
-        variant_class("variant", @variant),
+        variant_class("buttonVariants", "size", @size),
+        variant_class("buttonVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -204,8 +204,8 @@ defmodule LiveAiElements.Components.Message do
       type="button"
       class={[
         "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        variant_class("size", @size),
-        variant_class("variant", @variant),
+        variant_class("buttonVariants", "size", @size),
+        variant_class("buttonVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -270,33 +270,37 @@ defmodule LiveAiElements.Components.Message do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "orientation" => %{
-      "horizontal" =>
-        "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
-      "vertical" =>
-        "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0"
+    "buttonGroupVariants" => %{
+      "orientation" => %{
+        "horizontal" =>
+          "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
+        "vertical" =>
+          "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0"
+      }
     },
-    "size" => %{
-      "default" => "cn-button-size-default",
-      "icon" => "cn-button-size-icon",
-      "icon-lg" => "cn-button-size-icon-lg",
-      "icon-sm" => "cn-button-size-icon-sm",
-      "icon-xs" => "cn-button-size-icon-xs",
-      "lg" => "cn-button-size-lg",
-      "sm" => "cn-button-size-sm",
-      "xs" => "cn-button-size-xs"
-    },
-    "variant" => %{
-      "default" => "cn-button-variant-default",
-      "destructive" => "cn-button-variant-destructive",
-      "ghost" => "cn-button-variant-ghost",
-      "link" => "cn-button-variant-link",
-      "outline" => "cn-button-variant-outline",
-      "secondary" => "cn-button-variant-secondary"
+    "buttonVariants" => %{
+      "size" => %{
+        "default" => "cn-button-size-default",
+        "icon" => "cn-button-size-icon",
+        "icon-lg" => "cn-button-size-icon-lg",
+        "icon-sm" => "cn-button-size-icon-sm",
+        "icon-xs" => "cn-button-size-icon-xs",
+        "lg" => "cn-button-size-lg",
+        "sm" => "cn-button-size-sm",
+        "xs" => "cn-button-size-xs"
+      },
+      "variant" => %{
+        "default" => "cn-button-variant-default",
+        "destructive" => "cn-button-variant-destructive",
+        "ghost" => "cn-button-variant-ghost",
+        "link" => "cn-button-variant-link",
+        "outline" => "cn-button-variant-outline",
+        "secondary" => "cn-button-variant-secondary"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

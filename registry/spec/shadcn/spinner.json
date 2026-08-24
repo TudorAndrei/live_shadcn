@@ -69,7 +69,7 @@
         "render_as": null,
         "slot": "spinner",
         "type": "icon",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

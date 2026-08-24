@@ -22,8 +22,8 @@ defmodule LiveShadcn.UI.Item do
       data-slot={@rest[:"data-slot"] || "item"}
       class={[
         "cn-item group/item flex w-full flex-wrap items-center transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors",
-        variant_class("size", @size),
-        variant_class("variant", @variant),
+        variant_class("itemVariants", "size", @size),
+        variant_class("itemVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -46,7 +46,7 @@ defmodule LiveShadcn.UI.Item do
       data-variant={@variant}
       class={[
         "cn-item-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none",
-        variant_class("variant", @variant),
+        variant_class("itemMediaVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -205,19 +205,28 @@ defmodule LiveShadcn.UI.Item do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "size" => %{
-      "default" => "cn-item-size-default",
-      "sm" => "cn-item-size-sm",
-      "xs" => "cn-item-size-xs"
+    "itemMediaVariants" => %{
+      "variant" => %{
+        "default" => "cn-item-media-variant-default",
+        "icon" => "cn-item-media-variant-icon",
+        "image" => "cn-item-media-variant-image"
+      }
     },
-    "variant" => %{
-      "default" => "cn-item-variant-default",
-      "muted" => "cn-item-variant-muted",
-      "outline" => "cn-item-variant-outline"
+    "itemVariants" => %{
+      "size" => %{
+        "default" => "cn-item-size-default",
+        "sm" => "cn-item-size-sm",
+        "xs" => "cn-item-size-xs"
+      },
+      "variant" => %{
+        "default" => "cn-item-variant-default",
+        "muted" => "cn-item-variant-muted",
+        "outline" => "cn-item-variant-outline"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

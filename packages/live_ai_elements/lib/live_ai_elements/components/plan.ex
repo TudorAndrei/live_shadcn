@@ -47,6 +47,7 @@ defmodule LiveAiElements.Components.Plan do
 
   slot(:inner_block, required: true, doc: "The panel body.")
   attr(:size, :any, default: nil)
+  attr(:variant, :any, default: nil)
 
   def plan(assigns) do
     ~H"""
@@ -73,7 +74,15 @@ defmodule LiveAiElements.Components.Plan do
           phx-mounted={Disclosure.owned_attributes(:trigger)}
           data-panel-open={flag(@open)}
         >
-          <button data-slot="plan-trigger" class={["size-8", @trigger_class]}>
+          <button
+            data-slot="plan-trigger"
+            class={[
+              "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-8",
+              variant_class("buttonVariants", "size", @size),
+              variant_class("buttonVariants", "variant", @variant),
+              @trigger_class
+            ]}
+          >
             <LiveShadcn.Icon.icon name="chevrons-up-down" class="size-4" />
             <span class="sr-only">
               Toggle plan
@@ -113,4 +122,30 @@ defmodule LiveAiElements.Components.Plan do
   # two states a shadcn class string distinguishes.
   defp flag(true), do: ""
   defp flag(_state), do: nil
+
+  # The variant tables, from the `cva` calls upstream writes them in.
+  @variants %{
+    "buttonVariants" => %{
+      "size" => %{
+        "default" => "cn-button-size-default",
+        "icon" => "cn-button-size-icon",
+        "icon-lg" => "cn-button-size-icon-lg",
+        "icon-sm" => "cn-button-size-icon-sm",
+        "icon-xs" => "cn-button-size-icon-xs",
+        "lg" => "cn-button-size-lg",
+        "sm" => "cn-button-size-sm",
+        "xs" => "cn-button-size-xs"
+      },
+      "variant" => %{
+        "default" => "cn-button-variant-default",
+        "destructive" => "cn-button-variant-destructive",
+        "ghost" => "cn-button-variant-ghost",
+        "link" => "cn-button-variant-link",
+        "outline" => "cn-button-variant-outline",
+        "secondary" => "cn-button-variant-secondary"
+      }
+    }
+  }
+
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

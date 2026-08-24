@@ -39,7 +39,7 @@
         "slot": null,
         "tag": "img",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

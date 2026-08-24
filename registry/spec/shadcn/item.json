@@ -34,7 +34,16 @@
         "slot": "item",
         "tag": "div",
         "type": "element",
-        "variant_class": "itemVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size",
+              "className"
+            ],
+            "table": "itemVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -68,7 +77,15 @@
         "slot": "item-media",
         "tag": "div",
         "type": "element",
-        "variant_class": "itemMediaVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "className"
+            ],
+            "table": "itemMediaVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -95,7 +112,7 @@
         "slot": "item-content",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -122,7 +139,7 @@
         "slot": "item-actions",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -155,7 +172,7 @@
         "slot": "item-group",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -191,7 +208,7 @@
         "source": "shadcn",
         "tag": "div",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -218,7 +235,7 @@
         "slot": "item-title",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -245,7 +262,7 @@
         "slot": "item-description",
         "tag": "p",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -272,7 +289,7 @@
         "slot": "item-header",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -299,7 +316,7 @@
         "slot": "item-footer",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

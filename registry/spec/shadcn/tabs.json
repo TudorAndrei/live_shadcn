@@ -68,7 +68,7 @@
         "slot": "tabs",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -113,7 +113,14 @@
         "slot": "tabs-list",
         "tag": "div",
         "type": "primitive",
-        "variant_class": "tabsListVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant"
+            ],
+            "table": "tabsListVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -154,7 +161,7 @@
         "slot": "tabs-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -183,7 +190,7 @@
         "slot": "tabs-content",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

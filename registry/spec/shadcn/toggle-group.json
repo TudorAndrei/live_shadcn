@@ -76,7 +76,7 @@
             "render_as": null,
             "slot": null,
             "type": "transparent",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -95,7 +95,7 @@
         "render_as": null,
         "slot": "toggle-group",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": [
           "--gap"
         ]
@@ -159,7 +159,7 @@
         "slot": "toggle-group-item",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

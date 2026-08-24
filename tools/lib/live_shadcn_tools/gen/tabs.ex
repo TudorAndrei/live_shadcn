@@ -152,7 +152,7 @@ defmodule LiveShadcnTools.Gen.Tabs do
       class: class_expression(spec, role.part),
       params: Map.get(role.part, "params", %{}),
       contexts: Map.get(role.part, "contexts", []),
-      variants: Presentational.variant_table_of(role.part, spec),
+      variants: spec["variants"] || %{},
       client_attributes: client_attributes(),
       hook_part: nil,
       rest: role.node["part"] == "Root"

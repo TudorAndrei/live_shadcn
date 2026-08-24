@@ -117,4 +117,20 @@ defmodule LiveAiElements.Components.ChainOfThought do
   # two states a shadcn class string distinguishes.
   defp flag(true), do: ""
   defp flag(_state), do: nil
+
+  # The variant tables, from the `cva` calls upstream writes them in.
+  @variants %{
+    "badgeVariants" => %{
+      "variant" => %{
+        "default" => "cn-badge-variant-default",
+        "destructive" => "cn-badge-variant-destructive",
+        "ghost" => "cn-badge-variant-ghost",
+        "link" => "cn-badge-variant-link",
+        "outline" => "cn-badge-variant-outline",
+        "secondary" => "cn-badge-variant-secondary"
+      }
+    }
+  }
+
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

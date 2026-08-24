@@ -47,7 +47,7 @@ defmodule LiveShadcn.UI.Bubble do
       data-align={@align}
       class={[
         "cn-bubble group/bubble relative flex w-fit min-w-0 flex-col",
-        variant_class("variant", @variant),
+        variant_class("bubbleVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -93,8 +93,8 @@ defmodule LiveShadcn.UI.Bubble do
       data-side={@side}
       class={[
         "cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center",
-        variant_class("align", @align),
-        variant_class("side", @side),
+        variant_class("bubbleReactionsVariants", "align", @align),
+        variant_class("bubbleReactionsVariants", "side", @side),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -104,26 +104,30 @@ defmodule LiveShadcn.UI.Bubble do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "align" => %{
-      "end" => "cn-bubble-reactions-align-end",
-      "start" => "cn-bubble-reactions-align-start"
+    "bubbleReactionsVariants" => %{
+      "align" => %{
+        "end" => "cn-bubble-reactions-align-end",
+        "start" => "cn-bubble-reactions-align-start"
+      },
+      "side" => %{
+        "bottom" => "cn-bubble-reactions-side-bottom",
+        "top" => "cn-bubble-reactions-side-top"
+      }
     },
-    "side" => %{
-      "bottom" => "cn-bubble-reactions-side-bottom",
-      "top" => "cn-bubble-reactions-side-top"
-    },
-    "variant" => %{
-      "default" => "cn-bubble-variant-default",
-      "destructive" => "cn-bubble-variant-destructive",
-      "ghost" => "cn-bubble-variant-ghost",
-      "muted" => "cn-bubble-variant-muted",
-      "outline" => "cn-bubble-variant-outline",
-      "secondary" => "cn-bubble-variant-secondary",
-      "tinted" => "cn-bubble-variant-tinted"
+    "bubbleVariants" => %{
+      "variant" => %{
+        "default" => "cn-bubble-variant-default",
+        "destructive" => "cn-bubble-variant-destructive",
+        "ghost" => "cn-bubble-variant-ghost",
+        "muted" => "cn-bubble-variant-muted",
+        "outline" => "cn-bubble-variant-outline",
+        "secondary" => "cn-bubble-variant-secondary",
+        "tinted" => "cn-bubble-variant-tinted"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

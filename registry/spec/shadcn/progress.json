@@ -67,7 +67,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "part_ref",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -83,7 +83,7 @@
             "render_as": null,
             "slot": null,
             "type": "part_ref",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -101,7 +101,7 @@
         "slot": "progress",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -130,7 +130,7 @@
         "slot": "progress-track",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -159,7 +159,7 @@
         "slot": "progress-indicator",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -188,7 +188,7 @@
         "slot": "progress-label",
         "tag": "span",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -217,7 +217,7 @@
         "slot": "progress-value",
         "tag": "span",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

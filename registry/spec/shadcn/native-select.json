@@ -45,7 +45,7 @@
             "slot": "native-select",
             "tag": "select",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -100,7 +100,7 @@
             "render_as": null,
             "slot": "native-select-icon",
             "type": "icon",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -116,7 +116,7 @@
         "slot": "native-select-wrapper",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -143,7 +143,7 @@
         "slot": "native-select-optgroup",
         "tag": "optgroup",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -170,7 +170,7 @@
         "slot": "native-select-option",
         "tag": "option",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

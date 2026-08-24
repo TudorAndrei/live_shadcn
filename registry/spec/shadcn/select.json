@@ -116,7 +116,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -190,7 +190,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "part_ref",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   },
                   {
@@ -214,7 +214,7 @@
                     "slot": null,
                     "tag": "div",
                     "type": "primitive",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   },
                   {
@@ -232,7 +232,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "part_ref",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -255,7 +255,7 @@
                 "slot": "select-content",
                 "tag": "div",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": [
                   "--available-height",
                   "--anchor-width",
@@ -277,7 +277,7 @@
             "slot": null,
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -295,7 +295,7 @@
         "slot": null,
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -324,7 +324,7 @@
         "slot": "select-group",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -361,7 +361,7 @@
             "slot": null,
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -414,7 +414,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "icon",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -443,13 +443,13 @@
               "slot": null,
               "tag": "span",
               "type": "element",
-              "variant_class": null,
+              "variant_calls": [],
               "vars": []
             },
             "slot": null,
             "tag": "span",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -469,7 +469,7 @@
         "slot": "select-item",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -498,7 +498,7 @@
         "slot": "select-label",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -560,7 +560,7 @@
             "render_as": null,
             "slot": null,
             "type": "icon",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -578,7 +578,7 @@
         "slot": "select-scroll-down-button",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -640,7 +640,7 @@
             "render_as": null,
             "slot": null,
             "type": "icon",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -658,7 +658,7 @@
         "slot": "select-scroll-up-button",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -687,7 +687,7 @@
         "slot": "select-separator",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -773,13 +773,13 @@
               "render_as": null,
               "slot": null,
               "type": "icon",
-              "variant_class": null,
+              "variant_calls": [],
               "vars": []
             },
             "slot": null,
             "tag": "span",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -800,7 +800,7 @@
         "slot": "select-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -829,7 +829,7 @@
         "slot": "select-value",
         "tag": "span",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

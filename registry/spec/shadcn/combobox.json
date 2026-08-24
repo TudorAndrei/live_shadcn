@@ -147,7 +147,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -203,13 +203,13 @@
               "source": "shadcn",
               "tag": "input",
               "type": "component_ref",
-              "variant_class": null,
+              "variant_calls": [],
               "vars": []
             },
             "slot": null,
             "tag": "input",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -269,14 +269,14 @@
                       "render_as": null,
                       "slot": null,
                       "type": "part_ref",
-                      "variant_class": null,
+                      "variant_calls": [],
                       "vars": []
                     },
                     "slot": "input-group-button",
                     "source": "shadcn",
                     "tag": "button",
                     "type": "component_ref",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -341,7 +341,7 @@
                         "render_as": null,
                         "slot": null,
                         "type": "icon",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       }
                     ],
@@ -384,13 +384,13 @@
                       "source": "shadcn",
                       "tag": "button",
                       "type": "component_ref",
-                      "variant_class": null,
+                      "variant_calls": [],
                       "vars": []
                     },
                     "slot": "combobox-clear",
                     "tag": "button",
                     "type": "primitive",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -413,7 +413,7 @@
             "source": "shadcn",
             "tag": "div",
             "type": "component_ref",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -435,7 +435,7 @@
         "source": "shadcn",
         "tag": "div",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -512,7 +512,7 @@
                 "slot": "combobox-content",
                 "tag": "div",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": [
                   "--available-height",
                   "--anchor-width",
@@ -535,7 +535,7 @@
             "slot": null,
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -553,7 +553,7 @@
         "slot": null,
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -584,7 +584,7 @@
         "slot": "combobox-list",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -653,7 +653,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "icon",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -682,13 +682,13 @@
               "slot": null,
               "tag": "span",
               "type": "element",
-              "variant_class": null,
+              "variant_calls": [],
               "vars": []
             },
             "slot": null,
             "tag": "span",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -709,7 +709,7 @@
         "slot": "combobox-item",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -738,7 +738,7 @@
         "slot": "combobox-group",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -767,7 +767,7 @@
         "slot": "combobox-label",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -793,7 +793,7 @@
         "render_as": null,
         "slot": "combobox-collection",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -827,7 +827,7 @@
         "slot": "combobox-empty",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -856,7 +856,7 @@
         "slot": "combobox-separator",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -885,7 +885,7 @@
         "slot": "combobox-chips",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -957,7 +957,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -1002,13 +1002,13 @@
                   "source": "shadcn",
                   "tag": "button",
                   "type": "component_ref",
-                  "variant_class": null,
+                  "variant_calls": [],
                   "vars": []
                 },
                 "slot": "combobox-chip-remove",
                 "tag": "button",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -1030,7 +1030,7 @@
         "slot": "combobox-chip",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -1059,7 +1059,7 @@
         "slot": "combobox-chip-input",
         "tag": "input",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -1125,7 +1125,7 @@
             "render_as": null,
             "slot": null,
             "type": "icon",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -1143,7 +1143,7 @@
         "slot": "combobox-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -1169,7 +1169,7 @@
         "render_as": null,
         "slot": "combobox-value",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

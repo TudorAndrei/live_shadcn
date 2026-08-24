@@ -35,7 +35,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -69,7 +69,7 @@
             "render_as": null,
             "slot": null,
             "type": "icon",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -97,7 +97,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -113,7 +113,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -152,7 +152,7 @@
                   "render_as": null,
                   "slot": null,
                   "type": "icon",
-                  "variant_class": null,
+                  "variant_calls": [],
                   "vars": []
                 },
                 "value": "added"
@@ -175,7 +175,7 @@
                   "render_as": null,
                   "slot": null,
                   "type": "icon",
-                  "variant_class": null,
+                  "variant_calls": [],
                   "vars": []
                 },
                 "value": "major"
@@ -198,7 +198,7 @@
                   "render_as": null,
                   "slot": null,
                   "type": "icon",
-                  "variant_class": null,
+                  "variant_calls": [],
                   "vars": []
                 },
                 "value": "minor"
@@ -221,7 +221,7 @@
                   "render_as": null,
                   "slot": null,
                   "type": "icon",
-                  "variant_class": null,
+                  "variant_calls": [],
                   "vars": []
                 },
                 "value": "patch"
@@ -244,7 +244,7 @@
                   "render_as": null,
                   "slot": null,
                   "type": "icon",
-                  "variant_class": null,
+                  "variant_calls": [],
                   "vars": []
                 },
                 "value": "removed"
@@ -277,7 +277,14 @@
         "slot": "badge",
         "tag": "span",
         "type": "element",
-        "variant_class": "badgeVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant"
+            ],
+            "table": "badgeVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -322,7 +329,7 @@
                         "slot": null,
                         "tag": "span",
                         "type": "element",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       }
                     ],
@@ -348,7 +355,7 @@
                         "render_as": null,
                         "slot": null,
                         "type": "icon",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       }
                     ],
@@ -377,7 +384,7 @@
                         "slot": null,
                         "tag": "span",
                         "type": "element",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       }
                     ],
@@ -397,7 +404,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "transparent",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -416,7 +423,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -461,7 +468,7 @@
                             "render_as": null,
                             "slot": null,
                             "type": "part_ref",
-                            "variant_class": null,
+                            "variant_calls": [],
                             "vars": []
                           },
                           {
@@ -481,7 +488,7 @@
                                 "render_as": null,
                                 "slot": null,
                                 "type": "part_ref",
-                                "variant_class": null,
+                                "variant_calls": [],
                                 "vars": []
                               }
                             ],
@@ -501,7 +508,7 @@
                         "render_as": null,
                         "slot": null,
                         "type": "part_ref",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       },
                       {
@@ -521,7 +528,7 @@
                             "render_as": null,
                             "slot": null,
                             "type": "part_ref",
-                            "variant_class": null,
+                            "variant_calls": [],
                             "vars": []
                           }
                         ],
@@ -541,7 +548,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "transparent",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -560,7 +567,7 @@
             "slot": null,
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -576,7 +583,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -608,7 +615,7 @@
         "slot": null,
         "tag": "p",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -640,7 +647,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -676,7 +683,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -698,7 +705,7 @@
             "slot": null,
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -714,7 +721,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -757,7 +764,7 @@
                     "slot": null,
                     "tag": "span",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   },
                   {
@@ -782,7 +789,7 @@
                         "slot": null,
                         "tag": "span",
                         "type": "element",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       }
                     ],
@@ -802,7 +809,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "transparent",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -821,7 +828,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

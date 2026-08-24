@@ -54,7 +54,7 @@
             "slot": null,
             "tag": "path",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -103,7 +103,7 @@
             "slot": null,
             "tag": "circle",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -119,7 +119,7 @@
         "slot": null,
         "tag": "g",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

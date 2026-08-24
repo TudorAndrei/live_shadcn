@@ -35,7 +35,14 @@
         "slot": "badge",
         "tag": "span",
         "type": "element",
-        "variant_class": "badgeVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant"
+            ],
+            "table": "badgeVariants"
+          }
+        ],
         "vars": []
       }
     }

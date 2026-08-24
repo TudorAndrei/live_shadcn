@@ -43,7 +43,7 @@
         "slot": "input",
         "tag": "input",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

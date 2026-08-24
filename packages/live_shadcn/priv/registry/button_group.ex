@@ -23,7 +23,7 @@ defmodule LiveShadcn.UI.ButtonGroup do
       data-orientation={@orientation}
       class={[
         "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
-        variant_class("orientation", @orientation),
+        variant_class("buttonGroupVariants", "orientation", @orientation),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -73,15 +73,17 @@ defmodule LiveShadcn.UI.ButtonGroup do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "orientation" => %{
-      "horizontal" =>
-        "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
-      "vertical" =>
-        "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0"
+    "buttonGroupVariants" => %{
+      "orientation" => %{
+        "horizontal" =>
+          "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
+        "vertical" =>
+          "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

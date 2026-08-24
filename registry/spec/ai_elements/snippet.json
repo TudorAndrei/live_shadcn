@@ -46,7 +46,7 @@
             "slot": "input-group",
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -62,7 +62,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -101,7 +101,14 @@
         "slot": "input-group-addon",
         "tag": "div",
         "type": "element",
-        "variant_class": "inputGroupAddonVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "align"
+            ],
+            "table": "inputGroupAddonVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -128,7 +135,7 @@
         "slot": null,
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -172,7 +179,7 @@
         "slot": "input-group-control",
         "tag": "input",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -184,9 +191,9 @@
         "children": null,
         "className": null,
         "isCopied": "false",
-        "size": "default",
+        "size": "xs",
         "type": "button",
-        "variant": "default"
+        "variant": "ghost"
       },
       "primitive": null,
       "tree": {
@@ -244,7 +251,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -274,12 +281,12 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
                 "type": "choice",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": [],
                 "when": "isCopied"
               }
@@ -304,7 +311,20 @@
         "slot": "button",
         "tag": "button",
         "type": "primitive",
-        "variant_class": "buttonVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant"
+            ],
+            "table": "buttonVariants"
+          },
+          {
+            "args": [
+              "size"
+            ],
+            "table": "inputGroupButtonVariants"
+          }
+        ],
         "vars": []
       }
     }

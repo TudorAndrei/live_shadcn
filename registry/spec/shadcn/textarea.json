@@ -29,7 +29,7 @@
         "slot": "textarea",
         "tag": "textarea",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

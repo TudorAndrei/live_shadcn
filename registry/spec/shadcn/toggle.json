@@ -39,7 +39,16 @@
         "slot": "toggle",
         "tag": "button",
         "type": "primitive",
-        "variant_class": "toggleVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size",
+              "className"
+            ],
+            "table": "toggleVariants"
+          }
+        ],
         "vars": []
       }
     }

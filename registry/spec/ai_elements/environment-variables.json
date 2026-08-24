@@ -40,7 +40,7 @@
             "slot": null,
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -56,7 +56,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -88,7 +88,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -126,7 +126,7 @@
         "slot": null,
         "tag": "h3",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -171,7 +171,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -199,7 +199,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -219,7 +219,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -261,7 +261,7 @@
                 "slot": "switch-thumb",
                 "tag": "span",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -284,7 +284,7 @@
             "slot": "switch",
             "tag": "span",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -300,7 +300,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -332,7 +332,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -364,7 +364,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -403,7 +403,7 @@
         "slot": null,
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -449,7 +449,7 @@
         "slot": null,
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -491,7 +491,7 @@
                             "render_as": null,
                             "slot": null,
                             "type": "part_ref",
-                            "variant_class": null,
+                            "variant_calls": [],
                             "vars": []
                           }
                         ],
@@ -507,7 +507,7 @@
                         "slot": null,
                         "tag": "div",
                         "type": "element",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       },
                       {
@@ -525,7 +525,7 @@
                         "render_as": null,
                         "slot": null,
                         "type": "part_ref",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       }
                     ],
@@ -541,7 +541,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "transparent",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -560,7 +560,7 @@
             "slot": null,
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -576,7 +576,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -626,7 +626,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -656,12 +656,12 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
                 "type": "choice",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": [],
                 "when": "isCopied"
               }
@@ -686,7 +686,15 @@
         "slot": "button",
         "tag": "button",
         "type": "primitive",
-        "variant_class": "buttonVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -728,7 +736,14 @@
         "slot": "badge",
         "tag": "span",
         "type": "element",
-        "variant_class": "badgeVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant"
+            ],
+            "table": "badgeVariants"
+          }
+        ],
         "vars": []
       }
     }

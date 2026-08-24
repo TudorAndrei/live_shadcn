@@ -34,7 +34,14 @@
         "slot": "alert",
         "tag": "div",
         "type": "element",
-        "variant_class": "alertVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant"
+            ],
+            "table": "alertVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -61,7 +68,7 @@
         "slot": "alert-title",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -88,7 +95,7 @@
         "slot": "alert-description",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -115,7 +122,7 @@
         "slot": "alert-action",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

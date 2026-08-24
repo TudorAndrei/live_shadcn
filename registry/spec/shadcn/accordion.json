@@ -56,7 +56,7 @@
         "slot": "accordion",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -87,7 +87,7 @@
         "slot": "accordion-item",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -161,7 +161,7 @@
                 "render_as": null,
                 "slot": "accordion-trigger-icon",
                 "type": "icon",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               },
               {
@@ -216,7 +216,7 @@
                 "render_as": null,
                 "slot": "accordion-trigger-icon",
                 "type": "icon",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -236,7 +236,7 @@
             "slot": "accordion-trigger",
             "tag": "button",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -254,7 +254,7 @@
         "slot": null,
         "tag": "h3",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -292,7 +292,7 @@
             "slot": null,
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": [
               "--accordion-panel-height"
             ]
@@ -315,7 +315,7 @@
         "slot": "accordion-content",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

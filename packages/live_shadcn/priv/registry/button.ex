@@ -30,8 +30,8 @@ defmodule LiveShadcn.UI.Button do
       data-slot={@rest[:"data-slot"] || "button"}
       class={[
         "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        variant_class("size", @size),
-        variant_class("variant", @variant),
+        variant_class("buttonVariants", "size", @size),
+        variant_class("buttonVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -41,27 +41,29 @@ defmodule LiveShadcn.UI.Button do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "size" => %{
-      "default" => "cn-button-size-default",
-      "icon" => "cn-button-size-icon",
-      "icon-lg" => "cn-button-size-icon-lg",
-      "icon-sm" => "cn-button-size-icon-sm",
-      "icon-xs" => "cn-button-size-icon-xs",
-      "lg" => "cn-button-size-lg",
-      "sm" => "cn-button-size-sm",
-      "xs" => "cn-button-size-xs"
-    },
-    "variant" => %{
-      "default" => "cn-button-variant-default",
-      "destructive" => "cn-button-variant-destructive",
-      "ghost" => "cn-button-variant-ghost",
-      "link" => "cn-button-variant-link",
-      "outline" => "cn-button-variant-outline",
-      "secondary" => "cn-button-variant-secondary"
+    "buttonVariants" => %{
+      "size" => %{
+        "default" => "cn-button-size-default",
+        "icon" => "cn-button-size-icon",
+        "icon-lg" => "cn-button-size-icon-lg",
+        "icon-sm" => "cn-button-size-icon-sm",
+        "icon-xs" => "cn-button-size-icon-xs",
+        "lg" => "cn-button-size-lg",
+        "sm" => "cn-button-size-sm",
+        "xs" => "cn-button-size-xs"
+      },
+      "variant" => %{
+        "default" => "cn-button-variant-default",
+        "destructive" => "cn-button-variant-destructive",
+        "ghost" => "cn-button-variant-ghost",
+        "link" => "cn-button-variant-link",
+        "outline" => "cn-button-variant-outline",
+        "secondary" => "cn-button-variant-secondary"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

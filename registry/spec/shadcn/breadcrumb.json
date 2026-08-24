@@ -33,7 +33,7 @@
         "slot": "breadcrumb",
         "tag": "nav",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -60,7 +60,7 @@
         "slot": "breadcrumb-list",
         "tag": "ol",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -87,7 +87,7 @@
         "slot": "breadcrumb-item",
         "tag": "li",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -119,7 +119,7 @@
         "slot": "breadcrumb-link",
         "tag": "a",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -162,7 +162,7 @@
         "slot": "breadcrumb-page",
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -238,7 +238,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "icon",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -257,7 +257,7 @@
         "slot": "breadcrumb-separator",
         "tag": "li",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -330,7 +330,7 @@
             "render_as": null,
             "slot": null,
             "type": "icon",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -353,7 +353,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -369,7 +369,7 @@
         "slot": "breadcrumb-ellipsis",
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

@@ -27,7 +27,7 @@
         "slot": "kbd",
         "tag": "kbd",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -54,7 +54,7 @@
         "slot": "kbd-group",
         "tag": "kbd",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

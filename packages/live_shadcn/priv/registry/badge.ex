@@ -25,7 +25,7 @@ defmodule LiveShadcn.UI.Badge do
       data-slot={@rest[:"data-slot"] || "badge"}
       class={[
         "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
-        variant_class("variant", @variant),
+        variant_class("badgeVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -35,17 +35,19 @@ defmodule LiveShadcn.UI.Badge do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "variant" => %{
-      "default" => "cn-badge-variant-default",
-      "destructive" => "cn-badge-variant-destructive",
-      "ghost" => "cn-badge-variant-ghost",
-      "link" => "cn-badge-variant-link",
-      "outline" => "cn-badge-variant-outline",
-      "secondary" => "cn-badge-variant-secondary"
+    "badgeVariants" => %{
+      "variant" => %{
+        "default" => "cn-badge-variant-default",
+        "destructive" => "cn-badge-variant-destructive",
+        "ghost" => "cn-badge-variant-ghost",
+        "link" => "cn-badge-variant-link",
+        "outline" => "cn-badge-variant-outline",
+        "secondary" => "cn-badge-variant-secondary"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

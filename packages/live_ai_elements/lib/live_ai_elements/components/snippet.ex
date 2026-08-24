@@ -49,7 +49,7 @@ defmodule LiveAiElements.Components.Snippet do
       data-align={@align}
       class={[
         "cn-input-group-addon flex cursor-text items-center justify-center select-none",
-        variant_class("align", @align),
+        variant_class("inputGroupAddonVariants", "align", @align),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -118,16 +118,11 @@ defmodule LiveAiElements.Components.Snippet do
 
   @doc "The `button` part."
   attr(:is_copied, :boolean, default: false)
-
-  attr(:size, :string,
-    default: "default",
-    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
-  )
-
+  attr(:size, :string, default: "xs", values: ["icon-sm", "icon-xs", "sm", "xs"])
   attr(:type, :string, default: "button")
 
   attr(:variant, :string,
-    default: "default",
+    default: "ghost",
     values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
   )
 
@@ -144,9 +139,9 @@ defmodule LiveAiElements.Components.Snippet do
       aria-label="Copy"
       title="Copy"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        variant_class("size", @size),
-        variant_class("variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-input-group-button flex items-center shadow-none",
+        variant_class("buttonVariants", "variant", @variant),
+        variant_class("inputGroupButtonVariants", "size", @size),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -160,29 +155,36 @@ defmodule LiveAiElements.Components.Snippet do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "align" => %{
-      "block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
-      "block-start" => "cn-input-group-addon-align-block-start order-first w-full justify-start",
-      "inline-end" => "cn-input-group-addon-align-inline-end order-last",
-      "inline-start" => "cn-input-group-addon-align-inline-start order-first"
+    "buttonVariants" => %{
+      "variant" => %{
+        "default" => "cn-button-variant-default",
+        "destructive" => "cn-button-variant-destructive",
+        "ghost" => "cn-button-variant-ghost",
+        "link" => "cn-button-variant-link",
+        "outline" => "cn-button-variant-outline",
+        "secondary" => "cn-button-variant-secondary"
+      }
     },
-    "size" => %{
-      "icon-sm" => "cn-input-group-button-size-icon-sm",
-      "icon-xs" => "cn-input-group-button-size-icon-xs",
-      "sm" => "cn-input-group-button-size-sm",
-      "xs" => "cn-input-group-button-size-xs"
+    "inputGroupAddonVariants" => %{
+      "align" => %{
+        "block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
+        "block-start" =>
+          "cn-input-group-addon-align-block-start order-first w-full justify-start",
+        "inline-end" => "cn-input-group-addon-align-inline-end order-last",
+        "inline-start" => "cn-input-group-addon-align-inline-start order-first"
+      }
     },
-    "variant" => %{
-      "default" => "cn-button-variant-default",
-      "destructive" => "cn-button-variant-destructive",
-      "ghost" => "cn-button-variant-ghost",
-      "link" => "cn-button-variant-link",
-      "outline" => "cn-button-variant-outline",
-      "secondary" => "cn-button-variant-secondary"
+    "inputGroupButtonVariants" => %{
+      "size" => %{
+        "icon-sm" => "cn-input-group-button-size-icon-sm",
+        "icon-xs" => "cn-input-group-button-size-icon-xs",
+        "sm" => "cn-input-group-button-size-sm",
+        "xs" => "cn-input-group-button-size-xs"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

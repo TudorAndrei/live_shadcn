@@ -39,7 +39,16 @@
         "slot": "button",
         "tag": "button",
         "type": "primitive",
-        "variant_class": "buttonVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size",
+              "className"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
         "vars": []
       }
     }

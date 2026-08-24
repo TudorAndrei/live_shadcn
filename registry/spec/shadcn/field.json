@@ -69,7 +69,14 @@
         "slot": "field",
         "tag": "div",
         "type": "element",
-        "variant_class": "fieldVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "orientation"
+            ],
+            "table": "fieldVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -99,7 +106,7 @@
         "source": "shadcn",
         "tag": "label",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -126,7 +133,7 @@
         "slot": "field-description",
         "tag": "p",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -166,7 +173,7 @@
         "slot": "field-error",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -193,7 +200,7 @@
         "slot": "field-group",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -227,7 +234,7 @@
         "slot": "field-legend",
         "tag": "legend",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -267,7 +274,7 @@
             "source": "shadcn",
             "tag": "div",
             "type": "component_ref",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -291,7 +298,7 @@
                 "slot": "field-separator-content",
                 "tag": "span",
                 "type": "element",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -311,7 +318,7 @@
         "slot": "field-separator",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -338,7 +345,7 @@
         "slot": "field-set",
         "tag": "fieldset",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -365,7 +372,7 @@
         "slot": "field-content",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -392,7 +399,7 @@
         "slot": "field-label",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

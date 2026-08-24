@@ -62,7 +62,7 @@
             "slot": "sidebar-gap",
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": [
               "--sidebar-width",
               "--sidebar-width-icon"
@@ -102,7 +102,7 @@
                 "slot": "sidebar-inner",
                 "tag": "div",
                 "type": "element",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -124,7 +124,7 @@
             "slot": "sidebar-container",
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": [
               "--sidebar-width",
               "--sidebar-width-icon"
@@ -143,7 +143,7 @@
         "slot": "sidebar",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -176,7 +176,7 @@
         "slot": "sidebar-content",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -209,7 +209,7 @@
         "slot": "sidebar-footer",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -242,7 +242,7 @@
         "slot": "sidebar-group",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -274,7 +274,7 @@
         "slot": "sidebar-group-action",
         "tag": "button",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -307,7 +307,7 @@
         "slot": "sidebar-group-content",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -339,7 +339,7 @@
         "slot": "sidebar-group-label",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -372,7 +372,7 @@
         "slot": "sidebar-header",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -408,7 +408,7 @@
         "source": "shadcn",
         "tag": "input",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -435,7 +435,7 @@
         "slot": "sidebar-inset",
         "tag": "main",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -468,7 +468,7 @@
         "slot": "sidebar-menu",
         "tag": "ul",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -509,7 +509,7 @@
         "slot": "sidebar-menu-action",
         "tag": "button",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -542,7 +542,7 @@
         "slot": "sidebar-menu-badge",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -601,7 +601,7 @@
             "source": "shadcn",
             "tag": "div",
             "type": "component_ref",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -620,7 +620,7 @@
         "source": "shadcn",
         "tag": null,
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -653,7 +653,7 @@
         "slot": "sidebar-menu-item",
         "tag": "li",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -702,7 +702,7 @@
                 "source": "shadcn",
                 "tag": "div",
                 "type": "component_ref",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -744,7 +744,7 @@
             "source": "shadcn",
             "tag": "div",
             "type": "component_ref",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": [
               "--skeleton-width"
             ]
@@ -762,7 +762,7 @@
         "slot": "sidebar-menu-skeleton",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -795,7 +795,7 @@
         "slot": "sidebar-menu-sub",
         "tag": "ul",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -831,7 +831,7 @@
         "slot": "sidebar-menu-sub-button",
         "tag": "a",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -864,7 +864,7 @@
         "slot": "sidebar-menu-sub-item",
         "tag": "li",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -924,7 +924,7 @@
             "slot": "sidebar-wrapper",
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -940,7 +940,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -988,7 +988,7 @@
         "slot": "sidebar-rail",
         "tag": "button",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -1024,7 +1024,7 @@
         "source": "shadcn",
         "tag": "div",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -1102,7 +1102,7 @@
             "render_as": null,
             "slot": null,
             "type": "icon",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -1125,7 +1125,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -1144,7 +1144,7 @@
         "source": "shadcn",
         "tag": "button",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

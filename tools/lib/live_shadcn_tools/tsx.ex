@@ -101,17 +101,21 @@ defmodule LiveShadcnTools.Tsx do
   def merges_class?(_), do: false
 
   @doc """
-  The `cva` binding a class value is built from, if any.
+  The `cva` tables a class value is built from, and the props each was passed.
 
   `cn(buttonVariants({ variant, size, className }))` means this element's class
   string is not fixed: it depends on props. `bindings` is the set of names known
   to hold a `cva` call, so a call to something else is not mistaken for one.
+
+  There can be more than one. `input-group`'s button renders shadcn's `<Button>`
+  with `inputGroupButtonVariants({ size })`, and the fold puts both tables on
+  one element: two bases, and a `size` group in each reading a different value.
   """
-  def variant_call({:expr, code}, bindings) do
-    Enum.find(bindings, fn name -> Regex.match?(~r/\b#{Regex.escape(name)}\(/, code) end)
+  def variant_calls({:expr, code}, bindings) do
+    for {name, args} <- Ast.calls(code, bindings), do: %{"table" => name, "args" => args}
   end
 
-  def variant_call(_value, _bindings), do: nil
+  def variant_calls(_value, _bindings), do: []
 
   @doc """
   Reads a JavaScript object literal into a map.

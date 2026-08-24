@@ -34,7 +34,7 @@
             "render_as": null,
             "slot": "hover-card",
             "type": "transparent",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -50,7 +50,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -100,7 +100,7 @@
                     "slot": null,
                     "tag": "span",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   },
                   {
@@ -194,7 +194,7 @@
                         "slot": null,
                         "tag": "circle",
                         "type": "element",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       },
                       {
@@ -279,7 +279,7 @@
                         "slot": null,
                         "tag": "circle",
                         "type": "element",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       }
                     ],
@@ -295,7 +295,7 @@
                     "slot": null,
                     "tag": "svg",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -316,7 +316,14 @@
                 "slot": "button",
                 "tag": "button",
                 "type": "primitive",
-                "variant_class": "buttonVariants",
+                "variant_calls": [
+                  {
+                    "args": [
+                      "variant"
+                    ],
+                    "table": "buttonVariants"
+                  }
+                ],
                 "vars": []
               }
             ],
@@ -337,7 +344,7 @@
         "slot": "hover-card-trigger",
         "tag": "a",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -400,7 +407,7 @@
                 "slot": "hover-card-content",
                 "tag": "div",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": [
                   "--transform-origin"
                 ]
@@ -420,7 +427,7 @@
             "slot": null,
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -438,7 +445,7 @@
         "slot": "hover-card-portal",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -486,7 +493,7 @@
                         "slot": null,
                         "tag": "p",
                         "type": "element",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       },
                       {
@@ -517,7 +524,7 @@
                         "slot": null,
                         "tag": "p",
                         "type": "element",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       }
                     ],
@@ -533,7 +540,7 @@
                     "slot": null,
                     "tag": "div",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   },
                   {
@@ -568,7 +575,7 @@
                                 "slot": "progress-indicator",
                                 "tag": "div",
                                 "type": "primitive",
-                                "variant_class": null,
+                                "variant_calls": [],
                                 "vars": []
                               }
                             ],
@@ -586,7 +593,7 @@
                             "slot": "progress-track",
                             "tag": "div",
                             "type": "primitive",
-                            "variant_class": null,
+                            "variant_calls": [],
                             "vars": []
                           }
                         ],
@@ -604,7 +611,7 @@
                         "slot": "progress",
                         "tag": "div",
                         "type": "primitive",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       }
                     ],
@@ -620,7 +627,7 @@
                     "slot": null,
                     "tag": "div",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -636,7 +643,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "transparent",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -655,7 +662,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -687,7 +694,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -729,7 +736,7 @@
                     "slot": null,
                     "tag": "span",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   },
                   {
@@ -752,7 +759,7 @@
                     "slot": null,
                     "tag": "span",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -768,7 +775,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "transparent",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -787,7 +794,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -824,7 +831,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -868,7 +875,7 @@
                     "slot": null,
                     "tag": "span",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -888,7 +895,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -904,7 +911,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -941,7 +948,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -985,7 +992,7 @@
                     "slot": null,
                     "tag": "span",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -1005,7 +1012,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -1021,7 +1028,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -1058,7 +1065,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -1102,7 +1109,7 @@
                     "slot": null,
                     "tag": "span",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -1122,7 +1129,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -1138,7 +1145,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -1175,7 +1182,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -1219,7 +1226,7 @@
                     "slot": null,
                     "tag": "span",
                     "type": "element",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -1239,7 +1246,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -1255,7 +1262,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

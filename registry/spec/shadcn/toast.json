@@ -135,7 +135,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "part_ref",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -151,7 +151,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "part_ref",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -167,7 +167,7 @@
             "render_as": null,
             "slot": null,
             "type": "part_ref",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -183,7 +183,7 @@
         "render_as": null,
         "slot": null,
         "type": "part_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -217,7 +217,7 @@
         "slot": "toast",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": [
           "--toast-index",
           "--toast-height",
@@ -259,7 +259,7 @@
         "slot": "toast-action",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -336,7 +336,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "icon",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -357,7 +357,7 @@
         "slot": "toast-close",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -389,7 +389,7 @@
         "slot": "toast-content",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -418,7 +418,7 @@
         "slot": "toast-description",
         "tag": "p",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -445,7 +445,7 @@
         "slot": "toast-portal",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -471,7 +471,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -500,7 +500,7 @@
         "slot": "toast-title",
         "tag": "h2",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -529,7 +529,7 @@
         "slot": "toast-viewport",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

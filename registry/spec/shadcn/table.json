@@ -30,7 +30,7 @@
             "slot": "table",
             "tag": "table",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -46,7 +46,7 @@
         "slot": "table-container",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -73,7 +73,7 @@
         "slot": "table-header",
         "tag": "thead",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -100,7 +100,7 @@
         "slot": "table-body",
         "tag": "tbody",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -127,7 +127,7 @@
         "slot": "table-footer",
         "tag": "tfoot",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -154,7 +154,7 @@
         "slot": "table-head",
         "tag": "th",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -181,7 +181,7 @@
         "slot": "table-row",
         "tag": "tr",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -208,7 +208,7 @@
         "slot": "table-cell",
         "tag": "td",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -235,7 +235,7 @@
         "slot": "table-caption",
         "tag": "caption",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

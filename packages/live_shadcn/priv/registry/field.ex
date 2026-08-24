@@ -25,7 +25,11 @@ defmodule LiveShadcn.UI.Field do
       data-slot={@rest[:"data-slot"] || "field"}
       role="group"
       data-orientation={@orientation}
-      class={["cn-field group/field flex w-full", variant_class("orientation", @orientation), @class]}
+      class={[
+        "cn-field group/field flex w-full",
+        variant_class("fieldVariants", "orientation", @orientation),
+        @class
+      ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -212,16 +216,18 @@ defmodule LiveShadcn.UI.Field do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "orientation" => %{
-      "horizontal" =>
-        "cn-field-orientation-horizontal flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
-      "responsive" =>
-        "cn-field-orientation-responsive flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
-      "vertical" => "cn-field-orientation-vertical flex-col *:w-full [&>.sr-only]:w-auto"
+    "fieldVariants" => %{
+      "orientation" => %{
+        "horizontal" =>
+          "cn-field-orientation-horizontal flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+        "responsive" =>
+          "cn-field-orientation-responsive flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+        "vertical" => "cn-field-orientation-vertical flex-col *:w-full [&>.sr-only]:w-auto"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

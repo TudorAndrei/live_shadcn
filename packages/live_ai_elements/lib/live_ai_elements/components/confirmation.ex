@@ -22,7 +22,7 @@ defmodule LiveAiElements.Components.Confirmation do
       role="alert"
       class={[
         "cn-alert group/alert relative w-full flex flex-col gap-2",
-        variant_class("variant", @variant),
+        variant_class("alertVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -104,16 +104,8 @@ defmodule LiveAiElements.Components.Confirmation do
   end
 
   @doc "The `button` part."
-  attr(:size, :string,
-    default: "default",
-    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
-  )
-
-  attr(:variant, :string,
-    default: "default",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
-  )
-
+  attr(:size, :string, default: "default")
+  attr(:variant, :string, default: "default")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
   slot(:inner_block)
@@ -124,9 +116,7 @@ defmodule LiveAiElements.Components.Confirmation do
       data-slot={@rest[:"data-slot"] || "button"}
       type="button"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 h-8 px-3 text-sm",
-        variant_class("size", @size),
-        variant_class("variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-button-variant-default h-8 px-3 text-sm",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -136,27 +126,15 @@ defmodule LiveAiElements.Components.Confirmation do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "size" => %{
-      "default" => "cn-button-size-default",
-      "icon" => "cn-button-size-icon",
-      "icon-lg" => "cn-button-size-icon-lg",
-      "icon-sm" => "cn-button-size-icon-sm",
-      "icon-xs" => "cn-button-size-icon-xs",
-      "lg" => "cn-button-size-lg",
-      "sm" => "cn-button-size-sm",
-      "xs" => "cn-button-size-xs"
-    },
-    "variant" => %{
-      "default" => "cn-button-variant-default",
-      "destructive" => "cn-button-variant-destructive",
-      "ghost" => "cn-button-variant-ghost",
-      "link" => "cn-button-variant-link",
-      "outline" => "cn-button-variant-outline",
-      "secondary" => "cn-button-variant-secondary"
+    "alertVariants" => %{
+      "variant" => %{
+        "default" => "cn-alert-variant-default",
+        "destructive" => "cn-alert-variant-destructive"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

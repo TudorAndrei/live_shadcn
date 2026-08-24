@@ -53,7 +53,7 @@
                 "slot": "card",
                 "tag": "div",
                 "type": "element",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -71,7 +71,7 @@
             "slot": "plan",
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -87,7 +87,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -114,7 +114,7 @@
         "slot": "plan-header",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -161,7 +161,7 @@
                 "source": "ai_elements",
                 "tag": null,
                 "type": "component_ref",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -181,7 +181,7 @@
         "slot": "plan-title",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -228,7 +228,7 @@
                 "source": "ai_elements",
                 "tag": null,
                 "type": "component_ref",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -248,7 +248,7 @@
         "slot": "plan-description",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -275,7 +275,7 @@
         "slot": "plan-action",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -305,7 +305,7 @@
             "slot": "plan-content",
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -323,7 +323,7 @@
         "slot": "collapsible-content",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -350,7 +350,7 @@
         "slot": "plan-footer",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -387,7 +387,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "icon",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               },
               {
@@ -410,7 +410,7 @@
                 "slot": null,
                 "tag": "span",
                 "type": "element",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -431,7 +431,15 @@
             "slot": "plan-trigger",
             "tag": "button",
             "type": "primitive",
-            "variant_class": "buttonVariants",
+            "variant_calls": [
+              {
+                "args": [
+                  "variant",
+                  "size"
+                ],
+                "table": "buttonVariants"
+              }
+            ],
             "vars": []
           }
         ],
@@ -449,7 +457,7 @@
         "slot": "collapsible-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

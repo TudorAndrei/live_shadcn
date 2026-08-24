@@ -29,7 +29,7 @@
         "slot": "radio-group",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -62,7 +62,7 @@
                 "slot": null,
                 "tag": "span",
                 "type": "element",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -80,7 +80,7 @@
             "slot": "radio-group-indicator",
             "tag": "span",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -102,7 +102,7 @@
         "slot": "radio-group-item",
         "tag": "span",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

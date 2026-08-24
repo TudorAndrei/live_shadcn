@@ -69,7 +69,7 @@
         "render_as": null,
         "slot": "alert-dialog",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -99,7 +99,7 @@
         "source": "shadcn",
         "tag": "button",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -155,13 +155,13 @@
           "source": "shadcn",
           "tag": "button",
           "type": "component_ref",
-          "variant_class": null,
+          "variant_calls": [],
           "vars": []
         },
         "slot": "alert-dialog-cancel",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -192,7 +192,7 @@
             "render_as": null,
             "slot": null,
             "type": "part_ref",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -221,7 +221,7 @@
             "slot": "alert-dialog-content",
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -237,7 +237,7 @@
         "render_as": null,
         "slot": null,
         "type": "part_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -266,7 +266,7 @@
         "slot": "alert-dialog-description",
         "tag": "p",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -293,7 +293,7 @@
         "slot": "alert-dialog-footer",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -320,7 +320,7 @@
         "slot": "alert-dialog-header",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -347,7 +347,7 @@
         "slot": "alert-dialog-media",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -379,7 +379,7 @@
         "slot": "alert-dialog-overlay",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -406,7 +406,7 @@
         "slot": "alert-dialog-portal",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -435,7 +435,7 @@
         "slot": "alert-dialog-title",
         "tag": "h2",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -462,7 +462,7 @@
         "slot": "alert-dialog-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

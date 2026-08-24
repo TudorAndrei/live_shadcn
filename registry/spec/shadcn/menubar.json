@@ -123,7 +123,7 @@
         "render_as": null,
         "slot": "menubar",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -151,7 +151,7 @@
         "source": "shadcn",
         "tag": "div",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -179,7 +179,7 @@
         "source": "shadcn",
         "tag": null,
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -211,7 +211,7 @@
         "source": "shadcn",
         "tag": "button",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -264,7 +264,7 @@
         "source": "shadcn",
         "tag": "div",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -292,7 +292,7 @@
         "source": "shadcn",
         "tag": "div",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -322,7 +322,7 @@
         "source": "shadcn",
         "tag": "div",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -361,7 +361,7 @@
         "source": "shadcn",
         "tag": "div",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -407,7 +407,7 @@
         "source": "shadcn",
         "tag": "div",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -437,7 +437,7 @@
         "source": "shadcn",
         "tag": "span",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -519,7 +519,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -537,7 +537,7 @@
                 "slot": null,
                 "tag": "span",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -553,7 +553,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -577,7 +577,7 @@
         "slot": "menubar-checkbox-item",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -605,7 +605,7 @@
         "source": "shadcn",
         "tag": "div",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -681,7 +681,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -699,7 +699,7 @@
                 "slot": null,
                 "tag": "span",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -715,7 +715,7 @@
             "slot": null,
             "tag": "span",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -739,7 +739,7 @@
         "slot": "menubar-radio-item",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -767,7 +767,7 @@
         "source": "shadcn",
         "tag": null,
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -807,7 +807,7 @@
         "source": "shadcn",
         "tag": "div",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -842,7 +842,7 @@
         "source": "shadcn",
         "tag": null,
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

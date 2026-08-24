@@ -221,6 +221,52 @@ defmodule LiveShadcnTools.Ast do
 
   defp counting(_node, _source), do: nil
 
+  @doc """
+  Every call to one of `names` in an expression, with the props it passed.
+
+  `cn(buttonVariants({ variant, size, className }), inputGroupButtonVariants({ size }))`
+  is two `cva` tables on one element, and which of them a group belongs to
+  decides what class string comes out. `size` is passed to the second and not
+  the first, so the first uses its own default — and reading only the name of
+  one table lost the other's base class and made the two `size` groups collide.
+
+  Returns `[{name, [prop]}]`, outermost first.
+  """
+  def calls(code, names) do
+    wrapped = "const __x = (\n#{code}\n)"
+
+    case cached_tree(wrapped) do
+      %{"body" => [%{"declarations" => [%{"init" => init}]}]} -> called(bare(init), names)
+      _ -> []
+    end
+  rescue
+    _error -> []
+  end
+
+  defp called(%{"type" => "CallExpression", "callee" => %{"name" => name}} = call, names) do
+    passed = if name in names, do: [{name, object_keys(call["arguments"])}], else: []
+
+    passed ++ called(call["arguments"], names)
+  end
+
+  defp called(node, names) when is_map(node),
+    do: node |> Map.values() |> Enum.flat_map(&called(&1, names))
+
+  defp called(nodes, names) when is_list(nodes), do: Enum.flat_map(nodes, &called(&1, names))
+  defp called(_node, _names), do: []
+
+  defp object_keys([first | _rest]) do
+    case bare(first) do
+      %{"type" => "ObjectExpression", "properties" => properties} ->
+        for property <- properties, name = get_in(property, ["key", "name"]), do: name
+
+      _other ->
+        []
+    end
+  end
+
+  defp object_keys(_arguments), do: []
+
   # `.map((branch, index) => …)` — the second parameter is where the item sits
   # in the list, which is a fact about the loop rather than about the item.
   defp counter([%{"type" => "Identifier", "name" => name} | _rest]), do: name

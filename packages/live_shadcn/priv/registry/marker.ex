@@ -21,7 +21,7 @@ defmodule LiveShadcn.UI.Marker do
       data-slot={@rest[:"data-slot"] || "marker"}
       class={[
         "cn-marker group/marker relative flex w-full items-center",
-        variant_class("variant", @variant),
+        variant_class("markerVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -68,14 +68,16 @@ defmodule LiveShadcn.UI.Marker do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "variant" => %{
-      "border" => "cn-marker-variant-border",
-      "default" => "cn-marker-variant-default",
-      "separator" => "cn-marker-variant-separator"
+    "markerVariants" => %{
+      "variant" => %{
+        "border" => "cn-marker-variant-border",
+        "default" => "cn-marker-variant-default",
+        "separator" => "cn-marker-variant-separator"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

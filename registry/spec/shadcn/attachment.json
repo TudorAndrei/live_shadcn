@@ -46,7 +46,15 @@
         "slot": "attachment",
         "tag": "div",
         "type": "element",
-        "variant_class": "attachmentVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "size",
+              "orientation"
+            ],
+            "table": "attachmentVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -73,7 +81,7 @@
         "slot": "attachment-group",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -107,7 +115,14 @@
         "slot": "attachment-media",
         "tag": "div",
         "type": "element",
-        "variant_class": "attachmentMediaVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant"
+            ],
+            "table": "attachmentMediaVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -134,7 +149,7 @@
         "slot": "attachment-content",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -161,7 +176,7 @@
         "slot": "attachment-title",
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -188,7 +203,7 @@
         "slot": "attachment-description",
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -215,7 +230,7 @@
         "slot": "attachment-actions",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -258,7 +273,7 @@
         "source": "shadcn",
         "tag": "button",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -290,7 +305,7 @@
         "slot": "attachment-trigger",
         "tag": "button",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

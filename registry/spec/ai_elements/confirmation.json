@@ -41,7 +41,14 @@
             "slot": "alert",
             "tag": "div",
             "type": "element",
-            "variant_class": "alertVariants",
+            "variant_calls": [
+              {
+                "args": [
+                  "variant"
+                ],
+                "table": "alertVariants"
+              }
+            ],
             "vars": []
           }
         ],
@@ -57,7 +64,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -84,7 +91,7 @@
         "slot": "alert-description",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -147,7 +154,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -187,7 +194,12 @@
         "slot": "button",
         "tag": "button",
         "type": "primitive",
-        "variant_class": "buttonVariants",
+        "variant_calls": [
+          {
+            "args": [],
+            "table": "buttonVariants"
+          }
+        ],
         "vars": []
       }
     }

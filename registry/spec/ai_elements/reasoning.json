@@ -50,7 +50,7 @@
             "slot": "collapsible",
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -66,7 +66,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -105,7 +105,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   },
                   {
@@ -135,7 +135,7 @@
                     "render_as": null,
                     "slot": null,
                     "type": "icon",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -151,7 +151,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "transparent",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -172,7 +172,7 @@
         "slot": "collapsible-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -210,7 +210,7 @@
             "role": "markdown",
             "slot": null,
             "type": "external",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -228,7 +228,7 @@
         "slot": "collapsible-content",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

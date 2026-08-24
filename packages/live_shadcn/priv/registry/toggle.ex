@@ -65,8 +65,8 @@ defmodule LiveShadcn.UI.Toggle do
       data-disabled={flag(@disabled)}
       class={[
         "cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        variant_class("size", @size),
-        variant_class("variant", @variant),
+        variant_class("toggleVariants", "size", @size),
+        variant_class("toggleVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -76,20 +76,22 @@ defmodule LiveShadcn.UI.Toggle do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "size" => %{
-      "default" => "cn-toggle-size-default",
-      "lg" => "cn-toggle-size-lg",
-      "sm" => "cn-toggle-size-sm"
-    },
-    "variant" => %{
-      "default" => "cn-toggle-variant-default",
-      "outline" => "cn-toggle-variant-outline"
+    "toggleVariants" => %{
+      "size" => %{
+        "default" => "cn-toggle-size-default",
+        "lg" => "cn-toggle-size-lg",
+        "sm" => "cn-toggle-size-sm"
+      },
+      "variant" => %{
+        "default" => "cn-toggle-variant-default",
+        "outline" => "cn-toggle-variant-outline"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 
   defp flag(true), do: ""
   defp flag(_state), do: nil

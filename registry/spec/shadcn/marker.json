@@ -33,7 +33,15 @@
         "slot": "marker",
         "tag": "div",
         "type": "element",
-        "variant_class": "markerVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "className"
+            ],
+            "table": "markerVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -66,7 +74,7 @@
         "slot": "marker-icon",
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -93,7 +101,7 @@
         "slot": "marker-content",
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

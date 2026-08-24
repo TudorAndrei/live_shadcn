@@ -33,7 +33,7 @@
         "slot": "input-group",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -72,7 +72,14 @@
         "slot": "input-group-addon",
         "tag": "div",
         "type": "element",
-        "variant_class": "inputGroupAddonVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "align"
+            ],
+            "table": "inputGroupAddonVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -121,7 +128,14 @@
         "source": "shadcn",
         "tag": "button",
         "type": "component_ref",
-        "variant_class": "inputGroupButtonVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "size"
+            ],
+            "table": "inputGroupButtonVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -148,7 +162,7 @@
         "slot": null,
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -180,7 +194,7 @@
         "source": "shadcn",
         "tag": "input",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -212,7 +226,7 @@
         "source": "shadcn",
         "tag": "textarea",
         "type": "component_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

@@ -38,7 +38,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -70,7 +70,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -102,7 +102,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -148,7 +148,7 @@
             "slot": null,
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -164,7 +164,7 @@
         "render_as": null,
         "slot": null,
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -207,7 +207,7 @@
             "slot": null,
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -254,7 +254,14 @@
         "slot": "button-group",
         "tag": "div",
         "type": "element",
-        "variant_class": "buttonGroupVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "orientation"
+            ],
+            "table": "buttonGroupVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -314,7 +321,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "icon",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -338,7 +345,15 @@
         "slot": "button",
         "tag": "button",
         "type": "primitive",
-        "variant_class": "buttonVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -398,7 +413,7 @@
                 "render_as": null,
                 "slot": null,
                 "type": "icon",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -422,7 +437,15 @@
         "slot": "button",
         "tag": "button",
         "type": "primitive",
-        "variant_class": "buttonVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
         "vars": []
       }
     },
@@ -465,7 +488,7 @@
         "slot": "button-group-text",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -499,7 +522,7 @@
         "role": "markdown",
         "slot": null,
         "type": "external",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -531,7 +554,7 @@
         "slot": null,
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

@@ -121,7 +121,7 @@ defmodule LiveShadcn.UI.Empty do
       data-variant={@variant}
       class={[
         "cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        variant_class("variant", @variant),
+        variant_class("emptyMediaVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -131,13 +131,15 @@ defmodule LiveShadcn.UI.Empty do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "variant" => %{
-      "default" => "cn-empty-media-default",
-      "icon" => "cn-empty-media-icon"
+    "emptyMediaVariants" => %{
+      "variant" => %{
+        "default" => "cn-empty-media-default",
+        "icon" => "cn-empty-media-icon"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

@@ -51,7 +51,7 @@ defmodule LiveShadcn.UI.InputGroup do
       data-align={@align}
       class={[
         "cn-input-group-addon flex cursor-text items-center justify-center select-none",
-        variant_class("align", @align),
+        variant_class("inputGroupAddonVariants", "align", @align),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -77,7 +77,7 @@ defmodule LiveShadcn.UI.InputGroup do
       variant={@variant}
       class={[
         "cn-input-group-button flex items-center shadow-none",
-        variant_class("size", @size),
+        variant_class("inputGroupButtonVariants", "size", @size),
         @class
       ]}
       {@rest}
@@ -211,21 +211,26 @@ defmodule LiveShadcn.UI.InputGroup do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "align" => %{
-      "block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
-      "block-start" => "cn-input-group-addon-align-block-start order-first w-full justify-start",
-      "inline-end" => "cn-input-group-addon-align-inline-end order-last",
-      "inline-start" => "cn-input-group-addon-align-inline-start order-first"
+    "inputGroupAddonVariants" => %{
+      "align" => %{
+        "block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
+        "block-start" =>
+          "cn-input-group-addon-align-block-start order-first w-full justify-start",
+        "inline-end" => "cn-input-group-addon-align-inline-end order-last",
+        "inline-start" => "cn-input-group-addon-align-inline-start order-first"
+      }
     },
-    "size" => %{
-      "icon-sm" => "cn-input-group-button-size-icon-sm",
-      "icon-xs" => "cn-input-group-button-size-icon-xs",
-      "sm" => "cn-input-group-button-size-sm",
-      "xs" => "cn-input-group-button-size-xs"
+    "inputGroupButtonVariants" => %{
+      "size" => %{
+        "icon-sm" => "cn-input-group-button-size-icon-sm",
+        "icon-xs" => "cn-input-group-button-size-icon-xs",
+        "sm" => "cn-input-group-button-size-sm",
+        "xs" => "cn-input-group-button-size-xs"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

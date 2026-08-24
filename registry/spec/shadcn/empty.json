@@ -27,7 +27,7 @@
         "slot": "empty",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -54,7 +54,7 @@
         "slot": "empty-header",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -81,7 +81,7 @@
         "slot": "empty-title",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -108,7 +108,7 @@
         "slot": "empty-description",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -135,7 +135,7 @@
         "slot": "empty-content",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -169,7 +169,15 @@
         "slot": "empty-icon",
         "tag": "div",
         "type": "element",
-        "variant_class": "emptyMediaVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "className"
+            ],
+            "table": "emptyMediaVariants"
+          }
+        ],
         "vars": []
       }
     }

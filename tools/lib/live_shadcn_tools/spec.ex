@@ -339,7 +339,7 @@ defmodule LiveShadcnTools.Spec do
         #
         # The component's own props win: it destructured them itself, and a
         # folded default cannot know better.
-        params = Map.merge(acc.params, Map.get(part, "params") || %{})
+        params = known(acc.params, Map.get(part, "params") || %{})
 
         {part |> Map.put("tree", tree) |> Map.put("params", params), acc}
       end)
@@ -354,7 +354,7 @@ defmodule LiveShadcnTools.Spec do
       acc = %{
         acc
         | specs: Map.put(acc.specs, {other, node["component"]}, spec),
-          params: Map.merge(acc.params, Map.get(target, "params") || %{})
+          params: known(Map.get(target, "params") || %{}, acc.params)
       }
 
       # The reference's own children first. `<DropdownMenuTrigger><Button /></…>`
@@ -364,8 +364,13 @@ defmodule LiveShadcnTools.Spec do
       {node, acc} = fold_children(node, source, resolve, acc)
 
       # The target may itself reference a third component, and from here that
-      # one is just as far away.
-      {tree, acc} = fold_node(inline_parts(target["tree"], spec, []), source, resolve, acc)
+      # one is just as far away. Its own `cva` call is narrowed to what this
+      # reference passed *before* it goes down, because each level knows only
+      # about its own reference and narrowing again on the way back up would
+      # answer for a reference two components away.
+      inlined = inline_parts(narrow(target["tree"], node), spec, [])
+
+      {tree, acc} = fold_node(inlined, source, resolve, acc)
       {absorb(tree, node, Map.get(target, "params") || %{}), acc}
     else
       _unresolved -> {node, acc}
@@ -451,11 +456,47 @@ defmodule LiveShadcnTools.Spec do
       "class" =>
         [tree["class"], node["class"]] |> Enum.reject(&(&1 in [nil, ""])) |> Enum.join(" "),
       "class_when" => (tree["class_when"] || []) ++ (node["class_when"] || []),
+      # Both tables. `input-group`'s button renders shadcn's `<Button>` and adds
+      # `inputGroupButtonVariants({ size })` to what the button already builds,
+      # so the element wears two bases and two `size` groups reading two values.
+      "variant_calls" => (tree["variant_calls"] || []) ++ (node["variant_calls"] || []),
       "merges_class" => node["merges_class"] || tree["merges_class"],
       "props" => node["props"] || tree["props"],
       "slot" => node["slot"] || tree["slot"]
     })
     |> place(Map.get(node, "children") || [])
+  end
+
+  # Two defaults for one prop, and the nearer one wins.
+  #
+  # `snippet` folds `input-group`'s button, which folds `shadcn/button`. Both
+  # give `variant` a default — `"ghost"` and `"default"` — and upstream's answer
+  # is `"ghost"`, because the input group is what calls the button and an
+  # explicit prop beats the callee's own default. Merged the other way, the copy
+  # button declared a default nobody chose.
+  defp known(into, params),
+    do: Map.merge(into, params, fn _name, mine, theirs -> theirs || mine end)
+
+  defp narrow(tree, node),
+    do: Map.put(tree, "variant_calls", narrowed(tree["variant_calls"], node))
+
+  # What the reference passed the folded component's own `cva` call.
+  #
+  # A reference that names no prop is forwarding: `<InputGroupAddon {...props} />`
+  # hands over everything it was given, `align` included. One that names any is
+  # choosing, and what it did not name it did not pass — `<Button variant={variant}
+  # data-size={size} className={…} />` sets the variant and deliberately does not
+  # set the size, so the button's own `size` group takes the button's own
+  # default and stops asking for an assign that means something else.
+  defp narrowed(calls, node) do
+    case for(attr <- Map.get(node, "attrs") || [], do: attr["name"]) do
+      [] ->
+        calls || []
+
+      passed ->
+        for call <- calls || [],
+            do: Map.update(call, "args", [], fn args -> Enum.filter(args, &(&1 in passed)) end)
+    end
   end
 
   @doc """
@@ -673,13 +714,14 @@ defmodule LiveShadcnTools.Spec do
 
   defp node(%{type: :element, tag: tag} = element, ctx) do
     class_value = Tsx.attr(element, "className")
-    variant_class = Tsx.variant_call(class_value, ctx.variants)
+    variant_calls = Tsx.variant_calls(class_value, ctx.variants)
     classes = Tsx.classes(class_value)
     class_when = Tsx.conditional_classes(class_value)
 
     styling =
       Enum.join(
-        [classes, variant_classes(variant_class, ctx) | conditional_styling(class_when)],
+        Enum.map(variant_calls, &variant_classes(&1["table"], ctx)) ++
+          [classes | conditional_styling(class_when)],
         " "
       )
 
@@ -691,7 +733,7 @@ defmodule LiveShadcnTools.Spec do
       "render_as" => render_as(element, ctx),
       "class" => classes,
       "class_when" => class_when,
-      "variant_class" => variant_class,
+      "variant_calls" => variant_calls,
       "merges_class" => Tsx.merges_class?(class_value),
       "props" => Tsx.spread?(element),
       "reads" => reads(styling <> " " <> styled(styling, ctx.styles)),
@@ -1008,8 +1050,6 @@ defmodule LiveShadcnTools.Spec do
 
   # A variant table's own class strings are part of what this element reads, so
   # `data-` variants inside them are found the same way as the inline ones.
-  defp variant_classes(nil, _ctx), do: ""
-
   defp variant_classes(binding, ctx) do
     case Cva.parse(Map.get(ctx.consts, binding, "")) do
       :error ->

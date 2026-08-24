@@ -40,7 +40,7 @@
         "slot": "aspect-ratio",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": [
           "--ratio"
         ]

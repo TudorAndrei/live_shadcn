@@ -74,7 +74,7 @@
         "render_as": null,
         "slot": "tooltip",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -101,7 +101,7 @@
         "slot": "tooltip-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -168,7 +168,7 @@
                     "slot": null,
                     "tag": "div",
                     "type": "primitive",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -189,7 +189,7 @@
                 "slot": "tooltip-content",
                 "tag": "div",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": [
                   "--transform-origin"
                 ]
@@ -209,7 +209,7 @@
             "slot": null,
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -227,7 +227,7 @@
         "slot": null,
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -261,7 +261,7 @@
         "render_as": null,
         "slot": "tooltip-provider",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

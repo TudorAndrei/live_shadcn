@@ -193,7 +193,7 @@ defmodule LiveShadcnTools.Gen.FormControl do
       class: "@class",
       params: Map.get(part, "params", %{}),
       contexts: Map.get(part, "contexts", []),
-      variants: Presentational.variant_table_of(part, spec),
+      variants: spec["variants"] || %{},
       client_attributes: [],
       hook_part: nil,
       rest: true

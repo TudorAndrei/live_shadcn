@@ -69,7 +69,7 @@
         "render_as": null,
         "slot": "dialog",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -96,7 +96,7 @@
         "slot": "dialog-close",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -128,7 +128,7 @@
             "render_as": null,
             "slot": null,
             "type": "part_ref",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -189,7 +189,7 @@
                         "render_as": null,
                         "slot": null,
                         "type": "icon",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       },
                       {
@@ -212,7 +212,7 @@
                         "slot": null,
                         "tag": "span",
                         "type": "element",
-                        "variant_class": null,
+                        "variant_calls": [],
                         "vars": []
                       }
                     ],
@@ -255,13 +255,13 @@
                       "source": "shadcn",
                       "tag": "button",
                       "type": "component_ref",
-                      "variant_class": null,
+                      "variant_calls": [],
                       "vars": []
                     },
                     "slot": "dialog-close",
                     "tag": "button",
                     "type": "primitive",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -286,7 +286,7 @@
             "slot": "dialog-content",
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -302,7 +302,7 @@
         "render_as": null,
         "slot": null,
         "type": "part_ref",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -331,7 +331,7 @@
         "slot": "dialog-description",
         "tag": "p",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -395,13 +395,13 @@
                   "source": "shadcn",
                   "tag": "button",
                   "type": "component_ref",
-                  "variant_class": null,
+                  "variant_calls": [],
                   "vars": []
                 },
                 "slot": null,
                 "tag": "button",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -421,7 +421,7 @@
         "slot": "dialog-footer",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -448,7 +448,7 @@
         "slot": "dialog-header",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -480,7 +480,7 @@
         "slot": "dialog-overlay",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -507,7 +507,7 @@
         "slot": "dialog-portal",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -536,7 +536,7 @@
         "slot": "dialog-title",
         "tag": "h2",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -563,7 +563,7 @@
         "slot": "dialog-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

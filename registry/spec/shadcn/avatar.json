@@ -50,7 +50,7 @@
         "slot": "avatar",
         "tag": "span",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -79,7 +79,7 @@
         "slot": "avatar-image",
         "tag": "img",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -108,7 +108,7 @@
         "slot": "avatar-fallback",
         "tag": "span",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -135,7 +135,7 @@
         "slot": "avatar-group",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -162,7 +162,7 @@
         "slot": "avatar-group-count",
         "tag": "div",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -189,7 +189,7 @@
         "slot": "avatar-badge",
         "tag": "span",
         "type": "element",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

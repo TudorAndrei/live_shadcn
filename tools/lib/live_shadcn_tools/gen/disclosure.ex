@@ -36,6 +36,7 @@ defmodule LiveShadcnTools.Gen.Disclosure do
   """
 
   alias LiveShadcnTools.Gen.Heex
+  alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Spec
 
   @client_attributes ["data-starting-style", "data-ending-style"]
@@ -130,8 +131,7 @@ defmodule LiveShadcnTools.Gen.Disclosure do
         \"\"\"
       end
 
-    #{helpers(shape)}
-    end
+    #{helpers(shape)}#{Presentational.variant_table(spec)}end
     """
   end
 
@@ -263,6 +263,7 @@ defmodule LiveShadcnTools.Gen.Disclosure do
       class: class_expression(spec, role, roles, shape),
       params: Map.get(part, "params", %{}),
       contexts: Map.get(part, "contexts", []),
+      variants: spec["variants"] || %{},
       # Opening and closing is this recipe's, whatever upstream called it. A
       # component that read `isOpen` out of a React context would otherwise
       # grow a second flag beside the one the recipe already sets.

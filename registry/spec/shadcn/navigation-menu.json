@@ -112,7 +112,7 @@
             "render_as": null,
             "slot": null,
             "type": "part_ref",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -130,7 +130,7 @@
         "slot": "navigation-menu",
         "tag": "nav",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -164,7 +164,7 @@
         "slot": "navigation-menu-content",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -194,7 +194,7 @@
             "slot": null,
             "tag": "div",
             "type": "element",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -211,7 +211,7 @@
         "render_as": null,
         "slot": "navigation-menu-indicator",
         "type": "transparent",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -240,7 +240,7 @@
         "slot": "navigation-menu-item",
         "tag": "li",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -271,7 +271,7 @@
         "slot": "navigation-menu-link",
         "tag": "a",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -300,7 +300,7 @@
         "slot": "navigation-menu-list",
         "tag": "ul",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -384,7 +384,7 @@
             "render_as": null,
             "slot": null,
             "type": "icon",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -405,7 +405,12 @@
         "slot": "navigation-menu-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_class": "navigationMenuTriggerStyle",
+        "variant_calls": [
+          {
+            "args": [],
+            "table": "navigationMenuTriggerStyle"
+          }
+        ],
         "vars": []
       }
     },
@@ -468,7 +473,7 @@
                     "slot": null,
                     "tag": "div",
                     "type": "primitive",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -489,7 +494,7 @@
                 "slot": null,
                 "tag": "nav",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": [
                   "--popup-width",
                   "--popup-height",
@@ -513,7 +518,7 @@
             "slot": null,
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": [
               "--positioner-height",
               "--positioner-width",
@@ -535,7 +540,7 @@
         "slot": null,
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     }

@@ -52,7 +52,7 @@
                 "slot": null,
                 "tag": "div",
                 "type": "element",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               },
               {
@@ -86,7 +86,7 @@
                     "slot": "scroll-area-thumb",
                     "tag": "div",
                     "type": "primitive",
-                    "variant_class": null,
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -107,7 +107,7 @@
                 "slot": "scroll-area-scrollbar",
                 "tag": "div",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -125,7 +125,7 @@
             "slot": "scroll-area-viewport",
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -159,7 +159,7 @@
                 "slot": "scroll-area-thumb",
                 "tag": "div",
                 "type": "primitive",
-                "variant_class": null,
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -180,7 +180,7 @@
             "slot": "scroll-area-scrollbar",
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           },
           {
@@ -200,7 +200,7 @@
             "slot": null,
             "tag": "div",
             "type": "primitive",
-            "variant_class": null,
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -218,7 +218,7 @@
         "slot": "scroll-area",
         "tag": "div",
         "type": "primitive",
-        "variant_class": null,
+        "variant_calls": [],
         "vars": []
       }
     },
@@ -270,7 +270,15 @@
         "slot": "button",
         "tag": "button",
         "type": "primitive",
-        "variant_class": "buttonVariants",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
         "vars": []
       }
     }

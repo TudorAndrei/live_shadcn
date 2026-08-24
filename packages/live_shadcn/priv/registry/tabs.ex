@@ -64,7 +64,7 @@ defmodule LiveShadcn.UI.Tabs do
         data-variant={@variant}
         class={[
           "cn-tabs-list group/tabs-list inline-flex w-fit items-center justify-center text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
-          variant_class("variant", @variant),
+          variant_class("tabsListVariants", "variant", @variant),
           @list_class
         ]}
       >
@@ -122,13 +122,15 @@ defmodule LiveShadcn.UI.Tabs do
   defp flag(true), do: ""
   defp flag(_state), do: nil
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "variant" => %{
-      "default" => "cn-tabs-list-variant-default bg-muted",
-      "line" => "cn-tabs-list-variant-line gap-1 bg-transparent"
+    "tabsListVariants" => %{
+      "variant" => %{
+        "default" => "cn-tabs-list-variant-default bg-muted",
+        "line" => "cn-tabs-list-variant-line gap-1 bg-transparent"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

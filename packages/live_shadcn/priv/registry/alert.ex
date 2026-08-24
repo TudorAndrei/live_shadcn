@@ -20,7 +20,11 @@ defmodule LiveShadcn.UI.Alert do
     <div
       data-slot={@rest[:"data-slot"] || "alert"}
       role="alert"
-      class={["cn-alert group/alert relative w-full", variant_class("variant", @variant), @class]}
+      class={[
+        "cn-alert group/alert relative w-full",
+        variant_class("alertVariants", "variant", @variant),
+        @class
+      ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -88,13 +92,15 @@ defmodule LiveShadcn.UI.Alert do
     """
   end
 
-  # The variant table, from the `cva` call upstream writes it in.
+  # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "variant" => %{
-      "default" => "cn-alert-variant-default",
-      "destructive" => "cn-alert-variant-destructive"
+    "alertVariants" => %{
+      "variant" => %{
+        "default" => "cn-alert-variant-default",
+        "destructive" => "cn-alert-variant-destructive"
+      }
     }
   }
 
-  defp variant_class(group, value), do: get_in(@variants, [group, value])
+  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end
