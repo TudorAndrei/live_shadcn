@@ -9,8 +9,8 @@
 | `planned` | 0 | ························ |
 | `fetched` | 23 | █████··················· |
 | `spec` | 13 | ███····················· |
-| `generated` | 14 | ███····················· |
-| `verified` | 61 | █████████████··········· |
+| `generated` | 13 | ███····················· |
+| `verified` | 62 | █████████████··········· |
 
 ## Recipes
 
@@ -48,7 +48,7 @@ Only the recipes are written by hand; every component is data.
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `accordion` | 1 | `disclosure` | 🟩 generated |
+| `accordion` | 1 | `disclosure` | ✅ verified |
 | `alert` | 1 | `presentational` | ✅ verified |
 | `avatar` | 1 | `presentational` | ✅ verified |
 | `badge` | 1 | `presentational` | ✅ verified |

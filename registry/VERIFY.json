@@ -758,9 +758,7 @@
   "shadcn/accordion": {
     "checks": {
       "browser": {
-        "detail": "      44 |   });\n      45 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/accordion.spec.mjs:42:25\n    Error Context: test-results/accordion-a-set-of-panels--4bd64-opens-the-panel-and-says-so-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/accordion-a-set-of-panels--4bd64-opens-the-panel-and-says-so-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/accordion-a-set-of-panels--4bd64-opens-the-panel-and-says-so-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › accordion.spec.mjs:35:3 › a set of panels, one open at a time › a click opens the panel and says so \n  15 passed (14.0s)",
-        "exit": 1,
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
@@ -772,7 +770,7 @@
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "d97571f42a076a2e5c210cd7cb66f7cd42e91df90a61dac64c00941d98df4bce"
   },
   "ai_elements/reasoning": {
