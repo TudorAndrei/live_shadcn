@@ -68,6 +68,11 @@ defmodule LiveShadcnTools.Gen.Slider do
       defp flag(_state), do: nil
     end
     """
+    |> String.replace(
+      "cn-slider-range select-none",
+      "cn-slider-range relative select-none",
+      global: false
+    )
   end
 
   defp roles!(spec) do

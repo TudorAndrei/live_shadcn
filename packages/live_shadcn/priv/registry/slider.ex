@@ -73,7 +73,7 @@ defmodule LiveShadcn.UI.Slider do
             data-lb-slider-range
             data-orientation={@orientation}
             data-disabled={flag(@disabled)}
-            class="cn-slider-range select-none data-horizontal:h-full data-vertical:w-full"
+            class="cn-slider-range relative select-none data-horizontal:h-full data-vertical:w-full"
           />
         </div>
         <div
