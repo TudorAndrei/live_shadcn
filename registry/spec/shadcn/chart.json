@@ -1,1 +1,1 @@
-{"anatomy":[],"css_vars":[],"generated_by":"chart recipe","name":"chart","parts":[],"primitives":{},"recipe":"chart","source":"shadcn","styles":{},"upstream":"registry/upstream/shadcn/ui/chart.tsx"}
+{"anatomy":[],"classes":{"container":"cn-chart flex aspect-video justify-center text-xs","tooltip":"cn-chart-tooltip grid min-w-32 items-start"},"css_vars":[],"generated_by":"chart recipe","name":"chart","parts":[],"primitives":{},"recipe":"chart","source":"shadcn","styles":{},"upstream":"registry/upstream/shadcn/ui/chart.tsx"}

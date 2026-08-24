@@ -4,6 +4,8 @@ defmodule LiveShadcnTools.Gen.Chart do
   alias LiveShadcnTools.Gen.Heex
 
   def module(spec, opts) do
+    classes = spec["classes"]
+
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
     #{moduledoc(spec)}
@@ -20,7 +22,7 @@ defmodule LiveShadcnTools.Gen.Chart do
         assigns = assign(assigns, :chart_style, chart_style("chart-" <> assigns.id, assigns.config))
 
         ~H\"\"\"
-        <div data-slot="chart" data-chart={"chart-" <> @id} class={["cn-chart flex aspect-video justify-center text-xs", @class]} {@rest}>
+        <div data-slot="chart" data-chart={"chart-" <> @id} class={[#{inspect(classes["container"])}, @class]} {@rest}>
           <style :if={map_size(@config) > 0}>{@chart_style}</style>
           {render_slot(@inner_block)}
         </div>
@@ -33,7 +35,7 @@ defmodule LiveShadcnTools.Gen.Chart do
 
       def chart_tooltip_content(assigns) do
         ~H\"\"\"
-        <div data-slot="chart-tooltip" class={["cn-chart-tooltip grid min-w-32 items-start", @class]}>
+        <div data-slot="chart-tooltip" class={[#{inspect(classes["tooltip"])}, @class]}>
           <p :if={@label} class="font-medium">{@label}</p>
           <div class="grid gap-1.5"><div :for={item <- @item} class="flex items-center justify-between gap-2"><span class="text-muted-foreground">{item[:label]}</span><span class="font-mono font-medium tabular-nums">{render_slot(item)}</span></div></div>
         </div>
