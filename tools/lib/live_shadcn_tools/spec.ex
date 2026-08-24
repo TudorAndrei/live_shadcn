@@ -834,12 +834,12 @@ defmodule LiveShadcnTools.Spec do
 
       # `children ?? <Default />` and `children || suggestion` are the same
       # decision: what to render when the caller passed nothing.
-      match = default_for_children(code) ->
+      match = default_for_children(expression) ->
         %{"type" => "children", "default" => [fallback(match, ctx)]}
 
       # `{frame.filePath && (<span>…</span>)}` — markup drawn only when the
       # condition holds.
-      match = only_when(code) ->
+      match = only_when(expression) ->
         {condition, jsx} = match
 
         %{"type" => "optional", "when" => condition, "children" => [markup(jsx, ctx)]}
@@ -847,7 +847,7 @@ defmodule LiveShadcnTools.Spec do
       # `{tooltip ? <Tooltip>…</Tooltip> : button}` — one of two things, chosen
       # at render. `:if` on each is what HEEx has and it says the same: the
       # condition decides, and only one is drawn.
-      match = choice(code) ->
+      match = choice(expression) ->
         {condition, yes, no} = match
 
         %{
@@ -1070,18 +1070,21 @@ defmodule LiveShadcnTools.Spec do
 
   # `children ?? X`, by the parser rather than by a regular expression: where
   # the left side stops is the same question a ternary asks.
-  defp default_for_children(code) do
-    case Ast.logical(code) do
-      {operator, "children", default} when operator in ~w(?? ||) -> default
-      _ -> nil
+  defp default_for_children({:expr, _code, _node} = expression) do
+    case Ast.logical(expression) do
+      {operator, left, default} when operator in ~w(?? ||) ->
+        if source(left) == "children", do: default
+
+      _ ->
+        nil
     end
   end
 
   # `condition && <markup>`. Only when the right side is markup: `a && b` with
   # no element in it is a value, and the generator reads it as one.
-  defp only_when(code) do
-    case Ast.logical(code) do
-      {"&&", condition, right} -> if String.contains?(right, "<"), do: {condition, right}
+  defp only_when({:expr, _code, _node} = expression) do
+    case Ast.logical(expression) do
+      {"&&", condition, right} -> if Ast.jsx(right), do: {source(condition), right}
       _ -> nil
     end
   end
@@ -1089,8 +1092,14 @@ defmodule LiveShadcnTools.Spec do
   # A ternary with markup on at least one side. Which `?` is the ternary's is a
   # question for the parser, not for a bracket count: a `?` inside a string, or
   # between two JSX tags, is at no depth at all.
-  defp choice(code) do
-    if String.contains?(code, "<"), do: Ast.conditional(code)
+  defp choice({:expr, _code, _node} = expression) do
+    case Ast.conditional(expression) do
+      {condition, yes, no} ->
+        if Ast.jsx(yes) || Ast.jsx(no), do: {source(condition), yes, no}
+
+      _ ->
+        nil
+    end
   end
 
   # What a loop or a condition draws. Usually one element; sometimes another
@@ -1112,6 +1121,8 @@ defmodule LiveShadcnTools.Spec do
       parsed -> node(parsed, ctx)
     end
   end
+
+  defp source({:expr, code, _node}), do: String.trim(code)
 
   # One side of a choice: markup, or a value when upstream renders one there.
   defp branch(code, ctx), do: markup(code, ctx)

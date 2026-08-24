@@ -171,6 +171,21 @@ defmodule LiveShadcnTools.AstTest do
                Ast.mapped(expression)
     end
 
+    test "logical JSX reads each side from the expression node" do
+      source = ~S"""
+      const Row = ({ active }) => <div>{active && <span>ready</span>}</div>;
+      """
+
+      assert [row] = Ast.parse!(source).functions
+      [expression] = row.jsx.children
+      expression = {:expr, expression.code, expression.node}
+
+      assert {"&&", {:expr, "active", _}, {:expr, "<span>ready</span>", right}} =
+               Ast.logical(expression)
+
+      assert %{type: :element, tag: "span"} = Ast.jsx({:expr, "<span>ready</span>", right})
+    end
+
     test "local TypeScript aliases describe component props" do
       source = ~S"""
       type RowProps = {
