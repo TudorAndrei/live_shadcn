@@ -49,7 +49,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 - [ ] `command` (`listbox`)
 - [ ] `sonner` (`toast`)
 - [x] `input-otp` (`form-control`)
-- [ ] `message-scroller` (`scroller`)
+- [x] `message-scroller` (`scroller`)
 - [x] `questionnaire` (`presentational`)
 
 ### 5b — One recipe, spec already written

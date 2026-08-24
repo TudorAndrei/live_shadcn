@@ -1,4 +1,22 @@
 {
+  "shadcn/message-scroller": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "ea5a8ccbc799bb9345d00582f49d0e1bcf43fe1cff26f6e28360954c01ded19a"
+  },
   "shadcn/alert-dialog": {
     "checks": {
       "browser": {

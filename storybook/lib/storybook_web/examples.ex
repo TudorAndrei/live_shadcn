@@ -25,6 +25,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Marker
   import LiveShadcn.UI.Menubar
   import LiveShadcn.UI.Message
+  import LiveShadcn.UI.MessageScroller
   import LiveShadcn.UI.NativeSelect
   import LiveShadcn.UI.NavigationMenu
   import LiveShadcn.UI.Pagination
@@ -117,7 +118,7 @@ defmodule StorybookWeb.Examples do
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button carousel
        button-group card checkbox collapsible combobox context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
-       input-group input-otp native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
+       input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        toggle-group question questionnaire sidebar snippet toast shadcn-message ai_elements-message)
   end
 
@@ -280,6 +281,17 @@ defmodule StorybookWeb.Examples do
         "A box that scrolls",
         "The scrollbar is drawn rather than the platform's, and measured in the browser.",
         &scroll_area_default/1
+      )
+    ]
+  end
+
+  def all("message-scroller") do
+    [
+      one(
+        "default",
+        "A message stream",
+        "A native viewport for a growing conversation.",
+        &message_scroller_default/1
       )
     ]
   end
@@ -897,6 +909,22 @@ defmodule StorybookWeb.Examples do
       aria-label="Verification code"
       class="max-w-48"
     />
+    """
+  end
+
+  defp message_scroller_default(assigns) do
+    ~H"""
+    <.message_scroller_provider>
+      <.message_scroller class="h-48 max-w-md border">
+        <.message_scroller_viewport>
+          <.message_scroller_content>
+            <.message_scroller_item :for={line <- 1..8} class="p-3">
+              Message {line}
+            </.message_scroller_item>
+          </.message_scroller_content>
+        </.message_scroller_viewport>
+      </.message_scroller>
+    </.message_scroller_provider>
     """
   end
 

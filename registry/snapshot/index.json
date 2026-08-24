@@ -20,6 +20,9 @@
   "badge": [
     "variants"
   ],
+  "message-scroller": [
+    "default"
+  ],
   "shadcn-message": [
     "default"
   ],
