@@ -84,14 +84,13 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/context-menu.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "b1d23e1c1bc689fedf3218ca0ebdf2677fab700441a99c8d979dbc7c72fd707a"
   },
   "shadcn/hover-card": {

@@ -59,7 +59,6 @@ defmodule LiveShadcn.UI.ContextMenu do
     ~H"""
     <div
       id={@id}
-      data-slot="context-menu"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}

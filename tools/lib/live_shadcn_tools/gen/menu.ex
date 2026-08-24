@@ -158,7 +158,6 @@ defmodule LiveShadcnTools.Gen.Menu do
     """
     <div
       id={@id}
-      data-slot="#{roles.root.node["slot"]}"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
