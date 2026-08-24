@@ -169,6 +169,44 @@ defmodule LiveShadcnTools.SpecTest do
                spec["parts"]
     end
 
+    test "a lookup table reads object-expression entries" do
+      tsx =
+        String.replace(
+          @tsx,
+          "function Thing",
+          "const labels = { ready: \"Ready\", waiting: \"Waiting\" }\n\nfunction Thing"
+        )
+        |> String.replace("{children}", "{labels[state]}")
+
+      assert [
+               %{
+                 "tree" => %{
+                   "children" => [
+                     %{
+                       "type" => "lookup",
+                       "key" => "state",
+                       "entries" => [
+                         %{"value" => "ready", "node" => %{"type" => "text", "value" => "Ready"}},
+                         %{
+                           "value" => "waiting",
+                           "node" => %{"type" => "text", "value" => "Waiting"}
+                         }
+                       ]
+                     }
+                   ]
+                 }
+               }
+             ] =
+               Spec.build("thing",
+                 tsx: tsx,
+                 markdown: %{"thing" => @markdown},
+                 module: "thing",
+                 source: "shadcn",
+                 recipe: "disclosure",
+                 upstream: %{}
+               )["parts"]
+    end
+
     test "a loop over values renders one value per item, not one element" do
       # `items.map((item) => item.label)` is markup in JSX: an array of strings
       # is a list of text nodes. So it reads as a loop whose body is a value.

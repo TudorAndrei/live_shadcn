@@ -221,6 +221,17 @@ defmodule LiveShadcnTools.AstTest do
       assert table["defaults"] == %{"side" => "left"}
     end
 
+    test "object entries retain the expression node and exact source" do
+      source = ~S"""
+      const labels = { ready: "Ready", waiting: <span>Waiting</span> }
+      """
+
+      entries = Ast.parse!(source).const_nodes["labels"] |> Ast.object_entries()
+
+      assert {:expr, ~s|"Ready"|, _} = entries["ready"]
+      assert {:expr, "<span>Waiting</span>", _} = entries["waiting"]
+    end
+
     test "member roots come from member expression nodes" do
       source = ~S"""
       const Row = ({ error, label }) => <span title={error?.message ?? label["text"]} />;

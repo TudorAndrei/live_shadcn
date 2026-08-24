@@ -863,7 +863,7 @@ defmodule LiveShadcnTools.Spec do
 
         %{
           "type" => "repeat_over",
-          "collection" => collection,
+          "collection" => source(collection),
           "binding" => binding,
           # `({ token, key }) => …` reads two names off the item without naming
           # the item. HEEx binds one name per generator, so the fields are read
@@ -878,7 +878,7 @@ defmodule LiveShadcnTools.Spec do
 
         %{
           "type" => "repeat",
-          "count" => length,
+          "count" => source(length),
           "binding" => binding,
           "children" => [markup(jsx, ctx)]
         }
@@ -899,7 +899,7 @@ defmodule LiveShadcnTools.Spec do
 
       # `{statusLabels[status]}` — a table upstream declared once, read by a
       # prop. The table is data and the prop is a prop, so both come across.
-      lookup = lookup(code, ctx) ->
+      lookup = lookup(expression, ctx) ->
         lookup
 
       # `{getThinkingMessage(isStreaming, duration)}` — a prop that is a
@@ -1008,13 +1008,14 @@ defmodule LiveShadcnTools.Spec do
   #
   # The entries come across as nodes, because a table's values are as often
   # markup as they are strings — `statusIcons` holds one icon per tool state.
-  defp lookup(code, ctx) do
-    with [name, key] <-
-           Regex.run(~r/^([A-Za-z_][A-Za-z0-9_]*)\[([a-z_][A-Za-z0-9_]*)\]$/, String.trim(code),
-             capture: :all_but_first
-           ),
-         source when is_binary(source) <- Map.get(ctx.consts, name),
-         {:ok, table} <- table(source) do
+  defp lookup({:expr, _code, node}, ctx) do
+    with %{
+           "type" => "MemberExpression",
+           "computed" => true,
+           "object" => %{"type" => "Identifier", "name" => name},
+           "property" => %{"type" => "Identifier", "name" => key}
+         } <- node,
+         table when map_size(table) > 0 <- Map.get(ctx.const_nodes, name) |> Ast.object_entries() do
       %{
         "type" => "lookup",
         "key" => key,
@@ -1028,17 +1029,12 @@ defmodule LiveShadcnTools.Spec do
     end
   end
 
-  defp table(source) do
-    {:ok, Tsx.object!(source)}
-  rescue
-    _error -> :error
+  defp entry_node({:expr, _code, _node} = entry, ctx) do
+    case Ast.string_literal(entry) do
+      nil -> markup(entry, ctx)
+      value -> %{"type" => "text", "value" => value}
+    end
   end
-
-  defp entry_node({:string, value}, _ctx), do: %{"type" => "text", "value" => value}
-
-  defp entry_node({:code, code}, ctx), do: markup(code, ctx)
-
-  defp entry_node(_other, _ctx), do: %{"type" => "text", "value" => ""}
 
   # A call whose callee is a prop this component destructured. A call to
   # anything else is a local function, and porting one means porting whatever it

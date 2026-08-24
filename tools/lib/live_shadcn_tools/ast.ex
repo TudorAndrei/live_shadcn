@@ -149,6 +149,23 @@ defmodule LiveShadcnTools.Ast do
   def expression({:expr, _code, _parent} = parent, child),
     do: {:expr, source(parent, child), child}
 
+  @doc "The named properties of an object expression, with their OXC nodes."
+  def object_entries(nil), do: %{}
+
+  def object_entries({:expr, _code, node} = expression) do
+    case bare(node) do
+      %{"type" => "ObjectExpression", "properties" => properties} ->
+        for %{"type" => "Property", "key" => key, "value" => value} <- properties,
+            name = property_name(key),
+            is_binary(name),
+            into: %{},
+            do: {name, expression(expression, value)}
+
+      _other ->
+        %{}
+    end
+  end
+
   @doc "The JSX represented by an expression tuple, or `nil` when it is not JSX."
   def jsx({:expr, code, parent}) do
     case bare(parent) do
@@ -188,6 +205,10 @@ defmodule LiveShadcnTools.Ast do
     do: member_root(expression)
 
   defp member_root(_node), do: nil
+
+  defp property_name(%{"name" => name}) when is_binary(name), do: name
+  defp property_name(%{"value" => name}) when is_binary(name), do: name
+  defp property_name(_key), do: nil
 
   @doc """
   Splits `a && b`, `a || b` or `a ?? b` into its operator and two sides.
