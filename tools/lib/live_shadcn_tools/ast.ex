@@ -36,7 +36,7 @@ defmodule LiveShadcnTools.Ast do
   and a JSX tree of:
 
       %{type: :element, tag: String.t(), attrs: [attr], children: [node]}
-      %{type: :expr, code: String.t()}
+      %{type: :expr, code: String.t(), node: map()}
       %{type: :text, value: String.t()}
 
   where an attribute is `{:attr, name, {:string, s} | {:expr, code} | true}` or
@@ -896,7 +896,7 @@ defmodule LiveShadcnTools.Ast do
     case expression["type"] do
       # `{/* a comment */}` renders nothing and says nothing to a reader.
       "JSXEmptyExpression" -> nil
-      _ -> %{type: :expr, code: slice(expression, source)}
+      _ -> %{type: :expr, code: slice(expression, source), node: expression}
     end
   end
 
