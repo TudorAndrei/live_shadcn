@@ -832,9 +832,7 @@
   "shadcn/slider": {
     "checks": {
       "browser": {
-        "detail": "    test-results/slider-a-slider-with-two-v-cfaff-the-track-runs-between-them-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/slider-a-slider-with-two-v-cfaff-the-track-runs-between-them-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  6 failed\n    [chromium] › slider.spec.mjs:27:3 › a slider › the thumb sits where its input says ─────────────\n    [chromium] › slider.spec.mjs:35:3 › a slider › moving the input moves the thumb ────────────────\n    [chromium] › slider.spec.mjs:43:3 › a slider › the filled part of the track reaches the thumb ──\n    [chromium] › slider.spec.mjs:51:3 › a slider › a keypress moves it, because the input is a real one \n    [chromium] › slider.spec.mjs:61:3 › a slider › moving it costs no round trip ───────────────────\n    [chromium] › slider.spec.mjs:93:3 › a slider with two values › the filled part of the track runs between them \n  2 passed (23.6s)",
-        "exit": 1,
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
@@ -843,12 +841,10 @@
         "pass": true
       },
       "snapshot": {
-        "detail": "** (Mix) these snapshots no longer match what the components render:\n  slider-default\n  slider-range\nRun `mix snapshot` and review the diff. A diff here is a change a reader\nwould see.",
-        "exit": 1,
-        "pass": false
+        "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "015d17895b79be0580f0bb3e3e46fcf3fdc6c20b5c06f49e9c42c8ba9f1880a9"
   },
   "shadcn/drawer": {

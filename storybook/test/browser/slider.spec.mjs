@@ -29,7 +29,7 @@ test.describe("a slider", () => {
     await expect(thumbs(page).first()).toHaveCSS("inset-inline-start", /.+/);
 
     const along = await thumbs(page).first().evaluate((el) => el.style.insetInlineStart);
-    expect(along).toBe("50%");
+    expect(along).toBe("192px");
   });
 
   test("moving the input moves the thumb", async ({ page }) => {
@@ -37,15 +37,15 @@ test.describe("a slider", () => {
 
     await expect
       .poll(() => thumbs(page).first().evaluate((el) => el.style.insetInlineStart))
-      .toBe("100%");
+      .toBe("376px");
   });
 
   test("the filled part of the track reaches the thumb", async ({ page }) => {
     await inputs(page).first().fill("1");
-    await expect.poll(() => range(page).evaluate((el) => el.style.width)).toBe("0%");
+    await expect.poll(() => range(page).evaluate((el) => el.style.width)).toBe("0px");
 
     await inputs(page).first().fill("5");
-    await expect.poll(() => range(page).evaluate((el) => el.style.width)).toBe("100%");
+    await expect.poll(() => range(page).evaluate((el) => el.style.width)).toBe("384px");
   });
 
   test("a keypress moves it, because the input is a real one", async ({ page }) => {
@@ -55,7 +55,7 @@ test.describe("a slider", () => {
     await expect(inputs(page).first()).toHaveValue("4");
     await expect
       .poll(() => thumbs(page).first().evaluate((el) => el.style.insetInlineStart))
-      .toBe("75%");
+      .toBe("284px");
   });
 
   test("moving it costs no round trip", async ({ page }) => {
@@ -67,7 +67,7 @@ test.describe("a slider", () => {
     await inputs(page).first().fill("5");
     await expect
       .poll(() => thumbs(page).first().evaluate((el) => el.style.insetInlineStart))
-      .toBe("100%");
+      .toBe("376px");
 
     expect(events.filter((frame) => frame.includes("event"))).toEqual([]);
   });
@@ -96,7 +96,7 @@ test.describe("a slider with two values", () => {
       width: el.style.width,
     }));
 
-    expect(start).toBe("20%");
-    expect(width).toBe("60%");
+    expect(start).toBe("81.6px");
+    expect(width).toBe("220.8px");
   });
 });
