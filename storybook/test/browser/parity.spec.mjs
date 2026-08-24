@@ -24,6 +24,16 @@ const only = process.env.PREVIEW_COMPONENT;
 // Written by `mix snapshot`. Read rather than fetched, because Playwright
 // collects tests before it starts a server.
 const previews = JSON.parse(readFileSync(join(here, "../../../registry/snapshot/index.json")));
+const inventory = JSON.parse(readFileSync(join(here, "../../../registry/INVENTORY.json")));
+const shadcnComponents = new Set(
+  inventory.components
+    .filter(({ source }) => source === "shadcn")
+    .map(({ name }) => name)
+);
+
+function sourceComponent(component) {
+  return component === "shadcn-message" ? "message" : component;
+}
 
 // One file per example, named `<component>.<example>.tsx`. The directory is the
 // record of what has been ported.
@@ -34,6 +44,7 @@ const ported = new Set(
 );
 
 const pages = Object.entries(previews)
+  .filter(([component]) => shadcnComponents.has(sourceComponent(component)))
   .filter(([component]) => !only || component === only)
   .flatMap(([component, examples]) => examples.map((example) => ({ component, example })));
 
