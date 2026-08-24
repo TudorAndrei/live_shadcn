@@ -28,8 +28,10 @@ export const Resizable = {
       const delta = (horizontal ? pointer.clientX : pointer.clientY) - start;
       const before = Math.max(0, previousSize + delta);
       const after = Math.max(0, nextSize - delta);
-      previous.style.flexBasis = `${before}px`;
-      next.style.flexBasis = `${after}px`;
+      previous.style.setProperty("--lb-resizable-size", `${before}px`);
+      previous.style.flexBasis = "var(--lb-resizable-size)";
+      next.style.setProperty("--lb-resizable-size", `${after}px`);
+      next.style.flexBasis = "var(--lb-resizable-size)";
     };
     const release = () => {
       handle.removeEventListener("pointermove", move);

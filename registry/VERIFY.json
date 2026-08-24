@@ -128,6 +128,24 @@
     "pass": true,
     "spec": "88199f3de5cfbc107e9eab64dddea21234815c8ca64b72a3a89da4d4f0c362b8"
   },
+  "shadcn/resizable": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "7bdcbb704bec229145524612940883455ae4af4e03de26c03f195ed70f26b211"
+  },
   "ai_elements/package-info": {
     "checks": {
       "browser": {

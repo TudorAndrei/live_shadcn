@@ -11,6 +11,9 @@
   "sheet": [
     "default"
   ],
+  "resizable": [
+    "default"
+  ],
   "scroll-area": [
     "default"
   ],

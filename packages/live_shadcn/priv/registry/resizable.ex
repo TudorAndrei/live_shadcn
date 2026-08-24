@@ -27,6 +27,9 @@ defmodule LiveShadcn.UI.Resizable do
       role="separator"
       tabindex="0"
       aria-orientation={@orientation}
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="50"
       class={[
         "cn-resizable-handle relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90",
         @class
@@ -47,7 +50,12 @@ defmodule LiveShadcn.UI.Resizable do
 
   def resizable_panel(assigns) do
     ~H"""
-    <div data-slot={@rest[:"data-slot"] || "resizable-panel"} {Map.drop(@rest, [:"data-slot"])}>
+    <div
+      data-slot={@rest[:"data-slot"] || "resizable-panel"}
+      class={["flex flex-1", @class]}
+      style="border-color: currentColor"
+      {Map.drop(@rest, [:"data-slot"])}
+    >
       {render_slot(@inner_block)}
     </div>
     """
@@ -59,16 +67,18 @@ defmodule LiveShadcn.UI.Resizable do
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
+  attr(:id, :string, required: true)
   attr(:orientation, :string, default: "horizontal", values: ["horizontal", "vertical"])
 
   def resizable_panel_group(assigns) do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "resizable-panel-group"}
+      id={@id}
       phx-hook={Resizable.hook()}
       aria-orientation={@orientation}
       class={[
-        "cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col",
+        "cn-resizable-panel-group flex h-full w-full overflow-hidden aria-[orientation=vertical]:flex-col",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

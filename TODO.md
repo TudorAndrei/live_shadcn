@@ -58,7 +58,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ### 5c — Three that need a real decision
 
-- [ ] `resizable` — a pointer-drag hook that writes a CSS variable
+- [x] `resizable` — a pointer-drag hook that writes a CSS variable
 - [ ] `calendar` — a month grid the server computes. `locale` and
       `week_starts_on` are props, English and Sunday by default
 - [ ] `calendar` — `locale="browser"` opt-in: a hook reads `Intl` on mount

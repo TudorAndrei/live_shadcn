@@ -58,6 +58,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Progress
   import LiveShadcn.UI.Questionnaire
   import LiveShadcn.UI.RadioGroup
+  import LiveShadcn.UI.Resizable
   import LiveShadcn.UI.ScrollArea
   import LiveShadcn.UI.Select
   import LiveShadcn.UI.Separator
@@ -120,7 +121,7 @@ defmodule StorybookWeb.Examples do
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button carousel
        button-group card checkbox collapsible combobox command context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
-       input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
+       input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group resizable scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        toggle-group question questionnaire sidebar snippet sonner toast shadcn-message ai_elements-message)
   end
 
@@ -674,6 +675,17 @@ defmodule StorybookWeb.Examples do
     [one("default", "One of three", "Choosing one unchooses the others.", &radio_group_default/1)]
   end
 
+  def all("resizable") do
+    [
+      one(
+        "default",
+        "Two panels",
+        "Drag the separator to change their width.",
+        &resizable_default/1
+      )
+    ]
+  end
+
   def all("select") do
     [one("default", "One of a list", "The trigger reads what was chosen.", &select_default/1)]
   end
@@ -969,6 +981,16 @@ defmodule StorybookWeb.Examples do
   defp sonner_default(assigns) do
     ~H"""
     <Sonner.toaster id="sonner" dismiss="dismiss_toast" duration={0} />
+    """
+  end
+
+  defp resizable_default(assigns) do
+    ~H"""
+    <.resizable_panel_group id="resizable-default" class="h-40 max-w-md border">
+      <.resizable_panel class="basis-1/2">First panel</.resizable_panel>
+      <.resizable_handle with_handle="true" />
+      <.resizable_panel class="basis-1/2">Second panel</.resizable_panel>
+    </.resizable_panel_group>
     """
   end
 
