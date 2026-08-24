@@ -954,14 +954,13 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/select.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "7ad5e239700dba7326de0d5527081738f2cd1e6564df94172b642604b04c6a25"
   },
   "shadcn/card": {

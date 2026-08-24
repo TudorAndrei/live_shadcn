@@ -189,7 +189,6 @@ defmodule LiveShadcnTools.Gen.Listbox do
     """
     <div
       id={@id}
-      data-slot="#{root_slot(spec, roles)}"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
@@ -201,10 +200,6 @@ defmodule LiveShadcnTools.Gen.Listbox do
     </div>\
     """
   end
-
-  # A part that renders no element has no `data-slot` of its own, and the
-  # wrapper still needs one to be found by.
-  defp root_slot(spec, roles), do: roles.root.node["slot"] || spec["name"]
 
   # The trigger reads the chosen label. It is written into `data-label` by the
   # command and read back by a class string, because no attribute sets text.

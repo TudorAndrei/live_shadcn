@@ -75,7 +75,6 @@ defmodule LiveShadcn.UI.Select do
     ~H"""
     <div
       id={@id}
-      data-slot="select"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
