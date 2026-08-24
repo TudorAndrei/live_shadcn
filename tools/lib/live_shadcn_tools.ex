@@ -150,6 +150,16 @@ defmodule LiveShadcnTools do
     end
   end
 
+  @doc """
+  The assign a prop is read by, from the name upstream gave it.
+
+  A leading underscore comes off. `slider` resolves its list of values from
+  three places and calls the result `_values`, because the mark is how
+  JavaScript says "this name is mine". It says nothing about the value, and a
+  caller asked for `_values` would reasonably wonder what it had done wrong.
+  """
+  def assign(name), do: name |> Macro.underscore() |> String.trim_leading("_")
+
   @doc "SHA-256 of a binary, hex encoded. Used to detect upstream drift."
   def digest(binary), do: :crypto.hash(:sha256, binary) |> Base.encode16(case: :lower)
 

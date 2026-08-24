@@ -12,7 +12,11 @@ defmodule LiveAiElements.Components.Question do
   @doc "The `question` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+
+  attr(:rest, :global,
+    include: ["data-slot", "action", "method", "enctype", "novalidate", "target"]
+  )
+
   slot(:inner_block)
 
   def question(assigns) do

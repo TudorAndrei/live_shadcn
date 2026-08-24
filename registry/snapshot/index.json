@@ -83,6 +83,9 @@
   "reasoning": [
     "default"
   ],
+  "native-select": [
+    "default"
+  ],
   "pagination": [
     "default"
   ],

@@ -85,8 +85,9 @@ defmodule LiveAiElements.Components.Message do
 
   def message_branch(assigns) do
     ~H"""
-    <div class={["grid w-full gap-2 [&>div]:pb-0", @class]} {@rest} />
-    {render_slot(@inner_block)}
+    <div class={["grid w-full gap-2 [&>div]:pb-0", @class]} {@rest}>
+      {render_slot(@inner_block)}
+    </div>
     """
   end
 
@@ -101,7 +102,6 @@ defmodule LiveAiElements.Components.Message do
     ~H"""
     <div
       :for={{branch, index} <- Enum.with_index(@children_array)}
-      key={branch.key}
       class={[
         "grid gap-2 overflow-hidden [&>div]:pb-0",
         if(index == @current_branch, do: "block", else: "hidden")
@@ -109,8 +109,8 @@ defmodule LiveAiElements.Components.Message do
       {@rest}
     >
       {branch}
+      {render_slot(@inner_block)}
     </div>
-    {render_slot(@inner_block)}
     """
   end
 

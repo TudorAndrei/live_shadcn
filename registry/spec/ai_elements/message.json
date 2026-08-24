@@ -182,13 +182,7 @@
         "binding": "branch",
         "children": [
           {
-            "attrs": [
-              {
-                "kind": "code",
-                "name": "key",
-                "value": "branch.key"
-              }
-            ],
+            "attrs": [],
             "children": [
               {
                 "code": "branch",

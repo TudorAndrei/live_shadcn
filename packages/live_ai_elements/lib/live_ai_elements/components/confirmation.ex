@@ -26,8 +26,9 @@ defmodule LiveAiElements.Components.Confirmation do
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
-    />
-    {render_slot(@inner_block)}
+    >
+      {render_slot(@inner_block)}
+    </div>
     """
   end
 

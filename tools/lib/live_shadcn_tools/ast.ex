@@ -173,6 +173,54 @@ defmodule LiveShadcnTools.Ast do
 
   defp mapping(_node, _source), do: nil
 
+  @doc """
+  Splits `Array.from({ length: n }, (_, index) => …)` into the count, the name
+  and the body.
+
+  `slider` draws one thumb per value this way. Where the body ends is the
+  question a `.map` asks too, and the regular expression that used to answer it
+  read to the end of the string — so the body came back with the call's own
+  closing bracket on it and parsed as nothing at all.
+  """
+  def counted(code) do
+    wrapped = "const __x = (\n#{code}\n)"
+
+    case cached_tree(wrapped) do
+      %{"body" => [%{"declarations" => [%{"init" => init}]}]} -> counting(bare(init), wrapped)
+      _ -> nil
+    end
+  rescue
+    _error -> nil
+  end
+
+  defp counting(
+         %{
+           "type" => "CallExpression",
+           "callee" => %{
+             "type" => "MemberExpression",
+             "object" => %{"name" => "Array"},
+             "property" => %{"name" => "from"}
+           },
+           "arguments" => [shape, mapper | _rest]
+         },
+         source
+       ) do
+    with %{"type" => "ObjectExpression", "properties" => properties} <- bare(shape),
+         %{"value" => length} <-
+           Enum.find(properties, &(get_in(&1, ["key", "name"]) == "length")),
+         %{"type" => "ArrowFunctionExpression", "params" => params, "body" => body} <-
+           bare(mapper) do
+      # `(_, index)` — the first parameter is the array's own element, which
+      # `Array.from` fills with `undefined`. The second is the one that counts.
+      {slice(bare(length), source), counter(Enum.drop(params, 1)) || "index",
+       slice(bare(body), source)}
+    else
+      _other -> nil
+    end
+  end
+
+  defp counting(_node, _source), do: nil
+
   # `.map((branch, index) => …)` — the second parameter is where the item sits
   # in the list, which is a fact about the loop rather than about the item.
   defp counter([%{"type" => "Identifier", "name" => name} | _rest]), do: name

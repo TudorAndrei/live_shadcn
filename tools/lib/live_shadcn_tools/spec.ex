@@ -224,7 +224,7 @@ defmodule LiveShadcnTools.Spec do
   def codes(%{"type" => "value", "code" => code}) when is_binary(code), do: [code]
 
   def codes(node) when is_map(node) do
-    named = for key <- ~w(when collection binding key), is_binary(node[key]), do: node[key]
+    named = for key <- ~w(when collection binding count key), is_binary(node[key]), do: node[key]
     named ++ (node |> Map.values() |> Enum.flat_map(&codes/1))
   end
 
@@ -999,18 +999,7 @@ defmodule LiveShadcnTools.Spec do
   defp repeat_over(code), do: Ast.mapped(code)
 
   # `Array.from({ length: values.length }, (_, index) => (<Thumb />))`
-  defp repeat(code) do
-    pattern = ~r/^Array\.from\(\{\s*length:\s*(.+?)\s*\}\s*,\s*\(([^)]*)\)\s*=>\s*(.*)$/s
-
-    case Regex.run(pattern, String.trim(code), capture: :all_but_first) do
-      [length, args, body] ->
-        binding = args |> String.split(",") |> Enum.map(&String.trim/1) |> List.last()
-        {String.trim(length), binding, body}
-
-      nil ->
-        nil
-    end
-  end
+  defp repeat(code), do: Ast.counted(code)
 
   # A class string an element wears only sometimes still says what the element
   # reads: `data-open:hidden` is a contract whichever branch carries it.
@@ -1315,7 +1304,10 @@ defmodule LiveShadcnTools.Spec do
   # `data-slot`, which are recorded on their own. `data-size={size}` on a card
   # is as much a part of the markup as the class string is, and a generated
   # component that dropped it would render a different card.
-  @recorded_elsewhere ~w(className data-slot render)
+  #
+  # `key` is not markup at all: it is how React tells one item of a list from
+  # another between renders, and no element has an attribute by that name.
+  @recorded_elsewhere ~w(className data-slot render key)
 
   defp attributes(element) do
     for {:attr, name, value} <- element.attrs,

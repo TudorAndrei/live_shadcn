@@ -37,6 +37,7 @@
   "name": "slider",
   "parts": [
     {
+      "contexts": [],
       "export": "Slider",
       "name": "slider",
       "params": {
@@ -87,6 +88,7 @@
                     "attrs": [],
                     "children": [],
                     "class": "cn-slider-range select-none data-horizontal:h-full data-vertical:w-full",
+                    "class_when": [],
                     "merges_class": false,
                     "module": "slider",
                     "part": "Indicator",
@@ -107,6 +109,7 @@
                   }
                 ],
                 "class": "cn-slider-track relative grow overflow-hidden select-none",
+                "class_when": [],
                 "merges_class": false,
                 "module": "slider",
                 "part": "Track",
@@ -129,15 +132,10 @@
                 "binding": "index",
                 "children": [
                   {
-                    "attrs": [
-                      {
-                        "kind": "code",
-                        "name": "key",
-                        "value": "index"
-                      }
-                    ],
+                    "attrs": [],
                     "children": [],
                     "class": "cn-slider-thumb block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50",
+                    "class_when": [],
                     "merges_class": false,
                     "module": "slider",
                     "part": "Thumb",
@@ -161,6 +159,7 @@
               }
             ],
             "class": "cn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col",
+            "class_when": [],
             "merges_class": false,
             "module": "slider",
             "part": "Control",
@@ -181,6 +180,7 @@
           }
         ],
         "class": "data-horizontal:w-full data-vertical:h-full",
+        "class_when": [],
         "merges_class": true,
         "module": "slider",
         "part": "Root",

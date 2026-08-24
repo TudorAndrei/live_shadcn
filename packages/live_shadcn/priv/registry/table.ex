@@ -22,8 +22,9 @@ defmodule LiveShadcn.UI.Table do
         data-slot={@rest[:"data-slot"] || "table"}
         class={["cn-table", @class]}
         {Map.drop(@rest, [:"data-slot"])}
-      />
-      {render_slot(@inner_block)}
+      >
+        {render_slot(@inner_block)}
+      </table>
     </div>
     """
   end

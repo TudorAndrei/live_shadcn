@@ -193,10 +193,15 @@ defmodule LiveShadcnTools.Gen.Heex do
   def render(%{"type" => "repeat", "count" => count, "binding" => binding} = node, ctx, indent) do
     generator = "#{binding} <- 0..(#{expression(count, ctx)} - 1)//1"
 
+    # The counter is in scope inside the loop and nowhere else, the same as a
+    # `.map` binding. Leaving it unbound made `slider` report `index` as a name
+    # the component never destructured, which was true and not the problem.
+    inner = bind(ctx, binding)
+
     node
     |> Map.get("children")
     |> List.wrap()
-    |> Enum.map_join("\n", &render(with_attr(&1, {":for", :code, generator}), ctx, indent))
+    |> Enum.map_join("\n", &render(with_attr(&1, {":for", :code, generator}), inner, indent))
   end
 
   # A reference to another exported part. A recipe that emits one function per
@@ -322,14 +327,41 @@ defmodule LiveShadcnTools.Gen.Heex do
   `<Card {...props} />` takes its children through the spread, so upstream never
   writes `{children}`. They still belong inside the element, and a generated
   component that could not hold content would not be the same component.
+
+  Inside *that* element, which is not always the outermost one.
+  `native-select` draws a wrapper, a `<select>` and an icon over the arrow, and
+  spreads on the `<select>`. Content appended to the wrapper instead put every
+  `<option>` after the box that was supposed to list them.
   """
   def with_children(tree) do
     cond do
       marker?(tree) -> tree
       tree["tag"] in @void -> tree
-      true -> Map.update(tree, "children", [], &(List.wrap(&1) ++ [%{"type" => "children"}]))
+      true -> hold(tree) || append(tree)
     end
   end
+
+  # The element the caller's content arrives through, when it is not the root.
+  defp hold(%{"props" => true}), do: nil
+
+  defp hold(tree) do
+    children = Map.get(tree, "children") || []
+
+    case Enum.find_index(children, &spreads?/1) do
+      nil -> nil
+      at -> Map.put(tree, "children", List.update_at(children, at, &with_children/1))
+    end
+  end
+
+  defp spreads?(%{"props" => true, "tag" => tag}), do: tag not in @void
+
+  defp spreads?(node) when is_map(node),
+    do: Enum.any?(Map.get(node, "children") || [], &spreads?/1)
+
+  defp spreads?(_node), do: false
+
+  defp append(tree),
+    do: Map.update(tree, "children", [], &(List.wrap(&1) ++ [%{"type" => "children"}]))
 
   @doc """
   Puts the children marker inside one named part of a tree.
@@ -416,6 +448,27 @@ defmodule LiveShadcnTools.Gen.Heex do
   is written by the generator rather than by the caller.
   """
   def globals(tag), do: ["data-slot" | Map.get(@tag_attributes, tag, [])]
+
+  @doc """
+  The tag the caller's attributes reach, which is the one that spreads.
+
+  `tag_of/3` answers what the component *is*, and that is the outermost
+  element. This answers where `{...props}` lands, and the two are not always
+  the same: `native-select` draws a wrapper around a `<select>` and spreads on
+  the `<select>`, so a `:global` list read off the wrapper accepted no `name`
+  and no `multiple` — on the one element in the registry that is a form field
+  by itself.
+  """
+  def rest_tag(tree, parts \\ %{}), do: tag_of(spreading(tree) || tree, parts)
+
+  # The node that carries `{...props}` itself, outermost first. Not a node whose
+  # descendant carries one — that is every ancestor of it.
+  defp spreading(%{"props" => true} = node), do: node
+
+  defp spreading(node) when is_map(node),
+    do: node |> Map.get("children") |> List.wrap() |> Enum.find_value(&spreading/1)
+
+  defp spreading(_node), do: nil
 
   @doc """
   The tag a tree renders as, after any `render` prop is applied and any
@@ -600,7 +653,7 @@ defmodule LiveShadcnTools.Gen.Heex do
       code in ~w(undefined null) -> "nil"
       Regex.match?(~r/^-?\d+(\.\d+)?$/, code) -> code
       binding = Map.get(Map.get(ctx, :bindings) || %{}, code) -> binding
-      Map.has_key?(params, code) -> "@" <> Macro.underscore(code)
+      Map.has_key?(params, code) -> "@" <> LiveShadcnTools.assign(code)
       negation = negation(code, ctx) -> negation
       fallback = fallback(code, ctx) -> fallback
       ternary = ternary(code, ctx) -> ternary
@@ -693,11 +746,39 @@ defmodule LiveShadcnTools.Gen.Heex do
       (Regex.match?(~r/^`[^`$]*`$/, code) and not String.contains?(code, "${"))
   end
 
+  # `values.length` is `length(values)` here. JavaScript reads the size of a
+  # list as a field of it and Elixir asks a function, and a `.length` left as
+  # written would read a key nobody put in a map.
+  defp member(code, ctx) do
+    case String.split(code, ".") do
+      [_head, _more | _rest] = parts ->
+        if List.last(parts) == "length",
+          do: sized(parts, ctx),
+          else: path(parts, ctx)
+
+      _shorter ->
+        nil
+    end
+  end
+
+  defp sized(parts, ctx) do
+    case path(Enum.drop(parts, -1), ctx) do
+      nil -> nil
+      of -> "length(#{of})"
+    end
+  end
+
   # `item.title` — a field of something upstream destructured. The head has to
   # be a prop; a path rooted anywhere else reads a binding nobody made.
-  defp member(code, ctx) do
-    with [head | rest] when rest != [] <- String.split(code, "."),
-         true <- Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, head),
+  defp path([head], ctx) do
+    case root(head, ctx) do
+      root when is_binary(root) -> root
+      _nothing -> nil
+    end
+  end
+
+  defp path([head | rest], ctx) do
+    with true <- Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, head),
          true <- Enum.all?(rest, &Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, &1)) do
       case root(head, ctx) do
         # `question.disabled` — a React context holds nothing here, so the path
@@ -717,7 +798,7 @@ defmodule LiveShadcnTools.Gen.Heex do
     cond do
       binding = Map.get(Map.get(ctx, :bindings) || %{}, head) -> binding
       head in (Map.get(ctx, :contexts) || []) -> :context
-      Map.has_key?(Map.get(ctx, :params) || %{}, head) -> "@" <> Macro.underscore(head)
+      Map.has_key?(Map.get(ctx, :params) || %{}, head) -> "@" <> LiveShadcnTools.assign(head)
       true -> nil
     end
   end

@@ -32,11 +32,6 @@
                   {
                     "attrs": [
                       {
-                        "kind": "code",
-                        "name": "key",
-                        "value": "index"
-                      },
-                      {
                         "kind": "style",
                         "name": "style",
                         "value": [

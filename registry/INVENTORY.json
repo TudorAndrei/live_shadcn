@@ -547,7 +547,7 @@
     {
       "name": "native-select",
       "source": "shadcn",
-      "recipe": "listbox",
+      "recipe": "presentational",
       "tier": 2
     },
     {

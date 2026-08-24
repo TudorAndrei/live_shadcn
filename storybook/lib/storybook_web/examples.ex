@@ -24,6 +24,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Item
   import LiveShadcn.UI.Marker
   import LiveShadcn.UI.Message
+  import LiveShadcn.UI.NativeSelect
   import LiveShadcn.UI.NavigationMenu
   import LiveShadcn.UI.Pagination
   import LiveShadcn.UI.Popover
@@ -77,7 +78,7 @@ defmodule StorybookWeb.Examples do
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog dropdown-menu empty hover-card input item kbd label marker
-       navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
+       native-select navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        question snippet shadcn-message ai_elements-message)
   end
 
@@ -170,6 +171,17 @@ defmodule StorybookWeb.Examples do
         "A turn in a conversation",
         "The assistant's side, with the answer inside it.",
         &ai_message_default/1
+      )
+    ]
+  end
+
+  def all("native-select") do
+    [
+      one(
+        "default",
+        "The platform's own",
+        "A `<select>`, with the arrow the platform draws covered by shadcn's.",
+        &native_select_default/1
       )
     ]
   end
@@ -943,6 +955,19 @@ defmodule StorybookWeb.Examples do
         <AiMessage.message_response content="It is **18 degrees** and clear in Cluj." />
       </AiMessage.message_content>
     </AiMessage.message>
+    """
+  end
+
+  defp native_select_default(assigns) do
+    ~H"""
+    <div class="flex max-w-sm flex-col gap-2">
+      <.label id="recipe-label" for="recipe">Recipe</.label>
+      <.native_select id="recipe" name="recipe" aria-labelledby="recipe-label">
+        <.native_select_option value="disclosure" selected>Disclosure</.native_select_option>
+        <.native_select_option value="dialog">Dialog</.native_select_option>
+        <.native_select_option value="listbox">Listbox</.native_select_option>
+      </.native_select>
+    </div>
     """
   end
 

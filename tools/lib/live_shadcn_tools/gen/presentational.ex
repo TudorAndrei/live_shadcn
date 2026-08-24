@@ -50,7 +50,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
     #{part_doc(part, spec)}
     #{Enum.map_join(attrs, "\n", &declaration/1)}
       attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."
-      attr :rest, :global, include: #{inspect(Heex.globals(Heex.tag_of(part["tree"], by_name(spec))))}
+      attr :rest, :global, include: #{inspect(Heex.globals(Heex.rest_tag(part["tree"], by_name(spec))))}
     #{slot(part)}
       def #{name}(assigns) do
         ~H\"\"\"
@@ -75,7 +75,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
     part
     |> Map.get("params", %{})
     |> Map.drop(["className", "children", "render"])
-    |> Map.reject(fn {name, _default} -> Macro.underscore(name) in rendered end)
+    |> Map.reject(fn {name, _default} -> LiveShadcnTools.assign(name) in rendered end)
     |> Enum.sort()
     |> Enum.map(fn {name, default} ->
       # The `cva` table's `defaultVariants` is as much upstream's decision as
@@ -84,7 +84,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
       default = default || get_in(variants, ["defaults", name])
 
       %{
-        name: Macro.underscore(name),
+        name: LiveShadcnTools.assign(name),
         default: default,
         values: variants |> Map.get("variants", %{}) |> Map.get(name) |> values(),
         type: type(name, default, paths)

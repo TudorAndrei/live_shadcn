@@ -176,7 +176,7 @@
     }
   ],
   "primitives": {},
-  "recipe": "listbox",
+  "recipe": "presentational",
   "source": "shadcn",
   "styles": {
     "luma": {

@@ -20,6 +20,13 @@ defmodule LiveShadcnTools.Gen.FormControl do
   Nothing else. A part that is none of these — a `<label>`, a field wrapper — is
   markup, and the presentational recipe already knows what to do with markup.
 
+  With one exception, because "markup" is also what a control this recipe
+  cannot carry looks like from here. Base UI documents `name` and `value` on
+  every root that holds a value, so a component with those and none of the
+  three shapes is a control without a recipe, and it says so rather than
+  rendering. `slider` is the one: a row of `<div>`s that submits a number, and
+  the inert copy that came out of the markup path looked finished.
+
   ## The control and the input
 
   Base UI's checkbox page says it "renders a `<span>` element and a hidden
@@ -61,6 +68,7 @@ defmodule LiveShadcnTools.Gen.FormControl do
   @doc "The module source for one component."
   def module(spec, opts) do
     controls = Enum.filter(spec["parts"], &control?(&1, spec))
+    valued!(spec, controls)
 
     if controls == [] do
       # Nothing here holds a value. That is markup, and markup has a recipe.
@@ -85,6 +93,35 @@ defmodule LiveShadcnTools.Gen.FormControl do
   # attribute contract is the test, not the part's name.
   defp control?(part, spec), do: kind(part, spec) != :markup
 
+  # A control this recipe cannot carry.
+  #
+  # `slider` is the one: it holds a list of numbers, a reader changes them by
+  # dragging or by arrow key, and neither is something `LiveBase.FormControl`
+  # knows how to do. Falling through to markup drew every part of a slider and
+  # gave it no behaviour, which is worse than not drawing it — it looks
+  # finished.
+  #
+  # Only when nothing else in the component is a control. A radio group's root
+  # documents `name` and `value` too, and its items are what carry them.
+  defp valued!(spec, []) do
+    case Enum.filter(spec["parts"], &valued?(&1["tree"], spec)) do
+      [] ->
+        :ok
+
+      [part | _rest] ->
+        raise """
+        #{part["name"]} holds a value the form-control recipe cannot carry.
+
+        Base UI documents `name` and `value` on it, so it is a control, and it \
+        is none of the three shapes this recipe knows: it is not checkable, not \
+        pressable, and it renders neither an `<input>` nor a `<textarea>`. It \
+        needs a recipe of its own.
+        """
+    end
+  end
+
+  defp valued!(_spec, _controls), do: :ok
+
   defp kind(part, spec) do
     root = part["tree"]
     data = documented(root, spec)
@@ -96,6 +133,21 @@ defmodule LiveShadcnTools.Gen.FormControl do
       true -> :markup
     end
   end
+
+  # Base UI names a control by the two props a form needs from it. A root with
+  # both holds a value whatever element it draws — a slider is a row of `<div>`s
+  # and still submits a number — and calling that markup produced a slider that
+  # looked like one and did nothing at all.
+  defp valued?(node, spec) do
+    names = for prop <- documented_props(node, spec), do: prop["name"]
+
+    "name" in names and "value" in names
+  end
+
+  defp documented_props(%{"module" => _} = node, spec),
+    do: get_in(spec, ["primitives", Spec.key(node), "props"]) || []
+
+  defp documented_props(_node, _spec), do: []
 
   defp documented(%{"module" => _} = node, spec),
     do: get_in(spec, ["primitives", Spec.key(node), "data"]) || []
@@ -318,7 +370,7 @@ defmodule LiveShadcnTools.Gen.FormControl do
       attr :readonly, :boolean, default: false
       attr :required, :boolean, default: false
     #{extra(shape)}#{group_attr(part, shape)}#{own_params(part, spec)}  attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."
-      attr :rest, :global, include: #{inspect(Heex.globals(Heex.tag_of(part["tree"])))}
+      attr :rest, :global, include: #{inspect(Heex.globals(Heex.rest_tag(part["tree"])))}
     #{slot(part)}\
     """
   end

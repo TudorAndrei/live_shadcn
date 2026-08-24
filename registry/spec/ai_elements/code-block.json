@@ -225,13 +225,7 @@
                     "binding": "keyedLine",
                     "children": [
                       {
-                        "attrs": [
-                          {
-                            "kind": "code",
-                            "name": "key",
-                            "value": "keyedLine.key"
-                          }
-                        ],
+                        "attrs": [],
                         "children": [
                           {
                             "children": [],
@@ -276,11 +270,6 @@
                                             "value": "isUnderline(token.fontStyle) ? \"underline\" : undefined"
                                           }
                                         ]
-                                      },
-                                      {
-                                        "kind": "code",
-                                        "name": "key",
-                                        "value": "key"
                                       }
                                     ],
                                     "children": [
