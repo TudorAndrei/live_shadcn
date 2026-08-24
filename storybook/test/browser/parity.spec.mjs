@@ -77,7 +77,9 @@ for (const { component, example } of pages) {
 // stop moving, which is the same question for a React render, a LiveView hook
 // and a CSS transition.
 async function measured(page, selector) {
-  await expect(page.locator(selector)).toBeVisible();
+  // A component can position every child outside its preview root. The root is
+  // still the comparison origin, even when it has no visible box itself.
+  await expect(page.locator(selector)).toBeAttached();
 
   await page.waitForFunction(
     (selector) => {

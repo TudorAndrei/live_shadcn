@@ -66,39 +66,51 @@ export function collect({ selector, properties }) {
 
   const round = (n) => Math.round(n * 10) / 10;
 
+  const record = (child, path) => {
+    const slot = child.getAttribute("data-slot");
+    const here = slot ? [...path, slot] : path;
+
+    if (slot) {
+      // A component draws three badges and each is `badge`. The path says
+      // where in the anatomy an element sits; the count says which of the
+      // ones sitting there it is.
+      const name = here.join(" > ");
+      const at = seen.get(name) ?? 0;
+      seen.set(name, at + 1);
+
+      const box = child.getBoundingClientRect();
+      const style = getComputedStyle(child);
+
+      found.push({
+        slot: at === 0 ? name : `${name} #${at + 1}`,
+        box: {
+          x: round(box.x - origin.x),
+          y: round(box.y - origin.y),
+          width: round(box.width),
+          height: round(box.height),
+        },
+        style: Object.fromEntries(properties.map((p) => [p, style.getPropertyValue(p)])),
+      });
+    }
+
+    walk(child, here);
+  };
+
   const walk = (element, path) => {
     for (const child of element.children) {
-      const slot = child.getAttribute("data-slot");
-      const here = slot ? [...path, slot] : path;
-
-      if (slot) {
-        // A component draws three badges and each is `badge`. The path says
-        // where in the anatomy an element sits; the count says which of the
-        // ones sitting there it is.
-        const name = here.join(" > ");
-        const at = seen.get(name) ?? 0;
-        seen.set(name, at + 1);
-
-        const box = child.getBoundingClientRect();
-        const style = getComputedStyle(child);
-
-        found.push({
-          slot: at === 0 ? name : `${name} #${at + 1}`,
-          box: {
-            x: round(box.x - origin.x),
-            y: round(box.y - origin.y),
-            width: round(box.width),
-            height: round(box.height),
-          },
-          style: Object.fromEntries(properties.map((p) => [p, style.getPropertyValue(p)])),
-        });
-      }
-
-      walk(child, here);
+      record(child, path);
     }
   };
 
   walk(root, []);
+
+  // React portals live beside the preview root. Their slots still belong to
+  // this example and need the same origin as the inline LiveView equivalent.
+  for (const portal of document.querySelectorAll("[data-slot]")) {
+    if (!root.contains(portal) && !portal.parentElement?.closest("[data-slot]")) {
+      record(portal, []);
+    }
+  }
 
   const box = root.getBoundingClientRect();
 
