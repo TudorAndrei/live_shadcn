@@ -52,6 +52,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Kbd
   import LiveShadcn.UI.Progress
   import LiveShadcn.UI.RadioGroup
+  import LiveShadcn.UI.ScrollArea
   import LiveShadcn.UI.Select
   import LiveShadcn.UI.Separator
   import LiveShadcn.UI.Sheet
@@ -82,7 +83,7 @@ defmodule StorybookWeb.Examples do
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
-       input-group native-select navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
+       input-group native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        question sidebar snippet shadcn-message ai_elements-message)
   end
 
@@ -219,6 +220,17 @@ defmodule StorybookWeb.Examples do
         "The platform's own",
         "A `<select>`, with the arrow the platform draws covered by shadcn's.",
         &native_select_default/1
+      )
+    ]
+  end
+
+  def all("scroll-area") do
+    [
+      one(
+        "default",
+        "A box that scrolls",
+        "The scrollbar is drawn rather than the platform's, and measured in the browser.",
+        &scroll_area_default/1
       )
     ]
   end
@@ -1068,6 +1080,16 @@ defmodule StorybookWeb.Examples do
   # content area, beside the sidebar — and this page already has one around
   # every example. Drawing a second inside the first is what a real page never
   # does, and axe is right to say so.
+  defp scroll_area_default(assigns) do
+    ~H"""
+    <.scroll_area id="stages" class="h-40 w-full max-w-sm rounded-md border p-4">
+      <p :for={n <- 1..12} class="pb-2 text-sm">
+        Pass {n}: the reader settles when no file moves.
+      </p>
+    </.scroll_area>
+    """
+  end
+
   defp sidebar_default(assigns) do
     ~H"""
     <.sidebar_provider class="min-h-64">

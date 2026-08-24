@@ -18,6 +18,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Menu
   alias LiveShadcnTools.Gen.Popover
   alias LiveShadcnTools.Gen.Presentational
+  alias LiveShadcnTools.Gen.Scroller
   alias LiveShadcnTools.Gen.Sidebar
   alias LiveShadcnTools.Gen.Tabs
 
@@ -29,6 +30,7 @@ defmodule LiveShadcnTools.Gen do
     "menu" => Menu,
     "popover" => Popover,
     "presentational" => Presentational,
+    "scroller" => Scroller,
     "sidebar" => Sidebar,
     "tabs" => Tabs
   }
