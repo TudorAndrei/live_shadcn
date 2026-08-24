@@ -200,12 +200,12 @@ defmodule LiveShadcnTools.Spec do
   @always ~w(className children content render)
 
   defp props_read(part, variant_props) do
-    code = codes(part["tree"]) |> Enum.join("\n")
+    references = MapSet.new(part["refs"] || [])
 
     Map.update(part, "params", %{}, fn params ->
       Map.filter(params, fn {name, _default} ->
         name in @always or name in variant_props or
-          Regex.match?(~r/\b#{Regex.escape(name)}\b/, code)
+          MapSet.member?(references, name)
       end)
     end)
   end
@@ -269,6 +269,7 @@ defmodule LiveShadcnTools.Spec do
         %{
           "name" => underscored,
           "params" => function.params,
+          "refs" => function.refs,
           "types" => function.param_types,
           "tree" => node(function.jsx, private_ctx(ctx, function))
         }
@@ -695,6 +696,7 @@ defmodule LiveShadcnTools.Spec do
           "export" => export,
           "primitive" => primitive_of(function.props_type),
           "params" => Map.new(function.params, &icon_default(&1, ctx)),
+          "refs" => function.refs,
           "types" => function.param_types,
           "contexts" => function.contexts |> MapSet.to_list() |> Enum.sort(),
           "tree" => node(function.jsx, ctx)

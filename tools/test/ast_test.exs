@@ -175,6 +175,18 @@ defmodule LiveShadcnTools.AstTest do
       assert Ast.member_roots(node) == ["error", "label"]
     end
 
+    test "a parameter reference comes from scope analysis, not a word search" do
+      source = ~S"""
+      const Row = ({ title, usedByHandler, unused }) => {
+        const click = () => usedByHandler()
+        return <span>{title}</span>
+      }
+      """
+
+      assert [row] = Ast.parse!(source).functions
+      assert row.refs == ["title"]
+    end
+
     test "memo and forwardRef are read through" do
       source = """
       export const Badge = memo(({ children }) => <span data-slot="badge">{children}</span>);

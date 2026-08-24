@@ -49,13 +49,18 @@ defmodule LiveShadcnTools.Ast do
   Parses a source file and reads its top level.
   """
   def parse!(source) do
-    %{"program" => program, "module" => module} = tree!(source)
+    %{
+      "program" => program,
+      "module" => module,
+      "analysis" => %{"parameterReferences" => parameter_references}
+    } = tree!(source)
+
     type_definitions = type_definitions(program)
 
     read =
       program
       |> declarations()
-      |> Enum.map(&declaration(&1, source, type_definitions))
+      |> Enum.map(&declaration(&1, source, type_definitions, parameter_references))
       |> resolve_aliases()
 
     %{
@@ -460,18 +465,38 @@ defmodule LiveShadcnTools.Ast do
 
   defp bindings(_node), do: []
 
-  defp declaration(%{"type" => "FunctionDeclaration"} = node, source, type_definitions) do
-    function(node["id"]["name"], node["params"], node["body"], source, type_definitions)
+  defp declaration(
+         %{"type" => "FunctionDeclaration"} = node,
+         source,
+         type_definitions,
+         parameter_references
+       ) do
+    function(
+      node["id"]["name"],
+      node["params"],
+      node["body"],
+      source,
+      type_definitions,
+      parameter_references
+    )
   end
 
   defp declaration(
          %{"type" => "VariableDeclarator", "id" => %{"name" => name}} = node,
          source,
-         type_definitions
+         type_definitions,
+         parameter_references
        ) do
     case node["init"] |> bare() |> unwrap() do
       %{"type" => type} = arrow when type in ~w(ArrowFunctionExpression FunctionExpression) ->
-        function(name, arrow["params"], arrow["body"], source, type_definitions)
+        function(
+          name,
+          arrow["params"],
+          arrow["body"],
+          source,
+          type_definitions,
+          parameter_references
+        )
 
       # `export const Shimmer = memo(ShimmerComponent)` — the export and the
       # component are two names for one thing, and only the first is exported.
@@ -483,7 +508,7 @@ defmodule LiveShadcnTools.Ast do
     end
   end
 
-  defp declaration(_node, _source, _type_definitions), do: nil
+  defp declaration(_node, _source, _type_definitions, _parameter_references), do: nil
 
   # A name that is another name for a component this file already read. The
   # alias keeps its own name, because that is the one the file exports and the
@@ -524,7 +549,7 @@ defmodule LiveShadcnTools.Ast do
 
   defp unwrap(node), do: node
 
-  defp function(name, params, body, source, type_definitions) do
+  defp function(name, params, body, source, type_definitions, parameter_references) do
     signature = List.first(params) || %{}
 
     %{
@@ -532,6 +557,7 @@ defmodule LiveShadcnTools.Ast do
       props_type: type_name(signature["typeAnnotation"]),
       params: props(signature, body, source),
       param_types: prop_types(signature, type_definitions),
+      refs: parameter_references(body, parameter_references),
       renames: renames(signature),
       locals: locals(body, source),
       contexts: contexts(body),
@@ -540,6 +566,14 @@ defmodule LiveShadcnTools.Ast do
     }
   rescue
     error -> {:unreadable, name, Exception.message(error)}
+  end
+
+  defp parameter_references(body, references) do
+    for %{"name" => name, "start" => start, "end" => finish} <- references,
+        start >= body["start"],
+        finish <= body["end"],
+        uniq: true,
+        do: name
   end
 
   # A local type alias is the only annotation this reader can resolve. Imported

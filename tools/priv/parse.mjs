@@ -31,6 +31,7 @@
 
 import { readFileSync } from "node:fs";
 import { parseSync, visitorKeys } from "oxc-parser";
+import { ScopeTracker, isReferenceIdentifier, walk } from "oxc-walker";
 
 const path = process.argv[2];
 
@@ -81,6 +82,41 @@ const convert = (node) => {
   }
 };
 
+// A prop can be named in a component signature and never reach the markup.
+// The old reader searched generated source text for a matching word. Use the
+// parser's scope graph instead: a reference whose declaration is a function
+// parameter is a real read, regardless of nesting or spelling around it.
+const parameterReferences = [];
+const scopes = new ScopeTracker({ preserveExitedScopes: true });
+let jsxDepth = 0;
+
+walk(program, { scopeTracker: scopes });
+scopes.freeze();
+
+walk(program, {
+  scopeTracker: scopes,
+  enter(node, parent) {
+    if (node.type === "JSXElement" || node.type === "JSXFragment") jsxDepth += 1;
+
+    if (jsxDepth === 0) return;
+    if (!isReferenceIdentifier(node, parent)) return;
+
+    const declaration = scopes.getDeclaration(node.name);
+
+    if (declaration?.constructor?.name === "ScopeTrackerFunctionParam") {
+      parameterReferences.push({ name: node.name, start: node.start, end: node.end });
+    }
+  },
+  leave(node) {
+    if (node.type === "JSXElement" || node.type === "JSXFragment") jsxDepth -= 1;
+  },
+});
+
 convert(program);
 
-process.stdout.write(JSON.stringify({ program, module }));
+for (const reference of parameterReferences) {
+  reference.start = toBytes[reference.start];
+  reference.end = toBytes[reference.end];
+}
+
+process.stdout.write(JSON.stringify({ program, module, analysis: { parameterReferences } }));

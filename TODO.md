@@ -123,5 +123,5 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 - [x] 8d — Read `ParseResult.module` and use its export record. Parsed JSX
       behavior now decides whether an export is a component.
 - [x] 8e — Use `visitorKeys` instead of the hand-rolled parser walk.
-- [ ] Evaluate `oxc-walker` for scope tracking, which is what `spec.ex:208`
-      asks with a word-boundary regex.
+- [x] Use `oxc-walker` scope tracking for parameter reads. This replaces the
+      word-boundary check in `spec.ex`.
