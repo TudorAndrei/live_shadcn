@@ -23,6 +23,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Popover
   alias LiveShadcnTools.Gen.Progress
   alias LiveShadcnTools.Gen.RadioGroup
+  alias LiveShadcnTools.Gen.Resizable
   alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Gen.Scroller
   alias LiveShadcnTools.Gen.Separator
@@ -46,6 +47,7 @@ defmodule LiveShadcnTools.Gen do
     "popover" => Popover,
     "progress" => Progress,
     "radio-group" => RadioGroup,
+    "resizable" => Resizable,
     "presentational" => Presentational,
     "scroller" => Scroller,
     "separator" => Separator,
