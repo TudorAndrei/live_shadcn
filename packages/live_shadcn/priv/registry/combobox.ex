@@ -75,7 +75,6 @@ defmodule LiveShadcn.UI.Combobox do
     ~H"""
     <div
       id={@id}
-      data-slot="combobox"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
@@ -102,7 +101,7 @@ defmodule LiveShadcn.UI.Combobox do
         data-invalid={flag(@errors != [])}
         data-filled={flag(@value not in [nil, ""])}
         data-placeholder={flag(@value in [nil, ""])}
-        class={["cn-combobox-trigger", @trigger_class]}
+        class={["cn-combobox-trigger", ["block w-full", @trigger_class]]}
       >
         {label(@option, @value) || @placeholder}
         <LiveShadcn.Icon.icon

@@ -252,10 +252,13 @@ defmodule LiveShadcnTools.Gen.Listbox do
   end
 
   defp class_expression(spec, part) do
-    case String.replace_prefix(part["name"], String.replace(spec["name"], "-", "_"), "") do
-      "" -> "@class"
-      "_content" -> "@class"
-      "_" <> suffix -> "@#{suffix}_class"
+    suffix = String.replace_prefix(part["name"], String.replace(spec["name"], "-", "_"), "")
+
+    case {spec["name"], suffix} do
+      {"combobox", "_trigger"} -> "[\"block w-full\", @trigger_class]"
+      {_, ""} -> "@class"
+      {_, "_content"} -> "@class"
+      {_, "_" <> name} -> "@#{name}_class"
     end
   end
 

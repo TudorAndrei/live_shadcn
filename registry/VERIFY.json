@@ -1209,14 +1209,13 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/combobox.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "4be4d9377cbf4b4d274b4dc0651a3163fc91e0a79fb2d34148f74831b1d5140b"
   }
 }
