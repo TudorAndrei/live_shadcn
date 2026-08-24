@@ -960,6 +960,24 @@
     "pass": true,
     "spec": "7ad5e239700dba7326de0d5527081738f2cd1e6564df94172b642604b04c6a25"
   },
+  "shadcn/carousel": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "1fce5fdfe6f03042c143e5aafa9b8e662cd132f293464cff85ab49b5932bc44a"
+  },
   "shadcn/card": {
     "checks": {
       "browser": {

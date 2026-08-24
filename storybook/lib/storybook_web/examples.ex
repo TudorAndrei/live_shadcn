@@ -33,6 +33,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Breadcrumb
   import LiveShadcn.UI.Button
   import LiveShadcn.UI.Card
+  import LiveShadcn.UI.Carousel
   import LiveShadcn.UI.Checkbox
   import LiveShadcn.UI.Collapsible
   import LiveShadcn.UI.Combobox
@@ -113,7 +114,7 @@ defmodule StorybookWeb.Examples do
 
   @doc "Every component that has examples, in the order they are listed."
   def components do
-    ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
+    ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button carousel
        button-group card checkbox collapsible combobox context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        toggle-group question questionnaire sidebar snippet toast shadcn-message ai_elements-message)
@@ -140,6 +141,17 @@ defmodule StorybookWeb.Examples do
         description: "An item can start open, and an item can refuse interaction.",
         render: &accordion_states/1
       }
+    ]
+  end
+
+  def all("carousel") do
+    [
+      one(
+        "default",
+        "Three updates",
+        "Scroll, arrow keys, or the controls move one slide.",
+        &carousel_default/1
+      )
     ]
   end
 
@@ -848,6 +860,25 @@ defmodule StorybookWeb.Examples do
         </.pagination_item>
       </.pagination_content>
     </.pagination>
+    """
+  end
+
+  defp carousel_default(assigns) do
+    ~H"""
+    <.carousel id="updates" aria-label="Recent updates" class="mx-12 max-w-md">
+      <.carousel_content>
+        <.carousel_item :for={update <- ["Spec", "Generator", "Browser"]}>
+          <div class="border bg-card p-6 text-card-foreground shadow-sm">
+            <p class="font-medium">{update}</p>
+            <p class="mt-1 text-sm text-muted-foreground">
+              One component state, owned in the right place.
+            </p>
+          </div>
+        </.carousel_item>
+      </.carousel_content>
+      <.carousel_previous />
+      <.carousel_next />
+    </.carousel>
     """
   end
 

@@ -1,0 +1,187 @@
+defmodule LiveShadcnTools.Gen.Carousel do
+  @moduledoc """
+  The carousel recipe: a scroll-snap viewport with browser-measured controls.
+
+  A carousel is one composition. Its viewport, slides, and previous and next
+  controls share its orientation and its measured scroll range, so this recipe
+  writes them together instead of exposing parts that can disagree.
+  """
+
+  alias LiveShadcnTools.Gen.Heex
+
+  @doc "The module source for one carousel component."
+  def module(spec, opts) do
+    """
+    defmodule #{inspect(Keyword.fetch!(opts, :module))} do
+    #{moduledoc(spec)}
+
+      use Phoenix.Component
+
+      alias LiveBase.Carousel
+
+    #{function_doc()}
+    #{declarations()}
+      def carousel(assigns) do
+        ~H\"\"\"
+        <div
+          id={@id}
+          phx-hook={Carousel.hook()}
+          data-orientation={@orientation}
+          data-slot="carousel"
+          class={["relative", @class]}
+          role="region"
+          aria-roledescription="carousel"
+          {@rest}
+        >
+          {render_slot(@inner_block)}
+        </div>
+        \"\"\"
+      end
+
+      attr :orientation, :string,
+        default: "horizontal",
+        values: ["horizontal", "vertical"]
+
+      attr :class, :any, default: nil
+      attr :rest, :global, include: ["data-slot"]
+      slot :inner_block, required: true
+
+      def carousel_content(assigns) do
+        ~H\"\"\"
+        <div
+          data-lb-carousel-viewport
+          data-slot="carousel-content"
+          class={[
+            "overflow-hidden",
+            if(@orientation == "horizontal",
+              do: "snap-x snap-mandatory scroll-smooth",
+              else: "snap-y snap-mandatory scroll-smooth"
+            ),
+            @class
+          ]}
+          {@rest}
+        >
+          <div class={["flex", if(@orientation == "horizontal", do: "-ml-4", else: "-mt-4 flex-col")]}>
+            {render_slot(@inner_block)}
+          </div>
+        </div>
+        \"\"\"
+      end
+
+      attr :orientation, :string, default: "horizontal", values: ["horizontal", "vertical"]
+      attr :class, :any, default: nil
+      attr :rest, :global, include: ["aria-label", "data-slot"]
+      slot :inner_block, required: true
+
+      def carousel_item(assigns) do
+        ~H\"\"\"
+        <div
+          role="group"
+          aria-roledescription="slide"
+          data-slot="carousel-item"
+          class={["min-w-0 shrink-0 grow-0 basis-full snap-start", if(@orientation == "horizontal", do: "pl-4", else: "pt-4"), @class]}
+          {@rest}
+        >
+          {render_slot(@inner_block)}
+        </div>
+        \"\"\"
+      end
+
+      attr :orientation, :string, default: "horizontal", values: ["horizontal", "vertical"]
+      attr :class, :any, default: nil
+      attr :rest, :global, include: ["data-slot"]
+
+      def carousel_previous(assigns) do
+        ~H\"\"\"
+        <button
+          type="button"
+          data-lb-carousel-previous
+          data-slot="carousel-previous"
+          phx-mounted={Carousel.owned_attributes()}
+          class={[
+            "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 cn-button-size-icon-sm cn-button-variant-outline cn-carousel-previous absolute touch-manipulation",
+            if(@orientation == "horizontal", do: "inset-y-0 -left-12 my-auto", else: "-top-12 left-1/2 -translate-x-1/2 rotate-90"),
+            @class
+          ]}
+          {@rest}
+        >
+          <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip" />
+          <span class="sr-only">Previous slide</span>
+        </button>
+        \"\"\"
+      end
+
+      attr :orientation, :string, default: "horizontal", values: ["horizontal", "vertical"]
+      attr :class, :any, default: nil
+      attr :rest, :global, include: ["data-slot"]
+
+      def carousel_next(assigns) do
+        ~H\"\"\"
+        <button
+          type="button"
+          data-lb-carousel-next
+          data-slot="carousel-next"
+          phx-mounted={Carousel.owned_attributes()}
+          class={[
+            "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 cn-button-size-icon-sm cn-button-variant-outline cn-carousel-next absolute touch-manipulation",
+            if(@orientation == "horizontal", do: "inset-y-0 -right-12 my-auto", else: "-bottom-12 left-1/2 -translate-x-1/2 rotate-90"),
+            @class
+          ]}
+          {@rest}
+        >
+          <LiveShadcn.Icon.icon name="chevron-right" class="cn-rtl-flip" />
+          <span class="sr-only">Next slide</span>
+        </button>
+        \"\"\"
+      end
+    end
+    """
+  end
+
+  defp declarations do
+    """
+      attr :id, :string, required: true, doc: "The hook needs one root element."
+
+      attr :orientation, :string,
+        default: "horizontal",
+        values: ["horizontal", "vertical"],
+        doc: "The scroll and slide direction."
+
+      attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."
+      attr :rest, :global, include: ["aria-label", "data-slot"]
+      slot :inner_block, required: true, doc: "Use `carousel_item` for each slide."
+    """
+  end
+
+  defp function_doc do
+    ~s'''
+      @doc """
+      A scroll-snap carousel with previous and next controls.
+
+          <.carousel id="highlights">
+            <.carousel_content>
+              <.carousel_item>First slide</.carousel_item>
+              <.carousel_item>Second slide</.carousel_item>
+            </.carousel_content>
+            <.carousel_previous />
+            <.carousel_next />
+          </.carousel>
+
+      The browser owns the scroll position and the disabled state of the two
+      controls. Arrow keys move in the carousel's orientation.
+      """
+    '''
+  end
+
+  defp moduledoc(spec) do
+    """
+      @moduledoc \"\"\"
+      #{Heex.headline(spec)}
+
+      Generated by `mix ui.gen` from `#{Heex.spec_ref(spec)}`. Every class
+      string and every `data-slot` below came from upstream. Change the spec
+      or the recipe, not this file.
+      \"\"\"\
+    """
+  end
+end

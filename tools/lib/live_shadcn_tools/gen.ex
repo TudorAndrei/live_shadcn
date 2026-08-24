@@ -13,6 +13,7 @@ defmodule LiveShadcnTools.Gen do
 
   alias LiveShadcnTools.Gen.Dialog
   alias LiveShadcnTools.Gen.Checkbox
+  alias LiveShadcnTools.Gen.Carousel
   alias LiveShadcnTools.Gen.Disclosure
   alias LiveShadcnTools.Gen.FormControl
   alias LiveShadcnTools.Gen.Listbox
@@ -33,6 +34,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Toast
 
   @recipes %{
+    "carousel" => Carousel,
     "checkbox" => Checkbox,
     "dialog" => Dialog,
     "disclosure" => Disclosure,
