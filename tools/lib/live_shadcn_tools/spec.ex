@@ -1585,7 +1585,7 @@ defmodule LiveShadcnTools.Spec do
           expression_attr(name, String.trim(code), ctx)
 
         {:expr, code, node} ->
-          expression_attr(name, String.trim(code), ctx)
+          expression_attr(name, {:expr, String.trim(code), node}, ctx)
           |> record_member_roots(Ast.member_roots(node))
 
         true ->
@@ -1617,12 +1617,28 @@ defmodule LiveShadcnTools.Spec do
   # `style={{ "--ratio": ratio } as React.CSSProperties}` is a set of CSS
   # declarations, not an expression. Recording it as declarations is what lets
   # the generator write a style string instead of a JavaScript object.
+  defp expression_attr("style", {:expr, code, _node}, ctx),
+    do: expression_attr("style", code, ctx)
+
   defp expression_attr("style", code, ctx) do
     case declarations(code, ctx) do
       nil -> %{"name" => "style", "kind" => "code", "value" => code}
       entries -> %{"name" => "style", "kind" => "style", "value" => entries}
     end
   end
+
+  # Sonner gives each toast part its class through `toastOptions`. This is data,
+  # not JavaScript that the generated component can run. Keep the object shape
+  # so the toast recipe can read it without searching source text.
+  defp expression_attr("toastOptions", {:expr, _code, _node} = expression, _ctx) do
+    %{
+      "name" => "toastOptions",
+      "kind" => "object",
+      "value" => object_value(Ast.object_entries(expression))
+    }
+  end
+
+  defp expression_attr(name, {:expr, code, _node}, ctx), do: expression_attr(name, code, ctx)
 
   defp expression_attr(name, code, ctx) do
     case constant(code, ctx) do
@@ -1632,6 +1648,16 @@ defmodule LiveShadcnTools.Spec do
   end
 
   defp expression_attr(name, code), do: %{"name" => name, "kind" => "code", "value" => code}
+
+  defp object_value(entries) do
+    Map.new(entries, fn {name, value} ->
+      {name,
+       case Ast.string_literal(value) do
+         nil -> object_value(Ast.object_entries(value))
+         literal -> literal
+       end}
+    end)
+  end
 
   defp record_member_roots(node, []), do: node
   defp record_member_roots(node, roots), do: Map.put(node, "member_roots", roots)

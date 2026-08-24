@@ -77,7 +77,7 @@ defmodule LiveShadcn.UI.Sonner do
       role="region"
       aria-label={@label}
       class={["toaster group", @class]}
-      style="--normal-bg: var(--popover); --normal-text: var(--popover-foreground); --normal-border: var(--border); --border-radius: var(--radius)"
+      style="--border-radius: var(--radius); --normal-bg: var(--popover); --normal-border: var(--border); --normal-text: var(--popover-foreground)"
       {@rest}
     >
       <article

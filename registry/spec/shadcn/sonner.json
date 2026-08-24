@@ -51,9 +51,13 @@
             ]
           },
           {
-            "kind": "code",
+            "kind": "object",
             "name": "toastOptions",
-            "value": "{\n        classNames: {\n          toast: \"cn-toast\",\n        },\n      }"
+            "value": {
+              "classNames": {
+                "toast": "cn-toast"
+              }
+            }
           }
         ],
         "children": [],

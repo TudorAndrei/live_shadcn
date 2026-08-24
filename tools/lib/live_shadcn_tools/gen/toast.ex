@@ -76,6 +76,8 @@ defmodule LiveShadcnTools.Gen.Toast do
   # Sonner exposes only a manager. LiveView keeps the corresponding list on
   # the server, then gives the existing toast hook the geometry it cannot know.
   defp sonner_module(spec, opts) do
+    toaster_class = toaster_class(spec)
+    toaster_style = toaster_style(spec)
     toast_class = toast_class(spec)
 
     """
@@ -100,8 +102,8 @@ defmodule LiveShadcnTools.Gen.Toast do
           phx-hook={Toast.hook()}
           role="region"
           aria-label={@label}
-          class={["toaster group", @class]}
-          style="--normal-bg: var(--popover); --normal-text: var(--popover-foreground); --normal-border: var(--border); --border-radius: var(--radius)"
+          class={[#{inspect(toaster_class)}, @class]}
+          style=#{inspect(toaster_style)}
           {@rest}
         >
           <article
@@ -144,11 +146,31 @@ defmodule LiveShadcnTools.Gen.Toast do
     |> Enum.find(&(&1["name"] == "toaster"))
     |> get_in(["tree", "attrs"])
     |> Enum.find(&(&1["name"] == "toastOptions"))
+    |> get_in(["value", "classNames", "toast"])
+    |> case do
+      class when is_binary(class) -> class
+      _other -> raise "Sonner's toaster has no toastOptions.classNames.toast"
+    end
+  end
+
+  defp toaster_class(spec), do: sonner_tree(spec) |> Map.fetch!("class")
+
+  defp toaster_style(spec) do
+    spec
+    |> sonner_tree()
+    |> Map.fetch!("attrs")
+    |> Enum.find(&(&1["name"] == "style"))
     |> Map.fetch!("value")
-    |> then(fn source ->
-      [_, class] = Regex.run(~r/toast:\s*"([^"]+)"/, source)
-      class
+    |> Enum.map_join("; ", fn
+      %{"property" => property, "kind" => "text", "value" => value} -> "#{property}: #{value}"
+      entry -> raise "Sonner's style has an unsupported declaration: #{inspect(entry)}"
     end)
+  end
+
+  defp sonner_tree(spec) do
+    spec["parts"]
+    |> Enum.find(&(&1["name"] == "toaster"))
+    |> Map.fetch!("tree")
   end
 
   defp roles!(spec) do

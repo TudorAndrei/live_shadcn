@@ -207,6 +207,52 @@ defmodule LiveShadcnTools.SpecTest do
                )["parts"]
     end
 
+    test "an external Sonner toaster retains its class and style facts" do
+      tsx = ~S"""
+      import { Toaster as Sonner } from "sonner"
+
+      export const Toaster = () => (
+        <Sonner
+          className="toaster group"
+          style={{ "--normal-bg": "var(--popover)" }}
+          toastOptions={{ classNames: { toast: "cn-toast" } }}
+        />
+      )
+      """
+
+      assert [
+               %{
+                 "tree" => %{
+                   "module" => "external/sonner",
+                   "part" => "Toaster",
+                   "class" => "toaster group",
+                   "attrs" => attrs
+                 }
+               }
+             ] =
+               Spec.build("sonner",
+                 tsx: tsx,
+                 markdown: %{},
+                 module: "sonner",
+                 source: "shadcn",
+                 recipe: "toast",
+                 upstream: %{}
+               )["parts"]
+
+      assert %{"name" => "style", "kind" => "style", "value" => style} =
+               Enum.find(attrs, &(&1["name"] == "style"))
+
+      assert style == [
+               %{"property" => "--normal-bg", "kind" => "text", "value" => "var(--popover)"}
+             ]
+
+      assert %{
+               "name" => "toastOptions",
+               "kind" => "object",
+               "value" => %{"classNames" => %{"toast" => "cn-toast"}}
+             } = Enum.find(attrs, &(&1["name"] == "toastOptions"))
+    end
+
     test "a loop over values renders one value per item, not one element" do
       # `items.map((item) => item.label)` is markup in JSX: an array of strings
       # is a list of text nodes. So it reads as a loop whose body is a value.
