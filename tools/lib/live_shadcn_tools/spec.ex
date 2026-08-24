@@ -1683,13 +1683,6 @@ defmodule LiveShadcnTools.Spec do
 
   defp expression_attr(name, {:expr, code, _node}, ctx), do: expression_attr(name, code, ctx)
 
-  defp expression_attr("style", code, ctx) do
-    case declarations(code, ctx) do
-      nil -> %{"name" => "style", "kind" => "code", "value" => code}
-      entries -> %{"name" => "style", "kind" => "style", "value" => entries}
-    end
-  end
-
   defp expression_attr(name, code, ctx) do
     case constant(code, ctx) do
       nil -> expression_attr(name, code)
@@ -1742,39 +1735,6 @@ defmodule LiveShadcnTools.Spec do
         names -> Map.put(recorded, "identifiers", names)
       end
     end)
-  end
-
-  defp declarations(code, ctx) do
-    with {at, _} <- :binary.match(code, "{"),
-         {:ok, object} <- object(binary_part(code, at, byte_size(code) - at)) do
-      Enum.map(object, fn
-        {property, {:string, literal}} ->
-          %{"property" => property, "kind" => "text", "value" => literal}
-
-        # `{ "--sidebar-width": SIDEBAR_WIDTH, ...style }` — the component sets
-        # its own declarations and lets the caller add more, which is what
-        # `cn(…, className)` does one attribute along.
-        {"..." <> name, _spread} ->
-          %{"property" => name, "kind" => "spread"}
-
-        {property, {:code, value}} ->
-          case constant(value, ctx) do
-            nil -> %{"property" => property, "kind" => "code", "value" => value}
-            literal -> %{"property" => property, "kind" => "text", "value" => literal}
-          end
-
-        {property, _other} ->
-          %{"property" => property, "kind" => "code", "value" => "nil"}
-      end)
-    else
-      _ -> nil
-    end
-  end
-
-  defp object(code) do
-    {:ok, Tsx.object!(code)}
-  rescue
-    _ -> :error
   end
 
   # Base UI's `render` prop replaces the element a part draws with one the
