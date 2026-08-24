@@ -18,9 +18,10 @@ defmodule LiveShadcn.UI.Spinner do
   def spinner(assigns) do
     ~H"""
     <LiveShadcn.Icon.icon
-      name="loader2"
+      name="loader-2"
       data-slot={@rest[:"data-slot"] || "spinner"}
       class={["size-4 animate-spin", @class]}
+      {Map.drop(@rest, [:"data-slot"])}
     />
     """
   end

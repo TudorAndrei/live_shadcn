@@ -242,7 +242,8 @@ defmodule LiveShadcnTools.Gen.Heex do
       # icon can be conditional like anything else. Leaving it out rendered
       # every entry of a lookup table at once: five icons, one after another,
       # where the table meant one.
-      structural(node) ++ [icon_attr(node)] ++ slot_attr(node, ctx) ++ class_attr(node, ctx),
+      structural(node) ++
+        [icon_attr(node)] ++ slot_attr(node, ctx) ++ class_attr(node, ctx) ++ rest_attr(node, ctx),
       [],
       indent
     )
@@ -1022,6 +1023,7 @@ defmodule LiveShadcnTools.Gen.Heex do
     |> String.replace_suffix("Icon", "")
     |> Macro.underscore()
     |> String.replace("_", "-")
+    |> String.replace(~r/([a-z])(\d)/, "\\1-\\2")
   end
 
   defp pad(indent), do: String.duplicate("  ", indent)
