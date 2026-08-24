@@ -762,6 +762,18 @@ defmodule LiveShadcnTools.Spec do
     Map.update!(node, "attrs", &[%{"kind" => "text", "name" => "type", "value" => "radio"} | &1])
   end
 
+  # `input-otp` passes this property to its React wrapper. The mapped primitive
+  # is the input the browser renders, so keeping it would create an unknown
+  # HTML attribute and ask generated HEEx to evaluate the upstream `cn(...)`
+  # call as Elixir.
+  defp external_defaults(%{"module" => "external/input-otp", "part" => "Input"} = node) do
+    Map.update!(
+      node,
+      "attrs",
+      &Enum.reject(&1, fn attr -> attr["name"] == "containerClassName" end)
+    )
+  end
+
   defp external_defaults(node), do: node
 
   # `<QuestionContext.Provider value={contextValue}>` puts an object in the

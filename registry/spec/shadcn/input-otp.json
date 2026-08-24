@@ -9,17 +9,11 @@
       "export": "InputOTP",
       "name": "input_otp",
       "params": {
-        "className": null,
-        "containerClassName": null
+        "className": null
       },
       "primitive": null,
       "tree": {
         "attrs": [
-          {
-            "kind": "code",
-            "name": "containerClassName",
-            "value": "cn(\n        \"cn-input-otp flex items-center has-disabled:opacity-50\",\n        containerClassName\n      )"
-          },
           {
             "kind": "code",
             "name": "spellcheck",
