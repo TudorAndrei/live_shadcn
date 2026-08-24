@@ -58,14 +58,19 @@ export const Slider = {
     const fractions = this.inputs.map((input) => fraction(input)).sort((a, b) => a - b);
     const from = this.inputs.length > 1 ? Math.min(...fractions) : 0;
     const to = Math.max(...fractions, 0);
+    const vertical = this.vertical();
+    const length = vertical ? this.el.clientHeight : this.el.clientWidth;
+    const thumb = this.thumbs[0];
+    const edge = thumb ? (vertical ? thumb.offsetHeight : thumb.offsetWidth) / 2 : 0;
+    const usable = Math.max(0, length - edge * 2);
 
     this.inputs.forEach((input, at) => {
       const thumb = this.thumbs[at];
       if (!thumb) return;
 
-      const along = `${fraction(input) * 100}%`;
+      const along = `${edge + fraction(input) * usable}px`;
 
-      if (this.vertical()) {
+      if (vertical) {
         thumb.style.bottom = along;
         thumb.style.insetInlineStart = "50%";
         thumb.style.transform = "translate(-50%, 50%)";
@@ -78,10 +83,12 @@ export const Slider = {
 
     if (!this.range) return;
 
-    const size = `${(to - from) * 100}%`;
-    const start = `${from * 100}%`;
+    const rangeLength = this.inputs.length > 1 ? usable : length;
+    const rangeEdge = this.inputs.length > 1 ? edge : 0;
+    const size = `${(to - from) * rangeLength}px`;
+    const start = `${rangeEdge + from * rangeLength}px`;
 
-    if (this.vertical()) {
+    if (vertical) {
       Object.assign(this.range.style, { bottom: start, height: size, width: "100%" });
     } else {
       Object.assign(this.range.style, { insetInlineStart: start, width: size, height: "100%" });
