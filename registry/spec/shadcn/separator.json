@@ -87,7 +87,7 @@
       "summary": "A separator element accessible to screen readers."
     }
   },
-  "recipe": "presentational",
+  "recipe": "separator",
   "source": "shadcn",
   "styles": {},
   "upstream": {

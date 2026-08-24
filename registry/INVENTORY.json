@@ -603,7 +603,7 @@
     {
       "name": "separator",
       "source": "shadcn",
-      "recipe": "presentational",
+      "recipe": "separator",
       "tier": 1
     },
     {

@@ -19,7 +19,7 @@ defmodule LiveShadcn.UI.Separator do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "separator"}
-      orientation={@orientation}
+      data-orientation={@orientation}
       class={[
         "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
         @class

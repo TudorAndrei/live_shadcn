@@ -20,6 +20,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Progress
   alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Gen.Scroller
+  alias LiveShadcnTools.Gen.Separator
   alias LiveShadcnTools.Gen.Sidebar
   alias LiveShadcnTools.Gen.Slider
   alias LiveShadcnTools.Gen.Tabs
@@ -35,6 +36,7 @@ defmodule LiveShadcnTools.Gen do
     "progress" => Progress,
     "presentational" => Presentational,
     "scroller" => Scroller,
+    "separator" => Separator,
     "sidebar" => Sidebar,
     "slider" => Slider,
     "tabs" => Tabs,
