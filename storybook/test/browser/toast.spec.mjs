@@ -22,7 +22,9 @@ const stacked = async (page) =>
 test.describe("a toaster", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/preview/toast/default");
-    await expect(viewport(page)).toBeVisible();
+    // The viewport is a fixed positioning context. Its toast children are
+    // absolute, so the viewport itself has no box to make visible.
+    await expect(viewport(page)).toBeAttached();
     await stacked(page);
   });
 
@@ -59,11 +61,16 @@ test.describe("a toaster", () => {
     await expect(toasts(page).nth(1)).toHaveAttribute("data-behind", "");
   });
 
+  test("marks toasts beyond the visible limit", async ({ page }) => {
+    await expect(toasts(page).nth(0)).toHaveAttribute("data-limited", "");
+    await expect(toasts(page).nth(1)).not.toHaveAttribute("data-limited", /.*/);
+  });
+
   // The frame stops overlapping its neighbours and the content inside it comes
   // back to full opacity. Two elements, one attribute, and the hook writes it
   // to both because the generator marked both.
   test("a pointer over the stack fans it apart", async ({ page }) => {
-    await viewport(page).hover();
+    await toasts(page).nth(2).hover();
 
     await expect(toasts(page).first()).toHaveAttribute("data-expanded", "");
     await expect(toasts(page).first().locator("[data-slot='toast-content']")).toHaveAttribute(
@@ -76,7 +83,7 @@ test.describe("a toaster", () => {
     await toasts(page).nth(2).locator("[data-slot='toast-close']").click();
 
     await expect(toasts(page)).toHaveCount(2);
-    await expect(page.locator("#notices-gen")).toHaveCount(0);
+    await expect(page.locator("#notices-drift")).toHaveCount(0);
   });
 
   test("the stack is renumbered once the server has answered", async ({ page }) => {

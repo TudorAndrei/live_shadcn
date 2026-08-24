@@ -1172,7 +1172,7 @@ defmodule StorybookWeb.Examples do
   # A toast that stays until it is closed is the same page every run.
   defp toast_default(assigns) do
     ~H"""
-    <.toaster id="notices" dismiss="dismiss_toast" duration={0}>
+    <.toaster id="notices" dismiss="dismiss_toast" duration={0} limit={2}>
       <:toast :for={notice <- @toasts} id={notice.id} type={notice.type} title={notice.title}>
         {notice.description}
       </:toast>

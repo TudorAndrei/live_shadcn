@@ -171,6 +171,7 @@ defmodule LiveShadcnTools.Gen.Toast do
         {"data-lb-toasts", :bare},
         {"data-lb-dismiss", :code, "@dismiss"},
         {"data-lb-duration", :code, "@duration"},
+        {"data-lb-limit", :code, "@limit"},
         {"role", :text, "region"},
         {"aria-label", :code, "@label"}
       ],
@@ -209,6 +210,10 @@ defmodule LiveShadcnTools.Gen.Toast do
       attr :duration, :integer,
         default: 5000,
         doc: "How long a toast stays, in milliseconds. Zero to leave it until it is closed."
+
+      attr :limit, :integer,
+        default: 3,
+        doc: "How many newest toasts stay visible. Older toasts stay in the server list and are marked limited."
 
       attr :label, :string, default: "Notifications", doc: "Names the region to a screen reader."
       attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."

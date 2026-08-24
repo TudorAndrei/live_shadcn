@@ -49,6 +49,12 @@ defmodule LiveShadcn.UI.Toast do
     doc: "How long a toast stays, in milliseconds. Zero to leave it until it is closed."
   )
 
+  attr(:limit, :integer,
+    default: 3,
+    doc:
+      "How many newest toasts stay visible. Older toasts stay in the server list and are marked limited."
+  )
+
   attr(:label, :string, default: "Notifications", doc: "Names the region to a screen reader.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global)
@@ -68,6 +74,7 @@ defmodule LiveShadcn.UI.Toast do
       data-lb-toasts
       data-lb-dismiss={@dismiss}
       data-lb-duration={@duration}
+      data-lb-limit={@limit}
       role="region"
       aria-label={@label}
       class={[

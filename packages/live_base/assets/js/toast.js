@@ -22,6 +22,7 @@
 //   data-lb-toasts     the marker this hook is placed on
 //   data-lb-dismiss    the event pushed when a toast should go, with its id
 //   data-lb-duration   how long a toast stays, in milliseconds. 0 to stay
+//   data-lb-limit      how many newest toasts stay visible
 //
 // Dismissal is a server event, not a removal. The server owns the list, so a
 // toast the client deleted would come back on the next patch — and the reader
@@ -66,6 +67,7 @@ export const Toast = {
     }
 
     let offset = 0;
+    const limit = Number(this.el.getAttribute("data-lb-limit") || 0);
 
     toasts.forEach((toast, index) => {
       toast.style.setProperty("--toast-index", index);
@@ -76,6 +78,7 @@ export const Toast = {
       // Only the front one is read. The ones under it are a stack of edges, so
       // their content fades out until the reader fans them apart.
       this.mark(toast, "data-behind", index > 0);
+      this.mark(toast, "data-limited", limit > 0 && index >= limit);
 
       this.arm(toast);
       this.grabbable(toast);

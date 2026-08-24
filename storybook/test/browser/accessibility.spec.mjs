@@ -46,7 +46,9 @@ const PALETTE = ["color-contrast"];
 for (const { component, example } of pages) {
   test(`${component} / ${example} is clean under axe-core`, async ({ page }) => {
     await page.goto(`/preview/${component}/${example}`);
-    await expect(page.locator(`[data-preview='${component}']`)).toBeVisible();
+    // A preview can contain only fixed, absolute children. It is then present
+    // in the accessibility tree but has no box of its own to make visible.
+    await expect(page.locator(`[data-preview='${component}']`)).toBeAttached();
 
     const { violations } = await new AxeBuilder({ page }).analyze();
     const [palette, markup] = partition(violations, (v) => PALETTE.includes(v.id));
