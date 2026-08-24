@@ -52,7 +52,7 @@ export default defineConfig({
   },
   server: {
     host: "127.0.0.1",
-    port: 4102,
+    port: Number(process.env.PARITY_PORT || 4102),
     strictPort: true,
     // One style sheet serves both renderers, and it is built by the storybook.
     // See `src/main.tsx`.
