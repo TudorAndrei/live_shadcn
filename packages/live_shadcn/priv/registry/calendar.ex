@@ -7,11 +7,14 @@ defmodule LiveShadcn.UI.Calendar do
 
   use Phoenix.Component
 
+  alias LiveBase.Calendar, as: CalendarHook
+
   @doc "A deterministic month grid. The server owns the dates and selection."
   attr(:month, Date, default: Date.utc_today())
   attr(:selected, Date, default: nil)
   attr(:week_starts_on, :integer, default: 7, values: 1..7)
-  attr(:locale, :string, default: "en", values: ["en"])
+  attr(:id, :string, required: true)
+  attr(:locale, :string, default: "en", values: ["en", "browser"])
   attr(:class, :any, default: nil)
   attr(:rest, :global, include: ["aria-label", "data-slot"])
 
@@ -20,6 +23,9 @@ defmodule LiveShadcn.UI.Calendar do
 
     ~H"""
     <section
+      id={@id}
+      phx-hook={if @locale == "browser", do: CalendarHook.hook()}
+      data-lb-calendar-locale={@locale}
       data-slot="calendar"
       style="min-width: 157px"
       class={["cn-calendar group/calendar bg-background w-fit rdp-root", @class]}
@@ -32,7 +38,10 @@ defmodule LiveShadcn.UI.Calendar do
           style="position: absolute; left: 0"
           class="cn-button group/button inline-flex size-(--cell-size) items-center justify-center p-0 rdp-button_previous"
         >‹</button>
-        <span class="rdp-caption_label">{Calendar.strftime(@month, "%B %Y")}</span>
+        <span data-lb-calendar-month={Date.to_iso8601(@month)} class="rdp-caption_label">{Calendar.strftime(
+          @month,
+          "%B %Y"
+        )}</span>
         <button
           type="button"
           aria-label="Go to the next month"
@@ -49,12 +58,13 @@ defmodule LiveShadcn.UI.Calendar do
         <thead>
           <tr class="flex rdp-weekdays">
             <th
-              :for={day <- weekday_names(@week_starts_on)}
+              :for={day <- weekday_dates(@week_starts_on)}
+              data-lb-calendar-weekday={Date.to_iso8601(day)}
               style="width: 19px"
               class="flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none rdp-weekday"
               scope="col"
             >
-              {day}
+              {Calendar.strftime(day, "%a")}
             </th>
           </tr>
         </thead>
@@ -93,9 +103,9 @@ defmodule LiveShadcn.UI.Calendar do
     for week <- 0..(weeks - 1), do: for(day <- 0..6, do: Date.add(start, week * 7 + day))
   end
 
-  defp weekday_names(week_starts_on) do
+  defp weekday_dates(week_starts_on) do
     first = ~D[2023-01-02]
     start = Date.add(first, rem(week_starts_on - 1, 7))
-    for day <- 0..6, do: Calendar.strftime(Date.add(start, day), "%a")
+    for day <- 0..6, do: Date.add(start, day)
   end
 end

@@ -935,7 +935,13 @@ defmodule StorybookWeb.Examples do
 
   defp calendar_default(assigns) do
     ~H"""
-    <.calendar month={~D[2026-04-01]} selected={~D[2026-04-15]} class="max-w-md" />
+    <.calendar
+      id="calendar-default"
+      month={~D[2026-04-01]}
+      selected={~D[2026-04-15]}
+      locale="browser"
+      class="max-w-md"
+    />
     """
   end
 
