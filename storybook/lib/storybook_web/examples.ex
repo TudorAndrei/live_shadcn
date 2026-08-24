@@ -52,6 +52,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.HoverCard
   import LiveShadcn.UI.Kbd
   import LiveShadcn.UI.Progress
+  import LiveShadcn.UI.Questionnaire
   import LiveShadcn.UI.RadioGroup
   import LiveShadcn.UI.ScrollArea
   import LiveShadcn.UI.Select
@@ -115,7 +116,7 @@ defmodule StorybookWeb.Examples do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
-       toggle-group question sidebar snippet toast shadcn-message ai_elements-message)
+       toggle-group question questionnaire sidebar snippet toast shadcn-message ai_elements-message)
   end
 
   @doc "The examples for a component."
@@ -312,6 +313,17 @@ defmodule StorybookWeb.Examples do
         "Asking the reader",
         "A prompt, the options, and a box for anything the options do not cover.",
         &question_default/1
+      )
+    ]
+  end
+
+  def all("questionnaire") do
+    [
+      one(
+        "default",
+        "One answer at a time",
+        "A prompt with choices and a server-owned next action.",
+        &questionnaire_default/1
       )
     ]
   end
@@ -1296,6 +1308,34 @@ defmodule StorybookWeb.Examples do
         </.question_submit>
       </.question_actions>
     </.question>
+    """
+  end
+
+  defp questionnaire_default(assigns) do
+    ~H"""
+    <.questionnaire>
+      <.questionnaire_progress>1 of 2</.questionnaire_progress>
+      <.questionnaire_item>
+        <.questionnaire_title>How should the server filter commands?</.questionnaire_title>
+        <.questionnaire_description>
+          Choose one behaviour for each keystroke.
+        </.questionnaire_description>
+        <.questionnaire_choices class="mt-4 gap-2">
+          <.questionnaire_choice>
+            On the server
+            <.questionnaire_choice_description>
+              One round trip per keystroke.
+            </.questionnaire_choice_description>
+          </.questionnaire_choice>
+          <.questionnaire_choice>
+            In the browser
+            <.questionnaire_choice_description>
+              Keep a second copy of the list.
+            </.questionnaire_choice_description>
+          </.questionnaire_choice>
+        </.questionnaire_choices>
+      </.questionnaire_item>
+    </.questionnaire>
     """
   end
 

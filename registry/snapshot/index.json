@@ -87,6 +87,9 @@
   "ai_elements-message": [
     "default"
   ],
+  "questionnaire": [
+    "default"
+  ],
   "suggestion": [
     "default"
   ],

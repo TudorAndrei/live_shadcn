@@ -9,8 +9,8 @@
 | `planned` | 0 | ························ |
 | `fetched` | 30 | ██████·················· |
 | `spec` | 14 | ███····················· |
-| `generated` | 15 | ███····················· |
-| `verified` | 52 | ███████████············· |
+| `generated` | 14 | ███····················· |
+| `verified` | 53 | ███████████············· |
 
 ## Recipes
 
@@ -108,7 +108,7 @@ Only the recipes are written by hand; every component is data.
 | `calendar` | 3 | `calendar` | 🟦 fetched |
 | `carousel` | 3 | `carousel` | 🟨 spec |
 | `chart` | 3 | `chart` | 🟦 fetched |
-| `questionnaire` | 3 | `presentational` | 🟩 generated |
+| `questionnaire` | 3 | `presentational` | ✅ verified |
 | `resizable` | 3 | `resizable` | 🟦 fetched |
 
 ## AI Elements

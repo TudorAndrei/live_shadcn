@@ -27,7 +27,7 @@
         },
         "render_as": null,
         "slot": "questionnaire",
-        "tag": "div",
+        "tag": "form",
         "type": "primitive",
         "variant_calls": [],
         "vars": []
@@ -73,7 +73,13 @@
         "attrs": [],
         "children": [
           {
-            "attrs": [],
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "type",
+                "value": "radio"
+              }
+            ],
             "children": [],
             "class": "cn-questionnaire-choice-input absolute inset-0 z-10 size-full cursor-pointer opacity-0",
             "class_when": [],
@@ -253,7 +259,6 @@
             "class": "cn-questionnaire-choice-shortcut cn-questionnaire-shortcut pointer-events-none ms-auto hidden shrink-0 group-data-[shortcut]/questionnaire-choice:inline-flex",
             "class_when": [],
             "merges_class": false,
-            "module": "external/@shadcn/react/questionnaire",
             "part": "ChoiceShortcut",
             "props": false,
             "reads": {
@@ -266,10 +271,10 @@
               ],
               "self": []
             },
+            "reason": "an external primitive that renders nothing",
             "render_as": null,
             "slot": "questionnaire-choice-shortcut",
-            "tag": "span",
-            "type": "primitive",
+            "type": "transparent",
             "variant_calls": [],
             "vars": []
           }
@@ -495,7 +500,7 @@
         },
         "render_as": null,
         "slot": "questionnaire-item",
-        "tag": "div",
+        "tag": "fieldset",
         "type": "primitive",
         "variant_calls": [],
         "vars": []
@@ -765,7 +770,7 @@
         },
         "render_as": null,
         "slot": "questionnaire-title",
-        "tag": "h2",
+        "tag": "legend",
         "type": "primitive",
         "variant_calls": [],
         "vars": []

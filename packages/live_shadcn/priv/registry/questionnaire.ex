@@ -12,18 +12,22 @@ defmodule LiveShadcn.UI.Questionnaire do
   @doc "The `questionnaire` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+
+  attr(:rest, :global,
+    include: ["data-slot", "action", "method", "enctype", "novalidate", "target"]
+  )
+
   slot(:inner_block)
 
   def questionnaire(assigns) do
     ~H"""
-    <div
+    <form
       data-slot={@rest[:"data-slot"] || "questionnaire"}
       class={["cn-questionnaire flex w-full min-w-0 flex-col", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </div>
+    </form>
     """
   end
 
@@ -66,6 +70,7 @@ defmodule LiveShadcn.UI.Questionnaire do
     >
       <input
         data-slot="questionnaire-choice-input"
+        type="radio"
         class="cn-questionnaire-choice-input absolute inset-0 z-10 size-full cursor-pointer opacity-0"
       />
       <span
@@ -89,10 +94,6 @@ defmodule LiveShadcn.UI.Questionnaire do
       >
         {render_slot(@inner_block)}
       </span>
-      <span
-        data-slot="questionnaire-choice-shortcut"
-        class="cn-questionnaire-choice-shortcut cn-questionnaire-shortcut pointer-events-none ms-auto hidden shrink-0 group-data-[shortcut]/questionnaire-choice:inline-flex"
-      />
     </label>
     """
   end
@@ -219,13 +220,13 @@ defmodule LiveShadcn.UI.Questionnaire do
 
   def questionnaire_item(assigns) do
     ~H"""
-    <div
+    <fieldset
       data-slot={@rest[:"data-slot"] || "questionnaire-item"}
       class={["cn-questionnaire-item min-w-0 border-0 p-0 outline-none", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </div>
+    </fieldset>
     """
   end
 
@@ -366,13 +367,13 @@ defmodule LiveShadcn.UI.Questionnaire do
 
   def questionnaire_title(assigns) do
     ~H"""
-    <h2
+    <legend
       data-slot={@rest[:"data-slot"] || "questionnaire-title"}
       class={["cn-questionnaire-title cn-font-heading text-pretty", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </h2>
+    </legend>
     """
   end
 end

@@ -1106,6 +1106,24 @@
     "pass": true,
     "spec": "bcb60d7faedb9185f63dce130b2e89c88df6902ffc3beb7dcf65a4d1511b089f"
   },
+  "shadcn/questionnaire": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "f429406d523bdaeb1f510bdcd7342e8d8888fc3ff95ff0ef9d7c48ec577a0213"
+  },
   "shadcn/slider": {
     "checks": {
       "browser": {

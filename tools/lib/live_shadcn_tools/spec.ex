@@ -749,8 +749,20 @@ defmodule LiveShadcnTools.Spec do
       "vars" => vars(styling),
       "children" => Enum.map(element.children, &node(&1, ctx))
     })
+    |> external_defaults()
     |> forget_context_value()
   end
+
+  # The questionnaire library chooses a radio input for a choice when the
+  # caller does not provide one. That is browser-visible: an untyped input is
+  # a text field, with different overflow and border defaults.
+  defp external_defaults(
+         %{"module" => "external/@shadcn/react/questionnaire", "part" => "ChoiceInput"} = node
+       ) do
+    Map.update!(node, "attrs", &[%{"kind" => "text", "name" => "type", "value" => "radio"} | &1])
+  end
+
+  defp external_defaults(node), do: node
 
   # `<QuestionContext.Provider value={contextValue}>` puts an object in the
   # React tree for the descendants below it to read. It draws nothing, and the
@@ -1131,16 +1143,16 @@ defmodule LiveShadcnTools.Spec do
   # client dependency.
   @external_primitives %{
     "@shadcn/react/questionnaire" => %{
-      "QuestionnairePrimitive.Root" => {"Root", "div"},
+      "QuestionnairePrimitive.Root" => {"Root", "form"},
       "QuestionnairePrimitive.Progress" => {"Progress", "div"},
-      "QuestionnairePrimitive.Item" => {"Item", "div"},
-      "QuestionnairePrimitive.Title" => {"Title", "h2"},
+      "QuestionnairePrimitive.Item" => {"Item", "fieldset"},
+      "QuestionnairePrimitive.Title" => {"Title", "legend"},
       "QuestionnairePrimitive.Description" => {"Description", "p"},
       "QuestionnairePrimitive.Choices" => {"Choices", "div"},
       "QuestionnairePrimitive.Choice" => {"Choice", "label"},
       "QuestionnairePrimitive.ChoiceInput" => {"ChoiceInput", "input"},
       "QuestionnairePrimitive.ChoiceLabel" => {"ChoiceLabel", "span"},
-      "QuestionnairePrimitive.ChoiceShortcut" => {"ChoiceShortcut", "span"},
+      "QuestionnairePrimitive.ChoiceShortcut" => {"ChoiceShortcut", nil},
       "QuestionnairePrimitive.Input" => {"Input", "input"},
       "QuestionnairePrimitive.Error" => {"Error", "p"},
       "QuestionnairePrimitive.Actions" => {"Actions", "div"},
@@ -1152,14 +1164,26 @@ defmodule LiveShadcnTools.Spec do
   }
 
   defp external_primitive(tag, ctx) do
-    with package when is_binary(package) <- third_party(tag, ctx),
-         {part, element} <- get_in(@external_primitives, [package, tag]) do
-      %{
-        "type" => "primitive",
-        "module" => "external/#{package}",
-        "part" => part,
-        "tag" => element
-      }
+    with package when is_binary(package) <- third_party(tag, ctx) do
+      case get_in(@external_primitives, [package, tag]) do
+        {part, nil} ->
+          %{
+            "type" => "transparent",
+            "part" => part,
+            "reason" => "an external primitive that renders nothing"
+          }
+
+        {part, element} when is_binary(element) ->
+          %{
+            "type" => "primitive",
+            "module" => "external/#{package}",
+            "part" => part,
+            "tag" => element
+          }
+
+        _ ->
+          nil
+      end
     else
       _ -> nil
     end
