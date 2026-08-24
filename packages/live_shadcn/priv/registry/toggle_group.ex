@@ -68,7 +68,7 @@ defmodule LiveShadcn.UI.ToggleGroup do
   attr(:disabled, :boolean, default: false)
   attr(:readonly, :boolean, default: false)
   attr(:required, :boolean, default: false)
-  attr(:context, :any, default: nil)
+  attr(:context, :map, default: %{variant: nil, size: nil, spacing: nil})
   attr(:size, :string, default: "default")
   attr(:variant, :string, default: "default")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")

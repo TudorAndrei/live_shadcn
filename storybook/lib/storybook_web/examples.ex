@@ -46,6 +46,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Switch
   import LiveShadcn.UI.Textarea
   import LiveShadcn.UI.Toggle
+  import LiveShadcn.UI.ToggleGroup
   import LiveShadcn.UI.Empty
   import LiveShadcn.UI.Field
   import LiveShadcn.UI.HoverCard
@@ -114,7 +115,7 @@ defmodule StorybookWeb.Examples do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
-       question sidebar snippet toast shadcn-message ai_elements-message)
+       toggle-group question sidebar snippet toast shadcn-message ai_elements-message)
   end
 
   @doc "The examples for a component."
@@ -394,6 +395,17 @@ defmodule StorybookWeb.Examples do
 
   def all("toggle") do
     [one("default", "A pressed button", "On or off, and it says which.", &toggle_default/1)]
+  end
+
+  def all("toggle-group") do
+    [
+      one(
+        "default",
+        "Text formatting",
+        "A row of independent pressed buttons.",
+        &toggle_group_default/1
+      )
+    ]
   end
 
   def all("tooltip") do
@@ -976,6 +988,35 @@ defmodule StorybookWeb.Examples do
   defp toggle_default(assigns) do
     ~H"""
     <.toggle id="bold" name="bold" aria-label="Bold">B</.toggle>
+    """
+  end
+
+  defp toggle_group_default(assigns) do
+    ~H"""
+    <.toggle_group spacing="0" variant="outline" aria-label="Text formatting">
+      <.toggle_group_item
+        id="bold"
+        name="bold"
+        checked
+        aria-label="Bold"
+      >
+        B
+      </.toggle_group_item>
+      <.toggle_group_item
+        id="italic"
+        name="italic"
+        aria-label="Italic"
+      >
+        I
+      </.toggle_group_item>
+      <.toggle_group_item
+        id="underline"
+        name="underline"
+        aria-label="Underline"
+      >
+        U
+      </.toggle_group_item>
+    </.toggle_group>
     """
   end
 

@@ -111,6 +111,9 @@
   "pagination": [
     "default"
   ],
+  "toggle-group": [
+    "default"
+  ],
   "table": [
     "default"
   ],

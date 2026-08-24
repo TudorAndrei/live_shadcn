@@ -415,7 +415,17 @@ defmodule LiveShadcnTools.Gen.FormControl do
     part
     |> Presentational.attributes(spec)
     |> Enum.reject(&(&1.name in @supplied))
-    |> Enum.map_join(fn attribute -> "#{Presentational.declaration(attribute)}\n" end)
+    |> Enum.map_join(fn
+      # Toggle group is the one form control whose upstream primitive receives
+      # a React context. A function component has no such ambient context, so
+      # its documented defaults must still be safe when a caller uses an item
+      # directly.
+      %{name: "context"} ->
+        "  attr :context, :map, default: %{variant: nil, size: nil, spacing: nil}\n"
+
+      attribute ->
+        "#{Presentational.declaration(attribute)}\n"
+    end)
   end
 
   defp slot(part) do
