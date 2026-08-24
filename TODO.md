@@ -5,15 +5,15 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ## Phase 1 — Land the toast
 
-- [ ] Run `storybook/test/browser/toast.spec.mjs` and the axe check for
+- [x] Run `storybook/test/browser/toast.spec.mjs` and the axe check for
       `/preview/toast/default`
-- [ ] Set `data-limited`, or give the toaster a `limit` attribute
-- [ ] `mix ui.verify shadcn/toast` passes all four checks
-- [ ] Commit the toast: recipe, hook, `LiveBase.Toast`, generated module,
+- [x] Set `data-limited`, or give the toaster a `limit` attribute
+- [x] `mix ui.verify shadcn/toast` passes all four checks
+- [x] Commit the toast: recipe, hook, `LiveBase.Toast`, generated module,
       example, suite, snapshot
-- [ ] Commit the `aria-disabled` assertion fix in `accordion_test.exs`
+- [x] Commit the `aria-disabled` assertion fix in `accordion_test.exs`
       separately
-- [ ] Commit `Examples.page_assigns/0` separately
+- [x] Commit `Examples.page_assigns/0` separately
 
 ## Phase 2 — Make "verified" mean something again
 
