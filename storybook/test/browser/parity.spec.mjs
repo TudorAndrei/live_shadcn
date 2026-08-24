@@ -81,6 +81,10 @@ async function measured(page, selector) {
   // still the comparison origin, even when it has no visible box itself.
   await expect(page.locator(selector)).toBeAttached();
 
+  // The two pages are loaded one after the other. A pulse or transition would
+  // otherwise be sampled at different points in the same upstream animation.
+  await page.addStyleTag({ content: "*,::before,::after{animation:none!important;transition:none!important}" });
+
   await page.waitForFunction(
     (selector) => {
       const height = document.querySelector(selector)?.getBoundingClientRect().height;
