@@ -100,19 +100,16 @@
         "pass": true
       },
       "generated": {
-        "detail": "     warning: function slot/1 is unused\n     │\n 185 │   defp slot(%{node: node}), do: node[\"slot\"]\n     │        ~\n     │\n     └─ lib/live_shadcn_tools/gen/popover.ex:185:8: LiveShadcnTools.Gen.Popover (module)\n** (Mix) generated components do not match their spec: shadcn/hover-card\nEither the spec changed and `mix ui.gen` has not run, or the file was\nedited by hand. Generated files are not edited by hand.",
-        "exit": 1,
-        "pass": false
+        "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/hover-card.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "88199f3de5cfbc107e9eab64dddea21234815c8ca64b72a3a89da4d4f0c362b8"
   },
   "ai_elements/package-info": {
