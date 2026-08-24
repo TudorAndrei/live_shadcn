@@ -10,17 +10,23 @@ defmodule Mix.Tasks.Ui.Verify do
       mix ui.verify shadcn/message    # one component, said unambiguously
       mix ui.verify --browser false   # skip the browser, for a machine without one
 
-  Three checks, each answering a different question:
+  Four checks, each answering a different question:
 
   | Check | Question |
   |---|---|
   | generated | does the module on disk still match its spec? |
   | snapshot | has the markup a reader gets changed? |
   | browser | does it behave like Base UI, and is it clean under axe-core? |
+  | parity | does it draw what the React it was generated from draws? |
 
-  The first two are cheap and run anywhere. The third starts the demo
-  application and drives it with Playwright, because opening a panel is a client
-  behaviour: no amount of server-side rendering can tell you whether it works.
+  The first two are cheap and run anywhere. The last two start a browser,
+  because opening a panel is a client behaviour and so is layout: no amount of
+  server-side rendering can tell you whether either works.
+
+  The first three all read the same spec, so none of them can catch a spec that
+  read upstream wrongly — a class string the reader dropped is missing from the
+  module, from the snapshot, and from the expectation. The fourth reads upstream
+  instead, by rendering it.
 
   The result is written to `registry/VERIFY.json`, keyed by `<source>/<name>`,
   which is what makes `mix ui.status` able to mark a component verified. Status
@@ -101,7 +107,10 @@ defmodule Mix.Tasks.Ui.Verify do
       [
         {"generated", generated_check(reference)},
         {"snapshot", snapshot_check(key)}
-      ] ++ if(browser?, do: [{"browser", browser_check(name, key)}], else: [])
+      ] ++
+        if browser?,
+          do: [{"browser", browser_check(name, key)}, {"parity", parity_check(key)}],
+          else: []
 
     %{
       "pass" => Enum.all?(checks, fn {_name, check} -> check["pass"] end),
@@ -140,6 +149,37 @@ defmodule Mix.Tasks.Ui.Verify do
       })
     end
   end
+
+  # The component beside the React it was generated from.
+  #
+  # The three checks above all ask whether the pipeline was consistent with
+  # itself: the module matches the spec, the markup matches the snapshot, the
+  # behaviour matches Base UI's contract. None of them can catch a spec that
+  # read upstream wrongly, because every one of them reads that same spec. This
+  # one reads upstream instead.
+  defp parity_check(nil), do: no_example()
+
+  defp parity_check(key) do
+    if ported?(key) do
+      run_in(browser_dir(), "npx", ["playwright", "test", "parity.spec.mjs"], %{
+        "PREVIEW_COMPONENT" => key
+      })
+    else
+      %{
+        "pass" => false,
+        "detail" => "no React reference yet: add one to parity/src/examples/#{key}.<example>.tsx"
+      }
+    end
+  end
+
+  defp ported?(key) do
+    parity_dir()
+    |> Path.join("#{key}.*.tsx")
+    |> Path.wildcard()
+    |> Kernel.!=([])
+  end
+
+  defp parity_dir, do: Path.join([repo_root(), "parity", "src", "examples"])
 
   defp no_example do
     %{

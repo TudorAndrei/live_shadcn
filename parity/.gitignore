@@ -1,0 +1,5 @@
+/node_modules/
+# Copied from registry/upstream by `npm run upstream`, so that the bare imports
+# the fetched sources write resolve at all. The originals are the record.
+/src/upstream/
+/dist/

@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- `style-vega` matches the storybook's root layout. The `cn-` rules are
+     nested inside it, so a page without the class is a page without the
+     styling, and every comparison would report every element. -->
+<html lang="en" class="style-vega">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>live_shadcn parity</title>
+  </head>
+  <body class="bg-background text-foreground antialiased">
+    <!-- The storybook's `app.html.heex`, copied. Everything outside the
+         component has to be the same on both sides, or the first thing every
+         comparison reports is the width of the page. -->
+    <main class="mx-auto max-w-3xl px-6 py-12">
+      <div id="root"></div>
+    </main>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
