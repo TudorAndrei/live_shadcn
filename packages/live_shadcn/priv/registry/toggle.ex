@@ -76,6 +76,9 @@ defmodule LiveShadcn.UI.Toggle do
     """
   end
 
+  defp flag(true), do: ""
+  defp flag(_state), do: nil
+
   # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
     "toggleVariants" => %{
@@ -92,7 +95,4 @@ defmodule LiveShadcn.UI.Toggle do
   }
 
   defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
-
-  defp flag(true), do: ""
-  defp flag(_state), do: nil
 end

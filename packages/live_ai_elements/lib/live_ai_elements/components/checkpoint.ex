@@ -99,7 +99,6 @@ defmodule LiveAiElements.Components.Checkpoint do
             "cn-tooltip-content cn-tooltip-content-logical z-50 w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background",
             @class
           ]}
-          data-lb-measure
           {Map.drop(@rest, [:"data-slot"])}
         >
           {@tooltip}

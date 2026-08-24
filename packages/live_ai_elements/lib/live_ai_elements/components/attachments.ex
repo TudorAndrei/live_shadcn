@@ -195,7 +195,6 @@ defmodule LiveAiElements.Components.Attachments do
             "cn-hover-card-content cn-hover-card-content-logical z-50 origin-(--transform-origin) outline-hidden",
             @class
           ]}
-          data-lb-measure
           {Map.drop(@rest, [:"data-slot"])}
         />
       </div>

@@ -31,7 +31,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
 
       use Phoenix.Component
 
-    #{Enum.map_join(spec["parts"], "\n", &function(&1, spec))}#{variant_table(spec)}
+    #{Enum.map_join(spec["parts"], "\n", &function(&1, spec))}
     end
     """
   end
@@ -195,18 +195,21 @@ defmodule LiveShadcnTools.Gen.Presentational do
   tables that both define `size` overwrote each other in whichever order the
   map iterated, and the class string that came out was one of the two.
   """
-  def variant_table(spec) do
-    # Only the tables a part reads. A component that folded in another one's
-    # markup inherits its `cva` tables too, and writing one nothing reads is a
-    # private function nobody calls — which is a compiler warning, and this
-    # project compiles generated code with warnings as errors.
+  def variant_table(spec, body) do
+    # Only what the markup looks up, read off the markup.
+    #
+    # A component that folded in another one's markup inherits its `cva` tables
+    # too, and writing one nothing reads is a private function nobody calls —
+    # which is a compiler warning, and this project compiles generated code
+    # with warnings as errors.
+    #
+    # Asked of the spec instead, this disagreed with the markup exactly where a
+    # recipe renders a slice of a part rather than the whole: `chain-of-thought`
+    # has a table on a node its trigger does not draw.
     used =
-      for part <- List.wrap(spec["parts"]),
-          call <- variant_calls_of(part, spec),
-          group <- Map.keys(Map.get(call["definition"], "variants") || %{}),
-          group in call["args"],
-          into: MapSet.new(),
-          do: {call["table"], group}
+      ~r/variant_class\("([^"]+)", "([^"]+)"/
+      |> Regex.scan(body, capture: :all_but_first)
+      |> MapSet.new(fn [binding, group] -> {binding, group} end)
 
     tables =
       for {binding, table} <- spec["variants"] || %{},

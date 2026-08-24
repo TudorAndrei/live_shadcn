@@ -21,7 +21,6 @@ defmodule LiveShadcn.UI.AspectRatio do
       data-slot={@rest[:"data-slot"] || "aspect-ratio"}
       style={"--ratio: #{@ratio}"}
       class={["relative aspect-(--ratio)", @class]}
-      data-lb-measure
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

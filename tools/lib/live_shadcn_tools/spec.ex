@@ -223,6 +223,11 @@ defmodule LiveShadcnTools.Spec do
   def codes(%{"kind" => "code", "value" => value}) when is_binary(value), do: [value]
   def codes(%{"type" => "value", "code" => code}) when is_binary(code), do: [code]
 
+  # `{ …, ...style }` reads a prop by name rather than by an expression, and a
+  # part that renders one still takes it. Left out, `sidebar_provider` wrote
+  # `#{@style}` into its style attribute and declared no `style` to read.
+  def codes(%{"kind" => "spread", "property" => name}) when is_binary(name), do: [name]
+
   def codes(node) when is_map(node) do
     named = for key <- ~w(when collection binding count key), is_binary(node[key]), do: node[key]
     named ++ (node |> Map.values() |> Enum.flat_map(&codes/1))
@@ -729,7 +734,7 @@ defmodule LiveShadcnTools.Spec do
     |> base_node(tag, ctx)
     |> Map.merge(%{
       "slot" => slot(element),
-      "attrs" => attributes(element),
+      "attrs" => attributes(element, ctx),
       "render_as" => render_as(element, ctx),
       "class" => classes,
       "class_when" => class_when,
@@ -758,6 +763,12 @@ defmodule LiveShadcnTools.Spec do
     cond do
       literal = string_literal(code) ->
         %{"type" => "text", "value" => literal}
+
+      # `{comp}`, where `comp` is a `useRender` call bound to a name. It is the
+      # component's own body, written as data and rendered somewhere the
+      # component only decides once it knows what to wrap it in.
+      element = local_render(code, ctx) ->
+        element
 
       # `children ?? <Default />` and `children || suggestion` are the same
       # decision: what to render when the caller passed nothing.
@@ -1143,6 +1154,15 @@ defmodule LiveShadcnTools.Spec do
     end
   end
 
+  defp local_render(code, ctx) do
+    with value when is_binary(value) <- Map.get(Map.get(ctx, :locals) || %{}, String.trim(code)),
+         element when is_map(element) <- Ast.rendered(value) do
+      node(element, ctx)
+    else
+      _other -> nil
+    end
+  end
+
   # A component named but not written as a tag. `isCopied ? CheckIcon : CopyIcon`
   # names two, and each is what `<CheckIcon />` would have been.
   defp element(name), do: %{type: :element, tag: String.trim(name), attrs: [], children: []}
@@ -1349,15 +1369,54 @@ defmodule LiveShadcnTools.Spec do
   # another between renders, and no element has an attribute by that name.
   @recorded_elsewhere ~w(className data-slot render key)
 
-  defp attributes(element) do
-    for {:attr, name, value} <- element.attrs,
-        name not in @recorded_elsewhere,
-        not react_handler?(name) do
+  # What HTML calls the attribute React writes in camelCase.
+  #
+  # A browser forgives it — attribute names are case-insensitive — so
+  # `tabIndex="-1"` works and reads as though somebody had not noticed. Only
+  # the names that differ are listed: `viewBox` and `strokeWidth` are camelCase
+  # in SVG too, and lowercasing everything would break them.
+  @html_names %{
+    "autoComplete" => "autocomplete",
+    "autoFocus" => "autofocus",
+    "colSpan" => "colspan",
+    "contentEditable" => "contenteditable",
+    "crossOrigin" => "crossorigin",
+    "dateTime" => "datetime",
+    "formAction" => "formaction",
+    "htmlFor" => "for",
+    "maxLength" => "maxlength",
+    "minLength" => "minlength",
+    "noValidate" => "novalidate",
+    "readOnly" => "readonly",
+    "rowSpan" => "rowspan",
+    "spellCheck" => "spellcheck",
+    "srcSet" => "srcset",
+    "tabIndex" => "tabindex"
+  }
+
+  defp attributes(element, ctx) do
+    for {:attr, written, value} <- element.attrs,
+        written not in @recorded_elsewhere,
+        not react_handler?(written),
+        name = Map.get(@html_names, written, written) do
       case value do
         {:string, literal} -> %{"name" => name, "kind" => "text", "value" => literal}
-        {:expr, code} -> expression_attr(name, String.trim(code))
+        {:expr, code} -> expression_attr(name, String.trim(code), ctx)
         true -> %{"name" => name, "kind" => "flag", "value" => nil}
       end
+    end
+  end
+
+  # A name bound to a literal at the top of the file is that literal.
+  #
+  # `sidebar` writes `const SIDEBAR_WIDTH = "16rem"` and then
+  # `style={{ "--sidebar-width": SIDEBAR_WIDTH }}`. Upstream names it because
+  # three other places read it; here there is one place, and asking a caller
+  # for a value upstream fixed would be asking them to guess it.
+  defp constant(code, ctx) do
+    case Map.get(Map.get(ctx, :consts) || %{}, String.trim(code)) do
+      nil -> nil
+      source -> string_literal(String.trim(source))
     end
   end
 
@@ -1371,24 +1430,40 @@ defmodule LiveShadcnTools.Spec do
   # `style={{ "--ratio": ratio } as React.CSSProperties}` is a set of CSS
   # declarations, not an expression. Recording it as declarations is what lets
   # the generator write a style string instead of a JavaScript object.
-  defp expression_attr("style", code) do
-    case declarations(code) do
+  defp expression_attr("style", code, ctx) do
+    case declarations(code, ctx) do
       nil -> %{"name" => "style", "kind" => "code", "value" => code}
       entries -> %{"name" => "style", "kind" => "style", "value" => entries}
     end
   end
 
+  defp expression_attr(name, code, ctx) do
+    case constant(code, ctx) do
+      nil -> expression_attr(name, code)
+      literal -> %{"name" => name, "kind" => "text", "value" => literal}
+    end
+  end
+
   defp expression_attr(name, code), do: %{"name" => name, "kind" => "code", "value" => code}
 
-  defp declarations(code) do
+  defp declarations(code, ctx) do
     with {at, _} <- :binary.match(code, "{"),
          {:ok, object} <- object(binary_part(code, at, byte_size(code) - at)) do
       Enum.map(object, fn
         {property, {:string, literal}} ->
           %{"property" => property, "kind" => "text", "value" => literal}
 
+        # `{ "--sidebar-width": SIDEBAR_WIDTH, ...style }` — the component sets
+        # its own declarations and lets the caller add more, which is what
+        # `cn(…, className)` does one attribute along.
+        {"..." <> name, _spread} ->
+          %{"property" => name, "kind" => "spread"}
+
         {property, {:code, value}} ->
-          %{"property" => property, "kind" => "code", "value" => value}
+          case constant(value, ctx) do
+            nil -> %{"property" => property, "kind" => "code", "value" => value}
+            literal -> %{"property" => property, "kind" => "text", "value" => literal}
+          end
 
         {property, _other} ->
           %{"property" => property, "kind" => "code", "value" => "nil"}

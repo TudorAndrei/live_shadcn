@@ -71,6 +71,9 @@
   "toggle": [
     "default"
   ],
+  "sidebar": [
+    "default"
+  ],
   "ai_elements-message": [
     "default"
   ],

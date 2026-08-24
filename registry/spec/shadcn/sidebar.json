@@ -552,7 +552,6 @@
       "name": "sidebar_menu_button",
       "params": {
         "className": null,
-        "comp": null,
         "isMobile": null,
         "render": null,
         "size": "default",
@@ -564,8 +563,38 @@
         "attrs": [],
         "children": [
           {
-            "code": "comp",
-            "type": "value"
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "",
+            "class_when": [],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": [
+                "aria-disabled",
+                "data-active",
+                "data-open"
+              ]
+            },
+            "render_as": null,
+            "slot": "sidebar-menu-button",
+            "tag": "button",
+            "type": "element",
+            "variant_calls": [
+              {
+                "args": [
+                  "variant",
+                  "size"
+                ],
+                "table": "sidebarMenuButtonVariants"
+              }
+            ],
+            "vars": []
           },
           {
             "attrs": [
@@ -890,19 +919,18 @@
                 "name": "style",
                 "value": [
                   {
-                    "kind": "code",
+                    "kind": "text",
                     "property": "--sidebar-width",
-                    "value": "SIDEBAR_WIDTH"
+                    "value": "16rem"
                   },
                   {
-                    "kind": "code",
+                    "kind": "text",
                     "property": "--sidebar-width-icon",
-                    "value": "SIDEBAR_WIDTH_ICON"
+                    "value": "3rem"
                   },
                   {
-                    "kind": "code",
-                    "property": "...style",
-                    "value": "...style"
+                    "kind": "spread",
+                    "property": "style"
                   }
                 ]
               }
@@ -966,7 +994,7 @@
           },
           {
             "kind": "code",
-            "name": "tabIndex",
+            "name": "tabindex",
             "value": "-1"
           },
           {
@@ -1150,7 +1178,7 @@
     }
   ],
   "primitives": {},
-  "recipe": "disclosure",
+  "recipe": "sidebar",
   "source": "shadcn",
   "styles": {
     "luma": {

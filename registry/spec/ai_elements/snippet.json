@@ -157,6 +157,11 @@
             "value": "type"
           },
           {
+            "kind": "flag",
+            "name": "readonly",
+            "value": null
+          },
+          {
             "kind": "code",
             "name": "value",
             "value": "code"

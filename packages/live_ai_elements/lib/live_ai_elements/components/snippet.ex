@@ -106,6 +106,7 @@ defmodule LiveAiElements.Components.Snippet do
     <input
       data-slot={@rest[:"data-slot"] || "input-group-control"}
       type={@type}
+      readonly
       value={@code}
       class={[
         "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 cn-input-group-input flex-1 text-foreground",

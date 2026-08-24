@@ -53,6 +53,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Select
   import LiveShadcn.UI.Separator
   import LiveShadcn.UI.Sheet
+  import LiveShadcn.UI.Sidebar
   import LiveShadcn.UI.Skeleton
   import LiveShadcn.UI.Spinner
   import LiveShadcn.UI.Table
@@ -80,7 +81,7 @@ defmodule StorybookWeb.Examples do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog dropdown-menu empty hover-card input item kbd label marker
        input-group native-select navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
-       question snippet shadcn-message ai_elements-message)
+       question sidebar snippet shadcn-message ai_elements-message)
   end
 
   @doc "The examples for a component."
@@ -194,6 +195,17 @@ defmodule StorybookWeb.Examples do
         "The platform's own",
         "A `<select>`, with the arrow the platform draws covered by shadcn's.",
         &native_select_default/1
+      )
+    ]
+  end
+
+  def all("sidebar") do
+    [
+      one(
+        "default",
+        "Navigation that collapses",
+        "A trigger and a rail, both flipping one attribute the class strings read.",
+        &sidebar_default/1
       )
     ]
   end
@@ -994,6 +1006,35 @@ defmodule StorybookWeb.Examples do
         <.native_select_option value="listbox">Listbox</.native_select_option>
       </.native_select>
     </div>
+    """
+  end
+
+  # `sidebar_inset` is left out on purpose. It is a `<main>` — the page's own
+  # content area, beside the sidebar — and this page already has one around
+  # every example. Drawing a second inside the first is what a real page never
+  # does, and axe is right to say so.
+  defp sidebar_default(assigns) do
+    ~H"""
+    <.sidebar_provider class="min-h-64">
+      <.sidebar id="nav" collapsible="icon">
+        <.sidebar_header>
+          <.sidebar_group_label>Pipeline</.sidebar_group_label>
+          <.sidebar_trigger for="nav" collapsible="icon" />
+        </.sidebar_header>
+        <.sidebar_content>
+          <.sidebar_group>
+            <.sidebar_group_content>
+              <.sidebar_menu>
+                <.sidebar_menu_item :for={stage <- ~w(Fetch Spec Generate Verify)}>
+                  <.sidebar_menu_sub_button href="#">{stage}</.sidebar_menu_sub_button>
+                </.sidebar_menu_item>
+              </.sidebar_menu>
+            </.sidebar_group_content>
+          </.sidebar_group>
+        </.sidebar_content>
+        <.sidebar_rail for="nav" collapsible="icon" />
+      </.sidebar>
+    </.sidebar_provider>
     """
   end
 

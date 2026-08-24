@@ -36,9 +36,8 @@
             "name": "style",
             "value": [
               {
-                "kind": "code",
-                "property": "...style",
-                "value": "...style"
+                "kind": "spread",
+                "property": "style"
               },
               {
                 "kind": "text",
@@ -240,9 +239,8 @@
                                         "name": "style",
                                         "value": [
                                           {
-                                            "kind": "code",
-                                            "property": "...token.htmlStyle",
-                                            "value": "...token.htmlStyle"
+                                            "kind": "spread",
+                                            "property": "token.htmlStyle"
                                           },
                                           {
                                             "kind": "code",

@@ -395,7 +395,7 @@
         "attrs": [
           {
             "kind": "code",
-            "name": "dateTime",
+            "name": "datetime",
             "value": "date.toISOString()"
           }
         ],

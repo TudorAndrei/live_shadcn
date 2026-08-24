@@ -9,7 +9,8 @@
       "menu",
       "tabs",
       "form-control",
-      "presentational"
+      "presentational",
+      "sidebar"
     ],
     "specialist": [
       "scroller",
@@ -613,7 +614,7 @@
     {
       "name": "sidebar",
       "source": "shadcn",
-      "recipe": "disclosure",
+      "recipe": "sidebar",
       "tier": 2
     },
     {

@@ -765,6 +765,34 @@ defmodule LiveShadcnTools.Ast do
   defp uses_render?(nodes) when is_list(nodes), do: Enum.any?(nodes, &uses_render?/1)
   defp uses_render?(_node), do: false
 
+  @doc """
+  The element a `useRender` call describes, or `nil` when the source is
+  something else.
+
+  Usually a component *returns* one and `jsx/2` reads it there. shadcn binds one
+  to a name when it has to decide afterwards what to put around it: `sidebar`'s
+  menu button is a button, and a button inside a tooltip when it was given one.
+  So the name is rendered rather than the call, and the name has to lead back
+  here — or the generated component asks its caller for `comp`, which is the
+  component's own body.
+  """
+  def rendered(code) do
+    wrapped = "const __x = (\n#{code}\n)"
+
+    case cached_tree(wrapped) do
+      %{"body" => [%{"declarations" => [%{"init" => init}]}]} ->
+        case bare(init) do
+          %{"callee" => %{"name" => "useRender"}} = call -> returned(call, wrapped)
+          _other -> nil
+        end
+
+      _ ->
+        nil
+    end
+  rescue
+    _error -> nil
+  end
+
   defp returned(%{"type" => type} = node, source) when type in ~w(JSXElement JSXFragment),
     do: jsx_node(node, source)
 

@@ -82,7 +82,7 @@ defmodule LiveShadcnTools.Gen.FormControl do
 
         alias LiveBase.FormControl
 
-      #{Enum.map_join(spec["parts"], "\n", &function(&1, spec))}#{Presentational.variant_table(spec)}
+      #{Enum.map_join(spec["parts"], "\n", &function(&1, spec))}
       #{helpers(controls, spec)}
       end
       """

@@ -571,6 +571,26 @@ defmodule LiveShadcnTools.Gen.Heex do
   defp with_attr(node, attr),
     do: Map.update(node, "__structural__", [attr], &(&1 ++ [attr]))
 
+  @doc """
+  Puts the recipe's own attributes on a node.
+
+  `:attrs` in the context reaches a Base UI primitive, keyed by the part it
+  draws. A plain element has no part to be keyed by, and shadcn's sidebar is
+  twenty-three of them and not one Base UI primitive — so a recipe that has
+  something to say about one of those says it here, on the node itself.
+
+  What upstream wrote for the same attribute is replaced, not joined: two
+  `data-state` on one element is not an override, it is one attribute an HTML
+  parser reads and one it discards.
+  """
+  def with_attrs(node, attributes) do
+    replaced = Enum.map(attributes, &name_of/1)
+
+    node
+    |> Map.update("attrs", [], fn attrs -> Enum.reject(attrs, &(&1["name"] in replaced)) end)
+    |> then(fn node -> Enum.reduce(attributes, node, &with_attr(&2, &1)) end)
+  end
+
   # A component's own `data-slot` is a default, not a fixed value: shadcn passes
   # `data-slot="dialog-close"` to a `<Button>` and expects it to win. Two of the
   # same attribute is not an override — an HTML parser keeps the first — so the
@@ -631,6 +651,10 @@ defmodule LiveShadcnTools.Gen.Heex do
   defp style(declarations, ctx) do
     body =
       Enum.map_join(declarations, "; ", fn
+        # What the caller wrote, appended whole. It is already a style string.
+        %{"kind" => "spread", "property" => property} ->
+          "\#{@#{LiveShadcnTools.assign(property)}}"
+
         %{"kind" => "text", "property" => property, "value" => value} ->
           "#{property}: #{value}"
 
@@ -961,6 +985,13 @@ defmodule LiveShadcnTools.Gen.Heex do
 
   defp rest_attr(%{"props" => true}, %{rest: true}), do: [{:spread, "@rest"}]
   defp rest_attr(_node, _ctx), do: []
+
+  # Both markers are plumbing between the generator and a client hook. A
+  # component with no hook has nobody to say them to, and `sidebar` is one:
+  # every width it interpolates is set in a style attribute by the wrapper
+  # above it, so `data-lb-measure` on two of its `<div>`s asked a hook that is
+  # not there to measure something already known.
+  defp markers(_node, %{hook_part: nil}, _key), do: []
 
   defp markers(node, ctx, key) do
     reads = get_in(node, ["reads", "self"]) || []

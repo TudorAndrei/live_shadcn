@@ -18,6 +18,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Menu
   alias LiveShadcnTools.Gen.Popover
   alias LiveShadcnTools.Gen.Presentational
+  alias LiveShadcnTools.Gen.Sidebar
   alias LiveShadcnTools.Gen.Tabs
 
   @recipes %{
@@ -28,6 +29,7 @@ defmodule LiveShadcnTools.Gen do
     "menu" => Menu,
     "popover" => Popover,
     "presentational" => Presentational,
+    "sidebar" => Sidebar,
     "tabs" => Tabs
   }
 
@@ -45,8 +47,29 @@ defmodule LiveShadcnTools.Gen do
     single_content!(spec)
 
     case Map.fetch(@recipes, recipe) do
-      {:ok, implementation} -> spec |> implementation.module(opts) |> format() |> unique_ids!()
-      :error -> {:error, recipe}
+      {:ok, implementation} ->
+        spec
+        |> implementation.module(opts)
+        |> with_variants(spec)
+        |> format()
+        |> unique_ids!()
+
+      :error ->
+        {:error, recipe}
+    end
+  end
+
+  # The `cva` tables, appended once the markup is written.
+  #
+  # Every recipe used to interpolate them into its own template, and the table
+  # was worked out from the spec while the lookups were worked out from the
+  # tree — two answers to one question, which disagreed wherever a recipe
+  # renders a slice of a part rather than the whole. Reading the markup that
+  # was actually written is the same question asked once.
+  defp with_variants(source, spec) do
+    case Presentational.variant_table(spec, source) do
+      "" -> source
+      table -> String.replace_suffix(source, "end\n", table <> "end\n")
     end
   end
 

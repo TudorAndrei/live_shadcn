@@ -36,7 +36,6 @@ defmodule LiveShadcnTools.Gen.Disclosure do
   """
 
   alias LiveShadcnTools.Gen.Heex
-  alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Spec
 
   @client_attributes ["data-starting-style", "data-ending-style"]
@@ -131,7 +130,7 @@ defmodule LiveShadcnTools.Gen.Disclosure do
         \"\"\"
       end
 
-    #{helpers(shape)}#{Presentational.variant_table(spec)}end
+    #{helpers(shape)}end
     """
   end
 

@@ -134,7 +134,7 @@ defmodule LiveShadcnTools.Gen.Listbox do
 
       defp flag(true), do: ""
       defp flag(_state), do: nil
-    #{Presentational.variant_table(spec)}end
+    end
     """
   end
 
