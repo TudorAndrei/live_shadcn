@@ -34,6 +34,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Breadcrumb
   import LiveShadcn.UI.Button
   import LiveShadcn.UI.Card
+  import LiveShadcn.UI.Calendar
   import LiveShadcn.UI.Carousel
   import LiveShadcn.UI.Checkbox
   import LiveShadcn.UI.Collapsible
@@ -119,7 +120,7 @@ defmodule StorybookWeb.Examples do
 
   @doc "Every component that has examples, in the order they are listed."
   def components do
-    ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button carousel
+    ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button calendar carousel
        button-group card checkbox collapsible combobox command context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group resizable scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        toggle-group question questionnaire sidebar snippet sonner toast shadcn-message ai_elements-message)
@@ -158,6 +159,10 @@ defmodule StorybookWeb.Examples do
         &carousel_default/1
       )
     ]
+  end
+
+  def all("calendar") do
+    [one("default", "April 2026", "A server-computed month grid.", &calendar_default/1)]
   end
 
   def all("alert") do
@@ -925,6 +930,12 @@ defmodule StorybookWeb.Examples do
       <.carousel_previous />
       <.carousel_next />
     </.carousel>
+    """
+  end
+
+  defp calendar_default(assigns) do
+    ~H"""
+    <.calendar month={~D[2026-04-01]} selected={~D[2026-04-15]} class="max-w-md" />
     """
   end
 

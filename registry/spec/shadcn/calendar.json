@@ -1,0 +1,12 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "calendar recipe",
+  "name": "calendar",
+  "parts": [],
+  "primitives": {},
+  "recipe": "calendar",
+  "source": "shadcn",
+  "styles": {},
+  "upstream": "registry/upstream/shadcn/ui/calendar.tsx"
+}
