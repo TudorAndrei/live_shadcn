@@ -183,12 +183,18 @@ defmodule LiveShadcnTools.Gen.Scroller do
         #
         # `scrollbar-width: none` because the point of the component is the
         # scrollbar it draws, and the platform's beside it would be two.
-        {"style", :text, "overflow: auto; scrollbar-width: none"}
+        {"style", :text, "overflow: scroll; scrollbar-width: none"}
       ],
-      Spec.key(roles.scrollbar.node) => [{"data-orientation", :code, "@orientation"}],
+      Spec.key(roles.scrollbar.node) => [
+        {"data-orientation", :code, "@orientation"},
+        {"style", :code,
+         ~s|if(@orientation == "horizontal", do: "position: absolute; inset-inline: 0; inset-block-end: 0", else: "position: absolute; inset-block: 0; inset-inline-end: 0")|}
+      ],
       Spec.key(roles.thumb.node) => [
         {"data-lb-thumb", :bare},
-        {"data-orientation", :code, "@orientation"}
+        {"data-orientation", :code, "@orientation"},
+        {"style", :code,
+         ~s|if(@orientation == "horizontal", do: "flex: none; width: var(--scroll-area-thumb-width); height: 100%", else: "flex: none; width: 100%; height: var(--scroll-area-thumb-height)")|}
       ]
     }
   end

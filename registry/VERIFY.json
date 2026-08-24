@@ -26,14 +26,13 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/scroll-area.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "acd3e93986654d5262d900c5ca9140fc3d9e4bafa7a577a019772032e4bb5085"
   },
   "shadcn/checkbox": {

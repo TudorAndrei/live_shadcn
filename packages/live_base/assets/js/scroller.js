@@ -93,7 +93,7 @@ export const Scroller = {
     // The thumb is as much of the track as the viewport is of the content, and
     // it sits that far along. Both are ratios, so neither needs to know how
     // long the track is — the style sheet does, and it is where they are read.
-    const track = name === "y" ? this.el.clientHeight : this.el.clientWidth;
+    const track = this.track(name);
     const size = overflowing ? Math.max(MINIMUM_THUMB, (visible / total) * track) : 0;
     const travel = Math.max(0, total - visible);
     const at = travel === 0 ? 0 : (offset / travel) * (track - size);
@@ -107,6 +107,9 @@ export const Scroller = {
     );
 
     for (const thumb of this.el.querySelectorAll(`[data-lb-thumb][data-orientation='${axis(name)}']`)) {
+      if (name === "y") thumb.style.height = `${size}px`;
+      else thumb.style.width = `${size}px`;
+
       thumb.style.transform =
         name === "y" ? `translate3d(0, ${at}px, 0)` : `translate3d(${at}px, 0, 0)`;
     }
@@ -134,6 +137,15 @@ export const Scroller = {
     return [this.el, ...this.el.querySelectorAll("[data-slot]")];
   },
 
+  track(name) {
+    const style = getComputedStyle(this.el);
+    const start = parseFloat(name === "y" ? style.paddingTop : style.paddingLeft) || 0;
+    const end = parseFloat(name === "y" ? style.paddingBottom : style.paddingRight) || 0;
+    const size = name === "y" ? this.el.clientHeight : this.el.clientWidth;
+
+    return Math.max(0, size - start - end - 2);
+  },
+
   // Dragging the thumb scrolls the viewport, which scrolls this hook, which
   // moves the thumb. The thumb is never moved directly: one direction of
   // travel means the two can never disagree.
@@ -147,7 +159,7 @@ export const Scroller = {
 
     const total = vertical ? this.viewport.scrollHeight : this.viewport.scrollWidth;
     const visible = vertical ? this.viewport.clientHeight : this.viewport.clientWidth;
-    const track = vertical ? this.el.clientHeight : this.el.clientWidth;
+    const track = this.track(vertical ? "y" : "x");
     const size = Math.max(MINIMUM_THUMB, (visible / total) * track);
 
     const move = (moved) => {

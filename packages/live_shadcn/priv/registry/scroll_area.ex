@@ -50,7 +50,7 @@ defmodule LiveShadcn.UI.ScrollArea do
         data-slot="scroll-area-viewport"
         data-lb-scroller
         tabindex="0"
-        style="overflow: auto; scrollbar-width: none"
+        style="overflow: scroll; scrollbar-width: none"
         class="cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1"
       >
         {render_slot(@inner_block)}
@@ -58,12 +58,24 @@ defmodule LiveShadcn.UI.ScrollArea do
       <div
         data-slot="scroll-area-scrollbar"
         data-orientation={@orientation}
+        style={
+          if(@orientation == "horizontal",
+            do: "position: absolute; inset-inline: 0; inset-block-end: 0",
+            else: "position: absolute; inset-block: 0; inset-inline-end: 0"
+          )
+        }
         class="cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none"
       >
         <div
           data-slot="scroll-area-thumb"
           data-lb-thumb
           data-orientation={@orientation}
+          style={
+            if(@orientation == "horizontal",
+              do: "flex: none; width: var(--scroll-area-thumb-width); height: 100%",
+              else: "flex: none; width: 100%; height: var(--scroll-area-thumb-height)"
+            )
+          }
           class="cn-scroll-area-thumb relative flex-1 bg-border"
         />
       </div>
