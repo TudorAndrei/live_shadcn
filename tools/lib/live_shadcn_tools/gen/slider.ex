@@ -103,7 +103,11 @@ defmodule LiveShadcnTools.Gen.Slider do
     tree =
       roles.root.part["tree"]
       |> Heex.with_children_at(Spec.key(roles.thumb.node))
-      |> add_class_at(Spec.key(roles.indicator.node), "relative")
+      |> insert_class_at(
+        Spec.key(roles.indicator.node),
+        roles.indicator.node["class"] |> String.split() |> hd(),
+        "relative"
+      )
 
     Heex.render(tree, %{
       attrs: attributes(roles),
@@ -125,23 +129,32 @@ defmodule LiveShadcnTools.Gen.Slider do
 
   # The hook sets the range width. Its positioning is part of that behaviour,
   # not a replacement over generated source.
-  defp add_class_at(%{"module" => module, "part" => part} = node, key, class) do
+  defp insert_class_at(%{"module" => module, "part" => part} = node, key, anchor, class) do
     if "#{module}.#{part}" == key do
-      Map.update(node, "class", class, fn current -> Enum.join([current, class], " ") end)
+      Map.update(node, "class", class, &insert_after(&1, anchor, class))
     else
-      add_class_at_children(node, key, class)
+      insert_class_at_children(node, key, anchor, class)
     end
   end
 
-  defp add_class_at(node, key, class) when is_map(node),
-    do: add_class_at_children(node, key, class)
+  defp insert_class_at(node, key, anchor, class) when is_map(node),
+    do: insert_class_at_children(node, key, anchor, class)
 
-  defp add_class_at(node, _key, _class), do: node
+  defp insert_class_at(node, _key, _anchor, _class), do: node
 
-  defp add_class_at_children(node, key, class) do
+  defp insert_class_at_children(node, key, anchor, class) do
     Map.update(node, "children", [], fn children ->
-      Enum.map(children, &add_class_at(&1, key, class))
+      Enum.map(children, &insert_class_at(&1, key, anchor, class))
     end)
+  end
+
+  defp insert_after(classes, anchor, class) do
+    tokens = String.split(classes)
+    index = Enum.find_index(tokens, &(&1 == anchor))
+
+    tokens
+    |> List.insert_at(index + 1, class)
+    |> Enum.join(" ")
   end
 
   # Invisible, and over its own thumb. `opacity: 0` rather than `hidden`,
