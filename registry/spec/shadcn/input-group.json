@@ -5,6 +5,7 @@
   "name": "input-group",
   "parts": [
     {
+      "contexts": [],
       "export": "InputGroup",
       "name": "input_group",
       "params": {
@@ -21,6 +22,7 @@
         ],
         "children": [],
         "class": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -36,6 +38,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "InputGroupAddon",
       "name": "input_group_addon",
       "params": {
@@ -54,15 +57,11 @@
             "kind": "code",
             "name": "data-align",
             "value": "align"
-          },
-          {
-            "kind": "code",
-            "name": "onClick",
-            "value": "(e) => {\n        if ((e.target as HTMLElement).closest(\"button\")) {\n          return\n        }\n        e.currentTarget.parentElement?.querySelector(\"input\")?.focus()\n      }"
           }
         ],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -78,6 +77,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "InputGroupButton",
       "name": "input_group_button",
       "params": {
@@ -107,6 +107,7 @@
         ],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "button",
         "function": "button",
         "merges_class": true,
@@ -125,6 +126,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "InputGroupText",
       "name": "input_group_text",
       "params": {
@@ -135,6 +137,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -150,6 +153,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "InputGroupInput",
       "name": "input_group_input",
       "params": {
@@ -160,6 +164,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-input-group-input flex-1",
+        "class_when": [],
         "component": "input",
         "function": "input",
         "merges_class": true,
@@ -180,6 +185,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "InputGroupTextarea",
       "name": "input_group_textarea",
       "params": {
@@ -190,6 +196,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-input-group-textarea flex-1 resize-none",
+        "class_when": [],
         "component": "textarea",
         "function": "textarea",
         "merges_class": true,

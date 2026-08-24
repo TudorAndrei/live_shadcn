@@ -92,6 +92,13 @@ defmodule LiveShadcnTools.Spec do
       |> private_parts(ctx)
       |> fold(source, Keyword.get(opts, :resolve, fn _source, _name -> nil end))
 
+    parts =
+      parts
+      |> Enum.map(fn part ->
+        Map.update!(part, "tree", fn tree -> walk(tree, &written_content/1) end)
+      end)
+      |> Enum.map(&props_read(&1, variant_props(folded, variants)))
+
     own_primitives =
       for {module, page} <- docs, {key, part} <- page.parts, into: %{} do
         {"#{module}.#{key}", primitive(part)}
@@ -152,6 +159,78 @@ defmodule LiveShadcnTools.Spec do
     end
   end
 
+  # Every node of a tree, innermost first, through one change.
+  defp walk(node, change) when is_map(node) do
+    node
+    |> Map.new(fn {key, value} -> {key, walk(value, change)} end)
+    |> change.()
+  end
+
+  defp walk(nodes, change) when is_list(nodes), do: Enum.map(nodes, &walk(&1, change))
+  defp walk(value, _change), do: value
+
+  # A `<textarea>` has no value attribute. React accepts one and writes the
+  # text between the tags on the way to the browser; HTML puts it there to
+  # begin with, and a `value=` a browser ignores renders an empty box.
+  defp written_content(%{"tag" => "textarea", "attrs" => attrs} = node) do
+    case Enum.split_with(attrs, &(&1["name"] == "value")) do
+      {[], _kept} ->
+        node
+
+      {[value | _duplicates], kept} ->
+        node
+        |> Map.put("attrs", kept)
+        |> Map.put("children", [written(value) | Map.get(node, "children") || []])
+    end
+  end
+
+  defp written_content(node), do: node
+
+  defp written(%{"kind" => "code", "value" => code}), do: %{"type" => "value", "code" => code}
+  defp written(%{"value" => literal}), do: %{"type" => "text", "value" => literal}
+
+  # A part takes the props its markup reads, and no others.
+  #
+  # React keeps things a render needs and the markup never mentions: the object
+  # it puts in a context, the state behind a controlled value. Upstream is
+  # right to hold them and a template has no use for them, so declaring them
+  # would ask a caller for a value that changes nothing on the page.
+  #
+  # `className` and `children` are the two the markup reads without naming.
+  @always ~w(className children content render)
+
+  defp props_read(part, variant_props) do
+    code = codes(part["tree"]) |> Enum.join("\n")
+
+    Map.update(part, "params", %{}, fn params ->
+      Map.filter(params, fn {name, _default} ->
+        name in @always or name in variant_props or
+          Regex.match?(~r/\b#{Regex.escape(name)}\b/, code)
+      end)
+    end)
+  end
+
+  # A `cva` group is read without being named either: `size` is not written in
+  # the markup, it picks the class string the markup carries.
+  defp variant_props(folded, own) do
+    for table <- Map.values(merged(folded, "variants")) ++ Map.values(own),
+        group <- Map.keys(Map.get(table, "variants") || %{}),
+        uniq: true,
+        do: group
+  end
+
+  @doc "Every piece of JavaScript a tree still holds, wherever it holds one."
+  def codes(%{"kind" => "code", "value" => value}) when is_binary(value), do: [value]
+  def codes(%{"type" => "value", "code" => code}) when is_binary(code), do: [code]
+
+  def codes(node) when is_map(node) do
+    named = for key <- ~w(when collection binding key), is_binary(node[key]), do: node[key]
+    named ++ (node |> Map.values() |> Enum.flat_map(&codes/1))
+  end
+
+  def codes(nodes) when is_list(nodes), do: Enum.flat_map(nodes, &codes/1)
+  def codes(_node), do: []
+
   # A component this file declares and does not export.
   #
   # `context` renders `<TokensWithCost>` in three of its parts and exports none
@@ -164,6 +243,7 @@ defmodule LiveShadcnTools.Spec do
 
     private =
       for {name, function} <- ctx.functions,
+          function.renders?,
           underscored = Macro.underscore(name),
           not MapSet.member?(exported, underscored) do
         %{
@@ -370,6 +450,7 @@ defmodule LiveShadcnTools.Spec do
         (Map.get(tree, "attrs") || []) ++ markup_attrs(Map.get(node, "attrs") || [], params),
       "class" =>
         [tree["class"], node["class"]] |> Enum.reject(&(&1 in [nil, ""])) |> Enum.join(" "),
+      "class_when" => (tree["class_when"] || []) ++ (node["class_when"] || []),
       "merges_class" => node["merges_class"] || tree["merges_class"],
       "props" => node["props"] || tree["props"],
       "slot" => node["slot"] || tree["slot"]
@@ -550,6 +631,7 @@ defmodule LiveShadcnTools.Spec do
           "export" => export,
           "primitive" => primitive_of(function.props_type),
           "params" => Map.new(function.params, &icon_default(&1, ctx)),
+          "contexts" => function.contexts |> MapSet.to_list() |> Enum.sort(),
           "tree" => node(function.jsx, ctx)
         }
 
@@ -593,7 +675,13 @@ defmodule LiveShadcnTools.Spec do
     class_value = Tsx.attr(element, "className")
     variant_class = Tsx.variant_call(class_value, ctx.variants)
     classes = Tsx.classes(class_value)
-    styling = classes <> " " <> variant_classes(variant_class, ctx)
+    class_when = Tsx.conditional_classes(class_value)
+
+    styling =
+      Enum.join(
+        [classes, variant_classes(variant_class, ctx) | conditional_styling(class_when)],
+        " "
+      )
 
     element
     |> base_node(tag, ctx)
@@ -602,6 +690,7 @@ defmodule LiveShadcnTools.Spec do
       "attrs" => attributes(element),
       "render_as" => render_as(element, ctx),
       "class" => classes,
+      "class_when" => class_when,
       "variant_class" => variant_class,
       "merges_class" => Tsx.merges_class?(class_value),
       "props" => Tsx.spread?(element),
@@ -609,7 +698,16 @@ defmodule LiveShadcnTools.Spec do
       "vars" => vars(styling),
       "children" => Enum.map(element.children, &node(&1, ctx))
     })
+    |> forget_context_value()
   end
+
+  # `<QuestionContext.Provider value={contextValue}>` puts an object in the
+  # React tree for the descendants below it to read. It draws nothing, and the
+  # object it holds is not markup, so the provider keeps neither.
+  defp forget_context_value(%{"type" => "transparent", "reason" => "a React context"} = node),
+    do: Map.put(node, "attrs", [])
+
+  defp forget_context_value(node), do: node
 
   # The four expressions shadcn actually writes inside JSX. Each one carries a
   # decision the generated component has to make too, so each becomes a node
@@ -645,7 +743,7 @@ defmodule LiveShadcnTools.Spec do
         }
 
       match = repeat_over(code) ->
-        {collection, binding, fields, jsx} = match
+        {collection, binding, fields, counter, jsx} = match
 
         %{
           "type" => "repeat_over",
@@ -655,6 +753,7 @@ defmodule LiveShadcnTools.Spec do
           # the item. HEEx binds one name per generator, so the fields are read
           # off that name instead.
           "fields" => fields,
+          "counter" => counter,
           "children" => [markup(jsx, ctx)]
         }
 
@@ -912,6 +1011,11 @@ defmodule LiveShadcnTools.Spec do
         nil
     end
   end
+
+  # A class string an element wears only sometimes still says what the element
+  # reads: `data-open:hidden` is a contract whichever branch carries it.
+  defp conditional_styling(class_when),
+    do: Enum.flat_map(class_when, &[&1["then"] || "", &1["else"] || ""])
 
   # A variant table's own class strings are part of what this element reads, so
   # `data-` variants inside them are found the same way as the inline ones.
@@ -1214,7 +1318,9 @@ defmodule LiveShadcnTools.Spec do
   @recorded_elsewhere ~w(className data-slot render)
 
   defp attributes(element) do
-    for {:attr, name, value} <- element.attrs, name not in @recorded_elsewhere do
+    for {:attr, name, value} <- element.attrs,
+        name not in @recorded_elsewhere,
+        not react_handler?(name) do
       case value do
         {:string, literal} -> %{"name" => name, "kind" => "text", "value" => literal}
         {:expr, code} -> expression_attr(name, String.trim(code))
@@ -1222,6 +1328,13 @@ defmodule LiveShadcnTools.Spec do
       end
     end
   end
+
+  # `onSubmit={handleSubmit}` is how React attaches a browser event to a
+  # closure that lives inside the render. HEEx attaches the same event with
+  # `phx-submit`, and the caller passes that through `@rest`. Writing the React
+  # name out would put a DOM attribute in the output whose value names an
+  # Elixir assign, which is neither the event nor the handler.
+  defp react_handler?(name), do: name =~ ~r/^on[A-Z]/
 
   # `style={{ "--ratio": ratio } as React.CSSProperties}` is a set of CSS
   # declarations, not an expression. Recording it as declarations is what lets

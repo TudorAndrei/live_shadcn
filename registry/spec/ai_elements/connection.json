@@ -5,6 +5,7 @@
   "name": "connection",
   "parts": [
     {
+      "contexts": [],
       "export": "Connection",
       "name": "connection",
       "params": {
@@ -42,6 +43,7 @@
             ],
             "children": [],
             "class": "animated",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -90,6 +92,7 @@
             ],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -105,6 +108,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {

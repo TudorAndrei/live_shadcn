@@ -181,7 +181,7 @@ defmodule LiveShadcn.UI.Attachment do
   end
 
   @doc "The `attachment-trigger` part."
-  attr(:type, :string, default: nil)
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
   slot(:inner_block)

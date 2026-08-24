@@ -100,6 +100,7 @@
   "name": "menubar",
   "parts": [
     {
+      "contexts": [],
       "export": "Menubar",
       "name": "menubar",
       "params": {
@@ -110,6 +111,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-menubar flex items-center",
+        "class_when": [],
         "merges_class": true,
         "part": "Menubar",
         "props": true,
@@ -126,6 +128,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarPortal",
       "name": "menubar_portal",
       "params": {},
@@ -134,6 +137,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_portal",
         "merges_class": false,
@@ -152,6 +156,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarMenu",
       "name": "menubar_menu",
       "params": {},
@@ -160,6 +165,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu",
         "merges_class": false,
@@ -178,6 +184,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarTrigger",
       "name": "menubar_trigger",
       "params": {
@@ -188,6 +195,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-menubar-trigger flex items-center outline-hidden select-none",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_trigger",
         "merges_class": true,
@@ -208,6 +216,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarContent",
       "name": "menubar_content",
       "params": {
@@ -237,6 +246,7 @@
         ],
         "children": [],
         "class": "cn-menubar-content cn-menubar-content-logical cn-menu-target cn-menu-translucent",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_content",
         "merges_class": true,
@@ -259,6 +269,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarGroup",
       "name": "menubar_group",
       "params": {},
@@ -267,6 +278,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_group",
         "merges_class": false,
@@ -285,6 +297,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarSeparator",
       "name": "menubar_separator",
       "params": {
@@ -295,6 +308,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-menubar-separator -mx-1 my-1 h-px",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_separator",
         "merges_class": true,
@@ -313,6 +327,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarLabel",
       "name": "menubar_label",
       "params": {
@@ -330,6 +345,7 @@
         ],
         "children": [],
         "class": "cn-menubar-label",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_label",
         "merges_class": true,
@@ -350,6 +366,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarItem",
       "name": "menubar_item",
       "params": {
@@ -373,6 +390,7 @@
         ],
         "children": [],
         "class": "cn-menubar-item group/menubar-item",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_item",
         "merges_class": true,
@@ -394,6 +412,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarShortcut",
       "name": "menubar_shortcut",
       "params": {
@@ -404,6 +423,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-menubar-shortcut ml-auto",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_shortcut",
         "merges_class": true,
@@ -422,6 +442,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarCheckboxItem",
       "name": "menubar_checkbox_item",
       "params": {
@@ -481,6 +502,7 @@
                     ],
                     "children": [],
                     "class": "",
+                    "class_when": [],
                     "icons": {
                       "hugeicons": "Tick02Icon",
                       "lucide": "CheckIcon",
@@ -502,6 +524,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "module": "menu",
                 "part": "CheckboxItemIndicator",
@@ -519,6 +542,7 @@
               }
             ],
             "class": "cn-menubar-checkbox-item-indicator pointer-events-none absolute flex items-center justify-center",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -537,6 +561,7 @@
           }
         ],
         "class": "cn-menubar-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "CheckboxItem",
@@ -557,6 +582,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarRadioGroup",
       "name": "menubar_radio_group",
       "params": {},
@@ -565,6 +591,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_radio_group",
         "merges_class": false,
@@ -583,6 +610,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarRadioItem",
       "name": "menubar_radio_item",
       "params": {
@@ -636,6 +664,7 @@
                     ],
                     "children": [],
                     "class": "",
+                    "class_when": [],
                     "icons": {
                       "hugeicons": "Tick02Icon",
                       "lucide": "CheckIcon",
@@ -657,6 +686,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "module": "menu",
                 "part": "RadioItemIndicator",
@@ -674,6 +704,7 @@
               }
             ],
             "class": "cn-menubar-radio-item-indicator pointer-events-none absolute flex items-center justify-center",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -692,6 +723,7 @@
           }
         ],
         "class": "cn-menubar-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "RadioItem",
@@ -712,6 +744,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarSub",
       "name": "menubar_sub",
       "params": {},
@@ -720,6 +753,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_sub",
         "merges_class": false,
@@ -738,6 +772,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarSubTrigger",
       "name": "menubar_sub_trigger",
       "params": {
@@ -755,6 +790,7 @@
         ],
         "children": [],
         "class": "cn-menubar-sub-trigger",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_sub_trigger",
         "merges_class": true,
@@ -776,6 +812,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MenubarSubContent",
       "name": "menubar_sub_content",
       "params": {
@@ -786,6 +823,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-menubar-sub-content cn-menu-target cn-menu-translucent",
+        "class_when": [],
         "component": "dropdown-menu",
         "function": "dropdown_menu_sub_content",
         "merges_class": true,

@@ -17,7 +17,14 @@ defmodule LiveAiElements.Components.Message do
 
   def message(assigns) do
     ~H"""
-    <div class={["group flex w-full max-w-[95%] flex-col gap-2", @class]} {@rest}>
+    <div
+      class={[
+        "group flex w-full max-w-[95%] flex-col gap-2",
+        if(@from == "user", do: "is-user ml-auto justify-end", else: "is-assistant"),
+        @class
+      ]}
+      {@rest}
+    >
       {render_slot(@inner_block)}
     </div>
     """
@@ -59,9 +66,7 @@ defmodule LiveAiElements.Components.Message do
 
   @doc "The `message_action` part."
   attr(:button, :string, default: nil)
-  attr(:label, :string, default: nil)
   attr(:size, :string, default: "icon-sm")
-  attr(:tooltip, :string, default: nil)
   attr(:variant, :string, default: "ghost")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
@@ -73,14 +78,7 @@ defmodule LiveAiElements.Components.Message do
   end
 
   @doc "The `message_branch` part."
-  attr(:branches, :string, default: nil)
-  attr(:context_value, :string, default: nil)
-  attr(:current_branch, :string, default: nil)
-  attr(:default_branch, :string, default: "0")
-  attr(:go_to_next, :string, default: nil)
-  attr(:go_to_previous, :string, default: nil)
-  attr(:handle_branch_change, :string, default: nil)
-  attr(:on_branch_change, :string, default: nil)
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -93,7 +91,6 @@ defmodule LiveAiElements.Components.Message do
   end
 
   @doc "The `message_branch_content` part."
-  attr(:branches, :string, default: nil)
   attr(:children_array, :string, default: nil)
   attr(:current_branch, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -103,9 +100,12 @@ defmodule LiveAiElements.Components.Message do
   def message_branch_content(assigns) do
     ~H"""
     <div
-      :for={branch <- @children_array}
+      :for={{branch, index} <- Enum.with_index(@children_array)}
       key={branch.key}
-      class="grid gap-2 overflow-hidden [&>div]:pb-0"
+      class={[
+        "grid gap-2 overflow-hidden [&>div]:pb-0",
+        if(index == @current_branch, do: "block", else: "hidden")
+      ]}
       {@rest}
     >
       {branch}
@@ -116,7 +116,6 @@ defmodule LiveAiElements.Components.Message do
 
   @doc "The `button-group` part."
   attr(:orientation, :string, default: "horizontal", values: ["horizontal", "vertical"])
-  attr(:total_branches, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -140,8 +139,6 @@ defmodule LiveAiElements.Components.Message do
   end
 
   @doc "The `button` part."
-  attr(:go_to_previous, :string, default: nil)
-
   attr(:size, :string,
     default: "default",
     values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
@@ -179,8 +176,6 @@ defmodule LiveAiElements.Components.Message do
   end
 
   @doc "The `button` part."
-  attr(:go_to_next, :string, default: nil)
-
   attr(:size, :string,
     default: "default",
     values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]

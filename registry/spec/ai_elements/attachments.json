@@ -9,23 +9,17 @@
   "name": "attachments",
   "parts": [
     {
+      "contexts": [],
       "export": "Attachments",
       "name": "attachments",
       "params": {
         "children": null,
         "className": null,
-        "contextValue": null,
         "variant": "grid"
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [],
@@ -35,6 +29,18 @@
               }
             ],
             "class": "flex items-start",
+            "class_when": [
+              {
+                "else": "flex-wrap gap-2",
+                "then": "flex-col gap-2",
+                "when": "variant === \"list\""
+              },
+              {
+                "else": null,
+                "then": "ml-auto w-fit",
+                "when": "variant === \"grid\""
+              }
+            ],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -50,6 +56,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -65,26 +72,17 @@
       }
     },
     {
+      "contexts": [],
       "export": "Attachment",
       "name": "attachment",
       "params": {
         "children": null,
         "className": null,
-        "contextValue": null,
-        "data": null,
-        "mediaCategory": null,
-        "onRemove": null,
         "variant": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [],
@@ -94,6 +92,13 @@
               }
             ],
             "class": "group relative",
+            "class_when": [
+              {
+                "else": null,
+                "then": "size-24 overflow-hidden rounded-lg",
+                "when": "variant === \"grid\""
+              }
+            ],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -109,6 +114,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -124,16 +130,11 @@
       }
     },
     {
+      "contexts": [],
       "export": "AttachmentPreview",
       "name": "attachment_preview",
       "params": {
         "className": null,
-        "data": null,
-        "fallbackIcon": null,
-        "iconSize": null,
-        "mediaCategory": null,
-        "renderContent": null,
-        "renderIcon": null,
         "variant": null
       },
       "primitive": null,
@@ -146,6 +147,23 @@
           }
         ],
         "class": "flex shrink-0 items-center justify-center overflow-hidden",
+        "class_when": [
+          {
+            "else": null,
+            "then": "size-full bg-muted",
+            "when": "variant === \"grid\""
+          },
+          {
+            "else": null,
+            "then": "size-5 rounded bg-background",
+            "when": "variant === \"inline\""
+          },
+          {
+            "else": null,
+            "then": "size-12 rounded bg-muted",
+            "when": "variant === \"list\""
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -161,6 +179,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AttachmentInfo",
       "name": "attachment_info",
       "params": {
@@ -183,6 +202,7 @@
               }
             ],
             "class": "block truncate",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -207,6 +227,7 @@
                   }
                 ],
                 "class": "block truncate text-muted-foreground text-xs",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -226,6 +247,7 @@
           }
         ],
         "class": "min-w-0 flex-1",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -241,14 +263,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "AttachmentRemove",
       "name": "attachment_remove",
       "params": {
         "children": null,
         "className": null,
-        "handleClick": null,
         "label": "Remove",
-        "onRemove": null,
         "size": "default",
         "variant": null
       },
@@ -273,6 +294,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "",
+                "class_when": [],
                 "icons": {
                   "lucide": "XIcon"
                 },
@@ -300,6 +322,7 @@
               }
             ],
             "class": "sr-only",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -315,6 +338,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",
@@ -335,17 +359,16 @@
       }
     },
     {
+      "contexts": [],
       "export": "AttachmentHoverCard",
       "name": "attachment_hover_card",
-      "params": {
-        "closeDelay": "0",
-        "openDelay": "0"
-      },
+      "params": {},
       "primitive": null,
       "tree": {
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Root",
         "props": true,
@@ -362,6 +385,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AttachmentHoverCardTrigger",
       "name": "attachment_hover_card_trigger",
       "params": {},
@@ -370,6 +394,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "preview-card",
         "part": "Trigger",
@@ -387,6 +412,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AttachmentHoverCardContent",
       "name": "attachment_hover_card_content",
       "params": {
@@ -428,6 +454,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "cn-hover-card-content cn-hover-card-content-logical z-50 origin-(--transform-origin) outline-hidden",
+                "class_when": [],
                 "merges_class": true,
                 "module": "preview-card",
                 "part": "Popup",
@@ -450,6 +477,7 @@
               }
             ],
             "class": "isolate z-50",
+            "class_when": [],
             "merges_class": false,
             "module": "preview-card",
             "part": "Positioner",
@@ -467,6 +495,7 @@
           }
         ],
         "class": "w-auto p-2",
+        "class_when": [],
         "merges_class": true,
         "module": "preview-card",
         "part": "Portal",
@@ -484,6 +513,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AttachmentEmpty",
       "name": "attachment_empty",
       "params": {
@@ -505,6 +535,7 @@
           }
         ],
         "class": "flex items-center justify-center p-4 text-muted-foreground text-sm",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

@@ -11,34 +11,17 @@
   "name": "reasoning",
   "parts": [
     {
+      "contexts": [],
       "export": "Reasoning",
       "name": "reasoning",
       "params": {
         "children": null,
         "className": null,
-        "contextValue": null,
-        "defaultOpen": null,
-        "duration": null,
-        "handleOpenChange": null,
-        "hasAutoClosed": "false",
-        "hasEverStreamedRef": null,
-        "isExplicitlyClosed": null,
-        "isOpen": null,
-        "isStreaming": "false",
-        "onOpenChange": null,
-        "open": null,
-        "resolvedDefaultOpen": null,
-        "startTimeRef": null
+        "isOpen": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -54,6 +37,7 @@
               }
             ],
             "class": "not-prose mb-4",
+            "class_when": [],
             "merges_class": true,
             "module": "collapsible",
             "part": "Root",
@@ -71,6 +55,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -86,15 +71,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "ReasoningTrigger",
       "name": "reasoning_trigger",
       "params": {
         "children": null,
         "className": null,
-        "duration": null,
-        "getThinkingMessage": "defaultGetThinkingMessage",
-        "isOpen": null,
-        "isStreaming": null
+        "isOpen": null
       },
       "primitive": null,
       "tree": {
@@ -109,6 +92,7 @@
                     "attrs": [],
                     "children": [],
                     "class": "size-4",
+                    "class_when": [],
                     "icons": {
                       "lucide": "BrainIcon"
                     },
@@ -132,6 +116,13 @@
                     "attrs": [],
                     "children": [],
                     "class": "size-4 transition-transform",
+                    "class_when": [
+                      {
+                        "else": "rotate-0",
+                        "then": "rotate-180",
+                        "when": "isOpen"
+                      }
+                    ],
                     "icons": {
                       "lucide": "ChevronDownIcon"
                     },
@@ -149,6 +140,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -167,6 +159,7 @@
           }
         ],
         "class": "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+        "class_when": [],
         "merges_class": true,
         "module": "collapsible",
         "part": "Trigger",
@@ -184,6 +177,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ReasoningContent",
       "name": "reasoning_content",
       "params": {
@@ -205,6 +199,7 @@
             ],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -220,6 +215,7 @@
           }
         ],
         "class": "mt-4 text-sm data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-muted-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "class_when": [],
         "merges_class": true,
         "module": "collapsible",
         "part": "Panel",

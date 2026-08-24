@@ -65,6 +65,7 @@
   "name": "popover",
   "parts": [
     {
+      "contexts": [],
       "export": "Popover",
       "name": "popover",
       "params": {},
@@ -73,6 +74,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Root",
         "props": true,
@@ -89,6 +91,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PopoverContent",
       "name": "popover_content",
       "params": {
@@ -130,6 +133,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
+                "class_when": [],
                 "merges_class": true,
                 "module": "popover",
                 "part": "Popup",
@@ -152,6 +156,7 @@
               }
             ],
             "class": "isolate z-50",
+            "class_when": [],
             "merges_class": false,
             "module": "popover",
             "part": "Positioner",
@@ -169,6 +174,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "popover",
         "part": "Portal",
@@ -186,6 +192,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PopoverDescription",
       "name": "popover_description",
       "params": {
@@ -196,6 +203,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-popover-description",
+        "class_when": [],
         "merges_class": true,
         "module": "popover",
         "part": "Description",
@@ -213,6 +221,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PopoverHeader",
       "name": "popover_header",
       "params": {
@@ -223,6 +232,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-popover-header",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -238,6 +248,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PopoverTitle",
       "name": "popover_title",
       "params": {
@@ -248,6 +259,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-popover-title",
+        "class_when": [],
         "merges_class": true,
         "module": "popover",
         "part": "Title",
@@ -265,6 +277,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PopoverTrigger",
       "name": "popover_trigger",
       "params": {},
@@ -273,6 +286,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "popover",
         "part": "Trigger",

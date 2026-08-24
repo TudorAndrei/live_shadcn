@@ -11,6 +11,7 @@
   "name": "task",
   "parts": [
     {
+      "contexts": [],
       "export": "TaskItemFile",
       "name": "task_item_file",
       "params": {
@@ -26,6 +27,7 @@
           }
         ],
         "class": "inline-flex items-center gap-1 rounded-md border bg-secondary px-1.5 py-0.5 text-foreground text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -41,6 +43,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "TaskItem",
       "name": "task_item",
       "params": {
@@ -56,6 +59,7 @@
           }
         ],
         "class": "text-muted-foreground text-sm",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -71,17 +75,18 @@
       }
     },
     {
+      "contexts": [],
       "export": "Task",
       "name": "task",
       "params": {
-        "className": null,
-        "defaultOpen": "true"
+        "className": null
       },
       "primitive": null,
       "tree": {
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "module": "collapsible",
         "part": "Root",
@@ -99,6 +104,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "TaskTrigger",
       "name": "task_trigger",
       "params": {
@@ -119,6 +125,7 @@
                     "attrs": [],
                     "children": [],
                     "class": "size-4",
+                    "class_when": [],
                     "icons": {
                       "lucide": "SearchIcon"
                     },
@@ -143,6 +150,7 @@
                       }
                     ],
                     "class": "text-sm",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -160,6 +168,7 @@
                     "attrs": [],
                     "children": [],
                     "class": "size-4 transition-transform group-data-[state=open]:rotate-180",
+                    "class_when": [],
                     "icons": {
                       "lucide": "ChevronDownIcon"
                     },
@@ -177,6 +186,7 @@
                   }
                 ],
                 "class": "flex w-full cursor-pointer items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -195,6 +205,7 @@
           }
         ],
         "class": "group",
+        "class_when": [],
         "merges_class": true,
         "module": "collapsible",
         "part": "Trigger",
@@ -212,6 +223,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "TaskContent",
       "name": "task_content",
       "params": {
@@ -230,6 +242,7 @@
               }
             ],
             "class": "mt-4 space-y-2 border-muted border-l-2 pl-4",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -245,6 +258,7 @@
           }
         ],
         "class": "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "class_when": [],
         "merges_class": true,
         "module": "collapsible",
         "part": "Panel",

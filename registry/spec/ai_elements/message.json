@@ -9,6 +9,7 @@
   "name": "message",
   "parts": [
     {
+      "contexts": [],
       "export": "Message",
       "name": "message",
       "params": {
@@ -20,6 +21,13 @@
         "attrs": [],
         "children": [],
         "class": "group flex w-full max-w-[95%] flex-col gap-2",
+        "class_when": [
+          {
+            "else": "is-assistant",
+            "then": "is-user ml-auto justify-end",
+            "when": "from === \"user\""
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -35,6 +43,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MessageContent",
       "name": "message_content",
       "params": {
@@ -50,6 +59,7 @@
           }
         ],
         "class": "is-user:dark flex w-fit min-w-0 max-w-full flex-col gap-2 overflow-hidden text-sm group-[.is-user]:ml-auto group-[.is-user]:rounded-lg group-[.is-user]:bg-secondary group-[.is-user]:px-4 group-[.is-user]:py-3 group-[.is-user]:text-foreground group-[.is-assistant]:text-foreground",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -65,6 +75,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MessageActions",
       "name": "message_actions",
       "params": {
@@ -80,6 +91,7 @@
           }
         ],
         "class": "flex items-center gap-1",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -95,14 +107,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "MessageAction",
       "name": "message_action",
       "params": {
         "button": null,
         "children": null,
-        "label": null,
         "size": "icon-sm",
-        "tooltip": null,
         "variant": "ghost"
       },
       "primitive": null,
@@ -112,33 +123,21 @@
       }
     },
     {
+      "contexts": [],
       "export": "MessageBranch",
       "name": "message_branch",
       "params": {
-        "branches": null,
-        "className": null,
-        "contextValue": null,
-        "currentBranch": null,
-        "defaultBranch": "0",
-        "goToNext": null,
-        "goToPrevious": null,
-        "handleBranchChange": null,
-        "onBranchChange": null
+        "className": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [],
             "children": [],
             "class": "grid w-full gap-2 [&>div]:pb-0",
+            "class_when": [],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -154,6 +153,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -169,10 +169,10 @@
       }
     },
     {
+      "contexts": [],
       "export": "MessageBranchContent",
       "name": "message_branch_content",
       "params": {
-        "branches": null,
         "children": null,
         "childrenArray": null,
         "currentBranch": null
@@ -196,6 +196,13 @@
               }
             ],
             "class": "grid gap-2 overflow-hidden [&>div]:pb-0",
+            "class_when": [
+              {
+                "else": "hidden",
+                "then": "block",
+                "when": "index === currentBranch"
+              }
+            ],
             "merges_class": false,
             "props": true,
             "reads": {
@@ -211,17 +218,18 @@
           }
         ],
         "collection": "childrenArray",
+        "counter": "index",
         "fields": [],
         "type": "repeat_over"
       }
     },
     {
+      "contexts": [],
       "export": "MessageBranchSelector",
       "name": "message_branch_selector",
       "params": {
         "className": null,
-        "orientation": null,
-        "totalBranches": null
+        "orientation": null
       },
       "primitive": null,
       "tree": {
@@ -239,6 +247,7 @@
         ],
         "children": [],
         "class": "[&>*:not(:first-child)]:rounded-l-md [&>*:not(:last-child)]:rounded-r-md",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -256,12 +265,12 @@
       }
     },
     {
+      "contexts": [],
       "export": "MessageBranchPrevious",
       "name": "message_branch_previous",
       "params": {
         "children": null,
         "className": null,
-        "goToPrevious": null,
         "size": "default",
         "totalBranches": null,
         "variant": "default"
@@ -298,6 +307,7 @@
                 ],
                 "children": [],
                 "class": "",
+                "class_when": [],
                 "icons": {
                   "lucide": "ChevronLeftIcon"
                 },
@@ -318,6 +328,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",
@@ -338,12 +349,12 @@
       }
     },
     {
+      "contexts": [],
       "export": "MessageBranchNext",
       "name": "message_branch_next",
       "params": {
         "children": null,
         "className": null,
-        "goToNext": null,
         "size": "default",
         "totalBranches": null,
         "variant": "default"
@@ -380,6 +391,7 @@
                 ],
                 "children": [],
                 "class": "",
+                "class_when": [],
                 "icons": {
                   "lucide": "ChevronRightIcon"
                 },
@@ -400,6 +412,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",
@@ -420,6 +433,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MessageBranchPage",
       "name": "message_branch_page",
       "params": {
@@ -446,6 +460,7 @@
           }
         ],
         "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none border-none bg-transparent text-muted-foreground shadow-none",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -461,6 +476,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MessageResponse",
       "name": "message_response",
       "params": {
@@ -478,6 +494,7 @@
         ],
         "children": [],
         "class": "size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -493,6 +510,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MessageToolbar",
       "name": "message_toolbar",
       "params": {
@@ -508,6 +526,7 @@
           }
         ],
         "class": "mt-4 flex w-full items-center justify-between gap-4",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

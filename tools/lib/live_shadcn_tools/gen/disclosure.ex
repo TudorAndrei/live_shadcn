@@ -257,6 +257,7 @@ defmodule LiveShadcnTools.Gen.Disclosure do
       children: children,
       class: class_expression(spec, role, roles, shape),
       params: Map.get(part, "params", %{}),
+      contexts: Map.get(part, "contexts", []),
       # Opening and closing is this recipe's, whatever upstream called it. A
       # component that read `isOpen` out of a React context would otherwise
       # grow a second flag beside the one the recipe already sets.

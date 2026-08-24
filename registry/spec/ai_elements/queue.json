@@ -21,6 +21,7 @@
   "name": "queue",
   "parts": [
     {
+      "contexts": [],
       "export": "QueueItem",
       "name": "queue_item",
       "params": {
@@ -31,6 +32,7 @@
         "attrs": [],
         "children": [],
         "class": "group flex flex-col gap-1 rounded-md px-3 py-1 text-sm transition-colors hover:bg-muted",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -46,6 +48,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueItemIndicator",
       "name": "queue_item_indicator",
       "params": {
@@ -57,6 +60,13 @@
         "attrs": [],
         "children": [],
         "class": "mt-0.5 inline-block size-2.5 rounded-full border",
+        "class_when": [
+          {
+            "else": "border-muted-foreground/50",
+            "then": "border-muted-foreground/20 bg-muted-foreground/10",
+            "when": "completed"
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -72,6 +82,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueItemContent",
       "name": "queue_item_content",
       "params": {
@@ -83,6 +94,13 @@
         "attrs": [],
         "children": [],
         "class": "line-clamp-1 grow break-words",
+        "class_when": [
+          {
+            "else": "text-muted-foreground",
+            "then": "text-muted-foreground/50 line-through",
+            "when": "completed"
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -98,6 +116,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueItemDescription",
       "name": "queue_item_description",
       "params": {
@@ -109,6 +128,13 @@
         "attrs": [],
         "children": [],
         "class": "ml-6 text-xs",
+        "class_when": [
+          {
+            "else": "text-muted-foreground",
+            "then": "text-muted-foreground/40 line-through",
+            "when": "completed"
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -124,6 +150,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueItemActions",
       "name": "queue_item_actions",
       "params": {
@@ -134,6 +161,7 @@
         "attrs": [],
         "children": [],
         "class": "flex gap-1",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -149,6 +177,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueItemAction",
       "name": "queue_item_action",
       "params": {
@@ -167,6 +196,7 @@
         ],
         "children": [],
         "class": "size-auto rounded p-1 text-muted-foreground opacity-0 transition-opacity hover:bg-muted-foreground/10 hover:text-foreground group-hover:opacity-100",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",
@@ -187,6 +217,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueItemAttachment",
       "name": "queue_item_attachment",
       "params": {
@@ -197,6 +228,7 @@
         "attrs": [],
         "children": [],
         "class": "mt-1 flex flex-wrap gap-2",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -212,6 +244,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueItemImage",
       "name": "queue_item_image",
       "params": {
@@ -238,6 +271,7 @@
         ],
         "children": [],
         "class": "h-8 w-8 rounded border object-cover",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -253,6 +287,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueItemFile",
       "name": "queue_item_file",
       "params": {
@@ -273,6 +308,7 @@
             ],
             "children": [],
             "class": "",
+            "class_when": [],
             "icons": {
               "lucide": "PaperclipIcon"
             },
@@ -296,6 +332,7 @@
               }
             ],
             "class": "max-w-[100px] truncate",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -311,6 +348,7 @@
           }
         ],
         "class": "flex items-center gap-1 rounded border bg-muted px-2 py-1 text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -326,6 +364,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueList",
       "name": "queue_list",
       "params": {
@@ -350,6 +389,7 @@
                       }
                     ],
                     "class": "",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -365,6 +405,7 @@
                   }
                 ],
                 "class": "max-h-40 pr-4",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -380,6 +421,7 @@
               }
             ],
             "class": "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
+            "class_when": [],
             "merges_class": false,
             "module": "scroll-area",
             "part": "Viewport",
@@ -413,6 +455,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "cn-scroll-area-thumb relative flex-1 bg-border",
+                "class_when": [],
                 "merges_class": false,
                 "module": "scroll-area",
                 "part": "Thumb",
@@ -430,6 +473,7 @@
               }
             ],
             "class": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
+            "class_when": [],
             "merges_class": true,
             "module": "scroll-area",
             "part": "Scrollbar",
@@ -452,6 +496,7 @@
             "attrs": [],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "module": "scroll-area",
             "part": "Corner",
@@ -469,6 +514,7 @@
           }
         ],
         "class": "cn-scroll-area relative mt-2 -mb-1",
+        "class_when": [],
         "merges_class": true,
         "module": "scroll-area",
         "part": "Root",
@@ -486,17 +532,18 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueSection",
       "name": "queue_section",
       "params": {
-        "className": null,
-        "defaultOpen": "true"
+        "className": null
       },
       "primitive": null,
       "tree": {
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "module": "collapsible",
         "part": "Root",
@@ -514,6 +561,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueSectionTrigger",
       "name": "queue_section_trigger",
       "params": {
@@ -538,6 +586,7 @@
               }
             ],
             "class": "group flex w-full items-center justify-between rounded-md bg-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted",
+            "class_when": [],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -553,6 +602,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "collapsible",
         "part": "Trigger",
@@ -570,6 +620,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueSectionLabel",
       "name": "queue_section_label",
       "params": {
@@ -586,6 +637,7 @@
             "attrs": [],
             "children": [],
             "class": "size-4 transition-transform group-data-[state=closed]:-rotate-90",
+            "class_when": [],
             "icons": {
               "lucide": "ChevronDownIcon"
             },
@@ -618,6 +670,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -633,6 +686,7 @@
           }
         ],
         "class": "flex items-center gap-2",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -648,6 +702,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QueueSectionContent",
       "name": "queue_section_content",
       "params": {
@@ -658,6 +713,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "module": "collapsible",
         "part": "Panel",
@@ -675,6 +731,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "Queue",
       "name": "queue",
       "params": {
@@ -685,6 +742,7 @@
         "attrs": [],
         "children": [],
         "class": "flex flex-col gap-2 rounded-xl border border-border bg-background px-3 pt-2 pb-2 shadow-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

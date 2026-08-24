@@ -109,6 +109,7 @@
   "name": "dropdown-menu",
   "parts": [
     {
+      "contexts": [],
       "export": "DropdownMenu",
       "name": "dropdown_menu",
       "params": {},
@@ -117,6 +118,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Root",
         "props": true,
@@ -133,6 +135,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuPortal",
       "name": "dropdown_menu_portal",
       "params": {},
@@ -141,6 +144,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "menu",
         "part": "Portal",
@@ -158,6 +162,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuTrigger",
       "name": "dropdown_menu_trigger",
       "params": {},
@@ -166,6 +171,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "menu",
         "part": "Trigger",
@@ -183,6 +189,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuContent",
       "name": "dropdown_menu_content",
       "params": {
@@ -224,6 +231,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
+                "class_when": [],
                 "merges_class": true,
                 "module": "menu",
                 "part": "Popup",
@@ -250,6 +258,7 @@
               }
             ],
             "class": "isolate z-50 outline-none",
+            "class_when": [],
             "merges_class": false,
             "module": "menu",
             "part": "Positioner",
@@ -267,6 +276,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "menu",
         "part": "Portal",
@@ -284,6 +294,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuGroup",
       "name": "dropdown_menu_group",
       "params": {},
@@ -292,6 +303,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "menu",
         "part": "Group",
@@ -309,6 +321,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuLabel",
       "name": "dropdown_menu_label",
       "params": {
@@ -326,6 +339,7 @@
         ],
         "children": [],
         "class": "cn-dropdown-menu-label",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "GroupLabel",
@@ -345,6 +359,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuItem",
       "name": "dropdown_menu_item",
       "params": {
@@ -368,6 +383,7 @@
         ],
         "children": [],
         "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "Item",
@@ -388,6 +404,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuCheckboxItem",
       "name": "dropdown_menu_checkbox_item",
       "params": {
@@ -447,6 +464,7 @@
                     ],
                     "children": [],
                     "class": "",
+                    "class_when": [],
                     "icons": {
                       "hugeicons": "Tick02Icon",
                       "lucide": "CheckIcon",
@@ -468,6 +486,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "module": "menu",
                 "part": "CheckboxItemIndicator",
@@ -485,6 +504,7 @@
               }
             ],
             "class": "cn-dropdown-menu-item-indicator pointer-events-none",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -503,6 +523,7 @@
           }
         ],
         "class": "cn-dropdown-menu-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "CheckboxItem",
@@ -523,6 +544,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuRadioGroup",
       "name": "dropdown_menu_radio_group",
       "params": {},
@@ -531,6 +553,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "menu",
         "part": "RadioGroup",
@@ -548,6 +571,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuRadioItem",
       "name": "dropdown_menu_radio_item",
       "params": {
@@ -601,6 +625,7 @@
                     ],
                     "children": [],
                     "class": "",
+                    "class_when": [],
                     "icons": {
                       "hugeicons": "Tick02Icon",
                       "lucide": "CheckIcon",
@@ -622,6 +647,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "module": "menu",
                 "part": "RadioItemIndicator",
@@ -639,6 +665,7 @@
               }
             ],
             "class": "cn-dropdown-menu-item-indicator pointer-events-none",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -657,6 +684,7 @@
           }
         ],
         "class": "cn-dropdown-menu-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "RadioItem",
@@ -677,6 +705,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuSeparator",
       "name": "dropdown_menu_separator",
       "params": {
@@ -687,6 +716,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-dropdown-menu-separator",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "Separator",
@@ -704,6 +734,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuShortcut",
       "name": "dropdown_menu_shortcut",
       "params": {
@@ -714,6 +745,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-dropdown-menu-shortcut",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -729,6 +761,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuSub",
       "name": "dropdown_menu_sub",
       "params": {},
@@ -737,6 +770,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "SubmenuRoot",
         "props": true,
@@ -753,6 +787,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuSubTrigger",
       "name": "dropdown_menu_sub_trigger",
       "params": {
@@ -803,6 +838,7 @@
             ],
             "children": [],
             "class": "cn-rtl-flip ml-auto",
+            "class_when": [],
             "icons": {
               "hugeicons": "ArrowRight01Icon",
               "lucide": "ChevronRightIcon",
@@ -824,6 +860,7 @@
           }
         ],
         "class": "cn-dropdown-menu-sub-trigger flex cursor-default items-center outline-hidden select-none data-popup-open:bg-accent data-popup-open:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "SubmenuTrigger",
@@ -845,6 +882,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DropdownMenuSubContent",
       "name": "dropdown_menu_sub_content",
       "params": {
@@ -880,6 +918,7 @@
         ],
         "children": [],
         "class": "cn-dropdown-menu-sub-content cn-menu-target cn-menu-translucent w-auto",
+        "class_when": [],
         "merges_class": true,
         "part": "dropdown_menu_content",
         "props": true,

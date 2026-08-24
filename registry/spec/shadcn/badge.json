@@ -5,6 +5,7 @@
   "name": "badge",
   "parts": [
     {
+      "contexts": [],
       "export": "Badge",
       "name": "badge",
       "params": {
@@ -21,6 +22,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

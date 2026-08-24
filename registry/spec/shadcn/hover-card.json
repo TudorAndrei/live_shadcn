@@ -5,6 +5,7 @@
   "name": "hover-card",
   "parts": [
     {
+      "contexts": [],
       "export": "HoverCard",
       "name": "hover_card",
       "params": {},
@@ -13,6 +14,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Root",
         "props": true,
@@ -29,6 +31,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "HoverCardTrigger",
       "name": "hover_card_trigger",
       "params": {},
@@ -37,6 +40,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "preview-card",
         "part": "Trigger",
@@ -54,6 +58,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "HoverCardContent",
       "name": "hover_card_content",
       "params": {
@@ -95,6 +100,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "cn-hover-card-content cn-hover-card-content-logical z-50 origin-(--transform-origin) outline-hidden",
+                "class_when": [],
                 "merges_class": true,
                 "module": "preview-card",
                 "part": "Popup",
@@ -117,6 +123,7 @@
               }
             ],
             "class": "isolate z-50",
+            "class_when": [],
             "merges_class": false,
             "module": "preview-card",
             "part": "Positioner",
@@ -134,6 +141,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "preview-card",
         "part": "Portal",

@@ -10,7 +10,6 @@ defmodule LiveAiElements.Components.Attachments do
   use Phoenix.Component
 
   @doc "The `attachments` part."
-  attr(:context_value, :string, default: nil)
   attr(:variant, :string, default: "grid")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
@@ -18,17 +17,21 @@ defmodule LiveAiElements.Components.Attachments do
 
   def attachments(assigns) do
     ~H"""
-    <div class={["flex items-start", @class]} {@rest}>
+    <div
+      class={[
+        "flex items-start",
+        if(@variant == "list", do: "flex-col gap-2", else: "flex-wrap gap-2"),
+        if(@variant == "grid", do: "ml-auto w-fit", else: nil),
+        @class
+      ]}
+      {@rest}
+    >
       {render_slot(@inner_block)}
     </div>
     """
   end
 
   @doc "The `attachment` part."
-  attr(:context_value, :string, default: nil)
-  attr(:data, :string, default: nil)
-  attr(:media_category, :string, default: nil)
-  attr(:on_remove, :string, default: nil)
   attr(:variant, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
@@ -36,19 +39,20 @@ defmodule LiveAiElements.Components.Attachments do
 
   def attachment(assigns) do
     ~H"""
-    <div class={["group relative", @class]} {@rest}>
+    <div
+      class={[
+        "group relative",
+        if(@variant == "grid", do: "size-24 overflow-hidden rounded-lg", else: nil),
+        @class
+      ]}
+      {@rest}
+    >
       {render_slot(@inner_block)}
     </div>
     """
   end
 
   @doc "The `attachment_preview` part."
-  attr(:data, :string, default: nil)
-  attr(:fallback_icon, :string, default: nil)
-  attr(:icon_size, :string, default: nil)
-  attr(:media_category, :string, default: nil)
-  attr(:render_content, :string, default: nil)
-  attr(:render_icon, :string, default: nil)
   attr(:variant, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
@@ -56,7 +60,16 @@ defmodule LiveAiElements.Components.Attachments do
 
   def attachment_preview(assigns) do
     ~H"""
-    <div class={["flex shrink-0 items-center justify-center overflow-hidden", @class]} {@rest}>
+    <div
+      class={[
+        "flex shrink-0 items-center justify-center overflow-hidden",
+        if(@variant == "grid", do: "size-full bg-muted", else: nil),
+        if(@variant == "inline", do: "size-5 rounded bg-background", else: nil),
+        if(@variant == "list", do: "size-12 rounded bg-muted", else: nil),
+        @class
+      ]}
+      {@rest}
+    >
       {render_slot(@render_content)}
       {render_slot(@inner_block)}
     </div>
@@ -64,9 +77,9 @@ defmodule LiveAiElements.Components.Attachments do
   end
 
   @doc "The `attachment_info` part."
-  attr(:data, :string, default: nil)
+  attr(:data, :any, default: nil)
   attr(:label, :string, default: nil)
-  attr(:show_media_type, :string, default: "false")
+  attr(:show_media_type, :boolean, default: false)
   attr(:variant, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
@@ -90,9 +103,7 @@ defmodule LiveAiElements.Components.Attachments do
   end
 
   @doc "The `button` part."
-  attr(:handle_click, :string, default: nil)
   attr(:label, :string, default: "Remove")
-  attr(:on_remove, :string, default: nil)
 
   attr(:size, :string,
     default: "default",
@@ -131,8 +142,7 @@ defmodule LiveAiElements.Components.Attachments do
   end
 
   @doc "The `hover-card` part."
-  attr(:close_delay, :string, default: "0")
-  attr(:open_delay, :string, default: "0")
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)

@@ -10,29 +10,19 @@
   "name": "context",
   "parts": [
     {
+      "contexts": [],
       "export": "Context",
       "name": "context",
-      "params": {
-        "contextValue": null,
-        "maxTokens": null,
-        "modelId": null,
-        "usage": null,
-        "usedTokens": null
-      },
+      "params": {},
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "part": "Root",
             "props": true,
@@ -49,6 +39,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -64,16 +55,14 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextTrigger",
       "name": "context_trigger",
       "params": {
         "children": null,
         "className": null,
-        "maxTokens": null,
         "renderedPercent": null,
         "size": "default",
-        "usedPercent": null,
-        "usedTokens": null,
         "variant": "default"
       },
       "primitive": null,
@@ -100,6 +89,7 @@
                       }
                     ],
                     "class": "font-medium text-muted-foreground",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -193,6 +183,7 @@
                         ],
                         "children": [],
                         "class": "",
+                        "class_when": [],
                         "merges_class": false,
                         "props": false,
                         "reads": {
@@ -277,6 +268,7 @@
                         ],
                         "children": [],
                         "class": "",
+                        "class_when": [],
                         "merges_class": false,
                         "props": false,
                         "reads": {
@@ -292,6 +284,7 @@
                       }
                     ],
                     "class": "",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -307,6 +300,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": true,
                 "module": "button",
                 "part": "Button",
@@ -330,6 +324,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "preview-card",
         "part": "Trigger",
@@ -347,6 +342,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextContent",
       "name": "context_content",
       "params": {
@@ -388,6 +384,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "cn-hover-card-content cn-hover-card-content-logical z-50 origin-(--transform-origin) outline-hidden",
+                "class_when": [],
                 "merges_class": true,
                 "module": "preview-card",
                 "part": "Popup",
@@ -410,6 +407,7 @@
               }
             ],
             "class": "isolate z-50",
+            "class_when": [],
             "merges_class": false,
             "module": "preview-card",
             "part": "Positioner",
@@ -427,6 +425,7 @@
           }
         ],
         "class": "min-w-60 divide-y overflow-hidden p-0",
+        "class_when": [],
         "merges_class": true,
         "module": "preview-card",
         "part": "Portal",
@@ -444,17 +443,15 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextContentHeader",
       "name": "context_content_header",
       "params": {
         "children": null,
         "className": null,
         "displayPct": null,
-        "maxTokens": null,
         "total": null,
         "used": null,
-        "usedPercent": null,
-        "usedTokens": null,
         "value": null
       },
       "primitive": null,
@@ -478,6 +475,7 @@
                           }
                         ],
                         "class": "",
+                        "class_when": [],
                         "merges_class": false,
                         "props": false,
                         "reads": {
@@ -508,6 +506,7 @@
                           }
                         ],
                         "class": "font-mono text-muted-foreground",
+                        "class_when": [],
                         "merges_class": false,
                         "props": false,
                         "reads": {
@@ -523,6 +522,7 @@
                       }
                     ],
                     "class": "flex items-center justify-between gap-3 text-xs",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -555,6 +555,7 @@
                                 "attrs": [],
                                 "children": [],
                                 "class": "cn-progress-indicator h-full transition-all",
+                                "class_when": [],
                                 "merges_class": true,
                                 "module": "progress",
                                 "part": "Indicator",
@@ -572,6 +573,7 @@
                               }
                             ],
                             "class": "cn-progress-track relative flex w-full items-center overflow-x-hidden",
+                            "class_when": [],
                             "merges_class": true,
                             "module": "progress",
                             "part": "Track",
@@ -589,6 +591,7 @@
                           }
                         ],
                         "class": "cn-progress-root flex flex-wrap gap-3 bg-muted",
+                        "class_when": [],
                         "merges_class": true,
                         "module": "progress",
                         "part": "Root",
@@ -606,6 +609,7 @@
                       }
                     ],
                     "class": "space-y-2",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -621,6 +625,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -639,6 +644,7 @@
           }
         ],
         "class": "w-full space-y-2 p-3",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -654,6 +660,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextContentBody",
       "name": "context_content_body",
       "params": {
@@ -669,6 +676,7 @@
           }
         ],
         "class": "w-full p-3",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -684,15 +692,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextContentFooter",
       "name": "context_content_footer",
       "params": {
         "children": null,
         "className": null,
-        "costUSD": null,
-        "modelId": null,
-        "totalCost": null,
-        "usage": null
+        "totalCost": null
       },
       "primitive": null,
       "tree": {
@@ -712,6 +718,7 @@
                       }
                     ],
                     "class": "text-muted-foreground",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -734,6 +741,7 @@
                       }
                     ],
                     "class": "",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -749,6 +757,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -767,6 +776,7 @@
           }
         ],
         "class": "flex w-full items-center justify-between gap-3 bg-secondary p-3 text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -782,16 +792,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextInputUsage",
       "name": "context_input_usage",
       "params": {
         "children": null,
         "className": null,
-        "inputCost": null,
-        "inputCostText": null,
-        "inputTokens": null,
-        "modelId": null,
-        "usage": null
+        "inputCostText": null
       },
       "primitive": null,
       "tree": {
@@ -806,6 +813,7 @@
               }
             ],
             "class": "text-muted-foreground",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -849,6 +857,7 @@
                       }
                     ],
                     "class": "ml-2 text-muted-foreground",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -868,6 +877,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -883,6 +893,7 @@
           }
         ],
         "class": "flex items-center justify-between text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -898,16 +909,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextOutputUsage",
       "name": "context_output_usage",
       "params": {
         "children": null,
         "className": null,
-        "modelId": null,
-        "outputCost": null,
-        "outputCostText": null,
-        "outputTokens": null,
-        "usage": null
+        "outputCostText": null
       },
       "primitive": null,
       "tree": {
@@ -922,6 +930,7 @@
               }
             ],
             "class": "text-muted-foreground",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -965,6 +974,7 @@
                       }
                     ],
                     "class": "ml-2 text-muted-foreground",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -984,6 +994,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -999,6 +1010,7 @@
           }
         ],
         "class": "flex items-center justify-between text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -1014,16 +1026,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextReasoningUsage",
       "name": "context_reasoning_usage",
       "params": {
         "children": null,
         "className": null,
-        "modelId": null,
-        "reasoningCost": null,
-        "reasoningCostText": null,
-        "reasoningTokens": null,
-        "usage": null
+        "reasoningCostText": null
       },
       "primitive": null,
       "tree": {
@@ -1038,6 +1047,7 @@
               }
             ],
             "class": "text-muted-foreground",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -1081,6 +1091,7 @@
                       }
                     ],
                     "class": "ml-2 text-muted-foreground",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -1100,6 +1111,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -1115,6 +1127,7 @@
           }
         ],
         "class": "flex items-center justify-between text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -1130,16 +1143,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextCacheUsage",
       "name": "context_cache_usage",
       "params": {
-        "cacheCost": null,
         "cacheCostText": null,
-        "cacheTokens": null,
         "children": null,
-        "className": null,
-        "modelId": null,
-        "usage": null
+        "className": null
       },
       "primitive": null,
       "tree": {
@@ -1154,6 +1164,7 @@
               }
             ],
             "class": "text-muted-foreground",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -1197,6 +1208,7 @@
                       }
                     ],
                     "class": "ml-2 text-muted-foreground",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -1216,6 +1228,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -1231,6 +1244,7 @@
           }
         ],
         "class": "flex items-center justify-between text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

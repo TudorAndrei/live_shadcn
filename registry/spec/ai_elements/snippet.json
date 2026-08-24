@@ -10,23 +10,16 @@
   "name": "snippet",
   "parts": [
     {
+      "contexts": [],
       "export": "Snippet",
       "name": "snippet",
       "params": {
         "children": null,
-        "className": null,
-        "code": null,
-        "contextValue": null
+        "className": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -42,6 +35,7 @@
               }
             ],
             "class": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto font-mono",
+            "class_when": [],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -57,6 +51,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -72,6 +67,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SnippetAddon",
       "name": "snippet_addon",
       "params": {
@@ -90,15 +86,11 @@
             "kind": "code",
             "name": "data-align",
             "value": "align"
-          },
-          {
-            "kind": "code",
-            "name": "onClick",
-            "value": "(e) => {\n        if ((e.target as HTMLElement).closest(\"button\")) {\n          return\n        }\n        e.currentTarget.parentElement?.querySelector(\"input\")?.focus()\n      }"
           }
         ],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -114,6 +106,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SnippetText",
       "name": "snippet_text",
       "params": {
@@ -124,6 +117,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-input-group-text flex items-center [&_svg]:pointer-events-none pl-2 font-normal text-muted-foreground",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -139,6 +133,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SnippetInput",
       "name": "snippet_input",
       "params": {
@@ -162,6 +157,7 @@
         ],
         "children": [],
         "class": "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 cn-input-group-input flex-1 text-foreground",
+        "class_when": [],
         "merges_class": true,
         "module": "input",
         "part": "Input",
@@ -181,20 +177,14 @@
       }
     },
     {
+      "contexts": [],
       "export": "SnippetCopyButton",
       "name": "snippet_copy_button",
       "params": {
-        "Icon": null,
         "children": null,
         "className": null,
-        "code": null,
-        "copyToClipboard": null,
         "isCopied": "false",
-        "onCopy": null,
-        "onError": null,
         "size": "default",
-        "timeout": "2000",
-        "timeoutRef": null,
         "type": "button",
         "variant": "default"
       },
@@ -235,11 +225,13 @@
                 ],
                 "children": [],
                 "class": "size-3.5",
+                "class_when": [],
                 "else": [
                   {
                     "attrs": [],
                     "children": [],
                     "class": "",
+                    "class_when": [],
                     "icons": {
                       "lucide": "CopyIcon"
                     },
@@ -269,6 +261,7 @@
                     "attrs": [],
                     "children": [],
                     "class": "",
+                    "class_when": [],
                     "icons": {
                       "lucide": "CheckIcon"
                     },
@@ -295,6 +288,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",

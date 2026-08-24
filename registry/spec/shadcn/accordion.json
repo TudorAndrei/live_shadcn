@@ -32,6 +32,7 @@
   "name": "accordion",
   "parts": [
     {
+      "contexts": [],
       "export": "Accordion",
       "name": "accordion",
       "params": {
@@ -42,6 +43,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-accordion flex w-full flex-col",
+        "class_when": [],
         "merges_class": true,
         "module": "accordion",
         "part": "Root",
@@ -59,6 +61,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AccordionItem",
       "name": "accordion_item",
       "params": {
@@ -69,6 +72,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-accordion-item",
+        "class_when": [],
         "merges_class": true,
         "module": "accordion",
         "part": "Item",
@@ -88,6 +92,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AccordionTrigger",
       "name": "accordion_trigger",
       "params": {
@@ -134,6 +139,7 @@
                 ],
                 "children": [],
                 "class": "cn-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden",
+                "class_when": [],
                 "icons": {
                   "hugeicons": "ArrowDown01Icon",
                   "lucide": "ChevronDownIcon",
@@ -188,6 +194,7 @@
                 ],
                 "children": [],
                 "class": "cn-accordion-trigger-icon pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline",
+                "class_when": [],
                 "icons": {
                   "hugeicons": "ArrowUp01Icon",
                   "lucide": "ChevronUpIcon",
@@ -214,6 +221,7 @@
               }
             ],
             "class": "cn-accordion-trigger group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50",
+            "class_when": [],
             "merges_class": true,
             "module": "accordion",
             "part": "Trigger",
@@ -233,6 +241,7 @@
           }
         ],
         "class": "flex",
+        "class_when": [],
         "merges_class": false,
         "module": "accordion",
         "part": "Header",
@@ -250,6 +259,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AccordionContent",
       "name": "accordion_content",
       "params": {
@@ -268,6 +278,7 @@
               }
             ],
             "class": "cn-accordion-content-inner h-(--accordion-panel-height) data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
+            "class_when": [],
             "merges_class": true,
             "props": false,
             "reads": {
@@ -288,6 +299,7 @@
           }
         ],
         "class": "cn-accordion-content overflow-hidden",
+        "class_when": [],
         "merges_class": false,
         "module": "accordion",
         "part": "Panel",

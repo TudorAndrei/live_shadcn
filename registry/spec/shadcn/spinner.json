@@ -5,6 +5,7 @@
   "name": "spinner",
   "parts": [
     {
+      "contexts": [],
       "export": "Spinner",
       "name": "spinner",
       "params": {
@@ -51,6 +52,7 @@
         ],
         "children": [],
         "class": "size-4 animate-spin",
+        "class_when": [],
         "icons": {
           "hugeicons": "Loading03Icon",
           "lucide": "Loader2Icon",

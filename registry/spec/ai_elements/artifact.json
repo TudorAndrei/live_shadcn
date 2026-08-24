@@ -8,6 +8,7 @@
   "name": "artifact",
   "parts": [
     {
+      "contexts": [],
       "export": "Artifact",
       "name": "artifact",
       "params": {
@@ -18,6 +19,7 @@
         "attrs": [],
         "children": [],
         "class": "flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -33,6 +35,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ArtifactHeader",
       "name": "artifact_header",
       "params": {
@@ -43,6 +46,7 @@
         "attrs": [],
         "children": [],
         "class": "flex items-center justify-between border-b bg-muted/50 px-4 py-3",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -58,6 +62,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ArtifactClose",
       "name": "artifact_close",
       "params": {
@@ -82,6 +87,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "size-4",
+                "class_when": [],
                 "icons": {
                   "lucide": "XIcon"
                 },
@@ -109,6 +115,7 @@
               }
             ],
             "class": "sr-only",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -124,6 +131,7 @@
           }
         ],
         "class": "size-8 p-0 text-muted-foreground hover:text-foreground",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",
@@ -144,6 +152,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ArtifactTitle",
       "name": "artifact_title",
       "params": {
@@ -154,6 +163,7 @@
         "attrs": [],
         "children": [],
         "class": "font-medium text-foreground text-sm",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -169,6 +179,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ArtifactDescription",
       "name": "artifact_description",
       "params": {
@@ -179,6 +190,7 @@
         "attrs": [],
         "children": [],
         "class": "text-muted-foreground text-sm",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -194,6 +206,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ArtifactActions",
       "name": "artifact_actions",
       "params": {
@@ -204,6 +217,7 @@
         "attrs": [],
         "children": [],
         "class": "flex items-center gap-1",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -219,16 +233,14 @@
       }
     },
     {
+      "contexts": [],
       "export": "ArtifactAction",
       "name": "artifact_action",
       "params": {
         "button": null,
         "children": null,
         "className": null,
-        "icon": null,
-        "label": null,
         "size": "sm",
-        "tooltip": null,
         "variant": "ghost"
       },
       "primitive": null,
@@ -238,6 +250,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ArtifactContent",
       "name": "artifact_content",
       "params": {
@@ -248,6 +261,7 @@
         "attrs": [],
         "children": [],
         "class": "flex-1 overflow-auto p-4",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

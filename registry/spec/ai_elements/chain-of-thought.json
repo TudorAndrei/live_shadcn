@@ -12,26 +12,16 @@
   "name": "chain-of-thought",
   "parts": [
     {
+      "contexts": [],
       "export": "ChainOfThought",
       "name": "chain_of_thought",
       "params": {
-        "chainOfThoughtContext": null,
         "children": null,
-        "className": null,
-        "defaultOpen": "false",
-        "isOpen": null,
-        "onOpenChange": null,
-        "open": null
+        "className": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "chainOfThoughtContext"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [],
@@ -41,6 +31,7 @@
               }
             ],
             "class": "not-prose w-full space-y-4",
+            "class_when": [],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -56,6 +47,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -71,6 +63,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ChainOfThoughtHeader",
       "name": "chain_of_thought_header",
       "params": {
@@ -95,6 +88,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "size-4",
+                "class_when": [],
                 "icons": {
                   "lucide": "BrainIcon"
                 },
@@ -124,6 +118,7 @@
                   }
                 ],
                 "class": "flex-1 text-left",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -141,6 +136,13 @@
                 "attrs": [],
                 "children": [],
                 "class": "size-4 transition-transform",
+                "class_when": [
+                  {
+                    "else": "rotate-0",
+                    "then": "rotate-180",
+                    "when": "isOpen"
+                  }
+                ],
                 "icons": {
                   "lucide": "ChevronDownIcon"
                 },
@@ -158,6 +160,7 @@
               }
             ],
             "class": "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+            "class_when": [],
             "merges_class": true,
             "module": "collapsible",
             "part": "Trigger",
@@ -175,6 +178,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "collapsible",
         "part": "Root",
@@ -192,15 +196,14 @@
       }
     },
     {
+      "contexts": [],
       "export": "ChainOfThoughtStep",
       "name": "chain_of_thought_step",
       "params": {
         "children": null,
         "className": null,
         "description": null,
-        "icon": "dot",
-        "label": null,
-        "status": "complete"
+        "label": null
       },
       "primitive": null,
       "tree": {
@@ -213,6 +216,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "size-4",
+                "class_when": [],
                 "merges_class": false,
                 "prop": "icon",
                 "props": false,
@@ -230,6 +234,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "absolute top-7 bottom-0 left-1/2 -mx-px w-px bg-border",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -245,6 +250,7 @@
               }
             ],
             "class": "relative mt-0.5",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -270,6 +276,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -294,6 +301,7 @@
                       }
                     ],
                     "class": "text-muted-foreground text-xs",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -316,6 +324,7 @@
               }
             ],
             "class": "flex-1 space-y-2 overflow-hidden",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -331,6 +340,7 @@
           }
         ],
         "class": "flex gap-2 text-sm fade-in-0 slide-in-from-top-2 animate-in",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -346,6 +356,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ChainOfThoughtSearchResults",
       "name": "chain_of_thought_search_results",
       "params": {
@@ -356,6 +367,7 @@
         "attrs": [],
         "children": [],
         "class": "flex flex-wrap items-center gap-2",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -371,6 +383,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ChainOfThoughtSearchResult",
       "name": "chain_of_thought_search_result",
       "params": {
@@ -388,6 +401,7 @@
           }
         ],
         "class": "gap-1 px-2 py-0.5 font-normal text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -405,6 +419,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ChainOfThoughtContent",
       "name": "chain_of_thought_content",
       "params": {
@@ -430,6 +445,7 @@
               }
             ],
             "class": "mt-2 space-y-3 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+            "class_when": [],
             "merges_class": true,
             "module": "collapsible",
             "part": "Panel",
@@ -447,6 +463,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "collapsible",
         "part": "Root",
@@ -464,6 +481,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ChainOfThoughtImage",
       "name": "chain_of_thought_image",
       "params": {
@@ -483,6 +501,7 @@
               }
             ],
             "class": "relative flex max-h-[22rem] items-center justify-center overflow-hidden rounded-lg bg-muted p-3",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -507,6 +526,7 @@
                   }
                 ],
                 "class": "text-muted-foreground text-xs",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -526,6 +546,7 @@
           }
         ],
         "class": "mt-2 space-y-2",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

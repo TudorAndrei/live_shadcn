@@ -5,6 +5,7 @@
   "name": "aspect-ratio",
   "parts": [
     {
+      "contexts": [],
       "export": "AspectRatio",
       "name": "aspect_ratio",
       "params": {
@@ -28,6 +29,7 @@
         ],
         "children": [],
         "class": "relative aspect-(--ratio)",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

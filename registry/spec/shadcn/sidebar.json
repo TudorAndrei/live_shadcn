@@ -5,15 +5,13 @@
   "name": "sidebar",
   "parts": [
     {
+      "contexts": [],
       "export": "Sidebar",
       "name": "sidebar",
       "params": {
         "children": null,
         "className": null,
         "collapsible": "offcanvas",
-        "dir": null,
-        "isMobile": null,
-        "openMobile": null,
         "side": "left",
         "state": null,
         "variant": "sidebar"
@@ -47,6 +45,13 @@
             "attrs": [],
             "children": [],
             "class": "cn-sidebar-gap relative w-(--sidebar-width) bg-transparent group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180",
+            "class_when": [
+              {
+                "else": "group-data-[collapsible=icon]:w-(--sidebar-width-icon)",
+                "then": "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]",
+                "when": "variant === \"floating\" || variant === \"inset\""
+              }
+            ],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -59,7 +64,8 @@
             "type": "element",
             "variant_class": null,
             "vars": [
-              "--sidebar-width"
+              "--sidebar-width",
+              "--sidebar-width-icon"
             ]
           },
           {
@@ -85,6 +91,7 @@
                   }
                 ],
                 "class": "cn-sidebar-inner flex size-full flex-col",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -100,6 +107,13 @@
               }
             ],
             "class": "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
+            "class_when": [
+              {
+                "else": "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
+                "then": "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]",
+                "when": "variant === \"floating\" || variant === \"inset\""
+              }
+            ],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -112,11 +126,13 @@
             "type": "element",
             "variant_class": null,
             "vars": [
-              "--sidebar-width"
+              "--sidebar-width",
+              "--sidebar-width-icon"
             ]
           }
         ],
         "class": "group peer hidden text-sidebar-foreground md:block",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -132,6 +148,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarContent",
       "name": "sidebar_content",
       "params": {
@@ -148,6 +165,7 @@
         ],
         "children": [],
         "class": "cn-sidebar-content flex min-h-0 flex-1 flex-col overflow-auto group-data-[collapsible=icon]:overflow-hidden",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -163,6 +181,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarFooter",
       "name": "sidebar_footer",
       "params": {
@@ -179,6 +198,7 @@
         ],
         "children": [],
         "class": "cn-sidebar-footer flex flex-col",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -194,6 +214,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarGroup",
       "name": "sidebar_group",
       "params": {
@@ -210,6 +231,7 @@
         ],
         "children": [],
         "class": "cn-sidebar-group relative flex w-full min-w-0 flex-col",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -225,6 +247,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarGroupAction",
       "name": "sidebar_group_action",
       "params": {
@@ -240,6 +263,7 @@
           }
         ],
         "class": "cn-sidebar-group-action flex aspect-square items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -255,6 +279,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarGroupContent",
       "name": "sidebar_group_content",
       "params": {
@@ -271,6 +296,7 @@
         ],
         "children": [],
         "class": "cn-sidebar-group-content w-full",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -286,6 +312,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarGroupLabel",
       "name": "sidebar_group_label",
       "params": {
@@ -301,6 +328,7 @@
           }
         ],
         "class": "cn-sidebar-group-label flex shrink-0 items-center outline-hidden [&>svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -316,6 +344,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarHeader",
       "name": "sidebar_header",
       "params": {
@@ -332,6 +361,7 @@
         ],
         "children": [],
         "class": "cn-sidebar-header flex flex-col",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -347,6 +377,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarInput",
       "name": "sidebar_input",
       "params": {
@@ -363,6 +394,7 @@
         ],
         "children": [],
         "class": "cn-sidebar-input",
+        "class_when": [],
         "component": "input",
         "function": "input",
         "merges_class": true,
@@ -381,6 +413,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarInset",
       "name": "sidebar_inset",
       "params": {
@@ -391,6 +424,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-sidebar-inset relative flex w-full flex-1 flex-col",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -406,6 +440,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarMenu",
       "name": "sidebar_menu",
       "params": {
@@ -422,6 +457,7 @@
         ],
         "children": [],
         "class": "cn-sidebar-menu flex w-full min-w-0 flex-col",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -437,6 +473,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarMenuAction",
       "name": "sidebar_menu_action",
       "params": {
@@ -453,11 +490,20 @@
           }
         ],
         "class": "cn-sidebar-menu-action flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
+        "class_when": [
+          {
+            "else": null,
+            "then": "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 md:opacity-0",
+            "when": "showOnHover"
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            "aria-expanded"
+          ]
         },
         "render_as": null,
         "slot": "sidebar-menu-action",
@@ -468,6 +514,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarMenuBadge",
       "name": "sidebar_menu_badge",
       "params": {
@@ -484,6 +531,7 @@
         ],
         "children": [],
         "class": "cn-sidebar-menu-badge flex items-center justify-center tabular-nums select-none group-data-[collapsible=icon]:hidden",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -499,17 +547,16 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarMenuButton",
       "name": "sidebar_menu_button",
       "params": {
         "className": null,
         "comp": null,
-        "isActive": "false",
         "isMobile": null,
         "render": null,
         "size": "default",
         "state": null,
-        "tooltip": null,
         "variant": "default"
       },
       "primitive": null,
@@ -540,6 +587,7 @@
             ],
             "children": [],
             "class": "",
+            "class_when": [],
             "component": "tooltip",
             "function": "tooltip_content",
             "merges_class": false,
@@ -558,6 +606,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "component": "tooltip",
         "function": "tooltip",
         "merges_class": false,
@@ -576,6 +625,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarMenuItem",
       "name": "sidebar_menu_item",
       "params": {
@@ -592,6 +642,7 @@
         ],
         "children": [],
         "class": "group/menu-item relative",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -607,6 +658,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarMenuSkeleton",
       "name": "sidebar_menu_skeleton",
       "params": {
@@ -636,6 +688,7 @@
                 ],
                 "children": [],
                 "class": "cn-sidebar-menu-skeleton-icon",
+                "class_when": [],
                 "component": "skeleton",
                 "function": "skeleton",
                 "merges_class": false,
@@ -677,6 +730,7 @@
             ],
             "children": [],
             "class": "cn-sidebar-menu-skeleton-text max-w-(--skeleton-width) flex-1",
+            "class_when": [],
             "component": "skeleton",
             "function": "skeleton",
             "merges_class": false,
@@ -697,6 +751,7 @@
           }
         ],
         "class": "cn-sidebar-menu-skeleton flex items-center",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -712,6 +767,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarMenuSub",
       "name": "sidebar_menu_sub",
       "params": {
@@ -728,6 +784,7 @@
         ],
         "children": [],
         "class": "cn-sidebar-menu-sub flex min-w-0 flex-col",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -743,11 +800,11 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarMenuSubButton",
       "name": "sidebar_menu_sub_button",
       "params": {
         "className": null,
-        "isActive": "false",
         "render": null,
         "size": "md"
       },
@@ -760,6 +817,7 @@
           }
         ],
         "class": "cn-sidebar-menu-sub-button flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -778,6 +836,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarMenuSubItem",
       "name": "sidebar_menu_sub_item",
       "params": {
@@ -794,6 +853,7 @@
         ],
         "children": [],
         "class": "group/menu-sub-item relative",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -809,32 +869,19 @@
       }
     },
     {
+      "contexts": [
+        "isMobile"
+      ],
       "export": "SidebarProvider",
       "name": "sidebar_provider",
       "params": {
-        "_open": null,
         "children": null,
         "className": null,
-        "contextValue": null,
-        "defaultOpen": "true",
-        "isMobile": null,
-        "onOpenChange": null,
-        "open": null,
-        "openMobile": "false",
-        "setOpen": null,
-        "state": null,
-        "style": null,
-        "toggleSidebar": null
+        "style": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -866,6 +913,7 @@
               }
             ],
             "class": "group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar",
+            "class_when": [],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -881,6 +929,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -896,11 +945,11 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarRail",
       "name": "sidebar_rail",
       "params": {
-        "className": null,
-        "toggleSidebar": null
+        "className": null
       },
       "primitive": null,
       "tree": {
@@ -921,11 +970,6 @@
             "value": "-1"
           },
           {
-            "kind": "code",
-            "name": "onClick",
-            "value": "toggleSidebar"
-          },
-          {
             "kind": "text",
             "name": "title",
             "value": "Toggle Sidebar"
@@ -933,6 +977,7 @@
         ],
         "children": [],
         "class": "cn-sidebar-rail absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2 in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize [[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar [[data-side=left][data-collapsible=offcanvas]_&]:-right-2 [[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -948,6 +993,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarSeparator",
       "name": "sidebar_separator",
       "params": {
@@ -964,6 +1010,7 @@
         ],
         "children": [],
         "class": "cn-sidebar-separator w-auto",
+        "class_when": [],
         "component": "separator",
         "function": "separator",
         "merges_class": true,
@@ -982,12 +1029,11 @@
       }
     },
     {
+      "contexts": [],
       "export": "SidebarTrigger",
       "name": "sidebar_trigger",
       "params": {
-        "className": null,
-        "onClick": null,
-        "toggleSidebar": null
+        "className": null
       },
       "primitive": null,
       "tree": {
@@ -1006,11 +1052,6 @@
             "kind": "text",
             "name": "size",
             "value": "icon-sm"
-          },
-          {
-            "kind": "code",
-            "name": "onClick",
-            "value": "(event) => {\n        onClick?.(event)\n        toggleSidebar()\n      }"
           }
         ],
         "children": [
@@ -1044,6 +1085,7 @@
             ],
             "children": [],
             "class": "cn-rtl-flip",
+            "class_when": [],
             "icons": {
               "hugeicons": "SidebarLeftIcon",
               "lucide": "PanelLeftIcon",
@@ -1072,6 +1114,7 @@
               }
             ],
             "class": "sr-only",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -1087,6 +1130,7 @@
           }
         ],
         "class": "cn-sidebar-trigger",
+        "class_when": [],
         "component": "button",
         "function": "button",
         "merges_class": true,

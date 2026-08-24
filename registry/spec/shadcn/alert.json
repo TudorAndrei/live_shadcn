@@ -5,6 +5,7 @@
   "name": "alert",
   "parts": [
     {
+      "contexts": [],
       "export": "Alert",
       "name": "alert",
       "params": {
@@ -22,6 +23,7 @@
         ],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -37,6 +39,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertTitle",
       "name": "alert_title",
       "params": {
@@ -47,6 +50,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-title [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -62,6 +66,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDescription",
       "name": "alert_description",
       "params": {
@@ -72,6 +77,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-description [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -87,6 +93,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertAction",
       "name": "alert_action",
       "params": {
@@ -97,6 +104,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-action",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

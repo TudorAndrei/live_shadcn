@@ -55,7 +55,7 @@ defmodule LiveShadcn.UI.Select do
   attr(:separator_class, :any, default: nil)
   attr(:trigger_class, :any, default: nil)
   attr(:value_class, :any, default: nil)
-  attr(:align_item_with_trigger, :string, default: "true")
+  attr(:align_item_with_trigger, :boolean, default: true)
   attr(:align_offset, :string, default: "0")
   attr(:side_offset, :string, default: "4")
   attr(:size, :string, default: "default")
@@ -156,7 +156,7 @@ defmodule LiveShadcn.UI.Select do
             phx-mounted={Popover.owned_attributes(:popup)}
             data-open={flag(@open)}
             data-closed={flag(not @open)}
-            data-align-trigger={@align_item_with_trigger}
+            data-align-trigger={to_string(@align_item_with_trigger)}
             class={[
               "cn-select-content cn-select-content-logical cn-menu-target cn-menu-translucent relative isolate z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-[align-trigger=true]:animate-none",
               @class

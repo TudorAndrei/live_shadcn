@@ -5,6 +5,7 @@
   "name": "pagination",
   "parts": [
     {
+      "contexts": [],
       "export": "Pagination",
       "name": "pagination",
       "params": {
@@ -26,6 +27,7 @@
         ],
         "children": [],
         "class": "cn-pagination mx-auto flex w-full justify-center",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -41,6 +43,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PaginationContent",
       "name": "pagination_content",
       "params": {
@@ -51,6 +54,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-pagination-content flex items-center",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -66,6 +70,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PaginationEllipsis",
       "name": "pagination_ellipsis",
       "params": {
@@ -111,6 +116,7 @@
             ],
             "children": [],
             "class": "",
+            "class_when": [],
             "icons": {
               "hugeicons": "MoreHorizontalCircle01Icon",
               "lucide": "MoreHorizontalIcon",
@@ -139,6 +145,7 @@
               }
             ],
             "class": "sr-only",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -154,6 +161,7 @@
           }
         ],
         "class": "cn-pagination-ellipsis flex items-center justify-center",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -169,6 +177,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PaginationItem",
       "name": "pagination_item",
       "params": {},
@@ -177,6 +186,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": true,
         "reads": {
@@ -192,6 +202,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PaginationLink",
       "name": "pagination_link",
       "params": {
@@ -220,6 +231,7 @@
         ],
         "children": [],
         "class": "cn-pagination-link",
+        "class_when": [],
         "component": "button",
         "function": "button",
         "merges_class": true,
@@ -243,6 +255,7 @@
           ],
           "children": [],
           "class": "",
+          "class_when": [],
           "merges_class": false,
           "props": true,
           "reads": {
@@ -265,6 +278,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PaginationNext",
       "name": "pagination_next",
       "params": {
@@ -295,6 +309,7 @@
               }
             ],
             "class": "cn-pagination-next-text hidden sm:block",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -343,6 +358,7 @@
             ],
             "children": [],
             "class": "cn-rtl-flip",
+            "class_when": [],
             "icons": {
               "hugeicons": "ArrowRight01Icon",
               "lucide": "ChevronRightIcon",
@@ -364,6 +380,7 @@
           }
         ],
         "class": "cn-pagination-next",
+        "class_when": [],
         "merges_class": true,
         "part": "pagination_link",
         "props": true,
@@ -379,6 +396,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PaginationPrevious",
       "name": "pagination_previous",
       "params": {
@@ -435,6 +453,7 @@
             ],
             "children": [],
             "class": "cn-rtl-flip",
+            "class_when": [],
             "icons": {
               "hugeicons": "ArrowLeft01Icon",
               "lucide": "ChevronLeftIcon",
@@ -463,6 +482,7 @@
               }
             ],
             "class": "cn-pagination-previous-text hidden sm:block",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -478,6 +498,7 @@
           }
         ],
         "class": "cn-pagination-previous",
+        "class_when": [],
         "merges_class": true,
         "part": "pagination_link",
         "props": true,

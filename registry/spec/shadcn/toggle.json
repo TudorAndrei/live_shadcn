@@ -10,6 +10,7 @@
   "name": "toggle",
   "parts": [
     {
+      "contexts": [],
       "export": "Toggle",
       "name": "toggle",
       "params": {
@@ -22,6 +23,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "module": "toggle",
         "part": "Toggle",

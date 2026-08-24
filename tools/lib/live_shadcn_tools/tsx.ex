@@ -12,14 +12,19 @@ defmodule LiveShadcnTools.Tsx do
   `Ast` replaced. What is left needs no parser: an object literal is a
   comma-separated list at one nesting level, and a class string is the string
   literals inside it. Those are shallow questions, and the answers are exact.
+
+  Where a question stops being shallow — where an argument stops, when it holds
+  a ternary — it asks `Ast`, which asks the parser.
   """
+
+  alias LiveShadcnTools.Ast
 
   @doc """
   The literal class names in a `className` value.
 
-  `cn("a b", className)` and `"a b"` both yield `"a b"`. Anything that is not a
-  string literal — a conditional, an interpolation — is not a class name the
-  generator can emit, so it is left out.
+  `cn("a b", className)` and `"a b"` both yield `"a b"`. An argument that is not
+  a string literal is not an unconditional class name; the ones that hold class
+  names under a condition come back from `conditional_classes/1` instead.
   """
   def classes({:string, literal}), do: normalise(literal)
 
@@ -32,6 +37,56 @@ defmodule LiveShadcnTools.Tsx do
   end
 
   def classes(_), do: ""
+
+  @doc """
+  The class names a `className` value applies only under a condition.
+
+  `cn("group", from === "user" ? "is-user" : "is-assistant")` says a message
+  from a person looks different from a message from a model, and that is the
+  whole of what `message` is for. Reading only the literals dropped the
+  difference and left a component that draws both the same way.
+
+  `cond && "a"` says the same thing with nothing on the other side.
+  """
+  def conditional_classes({:expr, code}) do
+    code
+    |> call_args("cn")
+    |> Enum.flat_map(&condition/1)
+  end
+
+  def conditional_classes(_value), do: []
+
+  defp condition(arg) do
+    arg = String.trim(arg)
+
+    cond do
+      literal(arg) != [] ->
+        []
+
+      parts = Ast.conditional(arg) ->
+        {when_, yes, no} = parts
+        segment(when_, class_of(yes), class_of(no))
+
+      match?({"&&", _, _}, Ast.logical(arg)) ->
+        {"&&", left, right} = Ast.logical(arg)
+        segment(left, class_of(right), nil)
+
+      true ->
+        []
+    end
+  end
+
+  defp segment(_when, nil, nil), do: []
+
+  defp segment(when_, yes, no),
+    do: [%{"when" => String.trim(when_), "then" => yes, "else" => no}]
+
+  defp class_of(code) do
+    case literal(String.trim(code)) do
+      [literal] -> normalise(literal)
+      [] -> nil
+    end
+  end
 
   @doc """
   Whether this element is the one that merges the caller's class.

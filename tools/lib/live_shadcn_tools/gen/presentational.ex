@@ -67,19 +67,23 @@ defmodule LiveShadcnTools.Gen.Presentational do
   @doc "The attributes a part exposes, with their defaults and allowed values."
   def attributes(part, spec) do
     variants = variant_table_of(part, spec)
+    paths = path_roots(part)
 
     part
     |> Map.get("params", %{})
     |> Map.drop(["className", "children", "render"])
     |> Enum.sort()
     |> Enum.map(fn {name, default} ->
+      # The `cva` table's `defaultVariants` is as much upstream's decision as
+      # the destructuring default is, and it is the one that decides which
+      # class string is applied.
+      default = default || get_in(variants, ["defaults", name])
+
       %{
         name: Macro.underscore(name),
-        # The `cva` table's `defaultVariants` is as much upstream's decision as
-        # the destructuring default is, and it is the one that decides which
-        # class string is applied.
-        default: default || get_in(variants, ["defaults", name]),
-        values: variants |> Map.get("variants", %{}) |> Map.get(name) |> values()
+        default: default,
+        values: variants |> Map.get("variants", %{}) |> Map.get(name) |> values(),
+        type: type(name, default, paths)
       }
     end)
   end
@@ -87,18 +91,40 @@ defmodule LiveShadcnTools.Gen.Presentational do
   defp values(nil), do: nil
   defp values(group), do: group |> Map.keys() |> Enum.sort()
 
+  # What a prop holds, from the two things upstream says about it: the default
+  # it wrote down, and what the markup does with it. `disabled = false` is a
+  # yes-or-no and `data.filename` is a value with fields, and declaring either
+  # one a string makes the component lie about what it takes — a `:string`
+  # holding `"false"` is true to every `:if` that reads it.
+  defp type(_name, default, _paths) when default in ["true", "false"], do: ":boolean"
+  defp type(name, _default, paths), do: if(name in paths, do: ":any", else: ":string")
+
+  # The props the markup reads a field off, rather than rendering whole.
+  defp path_roots(part) do
+    for code <- Heex.codes(part["tree"]),
+        [root] <- Regex.scan(~r/\b([a-z_][A-Za-z0-9_]*)\.[a-z_]/, code, capture: :all_but_first),
+        uniq: true,
+        do: root
+  end
+
   # Every attribute gets a default, even if it is `nil`. A declared attribute
   # with no default is simply absent from the assigns, and the component would
   # raise the first time nobody passed it.
   @doc "One `attr` line."
-  def declaration(%{name: name, default: default, values: values}) do
+  def declaration(%{name: name, default: default, values: values} = attribute) do
+    type = Map.get(attribute, :type, ":string")
+
     options =
-      ["default: #{inspect(default)}", values && "values: #{inspect(values)}"]
+      ["default: #{inspect(literal(type, default))}", values && "values: #{inspect(values)}"]
       |> Enum.reject(&is_nil/1)
       |> Enum.map_join("", &", #{&1}")
 
-    "  attr :#{name}, :string#{options}"
+    "  attr :#{name}, #{type}#{options}"
   end
+
+  defp literal(":boolean", "true"), do: true
+  defp literal(":boolean", "false"), do: false
+  defp literal(_type, default), do: default
 
   defp slot(part) do
     if Heex.marker?(tree(part)), do: "  slot :inner_block\n", else: ""
@@ -113,6 +139,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
       class: "@class",
       variants: variant_table_of(part, spec),
       params: Map.get(part, "params", %{}),
+      contexts: Map.get(part, "contexts", []),
       client_attributes: [],
       hook_part: nil,
       rest: true

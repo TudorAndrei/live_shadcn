@@ -161,9 +161,10 @@ defmodule LiveShadcnTools.Ast do
          source
        ) do
     case bare(argument) do
-      %{"type" => "ArrowFunctionExpression", "params" => [binding | _], "body" => body} ->
+      %{"type" => "ArrowFunctionExpression", "params" => [binding | rest], "body" => body} ->
         {name, fields} = bound_item(binding)
-        {slice(callee["object"], source), name, fields, slice(bare(body), source)}
+
+        {slice(callee["object"], source), name, fields, counter(rest), slice(bare(body), source)}
 
       _ ->
         nil
@@ -171,6 +172,11 @@ defmodule LiveShadcnTools.Ast do
   end
 
   defp mapping(_node, _source), do: nil
+
+  # `.map((branch, index) => …)` — the second parameter is where the item sits
+  # in the list, which is a fact about the loop rather than about the item.
+  defp counter([%{"type" => "Identifier", "name" => name} | _rest]), do: name
+  defp counter(_rest), do: nil
 
   # `(frame) => …` names the item; `({ token, key }) => …` names its fields and
   # not the item. HEEx binds one name per generator, so the item gets a name and
@@ -382,6 +388,8 @@ defmodule LiveShadcnTools.Ast do
       params: props(signature, body, source),
       renames: renames(signature),
       locals: locals(body, source),
+      contexts: contexts(body),
+      renders?: renders?(body),
       jsx: jsx(body, source)
     }
   rescue
@@ -421,14 +429,89 @@ defmodule LiveShadcnTools.Ast do
 
   A destructured prop wins over the other two, since upstream wrote a default
   for it and neither of the others has one worth carrying.
+
+  A handler is none of the three. `onSubmit` and the `handleSubmit` it is
+  wired to are React's way of running a closure when the browser fires an
+  event; HEEx runs a `phx-` binding instead, which the caller passes through
+  `@rest`. Asking a caller for `on_submit` would ask for a function the
+  template cannot call.
   """
   def props(signature, body, source) do
+    contexts = contexts(body)
+
+    written =
+      body
+      |> statements()
+      |> Enum.flat_map(&bound(&1, source))
+      |> Map.new()
+      |> Map.merge(destructured(signature, source))
+      |> Map.drop(MapSet.to_list(contexts))
+
     body
-    |> statements()
-    |> Enum.flat_map(&bound(&1, source))
-    |> Map.new()
-    |> Map.merge(destructured(signature, source))
+    |> context_fields(contexts)
+    |> Map.new(&{&1, nil})
+    |> Map.merge(written)
+    |> Map.reject(fn {name, _default} -> event_prop?(name) end)
   end
+
+  # `onClick`, `onValueChange`, `onOpenChangeComplete`: React names a callback
+  # prop after the event that runs it.
+  defp event_prop?(name), do: name =~ ~r/^on[A-Z]/
+
+  @doc """
+  The names a render bound to a whole React context.
+
+  `const question = useQuestion()` and then `question.disabled`. The binding is
+  React's way of reaching what an ancestor put in the tree; a HEEx component
+  has no ancestor to ask, so the caller passes the field. That makes the field
+  the prop and the binding nothing at all — `question` names a value that this
+  component can never be given.
+  """
+  def contexts(body) do
+    for %{"type" => "VariableDeclaration", "declarations" => declarations} <- statements(body),
+        %{"id" => %{"type" => "Identifier", "name" => name}, "init" => init} <- declarations,
+        context_read?(bare(init)),
+        into: MapSet.new(),
+        do: name
+  end
+
+  defp context_read?(%{
+         "type" => "CallExpression",
+         "callee" => %{"name" => callee},
+         "arguments" => []
+       }),
+       do: callee =~ ~r/^use[A-Z]/
+
+  defp context_read?(_init), do: false
+
+  # A method on a context is not a field of it. `question.toggleValue(value)`
+  # runs on a click, and the argument it runs with is still a value.
+  defp context_fields(
+         %{"type" => "CallExpression", "callee" => %{"type" => "MemberExpression"} = callee} =
+           call,
+         contexts
+       ),
+       do:
+         context_fields(callee["object"], contexts) ++ context_fields(call["arguments"], contexts)
+
+  defp context_fields(
+         %{
+           "type" => "MemberExpression",
+           "object" => %{"type" => "Identifier", "name" => name},
+           "property" => %{"type" => "Identifier", "name" => field}
+         },
+         contexts
+       ) do
+    if MapSet.member?(contexts, name), do: [field], else: []
+  end
+
+  defp context_fields(node, contexts) when is_map(node),
+    do: node |> Map.values() |> Enum.flat_map(&context_fields(&1, contexts))
+
+  defp context_fields(nodes, contexts) when is_list(nodes),
+    do: Enum.flat_map(nodes, &context_fields(&1, contexts))
+
+  defp context_fields(_node, _contexts), do: []
 
   defp statements(%{"type" => "BlockStatement", "body" => body}), do: body
   defp statements(_body), do: []
@@ -439,6 +522,9 @@ defmodule LiveShadcnTools.Ast do
   # name the markup reads and the caller has to supply.
   #
   # A setter is not one. Nothing renders `setIsOpen`.
+  #
+  # Neither is a function. `const handleSubmit = useCallback(async (event) => …)`
+  # binds a name to code that runs on an event, and a template renders values.
   defp bound(%{"type" => "VariableDeclaration", "declarations" => declarations}, source) do
     Enum.flat_map(declarations, fn declaration ->
       case declaration["id"] do
@@ -453,7 +539,7 @@ defmodule LiveShadcnTools.Ast do
           |> Enum.map(&{&1, nil})
 
         %{"type" => "Identifier", "name" => name} ->
-          [{name, nil}]
+          if handler?(declaration["init"]), do: [], else: [{name, nil}]
 
         _other ->
           []
@@ -462,6 +548,30 @@ defmodule LiveShadcnTools.Ast do
   end
 
   defp bound(_statement, _source), do: []
+
+  # A function that returns markup is not a handler, it is a piece of the
+  # render written down under a name. `attachments` calls its `renderContent()`
+  # from inside the JSX, and what comes back is an element.
+  defp handler?(%{"type" => type} = node)
+       when type in ~w(ArrowFunctionExpression FunctionExpression),
+       do: not markup?(node)
+
+  # `useCallback(fn, deps)` hands back the function it was given, so the
+  # question is asked again of that argument. `useMemo` is not the same thing:
+  # it hands back what the function *returned*, which is a value.
+  defp handler?(%{
+         "type" => "CallExpression",
+         "callee" => %{"name" => "useCallback"},
+         "arguments" => [first | _rest]
+       }),
+       do: handler?(bare(first))
+
+  defp handler?(_init), do: false
+
+  defp markup?(%{"type" => type}) when type in ~w(JSXElement JSXFragment), do: true
+  defp markup?(node) when is_map(node), do: node |> Map.values() |> Enum.any?(&markup?/1)
+  defp markup?(nodes) when is_list(nodes), do: Enum.any?(nodes, &markup?/1)
+  defp markup?(_node), do: false
 
   # The value state starts at, when it is written down. `useState(false)` says
   # false; `useState(defaultBranch)` says "whatever that prop is", and the prop
@@ -541,6 +651,25 @@ defmodule LiveShadcnTools.Ast do
 
   defp jsx(body, source) when is_map(body), do: returned(bare(body), source)
   defp jsx(_body, _source), do: nil
+
+  # Whether this function is a component at all.
+  #
+  # `question` writes `getSelectedValues` next to its components: same file,
+  # same `const name = (…) => …`, and it returns an array of strings. Reading
+  # its `return` as markup asks what element `[...currentValues, optionValue]`
+  # is, which is a question about a helper nobody renders.
+  #
+  # Base UI's `useRender` is the exception that has to be named: it renders,
+  # and it writes no JSX to say so.
+  defp renders?(body), do: markup?(body) or uses_render?(body)
+
+  defp uses_render?(%{"type" => "CallExpression", "callee" => %{"name" => "useRender"}}), do: true
+
+  defp uses_render?(node) when is_map(node),
+    do: node |> Map.values() |> Enum.any?(&uses_render?/1)
+
+  defp uses_render?(nodes) when is_list(nodes), do: Enum.any?(nodes, &uses_render?/1)
+  defp uses_render?(_node), do: false
 
   defp returned(%{"type" => type} = node, source) when type in ~w(JSXElement JSXFragment),
     do: jsx_node(node, source)

@@ -79,25 +79,17 @@
   "name": "drawer",
   "parts": [
     {
+      "contexts": [],
       "export": "Drawer",
       "name": "drawer",
       "params": {
-        "contextValue": null,
-        "hasSnapPoints": null,
         "modal": "true",
-        "showSwipeHandle": "false",
         "snapPoints": null,
         "swipeDirection": "down"
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -119,6 +111,7 @@
             ],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "part": "Root",
             "props": true,
@@ -135,6 +128,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -150,6 +144,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DrawerPortal",
       "name": "drawer_portal",
       "params": {},
@@ -158,6 +153,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "drawer",
         "part": "Portal",
@@ -175,6 +171,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DrawerOverlay",
       "name": "drawer_overlay",
       "params": {
@@ -185,6 +182,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-drawer-overlay fixed inset-0 z-50 min-h-dvh opacity-[max(var(--drawer-overlay-min-opacity,0),calc(1-var(--drawer-swipe-progress)))] transition-opacity duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] select-none data-ending-style:pointer-events-none data-ending-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-snap-points:[--drawer-overlay-min-opacity:0.5] data-starting-style:opacity-0 data-swiping:duration-0 supports-[-webkit-touch-callout:none]:absolute",
+        "class_when": [],
         "merges_class": true,
         "module": "drawer",
         "part": "Backdrop",
@@ -210,6 +208,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DrawerSwipeHandle",
       "name": "drawer_swipe_handle",
       "params": {
@@ -226,6 +225,7 @@
         ],
         "children": [],
         "class": "cn-drawer-swipe-handle relative z-10 flex shrink-0 cursor-grab transition-opacity duration-200 group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 group-data-[swipe-direction=left]/drawer-popup:order-last group-data-[swipe-direction=up]/drawer-popup:order-last active:cursor-grabbing",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -250,6 +250,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DrawerTrigger",
       "name": "drawer_trigger",
       "params": {},
@@ -258,6 +259,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "drawer",
         "part": "Trigger",
@@ -275,6 +277,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DrawerClose",
       "name": "drawer_close",
       "params": {},
@@ -283,6 +286,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "drawer",
         "part": "Close",
@@ -300,6 +304,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DrawerContent",
       "name": "drawer_content",
       "params": {
@@ -308,8 +313,7 @@
         "hasSnapPoints": null,
         "modal": null,
         "showSwipeHandle": null,
-        "swipeAxis": null,
-        "swipeDirection": null
+        "swipeAxis": null
       },
       "primitive": "Popup",
       "tree": {
@@ -327,6 +331,7 @@
                 ],
                 "children": [],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "part": "drawer_overlay",
                 "props": false,
@@ -373,6 +378,7 @@
                         "attrs": [],
                         "children": [],
                         "class": "",
+                        "class_when": [],
                         "merges_class": false,
                         "part": "drawer_swipe_handle",
                         "props": false,
@@ -398,6 +404,7 @@
                       }
                     ],
                     "class": "cn-drawer-content-base flex min-h-0 flex-1 flex-col overflow-hidden overscroll-contain rounded-[inherit] transition-opacity duration-300 ease-[cubic-bezier(0.45,1.005,0,1.005)] select-text group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 group-data-swiping/drawer-popup:select-none",
+                    "class_when": [],
                     "merges_class": false,
                     "module": "drawer",
                     "part": "Content",
@@ -428,6 +435,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": true,
                 "module": "drawer",
                 "part": "Popup",
@@ -445,6 +453,7 @@
               }
             ],
             "class": "pointer-events-none fixed inset-0 z-50 select-none data-[modal=true]:pointer-events-auto",
+            "class_when": [],
             "merges_class": false,
             "module": "drawer",
             "part": "Viewport",
@@ -462,6 +471,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "drawer_portal",
         "props": false,
@@ -477,6 +487,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DrawerHeader",
       "name": "drawer_header",
       "params": {
@@ -487,6 +498,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-drawer-header-base flex shrink-0 flex-col group-data-[swipe-axis=y]/drawer-popup:text-center",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -502,6 +514,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DrawerFooter",
       "name": "drawer_footer",
       "params": {
@@ -512,6 +525,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-drawer-footer-base mt-auto flex shrink-0 flex-col",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -527,6 +541,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DrawerTitle",
       "name": "drawer_title",
       "params": {
@@ -537,6 +552,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-drawer-title cn-font-heading",
+        "class_when": [],
         "merges_class": true,
         "module": "drawer",
         "part": "Title",
@@ -554,6 +570,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DrawerDescription",
       "name": "drawer_description",
       "params": {
@@ -564,6 +581,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-drawer-description text-balance",
+        "class_when": [],
         "merges_class": true,
         "module": "drawer",
         "part": "Description",

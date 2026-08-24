@@ -5,6 +5,7 @@
   "name": "item",
   "parts": [
     {
+      "contexts": [],
       "export": "Item",
       "name": "item",
       "params": {
@@ -22,6 +23,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -37,6 +39,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ItemMedia",
       "name": "item_media",
       "params": {
@@ -54,6 +57,7 @@
         ],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -69,6 +73,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ItemContent",
       "name": "item_content",
       "params": {
@@ -79,6 +84,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-item-content flex flex-1 flex-col [&+[data-slot=item-content]]:flex-none",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -94,6 +100,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ItemActions",
       "name": "item_actions",
       "params": {
@@ -104,6 +111,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-item-actions flex items-center",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -119,6 +127,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ItemGroup",
       "name": "item_group",
       "params": {
@@ -135,6 +144,7 @@
         ],
         "children": [],
         "class": "cn-item-group group/item-group flex w-full flex-col",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -150,6 +160,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ItemSeparator",
       "name": "item_separator",
       "params": {
@@ -166,6 +177,7 @@
         ],
         "children": [],
         "class": "cn-item-separator",
+        "class_when": [],
         "component": "separator",
         "function": "separator",
         "merges_class": true,
@@ -184,6 +196,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ItemTitle",
       "name": "item_title",
       "params": {
@@ -194,6 +207,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-item-title line-clamp-1 flex w-fit items-center",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -209,6 +223,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ItemDescription",
       "name": "item_description",
       "params": {
@@ -219,6 +234,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-item-description line-clamp-2 font-normal [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -234,6 +250,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ItemHeader",
       "name": "item_header",
       "params": {
@@ -244,6 +261,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-item-header flex basis-full items-center justify-between",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -259,6 +277,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ItemFooter",
       "name": "item_footer",
       "params": {
@@ -269,6 +288,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-item-footer flex basis-full items-center justify-between",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

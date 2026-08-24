@@ -15,6 +15,7 @@
   "name": "checkbox",
   "parts": [
     {
+      "contexts": [],
       "export": "Checkbox",
       "name": "checkbox",
       "params": {
@@ -57,6 +58,7 @@
                 ],
                 "children": [],
                 "class": "",
+                "class_when": [],
                 "icons": {
                   "hugeicons": "Tick02Icon",
                   "lucide": "CheckIcon",
@@ -78,6 +80,7 @@
               }
             ],
             "class": "cn-checkbox-indicator grid place-content-center text-current transition-none",
+            "class_when": [],
             "merges_class": false,
             "module": "checkbox",
             "part": "Indicator",
@@ -95,6 +98,7 @@
           }
         ],
         "class": "cn-checkbox peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
+        "class_when": [],
         "merges_class": true,
         "module": "checkbox",
         "part": "Root",

@@ -11,6 +11,7 @@
   "name": "sources",
   "parts": [
     {
+      "contexts": [],
       "export": "Sources",
       "name": "sources",
       "params": {
@@ -21,6 +22,7 @@
         "attrs": [],
         "children": [],
         "class": "not-prose mb-4 text-primary text-xs",
+        "class_when": [],
         "merges_class": true,
         "module": "collapsible",
         "part": "Root",
@@ -38,6 +40,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SourcesTrigger",
       "name": "sources_trigger",
       "params": {
@@ -71,6 +74,7 @@
                       }
                     ],
                     "class": "font-medium",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -88,6 +92,7 @@
                     "attrs": [],
                     "children": [],
                     "class": "h-4 w-4",
+                    "class_when": [],
                     "icons": {
                       "lucide": "ChevronDownIcon"
                     },
@@ -105,6 +110,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -123,6 +129,7 @@
           }
         ],
         "class": "flex items-center gap-2",
+        "class_when": [],
         "merges_class": true,
         "module": "collapsible",
         "part": "Trigger",
@@ -140,6 +147,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SourcesContent",
       "name": "sources_content",
       "params": {
@@ -150,6 +158,7 @@
         "attrs": [],
         "children": [],
         "class": "mt-3 flex w-fit flex-col gap-2 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "class_when": [],
         "merges_class": true,
         "module": "collapsible",
         "part": "Panel",
@@ -167,6 +176,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "Source",
       "name": "source",
       "params": {
@@ -203,6 +213,7 @@
                     "attrs": [],
                     "children": [],
                     "class": "h-4 w-4",
+                    "class_when": [],
                     "icons": {
                       "lucide": "BookIcon"
                     },
@@ -227,6 +238,7 @@
                       }
                     ],
                     "class": "block font-medium",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -242,6 +254,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -260,6 +273,7 @@
           }
         ],
         "class": "flex items-center gap-2",
+        "class_when": [],
         "merges_class": false,
         "props": true,
         "reads": {

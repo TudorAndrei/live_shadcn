@@ -196,6 +196,7 @@ defmodule LiveShadcnTools.Gen.Popover do
       children: children,
       class: class_expression(spec, role.part),
       params: Map.get(role.part, "params", %{}),
+      contexts: Map.get(role.part, "contexts", []),
       variants: Presentational.variant_table_of(role.part, spec),
       client_attributes: @client_attributes,
       hook_part: Spec.key(roles.positioner.node),

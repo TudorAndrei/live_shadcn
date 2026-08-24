@@ -19,26 +19,19 @@
   "name": "open-in-chat",
   "parts": [
     {
+      "contexts": [],
       "export": "OpenIn",
       "name": "open_in",
-      "params": {
-        "contextValue": null,
-        "query": null
-      },
+      "params": {},
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "part": "Root",
             "props": true,
@@ -55,6 +48,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -70,6 +64,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "OpenInContent",
       "name": "open_in_content",
       "params": {
@@ -111,6 +106,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
+                "class_when": [],
                 "merges_class": true,
                 "module": "menu",
                 "part": "Popup",
@@ -137,6 +133,7 @@
               }
             ],
             "class": "isolate z-50 outline-none",
+            "class_when": [],
             "merges_class": false,
             "module": "menu",
             "part": "Positioner",
@@ -154,6 +151,7 @@
           }
         ],
         "class": "w-[240px]",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "Portal",
@@ -171,6 +169,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "OpenInItem",
       "name": "open_in_item",
       "params": {
@@ -194,6 +193,7 @@
         ],
         "children": [],
         "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "Item",
@@ -214,6 +214,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "OpenInLabel",
       "name": "open_in_label",
       "params": {
@@ -231,6 +232,7 @@
         ],
         "children": [],
         "class": "cn-dropdown-menu-label",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "GroupLabel",
@@ -250,6 +252,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "OpenInSeparator",
       "name": "open_in_separator",
       "params": {
@@ -260,6 +263,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-dropdown-menu-separator",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "Separator",
@@ -277,6 +281,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "OpenInTrigger",
       "name": "open_in_trigger",
       "params": {
@@ -308,6 +313,7 @@
                     "attrs": [],
                     "children": [],
                     "class": "size-4",
+                    "class_when": [],
                     "icons": {
                       "lucide": "ChevronDownIcon"
                     },
@@ -325,6 +331,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": true,
                 "module": "button",
                 "part": "Button",
@@ -348,6 +355,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "menu",
         "part": "Trigger",
@@ -365,6 +373,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "OpenInChatGPT",
       "name": "open_in_chat_gpt",
       "params": {
@@ -416,6 +425,7 @@
                   }
                 ],
                 "class": "shrink-0",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -438,6 +448,7 @@
                   }
                 ],
                 "class": "flex-1",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -455,6 +466,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "size-4 shrink-0",
+                "class_when": [],
                 "icons": {
                   "lucide": "ExternalLinkIcon"
                 },
@@ -472,6 +484,7 @@
               }
             ],
             "class": "flex items-center gap-2",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -487,6 +500,7 @@
           }
         ],
         "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "Item",
@@ -507,6 +521,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "OpenInClaude",
       "name": "open_in_claude",
       "params": {
@@ -558,6 +573,7 @@
                   }
                 ],
                 "class": "shrink-0",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -580,6 +596,7 @@
                   }
                 ],
                 "class": "flex-1",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -597,6 +614,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "size-4 shrink-0",
+                "class_when": [],
                 "icons": {
                   "lucide": "ExternalLinkIcon"
                 },
@@ -614,6 +632,7 @@
               }
             ],
             "class": "flex items-center gap-2",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -629,6 +648,7 @@
           }
         ],
         "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "Item",
@@ -649,6 +669,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "OpenInT3",
       "name": "open_in_t3",
       "params": {
@@ -700,6 +721,7 @@
                   }
                 ],
                 "class": "shrink-0",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -722,6 +744,7 @@
                   }
                 ],
                 "class": "flex-1",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -739,6 +762,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "size-4 shrink-0",
+                "class_when": [],
                 "icons": {
                   "lucide": "ExternalLinkIcon"
                 },
@@ -756,6 +780,7 @@
               }
             ],
             "class": "flex items-center gap-2",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -771,6 +796,7 @@
           }
         ],
         "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "Item",
@@ -791,6 +817,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "OpenInScira",
       "name": "open_in_scira",
       "params": {
@@ -842,6 +869,7 @@
                   }
                 ],
                 "class": "shrink-0",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -864,6 +892,7 @@
                   }
                 ],
                 "class": "flex-1",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -881,6 +910,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "size-4 shrink-0",
+                "class_when": [],
                 "icons": {
                   "lucide": "ExternalLinkIcon"
                 },
@@ -898,6 +928,7 @@
               }
             ],
             "class": "flex items-center gap-2",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -913,6 +944,7 @@
           }
         ],
         "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "Item",
@@ -933,6 +965,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "OpenInv0",
       "name": "open_inv0",
       "params": {
@@ -984,6 +1017,7 @@
                   }
                 ],
                 "class": "shrink-0",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -1006,6 +1040,7 @@
                   }
                 ],
                 "class": "flex-1",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -1023,6 +1058,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "size-4 shrink-0",
+                "class_when": [],
                 "icons": {
                   "lucide": "ExternalLinkIcon"
                 },
@@ -1040,6 +1076,7 @@
               }
             ],
             "class": "flex items-center gap-2",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -1055,6 +1092,7 @@
           }
         ],
         "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "Item",
@@ -1075,6 +1113,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "OpenInCursor",
       "name": "open_in_cursor",
       "params": {
@@ -1126,6 +1165,7 @@
                   }
                 ],
                 "class": "shrink-0",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -1148,6 +1188,7 @@
                   }
                 ],
                 "class": "flex-1",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -1165,6 +1206,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "size-4 shrink-0",
+                "class_when": [],
                 "icons": {
                   "lucide": "ExternalLinkIcon"
                 },
@@ -1182,6 +1224,7 @@
               }
             ],
             "class": "flex items-center gap-2",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -1197,6 +1240,7 @@
           }
         ],
         "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "menu",
         "part": "Item",

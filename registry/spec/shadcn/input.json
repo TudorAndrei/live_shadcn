@@ -10,6 +10,7 @@
   "name": "input",
   "parts": [
     {
+      "contexts": [],
       "export": "Input",
       "name": "input",
       "params": {
@@ -27,6 +28,7 @@
         ],
         "children": [],
         "class": "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+        "class_when": [],
         "merges_class": true,
         "module": "input",
         "part": "Input",

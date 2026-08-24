@@ -10,6 +10,7 @@
   "name": "button",
   "parts": [
     {
+      "contexts": [],
       "export": "Button",
       "name": "button",
       "params": {
@@ -22,6 +23,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",

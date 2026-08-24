@@ -5,40 +5,19 @@
   "name": "carousel",
   "parts": [
     {
+      "contexts": [],
       "export": "Carousel",
       "name": "carousel",
       "params": {
-        "canScrollNext": "false",
-        "canScrollPrev": "false",
-        "carouselRef": null,
         "children": null,
-        "className": null,
-        "handleKeyDown": null,
-        "onSelect": null,
-        "opts": null,
-        "orientation": "horizontal",
-        "plugins": null,
-        "scrollNext": null,
-        "scrollPrev": null,
-        "setApi": null
+        "className": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "{\n        carouselRef,\n        api: api,\n        opts,\n        orientation:\n          orientation || (opts?.axis === \"y\" ? \"vertical\" : \"horizontal\"),\n        scrollPrev,\n        scrollNext,\n        canScrollPrev,\n        canScrollNext,\n      }"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
-              {
-                "kind": "code",
-                "name": "onKeyDownCapture",
-                "value": "handleKeyDown"
-              },
               {
                 "kind": "text",
                 "name": "role",
@@ -56,6 +35,7 @@
               }
             ],
             "class": "relative",
+            "class_when": [],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -71,6 +51,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -86,6 +67,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "CarouselContent",
       "name": "carousel_content",
       "params": {
@@ -107,6 +89,13 @@
             "attrs": [],
             "children": [],
             "class": "flex",
+            "class_when": [
+              {
+                "else": "-mt-4 flex-col",
+                "then": "-ml-4",
+                "when": "orientation === \"horizontal\""
+              }
+            ],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -122,6 +111,7 @@
           }
         ],
         "class": "overflow-hidden",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -137,6 +127,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "CarouselItem",
       "name": "carousel_item",
       "params": {
@@ -159,6 +150,13 @@
         ],
         "children": [],
         "class": "min-w-0 shrink-0 grow-0 basis-full",
+        "class_when": [
+          {
+            "else": "pt-4",
+            "then": "pl-4",
+            "when": "orientation === \"horizontal\""
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -174,13 +172,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "CarouselPrevious",
       "name": "carousel_previous",
       "params": {
         "canScrollPrev": null,
         "className": null,
         "orientation": null,
-        "scrollPrev": null,
         "size": "icon-sm",
         "variant": "outline"
       },
@@ -201,11 +199,6 @@
             "kind": "code",
             "name": "disabled",
             "value": "!canScrollPrev"
-          },
-          {
-            "kind": "code",
-            "name": "onClick",
-            "value": "scrollPrev"
           }
         ],
         "children": [
@@ -239,6 +232,7 @@
             ],
             "children": [],
             "class": "cn-rtl-flip",
+            "class_when": [],
             "icons": {
               "hugeicons": "ArrowLeft01Icon",
               "lucide": "ChevronLeftIcon",
@@ -267,6 +261,7 @@
               }
             ],
             "class": "sr-only",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -282,6 +277,13 @@
           }
         ],
         "class": "cn-carousel-previous absolute touch-manipulation",
+        "class_when": [
+          {
+            "else": "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+            "then": "inset-y-0 -left-12 my-auto",
+            "when": "orientation === \"horizontal\""
+          }
+        ],
         "component": "button",
         "function": "button",
         "merges_class": true,
@@ -300,13 +302,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "CarouselNext",
       "name": "carousel_next",
       "params": {
         "canScrollNext": null,
         "className": null,
         "orientation": null,
-        "scrollNext": null,
         "size": "icon-sm",
         "variant": "outline"
       },
@@ -327,11 +329,6 @@
             "kind": "code",
             "name": "disabled",
             "value": "!canScrollNext"
-          },
-          {
-            "kind": "code",
-            "name": "onClick",
-            "value": "scrollNext"
           }
         ],
         "children": [
@@ -365,6 +362,7 @@
             ],
             "children": [],
             "class": "cn-rtl-flip",
+            "class_when": [],
             "icons": {
               "hugeicons": "ArrowRight01Icon",
               "lucide": "ChevronRightIcon",
@@ -393,6 +391,7 @@
               }
             ],
             "class": "sr-only",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -408,6 +407,13 @@
           }
         ],
         "class": "cn-carousel-next absolute touch-manipulation",
+        "class_when": [
+          {
+            "else": "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+            "then": "inset-y-0 -right-12 my-auto",
+            "when": "orientation === \"horizontal\""
+          }
+        ],
         "component": "button",
         "function": "button",
         "merges_class": true,

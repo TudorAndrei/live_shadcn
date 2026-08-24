@@ -19,6 +19,7 @@
   "name": "avatar",
   "parts": [
     {
+      "contexts": [],
       "export": "Avatar",
       "name": "avatar",
       "params": {
@@ -36,6 +37,7 @@
         ],
         "children": [],
         "class": "cn-avatar group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten",
+        "class_when": [],
         "merges_class": true,
         "module": "avatar",
         "part": "Root",
@@ -53,6 +55,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AvatarImage",
       "name": "avatar_image",
       "params": {
@@ -63,6 +66,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-avatar-image aspect-square size-full object-cover",
+        "class_when": [],
         "merges_class": true,
         "module": "avatar",
         "part": "Image",
@@ -80,6 +84,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AvatarFallback",
       "name": "avatar_fallback",
       "params": {
@@ -90,6 +95,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-avatar-fallback flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs",
+        "class_when": [],
         "merges_class": true,
         "module": "avatar",
         "part": "Fallback",
@@ -107,6 +113,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AvatarGroup",
       "name": "avatar_group",
       "params": {
@@ -117,6 +124,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-avatar-group group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -132,6 +140,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AvatarGroupCount",
       "name": "avatar_group_count",
       "params": {
@@ -142,6 +151,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-avatar-group-count relative flex shrink-0 items-center justify-center ring-2 ring-background",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -157,6 +167,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AvatarBadge",
       "name": "avatar_badge",
       "params": {
@@ -167,6 +178,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

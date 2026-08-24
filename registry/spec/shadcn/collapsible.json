@@ -22,6 +22,7 @@
   "name": "collapsible",
   "parts": [
     {
+      "contexts": [],
       "export": "Collapsible",
       "name": "collapsible",
       "params": {},
@@ -30,6 +31,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "collapsible",
         "part": "Root",
@@ -47,6 +49,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "CollapsibleTrigger",
       "name": "collapsible_trigger",
       "params": {},
@@ -55,6 +58,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "collapsible",
         "part": "Trigger",
@@ -72,6 +76,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "CollapsibleContent",
       "name": "collapsible_content",
       "params": {},
@@ -80,6 +85,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "collapsible",
         "part": "Panel",

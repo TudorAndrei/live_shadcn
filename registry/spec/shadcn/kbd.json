@@ -5,6 +5,7 @@
   "name": "kbd",
   "parts": [
     {
+      "contexts": [],
       "export": "Kbd",
       "name": "kbd",
       "params": {
@@ -15,6 +16,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-kbd pointer-events-none inline-flex items-center justify-center select-none",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -30,6 +32,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "KbdGroup",
       "name": "kbd_group",
       "params": {
@@ -40,6 +43,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-kbd-group inline-flex items-center",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

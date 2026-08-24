@@ -8,6 +8,7 @@
   "name": "package-info",
   "parts": [
     {
+      "contexts": [],
       "export": "PackageInfoHeader",
       "name": "package_info_header",
       "params": {
@@ -23,6 +24,7 @@
           }
         ],
         "class": "flex items-center justify-between gap-2",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -38,6 +40,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PackageInfoName",
       "name": "package_info_name",
       "params": {
@@ -53,6 +56,7 @@
             "attrs": [],
             "children": [],
             "class": "size-4 text-muted-foreground",
+            "class_when": [],
             "icons": {
               "lucide": "PackageIcon"
             },
@@ -82,6 +86,7 @@
               }
             ],
             "class": "font-medium font-mono text-sm",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -97,6 +102,7 @@
           }
         ],
         "class": "flex items-center gap-2",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -112,6 +118,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PackageInfoChangeType",
       "name": "package_info_change_type",
       "params": {
@@ -132,6 +139,7 @@
                   "attrs": [],
                   "children": [],
                   "class": "size-3",
+                  "class_when": [],
                   "icons": {
                     "lucide": "PlusIcon"
                   },
@@ -154,6 +162,7 @@
                   "attrs": [],
                   "children": [],
                   "class": "size-3",
+                  "class_when": [],
                   "icons": {
                     "lucide": "ArrowRightIcon"
                   },
@@ -176,6 +185,7 @@
                   "attrs": [],
                   "children": [],
                   "class": "size-3",
+                  "class_when": [],
                   "icons": {
                     "lucide": "ArrowRightIcon"
                   },
@@ -198,6 +208,7 @@
                   "attrs": [],
                   "children": [],
                   "class": "size-3",
+                  "class_when": [],
                   "icons": {
                     "lucide": "ArrowRightIcon"
                   },
@@ -220,6 +231,7 @@
                   "attrs": [],
                   "children": [],
                   "class": "size-3",
+                  "class_when": [],
                   "icons": {
                     "lucide": "MinusIcon"
                   },
@@ -252,6 +264,7 @@
           }
         ],
         "class": "gap-1 text-xs capitalize",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -269,6 +282,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PackageInfoVersion",
       "name": "package_info_version",
       "params": {
@@ -297,6 +311,7 @@
                           }
                         ],
                         "class": "",
+                        "class_when": [],
                         "merges_class": false,
                         "props": false,
                         "reads": {
@@ -320,6 +335,7 @@
                         "attrs": [],
                         "children": [],
                         "class": "size-3",
+                        "class_when": [],
                         "icons": {
                           "lucide": "ArrowRightIcon"
                         },
@@ -350,6 +366,7 @@
                           }
                         ],
                         "class": "font-medium text-foreground",
+                        "class_when": [],
                         "merges_class": false,
                         "props": false,
                         "reads": {
@@ -369,6 +386,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -387,6 +405,7 @@
           }
         ],
         "class": "mt-2 flex items-center gap-2 font-mono text-muted-foreground text-sm",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -402,26 +421,19 @@
       }
     },
     {
+      "contexts": [],
       "export": "PackageInfo",
       "name": "package_info",
       "params": {
         "changeType": null,
         "children": null,
         "className": null,
-        "contextValue": null,
         "currentVersion": null,
-        "name": null,
         "newVersion": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [],
@@ -438,6 +450,7 @@
                             "attrs": [],
                             "children": [],
                             "class": "",
+                            "class_when": [],
                             "merges_class": false,
                             "part": "package_info_name",
                             "props": false,
@@ -457,6 +470,7 @@
                                 "attrs": [],
                                 "children": [],
                                 "class": "",
+                                "class_when": [],
                                 "merges_class": false,
                                 "part": "package_info_change_type",
                                 "props": false,
@@ -476,6 +490,7 @@
                           }
                         ],
                         "class": "",
+                        "class_when": [],
                         "merges_class": false,
                         "part": "package_info_header",
                         "props": false,
@@ -495,6 +510,7 @@
                             "attrs": [],
                             "children": [],
                             "class": "",
+                            "class_when": [],
                             "merges_class": false,
                             "part": "package_info_version",
                             "props": false,
@@ -514,6 +530,7 @@
                       }
                     ],
                     "class": "",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -532,6 +549,7 @@
               }
             ],
             "class": "rounded-lg border bg-background p-4",
+            "class_when": [],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -547,6 +565,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -562,6 +581,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PackageInfoDescription",
       "name": "package_info_description",
       "params": {
@@ -577,6 +597,7 @@
           }
         ],
         "class": "mt-2 text-muted-foreground text-sm",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -592,6 +613,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PackageInfoContent",
       "name": "package_info_content",
       "params": {
@@ -607,6 +629,7 @@
           }
         ],
         "class": "mt-3 border-t pt-3",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -622,6 +645,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PackageInfoDependencies",
       "name": "package_info_dependencies",
       "params": {
@@ -641,6 +665,7 @@
               }
             ],
             "class": "font-medium text-muted-foreground text-xs uppercase tracking-wide",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -662,6 +687,7 @@
               }
             ],
             "class": "space-y-1",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -677,6 +703,7 @@
           }
         ],
         "class": "space-y-2",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -692,6 +719,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PackageInfoDependency",
       "name": "package_info_dependency",
       "params": {
@@ -718,6 +746,7 @@
                       }
                     ],
                     "class": "font-mono text-muted-foreground",
+                    "class_when": [],
                     "merges_class": false,
                     "props": false,
                     "reads": {
@@ -742,6 +771,7 @@
                           }
                         ],
                         "class": "font-mono text-xs",
+                        "class_when": [],
                         "merges_class": false,
                         "props": false,
                         "reads": {
@@ -761,6 +791,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -779,6 +810,7 @@
           }
         ],
         "class": "flex items-center justify-between text-sm",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

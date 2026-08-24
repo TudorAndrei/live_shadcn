@@ -75,7 +75,10 @@ defmodule LiveAiElements.Components.ChainOfThought do
         <span class="flex-1 text-left">
           {@title}
         </span>
-        <LiveShadcn.Icon.icon name="chevron-down" class="size-4 transition-transform" />
+        <LiveShadcn.Icon.icon
+          name="chevron-down"
+          class={["size-4 transition-transform", if(@open, do: "rotate-180", else: "rotate-0")]}
+        />
       </button>
       <div
         data-slot="collapsible-content"

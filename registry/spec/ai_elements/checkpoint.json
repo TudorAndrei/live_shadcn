@@ -20,6 +20,7 @@
   "name": "checkpoint",
   "parts": [
     {
+      "contexts": [],
       "export": "Checkpoint",
       "name": "checkpoint",
       "params": {
@@ -44,6 +45,7 @@
             ],
             "children": [],
             "class": "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
+            "class_when": [],
             "merges_class": true,
             "module": "separator",
             "part": "Separator",
@@ -64,6 +66,7 @@
           }
         ],
         "class": "flex items-center gap-0.5 overflow-hidden text-muted-foreground",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -79,6 +82,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "CheckpointIcon",
       "name": "checkpoint_icon",
       "params": {
@@ -92,6 +96,7 @@
             "attrs": [],
             "children": [],
             "class": "size-4 shrink-0",
+            "class_when": [],
             "icons": {
               "lucide": "BookmarkIcon"
             },
@@ -112,6 +117,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "CheckpointTrigger",
       "name": "checkpoint_trigger",
       "params": {
@@ -142,6 +148,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": true,
             "module": "button",
             "part": "Button",
@@ -182,6 +189,7 @@
                       }
                     ],
                     "class": "",
+                    "class_when": [],
                     "merges_class": true,
                     "module": "button",
                     "part": "Button",
@@ -202,6 +210,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "module": "tooltip",
                 "part": "Trigger",
@@ -255,6 +264,7 @@
                             "attrs": [],
                             "children": [],
                             "class": "cn-tooltip-arrow cn-tooltip-arrow-logical z-50 bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5",
+                            "class_when": [],
                             "merges_class": false,
                             "module": "tooltip",
                             "part": "Arrow",
@@ -272,6 +282,7 @@
                           }
                         ],
                         "class": "cn-tooltip-content cn-tooltip-content-logical z-50 w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background",
+                        "class_when": [],
                         "merges_class": true,
                         "module": "tooltip",
                         "part": "Popup",
@@ -294,6 +305,7 @@
                       }
                     ],
                     "class": "isolate z-50",
+                    "class_when": [],
                     "merges_class": false,
                     "module": "tooltip",
                     "part": "Positioner",
@@ -311,6 +323,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "module": "tooltip",
                 "part": "Portal",
@@ -328,6 +341,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "part": "Root",
             "props": true,

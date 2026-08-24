@@ -15,6 +15,7 @@
   "name": "switch",
   "parts": [
     {
+      "contexts": [],
       "export": "Switch",
       "name": "switch",
       "params": {
@@ -35,6 +36,7 @@
             "attrs": [],
             "children": [],
             "class": "cn-switch-thumb pointer-events-none block ring-0 transition-transform",
+            "class_when": [],
             "merges_class": false,
             "module": "switch",
             "part": "Thumb",
@@ -55,6 +57,7 @@
           }
         ],
         "class": "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+        "class_when": [],
         "merges_class": true,
         "module": "switch",
         "part": "Root",

@@ -5,6 +5,7 @@
   "name": "radio-group",
   "parts": [
     {
+      "contexts": [],
       "export": "RadioGroup",
       "name": "radio_group",
       "params": {
@@ -15,6 +16,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-radio-group w-full",
+        "class_when": [],
         "merges_class": true,
         "module": "radio",
         "part": "RadioGroup",
@@ -32,6 +34,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "RadioGroupItem",
       "name": "radio_group_item",
       "params": {
@@ -48,6 +51,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "cn-radio-group-indicator-icon",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -63,6 +67,7 @@
               }
             ],
             "class": "cn-radio-group-indicator",
+            "class_when": [],
             "merges_class": false,
             "module": "radio",
             "part": "Indicator",
@@ -80,6 +85,7 @@
           }
         ],
         "class": "cn-radio-group-item group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
+        "class_when": [],
         "merges_class": true,
         "module": "radio",
         "part": "Root",

@@ -131,7 +131,16 @@ defmodule LiveShadcnTools.Gen.Heex do
   end
 
   def render(%{"type" => "repeat_over", "collection" => collection} = node, ctx, indent) do
-    generator = "#{node["binding"]} <- #{expression(collection, ctx)}"
+    # `.map((branch, index) => …)` counts as it goes, and `Enum.with_index` is
+    # the same walk with the same count.
+    generator =
+      case node["counter"] do
+        nil ->
+          "#{node["binding"]} <- #{expression(collection, ctx)}"
+
+        counter ->
+          "{#{node["binding"]}, #{counter}} <- Enum.with_index(#{expression(collection, ctx)})"
+      end
 
     # The binding is in scope inside the loop and nowhere else, so it reads like
     # a prop there — `{branch.key}` is a field of the item, not of the
@@ -139,11 +148,13 @@ defmodule LiveShadcnTools.Gen.Heex do
     #
     # A destructured item names its fields and not itself, so each field reads
     # off the name this generator gave the item.
+    bound = if node["counter"], do: bind(ctx, node["counter"]), else: ctx
+
     inner =
       node
       |> Map.get("fields")
       |> List.wrap()
-      |> Enum.reduce(bind(ctx, node["binding"]), fn field, ctx ->
+      |> Enum.reduce(bind(bound, node["binding"]), fn field, ctx ->
         bind(ctx, field, "#{node["binding"]}.#{field}")
       end)
 
@@ -407,6 +418,9 @@ defmodule LiveShadcnTools.Gen.Heex do
     end
   end
 
+  @doc "Every piece of JavaScript a tree still holds, wherever it holds one."
+  defdelegate codes(tree), to: Spec
+
   @doc "Whether a tree renders the caller's content anywhere."
   def marker?(%{"type" => "children"}), do: true
   def marker?(node), do: node |> Map.get("children") |> List.wrap() |> Enum.any?(&marker?/1)
@@ -507,11 +521,27 @@ defmodule LiveShadcnTools.Gen.Heex do
       case attr["kind"] do
         "text" -> {attr["name"], :text, attr["value"]}
         "flag" -> {attr["name"], :bare}
-        "code" -> {attr["name"], :code, expression(attr["value"], ctx)}
+        "code" -> {attr["name"], :code, written(attr, ctx)}
         "style" -> {attr["name"], :code, style(attr["value"], ctx)}
       end
     end
   end
+
+  # `data-align-trigger={alignItemWithTrigger}` reads `"true"` in the browser,
+  # because React writes a boolean into an attribute as its name. HEEx writes
+  # it as presence instead — the attribute is there or it is not — and a class
+  # string of the form `data-[align-trigger=true]:…` has nothing to compare.
+  # So a yes-or-no in a data attribute is spelled out.
+  defp written(%{"name" => "data-" <> _rest, "value" => code} = attr, ctx) do
+    if yes_or_no?(code, ctx),
+      do: "to_string(#{expression(code, ctx)})",
+      else: expression(attr["value"], ctx)
+  end
+
+  defp written(attr, ctx), do: expression(attr["value"], ctx)
+
+  defp yes_or_no?(code, ctx),
+    do: Map.get(Map.get(ctx, :params) || %{}, String.trim(code)) in ["true", "false"]
 
   # A set of CSS declarations becomes a style string, interpolating the values
   # the component computes.
@@ -533,7 +563,7 @@ defmodule LiveShadcnTools.Gen.Heex do
   # else that looks like an identifier is a gap, because emitting it verbatim
   # would produce HEEx that reads a variable nobody bound.
   defp expression(code, ctx) do
-    code = String.trim(code)
+    code = code |> String.trim() |> unwrapped()
     params = Map.get(ctx, :params) || %{}
 
     cond do
@@ -550,6 +580,40 @@ defmodule LiveShadcnTools.Gen.Heex do
       binary = binary(code, ctx) -> binary
       true -> raise unbound(code)
     end
+  end
+
+  # Brackets a person wrote to make an expression readable. They change nothing
+  # about what is inside them, and every reader below this line splits on an
+  # operator — which finds the operator inside the brackets and keeps the
+  # bracket. So the outermost pair comes off first.
+  defp unwrapped("(" <> rest = code) do
+    inner = String.trim_trailing(rest)
+
+    if String.ends_with?(inner, ")") and wraps_all?(rest) do
+      inner |> binary_part(0, byte_size(inner) - 1) |> String.trim() |> unwrapped()
+    else
+      code
+    end
+  end
+
+  defp unwrapped(code), do: code
+
+  # Whether the opening bracket is closed by the last character and not before.
+  # `(a) && (b)` opens and closes twice, so its brackets are not one pair
+  # around the whole expression.
+  defp wraps_all?(rest) do
+    chars = rest |> String.trim_trailing() |> String.to_charlist()
+    last = length(chars) - 1
+
+    chars
+    |> Enum.with_index()
+    |> Enum.reduce_while(1, fn
+      {?(, _at}, depth -> {:cont, depth + 1}
+      {?), at}, 1 -> {:halt, if(at == last, do: :whole, else: :partial)}
+      {?), _at}, depth -> {:cont, depth - 1}
+      {_char, _at}, depth -> {:cont, depth}
+    end)
+    |> Kernel.==(:whole)
   end
 
   # `totalBranches <= 1`, `currentBranch + 1`, `a && b`. Every one of these
@@ -600,9 +664,14 @@ defmodule LiveShadcnTools.Gen.Heex do
   defp member(code, ctx) do
     with [head | rest] when rest != [] <- String.split(code, "."),
          true <- Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, head),
-         true <- Enum.all?(rest, &Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, &1)),
-         root when is_binary(root) <- root(head, ctx) do
-      Enum.join([root | rest], ".")
+         true <- Enum.all?(rest, &Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, &1)) do
+      case root(head, ctx) do
+        # `question.disabled` — a React context holds nothing here, so the path
+        # through it disappears and the field it reached is the prop.
+        :context -> expression(Enum.join(rest, "."), ctx)
+        root when is_binary(root) -> Enum.join([root | rest], ".")
+        nil -> nil
+      end
     else
       _ -> nil
     end
@@ -613,6 +682,7 @@ defmodule LiveShadcnTools.Gen.Heex do
   defp root(head, ctx) do
     cond do
       binding = Map.get(Map.get(ctx, :bindings) || %{}, head) -> binding
+      head in (Map.get(ctx, :contexts) || []) -> :context
       Map.has_key?(Map.get(ctx, :params) || %{}, head) -> "@" <> Macro.underscore(head)
       true -> nil
     end
@@ -625,10 +695,20 @@ defmodule LiveShadcnTools.Gen.Heex do
   defp negation(_code, _ctx), do: nil
 
   # `variant ?? "ghost"` — a default when the caller set nothing.
+  #
+  # `question.disabled || disabled` asks two sources for the same fact: the
+  # group and the option. A HEEx component has no group to ask, so both sides
+  # read the one prop, and asking it twice reads no better than asking once.
   defp fallback(code, ctx) do
     case String.split(code, ~r/\?\?|\|\|/, parts: 2) do
-      [value, default] -> "#{expression(value, ctx)} || #{expression(default, ctx)}"
-      [_] -> nil
+      [value, default] ->
+        case {expression(value, ctx), expression(default, ctx)} do
+          {same, same} -> same
+          {value, default} -> "#{value} || #{default}"
+        end
+
+      [_] ->
+        nil
     end
   end
 
@@ -663,7 +743,8 @@ defmodule LiveShadcnTools.Gen.Heex do
   # The spec records which element that was, so the generator never guesses.
   defp class_attr(node, ctx) do
     entries =
-      base_classes(node, ctx) ++ variant_classes(node, ctx) ++ caller_class(node, ctx)
+      base_classes(node, ctx) ++
+        conditional_classes(node, ctx) ++ variant_classes(node, ctx) ++ caller_class(node, ctx)
 
     case entries do
       [] -> []
@@ -686,6 +767,17 @@ defmodule LiveShadcnTools.Gen.Heex do
 
   defp variant_base(node, ctx) do
     if node["variant_class"], do: Map.get(table(ctx), "base")
+  end
+
+  # A class string the element wears only when something is true. `nil` on the
+  # other branch, because a class list drops what is nil.
+  defp conditional_classes(node, ctx) do
+    for segment <- Map.get(node, "class_when") || [] do
+      condition = expression(segment["when"], ctx)
+
+      {:code,
+       "if(#{condition}, do: #{inspect(segment["then"])}, else: #{inspect(segment["else"])})"}
+    end
   end
 
   defp variant_classes(node, ctx) do

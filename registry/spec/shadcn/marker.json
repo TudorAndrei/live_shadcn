@@ -5,6 +5,7 @@
   "name": "marker",
   "parts": [
     {
+      "contexts": [],
       "export": "Marker",
       "name": "marker",
       "params": {
@@ -21,6 +22,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -36,6 +38,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MarkerIcon",
       "name": "marker_icon",
       "params": {
@@ -52,6 +55,7 @@
         ],
         "children": [],
         "class": "cn-marker-icon shrink-0",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -67,6 +71,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MarkerContent",
       "name": "marker_content",
       "params": {
@@ -77,6 +82,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-marker-content min-w-0 wrap-break-word",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

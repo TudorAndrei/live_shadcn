@@ -5,25 +5,17 @@
   "name": "transcription",
   "parts": [
     {
+      "contexts": [],
       "export": "Transcription",
       "name": "transcription",
       "params": {
         "children": null,
         "className": null,
-        "contextValue": null,
-        "currentTime": null,
-        "onSeek": null,
         "segments": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [],
@@ -37,11 +29,13 @@
                   }
                 ],
                 "collection": "segments\n          .filter((segment) => segment.text.trim())",
+                "counter": "index",
                 "fields": [],
                 "type": "repeat_over"
               }
             ],
             "class": "flex flex-wrap gap-1 text-sm leading-relaxed",
+            "class_when": [],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -57,6 +51,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -72,17 +67,14 @@
       }
     },
     {
+      "contexts": [],
       "export": "TranscriptionSegment",
       "name": "transcription_segment",
       "params": {
         "className": null,
-        "currentTime": null,
-        "handleClick": null,
         "index": null,
         "isActive": null,
         "isPast": null,
-        "onClick": null,
-        "onSeek": null,
         "segment": null
       },
       "primitive": null,
@@ -99,11 +91,6 @@
             "value": "index"
           },
           {
-            "kind": "code",
-            "name": "onClick",
-            "value": "handleClick"
-          },
-          {
             "kind": "text",
             "name": "type",
             "value": "button"
@@ -116,6 +103,33 @@
           }
         ],
         "class": "inline text-left",
+        "class_when": [
+          {
+            "else": null,
+            "then": "text-primary",
+            "when": "isActive"
+          },
+          {
+            "else": null,
+            "then": "text-muted-foreground",
+            "when": "isPast"
+          },
+          {
+            "else": null,
+            "then": "text-muted-foreground/60",
+            "when": "!(isActive || isPast)"
+          },
+          {
+            "else": null,
+            "then": "cursor-pointer hover:text-foreground",
+            "when": "onSeek"
+          },
+          {
+            "else": null,
+            "then": "cursor-default",
+            "when": "!onSeek"
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {

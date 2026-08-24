@@ -135,6 +135,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Root",
         "props": true,
@@ -151,6 +152,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxInput",
       "name": "combobox_input",
       "params": {
@@ -168,6 +170,7 @@
             "attrs": [],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "module": "combobox",
             "part": "Input",
@@ -186,6 +189,7 @@
               ],
               "children": [],
               "class": "",
+              "class_when": [],
               "component": "input-group",
               "function": "input_group_input",
               "merges_class": false,
@@ -239,6 +243,7 @@
                     ],
                     "children": [],
                     "class": "group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent",
+                    "class_when": [],
                     "component": "input-group",
                     "function": "input_group_button",
                     "merges_class": false,
@@ -253,6 +258,7 @@
                       "attrs": [],
                       "children": [],
                       "class": "",
+                      "class_when": [],
                       "merges_class": false,
                       "part": "combobox_trigger",
                       "props": false,
@@ -287,18 +293,103 @@
                         "value": "disabled"
                       }
                     ],
-                    "children": [],
-                    "class": "",
-                    "merges_class": false,
-                    "part": "combobox_clear",
-                    "props": false,
+                    "children": [
+                      {
+                        "attrs": [
+                          {
+                            "kind": "text",
+                            "name": "lucide",
+                            "value": "XIcon"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "tabler",
+                            "value": "IconX"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "hugeicons",
+                            "value": "Cancel01Icon"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "phosphor",
+                            "value": "XIcon"
+                          },
+                          {
+                            "kind": "text",
+                            "name": "remixicon",
+                            "value": "RiCloseLine"
+                          }
+                        ],
+                        "children": [],
+                        "class": "cn-combobox-clear-icon pointer-events-none",
+                        "class_when": [],
+                        "icons": {
+                          "hugeicons": "Cancel01Icon",
+                          "lucide": "XIcon",
+                          "phosphor": "XIcon",
+                          "remixicon": "RiCloseLine",
+                          "tabler": "IconX"
+                        },
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "type": "icon",
+                        "variant_class": null,
+                        "vars": []
+                      }
+                    ],
+                    "class": "cn-combobox-clear",
+                    "class_when": [],
+                    "merges_class": true,
+                    "module": "combobox",
+                    "part": "Clear",
+                    "props": true,
                     "reads": {
                       "group": [],
                       "self": []
                     },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "part_ref",
+                    "render_as": {
+                      "attrs": [
+                        {
+                          "kind": "text",
+                          "name": "variant",
+                          "value": "ghost"
+                        },
+                        {
+                          "kind": "text",
+                          "name": "size",
+                          "value": "icon-xs"
+                        }
+                      ],
+                      "children": [],
+                      "class": "",
+                      "class_when": [],
+                      "component": "input-group",
+                      "function": "input_group_button",
+                      "merges_class": false,
+                      "props": false,
+                      "reads": {
+                        "group": [],
+                        "self": []
+                      },
+                      "render_as": null,
+                      "slot": null,
+                      "source": "shadcn",
+                      "tag": "button",
+                      "type": "component_ref",
+                      "variant_class": null,
+                      "vars": []
+                    },
+                    "slot": "combobox-clear",
+                    "tag": "button",
+                    "type": "primitive",
                     "variant_class": null,
                     "vars": []
                   }
@@ -308,6 +399,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "component": "input-group",
             "function": "input_group_addon",
             "merges_class": false,
@@ -329,6 +421,7 @@
           }
         ],
         "class": "cn-combobox-input w-auto",
+        "class_when": [],
         "component": "input-group",
         "function": "input_group",
         "merges_class": true,
@@ -347,6 +440,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxContent",
       "name": "combobox_content",
       "params": {
@@ -400,6 +494,7 @@
                 ],
                 "children": [],
                 "class": "cn-combobox-content cn-combobox-content-logical cn-menu-target cn-menu-translucent group/combobox-content relative max-h-(--available-height) w-(--anchor-width) max-w-(--available-width) min-w-[calc(var(--anchor-width)+--spacing(7))] origin-(--transform-origin) data-[chips=true]:min-w-(--anchor-width)",
+                "class_when": [],
                 "merges_class": true,
                 "module": "combobox",
                 "part": "Popup",
@@ -427,6 +522,7 @@
               }
             ],
             "class": "isolate z-50",
+            "class_when": [],
             "merges_class": false,
             "module": "combobox",
             "part": "Positioner",
@@ -444,6 +540,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "combobox",
         "part": "Portal",
@@ -461,6 +558,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxList",
       "name": "combobox_list",
       "params": {
@@ -471,6 +569,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-combobox-list overflow-y-auto overscroll-contain",
+        "class_when": [],
         "merges_class": true,
         "module": "combobox",
         "part": "List",
@@ -490,6 +589,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxItem",
       "name": "combobox_item",
       "params": {
@@ -536,6 +636,7 @@
                 ],
                 "children": [],
                 "class": "cn-combobox-item-indicator-icon pointer-events-none",
+                "class_when": [],
                 "icons": {
                   "hugeicons": "Tick02Icon",
                   "lucide": "CheckIcon",
@@ -557,6 +658,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "module": "combobox",
             "part": "ItemIndicator",
@@ -569,6 +671,7 @@
               "attrs": [],
               "children": [],
               "class": "cn-combobox-item-indicator",
+              "class_when": [],
               "merges_class": false,
               "props": false,
               "reads": {
@@ -590,6 +693,7 @@
           }
         ],
         "class": "cn-combobox-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "combobox",
         "part": "Item",
@@ -610,6 +714,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxGroup",
       "name": "combobox_group",
       "params": {
@@ -620,6 +725,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-combobox-group",
+        "class_when": [],
         "merges_class": true,
         "module": "combobox",
         "part": "Group",
@@ -637,6 +743,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxLabel",
       "name": "combobox_label",
       "params": {
@@ -647,6 +754,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-combobox-label",
+        "class_when": [],
         "merges_class": true,
         "module": "combobox",
         "part": "GroupLabel",
@@ -664,6 +772,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxCollection",
       "name": "combobox_collection",
       "params": {},
@@ -672,6 +781,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Collection",
         "props": true,
@@ -688,6 +798,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxEmpty",
       "name": "combobox_empty",
       "params": {
@@ -698,6 +809,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-combobox-empty",
+        "class_when": [],
         "merges_class": true,
         "module": "combobox",
         "part": "Empty",
@@ -720,6 +832,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxSeparator",
       "name": "combobox_separator",
       "params": {
@@ -730,6 +843,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-combobox-separator",
+        "class_when": [],
         "merges_class": true,
         "module": "combobox",
         "part": "Separator",
@@ -747,6 +861,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxChips",
       "name": "combobox_chips",
       "params": {
@@ -757,6 +872,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-combobox-chips",
+        "class_when": [],
         "merges_class": true,
         "module": "combobox",
         "part": "Chips",
@@ -774,6 +890,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxChip",
       "name": "combobox_chip",
       "params": {
@@ -823,6 +940,7 @@
                     ],
                     "children": [],
                     "class": "cn-combobox-chip-indicator-icon pointer-events-none",
+                    "class_when": [],
                     "icons": {
                       "hugeicons": "Cancel01Icon",
                       "lucide": "XIcon",
@@ -844,6 +962,7 @@
                   }
                 ],
                 "class": "cn-combobox-chip-remove",
+                "class_when": [],
                 "merges_class": false,
                 "module": "combobox",
                 "part": "ChipRemove",
@@ -869,6 +988,7 @@
                   ],
                   "children": [],
                   "class": "",
+                  "class_when": [],
                   "component": "button",
                   "function": "button",
                   "merges_class": false,
@@ -897,6 +1017,7 @@
           }
         ],
         "class": "cn-combobox-chip has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50",
+        "class_when": [],
         "merges_class": true,
         "module": "combobox",
         "part": "Chip",
@@ -914,6 +1035,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxChipsInput",
       "name": "combobox_chips_input",
       "params": {
@@ -924,6 +1046,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-combobox-chip-input min-w-16 flex-1 outline-none",
+        "class_when": [],
         "merges_class": true,
         "module": "combobox",
         "part": "Input",
@@ -941,6 +1064,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxTrigger",
       "name": "combobox_trigger",
       "params": {
@@ -984,6 +1108,7 @@
             ],
             "children": [],
             "class": "cn-combobox-trigger-icon pointer-events-none",
+            "class_when": [],
             "icons": {
               "hugeicons": "ArrowDown01Icon",
               "lucide": "ChevronDownIcon",
@@ -1005,6 +1130,7 @@
           }
         ],
         "class": "cn-combobox-trigger",
+        "class_when": [],
         "merges_class": true,
         "module": "combobox",
         "part": "Trigger",
@@ -1022,6 +1148,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ComboboxValue",
       "name": "combobox_value",
       "params": {},
@@ -1030,6 +1157,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Value",
         "props": true,

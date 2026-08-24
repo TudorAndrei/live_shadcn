@@ -19,31 +19,15 @@
   "name": "mic-selector",
   "parts": [
     {
+      "contexts": [],
       "export": "MicSelector",
       "name": "mic_selector",
       "params": {
-        "contextValue": null,
-        "defaultOpen": "false",
-        "defaultValue": null,
-        "devices": null,
-        "hasPermission": null,
-        "loadDevices": null,
-        "loading": null,
-        "onOpenChange": null,
-        "onValueChange": null,
-        "open": null,
-        "value": null,
-        "width": "200"
+        "open": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -55,6 +39,7 @@
             ],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "part": "Root",
             "props": true,
@@ -71,6 +56,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -86,6 +72,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MicSelectorTrigger",
       "name": "mic_selector_trigger",
       "params": {
@@ -121,6 +108,7 @@
                 ],
                 "children": [],
                 "class": "shrink-0 text-muted-foreground",
+                "class_when": [],
                 "icons": {
                   "lucide": "ChevronsUpDownIcon"
                 },
@@ -138,6 +126,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": true,
             "module": "button",
             "part": "Button",
@@ -158,6 +147,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "popover",
         "part": "Trigger",
@@ -175,14 +165,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "MicSelectorContent",
       "name": "mic_selector_content",
       "params": {
         "align": "center",
         "alignOffset": "0",
         "className": null,
-        "onValueChange": null,
-        "popoverOptions": null,
         "side": "bottom",
         "sideOffset": "4",
         "value": null,
@@ -232,6 +221,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
+                "class_when": [],
                 "merges_class": true,
                 "module": "popover",
                 "part": "Popup",
@@ -254,6 +244,7 @@
               }
             ],
             "class": "isolate z-50",
+            "class_when": [],
             "merges_class": false,
             "module": "popover",
             "part": "Positioner",
@@ -273,17 +264,13 @@
             "attrs": [
               {
                 "kind": "code",
-                "name": "onValueChange",
-                "value": "onValueChange"
-              },
-              {
-                "kind": "code",
                 "name": "value",
                 "value": "value"
               }
             ],
             "children": [],
             "class": "",
+            "class_when": [],
             "component": "command",
             "function": "command",
             "merges_class": false,
@@ -302,6 +289,7 @@
           }
         ],
         "class": "p-0",
+        "class_when": [],
         "merges_class": true,
         "module": "popover",
         "part": "Portal",
@@ -319,6 +307,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MicSelectorInput",
       "name": "mic_selector_input",
       "params": {},
@@ -333,6 +322,7 @@
         ],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "command",
         "function": "command_input",
         "merges_class": false,
@@ -351,11 +341,11 @@
       }
     },
     {
+      "contexts": [],
       "export": "MicSelectorList",
       "name": "mic_selector_list",
       "params": {
-        "children": null,
-        "data": null
+        "children": null
       },
       "primitive": null,
       "tree": {
@@ -367,6 +357,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "component": "command",
         "function": "command_list",
         "merges_class": false,
@@ -385,6 +376,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "MicSelectorEmpty",
       "name": "mic_selector_empty",
       "params": {
@@ -399,6 +391,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "component": "command",
         "function": "command_empty",
         "merges_class": false,
@@ -417,24 +410,16 @@
       }
     },
     {
+      "contexts": [],
       "export": "MicSelectorItem",
       "name": "mic_selector_item",
-      "params": {
-        "handleSelect": null,
-        "onOpenChange": null,
-        "onValueChange": null
-      },
+      "params": {},
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "onSelect",
-            "value": "handleSelect"
-          }
-        ],
+        "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "command",
         "function": "command_item",
         "merges_class": false,
@@ -453,12 +438,11 @@
       }
     },
     {
+      "contexts": [],
       "export": "MicSelectorLabel",
       "name": "mic_selector_label",
       "params": {
         "className": null,
-        "device": null,
-        "matches": null,
         "name": null
       },
       "primitive": null,
@@ -474,6 +458,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -504,6 +489,7 @@
               }
             ],
             "class": "text-muted-foreground",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -519,6 +505,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -534,13 +521,12 @@
       }
     },
     {
+      "contexts": [],
       "export": "MicSelectorValue",
       "name": "mic_selector_value",
       "params": {
         "className": null,
-        "currentDevice": null,
-        "data": null,
-        "value": null
+        "currentDevice": null
       },
       "primitive": null,
       "tree": {
@@ -553,6 +539,7 @@
         ],
         "children": [],
         "class": "flex-1 text-left",
+        "class_when": [],
         "merges_class": true,
         "part": "mic_selector_label",
         "props": true,

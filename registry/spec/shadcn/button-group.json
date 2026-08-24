@@ -5,6 +5,7 @@
   "name": "button-group",
   "parts": [
     {
+      "contexts": [],
       "export": "ButtonGroup",
       "name": "button_group",
       "params": {
@@ -27,6 +28,7 @@
         ],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -44,6 +46,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ButtonGroupSeparator",
       "name": "button_group_separator",
       "params": {
@@ -61,6 +64,7 @@
         ],
         "children": [],
         "class": "cn-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto",
+        "class_when": [],
         "component": "separator",
         "function": "separator",
         "merges_class": true,
@@ -82,6 +86,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ButtonGroupText",
       "name": "button_group_text",
       "params": {
@@ -97,6 +102,7 @@
           }
         ],
         "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

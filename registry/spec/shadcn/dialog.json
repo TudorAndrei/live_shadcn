@@ -48,6 +48,7 @@
   "name": "dialog",
   "parts": [
     {
+      "contexts": [],
       "export": "Dialog",
       "name": "dialog",
       "params": {},
@@ -56,6 +57,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Root",
         "props": true,
@@ -72,6 +74,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DialogClose",
       "name": "dialog_close",
       "params": {},
@@ -80,6 +83,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "dialog",
         "part": "Close",
@@ -97,6 +101,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DialogContent",
       "name": "dialog_content",
       "params": {
@@ -112,6 +117,7 @@
             "attrs": [],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "part": "dialog_overlay",
             "props": false,
@@ -166,6 +172,7 @@
                         ],
                         "children": [],
                         "class": "",
+                        "class_when": [],
                         "icons": {
                           "hugeicons": "Cancel01Icon",
                           "lucide": "XIcon",
@@ -194,6 +201,7 @@
                           }
                         ],
                         "class": "sr-only",
+                        "class_when": [],
                         "merges_class": false,
                         "props": false,
                         "reads": {
@@ -209,6 +217,7 @@
                       }
                     ],
                     "class": "",
+                    "class_when": [],
                     "merges_class": false,
                     "module": "dialog",
                     "part": "Close",
@@ -232,6 +241,7 @@
                       ],
                       "children": [],
                       "class": "cn-dialog-close",
+                      "class_when": [],
                       "component": "button",
                       "function": "button",
                       "merges_class": false,
@@ -260,6 +270,7 @@
               }
             ],
             "class": "cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+            "class_when": [],
             "merges_class": true,
             "module": "dialog",
             "part": "Popup",
@@ -280,6 +291,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "dialog_portal",
         "props": false,
@@ -295,6 +307,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DialogDescription",
       "name": "dialog_description",
       "params": {
@@ -305,6 +318,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-dialog-description",
+        "class_when": [],
         "merges_class": true,
         "module": "dialog",
         "part": "Description",
@@ -322,6 +336,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DialogFooter",
       "name": "dialog_footer",
       "params": {
@@ -347,6 +362,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "module": "dialog",
                 "part": "Close",
@@ -365,6 +381,7 @@
                   ],
                   "children": [],
                   "class": "",
+                  "class_when": [],
                   "component": "button",
                   "function": "button",
                   "merges_class": false,
@@ -393,6 +410,7 @@
           }
         ],
         "class": "cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -408,6 +426,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DialogHeader",
       "name": "dialog_header",
       "params": {
@@ -418,6 +437,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-dialog-header flex flex-col",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -433,6 +453,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DialogOverlay",
       "name": "dialog_overlay",
       "params": {
@@ -443,6 +464,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-dialog-overlay fixed inset-0 isolate z-50",
+        "class_when": [],
         "merges_class": true,
         "module": "dialog",
         "part": "Backdrop",
@@ -463,6 +485,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DialogPortal",
       "name": "dialog_portal",
       "params": {},
@@ -471,6 +494,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "dialog",
         "part": "Portal",
@@ -488,6 +512,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DialogTitle",
       "name": "dialog_title",
       "params": {
@@ -498,6 +523,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-dialog-title cn-font-heading",
+        "class_when": [],
         "merges_class": true,
         "module": "dialog",
         "part": "Title",
@@ -515,6 +541,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "DialogTrigger",
       "name": "dialog_trigger",
       "params": {},
@@ -523,6 +550,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "dialog",
         "part": "Trigger",

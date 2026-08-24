@@ -18,6 +18,7 @@
   "name": "suggestion",
   "parts": [
     {
+      "contexts": [],
       "export": "Suggestions",
       "name": "suggestions",
       "params": {
@@ -40,6 +41,7 @@
                   }
                 ],
                 "class": "flex w-max flex-nowrap items-center gap-2",
+                "class_when": [],
                 "merges_class": true,
                 "props": false,
                 "reads": {
@@ -71,6 +73,7 @@
                     "attrs": [],
                     "children": [],
                     "class": "cn-scroll-area-thumb relative flex-1 bg-border",
+                    "class_when": [],
                     "merges_class": false,
                     "module": "scroll-area",
                     "part": "Thumb",
@@ -88,6 +91,7 @@
                   }
                 ],
                 "class": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none hidden",
+                "class_when": [],
                 "merges_class": true,
                 "module": "scroll-area",
                 "part": "Scrollbar",
@@ -108,6 +112,7 @@
               }
             ],
             "class": "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
+            "class_when": [],
             "merges_class": false,
             "module": "scroll-area",
             "part": "Viewport",
@@ -141,6 +146,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "cn-scroll-area-thumb relative flex-1 bg-border",
+                "class_when": [],
                 "merges_class": false,
                 "module": "scroll-area",
                 "part": "Thumb",
@@ -158,6 +164,7 @@
               }
             ],
             "class": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
+            "class_when": [],
             "merges_class": true,
             "module": "scroll-area",
             "part": "Scrollbar",
@@ -180,6 +187,7 @@
             "attrs": [],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "module": "scroll-area",
             "part": "Corner",
@@ -197,6 +205,7 @@
           }
         ],
         "class": "cn-scroll-area relative w-full overflow-x-auto whitespace-nowrap",
+        "class_when": [],
         "merges_class": true,
         "module": "scroll-area",
         "part": "Root",
@@ -214,13 +223,12 @@
       }
     },
     {
+      "contexts": [],
       "export": "Suggestion",
       "name": "suggestion",
       "params": {
         "children": null,
         "className": null,
-        "handleClick": null,
-        "onClick": null,
         "size": "sm",
         "suggestion": null,
         "variant": "outline"
@@ -246,6 +254,7 @@
           }
         ],
         "class": "cursor-pointer rounded-full px-4",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",

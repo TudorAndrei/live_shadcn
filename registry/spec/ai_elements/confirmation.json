@@ -9,24 +9,16 @@
   "name": "confirmation",
   "parts": [
     {
+      "contexts": [],
       "export": "Confirmation",
       "name": "confirmation",
       "params": {
-        "approval": null,
         "className": null,
-        "contextValue": null,
-        "state": null,
         "variant": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -38,6 +30,7 @@
             ],
             "children": [],
             "class": "flex flex-col gap-2",
+            "class_when": [],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -53,6 +46,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -68,6 +62,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ConfirmationTitle",
       "name": "confirmation_title",
       "params": {
@@ -78,6 +73,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-description [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground inline",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -93,11 +89,11 @@
       }
     },
     {
+      "contexts": [],
       "export": "ConfirmationRequest",
       "name": "confirmation_request",
       "params": {
-        "children": null,
-        "state": null
+        "children": null
       },
       "primitive": null,
       "tree": {
@@ -105,12 +101,11 @@
       }
     },
     {
+      "contexts": [],
       "export": "ConfirmationAccepted",
       "name": "confirmation_accepted",
       "params": {
-        "approval": null,
-        "children": null,
-        "state": null
+        "children": null
       },
       "primitive": null,
       "tree": {
@@ -118,12 +113,11 @@
       }
     },
     {
+      "contexts": [],
       "export": "ConfirmationRejected",
       "name": "confirmation_rejected",
       "params": {
-        "approval": null,
-        "children": null,
-        "state": null
+        "children": null
       },
       "primitive": null,
       "tree": {
@@ -131,17 +125,18 @@
       }
     },
     {
+      "contexts": [],
       "export": "ConfirmationActions",
       "name": "confirmation_actions",
       "params": {
-        "className": null,
-        "state": null
+        "className": null
       },
       "primitive": null,
       "tree": {
         "attrs": [],
         "children": [],
         "class": "flex items-center justify-end gap-2 self-end",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -157,6 +152,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ConfirmationAction",
       "name": "confirmation_action",
       "params": {
@@ -175,6 +171,7 @@
         ],
         "children": [],
         "class": "h-8 px-3 text-sm",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",

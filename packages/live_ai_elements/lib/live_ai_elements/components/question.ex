@@ -10,29 +10,14 @@ defmodule LiveAiElements.Components.Question do
   use Phoenix.Component
 
   @doc "The `question` part."
-  attr(:context_value, :string, default: nil)
-  attr(:default_value, :string, default: "EMPTY_VALUE")
-  attr(:disabled, :string, default: "false")
-  attr(:handle_submit, :string, default: nil)
-  attr(:internal_value, :string, default: nil)
-  attr(:on_submit, :string, default: nil)
-  attr(:on_value_change, :string, default: nil)
-  attr(:selection_mode, :string, default: "single")
-  attr(:set_text, :string, default: nil)
-  attr(:set_value, :string, default: nil)
-  attr(:toggle_value, :string, default: nil)
-  attr(:value, :string, default: nil)
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def question(assigns) do
     ~H"""
-    <form
-      onSubmit={@handle_submit}
-      class={["space-y-4 rounded-lg border bg-background p-4", @class]}
-      {@rest}
-    >
+    <form class={["space-y-4 rounded-lg border bg-background p-4", @class]} {@rest}>
       {render_slot(@inner_block)}
     </form>
     """
@@ -86,10 +71,7 @@ defmodule LiveAiElements.Components.Question do
 
   @doc "The `button` part."
   attr(:disabled, :string, default: nil)
-  attr(:handle_click, :string, default: nil)
   attr(:is_selected, :string, default: nil)
-  attr(:on_click, :string, default: nil)
-  attr(:question, :string, default: nil)
   attr(:role, :string, default: nil)
 
   attr(:size, :string,
@@ -113,7 +95,7 @@ defmodule LiveAiElements.Components.Question do
     <button
       data-slot={@rest[:"data-slot"] || "button"}
       aria-checked={@is_selected}
-      disabled={@question.disabled || @disabled}
+      disabled={@disabled}
       role={@role}
       type="button"
       class={[
@@ -131,9 +113,7 @@ defmodule LiveAiElements.Components.Question do
 
   @doc "The `textarea` part."
   attr(:disabled, :string, default: nil)
-  attr(:handle_change, :string, default: nil)
-  attr(:on_change, :string, default: nil)
-  attr(:question, :string, default: nil)
+  attr(:text, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
   attr(:rest, :global,
@@ -146,14 +126,14 @@ defmodule LiveAiElements.Components.Question do
     ~H"""
     <textarea
       data-slot={@rest[:"data-slot"] || "textarea"}
-      disabled={@question.disabled || @disabled}
-      value={@question.text}
+      disabled={@disabled}
       class={[
         "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 min-h-20",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
+    {@text}
     {render_slot(@inner_block)}
     </textarea>
     """
@@ -176,7 +156,6 @@ defmodule LiveAiElements.Components.Question do
   @doc "The `button` part."
   attr(:disabled, :string, default: nil)
   attr(:has_response, :string, default: nil)
-  attr(:question, :string, default: nil)
 
   attr(:size, :string,
     default: "default",
@@ -196,7 +175,7 @@ defmodule LiveAiElements.Components.Question do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "button"}
-      disabled={@question.disabled || @disabled || !@has_response}
+      disabled={@disabled || @disabled || !@has_response}
       type="submit"
       class={[
         "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",

@@ -5,6 +5,7 @@
   "name": "breadcrumb",
   "parts": [
     {
+      "contexts": [],
       "export": "Breadcrumb",
       "name": "breadcrumb",
       "params": {
@@ -21,6 +22,7 @@
         ],
         "children": [],
         "class": "cn-breadcrumb",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -36,6 +38,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "BreadcrumbList",
       "name": "breadcrumb_list",
       "params": {
@@ -46,6 +49,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-breadcrumb-list flex flex-wrap items-center wrap-break-word",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -61,6 +65,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "BreadcrumbItem",
       "name": "breadcrumb_item",
       "params": {
@@ -71,6 +76,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-breadcrumb-item inline-flex items-center",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -86,6 +92,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "BreadcrumbLink",
       "name": "breadcrumb_link",
       "params": {
@@ -101,6 +108,7 @@
           }
         ],
         "class": "cn-breadcrumb-link",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -116,6 +124,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "BreadcrumbPage",
       "name": "breadcrumb_page",
       "params": {
@@ -142,6 +151,7 @@
         ],
         "children": [],
         "class": "cn-breadcrumb-page",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -157,6 +167,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "BreadcrumbSeparator",
       "name": "breadcrumb_separator",
       "params": {
@@ -210,6 +221,7 @@
                 ],
                 "children": [],
                 "class": "cn-rtl-flip",
+                "class_when": [],
                 "icons": {
                   "hugeicons": "ArrowRight01Icon",
                   "lucide": "ChevronRightIcon",
@@ -234,6 +246,7 @@
           }
         ],
         "class": "cn-breadcrumb-separator",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -249,6 +262,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "BreadcrumbEllipsis",
       "name": "breadcrumb_ellipsis",
       "params": {
@@ -299,6 +313,7 @@
             ],
             "children": [],
             "class": "",
+            "class_when": [],
             "icons": {
               "hugeicons": "MoreHorizontalCircle01Icon",
               "lucide": "MoreHorizontalIcon",
@@ -327,6 +342,7 @@
               }
             ],
             "class": "sr-only",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -342,6 +358,7 @@
           }
         ],
         "class": "cn-breadcrumb-ellipsis flex items-center justify-center",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

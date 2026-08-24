@@ -94,6 +94,7 @@
   "name": "toast",
   "parts": [
     {
+      "contexts": [],
       "export": "Toaster",
       "name": "toaster",
       "params": {
@@ -123,6 +124,7 @@
                     "attrs": [],
                     "children": [],
                     "class": "",
+                    "class_when": [],
                     "merges_class": false,
                     "part": "toast_list",
                     "props": false,
@@ -138,6 +140,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "part": "toast_viewport",
                 "props": false,
@@ -153,6 +156,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "part": "toast_portal",
             "props": false,
@@ -168,6 +172,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "toast_provider",
         "props": true,
@@ -183,6 +188,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "Toast",
       "name": "toast",
       "params": {
@@ -193,6 +199,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-toast group/toast pointer-events-auto absolute right-0 bottom-0 z-[calc(1000-var(--toast-index))] w-full origin-bottom border bg-popover text-popover-foreground shadow-lg will-change-transform outline-none select-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [--gap:0.75rem] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] h-(--height) [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1),opacity_500ms,height_150ms] after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-expanded:h-(--toast-height) data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(var(--offset-y))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]",
+        "class_when": [],
         "merges_class": true,
         "module": "toast",
         "part": "Root",
@@ -227,6 +234,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ToastAction",
       "name": "toast_action",
       "params": {
@@ -238,6 +246,7 @@
         "attrs": [],
         "children": [],
         "class": "shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "toast",
         "part": "Action",
@@ -255,6 +264,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ToastClose",
       "name": "toast_close",
       "params": {
@@ -309,6 +319,7 @@
                 ],
                 "children": [],
                 "class": "",
+                "class_when": [],
                 "icons": {
                   "hugeicons": "Cancel01Icon",
                   "lucide": "XIcon",
@@ -333,6 +344,7 @@
           }
         ],
         "class": "relative shrink-0 text-muted-foreground after:absolute after:-inset-2 after:content-[''] hover:text-foreground",
+        "class_when": [],
         "merges_class": true,
         "module": "toast",
         "part": "Close",
@@ -350,6 +362,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ToastContent",
       "name": "toast_content",
       "params": {
@@ -360,6 +373,7 @@
         "attrs": [],
         "children": [],
         "class": "flex h-full items-center gap-3 overflow-hidden p-4 transition-opacity duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100",
+        "class_when": [],
         "merges_class": true,
         "module": "toast",
         "part": "Content",
@@ -380,6 +394,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ToastDescription",
       "name": "toast_description",
       "params": {
@@ -390,6 +405,7 @@
         "attrs": [],
         "children": [],
         "class": "text-sm text-muted-foreground",
+        "class_when": [],
         "merges_class": true,
         "module": "toast",
         "part": "Description",
@@ -407,6 +423,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ToastPortal",
       "name": "toast_portal",
       "params": {},
@@ -415,6 +432,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "toast",
         "part": "Portal",
@@ -432,6 +450,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ToastProvider",
       "name": "toast_provider",
       "params": {},
@@ -440,6 +459,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Provider",
         "props": true,
@@ -456,6 +476,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ToastTitle",
       "name": "toast_title",
       "params": {
@@ -466,6 +487,7 @@
         "attrs": [],
         "children": [],
         "class": "text-sm font-medium",
+        "class_when": [],
         "merges_class": true,
         "module": "toast",
         "part": "Title",
@@ -483,6 +505,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ToastViewport",
       "name": "toast_viewport",
       "params": {
@@ -493,6 +516,7 @@
         "attrs": [],
         "children": [],
         "class": "pointer-events-none fixed inset-x-4 bottom-4 z-50 mx-auto w-auto max-w-sm outline-none sm:right-4 sm:left-auto sm:mx-0 sm:w-full",
+        "class_when": [],
         "merges_class": true,
         "module": "toast",
         "part": "Viewport",

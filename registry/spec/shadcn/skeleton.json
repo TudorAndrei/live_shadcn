@@ -5,6 +5,7 @@
   "name": "skeleton",
   "parts": [
     {
+      "contexts": [],
       "export": "Skeleton",
       "name": "skeleton",
       "params": {
@@ -15,6 +16,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-skeleton animate-pulse",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

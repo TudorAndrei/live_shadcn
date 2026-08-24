@@ -99,6 +99,7 @@
   "name": "context-menu",
   "parts": [
     {
+      "contexts": [],
       "export": "ContextMenu",
       "name": "context_menu",
       "params": {},
@@ -107,6 +108,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Root",
         "props": true,
@@ -123,6 +125,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuTrigger",
       "name": "context_menu_trigger",
       "params": {
@@ -133,6 +136,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-context-menu-trigger select-none",
+        "class_when": [],
         "merges_class": true,
         "module": "context-menu",
         "part": "Trigger",
@@ -150,6 +154,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuContent",
       "name": "context_menu_content",
       "params": {
@@ -191,6 +196,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "cn-context-menu-content cn-context-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none",
+                "class_when": [],
                 "merges_class": true,
                 "module": "context-menu",
                 "part": "Popup",
@@ -216,6 +222,7 @@
               }
             ],
             "class": "isolate z-50 outline-none",
+            "class_when": [],
             "merges_class": false,
             "module": "context-menu",
             "part": "Positioner",
@@ -233,6 +240,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "context-menu",
         "part": "Portal",
@@ -250,6 +258,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuItem",
       "name": "context_menu_item",
       "params": {
@@ -273,6 +282,7 @@
         ],
         "children": [],
         "class": "cn-context-menu-item group/context-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "context-menu",
         "part": "Item",
@@ -293,6 +303,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuCheckboxItem",
       "name": "context_menu_checkbox_item",
       "params": {
@@ -352,6 +363,7 @@
                     ],
                     "children": [],
                     "class": "",
+                    "class_when": [],
                     "icons": {
                       "hugeicons": "Tick02Icon",
                       "lucide": "CheckIcon",
@@ -373,6 +385,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "module": "context-menu",
                 "part": "CheckboxItemIndicator",
@@ -390,6 +403,7 @@
               }
             ],
             "class": "cn-context-menu-item-indicator pointer-events-none",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -408,6 +422,7 @@
           }
         ],
         "class": "cn-context-menu-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "context-menu",
         "part": "CheckboxItem",
@@ -428,6 +443,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuRadioItem",
       "name": "context_menu_radio_item",
       "params": {
@@ -481,6 +497,7 @@
                     ],
                     "children": [],
                     "class": "",
+                    "class_when": [],
                     "icons": {
                       "hugeicons": "Tick02Icon",
                       "lucide": "CheckIcon",
@@ -502,6 +519,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "module": "context-menu",
                 "part": "RadioItemIndicator",
@@ -519,6 +537,7 @@
               }
             ],
             "class": "cn-context-menu-item-indicator pointer-events-none",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -537,6 +556,7 @@
           }
         ],
         "class": "cn-context-menu-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "context-menu",
         "part": "RadioItem",
@@ -557,6 +577,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuLabel",
       "name": "context_menu_label",
       "params": {
@@ -574,6 +595,7 @@
         ],
         "children": [],
         "class": "cn-context-menu-label",
+        "class_when": [],
         "merges_class": true,
         "module": "context-menu",
         "part": "GroupLabel",
@@ -593,6 +615,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuSeparator",
       "name": "context_menu_separator",
       "params": {
@@ -603,6 +626,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-context-menu-separator",
+        "class_when": [],
         "merges_class": true,
         "module": "context-menu",
         "part": "Separator",
@@ -620,6 +644,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuShortcut",
       "name": "context_menu_shortcut",
       "params": {
@@ -630,6 +655,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-context-menu-shortcut",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -645,6 +671,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuGroup",
       "name": "context_menu_group",
       "params": {},
@@ -653,6 +680,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "context-menu",
         "part": "Group",
@@ -670,6 +698,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuPortal",
       "name": "context_menu_portal",
       "params": {},
@@ -678,6 +707,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "context-menu",
         "part": "Portal",
@@ -695,6 +725,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuSub",
       "name": "context_menu_sub",
       "params": {},
@@ -703,6 +734,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "SubmenuRoot",
         "props": true,
@@ -719,6 +751,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuSubContent",
       "name": "context_menu_sub_content",
       "params": {},
@@ -733,6 +766,7 @@
         ],
         "children": [],
         "class": "cn-context-menu-subcontent cn-menu-target cn-menu-translucent",
+        "class_when": [],
         "merges_class": false,
         "part": "context_menu_content",
         "props": true,
@@ -751,6 +785,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuSubTrigger",
       "name": "context_menu_sub_trigger",
       "params": {
@@ -801,6 +836,7 @@
             ],
             "children": [],
             "class": "cn-rtl-flip ml-auto",
+            "class_when": [],
             "icons": {
               "hugeicons": "ArrowRight01Icon",
               "lucide": "ChevronRightIcon",
@@ -822,6 +858,7 @@
           }
         ],
         "class": "cn-context-menu-sub-trigger flex cursor-default items-center outline-hidden select-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class_when": [],
         "merges_class": true,
         "module": "context-menu",
         "part": "SubmenuTrigger",
@@ -842,6 +879,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ContextMenuRadioGroup",
       "name": "context_menu_radio_group",
       "params": {},
@@ -850,6 +888,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "context-menu",
         "part": "RadioGroup",

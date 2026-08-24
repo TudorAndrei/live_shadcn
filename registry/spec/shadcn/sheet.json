@@ -48,6 +48,7 @@
   "name": "sheet",
   "parts": [
     {
+      "contexts": [],
       "export": "Sheet",
       "name": "sheet",
       "params": {},
@@ -56,6 +57,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Root",
         "props": true,
@@ -72,6 +74,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SheetTrigger",
       "name": "sheet_trigger",
       "params": {},
@@ -80,6 +83,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "dialog",
         "part": "Trigger",
@@ -97,6 +101,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SheetClose",
       "name": "sheet_close",
       "params": {},
@@ -105,6 +110,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "dialog",
         "part": "Close",
@@ -122,6 +128,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SheetContent",
       "name": "sheet_content",
       "params": {
@@ -138,6 +145,7 @@
             "attrs": [],
             "children": [],
             "class": "cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
+            "class_when": [],
             "merges_class": true,
             "module": "dialog",
             "part": "Backdrop",
@@ -203,6 +211,7 @@
                         ],
                         "children": [],
                         "class": "",
+                        "class_when": [],
                         "icons": {
                           "hugeicons": "Cancel01Icon",
                           "lucide": "XIcon",
@@ -231,6 +240,7 @@
                           }
                         ],
                         "class": "sr-only",
+                        "class_when": [],
                         "merges_class": false,
                         "props": false,
                         "reads": {
@@ -246,6 +256,7 @@
                       }
                     ],
                     "class": "",
+                    "class_when": [],
                     "merges_class": false,
                     "module": "dialog",
                     "part": "Close",
@@ -269,6 +280,7 @@
                       ],
                       "children": [],
                       "class": "cn-sheet-close",
+                      "class_when": [],
                       "component": "button",
                       "function": "button",
                       "merges_class": false,
@@ -297,6 +309,7 @@
               }
             ],
             "class": "cn-sheet-content data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem]",
+            "class_when": [],
             "merges_class": true,
             "module": "dialog",
             "part": "Popup",
@@ -317,6 +330,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "dialog",
         "part": "Portal",
@@ -334,6 +348,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SheetHeader",
       "name": "sheet_header",
       "params": {
@@ -344,6 +359,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-sheet-header flex flex-col",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -359,6 +375,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SheetFooter",
       "name": "sheet_footer",
       "params": {
@@ -369,6 +386,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-sheet-footer mt-auto flex flex-col",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -384,6 +402,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SheetTitle",
       "name": "sheet_title",
       "params": {
@@ -394,6 +413,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-sheet-title cn-font-heading",
+        "class_when": [],
         "merges_class": true,
         "module": "dialog",
         "part": "Title",
@@ -411,6 +431,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "SheetDescription",
       "name": "sheet_description",
       "params": {
@@ -421,6 +442,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-sheet-description",
+        "class_when": [],
         "merges_class": true,
         "module": "dialog",
         "part": "Description",

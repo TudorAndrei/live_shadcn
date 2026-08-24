@@ -48,6 +48,7 @@
   "name": "alert-dialog",
   "parts": [
     {
+      "contexts": [],
       "export": "AlertDialog",
       "name": "alert_dialog",
       "params": {},
@@ -56,6 +57,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "Root",
         "props": true,
@@ -72,6 +74,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDialogAction",
       "name": "alert_dialog_action",
       "params": {
@@ -82,6 +85,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-dialog-action",
+        "class_when": [],
         "component": "button",
         "function": "button",
         "merges_class": true,
@@ -100,6 +104,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDialogCancel",
       "name": "alert_dialog_cancel",
       "params": {
@@ -112,6 +117,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-dialog-cancel",
+        "class_when": [],
         "merges_class": true,
         "module": "alert-dialog",
         "part": "Close",
@@ -135,6 +141,7 @@
           ],
           "children": [],
           "class": "",
+          "class_when": [],
           "component": "button",
           "function": "button",
           "merges_class": false,
@@ -159,6 +166,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDialogContent",
       "name": "alert_dialog_content",
       "params": {
@@ -173,6 +181,7 @@
             "attrs": [],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "part": "alert_dialog_overlay",
             "props": false,
@@ -196,6 +205,7 @@
             ],
             "children": [],
             "class": "cn-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+            "class_when": [],
             "merges_class": true,
             "module": "alert-dialog",
             "part": "Popup",
@@ -216,6 +226,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "part": "alert_dialog_portal",
         "props": false,
@@ -231,6 +242,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDialogDescription",
       "name": "alert_dialog_description",
       "params": {
@@ -241,6 +253,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-dialog-description",
+        "class_when": [],
         "merges_class": true,
         "module": "alert-dialog",
         "part": "Description",
@@ -258,6 +271,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDialogFooter",
       "name": "alert_dialog_footer",
       "params": {
@@ -268,6 +282,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -283,6 +298,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDialogHeader",
       "name": "alert_dialog_header",
       "params": {
@@ -293,6 +309,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-dialog-header",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -308,6 +325,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDialogMedia",
       "name": "alert_dialog_media",
       "params": {
@@ -318,6 +336,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-dialog-media",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -333,6 +352,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDialogOverlay",
       "name": "alert_dialog_overlay",
       "params": {
@@ -343,6 +363,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-dialog-overlay fixed inset-0 isolate z-50",
+        "class_when": [],
         "merges_class": true,
         "module": "alert-dialog",
         "part": "Backdrop",
@@ -363,6 +384,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDialogPortal",
       "name": "alert_dialog_portal",
       "params": {},
@@ -371,6 +393,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "alert-dialog",
         "part": "Portal",
@@ -388,6 +411,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDialogTitle",
       "name": "alert_dialog_title",
       "params": {
@@ -398,6 +422,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-alert-dialog-title cn-font-heading",
+        "class_when": [],
         "merges_class": true,
         "module": "alert-dialog",
         "part": "Title",
@@ -415,6 +440,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "AlertDialogTrigger",
       "name": "alert_dialog_trigger",
       "params": {},
@@ -423,6 +449,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "alert-dialog",
         "part": "Trigger",

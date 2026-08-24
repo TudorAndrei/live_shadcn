@@ -5,12 +5,12 @@
   "name": "image",
   "parts": [
     {
+      "contexts": [],
       "export": "Image",
       "name": "image",
       "params": {
         "base64": null,
-        "mediaType": null,
-        "uint8Array": null
+        "mediaType": null
       },
       "primitive": null,
       "tree": {
@@ -28,6 +28,7 @@
         ],
         "children": [],
         "class": "h-auto max-w-full overflow-hidden rounded-md",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

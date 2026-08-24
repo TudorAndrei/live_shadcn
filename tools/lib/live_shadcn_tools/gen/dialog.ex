@@ -219,6 +219,7 @@ defmodule LiveShadcnTools.Gen.Dialog do
       children: children || "",
       class: class_expression(spec, role.part),
       params: Map.get(role.part, "params", %{}),
+      contexts: Map.get(role.part, "contexts", []),
       client_attributes: @client_attributes,
       hook_part: Spec.key(roles.popup.node),
       rest: false

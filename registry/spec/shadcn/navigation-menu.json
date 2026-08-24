@@ -76,6 +76,7 @@
   "name": "navigation-menu",
   "parts": [
     {
+      "contexts": [],
       "export": "NavigationMenu",
       "name": "navigation_menu",
       "params": {
@@ -100,6 +101,7 @@
             ],
             "children": [],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "part": "navigation_menu_positioner",
             "props": false,
@@ -115,6 +117,7 @@
           }
         ],
         "class": "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
+        "class_when": [],
         "merges_class": true,
         "module": "navigation-menu",
         "part": "Root",
@@ -132,6 +135,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "NavigationMenuContent",
       "name": "navigation_menu_content",
       "params": {
@@ -142,6 +146,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-navigation-menu-content data-ending-style:data-activation-direction=left:translate-x-[50%] data-ending-style:data-activation-direction=right:translate-x-[-50%] data-starting-style:data-activation-direction=left:translate-x-[-50%] data-starting-style:data-activation-direction=right:translate-x-[50%] h-full w-auto transition-[opacity,transform,translate] duration-[0.35s] data-ending-style:opacity-0 data-starting-style:opacity-0 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
+        "class_when": [],
         "merges_class": true,
         "module": "navigation-menu",
         "part": "Content",
@@ -164,6 +169,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "NavigationMenuIndicator",
       "name": "navigation_menu_indicator",
       "params": {
@@ -177,6 +183,7 @@
             "attrs": [],
             "children": [],
             "class": "cn-navigation-menu-indicator-arrow relative top-[60%] h-2 w-2 rotate-45",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -192,6 +199,7 @@
           }
         ],
         "class": "cn-navigation-menu-indicator top-full z-1 flex h-1.5 items-end justify-center overflow-hidden",
+        "class_when": [],
         "merges_class": true,
         "part": "Icon",
         "props": true,
@@ -208,6 +216,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "NavigationMenuItem",
       "name": "navigation_menu_item",
       "params": {
@@ -218,6 +227,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-navigation-menu-item relative",
+        "class_when": [],
         "merges_class": true,
         "module": "navigation-menu",
         "part": "Item",
@@ -235,6 +245,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "NavigationMenuLink",
       "name": "navigation_menu_link",
       "params": {
@@ -245,6 +256,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-navigation-menu-link",
+        "class_when": [],
         "merges_class": true,
         "module": "navigation-menu",
         "part": "Link",
@@ -264,6 +276,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "NavigationMenuList",
       "name": "navigation_menu_list",
       "params": {
@@ -274,6 +287,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-navigation-menu-list group flex flex-1 list-none items-center justify-center",
+        "class_when": [],
         "merges_class": true,
         "module": "navigation-menu",
         "part": "List",
@@ -291,6 +305,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "NavigationMenuTrigger",
       "name": "navigation_menu_trigger",
       "params": {
@@ -343,6 +358,7 @@
             ],
             "children": [],
             "class": "cn-navigation-menu-trigger-icon",
+            "class_when": [],
             "icons": {
               "hugeicons": "ArrowDown01Icon",
               "lucide": "ChevronDownIcon",
@@ -373,6 +389,7 @@
           }
         ],
         "class": "group",
+        "class_when": [],
         "merges_class": true,
         "module": "navigation-menu",
         "part": "Trigger",
@@ -393,6 +410,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "NavigationMenuPositioner",
       "name": "navigation_menu_positioner",
       "params": {
@@ -437,6 +455,7 @@
                     "attrs": [],
                     "children": [],
                     "class": "relative size-full overflow-hidden",
+                    "class_when": [],
                     "merges_class": false,
                     "module": "navigation-menu",
                     "part": "Viewport",
@@ -454,6 +473,7 @@
                   }
                 ],
                 "class": "cn-navigation-menu-popup data-[ending-style]:easing-[ease] xs:w-(--popup-width) relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]",
+                "class_when": [],
                 "merges_class": false,
                 "module": "navigation-menu",
                 "part": "Popup",
@@ -478,6 +498,7 @@
               }
             ],
             "class": "cn-navigation-menu-positioner isolate z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-[0.35s] data-instant:transition-none",
+            "class_when": [],
             "merges_class": true,
             "module": "navigation-menu",
             "part": "Positioner",
@@ -501,6 +522,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "navigation-menu",
         "part": "Portal",

@@ -13,24 +13,17 @@
   "name": "plan",
   "parts": [
     {
+      "contexts": [],
       "export": "Plan",
       "name": "plan",
       "params": {
         "children": null,
         "className": null,
-        "contextValue": null,
-        "isStreaming": "false",
         "size": "default"
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [],
@@ -49,6 +42,7 @@
                   }
                 ],
                 "class": "cn-card group/card flex flex-col shadow-none",
+                "class_when": [],
                 "merges_class": true,
                 "props": true,
                 "reads": {
@@ -64,6 +58,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "module": "collapsible",
             "part": "Root",
@@ -81,6 +76,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -96,6 +92,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PlanHeader",
       "name": "plan_header",
       "params": {
@@ -106,6 +103,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-card-header group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] flex items-start justify-between",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -121,6 +119,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PlanTitle",
       "name": "plan_title",
       "params": {
@@ -148,6 +147,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "component": "shimmer",
                 "function": "shimmer",
                 "merges_class": false,
@@ -170,6 +170,7 @@
           }
         ],
         "class": "cn-card-title cn-font-heading",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -185,6 +186,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PlanDescription",
       "name": "plan_description",
       "params": {
@@ -212,6 +214,7 @@
                   }
                 ],
                 "class": "",
+                "class_when": [],
                 "component": "shimmer",
                 "function": "shimmer",
                 "merges_class": false,
@@ -234,6 +237,7 @@
           }
         ],
         "class": "cn-card-description text-balance",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -249,6 +253,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PlanAction",
       "name": "plan_action",
       "params": {
@@ -259,6 +264,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -274,6 +280,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PlanContent",
       "name": "plan_content",
       "params": {
@@ -287,6 +294,7 @@
             "attrs": [],
             "children": [],
             "class": "cn-card-content",
+            "class_when": [],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -302,6 +310,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "collapsible",
         "part": "Panel",
@@ -319,6 +328,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PlanFooter",
       "name": "plan_footer",
       "params": {
@@ -329,6 +339,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-card-footer flex items-center",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -344,6 +355,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "PlanTrigger",
       "name": "plan_trigger",
       "params": {
@@ -362,6 +374,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "size-4",
+                "class_when": [],
                 "icons": {
                   "lucide": "ChevronsUpDownIcon"
                 },
@@ -386,6 +399,7 @@
                   }
                 ],
                 "class": "sr-only",
+                "class_when": [],
                 "merges_class": false,
                 "props": false,
                 "reads": {
@@ -401,6 +415,7 @@
               }
             ],
             "class": "size-8",
+            "class_when": [],
             "merges_class": true,
             "module": "button",
             "part": "Button",
@@ -421,6 +436,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "collapsible",
         "part": "Trigger",

@@ -10,6 +10,7 @@
   "name": "toggle-group",
   "parts": [
     {
+      "contexts": [],
       "export": "ToggleGroup",
       "name": "toggle_group",
       "params": {
@@ -57,19 +58,14 @@
         ],
         "children": [
           {
-            "attrs": [
-              {
-                "kind": "code",
-                "name": "value",
-                "value": "{ variant, size, spacing, orientation }"
-              }
-            ],
+            "attrs": [],
             "children": [
               {
                 "type": "children"
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -85,6 +81,7 @@
           }
         ],
         "class": "cn-toggle-group group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch",
+        "class_when": [],
         "merges_class": true,
         "part": "ToggleGroup",
         "props": true,
@@ -105,6 +102,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ToggleGroupItem",
       "name": "toggle_group_item",
       "params": {
@@ -139,6 +137,7 @@
           }
         ],
         "class": "cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
+        "class_when": [],
         "merges_class": true,
         "module": "toggle",
         "part": "Toggle",

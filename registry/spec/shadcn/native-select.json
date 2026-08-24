@@ -5,6 +5,7 @@
   "name": "native-select",
   "parts": [
     {
+      "contexts": [],
       "export": "NativeSelect",
       "name": "native_select",
       "params": {
@@ -31,6 +32,7 @@
             ],
             "children": [],
             "class": "cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed",
+            "class_when": [],
             "merges_class": false,
             "props": true,
             "reads": {
@@ -81,6 +83,7 @@
             ],
             "children": [],
             "class": "cn-native-select-icon pointer-events-none absolute select-none",
+            "class_when": [],
             "icons": {
               "hugeicons": "UnfoldMoreIcon",
               "lucide": "ChevronDownIcon",
@@ -102,6 +105,7 @@
           }
         ],
         "class": "cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50",
+        "class_when": [],
         "merges_class": true,
         "props": false,
         "reads": {
@@ -117,6 +121,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "NativeSelectOptGroup",
       "name": "native_select_opt_group",
       "params": {
@@ -127,6 +132,7 @@
         "attrs": [],
         "children": [],
         "class": "bg-[Canvas] text-[CanvasText]",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -142,6 +148,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "NativeSelectOption",
       "name": "native_select_option",
       "params": {
@@ -152,6 +159,7 @@
         "attrs": [],
         "children": [],
         "class": "bg-[Canvas] text-[CanvasText]",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

@@ -9,48 +9,26 @@
   "name": "question",
   "parts": [
     {
+      "contexts": [],
       "export": "Question",
       "name": "question",
       "params": {
         "children": null,
-        "className": null,
-        "contextValue": null,
-        "defaultValue": "EMPTY_VALUE",
-        "disabled": "false",
-        "handleSubmit": null,
-        "internalValue": null,
-        "onSubmit": null,
-        "onValueChange": null,
-        "selectionMode": "single",
-        "setText": null,
-        "setValue": null,
-        "toggleValue": null,
-        "value": null
+        "className": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "contextValue"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
-            "attrs": [
-              {
-                "kind": "code",
-                "name": "onSubmit",
-                "value": "handleSubmit"
-              }
-            ],
+            "attrs": [],
             "children": [
               {
                 "type": "children"
               }
             ],
             "class": "space-y-4 rounded-lg border bg-background p-4",
+            "class_when": [],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -66,6 +44,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -81,6 +60,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QuestionPrompt",
       "name": "question_prompt",
       "params": {
@@ -91,6 +71,7 @@
         "attrs": [],
         "children": [],
         "class": "font-medium text-sm",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -106,6 +87,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QuestionDescription",
       "name": "question_description",
       "params": {
@@ -116,6 +98,7 @@
         "attrs": [],
         "children": [],
         "class": "text-muted-foreground text-sm",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -131,6 +114,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QuestionOptions",
       "name": "question_options",
       "params": {
@@ -148,6 +132,7 @@
         ],
         "children": [],
         "class": "flex flex-wrap gap-2",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -163,16 +148,16 @@
       }
     },
     {
+      "contexts": [
+        "question"
+      ],
       "export": "QuestionOption",
       "name": "question_option",
       "params": {
         "children": null,
         "className": null,
         "disabled": null,
-        "handleClick": null,
         "isSelected": null,
-        "onClick": null,
-        "question": null,
         "role": null,
         "size": "default",
         "value": null,
@@ -214,6 +199,7 @@
           }
         ],
         "class": "h-auto whitespace-normal",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",
@@ -234,14 +220,15 @@
       }
     },
     {
+      "contexts": [
+        "question"
+      ],
       "export": "QuestionInput",
       "name": "question_input",
       "params": {
         "className": null,
         "disabled": null,
-        "handleChange": null,
-        "onChange": null,
-        "question": null
+        "text": null
       },
       "primitive": null,
       "tree": {
@@ -250,15 +237,16 @@
             "kind": "code",
             "name": "disabled",
             "value": "question.disabled || disabled"
-          },
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "question.text"
           }
         ],
-        "children": [],
+        "children": [
+          {
+            "code": "question.text",
+            "type": "value"
+          }
+        ],
         "class": "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 min-h-20",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -276,6 +264,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "QuestionActions",
       "name": "question_actions",
       "params": {
@@ -286,6 +275,7 @@
         "attrs": [],
         "children": [],
         "class": "flex items-center justify-end gap-2",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -301,6 +291,9 @@
       }
     },
     {
+      "contexts": [
+        "question"
+      ],
       "export": "QuestionSubmit",
       "name": "question_submit",
       "params": {
@@ -308,7 +301,6 @@
         "className": null,
         "disabled": null,
         "hasResponse": null,
-        "question": null,
         "size": "default",
         "variant": "default"
       },
@@ -332,6 +324,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",

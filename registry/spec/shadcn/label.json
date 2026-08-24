@@ -5,6 +5,7 @@
   "name": "label",
   "parts": [
     {
+      "contexts": [],
       "export": "Label",
       "name": "label",
       "params": {
@@ -15,6 +16,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-label flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {

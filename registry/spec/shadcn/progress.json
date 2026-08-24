@@ -28,6 +28,7 @@
   "name": "progress",
   "parts": [
     {
+      "contexts": [],
       "export": "Progress",
       "name": "progress",
       "params": {
@@ -55,6 +56,7 @@
                 "attrs": [],
                 "children": [],
                 "class": "",
+                "class_when": [],
                 "merges_class": false,
                 "part": "progress_indicator",
                 "props": false,
@@ -70,6 +72,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "part": "progress_track",
             "props": false,
@@ -85,6 +88,7 @@
           }
         ],
         "class": "cn-progress-root flex flex-wrap gap-3",
+        "class_when": [],
         "merges_class": true,
         "module": "progress",
         "part": "Root",
@@ -102,6 +106,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ProgressTrack",
       "name": "progress_track",
       "params": {
@@ -112,6 +117,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-progress-track relative flex w-full items-center overflow-x-hidden",
+        "class_when": [],
         "merges_class": true,
         "module": "progress",
         "part": "Track",
@@ -129,6 +135,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ProgressIndicator",
       "name": "progress_indicator",
       "params": {
@@ -139,6 +146,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-progress-indicator h-full transition-all",
+        "class_when": [],
         "merges_class": true,
         "module": "progress",
         "part": "Indicator",
@@ -156,6 +164,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ProgressLabel",
       "name": "progress_label",
       "params": {
@@ -166,6 +175,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-progress-label",
+        "class_when": [],
         "merges_class": true,
         "module": "progress",
         "part": "Label",
@@ -183,6 +193,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "ProgressValue",
       "name": "progress_value",
       "params": {
@@ -193,6 +204,7 @@
         "attrs": [],
         "children": [],
         "class": "cn-progress-value",
+        "class_when": [],
         "merges_class": true,
         "module": "progress",
         "part": "Value",

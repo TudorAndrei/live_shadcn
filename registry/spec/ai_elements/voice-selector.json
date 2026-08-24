@@ -11,27 +11,16 @@
   "name": "voice-selector",
   "parts": [
     {
+      "contexts": [],
       "export": "VoiceSelector",
       "name": "voice_selector",
       "params": {
         "children": null,
-        "defaultOpen": "false",
-        "defaultValue": null,
-        "onOpenChange": null,
-        "onValueChange": null,
-        "open": null,
-        "value": null,
-        "voiceSelectorContext": null
+        "open": null
       },
       "primitive": null,
       "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "value",
-            "value": "voiceSelectorContext"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -47,6 +36,7 @@
               }
             ],
             "class": "",
+            "class_when": [],
             "merges_class": false,
             "part": "Root",
             "props": true,
@@ -63,6 +53,7 @@
           }
         ],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "props": false,
         "reads": {
@@ -78,6 +69,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorTrigger",
       "name": "voice_selector_trigger",
       "params": {},
@@ -86,6 +78,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "merges_class": false,
         "module": "dialog",
         "part": "Trigger",
@@ -103,6 +96,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorContent",
       "name": "voice_selector_content",
       "params": {
@@ -127,6 +121,7 @@
             "attrs": [],
             "children": [],
             "class": "cn-dialog-overlay fixed inset-0 isolate z-50",
+            "class_when": [],
             "merges_class": true,
             "module": "dialog",
             "part": "Backdrop",
@@ -157,6 +152,7 @@
                   }
                 ],
                 "class": "cn-dialog-title cn-font-heading sr-only",
+                "class_when": [],
                 "merges_class": true,
                 "module": "dialog",
                 "part": "Title",
@@ -180,6 +176,7 @@
                   }
                 ],
                 "class": "**:data-[slot=command-input-wrapper]:h-auto",
+                "class_when": [],
                 "component": "command",
                 "function": "command",
                 "merges_class": false,
@@ -231,6 +228,7 @@
                         ],
                         "children": [],
                         "class": "",
+                        "class_when": [],
                         "icons": {
                           "hugeicons": "Cancel01Icon",
                           "lucide": "XIcon",
@@ -259,6 +257,7 @@
                           }
                         ],
                         "class": "sr-only",
+                        "class_when": [],
                         "merges_class": false,
                         "props": false,
                         "reads": {
@@ -274,6 +273,7 @@
                       }
                     ],
                     "class": "",
+                    "class_when": [],
                     "merges_class": false,
                     "module": "dialog",
                     "part": "Close",
@@ -286,6 +286,7 @@
                       "attrs": [],
                       "children": [],
                       "class": "cn-dialog-close",
+                      "class_when": [],
                       "merges_class": true,
                       "module": "button",
                       "part": "Button",
@@ -316,6 +317,7 @@
               }
             ],
             "class": "cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+            "class_when": [],
             "merges_class": true,
             "module": "dialog",
             "part": "Popup",
@@ -336,6 +338,7 @@
           }
         ],
         "class": "p-0",
+        "class_when": [],
         "merges_class": true,
         "module": "dialog",
         "part": "Portal",
@@ -353,6 +356,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorDialog",
       "name": "voice_selector_dialog",
       "params": {},
@@ -361,6 +365,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "command",
         "function": "command_dialog",
         "merges_class": false,
@@ -379,6 +384,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorInput",
       "name": "voice_selector_input",
       "params": {
@@ -389,6 +395,7 @@
         "attrs": [],
         "children": [],
         "class": "h-auto py-3.5",
+        "class_when": [],
         "component": "command",
         "function": "command_input",
         "merges_class": true,
@@ -407,6 +414,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorList",
       "name": "voice_selector_list",
       "params": {},
@@ -415,6 +423,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "command",
         "function": "command_list",
         "merges_class": false,
@@ -433,6 +442,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorEmpty",
       "name": "voice_selector_empty",
       "params": {},
@@ -441,6 +451,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "command",
         "function": "command_empty",
         "merges_class": false,
@@ -459,6 +470,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorGroup",
       "name": "voice_selector_group",
       "params": {},
@@ -467,6 +479,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "command",
         "function": "command_group",
         "merges_class": false,
@@ -485,6 +498,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorItem",
       "name": "voice_selector_item",
       "params": {
@@ -495,6 +509,7 @@
         "attrs": [],
         "children": [],
         "class": "px-4 py-2",
+        "class_when": [],
         "component": "command",
         "function": "command_item",
         "merges_class": true,
@@ -513,6 +528,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorShortcut",
       "name": "voice_selector_shortcut",
       "params": {},
@@ -521,6 +537,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "command",
         "function": "command_shortcut",
         "merges_class": false,
@@ -539,6 +556,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorSeparator",
       "name": "voice_selector_separator",
       "params": {},
@@ -547,6 +565,7 @@
         "attrs": [],
         "children": [],
         "class": "",
+        "class_when": [],
         "component": "command",
         "function": "command_separator",
         "merges_class": false,
@@ -565,13 +584,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorGender",
       "name": "voice_selector_gender",
       "params": {
         "children": null,
         "className": null,
-        "icon": null,
-        "value": null
+        "icon": null
       },
       "primitive": null,
       "tree": {
@@ -588,6 +607,7 @@
           }
         ],
         "class": "text-muted-foreground text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -603,13 +623,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorAccent",
       "name": "voice_selector_accent",
       "params": {
         "children": null,
         "className": null,
-        "emoji": null,
-        "value": null
+        "emoji": null
       },
       "primitive": null,
       "tree": {
@@ -626,6 +646,7 @@
           }
         ],
         "class": "text-muted-foreground text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -641,6 +662,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorAge",
       "name": "voice_selector_age",
       "params": {
@@ -651,6 +673,7 @@
         "attrs": [],
         "children": [],
         "class": "text-muted-foreground text-xs tabular-nums",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -666,6 +689,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorName",
       "name": "voice_selector_name",
       "params": {
@@ -676,6 +700,7 @@
         "attrs": [],
         "children": [],
         "class": "flex-1 truncate text-left font-medium",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -691,6 +716,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorDescription",
       "name": "voice_selector_description",
       "params": {
@@ -701,6 +727,7 @@
         "attrs": [],
         "children": [],
         "class": "text-muted-foreground text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -716,6 +743,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorAttributes",
       "name": "voice_selector_attributes",
       "params": {
@@ -731,6 +759,7 @@
           }
         ],
         "class": "flex items-center text-xs",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -746,6 +775,7 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorBullet",
       "name": "voice_selector_bullet",
       "params": {
@@ -767,6 +797,7 @@
           }
         ],
         "class": "select-none text-border",
+        "class_when": [],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -782,15 +813,13 @@
       }
     },
     {
+      "contexts": [],
       "export": "VoiceSelectorPreview",
       "name": "voice_selector_preview",
       "params": {
         "className": null,
-        "handleClick": null,
         "icon": null,
         "loading": null,
-        "onClick": null,
-        "onPlay": null,
         "playing": null,
         "size": "default",
         "variant": "default"
@@ -821,6 +850,7 @@
           }
         ],
         "class": "size-6",
+        "class_when": [],
         "merges_class": true,
         "module": "button",
         "part": "Button",
