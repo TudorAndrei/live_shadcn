@@ -610,6 +610,24 @@
     "pass": true,
     "spec": "cb0b882d07b3723ef5da42c3b5f52a656d79fc01b5fb8c8f434db8791239c7f2"
   },
+  "shadcn/command": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "38f9439d767dc15e6a3fdfb77732b159ca54d9f8363b92336b1707d93a7921d5"
+  },
   "ai_elements/sources": {
     "checks": {
       "browser": {

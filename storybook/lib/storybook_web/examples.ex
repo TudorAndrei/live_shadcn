@@ -38,6 +38,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Checkbox
   import LiveShadcn.UI.Collapsible
   import LiveShadcn.UI.Combobox
+  import LiveShadcn.UI.Command
   import LiveShadcn.UI.ContextMenu
   import LiveShadcn.UI.Dialog
   import LiveShadcn.UI.Drawer
@@ -117,7 +118,7 @@ defmodule StorybookWeb.Examples do
   @doc "Every component that has examples, in the order they are listed."
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button carousel
-       button-group card checkbox collapsible combobox context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
+       button-group card checkbox collapsible combobox command context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        toggle-group question questionnaire sidebar snippet toast shadcn-message ai_elements-message)
   end
@@ -272,6 +273,10 @@ defmodule StorybookWeb.Examples do
         &native_select_default/1
       )
     ]
+  end
+
+  def all("command") do
+    [one("default", "Commands", "A visible command list.", &command_default/1)]
   end
 
   def all("scroll-area") do
@@ -896,6 +901,27 @@ defmodule StorybookWeb.Examples do
       <.carousel_previous />
       <.carousel_next />
     </.carousel>
+    """
+  end
+
+  defp command_default(assigns) do
+    ~H"""
+    <.command class="max-w-md border">
+      <.command_input placeholder="Search commands" aria-label="Search commands" />
+      <.command_list>
+        <.command_group>
+          <.command_item data-selected="true">New file</.command_item>
+          <.command_item>Open project</.command_item>
+        </.command_group>
+        <.command_separator />
+        <.command_group>
+          <.command_item>
+            Settings
+            <.command_shortcut>⌘,</.command_shortcut>
+          </.command_item>
+        </.command_group>
+      </.command_list>
+    </.command>
     """
   end
 

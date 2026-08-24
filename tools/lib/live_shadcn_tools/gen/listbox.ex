@@ -109,42 +109,52 @@ defmodule LiveShadcnTools.Gen.Listbox do
 
   @doc "The module source for one component."
   def module(spec, opts) do
-    roles = roles!(spec)
-    name = String.replace(spec["name"], "-", "_")
+    if spec["name"] == "command" do
+      command_module(spec, opts)
+    else
+      roles = roles!(spec)
+      name = String.replace(spec["name"], "-", "_")
 
-    """
-    defmodule #{inspect(Keyword.fetch!(opts, :module))} do
-    #{moduledoc(spec)}
+      """
+      defmodule #{inspect(Keyword.fetch!(opts, :module))} do
+      #{moduledoc(spec)}
 
-      use Phoenix.Component
+        use Phoenix.Component
 
-      alias LiveBase.FormControl
-      alias LiveBase.Listbox
-      alias LiveBase.Popover
+        alias LiveBase.FormControl
+        alias LiveBase.Listbox
+        alias LiveBase.Popover
 
-    #{function_doc(spec, name)}
-    #{declarations(spec, roles)}
-      def #{name}(assigns) do
-        assigns = FormControl.from_field(assigns)
+      #{function_doc(spec, name)}
+      #{declarations(spec, roles)}
+        def #{name}(assigns) do
+          assigns = FormControl.from_field(assigns)
 
-        ~H\"\"\"
-    #{markup(spec, roles)}
-        \"\"\"
-      end
-
-      # What the trigger reads before anything has been chosen, and after.
-      defp label(options, value) do
-        case Enum.find(options, &(&1[:value] == value)) do
-          nil -> nil
-          option -> option[:label] || option[:value]
+          ~H\"\"\"
+      #{markup(spec, roles)}
+          \"\"\"
         end
-      end
 
-      defp flag(true), do: ""
-      defp flag(_state), do: nil
+        # What the trigger reads before anything has been chosen, and after.
+        defp label(options, value) do
+          case Enum.find(options, &(&1[:value] == value)) do
+            nil -> nil
+            option -> option[:label] || option[:value]
+          end
+        end
+
+        defp flag(true), do: ""
+        defp flag(_state), do: nil
+      end
+      """
     end
-    """
   end
+
+  # Command is a listbox without a trigger or a floating popup. cmdk keeps the
+  # query field and list visible together, so the generic select composition
+  # would invent three elements upstream does not render. Its parts remain
+  # independent and are emitted by the presentational reader.
+  defp command_module(spec, opts), do: Presentational.module(spec, opts)
 
   defp roles!(spec) do
     required =

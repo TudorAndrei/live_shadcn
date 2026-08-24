@@ -35,6 +35,9 @@
   "textarea": [
     "default"
   ],
+  "command": [
+    "default"
+  ],
   "marker": [
     "default"
   ],
