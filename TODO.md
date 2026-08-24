@@ -115,7 +115,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 - [ ] 8a — Carry expression **nodes**, not their source text. Removes about ten
       of `spec.ex`'s nineteen regexes and most of `tsx.ex`
       (`split_args/1`, `object!/1`, `merges_class?/1`)
-- [ ] 8b — Read `TSTypeAnnotation`. `boolean` → `:boolean`, `number` →
+- [x] 8b — Read `TSTypeAnnotation`. `boolean` → `:boolean`, `number` →
       `:integer`, a union of string literals → `values:`, `?` → optional.
       282 of 845 attributes are `:any` today
 - [ ] 8c — `presentational.ex:135` decides `:any` with a regex over code. A
