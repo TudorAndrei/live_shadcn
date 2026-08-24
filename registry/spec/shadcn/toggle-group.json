@@ -89,7 +89,10 @@
         "reads": {
           "group": [],
           "self": [
-            "data-vertical"
+            "data-vertical",
+            "data-spacing",
+            "data-variant",
+            "data-size"
           ]
         },
         "render_as": null,
@@ -152,9 +155,17 @@
             {
               "attr": "data-vertical",
               "group": "toggle-group"
+            },
+            {
+              "attr": "data-spacing",
+              "group": "toggle-group"
             }
           ],
-          "self": []
+          "self": [
+            "data-spacing",
+            "data-variant",
+            "data-state"
+          ]
         },
         "render_as": null,
         "slot": "toggle-group-item",
@@ -308,7 +319,7 @@
       "summary": "A two-state button that can be on or off."
     }
   },
-  "recipe": "form-control",
+  "recipe": "toggle-group",
   "source": "shadcn",
   "styles": {
     "luma": {

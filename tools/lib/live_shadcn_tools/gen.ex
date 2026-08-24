@@ -24,6 +24,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Sidebar
   alias LiveShadcnTools.Gen.Slider
   alias LiveShadcnTools.Gen.Tabs
+  alias LiveShadcnTools.Gen.ToggleGroup
   alias LiveShadcnTools.Gen.Toast
 
   @recipes %{
@@ -40,6 +41,7 @@ defmodule LiveShadcnTools.Gen do
     "sidebar" => Sidebar,
     "slider" => Slider,
     "tabs" => Tabs,
+    "toggle-group" => ToggleGroup,
     "toast" => Toast
   }
 

@@ -681,7 +681,7 @@
     {
       "name": "toggle-group",
       "source": "shadcn",
-      "recipe": "form-control",
+      "recipe": "toggle-group",
       "tier": 2
     },
     {

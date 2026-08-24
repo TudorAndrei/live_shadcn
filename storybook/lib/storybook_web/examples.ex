@@ -994,28 +994,28 @@ defmodule StorybookWeb.Examples do
   defp toggle_group_default(assigns) do
     ~H"""
     <.toggle_group spacing="0" variant="outline" aria-label="Text formatting">
-      <.toggle_group_item
+      <:item
         id="bold"
         name="bold"
         checked
         aria-label="Bold"
       >
         B
-      </.toggle_group_item>
-      <.toggle_group_item
+      </:item>
+      <:item
         id="italic"
         name="italic"
         aria-label="Italic"
       >
         I
-      </.toggle_group_item>
-      <.toggle_group_item
+      </:item>
+      <:item
         id="underline"
         name="underline"
         aria-label="Underline"
       >
         U
-      </.toggle_group_item>
+      </:item>
     </.toggle_group>
     """
   end
