@@ -574,18 +574,21 @@ take is the recipe that made the part work — its ids, its `phx-` bindings, its
 ARIA. A component built out of behaving components needs the recipes to compose,
 not the markup. That is the decision, and it is one decision for all six.
 
-### Smaller gaps this pass named
+### Smaller gaps this pass closed
 
-**`{children ?? name}` drops its default.** A children marker records what to
-render when the caller passes nothing, and `render_slot/1` renders nothing
-instead. `environment_variable_name` shows it: with no content it draws an empty
-`<span>` where upstream draws the variable's name.
+**`{children ?? <ChevronRight />}` drew nothing.** A children marker records
+what to render when the caller passes nothing, and the generator kept the
+marker and dropped the default. A breadcrumb separator with no content drew no
+chevron. Guarding the default on an empty slot fixed it, and uncovered three
+more silent drops: `:if` never reached a function component, so the dialog's
+close button drew whether or not the caller asked for it; a render prop was
+declared as an attribute, so `reasoning` raised on the first render; and `&&`
+was translated to `and`, which insists both sides are already true or false.
 
-**A snapshot depends on map ordering.** `pagination` passes two attributes
+**A snapshot depended on map ordering.** `pagination` passes two attributes
 through `:global`, and a `:global` map with atom keys does not iterate in a
-fixed order between runs. The snapshot flips between two spellings of the same
-element, so `mix ui.verify` fails about half the time on a component nothing
-changed.
+fixed order between runs, so `mix ui.verify` failed about half the time on a
+component nothing had changed. The snapshot writes attributes in one order now.
 
 **`data-[state=open]` is read by nobody.** This one is not fixed, and it is the
 larger of the two things left.
