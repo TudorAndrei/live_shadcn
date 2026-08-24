@@ -34,6 +34,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
       use Phoenix.Component
 
     #{Enum.map_join(own, "\n", &function(&1, spec, opts))}
+    #{class_source(spec)}
     end
     """
   end
@@ -68,6 +69,13 @@ defmodule LiveShadcnTools.Gen.Presentational do
   hold no value: a `<label>` is markup whichever recipe it appears under.
   """
   def function(part, spec, opts \\ []) do
+    case opts |> Keyword.get(:function_overrides, %{}) |> Map.get(part["name"]) do
+      nil -> standard_function(part, spec, opts)
+      source -> source
+    end
+  end
+
+  defp standard_function(part, spec, opts) do
     name = part["name"]
     attrs = attributes(part, spec)
 
@@ -247,15 +255,30 @@ defmodule LiveShadcnTools.Gen.Presentational do
     if tables == %{} do
       ""
     else
+      visibility = if spec["name"] == "button", do: "def", else: "defp"
+
       """
 
         # The variant tables, from the `cva` calls upstream writes them in.
         @variants #{inspect(tables, pretty: true, limit: :infinity)}
 
-        defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
+        #{visibility} variant_class(table, group, value), do: get_in(@variants, [table, group, value])
       """
     end
   end
+
+  defp class_source(%{"name" => "button"} = spec) do
+    classes = %{"button" => get_in(spec, ["variants", "buttonVariants", "base"])}
+
+    """
+
+      @part_classes #{inspect(classes, pretty: true, limit: :infinity)}
+
+      def part_class(part), do: Map.fetch!(@part_classes, part)
+    """
+  end
+
+  defp class_source(_spec), do: ""
 
   defp moduledoc(spec, folded) do
     """

@@ -41,6 +41,13 @@ defmodule LiveShadcn.UI.Button do
     """
   end
 
+  @part_classes %{
+    "button" =>
+      "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+  }
+
+  def part_class(part), do: Map.fetch!(@part_classes, part)
+
   # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
     "buttonVariants" => %{
@@ -65,5 +72,5 @@ defmodule LiveShadcn.UI.Button do
     }
   }
 
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
+  def variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

@@ -1,55 +1,52 @@
 defmodule LiveShadcnTools.Gen.Pagination do
-  @moduledoc """
-  The pagination recipe.
-
-  A pagination link is a Button rendered as an anchor. The presentational
-  recipe can read its anchor, but it cannot carry the Button class table.
-  """
+  @moduledoc "The pagination recipe."
 
   alias LiveShadcnTools.Gen.Presentational
 
   @doc "The module source for one pagination component."
   def module(spec, opts) do
+    link = Enum.find(spec["parts"], &(&1["name"] == "pagination_link"))
+
     spec
-    |> Presentational.module(opts)
-    |> String.replace(~s| variant={if(@is_active, do: "outline", else: "ghost")}|, "",
-      global: false
+    |> Presentational.module(
+      Keyword.put(opts, :function_overrides, %{"pagination_link" => link_function(link, spec)})
     )
-    |> String.replace(~s| size={@size}|, "", global: false)
-    |> String.replace(~s| nativeButton={false}|, "", global: false)
-    |> String.replace(
-      ~s| class="cn-pagination-link"|,
-      ~s| class={["cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0", button_class("size", @size), button_class("variant", if(@is_active, do: "outline", else: "ghost")), "cn-pagination-link", @class]}|,
-      global: false
-    )
-    |> String.replace_suffix("end\n", helpers())
   end
 
-  defp helpers do
-    """
-      @pagination_button_variants %{
-        "size" => %{
-          "default" => "cn-button-size-default",
-          "icon" => "cn-button-size-icon",
-          "icon-lg" => "cn-button-size-icon-lg",
-          "icon-sm" => "cn-button-size-icon-sm",
-          "icon-xs" => "cn-button-size-icon-xs",
-          "lg" => "cn-button-size-lg",
-          "sm" => "cn-button-size-sm",
-          "xs" => "cn-button-size-xs"
-        },
-        "variant" => %{
-          "default" => "cn-button-variant-default",
-          "destructive" => "cn-button-variant-destructive",
-          "ghost" => "cn-button-variant-ghost",
-          "link" => "cn-button-variant-link",
-          "outline" => "cn-button-variant-outline",
-          "secondary" => "cn-button-variant-secondary"
-        }
-      }
+  # Upstream renders a Button as an anchor. The tag is different, but the
+  # Button variant table remains the source of its classes.
+  defp link_function(part, spec) do
+    declarations =
+      part
+      |> Presentational.attributes(spec)
+      |> Enum.map_join("\n", &Presentational.declaration/1)
 
-      defp button_class(group, value), do: get_in(@pagination_button_variants, [group, value])
-    end
+    """
+      @doc "The `pagination_link` part."
+    #{declarations}
+      attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."
+      attr :rest, :global, include: ["data-slot", "href", "target", "rel", "download", "hreflang"]
+      slot :inner_block
+
+      def pagination_link(assigns) do
+        ~H\"\"\"
+        <a
+          data-slot={@rest[:"data-slot"] || "pagination-link"}
+          aria-current={if(@is_active, do: "page", else: nil)}
+          data-active={@is_active}
+          class={[
+            LiveShadcn.UI.Button.part_class("button"),
+            LiveShadcn.UI.Button.variant_class("buttonVariants", "size", @size),
+            LiveShadcn.UI.Button.variant_class("buttonVariants", "variant", if(@is_active, do: "outline", else: "ghost")),
+            #{inspect(part["tree"]["class"])},
+            @class
+          ]}
+          {Map.drop(@rest, [:"data-slot"])}
+        >
+          {render_slot(@inner_block)}
+        </a>
+        \"\"\"
+      end
     """
   end
 end
