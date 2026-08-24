@@ -15,6 +15,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Checkbox
   alias LiveShadcnTools.Gen.Carousel
   alias LiveShadcnTools.Gen.Calendar
+  alias LiveShadcnTools.Gen.Chart
   alias LiveShadcnTools.Gen.Disclosure
   alias LiveShadcnTools.Gen.FormControl
   alias LiveShadcnTools.Gen.Listbox
@@ -37,6 +38,7 @@ defmodule LiveShadcnTools.Gen do
 
   @recipes %{
     "calendar" => Calendar,
+    "chart" => Chart,
     "carousel" => Carousel,
     "checkbox" => Checkbox,
     "dialog" => Dialog,

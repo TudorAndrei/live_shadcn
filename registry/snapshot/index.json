@@ -44,6 +44,9 @@
   "command": [
     "default"
   ],
+  "chart": [
+    "default"
+  ],
   "marker": [
     "default"
   ],

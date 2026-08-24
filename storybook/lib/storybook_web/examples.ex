@@ -35,6 +35,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Button
   import LiveShadcn.UI.Card
   import LiveShadcn.UI.Calendar
+  import LiveShadcn.UI.Chart
   import LiveShadcn.UI.Carousel
   import LiveShadcn.UI.Checkbox
   import LiveShadcn.UI.Collapsible
@@ -121,7 +122,7 @@ defmodule StorybookWeb.Examples do
   @doc "Every component that has examples, in the order they are listed."
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button calendar carousel
-       button-group card checkbox collapsible combobox command context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
+       button-group card chart checkbox collapsible combobox command context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group resizable scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        toggle-group question questionnaire sidebar snippet sonner toast shadcn-message ai_elements-message)
   end
@@ -163,6 +164,10 @@ defmodule StorybookWeb.Examples do
 
   def all("calendar") do
     [one("default", "April 2026", "A server-computed month grid.", &calendar_default/1)]
+  end
+
+  def all("chart") do
+    [one("default", "Plot slot", "Chart chrome around caller-owned data.", &chart_default/1)]
   end
 
   def all("alert") do
@@ -942,6 +947,21 @@ defmodule StorybookWeb.Examples do
       locale="browser"
       class="max-w-md"
     />
+    """
+  end
+
+  defp chart_default(assigns) do
+    ~H"""
+    <.chart_container id="visits" config={%{visits: %{color: "var(--chart-1)"}}} class="max-w-md">
+      <svg viewBox="0 0 320 160" role="img" aria-label="Visits increased">
+        <path
+          d="M0 140 L80 110 L160 120 L240 60 L320 20"
+          fill="none"
+          stroke="var(--color-visits)"
+          stroke-width="8"
+        />
+      </svg>
+    </.chart_container>
     """
   end
 

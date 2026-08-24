@@ -628,6 +628,24 @@
     "pass": true,
     "spec": "cb0b882d07b3723ef5da42c3b5f52a656d79fc01b5fb8c8f434db8791239c7f2"
   },
+  "shadcn/chart": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "813840117354c9243ea5d418deb3303798a49555b22b7bf854ab76eeadf680b4"
+  },
   "shadcn/command": {
     "checks": {
       "browser": {

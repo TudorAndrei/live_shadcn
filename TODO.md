@@ -62,7 +62,7 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 - [x] `calendar` — a month grid the server computes. `locale` and
       `week_starts_on` are props, English and Sunday by default
 - [x] `calendar` — `locale="browser"` opt-in: a hook reads `Intl` on mount
-- [ ] `chart` — port the chrome: container, style block, tooltip body, legend
+- [x] `chart` — port the chrome: container, style block, tooltip body, legend
       body. The plot is the caller's slot, upstream as much as here
 
 ### 5d
