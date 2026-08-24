@@ -172,12 +172,15 @@
       "generated": {
         "pass": true
       },
+      "parity": {
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
     "pass": true,
-    "spec": "1307bff5a4a2d7456f3c30044a10bbd058b35b47e8e26872a4286fe647df03b8"
+    "spec": "9089dfa34a76ae84aee881f03f5bfec37fc50a006a00276ee335135c7f2645d9"
   },
   "shadcn/popover": {
     "checks": {
