@@ -101,13 +101,15 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ### 7c — A recipe is not a patch on another recipe's output
 
-- [ ] `String.replace` over generated source went 26 → 48. Move each patch into
-      the spec, or say why it is behaviour and belongs in a recipe
-- [ ] `gen/resizable.ex` has eight, two of which inject `attr` declarations
-- [ ] Retire the one-component recipes that exist only to hold a patch:
-      `checkbox`, `separator`, `switch`, `radio_group`, `progress`
-- [ ] Correct the recipe count in `ROADMAP.md:69` and `docs/INVENTORY.md:17`.
-      Both still say eight; there are 24
+- [x] Remove generated-source `String.replace` patches. Recipe behavior now
+      updates a node tree or passes structured renderer attributes.
+- [x] `gen/resizable.ex` now writes its module directly; it does not inject
+      declarations into generated source.
+- [x] Keep one-component recipes only where they express behavior: `checkbox`,
+      `separator`, `switch`, `radio_group`, and `progress` now update nodes
+      before rendering.
+- [x] Correct the recipe count in `ROADMAP.md` and `docs/INVENTORY.md`.
+      There are 23 active recipes.
 
 ## Phase 8 — Finish the oxc swap
 

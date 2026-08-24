@@ -14,7 +14,7 @@
 
 ## Recipes
 
-Eight core recipes cover 94 of 111 components.
+Twenty-three recipes cover 94 of 111 components.
 Only the recipes are written by hand; every component is data.
 
 | Recipe | Kind | Components |

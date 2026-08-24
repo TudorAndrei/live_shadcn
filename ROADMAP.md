@@ -64,9 +64,10 @@ held.
 
 ---
 
-## M2 — The eight core recipes ✅
+## M2 — The initial eight core recipes ✅
 
-Eight recipes cover 102 of 112 components.
+The initial eight recipes covered 102 of 112 components. The current generator
+has 23 recipes.
 
 - [x] `disclosure`, `dialog`, `popover`, `listbox`, `menu`, `tabs`,
       `form-control`, `presentational`
