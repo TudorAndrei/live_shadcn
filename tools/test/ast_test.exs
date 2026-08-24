@@ -134,6 +134,16 @@ defmodule LiveShadcnTools.AstTest do
       refute Tsx.merges_class?(Tsx.attr(row.jsx, "className"))
     end
 
+    test "member roots come from member expression nodes" do
+      source = ~S"""
+      const Row = ({ error, label }) => <span title={error?.message ?? label["text"]} />;
+      """
+
+      assert [row] = Ast.parse!(source).functions
+      assert {:expr, _code, node} = Tsx.attr(row.jsx, "title")
+      assert Ast.member_roots(node) == ["error", "label"]
+    end
+
     test "memo and forwardRef are read through" do
       source = """
       export const Badge = memo(({ children }) => <span data-slot="badge">{children}</span>);

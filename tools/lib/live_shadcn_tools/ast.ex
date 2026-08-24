@@ -116,6 +116,35 @@ defmodule LiveShadcnTools.Ast do
     _error -> nil
   end
 
+  @doc "The identifier roots of member expressions below an OXC expression node."
+  def member_roots(node) do
+    node
+    |> member_roots([])
+    |> Enum.uniq()
+    |> Enum.sort()
+  end
+
+  defp member_roots(%{"type" => "MemberExpression", "object" => object} = node, acc) do
+    root = member_root(object)
+
+    node
+    |> Map.values()
+    |> Enum.reduce(if(root, do: [root | acc], else: acc), &member_roots/2)
+  end
+
+  defp member_roots(node, acc) when is_map(node), do: Enum.reduce(node, acc, &member_roots/2)
+  defp member_roots({_key, value}, acc), do: member_roots(value, acc)
+  defp member_roots(nodes, acc) when is_list(nodes), do: Enum.reduce(nodes, acc, &member_roots/2)
+  defp member_roots(_node, acc), do: acc
+
+  defp member_root(%{"type" => "Identifier", "name" => name}), do: name
+  defp member_root(%{"type" => "MemberExpression", "object" => object}), do: member_root(object)
+
+  defp member_root(%{"type" => "ChainExpression", "expression" => expression}),
+    do: member_root(expression)
+
+  defp member_root(_node), do: nil
+
   @doc """
   Splits `a && b`, `a || b` or `a ?? b` into its operator and two sides.
 
