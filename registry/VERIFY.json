@@ -98,12 +98,10 @@
         "pass": true
       },
       "snapshot": {
-        "detail": "** (Mix) these snapshots no longer match what the components render:\n  pagination-default\nRun `mix snapshot` and review the diff. A diff here is a change a reader\nwould see.",
-        "exit": 1,
-        "pass": false
+        "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "e6b23085f2fb4ee8deed783faabc244700e414b31aece4e8e56dabe16ca67ce9"
   },
   "shadcn/radio-group": {
@@ -548,18 +546,16 @@
   "ai_elements/snippet": {
     "checks": {
       "browser": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
       },
       "snapshot": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "4efd8d2dc21daba84cdf9e98893df7d00d457e266653397481ba7041d2ac5211"
   },
   "ai_elements/environment-variables": {
@@ -717,18 +713,16 @@
   "ai_elements/question": {
     "checks": {
       "browser": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
       },
       "snapshot": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "7d226d2963b153d3e0c4b3a41f6fca28696d1d77d9e1c5f33697c9c9b51945b5"
   },
   "shadcn/separator": {

@@ -66,7 +66,9 @@ defmodule StorybookWeb.Examples do
   import LiveAiElements.Components.Checkpoint
   import LiveAiElements.Components.Confirmation
   import LiveAiElements.Components.PackageInfo
+  import LiveAiElements.Components.Question
   import LiveAiElements.Components.Reasoning
+  import LiveAiElements.Components.Snippet
   import LiveAiElements.Components.Sources
   import LiveAiElements.Components.Suggestion
   import LiveAiElements.Components.Task
@@ -76,7 +78,7 @@ defmodule StorybookWeb.Examples do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog dropdown-menu empty hover-card input item kbd label marker
        navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
-       shadcn-message ai_elements-message)
+       question snippet shadcn-message ai_elements-message)
   end
 
   @doc "The examples for a component."
@@ -168,6 +170,28 @@ defmodule StorybookWeb.Examples do
         "A turn in a conversation",
         "The assistant's side, with the answer inside it.",
         &ai_message_default/1
+      )
+    ]
+  end
+
+  def all("question") do
+    [
+      one(
+        "default",
+        "Asking the reader",
+        "A prompt, the options, and a box for anything the options do not cover.",
+        &question_default/1
+      )
+    ]
+  end
+
+  def all("snippet") do
+    [
+      one(
+        "default",
+        "A command to copy",
+        "The prompt, the command, and the button.",
+        &snippet_default/1
       )
     ]
   end
@@ -919,6 +943,60 @@ defmodule StorybookWeb.Examples do
         <AiMessage.message_response content="It is **18 degrees** and clear in Cluj." />
       </AiMessage.message_content>
     </AiMessage.message>
+    """
+  end
+
+  defp question_default(assigns) do
+    ~H"""
+    <.question class="max-w-md">
+      <.question_prompt>Which recipe should read this component?</.question_prompt>
+      <.question_description>
+        Pick one. The box below takes anything the list does not cover.
+      </.question_description>
+      <.question_options selection_mode="single">
+        <.question_option value="disclosure" role="radio" is_selected="true" variant="default">
+          Disclosure
+        </.question_option>
+        <.question_option value="popover" role="radio" is_selected="false" variant="outline">
+          Popover
+        </.question_option>
+        <.question_option value="listbox" role="radio" is_selected="false" variant="outline">
+          Listbox
+        </.question_option>
+      </.question_options>
+      <.question_input
+        name="other"
+        placeholder="Something else"
+        aria-label="Something else"
+        text=""
+      />
+      <.question_actions>
+        <.question_submit variant="default" size="sm" has_response="true">
+          Answer
+        </.question_submit>
+      </.question_actions>
+    </.question>
+    """
+  end
+
+  defp snippet_default(assigns) do
+    ~H"""
+    <.snippet class="max-w-md">
+      <.snippet_addon align="inline-start">
+        <.snippet_text>$</.snippet_text>
+      </.snippet_addon>
+      <.snippet_input
+        code="mix ui.add accordion"
+        type="text"
+        aria-label="The command"
+        readonly
+      />
+      <.snippet_addon align="inline-end">
+        <.snippet_copy_button variant="ghost" size="icon-sm">
+          <LiveShadcn.Icon.icon name="copy" class="size-4" />
+        </.snippet_copy_button>
+      </.snippet_addon>
+    </.snippet>
     """
   end
 

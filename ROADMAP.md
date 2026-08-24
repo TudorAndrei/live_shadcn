@@ -528,7 +528,7 @@ to neither. The storybook names them `shadcn-message` and `ai_elements-message`.
 Two modules exporting `message/1` cannot both be imported either, which is the
 same fact at the Elixir level.
 
-### What stops the other six
+### What stops the other five
 
 Not markup. The reader reads every one of them now. What stops them is that
 upstream computes something in JavaScript, and a template cannot:
@@ -539,7 +539,6 @@ upstream computes something in JavaScript, and a template cannot:
 | tool | `<Output>` — a variable reassigned by three `if`s, each holding different markup |
 | shimmer | `<MotionComponent>` — `motion`, which here is a CSS animation |
 | prompt-input | `<Icon>` — a component chosen by something this cannot compute |
-| code-block | an object literal written inline in JSX |
 | conversation | `use-stick-to-bottom`, so the `scroller` recipe |
 
 None of them is a parsing problem any more. Every one is upstream computing
@@ -548,6 +547,45 @@ computation. Each needs a recipe that owns what is being computed — the way th
 disclosure recipe owns opening and closing, which is why `task` and `sources`
 generate at all — or a prop the caller supplies. That is one decision per
 component, not one change for all of them.
+
+`code-block` left this table when React plumbing stopped being read as API: the
+object literal that stopped it was inside a helper that returns no markup, and
+a function that renders nothing is not a component. It now stops in the
+generator instead, on `...style`.
+
+### Folding a component that behaves
+
+Three components generate, and none of them can be verified, for one reason
+between them: each folds in a component whose recipe carries behaviour, and a
+fold copies markup only.
+
+| Component | Folds in | What is lost |
+|---|---|---|
+| environment-variables | `shadcn/switch` | `role="switch"`, `tabindex`, `aria-checked`, the toggle itself. The `<span>` that comes out carries an `aria-label` and no role, which axe reports and is right to. |
+| attachments | `shadcn/hover-card` | the popover recipe: the positioner's props land on a `<div>` as attributes, and the content element is closed before its children |
+| plan | `shadcn/collapsible` and `shadcn/card` | the disclosure recipe puts the trigger inside a `<button>` that the card already opened, so a `<button>` renders inside a `<button>` |
+
+`mic-selector`, `model-selector` and `voice-selector` name the same problem from
+the other side: they fold `shadcn/command`, and the generator says so rather
+than folding it wrong.
+
+The fold takes a part's markup and merges it into the caller's. What it does not
+take is the recipe that made the part work — its ids, its `phx-` bindings, its
+ARIA. A component built out of behaving components needs the recipes to compose,
+not the markup. That is the decision, and it is one decision for all six.
+
+### Smaller gaps this pass named
+
+**`{children ?? name}` drops its default.** A children marker records what to
+render when the caller passes nothing, and `render_slot/1` renders nothing
+instead. `environment_variable_name` shows it: with no content it draws an empty
+`<span>` where upstream draws the variable's name.
+
+**A snapshot depends on map ordering.** `pagination` passes two attributes
+through `:global`, and a `:global` map with atom keys does not iterate in a
+fixed order between runs. The snapshot flips between two spellings of the same
+element, so `mix ui.verify` fails about half the time on a component nothing
+changed.
 
 **`data-[state=open]` is read by nobody.** This one is not fixed, and it is the
 larger of the two things left.
