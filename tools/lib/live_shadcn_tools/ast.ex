@@ -49,7 +49,7 @@ defmodule LiveShadcnTools.Ast do
   Parses a source file and reads its top level.
   """
   def parse!(source) do
-    program = tree!(source)
+    %{"program" => program, "module" => module} = tree!(source)
     type_definitions = type_definitions(program)
 
     read =
@@ -63,7 +63,7 @@ defmodule LiveShadcnTools.Ast do
       unreadable: Map.new(for {:unreadable, name, why} <- read, do: {name, why}),
       consts: consts(program, source),
       imports: imports(program),
-      exports: exports(program)
+      exports: exports(module)
     }
   end
 
@@ -357,7 +357,7 @@ defmodule LiveShadcnTools.Ast do
   defp cached_tree(source) do
     case :persistent_term.get({__MODULE__, source}, nil) do
       nil ->
-        tree = tree!(source)
+        tree = tree!(source)["program"]
         :persistent_term.put({__MODULE__, source}, tree)
         tree
 
@@ -414,24 +414,14 @@ defmodule LiveShadcnTools.Ast do
         do: {specifier["local"]["name"], declaration["source"]["value"]}
   end
 
-  # Two registries write their exports two ways. shadcn declares everything and
-  # exports it in one list at the foot of the file; AI Elements exports each
-  # binding where it is declared. Both are the same list.
-  defp exports(program) do
-    program["body"]
-    |> Enum.flat_map(fn
-      %{"type" => "ExportNamedDeclaration", "declaration" => declaration}
-      when is_map(declaration) ->
-        declaration |> bindings() |> Enum.map(&name_of/1)
-
-      %{"type" => "ExportNamedDeclaration", "specifiers" => specifiers} ->
-        Enum.map(specifiers || [], & &1["exported"]["name"])
-
-      _node ->
-        []
-    end)
-    |> Enum.reject(&is_nil/1)
-    |> Enum.uniq()
+  # OXC has already resolved every export form to one module record. A shadcn
+  # export list and an AI Elements inline export therefore take the same path.
+  defp exports(%{"staticExports" => exports}) do
+    for %{"entries" => entries} <- exports,
+        %{"exportName" => %{"kind" => "Name", "name" => name}} <- entries,
+        is_binary(name),
+        uniq: true,
+        do: name
   end
 
   defp name_of(%{"type" => "FunctionDeclaration", "id" => %{"name" => name}}), do: name

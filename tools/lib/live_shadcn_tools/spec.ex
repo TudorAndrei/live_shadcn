@@ -659,14 +659,12 @@ defmodule LiveShadcnTools.Spec do
   end
 
   # Not every export renders. A file may also export a hook, a variant table, or
-  # a factory such as `createToastManager`. None of them has markup, so none of
-  # them becomes a part; JavaScript's own convention — components are
-  # capitalised, everything else is not — is what tells them apart.
+  # a factory such as `createToastManager`. The parsed function tells us whether
+  # it renders JSX, so an export name does not decide its role.
   defp component?(export, ctx) do
-    cond do
-      not Regex.match?(~r/^[A-Z]/, export) -> false
-      Map.has_key?(ctx.functions, export) -> true
-      true -> renders?(Map.get(ctx.consts, export))
+    case Map.get(ctx.functions, export) do
+      %{renders?: renders?} -> renders?
+      nil -> renders?(Map.get(ctx.consts, export))
     end
   end
 

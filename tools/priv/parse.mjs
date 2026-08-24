@@ -40,7 +40,7 @@ if (!path) {
 }
 
 const source = readFileSync(path, "utf8");
-const { program, errors } = parseSync(path, source);
+const { program, module, errors } = parseSync(path, source);
 
 if (errors.length > 0) {
   process.stderr.write(errors.map((error) => error.message).join("\n") + "\n");
@@ -77,5 +77,6 @@ const convert = (node) => {
 };
 
 convert(program);
+convert(module);
 
-process.stdout.write(JSON.stringify(program));
+process.stdout.write(JSON.stringify({ program, module }));
