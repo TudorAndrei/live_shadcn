@@ -155,9 +155,8 @@ defmodule LiveShadcnTools.Ast do
   def object_entries({:expr, _code, node} = expression) do
     case bare(node) do
       %{"type" => "ObjectExpression", "properties" => properties} ->
-        for %{"type" => "Property", "key" => key, "value" => value} <- properties,
-            name = property_name(key),
-            is_binary(name),
+        for property <- properties,
+            {name, value} <- object_entry(property),
             into: %{},
             do: {name, expression(expression, value)}
 
@@ -228,6 +227,18 @@ defmodule LiveShadcnTools.Ast do
   defp property_name(%{"name" => name}) when is_binary(name), do: name
   defp property_name(%{"value" => name}) when is_binary(name), do: name
   defp property_name(_key), do: nil
+
+  defp object_entry(%{"type" => "Property", "key" => key, "value" => value}) do
+    case property_name(key) do
+      name when is_binary(name) -> [{name, value}]
+      _other -> []
+    end
+  end
+
+  defp object_entry(%{"type" => "SpreadElement", "argument" => %{"name" => name} = value}),
+    do: [{"..." <> name, value}]
+
+  defp object_entry(_property), do: []
 
   @doc """
   Splits `a && b`, `a || b` or `a ?? b` into its operator and two sides.

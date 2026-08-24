@@ -1659,19 +1659,6 @@ defmodule LiveShadcnTools.Spec do
   # Elixir assign, which is neither the event nor the handler.
   defp react_handler?(name), do: name =~ ~r/^on[A-Z]/
 
-  # `style={{ "--ratio": ratio } as React.CSSProperties}` is a set of CSS
-  # declarations, not an expression. Recording it as declarations is what lets
-  # the generator write a style string instead of a JavaScript object.
-  defp expression_attr("style", {:expr, code, _node}, ctx),
-    do: expression_attr("style", code, ctx)
-
-  defp expression_attr("style", code, ctx) do
-    case declarations(code, ctx) do
-      nil -> %{"name" => "style", "kind" => "code", "value" => code}
-      entries -> %{"name" => "style", "kind" => "style", "value" => entries}
-    end
-  end
-
   # Sonner gives each toast part its class through `toastOptions`. This is data,
   # not JavaScript that the generated component can run. Keep the object shape
   # so the toast recipe can read it without searching source text.
@@ -1683,13 +1670,52 @@ defmodule LiveShadcnTools.Spec do
     }
   end
 
+  # `style={{ "--ratio": ratio } as React.CSSProperties}` is a set of CSS
+  # declarations, not an expression. Recording it as declarations is what lets
+  # the generator write a style string instead of a JavaScript object.
+  defp expression_attr("style", {:expr, _code, _node} = expression, ctx) do
+    %{
+      "name" => "style",
+      "kind" => "style",
+      "value" => style_entries(Ast.object_entries(expression), ctx)
+    }
+  end
+
   defp expression_attr(name, {:expr, code, _node}, ctx), do: expression_attr(name, code, ctx)
+
+  defp expression_attr("style", code, ctx) do
+    case declarations(code, ctx) do
+      nil -> %{"name" => "style", "kind" => "code", "value" => code}
+      entries -> %{"name" => "style", "kind" => "style", "value" => entries}
+    end
+  end
 
   defp expression_attr(name, code, ctx) do
     case constant(code, ctx) do
       nil -> expression_attr(name, code)
       literal -> %{"name" => name, "kind" => "text", "value" => literal}
     end
+  end
+
+  defp style_entries(entries, ctx) do
+    Enum.map(entries, fn
+      {"..." <> name, _value} ->
+        %{"property" => name, "kind" => "spread"}
+
+      {property, value} ->
+        case Ast.string_literal(value) do
+          literal when is_binary(literal) ->
+            %{"property" => property, "kind" => "text", "value" => literal}
+
+          nil ->
+            code = source(value)
+
+            case constant(code, ctx) do
+              nil -> %{"property" => property, "kind" => "code", "value" => code}
+              literal -> %{"property" => property, "kind" => "text", "value" => literal}
+            end
+        end
+    end)
   end
 
   defp expression_attr(name, code), do: %{"name" => name, "kind" => "code", "value" => code}
