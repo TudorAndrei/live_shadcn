@@ -1552,8 +1552,10 @@ defmodule LiveShadcnTools.Spec do
 
   defp classify("group-" <> rest) do
     case String.split(rest, "/", parts: 2) do
-      [<<"data-[", _rest::binary>> = attr, _name] ->
-        raise("unsupported data variant: #{attr}")
+      [<<"data-[", _rest::binary>> = attr, name] ->
+        case classify(attr) do
+          {:self, attribute} -> {:group, name, attribute}
+        end
 
       [attr, name] ->
         if state_attr?(attr), do: {:group, name, attr}, else: :ignore
@@ -1563,8 +1565,12 @@ defmodule LiveShadcnTools.Spec do
     end
   end
 
-  defp classify(<<"data-[", _rest::binary>> = variant),
-    do: raise("unsupported data variant: #{variant}")
+  defp classify(<<"data-[", _rest::binary>> = variant) do
+    case Regex.run(~r/^data-\[([a-z][a-z0-9-]*)=[^\]]+\]$/, variant) do
+      [_, attribute] -> {:self, "data-#{attribute}"}
+      _ -> raise("unsupported data variant: #{variant}")
+    end
+  end
 
   defp classify(variant) do
     if state_attr?(variant), do: {:self, variant}, else: :ignore

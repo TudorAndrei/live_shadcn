@@ -25,10 +25,9 @@ defmodule LiveShadcnTools.SpecTest do
                Spec.reads("[&_p:not(:last-child)]:mb-4 hover:underline")
     end
 
-    test "a bracket data variant is never ignored" do
-      assert_raise RuntimeError, "unsupported data variant: data-[orientation=horizontal]", fn ->
-        Spec.reads("data-[orientation=horizontal]:h-px")
-      end
+    test "a bracket data variant records its attribute" do
+      assert %{"self" => ["data-orientation"]} =
+               Spec.reads("data-[orientation=horizontal]:h-px")
     end
   end
 
