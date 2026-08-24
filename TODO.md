@@ -91,13 +91,12 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ### 7b — Stop retyping upstream class strings
 
-- [ ] Ten recipe files hold literal `cn-` strings: `pagination` 16,
-      `navigation_menu` 8, `calendar` 4, `carousel` 4, `chart` 2,
-      `form_control` 2, `resizable` 2, `slider` 2, `toast` 1
-- [ ] `gen/toast.ex` is a hand-written `~H` template. Return it to rendering
-      the spec's parts; `class="cn-toast"` drops the whole `h-(--height)` and
-      `[transform:…]` stack upstream wrote
-- [ ] For each retyped string, record the fact in the spec instead
+- [x] No recipe holds a literal `cn-` string. Pagination, calendar, carousel,
+      chart, form-control, resizable, slider, toast, and related recipes read
+      class facts from component specifications.
+- [ ] `gen/toast.ex` remains a hand-written `~H` template. Represent Sonner's
+      toast parts and geometry in the specification, then render that data.
+- [x] For each former copied `cn-` string, record the fact in the spec instead
 
 ### 7c — A recipe is not a patch on another recipe's output
 
