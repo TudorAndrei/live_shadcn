@@ -18,6 +18,13 @@ defmodule Mix.Tasks.Snapshot do
 
   The markup is pretty-printed before it is written, because a golden file
   nobody can read is a golden file nobody reviews.
+
+  Attributes are sorted by name. HEEx writes a `:global` attribute in whatever
+  order the map holding it iterates, and a map keyed by atoms does not iterate
+  in the same order between runs. `pagination` passes two of them, so its
+  snapshot flipped between two spellings of the same element and `mix ui.verify`
+  failed on about half the runs. An element is the set of its attributes, so a
+  file that records them in one order records the same fact every time.
   """
   use Mix.Task
 
@@ -93,6 +100,27 @@ defmodule Mix.Tasks.Snapshot do
     end
   end
 
+  # What an element is called comes first and what it looks like comes last,
+  # because a reader scanning a diff is looking for the element. Everything
+  # between is alphabetical, which is an order and not a preference.
+  @first ~w(data-slot id name role type)
+  @last ~w(class style)
+
+  defp sorted_attributes(nodes) when is_list(nodes), do: Enum.map(nodes, &sorted_attributes/1)
+
+  defp sorted_attributes({tag, attrs, children}),
+    do: {tag, Enum.sort_by(attrs, &rank/1), sorted_attributes(children)}
+
+  defp sorted_attributes(node), do: node
+
+  defp rank({name, _value}) do
+    cond do
+      name in @first -> {0, name}
+      name in @last -> {2, name}
+      true -> {1, name}
+    end
+  end
+
   defp render(component, example) do
     # A function component is called with change tracking. Rendering one by
     # hand still has to hand it the same marker.
@@ -101,6 +129,7 @@ defmodule Mix.Tasks.Snapshot do
       |> example.render.()
       |> Phoenix.LiveViewTest.rendered_to_string()
       |> Floki.parse_fragment!()
+      |> sorted_attributes()
       |> Floki.raw_html(pretty: true)
 
     # Floki already ends its pretty output with a newline, and the heredoc adds
