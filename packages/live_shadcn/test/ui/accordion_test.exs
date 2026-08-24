@@ -148,7 +148,7 @@ defmodule LiveShadcn.UI.AccordionTest do
       trigger = slot(html, "accordion-trigger")
 
       assert attribute(trigger, "data-disabled") == :present
-      assert attribute(trigger, "aria-disabled") == :present
+      assert attribute(trigger, "aria-disabled") == "true"
     end
 
     test "the accordion and its panels carry the documented orientation" do
