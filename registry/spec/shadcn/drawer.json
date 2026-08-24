@@ -102,16 +102,25 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "modal"
+                ],
                 "kind": "code",
                 "name": "modal",
                 "value": "modal"
               },
               {
+                "identifiers": [
+                  "snapPoints"
+                ],
                 "kind": "code",
                 "name": "snapPoints",
                 "value": "snapPoints"
               },
               {
+                "identifiers": [
+                  "swipeDirection"
+                ],
                 "kind": "code",
                 "name": "swipeDirection",
                 "value": "swipeDirection"
@@ -389,7 +398,11 @@
       "name": "drawer_content",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "hasSnapPoints": null,
+        "modal": null,
+        "showSwipeHandle": null,
+        "swipeAxis": null
       },
       "primitive": "Popup",
       "refs": [
@@ -405,6 +418,10 @@
               {
                 "attrs": [
                   {
+                    "identifiers": [
+                      "hasSnapPoints",
+                      "undefined"
+                    ],
                     "kind": "code",
                     "name": "data-snap-points",
                     "value": "hasSnapPoints ? \"\" : undefined"
@@ -427,12 +444,20 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "hasSnapPoints",
+              "modal",
+              "undefined"
+            ],
             "type": "optional",
             "when": "modal === true"
           },
           {
             "attrs": [
               {
+                "identifiers": [
+                  "modal"
+                ],
                 "kind": "code",
                 "name": "data-modal",
                 "value": "modal"
@@ -442,11 +467,18 @@
               {
                 "attrs": [
                   {
+                    "identifiers": [
+                      "swipeAxis"
+                    ],
                     "kind": "code",
                     "name": "data-swipe-axis",
                     "value": "swipeAxis"
                   },
                   {
+                    "identifiers": [
+                      "hasSnapPoints",
+                      "undefined"
+                    ],
                     "kind": "code",
                     "name": "data-snap-points",
                     "value": "hasSnapPoints ? \"\" : undefined"
@@ -473,6 +505,9 @@
                         "variant_calls": [],
                         "vars": []
                       }
+                    ],
+                    "identifiers": [
+                      "showSwipeHandle"
                     ],
                     "type": "optional",
                     "when": "showSwipeHandle"

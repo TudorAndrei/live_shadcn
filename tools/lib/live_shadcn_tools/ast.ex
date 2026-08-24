@@ -206,6 +206,25 @@ defmodule LiveShadcnTools.Ast do
 
   defp member_root(_node), do: nil
 
+  @doc "The identifiers an expression reads, excluding non-computed member names."
+  def identifiers(node), do: node |> identifiers([]) |> Enum.uniq() |> Enum.sort()
+
+  defp identifiers(%{"type" => "Identifier", "name" => name}, acc), do: [name | acc]
+
+  defp identifiers(
+         %{"type" => "MemberExpression", "object" => object, "property" => property} = node,
+         acc
+       ) do
+    acc = identifiers(object, acc)
+    if node["computed"], do: identifiers(property, acc), else: acc
+  end
+
+  defp identifiers(%{"type" => "Property", "value" => value}, acc), do: identifiers(value, acc)
+  defp identifiers(node, acc) when is_map(node), do: Enum.reduce(node, acc, &identifiers/2)
+  defp identifiers({_key, value}, acc), do: identifiers(value, acc)
+  defp identifiers(nodes, acc) when is_list(nodes), do: Enum.reduce(nodes, acc, &identifiers/2)
+  defp identifiers(_node, acc), do: acc
+
   defp property_name(%{"name" => name}) when is_binary(name), do: name
   defp property_name(%{"value" => name}) when is_binary(name), do: name
   defp property_name(_key), do: nil

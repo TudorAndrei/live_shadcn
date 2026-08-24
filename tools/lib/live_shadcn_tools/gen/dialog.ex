@@ -87,6 +87,10 @@ defmodule LiveShadcnTools.Gen.Dialog do
   # it as `snapPoints != null && snapPoints.length > 0`, which is the same
   # question a list asks in HEEx.
   def attribute!("data-snap-points", _role), do: {:code, "flag(@snap_points != [])"}
+
+  def attribute!("data-swipe-axis", _role),
+    do: {:code, ~s|if(@swipe_direction in ["down", "up"], do: "y", else: "x")|}
+
   def attribute!("data-size", _role), do: {:code, "@size"}
   def attribute!("data-side", _role), do: {:code, "@side"}
   def attribute!("data-slot", _role), do: :existing

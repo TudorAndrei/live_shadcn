@@ -240,6 +240,17 @@ defmodule LiveShadcnTools.AstTest do
       assert [row] = Ast.parse!(source).functions
       assert {:expr, _code, node} = Tsx.attr(row.jsx, "title")
       assert Ast.member_roots(node) == ["error", "label"]
+      assert Ast.identifiers(node) == ["error", "label"]
+    end
+
+    test "identifiers exclude a member property that is not computed" do
+      source = ~S"""
+      const Row = ({ state }) => <span>{state === "ready" ? state.label : state["label"]}</span>;
+      """
+
+      assert [row] = Ast.parse!(source).functions
+      [%{node: node}] = row.jsx.children
+      assert Ast.identifiers(node) == ["state"]
     end
 
     test "a parameter reference comes from scope analysis, not a word search" do

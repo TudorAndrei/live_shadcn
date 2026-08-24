@@ -201,7 +201,7 @@ defmodule LiveShadcnTools.Spec do
   @always ~w(className children content render)
 
   defp props_read(part, variant_props) do
-    references = MapSet.new(part["refs"] || [])
+    references = MapSet.new((part["refs"] || []) ++ identifiers(part["tree"]))
 
     Map.update(part, "params", %{}, fn params ->
       Map.filter(params, fn {name, _default} ->
@@ -210,6 +210,16 @@ defmodule LiveShadcnTools.Spec do
       end)
     end)
   end
+
+  defp identifiers(%{"identifiers" => names} = node) when is_list(names) do
+    names ++ (node |> Map.delete("identifiers") |> Map.values() |> Enum.flat_map(&identifiers/1))
+  end
+
+  defp identifiers(node) when is_map(node),
+    do: node |> Map.values() |> Enum.flat_map(&identifiers/1)
+
+  defp identifiers(nodes) when is_list(nodes), do: Enum.flat_map(nodes, &identifiers/1)
+  defp identifiers(_node), do: []
 
   # A `cva` group is read without being named either: `size` is not written in
   # the markup, it picks the class string the markup carries.
@@ -736,7 +746,7 @@ defmodule LiveShadcnTools.Spec do
 
   defp node(%{type: :expr, code: code, node: expression_node}, ctx) do
     expression({:expr, code, expression_node}, ctx)
-    |> record_member_roots(Ast.member_roots(expression_node))
+    |> record_expression_facts(expression_node)
   end
 
   defp node(%{type: :text, value: value}, _ctx),
@@ -1586,7 +1596,7 @@ defmodule LiveShadcnTools.Spec do
 
         {:expr, code, node} ->
           expression_attr(name, {:expr, String.trim(code), node}, ctx)
-          |> record_member_roots(Ast.member_roots(node))
+          |> record_expression_facts(node)
 
         true ->
           %{"name" => name, "kind" => "flag", "value" => nil}
@@ -1661,6 +1671,17 @@ defmodule LiveShadcnTools.Spec do
 
   defp record_member_roots(node, []), do: node
   defp record_member_roots(node, roots), do: Map.put(node, "member_roots", roots)
+
+  defp record_expression_facts(node, expression) do
+    node
+    |> record_member_roots(Ast.member_roots(expression))
+    |> then(fn recorded ->
+      case Ast.identifiers(expression) do
+        [] -> recorded
+        names -> Map.put(recorded, "identifiers", names)
+      end
+    end)
+  end
 
   defp declarations(code, ctx) do
     with {at, _} <- :binary.match(code, "{"),

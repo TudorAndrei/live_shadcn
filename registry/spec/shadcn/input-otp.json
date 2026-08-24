@@ -86,8 +86,11 @@
       "export": "InputOTPSlot",
       "name": "input_otp_slot",
       "params": {
+        "char": null,
         "className": null,
-        "index": null
+        "hasFakeCaret": null,
+        "index": null,
+        "isActive": null
       },
       "primitive": null,
       "refs": [
@@ -98,6 +101,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "isActive"
+            ],
             "kind": "code",
             "name": "data-active",
             "value": "isActive"
@@ -106,6 +112,9 @@
         "children": [
           {
             "code": "char",
+            "identifiers": [
+              "char"
+            ],
             "type": "value"
           },
           {
@@ -147,6 +156,9 @@
                 "variant_calls": [],
                 "vars": []
               }
+            ],
+            "identifiers": [
+              "hasFakeCaret"
             ],
             "type": "optional",
             "when": "hasFakeCaret"

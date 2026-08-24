@@ -347,9 +347,12 @@ defmodule LiveShadcn.UI.Sidebar do
   end
 
   @doc "The `sidebar-menu-button` part."
+  attr(:comp, :string, default: nil)
+  attr(:is_active, :boolean, default: false)
   attr(:is_mobile, :string, default: nil)
   attr(:size, :string, default: "default", values: ["default", "lg", "sm"])
   attr(:state, :string, default: nil)
+  attr(:tooltip, :string, default: nil)
   attr(:variant, :string, default: "default", values: ["default", "outline"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
@@ -441,7 +444,8 @@ defmodule LiveShadcn.UI.Sidebar do
   end
 
   @doc "The `sidebar-menu-sub-button` part."
-  attr(:size, :string, default: "md")
+  attr(:is_active, :boolean, default: false)
+  attr(:size, :string, default: "md", values: ["sm", "md"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "href", "target", "rel", "download", "hreflang"])
   slot(:inner_block)

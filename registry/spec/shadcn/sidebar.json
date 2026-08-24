@@ -14,6 +14,7 @@
         "collapsible": "offcanvas",
         "dir": null,
         "side": "left",
+        "state": null,
         "variant": "sidebar"
       },
       "primitive": null,
@@ -29,21 +30,34 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "state"
+            ],
             "kind": "code",
             "name": "data-state",
             "value": "state"
           },
           {
+            "identifiers": [
+              "collapsible",
+              "state"
+            ],
             "kind": "code",
             "name": "data-collapsible",
             "value": "state === \"collapsed\" ? collapsible : \"\""
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
           },
           {
+            "identifiers": [
+              "side"
+            ],
             "kind": "code",
             "name": "data-side",
             "value": "side"
@@ -80,6 +94,9 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "side"
+                ],
                 "kind": "code",
                 "name": "data-side",
                 "value": "side"
@@ -668,9 +685,12 @@
       "name": "sidebar_menu_button",
       "params": {
         "className": null,
+        "comp": null,
         "isActive": "false",
+        "isMobile": null,
         "render": null,
         "size": "default",
+        "state": null,
         "tooltip": null,
         "variant": "default"
       },
@@ -696,6 +716,9 @@
             ],
             "class": "",
             "class_when": [],
+            "identifiers": [
+              "comp"
+            ],
             "merges_class": true,
             "props": true,
             "reads": {
@@ -743,6 +766,10 @@
                 "value": "center"
               },
               {
+                "identifiers": [
+                  "isMobile",
+                  "state"
+                ],
                 "kind": "code",
                 "name": "hidden",
                 "value": "state !== \"collapsed\" || isMobile"
@@ -839,7 +866,8 @@
       "name": "sidebar_menu_skeleton",
       "params": {
         "className": null,
-        "showIcon": "false"
+        "showIcon": "false",
+        "width": null
       },
       "primitive": null,
       "refs": [
@@ -887,6 +915,9 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "showIcon"
+            ],
             "type": "optional",
             "when": "showIcon"
           },
@@ -898,6 +929,11 @@
                 "value": "menu-skeleton-text"
               },
               {
+                "identifiers": [
+                  "CSSProperties",
+                  "React",
+                  "width"
+                ],
                 "kind": "style",
                 "name": "style",
                 "value": [
@@ -1133,6 +1169,13 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "CSSProperties",
+                  "React",
+                  "SIDEBAR_WIDTH",
+                  "SIDEBAR_WIDTH_ICON",
+                  "style"
+                ],
                 "kind": "style",
                 "name": "style",
                 "value": [

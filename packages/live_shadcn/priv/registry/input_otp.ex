@@ -32,6 +32,7 @@ defmodule LiveShadcn.UI.InputOtp do
   attr(:disabled, :boolean, default: false)
   attr(:readonly, :boolean, default: false)
   attr(:required, :boolean, default: false)
+  attr(:container_class_name, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
   attr(:rest, :global,
@@ -103,6 +104,7 @@ defmodule LiveShadcn.UI.InputOtp do
   @doc "The `input-otp-slot` part."
   attr(:char, :string, default: nil)
   attr(:has_fake_caret, :string, default: nil)
+  attr(:index, :integer, default: nil)
   attr(:is_active, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
