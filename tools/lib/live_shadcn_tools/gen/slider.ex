@@ -68,11 +68,6 @@ defmodule LiveShadcnTools.Gen.Slider do
       defp flag(_state), do: nil
     end
     """
-    |> String.replace(
-      "cn-slider-range select-none",
-      "cn-slider-range relative select-none",
-      global: false
-    )
   end
 
   defp roles!(spec) do
@@ -105,7 +100,10 @@ defmodule LiveShadcnTools.Gen.Slider do
   # adds is the input inside each thumb — the control itself, which upstream
   # gets from Base UI and this has to write.
   defp markup(spec, roles) do
-    tree = Heex.with_children_at(roles.root.part["tree"], Spec.key(roles.thumb.node))
+    tree =
+      roles.root.part["tree"]
+      |> Heex.with_children_at(Spec.key(roles.thumb.node))
+      |> add_class_at(Spec.key(roles.indicator.node), "relative")
 
     Heex.render(tree, %{
       attrs: attributes(roles),
@@ -123,6 +121,27 @@ defmodule LiveShadcnTools.Gen.Slider do
       hook_part: Spec.key(roles.root.node),
       rest: true
     })
+  end
+
+  # The hook sets the range width. Its positioning is part of that behaviour,
+  # not a replacement over generated source.
+  defp add_class_at(%{"module" => module, "part" => part} = node, key, class) do
+    if "#{module}.#{part}" == key do
+      Map.update(node, "class", class, fn current -> Enum.join([current, class], " ") end)
+    else
+      add_class_at_children(node, key, class)
+    end
+  end
+
+  defp add_class_at(node, key, class) when is_map(node),
+    do: add_class_at_children(node, key, class)
+
+  defp add_class_at(node, _key, _class), do: node
+
+  defp add_class_at_children(node, key, class) do
+    Map.update(node, "children", [], fn children ->
+      Enum.map(children, &add_class_at(&1, key, class))
+    end)
   end
 
   # Invisible, and over its own thumb. `opacity: 0` rather than `hidden`,
