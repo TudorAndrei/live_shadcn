@@ -1,5 +1,11 @@
 {
   "anatomy": [],
+  "classes": {
+    "day_button": "cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full items-center justify-center border-0 leading-none font-normal rdp-day_button data-[selected=true]:bg-primary data-[selected=true]:text-primary-foreground",
+    "next_button": "cn-button group/button inline-flex size-(--cell-size) items-center justify-center p-0 rdp-button_next",
+    "previous_button": "cn-button group/button inline-flex size-(--cell-size) items-center justify-center p-0 rdp-button_previous",
+    "root": "cn-calendar group/calendar bg-background w-fit rdp-root"
+  },
   "css_vars": [],
   "generated_by": "calendar recipe",
   "name": "calendar",

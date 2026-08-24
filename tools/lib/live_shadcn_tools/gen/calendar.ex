@@ -5,6 +5,8 @@ defmodule LiveShadcnTools.Gen.Calendar do
 
   @doc "The module source for one calendar component."
   def module(spec, opts) do
+    classes = spec["classes"]
+
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
     #{moduledoc(spec)}
@@ -26,11 +28,11 @@ defmodule LiveShadcnTools.Gen.Calendar do
         assigns = assign(assigns, :weeks, month_weeks(assigns.month, assigns.week_starts_on))
 
         ~H\"\"\"
-        <section id={@id} phx-hook={if @locale == "browser", do: CalendarHook.hook()} data-lb-calendar-locale={@locale} data-slot="calendar" style="min-width: 157px" class={["cn-calendar group/calendar bg-background w-fit rdp-root", @class]} {@rest}>
+        <section id={@id} phx-hook={if @locale == "browser", do: CalendarHook.hook()} data-lb-calendar-locale={@locale} data-slot="calendar" style="min-width: 157px" class={[#{inspect(classes["root"])}, @class]} {@rest}>
           <div class="relative flex h-9 items-center justify-center px-9 text-sm font-medium rdp-month_caption">
-            <button type="button" aria-label="Go to the previous month" style="position: absolute; left: 0" class="cn-button group/button inline-flex size-(--cell-size) items-center justify-center p-0 rdp-button_previous">‹</button>
+            <button type="button" aria-label="Go to the previous month" style="position: absolute; left: 0" class=#{inspect(classes["previous_button"])}>‹</button>
             <span data-lb-calendar-month={Date.to_iso8601(@month)} class="rdp-caption_label">{Calendar.strftime(@month, "%B %Y")}</span>
-            <button type="button" aria-label="Go to the next month" style="position: absolute; right: 0" class="cn-button group/button inline-flex size-(--cell-size) items-center justify-center p-0 rdp-button_next">›</button>
+            <button type="button" aria-label="Go to the next month" style="position: absolute; right: 0" class=#{inspect(classes["next_button"])}>›</button>
           </div>
           <table style="margin-bottom: 13px" class="w-full border-collapse rdp-month_grid" role="grid" aria-label={Calendar.strftime(@month, "%B %Y")}>
             <thead>
@@ -45,7 +47,7 @@ defmodule LiveShadcnTools.Gen.Calendar do
                     type="button"
                     data-day={Date.to_iso8601(day)}
                     data-selected={to_string(day == @selected)}
-                    class={["cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full items-center justify-center border-0 leading-none font-normal rdp-day_button data-[selected=true]:bg-primary data-[selected=true]:text-primary-foreground", if(day.month != @month.month, do: "text-muted-foreground opacity-50 rdp-outside") ]}
+                    class={[#{inspect(classes["day_button"])}, if(day.month != @month.month, do: "text-muted-foreground opacity-50 rdp-outside") ]}
                   >
                     {day.day}
                   </button>
