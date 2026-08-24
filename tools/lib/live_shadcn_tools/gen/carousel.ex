@@ -11,6 +11,9 @@ defmodule LiveShadcnTools.Gen.Carousel do
 
   @doc "The module source for one carousel component."
   def module(spec, opts) do
+    previous = part!(spec, "carousel_previous")
+    next = part!(spec, "carousel_next")
+
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
     #{moduledoc(spec)}
@@ -91,52 +94,53 @@ defmodule LiveShadcnTools.Gen.Carousel do
       attr :class, :any, default: nil
       attr :rest, :global, include: ["data-slot"]
 
-      def carousel_previous(assigns) do
-        ~H\"\"\"
-        <button
-          type="button"
-          data-lb-carousel-previous
-          data-slot="carousel-previous"
-          phx-mounted={Carousel.owned_attributes()}
-          class={[
-            "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 cn-button-size-icon-sm cn-button-variant-outline cn-carousel-previous absolute touch-manipulation",
-            if(@orientation == "horizontal", do: "inset-y-0 -left-12 my-auto", else: "-top-12 left-1/2 -translate-x-1/2 rotate-90"),
-            @class
-          ]}
-          {@rest}
-        >
-          <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip" />
-          <span class="sr-only">Previous slide</span>
-        </button>
-        \"\"\"
-      end
+    #{control(previous, "previous", "chevron-left")}
 
       attr :orientation, :string, default: "horizontal", values: ["horizontal", "vertical"]
       attr :class, :any, default: nil
       attr :rest, :global, include: ["data-slot"]
 
-      def carousel_next(assigns) do
+    #{control(next, "next", "chevron-right")}
+    end
+    """
+  end
+
+  defp part!(spec, name), do: Enum.find(spec["parts"], &(&1["name"] == name))
+
+  # The controls are Button parts in upstream. Calling Button carries its
+  # classes and variant table from its own specification, rather than copying
+  # them into this recipe.
+  defp control(part, direction, icon) do
+    tree = part["tree"]
+    [icon_node, label_node] = tree["children"]
+    [position] = tree["class_when"]
+
+    """
+      def carousel_#{direction}(assigns) do
         ~H\"\"\"
-        <button
+        <LiveShadcn.UI.Button.button
           type="button"
-          data-lb-carousel-next
-          data-slot="carousel-next"
+          variant="outline"
+          size="icon-sm"
+          data-lb-carousel-#{direction}
+          data-slot="carousel-#{direction}"
           phx-mounted={Carousel.owned_attributes()}
           class={[
-            "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 cn-button-size-icon-sm cn-button-variant-outline cn-carousel-next absolute touch-manipulation",
-            if(@orientation == "horizontal", do: "inset-y-0 -right-12 my-auto", else: "-bottom-12 left-1/2 -translate-x-1/2 rotate-90"),
+            #{inspect(tree["class"])},
+            if(@orientation == "horizontal", do: #{inspect(position["then"])}, else: #{inspect(position["else"])}) ,
             @class
           ]}
           {@rest}
         >
-          <LiveShadcn.Icon.icon name="chevron-right" class="cn-rtl-flip" />
-          <span class="sr-only">Next slide</span>
-        </button>
+          <LiveShadcn.Icon.icon name=#{inspect(icon)} class=#{inspect(icon_node["class"])} />
+          <span class=#{inspect(label_node["class"])}>#{label(label_node)}</span>
+        </LiveShadcn.UI.Button.button>
         \"\"\"
       end
-    end
     """
   end
+
+  defp label(%{"children" => [%{"value" => value}]}), do: value
 
   defp declarations do
     """

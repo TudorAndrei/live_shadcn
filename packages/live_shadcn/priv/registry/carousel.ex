@@ -116,13 +116,15 @@ defmodule LiveShadcn.UI.Carousel do
 
   def carousel_previous(assigns) do
     ~H"""
-    <button
+    <LiveShadcn.UI.Button.button
       type="button"
+      variant="outline"
+      size="icon-sm"
       data-lb-carousel-previous
       data-slot="carousel-previous"
       phx-mounted={Carousel.owned_attributes()}
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 cn-button-size-icon-sm cn-button-variant-outline cn-carousel-previous absolute touch-manipulation",
+        "cn-carousel-previous absolute touch-manipulation",
         if(@orientation == "horizontal",
           do: "inset-y-0 -left-12 my-auto",
           else: "-top-12 left-1/2 -translate-x-1/2 rotate-90"
@@ -133,7 +135,7 @@ defmodule LiveShadcn.UI.Carousel do
     >
       <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip" />
       <span class="sr-only">Previous slide</span>
-    </button>
+    </LiveShadcn.UI.Button.button>
     """
   end
 
@@ -143,13 +145,15 @@ defmodule LiveShadcn.UI.Carousel do
 
   def carousel_next(assigns) do
     ~H"""
-    <button
+    <LiveShadcn.UI.Button.button
       type="button"
+      variant="outline"
+      size="icon-sm"
       data-lb-carousel-next
       data-slot="carousel-next"
       phx-mounted={Carousel.owned_attributes()}
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 cn-button-size-icon-sm cn-button-variant-outline cn-carousel-next absolute touch-manipulation",
+        "cn-carousel-next absolute touch-manipulation",
         if(@orientation == "horizontal",
           do: "inset-y-0 -right-12 my-auto",
           else: "-bottom-12 left-1/2 -translate-x-1/2 rotate-90"
@@ -160,7 +164,7 @@ defmodule LiveShadcn.UI.Carousel do
     >
       <LiveShadcn.Icon.icon name="chevron-right" class="cn-rtl-flip" />
       <span class="sr-only">Next slide</span>
-    </button>
+    </LiveShadcn.UI.Button.button>
     """
   end
 end
