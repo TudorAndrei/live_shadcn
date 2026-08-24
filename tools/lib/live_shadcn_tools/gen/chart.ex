@@ -17,9 +17,11 @@ defmodule LiveShadcnTools.Gen.Chart do
       slot :inner_block, required: true
 
       def chart_container(assigns) do
+        assigns = assign(assigns, :chart_style, chart_style("chart-" <> assigns.id, assigns.config))
+
         ~H\"\"\"
         <div data-slot="chart" data-chart={"chart-" <> @id} class={["cn-chart flex aspect-video justify-center text-xs", @class]} {@rest}>
-          <style :if={map_size(@config) > 0}>{chart_style("chart-" <> @id, @config)}</style>
+          <style :if={map_size(@config) > 0}>{@chart_style}</style>
           {render_slot(@inner_block)}
         </div>
         \"\"\"

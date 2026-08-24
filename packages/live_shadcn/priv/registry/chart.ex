@@ -12,6 +12,8 @@ defmodule LiveShadcn.UI.Chart do
   slot(:inner_block, required: true)
 
   def chart_container(assigns) do
+    assigns = assign(assigns, :chart_style, chart_style("chart-" <> assigns.id, assigns.config))
+
     ~H"""
     <div
       data-slot="chart"
@@ -20,7 +22,7 @@ defmodule LiveShadcn.UI.Chart do
       {@rest}
     >
       <style :if={map_size(@config) > 0}>
-        {chart_style("chart-" <> @id, @config)}
+        {@chart_style}
       </style>
       {render_slot(@inner_block)}
     </div>
