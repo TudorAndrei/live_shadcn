@@ -80,13 +80,13 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ### 7a — Three gates are red at HEAD
 
-- [ ] `mix ui.gen` — seven components are stale: `shadcn/input`, `input-group`,
+- [x] `mix ui.gen` — regenerated seven stale components: `shadcn/input`, `input-group`,
       `questionnaire`, `sidebar`, `ai_elements/chain-of-thought`, `checkpoint`,
       `snippet`
-- [ ] `mix snapshot` — `chain-of-thought-default` follows from the above
-- [ ] Delete or wire up the `navigation-menu` recipe. It is 141 lines, no
+- [x] `mix snapshot` — regenerated `chain-of-thought-default`
+- [x] Delete the unused `navigation-menu` recipe. It was 141 lines, no
       component names it, and `LiveShadcnTools.GenTest` fails on it
-- [ ] All three gates green: `mix ui.gen --check`, `mix snapshot --check`,
+- [x] All three gates green: `mix ui.gen --check`, `mix snapshot --check`,
       `mix test` in `tools/`
 
 ### 7b — Stop retyping upstream class strings
