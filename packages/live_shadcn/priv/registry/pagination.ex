@@ -95,12 +95,15 @@ defmodule LiveShadcn.UI.Pagination do
     ~H"""
     <a
       data-slot={@rest[:"data-slot"] || "pagination-link"}
-      variant={if(@is_active, do: "outline", else: "ghost")}
-      size={@size}
-      nativeButton={false}
       aria-current={if(@is_active, do: "page", else: nil)}
       data-active={@is_active}
-      class="cn-pagination-link"
+      class={[
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        button_class("size", @size),
+        button_class("variant", if(@is_active, do: "outline", else: "ghost")),
+        "cn-pagination-link",
+        @class
+      ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -153,4 +156,27 @@ defmodule LiveShadcn.UI.Pagination do
     </.pagination_link>
     """
   end
+
+  @pagination_button_variants %{
+    "size" => %{
+      "default" => "cn-button-size-default",
+      "icon" => "cn-button-size-icon",
+      "icon-lg" => "cn-button-size-icon-lg",
+      "icon-sm" => "cn-button-size-icon-sm",
+      "icon-xs" => "cn-button-size-icon-xs",
+      "lg" => "cn-button-size-lg",
+      "sm" => "cn-button-size-sm",
+      "xs" => "cn-button-size-xs"
+    },
+    "variant" => %{
+      "default" => "cn-button-variant-default",
+      "destructive" => "cn-button-variant-destructive",
+      "ghost" => "cn-button-variant-ghost",
+      "link" => "cn-button-variant-link",
+      "outline" => "cn-button-variant-outline",
+      "secondary" => "cn-button-variant-secondary"
+    }
+  }
+
+  defp button_class(group, value), do: get_in(@pagination_button_variants, [group, value])
 end

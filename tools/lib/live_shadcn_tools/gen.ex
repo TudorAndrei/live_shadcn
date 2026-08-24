@@ -17,6 +17,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.FormControl
   alias LiveShadcnTools.Gen.Listbox
   alias LiveShadcnTools.Gen.Menu
+  alias LiveShadcnTools.Gen.Pagination
   alias LiveShadcnTools.Gen.Popover
   alias LiveShadcnTools.Gen.Progress
   alias LiveShadcnTools.Gen.Presentational
@@ -36,6 +37,7 @@ defmodule LiveShadcnTools.Gen do
     "form-control" => FormControl,
     "listbox" => Listbox,
     "menu" => Menu,
+    "pagination" => Pagination,
     "popover" => Popover,
     "progress" => Progress,
     "presentational" => Presentational,

@@ -555,7 +555,7 @@
     {
       "name": "pagination",
       "source": "shadcn",
-      "recipe": "presentational",
+      "recipe": "pagination",
       "tier": 2
     },
     {

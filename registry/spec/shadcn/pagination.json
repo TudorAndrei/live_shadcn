@@ -516,7 +516,7 @@
     }
   ],
   "primitives": {},
-  "recipe": "presentational",
+  "recipe": "pagination",
   "source": "shadcn",
   "styles": {
     "luma": {
