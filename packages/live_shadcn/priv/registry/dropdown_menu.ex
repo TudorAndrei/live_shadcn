@@ -60,7 +60,6 @@ defmodule LiveShadcn.UI.DropdownMenu do
     ~H"""
     <div
       id={@id}
-      data-slot="dropdown-menu"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}

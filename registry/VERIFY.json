@@ -605,14 +605,13 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/dropdown-menu.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "8baa1791c724490b654ce4c187058c188d200e7e7da66a18e049d1da92b231f3"
   },
   "shadcn/dialog": {
