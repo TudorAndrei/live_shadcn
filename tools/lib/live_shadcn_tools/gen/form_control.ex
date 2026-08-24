@@ -204,12 +204,26 @@ defmodule LiveShadcnTools.Gen.FormControl do
     node = part["tree"]
     tag = Heex.tag_of(node)
 
-    %{
-      Spec.key(node) =>
-        identity(shape, tag, role!(node, shape), hidden_input?(part, spec)) ++
-          state(node, spec, shape)
-    }
+    attributes =
+      identity(shape, tag, role!(node, shape), hidden_input?(part, spec)) ++
+        state(node, spec, shape)
+
+    %{Spec.key(node) => own(attributes, node)}
   end
+
+  # A control that renders another control does not restate the other's
+  # behaviour. `input-group`'s input renders `shadcn/input`, which mounts its
+  # own `phx-mounted`; passing one in went through `:global` and the element
+  # came out carrying the attribute twice.
+  #
+  # Its identity does come from here. `id`, `name` and `value` are what the
+  # caller gives this component and what it has to hand on.
+  @owned_by_the_callee ~w(phx-mounted)
+
+  defp own(attributes, %{"type" => "component_ref"}),
+    do: Enum.reject(attributes, fn {name, _kind, _value} -> name in @owned_by_the_callee end)
+
+  defp own(attributes, _node), do: attributes
 
   # A plain `<input>` is already the control a form submits and a reader
   # operates. It needs its identity and its value, and nothing else: no role to

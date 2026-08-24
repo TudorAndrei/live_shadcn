@@ -62,32 +62,41 @@ defmodule LiveShadcnTools.Gen do
   compiled. Its snapshot was stable. What caught it was axe-core noticing a
   button with no text, three checks and one browser later, and nothing in that
   report said "this component contains itself".
+
+  Asked of one function at a time. Two functions in a module each writing
+  `id={@id}` are two components, each with one id — `input-group` has two
+  because a group takes either an `<input>` or a `<textarea>` — and only a page
+  that called both with the same id would have a duplicate, which is the
+  caller's to avoid.
   """
   def unique_ids!({:ok, source}) do
-    duplicated =
-      ~r/\bid=\{([^}]+)\}/
-      |> Regex.scan(source, capture: :all_but_first)
-      |> List.flatten()
-      |> Enum.frequencies()
-      |> Enum.filter(fn {_expression, count} -> count > 1 end)
+    case source |> String.split(~r/^  def /m) |> Enum.flat_map(&repeated_ids/1) do
+      [] ->
+        {:ok, source}
 
-    if duplicated == [] do
-      {:ok, source}
-    else
-      names =
-        Enum.map_join(duplicated, ", ", fn {expression, count} -> "#{expression} × #{count}" end)
+      duplicated ->
+        names =
+          Enum.map_join(duplicated, ", ", fn {expression, count} -> "#{expression} × #{count}" end)
 
-      raise """
-      the same element id is rendered more than once: #{names}
+        raise """
+        the same element id is rendered more than once: #{names}
 
-      An id is unique on a page, and every `aria-controls` this pipeline emits \
-      names one. Rendering it twice means the recipe assembled a part twice — \
-      a component that contains itself, most likely.
-      """
+        An id is unique on a page, and every `aria-controls` this pipeline emits \
+        names one. Rendering it twice means the recipe assembled a part twice — \
+        a component that contains itself, most likely.
+        """
     end
   end
 
   def unique_ids!(other), do: other
+
+  defp repeated_ids(body) do
+    ~r/\bid=\{([^}]+)\}/
+    |> Regex.scan(body, capture: :all_but_first)
+    |> List.flatten()
+    |> Enum.frequencies()
+    |> Enum.filter(fn {_expression, count} -> count > 1 end)
+  end
 
   @doc """
   Refuses a component that names a module the host application will not have.

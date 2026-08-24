@@ -86,6 +86,9 @@
   "native-select": [
     "default"
   ],
+  "input-group": [
+    "default"
+  ],
   "pagination": [
     "default"
   ],

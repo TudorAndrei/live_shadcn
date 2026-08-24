@@ -39,6 +39,7 @@ defmodule StorybookWeb.Examples do
   import LiveShadcn.UI.Dialog
   import LiveShadcn.UI.DropdownMenu
   import LiveShadcn.UI.Input
+  import LiveShadcn.UI.InputGroup
   import LiveShadcn.UI.Label
   import LiveShadcn.UI.Switch
   import LiveShadcn.UI.Textarea
@@ -78,7 +79,7 @@ defmodule StorybookWeb.Examples do
   def components do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button
        button-group card checkbox collapsible combobox context-menu dialog dropdown-menu empty hover-card input item kbd label marker
-       native-select navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
+       input-group native-select navigation-menu pagination popover progress radio-group select separator sheet skeleton spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        question snippet shadcn-message ai_elements-message)
   end
 
@@ -171,6 +172,17 @@ defmodule StorybookWeb.Examples do
         "A turn in a conversation",
         "The assistant's side, with the answer inside it.",
         &ai_message_default/1
+      )
+    ]
+  end
+
+  def all("input-group") do
+    [
+      one(
+        "default",
+        "A field with something beside it",
+        "An addon on each side of the input, sharing one box.",
+        &input_group_default/1
       )
     ]
   end
@@ -955,6 +967,20 @@ defmodule StorybookWeb.Examples do
         <AiMessage.message_response content="It is **18 degrees** and clear in Cluj." />
       </AiMessage.message_content>
     </AiMessage.message>
+    """
+  end
+
+  defp input_group_default(assigns) do
+    ~H"""
+    <.input_group class="max-w-sm">
+      <.input_group_addon align="inline-start">
+        <.input_group_text>https://</.input_group_text>
+      </.input_group_addon>
+      <.input_group_input id="site" name="site" value="hex.pm" aria-label="Site" />
+      <.input_group_addon align="inline-end">
+        <.input_group_text>/packages</.input_group_text>
+      </.input_group_addon>
+    </.input_group>
     """
   end
 

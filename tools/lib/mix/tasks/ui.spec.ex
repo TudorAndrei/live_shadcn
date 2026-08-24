@@ -132,8 +132,10 @@ defmodule Mix.Tasks.Ui.Spec do
   defp one({source, name}, manifest, recipes, styles, check?) do
     tsx_file = tsx_file(source, name)
     md_file = "base_ui/#{name}.md"
+    recipe = Map.get(recipes, {source, name}, "unassigned")
 
-    with {:ok, tsx} <- source(manifest, tsx_file),
+    with :component <- utility(recipe),
+         {:ok, tsx} <- source(manifest, tsx_file),
          {:ok, pages} <- extra_pages(tsx, manifest, name) do
       # A component with no Base UI page is a component with no behaviour: a
       # card is a `<div>` with a class string. It specs from the `.tsx` alone.
@@ -151,7 +153,7 @@ defmodule Mix.Tasks.Ui.Spec do
           styles: styles,
           source: source,
           resolve: &resolve_spec/2,
-          recipe: Map.get(recipes, {source, name}, "unassigned"),
+          recipe: recipe,
           upstream: %{
             "shadcn" => %{"file" => tsx_file, "sha256" => digest(tsx)},
             "base_ui" => Map.new(pages, fn {mod, md} -> {mod, digest(md)} end)
@@ -164,6 +166,14 @@ defmodule Mix.Tasks.Ui.Spec do
     error ->
       {:unreadable, ref(source, name), Exception.message(error) |> String.split("\n") |> hd()}
   end
+
+  # Not every file in the registry is a component. `direction` re-exports Base
+  # UI's `DirectionProvider` and a hook, and renders nothing at all: what it
+  # provides, HTML already has as `dir`. The inventory says so with the
+  # `utility` recipe, and a component with nothing to read is not a component
+  # the reader failed on.
+  defp utility("utility"), do: :utility
+  defp utility(_recipe), do: :component
 
   defp tsx_file("shadcn", name), do: "shadcn/ui/#{name}.tsx"
   defp tsx_file("ai_elements", name), do: "ai_elements/#{name}.tsx"
@@ -235,6 +245,7 @@ defmodule Mix.Tasks.Ui.Spec do
     for {:stale, file} <- results,
         do: Mix.shell().error("  skip: #{file} does not match its digest. Run `mix ui.fetch`.")
 
+    utilities = for :utility <- results, do: :utility
     unreadable = for {:unreadable, name, why} <- results, do: "#{name}: #{why}"
     outdated = for {:outdated, name} <- results, do: name
     wrote = for {:wrote, name} <- results, do: name
@@ -253,7 +264,9 @@ defmodule Mix.Tasks.Ui.Spec do
         Mix.raise("stale specs: #{Enum.join(outdated, ", ")}. Run `mix ui.spec`.")
 
       check? ->
-        Mix.shell().info("every spec is current (#{length(results) - length(unreadable)})")
+        Mix.shell().info(
+          "every spec is current (#{length(results) - length(unreadable) - length(utilities)})"
+        )
 
       true ->
         Mix.shell().info("wrote #{length(wrote)} spec(s)")
