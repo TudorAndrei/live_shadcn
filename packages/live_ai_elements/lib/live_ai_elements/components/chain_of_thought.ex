@@ -73,6 +73,9 @@ defmodule LiveAiElements.Components.ChainOfThought do
       >
         <LiveShadcn.Icon.icon name="brain" class="size-4" />
         <span class="flex-1 text-left">
+          <%= if @inner_block == [] do %>
+            Chain of Thought
+          <% end %>
           {@title}
         </span>
         <LiveShadcn.Icon.icon

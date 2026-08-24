@@ -118,6 +118,9 @@ defmodule LiveShadcn.UI.Breadcrumb do
       class={["cn-breadcrumb-separator", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
+      <%= if @inner_block == [] do %>
+        <LiveShadcn.Icon.icon name="chevron-right" class="cn-rtl-flip" />
+      <% end %>
       {render_slot(@inner_block)}
     </li>
     """

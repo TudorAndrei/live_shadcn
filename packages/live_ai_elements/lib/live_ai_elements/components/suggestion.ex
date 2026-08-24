@@ -86,6 +86,9 @@ defmodule LiveAiElements.Components.Suggestion do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
+      <%= if @inner_block == [] do %>
+        {@suggestion}
+      <% end %>
       {render_slot(@inner_block)}
     </button>
     """

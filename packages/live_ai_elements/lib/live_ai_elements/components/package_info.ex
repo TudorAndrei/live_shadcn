@@ -34,6 +34,9 @@ defmodule LiveAiElements.Components.PackageInfo do
     <div class={["flex items-center gap-2", @class]} {@rest}>
       <LiveShadcn.Icon.icon name="package" class="size-4 text-muted-foreground" />
       <span class="font-medium font-mono text-sm">
+        <%= if @inner_block == [] do %>
+          {@name}
+        <% end %>
         {render_slot(@inner_block)}
       </span>
     </div>
@@ -68,6 +71,9 @@ defmodule LiveAiElements.Components.PackageInfo do
       <LiveShadcn.Icon.icon :if={@change_type == "minor"} name="arrow-right" class="size-3" />
       <LiveShadcn.Icon.icon :if={@change_type == "patch"} name="arrow-right" class="size-3" />
       <LiveShadcn.Icon.icon :if={@change_type == "removed"} name="minus" class="size-3" />
+      <%= if @inner_block == [] do %>
+        {@change_type}
+      <% end %>
       {render_slot(@inner_block)}
     </span>
     """
@@ -86,6 +92,19 @@ defmodule LiveAiElements.Components.PackageInfo do
       class={["mt-2 flex items-center gap-2 font-mono text-muted-foreground text-sm", @class]}
       {@rest}
     >
+      <%= if @inner_block == [] do %>
+        <span :if={@current_version}>
+          {@current_version}
+        </span>
+        <LiveShadcn.Icon.icon
+          :if={@current_version && @new_version}
+          name="arrow-right"
+          class="size-3"
+        />
+        <span :if={@new_version} class="font-medium text-foreground">
+          {@new_version}
+        </span>
+      <% end %>
       {render_slot(@inner_block)}
     </div>
     """
@@ -102,6 +121,13 @@ defmodule LiveAiElements.Components.PackageInfo do
   def package_info(assigns) do
     ~H"""
     <div class={["rounded-lg border bg-background p-4", @class]} {@rest}>
+      <%= if @inner_block == [] do %>
+        <.package_info_header>
+          <.package_info_name />
+          <.package_info_change_type :if={@change_type} />
+        </.package_info_header>
+        <.package_info_version :if={@current_version || @new_version} />
+      <% end %>
       {render_slot(@inner_block)}
     </div>
     """
@@ -164,6 +190,14 @@ defmodule LiveAiElements.Components.PackageInfo do
   def package_info_dependency(assigns) do
     ~H"""
     <div class={["flex items-center justify-between text-sm", @class]} {@rest}>
+      <%= if @inner_block == [] do %>
+        <span class="font-mono text-muted-foreground">
+          {@name}
+        </span>
+        <span :if={@version} class="font-mono text-xs">
+          {@version}
+        </span>
+      <% end %>
       {render_slot(@inner_block)}
     </div>
     """

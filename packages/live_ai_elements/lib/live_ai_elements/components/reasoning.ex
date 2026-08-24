@@ -47,6 +47,7 @@ defmodule LiveAiElements.Components.Reasoning do
 
   slot(:inner_block, required: true, doc: "The panel body.")
   attr(:content, :any, default: nil)
+  slot(:get_thinking_message)
 
   def reasoning(assigns) do
     ~H"""
@@ -73,6 +74,14 @@ defmodule LiveAiElements.Components.Reasoning do
           @trigger_class
         ]}
       >
+        <%= if @inner_block == [] do %>
+          <LiveShadcn.Icon.icon name="brain" class="size-4" />
+          {render_slot(@get_thinking_message)}
+          <LiveShadcn.Icon.icon
+            name="chevron-down"
+            class={["size-4 transition-transform", if(@open, do: "rotate-180", else: "rotate-0")]}
+          />
+        <% end %>
         {@title}
       </button>
       <div

@@ -30,6 +30,12 @@ defmodule LiveShadcn.UI.Sheet do
   attr(:alert, :boolean, default: false, doc: "An alert dialog interrupts; a dialog does not.")
   attr(:dismissable, :boolean, default: true, doc: "Whether Escape and the backdrop close it.")
   attr(:disabled, :boolean, default: false, doc: "Whether the trigger refuses interaction.")
+
+  attr(:show_close_button, :boolean,
+    default: true,
+    doc: "Whether the popup draws its own close button."
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the dialog's own class string.")
   attr(:close_class, :any, default: nil)
   attr(:description_class, :any, default: nil)
@@ -123,6 +129,7 @@ defmodule LiveShadcn.UI.Sheet do
           {render_slot(@footer)}
         </div>
         <LiveShadcn.UI.Button.button
+          :if={@show_close_button}
           data-slot="sheet-close"
           type="button"
           phx-click={Dialog.close(@id)}

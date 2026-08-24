@@ -56,6 +56,7 @@ defmodule LiveAiElements.Components.Attachments do
   attr(:variant, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
+  slot(:render_content)
   slot(:inner_block)
 
   def attachment_preview(assigns) do
@@ -92,7 +93,7 @@ defmodule LiveAiElements.Components.Attachments do
         {@label}
       </span>
       <span
-        :if={@show_media_type and @data.mediaType}
+        :if={@show_media_type && @data.mediaType}
         class="block truncate text-muted-foreground text-xs"
       >
         {@data.mediaType}
@@ -133,6 +134,9 @@ defmodule LiveAiElements.Components.Attachments do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
+      <%= if @inner_block == [] do %>
+        <LiveShadcn.Icon.icon name="x" />
+      <% end %>
       {render_slot(@inner_block)}
       <span class="sr-only">
         {@label}
@@ -217,6 +221,9 @@ defmodule LiveAiElements.Components.Attachments do
       class={["flex items-center justify-center p-4 text-muted-foreground text-sm", @class]}
       {@rest}
     >
+      <%= if @inner_block == [] do %>
+        No attachments
+      <% end %>
       {render_slot(@inner_block)}
     </div>
     """

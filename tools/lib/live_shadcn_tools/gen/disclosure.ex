@@ -401,13 +401,24 @@ defmodule LiveShadcnTools.Gen.Disclosure do
       |> Regex.scan(declarations, capture: :all_but_first)
       |> List.flatten()
 
+    # A name the markup hands to `render_slot/1` is a slot, and declaring it an
+    # attribute makes the component raise on the render prop it was written for.
+    rendered =
+      ~r/render_slot\(@([a-z_][A-Za-z0-9_]*)\)/
+      |> Regex.scan(markup, capture: :all_but_first)
+      |> List.flatten()
+
     ~r/@([a-z_][A-Za-z0-9_]*)/
     |> Regex.scan(markup, capture: :all_but_first)
     |> List.flatten()
     |> Enum.uniq()
     |> Enum.sort()
     |> Kernel.--(declared)
-    |> Enum.map_join(fn name -> "  attr :#{name}, :any, default: nil\n" end)
+    |> Enum.map_join(fn name ->
+      if name in rendered,
+        do: "  slot :#{name}\n",
+        else: "  attr :#{name}, :any, default: nil\n"
+    end)
   end
 
   defp declarations(spec, roles, %{subject: "item"}) do

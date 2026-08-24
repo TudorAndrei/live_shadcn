@@ -151,6 +151,10 @@ defmodule LiveAiElements.Components.Snippet do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
+      <%= if @inner_block == [] do %>
+        <LiveShadcn.Icon.icon :if={@is_copied} name="check" class="size-3.5" />
+        <LiveShadcn.Icon.icon :if={!@is_copied} name="copy" class="size-3.5" />
+      <% end %>
       {render_slot(@inner_block)}
     </button>
     """

@@ -170,6 +170,9 @@ defmodule LiveAiElements.Components.Message do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
+      <%= if @inner_block == [] do %>
+        <LiveShadcn.Icon.icon name="chevron-left" />
+      <% end %>
       {render_slot(@inner_block)}
     </button>
     """
@@ -207,6 +210,9 @@ defmodule LiveAiElements.Components.Message do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
+      <%= if @inner_block == [] do %>
+        <LiveShadcn.Icon.icon name="chevron-right" />
+      <% end %>
       {render_slot(@inner_block)}
     </button>
     """

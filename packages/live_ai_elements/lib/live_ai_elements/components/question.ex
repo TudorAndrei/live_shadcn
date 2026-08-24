@@ -106,6 +106,9 @@ defmodule LiveAiElements.Components.Question do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
+      <%= if @inner_block == [] do %>
+        {@value}
+      <% end %>
       {render_slot(@inner_block)}
     </button>
     """

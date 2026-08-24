@@ -69,9 +69,13 @@ defmodule LiveShadcnTools.Gen.Presentational do
     variants = variant_table_of(part, spec)
     paths = path_roots(part)
 
+    # A render prop is declared as a slot, and a name cannot be both.
+    rendered = Heex.slots(part["tree"])
+
     part
     |> Map.get("params", %{})
     |> Map.drop(["className", "children", "render"])
+    |> Map.reject(fn {name, _default} -> Macro.underscore(name) in rendered end)
     |> Enum.sort()
     |> Enum.map(fn {name, default} ->
       # The `cva` table's `defaultVariants` is as much upstream's decision as
@@ -126,8 +130,13 @@ defmodule LiveShadcnTools.Gen.Presentational do
   defp literal(":boolean", "false"), do: false
   defp literal(_type, default), do: default
 
+  # A render prop is a slot, and a slot rendered but not declared raises on the
+  # component's first render.
   defp slot(part) do
-    if Heex.marker?(tree(part)), do: "  slot :inner_block\n", else: ""
+    named = Enum.map_join(Heex.slots(tree(part)), &"  slot :#{&1}\n")
+    inner = if Heex.marker?(tree(part)), do: "  slot :inner_block\n", else: ""
+
+    named <> inner
   end
 
   defp tree(part), do: Heex.with_children(part["tree"])

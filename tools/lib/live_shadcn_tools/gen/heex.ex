@@ -65,6 +65,32 @@ defmodule LiveShadcnTools.Gen.Heex do
     |> render(ctx, indent)
   end
 
+  # `{children ?? name}` — what to draw when the caller passes nothing.
+  #
+  # The fold resolves this when it knows the answer: a reference that wrapped
+  # nothing takes the default and the marker is gone. A part rendered as its own
+  # function cannot know, because whether the slot was filled is a fact about
+  # the call, so the component asks at render.
+  def render(%{"type" => "children", "default" => [_ | _] = default}, ctx, indent) do
+    # A block, not `:if` on each node: a default is as often a fragment of three
+    # things as it is one element, and `{render_slot(@x)}` inside it takes no
+    # attribute at all.
+    #
+    # `render_slot/1` draws nothing when the slot is empty, so only the default
+    # is guarded. Exactly one of the two ever draws.
+    otherwise = Enum.map_join(default, "\n", &render(&1, ctx, indent + 1))
+
+    Enum.join(
+      [
+        pad(indent) <> "<%= if @inner_block == [] do %>",
+        otherwise,
+        pad(indent) <> "<% end %>",
+        pad(indent) <> ctx.children
+      ],
+      "\n"
+    )
+  end
+
   def render(%{"type" => "children"}, ctx, indent), do: pad(indent) <> ctx.children
 
   def render(%{"type" => "text", "value" => value}, _ctx, indent), do: pad(indent) <> value
@@ -456,8 +482,11 @@ defmodule LiveShadcnTools.Gen.Heex do
   end
 
   defp call(name, node, ctx, indent) do
+    # `structural/1` first for the same reason an element takes it first: `:if`
+    # and `:for` belong to whatever is drawn, and a function component is drawn.
     attrs =
-      slot_attr(node, ctx) ++
+      structural(node) ++
+        slot_attr(node, ctx) ++
         Map.get(ctx.attrs, Spec.key(node), []) ++
         own_attrs(node, ctx) ++ class_attr(node, ctx) ++ rest_attr(node, ctx)
 
@@ -625,6 +654,11 @@ defmodule LiveShadcnTools.Gen.Heex do
   # have no counterpart worth writing: `==` in Elixir is `===` in JavaScript,
   # and `==` in JavaScript is a rule nobody wants.
   #
+  # `&&` is Elixir's `&&` and not its `and`. JavaScript asks whether a value is
+  # there; `and` insists both sides are already `true` or `false`, and
+  # `package_info` renders `currentVersion && newVersion` where either may be
+  # absent. `&&` takes any term, which is the question being asked.
+  #
   # The order is the whole of the list: `<` matches inside `<=`, and trying it
   # first split `totalBranches <= 1` into a name and `= 1`.
   @operators [
@@ -632,7 +666,7 @@ defmodule LiveShadcnTools.Gen.Heex do
     {"!==", "!="},
     {"<=", "<="},
     {">=", ">="},
-    {"&&", "and"},
+    {"&&", "&&"},
     {"<", "<"},
     {">", ">"},
     {"+", "+"},

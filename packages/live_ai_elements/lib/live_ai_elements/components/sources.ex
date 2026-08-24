@@ -46,6 +46,7 @@ defmodule LiveAiElements.Components.Sources do
   attr(:rest, :global)
 
   slot(:inner_block, required: true, doc: "The panel body.")
+  attr(:count, :any, default: nil)
 
   def sources(assigns) do
     ~H"""
@@ -68,6 +69,12 @@ defmodule LiveAiElements.Components.Sources do
         data-panel-open={flag(@open)}
         class={["flex items-center gap-2", @trigger_class]}
       >
+        <%= if @inner_block == [] do %>
+          <p class="font-medium">
+            Used {@count} sources
+          </p>
+          <LiveShadcn.Icon.icon name="chevron-down" class="h-4 w-4" />
+        <% end %>
         {@title}
       </button>
       <div

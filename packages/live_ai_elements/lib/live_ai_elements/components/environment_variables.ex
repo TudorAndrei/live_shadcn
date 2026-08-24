@@ -46,6 +46,9 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
   def environment_variables_title(assigns) do
     ~H"""
     <h3 class={["font-medium text-sm", @class]} {@rest}>
+      <%= if @inner_block == [] do %>
+        Environment Variables
+      <% end %>
       {render_slot(@inner_block)}
     </h3>
     """
@@ -123,6 +126,9 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
   def environment_variable_name(assigns) do
     ~H"""
     <span class={["font-mono text-sm", @class]} {@rest}>
+      <%= if @inner_block == [] do %>
+        {@name}
+      <% end %>
       {render_slot(@inner_block)}
     </span>
     """
@@ -145,6 +151,9 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
       ]}
       {@rest}
     >
+      <%= if @inner_block == [] do %>
+        {@display_value}
+      <% end %>
       {render_slot(@inner_block)}
     </span>
     """
@@ -159,6 +168,12 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
   def environment_variable(assigns) do
     ~H"""
     <div class={["flex items-center justify-between gap-4 px-4 py-3", @class]} {@rest}>
+      <%= if @inner_block == [] do %>
+        <div class="flex items-center gap-2">
+          <.environment_variable_name />
+        </div>
+        <.environment_variable_value />
+      <% end %>
       {render_slot(@inner_block)}
     </div>
     """
@@ -193,6 +208,10 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
+      <%= if @inner_block == [] do %>
+        <LiveShadcn.Icon.icon :if={@is_copied} name="check" />
+        <LiveShadcn.Icon.icon :if={!@is_copied} name="copy" />
+      <% end %>
       {render_slot(@inner_block)}
     </button>
     """
@@ -219,6 +238,9 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
+      <%= if @inner_block == [] do %>
+        Required
+      <% end %>
       {render_slot(@inner_block)}
     </span>
     """
