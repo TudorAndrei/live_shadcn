@@ -2,6 +2,7 @@ defmodule LiveShadcnTools.GenTest do
   use ExUnit.Case, async: true
 
   alias LiveShadcnTools.Gen
+  alias LiveShadcnTools.Gen.Presentational
 
   @specs Path.expand("../../registry/spec", __DIR__)
 
@@ -60,6 +61,26 @@ defmodule LiveShadcnTools.GenTest do
       for recipe <- Gen.recipes() do
         assert recipe in named, "the #{recipe} recipe is written but no component names it"
       end
+    end
+  end
+
+  describe "presentational attributes" do
+    test "local TypeScript annotations select Phoenix attribute types" do
+      part = %{
+        "params" => %{"enabled" => nil, "count" => nil, "side" => nil},
+        "tree" => %{},
+        "types" => %{
+          "enabled" => %{"type" => "boolean", "optional" => true},
+          "count" => %{"type" => "integer", "optional" => false},
+          "side" => %{"values" => ["left", "right"], "optional" => true}
+        }
+      }
+
+      assert Presentational.attributes(part, %{"parts" => []}) == [
+               %{name: "count", default: nil, values: nil, type: ":integer"},
+               %{name: "enabled", default: nil, values: nil, type: ":boolean"},
+               %{name: "side", default: nil, values: ["left", "right"], type: ":string"}
+             ]
     end
   end
 end

@@ -145,6 +145,26 @@ defmodule LiveShadcnTools.AstTest do
                Tsx.variant_calls(Tsx.attr(row.jsx, "className"), ["buttonVariants"])
     end
 
+    test "local TypeScript aliases describe component props" do
+      source = ~S"""
+      type RowProps = {
+        enabled?: boolean
+        count: number
+        side?: "left" | "right"
+      }
+
+      const Row = ({ enabled, count, side }: RowProps) => <span>{side}</span>;
+      """
+
+      assert [row] = Ast.parse!(source).functions
+
+      assert row.param_types == %{
+               "enabled" => %{"optional" => true, "type" => "boolean"},
+               "count" => %{"optional" => false, "type" => "integer"},
+               "side" => %{"optional" => true, "values" => ["left", "right"]}
+             }
+    end
+
     test "member roots come from member expression nodes" do
       source = ~S"""
       const Row = ({ error, label }) => <span title={error?.message ?? label["text"]} />;

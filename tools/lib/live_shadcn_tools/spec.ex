@@ -269,6 +269,7 @@ defmodule LiveShadcnTools.Spec do
         %{
           "name" => underscored,
           "params" => function.params,
+          "types" => function.param_types,
           "tree" => node(function.jsx, private_ctx(ctx, function))
         }
       end
@@ -696,6 +697,7 @@ defmodule LiveShadcnTools.Spec do
           "export" => export,
           "primitive" => primitive_of(function.props_type),
           "params" => Map.new(function.params, &icon_default(&1, ctx)),
+          "types" => function.param_types,
           "contexts" => function.contexts |> MapSet.to_list() |> Enum.sort(),
           "tree" => node(function.jsx, ctx)
         }

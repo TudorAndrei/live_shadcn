@@ -117,12 +117,14 @@ defmodule LiveShadcnTools.Gen.Presentational do
       # table that happens to define a group by the same name.
       group = Enum.find(calls, &(name in &1["args"]))
       default = default || get_in(group, ["definition", "defaults", name])
+      annotation = get_in(part, ["types", name]) || %{}
 
       %{
         name: LiveShadcnTools.assign(name),
         default: default,
-        values: get_in(group, ["definition", "variants", name]) |> values(),
-        type: type(name, default, paths)
+        values:
+          get_in(group, ["definition", "variants", name]) |> values() || annotation["values"],
+        type: type(name, default, paths, annotation)
       }
     end)
   end
@@ -135,8 +137,12 @@ defmodule LiveShadcnTools.Gen.Presentational do
   # yes-or-no and `data.filename` is a value with fields, and declaring either
   # one a string makes the component lie about what it takes — a `:string`
   # holding `"false"` is true to every `:if` that reads it.
-  defp type(_name, default, _paths) when default in ["true", "false"], do: ":boolean"
-  defp type(name, _default, paths), do: if(name in paths, do: ":any", else: ":string")
+  defp type(_name, _default, _paths, %{"type" => "boolean"}), do: ":boolean"
+  defp type(_name, _default, _paths, %{"type" => "integer"}), do: ":integer"
+  defp type(_name, default, _paths, _annotation) when default in ["true", "false"], do: ":boolean"
+
+  defp type(name, _default, paths, _annotation),
+    do: if(name in paths, do: ":any", else: ":string")
 
   # The props the markup reads a field off, rather than rendering whole.
   #

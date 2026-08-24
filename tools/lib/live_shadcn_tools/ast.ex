@@ -50,7 +50,13 @@ defmodule LiveShadcnTools.Ast do
   """
   def parse!(source) do
     program = tree!(source)
-    read = program |> declarations() |> Enum.map(&declaration(&1, source)) |> resolve_aliases()
+    type_definitions = type_definitions(program)
+
+    read =
+      program
+      |> declarations()
+      |> Enum.map(&declaration(&1, source, type_definitions))
+      |> resolve_aliases()
 
     %{
       functions: Enum.filter(read, &is_map/1),
@@ -464,14 +470,18 @@ defmodule LiveShadcnTools.Ast do
 
   defp bindings(_node), do: []
 
-  defp declaration(%{"type" => "FunctionDeclaration"} = node, source) do
-    function(node["id"]["name"], node["params"], node["body"], source)
+  defp declaration(%{"type" => "FunctionDeclaration"} = node, source, type_definitions) do
+    function(node["id"]["name"], node["params"], node["body"], source, type_definitions)
   end
 
-  defp declaration(%{"type" => "VariableDeclarator", "id" => %{"name" => name}} = node, source) do
+  defp declaration(
+         %{"type" => "VariableDeclarator", "id" => %{"name" => name}} = node,
+         source,
+         type_definitions
+       ) do
     case node["init"] |> bare() |> unwrap() do
       %{"type" => type} = arrow when type in ~w(ArrowFunctionExpression FunctionExpression) ->
-        function(name, arrow["params"], arrow["body"], source)
+        function(name, arrow["params"], arrow["body"], source, type_definitions)
 
       # `export const Shimmer = memo(ShimmerComponent)` — the export and the
       # component are two names for one thing, and only the first is exported.
@@ -483,7 +493,7 @@ defmodule LiveShadcnTools.Ast do
     end
   end
 
-  defp declaration(_node, _source), do: nil
+  defp declaration(_node, _source, _type_definitions), do: nil
 
   # A name that is another name for a component this file already read. The
   # alias keeps its own name, because that is the one the file exports and the
@@ -524,13 +534,14 @@ defmodule LiveShadcnTools.Ast do
 
   defp unwrap(node), do: node
 
-  defp function(name, params, body, source) do
+  defp function(name, params, body, source, type_definitions) do
     signature = List.first(params) || %{}
 
     %{
       name: name,
       props_type: type_name(signature["typeAnnotation"]),
       params: props(signature, body, source),
+      param_types: prop_types(signature, type_definitions),
       renames: renames(signature),
       locals: locals(body, source),
       contexts: contexts(body),
@@ -539,6 +550,20 @@ defmodule LiveShadcnTools.Ast do
     }
   rescue
     error -> {:unreadable, name, Exception.message(error)}
+  end
+
+  # A local type alias is the only annotation this reader can resolve. Imported
+  # Base UI types describe primitive behavior, which the Base UI documentation
+  # already supplies. Local aliases describe the wrapper's own public props.
+  defp type_definitions(program) do
+    for declaration <- program["body"],
+        declaration <- [Map.get(declaration, "declaration", declaration)],
+        %{"type" => type, "id" => %{"name" => name}, "typeAnnotation" => annotation} <- [
+          declaration
+        ],
+        type in ~w(TSTypeAliasDeclaration TSInterfaceDeclaration),
+        into: %{},
+        do: {name, annotation}
   end
 
   @doc """
@@ -734,6 +759,52 @@ defmodule LiveShadcnTools.Ast do
   end
 
   defp destructured(_signature, _source), do: %{}
+
+  # The wrapper's local TypeScript annotation can describe a caller-facing
+  # value more exactly than its default can. Keep only the small, portable
+  # subset that Phoenix.Component can declare: booleans, integers, and a
+  # finite set of string values.
+  defp prop_types(%{"typeAnnotation" => %{"typeAnnotation" => annotation}}, definitions),
+    do: fields(annotation, definitions)
+
+  defp prop_types(_signature, _definitions), do: %{}
+
+  defp fields(%{"type" => "TSTypeLiteral", "members" => members}, definitions) do
+    for %{
+          "type" => "TSPropertySignature",
+          "key" => %{"name" => name},
+          "typeAnnotation" => %{"typeAnnotation" => annotation}
+        } = member <- members,
+        type = attribute_type(annotation, definitions),
+        not is_nil(type),
+        into: %{},
+        do: {name, Map.put(type, "optional", member["optional"] == true)}
+  end
+
+  defp fields(%{"type" => "TSInterfaceBody", "body" => members}, definitions),
+    do: fields(%{"type" => "TSTypeLiteral", "members" => members}, definitions)
+
+  defp fields(%{"type" => "TSIntersectionType", "types" => types}, definitions),
+    do: Enum.reduce(types, %{}, &Map.merge(&2, fields(&1, definitions)))
+
+  defp fields(%{"type" => "TSTypeReference", "typeName" => %{"name" => name}}, definitions),
+    do: definitions |> Map.get(name) |> fields(definitions)
+
+  defp fields(_annotation, _definitions), do: %{}
+
+  defp attribute_type(%{"type" => "TSBooleanKeyword"}, _definitions), do: %{"type" => "boolean"}
+  defp attribute_type(%{"type" => "TSNumberKeyword"}, _definitions), do: %{"type" => "integer"}
+
+  defp attribute_type(%{"type" => "TSUnionType", "types" => types}, _definitions) do
+    values =
+      for %{"type" => "TSLiteralType", "literal" => %{"value" => value}} <- types,
+          is_binary(value),
+          do: value
+
+    if length(values) == length(types) and values != [], do: %{"values" => values}, else: nil
+  end
+
+  defp attribute_type(_annotation, _definitions), do: nil
 
   defp default(%{"type" => "AssignmentPattern", "right" => right}, source) do
     case right do
