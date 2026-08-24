@@ -76,6 +76,8 @@ defmodule LiveShadcnTools.Gen.Toast do
   # Sonner exposes only a manager. LiveView keeps the corresponding list on
   # the server, then gives the existing toast hook the geometry it cannot know.
   defp sonner_module(spec, opts) do
+    toast_class = toast_class(spec)
+
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
     #{moduledoc(spec)}
@@ -109,7 +111,7 @@ defmodule LiveShadcnTools.Gen.Toast do
             data-type={toast[:type]}
             role="status"
             aria-live="polite"
-            class="cn-toast"
+            class=#{inspect(toast_class)}
           >
             <span data-slot="toast-icon"><LiveShadcn.Icon.icon name={icon(toast[:type])} /></span>
             <div class="flex min-w-0 flex-1 flex-col gap-1">
@@ -135,6 +137,18 @@ defmodule LiveShadcnTools.Gen.Toast do
       defp icon(_type), do: "info"
     end
     """
+  end
+
+  defp toast_class(spec) do
+    spec["parts"]
+    |> Enum.find(&(&1["name"] == "toaster"))
+    |> get_in(["tree", "attrs"])
+    |> Enum.find(&(&1["name"] == "toastOptions"))
+    |> Map.fetch!("value")
+    |> then(fn source ->
+      [_, class] = Regex.run(~r/toast:\s*"([^"]+)"/, source)
+      class
+    end)
   end
 
   defp roles!(spec) do
