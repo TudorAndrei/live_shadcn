@@ -1,0 +1,166 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "resizable",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "ResizableHandle",
+      "name": "resizable_handle",
+      "params": {
+        "className": null,
+        "withHandle": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "cn-resizable-handle-icon z-10 flex shrink-0",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "type": "optional",
+            "when": "withHandle"
+          }
+        ],
+        "class": "cn-resizable-handle relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/react-resizable-panels",
+        "part": "Separator",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "aria-orientation",
+              "value": "horizontal"
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "resizable-handle",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "ResizablePanel",
+      "name": "resizable_panel",
+      "params": {},
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "module": "external/react-resizable-panels",
+        "part": "Panel",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "resizable-panel",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    },
+    {
+      "contexts": [],
+      "export": "ResizablePanelGroup",
+      "name": "resizable_panel_group",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/react-resizable-panels",
+        "part": "Group",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "aria-orientation",
+              "value": "vertical"
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "resizable-panel-group",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      }
+    }
+  ],
+  "primitives": {},
+  "recipe": "resizable",
+  "source": "shadcn",
+  "styles": {
+    "luma": {
+      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
+    },
+    "lyra": {
+      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-none"
+    },
+    "maia": {
+      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
+    },
+    "mira": {
+      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
+    },
+    "nova": {
+      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
+    },
+    "rhea": {
+      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
+    },
+    "sera": {
+      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-none"
+    },
+    "vega": {
+      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/resizable.tsx",
+      "sha256": "ce02b1176c769c44b21e267492fae1cba081a7917ee9f9d5b6c1749a90e4be0d"
+    }
+  },
+  "variants": {}
+}

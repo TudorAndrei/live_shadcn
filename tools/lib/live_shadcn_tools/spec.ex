@@ -1209,6 +1209,11 @@ defmodule LiveShadcnTools.Spec do
       "MessageScrollerPrimitive.Content" => {"Content", "div"},
       "MessageScrollerPrimitive.Item" => {"Item", "div"},
       "MessageScrollerPrimitive.Button" => {"Button", "button"}
+    },
+    "react-resizable-panels" => %{
+      "ResizablePrimitive.Group" => {"Group", "div"},
+      "ResizablePrimitive.Panel" => {"Panel", "div"},
+      "ResizablePrimitive.Separator" => {"Separator", "div"}
     }
   }
 
@@ -1698,6 +1703,13 @@ defmodule LiveShadcnTools.Spec do
           [_, attribute] -> {:self, read("data-#{attribute}")}
           _ -> raise("unsupported data variant: #{variant}")
         end
+    end
+  end
+
+  defp classify(<<"aria-[", _rest::binary>> = variant) do
+    case Regex.run(~r/^aria-\[([a-z][a-z0-9-]*)(?:[$^*]?=)([^\]]+)\]$/, variant) do
+      [_, attribute, value] -> {:self, read("aria-#{attribute}", value)}
+      _ -> raise("unsupported aria variant: #{variant}")
     end
   end
 
