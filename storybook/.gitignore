@@ -8,5 +8,8 @@
 # `mix phx.digest` writes a hashed copy and a .gz beside every static file.
 /priv/static/*-????????????????????????????????.*
 /priv/static/*.gz
+# What Playwright writes when a browser check fails: traces, screenshots, and
+# the last run's result. All of it belongs to the run, not to the repository.
+/test-results/
 erl_crash.dump
 *.ez
