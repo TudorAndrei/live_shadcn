@@ -57,7 +57,9 @@ defmodule LiveShadcnTools.Gen.Tabs do
   # shadcn styles the disabled tab against the ARIA attribute, which Base UI
   # does not document. Both are contracts; the class string is the one that
   # would break.
-  def attribute!("aria-disabled", _role), do: {:code, "flag(tab[:disabled])"}
+  # A word, not a presence: Tailwind compiles `aria-disabled:` to
+  # `[aria-disabled="true"]`, so an empty value styles nothing.
+  def attribute!("aria-disabled", _role), do: {:code, "to_string(tab[:disabled] == true)"}
   def attribute!("data-index", _role), do: {:code, "index"}
 
   # Which way the reader moved to get here. It is a fact about the last click,

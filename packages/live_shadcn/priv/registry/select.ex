@@ -101,7 +101,7 @@ defmodule LiveShadcn.UI.Select do
         data-invalid={flag(@errors != [])}
         data-filled={flag(@value not in [nil, ""])}
         data-placeholder={flag(@value in [nil, ""])}
-        aria-invalid={flag(@errors != [])}
+        aria-invalid={to_string(@errors != [])}
         data-size={@size}
         class={[
           "cn-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",

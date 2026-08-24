@@ -73,7 +73,7 @@ defmodule LiveShadcn.UI.RadioGroup do
       tabindex="0"
       id={@id}
       aria-checked={to_string(@checked)}
-      aria-disabled={flag(@disabled)}
+      aria-disabled={to_string(@disabled)}
       phx-click={
         if(@disabled or @readonly, do: nil, else: FormControl.select(control: @id, group: @group))
       }

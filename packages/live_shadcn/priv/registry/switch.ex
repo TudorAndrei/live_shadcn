@@ -55,7 +55,7 @@ defmodule LiveShadcn.UI.Switch do
       tabindex="0"
       id={@id}
       aria-checked={to_string(@checked)}
-      aria-disabled={flag(@disabled)}
+      aria-disabled={to_string(@disabled)}
       phx-click={if(@disabled or @readonly, do: nil, else: FormControl.toggle(control: @id))}
       phx-mounted={FormControl.owned_attributes()}
       phx-keydown={if(@disabled or @readonly, do: nil, else: FormControl.toggle(control: @id))}

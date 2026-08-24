@@ -56,15 +56,42 @@ for (const { component, example } of pages) {
     const parity = testInfo.project.use.parityURL;
 
     await page.goto(`${parity}/preview/${component}/${example}`);
-    await expect(page.locator(selector)).toBeVisible();
-    const react = await page.evaluate(collect, { selector, properties: PROPERTIES });
+    const react = await measured(page, selector);
 
     await page.goto(`/preview/${component}/${example}`);
-    await expect(page.locator(selector)).toBeVisible();
-    const phoenix = await page.evaluate(collect, { selector, properties: PROPERTIES });
+    const phoenix = await measured(page, selector);
 
     expect(described(compare(react, phoenix))).toEqual([]);
   });
+}
+
+// Visible is not finished.
+//
+// A panel that starts open is `h-(--accordion-panel-height)`, and the hook that
+// sets the variable runs when the LiveView has connected — which is after the
+// server-rendered HTML is on the page, and after `liveSocket.isConnected()`
+// first says yes. Measuring any earlier reported a collapsed panel on a
+// component that draws it correctly a moment later.
+//
+// So neither side is asked when it says it is ready. Both are asked when they
+// stop moving, which is the same question for a React render, a LiveView hook
+// and a CSS transition.
+async function measured(page, selector) {
+  await expect(page.locator(selector)).toBeVisible();
+
+  await page.waitForFunction(
+    (selector) => {
+      const height = document.querySelector(selector)?.getBoundingClientRect().height;
+      const before = window.__parityHeight;
+      window.__parityHeight = height;
+
+      return before !== undefined && Math.abs(before - height) < 0.01;
+    },
+    selector,
+    { polling: 100 }
+  );
+
+  return page.evaluate(collect, { selector, properties: PROPERTIES });
 }
 
 // A difference read as a sentence. `padding-left: React 0.5rem, Phoenix 8px` is

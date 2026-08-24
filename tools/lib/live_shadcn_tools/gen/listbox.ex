@@ -75,7 +75,9 @@ defmodule LiveShadcnTools.Gen.Listbox do
 
   # shadcn styles the trigger against the ARIA attribute, which Base UI does
   # not document. Both are contracts; the class string is the one that breaks.
-  def attribute!("aria-invalid", _role), do: {:code, "flag(@errors != [])"}
+  # A word, not a presence: Tailwind compiles `aria-invalid:` to
+  # `[aria-invalid="true"]`, so an empty value styles nothing.
+  def attribute!("aria-invalid", _role), do: {:code, "to_string(@errors != [])"}
 
   # The list's class string styles the trigger it belongs to, so the variant
   # scanner sees `aria-expanded` on the list. It belongs to the trigger, and a

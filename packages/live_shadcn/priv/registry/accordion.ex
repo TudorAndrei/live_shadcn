@@ -104,7 +104,7 @@ defmodule LiveShadcn.UI.Accordion do
             phx-mounted={Disclosure.owned_attributes(:trigger)}
             data-panel-open={flag(open?(item))}
             data-disabled={flag(disabled?(item))}
-            aria-disabled={flag(disabled?(item))}
+            aria-disabled={to_string(disabled?(item))}
             class={[
               "cn-accordion-trigger group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50",
               item[:trigger_class]

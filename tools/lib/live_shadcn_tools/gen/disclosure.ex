@@ -88,7 +88,12 @@ defmodule LiveShadcnTools.Gen.Disclosure do
 
   def attribute!("data-panel-open", _role, shape), do: {:code, "flag(#{shape.open})"}
   def attribute!("data-disabled", _role, shape), do: {:code, "flag(#{shape.disabled})"}
-  def attribute!("aria-disabled", _role, shape), do: {:code, "flag(#{shape.disabled})"}
+  # An ARIA state is a word, not a presence. `data-open=""` is how Base UI marks
+  # state and `flag/1` writes it, but `aria-disabled=""` is not a value ARIA
+  # defines, and Tailwind compiles `aria-disabled:` to `[aria-disabled="true"]`
+  # — so a trigger written that way was disabled and drawn as though it were
+  # not. Every one of these reads `to_string`, which is what React writes.
+  def attribute!("aria-disabled", _role, shape), do: {:code, "to_string(#{shape.disabled})"}
   def attribute!("data-index", _role, shape), do: {:code, shape.index}
 
   def attribute!(name, role, _shape) do

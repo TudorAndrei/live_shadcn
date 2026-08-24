@@ -181,7 +181,9 @@ defmodule LiveShadcnTools.Gen.FormControl do
       [
         {"id", :code, "@id"},
         {aria(shape), :code, "to_string(@checked)"},
-        {"aria-disabled", :code, "flag(@disabled)"},
+        # A word, not a presence, for the same reason `aria-checked` above is
+        # one: Tailwind compiles `aria-disabled:` to `[aria-disabled="true"]`.
+        {"aria-disabled", :code, "to_string(@disabled)"},
         {"phx-click", :code, guarded(command(role, shape, input?))},
         {"phx-mounted", :code, "FormControl.owned_attributes()"}
       ] ++ keyboard(tag, role, shape, input?)

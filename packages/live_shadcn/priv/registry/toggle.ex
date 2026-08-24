@@ -53,7 +53,7 @@ defmodule LiveShadcn.UI.Toggle do
       data-slot={@rest[:"data-slot"] || "toggle"}
       id={@id}
       aria-pressed={to_string(@checked)}
-      aria-disabled={flag(@disabled)}
+      aria-disabled={to_string(@disabled)}
       phx-click={
         if(@disabled or @readonly,
           do: nil,
