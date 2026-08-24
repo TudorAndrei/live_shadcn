@@ -107,13 +107,14 @@ the same line: **a hook decides which element, never what happens to it.**
 cd tools && mix ui.gen && mix ui.verify select
 ```
 
-`mix ui.verify` checks three things:
+`mix ui.verify` checks four things:
 
 | Check | Question |
 |---|---|
 | generated | does the module on disk still match its spec? |
 | snapshot | has the markup a reader gets changed? |
 | browser | does it behave like Base UI, and is it clean under axe-core? |
+| parity | does it draw what the React it was generated from draws? |
 
 A component with behavior needs a suite of its own in
 `storybook/test/browser/<name>.spec.mjs`. Transcribe it from the Base UI
