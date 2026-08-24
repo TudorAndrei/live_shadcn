@@ -40,7 +40,7 @@ defmodule LiveShadcn.UI.Switch do
   attr(:readonly, :boolean, default: false)
   attr(:required, :boolean, default: false)
   attr(:indeterminate, :boolean, default: false)
-  attr(:size, :string, default: "default")
+  attr(:size, :string, default: "default", values: ["sm", "default"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)

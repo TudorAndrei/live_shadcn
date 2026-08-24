@@ -58,7 +58,7 @@ defmodule LiveShadcn.UI.Select do
   attr(:align_item_with_trigger, :boolean, default: true)
   attr(:align_offset, :string, default: "0")
   attr(:side_offset, :string, default: "4")
-  attr(:size, :string, default: "default")
+  attr(:size, :string, default: "default", values: ["sm", "default"])
   attr(:rest, :global)
 
   slot :option, doc: "One value to choose." do

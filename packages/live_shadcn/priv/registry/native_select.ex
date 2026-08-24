@@ -10,7 +10,7 @@ defmodule LiveShadcn.UI.NativeSelect do
   use Phoenix.Component
 
   @doc "The `native-select-wrapper` part."
-  attr(:size, :string, default: "default")
+  attr(:size, :string, default: "default", values: ["sm", "default"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "name", "multiple", "size"])
   slot(:inner_block)

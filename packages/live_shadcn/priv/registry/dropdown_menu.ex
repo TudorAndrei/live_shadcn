@@ -43,7 +43,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
   attr(:trigger_class, :any, default: nil)
   attr(:align_offset, :string, default: "0")
   attr(:side_offset, :string, default: "4")
-  attr(:variant, :string, default: "default")
+  attr(:variant, :string, default: "default", values: ["default", "destructive"])
   attr(:rest, :global)
 
   slot(:trigger, required: true, doc: "What opens it.")

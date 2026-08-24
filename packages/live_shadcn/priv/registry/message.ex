@@ -28,7 +28,7 @@ defmodule LiveShadcn.UI.Message do
   end
 
   @doc "The `message` part."
-  attr(:align, :string, default: "start")
+  attr(:align, :string, default: "start", values: ["start", "end"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)

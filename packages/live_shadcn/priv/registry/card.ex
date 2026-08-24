@@ -10,7 +10,7 @@ defmodule LiveShadcn.UI.Card do
   use Phoenix.Component
 
   @doc "The `card` part."
-  attr(:size, :string, default: "default")
+  attr(:size, :string, default: "default", values: ["default", "sm"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)

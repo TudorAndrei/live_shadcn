@@ -41,7 +41,7 @@ defmodule LiveShadcn.UI.Sheet do
   attr(:description_class, :any, default: nil)
   attr(:title_class, :any, default: nil)
   attr(:trigger_class, :any, default: nil)
-  attr(:side, :string, default: "right")
+  attr(:side, :string, default: "right", values: ["top", "right", "bottom", "left"])
   attr(:rest, :global)
 
   slot(:trigger, required: true, doc: "What opens it.")

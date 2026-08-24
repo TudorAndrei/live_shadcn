@@ -35,7 +35,7 @@ defmodule LiveShadcn.UI.Menubar do
 
   @doc "The `menubar-checkbox-item` part."
   attr(:checked, :string, default: nil)
-  attr(:inset, :string, default: nil)
+  attr(:inset, :boolean, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -63,7 +63,7 @@ defmodule LiveShadcn.UI.Menubar do
   end
 
   @doc "The `menubar-radio-item` part."
-  attr(:inset, :string, default: nil)
+  attr(:inset, :boolean, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)

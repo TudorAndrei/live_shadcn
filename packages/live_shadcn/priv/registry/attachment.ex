@@ -12,7 +12,12 @@ defmodule LiveShadcn.UI.Attachment do
   @doc "The `attachment` part."
   attr(:orientation, :string, default: "horizontal", values: ["horizontal", "vertical"])
   attr(:size, :string, default: "default", values: ["default", "sm", "xs"])
-  attr(:state, :string, default: "done")
+
+  attr(:state, :string,
+    default: "done",
+    values: ["idle", "uploading", "processing", "error", "done"]
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -181,7 +186,7 @@ defmodule LiveShadcn.UI.Attachment do
   end
 
   @doc "The `attachment-trigger` part."
-
+  attr(:type, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
   slot(:inner_block)

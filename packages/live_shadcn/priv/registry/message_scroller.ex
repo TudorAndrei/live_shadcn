@@ -85,7 +85,7 @@ defmodule LiveShadcn.UI.MessageScroller do
   end
 
   @doc "The `message-scroller-item` part."
-
+  attr(:scroll_anchor, :boolean, default: false)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)

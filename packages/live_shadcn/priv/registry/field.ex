@@ -81,6 +81,7 @@ defmodule LiveShadcn.UI.Field do
 
   @doc "The `field-error` part."
   attr(:content, :string, default: nil)
+  attr(:errors, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -118,7 +119,7 @@ defmodule LiveShadcn.UI.Field do
   end
 
   @doc "The `field-legend` part."
-  attr(:variant, :string, default: "legend")
+  attr(:variant, :string, default: "legend", values: ["legend", "label"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)

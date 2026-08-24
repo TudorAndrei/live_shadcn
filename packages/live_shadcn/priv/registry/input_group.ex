@@ -63,7 +63,7 @@ defmodule LiveShadcn.UI.InputGroup do
 
   @doc "The `input_group_button` part."
   attr(:size, :string, default: "xs", values: ["icon-sm", "icon-xs", "sm", "xs"])
-  attr(:type, :string, default: "button")
+  attr(:type, :string, default: "button", values: ["button", "submit", "reset"])
   attr(:variant, :string, default: "ghost")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])

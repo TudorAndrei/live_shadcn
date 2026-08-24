@@ -28,7 +28,7 @@ defmodule LiveShadcn.UI.Bubble do
   end
 
   @doc "The `bubble` part."
-  attr(:align, :string, default: "start")
+  attr(:align, :string, default: "start", values: ["start", "end"])
 
   attr(:variant, :string,
     default: "default",

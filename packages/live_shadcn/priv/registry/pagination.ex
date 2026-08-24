@@ -85,7 +85,7 @@ defmodule LiveShadcn.UI.Pagination do
   end
 
   @doc "The `pagination_link` part."
-  attr(:is_active, :string, default: nil)
+  attr(:is_active, :boolean, default: nil)
   attr(:size, :string, default: "icon")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "href", "target", "rel", "download", "hreflang"])
