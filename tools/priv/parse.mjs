@@ -82,13 +82,19 @@ const convert = (node) => {
   }
 };
 
-// A prop can be named in a component signature and never reach the markup.
+// A prop can be named in a component signature and never reach the render.
 // The old reader searched generated source text for a matching word. Use the
-// parser's scope graph instead: a reference whose declaration is a function
-// parameter is a real read, regardless of nesting or spelling around it.
+// parser's scope graph instead. A parameter reference belongs to the component
+// only while that parameter's function is active; a nested event handler does
+// not make the parameter a render input.
 const parameterReferences = [];
 const scopes = new ScopeTracker({ preserveExitedScopes: true });
-let jsxDepth = 0;
+const functionStack = [];
+
+const functionNode = (node) =>
+  node.type === "FunctionDeclaration" ||
+  node.type === "FunctionExpression" ||
+  node.type === "ArrowFunctionExpression";
 
 walk(program, { scopeTracker: scopes });
 scopes.freeze();
@@ -96,19 +102,21 @@ scopes.freeze();
 walk(program, {
   scopeTracker: scopes,
   enter(node, parent) {
-    if (node.type === "JSXElement" || node.type === "JSXFragment") jsxDepth += 1;
+    if (functionNode(node)) functionStack.push(node);
 
-    if (jsxDepth === 0) return;
     if (!isReferenceIdentifier(node, parent)) return;
 
     const declaration = scopes.getDeclaration(node.name);
 
-    if (declaration?.constructor?.name === "ScopeTrackerFunctionParam") {
+    if (
+      declaration?.constructor?.name === "ScopeTrackerFunctionParam" &&
+      declaration.fnNode === functionStack.at(-1)
+    ) {
       parameterReferences.push({ name: node.name, start: node.start, end: node.end });
     }
   },
   leave(node) {
-    if (node.type === "JSXElement" || node.type === "JSXFragment") jsxDepth -= 1;
+    if (functionNode(node)) functionStack.pop();
   },
 });
 
