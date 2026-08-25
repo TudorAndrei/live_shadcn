@@ -44,6 +44,7 @@ defmodule LiveShadcn.UI.MessageScroller do
 
   @doc "The `message-scroller-viewport` part."
 
+  attr(:id, :string, required: true, doc: "The hook needs one to be found by.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -52,7 +53,10 @@ defmodule LiveShadcn.UI.MessageScroller do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "message-scroller-viewport"}
+      id={@id}
       data-lb-scroller
+      data-lb-stick-to-bottom
+      tabindex="0"
       phx-hook={LiveBase.Scroller.hook()}
       phx-mounted={LiveBase.Scroller.owned_attributes()}
       class={[

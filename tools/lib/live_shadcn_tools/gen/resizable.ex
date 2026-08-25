@@ -1,5 +1,28 @@
 defmodule LiveShadcnTools.Gen.Resizable do
-  @moduledoc "The pointer-resizable panel recipe."
+  @moduledoc """
+  The pointer-resizable panel recipe.
+
+  ## `aria-orientation` belongs to the handle, and to nothing else
+
+  The handle is a `role="separator"`, which is a widget when it is focusable —
+  so `aria-orientation` and the `aria-value*` set are all allowed on it, and
+  react-resizable-panels puts them there.
+
+  The panel group is a bare `<div>`. `aria-orientation` on an element with no
+  role that takes it is what axe reports as `aria-allowed-attr`, and it was
+  reported here: the recipe put the attribute on the group as well. React puts
+  nothing of the sort there — checked against the rendered reference, whose
+  group carries only `data-slot`, `class`, `data-group` and a style.
+
+  It is `data-orientation` now. That is an attribute any element may carry, and
+  it keeps the value available to a caller who wants to select on it.
+
+  **Upstream reads an attribute upstream does not set.** shadcn styles the group
+  with `aria-[orientation=vertical]:flex-col`, and nothing in
+  react-resizable-panels ever writes `aria-orientation` there — so a vertical
+  panel group does not become a column in React either. Matching that is what
+  parity means, and the class string is upstream's to fix.
+  """
 
   alias LiveShadcnTools.Gen.Heex
 
@@ -82,7 +105,7 @@ defmodule LiveShadcnTools.Gen.Resizable do
           data-slot={@rest[:"data-slot"] || "resizable-panel-group"}
           id={@id}
           phx-hook={Resizable.hook()}
-          aria-orientation={@orientation}
+          data-orientation={@orientation}
           class={[#{inspect(group_class)}, @class]}
           {Map.drop(@rest, [:"data-slot"])}
         >

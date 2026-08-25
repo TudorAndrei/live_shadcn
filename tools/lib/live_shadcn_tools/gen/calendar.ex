@@ -28,20 +28,47 @@ defmodule LiveShadcnTools.Gen.Calendar do
         assigns = assign(assigns, :weeks, month_weeks(assigns.month, assigns.week_starts_on))
 
         ~H\"\"\"
-        <section id={@id} phx-hook={if @locale == "browser", do: CalendarHook.hook()} data-lb-calendar-locale={@locale} data-slot="calendar" style="min-width: 157px" class={[#{inspect(classes["root"])}, @class]} {@rest}>
-          <div class="relative flex h-9 items-center justify-center px-9 text-sm font-medium rdp-month_caption">
+        <section id={@id} phx-hook={if @locale == "browser", do: CalendarHook.hook()} data-lb-calendar-locale={@locale} data-slot="calendar" class={[#{inspect(classes["root"])}, @class]} {@rest}>
+          <%!-- Upstream's own two wrappers, `months` and `month`. They are not
+                decoration: the `gap-4` between the caption and the grid is what
+                sets the calendar's height, and the recipe used to reach that
+                number with `margin-bottom: 13px` on the table instead — a
+                measurement copied from a browser, three pixels off, and unable
+                to follow upstream when it changes. --%>
+          <div class="relative flex flex-col gap-4 md:flex-row rdp-months">
+          <div class="flex w-full flex-col gap-4 rdp-month">
+          <%!-- `h-(--cell-size)` and `px-(--cell-size)`, which is what upstream
+                writes. It was `h-9 px-9` — 36px against upstream's 32px, and
+                since this row is the widest thing in the calendar those 4px a
+                side were the whole 8px the parity check reported on the
+                component's width. A retyped measurement drifts from the
+                variable it was copied from; the variable does not. --%>
+          <div class="relative flex h-(--cell-size) items-center justify-center px-(--cell-size) text-sm font-medium rdp-month_caption">
             <button type="button" aria-label="Go to the previous month" style="position: absolute; left: 0" class=#{inspect(classes["previous_button"])}>‹</button>
             <span data-lb-calendar-month={Date.to_iso8601(@month)} class="rdp-caption_label">{Calendar.strftime(@month, "%B %Y")}</span>
             <button type="button" aria-label="Go to the next month" style="position: absolute; right: 0" class=#{inspect(classes["next_button"])}>›</button>
           </div>
-          <table style="margin-bottom: 13px" class="w-full border-collapse rdp-month_grid" role="grid" aria-label={Calendar.strftime(@month, "%B %Y")}>
+          <table class="w-full border-collapse rdp-month_grid" role="grid" aria-label={Calendar.strftime(@month, "%B %Y")}>
             <thead>
               <tr class="flex rdp-weekdays">
-                <th :for={day <- weekday_dates(@week_starts_on)} data-lb-calendar-weekday={Date.to_iso8601(day)} style="width: 19px" class="flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none rdp-weekday" scope="col">{Calendar.strftime(day, "%a")}</th>
+                <th :for={day <- weekday_dates(@week_starts_on)} data-lb-calendar-weekday={Date.to_iso8601(day)} style="width: 19px" class="flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none rdp-weekday" scope="col">{weekday_name(day)}</th>
               </tr>
             </thead>
             <tbody>
               <tr :for={week <- @weeks} class="mt-2 flex w-full rdp-week">
+                <%!-- The one measurement still typed here, and it is a
+                      compensation rather than a fact. Upstream's day cell is
+                      `aspect-square h-full w-full` with no width at all, and
+                      React's settles at 19.22px because its cell's min-content
+                      is that wide. Ours settles at 22.2, so the seven columns
+                      come out 22px wider and `aspect-square` then makes the
+                      rows taller to match.
+                      Pinning the width puts the columns right and leaves the
+                      row height 0.48px short of React's — 1.1px over the whole
+                      calendar, which the parity check still reports. What it is
+                      really saying is that this recipe writes its own grid
+                      instead of reading react-day-picker's, and that is the
+                      finding, not the number. --%>
                 <td :for={day <- week} style="width: 19px" class="group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none rdp-day">
                   <button
                     type="button"
@@ -55,6 +82,8 @@ defmodule LiveShadcnTools.Gen.Calendar do
               </tr>
             </tbody>
           </table>
+          </div>
+          </div>
         </section>
         \"\"\"
       end
@@ -73,6 +102,15 @@ defmodule LiveShadcnTools.Gen.Calendar do
         start = Date.add(first, rem(week_starts_on - 1, 7))
         for day <- 0..6, do: Date.add(start, day)
       end
+
+      # Two letters, because that is what upstream draws.
+      #
+      # react-day-picker formats a weekday heading with date-fns `cccccc` — the
+      # narrow form, `Su Mo Tu We Th Fr Sa`. `%a` is the three-letter one, and
+      # three letters made every heading 1.14px wider than React's. Times seven
+      # columns in an auto-laid-out table, that is the 8px the parity check kept
+      # reporting on the calendar's width and nowhere else.
+      defp weekday_name(day), do: day |> Calendar.strftime("%a") |> String.slice(0, 2)
     end
     """
   end

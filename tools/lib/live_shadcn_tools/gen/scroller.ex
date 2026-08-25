@@ -85,9 +85,27 @@ defmodule LiveShadcnTools.Gen.Scroller do
 
     spec
     |> Presentational.module(
-      Keyword.put(opts, :attrs, %{
+      opts
+      |> Keyword.put(:declare, %{
+        viewport["name"] => [
+          ~s|attr :id, :string, required: true, doc: "The hook needs one to be found by."|
+        ]
+      })
+      |> Keyword.put(:attrs, %{
         Spec.key(viewport["tree"]) => [
+          {"id", :code, "@id"},
           {"data-lb-scroller", :bare},
+          # A message list opens at the newest message. Upstream reaches that
+          # with `use-stick-to-bottom`; the React reference starts scrolled to
+          # the end and ours started at the top, which parity reported as every
+          # item being 418px out.
+          {"data-lb-stick-to-bottom", :bare},
+          # A box with more content than fits, and no way for a keyboard to
+          # reach the rest of it. axe reports that as
+          # `scrollable-region-focusable`, and it reported it here: the scroll
+          # area's viewport has carried `tabindex` all along and this one did
+          # not, because the two take different paths through this recipe.
+          {"tabindex", :text, "0"},
           {"phx-hook", :code, "LiveBase.Scroller.hook()"},
           {"phx-mounted", :code, "LiveBase.Scroller.owned_attributes()"}
         ]

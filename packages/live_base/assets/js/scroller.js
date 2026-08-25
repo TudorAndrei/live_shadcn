@@ -48,7 +48,15 @@ export const Scroller = {
 
     // Content arrives after the first paint as often as with it — a stream
     // appends, an image loads — and either changes what there is to scroll.
-    this.observer = new ResizeObserver(() => this.measure());
+    // …and the same observer keeps a sticky list at the bottom. At `mounted`
+    // the content has often not been laid out yet, so scrolling to
+    // `scrollHeight` then lands on whatever height it had — which is why the
+    // first attempt at this left the list at the top and parity still reported
+    // every item 418px out.
+    this.observer = new ResizeObserver(() => {
+      this.measure();
+      if (this.sticky && this.stuck) this.toBottom();
+    });
     this.observer.observe(this.viewport);
     for (const child of this.viewport.children) this.observer.observe(child);
 
@@ -56,11 +64,26 @@ export const Scroller = {
       thumb.addEventListener("pointerdown", (event) => this.grab(event, thumb));
     }
 
+    // A message list opens at the newest message, not the oldest. Upstream
+    // reaches that with `use-stick-to-bottom`; here it is one attribute and two
+    // rules — start at the bottom, and stay there while the reader is already
+    // there.
+    this.sticky = this.el.hasAttribute("data-lb-stick-to-bottom");
+    this.stuck = this.sticky;
+
     this.measure();
+    if (this.sticky) this.toBottom();
   },
 
   updated() {
     this.measure();
+    // Only while the reader had not scrolled away. Yanking somebody back to the
+    // bottom because a message arrived is how a chat log becomes unreadable.
+    if (this.sticky && this.stuck) this.toBottom();
+  },
+
+  toBottom() {
+    this.viewport.scrollTop = this.viewport.scrollHeight;
   },
 
   destroyed() {
@@ -116,6 +139,13 @@ export const Scroller = {
   },
 
   scrolled() {
+    if (this.sticky) {
+      // Within a pixel of the end counts as at the end: a fractional
+      // `scrollHeight` means the arithmetic rarely lands exactly on zero.
+      const { scrollTop, scrollHeight, clientHeight } = this.viewport;
+      this.stuck = scrollHeight - scrollTop - clientHeight <= 1;
+    }
+
     this.mark();
     this.measure();
   },

@@ -82,6 +82,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
     """
     #{part_doc(part, spec)}
     #{Enum.map_join(attrs, "\n", &declaration/1)}
+    #{declared(part, opts)}\
       attr :class, :any, default: nil, doc: "Appended to the class string upstream renders."
       attr :rest, :global, include: #{inspect(Heex.globals(Heex.rest_tag(part["tree"], by_name(spec))))}
     #{slot(part)}
@@ -91,6 +92,23 @@ defmodule LiveShadcnTools.Gen.Presentational do
         \"\"\"
       end
     """
+  end
+
+  # Attributes a recipe adds that upstream never destructured.
+  #
+  # A recipe that puts behaviour on a presentational part has to declare what
+  # that behaviour reads. `message-scroller` is the case that asked for it: its
+  # viewport carries `phx-hook`, a hook needs an `id` to mount, and nothing
+  # declared one — so the hook had never mounted at all, and none of the
+  # scroller's measuring had ever run on that component.
+  #
+  # An option rather than a `String.replace` over the generated source, which is
+  # what phase 7c took out of these recipes.
+  defp declared(part, opts) do
+    opts
+    |> Keyword.get(:declare, %{})
+    |> Map.get(part["name"], [])
+    |> Enum.map_join("", &"  #{&1}\n")
   end
 
   defp by_name(spec), do: Map.new(spec["parts"], &{&1["name"], &1})

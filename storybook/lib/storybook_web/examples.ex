@@ -1003,7 +1003,7 @@ defmodule StorybookWeb.Examples do
     ~H"""
     <.message_scroller_provider>
       <.message_scroller class="h-48 max-w-md border">
-        <.message_scroller_viewport>
+        <.message_scroller_viewport id="messages-viewport">
           <.message_scroller_content>
             <.message_scroller_item :for={line <- 1..8} class="p-3">
               Message {line}

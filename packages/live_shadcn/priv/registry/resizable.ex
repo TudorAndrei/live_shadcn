@@ -72,7 +72,7 @@ defmodule LiveShadcn.UI.Resizable do
       data-slot={@rest[:"data-slot"] || "resizable-panel-group"}
       id={@id}
       phx-hook={Resizable.hook()}
-      aria-orientation={@orientation}
+      data-orientation={@orientation}
       class={[
         "cn-resizable-panel-group flex h-full w-full overflow-hidden aria-[orientation=vertical]:flex-col",
         @class
