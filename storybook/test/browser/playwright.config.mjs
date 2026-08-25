@@ -43,7 +43,40 @@ export default defineConfig({
     parityURL: `http://127.0.0.1:${PARITY_PORT}`,
     trace: "retain-on-failure",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    { name: "chromium", testIgnore: /pixel\.spec\.mjs/, use: { ...devices["Desktop Chrome"] } },
+
+    // A project of its own, so the knobs a photograph needs never leak into the
+    // behaviour specs. Both sides are shot in this one browser on this one
+    // machine, so what these settings buy is not portability — it is that two
+    // loads within a single run rasterise identically, and that a retry
+    // reproduces the same pixels rather than flipping a verdict.
+    {
+      name: "pixel",
+      testMatch: /pixel\.spec\.mjs/,
+      use: {
+        ...devices["Desktop Chrome"],
+        // Headed and headless rasterise differently. Never photograph headed.
+        headless: true,
+        deviceScaleFactor: 2,
+        colorScheme: "light",
+        timezoneId: "UTC",
+        locale: "en-US",
+        reducedMotion: "reduce",
+        launchOptions: {
+          args: [
+            "--force-color-profile=srgb",
+            // Subpixel text antialiasing is the single largest source of
+            // pixel noise between two otherwise identical renders.
+            "--disable-lcd-text",
+            "--disable-font-subpixel-positioning",
+            // Software rasterisation, so a retry and a different machine agree.
+            "--disable-gpu",
+          ],
+        },
+      },
+    },
+  ],
   webServer: [
     {
       command: "mix phx.server",

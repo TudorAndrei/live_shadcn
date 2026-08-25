@@ -680,6 +680,19 @@ measured one. Burn down in batches; done when `pending` is empty.
 **Order:** 12a first. Adding a fifth check on top of a fourth that has never run
 would be building on a foundation nobody has seen work.
 
+### 12c — Where this got to
+
+12a is done. CI checks the record; `mix ui.verify` runs locally and its result
+is committed. The first full run since the specs moved put **60 of 62 shadcn
+components verified** — the two exceptions being `direction`, which has no
+markup, and `calendar`, which fails parity by 1.1px of height.
+
+12b's harness is written and wired: `shoot.mjs`, `pixel.spec.mjs`,
+`pixel-budget.json`, and a `pixel` Playwright project carrying the determinism
+knobs. Every ported example starts in `pending`, so the first run is a census
+rather than a verdict — the numbers in this plan were estimates, and the census
+is what replaces them with measurements.
+
 ---
 
 ## Verification

@@ -18,8 +18,9 @@ defmodule Mix.Tasks.Ui.Verify do
   | snapshot | has the markup a reader gets changed? |
   | browser | does it behave like Base UI, and is it clean under axe-core? |
   | parity | does it draw what the React it was generated from draws? |
+  | pixel | does it *paint* what that React paints? |
 
-  The first two are cheap and run anywhere. The last two start a browser,
+  The first two are cheap and run anywhere. The last three start a browser,
   because opening a panel is a client behaviour and so is layout: no amount of
   server-side rendering can tell you whether either works.
 
@@ -109,7 +110,11 @@ defmodule Mix.Tasks.Ui.Verify do
         {"snapshot", snapshot_check(key)}
       ] ++
         if browser?,
-          do: [{"browser", browser_check(name, key)}, {"parity", parity_check(key)}],
+          do: [
+            {"browser", browser_check(name, key)},
+            {"parity", parity_check(key)},
+            {"pixel", pixel_check(key)}
+          ],
           else: []
 
     %{
@@ -162,6 +167,32 @@ defmodule Mix.Tasks.Ui.Verify do
   defp parity_check(key) do
     if ported?(key) do
       run_in(browser_dir(), "npx", ["playwright", "test", "parity.spec.mjs"], %{
+        "PREVIEW_COMPONENT" => key
+      })
+    else
+      %{
+        "pass" => false,
+        "detail" => "no React reference yet: add one to parity/src/examples/#{key}.<example>.tsx"
+      }
+    end
+  end
+
+  # The fifth check, and the only one that looks at what was painted.
+  #
+  # `parity` compares numbers and strings — box geometry and 37 computed
+  # properties, per `data-slot`. It cannot see a shadow, an `::after`, a
+  # z-order, an SVG glyph, or anything on an element without a `data-slot`.
+  # This one photographs both sides and diffs the pixels.
+  #
+  # Not a replacement for the fourth. `parity` names the fix in the vocabulary a
+  # recipe is written in — `padding-left: React 0.5rem, Phoenix 8px`. `pixel`
+  # catches what that cannot see, and names only a region. Each is the other's
+  # triage tool.
+  defp pixel_check(nil), do: no_example()
+
+  defp pixel_check(key) do
+    if ported?(key) do
+      run_in(browser_dir(), "npx", ["playwright", "test", "--project", "pixel"], %{
         "PREVIEW_COMPONENT" => key
       })
     else
