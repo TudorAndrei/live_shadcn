@@ -1,0 +1,26 @@
+{
+  "_comment": [
+    "Per-example pixel budgets for pixel.spec.mjs. Three maps, and an example",
+    "must appear in exactly one of them or in none.",
+    "",
+    "budgets — the most differing pixels this example may have and still pass.",
+    "  An example in none of these maps gates at zero. A budget is set from a",
+    "  measured maximum, never guessed, and is capped at 0.5% of the image.",
+    "  A budget more than ten times its observed difference FAILS: a slack",
+    "  budget is a stale budget, and the fix is to lower the number rather than",
+    "  to leave a blanket over the example.",
+    "",
+    "pending — not yet gated. Still runs, still prints its observed difference,",
+    "  and is reported as pending rather than as passing. This is how the check",
+    "  lands without a 66-way red build: the first run is a census, not a",
+    "  verdict.",
+    "",
+    "skips — will not be compared, each with the reason. A skipped example is",
+    "  still executed, and if it would now pass at zero the run FAILS with",
+    "  'remove the skip'. A skip that outlives its reason is the tolerance",
+    "  problem wearing a different coat."
+  ],
+  "budgets": {},
+  "pending": [],
+  "skips": {}
+}

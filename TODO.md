@@ -207,9 +207,18 @@ clean, so anything below is new information rather than a backlog.
       bound to component-local state, and the generator cannot bind it. This
       predates the reader work in `a43ccb6` — confirmed by re-running with that
       change stashed — and is why only the shadcn specs were re-read there
-- [ ] `calendar` and `message-scroller` parity, and `resizable` and
-      `message-scroller` axe, fail. All four predate this work; confirmed by
-      running the same suites at the previous HEAD
+- [x] `resizable` axe — `aria-orientation` moved off the panel group, where no
+      role permits it. React writes it only on the handle
+- [x] `message-scroller` axe — the viewport had no `tabindex`
+- [x] `message-scroller` parity — its `phx-hook` had no `id`, so the scroller
+      hook had never mounted at all. It sticks to the bottom now, as upstream's
+      `use-stick-to-bottom` does
+- [ ] `calendar` parity — width fixed (three typed measurements removed), 1.1px
+      short on height. One typed measurement is left and says why: the recipe
+      writes its own grid instead of reading react-day-picker's
+- [ ] A handful of Escape and measurement tests fail under the full suite and
+      pass in isolation — `select`, `dialog`, `popover`. `workers: 1` already,
+      so this is timing under sustained load, not parallelism
 - [ ] `gen/toast.ex` finds its parts by matching a hard-coded Tailwind class
       string — `helper!(tree, &(&1["class"] == "flex min-w-0 flex-1 …"))`. It
       is the last recipe that reads upstream by its styling rather than by its
@@ -231,17 +240,18 @@ clean, so anything below is new information rather than a backlog.
 
 ### 12b — A fifth check: pixel parity
 
-- [ ] `pixel.spec.mjs`, `shoot.mjs`, `pixel-budget.json`; `pixelmatch` + `pngjs`
-- [ ] No committed goldens. Shoot both sides in one run, one browser, one
-      machine; diff in memory. The React render is the baseline, recomputed
-- [ ] Viewport screenshots at a viewport sized to the taller document — a
-      preview root can have a zero-height box, and portals paint outside it
+- [x] `pixel.spec.mjs`, `shoot.mjs`, `pixel-budget.json` written
+- [ ] Install `pixelmatch` + `pngjs`, and add the second Playwright project
+- [x] No committed goldens. Both sides shot in one run, one browser, one
+      machine; diffed in memory, React recomputed as the baseline
+- [x] Viewport screenshots sized to the taller document
 - [ ] A second Playwright project for the determinism knobs: forced headless,
       DPR 2, `--disable-gpu`, `--disable-lcd-text`, reduced motion
-- [ ] Freeze Web Animations API animations; a CSS override cannot
-- [ ] Budgets default to zero, cap at 0.5% of area, and a budget more than 10×
-      its observed diff fails — a slack budget is a stale budget
-- [ ] Localise each diff region against the slot boxes `collect()` returns
+- [x] Freeze Web Animations API animations; a CSS override cannot
+- [x] Budgets default to zero; a budget more than 10× its observed diff fails
+- [x] Localise each diff region against the slot boxes `collect()` returns,
+      including an `outside any slot` bucket — what geometry cannot see
 - [ ] A fifth check in `mix ui.verify`, not a replacement for the fourth
-- [ ] Land with every example in `pending`, which still runs and prints its
-      diff: green on day one, and a census that replaces the estimates
+- [x] The gap tests: every example has a budget or is pending, and no budget
+      or skip names an example that no longer exists
+- [ ] Run the census: put every ported example in `pending`, measure, burn down

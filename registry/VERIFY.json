@@ -15,7 +15,7 @@
       }
     },
     "pass": true,
-    "spec": "ea5a8ccbc799bb9345d00582f49d0e1bcf43fe1cff26f6e28360954c01ded19a"
+    "spec": "cd7aabc5d1b3746bba38f8562020d2a13ffe843232b6df10f68a80fbf6f5817f"
   },
   "shadcn/alert-dialog": {
     "checks": {
@@ -33,7 +33,7 @@
       }
     },
     "pass": true,
-    "spec": "474f3f5b69f244699ff0af68cd261a2e438e13c33d19489c3d98222cf71a3b90"
+    "spec": "fe022e0bdf39a16a941ddbc57f4066dd8cfe2f7f3576abcccddab21cef20e8fa"
   },
   "shadcn/scroll-area": {
     "checks": {
@@ -51,7 +51,7 @@
       }
     },
     "pass": true,
-    "spec": "acd3e93986654d5262d900c5ca9140fc3d9e4bafa7a577a019772032e4bb5085"
+    "spec": "7fbfe25232c128b4a9decbec19f8cab77931593bf11af083a4373208fd89105a"
   },
   "shadcn/checkbox": {
     "checks": {
@@ -69,7 +69,7 @@
       }
     },
     "pass": true,
-    "spec": "e52e9fd5699bc434c223f5d53ad72d8b4a61b923f51f56384ef435a05fa31c94"
+    "spec": "4b1f78b8d46f86b0acda6fd596df02caf162cc65a7e015b99418a0a3f6dc4d3b"
   },
   "ai_elements/chain-of-thought": {
     "checks": {
@@ -77,9 +77,7 @@
         "pass": true
       },
       "generated": {
-        "detail": "** (Mix) generated components do not match their spec: ai_elements/chain-of-thought\nEither the spec changed and `mix ui.gen` has not run, or the file was\nedited by hand. Generated files are not edited by hand.",
-        "exit": 1,
-        "pass": false
+        "pass": true
       },
       "parity": {
         "detail": "no React reference yet: add one to parity/src/examples/chain-of-thought.<example>.tsx",
@@ -108,7 +106,7 @@
       }
     },
     "pass": true,
-    "spec": "b1d23e1c1bc689fedf3218ca0ebdf2677fab700441a99c8d979dbc7c72fd707a"
+    "spec": "7c5d44890a39caa3b0244511483dfb5337c985b593cf2fb3944be78bc3a36452"
   },
   "shadcn/hover-card": {
     "checks": {
@@ -126,7 +124,7 @@
       }
     },
     "pass": true,
-    "spec": "88199f3de5cfbc107e9eab64dddea21234815c8ca64b72a3a89da4d4f0c362b8"
+    "spec": "122f1faffa0fd3e4289498dfcdec743a0222a27ba3bf143f3fc1cb2b057cc795"
   },
   "shadcn/resizable": {
     "checks": {
@@ -144,7 +142,7 @@
       }
     },
     "pass": true,
-    "spec": "7bdcbb704bec229145524612940883455ae4af4e03de26c03f195ed70f26b211"
+    "spec": "0141c93644bbdcc1b819b909031dbf147594f6dc6f7d0b72d1ba3e0afab3cb12"
   },
   "ai_elements/package-info": {
     "checks": {
@@ -181,7 +179,7 @@
       }
     },
     "pass": true,
-    "spec": "660cab53e83572869a2f600cb6a12d6fb6e04c2bb8fddedbcd577f8ebd6380dc"
+    "spec": "6cf4ee2c87eb9c6b54e564d2b33ef07251f1367e06800762d2f866a3de9e44ba"
   },
   "shadcn/radio-group": {
     "checks": {
@@ -199,7 +197,7 @@
       }
     },
     "pass": true,
-    "spec": "eeaacca8414b1f4c5a3f3d6745ac9a4f16ca541effb1fbfe4727204fe8344351"
+    "spec": "891e951397deee7ee9d0ab4aee2505d68ac0139e5f408a57d954e00564f66c04"
   },
   "shadcn/attachment": {
     "checks": {
@@ -217,7 +215,7 @@
       }
     },
     "pass": true,
-    "spec": "4bfa706fbadba5e327552b89e7b4a78d0247e391be37daaa685e8b8814ddcf7e"
+    "spec": "3963729728e2ba9781a8afdbb32727ad5b766357565b2de3c9aac21fbb8872cd"
   },
   "shadcn/sidebar": {
     "checks": {
@@ -235,14 +233,12 @@
       }
     },
     "pass": true,
-    "spec": "abd485cda801d6a1bc874805f978304a46adc73a249fd9c060b8c6a9cc4686ee"
+    "spec": "366c1a54aa9bc5bb5c637532017a13c90bba0646f6e2cc0b0792cc7fd823a018"
   },
   "ai_elements/task": {
     "checks": {
       "browser": {
-        "detail": "      39 |   });\n      40 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/task.spec.mjs:37:31\n    Error Context: test-results/task-a-task-a-click-opens-the-panel-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/task-a-task-a-click-opens-the-panel-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/task-a-task-a-click-opens-the-panel-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › task.spec.mjs:32:3 › a task › a click opens the panel ─────────────────────────────\n  5 passed (8.8s)",
-        "exit": 1,
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
@@ -274,7 +270,7 @@
       }
     },
     "pass": true,
-    "spec": "1ff70df0ac4abbf4af4cad8e72182195560cc07ac7d5467e9677e7496258900b"
+    "spec": "a34e84182267a1107d71452cad7557c4d3217efa255c3e123cc8325364821f65"
   },
   "shadcn/sheet": {
     "checks": {
@@ -292,7 +288,7 @@
       }
     },
     "pass": true,
-    "spec": "9089dfa34a76ae84aee881f03f5bfec37fc50a006a00276ee335135c7f2645d9"
+    "spec": "530f26367ef2430217cbb068c3efc5909120a1769fa04d346fa80c64662ee6e4"
   },
   "shadcn/popover": {
     "checks": {
@@ -310,7 +306,7 @@
       }
     },
     "pass": true,
-    "spec": "042c82a04f5c41a5b2458cc56a2900b08b3dcdb6cd70fcb31215d03a4089d2a5"
+    "spec": "d9af15455b488389dbf2b9565b0345a0a17f3de78f7d5c92af574faadc0505c9"
   },
   "ai_elements/attachments": {
     "checks": {
@@ -349,7 +345,7 @@
       }
     },
     "pass": true,
-    "spec": "072ea4d975bd2a3a2ac3e34eb69ecae84bacda2230c1817f14b115aaa73db38d"
+    "spec": "bdbb849584a46e41d1900a2ec461fb561a581ea5c5069d4713b844c7a47c584d"
   },
   "shadcn/menubar": {
     "checks": {
@@ -367,7 +363,7 @@
       }
     },
     "pass": true,
-    "spec": "bcf9a852aeb5c39c6ca2eb101ec17a33524354a38fd1305a098b7671a6776aed"
+    "spec": "b259c2f2883acbaf63ee263adc6eca38767405e86f5fab7e572765c01c447c7b"
   },
   "shadcn/input-otp": {
     "checks": {
@@ -385,7 +381,7 @@
       }
     },
     "pass": true,
-    "spec": "eec97903a1b11abea319db43d1876386e371b5c3881c0ecb2784c958e5a32798"
+    "spec": "c6a991376bcfab5a66aa5eb05c662ff8ffdcd9418e5815b38316192ab0097ce8"
   },
   "shadcn/native-select": {
     "checks": {
@@ -403,7 +399,7 @@
       }
     },
     "pass": true,
-    "spec": "f2e5fb42890d82d7ea9ccc4215be985f86151b82bbb22ebc6138448f94cb39bf"
+    "spec": "53e24fe2f8962c807145fbb2bea72139ad0b0e3f8b2964ef7118072373dfc55c"
   },
   "shadcn/toggle": {
     "checks": {
@@ -421,7 +417,7 @@
       }
     },
     "pass": true,
-    "spec": "7f3f2babb1f2327dbb277c52350c6e47972aef7ab5f7550310a9ea099d42019d"
+    "spec": "eacc7e5f65d7578ef3dc0c8af3182ddbc3cc9ab2b7a82df6fae249c6571d2662"
   },
   "shadcn/input": {
     "checks": {
@@ -439,7 +435,7 @@
       }
     },
     "pass": true,
-    "spec": "73b945f67b1ff064242901dc8b3256304592795ab0c30dd360366e2aa743f185"
+    "spec": "fba4821dcea2e6aebcf414ff8ad1461a155d2f569dd6de80ae58efdfdff38724"
   },
   "shadcn/marker": {
     "checks": {
@@ -457,7 +453,7 @@
       }
     },
     "pass": true,
-    "spec": "659b69f928dbfc5f2357cc5929ecabf950d35f08e6ac10558013b06f1712bd1c"
+    "spec": "3f93f809deed4be0090e1b63505bc09e67afaa06f1075fd02e5d51a384511a18"
   },
   "ai_elements/plan": {
     "checks": {
@@ -515,7 +511,7 @@
       }
     },
     "pass": true,
-    "spec": "64d6c239b3a1f5d7875cf5aaa9b8d2a81831a4fd794bfa7cb980717843a8108b"
+    "spec": "ea5e8f24d30588ed7ec22f457398f85ba3fbb8849d8994b42b8a55eb267235b7"
   },
   "shadcn/spinner": {
     "checks": {
@@ -533,7 +529,7 @@
       }
     },
     "pass": true,
-    "spec": "7178a5195ab09b2c0053ef0c5b34ec17bf4a142b39f98bef7835bd65fe82e60c"
+    "spec": "85ea330f9fb0abe68436fb9e5f8eb28f6df49ae389e74191fb5db589ca4839d2"
   },
   "shadcn/button-group": {
     "checks": {
@@ -551,7 +547,7 @@
       }
     },
     "pass": true,
-    "spec": "2e7efe8420ab0aeaffe59fb2bff79143bd33cec6343e7d732b3af88dc4216db2"
+    "spec": "2a8c6b85fb43d02c52708c5e346e314d141da5fdf22385acb34e87b8fbee9b5a"
   },
   "ai_elements/checkpoint": {
     "checks": {
@@ -559,9 +555,7 @@
         "pass": true
       },
       "generated": {
-        "detail": "** (Mix) generated components do not match their spec: ai_elements/checkpoint\nEither the spec changed and `mix ui.gen` has not run, or the file was\nedited by hand. Generated files are not edited by hand.",
-        "exit": 1,
-        "pass": false
+        "pass": true
       },
       "parity": {
         "detail": "no React reference yet: add one to parity/src/examples/checkpoint.<example>.tsx",
@@ -590,7 +584,7 @@
       }
     },
     "pass": true,
-    "spec": "e8f1143b19ebb150acef128efd7503c67b3295e0bc462691d767b40c6705990c"
+    "spec": "6d22da00bb7daaacd26ce76ff354fd73a4ac300287b5baa5e279cf4036975701"
   },
   "shadcn/message": {
     "checks": {
@@ -608,7 +602,7 @@
       }
     },
     "pass": true,
-    "spec": "d5db852b12b8a464098b5aed180105510aaeab416875276700b33757588534d9"
+    "spec": "b2d4675c1077510c4c60eba4b5f83e0cd186a93333ee4b23cedfae1f2b9cc7f3"
   },
   "shadcn/badge": {
     "checks": {
@@ -626,7 +620,7 @@
       }
     },
     "pass": true,
-    "spec": "cb0b882d07b3723ef5da42c3b5f52a656d79fc01b5fb8c8f434db8791239c7f2"
+    "spec": "c0dabe96bbcdb6bc8491ac8a48329bc74240399b63db4dca4dfb6049b761a090"
   },
   "shadcn/chart": {
     "checks": {
@@ -644,7 +638,7 @@
       }
     },
     "pass": true,
-    "spec": "813840117354c9243ea5d418deb3303798a49555b22b7bf854ab76eeadf680b4"
+    "spec": "16e0a35c2bae92f5e1cb5c8153436e0ab8ad5bb91385938b6445842fb897e5bb"
   },
   "shadcn/command": {
     "checks": {
@@ -662,7 +656,7 @@
       }
     },
     "pass": true,
-    "spec": "38f9439d767dc15e6a3fdfb77732b159ca54d9f8363b92336b1707d93a7921d5"
+    "spec": "3bb2bdeebdb3937dacfb2b3d818cb578b53eda81277ec2e24655f68f02fcec1f"
   },
   "ai_elements/sources": {
     "checks": {
@@ -692,14 +686,16 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "      77 | }\n      78 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:75:48\n    Error Context: test-results/parity-calendar-default-draws-what-React-draws-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/parity-calendar-default-draws-what-React-draws-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/parity-calendar-default-draws-what-React-draws-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › parity.spec.mjs:65:3 › calendar / default draws what React draws ──────────────────\n  1 passed (3.1s)",
+        "exit": 1,
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
-    "spec": "e87d24553360d13591f5b08b7cacf354b2c58d26e5b29408cf05727773023c09"
+    "pass": false,
+    "spec": "bd4ccb935968d816172c85c8f330b55319d471034444d4dba486ac9e70e0152c"
   },
   "shadcn/sonner": {
     "checks": {
@@ -717,7 +713,7 @@
       }
     },
     "pass": true,
-    "spec": "0d1cabf175567549e26bc3eea53a97d4009972487125eed4a0620982985e325b"
+    "spec": "925ec5c4511ea62ef5edd1533560eb9d41e86b3d8e179fc469aff8d52a2c5e97"
   },
   "shadcn/dropdown-menu": {
     "checks": {
@@ -735,7 +731,7 @@
       }
     },
     "pass": true,
-    "spec": "8baa1791c724490b654ce4c187058c188d200e7e7da66a18e049d1da92b231f3"
+    "spec": "945c660ac62f03ec78e783b634207ba1eb45b70a91e9c2a413ce23211ad8478c"
   },
   "shadcn/dialog": {
     "checks": {
@@ -753,7 +749,7 @@
       }
     },
     "pass": true,
-    "spec": "155ada39942eb7376abcf3e8b2951467f13365a57224766a400b7cc4e3ed544a"
+    "spec": "10ad9c61fed3f7636bc8317244ffcb9c7e639d673228ed7b397e69bdddbabd88"
   },
   "shadcn/accordion": {
     "checks": {
@@ -771,7 +767,7 @@
       }
     },
     "pass": true,
-    "spec": "d97571f42a076a2e5c210cd7cb66f7cd42e91df90a61dac64c00941d98df4bce"
+    "spec": "37ff1593f6b168c3da9e01e47d00dc3410141b186ef94713d7e43c13e1f35170"
   },
   "ai_elements/reasoning": {
     "checks": {
@@ -808,7 +804,7 @@
       }
     },
     "pass": true,
-    "spec": "9b57b312b95586e398977fe1f4da3e476ce8c8a5bf337b6dfb0c3d77de8c9ad1"
+    "spec": "de9ef0b86845bfedbbc9ce824882a934abc416646a50a08e4ce0728bf3bf81b2"
   },
   "shadcn/tooltip": {
     "checks": {
@@ -826,7 +822,7 @@
       }
     },
     "pass": true,
-    "spec": "a0e101f6638c1f55726c5fe723805e22f8375c4f2ea1b01f010db903067ae2ce"
+    "spec": "9aeef537a23ca1b9e086e3d8494140959d3aa7a8e38a081b1a075bbbd86f4842"
   },
   "shadcn/toggle-group": {
     "checks": {
@@ -844,7 +840,7 @@
       }
     },
     "pass": true,
-    "spec": "d57c943253741e9c4ebe7f815af58d7152d8a87df25ca51700c4b4a3d787e1bd"
+    "spec": "50dfae76405e819498a814fe85a23277c6eb48e24ceb8538326a6b19427b4406"
   },
   "shadcn/aspect-ratio": {
     "checks": {
@@ -862,7 +858,7 @@
       }
     },
     "pass": true,
-    "spec": "f4ded5734092f0601affd37f15ff9b6f7002a956baf6e38bceeb9f2bc0754066"
+    "spec": "4ddb4928ab397c942e95b9c663e63897be81d7b36f6c5434d6df7111a1a1a94e"
   },
   "shadcn/textarea": {
     "checks": {
@@ -880,7 +876,7 @@
       }
     },
     "pass": true,
-    "spec": "2fc0b678bfe5a33a4052fe59a174dbe58491bdf6627f534b7bc37fc8a4ab918c"
+    "spec": "ba418b844321576faae40f8eef1f9b89b251e83c0c6f419611da34c11c5178eb"
   },
   "shadcn/toast": {
     "checks": {
@@ -898,7 +894,7 @@
       }
     },
     "pass": true,
-    "spec": "15b9dbcd1fd74804432c70f8a05de9cc0c2328936ff3fe154086fc50bdd29ec2"
+    "spec": "4d3b57f291b2b4aa571a12bc07359543c17d55b513e9b25ebd40f8e50032df40"
   },
   "ai_elements/message": {
     "checks": {
@@ -974,7 +970,7 @@
       }
     },
     "pass": true,
-    "spec": "de618870e7fee28a3ff803f34839653ed0637ddc1924436e6f23b2e3eb9d3599"
+    "spec": "82a38dd8f3235522cbc23d27214fe07703fa74ba9cb49048d96fb590f1f26612"
   },
   "shadcn/label": {
     "checks": {
@@ -992,7 +988,7 @@
       }
     },
     "pass": true,
-    "spec": "4454d14c74228f74f86cddd378ad706d600d50ea09d690afe49c68545dc4d186"
+    "spec": "f020715efe9aee80559af7302ef7c6f4e551567fb16e3cea60377073719654cd"
   },
   "shadcn/alert": {
     "checks": {
@@ -1010,7 +1006,7 @@
       }
     },
     "pass": true,
-    "spec": "c49fa3f4b2866a43dcfd6fac971e264a1d1b72e82b593191f5e21a2a3876a2b9"
+    "spec": "01e7577820de563922428a544630591fd047f67a660c558b9839efa8fcc2c5e5"
   },
   "shadcn/item": {
     "checks": {
@@ -1028,7 +1024,7 @@
       }
     },
     "pass": true,
-    "spec": "c6c0a236e06a6154995c35d10455245307941b2ddcddc9d58fa3454387b7145f"
+    "spec": "0166e016d1860ec8bf9952621492a51b1bf7ec6b6ecbd05a570e7fc33b99f5da"
   },
   "shadcn/breadcrumb": {
     "checks": {
@@ -1046,7 +1042,7 @@
       }
     },
     "pass": true,
-    "spec": "c8180e5fc67fe8c77620b661faa5f32f3186a17867fc6cea59cebde6623bed36"
+    "spec": "f0212dc039327e9ab06f5fcdb226be2096e876e2586e8866c3392685dc0ac830"
   },
   "shadcn/avatar": {
     "checks": {
@@ -1064,7 +1060,7 @@
       }
     },
     "pass": true,
-    "spec": "c9414360e999b6eaa1edfe610b7747ebd0daff0c11d4368c7c2c09b1bfa1bc8d"
+    "spec": "d33c87d5fc59f37649f0f95dfb1efa6b287fc7f34e8d1e51c3cf2b29f42f6674"
   },
   "shadcn/select": {
     "checks": {
@@ -1082,7 +1078,7 @@
       }
     },
     "pass": true,
-    "spec": "7ad5e239700dba7326de0d5527081738f2cd1e6564df94172b642604b04c6a25"
+    "spec": "7b5f7218efd3e444f3ee6c4402b9a4e9c823365bad6b6b5eb6c0eaf33d831b24"
   },
   "shadcn/carousel": {
     "checks": {
@@ -1100,7 +1096,7 @@
       }
     },
     "pass": true,
-    "spec": "1fce5fdfe6f03042c143e5aafa9b8e662cd132f293464cff85ab49b5932bc44a"
+    "spec": "644782dc82e452ed4dac117ae546c85bc195abba934b393a0228a01548c2053b"
   },
   "shadcn/card": {
     "checks": {
@@ -1118,7 +1114,7 @@
       }
     },
     "pass": true,
-    "spec": "7c234e1bd1f5bd05a75b693d05037445298e3621fefe0d9a812eb72071c40f07"
+    "spec": "7335ecd165e732d9f0bbc9ad797dd209420c69d2aa724cec130c460af9319ef5"
   },
   "ai_elements/suggestion": {
     "checks": {
@@ -1174,7 +1170,7 @@
       }
     },
     "pass": true,
-    "spec": "bfd71991ad6d34be893b3bad599f0d8faec235f251c414027a24c4a1243da08b"
+    "spec": "35c73b14e870efc2e657ca626732add8dee1c36e4666839479d66c3388235742"
   },
   "shadcn/empty": {
     "checks": {
@@ -1192,7 +1188,7 @@
       }
     },
     "pass": true,
-    "spec": "50ab9e4c07a925bc7551446277f9d362e88afaba62e223ec0ce9e146ab1d5055"
+    "spec": "8597fa776936fac81bc4b534ce1fcd6e22ea4800d3ff3aeea909595e5bbc8797"
   },
   "shadcn/navigation-menu": {
     "checks": {
@@ -1210,7 +1206,7 @@
       }
     },
     "pass": true,
-    "spec": "e96824a5489336adb8e6529457b5f338c6ad955ce9933c9f62301ab50e256d25"
+    "spec": "ccafd562fbf7c0c2c5b655ad93f0eeb2eccb8be45f3a1b810288615e2ea8175c"
   },
   "shadcn/progress": {
     "checks": {
@@ -1228,7 +1224,7 @@
       }
     },
     "pass": true,
-    "spec": "6ee8f9d2db64ef8e4485d46b23a1b36f383a78d9c05d2e0effe4db637b30ec4e"
+    "spec": "92a321f77b802b53581dae2ae6edc2758f84defe013bffe8eeb4ee8896ae96c4"
   },
   "shadcn/collapsible": {
     "checks": {
@@ -1246,7 +1242,7 @@
       }
     },
     "pass": true,
-    "spec": "bcb60d7faedb9185f63dce130b2e89c88df6902ffc3beb7dcf65a4d1511b089f"
+    "spec": "fdecbb38687ee5f349e199377b114b12b243b26abe44d47b8204a15df3974063"
   },
   "shadcn/questionnaire": {
     "checks": {
@@ -1264,7 +1260,7 @@
       }
     },
     "pass": true,
-    "spec": "f429406d523bdaeb1f510bdcd7342e8d8888fc3ff95ff0ef9d7c48ec577a0213"
+    "spec": "adc9316940b1c03c0cc2fd210f47f49a9dbd77de02476566522290553f928064"
   },
   "shadcn/slider": {
     "checks": {
@@ -1282,7 +1278,7 @@
       }
     },
     "pass": true,
-    "spec": "015d17895b79be0580f0bb3e3e46fcf3fdc6c20b5c06f49e9c42c8ba9f1880a9"
+    "spec": "cb9025ac96091b0420205da0e1835f4277c298e9836aa587a23855da58d8baab"
   },
   "shadcn/drawer": {
     "checks": {
@@ -1300,7 +1296,7 @@
       }
     },
     "pass": true,
-    "spec": "43b3e1fa3473cdda688ffbd0ac3c7515bce7992d70b942a9425ac9bb418775f2"
+    "spec": "61d07b0b6dc2487a2e075142c5c0b3a311b38aaa297012459140d756c6cf1b0d"
   },
   "shadcn/button": {
     "checks": {
@@ -1318,7 +1314,7 @@
       }
     },
     "pass": true,
-    "spec": "abcf302f6b2c3a8e298a1f699f8336079bdeab8b4b5017dac8e83728340817cc"
+    "spec": "a91d54dc7b50d0af132a4f1f90cb8c52ecad6f2ca2719576d017a3f2b6569c32"
   },
   "shadcn/kbd": {
     "checks": {
@@ -1336,7 +1332,7 @@
       }
     },
     "pass": true,
-    "spec": "2cc935f3f5effb599da1a395a884bb69db05004c3f76b874d48a08380cbf7074"
+    "spec": "d3fa77036bc44020c50c62d1e8779ba366459acddf1d237bb73538496e28250d"
   },
   "shadcn/table": {
     "checks": {
@@ -1354,7 +1350,7 @@
       }
     },
     "pass": true,
-    "spec": "ea610133c5924137f1dd5892f51f360f74f92838c1c5b4990dbede1db4631b88"
+    "spec": "0433f09f8170dcd27b10772868880e8a4086f4e028130abc2c01221003580956"
   },
   "shadcn/combobox": {
     "checks": {
@@ -1372,6 +1368,6 @@
       }
     },
     "pass": true,
-    "spec": "4be4d9377cbf4b4d274b4dc0651a3163fc91e0a79fb2d34148f74831b1d5140b"
+    "spec": "9ebac1af2940e304cf1e502856d124f158d23305d9f1d0af2a6bf225a28aadb6"
   }
 }
