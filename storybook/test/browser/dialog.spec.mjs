@@ -93,6 +93,12 @@ test.describe("a dialog", () => {
     const { trigger, popup, backdrop } = dialog(page, "confirm");
 
     await trigger.click();
+    // Open before clicking the layer behind it. `click()` auto-waits for its
+    // own target to be actionable, and the backdrop is actionable before the
+    // dialog has finished opening — so the click can land while the handler
+    // that closes on it is not yet listening.
+    await expect(popup).toBeVisible();
+
     await backdrop.click({ position: { x: 5, y: 5 } });
 
     await expect(popup).toBeHidden();
@@ -102,6 +108,8 @@ test.describe("a dialog", () => {
     const { trigger, popup } = dialog(page, "confirm");
 
     await trigger.click();
+    await expect(popup).toBeVisible();
+
     await page.locator("[data-slot='dialog-close']").click();
 
     await expect(popup).toBeHidden();
