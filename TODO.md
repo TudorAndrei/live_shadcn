@@ -268,9 +268,14 @@ has been diagnosed. They stay `pending`: measured, reported, not yet decided.
 - [ ] `textarea.default` — 972 px, **every one outside any slot**. Exactly the
       bucket the geometric check cannot see, found on the first census
 - [ ] `toast.default` — 173 px
-- [ ] `chart.default` — 129–134 px, and it *varies between runs*. Something
-      there is not deterministic, so it cannot be gated at a fixed number until
-      that is understood
+- [x] `chart.default` — **0 px, and stable across three runs.** The variance was
+      a symptom, not a harness problem: the reference rendered `recharts`
+      `<LineChart>` while the Elixir example rendered a hand-written `<svg>` —
+      two different pictures, which `parity/README.md` forbids. recharts
+      animates on mount through `requestAnimationFrame`, which no CSS or Web
+      Animations freeze catches. Making the reference an actual port fixed both
+      at once. Suppressing the animation would have hidden the wrong comparison
+      instead
 - [ ] `scroll-area.default` — 91 px
 - [ ] `sidebar.default` — 68 px
 - [x] Clip the shot to the component. `calendar` reported 0.019% of a

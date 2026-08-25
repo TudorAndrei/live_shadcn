@@ -37,6 +37,7 @@
     "button.variants": 0,
     "card.default": 0,
     "carousel.default": 0,
+    "chart.default": 0,
     "checkbox.default": 0,
     "collapsible.default": 0,
     "combobox.default": 0,
@@ -84,7 +85,6 @@
   },
   "pending": [
     "calendar.default",
-    "chart.default",
     "scroll-area.default",
     "sidebar.default",
     "textarea.default",
