@@ -11,6 +11,18 @@ const tab = (page, value) => page.locator(`#stages-tab-${value}`);
 const panel = (page, value) => page.locator(`#stages-panel-${value}`);
 
 test.describe("a set of tabs", () => {
+  // Focused before the key, not merely clicked.
+  //
+  // `click()` resolves when the click is dispatched. A tab row is a roving
+  // tabindex: the click is what moves focus and `tabindex="0"` to the tab that
+  // was chosen, and an arrow key pressed into that gap walks from wherever
+  // focus still was. On its own the gap never opened; under a full run it did,
+  // and it read as "the row does not wrap".
+  const chose = async (page, value) => {
+    await tab(page, value).click();
+    await expect(tab(page, value)).toBeFocused();
+  };
+
   test.beforeEach(async ({ page }) => {
     await page.goto("/preview/tabs/default");
     await expect(page.locator("#stages")).toBeVisible();
@@ -52,7 +64,7 @@ test.describe("a set of tabs", () => {
   });
 
   test("the right arrow walks along the row", async ({ page }) => {
-    await tab(page, "fetch").click();
+    await chose(page, "fetch");
     await page.keyboard.press("ArrowRight");
 
     await expect(tab(page, "spec")).toBeFocused();
@@ -60,7 +72,7 @@ test.describe("a set of tabs", () => {
   });
 
   test("the left arrow walks back", async ({ page }) => {
-    await tab(page, "gen").click();
+    await chose(page, "gen");
     await page.keyboard.press("ArrowLeft");
 
     await expect(tab(page, "spec")).toBeFocused();
@@ -68,7 +80,7 @@ test.describe("a set of tabs", () => {
   });
 
   test("the row wraps at its ends", async ({ page }) => {
-    await tab(page, "gen").click();
+    await chose(page, "gen");
     await page.keyboard.press("ArrowRight");
 
     await expect(tab(page, "fetch")).toBeFocused();
@@ -76,7 +88,7 @@ test.describe("a set of tabs", () => {
   });
 
   test("Home and End go to the ends", async ({ page }) => {
-    await tab(page, "spec").click();
+    await chose(page, "spec");
 
     await page.keyboard.press("End");
     await expect(tab(page, "gen")).toBeFocused();
