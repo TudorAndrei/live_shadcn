@@ -14,6 +14,7 @@ defmodule StorybookWeb.DocsLive do
 
   use StorybookWeb, :docs_live_view
 
+  import LiveShadcn.UI.Badge
   import LiveShadcn.UI.Table
   import LiveShadcn.UI.Tabs
 
@@ -29,9 +30,15 @@ defmodule StorybookWeb.DocsLive do
   def render(assigns) do
     ~H"""
     <header>
-      <h1 class="text-3xl font-semibold tracking-tight">{Docs.title(@component)}</h1>
+      <div class="flex items-baseline gap-3">
+        <h1 class="text-3xl font-semibold tracking-tight">{Docs.title(@component)}</h1>
+        <%!-- Which of the three libraries this one is. Two components are called
+              `Message` and they are not the same component; without this the
+              page gives a reader no way to tell which one they are reading. --%>
+        <.badge variant="secondary"><code>{@library.package}</code></.badge>
+      </div>
       <p class="mt-2 text-muted-foreground">
-        Generated from <code class="text-xs">registry/spec/{@component}.json</code>. Nothing below
+        Generated from <code class="text-xs">{@library.spec}</code>. Nothing below
         was written by hand except the example markup.
       </p>
     </header>
@@ -134,6 +141,7 @@ defmodule StorybookWeb.DocsLive do
        component: component,
        examples: examples,
        api: Docs.api(component),
+       library: Docs.library(component),
        install: Docs.install(component),
        page_title: Docs.title(component)
      )

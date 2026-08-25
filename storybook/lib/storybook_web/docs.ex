@@ -153,21 +153,105 @@ defmodule StorybookWeb.Docs do
     end
   end
 
+  # The three published packages, and the namespace each one generates into.
+  #
+  # `live_base` has no namespace here because it draws nothing: it is the
+  # behaviour the other two share — the hooks, the ARIA, the measurement — and a
+  # component list is the wrong shape for it. It is still one of the three, and
+  # a reader who does not know that will not understand why installing
+  # `live_shadcn` pulls something else in.
+  @packages [
+    {:live_shadcn, LiveShadcn.UI},
+    {:live_ai_elements, LiveAiElements.Components},
+    {:live_base, nil}
+  ]
+
+  @doc """
+  The three libraries, each with what it says about itself and what it draws.
+
+  A reader meeting `Chain Of Thought` next to `Checkbox` in one alphabetical
+  list has no way to tell that installing the second is `mix ui.add checkbox`
+  and the first is a dependency — or that the two entries both called `Message`
+  are different components from different registries.
+
+  Which package a component ships in is the grouping, and it is read rather than
+  maintained: the module a component generates into says which namespace it is
+  in, and the namespace belongs to exactly one package. A hand-kept list of
+  categories drifts from the components it names.
+
+  The blurb and the version are the package's own, out of its application spec,
+  which is what `mix.exs` puts there. Typing them here would be a second copy
+  of something hex already publishes.
+  """
+  def libraries do
+    for {app, namespace} <- @packages do
+      %{
+        package: to_string(app),
+        blurb: spec(app, :description),
+        version: spec(app, :vsn),
+        components: components_in(namespace)
+      }
+    end
+  end
+
   @doc """
   The components, grouped for the navigation.
 
-  Which registry a component came from is the only grouping the storybook can
-  make without somebody maintaining a list of categories, and a maintained list
-  is a list that drifts from the components it names.
+  The same grouping as `libraries/0`, without the packages that draw nothing.
   """
   def groups do
-    {ai, shadcn} =
-      Enum.split_with(Examples.components(), fn component ->
-        module(component) |> to_string() |> String.starts_with?("Elixir.LiveAiElements")
+    for library <- libraries(),
+        library.components != [],
+        do: {library.package, library.components}
+  end
+
+  @doc """
+  The library a component ships in, and where its spec lives.
+
+  The page used to say `registry/spec/<component>.json`, which is not a path
+  that exists: the registry is one directory per source, because a name is not
+  an identity — each registry has a `message`. So it named a file nobody could
+  open, for a library it did not say.
+  """
+  def library(component) do
+    namespace = to_string(module(component))
+
+    source =
+      if String.starts_with?(namespace, "Elixir.LiveAiElements"),
+        do: "ai_elements",
+        else: "shadcn"
+
+    package =
+      Enum.find_value(@packages, fn
+        {app, ns} when not is_nil(ns) ->
+          String.starts_with?(namespace, to_string(ns)) && to_string(app)
+
+        _base ->
+          nil
       end)
 
-    [{"Components", Enum.sort(shadcn)}, {"AI Elements", Enum.sort(ai)}]
-    |> Enum.reject(fn {_label, names} -> names == [] end)
+    name = String.replace(component, ["shadcn-", "ai_elements-"], "")
+
+    %{package: package, spec: "registry/spec/#{source}/#{name}.json"}
+  end
+
+  defp components_in(nil), do: []
+
+  defp components_in(namespace) do
+    prefix = to_string(namespace)
+
+    Examples.components()
+    |> Enum.filter(&String.starts_with?(to_string(module(&1)), prefix))
+    |> Enum.sort()
+  end
+
+  defp spec(app, key) do
+    Application.load(app)
+
+    case Application.spec(app, key) do
+      nil -> nil
+      value -> to_string(value)
+    end
   end
 
   @doc "The title a component is shown under."
