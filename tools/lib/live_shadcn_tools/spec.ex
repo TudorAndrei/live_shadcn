@@ -180,6 +180,7 @@ defmodule LiveShadcnTools.Spec do
       |> Map.new()
       |> calendar_root(part)
       |> calendar_day_button(spec, ctx)
+      |> calendar_chevrons(spec, params, ctx)
     else
       _none -> nil
     end
@@ -193,7 +194,11 @@ defmodule LiveShadcnTools.Spec do
   # drops everything the `cva` table contributes, and what came out was a 7×24
   # button where upstream draws 32×36 — a confident wrong answer, which is worse
   # than no answer.
-  defp class_value(value, params, ctx) do
+  #
+  # `given` names the identifiers whose value the caller already knows. Inside a
+  # render override, a bare `className` is the class the library passes to that
+  # element, and only the caller knows which element it is handing over.
+  defp class_value(value, params, ctx, given \\ %{}) do
     arguments =
       case Ast.call_args(value, "cn") do
         # Not a `cn()` call at all: a bare string is its own class string.
@@ -201,19 +206,27 @@ defmodule LiveShadcnTools.Spec do
         nodes -> Enum.map(nodes, &Ast.expression(value, &1))
       end
 
-    resolved = Enum.map(arguments, &class_argument(&1, params, ctx))
+    resolved = Enum.map(arguments, &class_argument(&1, params, ctx, given))
 
     if Enum.any?(resolved, &is_nil/1), do: nil, else: TwMerge.merge(resolved)
   end
 
   # One argument of a `cn()`, as the class string it contributes.
-  defp class_argument(argument, params, ctx) do
+  defp class_argument(argument, params, ctx, given) do
     cond do
       literal = Ast.string_literal(argument) -> literal
       marker = default_class_name(argument) -> marker
+      known = given_class(argument, given) -> known
       table = variant_call(argument, params, ctx) -> table
-      branch = branch_at_defaults(argument, params) -> class_argument(branch, params, ctx)
+      branch = branch_at_defaults(argument, params) -> class_argument(branch, params, ctx, given)
       true -> nil
+    end
+  end
+
+  defp given_class({:expr, _code, node}, given) do
+    case Ast.bare(node) do
+      %{"type" => "Identifier", "name" => name} -> Map.get(given, name)
+      _other -> nil
     end
   end
 
@@ -393,6 +406,58 @@ defmodule LiveShadcnTools.Spec do
   end
 
   defp component_variants(_tree, _ctx), do: nil
+
+  # The chevrons, keyed by the icon each one draws.
+  #
+  # These are not in `classNames`. shadcn passes react-day-picker a `components`
+  # prop, and its `Chevron` returns one of three icons depending on which way it
+  # points — so there is no single element to read, and the recipe typed both
+  # the class and the icon names instead.
+  #
+  # Keyed by the icon rather than by position or by reading the `if` that chose
+  # it: `lucide="ChevronLeftIcon"` is what the element says about itself, and a
+  # key taken from source order would be a guess that renders the wrong glyph.
+  # The left and right chevrons carry `cn-rtl-flip` and the one the dropdown
+  # uses does not, which is exactly why one shared reading would be wrong.
+  #
+  # `cn("cn-rtl-flip size-4", className)` — the bare `className` is what
+  # react-day-picker hands the override, and the library derives it from the
+  # part, as it does the `defaultClassNames` markers above.
+  @overrides %{"Chevron" => "chevrons"}
+
+  defp calendar_chevrons(classes, spec, params, ctx) do
+    Enum.reduce(@overrides, classes, fn {key, into}, acc ->
+      case render_override(spec, key, params, ctx) do
+        drawn when drawn == %{} -> acc
+        drawn -> Map.put(acc, into, drawn)
+      end
+    end)
+  end
+
+  defp render_override(spec, key, params, ctx) do
+    given = %{"className" => "rdp-#{Macro.underscore(key)}"}
+
+    with %{} = attr <- find_attr(spec["parts"], "components"),
+         expression when not is_nil(expression) <- Ast.expression_of(attr["value"]),
+         %{} = entries <- Ast.object_entries(expression),
+         {:expr, _code, _node} = override <- Map.get(entries, key) do
+      for element <- Ast.jsx_elements(override),
+          name = lucide_name(element),
+          value = Tsx.attr(element, "className"),
+          class = class_value(value, params, ctx, given),
+          into: %{},
+          do: {name, class}
+    else
+      _other -> %{}
+    end
+  end
+
+  defp lucide_name(element) do
+    case Tsx.attr(element, "lucide") do
+      {:string, component} -> icon_name(component)
+      _other -> nil
+    end
+  end
 
   # A plain-string attribute of an element in a spec tree — `variant="ghost"`.
   defp text_attr(%{"attrs" => attrs}, name) do

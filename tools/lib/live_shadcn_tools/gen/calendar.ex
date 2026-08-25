@@ -3,9 +3,21 @@ defmodule LiveShadcnTools.Gen.Calendar do
 
   alias LiveShadcnTools.Gen.Heex
 
+  # Which way each nav button points. That is this recipe's decision — upstream
+  # chooses by an `orientation` prop react-day-picker passes at render, and a
+  # server-rendered month grid has two buttons that never change direction.
+  #
+  # The icons themselves are not a decision: they are the ones the `components`
+  # override names, read into the spec, and asking for one that is no longer
+  # there fails generation rather than drawing nothing.
+  @back "chevron-left"
+  @forward "chevron-right"
+
   @doc "The module source for one calendar component."
   def module(spec, opts) do
     classes = spec["classes"]
+    back = @back
+    forward = @forward
 
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
@@ -40,16 +52,15 @@ defmodule LiveShadcnTools.Gen.Calendar do
                   our month grid a pixel shorter than React's. --%>
             <nav class=#{inspect(classes["nav"])}>
               <%!-- The chevrons upstream draws, not the `‹` and `›` characters
-                    that used to stand in for them. shadcn renders an
-                    `IconPlaceholder` here with `cn-rtl-flip size-4`, so the
-                    generated component names the same lucide icon and carries
-                    the same class — a glyph from the font is a different shape,
-                    a different size and a different colour from an SVG. --%>
+                    that used to stand in for them — a glyph from the font is a
+                    different shape, a different size and a different colour
+                    from an SVG. Both the icon and its class are read out of the
+                    `components` prop shadcn hands react-day-picker. --%>
               <button type="button" aria-label="Go to the previous month" class=#{inspect(classes["button_previous"])}>
-                <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip size-4 rdp-chevron" />
+                <LiveShadcn.Icon.icon name=#{inspect(back)} class=#{inspect(chevron!(classes, back))} />
               </button>
               <button type="button" aria-label="Go to the next month" class=#{inspect(classes["button_next"])}>
-                <LiveShadcn.Icon.icon name="chevron-right" class="cn-rtl-flip size-4 rdp-chevron" />
+                <LiveShadcn.Icon.icon name=#{inspect(forward)} class=#{inspect(chevron!(classes, forward))} />
               </button>
             </nav>
           <div class=#{inspect(classes["month"])}>
@@ -127,6 +138,17 @@ defmodule LiveShadcnTools.Gen.Calendar do
       defp weekday_name(day), do: day |> Calendar.strftime("%a") |> String.slice(0, 2)
     end
     """
+  end
+
+  defp chevron!(classes, icon) do
+    case get_in(classes, ["chevrons", icon]) do
+      nil ->
+        raise "calendar draws #{icon}, and its spec records no chevron by that name" <>
+                " (it has #{classes |> Map.get("chevrons", %{}) |> Map.keys() |> Enum.join(", ")})"
+
+      class ->
+        class
+    end
   end
 
   defp moduledoc(spec) do

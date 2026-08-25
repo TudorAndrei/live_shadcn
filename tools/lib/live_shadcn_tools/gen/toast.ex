@@ -81,6 +81,7 @@ defmodule LiveShadcnTools.Gen.Toast do
     stack = Map.fetch!(spec, "toast_stack")
     container = stack["container"]
     item = stack["item"]
+    text = text_wrapper!(spec, opts)
 
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
@@ -118,7 +119,7 @@ defmodule LiveShadcnTools.Gen.Toast do
             class=#{inspect(item["class"])}
           >
             <span data-slot="toast-icon"><LiveShadcn.Icon.icon name={icon(toast[:type])} /></span>
-            <div class="flex min-w-0 flex-1 flex-col gap-1">
+            <div class=#{inspect(text["class"])}>
               <p :if={toast[:title]}>{toast[:title]}</p>
               {render_slot(toast)}
             </div>
@@ -232,6 +233,34 @@ defmodule LiveShadcnTools.Gen.Toast do
   end
 
   defp wraps_text?(_node, _roles), do: false
+
+  # The same element, for the half of this recipe that has no anatomy of its own.
+  #
+  # `sonner` renders a stack whose parts are the toast's: sonner itself exposes
+  # only a manager, the server owns the list, and what gets drawn around each
+  # message is shadcn's toast. So the class came from the toast — retyped into
+  # this heredoc, which is the one upstream class string a person still
+  # maintained, and the second copy of a fact the other half of this very
+  # recipe reads.
+  #
+  # Two heredocs through one recipe is how the icon defect got in: `sonner`
+  # carried the type-to-icon mapping and `toast` did not. This is the same
+  # shape, and it is closed the same way — one reading, used twice.
+  defp text_wrapper!(spec, opts) do
+    resolve = Keyword.get(opts, :resolve) || raise "#{spec["name"]} needs the toast spec to read"
+
+    toast =
+      resolve.(spec["source"], "toast") ||
+        raise "#{spec["name"]} draws shadcn's toast, and no toast spec is on disk to read it from"
+
+    toaster = Enum.find(toast["parts"], &(&1["name"] == "toaster"))
+
+    helper!(
+      toaster["tree"],
+      "the title and description wrapper",
+      &wraps_text?(&1, roles!(toast))
+    )
+  end
 
   defp helper!(node, what, predicate) do
     case find_node(node, predicate) do

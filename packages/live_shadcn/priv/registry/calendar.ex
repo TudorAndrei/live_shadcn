@@ -44,11 +44,10 @@ defmodule LiveShadcn.UI.Calendar do
               our month grid a pixel shorter than React's. --%>
         <nav class="absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1 rdp-nav">
           <%!-- The chevrons upstream draws, not the `‹` and `›` characters
-                that used to stand in for them. shadcn renders an
-                `IconPlaceholder` here with `cn-rtl-flip size-4`, so the
-                generated component names the same lucide icon and carries
-                the same class — a glyph from the font is a different shape,
-                a different size and a different colour from an SVG. --%>
+                that used to stand in for them — a glyph from the font is a
+                different shape, a different size and a different colour
+                from an SVG. Both the icon and its class are read out of the
+                `components` prop shadcn hands react-day-picker. --%>
           <button
             type="button"
             aria-label="Go to the previous month"

@@ -198,6 +198,32 @@ defmodule LiveShadcnTools.Ast do
     end
   end
 
+  @doc """
+  Every JSX element below an expression, outermost first.
+
+  A render override is a function, not markup: shadcn hands react-day-picker a
+  `components` prop whose `Chevron` returns one of three icons. There is no
+  single element to ask for, so this collects them and lets the caller tell
+  them apart by what they say about themselves.
+
+  Nested elements are not returned on their own — an element already carries
+  its children.
+  """
+  def jsx_elements({:expr, code, parent}) do
+    parent
+    |> outermost_jsx()
+    |> Enum.map(&jsx_node(&1, {code, parent}))
+  end
+
+  defp outermost_jsx(%{"type" => type} = node) when type in ~w(JSXElement JSXFragment),
+    do: [node]
+
+  defp outermost_jsx(node) when is_map(node),
+    do: node |> Map.values() |> Enum.flat_map(&outermost_jsx/1)
+
+  defp outermost_jsx(nodes) when is_list(nodes), do: Enum.flat_map(nodes, &outermost_jsx/1)
+  defp outermost_jsx(_node), do: []
+
   @doc "The identifier roots of member expressions below an OXC expression node."
   def member_roots(node) do
     node

@@ -48,6 +48,16 @@ defmodule Mix.Tasks.Ui.Gen do
     report(results, check?)
   end
 
+  # A recipe that draws one component out of another component's anatomy needs
+  # that other spec. `sonner` is the case: it renders a stack whose parts are
+  # the toast's, because sonner itself exposes only a manager and the server
+  # owns the list. Committed specs are what it reads, the same as everything
+  # else in this stage — the generator still never reads a `.tsx`.
+  defp resolve_spec(source, name) do
+    path = spec_path(source, name)
+    if File.exists?(path), do: read_json!(path)
+  end
+
   defp specs([]) do
     registry_path("spec")
     |> Path.join("*/*.json")
@@ -67,7 +77,7 @@ defmodule Mix.Tasks.Ui.Gen do
     %{"name" => name, "source" => source} = spec
     namespace = Map.fetch!(@namespaces, source)
 
-    case Gen.module(spec, module: Gen.module_name(namespace, name)) do
+    case Gen.module(spec, module: Gen.module_name(namespace, name), resolve: &resolve_spec/2) do
       {:error, recipe} ->
         {:no_recipe, ref(source, name), recipe}
 

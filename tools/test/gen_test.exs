@@ -46,6 +46,49 @@ defmodule LiveShadcnTools.GenTest do
     end
   end
 
+  describe "a recipe that draws one component out of another's anatomy" do
+    # `sonner` renders a stack whose parts are the toast's, because sonner
+    # exposes only a manager and the server owns the list. The class string of
+    # the element that holds the title and the description therefore belongs to
+    # the toast, and this recipe used to hold a second, hand-maintained copy of
+    # it.
+    test "sonner reads the toast's text wrapper rather than holding a copy" do
+      assert {:ok, source} =
+               Gen.module(spec("sonner"),
+                 module: LiveShadcn.UI.Sonner,
+                 resolve: fn "shadcn", name -> spec(name) end
+               )
+
+      wrapper =
+        spec("toast")
+        |> Map.fetch!("parts")
+        |> Enum.find(&(&1["name"] == "toaster"))
+        |> get_in(["tree", "children"])
+        |> find_class(~r/flex-col/)
+
+      assert source =~ wrapper
+    end
+
+    test "and refuses to draw one at all when that anatomy is not on disk" do
+      assert_raise RuntimeError, ~r/no toast spec is on disk/, fn ->
+        Gen.module(spec("sonner"), module: LiveShadcn.UI.Sonner, resolve: fn _, _ -> nil end)
+      end
+    end
+  end
+
+  # The class of the first element below here that matches, found by walking
+  # rather than by naming a string this test would then also be maintaining.
+  defp find_class(nodes, pattern) when is_list(nodes),
+    do: Enum.find_value(nodes, &find_class(&1, pattern))
+
+  defp find_class(%{} = node, pattern) do
+    if is_binary(node["class"]) and Regex.match?(pattern, node["class"]),
+      do: node["class"],
+      else: find_class(List.wrap(node["children"]), pattern)
+  end
+
+  defp find_class(_node, _pattern), do: nil
+
   describe "recipes" do
     test "a spec whose recipe nobody has written is reported, not guessed at" do
       assert {:error, "nonesuch"} =
