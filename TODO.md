@@ -268,9 +268,31 @@ inventory claiming something nobody established.
 Not budgeted. A budget would say the difference is acceptable, and none of these
 has been diagnosed. They stay `pending`: measured, reported, not yet decided.
 
-- [ ] `calendar.default` — 8,077 px. The known grid problem; parity fails this
-      component too. The recipe writes its own month grid instead of reading
-      react-day-picker's
+### calendar — the structural half is done, the number has not moved
+
+The reader now reads **25 class strings** out of the `classNames` prop shadcn
+hands react-day-picker. It read four before, and the rest were typed into the
+recipe. The structure matches upstream exactly: `nav` is a sibling of `month`
+positioned over it, not a child of the caption, and every wrapper sits at the
+same coordinates React puts it at. The chevrons are lucide icons rather than the
+`‹` and `›` characters that stood in for them.
+
+The pixel count went 8,077 → 9,261, because a correct structure exposed an
+incorrect class. It is honest to say that plainly.
+
+- [ ] Resolve `buttonVariants({variant})` inside a `cn()` call. Upstream writes
+      `button_previous: cn(buttonVariants({variant}), "size-(--cell-size) p-0
+      …")`, and the reader keeps only the string literals — so the class is
+      recorded without everything the `cva` table contributes. The nav button
+      comes out 32x32 where upstream draws 32x36. The reader already resolves
+      `cva` calls elsewhere; this is teaching it to do so one level in
+- [ ] The grid is 141.7px wide against React's 133.2. `th` and `td` still carry
+      a typed `width: 19px`, which is the last measurement in this recipe and
+      the sign it still lays the grid out itself
+- [ ] `previous_button`, `next_button`, `root` and `day_button` are still
+      hand-typed in the spec. They are the four the reader refuses to claim,
+      because each is a `cn()` whose arguments it can only partly read — a
+      confident wrong answer being worse than none
 - [x] `textarea.default` — **0 px.** A real defect, not a rendering difference:
       the generated markup was `<textarea>\n  {render_slot(…)}\n</textarea>`,
       and a textarea is a raw-text element, so those newlines *were* its value.

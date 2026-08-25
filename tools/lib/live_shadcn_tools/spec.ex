@@ -126,8 +126,106 @@ defmodule LiveShadcnTools.Spec do
       "parts" => parts
     }
     |> sonner_stack(name)
+    |> calendar_classes(name)
     |> folds(folded)
   end
+
+  # Every class string upstream gives react-day-picker, read rather than typed.
+  #
+  # `<DayPicker>` renders a whole month grid, so there is no JSX here to walk
+  # into — but the one prop that matters is right there in the file:
+  #
+  #     classNames={{
+  #       months: cn("relative flex flex-col gap-4 md:flex-row", defaultClassNames.months),
+  #       nav: cn("absolute inset-x-0 top-0 flex w-full …", defaultClassNames.nav),
+  #       …
+  #     }}
+  #
+  # Roughly twenty entries, one per part of the calendar. Four of them used to
+  # live in this spec as hand-typed strings and the rest were typed into the
+  # recipe, which is the whole reason that component drew 8,077 pixels
+  # differently from upstream and could not follow it when it changed.
+  #
+  # `defaultClassNames.<key>` is react-day-picker's own marker class, `rdp-<key>`
+  # — the library derives it from the key, so this does too rather than reading
+  # a table it does not publish.
+  defp calendar_classes(spec, "calendar") do
+    case class_names_prop(spec["parts"]) do
+      nil ->
+        spec
+
+      object ->
+        # Parsed values fill gaps; they do not replace what is already there.
+        #
+        # `classNames.root` is `cn("w-fit", defaultClassNames.root)` — true, and
+        # only half the story, because shadcn also passes a `className` prop
+        # carrying `cn-calendar` and the rest. Letting the parsed half win threw
+        # the other half away and the calendar lost its padding.
+        Map.put(spec, "classes", Map.merge(object, spec["classes"] || %{}))
+    end
+  end
+
+  defp calendar_classes(spec, _name), do: spec
+
+  defp class_names_prop(parts) do
+    with %{} = attr <- find_attr(parts, "classNames"),
+         expression when not is_nil(expression) <- Ast.expression_of(attr["value"]),
+         entries when entries != %{} <- Ast.object_entries(expression) do
+      entries
+      # `...classNames` — upstream spreads the caller's own overrides in last.
+      # That is an argument the caller supplies, not a class string, and it
+      # arrives here as a key whose name begins with the spread.
+      |> Map.reject(fn {key, _value} -> String.starts_with?(key, "...") end)
+      # A class this reader can only read part of is one it must not claim.
+      #
+      # `button_previous` is `cn(buttonVariants({variant}), "size-(--cell-size)
+      # p-0 …")`. Taking the string literals out of that drops every class the
+      # `cva` table contributes, and what came out was a 7×24 button where
+      # upstream draws 32×36 — a confident, wrong answer, which is worse than
+      # no answer. Those keys are left to the spec's preserved values until the
+      # reader can resolve a `cva` call inside a `cn`.
+      |> Map.reject(fn {_key, value} -> not fully_literal?(value) end)
+      |> Map.new(fn {key, value} ->
+        {key, String.trim("#{Tsx.classes(value)} rdp-#{key}")}
+      end)
+    else
+      _none -> nil
+    end
+  end
+
+  # Every argument of the `cn()` call is something this reader can turn into
+  # class names: a string literal, or `defaultClassNames.x`, which is
+  # react-day-picker's own `rdp-` marker and is added back by the caller.
+  defp fully_literal?({:expr, _code, _node} = value) do
+    case Ast.call_args(value, "cn") do
+      [] -> true
+      args -> Enum.all?(args, &literal_or_default?/1)
+    end
+  end
+
+  defp fully_literal?(_value), do: false
+
+  defp literal_or_default?({:expr, code, _node} = argument) do
+    Ast.string_literal(argument) != nil or
+      String.starts_with?(String.trim(code), "defaultClassNames.")
+  end
+
+  defp literal_or_default?(_argument), do: false
+
+  defp find_attr(node, name) when is_list(node),
+    do: Enum.find_value(node, &find_attr(&1, name))
+
+  defp find_attr(%{"attrs" => attrs} = node, name) do
+    case Enum.find(attrs, &(&1["name"] == name)) do
+      nil -> node |> Map.drop(["attrs"]) |> find_attr(name)
+      found -> found
+    end
+  end
+
+  defp find_attr(node, name) when is_map(node),
+    do: node |> Map.values() |> Enum.filter(&(is_map(&1) or is_list(&1))) |> find_attr(name)
+
+  defp find_attr(_node, _name), do: nil
 
   # Sonner is a client toast manager. The server owns the equivalent list, so
   # its stack shape is a specification fact rather than a second HEEx design in
@@ -1294,6 +1392,15 @@ defmodule LiveShadcnTools.Spec do
     },
     "input-otp" => %{
       "OTPInput" => {"Input", "input"}
+    },
+    # `<DayPicker>` is not one element — it renders a whole month grid — so this
+    # entry does not describe its anatomy. What it buys is that the reader stops
+    # refusing the file, and can then read the one prop that matters:
+    # `classNames`, which carries upstream's class string for every part of the
+    # calendar. Before this, `calendar.json` had no parts at all and its four
+    # class strings were typed into the spec by hand.
+    "react-day-picker" => %{
+      "DayPicker" => {"Root", "div"}
     },
     "@shadcn/react/message-scroller" => %{
       "MessageScrollerPrimitive.Provider" => {"Provider", nil},

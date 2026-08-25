@@ -1,18 +1,337 @@
 {
   "anatomy": [],
   "classes": {
+    "...classNames": "rdp-...classNames",
+    "button_next": "size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_next",
+    "button_previous": "size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_previous",
+    "caption_label": "font-medium select-none rdp-caption_label",
+    "day": "group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius) rdp-day",
     "day_button": "cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full items-center justify-center border-0 leading-none font-normal rdp-day_button data-[selected=true]:bg-primary data-[selected=true]:text-primary-foreground",
+    "disabled": "text-muted-foreground opacity-50 rdp-disabled",
+    "dropdown": "absolute inset-0 bg-popover opacity-0 rdp-dropdown",
+    "dropdown_root": "cn-calendar-dropdown-root relative rounded-(--cell-radius) rdp-dropdown_root",
+    "dropdowns": "flex h-(--cell-size) w-full items-center justify-center gap-1.5 text-sm font-medium rdp-dropdowns",
+    "hidden": "invisible rdp-hidden",
+    "month": "flex w-full flex-col gap-4 rdp-month",
+    "month_caption": "flex h-(--cell-size) w-full items-center justify-center px-(--cell-size) rdp-month_caption",
+    "month_grid": "w-full border-collapse rdp-month_grid",
+    "months": "relative flex flex-col gap-4 md:flex-row rdp-months",
+    "nav": "absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1 rdp-nav",
     "next_button": "cn-button group/button inline-flex size-(--cell-size) items-center justify-center p-0 rdp-button_next",
+    "outside": "text-muted-foreground aria-selected:text-muted-foreground rdp-outside",
     "previous_button": "cn-button group/button inline-flex size-(--cell-size) items-center justify-center p-0 rdp-button_previous",
-    "root": "cn-calendar group/calendar bg-background w-fit rdp-root"
+    "range_end": "relative isolate z-0 rounded-r-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-muted rdp-range_end",
+    "range_middle": "rounded-none rdp-range_middle",
+    "range_start": "relative isolate z-0 rounded-l-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-muted rdp-range_start",
+    "root": "cn-calendar group/calendar bg-background w-fit rdp-root",
+    "today": "rounded-(--cell-radius) bg-muted text-foreground data-[selected=true]:rounded-none rdp-today",
+    "week": "mt-2 flex w-full rdp-week",
+    "week_number": "text-[0.8rem] text-muted-foreground select-none rdp-week_number",
+    "week_number_header": "w-(--cell-size) select-none rdp-week_number_header",
+    "weekday": "flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none rdp-weekday",
+    "weekdays": "flex rdp-weekdays"
   },
   "css_vars": [],
-  "generated_by": "calendar recipe",
+  "generated_by": "mix ui.spec",
   "name": "calendar",
-  "parts": [],
+  "parts": [
+    {
+      "contexts": [],
+      "export": "Calendar",
+      "name": "calendar",
+      "params": {
+        "buttonVariant": "ghost",
+        "captionLayout": "label",
+        "className": null,
+        "classNames": null,
+        "components": null,
+        "defaultClassNames": null,
+        "formatters": null,
+        "locale": null,
+        "showOutsideDays": "true"
+      },
+      "primitive": null,
+      "refs": [
+        "showOutsideDays",
+        "className",
+        "captionLayout",
+        "locale",
+        "date",
+        "formatters",
+        "buttonVariant",
+        "props",
+        "classNames",
+        "rootRef",
+        "orientation",
+        "children",
+        "components"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "showOutsideDays"
+            ],
+            "kind": "code",
+            "name": "showOutsideDays",
+            "value": "showOutsideDays"
+          },
+          {
+            "identifiers": [
+              "captionLayout"
+            ],
+            "kind": "code",
+            "name": "captionLayout",
+            "value": "captionLayout"
+          },
+          {
+            "identifiers": [
+              "locale"
+            ],
+            "kind": "code",
+            "name": "locale",
+            "value": "locale"
+          },
+          {
+            "identifiers": [
+              "date",
+              "formatters",
+              "locale"
+            ],
+            "kind": "code",
+            "member_roots": [
+              "date",
+              "locale"
+            ],
+            "name": "formatters",
+            "value": "{\n        formatMonthDropdown: (date) =>\n          date.toLocaleString(locale?.code, { month: \"short\" }),\n        ...formatters,\n      }"
+          },
+          {
+            "identifiers": [
+              "buttonVariant",
+              "buttonVariants",
+              "captionLayout",
+              "classNames",
+              "cn",
+              "defaultClassNames",
+              "props"
+            ],
+            "kind": "code",
+            "member_roots": [
+              "defaultClassNames",
+              "props"
+            ],
+            "name": "classNames",
+            "value": "{\n        root: cn(\"w-fit\", defaultClassNames.root),\n        months: cn(\n          \"relative flex flex-col gap-4 md:flex-row\",\n          defaultClassNames.months\n        ),\n        month: cn(\"flex w-full flex-col gap-4\", defaultClassNames.month),\n        nav: cn(\n          \"absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1\",\n          defaultClassNames.nav\n        ),\n        button_previous: cn(\n          buttonVariants({ variant: buttonVariant }),\n          \"size-(--cell-size) p-0 select-none aria-disabled:opacity-50\",\n          defaultClassNames.button_previous\n        ),\n        button_next: cn(\n          buttonVariants({ variant: buttonVariant }),\n          \"size-(--cell-size) p-0 select-none aria-disabled:opacity-50\",\n          defaultClassNames.button_next\n        ),\n        month_caption: cn(\n          \"flex h-(--cell-size) w-full items-center justify-center px-(--cell-size)\",\n          defaultClassNames.month_caption\n        ),\n        dropdowns: cn(\n          \"flex h-(--cell-size) w-full items-center justify-center gap-1.5 text-sm font-medium\",\n          defaultClassNames.dropdowns\n        ),\n        dropdown_root: cn(\n          \"cn-calendar-dropdown-root relative rounded-(--cell-radius)\",\n          defaultClassNames.dropdown_root\n        ),\n        dropdown: cn(\n          \"absolute inset-0 bg-popover opacity-0\",\n          defaultClassNames.dropdown\n        ),\n        caption_label: cn(\n          \"font-medium select-none\",\n          captionLayout === \"label\"\n            ? \"cn-calendar-caption text-sm\"\n            : \"cn-calendar-caption-label flex items-center gap-1 rounded-(--cell-radius) text-sm [&>svg]:size-3.5 [&>svg]:text-muted-foreground\",\n          defaultClassNames.caption_label\n        ),\n        month_grid: cn(\"w-full border-collapse\", defaultClassNames.month_grid),\n        weekdays: cn(\"flex\", defaultClassNames.weekdays),\n        weekday: cn(\n          \"flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none\",\n          defaultClassNames.weekday\n        ),\n        week: cn(\"mt-2 flex w-full\", defaultClassNames.week),\n        week_number_header: cn(\n          \"w-(--cell-size) select-none\",\n          defaultClassNames.week_number_header\n        ),\n        week_number: cn(\n          \"text-[0.8rem] text-muted-foreground select-none\",\n          defaultClassNames.week_number\n        ),\n        day: cn(\n          \"group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius)\",\n          props.showWeekNumber\n            ? \"[&:nth-child(2)[data-selected=true]_button]:rounded-l-(--cell-radius)\"\n            : \"[&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius)\",\n          defaultClassNames.day\n        ),\n        range_start: cn(\n          \"relative isolate z-0 rounded-l-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-muted\",\n          defaultClassNames.range_start\n        ),\n        range_middle: cn(\"rounded-none\", defaultClassNames.range_middle),\n        range_end: cn(\n          \"relative isolate z-0 rounded-r-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-muted\",\n          defaultClassNames.range_end\n        ),\n        today: cn(\n          \"rounded-(--cell-radius) bg-muted text-foreground data-[selected=true]:rounded-none\",\n          defaultClassNames.today\n        ),\n        outside: cn(\n          \"text-muted-foreground aria-selected:text-muted-foreground\",\n          defaultClassNames.outside\n        ),\n        disabled: cn(\n          \"text-muted-foreground opacity-50\",\n          defaultClassNames.disabled\n        ),\n        hidden: cn(\"invisible\", defaultClassNames.hidden),\n        ...classNames,\n      }"
+          },
+          {
+            "identifiers": [
+              "children",
+              "className",
+              "cn",
+              "components",
+              "locale",
+              "orientation",
+              "props",
+              "rootRef"
+            ],
+            "kind": "code",
+            "name": "components",
+            "value": "{\n        Root: ({ className, rootRef, ...props }) => {\n          return (\n            <div\n              data-slot=\"calendar\"\n              ref={rootRef}\n              className={cn(className)}\n              {...props}\n            />\n          )\n        },\n        Chevron: ({ className, orientation, ...props }) => {\n          if (orientation === \"left\") {\n            return (\n              <IconPlaceholder\n                lucide=\"ChevronLeftIcon\"\n                tabler=\"IconChevronLeft\"\n                hugeicons=\"ArrowLeftIcon\"\n                phosphor=\"CaretLeftIcon\"\n                remixicon=\"RiArrowLeftSLine\"\n                className={cn(\"cn-rtl-flip size-4\", className)}\n                {...props}\n              />\n            )\n          }\n\n          if (orientation === \"right\") {\n            return (\n              <IconPlaceholder\n                lucide=\"ChevronRightIcon\"\n                tabler=\"IconChevronRight\"\n                hugeicons=\"ArrowRightIcon\"\n                phosphor=\"CaretRightIcon\"\n                remixicon=\"RiArrowRightSLine\"\n                className={cn(\"cn-rtl-flip size-4\", className)}\n                {...props}\n              />\n            )\n          }\n\n          return (\n            <IconPlaceholder\n              lucide=\"ChevronDownIcon\"\n              tabler=\"IconChevronDown\"\n              hugeicons=\"ArrowDownIcon\"\n              phosphor=\"CaretDownIcon\"\n              remixicon=\"RiArrowDownSLine\"\n              className={cn(\"size-4\", className)}\n              {...props}\n            />\n          )\n        },\n        DayButton: ({ ...props }) => (\n          <CalendarDayButton locale={locale} {...props} />\n        ),\n        WeekNumber: ({ children, ...props }) => {\n          return (\n            <td {...props}>\n              <div className=\"flex size-(--cell-size) items-center justify-center text-center\">\n                {children}\n              </div>\n            </td>\n          )\n        },\n        ...components,\n      }"
+          }
+        ],
+        "children": [],
+        "class": "cn-calendar group/calendar bg-background in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/react-day-picker",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "CalendarDayButton",
+      "name": "calendar_day_button",
+      "params": {
+        "className": null,
+        "day": null,
+        "locale": null,
+        "modifiers": null
+      },
+      "primitive": null,
+      "refs": [
+        "modifiers",
+        "day",
+        "locale",
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "variant",
+            "value": "ghost"
+          },
+          {
+            "kind": "text",
+            "name": "size",
+            "value": "icon"
+          },
+          {
+            "identifiers": [
+              "day",
+              "locale"
+            ],
+            "kind": "code",
+            "member_roots": [
+              "day",
+              "locale"
+            ],
+            "name": "data-day",
+            "value": "day.date.toLocaleDateString(locale?.code)"
+          },
+          {
+            "identifiers": [
+              "modifiers"
+            ],
+            "kind": "code",
+            "member_roots": [
+              "modifiers"
+            ],
+            "name": "data-selected-single",
+            "value": "modifiers.selected &&\n        !modifiers.range_start &&\n        !modifiers.range_end &&\n        !modifiers.range_middle"
+          },
+          {
+            "identifiers": [
+              "modifiers"
+            ],
+            "kind": "code",
+            "member_roots": [
+              "modifiers"
+            ],
+            "name": "data-range-start",
+            "value": "modifiers.range_start"
+          },
+          {
+            "identifiers": [
+              "modifiers"
+            ],
+            "kind": "code",
+            "member_roots": [
+              "modifiers"
+            ],
+            "name": "data-range-end",
+            "value": "modifiers.range_end"
+          },
+          {
+            "identifiers": [
+              "modifiers"
+            ],
+            "kind": "code",
+            "member_roots": [
+              "modifiers"
+            ],
+            "name": "data-range-middle",
+            "value": "modifiers.range_middle"
+          }
+        ],
+        "children": [],
+        "class": "cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70",
+        "class_when": [],
+        "component": "button",
+        "function": "button",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [
+            {
+              "group": "day",
+              "name": "data-focused",
+              "value": "true"
+            }
+          ],
+          "self": [
+            {
+              "name": "data-range-end",
+              "value": "true"
+            },
+            {
+              "name": "data-range-middle",
+              "value": "true"
+            },
+            {
+              "name": "data-range-start",
+              "value": "true"
+            },
+            {
+              "name": "data-selected-single",
+              "value": "true"
+            }
+          ]
+        },
+        "recipe": "presentational",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": "button",
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": [
+          "--cell-size",
+          "--cell-radius"
+        ]
+      },
+      "types": {}
+    }
+  ],
   "primitives": {},
   "recipe": "calendar",
   "source": "shadcn",
-  "styles": {},
-  "upstream": "registry/upstream/shadcn/ui/calendar.tsx"
+  "styles": {
+    "luma": {
+      "cn-calendar": "p-3 [--cell-radius:var(--radius-4xl)] [--cell-size:--spacing(8)]"
+    },
+    "lyra": {
+      "cn-calendar": "p-2 [--cell-size:--spacing(7)]"
+    },
+    "maia": {
+      "cn-calendar": "p-3 [--cell-radius:var(--radius-4xl)] [--cell-size:--spacing(8)]"
+    },
+    "mira": {
+      "cn-calendar": "p-3 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(6)]"
+    },
+    "nova": {
+      "cn-calendar": "p-2 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(7)]"
+    },
+    "rhea": {
+      "cn-calendar": "p-3 [--cell-radius:var(--radius-2xl)] [--cell-size:--spacing(8)]"
+    },
+    "sera": {
+      "cn-calendar": "p-3 [--cell-radius:0] [--cell-size:--spacing(8)]"
+    },
+    "vega": {
+      "cn-calendar": "p-3 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(8)]"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "shadcn/ui/calendar.tsx",
+      "sha256": "c88319b932b378349d643ef2c452f6095d5681998acc0c1e3c2a1682500c5bc9"
+    }
+  },
+  "variants": {}
 }

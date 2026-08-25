@@ -270,11 +270,18 @@ defmodule Mix.Tasks.Ui.Spec do
   # A specialist recipe can need a server-only class that does not exist in a
   # readable JSX part. Such facts live in the component spec, next to the
   # parsed facts, and must survive a later reader run.
+  #
+  # A *parsed* class always wins over a preserved one. This used to replace the
+  # whole map, so once a class string had been typed into a spec by hand no
+  # amount of teaching the reader could dislodge it: the calendar learned to
+  # read twenty class strings out of `classNames` and kept reporting the four
+  # somebody had typed, silently, because the reader's answer was overwritten
+  # after it was computed.
   defp preserve_recipe_facts(spec, path) do
     with true <- File.exists?(path),
          {:ok, existing} <- path |> File.read!() |> Jason.decode(),
          %{} = classes <- existing["classes"] do
-      Map.put(spec, "classes", classes)
+      Map.put(spec, "classes", Map.merge(classes, spec["classes"] || %{}))
     else
       _ -> spec
     end
