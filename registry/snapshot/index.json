@@ -68,6 +68,9 @@
   "popover": [
     "default"
   ],
+  "voice-selector": [
+    "default"
+  ],
   "switch": [
     "default"
   ],
@@ -78,6 +81,9 @@
     "default"
   ],
   "aspect-ratio": [
+    "default"
+  ],
+  "image": [
     "default"
   ],
   "sources": [
@@ -123,7 +129,13 @@
   "suggestion": [
     "default"
   ],
+  "transcription": [
+    "default"
+  ],
   "task": [
+    "default"
+  ],
+  "commit": [
     "default"
   ],
   "drawer": [
@@ -207,6 +219,9 @@
     "variants",
     "sizes"
   ],
+  "speech-input": [
+    "default"
+  ],
   "separator": [
     "default"
   ],
@@ -225,7 +240,13 @@
   "sonner": [
     "default"
   ],
+  "queue": [
+    "default"
+  ],
   "hover-card": [
+    "default"
+  ],
+  "model-selector": [
     "default"
   ],
   "card": [

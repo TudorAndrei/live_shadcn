@@ -136,7 +136,8 @@ defmodule StorybookWeb.Examples do
        button-group card chart checkbox collapsible combobox command context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group resizable scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        toggle-group question questionnaire sidebar snippet sonner toast shadcn-message ai_elements-message
-       artifact attachments environment-variables mic-selector plan)
+       artifact attachments commit environment-variables image mic-selector model-selector plan
+       queue speech-input transcription voice-selector)
   end
 
   @doc "The examples for a component."
@@ -512,6 +513,91 @@ defmodule StorybookWeb.Examples do
         "AI Elements builds this out of shadcn's collapsible, so the disclosure " <>
           "recipe generates it and the panel opens with no round trip.",
         &task_default/1
+      )
+    ]
+  end
+
+  def all("commit") do
+    [
+      one(
+        "default",
+        "One commit, read back",
+        "Upstream wraps this in a collapsible; those parts are the " <>
+          "application's own, and what the package writes is the row.",
+        &commit_default/1
+      )
+    ]
+  end
+
+  def all("image") do
+    [
+      one(
+        "default",
+        "What the model drew",
+        "Base64 in, an `<img>` out. The `alt` is read off the rest object " <>
+          "upstream, and it is an attribute here.",
+        &image_default/1
+      )
+    ]
+  end
+
+  def all("model-selector") do
+    [
+      one(
+        "default",
+        "A model, named",
+        "The command dialog is composed, not generated: these are the parts " <>
+          "that are this component's own.",
+        &model_selector_default/1
+      )
+    ]
+  end
+
+  def all("queue") do
+    [
+      one(
+        "default",
+        "What is waiting",
+        "Two items, one done. `completed` is an attribute per part, because " <>
+          "React reads it off a context and HEEx has none.",
+        &queue_default/1
+      )
+    ]
+  end
+
+  def all("speech-input") do
+    [
+      one(
+        "default",
+        "A microphone that waits",
+        "Listening is the browser's — `SpeechRecognition`, or a recorder " <>
+          "where there is none — so whether it is listening is an attribute " <>
+          "the caller sets, and the three pulses follow it.",
+        &speech_input_default/1
+      )
+    ]
+  end
+
+  def all("transcription") do
+    [
+      one(
+        "default",
+        "What was said, and when",
+        "Every segment is a button that seeks. Upstream asks whether a seek " <>
+          "handler was passed; here a caller binds `phx-click` and it is.",
+        &transcription_default/1
+      )
+    ]
+  end
+
+  def all("voice-selector") do
+    [
+      one(
+        "default",
+        "One voice, described",
+        "Filed as a listbox and it is not one: eleven of its parts wrap a " <>
+          "command dialog, and these eight are its own.",
+        &voice_selector_default/1
       )
     ]
   end
@@ -1370,6 +1456,129 @@ defmodule StorybookWeb.Examples do
     <.task id="search" title="Searched the registry" class="max-w-80">
       Read 62 component sources and 41 Base UI pages.
     </.task>
+    """
+  end
+
+  # A one-pixel PNG, so both sides draw the same picture without asking a
+  # network for it.
+  @png "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+
+  defp image_default(assigns) do
+    assigns = assign(assigns, base64: @png)
+
+    ~H"""
+    <LiveAiElements.Components.Image.image
+      base64={@base64}
+      media_type="image/png"
+      alt="A pixel the model drew"
+      class="size-24"
+    />
+    """
+  end
+
+  defp commit_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Commit.commit_info class="max-w-md">
+      <LiveAiElements.Components.Commit.commit_hash>
+        a99f1b7
+      </LiveAiElements.Components.Commit.commit_hash>
+      <LiveAiElements.Components.Commit.commit_message>
+        the recipe three components are built on
+      </LiveAiElements.Components.Commit.commit_message>
+      <LiveAiElements.Components.Commit.commit_metadata>
+        <LiveAiElements.Components.Commit.commit_author>
+          <LiveAiElements.Components.Commit.commit_author_avatar initials="TA" />
+        </LiveAiElements.Components.Commit.commit_author>
+        <LiveAiElements.Components.Commit.commit_separator />
+        <LiveAiElements.Components.Commit.commit_timestamp
+          date="2026-08-26T00:50:00Z"
+          formatted="2 hours ago"
+        />
+      </LiveAiElements.Components.Commit.commit_metadata>
+      <LiveAiElements.Components.Commit.commit_actions>
+        <LiveAiElements.Components.Commit.commit_copy_button
+          id="copy-hash"
+          hash="a99f1b7"
+          aria-label="Copy the hash"
+        />
+      </LiveAiElements.Components.Commit.commit_actions>
+    </LiveAiElements.Components.Commit.commit_info>
+    """
+  end
+
+  defp model_selector_default(assigns) do
+    ~H"""
+    <div class="flex max-w-sm items-center gap-2">
+      <LiveAiElements.Components.ModelSelector.model_selector_logo_group />
+      <LiveAiElements.Components.ModelSelector.model_selector_name>
+        Claude Opus 4.5
+      </LiveAiElements.Components.ModelSelector.model_selector_name>
+    </div>
+    """
+  end
+
+  defp queue_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Queue.queue class="max-w-md">
+      <LiveAiElements.Components.Queue.queue_section_label label="Waiting" />
+      <LiveAiElements.Components.Queue.queue_list>
+        <LiveAiElements.Components.Queue.queue_item>
+          <LiveAiElements.Components.Queue.queue_item_indicator completed />
+          <LiveAiElements.Components.Queue.queue_item_content completed>
+            Read every AI Elements spec again
+          </LiveAiElements.Components.Queue.queue_item_content>
+        </LiveAiElements.Components.Queue.queue_item>
+        <LiveAiElements.Components.Queue.queue_item>
+          <LiveAiElements.Components.Queue.queue_item_indicator />
+          <LiveAiElements.Components.Queue.queue_item_content>
+            Write a React reference for each one
+          </LiveAiElements.Components.Queue.queue_item_content>
+        </LiveAiElements.Components.Queue.queue_item>
+      </LiveAiElements.Components.Queue.queue_list>
+    </LiveAiElements.Components.Queue.queue>
+    """
+  end
+
+  defp speech_input_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.SpeechInput.speech_input aria-label="Start dictation" />
+    """
+  end
+
+  defp transcription_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Transcription.transcription class="max-w-md">
+      <LiveAiElements.Components.Transcription.transcription_segment
+        index={0}
+        segment={%{text: "It is eighteen degrees"}}
+      />
+      <LiveAiElements.Components.Transcription.transcription_segment
+        index={1}
+        segment={%{text: "and clear in Cluj."}}
+      />
+    </LiveAiElements.Components.Transcription.transcription>
+    """
+  end
+
+  defp voice_selector_default(assigns) do
+    ~H"""
+    <div class="flex max-w-sm flex-col gap-1">
+      <LiveAiElements.Components.VoiceSelector.voice_selector_name>
+        Vega
+      </LiveAiElements.Components.VoiceSelector.voice_selector_name>
+      <LiveAiElements.Components.VoiceSelector.voice_selector_description>
+        Warm, unhurried, and a little dry.
+      </LiveAiElements.Components.VoiceSelector.voice_selector_description>
+      <LiveAiElements.Components.VoiceSelector.voice_selector_attributes>
+        <LiveAiElements.Components.VoiceSelector.voice_selector_accent>
+          British
+        </LiveAiElements.Components.VoiceSelector.voice_selector_accent>
+        <LiveAiElements.Components.VoiceSelector.voice_selector_bullet />
+        <LiveAiElements.Components.VoiceSelector.voice_selector_age>
+          Adult
+        </LiveAiElements.Components.VoiceSelector.voice_selector_age>
+      </LiveAiElements.Components.VoiceSelector.voice_selector_attributes>
+    </div>
     """
   end
 

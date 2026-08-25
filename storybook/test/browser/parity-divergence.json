@@ -36,6 +36,16 @@
       "why": "Upstream renders two `<Collapsible>` wrappers — one around the header and one around the content — and threads the open state between them through a React context. The disclosure recipe folds a component into one function precisely because its parts have to agree about one id, so there is one collapsible here and the 16px `space-y-4` between the two of upstream's has nothing to sit between.",
       "slots": ["collapsible", "collapsible #2"]
     },
+    "queue.default": {
+      "why": "The same scroll area as `suggestion.default`, folded as markup with its recipe left behind: Base UI unmounts a scrollbar with nothing to scroll and measures the viewport with a hook, and neither travels with a copy. A fold that carries a hook-owning recipe is the half of phase 3 that was recorded rather than built — see PLAN.md.",
+      "slots": [
+        "(the whole)",
+        "scroll-area",
+        "scroll-area > scroll-area-viewport",
+        "scroll-area > scroll-area-scrollbar",
+        "scroll-area > scroll-area-scrollbar > scroll-area-thumb"
+      ]
+    },
     "suggestion.default": {
       "why": "The scroll area is folded as markup and its recipe stays behind: Base UI unmounts a scrollbar with nothing to scroll and measures the viewport with a hook, and neither travels with a copy. A fold that carries a hook-owning recipe is the half of phase 3 that was recorded rather than built — see PLAN.md.",
       "slots": [
