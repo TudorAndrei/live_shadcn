@@ -472,6 +472,26 @@ defmodule LiveShadcnTools.Ast do
   def string_literal({:expr, _code, node}), do: string_literal(node)
   def string_literal(%{"type" => "Literal", "value" => value}) when is_binary(value), do: value
 
+  # A template with nothing interpolated into it is a string literal written
+  # with different punctuation. Reading it as "not a literal" dropped two
+  # classes off the calendar's root without saying so.
+  def string_literal(%{"type" => "TemplateLiteral", "expressions" => [], "quasis" => quasis}) do
+    Enum.map_join(quasis, &get_in(&1, ["value", "cooked"]))
+  end
+
+  # `String.raw` is how shadcn writes a class that contains a backslash —
+  # `rtl:**:[.rdp-button\_next>svg]:rotate-180`. The tag is what says the raw
+  # text is the value, so the escape stays an escape rather than being cooked
+  # away into `_next`.
+  def string_literal(%{"type" => "TaggedTemplateExpression", "quasi" => quasi} = node) do
+    with %{"object" => %{"name" => "String"}, "property" => %{"name" => "raw"}} <- node["tag"],
+         %{"expressions" => [], "quasis" => quasis} <- quasi do
+      Enum.map_join(quasis, &get_in(&1, ["value", "raw"]))
+    else
+      _other -> nil
+    end
+  end
+
   def string_literal(node) when is_map(node) do
     case bare(node) do
       ^node -> nil
@@ -716,14 +736,18 @@ defmodule LiveShadcnTools.Ast do
     end)
   end
 
-  # Brackets a person wrote for readability, and a cast written for the type
-  # checker. Neither is markup and neither changes what the thing inside is, so
-  # every place that asks "what kind of node is this" looks through them first.
-  defp bare(%{"type" => "ParenthesizedExpression", "expression" => inner}), do: bare(inner)
-  defp bare(%{"type" => "TSAsExpression", "expression" => inner}), do: bare(inner)
-  defp bare(%{"type" => "TSNonNullExpression", "expression" => inner}), do: bare(inner)
-  defp bare(%{"type" => "TSSatisfiesExpression", "expression" => inner}), do: bare(inner)
-  defp bare(node), do: node
+  @doc """
+  The node itself, without the wrappers that do not change what it is.
+
+  Brackets a person wrote for readability, and a cast written for the type
+  checker. Neither is markup and neither changes what the thing inside is, so
+  every place that asks "what kind of node is this" looks through them first.
+  """
+  def bare(%{"type" => "ParenthesizedExpression", "expression" => inner}), do: bare(inner)
+  def bare(%{"type" => "TSAsExpression", "expression" => inner}), do: bare(inner)
+  def bare(%{"type" => "TSNonNullExpression", "expression" => inner}), do: bare(inner)
+  def bare(%{"type" => "TSSatisfiesExpression", "expression" => inner}), do: bare(inner)
+  def bare(node), do: node
 
   # `memo(…)` and `forwardRef(…)` say something about React's rendering and
   # nothing about the markup, so they are read through rather than read.

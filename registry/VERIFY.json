@@ -689,16 +689,17 @@
         "pass": true
       },
       "parity": {
-        "detail": "      77 | }\n      78 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:75:48\n    Error Context: test-results/parity-calendar-default-draws-what-React-draws-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/parity-calendar-default-draws-what-React-draws-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/parity-calendar-default-draws-what-React-draws-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › parity.spec.mjs:65:3 › calendar / default draws what React draws ──────────────────\n  1 passed (3.1s)",
-        "exit": 1,
-        "pass": false
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "bd4ccb935968d816172c85c8f330b55319d471034444d4dba486ac9e70e0152c"
+    "pass": true,
+    "spec": "b135792b57f7df882a032fc6dc4e4f845a6ac632d1a334e026110f1e7598b204"
   },
   "shadcn/sonner": {
     "checks": {

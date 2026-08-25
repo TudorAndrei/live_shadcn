@@ -27,13 +27,16 @@ defmodule LiveShadcn.UI.Calendar do
       phx-hook={if @locale == "browser", do: CalendarHook.hook()}
       data-lb-calendar-locale={@locale}
       data-slot="calendar"
-      class={["cn-calendar group/calendar bg-background w-fit rdp-root", @class]}
+      class={[
+        "w-fit rdp-root cn-calendar group/calendar bg-background in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent rtl:**:[.rdp-button\\_next>svg]:rotate-180 rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
+        @class
+      ]}
       {@rest}
     >
       <%!-- Every class string below is upstream's, read out of the
-            `classNames` prop shadcn hands react-day-picker. There were
-            twenty typed here, and the calendar drew 8,077 pixels
-            differently from upstream because of it. --%>
+            `classNames` prop shadcn hands react-day-picker and out of the
+            `<Button>` its day cell renders. None of the twenty-six is
+            typed here. --%>
       <div class="relative flex flex-col gap-4 md:flex-row rdp-months">
         <%!-- The nav is a sibling of the month, positioned over it, not a
               child of the caption. That is how upstream builds it, and
@@ -49,23 +52,23 @@ defmodule LiveShadcn.UI.Calendar do
           <button
             type="button"
             aria-label="Go to the previous month"
-            class="cn-button group/button inline-flex size-(--cell-size) items-center justify-center p-0 rdp-button_previous"
+            class="cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-button-variant-ghost size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_previous"
           >
-            <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip size-4" />
+            <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip size-4 rdp-chevron" />
           </button>
           <button
             type="button"
             aria-label="Go to the next month"
-            class="cn-button group/button inline-flex size-(--cell-size) items-center justify-center p-0 rdp-button_next"
+            class="cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-button-variant-ghost size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_next"
           >
-            <LiveShadcn.Icon.icon name="chevron-right" class="cn-rtl-flip size-4" />
+            <LiveShadcn.Icon.icon name="chevron-right" class="cn-rtl-flip size-4 rdp-chevron" />
           </button>
         </nav>
         <div class="flex w-full flex-col gap-4 rdp-month">
           <div class="flex h-(--cell-size) w-full items-center justify-center px-(--cell-size) rdp-month_caption">
             <span
               data-lb-calendar-month={Date.to_iso8601(@month)}
-              class="font-medium select-none rdp-caption_label"
+              class="font-medium select-none cn-calendar-caption text-sm rdp-caption_label"
             >{Calendar.strftime(@month, "%B %Y")}</span>
           </div>
           <table
@@ -75,18 +78,15 @@ defmodule LiveShadcn.UI.Calendar do
           >
             <thead>
               <tr class="flex rdp-weekdays">
-                <%!-- The one measurement still typed here, and the comment is
-                  the finding rather than the number. Upstream's cells carry
-                  no width: react-day-picker's own layout settles them at
-                  19.22px, ours at 22.2, and seven of those is 22px of extra
-                  width that `aspect-square` then turns into extra height.
-                  Pinning it puts the columns where upstream puts them. What
-                  it is really saying is that this recipe still lays the grid
-                  out itself. --%>
+                <%!-- No width. The cells carry none upstream either: the grid is
+                  seven `flex-1` columns and the heading text is what decides
+                  how wide they settle. A width typed here was this recipe
+                  laying the grid out itself, and it drew the columns 8.5px
+                  wider than React's because the heading said `Sun` where
+                  react-day-picker says `Su`. --%>
                 <th
                   :for={day <- weekday_dates(@week_starts_on)}
                   data-lb-calendar-weekday={Date.to_iso8601(day)}
-                  style="width: 19px"
                   class="flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none rdp-weekday"
                   scope="col"
                 >
@@ -96,21 +96,29 @@ defmodule LiveShadcn.UI.Calendar do
             </thead>
             <tbody>
               <tr :for={week <- @weeks} class="mt-2 flex w-full rdp-week">
+                <%!-- `data-selected` belongs to the cell and `data-selected-single`
+                  to the button, because that is which element each class
+                  string asks about: the cell's `[&:last-child[data-selected=true]_button]`
+                  rounds a run of days, and the button's
+                  `data-[selected-single=true]:bg-primary` fills one. --%>
                 <td
                   :for={day <- week}
-                  style="width: 19px"
-                  class="group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius) rdp-day"
+                  role="gridcell"
+                  data-day={Date.to_iso8601(day)}
+                  data-selected={day == @selected && "true"}
+                  aria-selected={day == @selected && "true"}
+                  class={[
+                    "group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius) [&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius) rdp-day",
+                    day.month != @month.month &&
+                      "text-muted-foreground aria-selected:text-muted-foreground rdp-outside"
+                  ]}
                 >
                   <button
                     type="button"
+                    data-slot="button"
                     data-day={Date.to_iso8601(day)}
-                    data-selected={to_string(day == @selected)}
-                    class={[
-                      "cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full items-center justify-center border-0 leading-none font-normal rdp-day_button data-[selected=true]:bg-primary data-[selected=true]:text-primary-foreground",
-                      if(day.month != @month.month,
-                        do: "text-muted-foreground opacity-50 rdp-outside"
-                      )
-                    ]}
+                    data-selected-single={day == @selected && "true"}
+                    class="cn-button group/button shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-icon cn-button-variant-ghost cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70 rdp-day_button"
                   >
                     {day.day}
                   </button>

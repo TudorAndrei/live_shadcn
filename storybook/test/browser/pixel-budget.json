@@ -35,6 +35,7 @@
     "button-group.default": 0,
     "button.sizes": 0,
     "button.variants": 0,
+    "calendar.default": 0,
     "card.default": 0,
     "carousel.default": 0,
     "chart.default": 0,
@@ -87,9 +88,7 @@
     "toggle.default": 0,
     "tooltip.default": 0
   },
-  "pending": [
-    "calendar.default"
-  ],
+  "pending": [],
   "skips": {},
   "reasons": {
     "scroll-area.default": "91 px, stable across three runs, scattered over twelve lines of wrapped text rather than clustered. Markup is byte-identical, positions match to two decimals, and font smoothing, text-rendering and body classes are the same on both sides \u2014 this is glyph rasterisation, not a component difference. Budget is the measured maximum times 1.5, per PLAN.md."

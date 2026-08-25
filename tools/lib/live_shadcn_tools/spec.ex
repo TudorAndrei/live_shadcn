@@ -26,6 +26,7 @@ defmodule LiveShadcnTools.Spec do
   alias LiveShadcnTools.BaseUi
   alias LiveShadcnTools.Cva
   alias LiveShadcnTools.Tsx
+  alias LiveShadcnTools.TwMerge
 
   @doc """
   The key a primitive node is documented under: its Base UI module and part.
@@ -126,7 +127,7 @@ defmodule LiveShadcnTools.Spec do
       "parts" => parts
     }
     |> sonner_stack(name)
-    |> calendar_classes(name)
+    |> calendar_classes(name, ctx)
     |> folds(folded)
   end
 
@@ -149,26 +150,20 @@ defmodule LiveShadcnTools.Spec do
   # `defaultClassNames.<key>` is react-day-picker's own marker class, `rdp-<key>`
   # — the library derives it from the key, so this does too rather than reading
   # a table it does not publish.
-  defp calendar_classes(spec, "calendar") do
-    case class_names_prop(spec["parts"]) do
-      nil ->
-        spec
-
-      object ->
-        # Parsed values fill gaps; they do not replace what is already there.
-        #
-        # `classNames.root` is `cn("w-fit", defaultClassNames.root)` — true, and
-        # only half the story, because shadcn also passes a `className` prop
-        # carrying `cn-calendar` and the rest. Letting the parsed half win threw
-        # the other half away and the calendar lost its padding.
-        Map.put(spec, "classes", Map.merge(object, spec["classes"] || %{}))
+  defp calendar_classes(spec, "calendar", ctx) do
+    case class_names_prop(spec, ctx) do
+      nil -> spec
+      classes -> Map.put(spec, "classes", classes)
     end
   end
 
-  defp calendar_classes(spec, _name), do: spec
+  defp calendar_classes(spec, _name, _ctx), do: spec
 
-  defp class_names_prop(parts) do
-    with %{} = attr <- find_attr(parts, "classNames"),
+  defp class_names_prop(spec, ctx) do
+    part = Enum.find(spec["parts"] || [], &(&1["name"] == "calendar"))
+    params = (part && part["params"]) || %{}
+
+    with %{} = attr <- find_attr(spec["parts"], "classNames"),
          expression when not is_nil(expression) <- Ast.expression_of(attr["value"]),
          entries when entries != %{} <- Ast.object_entries(expression) do
       entries
@@ -176,41 +171,238 @@ defmodule LiveShadcnTools.Spec do
       # That is an argument the caller supplies, not a class string, and it
       # arrives here as a key whose name begins with the spread.
       |> Map.reject(fn {key, _value} -> String.starts_with?(key, "...") end)
-      # A class this reader can only read part of is one it must not claim.
-      #
-      # `button_previous` is `cn(buttonVariants({variant}), "size-(--cell-size)
-      # p-0 …")`. Taking the string literals out of that drops every class the
-      # `cva` table contributes, and what came out was a 7×24 button where
-      # upstream draws 32×36 — a confident, wrong answer, which is worse than
-      # no answer. Those keys are left to the spec's preserved values until the
-      # reader can resolve a `cva` call inside a `cn`.
-      |> Map.reject(fn {_key, value} -> not fully_literal?(value) end)
-      |> Map.new(fn {key, value} ->
-        {key, String.trim("#{Tsx.classes(value)} rdp-#{key}")}
+      |> Enum.flat_map(fn {key, value} ->
+        case class_value(value, params, ctx) do
+          nil -> []
+          classes -> [{key, classes}]
+        end
       end)
+      |> Map.new()
+      |> calendar_root(part)
+      |> calendar_day_button(spec, ctx)
     else
       _none -> nil
     end
   end
 
-  # Every argument of the `cn()` call is something this reader can turn into
-  # class names: a string literal, or `defaultClassNames.x`, which is
-  # react-day-picker's own `rdp-` marker and is added back by the caller.
-  defp fully_literal?({:expr, _code, _node} = value) do
-    case Ast.call_args(value, "cn") do
-      [] -> true
-      args -> Enum.all?(args, &literal_or_default?/1)
+  # `cn(a, b, c)` resolved to one class string, or `nil` for a key this reader
+  # cannot read all of.
+  #
+  # A class it can only partly read is one it must not claim. Taking the string
+  # literals out of `cn(buttonVariants({variant}), "size-(--cell-size) p-0 …")`
+  # drops everything the `cva` table contributes, and what came out was a 7×24
+  # button where upstream draws 32×36 — a confident wrong answer, which is worse
+  # than no answer.
+  defp class_value(value, params, ctx) do
+    arguments =
+      case Ast.call_args(value, "cn") do
+        # Not a `cn()` call at all: a bare string is its own class string.
+        [] -> [value]
+        nodes -> Enum.map(nodes, &Ast.expression(value, &1))
+      end
+
+    resolved = Enum.map(arguments, &class_argument(&1, params, ctx))
+
+    if Enum.any?(resolved, &is_nil/1), do: nil, else: TwMerge.merge(resolved)
+  end
+
+  # One argument of a `cn()`, as the class string it contributes.
+  defp class_argument(argument, params, ctx) do
+    cond do
+      literal = Ast.string_literal(argument) -> literal
+      marker = default_class_name(argument) -> marker
+      table = variant_call(argument, params, ctx) -> table
+      branch = branch_at_defaults(argument, params) -> class_argument(branch, params, ctx)
+      true -> nil
     end
   end
 
-  defp fully_literal?(_value), do: false
-
-  defp literal_or_default?({:expr, code, _node} = argument) do
-    Ast.string_literal(argument) != nil or
-      String.starts_with?(String.trim(code), "defaultClassNames.")
+  # `defaultClassNames.month_grid` is react-day-picker's own marker class. The
+  # library derives it from the key, so this does too rather than reading a
+  # table it does not publish.
+  defp default_class_name({:expr, _code, node}) do
+    with %{"type" => "MemberExpression"} = member <- Ast.bare(node),
+         "defaultClassNames" <- get_in(member, ["object", "name"]),
+         key when is_binary(key) <- get_in(member, ["property", "name"]) do
+      "rdp-#{key}"
+    else
+      _other -> nil
+    end
   end
 
-  defp literal_or_default?(_argument), do: false
+  # `buttonVariants({ variant: buttonVariant })` — a `cva` table this pipeline
+  # already reads, called one level inside a `cn()`.
+  #
+  # The table belongs to another component, so it is read from that component's
+  # spec rather than parsed again here. A group the call does not pass takes the
+  # table's own default, which is how `size` reaches the nav button: upstream
+  # never mentions it and the button is `cn-button-size-default` all the same.
+  defp variant_call({:expr, _code, node} = argument, params, ctx) do
+    with %{"type" => "CallExpression"} = call <- Ast.bare(node),
+         binding when is_binary(binding) <- get_in(call, ["callee", "name"]),
+         %{} = table <- imported_variants(binding, ctx) do
+      passed =
+        case call["arguments"] do
+          [first | _rest] -> Ast.object_entries(Ast.expression(argument, first))
+          _none -> %{}
+        end
+
+      defaults = Map.get(table, "defaults") || %{}
+
+      chosen =
+        for {group, values} <- Enum.sort(Map.get(table, "variants") || %{}) do
+          case Map.fetch(passed, group) do
+            {:ok, expression} -> Map.get(values, value_at_defaults(expression, params))
+            :error -> Map.get(values, Map.get(defaults, group))
+          end
+        end
+
+      TwMerge.merge([Map.get(table, "base") | chosen])
+    else
+      _other -> nil
+    end
+  end
+
+  defp imported_variants(binding, ctx) do
+    with {source, component} <- registry_component(binding, ctx),
+         resolve when is_function(resolve, 2) <- Map.get(ctx, :resolve),
+         spec when is_map(spec) <- resolve.(source, component) do
+      get_in(spec, ["variants", binding])
+    else
+      _unresolved -> nil
+    end
+  end
+
+  # The branch a ternary takes when every prop is left at what the component
+  # declares.
+  #
+  # A `classNames` entry describes a calendar drawn with the props upstream
+  # defaults to, because that is the calendar this recipe generates: no caption
+  # dropdown, no week numbers. `captionLayout` defaults to `"label"`, so
+  # `captionLayout === "label"` is true and the entry carries `text-sm`.
+  # `props.showWeekNumber` is a prop the component declares no default for, so
+  # at its default it is not there at all.
+  #
+  # Any other shape is refused rather than guessed at.
+  defp branch_at_defaults({:expr, _code, node} = argument, params) do
+    case Ast.bare(node) do
+      %{"type" => "ConditionalExpression"} = conditional ->
+        branch =
+          case condition_at_defaults(conditional["test"], params) do
+            true -> conditional["consequent"]
+            false -> conditional["alternate"]
+            nil -> nil
+          end
+
+        branch && Ast.expression(argument, branch)
+
+      _other ->
+        nil
+    end
+  end
+
+  defp condition_at_defaults(%{"type" => "BinaryExpression"} = test, params)
+       when is_map(test) do
+    with operator when operator in ~w(=== == !== !=) <- test["operator"],
+         name when is_binary(name) <- get_in(test, ["left", "name"]),
+         true <- Map.has_key?(params, name),
+         literal when is_binary(literal) <- Ast.string_literal(test["right"]) do
+      equal? = Map.get(params, name) == literal
+      if operator in ~w(=== ==), do: equal?, else: not equal?
+    else
+      _other -> nil
+    end
+  end
+
+  # `props.showWeekNumber`. The object is not a prop this component declares, so
+  # it is the rest of the caller's props, and the caller passed nothing.
+  defp condition_at_defaults(%{"type" => "MemberExpression"} = test, params) do
+    case get_in(test, ["object", "name"]) do
+      name when is_binary(name) -> if Map.has_key?(params, name), do: nil, else: false
+      _other -> nil
+    end
+  end
+
+  defp condition_at_defaults(_test, _params), do: nil
+
+  # `{ variant: buttonVariant }` — the value of a `cva` argument, at defaults.
+  defp value_at_defaults(expression, params) do
+    case Ast.string_literal(expression) do
+      nil ->
+        {:expr, _code, node} = expression
+        name = get_in(Ast.bare(node), ["name"])
+        is_binary(name) && Map.get(params, name)
+
+      literal ->
+        literal
+    end
+  end
+
+  # The root is the one part whose class string is not wholly in `classNames`.
+  #
+  # `<DayPicker className={cn("cn-calendar …")} classNames={{ root: cn("w-fit",
+  # defaultClassNames.root) }}>` and react-day-picker hands the pair to a `Root`
+  # that renders `cn(className)` — so the element wears both, in that order.
+  # Reading only the `classNames` half is what once cost the calendar its
+  # padding.
+  defp calendar_root(classes, part) do
+    own = get_in(part || %{}, ["tree", "class"])
+
+    case {Map.get(classes, "root"), own} do
+      {root, own} when is_binary(root) and is_binary(own) ->
+        Map.put(classes, "root", TwMerge.merge([root, own]))
+
+      _other ->
+        classes
+    end
+  end
+
+  # `day_button` is not a `classNames` entry. Upstream draws it with a whole
+  # component — `<Button variant="ghost" size="icon" className={cn("…",
+  # defaultClassNames.day, className)}>` — where `className` is
+  # react-day-picker's own `rdp-day_button`.
+  defp calendar_day_button(classes, spec, ctx) do
+    with %{"tree" => tree} <-
+           Enum.find(spec["parts"] || [], &(&1["name"] == "calendar_day_button")),
+         %{} = table <- component_variants(tree, ctx) do
+      chosen =
+        for {group, values} <- Enum.sort(Map.get(table, "variants") || %{}) do
+          Map.get(values, text_attr(tree, group) || get_in(table, ["defaults", group]))
+        end
+
+      Map.put(
+        classes,
+        "day_button",
+        TwMerge.merge([Map.get(table, "base") | chosen] ++ [tree["class"], "rdp-day_button"])
+      )
+    else
+      _other -> classes
+    end
+  end
+
+  # The `cva` table of the component an element was folded from.
+  defp component_variants(%{"source" => source, "component" => component}, ctx)
+       when is_binary(source) and is_binary(component) do
+    with resolve when is_function(resolve, 2) <- Map.get(ctx, :resolve),
+         spec when is_map(spec) <- resolve.(source, component),
+         [table] <- Map.values(Map.get(spec, "variants") || %{}) do
+      table
+    else
+      _other -> nil
+    end
+  end
+
+  defp component_variants(_tree, _ctx), do: nil
+
+  # A plain-string attribute of an element in a spec tree — `variant="ghost"`.
+  defp text_attr(%{"attrs" => attrs}, name) do
+    Enum.find_value(attrs, fn
+      %{"kind" => "text", "name" => ^name, "value" => value} -> value
+      _other -> nil
+    end)
+  end
+
+  defp text_attr(_tree, _name), do: nil
 
   defp find_attr(node, name) when is_list(node),
     do: Enum.find_value(node, &find_attr(&1, name))

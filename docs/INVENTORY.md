@@ -9,8 +9,8 @@
 | `planned` | 0 | ························ |
 | `fetched` | 23 | █████··················· |
 | `spec` | 13 | ███····················· |
-| `generated` | 14 | ███····················· |
-| `verified` | 61 | █████████████··········· |
+| `generated` | 13 | ███····················· |
+| `verified` | 62 | █████████████··········· |
 
 ## Recipes
 
@@ -106,7 +106,7 @@ Only the recipes are written by hand; every component is data.
 | `toast` | 2 | `toast` | ✅ verified |
 | `toggle` | 2 | `form-control` | ✅ verified |
 | `toggle-group` | 2 | `toggle-group` | ✅ verified |
-| `calendar` | 3 | `calendar` | 🟩 generated |
+| `calendar` | 3 | `calendar` | ✅ verified |
 | `carousel` | 3 | `carousel` | ✅ verified |
 | `chart` | 3 | `chart` | ✅ verified |
 | `questionnaire` | 3 | `presentational` | ✅ verified |

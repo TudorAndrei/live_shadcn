@@ -30,9 +30,9 @@ defmodule LiveShadcnTools.Gen.Calendar do
         ~H\"\"\"
         <section id={@id} phx-hook={if @locale == "browser", do: CalendarHook.hook()} data-lb-calendar-locale={@locale} data-slot="calendar" class={[#{inspect(classes["root"])}, @class]} {@rest}>
           <%!-- Every class string below is upstream's, read out of the
-                `classNames` prop shadcn hands react-day-picker. There were
-                twenty typed here, and the calendar drew 8,077 pixels
-                differently from upstream because of it. --%>
+                `classNames` prop shadcn hands react-day-picker and out of the
+                `<Button>` its day cell renders. None of the twenty-six is
+                typed here. --%>
           <div class=#{inspect(classes["months"])}>
             <%!-- The nav is a sibling of the month, positioned over it, not a
                   child of the caption. That is how upstream builds it, and
@@ -45,11 +45,11 @@ defmodule LiveShadcnTools.Gen.Calendar do
                     generated component names the same lucide icon and carries
                     the same class — a glyph from the font is a different shape,
                     a different size and a different colour from an SVG. --%>
-              <button type="button" aria-label="Go to the previous month" class=#{inspect(classes["previous_button"])}>
-                <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip size-4" />
+              <button type="button" aria-label="Go to the previous month" class=#{inspect(classes["button_previous"])}>
+                <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip size-4 rdp-chevron" />
               </button>
-              <button type="button" aria-label="Go to the next month" class=#{inspect(classes["next_button"])}>
-                <LiveShadcn.Icon.icon name="chevron-right" class="cn-rtl-flip size-4" />
+              <button type="button" aria-label="Go to the next month" class=#{inspect(classes["button_next"])}>
+                <LiveShadcn.Icon.icon name="chevron-right" class="cn-rtl-flip size-4 rdp-chevron" />
               </button>
             </nav>
           <div class=#{inspect(classes["month"])}>
@@ -59,25 +59,36 @@ defmodule LiveShadcnTools.Gen.Calendar do
           <table class=#{inspect(classes["month_grid"])} role="grid" aria-label={Calendar.strftime(@month, "%B %Y")}>
             <thead>
               <tr class=#{inspect(classes["weekdays"])}>
-                <%!-- The one measurement still typed here, and the comment is
-                      the finding rather than the number. Upstream's cells carry
-                      no width: react-day-picker's own layout settles them at
-                      19.22px, ours at 22.2, and seven of those is 22px of extra
-                      width that `aspect-square` then turns into extra height.
-                      Pinning it puts the columns where upstream puts them. What
-                      it is really saying is that this recipe still lays the grid
-                      out itself. --%>
-                <th :for={day <- weekday_dates(@week_starts_on)} data-lb-calendar-weekday={Date.to_iso8601(day)} style="width: 19px" class=#{inspect(classes["weekday"])} scope="col">{weekday_name(day)}</th>
+                <%!-- No width. The cells carry none upstream either: the grid is
+                      seven `flex-1` columns and the heading text is what decides
+                      how wide they settle. A width typed here was this recipe
+                      laying the grid out itself, and it drew the columns 8.5px
+                      wider than React's because the heading said `Sun` where
+                      react-day-picker says `Su`. --%>
+                <th :for={day <- weekday_dates(@week_starts_on)} data-lb-calendar-weekday={Date.to_iso8601(day)} class=#{inspect(classes["weekday"])} scope="col">{weekday_name(day)}</th>
               </tr>
             </thead>
             <tbody>
               <tr :for={week <- @weeks} class=#{inspect(classes["week"])}>
-                <td :for={day <- week} style="width: 19px" class=#{inspect(classes["day"])}>
+                <%!-- `data-selected` belongs to the cell and `data-selected-single`
+                      to the button, because that is which element each class
+                      string asks about: the cell's `[&:last-child[data-selected=true]_button]`
+                      rounds a run of days, and the button's
+                      `data-[selected-single=true]:bg-primary` fills one. --%>
+                <td
+                  :for={day <- week}
+                  role="gridcell"
+                  data-day={Date.to_iso8601(day)}
+                  data-selected={day == @selected && "true"}
+                  aria-selected={day == @selected && "true"}
+                  class={[#{inspect(classes["day"])}, day.month != @month.month && #{inspect(classes["outside"])}]}
+                >
                   <button
                     type="button"
+                    data-slot="button"
                     data-day={Date.to_iso8601(day)}
-                    data-selected={to_string(day == @selected)}
-                    class={[#{inspect(classes["day_button"])}, if(day.month != @month.month, do: "text-muted-foreground opacity-50 rdp-outside") ]}
+                    data-selected-single={day == @selected && "true"}
+                    class=#{inspect(classes["day_button"])}
                   >
                     {day.day}
                   </button>
