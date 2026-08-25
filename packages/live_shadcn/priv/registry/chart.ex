@@ -21,8 +21,13 @@ defmodule LiveShadcn.UI.Chart do
       class={["cn-chart flex aspect-video justify-center text-xs", @class]}
       {@rest}
     >
+      <%!-- `<%= %>` rather than `{…}`. A `<style>` is a raw-text element and
+            HEEx does not interpolate a curly expression inside one, so this
+            shipped a stylesheet whose entire content was the seven
+            characters `{@chart_style}` — the same defect class as the
+            textarea whose newlines were its value. --%>
       <style :if={map_size(@config) > 0}>
-        {@chart_style}
+        <%= @chart_style %>
       </style>
       {render_slot(@inner_block)}
     </div>
@@ -70,5 +75,38 @@ defmodule LiveShadcn.UI.Chart do
     """
   end
 
-  defp chart_style(_id, _config), do: ""
+  # One `--color-<key>` per configured series, per theme.
+  #
+  # This is the whole of what upstream's `<style>` block does, and it is
+  # data: the caller's config says which series exist and what colour each
+  # one is, and the component writes the rules. It returned `""` before, so
+  # `config` reached the markup and produced nothing — every
+  # `stroke="var(--color-…)"` a caller wrote resolved to nothing and the
+  # plot was drawn in no colour at all.
+  @themes [{"light", ""}, {"dark", ".dark"}]
+
+  defp chart_style(id, config) do
+    Enum.map_join(@themes, "\n", fn {theme, prefix} ->
+      rules =
+        config
+        |> Enum.sort_by(fn {key, _} -> to_string(key) end)
+        |> Enum.flat_map(fn {key, item} ->
+          case colour(item, theme) do
+            nil -> []
+            colour -> ["  --color-#{key}: #{colour};"]
+          end
+        end)
+
+      if rules == [],
+        do: "",
+        else: "#{prefix} [data-chart=#{id}] {\n#{Enum.join(rules, "\n")}\n}\n"
+    end)
+  end
+
+  defp colour(item, theme) do
+    case item[:theme] || item["theme"] do
+      %{} = per_theme -> per_theme[theme] || per_theme[String.to_existing_atom(theme)]
+      _none -> item[:color] || item["color"]
+    end
+  end
 end

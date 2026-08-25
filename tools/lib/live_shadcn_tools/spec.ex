@@ -1672,6 +1672,12 @@ defmodule LiveShadcnTools.Spec do
       "ResizablePrimitive.Panel" => {"Panel", "div"},
       "ResizablePrimitive.Separator" => {"Separator", "div"}
     }
+    # There is no `recharts` entry, and adding one is not enough on its own.
+    # `chart.tsx` stops the reader three times — `ResponsiveContainer`,
+    # `Tooltip` and `Legend` are answered by a table like this one, and the
+    # `<style>` block is a template built with `dangerouslySetInnerHTML`, which
+    # is a computation rather than markup. So `chart.json` still has no parts
+    # and its class strings are typed. See PLAN.md.
   }
 
   defp external_primitive(tag, ctx) do

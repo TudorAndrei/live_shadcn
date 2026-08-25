@@ -38,7 +38,6 @@
     "calendar.default": 0,
     "card.default": 0,
     "carousel.default": 0,
-    "chart.default": 0,
     "checkbox.default": 0,
     "collapsible.default": 0,
     "combobox.default": 0,
@@ -88,9 +87,12 @@
     "toggle.default": 0,
     "tooltip.default": 0
   },
-  "pending": [],
+  "pending": [
+    "chart.default"
+  ],
   "skips": {},
   "reasons": {
+    "chart.default": "21,169 px, and the difference is that only one side draws. `ChartContainer` puts its children inside recharts' <ResponsiveContainer>, which sizes an inner wrapper to 0x0 for anything that is not a recharts element \u2014 so the reference renders the chrome and nothing inside it. The generated component has no ResponsiveContainer, deliberately: it is a measurement wrapper and `aspect-video` is already on the container. This example passed at zero for as long as the Elixir side drew nothing either, because `chart_style/2` returned \"\" and every `var(--color-*)` resolved to nothing. It draws now, so the difference is visible and undiagnosed. See PLAN.md.",
     "scroll-area.default": "91 px, stable across three runs, scattered over twelve lines of wrapped text rather than clustered. Markup is byte-identical, positions match to two decimals, and font smoothing, text-rendering and body classes are the same on both sides \u2014 this is glyph rasterisation, not a component difference. Budget is the measured maximum times 1.5, per PLAN.md."
   }
 }

@@ -743,13 +743,14 @@
         "pass": true
       },
       "pixel": {
-        "pass": true
+        "detail": "measured, not yet gated: chart.default",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "pass": false,
     "spec": "16e0a35c2bae92f5e1cb5c8153436e0ab8ad5bb91385938b6445842fb897e5bb"
   },
   "shadcn/command": {
