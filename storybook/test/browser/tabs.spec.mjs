@@ -7,6 +7,8 @@
 
 import { expect, test } from "@playwright/test";
 
+import { visit } from "./live.mjs";
+
 const tab = (page, value) => page.locator(`#stages-tab-${value}`);
 const panel = (page, value) => page.locator(`#stages-panel-${value}`);
 
@@ -24,8 +26,7 @@ test.describe("a set of tabs", () => {
   };
 
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/tabs/default");
-    await expect(page.locator("#stages")).toBeVisible();
+    await visit(page, "/preview/tabs/default", "#stages");
   });
 
   test("shows the tab the caller named, and only that one", async ({ page }) => {

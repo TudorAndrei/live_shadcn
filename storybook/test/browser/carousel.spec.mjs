@@ -1,12 +1,14 @@
 import { expect, test } from "@playwright/test";
 
+import { visit } from "./live.mjs";
+
 const viewport = (page) => page.locator("[data-lb-carousel-viewport]");
 const previous = (page) => page.locator("[data-lb-carousel-previous]");
 const next = (page) => page.locator("[data-lb-carousel-next]");
 
 test.describe("a carousel", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/carousel/default");
+    await visit(page, "/preview/carousel/default");
     await expect(viewport(page)).toBeVisible();
   });
 

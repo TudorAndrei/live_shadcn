@@ -7,6 +7,8 @@
 
 import { expect, test } from "@playwright/test";
 
+import { visit } from "./live.mjs";
+
 const menu = (page) => ({
   trigger: page.locator("#actions-trigger"),
   popup: page.locator("#actions-popup"),
@@ -15,8 +17,7 @@ const menu = (page) => ({
 
 test.describe("a dropdown menu", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/dropdown-menu/default");
-    await expect(page.locator("#actions-trigger")).toBeVisible();
+    await visit(page, "/preview/dropdown-menu/default", "#actions-trigger");
   });
 
   test("says it opens a menu, and starts closed", async ({ page }) => {

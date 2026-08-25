@@ -10,6 +10,8 @@
 // server, so nothing here can be verified by rendering.
 
 import { expect, test } from "@playwright/test";
+
+import { visit } from "./live.mjs";
 import AxeBuilder from "@axe-core/playwright";
 
 const item = (page, id) => ({
@@ -20,8 +22,7 @@ const item = (page, id) => ({
 
 test.describe("a set of panels, one open at a time", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/accordion/default");
-    await expect(page.locator("#faq")).toBeVisible();
+    await visit(page, "/preview/accordion/default", "#faq");
   });
 
   test("every panel starts closed and hidden", async ({ page }) => {
@@ -94,8 +95,7 @@ test.describe("a set of panels, one open at a time", () => {
 
 test.describe("keyboard", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/accordion/default");
-    await expect(page.locator("#faq")).toBeVisible();
+    await visit(page, "/preview/accordion/default", "#faq");
   });
 
   test("each trigger is reachable by Tab, in document order", async ({ page }) => {
@@ -123,7 +123,7 @@ test.describe("keyboard", () => {
 
 test.describe("several panels at once", () => {
   test("multiple leaves the other panels alone", async ({ page }) => {
-    await page.goto("/preview/accordion/multiple");
+    await visit(page, "/preview/accordion/multiple");
     const added = item(page, "release-added");
     const changed = item(page, "release-changed");
 
@@ -137,8 +137,7 @@ test.describe("several panels at once", () => {
 
 test.describe("open and disabled", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/accordion/states");
-    await expect(page.locator("#states")).toBeVisible();
+    await visit(page, "/preview/accordion/states", "#states");
   });
 
   test("an item that starts open is readable straight away", async ({ page }) => {
@@ -170,8 +169,7 @@ test.describe("open and disabled", () => {
 test.describe("accessibility", () => {
   for (const example of ["default", "multiple", "states"]) {
     test(`${example} has no axe-core violations, closed or open`, async ({ page }) => {
-      await page.goto(`/preview/accordion/${example}`);
-      await expect(page.locator("[data-preview='accordion']")).toBeVisible();
+      await visit(page, `/preview/accordion/${example}`, "[data-preview='accordion']");
 
       const closed = await new AxeBuilder({ page }).analyze();
       expect(closed.violations).toEqual([]);

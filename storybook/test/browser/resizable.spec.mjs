@@ -1,12 +1,13 @@
 import { expect, test } from "@playwright/test";
 
+import { visit } from "./live.mjs";
+
 const panel = (page, index) => page.locator('[data-slot="resizable-panel"]').nth(index);
 const handle = (page) => page.locator("[data-lb-resizable-handle]");
 
 test.describe("a resizable panel group", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/resizable/default");
-    await page.waitForFunction(() => window.liveSocket?.isConnected());
+    await visit(page, "/preview/resizable/default");
     await expect(handle(page)).toBeVisible();
   });
 

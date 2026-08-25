@@ -12,6 +12,8 @@
 // that opens without a round trip — asked of the folded copy.
 
 import { expect, test } from "@playwright/test";
+
+import { visit } from "./live.mjs";
 import AxeBuilder from "@axe-core/playwright";
 
 const trigger = (page) => page.locator("#search-trigger");
@@ -19,8 +21,7 @@ const panel = (page) => page.locator("#search-panel");
 
 test.describe("a task", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/task/default");
-    await expect(page.locator("#search")).toBeVisible();
+    await visit(page, "/preview/task/default", "#search");
   });
 
   test("starts closed, and says so where a class string reads it", async ({ page }) => {

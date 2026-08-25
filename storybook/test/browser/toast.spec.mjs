@@ -6,6 +6,8 @@
 
 import { expect, test } from "@playwright/test";
 
+import { visit } from "./live.mjs";
+
 const viewport = (page) => page.locator("[data-lb-toasts]");
 const toasts = (page) => page.locator("[data-slot='toast']");
 
@@ -21,7 +23,7 @@ const stacked = async (page) =>
 
 test.describe("a toaster", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/toast/default");
+    await visit(page, "/preview/toast/default");
     // The viewport is a fixed positioning context. Its toast children are
     // absolute, so the viewport itself has no box to make visible.
     await expect(viewport(page)).toBeAttached();

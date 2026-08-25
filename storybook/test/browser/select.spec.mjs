@@ -7,6 +7,8 @@
 
 import { expect, test } from "@playwright/test";
 
+import { visit } from "./live.mjs";
+
 const select = (page) => ({
   trigger: page.locator("#style-select-trigger"),
   popup: page.locator("#style-select-popup"),
@@ -16,8 +18,7 @@ const select = (page) => ({
 
 test.describe("a select", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/select/default");
-    await expect(page.locator("#style-select-trigger")).toBeVisible();
+    await visit(page, "/preview/select/default", "#style-select-trigger");
   });
 
   test("says it opens a list, and starts closed and empty", async ({ page }) => {

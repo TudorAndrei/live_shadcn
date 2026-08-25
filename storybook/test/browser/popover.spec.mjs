@@ -7,6 +7,8 @@
 
 import { expect, test } from "@playwright/test";
 
+import { visit } from "./live.mjs";
+
 const popover = (page, id) => ({
   trigger: page.locator(`#${id}-trigger`),
   positioner: page.locator(`#${id}-positioner`),
@@ -15,8 +17,7 @@ const popover = (page, id) => ({
 
 test.describe("a popover", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/popover/default");
-    await expect(page.locator("#details-trigger")).toBeVisible();
+    await visit(page, "/preview/popover/default", "#details-trigger");
   });
 
   test("starts closed, and says so", async ({ page }) => {
@@ -112,7 +113,7 @@ test.describe("a popover", () => {
 
 test.describe("a tooltip", () => {
   test("uses the same positioning and reports the same side", async ({ page }) => {
-    await page.goto("/preview/tooltip/default");
+    await visit(page, "/preview/tooltip/default");
     const { trigger, positioner, popup } = popover(page, "digest");
 
     await trigger.click();

@@ -10,6 +10,8 @@
 
 import { expect, test } from "@playwright/test";
 
+import { visit } from "./live.mjs";
+
 const control = (page, id) => ({
   control: page.locator(`#${id}`),
   input: page.locator(`#${id}-input`),
@@ -17,8 +19,7 @@ const control = (page, id) => ({
 
 test.describe("a checkbox", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/checkbox/default");
-    await expect(page.locator("#subscribe")).toBeVisible();
+    await visit(page, "/preview/checkbox/default", "#subscribe");
   });
 
   test("says what it is to a screen reader", async ({ page }) => {
@@ -99,7 +100,7 @@ test.describe("a checkbox", () => {
 
 test.describe("a switch", () => {
   test("carries the same contract, drawn differently", async ({ page }) => {
-    await page.goto("/preview/switch/default");
+    await visit(page, "/preview/switch/default");
     const { control: box, input } = control(page, "watch");
 
     await expect(box).toHaveAttribute("data-checked", "");
@@ -114,7 +115,7 @@ test.describe("a switch", () => {
 
 test.describe("a radio group", () => {
   test("choosing one unchooses the others, which is what makes it a radio", async ({ page }) => {
-    await page.goto("/preview/radio-group/default");
+    await visit(page, "/preview/radio-group/default");
 
     const vega = control(page, "style-vega");
     const nova = control(page, "style-nova");
@@ -133,7 +134,7 @@ test.describe("a radio group", () => {
   });
 
   test("each radio says it is a radio, not a checkbox", async ({ page }) => {
-    await page.goto("/preview/radio-group/default");
+    await visit(page, "/preview/radio-group/default");
 
     await expect(page.locator("#style-vega")).toHaveRole("radio");
   });
@@ -141,7 +142,7 @@ test.describe("a radio group", () => {
 
 test.describe("a toggle", () => {
   test("says pressed rather than checked, because it is a button", async ({ page }) => {
-    await page.goto("/preview/toggle/default");
+    await visit(page, "/preview/toggle/default");
     const bold = page.locator("#bold");
 
     await expect(bold).toHaveAttribute("aria-pressed", "false");

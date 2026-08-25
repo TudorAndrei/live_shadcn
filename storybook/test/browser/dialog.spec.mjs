@@ -7,6 +7,8 @@
 
 import { expect, test } from "@playwright/test";
 
+import { visit } from "./live.mjs";
+
 const dialog = (page, id) => ({
   trigger: page.locator(`#${id}-trigger`),
   backdrop: page.locator(`#${id}-backdrop`),
@@ -16,8 +18,7 @@ const dialog = (page, id) => ({
 
 test.describe("a dialog", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/dialog/default");
-    await expect(page.locator("#confirm-trigger")).toBeVisible();
+    await visit(page, "/preview/dialog/default", "#confirm-trigger");
   });
 
   test("starts closed, and says so", async ({ page }) => {

@@ -7,6 +7,8 @@
 
 import { expect, test } from "@playwright/test";
 
+import { visit } from "./live.mjs";
+
 const root = (page) => page.locator("#stages");
 const viewport = (page) => page.locator("[data-lb-scroller]");
 const thumb = (page) => page.locator("[data-lb-thumb]");
@@ -24,7 +26,7 @@ const measured = async (page) =>
 
 test.describe("a scroll area", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/scroll-area/default");
+    await visit(page, "/preview/scroll-area/default");
     await expect(root(page)).toBeVisible();
   });
 

@@ -7,6 +7,8 @@
 
 import { expect, test } from "@playwright/test";
 
+import { visit } from "./live.mjs";
+
 const thumbs = (page) => page.locator("[data-lb-slider-thumb]");
 const inputs = (page) => page.locator("[data-lb-slider-input]");
 const range = (page) => page.locator("[data-lb-slider-range]");
@@ -19,8 +21,7 @@ const placed = async (page) =>
 
 test.describe("a slider", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/slider/default");
-    await expect(page.locator("#passes")).toBeVisible();
+    await visit(page, "/preview/slider/default", "#passes");
     await placed(page);
   });
 
@@ -75,8 +76,7 @@ test.describe("a slider", () => {
 
 test.describe("a slider with two values", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/preview/slider/range");
-    await expect(page.locator("#tiers")).toBeVisible();
+    await visit(page, "/preview/slider/range", "#tiers");
     await placed(page);
   });
 
