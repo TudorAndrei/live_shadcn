@@ -1433,27 +1433,96 @@ defmodule StorybookWeb.Examples do
     """
   end
 
+  # A sidebar is navigation for a whole page, so an example that draws four
+  # links in a 16rem-tall box demonstrates nothing: collapsing it changes
+  # nothing a reader can see, which is the one thing this component does.
+  #
+  # This is the shape a real one has — a brand, two labelled groups, a footer
+  # holding whoever is signed in — and it is tall enough that the trigger and
+  # the rail visibly do their job.
+  #
+  # `sidebar_inset` is left out on purpose. It is a `<main>`, this page already
+  # has one around every example, and a second inside the first is what a real
+  # page never does. axe is right to say so.
   defp sidebar_default(assigns) do
+    assigns =
+      assign(assigns,
+        pipeline: [
+          {"Fetch", "cloud-download"},
+          {"Spec", "file-json"},
+          {"Generate", "wand-sparkles"},
+          {"Verify", "circle-check"}
+        ],
+        registry: [{"Components", "boxes"}, {"Recipes", "book-open"}, {"Upstream", "git-branch"}]
+      )
+
     ~H"""
-    <.sidebar_provider class="min-h-64">
+    <.sidebar_provider class="min-h-96">
       <.sidebar id="nav" collapsible="icon">
         <.sidebar_header>
-          <.sidebar_group_label>Pipeline</.sidebar_group_label>
-          <.sidebar_trigger for="nav" collapsible="icon" />
+          <.sidebar_menu>
+            <.sidebar_menu_item>
+              <.sidebar_menu_button size="lg">
+                <LiveShadcn.Icon.icon name="component" class="size-4" />
+                <span class="font-semibold">live_shadcn</span>
+              </.sidebar_menu_button>
+            </.sidebar_menu_item>
+          </.sidebar_menu>
         </.sidebar_header>
+
         <.sidebar_content>
           <.sidebar_group>
+            <.sidebar_group_label>Pipeline</.sidebar_group_label>
             <.sidebar_group_content>
               <.sidebar_menu>
-                <.sidebar_menu_item :for={stage <- ~w(Fetch Spec Generate Verify)}>
-                  <.sidebar_menu_sub_button href="#">{stage}</.sidebar_menu_sub_button>
+                <.sidebar_menu_item :for={{stage, icon} <- @pipeline}>
+                  <.sidebar_menu_button is_active={stage == "Spec"}>
+                    <LiveShadcn.Icon.icon name={icon} class="size-4" />
+                    <span>{stage}</span>
+                  </.sidebar_menu_button>
+                </.sidebar_menu_item>
+              </.sidebar_menu>
+            </.sidebar_group_content>
+          </.sidebar_group>
+
+          <.sidebar_separator />
+
+          <.sidebar_group>
+            <.sidebar_group_label>Registry</.sidebar_group_label>
+            <.sidebar_group_content>
+              <.sidebar_menu>
+                <.sidebar_menu_item :for={{item, icon} <- @registry}>
+                  <.sidebar_menu_button>
+                    <LiveShadcn.Icon.icon name={icon} class="size-4" />
+                    <span>{item}</span>
+                  </.sidebar_menu_button>
                 </.sidebar_menu_item>
               </.sidebar_menu>
             </.sidebar_group_content>
           </.sidebar_group>
         </.sidebar_content>
+
+        <.sidebar_footer>
+          <.sidebar_menu>
+            <.sidebar_menu_item>
+              <.sidebar_menu_button>
+                <LiveShadcn.Icon.icon name="circle-user" class="size-4" />
+                <span>Signed in</span>
+              </.sidebar_menu_button>
+            </.sidebar_menu_item>
+          </.sidebar_menu>
+        </.sidebar_footer>
+
         <.sidebar_rail for="nav" collapsible="icon" />
       </.sidebar>
+
+      <div class="flex flex-1 items-start gap-2 p-3">
+        <.sidebar_trigger for="nav" collapsible="icon" />
+        <p class="text-sm text-muted-foreground">
+          The trigger and the rail both flip one attribute, and every class string reads it.
+          No round trip.
+        </p>
+      </div>
     </.sidebar_provider>
     """
   end

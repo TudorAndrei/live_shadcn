@@ -17,8 +17,8 @@
  * components live in the registry, which is why it is listed. */
 @source "../js";
 @source "../../lib/storybook_web";
-@source "../../storybook";
 @source "../../../packages/live_shadcn/priv/registry";
+@source "../../../packages/live_ai_elements/lib";
 /* The React reference reads this same sheet, so this one build has to cover
  * both. Two builds over two source trees would emit two sets of utilities, and
  * every difference `mix ui.parity` reported would be a difference between the

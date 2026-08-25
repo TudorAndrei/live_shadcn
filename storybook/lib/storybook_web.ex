@@ -15,9 +15,25 @@ defmodule StorybookWeb do
     end
   end
 
+  @doc """
+  A page that carries nothing but what it renders.
+
+  `PreviewLive` is the one that matters: `mix ui.verify` runs axe-core against
+  those pages, so a violation there has to belong to the component rather than
+  to any navigation around it.
+  """
   def live_view do
     quote do
       use Phoenix.LiveView, layout: {StorybookWeb.Layouts, :app}
+
+      unquote(html_helpers())
+    end
+  end
+
+  @doc "A page inside the documentation shell: sidebar, header, content column."
+  def docs_live_view do
+    quote do
+      use Phoenix.LiveView, layout: {StorybookWeb.Layouts, :docs}
 
       unquote(html_helpers())
     end

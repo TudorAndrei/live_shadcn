@@ -1,55 +1,64 @@
 defmodule StorybookWeb.IndexLive do
   @moduledoc """
-  What there is to look at: every component, every example, and the storybook.
+  The front page: what this is, and how to install it.
+
+  It used to render every example on one page. That made a fixed-position
+  toaster sit over the whole listing, and it meant the page grew by one
+  component each time the pipeline learned to read another. The components are
+  one page each now, under `/docs/:component`.
   """
 
-  use StorybookWeb, :live_view
+  use StorybookWeb, :docs_live_view
 
+  alias StorybookWeb.Docs
   alias StorybookWeb.Examples
-
-  @impl Phoenix.LiveView
-  def mount(_params, _session, socket) do
-    {:ok,
-     socket
-     |> assign(components: Examples.components(), page_title: "live_shadcn")
-     |> assign(Examples.page_assigns())}
-  end
-
-  @impl Phoenix.LiveView
-  def handle_event("dismiss_toast", %{"id" => id}, socket) do
-    {:noreply, assign(socket, toasts: Examples.dismiss(socket.assigns.toasts, "notices", id))}
-  end
 
   @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
-    <h1 class="text-2xl font-semibold">live_shadcn</h1>
-    <p class="text-muted-foreground mt-2 text-sm">
-      Generated from the shadcn registry. Nothing on this page was written by hand
-      except the example markup.
-      <.link navigate={~p"/storybook"} class="underline underline-offset-4">
-        Open the storybook
-      </.link>
+    <h1 class="text-3xl font-semibold tracking-tight">live_shadcn</h1>
+    <p class="mt-3 text-muted-foreground">
+      shadcn/ui for Phoenix LiveView. Every component is generated from the shadcn
+      registry — the class strings, the <code class="text-xs">data-slot</code>
+      names and the data-attribute contract all come from upstream, and no
+      generated line is edited by hand.
     </p>
 
-    <section :for={component <- @components} class="mt-10">
-      <h2 class="text-lg font-medium">{component}</h2>
+    <section class="mt-10">
+      <h2 class="text-lg font-medium">Install</h2>
+      <pre class="mt-3 overflow-x-auto rounded-md border bg-muted p-4 text-xs"><code>mix ui.add button dialog select</code></pre>
+      <p class="mt-2 text-sm text-muted-foreground">
+        The components are copied into your application under your own namespace,
+        with a version stamp. <code class="text-xs">mix ui.sync</code>
+        reports upstream drift and refuses to overwrite a file you have edited.
+      </p>
+    </section>
 
-      <ul class="mt-4 grid gap-6">
-        <li :for={example <- Examples.all(component)}>
-          <h3 class="text-sm font-medium">
-            <.link
-              navigate={~p"/preview/#{component}/#{example.id}"}
-              class="underline underline-offset-4"
-            >
-              {example.title}
-            </.link>
-          </h3>
-          <p class="text-muted-foreground mt-1 text-sm">{example.description}</p>
-          <div class="mt-3">{example.render.(assigns)}</div>
+    <section class="mt-10">
+      <h2 class="text-lg font-medium">{@count} components</h2>
+      <ul class="mt-4 grid grid-cols-2 gap-x-6 gap-y-1 sm:grid-cols-3">
+        <li :for={component <- @components}>
+          <.link
+            navigate={~p"/docs/#{component}"}
+            class="text-sm underline-offset-4 hover:underline"
+          >
+            {Docs.title(component)}
+          </.link>
         </li>
       </ul>
     </section>
     """
+  end
+
+  @impl Phoenix.LiveView
+  def mount(_params, _session, socket) do
+    components = Examples.components()
+
+    {:ok,
+     assign(socket,
+       components: Enum.sort(components),
+       count: length(components),
+       page_title: "live_shadcn"
+     )}
   end
 end

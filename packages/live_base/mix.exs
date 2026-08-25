@@ -37,8 +37,11 @@ defmodule LiveBase.MixProject do
         "GitHub" => @source_url,
         "Changelog" => "#{@source_url}/blob/main/packages/live_base/CHANGELOG.md"
       },
+      # `usage-rules.md` is the condensed contract an LLM reads before writing
+      # against this package. It only helps if it ships, which is what this line
+      # is for. See https://usage-rules.hexdocs.pm.
       files: ~w(lib assets .formatter.exs mix.exs package.json README.md CHANGELOG.md
-                LICENSE NOTICE)
+                LICENSE NOTICE usage-rules.md)
     ]
   end
 

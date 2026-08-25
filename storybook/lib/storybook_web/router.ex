@@ -1,8 +1,6 @@
 defmodule StorybookWeb.Router do
   use StorybookWeb, :router
 
-  import PhoenixStorybook.Router
-
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -20,6 +18,11 @@ defmodule StorybookWeb.Router do
     pipe_through :browser
 
     live "/", IndexLive
+    live "/docs/:component", DocsLive
+
+    # Deliberately outside the documentation shell. `mix ui.verify` runs
+    # axe-core against these pages, so they carry nothing but the component:
+    # a violation has to belong to what is being verified.
     live "/preview/:component/:example", PreviewLive
   end
 
@@ -29,20 +32,5 @@ defmodule StorybookWeb.Router do
     pipe_through :api
 
     get "/previews.json", PreviewController, :index
-  end
-
-  # The asset routes are declared first: the storybook itself claims
-  # `/storybook/*`, and a route it shadows is a route that never matches.
-  scope "/" do
-    storybook_assets("/storybook/assets")
-  end
-
-  scope "/" do
-    pipe_through :browser
-
-    live_storybook("/storybook",
-      backend_module: StorybookWeb.Storybook,
-      assets_path: "/storybook/assets"
-    )
   end
 end

@@ -58,7 +58,11 @@ defmodule LiveShadcn.MixProject do
         "GitHub" => @source_url,
         "Changelog" => "#{@source_url}/blob/main/packages/live_shadcn/CHANGELOG.md"
       },
-      files: ~w(lib priv .formatter.exs mix.exs README.md CHANGELOG.md LICENSE NOTICE)
+      # `usage-rules.md` is the condensed contract an LLM reads before writing
+      # against this package. It only helps if it ships, which is what this line
+      # is for. See https://usage-rules.hexdocs.pm.
+      files: ~w(lib priv .formatter.exs mix.exs README.md CHANGELOG.md LICENSE NOTICE
+                usage-rules.md)
     ]
   end
 

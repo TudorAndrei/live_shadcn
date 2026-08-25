@@ -1,0 +1,166 @@
+defmodule StorybookWeb.DocsLive do
+  @moduledoc """
+  One component, documented.
+
+  The page has the shape ui.shadcn.com uses — the component, the markup that
+  drew it, how to install it, and what it takes — and every one of those four
+  comes from somewhere rather than being typed. `StorybookWeb.Docs` says where.
+
+  The examples are rendered inline rather than in a frame. They are the same
+  functions `/preview/:component/:example` renders, so a difference between the
+  two pages would be a difference in the chrome, and there is a link to the bare
+  page for anyone who wants to check.
+  """
+
+  use StorybookWeb, :docs_live_view
+
+  import LiveShadcn.UI.Table
+  import LiveShadcn.UI.Tabs
+
+  alias StorybookWeb.Docs
+  alias StorybookWeb.Examples
+
+  defmodule NotFound do
+    @moduledoc "A component nobody documented. A 404, not a blank page."
+    defexception [:message, plug_status: 404]
+  end
+
+  @impl Phoenix.LiveView
+  def render(assigns) do
+    ~H"""
+    <header>
+      <h1 class="text-3xl font-semibold tracking-tight">{Docs.title(@component)}</h1>
+      <p class="mt-2 text-muted-foreground">
+        Generated from <code class="text-xs">registry/spec/{@component}.json</code>. Nothing below
+        was written by hand except the example markup.
+      </p>
+    </header>
+
+    <section :for={example <- @examples} class="mt-10">
+      <h2 class="text-lg font-medium">{example.title}</h2>
+      <p class="mt-1 text-sm text-muted-foreground">{example.description}</p>
+
+      <.tabs id={"example-#{example.id}"} value="preview" class="mt-4">
+        <:tab value="preview" label="Preview">
+          <div class="flex min-h-40 items-center justify-center rounded-md border p-8">
+            {example.render.(assigns)}
+          </div>
+        </:tab>
+        <:tab value="code" label="Code">
+          <pre class="overflow-x-auto rounded-md border bg-muted p-4 text-xs"><code>{example.source}</code></pre>
+        </:tab>
+      </.tabs>
+
+      <p class="mt-2 text-xs text-muted-foreground">
+        <.link
+          navigate={~p"/preview/#{@component}/#{example.id}"}
+          class="underline underline-offset-4"
+        >
+          Open on its own
+        </.link>
+        — the page `mix ui.verify` drives.
+      </p>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-lg font-medium">Installation</h2>
+      <pre class="mt-3 overflow-x-auto rounded-md border bg-muted p-4 text-xs"><code>{@install}</code></pre>
+    </section>
+
+    <section :for={function <- @api} class="mt-14">
+      <h2 class="text-lg font-medium">
+        <code>{function.name}/1</code>
+      </h2>
+
+      <.table :if={function.attrs != []} class="mt-3">
+        <.table_header>
+          <.table_row>
+            <.table_head>Attribute</.table_head>
+            <.table_head>Type</.table_head>
+            <.table_head>Default</.table_head>
+            <.table_head>Notes</.table_head>
+          </.table_row>
+        </.table_header>
+        <.table_body>
+          <.table_row :for={attr <- function.attrs}>
+            <.table_cell>
+              <code class="text-xs">{attr.name}</code>
+              <span :if={attr.required} class="text-xs text-muted-foreground">required</span>
+            </.table_cell>
+            <.table_cell><code class="text-xs">{inspect(attr.type)}</code></.table_cell>
+            <.table_cell><code class="text-xs">{default(attr)}</code></.table_cell>
+            <.table_cell class="text-xs text-muted-foreground">
+              {attr.doc}
+              <span :if={values(attr)} class="block">One of {values(attr)}.</span>
+            </.table_cell>
+          </.table_row>
+        </.table_body>
+      </.table>
+
+      <p :if={function.globals != []} class="mt-2 text-xs text-muted-foreground">
+        Every other attribute is passed through to the element.
+      </p>
+
+      <div :if={function.slots != []} class="mt-4">
+        <h3 class="text-sm font-medium">Slots</h3>
+        <ul class="mt-2 space-y-1 text-xs text-muted-foreground">
+          <li :for={slot <- function.slots}>
+            <code>{slot.name}</code>
+            <span :if={slot.doc}>— {slot.doc}</span>
+            <span :if={slot_attrs(slot) != []}>
+              Takes {Enum.map_join(slot_attrs(slot), ", ", &"`#{&1.name}`")}.
+            </span>
+          </li>
+        </ul>
+      </div>
+    </section>
+    """
+  end
+
+  @impl Phoenix.LiveView
+  def mount(%{"component" => component}, _session, socket) do
+    if component not in Examples.components() do
+      raise NotFound, message: "no component called #{component}"
+    end
+
+    examples =
+      component
+      |> Examples.all()
+      |> Enum.map(&Map.put(&1, :source, Docs.source(&1)))
+
+    {:ok,
+     socket
+     |> assign(
+       component: component,
+       examples: examples,
+       api: Docs.api(component),
+       install: Docs.install(component),
+       page_title: Docs.title(component)
+     )
+     |> assign(Examples.page_assigns())}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("dismiss_toast", %{"id" => id}, socket) do
+    {:noreply, assign(socket, toasts: Examples.dismiss(socket.assigns.toasts, "notices", id))}
+  end
+
+  # A declared attribute always has a default, even when that default is `nil`.
+  defp default(attr) do
+    case Keyword.fetch(attr.opts, :default) do
+      {:ok, value} -> inspect(value)
+      :error -> "—"
+    end
+  end
+
+  defp values(attr) do
+    case Keyword.get(attr.opts, :values) do
+      nil -> nil
+      list -> Enum.map_join(list, ", ", &inspect/1)
+    end
+  end
+
+  # A slot with no attributes reports them as `nil` rather than as an empty
+  # list, and `Enum.map_join/3` has an opinion about that.
+  defp slot_attrs(slot), do: List.wrap(slot.attrs)
+end

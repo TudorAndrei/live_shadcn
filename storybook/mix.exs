@@ -38,7 +38,6 @@ defmodule Storybook.MixProject do
       {:live_ai_elements, path: "../packages/live_ai_elements"},
       {:phoenix, "~> 1.8"},
       {:phoenix_live_view, "~> 1.2"},
-      {:phoenix_storybook, "~> 1.3"},
       # live_shadcn keeps the icon set optional. The demo picks the default one.
       {:lucide_icons, "~> 2.3"},
       {:bandit, "~> 1.5"},

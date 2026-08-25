@@ -1,0 +1,55 @@
+<%!-- The documentation shell.
+
+     Built out of `<.sidebar>` and `<.sidebar_menu_button>` — the same
+     components this site documents. That is deliberate: if navigating the
+     documentation is awkward, the sidebar is awkward, and no amount of correct
+     output makes up for it. It is the argument CONTRIBUTING.md already makes
+     about the examples, applied to the page they are shown on.
+
+     `/preview/:component/:example` does NOT use this layout. It renders under
+     `app.html.heex`, which carries nothing but the component, because axe-core
+     runs against that page and a violation has to belong to the component
+     rather than to the navigation around it. --%>
+<.sidebar_provider class="min-h-svh">
+  <.sidebar id="docs-nav" collapsible="offcanvas">
+    <.sidebar_header>
+      <.sidebar_menu>
+        <.sidebar_menu_item>
+          <.sidebar_menu_button size="lg">
+            <.link navigate={~p"/"} class="flex flex-col gap-0.5 leading-none">
+              <span class="font-semibold">live_shadcn</span>
+              <span class="text-xs text-muted-foreground">generated from shadcn/ui</span>
+            </.link>
+          </.sidebar_menu_button>
+        </.sidebar_menu_item>
+      </.sidebar_menu>
+    </.sidebar_header>
+
+    <.sidebar_content>
+      <.sidebar_group :for={{label, components} <- Docs.groups()}>
+        <.sidebar_group_label>{label}</.sidebar_group_label>
+        <.sidebar_group_content>
+          <.sidebar_menu>
+            <.sidebar_menu_item :for={component <- components}>
+              <.sidebar_menu_button is_active={component == assigns[:component]}>
+                <.link navigate={~p"/docs/#{component}"}>{Docs.title(component)}</.link>
+              </.sidebar_menu_button>
+            </.sidebar_menu_item>
+          </.sidebar_menu>
+        </.sidebar_group_content>
+      </.sidebar_group>
+    </.sidebar_content>
+  </.sidebar>
+
+  <div class="flex min-w-0 flex-1 flex-col">
+    <header class="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+      <.sidebar_trigger for="docs-nav" collapsible="offcanvas" />
+      <.separator orientation="vertical" class="h-4" />
+      <span class="text-sm text-muted-foreground">{assigns[:page_title] || "live_shadcn"}</span>
+    </header>
+
+    <div class="mx-auto w-full max-w-3xl px-6 py-10">
+      {@inner_content}
+    </div>
+  </div>
+</.sidebar_provider>

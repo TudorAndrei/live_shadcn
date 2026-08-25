@@ -1,0 +1,180 @@
+defmodule StorybookWeb.Docs do
+  @moduledoc """
+  What a component's documentation page is made of.
+
+  Three things go on that page, and none of them is typed by a person. That is
+  the same rule the rest of this repository follows: if a fact is written twice,
+  one of the copies is going to be wrong, and nothing will say which.
+
+  | On the page | Where it comes from |
+  |---|---|
+  | the navigation | `StorybookWeb.Examples.components/0` |
+  | the Code tab | the `~H` body of the example function, read from source |
+  | the API table | the component module's own `__components__/0` |
+
+  ## Reading the example's source
+
+  An example is a function, and what a reader wants to see is the markup inside
+  it — the thing they would type. Elixir can hand that over exactly:
+  `Code.string_to_quoted/2` parses `examples.ex`, and a `~H` sigil node carries
+  its own body. No line arithmetic and no regular expression, which is the same
+  argument the spec reader makes about `.tsx`.
+
+  It happens once, at compile time. `@external_resource` means an edit to
+  `examples.ex` recompiles this module, so the page cannot show markup that the
+  example no longer has.
+
+  ## Reading the API
+
+  `Phoenix.Component` records every `attr` and `slot` a module declares, and
+  hands them back through `__components__/0`: the name, the type, whether it is
+  required, its `:doc`, and the `:default` and `:values` it was declared with.
+  Slots carry their own attributes, each with a doc of its own.
+
+  shadcn's website writes that table by hand. Here a component that gains an
+  attribute gains a row, and one that loses an attribute loses one.
+  """
+
+  alias StorybookWeb.Examples
+
+  @examples_path Path.join(__DIR__, "examples.ex")
+  @external_resource @examples_path
+
+  # The markup inside every example function, by function name.
+  #
+  # Read at compile time, because the file does not change while the server is
+  # running and a documentation page should not do file IO to draw itself.
+  @sources (fn ->
+              {:ok, ast} =
+                @examples_path |> File.read!() |> Code.string_to_quoted(token_metadata: true)
+
+              heex = fn
+                {:sigil_H, _, [{:<<>>, _, [raw]}, _]} when is_binary(raw) ->
+                  raw
+
+                # A body that assigns before it renders. `~H` is the last thing
+                # it does, and the only part a reader is being shown.
+                {:__block__, _, statements} ->
+                  Enum.find_value(statements, fn
+                    {:sigil_H, _, [{:<<>>, _, [raw]}, _]} when is_binary(raw) -> raw
+                    _statement -> nil
+                  end)
+
+                _body ->
+                  nil
+              end
+
+              {_ast, found} =
+                Macro.prewalk(ast, [], fn
+                  {:defp, _, [{name, _, [_arg]}, [do: body]]} = node, acc when is_atom(name) ->
+                    case heex.(body) do
+                      nil -> {node, acc}
+                      raw -> {node, [{name, String.trim_trailing(raw)} | acc]}
+                    end
+
+                  node, acc ->
+                    {node, acc}
+                end)
+
+              Map.new(found)
+            end).()
+
+  @doc """
+  The markup an example is written with.
+
+  The example's `:render` is a captured function, so its name is a fact rather
+  than something to derive from the component and the example id — which would
+  be a naming convention, and a convention is a rule somebody eventually breaks.
+  """
+  def source(%{render: render}) do
+    {:name, name} = Function.info(render, :name)
+    Map.get(@sources, name)
+  end
+
+  @doc "Every example function whose markup could be read. For the test."
+  def sources, do: @sources
+
+  @doc """
+  The module a component name is generated into.
+
+  Two registries each have a `message`, so the storybook names them
+  `shadcn-message` and `ai_elements-message`. Everything else is looked for in
+  the shadcn namespace first, because that is where most of them are.
+  """
+  def module(component) do
+    {namespaces, base} =
+      case component do
+        "shadcn-" <> rest -> {[LiveShadcn.UI], rest}
+        "ai_elements-" <> rest -> {[LiveAiElements.Components], rest}
+        name -> {[LiveShadcn.UI, LiveAiElements.Components], name}
+      end
+
+    camel = base |> String.replace("-", "_") |> Macro.camelize()
+
+    Enum.find_value(namespaces, fn namespace ->
+      module = Module.concat(namespace, camel)
+      if Code.ensure_loaded?(module), do: module
+    end)
+  end
+
+  @doc """
+  Every function a component exports, with its attributes and slots.
+
+  Sorted by name, so the page reads the same way twice. `:rest` is dropped from
+  the attribute table and reported separately: a `:global` is not an attribute a
+  caller passes but a statement that every other attribute is passed through,
+  and listing it beside `variant` says the wrong thing.
+  """
+  def api(component) do
+    case module(component) do
+      nil ->
+        []
+
+      module ->
+        module.__components__()
+        |> Enum.sort_by(fn {name, _meta} -> name end)
+        |> Enum.map(fn {name, meta} ->
+          %{
+            name: name,
+            attrs: meta.attrs |> Enum.reject(&(&1.type == :global)) |> Enum.sort_by(& &1.name),
+            globals: Enum.filter(meta.attrs, &(&1.type == :global)),
+            slots: Enum.sort_by(meta.slots, & &1.name)
+          }
+        end)
+    end
+  end
+
+  @doc "What `mix ui.add` is called with, which is the component's own name."
+  def install(component) do
+    case component do
+      "shadcn-" <> rest -> "mix ui.add #{rest}"
+      "ai_elements-" <> _rest -> "The AI Elements package is a dependency, not a copy."
+      name -> "mix ui.add #{name}"
+    end
+  end
+
+  @doc """
+  The components, grouped for the navigation.
+
+  Which registry a component came from is the only grouping the storybook can
+  make without somebody maintaining a list of categories, and a maintained list
+  is a list that drifts from the components it names.
+  """
+  def groups do
+    {ai, shadcn} =
+      Enum.split_with(Examples.components(), fn component ->
+        module(component) |> to_string() |> String.starts_with?("Elixir.LiveAiElements")
+      end)
+
+    [{"Components", Enum.sort(shadcn)}, {"AI Elements", Enum.sort(ai)}]
+    |> Enum.reject(fn {_label, names} -> names == [] end)
+  end
+
+  @doc "The title a component is shown under."
+  def title(component) do
+    component
+    |> String.replace(["shadcn-", "ai_elements-"], "")
+    |> String.split("-")
+    |> Enum.map_join(" ", &String.capitalize/1)
+  end
+end
