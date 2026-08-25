@@ -130,33 +130,77 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 ### 9a — The shape
 
-- [ ] `/docs/:component` — one page per component, replacing the flat index
-- [ ] Sidebar navigation from `Examples.components/0`, built with `<.sidebar>`
+- [x] `/docs/:component` — one page per component, replacing the flat index
+- [x] Sidebar navigation from `Examples.components/0`, built with `<.sidebar>`
 - [ ] `⌘K` search, built with `<.command>`
-- [ ] A Preview / Code block per example, built with `<.tabs>`
-- [ ] An Installation section — `mix ui.add <name>`
-- [ ] Leave `/preview/:component/:example` byte-identical. It is the fixture
-      that `mix snapshot`, axe and `parity.spec.mjs` drive, and it carries no
-      chrome on purpose
+- [x] A Preview / Code block per example, built with `<.tabs>`
+- [x] An Installation section — `mix ui.add <name>`
+- [x] Leave `/preview/:component/:example` byte-identical. The shell is a
+      second layout (`docs.html.heex`) rather than a change to `app.html.heex`
 
 ### 9b — Three things generate, none is typed
 
-- [ ] The Code tab: `Code.string_to_quoted(token_metadata: true)` over
-      `examples.ex`; the `~H` sigil node carries its own body
-- [ ] The API table: `Module.__components__/0` gives every attribute's name,
+- [x] The Code tab: `Code.string_to_quoted(token_metadata: true)` over
+      `examples.ex`; the `~H` sigil node carries its own body. All 76 read
+- [x] The API table: `Module.__components__/0` gives every attribute's name,
       type, required, doc, `default:` and `values:`, and each slot's attributes
-- [ ] The navigation: `Examples.components/0` and `Examples.all/1`
+- [x] The navigation: `Examples.components/0` and `Examples.all/1`
 
 ### 9c — Drop `phoenix_storybook`
 
-- [ ] Remove the dependency and the `live_storybook` / `storybook_assets`
+- [x] Remove the dependency and the `live_storybook` / `storybook_assets`
       routes
-- [ ] Delete `storybook/storybook/*.exs` and the backend module. It documents
-      one component of 63, by holding a second copy of the example markup
+- [x] Delete `storybook/storybook/*.exs` and the backend module
 
 ### 9d — The sidebar example demonstrates nothing
 
-- [ ] Replace `Examples.sidebar_default/1`: a header with a brand, two labelled
-      groups with icons, a footer user item, and enough height that collapsing
-      is visible
-- [ ] Keep `sidebar_inset` out. It is a `<main>` and the preview page has one
+- [x] Replace `Examples.sidebar_default/1`: a brand, two labelled groups with
+      icons, a footer, and height enough that collapsing is visible
+- [x] Keep `sidebar_inset` out. It is a `<main>` and the preview page has one
+
+### 9e — Also landed
+
+- [x] rolldown replaces esbuild. Built on Oxc, the parser this pipeline already
+      reads `.tsx` with. 347 kB against 413 kB, in 32 ms
+- [x] `usage-rules.md` for `live_shadcn` and `live_base`, listed in each
+      package's hex `files`. See <https://usage-rules.hexdocs.pm>
+
+## Phase 10 — What phase 9 found
+
+Three defects, none of them phase 9's own. The first two came from the parity
+check, which is what it is for.
+
+### 10a — The sidebar's generated component drops two contracts
+
+- [ ] `sidebar_menu_button` declares a `tooltip` attribute and renders nothing
+      for it. Upstream wraps the button in a `<Tooltip>`. This is the
+      "recipes have to compose" problem in `PLAN.md` phase 6a
+- [ ] `is_active` styles nothing. Upstream passes Base UI `useRender` a
+      `state: {active: isActive}`, which becomes `data-active`; the reader
+      reads the literal keys of that object and drops the one whose value is a
+      prop. Parity reports it exactly: `background-color — React oklch(0.97 0
+      0), Phoenix rgba(0, 0, 0, 0)`, plus `color` and `font-weight`
+- [ ] `sidebar / default` parity stays red until the second one is fixed. The
+      example keeps `is_active` on purpose — a reference that dropped it would
+      hide the defect, which is the one thing `parity/README.md` forbids
+
+### 10b — `navigation-menu` lost its anatomy
+
+- [ ] Restore it. `8f36383` deleted the 141-line `navigation_menu` recipe as
+      unused, because `registry/INVENTORY.json` points the component at `menu`.
+      That inventory entry is the bug: rendered through `menu` it loses its
+      `<nav>` root, its list, its items, its viewport, its content element and
+      **the caller's content**, and becomes a `role="menu"` with `Roving`
+- [ ] Its committed snapshot is the old, correct markup, so
+      `mix snapshot --check` is red for it. Left red on purpose: regenerating
+      would record the regression as expected output
+
+### 10c — The browser suite silently uses a foreign server
+
+- [ ] `playwright.config.mjs` sets `reuseExistingServer: !CI`, so anything
+      already listening on 4101 is used as the storybook. An unrelated
+      container answering `401` there made every parity test report the
+      component as missing rather than as different
+- [ ] Make the harness check that the server on the port is ours — a
+      `/previews.json` probe would do it — or fail rather than reuse
+- [ ] `STORYBOOK_PORT=4111` is the workaround in the meantime
