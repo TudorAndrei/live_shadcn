@@ -78,7 +78,7 @@ defmodule LiveAiElements.Components.Attachments do
   end
 
   @doc "The `attachment_info` part."
-  attr(:data, :any, default: nil)
+  attr(:data, :string, default: nil)
   attr(:label, :string, default: nil)
   attr(:show_media_type, :boolean, default: false)
   attr(:variant, :string, default: nil)

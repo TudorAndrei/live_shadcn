@@ -50,7 +50,8 @@ defmodule LiveShadcn.UI.InputOtp do
       "maxlength",
       "pattern",
       "readonly",
-      "multiple"
+      "multiple",
+      "autocomplete"
     ]
   )
 

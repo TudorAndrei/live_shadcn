@@ -9,53 +9,39 @@ defmodule LiveShadcn.UI.NavigationMenu do
 
   use Phoenix.Component
 
-  alias LiveBase.Menu
   alias LiveBase.Popover
 
   @doc """
-  Groups all parts of the navigation menu.
+  Navigation links, and the panel one of them opens.
 
-      <.navigation_menu id="actions">
-        <:trigger>Actions</:trigger>
-        <:item value="regenerate" phx-click="regenerate">Regenerate</:item>
-        <:item value="verify" phx-click="verify">Verify</:item>
+      <.navigation_menu id="docs">
+        <:trigger>Documentation</:trigger>
+        <p>The roadmap, the inventory, and the architecture.</p>
       </.navigation_menu>
 
-  The arrow keys walk the items and mark the one they arrive at. Choosing is
-  a separate gesture, and only choosing closes the menu.
+  Opening and closing run on the client. The panel is presented through a
+  viewport, which is what upstream animates between one item and the next.
   """
+
   attr(:id, :string, required: true, doc: "Every id inside the menu derives from it.")
-  attr(:open, :boolean, default: false, doc: "Whether it starts open.")
+  attr(:open, :boolean, default: false, doc: "Whether the content starts open.")
   attr(:disabled, :boolean, default: false, doc: "Whether the trigger refuses interaction.")
+  attr(:orientation, :string, default: "horizontal", values: ["horizontal", "vertical"])
   attr(:side, :string, default: "bottom", values: ["top", "right", "bottom", "left"])
   attr(:align, :string, default: "start", values: ["start", "center", "end"])
-  attr(:offset, :integer, default: 4)
-  attr(:class, :any, default: nil, doc: "Appended to the menu's class string.")
-  attr(:inset, :boolean, default: false, doc: "Line the text up with items that have an icon.")
-  attr(:trigger_slot, :string, default: "navigation-menu-trigger")
-  attr(:popup_slot, :string, default: nil)
-  attr(:item_slot, :string, default: "navigation-menu-item")
-
+  attr(:offset, :integer, default: 8)
+  attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:list_class, :any, default: nil)
   attr(:item_class, :any, default: nil)
-  attr(:positioner_class, :any, default: nil)
   attr(:trigger_class, :any, default: nil)
-  attr(:align_offset, :string, default: "0")
-  attr(:side_offset, :string, default: "8")
+  attr(:positioner_class, :any, default: nil)
+  attr(:popup_class, :any, default: nil)
+  attr(:viewport_class, :any, default: nil)
+  attr(:content_class, :any, default: nil)
   attr(:rest, :global)
 
-  slot(:trigger, required: true, doc: "What opens it.")
-
-  slot :item, doc: "One thing to choose. Choosing it closes the menu." do
-    attr(:value, :string, required: true, doc: "Unique. The item's id derives from it.")
-    attr(:disabled, :boolean, doc: "Whether it refuses to be chosen.")
-    attr(:"phx-click", :any, doc: "What choosing it does, beside closing the menu.")
-    attr(:"phx-value-value", :any)
-    attr(:navigate, :string)
-    attr(:patch, :string)
-    attr(:href, :string)
-  end
-
-  slot(:inner_block, doc: "Anything the items do not cover.")
+  slot(:trigger, required: true, doc: "What opens the navigation content.")
+  slot(:inner_block, required: true, doc: "The navigation content.")
 
   def navigation_menu(assigns) do
     ~H"""
@@ -67,86 +53,89 @@ defmodule LiveShadcn.UI.NavigationMenu do
       phx-click-away={Popover.dismiss(@id)}
       {@rest}
     >
-      <button
-        id={Popover.trigger_id(@id)}
-        type="button"
-        aria-haspopup="menu"
-        aria-expanded={to_string(@open)}
-        aria-controls={Popover.popup_id(@id)}
-        phx-click={if(not @disabled, do: Popover.toggle(@id))}
-        phx-mounted={Popover.owned_attributes(:trigger)}
-        data-slot={@trigger_slot}
-        data-popup-open={flag(@open)}
-        data-pressed={flag(@open)}
-        data-open={flag(@open)}
+      <nav
+        data-slot="navigation-menu"
         class={[
-          "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none group",
-          @trigger_class
+          "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
+          @class
         ]}
       >
-        {render_slot(@trigger)}
-
-        <LiveShadcn.Icon.icon name="chevron-down" class="cn-navigation-menu-trigger-icon" />
-      </button>
-      <div class={["contents", @positioner_class]}>
-        <div
-          id={Popover.positioner_id(@id)}
-          hidden={not @open}
-          phx-hook={Popover.hook()}
-          data-lb-anchor={Popover.trigger_id(@id)}
-          data-lb-side={@side}
-          data-lb-align={@align}
-          data-lb-offset={to_string(@offset)}
-          data-lb-autofocus
-          phx-mounted={Popover.owned_attributes(:positioner)}
-          data-open={flag(@open)}
-          data-closed={flag(not @open)}
+        <ul
+          data-slot="navigation-menu-list"
           class={[
-            "cn-navigation-menu-positioner isolate z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-[0.35s] data-instant:transition-none",
-            @positioner_class
+            "cn-navigation-menu-list group flex flex-1 list-none items-center justify-center",
+            @list_class
           ]}
-          data-lb-measure
         >
-          <nav
-            id={Popover.popup_id(@id)}
-            role="menu"
-            tabindex="-1"
+          <li
+            data-slot="navigation-menu-item"
+            class={["cn-navigation-menu-item relative", @item_class]}
+          >
+            <button
+              data-slot="navigation-menu-trigger"
+              id={Popover.trigger_id(@id)}
+              type="button"
+              aria-haspopup="menu"
+              aria-expanded={to_string(@open)}
+              aria-controls={Popover.popup_id(@id)}
+              phx-click={if(not @disabled, do: Popover.toggle(@id))}
+              phx-mounted={Popover.owned_attributes(:trigger)}
+              class={[
+                "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none group",
+                @trigger_class
+              ]}
+              data-lb-style-target
+            >
+              {render_slot(@trigger)}
+
+              <LiveShadcn.Icon.icon name="chevron-down" class="cn-navigation-menu-trigger-icon" />
+            </button>
+          </li>
+        </ul>
+        <div class={["contents", @positioner_class]}>
+          <div
+            id={Popover.positioner_id(@id)}
             hidden={not @open}
-            data-lb-popup
-            phx-hook={Menu.hook()}
-            data-lb-roving="menuitem"
-            data-lb-orientation="vertical"
-            data-lb-loop
-            data-lb-highlight="data-highlighted"
-            phx-mounted={Popover.owned_attributes(:popup)}
-            data-slot={@popup_slot}
-            data-open={flag(@open)}
-            data-closed={flag(not @open)}
-            class="cn-navigation-menu-popup data-[ending-style]:easing-[ease] xs:w-(--popup-width) relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]"
-            data-lb-style-target
+            phx-hook={Popover.hook()}
+            data-lb-anchor={Popover.trigger_id(@id)}
+            data-lb-side={@side}
+            data-lb-align={@align}
+            data-lb-offset={to_string(@offset)}
+            data-lb-autofocus
+            phx-mounted={Popover.owned_attributes(:positioner)}
+            class={[
+              "cn-navigation-menu-positioner isolate z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-[0.35s] data-instant:transition-none",
+              @positioner_class
+            ]}
             data-lb-measure
           >
-            <div class="relative size-full overflow-hidden" />
-            <li
-              :for={item <- @item}
-              id={Menu.item_id(@id, item[:value])}
-              role="menuitem"
-              tabindex="-1"
-              phx-click={if(item[:disabled] != true, do: Menu.choose(@id, item[:"phx-click"]))}
-              phx-mounted={Menu.owned_attributes(:item)}
-              {Map.take(item, [:"phx-value-value", :navigate, :patch, :href])}
-              data-slot={@item_slot}
-              class={["cn-navigation-menu-item relative", @item_class]}
+            <nav
+              id={Popover.popup_id(@id)}
+              hidden={not @open}
+              data-lb-popup
+              phx-mounted={Popover.owned_attributes(:popup)}
+              class="cn-navigation-menu-popup data-[ending-style]:easing-[ease] xs:w-(--popup-width) relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]"
+              data-lb-style-target
+              data-lb-measure
             >
-              {render_slot(item)}
-            </li>
-          </nav>
+              <div class="relative size-full overflow-hidden">
+                <div
+                  data-slot="navigation-menu-content"
+                  hidden={not @open}
+                  class={[
+                    "cn-navigation-menu-content data-ending-style:data-activation-direction=left:translate-x-[50%] data-ending-style:data-activation-direction=right:translate-x-[-50%] data-starting-style:data-activation-direction=left:translate-x-[-50%] data-starting-style:data-activation-direction=right:translate-x-[50%] h-full w-auto transition-[opacity,transform,translate] duration-[0.35s] data-ending-style:opacity-0 data-starting-style:opacity-0 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
+                    @content_class
+                  ]}
+                  data-lb-style-target
+                >
+                  {render_slot(@inner_block)}
+                </div>
+              </div>
+            </nav>
+          </div>
         </div>
-      </div>
+      </nav>
     </div>
     """
   end
-
-  defp flag(true), do: ""
-  defp flag(_state), do: nil
 end

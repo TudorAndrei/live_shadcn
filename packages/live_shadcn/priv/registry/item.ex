@@ -20,6 +20,8 @@ defmodule LiveShadcn.UI.Item do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "item"}
+      data-size={@size}
+      data-variant={@variant}
       class={[
         "cn-item group/item flex w-full flex-wrap items-center transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors",
         variant_class("itemVariants", "size", @size),

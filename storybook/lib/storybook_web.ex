@@ -30,12 +30,27 @@ defmodule StorybookWeb do
     end
   end
 
-  @doc "A page inside the documentation shell: sidebar, header, content column."
+  @doc """
+  A page inside the documentation shell: sidebar, header, content column.
+
+  The shell holds the ⌘K palette, so every page in it answers the palette's
+  event. Filtering is the server's here — the same decision `command` was
+  generated under — and putting the handler in one place is what stops the two
+  pages from drifting into two different searches.
+  """
   def docs_live_view do
     quote do
       use Phoenix.LiveView, layout: {StorybookWeb.Layouts, :docs}
 
       unquote(html_helpers())
+
+      @impl Phoenix.LiveView
+      def handle_event("search", %{"query" => query}, socket) do
+        {:noreply, assign(socket, matches: StorybookWeb.Search.matches(query))}
+      end
+
+      # A page may answer other events; this one is only the palette's.
+      defoverridable handle_event: 3
     end
   end
 

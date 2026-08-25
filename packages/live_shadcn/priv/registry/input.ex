@@ -50,7 +50,8 @@ defmodule LiveShadcn.UI.Input do
       "maxlength",
       "pattern",
       "readonly",
-      "multiple"
+      "multiple",
+      "autocomplete"
     ]
   )
 

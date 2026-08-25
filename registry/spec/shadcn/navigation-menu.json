@@ -100,6 +100,9 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "align"
+                ],
                 "kind": "code",
                 "name": "align",
                 "value": "align"
@@ -557,21 +560,33 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "side"
+                ],
                 "kind": "code",
                 "name": "side",
                 "value": "side"
               },
               {
+                "identifiers": [
+                  "sideOffset"
+                ],
                 "kind": "code",
                 "name": "sideOffset",
                 "value": "sideOffset"
               },
               {
+                "identifiers": [
+                  "align"
+                ],
                 "kind": "code",
                 "name": "align",
                 "value": "align"
               },
               {
+                "identifiers": [
+                  "alignOffset"
+                ],
                 "kind": "code",
                 "name": "alignOffset",
                 "value": "alignOffset"
@@ -1262,7 +1277,7 @@
       "summary": "The clipping viewport of the navigation menu's current content."
     }
   },
-  "recipe": "menu",
+  "recipe": "navigation-menu",
   "source": "shadcn",
   "styles": {
     "luma": {

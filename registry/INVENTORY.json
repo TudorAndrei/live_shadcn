@@ -549,7 +549,7 @@
     {
       "name": "navigation-menu",
       "source": "shadcn",
-      "recipe": "menu",
+      "recipe": "navigation-menu",
       "tier": 2
     },
     {

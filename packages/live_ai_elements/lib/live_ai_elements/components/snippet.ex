@@ -99,7 +99,8 @@ defmodule LiveAiElements.Components.Snippet do
       "maxlength",
       "pattern",
       "readonly",
-      "multiple"
+      "multiple",
+      "autocomplete"
     ]
   )
 

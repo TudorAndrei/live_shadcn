@@ -23,7 +23,24 @@
         "render"
       ],
       "tree": {
-        "attrs": [],
+        "attrs": [
+          {
+            "identifiers": [
+              "size"
+            ],
+            "kind": "code",
+            "name": "data-size",
+            "value": "size"
+          },
+          {
+            "identifiers": [
+              "variant"
+            ],
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
         "children": [
           {
             "type": "children"
@@ -72,6 +89,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"

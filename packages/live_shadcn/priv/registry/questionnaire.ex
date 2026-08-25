@@ -189,7 +189,8 @@ defmodule LiveShadcn.UI.Questionnaire do
       "maxlength",
       "pattern",
       "readonly",
-      "multiple"
+      "multiple",
+      "autocomplete"
     ]
   )
 

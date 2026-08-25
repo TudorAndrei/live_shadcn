@@ -19,6 +19,7 @@ defmodule LiveShadcn.UI.Marker do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "marker"}
+      data-variant={@variant}
       class={[
         "cn-marker group/marker relative flex w-full items-center",
         variant_class("markerVariants", "variant", @variant),

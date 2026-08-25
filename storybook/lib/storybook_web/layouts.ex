@@ -19,6 +19,7 @@ defmodule StorybookWeb.Layouts do
 
   import LiveShadcn.UI.Separator
   import LiveShadcn.UI.Sidebar
+  import StorybookWeb.Search
 
   alias StorybookWeb.Docs
 

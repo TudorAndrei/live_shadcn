@@ -52,7 +52,8 @@ defmodule LiveShadcn.UI.Command do
       "maxlength",
       "pattern",
       "readonly",
-      "multiple"
+      "multiple",
+      "autocomplete"
     ]
   )
 

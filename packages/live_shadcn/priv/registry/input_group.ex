@@ -142,7 +142,8 @@ defmodule LiveShadcn.UI.InputGroup do
       "maxlength",
       "pattern",
       "readonly",
-      "multiple"
+      "multiple",
+      "autocomplete"
     ]
   )
 

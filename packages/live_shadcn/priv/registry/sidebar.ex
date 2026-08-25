@@ -157,6 +157,7 @@ defmodule LiveShadcn.UI.Sidebar do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "sidebar-group-action"}
+      data-sidebar="group-action"
       class={[
         "cn-sidebar-group-action flex aspect-square items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
         @class
@@ -197,6 +198,7 @@ defmodule LiveShadcn.UI.Sidebar do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "sidebar-group-label"}
+      data-sidebar="group-label"
       class={[
         "cn-sidebar-group-label flex shrink-0 items-center outline-hidden [&>svg]:shrink-0",
         @class
@@ -246,7 +248,8 @@ defmodule LiveShadcn.UI.Sidebar do
       "maxlength",
       "pattern",
       "readonly",
-      "multiple"
+      "multiple",
+      "autocomplete"
     ]
   )
 
@@ -308,6 +311,7 @@ defmodule LiveShadcn.UI.Sidebar do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "sidebar-menu-action"}
+      data-sidebar="menu-action"
       class={[
         "cn-sidebar-menu-action flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
         if(@show_on_hover,
@@ -362,6 +366,9 @@ defmodule LiveShadcn.UI.Sidebar do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "sidebar-menu-button"}
+      data-active={to_string(@is_active)}
+      data-sidebar="menu-button"
+      data-size={@size}
       class={[
         "cn-sidebar-menu-button peer/menu-button group/menu-button flex w-full items-center overflow-hidden outline-hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate",
         variant_class("sidebarMenuButtonVariants", "size", @size),
@@ -454,6 +461,9 @@ defmodule LiveShadcn.UI.Sidebar do
     ~H"""
     <a
       data-slot={@rest[:"data-slot"] || "sidebar-menu-sub-button"}
+      data-active={to_string(@is_active)}
+      data-sidebar="menu-sub-button"
+      data-size={@size}
       class={[
         "cn-sidebar-menu-sub-button flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
         @class

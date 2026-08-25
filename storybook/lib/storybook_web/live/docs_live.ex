@@ -145,6 +145,11 @@ defmodule StorybookWeb.DocsLive do
     {:noreply, assign(socket, toasts: Examples.dismiss(socket.assigns.toasts, "notices", id))}
   end
 
+  # Everything else belongs to the shell — the ⌘K palette's `search`. Defining
+  # any clause here replaces the one `docs_live_view` installed, so the rest has
+  # to be handed back explicitly rather than silently disappearing.
+  def handle_event(event, params, socket), do: super(event, params, socket)
+
   # A declared attribute always has a default, even when that default is `nil`.
   defp default(attr) do
     case Keyword.fetch(attr.opts, :default) do

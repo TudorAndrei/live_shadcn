@@ -1127,15 +1127,10 @@ defmodule LiveShadcnTools.Ast do
          source
        ) do
     fields = object(call)
-    slot = fields |> Map.get("state") |> object() |> Map.get("slot") |> literal()
 
     attrs =
-      [
-        slot && {:attr, "data-slot", {:string, slot}},
-        merged_class(fields["props"], source),
-        {:spread, "props"}
-      ]
-      |> Enum.reject(&is_nil/1)
+      state_attrs(fields["state"], source) ++
+        Enum.reject([merged_class(fields["props"], source), {:spread, "props"}], &is_nil/1)
 
     %{
       type: :element,
@@ -1148,6 +1143,33 @@ defmodule LiveShadcnTools.Ast do
   # Anything else is an expression the spec decides the meaning of, exactly as
   # it does for an expression written inside JSX.
   defp returned(node, source), do: %{type: :expr, code: slice(node, source), node: node}
+
+  # Every key of `useRender`'s `state`, not only `slot`.
+  #
+  # Base UI turns each one into a data attribute, and shadcn's class strings
+  # read them: `sidebar`, `size`, `active`. Reading only `slot` looked right for
+  # a long time, because `slot` is the one every component has — and it meant
+  # `state: {active: isActive}` became nothing at all. The sidebar's
+  # `is_active` was declared, accepted, and styled nothing, which parity found
+  # as three computed properties differing on one button and no other check
+  # could see at all.
+  #
+  # A literal value is the attribute's value. Anything else is an expression the
+  # spec resolves against the component's props, the same way it resolves one
+  # written inside JSX.
+  defp state_attrs(state, source) do
+    for {name, value} <- object(state) do
+      case literal(value) do
+        nil -> {:attr, data_name(name), {:expr, slice(value, source), value}}
+        text -> {:attr, data_name(name), {:string, text}}
+      end
+    end
+  end
+
+  # `activationDirection` is `data-activation-direction`. Base UI kebab-cases a
+  # state key the same way it kebab-cases anything else that becomes an
+  # attribute, and an HTML attribute is lowercase.
+  defp data_name(key), do: "data-" <> (key |> Macro.underscore() |> String.replace("_", "-"))
 
   defp object(%{"type" => "ObjectExpression", "properties" => properties}) do
     for %{"type" => "Property", "key" => %{"name" => name}, "value" => value} <- properties,

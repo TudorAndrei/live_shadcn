@@ -336,7 +336,13 @@
         "render"
       ],
       "tree": {
-        "attrs": [],
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "data-sidebar",
+            "value": "group-action"
+          }
+        ],
         "children": [
           {
             "type": "children"
@@ -412,7 +418,13 @@
         "render"
       ],
       "tree": {
-        "attrs": [],
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "data-sidebar",
+            "value": "group-label"
+          }
+        ],
         "children": [
           {
             "type": "children"
@@ -602,7 +614,13 @@
         "render"
       ],
       "tree": {
-        "attrs": [],
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "data-sidebar",
+            "value": "menu-action"
+          }
+        ],
         "children": [
           {
             "type": "children"
@@ -708,7 +726,29 @@
         "attrs": [],
         "children": [
           {
-            "attrs": [],
+            "attrs": [
+              {
+                "identifiers": [
+                  "isActive"
+                ],
+                "kind": "code",
+                "name": "data-active",
+                "value": "isActive"
+              },
+              {
+                "kind": "text",
+                "name": "data-sidebar",
+                "value": "menu-button"
+              },
+              {
+                "identifiers": [
+                  "size"
+                ],
+                "kind": "code",
+                "name": "data-size",
+                "value": "size"
+              }
+            ],
             "children": [
               {
                 "type": "children"
@@ -1047,7 +1087,29 @@
         "isActive"
       ],
       "tree": {
-        "attrs": [],
+        "attrs": [
+          {
+            "identifiers": [
+              "isActive"
+            ],
+            "kind": "code",
+            "name": "data-active",
+            "value": "isActive"
+          },
+          {
+            "kind": "text",
+            "name": "data-sidebar",
+            "value": "menu-sub-button"
+          },
+          {
+            "identifiers": [
+              "size"
+            ],
+            "kind": "code",
+            "name": "data-size",
+            "value": "size"
+          }
+        ],
         "children": [
           {
             "type": "children"
