@@ -4,8 +4,11 @@ The checkbox form of [PLAN.md](PLAN.md), which holds the reasoning. Only work
 that has not been done is listed here; what is finished is in
 [ROADMAP.md](ROADMAP.md) and in the git history.
 
-Items 1 and 2 change a component. Item 3 is a recipe cleanup, item 4 is a test
-harness, and item 5 needs an account rather than code.
+Scope is shadcn parity. AI Elements is M4 in the roadmap and Ouro is M5, and
+neither belongs here.
+
+Item 1 closes the last pixel gap. Item 2 is a recipe cleanup, item 3 is a test
+harness, and item 4 needs an account rather than code.
 
 ## 1 — The calendar
 
@@ -35,25 +38,13 @@ verify. 9,261 px against upstream.
 - [ ] `calendar.default` leaves `pending` in `pixel-budget.json` and is gated
 - [ ] `mix ui.verify shadcn/calendar` passes all five checks
 
-## 2 — Three AI Elements components stop generating
-
-Each is a `useRender` state key bound to component-local state. A full
-`mix ui.spec` is blocked until each has an answer.
-
-- [ ] `question` — `text`
-- [ ] `snippet` — `isCopied`
-- [ ] `environment-variables` — `showValues`
-- [ ] For each key, choose one: an attribute the caller passes, a hook that owns
-      the state, or a non-goal recorded with its reason
-- [ ] `mix ui.spec` runs across `ai_elements/` without stopping
-
-## 3 — The toast recipe reads upstream by its styling
+## 2 — The toast recipe reads upstream by its styling
 
 - [ ] `gen/toast.ex:189` finds its part by anatomy, not by matching the class
       string `"flex min-w-0 flex-1 flex-col gap-1"`
 - [ ] No recipe identifies an upstream part by how it is styled
 
-## 4 — Three suites fail under load and pass alone
+## 3 — Three suites fail under load and pass alone
 
 `workers: 1` is already set, so this is timing under load, not parallelism.
 
@@ -61,7 +52,7 @@ Each is a `useRender` state key bound to component-local state. A full
       `popover` before changing any timeout
 - [ ] The full browser run is green three times in a row
 
-## 5 — Publish 0.1.0
+## 4 — Publish 0.1.0
 
 Each step needs an account. [DEFERRED.md](DEFERRED.md) is the guide.
 

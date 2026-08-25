@@ -4,9 +4,9 @@ What is left. Everything that is finished is recorded in
 [ROADMAP.md](ROADMAP.md) and in the git history; this page holds only work that
 has not been done. The checkbox form of this page is [TODO.md](TODO.md).
 
-**Scope: shadcn only.** AI Elements has one item here — the three components
-that stop generating — because it blocks a re-spec. Everything else about AI
-Elements, and the Ouro integration, is a plan of its own.
+**Scope: shadcn parity, and nothing else.** AI Elements and the Ouro
+integration are out of this plan. [ROADMAP.md](ROADMAP.md) holds both — M4 for
+AI Elements, M5 for Ouro — and each is a plan of its own when its turn comes.
 
 ## Where this stands
 
@@ -23,8 +23,9 @@ yet gated.
 `mix ui.gen --check`, `mix ui.status --check` and `mix snapshot --check` are
 green on a clean tree, and CI runs all three.
 
-Five jobs are left. Two of them change a component, one is a recipe cleanup, one
-is a test-harness problem, and the last needs an account rather than code.
+Four jobs are left. One of them closes the last pixel gap, one is a recipe
+cleanup, one is a test-harness problem, and the last needs an account rather
+than code.
 
 ---
 
@@ -94,29 +95,7 @@ direction when 1a lands, or 1a cannot be seen to work.
 
 ---
 
-## 2 — Three AI Elements components stop generating
-
-`question` (`text`), `snippet` (`isCopied`) and `environment-variables`
-(`showValues`) each fail when their specs are re-read. Each failure is the same
-one: a `useRender` state key bound to component-local React state, which the
-generator cannot bind to anything.
-
-This predates the reader work in `a43ccb6` — confirmed by re-running with that
-change stashed — and it is why only the shadcn specs were re-read there. So a
-full `mix ui.spec` across both registries is blocked until this has an answer.
-
-Three answers are possible for each key, and the work is to decide which:
-
-1. The state belongs to the caller, and the component takes an attribute.
-2. The state belongs to a hook, as `toast` and `scroller` already do.
-3. The component is a deliberate non-goal, named with its reason.
-
-**Done when** `mix ui.spec` runs across `ai_elements/` without stopping, or each
-of the three is recorded in the roadmap as a non-goal with its reason.
-
----
-
-## 3 — The toast recipe reads upstream by its styling
+## 2 — The toast recipe reads upstream by its styling
 
 `gen/toast.ex:189` finds a part by matching a hard-coded Tailwind class string:
 
@@ -135,7 +114,7 @@ person, the pipeline has a gap.*
 
 ---
 
-## 4 — Three suites fail under load and pass alone
+## 3 — Three suites fail under load and pass alone
 
 `select`, `dialog` and `popover` each have Escape-key and measurement tests that
 fail in a full run and pass in isolation. `workers: 1` is already set in
@@ -148,7 +127,7 @@ settle discipline that the behaviour specs should be reusing.
 
 ---
 
-## 5 — Publish 0.1.0
+## 4 — Publish 0.1.0
 
 Not code. [DEFERRED.md](DEFERRED.md) is the full guide, and every step there is
 blocked on an account rather than on work:
@@ -201,7 +180,7 @@ STORYBOOK_PORT=4201 PARITY_PORT=4202 mix ui.verify shadcn/calendar
 | `tools/lib/live_shadcn_tools/tsx.ex`, `spec.ex` | 1a — resolving a `cva` call inside `cn()` |
 | `tools/lib/live_shadcn_tools/gen/calendar.ex` | 1b — the typed `width: 19px` |
 | `registry/spec/shadcn/calendar.json` | 1c — generated. Regenerated, never edited |
-| `tools/lib/live_shadcn_tools/gen/toast.ex` | 3 — find the part by anatomy |
-| `storybook/test/browser/*.spec.mjs` | 4 — the settle discipline |
+| `tools/lib/live_shadcn_tools/gen/toast.ex` | 2 — find the part by anatomy |
+| `storybook/test/browser/*.spec.mjs` | 3 — the settle discipline |
 | `registry/snapshot/`, `registry/VERIFY.json`, `docs/INVENTORY.md` | generated. Regenerated, never edited |
 | `ROADMAP.md`, `DEFERRED.md`, `CONTRIBUTING.md` | the record |

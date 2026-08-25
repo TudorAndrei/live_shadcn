@@ -448,6 +448,18 @@ recipe, and the recipe says so rather than the component growing a second flag.
 That, and reading `{currentBranch + 1}` as the value it is, took `message` and
 `chain-of-thought` from unreadable to read.
 
+**Three do not have that answer yet, and they stop the reader.** `question`
+(`text`), `snippet` (`isCopied`) and `environment-variables` (`showValues`) each
+bind a `useRender` state key to component-local state. The generator has nothing
+to bind it to, so re-reading those three specs stops — and a full `mix ui.spec`
+across both registries is blocked with them.
+
+This predates the reader work in `a43ccb6`, confirmed by re-running with that
+change stashed, and it is why only the shadcn specs were re-read there. Each key
+needs one of the three answers above: an attribute the caller passes, a recipe
+that owns the name, or a non-goal recorded with its reason. That is one decision
+per key, and it belongs to AI Elements rather than to shadcn parity.
+
 ### A component contained itself
 
 `chain-of-thought` generated. It compiled. Its snapshot was stable. Inside its
