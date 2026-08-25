@@ -94,6 +94,10 @@ test.describe("a select", () => {
     const { trigger, popup, input } = select(page);
 
     await trigger.click();
+    // Open before Escape. `click()` resolves when the click is dispatched, not
+    // when the listbox has opened, and a key pressed into that gap is lost.
+    await expect(popup).toBeVisible();
+
     await page.keyboard.press("Escape");
 
     await expect(popup).toBeHidden();

@@ -76,6 +76,12 @@ test.describe("a dialog", () => {
     const { trigger, popup } = dialog(page, "confirm");
 
     await trigger.click();
+    // Open before Escape, or the key arrives at a page with nothing to close.
+    // `click()` resolves when the click is dispatched, not when the dialog has
+    // opened, and under a full run that gap is wide enough to lose the key —
+    // which read as "Escape does not close the dialog" and passed on its own.
+    await expect(popup).toBeVisible();
+
     await page.keyboard.press("Escape");
 
     await expect(popup).toBeHidden();
