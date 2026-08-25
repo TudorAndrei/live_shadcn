@@ -820,6 +820,27 @@
     "pass": true,
     "spec": "925ec5c4511ea62ef5edd1533560eb9d41e86b3d8e179fc469aff8d52a2c5e97"
   },
+  "ai_elements/artifact": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "cf1141d6b69aa32ad72d2721ea0e829df7430febee8a99695970748becdd8e70"
+  },
   "shadcn/dropdown-menu": {
     "checks": {
       "browser": {

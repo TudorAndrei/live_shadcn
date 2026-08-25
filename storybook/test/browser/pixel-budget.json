@@ -87,6 +87,7 @@
     "toggle.default": 0,
     "tooltip.default": 0,
     "ai_elements-message.default": 0,
+    "artifact.default": 0,
     "attachments.default": 0,
     "chain-of-thought.default": 0,
     "checkpoint.default": 0,

@@ -137,11 +137,20 @@ generator can only render a choice the **server** decides.
 
 ## Phase 7: Three components filed under the wrong recipe
 
-- [ ] `model-selector` and `voice-selector` — a command dialog, not a listbox
-- [ ] `artifact` — not a disclosure; it has no trigger
-- [ ] Each re-filed in `registry/INVENTORY.json` or recorded in
-      [ROADMAP.md](ROADMAP.md) as a non-goal with its reason
-- [ ] Commit: `fix(inventory): the recipe three components are built on`
+- [x] `artifact` — not a disclosure; it has no trigger. Filed `presentational`
+      it generates eight parts, has an example and a reference, and verifies
+- [x] `voice-selector` — not a listbox either. Eleven parts are wrappers around
+      `<.dialog>` and `<.command>`; the eight that are its own generate
+- [x] `model-selector` — filed `presentational`, and it now stops on
+      ``alt={`${provider} logo`}``, which is phase 8's list
+- [x] `open-in-chat` recorded in [ROADMAP.md](ROADMAP.md) as a non-goal
+- [x] `prompt-input` is refused rather than generated wrong: it had been
+      emitting calls to five shadcn modules no application can name
+- [ ] `voice-selector` verifies. It needs the icon its `gender`, `accent` and
+      `preview` parts compute in an `if` chain — the reader turns that into a
+      `:string` prop, which markup cannot be passed through. Same gap as
+      `artifact_action`
+- [x] Commit: `fix(inventory): the recipe three components are built on`
 
 ## Phase 8: The nine the generator meets an undeclared name in
 

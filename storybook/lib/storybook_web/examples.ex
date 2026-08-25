@@ -136,7 +136,7 @@ defmodule StorybookWeb.Examples do
        button-group card chart checkbox collapsible combobox command context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group resizable scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        toggle-group question questionnaire sidebar snippet sonner toast shadcn-message ai_elements-message
-       attachments environment-variables mic-selector plan)
+       artifact attachments environment-variables mic-selector plan)
   end
 
   @doc "The examples for a component."
@@ -512,6 +512,18 @@ defmodule StorybookWeb.Examples do
         "AI Elements builds this out of shadcn's collapsible, so the disclosure " <>
           "recipe generates it and the panel opens with no round trip.",
         &task_default/1
+      )
+    ]
+  end
+
+  def all("artifact") do
+    [
+      one(
+        "default",
+        "Something the model made",
+        "Filed as a disclosure for a year, and it has no trigger: it is a " <>
+          "panel with a header, and re-filing it is the whole of the change.",
+        &artifact_default/1
       )
     ]
   end
@@ -1358,6 +1370,27 @@ defmodule StorybookWeb.Examples do
     <.task id="search" title="Searched the registry" class="max-w-80">
       Read 62 component sources and 41 Base UI pages.
     </.task>
+    """
+  end
+
+  defp artifact_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Artifact.artifact class="max-w-md">
+      <LiveAiElements.Components.Artifact.artifact_header>
+        <div>
+          <LiveAiElements.Components.Artifact.artifact_title>
+            accordion.ex
+          </LiveAiElements.Components.Artifact.artifact_title>
+          <LiveAiElements.Components.Artifact.artifact_description>
+            Generated from registry/spec/shadcn/accordion.json
+          </LiveAiElements.Components.Artifact.artifact_description>
+        </div>
+        <LiveAiElements.Components.Artifact.artifact_close />
+      </LiveAiElements.Components.Artifact.artifact_header>
+      <LiveAiElements.Components.Artifact.artifact_content>
+        Four functions, one hook, and no class string typed by a person.
+      </LiveAiElements.Components.Artifact.artifact_content>
+    </LiveAiElements.Components.Artifact.artifact>
     """
   end
 

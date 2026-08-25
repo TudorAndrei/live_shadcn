@@ -25,7 +25,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
 
   @doc "The module source for one component."
   def module(spec, opts) do
-    {folded, own} = Enum.split_with(spec["parts"], &folded_elsewhere?/1)
+    {folded, own} = Enum.split_with(spec["parts"], &wrapper?/1)
 
     anything!(spec, own)
 
@@ -57,7 +57,11 @@ defmodule LiveShadcnTools.Gen.Presentational do
   # so.
   @folding ~w(dialog disclosure listbox menu popover tabs)
 
-  # A component whose every part is a wrapper around one that behaves.
+  # A part with nothing of its own to draw: a reference to a component whose
+  # recipe folds, or a fold that came out empty.
+  defp wrapper?(%{"tree" => tree}), do: folds_elsewhere?(tree) or draws_nothing?(tree)
+
+  # A component whose every part is one of those.
   #
   # `open-in-chat` is twelve wrappers around `dropdown-menu` and a React context
   # holding a query string. Drop the wrappers — which is the same decision
@@ -66,7 +70,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
   # component; it is a sentence saying which component to compose, and a
   # moduledoc is where a sentence goes.
   defp anything!(spec, own) do
-    if own == [] or Enum.all?(own, &draws_nothing?(&1["tree"])) do
+    if own == [] do
       components = Enum.map_join(spec["folds"] || [], ", ", &"`#{&1}`")
 
       raise """
@@ -80,19 +84,38 @@ defmodule LiveShadcnTools.Gen.Presentational do
     end
   end
 
-  # A part that reaches the page as nothing of its own: a React context, a
-  # primitive Base UI documents as rendering no element, and the caller's
-  # content passing through.
-  defp draws_nothing?(node) when is_map(node) do
-    case node["type"] do
-      type when type in ~w(element primitive icon external component_ref part_ref lookup) -> false
-      _other -> node |> Map.get("children") |> List.wrap() |> Enum.all?(&draws_nothing?/1)
-    end
-  end
+  @doc """
+  Whether a part is a component that was folded away and left nothing behind.
 
-  defp draws_nothing?(_node), do: true
+  `voice-selector`'s root is `<Dialog {...props}>`. Base UI's dialog root
+  renders no element of its own, so folding it in leaves a function that renders
+  its own children — a wrapper by another name, and the moduledoc already says
+  which component to compose instead.
 
-  defp folded_elsewhere?(%{"tree" => tree}), do: folds_elsewhere?(tree)
+  Both halves are required. A part that draws nothing and folded nothing is a
+  React context provider, which upstream needs and this does not, but removing
+  it is a decision about somebody's public API rather than a fold that came out
+  empty — `message-scroller` exports one. And a part that folded something and
+  still draws is simply a part.
+  """
+  def draws_nothing?(tree), do: folded_away?(tree) and nothing_drawn?(tree)
+
+  # Base UI's own words for a part that renders no element, carried into the
+  # spec by the reader and left behind by the fold.
+  defp folded_away?(%{"reason" => "renders no element"}), do: true
+
+  defp folded_away?(node) when is_map(node),
+    do: node |> Map.values() |> Enum.any?(&folded_away?/1)
+
+  defp folded_away?(nodes) when is_list(nodes), do: Enum.any?(nodes, &folded_away?/1)
+  defp folded_away?(_node), do: false
+
+  defp nothing_drawn?(%{"type" => type}) when type not in ~w(transparent children), do: false
+
+  defp nothing_drawn?(node) when is_map(node),
+    do: node |> Map.get("children") |> List.wrap() |> Enum.all?(&nothing_drawn?/1)
+
+  defp nothing_drawn?(_node), do: true
 
   defp folds_elsewhere?(%{"type" => "component_ref", "recipe" => recipe}), do: recipe in @folding
 
@@ -227,12 +250,22 @@ defmodule LiveShadcnTools.Gen.Presentational do
     type = Map.get(attribute, :type, ":string")
 
     options =
-      ["default: #{inspect(literal(type, default))}", values && "values: #{inspect(values)}"]
+      [
+        "default: #{inspect(literal(type, default))}",
+        values && "values: #{inspect(allowed(values, default))}"
+      ]
       |> Enum.reject(&is_nil/1)
       |> Enum.map_join("", &", #{&1}")
 
     "  attr :#{name}, #{type}#{options}"
   end
+
+  # Phoenix refuses a default that is not one of the values, and a prop upstream
+  # types as optional has no default to be one of them: `gender?: "male" | …` is
+  # a set of six and nothing chosen. So nothing chosen is one of the answers.
+  # `voice-selector` was the first component to say so, and it would not compile.
+  defp allowed(values, nil), do: [nil | values]
+  defp allowed(values, _default), do: values
 
   defp literal(":boolean", "true"), do: true
   defp literal(":boolean", "false"), do: false
@@ -372,20 +405,29 @@ defmodule LiveShadcnTools.Gen.Presentational do
   defp elsewhere([]), do: ""
 
   defp elsewhere(folded) do
+    # A part that draws nothing of its own carries no component name to compose
+    # instead — `voice-selector`'s root is a `<Dialog>` whose markup was folded
+    # away, and what is left is a function that renders its own children. The
+    # sentence is about the ones that name a component.
     components =
       folded
-      |> Enum.map(&"`<.#{underscored(&1["tree"]["component"])}>`")
+      |> Enum.map(& &1["tree"]["component"])
+      |> Enum.reject(&is_nil/1)
       |> Enum.uniq()
-      |> Enum.join(", ")
+      |> Enum.map_join(", ", &"`<.#{underscored(&1)}>`")
 
-    """
+    if components == "" do
+      ""
+    else
+      """
 
-      Upstream exports #{length(folded)} more parts, and every one of them is a
-      thin wrapper around a part of #{components}. That component is one
-      function here — its parts have to agree about which one they belong to,
-      and an id repeated is an id to mistype — so it is what to compose inside
-      this, and there is nothing for the wrappers to wrap.
-    """
+        Upstream exports #{length(folded)} more parts, and every one of them is a
+        thin wrapper around a part of #{components}. That component is one
+        function here — its parts have to agree about which one they belong to,
+        and an id repeated is an id to mistype — so it is what to compose inside
+        this, and there is nothing for the wrappers to wrap.
+      """
+    end
   end
 
   defp part_doc(part, spec) do

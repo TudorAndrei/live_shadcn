@@ -157,6 +157,11 @@ defmodule LiveShadcnTools.Gen do
     |> Enum.filter(fn {_expression, count} -> count > 1 end)
   end
 
+  # The recipes that write one function per exported part, and can therefore
+  # leave one out. Every other recipe folds a component into one function, and a
+  # part it needs is a part it draws.
+  @per_part ~w(presentational clipboard)
+
   @doc """
   Refuses a component that names a module the host application will not have.
 
@@ -180,7 +185,20 @@ defmodule LiveShadcnTools.Gen do
   that needs it is named here rather than generated wrong.
   """
   def reachable!(spec) do
-    case Enum.uniq(foreign_refs(spec["parts"], spec)) do
+    # A part that is *nothing but* such a reference is dropped — by the recipes
+    # that write one function per part, which are the ones that can drop a part
+    # at all — and its moduledoc says which component to compose instead. See
+    # `LiveShadcnTools.carries?/2`.
+    #
+    # Every other part is written, and a reference inside one is a call that
+    # goes with it. `prompt-input` is a form control that renders two dropdown
+    # menu items, and those two functions named a module no application has.
+    drawn =
+      if spec["recipe"] in @per_part,
+        do: Enum.reject(spec["parts"] || [], &wrapper?(&1["tree"], spec)),
+        else: spec["parts"] || []
+
+    case Enum.uniq(foreign_refs(drawn, spec)) do
       [] ->
         :ok
 
@@ -194,22 +212,23 @@ defmodule LiveShadcnTools.Gen do
     end
   end
 
+  defp wrapper?(%{"type" => "component_ref"} = node, spec),
+    do: not LiveShadcnTools.carries?(spec["recipe"], node["recipe"])
+
+  defp wrapper?(%{"type" => "transparent", "children" => [_ | _] = children}, spec),
+    do: Enum.all?(children, &wrapper?(&1, spec))
+
+  defp wrapper?(_tree, _spec), do: false
+
   defp foreign_refs(node, spec) when is_list(node),
     do: Enum.flat_map(node, &foreign_refs(&1, spec))
 
   defp foreign_refs(
-         %{"type" => "component_ref", "source" => other, "component" => component} = node,
-         %{"source" => source} = spec
+         %{"type" => "component_ref", "source" => other, "component" => component},
+         %{"source" => source}
        )
-       when other != source do
-    # A reference the reader left standing on purpose: the component it names
-    # behaves, and nothing here can write that behaviour, so the part is dropped
-    # and the moduledoc says what to compose instead. See
-    # `LiveShadcnTools.carries?/2`.
-    if LiveShadcnTools.carries?(spec["recipe"], node["recipe"]),
-      do: ["#{other}/#{component}"],
-      else: []
-  end
+       when other != source,
+       do: ["#{other}/#{component}"]
 
   defp foreign_refs(node, spec) when is_map(node),
     do: node |> Map.values() |> Enum.flat_map(&foreign_refs(&1, spec))

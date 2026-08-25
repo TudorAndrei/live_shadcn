@@ -34,7 +34,7 @@
     {
       "name": "artifact",
       "source": "ai_elements",
-      "recipe": "disclosure",
+      "recipe": "presentational",
       "tier": 2
     },
     {
@@ -160,7 +160,7 @@
     {
       "name": "model-selector",
       "source": "ai_elements",
-      "recipe": "listbox",
+      "recipe": "presentational",
       "tier": 2
     },
     {
@@ -310,7 +310,7 @@
     {
       "name": "voice-selector",
       "source": "ai_elements",
-      "recipe": "listbox",
+      "recipe": "presentational",
       "tier": 3
     },
     {

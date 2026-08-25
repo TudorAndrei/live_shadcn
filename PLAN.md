@@ -452,16 +452,41 @@ out of the directory was the check: the gap test fails and names
 
 **Commit:** `test(parity): the gap tests cover both registries`
 
-### Phase 7: Three components filed under the wrong recipe
+### Phase 7: Three components filed under the wrong recipe — done
 
-Not reader gaps. The inventory assigns a recipe and these three do not fit the
-one they were given.
+Not reader gaps. The inventory assigns a recipe and these three did not fit the
+one they were given. All three are filed `presentational` now, and what that
+turned up was not what the filing predicted.
 
-- `model-selector` and `voice-selector`: *no Positioner part, so it is not a
-  listbox*. They render a command **dialog**, not a popup anchored to a trigger
-- `artifact`: *no Trigger part, so it is not a disclosure*
-- Each is either re-filed in `registry/INVENTORY.json` or recorded as a non-goal
-  with its reason
+**`artifact` is a panel, and it verifies.** It has no trigger because it is not
+a disclosure: a header, a title, a description, actions and a body. Filed
+correctly it generates eight parts, and it is the twelfth AI Elements component
+in the verified column.
+
+**`voice-selector` is not a command dialog either.** Eleven of its parts are
+wrappers around `<.dialog>` and `<.command>`, and the eight that are left are
+its own: a name, a description, an age, an accent, a gender, a bullet and a
+preview. It generates. It does not verify yet, and the reason is worth keeping:
+`VoiceSelectorGender` computes an icon from a value in an `if` chain, which the
+reader turns into a prop typed `:string` — so the icon cannot be passed. That is
+the same gap `artifact_action` has, and it is the next piece of work.
+
+**`model-selector` stops on a template literal.** `alt={`${provider} logo`}` —
+a string with one interpolation, which the reader reads only when there is
+nothing to interpolate. Phase 8's list is where it belongs.
+
+Two more came out of the same pass. **`open-in-chat` does not generate at all**
+and is recorded in [ROADMAP.md](ROADMAP.md) as a non-goal: every one of its
+twelve parts is a wrapper, and what is left once they are dropped is a sentence
+rather than a component. **`prompt-input` is refused rather than generated
+wrong**: it renders five shadcn components it cannot name, and until the fold
+carries them it says so. It had been generating those calls into a module no
+application could compile — a hole this pass found and closed.
+
+A part that a fold left empty is dropped now, and only when both halves are
+true: it draws nothing, *and* something folded into it renders no element. A
+React context provider that upstream needs and this does not is somebody's
+public API, and removing it is a different decision.
 
 **Commit:** `fix(inventory): the recipe three components are built on`
 

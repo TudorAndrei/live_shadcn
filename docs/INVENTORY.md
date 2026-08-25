@@ -7,10 +7,10 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 0 | ························ |
-| `fetched` | 23 | █████··················· |
-| `spec` | 12 | ███····················· |
-| `generated` | 0 | ························ |
-| `verified` | 76 | ████████████████········ |
+| `fetched` | 22 | █████··················· |
+| `spec` | 11 | ██······················ |
+| `generated` | 1 | ························ |
+| `verified` | 77 | █████████████████······· |
 
 ## Recipes
 
@@ -19,11 +19,11 @@ Only the recipes are written by hand; every component is data.
 
 | Recipe | Kind | Components |
 |---|---|---:|
-| `presentational` | core | 55 |
-| `disclosure` | core | 10 |
+| `presentational` | core | 58 |
+| `disclosure` | core | 9 |
 | `form-control` | core | 8 |
-| `listbox` | core | 6 |
 | `dialog` | core | 4 |
+| `listbox` | core | 4 |
 | `popover` | core | 3 |
 | `menu` | core | 2 |
 | `tabs` | core | 1 |
@@ -122,7 +122,7 @@ Only the recipes are written by hand; every component is data.
 | `context` | 1 | `presentational` | 🟨 spec |
 | `conversation` | 1 | `scroller` | 🟦 fetched |
 | `message` | 1 | `presentational` | ✅ verified |
-| `prompt-input` | 1 | `form-control` | 🟦 fetched |
+| `prompt-input` | 1 | `form-control` | 🟨 spec |
 | `reasoning` | 1 | `disclosure` | ✅ verified |
 | `shimmer` | 1 | `presentational` | 🟦 fetched |
 | `sources` | 1 | `disclosure` | ✅ verified |
@@ -130,7 +130,7 @@ Only the recipes are written by hand; every component is data.
 | `task` | 1 | `disclosure` | ✅ verified |
 | `tool` | 1 | `disclosure` | 🟦 fetched |
 | `agent` | 2 | `presentational` | 🟦 fetched |
-| `artifact` | 2 | `disclosure` | 🟨 spec |
+| `artifact` | 2 | `presentational` | ✅ verified |
 | `attachments` | 2 | `presentational` | ✅ verified |
 | `checkpoint` | 2 | `presentational` | ✅ verified |
 | `commit` | 2 | `presentational` | 🟨 spec |
@@ -140,7 +140,7 @@ Only the recipes are written by hand; every component is data.
 | `file-tree` | 2 | `presentational` | 🟦 fetched |
 | `image` | 2 | `presentational` | 🟨 spec |
 | `inline-citation` | 2 | `presentational` | 🟦 fetched |
-| `model-selector` | 2 | `listbox` | 🟨 spec |
+| `model-selector` | 2 | `presentational` | 🟨 spec |
 | `open-in-chat` | 2 | `presentational` | 🟨 spec |
 | `package-info` | 2 | `presentational` | ✅ verified |
 | `panel` | 2 | `disclosure` | 🟦 fetched |
@@ -164,5 +164,5 @@ Only the recipes are written by hand; every component is data.
 | `speech-input` | 3 | `presentational` | 🟨 spec |
 | `terminal` | 3 | `presentational` | 🟦 fetched |
 | `transcription` | 3 | `presentational` | 🟨 spec |
-| `voice-selector` | 3 | `listbox` | 🟨 spec |
+| `voice-selector` | 3 | `presentational` | 🟩 generated |
 | `web-preview` | 3 | `presentational` | 🟦 fetched |

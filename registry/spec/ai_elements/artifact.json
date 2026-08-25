@@ -393,7 +393,7 @@
       "summary": "A button component that can be used to trigger actions."
     }
   },
-  "recipe": "disclosure",
+  "recipe": "presentational",
   "source": "ai_elements",
   "styles": {},
   "upstream": {

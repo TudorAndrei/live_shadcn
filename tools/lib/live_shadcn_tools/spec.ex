@@ -2035,12 +2035,19 @@ defmodule LiveShadcnTools.Spec do
 
   defp local_render(code, ctx) do
     with value when is_binary(value) <- Map.get(Map.get(ctx, :locals) || %{}, String.trim(code)),
-         element when is_map(element) <- Ast.rendered(value) do
+         element when is_map(element) <- markup_of(value) do
       node(element, ctx)
     else
       _other -> nil
     end
   end
+
+  # A name bound to markup inside the render, either through `useRender` or
+  # directly. `artifact` writes `const button = (<Button …>…</Button>)` and then
+  # returns either the button or a tooltip wrapped around it — so the name is
+  # markup written once and drawn in two places, and read as a value it became
+  # a prop called `button` that a caller would have to supply the markup for.
+  defp markup_of(value), do: Ast.rendered(value) || Ast.parse_jsx(value)
 
   # A component named but not written as a tag. `isCopied ? CheckIcon : CopyIcon`
   # names two, and each is what `<CheckIcon />` would have been.

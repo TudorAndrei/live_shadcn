@@ -8,6 +8,9 @@
   "dialog": [
     "default"
   ],
+  "artifact": [
+    "default"
+  ],
   "sheet": [
     "default"
   ],
