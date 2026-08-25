@@ -1,4 +1,4 @@
-import { CopyIcon } from "lucide-react";
+import { Icon } from "../shim/lucide";
 
 import {
   Snippet,
@@ -23,7 +23,7 @@ export default function SnippetDefault() {
       <SnippetInput aria-label="The command" />
       <SnippetAddon align="inline-end">
         <SnippetCopyButton variant="ghost">
-          <CopyIcon className="size-4" />
+          <Icon name="copy" className="size-4" />
         </SnippetCopyButton>
       </SnippetAddon>
     </Snippet>

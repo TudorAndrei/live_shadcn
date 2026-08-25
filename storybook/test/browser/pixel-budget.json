@@ -66,10 +66,12 @@
     "questionnaire.default": 0,
     "radio-group.default": 0,
     "resizable.default": 0,
+    "scroll-area.default": 137,
     "select.default": 0,
     "separator.default": 0,
     "shadcn-message.default": 0,
     "sheet.default": 0,
+    "sidebar.default": 0,
     "skeleton.default": 0,
     "slider.default": 0,
     "slider.range": 0,
@@ -80,15 +82,16 @@
     "table.default": 0,
     "tabs.default": 0,
     "textarea.default": 0,
+    "toast.default": 0,
     "toggle-group.default": 0,
     "toggle.default": 0,
     "tooltip.default": 0
   },
   "pending": [
-    "calendar.default",
-    "scroll-area.default",
-    "sidebar.default",
-    "toast.default"
+    "calendar.default"
   ],
-  "skips": {}
+  "skips": {},
+  "reasons": {
+    "scroll-area.default": "91 px, stable across three runs, scattered over twelve lines of wrapped text rather than clustered. Markup is byte-identical, positions match to two decimals, and font smoothing, text-rendering and body classes are the same on both sides \u2014 this is glyph rasterisation, not a component difference. Budget is the measured maximum times 1.5, per PLAN.md."
+  }
 }

@@ -10,7 +10,7 @@ defmodule Mix.Tasks.Ui.Verify do
       mix ui.verify shadcn/message    # one component, said unambiguously
       mix ui.verify --browser false   # skip the browser, for a machine without one
 
-  Four checks, each answering a different question:
+  Five checks, each answering a different question:
 
   | Check | Question |
   |---|---|
@@ -26,8 +26,11 @@ defmodule Mix.Tasks.Ui.Verify do
 
   The first three all read the same spec, so none of them can catch a spec that
   read upstream wrongly — a class string the reader dropped is missing from the
-  module, from the snapshot, and from the expectation. The fourth reads upstream
-  instead, by rendering it.
+  module, from the snapshot, and from the expectation. The last two read upstream
+  instead, by rendering it: the fourth compares numbers, and the fifth compares
+  what was painted. A textarea showing its placeholder and one showing nothing
+  are the same box with the same computed styles, and only the fifth can tell
+  them apart.
 
   The result is written to `registry/VERIFY.json`, keyed by `<source>/<name>`,
   which is what makes `mix ui.status` able to mark a component verified. Status

@@ -68,6 +68,8 @@ defmodule LiveShadcnTools.Gen.Toast do
       #{markup(spec, roles)}
           \"\"\"
         end
+
+      #{icon_clauses()}
       end
       """
     end
@@ -221,11 +223,35 @@ defmodule LiveShadcnTools.Gen.Toast do
     end
   end
 
+  # The icon a toast carries says which kind of message it is, so it follows the
+  # type rather than being fixed.
+  #
+  # It was `name="info"`, hard-coded, and every toast drew an info glyph — a
+  # warning and an error both announced themselves as information. `sonner` got
+  # this right in its own module and `toast` did not, because the two take
+  # different heredocs through this recipe and only one carried the mapping.
+  #
+  # Nothing else could see it. The markup is valid, the snapshot recorded the
+  # wrong glyph as correct the day it was written, and the geometric parity
+  # check compares boxes and computed styles — two 16px SVGs in the same place
+  # are the same box. The pixel check found it as 173 differing pixels.
   defp icon_markup(icon) do
     """
     <span data-slot="toast-icon" class=#{inspect(icon["class"])}>
-      <LiveShadcn.Icon.icon name="info" />
+      <LiveShadcn.Icon.icon name={icon(toast[:type])} />
     </span>
+    """
+  end
+
+  # What upstream draws for each kind. Base UI's toast has no icon of its own;
+  # shadcn picks one per type, and these are the lucide names it picks.
+  defp icon_clauses do
+    """
+      defp icon("success"), do: "circle-check"
+      defp icon("warning"), do: "triangle-alert"
+      defp icon("error"), do: "octagon-x"
+      defp icon("loading"), do: "loader-2"
+      defp icon(_type), do: "info"\
     """
   end
 

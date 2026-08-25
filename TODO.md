@@ -277,7 +277,10 @@ has been diagnosed. They stay `pending`: measured, reported, not yet decided.
       Every generated textarea shipped with `"\n"` in it — the placeholder
       never showed and a form submitted a stray newline. `ai_elements/question`
       had it too
-- [ ] `toast.default` — 173 px
+- [x] `toast.default` — **0 px.** `icon_markup/1` hard-coded `name="info"`, so a
+      warning and an error both announced themselves as information. `sonner`
+      had the type-to-icon mapping and `toast` did not — two heredocs, one
+      carrying it
 - [x] `chart.default` — **0 px, and stable across three runs.** The variance was
       a symptom, not a harness problem: the reference rendered `recharts`
       `<LineChart>` while the Elixir example rendered a hand-written `<svg>` —
@@ -286,8 +289,17 @@ has been diagnosed. They stay `pending`: measured, reported, not yet decided.
       Animations freeze catches. Making the reference an actual port fixed both
       at once. Suppressing the animation would have hidden the wrong comparison
       instead
-- [ ] `scroll-area.default` — 91 px
-- [ ] `sidebar.default` — 68 px
+- [x] `scroll-area.default` — 91 px, budgeted at 137. The **only** budget in
+      the file, and the only difference that survived diagnosis: markup is
+      byte-identical, positions match to two decimals, font smoothing and
+      text-rendering agree, and the pixels are scattered over twelve lines of
+      wrapped text rather than clustered. Glyph rasterisation, stable across
+      three runs
+- [x] `sidebar.default` — **0 px.** Not a component difference at all: the
+      Elixir side draws lucide from `lucide_icons` (lucide-static 1.32.0) and
+      the reference had `lucide-react ^0.545.0`. Three icons had been redrawn
+      between the releases. `lucide-react` is pinned to 1.32.0 now — the two
+      packages share a version and a publish date
 - [x] Clip the shot to the component. `calendar` reported 0.019% of a
       mostly-blank viewport and reports 1.19% now — a cap means something again,
       and the census runs in 1.3m rather than 2.4m

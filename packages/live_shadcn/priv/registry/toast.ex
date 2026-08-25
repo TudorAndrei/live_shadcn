@@ -104,7 +104,7 @@ defmodule LiveShadcn.UI.Toast do
               data-slot="toast-icon"
               class="shrink-0 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4"
             >
-              <LiveShadcn.Icon.icon name="info" />
+              <LiveShadcn.Icon.icon name={icon(toast[:type])} />
             </span>
 
             <div class="flex min-w-0 flex-1 flex-col gap-1">
@@ -142,4 +142,10 @@ defmodule LiveShadcn.UI.Toast do
     </div>
     """
   end
+
+  defp icon("success"), do: "circle-check"
+  defp icon("warning"), do: "triangle-alert"
+  defp icon("error"), do: "octagon-x"
+  defp icon("loading"), do: "loader-2"
+  defp icon(_type), do: "info"
 end

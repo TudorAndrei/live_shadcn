@@ -14,29 +14,19 @@ import {
   SidebarSeparator,
   SidebarTrigger,
 } from "@upstream/shadcn/ui/sidebar";
-import {
-  BookOpen,
-  Boxes,
-  CircleCheck,
-  CircleUser,
-  CloudDownload,
-  Component,
-  FileJson,
-  GitBranch,
-  WandSparkles,
-} from "lucide-react";
+import { Icon } from "../shim/lucide";
 
 const PIPELINE = [
-  { label: "Fetch", Icon: CloudDownload },
-  { label: "Spec", Icon: FileJson },
-  { label: "Generate", Icon: WandSparkles },
-  { label: "Verify", Icon: CircleCheck },
+  { label: "Fetch", name: "cloud-download" },
+  { label: "Spec", name: "file-json" },
+  { label: "Generate", name: "wand-sparkles" },
+  { label: "Verify", name: "circle-check" },
 ];
 
 const REGISTRY = [
-  { label: "Components", Icon: Boxes },
-  { label: "Recipes", Icon: BookOpen },
-  { label: "Upstream", Icon: GitBranch },
+  { label: "Components", name: "boxes" },
+  { label: "Recipes", name: "book-open" },
+  { label: "Upstream", name: "git-branch" },
 ];
 
 // Ported from `StorybookWeb.Examples.sidebar_default/1`.
@@ -58,7 +48,7 @@ export default function SidebarDefault() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton size="lg">
-                <Component className="size-4" />
+                <Icon name="component" className="size-4" />
                 <span className="font-semibold">live_shadcn</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -70,10 +60,10 @@ export default function SidebarDefault() {
             <SidebarGroupLabel>Pipeline</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {PIPELINE.map(({ label, Icon }) => (
+                {PIPELINE.map(({ label, name }) => (
                   <SidebarMenuItem key={label}>
                     <SidebarMenuButton isActive={label === "Spec"}>
-                      <Icon className="size-4" />
+                      <Icon name={name} className="size-4" />
                       <span>{label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -88,10 +78,10 @@ export default function SidebarDefault() {
             <SidebarGroupLabel>Registry</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {REGISTRY.map(({ label, Icon }) => (
+                {REGISTRY.map(({ label, name }) => (
                   <SidebarMenuItem key={label}>
                     <SidebarMenuButton>
-                      <Icon className="size-4" />
+                      <Icon name={name} className="size-4" />
                       <span>{label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -105,7 +95,7 @@ export default function SidebarDefault() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton>
-                <CircleUser className="size-4" />
+                <Icon name="circle-user" className="size-4" />
                 <span>Signed in</span>
               </SidebarMenuButton>
             </SidebarMenuItem>

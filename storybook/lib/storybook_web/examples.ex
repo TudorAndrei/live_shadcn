@@ -1394,9 +1394,7 @@ defmodule StorybookWeb.Examples do
   defp scroll_area_default(assigns) do
     ~H"""
     <.scroll_area id="stages" class="h-40 w-full max-w-sm rounded-md border p-4">
-      <p :for={n <- 1..12} class="pb-2 text-sm">
-        Pass {n}: the reader settles when no file moves.
-      </p>
+      <p :for={n <- 1..12} class="pb-2 text-sm">Pass {n}: the reader settles when no file moves.</p>
     </.scroll_area>
     """
   end
