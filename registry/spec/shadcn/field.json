@@ -56,6 +56,9 @@
             "value": "group"
           },
           {
+            "identifiers": [
+              "orientation"
+            ],
             "kind": "code",
             "name": "data-orientation",
             "value": "orientation"
@@ -204,6 +207,9 @@
         "children": [
           {
             "code": "content",
+            "identifiers": [
+              "content"
+            ],
             "type": "value"
           }
         ],
@@ -282,6 +288,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -339,6 +348,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "children"
+            ],
             "kind": "code",
             "name": "data-content",
             "value": "!!children"
@@ -391,6 +403,9 @@
                 "variant_calls": [],
                 "vars": []
               }
+            ],
+            "identifiers": [
+              "children"
             ],
             "type": "optional",
             "when": "children"

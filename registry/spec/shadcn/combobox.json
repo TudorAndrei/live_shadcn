@@ -190,6 +190,9 @@
             "render_as": {
               "attrs": [
                 {
+                  "identifiers": [
+                    "disabled"
+                  ],
                   "kind": "code",
                   "name": "disabled",
                   "value": "disabled"
@@ -245,6 +248,9 @@
                         "value": "ghost"
                       },
                       {
+                        "identifiers": [
+                          "disabled"
+                        ],
                         "kind": "code",
                         "name": "disabled",
                         "value": "disabled"
@@ -293,6 +299,10 @@
                     "vars": []
                   }
                 ],
+                "identifiers": [
+                  "disabled",
+                  "showTrigger"
+                ],
                 "type": "optional",
                 "when": "showTrigger"
               },
@@ -301,6 +311,9 @@
                   {
                     "attrs": [
                       {
+                        "identifiers": [
+                          "disabled"
+                        ],
                         "kind": "code",
                         "name": "disabled",
                         "value": "disabled"
@@ -408,6 +421,10 @@
                     "vars": []
                   }
                 ],
+                "identifiers": [
+                  "disabled",
+                  "showClear"
+                ],
                 "type": "optional",
                 "when": "showClear"
               }
@@ -493,26 +510,41 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "side"
+                ],
                 "kind": "code",
                 "name": "side",
                 "value": "side"
               },
               {
+                "identifiers": [
+                  "sideOffset"
+                ],
                 "kind": "code",
                 "name": "sideOffset",
                 "value": "sideOffset"
               },
               {
+                "identifiers": [
+                  "align"
+                ],
                 "kind": "code",
                 "name": "align",
                 "value": "align"
               },
               {
+                "identifiers": [
+                  "alignOffset"
+                ],
                 "kind": "code",
                 "name": "alignOffset",
                 "value": "alignOffset"
               },
               {
+                "identifiers": [
+                  "anchor"
+                ],
                 "kind": "code",
                 "name": "anchor",
                 "value": "anchor"
@@ -522,6 +554,9 @@
               {
                 "attrs": [
                   {
+                    "identifiers": [
+                      "anchor"
+                    ],
                     "kind": "code",
                     "name": "data-chips",
                     "value": "!!anchor"
@@ -1167,6 +1202,9 @@
                 "variant_calls": [],
                 "vars": []
               }
+            ],
+            "identifiers": [
+              "showRemove"
             ],
             "type": "optional",
             "when": "showRemove"

@@ -120,21 +120,33 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "align"
+                ],
                 "kind": "code",
                 "name": "align",
                 "value": "align"
               },
               {
+                "identifiers": [
+                  "alignOffset"
+                ],
                 "kind": "code",
                 "name": "alignOffset",
                 "value": "alignOffset"
               },
               {
+                "identifiers": [
+                  "side"
+                ],
                 "kind": "code",
                 "name": "side",
                 "value": "side"
               },
               {
+                "identifiers": [
+                  "sideOffset"
+                ],
                 "kind": "code",
                 "name": "sideOffset",
                 "value": "sideOffset"

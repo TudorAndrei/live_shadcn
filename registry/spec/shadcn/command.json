@@ -69,6 +69,9 @@
                 "children": [
                   {
                     "code": "title",
+                    "identifiers": [
+                      "title"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -96,6 +99,9 @@
                 "children": [
                   {
                     "code": "description",
+                    "identifiers": [
+                      "description"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -141,6 +147,9 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "showCloseButton"
+                ],
                 "kind": "code",
                 "name": "showCloseButton",
                 "value": "showCloseButton"

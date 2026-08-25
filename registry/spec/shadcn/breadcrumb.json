@@ -273,6 +273,9 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "children"
+            ],
             "type": "children"
           }
         ],

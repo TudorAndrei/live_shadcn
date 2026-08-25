@@ -41,6 +41,7 @@
       "export": "Slider",
       "name": "slider",
       "params": {
+        "_values": null,
         "className": null,
         "defaultValue": null,
         "max": "100",
@@ -60,21 +61,33 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "defaultValue"
+            ],
             "kind": "code",
             "name": "defaultValue",
             "value": "defaultValue"
           },
           {
+            "identifiers": [
+              "value"
+            ],
             "kind": "code",
             "name": "value",
             "value": "value"
           },
           {
+            "identifiers": [
+              "min"
+            ],
             "kind": "code",
             "name": "min",
             "value": "min"
           },
           {
+            "identifiers": [
+              "max"
+            ],
             "kind": "code",
             "name": "max",
             "value": "max"
@@ -178,6 +191,12 @@
                   }
                 ],
                 "count": "_values.length",
+                "identifiers": [
+                  "Array",
+                  "_",
+                  "_values",
+                  "index"
+                ],
                 "member_roots": [
                   "Array",
                   "_values"

@@ -145,11 +145,17 @@
         "render_as": {
           "attrs": [
             {
+              "identifiers": [
+                "variant"
+              ],
               "kind": "code",
               "name": "variant",
               "value": "variant"
             },
             {
+              "identifiers": [
+                "size"
+              ],
               "kind": "code",
               "name": "size",
               "value": "size"
@@ -221,6 +227,9 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "size"
+                ],
                 "kind": "code",
                 "name": "data-size",
                 "value": "size"

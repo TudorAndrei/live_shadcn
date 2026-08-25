@@ -25,16 +25,25 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "state"
+            ],
             "kind": "code",
             "name": "data-state",
             "value": "state"
           },
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "data-size",
             "value": "size"
           },
           {
+            "identifiers": [
+              "orientation"
+            ],
             "kind": "code",
             "name": "data-orientation",
             "value": "orientation"
@@ -140,6 +149,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -382,11 +394,17 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "variant",
             "value": "variant ?? \"ghost\""
           },
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "size",
             "value": "size"

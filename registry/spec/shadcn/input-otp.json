@@ -191,7 +191,7 @@
       "types": {
         "index": {
           "optional": false,
-          "type": "integer"
+          "type": "number"
         }
       }
     },

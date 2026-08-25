@@ -226,21 +226,33 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "align"
+                ],
                 "kind": "code",
                 "name": "align",
                 "value": "align"
               },
               {
+                "identifiers": [
+                  "alignOffset"
+                ],
                 "kind": "code",
                 "name": "alignOffset",
                 "value": "alignOffset"
               },
               {
+                "identifiers": [
+                  "side"
+                ],
                 "kind": "code",
                 "name": "side",
                 "value": "side"
               },
               {
+                "identifiers": [
+                  "sideOffset"
+                ],
                 "kind": "code",
                 "name": "sideOffset",
                 "value": "sideOffset"
@@ -414,6 +426,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
@@ -468,11 +483,17 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -544,11 +565,17 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
           },
           {
+            "identifiers": [
+              "checked"
+            ],
             "kind": "code",
             "name": "checked",
             "value": "checked"
@@ -732,6 +759,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
@@ -980,6 +1010,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
@@ -1100,21 +1133,33 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "align"
+            ],
             "kind": "code",
             "name": "align",
             "value": "align"
           },
           {
+            "identifiers": [
+              "alignOffset"
+            ],
             "kind": "code",
             "name": "alignOffset",
             "value": "alignOffset"
           },
           {
+            "identifiers": [
+              "side"
+            ],
             "kind": "code",
             "name": "side",
             "value": "side"
           },
           {
+            "identifiers": [
+              "sideOffset"
+            ],
             "kind": "code",
             "name": "sideOffset",
             "value": "sideOffset"

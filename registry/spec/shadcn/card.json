@@ -21,6 +21,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "data-size",
             "value": "size"

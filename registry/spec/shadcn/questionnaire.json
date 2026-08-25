@@ -573,11 +573,17 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "data-size",
             "value": "size"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -590,6 +596,9 @@
                 "type": "text",
                 "value": "Next"
               }
+            ],
+            "identifiers": [
+              "children"
             ],
             "type": "children"
           }
@@ -634,11 +643,17 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "data-size",
             "value": "size"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -651,6 +666,9 @@
                 "type": "text",
                 "value": "Previous"
               }
+            ],
+            "identifiers": [
+              "children"
             ],
             "type": "children"
           }
@@ -729,11 +747,17 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "data-size",
             "value": "size"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -746,6 +770,9 @@
                 "type": "text",
                 "value": "Skip"
               }
+            ],
+            "identifiers": [
+              "children"
             ],
             "type": "children"
           }
@@ -790,11 +817,17 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "data-size",
             "value": "size"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -807,6 +840,9 @@
                 "type": "text",
                 "value": "Submit"
               }
+            ],
+            "identifiers": [
+              "children"
             ],
             "type": "children"
           }

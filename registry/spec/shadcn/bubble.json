@@ -55,11 +55,17 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
           },
           {
+            "identifiers": [
+              "align"
+            ],
             "kind": "code",
             "name": "data-align",
             "value": "align"
@@ -180,11 +186,17 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "align"
+            ],
             "kind": "code",
             "name": "data-align",
             "value": "align"
           },
           {
+            "identifiers": [
+              "side"
+            ],
             "kind": "code",
             "name": "data-side",
             "value": "side"

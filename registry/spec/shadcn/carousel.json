@@ -95,6 +95,7 @@
       "export": "CarouselContent",
       "name": "carousel_content",
       "params": {
+        "carouselRef": null,
         "className": null
       },
       "primitive": null,
@@ -105,6 +106,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "carouselRef"
+            ],
             "kind": "code",
             "name": "ref",
             "value": "carouselRef"
@@ -207,6 +211,7 @@
       "export": "CarouselPrevious",
       "name": "carousel_previous",
       "params": {
+        "canScrollPrev": null,
         "className": null,
         "size": "icon-sm",
         "variant": "outline"
@@ -221,16 +226,25 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "variant",
             "value": "variant"
           },
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "size",
             "value": "size"
           },
           {
+            "identifiers": [
+              "canScrollPrev"
+            ],
             "kind": "code",
             "name": "disabled",
             "value": "!canScrollPrev"
@@ -343,6 +357,7 @@
       "export": "CarouselNext",
       "name": "carousel_next",
       "params": {
+        "canScrollNext": null,
         "className": null,
         "size": "icon-sm",
         "variant": "outline"
@@ -357,16 +372,25 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "variant",
             "value": "variant"
           },
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "size",
             "value": "size"
           },
           {
+            "identifiers": [
+              "canScrollNext"
+            ],
             "kind": "code",
             "name": "disabled",
             "value": "!canScrollNext"

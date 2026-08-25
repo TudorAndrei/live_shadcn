@@ -51,6 +51,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "orientation"
+            ],
             "kind": "code",
             "name": "data-orientation",
             "value": "orientation"
@@ -98,6 +101,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"

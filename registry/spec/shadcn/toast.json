@@ -110,6 +110,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "toastManager"
+            ],
             "kind": "code",
             "name": "toastManager",
             "value": "toastManager"
@@ -132,6 +135,9 @@
                       {
                         "attrs": [
                           {
+                            "identifiers": [
+                              "toastItem"
+                            ],
                             "kind": "code",
                             "name": "toast",
                             "value": "toastItem"
@@ -147,6 +153,9 @@
                                   {
                                     "children": [],
                                     "code": "icon",
+                                    "identifiers": [
+                                      "icon"
+                                    ],
                                     "type": "value"
                                   }
                                 ],
@@ -294,6 +303,10 @@
                     "collection": "toasts",
                     "counter": null,
                     "fields": [],
+                    "identifiers": [
+                      "toastItem",
+                      "toasts"
+                    ],
                     "member_roots": [
                       "toastItem",
                       "toasts"
@@ -551,6 +564,9 @@
                 "variant_calls": [],
                 "vars": []
               }
+            ],
+            "identifiers": [
+              "children"
             ],
             "type": "children"
           }

@@ -42,6 +42,9 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "withHandle"
+            ],
             "type": "optional",
             "when": "withHandle"
           }

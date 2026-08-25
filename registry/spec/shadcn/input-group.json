@@ -65,6 +65,9 @@
             "value": "group"
           },
           {
+            "identifiers": [
+              "align"
+            ],
             "kind": "code",
             "name": "data-align",
             "value": "align"
@@ -127,16 +130,25 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "type"
+            ],
             "kind": "code",
             "name": "type",
             "value": "type"
           },
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "data-size",
             "value": "size"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "variant",
             "value": "variant"

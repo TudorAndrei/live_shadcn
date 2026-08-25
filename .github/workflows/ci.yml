@@ -139,3 +139,60 @@ jobs:
       # and it renders server-side — no browser, no styling layer, no fetch.
       - run: mix snapshot --check
         working-directory: storybook
+
+  # ── The one thing the record cannot check about itself ──
+  #
+  # Every gate above compares two committed things: a component with its spec,
+  # the inventory with the verification record, the snapshot with the markup.
+  # None of them re-reads upstream, so a spec can drift from the source it was
+  # built from and all three stay green — which is what happened. 38 shadcn
+  # specs sat stale behind a wholly green build, and one of them was hiding a
+  # component whose attribute type had changed.
+  #
+  # So this job fetches, and it is the only one that does. That is a real cost —
+  # a network call, Node, and a parse of every source — and it buys the one
+  # question the committed record cannot ask itself: does what is on disk still
+  # match what the reader produces from the same file.
+  #
+  # `--source shadcn`, because three AI Elements components stop the reader
+  # (M4 in ROADMAP.md) and a gate that cannot run is worse than none. No shadcn
+  # component does, so the shadcn half is a gate today rather than after those
+  # three are answered.
+  #
+  # `--check` refuses when a source was not read, rather than reporting that the
+  # specs it never compared are current. The browser job that used to live here
+  # failed exactly that way.
+  reader:
+    name: every shadcn spec still matches its source
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          elixir-version: "1.20"
+          otp-version: "29"
+
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: "22"
+
+      - run: mix deps.get
+        working-directory: tools
+
+      # `mix ui.spec` parses upstream TypeScript with oxc, which is Node.
+      - run: npm install
+        working-directory: tools
+
+      # `registry/upstream/` is gitignored on purpose: this repository records a
+      # digest per upstream file rather than redistributing anybody else's
+      # source. So the sources have to be fetched before they can be re-read.
+      - run: mix ui.fetch
+        working-directory: tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - run: mix ui.spec --check --source shadcn
+        working-directory: tools

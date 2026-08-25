@@ -149,11 +149,22 @@ mix test
 
 cd tools && mix ui.gen --check && mix ui.status --check
 cd ../storybook && mix snapshot --check
+
+# If you changed the reader — anything under tools/lib/live_shadcn_tools/ that
+# reads a `.tsx`. Needs the upstream sources, so `mix ui.fetch` first.
+cd ../tools && mix ui.spec --check --source shadcn
 ```
 
 `--check` is what keeps the generated files honest: it fails if a file no longer
 matches what its spec produces, whether that is because the spec moved or
 because somebody edited the output.
+
+The first three compare two committed things and none of them re-reads upstream,
+so a spec can drift from the source it was built from and all three stay green.
+`mix ui.spec --check` is the one that asks. It runs per registry because three
+AI Elements components stop the reader, and it refuses rather than passing when
+a source was not fetched — a check that cannot tell "did not run" from "passed"
+is worse than no check.
 
 ## Verification runs on your machine, not in CI
 

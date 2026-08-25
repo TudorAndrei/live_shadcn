@@ -34,26 +34,43 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
           },
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "data-size",
             "value": "size"
           },
           {
+            "identifiers": [
+              "spacing"
+            ],
             "kind": "code",
             "name": "data-spacing",
             "value": "spacing"
           },
           {
+            "identifiers": [
+              "orientation"
+            ],
             "kind": "code",
             "name": "data-orientation",
             "value": "orientation"
           },
           {
+            "identifiers": [
+              "CSSProperties",
+              "React",
+              "spacing"
+            ],
             "kind": "style",
             "name": "style",
             "value": [
@@ -135,7 +152,7 @@
         },
         "spacing": {
           "optional": true,
-          "type": "integer"
+          "type": "number"
         }
       }
     },
@@ -146,6 +163,7 @@
       "params": {
         "children": null,
         "className": null,
+        "context": null,
         "size": "default",
         "variant": "default"
       },
@@ -160,6 +178,10 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "context",
+              "variant"
+            ],
             "kind": "code",
             "member_roots": [
               "context"
@@ -168,6 +190,10 @@
             "value": "context.variant || variant"
           },
           {
+            "identifiers": [
+              "context",
+              "size"
+            ],
             "kind": "code",
             "member_roots": [
               "context"
@@ -176,6 +202,9 @@
             "value": "context.size || size"
           },
           {
+            "identifiers": [
+              "context"
+            ],
             "kind": "code",
             "member_roots": [
               "context"

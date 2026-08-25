@@ -192,6 +192,9 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "side"
+                ],
                 "kind": "code",
                 "name": "data-side",
                 "value": "side"
@@ -329,6 +332,9 @@
                     "variant_calls": [],
                     "vars": []
                   }
+                ],
+                "identifiers": [
+                  "showCloseButton"
                 ],
                 "type": "optional",
                 "when": "showCloseButton"

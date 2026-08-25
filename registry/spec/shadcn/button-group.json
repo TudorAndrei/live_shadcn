@@ -26,6 +26,9 @@
             "value": "group"
           },
           {
+            "identifiers": [
+              "orientation"
+            ],
             "kind": "code",
             "name": "data-orientation",
             "value": "orientation"
@@ -90,6 +93,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "orientation"
+            ],
             "kind": "code",
             "name": "orientation",
             "value": "orientation"

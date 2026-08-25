@@ -7,10 +7,24 @@ defmodule Mix.Tasks.Ui.Spec do
   Reads the shadcn `.tsx` and the Base UI `.md` that `mix ui.fetch` downloaded
   and writes one JSON document per component into `registry/spec/<source>/`.
 
-      mix ui.spec                     # every component that has both sources
-      mix ui.spec accordion           # one component
-      mix ui.spec shadcn/message      # one component, said unambiguously
-      mix ui.spec --check             # exit 1 if any spec on disk is stale
+      mix ui.spec                        # every component that has both sources
+      mix ui.spec accordion              # one component
+      mix ui.spec shadcn/message         # one component, said unambiguously
+      mix ui.spec --check                # exit 1 if any spec on disk is stale
+      mix ui.spec --check --source shadcn   # …for one registry
+
+  ## Why one registry can be checked on its own
+
+  `--check` answers "does what is on disk still match what the reader produces
+  from the same sources", and that is the one gate no other stage can stand in
+  for: `ui.gen --check` compares a component with its spec and `ui.status
+  --check` compares the inventory with the record, so a spec may drift from its
+  own source indefinitely and both stay green.
+
+  It could not be a gate while any component stopped the reader, because a gate
+  that cannot run is worse than none. Three AI Elements components do — see M4
+  in `ROADMAP.md` — and no shadcn one does. So the gate runs per registry, and
+  CI runs the shadcn half rather than waiting for the other three.
 
   The directory is per source because a name is not an identity: upstream has a
   `message` in the shadcn registry and a different `message` in AI Elements.
@@ -34,20 +48,36 @@ defmodule Mix.Tasks.Ui.Spec do
   @impl Mix.Task
   def run(argv) do
     Mix.Task.run("app.start")
-    {opts, names, _} = OptionParser.parse(argv, strict: [check: :boolean])
+    {opts, names, _} = OptionParser.parse(argv, strict: [check: :boolean, source: :string])
     check? = Keyword.get(opts, :check, false)
+    source = Keyword.get(opts, :source)
 
     manifest = read_json!(registry_path("UPSTREAM.json"))
     inventory = read_json!(registry_path("INVENTORY.json"))
     recipes = Map.new(inventory["components"], &{{&1["source"], &1["name"]}, &1["recipe"]})
     styles = styles(manifest)
 
-    components = if names == [], do: fetched(manifest), else: Enum.map(names, &resolve/1)
-    if names == [], do: inventoried!(recipes, manifest)
+    components =
+      if names == [],
+        do: only(fetched(manifest), source),
+        else: Enum.map(names, &resolve/1)
+
+    if names == [], do: inventoried!(only_keys(recipes, source), manifest)
     results = settle(components, manifest, recipes, styles, check?)
 
     report(results, check?)
   end
+
+  # One registry, or all of them. An AI Elements component reads the spec of the
+  # shadcn component it folds off disk, so narrowing to `ai_elements` alone
+  # would read shadcn specs this run did not write — which is the same thing
+  # `mix ui.spec ai_elements/message` already does, and is why the order in
+  # `fetched/1` is shadcn first rather than sorted together.
+  defp only(components, nil), do: components
+  defp only(components, source), do: Enum.filter(components, &(elem(&1, 0) == source))
+
+  defp only_keys(recipes, nil), do: recipes
+  defp only_keys(recipes, source), do: Map.filter(recipes, fn {{s, _}, _} -> s == source end)
 
   # The inventory names components; the manifest records what was fetched. A
   # name in one and not the other is a disagreement nobody would see: this task
@@ -311,9 +341,29 @@ defmodule Mix.Tasks.Ui.Spec do
       """)
     end
 
+    missing = for {:missing, file} <- results, do: file
+    stale = for {:stale, file} <- results, do: file
+
     cond do
       check? and outdated != [] ->
         Mix.raise("stale specs: #{Enum.join(outdated, ", ")}. Run `mix ui.spec`.")
+
+      # A source this run could not read is a spec this run did not check, and a
+      # check that cannot tell "did not run" from "passed" is worse than no
+      # check. That is how the browser suite ran in CI for weeks against 65
+      # references it had never built.
+      #
+      # So a skip is a failure under `--check`, where the whole claim is that
+      # every spec was compared. Outside `--check` it stays a skip, because
+      # writing the sixty specs whose sources are present is useful.
+      check? and (missing != [] or stale != []) ->
+        Mix.raise("""
+        #{length(missing ++ stale)} source(s) were not read, so their specs were not checked:
+
+          #{Enum.join(missing ++ stale, "\n  ")}
+
+        Run `mix ui.fetch`. A spec nobody compared is not a spec that passed.\
+        """)
 
       check? ->
         Mix.shell().info(

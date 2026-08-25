@@ -26,6 +26,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "type"
+            ],
             "kind": "code",
             "name": "type",
             "value": "type"

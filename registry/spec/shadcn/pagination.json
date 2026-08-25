@@ -239,11 +239,17 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "isActive"
+            ],
             "kind": "code",
             "name": "variant",
             "value": "isActive ? \"outline\" : \"ghost\""
           },
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "size",
             "value": "size"
@@ -269,11 +275,18 @@
         "render_as": {
           "attrs": [
             {
+              "identifiers": [
+                "isActive",
+                "undefined"
+              ],
               "kind": "code",
               "name": "aria-current",
               "value": "isActive ? \"page\" : undefined"
             },
             {
+              "identifiers": [
+                "isActive"
+              ],
               "kind": "code",
               "name": "data-active",
               "value": "isActive"
@@ -342,6 +355,9 @@
             "children": [
               {
                 "code": "text",
+                "identifiers": [
+                  "text"
+                ],
                 "type": "value"
               }
             ],
@@ -521,6 +537,9 @@
             "children": [
               {
                 "code": "text",
+                "identifiers": [
+                  "text"
+                ],
                 "type": "value"
               }
             ],

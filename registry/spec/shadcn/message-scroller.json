@@ -202,16 +202,25 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "direction"
+            ],
             "kind": "code",
             "name": "data-direction",
             "value": "direction"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
           },
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "data-size",
             "value": "size"
@@ -278,6 +287,9 @@
                     "children": [
                       {
                         "code": "direction === \"end\" ? \"Scroll to end\" : \"Scroll to start\"",
+                        "identifiers": [
+                          "direction"
+                        ],
                         "type": "value"
                       }
                     ],
@@ -312,6 +324,10 @@
                 "variant_calls": [],
                 "vars": []
               }
+            ],
+            "identifiers": [
+              "children",
+              "direction"
             ],
             "type": "children"
           }

@@ -157,11 +157,17 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "orientation"
+            ],
             "kind": "code",
             "name": "data-orientation",
             "value": "orientation"
           },
           {
+            "identifiers": [
+              "orientation"
+            ],
             "kind": "code",
             "name": "orientation",
             "value": "orientation"

@@ -53,6 +53,9 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "align"
+            ],
             "kind": "code",
             "name": "data-align",
             "value": "align"

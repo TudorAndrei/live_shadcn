@@ -280,6 +280,9 @@
                     "vars": []
                   }
                 ],
+                "identifiers": [
+                  "showCloseButton"
+                ],
                 "type": "optional",
                 "when": "showCloseButton"
               }
@@ -443,6 +446,9 @@
                 "variant_calls": [],
                 "vars": []
               }
+            ],
+            "identifiers": [
+              "showCloseButton"
             ],
             "type": "optional",
             "when": "showCloseButton"
