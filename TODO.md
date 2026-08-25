@@ -7,52 +7,35 @@ that has not been done is listed here; what is finished is in
 Scope is shadcn parity. AI Elements is M4 in the roadmap and Ouro is M5, and
 neither belongs here.
 
-Item 1 closes the last pixel gap. Item 2 is a recipe cleanup, item 3 is a test
-harness, and item 4 needs an account rather than code.
+**Parity is reached**: 62 of 62 shadcn components verify on all five checks, and
+65 of 66 pixel examples are gated at zero. Items 1 and 2 came out of reaching
+it; item 3 needs an account rather than code.
 
-## 1 — The calendar
+## 1 — `mix ui.spec --check` is red, and no gate watches it
 
-The only `pending` pixel example, and the only shadcn component that does not
-verify. 9,261 px against upstream.
+63 specs do not match what the reader produces from the same sources. Stale at
+the commit before the calendar work too, so this is a hole in the record rather
+than a regression.
 
-### 1a — Resolve `buttonVariants({variant})` inside a `cn()` call
+- [ ] Run `mix ui.drift` and say what actually moved, before regenerating 63
+      files
+- [ ] Regenerate what should move, and verify every component the regeneration
+      demotes
+- [ ] Decide whether `ui.spec --check` can join CI. It cannot while three AI
+      Elements components stop the reader, so either answer those three first or
+      run the gate per registry
+- [ ] A spec that drifts from its own source turns a build red
 
-- [ ] Read a `cva` call that appears as an argument of a `cn()`, not only on its
-      own. The reader already resolves `cva` elsewhere
-- [ ] The nav button draws 32×36, as upstream does, instead of 32×32
-- [ ] Keep the rule: a class the reader can only partly read is one it must not
-      claim
+## 2 — One class string is still typed, and it is typed twice
 
-### 1b — The grid still lays itself out
+- [ ] `gen/toast.ex` hand-writes `flex min-w-0 flex-1 flex-col gap-1` in the
+      `sonner` heredoc. It is upstream's string, and the `toast` half of the
+      same recipe reads it out of the spec
+- [ ] Give the sonner half the same reading rather than its own copy of the
+      anatomy
+- [ ] No recipe holds a literal upstream class string
 
-- [ ] Remove `style="width: 19px"` from `th` and `td` in `gen/calendar.ex`
-- [ ] The grid measures 133.2 px wide, as React's does, instead of 141.7 px
-
-### 1c — Four class strings are still typed by hand
-
-- [ ] `previous_button`, `next_button`, `root` and `day_button` are read from
-      upstream, not typed into `registry/spec/shadcn/calendar.json`
-- [ ] Keep the fill-a-gap direction in `preserve_recipe_facts`: a parsed class
-      fills a gap, it does not overwrite one. Without this, 1a cannot be seen to
-      work
-- [ ] `calendar.default` leaves `pending` in `pixel-budget.json` and is gated
-- [ ] `mix ui.verify shadcn/calendar` passes all five checks
-
-## 2 — The toast recipe reads upstream by its styling
-
-- [ ] `gen/toast.ex:189` finds its part by anatomy, not by matching the class
-      string `"flex min-w-0 flex-1 flex-col gap-1"`
-- [ ] No recipe identifies an upstream part by how it is styled
-
-## 3 — Three suites fail under load and pass alone
-
-`workers: 1` is already set, so this is timing under load, not parallelism.
-
-- [ ] Diagnose the Escape-key and measurement failures in `select`, `dialog` and
-      `popover` before changing any timeout
-- [ ] The full browser run is green three times in a row
-
-## 4 — Publish 0.1.0
+## 3 — Publish 0.1.0
 
 Each step needs an account. [DEFERRED.md](DEFERRED.md) is the guide.
 

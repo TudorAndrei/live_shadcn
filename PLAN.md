@@ -10,124 +10,68 @@ AI Elements, M5 for Ouro — and each is a plan of its own when its turn comes.
 
 ## Where this stands
 
-62 of 62 shadcn components generate. `mix ui.verify` makes five checks —
-`generated`, `snapshot`, `browser`, `parity`, `pixel` — and all five are green
-for 61 of them. The exception is `calendar`.
+**Parity is reached.** 62 of 62 shadcn components generate and verify.
+`mix ui.verify` makes five checks — `generated`, `snapshot`, `browser`,
+`parity`, `pixel` — and all five are green for every one of them.
 
-The pixel census covers 66 examples. 64 are gated at zero differing pixels, one
-carries a measured budget (`scroll-area.default`, 137 px of glyph
-rasterisation), and one is `pending`: `calendar.default`. A `pending` example
-still runs and still prints its difference; it is measured and reported, but not
-yet gated.
+The pixel census covers 66 examples. 65 are gated at zero differing pixels and
+one carries a measured budget: `scroll-area.default`, 137 px of glyph
+rasterisation, diagnosed and stable. Nothing is `pending`.
 
 `mix ui.gen --check`, `mix ui.status --check` and `mix snapshot --check` are
-green on a clean tree, and CI runs all three.
+green on a clean tree, and CI runs all three. 316 browser tests, 160 Elixir
+tests.
 
-Four jobs are left. One of them closes the last pixel gap, one is a recipe
-cleanup, one is a test-harness problem, and the last needs an account rather
-than code.
-
----
-
-## 1 — The calendar: a correct structure, an incorrect class
-
-This is the only `pending` pixel example, and the only shadcn component that
-does not verify.
-
-The structural half is done. The reader now reads **25 of the 29 class strings**
-out of the `classNames` prop that shadcn hands react-day-picker, where it read
-four before. `nav` is a sibling of `month` positioned over it, as upstream
-builds it, every wrapper sits at the coordinates React puts it at, and the
-chevrons are the lucide icons upstream renders.
-
-The number did not improve: 8,077 px → 9,261 px. A correct structure exposed an
-incorrect class, and that is what is left.
-
-### 1a — Resolve `buttonVariants({variant})` inside a `cn()` call
-
-Upstream writes:
-
-```tsx
-button_previous: cn(
-  buttonVariants({ variant: buttonVariant }),
-  "size-(--cell-size) p-0 …",
-)
-```
-
-The reader keeps only the string literals in that call, so the class is recorded
-without anything the `cva` table contributes. The nav button comes out 32×32
-where upstream draws 32×36.
-
-The reader already resolves a `cva` call elsewhere. This is teaching it to do so
-one level in, inside the arguments of a `cn()`.
-
-The rule this work established is worth restating, because it was learned by
-breaking it: **a class the reader can only partly read is one it must not
-claim.** Taking the string literals alone shipped a 7×24 button. A confident
-wrong answer is worse than none.
-
-### 1b — The grid still lays itself out
-
-`gen/calendar.ex:70` and `:75` write `style="width: 19px"` onto every `th` and
-`td`. The grid comes out 141.7 px wide against React's 133.2 px.
-
-That typed measurement is the last one in this recipe, and it is the sign that
-the recipe still lays the grid out itself instead of reading how
-react-day-picker lays it out. Remove the measurement, not the difference.
-
-### 1c — Four class strings are still typed by hand
-
-`previous_button`, `next_button`, `root` and `day_button` in
-`registry/spec/shadcn/calendar.json` are typed rather than read. Each is a
-`cn()` whose arguments the reader can only partly read, so it refuses them under
-the rule in 1a. Item 1a is what releases them.
-
-There is a second rule from the same work, and it is a defect the reader would
-have kept hiding: **a parsed class fills a gap; it does not overwrite one.**
-`preserve_recipe_facts` replaced the whole map, so once a class was typed by
-hand, no amount of teaching the reader could dislodge it — the calendar learned
-to read 25 strings and went on reporting the 4 typed ones, silently, because the
-reader's answer was computed and then thrown away. Keep the fill-a-gap
-direction when 1a lands, or 1a cannot be seen to work.
-
-**Done when** `calendar.default` leaves `pending` and is gated, and
-`mix ui.verify shadcn/calendar` passes all five checks.
+Three jobs are left. Two came out of reaching parity and neither is a component
+difference; the third needs an account rather than code.
 
 ---
 
-## 2 — The toast recipe reads upstream by its styling
+## 1 — `mix ui.spec --check` is red, and no gate watches it
 
-`gen/toast.ex:189` finds a part by matching a hard-coded Tailwind class string:
+63 specs on disk do not match what the reader produces from the same sources —
+38 shadcn and 25 AI Elements. This is not new and it was not caused by the
+calendar work: the same 63 are stale at the commit before it.
 
-```elixir
-helper!(toaster["tree"], &(&1["class"] == "flex min-w-0 flex-1 flex-col gap-1"))
-```
+It is invisible because CI runs `ui.gen --check`, `ui.status --check` and
+`snapshot --check`, and none of them re-reads upstream. A spec can drift from
+its own source indefinitely and every gate stays green, which is the exact shape
+of the problem `mix ui.status` was built to stop one level up.
 
-It is the last recipe that identifies an upstream part by how it is styled
-rather than by what it is, and it breaks the moment upstream reflows that
-string — silently, because a class string that no longer matches simply finds
-nothing.
+Two things to establish, in this order:
 
-Find the part by its anatomy, as every other recipe does. This is the last
-outstanding case of the roadmap's non-goal: *if a class string is typed by a
-person, the pipeline has a gap.*
+- **What the difference is.** A stale spec is not automatically a wrong one:
+  `mix ui.drift` compares specs and says whether a class string moved or an
+  attribute appeared. Read that before regenerating 63 files.
+- **Whether `ui.spec --check` can join CI.** It cannot today, because three AI
+  Elements components stop the reader (recorded in
+  [ROADMAP.md](ROADMAP.md#state-is-a-prop-because-the-server-owns-state)) and a
+  gate that cannot run is worse than no gate. Either those three are answered
+  first, or the gate runs per registry.
 
----
-
-## 3 — Three suites fail under load and pass alone
-
-`select`, `dialog` and `popover` each have Escape-key and measurement tests that
-fail in a full run and pass in isolation. `workers: 1` is already set in
-`playwright.config.mjs`, so this is not parallelism — it is timing under
-sustained load.
-
-Diagnose before changing a timeout. A test that needs a longer wait under load
-is usually a test that waits for the wrong thing; `measure.mjs` already owns the
-settle discipline that the behaviour specs should be reusing.
+This is what the calendar work found, and it is the largest remaining hole in
+the record.
 
 ---
 
-## 4 — Publish 0.1.0
+## 2 — One class string is still typed, and it is typed twice
+
+`gen/toast.ex` hand-writes `<div class="flex min-w-0 flex-1 flex-col gap-1">` in
+the heredoc that renders `sonner`. It is upstream's string, retyped, and it is
+the same string the `toast` half now reads out of its spec.
+
+The two halves take different heredocs through one recipe, which is how the
+icon defect got in: `sonner` carried the type-to-icon mapping and `toast` did
+not. This is the same shape.
+
+The fix is not to retype it a third time. `sonner` renders a stack whose parts
+belong to the toast anatomy, and the recipe already has that anatomy on disk in
+`registry/spec/shadcn/toast.json`. Give the sonner half the same reading rather
+than its own copy.
+
+---
+
+## 3 — Publish 0.1.0
 
 Not code. [DEFERRED.md](DEFERRED.md) is the full guide, and every step there is
 blocked on an account rather than on work:
@@ -138,7 +82,7 @@ blocked on an account rather than on work:
 | Deploy the storybook | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and a `SECRET_KEY_BASE` worker secret |
 | Prove the sync bot | one `Sync upstream` run by hand, and a readable pull request |
 
-Do this after item 1, so that what is published tells the truth about its own
+Parity is reached, so what gets published now tells the truth about its own
 coverage.
 
 ---
@@ -173,14 +117,17 @@ single test starts. Override it rather than guessing:
 STORYBOOK_PORT=4201 PARITY_PORT=4202 mix ui.verify shadcn/calendar
 ```
 
-## Files that will move
+### When a comparison fails, read the outline
 
-| Path | Which item |
-|---|---|
-| `tools/lib/live_shadcn_tools/tsx.ex`, `spec.ex` | 1a — resolving a `cva` call inside `cn()` |
-| `tools/lib/live_shadcn_tools/gen/calendar.ex` | 1b — the typed `width: 19px` |
-| `registry/spec/shadcn/calendar.json` | 1c — generated. Regenerated, never edited |
-| `tools/lib/live_shadcn_tools/gen/toast.ex` | 2 — find the part by anatomy |
-| `storybook/test/browser/*.spec.mjs` | 3 — the settle discipline |
-| `registry/snapshot/`, `registry/VERIFY.json`, `docs/INVENTORY.md` | generated. Regenerated, never edited |
-| `ROADMAP.md`, `DEFERRED.md`, `CONTRIBUTING.md` | the record |
+`parity.spec.mjs` attaches the element tree of both renderings and puts the rows
+where they stop agreeing into the failure itself. That is what to read first:
+`collect` compares the vocabulary both sides share, and for a component with one
+`data-slot` that vocabulary is one word.
+
+## What this plan does not cover
+
+**AI Elements.** M4 in [ROADMAP.md](ROADMAP.md). Item 1 above touches it only
+where it blocks a shadcn gate.
+
+**Ouro.** M5 in the roadmap. A different repository, and it needs components
+worth swapping in — which this plan has now supplied.
