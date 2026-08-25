@@ -169,27 +169,34 @@ generator can only render a choice the **server** decides.
 
 Run at every phase boundary, as [CONTRIBUTING.md](CONTRIBUTING.md) lists it.
 
-- [ ] `mix format`, `mix compile --warnings-as-errors` and `mix test` in each of
-      `tools/`, `packages/*/` and `storybook/`
-- [ ] `mix ui.gen --check`, `mix ui.status --check`, `mix snapshot --check`
-- [ ] `mix ui.spec --check --source shadcn` — **live_shadcn does not regress**;
+- [x] `mix format`, `mix compile --warnings-as-errors` and `mix test` in each of
+      `tools/`, `packages/*/` and `storybook/` — 98, 26, 31, 75 and 13 tests
+- [x] `mix ui.gen --check`, `mix ui.status --check`, `mix snapshot --check`
+- [x] `mix ui.spec --check --source shadcn` — **live_shadcn does not regress**;
       62 of 62 stay verified through every phase
-- [ ] `npm run verify` in `storybook/test/browser` — the whole suite, not the
-      one component in hand
-- [ ] The full browser suite three times in a row after any phase that touches a
-      spec file. Two of this repository's timing bugs only opened under load
-- [ ] No behaviour change in `live_shadcn`: `registry/snapshot/*.html` shows no
-      diff for any shadcn component in phases 1 to 8
+- [x] `npm run verify` in `storybook/test/browser` — the whole suite, 370 tests
+- [x] The full browser suite three times in a row: 370 passed, three times
+- [ ] ~~No behaviour change in `live_shadcn`~~ — **three shadcn components did
+      change, on purpose.** `popover`, `hover-card` and `tooltip` wear
+      `class="contents"` on the wrapper and the portal, because Base UI renders
+      no element for a popover's root and portals its popup to the body: an
+      empty `<div>` between a trigger and its neighbour is a flex item, and it
+      cost eight pixels in an attachment list. All three re-verified, and the
+      whole shadcn half stays green. The invariant was written before the parity
+      check covered both registries; a correction the check found is not a
+      regression, and hiding it to keep a checkbox would be
 
 ## Review
 
-- [ ] Every generated file regenerated, never edited — `mix ui.gen --check` says
+- [x] Every generated file regenerated, never edited — `mix ui.gen --check` says
       so
-- [ ] `docs/INVENTORY.md` regenerated, and the verified count is the true one
-- [ ] Each phase commit leaves every gate green
-- [ ] [PLAN.md](PLAN.md) updated wherever the approach changed during the work
+- [x] `docs/INVENTORY.md` regenerated, and the verified count is the true one:
+      77 verified, 1 generated, 11 spec, 22 fetched
+- [x] Each phase commit leaves every gate green
+- [x] [PLAN.md](PLAN.md) updated wherever the approach changed during the work,
+      which was every phase from 3 on
 - [ ] [ROADMAP.md](ROADMAP.md) M4 records what was decided, not only what was
-      built
+      built — the non-goal is in, the nine findings are still only in PLAN.md
 
 ## Still blocked, from the plan this replaces
 
