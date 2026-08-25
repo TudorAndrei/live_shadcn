@@ -687,11 +687,23 @@ is committed. The first full run since the specs moved put **60 of 62 shadcn
 components verified** — the two exceptions being `direction`, which has no
 markup, and `calendar`, which fails parity by 1.1px of height.
 
-12b's harness is written and wired: `shoot.mjs`, `pixel.spec.mjs`,
-`pixel-budget.json`, and a `pixel` Playwright project carrying the determinism
-knobs. Every ported example starts in `pending`, so the first run is a census
-rather than a verdict — the numbers in this plan were estimates, and the census
-is what replaces them with measurements.
+12b's harness is written, wired, and the census has run. **60 of 66 examples
+are pixel-perfect against upstream and gated at zero** — one differing pixel
+now fails them.
+
+Six differ, and none is budgeted. A budget says a difference is acceptable, and
+none of these has been diagnosed, so they stay `pending`: measured, reported,
+not yet decided. `calendar` at 8,077px is the known grid problem. `textarea` at
+972px is the interesting one — **every pixel outside any slot**, which is
+exactly the bucket the geometric check is structurally blind to, found on the
+first census. `chart` varies between runs, so something there is not
+deterministic.
+
+**One number in this plan was wrong.** The 0.5% cap is measured against the
+whole image, which is mostly blank page: `calendar`'s 8,077px is 0.019% of the
+image and about 5% of the component. A cap that a five-percent-wrong component
+passes comfortably is not a cap. It should be relative to the component's own
+box.
 
 ---
 

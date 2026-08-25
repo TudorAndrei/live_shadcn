@@ -254,4 +254,26 @@ clean, so anything below is new information rather than a backlog.
 - [ ] A fifth check in `mix ui.verify`, not a replacement for the fourth
 - [x] The gap tests: every example has a budget or is pending, and no budget
       or skip names an example that no longer exists
-- [ ] Run the census: put every ported example in `pending`, measure, burn down
+- [x] The census ran. **60 of 66 examples are pixel-perfect and gated at zero**
+      — a difference of a single pixel now fails them
+
+### 12d — The six the census found
+
+Not budgeted. A budget would say the difference is acceptable, and none of these
+has been diagnosed. They stay `pending`: measured, reported, not yet decided.
+
+- [ ] `calendar.default` — 8,077 px. The known grid problem; parity fails this
+      component too. The recipe writes its own month grid instead of reading
+      react-day-picker's
+- [ ] `textarea.default` — 972 px, **every one outside any slot**. Exactly the
+      bucket the geometric check cannot see, found on the first census
+- [ ] `toast.default` — 173 px
+- [ ] `chart.default` — 129–134 px, and it *varies between runs*. Something
+      there is not deterministic, so it cannot be gated at a fixed number until
+      that is understood
+- [ ] `scroll-area.default` — 91 px
+- [ ] `sidebar.default` — 68 px
+- [ ] The 0.5% cap in PLAN.md is measured against the whole image, which is
+      mostly blank page. `calendar`'s 8,077 px is 0.019% of the image and about
+      5% of the component. The cap should be relative to the component's own
+      box

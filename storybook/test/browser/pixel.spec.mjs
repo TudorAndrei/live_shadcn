@@ -122,6 +122,11 @@ for (const { component, example } of pages) {
 
     if (budget.pending.includes(name)) {
       test.info().annotations.push({ type: "pending", description: report });
+      // Printed, not only annotated. A census whose numbers live in an HTML
+      // report is a census nobody reads, and these numbers are the whole point
+      // of the pending state: they are what turns an estimated budget into a
+      // measured one.
+      process.stdout.write(`PENDING ${name} ${differing}\n`);
       return;
     }
 
