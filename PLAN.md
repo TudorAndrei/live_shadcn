@@ -419,10 +419,21 @@ the same page still gates at zero:
 - `suggestion` — the scroll area is folded as markup and its recipe owns a hook,
   which is the half of phase 3 that was recorded rather than built.
 
-Every other example gates at zero on both checks. 81 parity comparisons and 81
-pixel comparisons pass, and `streamdown` is shimmed on the React side because
-the markdown renderer is the application's decision and comparing two of them
-compares neither component.
+Every other example gates at zero on both checks, and `streamdown` is shimmed on
+the React side because the markdown renderer is the application's decision and
+comparing two of them compares neither component.
+
+**Two components had no example at all**, and each answered differently.
+`mic-selector` gained one and verifies; its device list is the caller's here and
+`navigator.mediaDevices` upstream, which a headless browser has none of, so it
+is recorded beside the `asChild` divergence it shares with `plan`.
+`open-in-chat` does not generate at all: every one of its twelve parts is a
+wrapper around a part of `dropdown-menu`, and what is left once they are dropped
+is a module whose one function renders its own children. That is a sentence
+saying which component to compose, and [ROADMAP.md](ROADMAP.md) is where it now
+lives.
+
+**76 of 76 generated components verify.** The plan began with one.
 
 **Commit:** `test(parity): a React reference for every AI Elements component`
 

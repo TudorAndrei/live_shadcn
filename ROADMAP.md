@@ -795,3 +795,10 @@ says two images agree, not that either has a component in it.
   the class strings: both are fetched, and neither is retyped.
 - **No model in the daily loop.** A model may draft a new recipe once. A person
   reviews it and it is then frozen.
+- **No `open-in-chat`.** Every one of its twelve parts is a thin wrapper around
+  a part of `dropdown-menu`, and the thirteenth puts a query string in a React
+  context. Drop the wrappers — which is what `menubar` already does, and the
+  right answer, because a menu's parts have to agree about one id — and nothing
+  is left to generate. Compose `<.dropdown_menu>` and write the query into the
+  links, which is all upstream does with it. `mix ui.gen` says so by name rather
+  than emitting a module whose one function renders its own children.

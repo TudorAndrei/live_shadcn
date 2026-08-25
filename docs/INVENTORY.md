@@ -8,9 +8,9 @@
 |---|---:|---|
 | `planned` | 0 | ························ |
 | `fetched` | 23 | █████··················· |
-| `spec` | 11 | ██······················ |
-| `generated` | 15 | ███····················· |
-| `verified` | 62 | █████████████··········· |
+| `spec` | 12 | ███····················· |
+| `generated` | 0 | ························ |
+| `verified` | 76 | ████████████████········ |
 
 ## Recipes
 
@@ -117,36 +117,36 @@ Only the recipes are written by hand; every component is data.
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `chain-of-thought` | 1 | `disclosure` | 🟩 generated |
+| `chain-of-thought` | 1 | `disclosure` | ✅ verified |
 | `code-block` | 1 | `presentational` | 🟨 spec |
 | `context` | 1 | `presentational` | 🟨 spec |
 | `conversation` | 1 | `scroller` | 🟦 fetched |
-| `message` | 1 | `presentational` | 🟩 generated |
+| `message` | 1 | `presentational` | ✅ verified |
 | `prompt-input` | 1 | `form-control` | 🟦 fetched |
-| `reasoning` | 1 | `disclosure` | 🟩 generated |
+| `reasoning` | 1 | `disclosure` | ✅ verified |
 | `shimmer` | 1 | `presentational` | 🟦 fetched |
-| `sources` | 1 | `disclosure` | 🟩 generated |
-| `suggestion` | 1 | `presentational` | 🟩 generated |
-| `task` | 1 | `disclosure` | 🟩 generated |
+| `sources` | 1 | `disclosure` | ✅ verified |
+| `suggestion` | 1 | `presentational` | ✅ verified |
+| `task` | 1 | `disclosure` | ✅ verified |
 | `tool` | 1 | `disclosure` | 🟦 fetched |
 | `agent` | 2 | `presentational` | 🟦 fetched |
 | `artifact` | 2 | `disclosure` | 🟨 spec |
-| `attachments` | 2 | `presentational` | 🟩 generated |
-| `checkpoint` | 2 | `presentational` | 🟩 generated |
+| `attachments` | 2 | `presentational` | ✅ verified |
+| `checkpoint` | 2 | `presentational` | ✅ verified |
 | `commit` | 2 | `presentational` | 🟨 spec |
-| `confirmation` | 2 | `presentational` | 🟩 generated |
+| `confirmation` | 2 | `presentational` | ✅ verified |
 | `controls` | 2 | `presentational` | 🟦 fetched |
-| `environment-variables` | 2 | `clipboard` | 🟩 generated |
+| `environment-variables` | 2 | `clipboard` | ✅ verified |
 | `file-tree` | 2 | `presentational` | 🟦 fetched |
 | `image` | 2 | `presentational` | 🟨 spec |
 | `inline-citation` | 2 | `presentational` | 🟦 fetched |
 | `model-selector` | 2 | `listbox` | 🟨 spec |
-| `open-in-chat` | 2 | `presentational` | 🟩 generated |
-| `package-info` | 2 | `presentational` | 🟩 generated |
+| `open-in-chat` | 2 | `presentational` | 🟨 spec |
+| `package-info` | 2 | `presentational` | ✅ verified |
 | `panel` | 2 | `disclosure` | 🟦 fetched |
 | `persona` | 2 | `presentational` | 🟦 fetched |
-| `plan` | 2 | `disclosure` | 🟩 generated |
-| `question` | 2 | `presentational` | 🟩 generated |
+| `plan` | 2 | `disclosure` | ✅ verified |
+| `question` | 2 | `presentational` | ✅ verified |
 | `queue` | 2 | `presentational` | 🟨 spec |
 | `schema-display` | 2 | `presentational` | 🟦 fetched |
 | `snippet` | 2 | `clipboard` | ✅ verified |
@@ -158,7 +158,7 @@ Only the recipes are written by hand; every component is data.
 | `connection` | 3 | `presentational` | 🟨 spec |
 | `edge` | 3 | `presentational` | 🟦 fetched |
 | `jsx-preview` | 3 | `presentational` | 🟦 fetched |
-| `mic-selector` | 3 | `listbox` | 🟩 generated |
+| `mic-selector` | 3 | `listbox` | ✅ verified |
 | `node` | 3 | `presentational` | 🟦 fetched |
 | `sandbox` | 3 | `presentational` | 🟦 fetched |
 | `speech-input` | 3 | `presentational` | 🟨 spec |

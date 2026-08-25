@@ -28,6 +28,10 @@
         "plan > plan-trigger"
       ]
     },
+    "mic-selector.default": {
+      "why": "Two of a kind. `<PopoverTrigger asChild><Button>` is the same `asChild` that `plan.default` records — a no-op in a Base UI build, so upstream draws a button inside its trigger and the reader draws one element. And the command palette this component folds is drawn closed here and not drawn at all there: upstream reads the device list from `navigator.mediaDevices`, which reports nothing without a permission prompt, so React renders an empty list and unmounts it.",
+      "slots": ["(the whole)", "popover-trigger", "popover-trigger > button", "command"]
+    },
     "chain-of-thought.default": {
       "why": "Upstream renders two `<Collapsible>` wrappers — one around the header and one around the content — and threads the open state between them through a React context. The disclosure recipe folds a component into one function precisely because its parts have to agree about one id, so there is one collapsible here and the 16px `space-y-4` between the two of upstream's has nothing to sit between.",
       "slots": ["collapsible", "collapsible #2"]

@@ -20,31 +20,6 @@
     "pass": true,
     "spec": "f91fc2354523ccfebb5cf17a4df2390f863cb9916514a445a1a485aa25d2fe6c"
   },
-  "ai_elements/open-in-chat": {
-    "checks": {
-      "browser": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
-      },
-      "generated": {
-        "pass": true
-      },
-      "parity": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
-      },
-      "pixel": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
-      },
-      "snapshot": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
-      }
-    },
-    "pass": false,
-    "spec": "ea9be6ce197a364c4cc251aa937b9dbdfe15d30f5fba249a98a61e9c0396d62f"
-  },
   "shadcn/alert-dialog": {
     "checks": {
       "browser": {
@@ -1142,26 +1117,23 @@
   "ai_elements/mic-selector": {
     "checks": {
       "browser": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
       },
       "parity": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "detail": "mic-selector.default is not compared: The same `asChild` as `plan.default`, plus a list only one side can draw: upstream reads the microphones from `navigator.mediaDevices`, which reports nothing without a permission prompt, and a server has no such list at all. `parity-divergence.json` records the four slots this shows up on; the trigger differs by too much of its own box to compare what is painted.",
+        "pass": true
       },
       "snapshot": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "3063369b3610cd9bebeabaa1be32605d668aea516eb468b57eeb2aeae21fe814"
   },
   "shadcn/label": {

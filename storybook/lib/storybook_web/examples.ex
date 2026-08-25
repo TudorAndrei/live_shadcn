@@ -136,7 +136,7 @@ defmodule StorybookWeb.Examples do
        button-group card chart checkbox collapsible combobox command context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group resizable scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        toggle-group question questionnaire sidebar snippet sonner toast shadcn-message ai_elements-message
-       attachments environment-variables plan)
+       attachments environment-variables mic-selector plan)
   end
 
   @doc "The examples for a component."
@@ -512,6 +512,19 @@ defmodule StorybookWeb.Examples do
         "AI Elements builds this out of shadcn's collapsible, so the disclosure " <>
           "recipe generates it and the panel opens with no round trip.",
         &task_default/1
+      )
+    ]
+  end
+
+  def all("mic-selector") do
+    [
+      one(
+        "default",
+        "Which microphone",
+        "The first AI Elements component the corrected shadcn specs unblocked: " <>
+          "it folds `command` into a popover and comes out a listbox, with no " <>
+          "work of its own.",
+        &mic_selector_default/1
       )
     ]
   end
@@ -1345,6 +1358,26 @@ defmodule StorybookWeb.Examples do
     <.task id="search" title="Searched the registry" class="max-w-80">
       Read 62 component sources and 41 Base UI pages.
     </.task>
+    """
+  end
+
+  # The device list is the caller's here and the browser's upstream: React reads
+  # `navigator.mediaDevices`, which needs a permission prompt and reports
+  # nothing without one. A server has no such list, so the options are given.
+  defp mic_selector_default(assigns) do
+    ~H"""
+    <div class="flex max-w-sm flex-col gap-2">
+      <.label id="mic-label">Microphone</.label>
+      <LiveAiElements.Components.MicSelector.mic_selector
+        id="mic"
+        name="mic"
+        labelledby="mic-label"
+        placeholder="Select a microphone"
+      >
+        <:option value="built-in" label="Built-in microphone" />
+        <:option value="usb" label="USB microphone" />
+      </LiveAiElements.Components.MicSelector.mic_selector>
+    </div>
     """
   end
 

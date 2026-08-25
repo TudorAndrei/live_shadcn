@@ -69,7 +69,19 @@ defmodule Mix.Tasks.Ui.Verify do
     path = registry_path("VERIFY.json")
     existing = if File.exists?(path), do: read_json!(path), else: %{}
 
-    Map.merge(existing, results)
+    existing
+    |> Map.filter(fn {reference, _result} -> generated?(reference) end)
+    |> Map.merge(results)
+  end
+
+  # A component that no longer generates has no record to keep. `open-in-chat`
+  # is one: every part of it turned out to be a wrapper around
+  # `<.dropdown_menu>`, so there is nothing to generate and nothing to verify,
+  # and a passing entry left behind would say the opposite.
+  defp generated?(reference) do
+    {source, name} = parse_ref(reference)
+
+    File.exists?(module_path(source, name))
   end
 
   # `registry/` knows a component by source and name. `storybook/` knows it by

@@ -27,6 +27,8 @@ defmodule LiveShadcnTools.Gen.Presentational do
   def module(spec, opts) do
     {folded, own} = Enum.split_with(spec["parts"], &folded_elsewhere?/1)
 
+    anything!(spec, own)
+
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
     #{moduledoc(spec, folded)}
@@ -55,9 +57,52 @@ defmodule LiveShadcnTools.Gen.Presentational do
   # so.
   @folding ~w(dialog disclosure listbox menu popover tabs)
 
+  # A component whose every part is a wrapper around one that behaves.
+  #
+  # `open-in-chat` is twelve wrappers around `dropdown-menu` and a React context
+  # holding a query string. Drop the wrappers — which is the same decision
+  # `menubar` makes, and the right one — and what is left is a module with one
+  # function that renders its own children and nothing else. That is not a
+  # component; it is a sentence saying which component to compose, and a
+  # moduledoc is where a sentence goes.
+  defp anything!(spec, own) do
+    if own == [] or Enum.all?(own, &draws_nothing?(&1["tree"])) do
+      components = Enum.map_join(spec["folds"] || [], ", ", &"`#{&1}`")
+
+      raise """
+      every part of #{spec["name"]} is a thin wrapper around #{components}.
+
+      What is left after the wrappers are dropped is a module whose functions \
+      render their own children and nothing else. That is not a component; it \
+      is a sentence saying which one to compose. Record it in ROADMAP.md with \
+      the reason rather than generating the sentence as code.
+      """
+    end
+  end
+
+  # A part that reaches the page as nothing of its own: a React context, a
+  # primitive Base UI documents as rendering no element, and the caller's
+  # content passing through.
+  defp draws_nothing?(node) when is_map(node) do
+    case node["type"] do
+      type when type in ~w(element primitive icon external component_ref part_ref lookup) -> false
+      _other -> node |> Map.get("children") |> List.wrap() |> Enum.all?(&draws_nothing?/1)
+    end
+  end
+
+  defp draws_nothing?(_node), do: true
+
   defp folded_elsewhere?(%{"tree" => tree}), do: folds_elsewhere?(tree)
 
   defp folds_elsewhere?(%{"type" => "component_ref", "recipe" => recipe}), do: recipe in @folding
+
+  # A React context provider draws no element, so a part that is one holding a
+  # wrapper is a wrapper. `open-in-chat` puts a query string in a context and
+  # renders `<DropdownMenu>`; the context is gone here and the menu is the
+  # application's own.
+  defp folds_elsewhere?(%{"type" => "transparent", "children" => [_ | _] = children}),
+    do: Enum.all?(children, &folds_elsewhere?/1)
+
   defp folds_elsewhere?(_node), do: false
 
   defp underscored(component), do: String.replace(component, "-", "_")

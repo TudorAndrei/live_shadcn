@@ -113,8 +113,16 @@ generator can only render a choice the **server** decides.
       skipped with its reason. Nothing pending
 - [x] 81 parity and 81 pixel comparisons pass, and the whole browser suite —
       364 tests — is green
-- [ ] `mix ui.verify` reports every generated AI Elements component verified
-- [ ] Commit: `test(parity): a React reference for every AI Elements component`
+- [x] `mic-selector` gains the example it never had, and verifies. Its device
+      list is the caller's here and `navigator.mediaDevices` upstream, which a
+      headless browser has none of — recorded as a divergence with the `asChild`
+      one it shares with `plan`
+- [x] `open-in-chat` does not generate: every part of it is a wrapper around
+      `<.dropdown_menu>`, so there is nothing left after they are dropped.
+      Recorded in [ROADMAP.md](ROADMAP.md) as a non-goal, and `mix ui.verify`
+      drops the record of a component that no longer generates
+- [x] `mix ui.verify` reports **76 of 76** generated components verified
+- [x] Commit: `test(parity): a React reference for every AI Elements component`
 
 ## Phase 6: The gap tests cover both registries
 
@@ -124,7 +132,8 @@ generator can only render a choice the **server** decides.
       a test that was never registered
 - [x] Deleting one reference turns the suite red, and says which: moving
       `task.default.tsx` out names it in the gap test and skips its pixel run
-- [ ] Commit: `test(parity): the gap tests cover both registries`
+- [x] Commit: `test(parity): the gap tests cover both registries` — landed with
+      phase 5, because the filter and the divergence record are the same file
 
 ## Phase 7: Three components filed under the wrong recipe
 
