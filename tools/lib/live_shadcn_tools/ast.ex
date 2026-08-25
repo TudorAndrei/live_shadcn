@@ -799,6 +799,7 @@ defmodule LiveShadcnTools.Ast do
       renames: renames(signature),
       locals: locals(body, source),
       contexts: contexts(body),
+      context_fields: body |> context_fields(contexts(body)) |> Enum.uniq() |> Enum.sort(),
       renders?: renders?(body),
       jsx: jsx(body, source)
     }

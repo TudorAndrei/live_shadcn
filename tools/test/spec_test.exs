@@ -118,6 +118,39 @@ defmodule LiveShadcnTools.SpecTest do
       assert [%{"tree" => %{"tag" => "section", "part" => "Panel"}}] = build()["parts"]
     end
 
+    # A field read off a React context is a prop the caller has to supply, and
+    # it reaches the tree as a path rather than as a name — `{thing.title}`
+    # mentions `thing`, never `title`. So nothing downstream could tell the
+    # markup reads it, the prop `props/3` had made was filtered back out as
+    # unused, and the component stopped generating on a name it had itself
+    # dropped.
+    test "a field read off a React context is a prop, and stays one" do
+      tsx =
+        @tsx
+        |> String.replace(
+          "function Thing({ className, children, ...props }",
+          "function Thing({ className, ...props }"
+        )
+        |> String.replace("{children}", "{thing.title}")
+        |> String.replace(
+          "return (",
+          "const thing = useThing()\n  return ("
+        )
+
+      assert [part] =
+               Spec.build("thing",
+                 tsx: tsx,
+                 markdown: %{"thing" => @markdown},
+                 module: "thing",
+                 source: "shadcn",
+                 recipe: "disclosure",
+                 upstream: %{}
+               )["parts"]
+
+      assert part["context_fields"] == ["title"]
+      assert Map.has_key?(part["params"], "title")
+    end
+
     test "the heex function name is derived from the shadcn export" do
       assert [%{"name" => "thing", "export" => "Thing"}] = build()["parts"]
     end

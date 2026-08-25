@@ -71,6 +71,9 @@
             "class_when": [
               {
                 "else": "group-data-[collapsible=icon]:w-(--sidebar-width-icon)",
+                "identifiers": [
+                  "variant"
+                ],
                 "then": "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]",
                 "when": "variant === \"floating\" || variant === \"inset\""
               }
@@ -136,6 +139,9 @@
             "class_when": [
               {
                 "else": "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
+                "identifiers": [
+                  "variant"
+                ],
                 "then": "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]",
                 "when": "variant === \"floating\" || variant === \"inset\""
               }
@@ -630,6 +636,9 @@
         "class_when": [
           {
             "else": null,
+            "identifiers": [
+              "showOnHover"
+            ],
             "then": "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 md:opacity-0",
             "when": "showOnHover"
           }

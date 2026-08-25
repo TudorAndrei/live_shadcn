@@ -10,7 +10,9 @@ defmodule LiveAiElements.Components.Question do
   use Phoenix.Component
 
   @doc "The `question` part."
-
+  attr(:default_value, :string, default: "EMPTY_VALUE")
+  attr(:disabled, :boolean, default: false)
+  attr(:selection_mode, :string, default: "single")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
   attr(:rest, :global,
@@ -77,6 +79,8 @@ defmodule LiveAiElements.Components.Question do
   attr(:disabled, :string, default: nil)
   attr(:is_selected, :string, default: nil)
   attr(:role, :string, default: nil)
+  attr(:selected_values, :string, default: nil)
+  attr(:selection_mode, :string, default: nil)
   attr(:size, :string, default: "default")
   attr(:value, :string, default: nil)
 
@@ -154,7 +158,9 @@ defmodule LiveAiElements.Components.Question do
   @doc "The `button` part."
   attr(:disabled, :string, default: nil)
   attr(:has_response, :string, default: nil)
+  attr(:selected_values, :string, default: nil)
   attr(:size, :string, default: "default")
+  attr(:text, :string, default: nil)
   attr(:variant, :string, default: "default")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])

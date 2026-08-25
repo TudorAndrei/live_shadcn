@@ -104,11 +104,11 @@ defmodule LiveShadcnTools.Tsx do
 
       parts = Ast.conditional(expression) ->
         {when_, yes, no} = parts
-        segment(source(when_), class_of(yes), class_of(no))
+        segment(when_, class_of(yes), class_of(no))
 
       match?({"&&", _, _}, Ast.logical(expression)) ->
         {"&&", left, right} = Ast.logical(expression)
-        segment(source(left), class_of(right), nil)
+        segment(left, class_of(right), nil)
 
       true ->
         []
@@ -117,8 +117,27 @@ defmodule LiveShadcnTools.Tsx do
 
   defp segment(_when, nil, nil), do: []
 
-  defp segment(when_, yes, no),
-    do: [%{"when" => String.trim(when_), "then" => yes, "else" => no}]
+  # The condition is kept as source, and what it *reads* is kept beside it.
+  #
+  # A segment used to record `!showValues` as text and nothing else, so nothing
+  # downstream could tell that this element reads `showValues` — and the prop
+  # the reader had made for it was filtered straight back out as unused. Every
+  # other place an expression reaches the spec records its identifiers; this one
+  # did not, and the component stopped generating.
+  defp segment(when_, yes, no) do
+    segment = %{"when" => when_ |> source_of() |> String.trim(), "then" => yes, "else" => no}
+
+    case identifiers_of(when_) do
+      [] -> [segment]
+      names -> [Map.put(segment, "identifiers", names)]
+    end
+  end
+
+  defp source_of({:expr, code, _node}), do: code
+  defp source_of(code) when is_binary(code), do: code
+
+  defp identifiers_of({:expr, _code, node}), do: Ast.identifiers(node)
+  defp identifiers_of(_code), do: []
 
   defp class_of(code) when is_binary(code) do
     case literal(String.trim(code)) do
@@ -133,8 +152,6 @@ defmodule LiveShadcnTools.Tsx do
       literal -> normalise(literal)
     end
   end
-
-  defp source({:expr, code, _node}), do: String.trim(code)
 
   @doc """
   Whether this element is the one that merges the caller's class.

@@ -5,26 +5,39 @@ The checkbox form of [PLAN.md](PLAN.md), which holds the reasoning.
 49 AI Elements components are in the registry, 14 generate, and **one
 verifies**. The goal is that every one that generates also verifies.
 
-## Phase 1: The three state keys the generator cannot bind
+## Phase 1a: Two props the reader made and then filtered back out
 
-Each stops the generator the moment its spec is re-read, and every later phase
-is behind them.
+Neither `text` nor `showValues` needed a decision. `props_read/2` keeps only the
+params something in the markup reads, and neither reaches the tree as a name.
 
+- [x] A field read off a React context is recorded as `context_fields` and
+      counts as a read — `{question.text}` mentions `question`, never `text`
+- [x] A conditional class records the identifiers of its condition, as every
+      other expression in the spec already does
+- [x] `question` generates
+- [x] `carousel` and `sidebar` gain an `orientation` param for the same reason.
+      **Neither component changes** — `ui.gen --check` green, snapshots
+      unmoved — and both are re-verified
+- [x] A test for each gap, in `spec_test.exs` and `ast_test.exs`
+- [ ] Commit: `fix(spec): a prop read through a context or a condition`
+
+## Phase 1b: `isCopied`, and a choice the client owns
+
+`snippet` and `environment-variables` stop on the same name and the same shape:
+`const Icon = isCopied ? CheckIcon : CopyIcon`. The reader reads it; the
+generator can only render a choice the **server** decides.
+
+- [ ] A choice whose condition a recipe declares client-owned renders both
+      branches, each marked with the state it belongs to, the inactive one
+      `hidden`
 - [ ] `LiveBase.Clipboard` and its hook, beside `LiveBase.Toast`. Built, not
       depended on: the clipboard is a browser API, and `live_base` takes one
       dependency by a non-goal
-- [ ] `snippet` — `isCopied` is the hook's, not a prop. The copy button gets the
-      attribute contract the hook writes
-- [ ] `question` — `text` is an attribute the caller passes
-- [ ] `environment-variables` — `show_values` is an attribute and the switch
-      pushes an event. **The real value is only sent once it is asked for**: it
-      masks by changing text, and a server that rendered it and hid it with CSS
-      would put every secret in the page source
-- [ ] `environment-variables` keeps a real switch, not a bare toggle — which
-      makes this and phase 3 one change for that component
-- [ ] `mix ui.spec ai_elements/{question,snippet,environment-variables}` then
-      `mix ui.gen` generates all three, rather than removing them
-- [ ] Commit: `feat(ai-elements): the three state keys the generator refused`
+- [ ] `JS.ignore_attributes`, so a patch does not put the server's guess back
+- [ ] Not an assign: that costs a round trip and a server-side timer per copy,
+      and makes the caller write `handle_event` for a 2-second icon swap
+- [ ] `snippet` and `environment-variables` generate
+- [ ] Commit: `feat(ai-elements): a choice the client owns, and the clipboard`
 
 ## Phase 2: Re-read every AI Elements spec, and gate the reading
 

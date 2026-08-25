@@ -590,8 +590,22 @@ defmodule LiveShadcnTools.Spec do
   # `className` and `children` are the two the markup reads without naming.
   @always ~w(className children content render)
 
+  # Which fields a part reads off a React context, when it reads any.
+  #
+  # Four parts in five hundred do, so the key is written only where it means
+  # something rather than as an empty list on every part in the registry.
+  defp context_fields(part, function) do
+    case function.context_fields do
+      [] -> part
+      fields -> Map.put(part, "context_fields", fields)
+    end
+  end
+
   defp props_read(part, variant_props) do
-    references = MapSet.new((part["refs"] || []) ++ identifiers(part["tree"]))
+    references =
+      MapSet.new(
+        (part["refs"] || []) ++ (part["context_fields"] || []) ++ identifiers(part["tree"])
+      )
 
     Map.update(part, "params", %{}, fn params ->
       Map.filter(params, fn {name, _default} ->
@@ -1102,6 +1116,7 @@ defmodule LiveShadcnTools.Spec do
           "contexts" => function.contexts |> MapSet.to_list() |> Enum.sort(),
           "tree" => node(function.jsx, ctx)
         }
+        |> context_fields(function)
 
       :error ->
         alias_part(export, ctx)

@@ -96,7 +96,8 @@
       "name": "carousel_content",
       "params": {
         "carouselRef": null,
-        "className": null
+        "className": null,
+        "orientation": null
       },
       "primitive": null,
       "refs": [
@@ -122,6 +123,9 @@
             "class_when": [
               {
                 "else": "-mt-4 flex-col",
+                "identifiers": [
+                  "orientation"
+                ],
                 "then": "-ml-4",
                 "when": "orientation === \"horizontal\""
               }
@@ -162,7 +166,8 @@
       "export": "CarouselItem",
       "name": "carousel_item",
       "params": {
-        "className": null
+        "className": null,
+        "orientation": null
       },
       "primitive": null,
       "refs": [
@@ -187,6 +192,9 @@
         "class_when": [
           {
             "else": "pt-4",
+            "identifiers": [
+              "orientation"
+            ],
             "then": "pl-4",
             "when": "orientation === \"horizontal\""
           }
@@ -213,6 +221,7 @@
       "params": {
         "canScrollPrev": null,
         "className": null,
+        "orientation": null,
         "size": "icon-sm",
         "variant": "outline"
       },
@@ -329,6 +338,9 @@
         "class_when": [
           {
             "else": "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+            "identifiers": [
+              "orientation"
+            ],
             "then": "inset-y-0 -left-12 my-auto",
             "when": "orientation === \"horizontal\""
           }
@@ -359,6 +371,7 @@
       "params": {
         "canScrollNext": null,
         "className": null,
+        "orientation": null,
         "size": "icon-sm",
         "variant": "outline"
       },
@@ -475,6 +488,9 @@
         "class_when": [
           {
             "else": "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+            "identifiers": [
+              "orientation"
+            ],
             "then": "inset-y-0 -right-12 my-auto",
             "when": "orientation === \"horizontal\""
           }

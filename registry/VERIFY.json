@@ -274,7 +274,7 @@
       }
     },
     "pass": true,
-    "spec": "366c1a54aa9bc5bb5c637532017a13c90bba0646f6e2cc0b0792cc7fd823a018"
+    "spec": "b1c216de300c5453dfa87709c2dc064a857eb30e000c9ce3b18393460aa1bcac"
   },
   "ai_elements/task": {
     "checks": {
@@ -1286,7 +1286,7 @@
       }
     },
     "pass": true,
-    "spec": "a758ecf2ad374260d8b32e9ef883ad5a62ecd154197f499aa98d13c2b9a7b1c5"
+    "spec": "3de9325a04cbea1b907edbc3b93050ac4316b1ff0c0392473db8c54550f7e781"
   },
   "shadcn/card": {
     "checks": {
@@ -1353,7 +1353,7 @@
       }
     },
     "pass": false,
-    "spec": "32b60d9a13be30b828719cd0c138957f79dc2355d9fdc39cd8fbd06d598aedfc"
+    "spec": "e385f853b746fcabf52cd03cd4373d6625a5e20819eaa96369a0193f92d999ae"
   },
   "shadcn/separator": {
     "checks": {

@@ -153,9 +153,30 @@ defmodule LiveShadcnTools.AstTest do
 
       assert [row] = Ast.parse!(source).functions
 
+      # The condition is kept as source, and what it reads is kept beside it.
+      # Nothing else in the spec can tell that this element reads `active` —
+      # the condition reaches the tree as text — so the prop the reader made
+      # for it was filtered back out as unused, and the component stopped
+      # generating.
       assert Tsx.conditional_classes(Tsx.attr(row.jsx, "className")) == [
-               %{"when" => "active", "then" => "is-active", "else" => "is-idle"}
+               %{
+                 "when" => "active",
+                 "then" => "is-active",
+                 "else" => "is-idle",
+                 "identifiers" => ["active"]
+               }
              ]
+    end
+
+    test "a conditional class with nothing to read records no identifiers" do
+      source = ~S"""
+      const Row = () => <span className={cn(true ? "is-active" : "is-idle")} />;
+      """
+
+      assert [row] = Ast.parse!(source).functions
+
+      assert [segment] = Tsx.conditional_classes(Tsx.attr(row.jsx, "className"))
+      refute Map.has_key?(segment, "identifiers")
     end
 
     test "mapped JSX reads its collection and body from the expression node" do

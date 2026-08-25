@@ -143,17 +143,63 @@ value and hid it with CSS would put every secret in the page source. One round
 trip, stated rather than hidden — the same trade `command` makes by filtering on
 the server.
 
-- Write `LiveBase.Clipboard` and its hook, beside `LiveBase.Toast` — `snippet`
-  and `environment-variables` both have a copy button, and a browser API in the
-  package that exists to wrap browser APIs is built, not depended on
-- Give the `snippet` recipe the hook, and the copy button the attribute contract
-  it needs
-- Declare `question`'s `text` as an attribute the caller passes
-- `environment-variables` takes `show_values` and pushes an event; the masked
-  string is what the server renders until it is not
-- Re-spec all three and confirm each generates
+It split in two once the work started, because two of the three turned out to
+be the *same* reader gap and the third needs a mechanism the pipeline does not
+have.
 
-**Commit:** `feat(ai-elements): the three state keys the generator refused`
+#### Phase 1a: two props the reader made and then filtered back out — done
+
+Neither `text` nor `showValues` needed a decision. The reader had already made
+a prop for each, and `props_read/2` — which keeps only the params something in
+the markup actually reads — threw both away, because neither reaches the tree
+as a name:
+
+- `value={question.text}` mentions `question`, never `text`. A field read off a
+  React context is now recorded on the part as `context_fields` and counts as a
+  read. Four parts in 567 read a context, so the key is written only where it
+  means something.
+- `!showValues && "select-none"` reaches the tree as the *text* of a condition.
+  Every other expression in the spec records its identifiers; a conditional
+  class did not, and now does.
+
+The second turned up two shadcn specs — `carousel` and `sidebar` — that gain an
+`orientation` param for the same reason. **Neither component changes**;
+`mix ui.gen --check` is green and the snapshots do not move. Both re-verified.
+
+`question` generates.
+
+#### Phase 1b: `isCopied`, and a choice the client owns
+
+`snippet` and `environment-variables` both stop here, on the same name and the
+same shape:
+
+```tsx
+const Icon = isCopied ? CheckIcon : CopyIcon
+```
+
+The reader reads it correctly — a `choice` node with `when: "isCopied"`. The
+generator renders a choice with `:if` on both branches, which is a **server**
+decision, and there is no way in this pipeline to say *the client owns this
+one*. Every client-owned thing here is an attribute a class string reads;
+none is a choice between two elements.
+
+Binding `isCopied` to an assign would work today and is the wrong answer: it
+costs a round trip and a server-side timer per copy, and it makes the caller
+write `handle_event("copied", …)` and `Process.send_after` — for a 2-second
+icon swap the server has no interest in.
+
+So the pipeline learns to say it, rather than a one-component recipe absorbing
+what the pipeline could not — which is what
+[ROADMAP.md](ROADMAP.md) 7c warns about.
+
+- A choice whose condition a recipe declares client-owned renders **both**
+  branches, each marked with the state it belongs to, the inactive one `hidden`
+- `LiveBase.Clipboard` writes to the clipboard and flips that attribute, with
+  `JS.ignore_attributes` so a patch does not put the server's guess back
+- `snippet` and `environment-variables` generate
+
+**Commit:** `fix(spec): a prop read through a context or a condition`
+**Commit:** `feat(ai-elements): a choice the client owns, and the clipboard`
 
 ### Phase 2: Re-read every AI Elements spec, and gate the reading
 
