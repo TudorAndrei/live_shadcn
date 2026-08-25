@@ -1,6 +1,11 @@
 # Elixir
 _build/
 deps/
+# Dialyzer's persistent lookup tables. Minutes to build, megabytes on disk, and
+# derived entirely from the dependencies — so CI caches them rather than
+# committing them. `**/` because a pattern holding a slash is anchored to this
+# file's directory, and the tables live one level down in every project.
+**/priv/plts/
 *.ez
 *.beam
 .elixir_ls/

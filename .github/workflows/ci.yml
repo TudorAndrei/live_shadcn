@@ -44,6 +44,15 @@ jobs:
           key: ${{ runner.os }}-mix-${{ matrix.package }}-${{ hashFiles(format('{0}/mix.exs', matrix.package)) }}
           restore-keys: ${{ runner.os }}-mix-${{ matrix.package }}-
 
+      # Dialyzer's tables take minutes to build and change only when the
+      # dependencies do, which is what the mix.lock hash is for.
+      - name: Cache dialyzer PLTs
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ matrix.package }}/priv/plts
+          key: ${{ runner.os }}-plt-${{ matrix.package }}-${{ hashFiles(format('{0}/mix.lock', matrix.package)) }}
+          restore-keys: ${{ runner.os }}-plt-${{ matrix.package }}-
+
       - run: mix deps.get
         working-directory: ${{ matrix.package }}
 
@@ -54,6 +63,27 @@ jobs:
         working-directory: ${{ matrix.package }}
 
       - run: mix test
+        working-directory: ${{ matrix.package }}
+
+      # Style and idiom, from one config at the repository root. Generated
+      # files are excluded there: a linter that reports on them asks a person to
+      # edit a file the pipeline owns.
+      - run: mix credo --config-file ../.credo.exs
+        working-directory: ${{ matrix.package }}
+        if: startsWith(matrix.package, 'packages/') == false
+
+      - run: mix credo --config-file ../../.credo.exs
+        working-directory: ${{ matrix.package }}
+        if: startsWith(matrix.package, 'packages/')
+
+      # Known vulnerabilities in the dependency tree.
+      - run: mix deps.audit
+        working-directory: ${{ matrix.package }}
+
+      # Type errors the compiler does not see. It found a call that could never
+      # succeed — a string handed to a function that only matches a tuple —
+      # which `mix ui.spec` had been rescuing and reporting as the wrong thing.
+      - run: mix dialyzer --format short
         working-directory: ${{ matrix.package }}
 
   inventory:

@@ -255,29 +255,8 @@ defmodule LiveShadcnTools.Gen.Toast do
     """
   end
 
-  # A part whose content the recipe supplies takes a children marker; one whose
-  # content it does not takes the default upstream wrote there.
-  #
-  # The close button is the second kind. `{children ?? <XIcon />}` becomes
-  # `<%= if @inner_block == [] do %>` when the marker survives — and this
-  # component has no `inner_block`, because the toaster's slot is the toast and
-  # not the button inside it. Resolving the marker here is the same answer the
-  # fold gives a reference that wrapped nothing.
-  defp render(spec, roles, role, :default),
-    do: draw(spec, roles, role, defaulted(role.node), "")
-
   defp render(spec, roles, role, children),
     do: draw(spec, roles, role, Heex.with_children(role.node), children)
-
-  defp defaulted(%{"type" => "children"} = node), do: Map.get(node, "default") || []
-
-  defp defaulted(node) when is_map(node) do
-    Map.update(node, "children", [], fn children ->
-      children |> List.wrap() |> Enum.flat_map(&List.wrap(defaulted(&1)))
-    end)
-  end
-
-  defp defaulted(node), do: node
 
   defp draw(spec, roles, role, node, children) do
     Heex.render(node, %{

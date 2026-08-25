@@ -15,6 +15,15 @@ defmodule LiveAiElements.MixProject do
       # A recorded stream and its golden are data, not a suite to run.
       test_ignore_filters: [&String.starts_with?(&1, "test/fixtures/")],
       deps: deps(),
+      aliases: aliases(),
+      dialyzer: [
+        plt_local_path: "priv/plts",
+        plt_core_path: "priv/plts",
+        # Mix tasks call `Mix.raise/1` and `Mix.shell/0`, and ExUnit is only in
+        # the test build. Without both, dialyzer reports every one of those
+        # calls as an unknown function.
+        plt_add_apps: [:mix, :ex_unit]
+      ],
       description:
         "AI Elements for Phoenix LiveView: streaming message parts, reasoning, and tool calls.",
       package: package(),
@@ -43,7 +52,7 @@ defmodule LiveAiElements.MixProject do
       # here refuses to resolve rather than being relaxed.
       {:jason, "~> 1.4"},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false}
-    ]
+    ] ++ checks()
   end
 
   defp dep_spec(name, version) do
@@ -59,4 +68,35 @@ defmodule LiveAiElements.MixProject do
   end
 
   defp docs, do: [main: "readme", source_url: @source_url, extras: ["README.md"]]
+
+  # Static analysis. None of it ships — every entry is `runtime: false` and
+  # scoped to dev and test, so an application that depends on this package gets
+  # none of it. `.credo.exs` at the repository root says what runs, and it
+  # excludes everything the pipeline generates.
+  defp checks do
+    [
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:credo_naming, "~> 2.1", only: [:dev, :test], runtime: false},
+      # A credo plugin. It ports the high-signal `credence` rules, so it stands
+      # in for that package too.
+      {:ex_slop, "~> 0.4", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false}
+    ]
+  end
+
+  # Every check that reads the code without running it. `--config-file` points
+  # at the repository root, because five copies of a rule set is five chances
+  # for them to disagree.
+  defp aliases do
+    [
+      check: [
+        "format --check-formatted",
+        "compile --warnings-as-errors",
+        "credo --config-file ../../.credo.exs",
+        "deps.audit",
+        "dialyzer"
+      ]
+    ]
+  end
 end

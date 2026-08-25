@@ -11,11 +11,11 @@ defmodule LiveShadcnTools.Gen do
   then frozen.
   """
 
-  alias LiveShadcnTools.Gen.Dialog
-  alias LiveShadcnTools.Gen.Checkbox
-  alias LiveShadcnTools.Gen.Carousel
   alias LiveShadcnTools.Gen.Calendar
+  alias LiveShadcnTools.Gen.Carousel
   alias LiveShadcnTools.Gen.Chart
+  alias LiveShadcnTools.Gen.Checkbox
+  alias LiveShadcnTools.Gen.Dialog
   alias LiveShadcnTools.Gen.Disclosure
   alias LiveShadcnTools.Gen.FormControl
   alias LiveShadcnTools.Gen.Listbox
@@ -23,18 +23,18 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.NavigationMenu
   alias LiveShadcnTools.Gen.Pagination
   alias LiveShadcnTools.Gen.Popover
+  alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Gen.Progress
   alias LiveShadcnTools.Gen.RadioGroup
   alias LiveShadcnTools.Gen.Resizable
-  alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Gen.Scroller
   alias LiveShadcnTools.Gen.Separator
   alias LiveShadcnTools.Gen.Sidebar
   alias LiveShadcnTools.Gen.Slider
   alias LiveShadcnTools.Gen.Switch
   alias LiveShadcnTools.Gen.Tabs
-  alias LiveShadcnTools.Gen.ToggleGroup
   alias LiveShadcnTools.Gen.Toast
+  alias LiveShadcnTools.Gen.ToggleGroup
 
   @recipes %{
     "calendar" => Calendar,

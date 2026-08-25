@@ -120,7 +120,7 @@ defmodule LiveShadcnTools.Drift do
   end
 
   defp change({kind, what, names}) do
-    listed = names |> Enum.map(&shorten/1) |> Enum.join(", ")
+    listed = Enum.map_join(names, ", ", &shorten/1)
     "  - #{kind} #{plural(what, length(names))}: #{listed}"
   end
 

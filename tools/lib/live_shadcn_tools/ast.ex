@@ -127,6 +127,28 @@ defmodule LiveShadcnTools.Ast do
   end
 
   @doc """
+  An expression tuple for a fragment of source, or `nil` when it does not parse.
+
+  The reader carries expressions as `{:expr, code, node}` since the parser swap,
+  and a few places still hold one as a string — a loop body, a branch of a
+  ternary. This is the bridge, and it exists because the alternative was a
+  string reaching a function that only matches the tuple: a `FunctionClauseError`
+  that `mix ui.spec` rescued and reported as "a JSX expression it cannot turn
+  into markup", which named the wrong thing entirely.
+  """
+  def expression_of(code) when is_binary(code) do
+    wrapped = "const __x = (\n#{code}\n)"
+
+    case cached_tree(wrapped) do
+      %{"body" => [%{"declarations" => [%{"init" => init}]}]} -> {:expr, code, bare(init)}
+      _other -> nil
+    end
+  rescue
+    # Not something that parses on its own, so there is no node to carry.
+    _error -> nil
+  end
+
+  @doc """
   One JSX element, or `nil` when the source is something else.
 
   The caller sometimes has an expression that may or may not be markup — a

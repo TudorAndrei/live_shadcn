@@ -52,13 +52,13 @@ defmodule LiveShadcnTools.Cva do
   end
 
   defp value_of(node) do
-    cond do
-      literal = Ast.string_literal(node) ->
-        {:string, literal |> String.split() |> Enum.join(" ")}
-
-      true ->
+    case Ast.string_literal(node) do
+      nil ->
         {:object,
          node |> Ast.object_entries() |> Map.new(fn {name, value} -> {name, value_of(value)} end)}
+
+      literal ->
+        {:string, literal |> String.split() |> Enum.join(" ")}
     end
   end
 

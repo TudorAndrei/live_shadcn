@@ -78,6 +78,12 @@ defmodule LiveShadcn.Icon do
         :__changed__ => assigns[:__changed__]
       })
       |> put_class(assigns[:class])
+      # `apply/3` on purpose, and the arity being known is not the point.
+      # `lucide_icons` is optional — the icon set is configuration, not a
+      # dependency — so naming `Lucideicons.render/1` directly would warn at
+      # compile time in every application that chose another set. The
+      # `Code.ensure_loaded?/1` above is what decides whether this line runs.
+      # credo:disable-for-next-line Credo.Check.Refactor.Apply
       |> then(&apply(Lucideicons, :render, [&1]))
     else
       placeholder(assigns)

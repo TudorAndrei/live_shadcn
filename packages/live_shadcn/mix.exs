@@ -15,6 +15,15 @@ defmodule LiveShadcn.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      aliases: aliases(),
+      dialyzer: [
+        plt_local_path: "priv/plts",
+        plt_core_path: "priv/plts",
+        # Mix tasks call `Mix.raise/1` and `Mix.shell/0`, and ExUnit is only in
+        # the test build. Without both, dialyzer reports every one of those
+        # calls as an unknown function.
+        plt_add_apps: [:mix, :ex_unit]
+      ],
       description:
         "shadcn/ui components for Phoenix LiveView, generated from the shadcn registry.",
       package: package(),
@@ -38,9 +47,11 @@ defmodule LiveShadcn.MixProject do
       # LiveView serialises a JS command with the host application's JSON
       # library. Tests render those commands, so they need one; a host
       # application already has it.
-      {:jason, "~> 1.4", only: :test},
+      # `:dev` is here because `credo` wants it there, and a dependency cannot
+      # be scoped more narrowly than the things that depend on it.
+      {:jason, "~> 1.4", only: [:dev, :test]},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false}
-    ]
+    ] ++ checks()
   end
 
   # Hex refuses to publish a package that carries a path dependency.
@@ -74,6 +85,37 @@ defmodule LiveShadcn.MixProject do
       extras: ["README.md", "CHANGELOG.md"],
       groups_for_modules: [
         "Generated components": ~r/LiveShadcn\.UI\./
+      ]
+    ]
+  end
+
+  # Static analysis. None of it ships — every entry is `runtime: false` and
+  # scoped to dev and test, so an application that depends on this package gets
+  # none of it. `.credo.exs` at the repository root says what runs, and it
+  # excludes everything the pipeline generates.
+  defp checks do
+    [
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:credo_naming, "~> 2.1", only: [:dev, :test], runtime: false},
+      # A credo plugin. It ports the high-signal `credence` rules, so it stands
+      # in for that package too.
+      {:ex_slop, "~> 0.4", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false}
+    ]
+  end
+
+  # Every check that reads the code without running it. `--config-file` points
+  # at the repository root, because five copies of a rule set is five chances
+  # for them to disagree.
+  defp aliases do
+    [
+      check: [
+        "format --check-formatted",
+        "compile --warnings-as-errors",
+        "credo --config-file ../../.credo.exs",
+        "deps.audit",
+        "dialyzer"
       ]
     ]
   end

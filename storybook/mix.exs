@@ -13,6 +13,11 @@ defmodule Storybook.MixProject do
       start_permanent: false,
       deps: deps(),
       aliases: aliases(),
+      dialyzer: [
+        plt_local_path: "priv/plts",
+        plt_core_path: "priv/plts",
+        plt_add_apps: [:mix, :ex_unit]
+      ],
       releases: releases()
     ]
   end
@@ -47,6 +52,17 @@ defmodule Storybook.MixProject do
       {:floki, ">= 0.36.0"},
       # Not test-only: lucide_icons needs it at runtime to parse the SVGs.
       {:lazy_html, ">= 0.1.0"}
+    ] ++ checks()
+  end
+
+  # Static analysis. `.credo.exs` at the repository root says what runs.
+  defp checks do
+    [
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:credo_naming, "~> 2.1", only: [:dev, :test], runtime: false},
+      {:ex_slop, "~> 0.4", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -58,7 +74,17 @@ defmodule Storybook.MixProject do
       setup: ["deps.get", "assets.setup"],
       "assets.setup": ["cmd --cd assets npm install"],
       "assets.build": ["cmd --cd assets npm run build"],
-      "assets.deploy": ["cmd --cd assets npm run deploy", "phx.digest"]
+      "assets.deploy": ["cmd --cd assets npm run deploy", "phx.digest"],
+      # Every check that reads the code without running it. `--config-file`
+      # points at the repository root, because five copies of a rule set is five
+      # chances for them to disagree.
+      check: [
+        "format --check-formatted",
+        "compile --warnings-as-errors",
+        "credo --config-file ../.credo.exs",
+        "deps.audit",
+        "dialyzer"
+      ]
     ]
   end
 end

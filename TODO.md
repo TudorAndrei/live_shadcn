@@ -132,7 +132,8 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 
 - [x] `/docs/:component` — one page per component, replacing the flat index
 - [x] Sidebar navigation from `Examples.components/0`, built with `<.sidebar>`
-- [ ] `⌘K` search, built with `<.command>`
+- [x] `⌘K` search, built with `<.command>` in a `<.dialog>`. The server
+      filters, as `command` was generated to expect; opening costs no round trip
 - [x] A Preview / Code block per example, built with `<.tabs>`
 - [x] An Installation section — `mix ui.add <name>`
 - [x] Leave `/preview/:component/:example` byte-identical. The shell is a
@@ -172,35 +173,21 @@ check, which is what it is for.
 
 ### 10a — The sidebar's generated component drops two contracts
 
-- [ ] `sidebar_menu_button` declares a `tooltip` attribute and renders nothing
-      for it. Upstream wraps the button in a `<Tooltip>`. This is the
-      "recipes have to compose" problem in `PLAN.md` phase 6a
-- [ ] `is_active` styles nothing. Upstream passes Base UI `useRender` a
-      `state: {active: isActive}`, which becomes `data-active`; the reader
-      reads the literal keys of that object and drops the one whose value is a
-      prop. Parity reports it exactly: `background-color — React oklch(0.97 0
-      0), Phoenix rgba(0, 0, 0, 0)`, plus `color` and `font-weight`
-- [ ] `sidebar / default` parity stays red until the second one is fixed. The
-      example keeps `is_active` on purpose — a reference that dropped it would
-      hide the defect, which is the one thing `parity/README.md` forbids
+- [x] `sidebar_menu_button` renders its tooltip
+- [x] `is_active` emits `data-active`. `ast.ex` read only `state.slot` and
+      dropped every other key
+- [x] `sidebar / default` parity passes
 
 ### 10b — `navigation-menu` lost its anatomy
 
-- [ ] Restore it. `8f36383` deleted the 141-line `navigation_menu` recipe as
-      unused, because `registry/INVENTORY.json` points the component at `menu`.
-      That inventory entry is the bug: rendered through `menu` it loses its
-      `<nav>` root, its list, its items, its viewport, its content element and
-      **the caller's content**, and becomes a `role="menu"` with `Roving`
-- [ ] Its committed snapshot is the old, correct markup, so
-      `mix snapshot --check` is red for it. Left red on purpose: regenerating
-      would record the regression as expected output
+- [x] Restored, and not as it was: the old recipe was a hand-written template
+      with eight retyped `cn-` strings. The new one assembles the parts and
+      describes none of them. The inventory points at it now
+- [x] Snapshot regenerated; axe clean; `mix snapshot --check` green
 
 ### 10c — The browser suite silently uses a foreign server
 
-- [ ] `playwright.config.mjs` sets `reuseExistingServer: !CI`, so anything
-      already listening on 4101 is used as the storybook. An unrelated
-      container answering `401` there made every parity test report the
-      component as missing rather than as different
-- [ ] Make the harness check that the server on the port is ours — a
-      `/previews.json` probe would do it — or fail rather than reuse
-- [ ] `STORYBOOK_PORT=4111` is the workaround in the meantime
+- [x] `test/browser/servers.mjs` probes each occupied port for a page only our
+      own server serves, and refuses before a test runs
+- [x] The failure names the port and the override, rather than arriving as
+      sixty confusing test failures

@@ -1152,7 +1152,7 @@ defmodule LiveShadcnTools.Spec do
     trimmed = String.trim(code)
 
     case Ast.parse_jsx(trimmed) do
-      nil -> expression(trimmed, ctx)
+      nil -> markup(expression_tuple!(trimmed), ctx)
       parsed -> node(parsed, ctx)
     end
   end
@@ -1161,6 +1161,19 @@ defmodule LiveShadcnTools.Spec do
     case Ast.jsx(expression) do
       nil -> expression(expression, ctx)
       parsed -> node(parsed, ctx)
+    end
+  end
+
+  # `expression/2` takes `{:expr, code, node}` since the parser swap, and this
+  # is one of the two places that still held an expression as a string. It used
+  # to hand the string straight over, which matched no clause — a
+  # `FunctionClauseError` that `mix ui.spec` rescued and reported as "a JSX
+  # expression it cannot turn into markup". The component was named, the reason
+  # was not, and dialyzer is what found it.
+  defp expression_tuple!(code) do
+    case Ast.expression_of(code) do
+      nil -> raise "the spec reader cannot parse #{inspect(String.slice(code, 0, 60))}"
+      expression -> expression
     end
   end
 
@@ -1298,28 +1311,31 @@ defmodule LiveShadcnTools.Spec do
   }
 
   defp external_primitive(tag, ctx) do
-    with package when is_binary(package) <- third_party(tag, ctx) do
-      case get_in(@external_primitives, [package, tag]) do
-        {part, nil} ->
-          %{
-            "type" => "transparent",
-            "part" => part,
-            "reason" => "an external primitive that renders nothing"
-          }
+    case third_party(tag, ctx) do
+      package when is_binary(package) -> external_part(package, tag)
+      _not_third_party -> nil
+    end
+  end
 
-        {part, element} when is_binary(element) ->
-          %{
-            "type" => "primitive",
-            "module" => "external/#{package}",
-            "part" => part,
-            "tag" => element
-          }
+  defp external_part(package, tag) do
+    case get_in(@external_primitives, [package, tag]) do
+      {part, nil} ->
+        %{
+          "type" => "transparent",
+          "part" => part,
+          "reason" => "an external primitive that renders nothing"
+        }
 
-        _ ->
-          nil
-      end
-    else
-      _ -> nil
+      {part, element} when is_binary(element) ->
+        %{
+          "type" => "primitive",
+          "module" => "external/#{package}",
+          "part" => part,
+          "tag" => element
+        }
+
+      _unmapped ->
+        nil
     end
   end
 
