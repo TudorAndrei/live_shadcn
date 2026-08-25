@@ -268,16 +268,62 @@ it or hide behind it. The build says which library moved.
 
 ### Phase 3: A fold that carries behaviour, not only markup
 
-The decision [ROADMAP.md](ROADMAP.md) records under M4 and nobody has made: a
+The decision [ROADMAP.md](ROADMAP.md) records under M4 and nobody had made: a
 component built out of behaving components needs the **recipes** to compose, not
-the markup. Three components, one decision.
+the markup. Three components — and they turned out to be three different faults,
+not one, which is why none of them needed a composable recipe layer.
 
-- `attachments` folds `shadcn/hover-card`: the positioner's props have to reach
-  the popover recipe rather than land on an element as attributes
-- `plan` folds `shadcn/collapsible` and `shadcn/card`: the disclosure recipe
-  puts its trigger inside a `<button>` the card has already opened
-- `environment-variables` folds `shadcn/switch`: the toggle loses `role`,
-  `tabindex` and `aria-checked`, which axe reports and is right to
+**`plan` was a reader bug.** Upstream writes `<CollapsibleTrigger asChild>` and
+`<CollapsibleContent asChild>`; `asChild` is shadcn's spelling of Base UI's
+`render` prop, and it says the element and the one inside it are **one**
+element. The reader knew the Base UI name and not this one, so it deleted the
+word as a React prop and kept the nesting. That one fault produced every
+symptom: a `<button>` inside a `<button>`, a `plan_content` that was an empty
+`<div>` beside the content it was meant to hold, and `trigger_class` merged onto
+the wrong element. `checkpoint` and `mic-selector` each had a nested button from
+the same cause.
+
+The outer element keeps its identity — a recipe finds its trigger by the Base UI
+part that element draws — and everything a reader sees comes from the inner one.
+`ref` went with it: React's handle on a DOM node, written out as an HTML
+attribute.
+
+**`attachments` was `menubar`, one registry over.** Its three hover-card parts
+are wrappers that add two defaults and a class string between them.
+`presentational` already refuses to write a wrapper around a component whose
+recipe folds — `menubar` exports thirteen of them — because those parts have to
+agree about one id and no single part can be named. The only new thing here is
+that the component to compose lives in the other package, where it is the
+application's own copy. So the fold refuses, the part is dropped, and the
+moduledoc says what to compose. `LiveShadcnTools.carries?/2` is the table that
+decides it: a component *is* what it folds when its recipe carries that
+behaviour — `task` and `plan` are collapsibles, `mic-selector` is a listbox drawn
+inside a popover.
+
+Three broken functions are gone, one of which wrote `align`, `alignOffset` and
+`sideOffset` as HTML attributes on a `<div>` and self-closed the popup. A caller
+who called it got a broken page; a caller who cannot find it reads one sentence
+and composes `<.hover_card>`.
+
+**`environment-variables` is the one that needed a recipe to reach a fold**, and
+it needed no layer either. The switch recipe's contract is attributes — `role`,
+`tabindex`, `aria-checked`, `data-checked` — and the `clipboard` recipe writes
+them over the folded markup with `Tree.put_attrs_at_slot/3`, which is how the
+switch recipe already decorates its own thumb. Not shadcn's behaviour, which
+toggles a hidden input on the client: this switch reveals a secret, so it pushes
+`on_toggle` and the server answers, which is the trade phase 1 stated.
+
+`showValues` is a `:boolean` now rather than a `:string` holding a yes-or-no. A
+field read off a React context is a prop — phase 1a decided that — and its
+**type** is in the context's own interface, which the reader now reads through
+`createContext<T>`. It read type aliases and not interfaces, so every
+`interface Ctx { … }` in either registry was a definition nobody had.
+
+**What this phase did not answer.** A behaving component referenced from inside
+a bigger tree still folds as markup: `checkpoint` renders a tooltip no recipe
+writes behaviour for, and `context` does the same. Neither is a wrapper, so
+neither is dropped, and the honest fix is the composition layer this phase found
+it did not need three times. Recorded rather than half-built.
 
 **Commit:** `fix(ai-elements): a fold carries the recipe, not only the markup`
 

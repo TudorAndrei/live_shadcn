@@ -66,7 +66,7 @@ defmodule LiveAiElements.Components.MicSelector do
     values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
   )
 
-  attr(:width, :string, default: nil)
+  attr(:width, :any, default: nil)
   attr(:rest, :global)
 
   slot :option, doc: "One value to choose." do

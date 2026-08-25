@@ -55,8 +55,15 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
   end
 
   @doc "The `environment_variables_toggle` part."
-  attr(:show_values, :string, default: nil)
+  attr(:show_values, :boolean, default: nil)
   attr(:size, :string, default: "default")
+
+  attr(:on_toggle, :any,
+    default: nil,
+    doc:
+      "Pushed when the switch is flipped. The server owns `show_values`, because the value it reveals is a secret."
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -69,10 +76,17 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
         <LiveShadcn.Icon.icon :if={!@show_values} name="eye-off" />
       </span>
       <span
+        role="switch"
+        tabindex="0"
+        aria-checked={to_string(@show_values == true)}
+        phx-click={@on_toggle}
+        phx-keydown={@on_toggle}
+        phx-key=" "
+        data-checked={@show_values == true}
+        data-unchecked={@show_values != true}
         data-slot={@rest[:"data-slot"] || "switch"}
         data-size={@size}
         aria-label="Toggle value visibility"
-        checked={@show_values}
         class={[
           "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
           @class
@@ -80,6 +94,8 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
         {Map.drop(@rest, [:"data-slot"])}
       >
         <span
+          data-checked={@show_values == true}
+          data-unchecked={@show_values != true}
           data-slot="switch-thumb"
           class="cn-switch-thumb pointer-events-none block ring-0 transition-transform"
         />
@@ -136,7 +152,7 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
 
   @doc "The `environment_variable_value` part."
   attr(:display_value, :string, default: nil)
-  attr(:show_values, :string, default: nil)
+  attr(:show_values, :boolean, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)

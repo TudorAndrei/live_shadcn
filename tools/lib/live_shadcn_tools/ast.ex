@@ -56,11 +56,14 @@ defmodule LiveShadcnTools.Ast do
     } = tree!(source)
 
     type_definitions = type_definitions(program)
+    context_types = context_types(program, type_definitions)
 
     read =
       program
       |> declarations()
-      |> Enum.map(&declaration(&1, source, type_definitions, parameter_references))
+      |> Enum.map(
+        &declaration(&1, source, {type_definitions, context_types}, parameter_references)
+      )
       |> resolve_aliases()
 
     %{
@@ -787,14 +790,27 @@ defmodule LiveShadcnTools.Ast do
 
   defp unwrap(node), do: node
 
-  defp function(name, params, body, source, type_definitions, parameter_references) do
+  defp function(
+         name,
+         params,
+         body,
+         source,
+         {type_definitions, context_types},
+         parameter_references
+       ) do
     signature = List.first(params) || %{}
 
     %{
       name: name,
       props_type: type_name(signature["typeAnnotation"]),
       params: props(signature, body, source),
-      param_types: prop_types(signature, type_definitions),
+      # What the component destructured wins: it wrote the type itself, and a
+      # context it reads from is a second opinion about the same name.
+      param_types:
+        Map.merge(
+          context_field_types(body, context_types),
+          prop_types(signature, type_definitions)
+        ),
       refs: parameter_references(body, parameter_references),
       renames: renames(signature),
       locals: locals(body, source),
@@ -821,10 +837,12 @@ defmodule LiveShadcnTools.Ast do
   defp type_definitions(program) do
     for declaration <- program["body"],
         declaration <- [Map.get(declaration, "declaration", declaration)],
-        %{"type" => type, "id" => %{"name" => name}, "typeAnnotation" => annotation} <- [
-          declaration
-        ],
+        %{"type" => type, "id" => %{"name" => name}} = declaration <- [declaration],
         type in ~w(TSTypeAliasDeclaration TSInterfaceDeclaration),
+        # An alias says what it is under `typeAnnotation`; an interface writes
+        # its members under `body` instead. Read for the alias alone, every
+        # `interface Ctx { … }` in the registry was a definition nobody had.
+        annotation = declaration["typeAnnotation"] || declaration["body"],
         into: %{},
         do: {name, annotation}
   end
@@ -1031,6 +1049,63 @@ defmodule LiveShadcnTools.Ast do
     do: fields(annotation, definitions)
 
   defp prop_types(_signature, _definitions), do: %{}
+
+  # What each React context in the file holds, by the name it was bound to.
+  #
+  #     const EnvironmentVariablesContext =
+  #       createContext<EnvironmentVariablesContextType>({ … })
+  #
+  # A field read off a context is a prop here — phase 1a decided that — and this
+  # is where its type comes from. Without it `showValues` is a `:string` holding
+  # a yes-or-no, which every `:if` that reads it treats as true.
+  defp context_types(program, definitions) do
+    for declaration <- program["body"],
+        declaration <- [Map.get(declaration, "declaration", declaration)],
+        is_map(declaration),
+        declaration["type"] == "VariableDeclaration",
+        %{"id" => %{"type" => "Identifier", "name" => name}, "init" => init} <-
+          declaration["declarations"],
+        is_map(init),
+        held = created_context(bare(init), definitions),
+        into: %{},
+        do: {name, held}
+  end
+
+  defp created_context(
+         %{"type" => "CallExpression", "callee" => %{"name" => "createContext"}} = call,
+         definitions
+       ) do
+    case get_in(call, ["typeArguments", "params"]) do
+      [annotation | _rest] -> fields(annotation, definitions)
+      _none -> nil
+    end
+  end
+
+  defp created_context(_init, _definitions), do: nil
+
+  # The fields this component destructured off a context, with the type the
+  # context says each one holds.
+  #
+  #     const { showValues, setShowValues } = useContext(EnvironmentVariablesContext)
+  defp context_field_types(body, context_types) do
+    for %{"type" => "VariableDeclaration", "declarations" => declarations} <- statements(body),
+        %{"id" => %{"type" => "ObjectPattern", "properties" => properties}, "init" => init} <-
+          declarations,
+        held = context_types[read_context(bare(init))],
+        %{"key" => %{"name" => field}} <- properties,
+        type = held[field],
+        into: %{},
+        do: {field, type}
+  end
+
+  defp read_context(%{
+         "type" => "CallExpression",
+         "callee" => %{"name" => "useContext"},
+         "arguments" => [%{"type" => "Identifier", "name" => name} | _rest]
+       }),
+       do: name
+
+  defp read_context(_init), do: nil
 
   defp fields(%{"type" => "TSTypeLiteral", "members" => members}, definitions) do
     for %{

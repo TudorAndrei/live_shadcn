@@ -66,12 +66,19 @@ generator can only render a choice the **server** decides.
 
 ## Phase 3: A fold that carries behaviour, not only markup
 
-- [ ] `attachments` — `align` and `side` reach the popover recipe instead of
-      landing on an element as attributes (`attachments.ex:186`)
-- [ ] `plan` — no `<button>` inside a `<button>`
-- [ ] `environment-variables` — the toggle has `role="switch"`, `tabindex` and
-      `aria-checked`, and is the switch phase 1 kept rather than a bare toggle
-- [ ] axe is clean on all three preview pages
+- [x] `attachments` — the three hover-card wrappers are dropped rather than
+      folded, and the moduledoc says to compose `<.hover_card>`. A wrapper
+      around a component whose recipe folds has nothing to wrap, which is what
+      `menubar` already says; `LiveShadcnTools.carries?/2` decides it
+- [x] `plan` — no `<button>` inside a `<button>`. `asChild` is one element, and
+      the reader knew the fact under Base UI's name for it. `checkpoint` and
+      `mic-selector` had the same nesting from the same cause
+- [x] `environment-variables` — the toggle has `role="switch"`, `tabindex` and
+      `aria-checked`, and pushes `on_toggle`, because the value it reveals is a
+      secret and the server owns it
+- [x] `show_values` is a `:boolean`: a context field's type is in the context's
+      interface, and the reader read type aliases but not interfaces
+- [ ] axe is clean on all three preview pages — needs the examples phase 4 adds
 - [ ] Commit: `fix(ai-elements): a fold carries the recipe, not only the markup`
 
 ## Phase 4: An example for the three that have none

@@ -64,7 +64,16 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {
+        "maxTokens": {
+          "optional": false,
+          "type": "number"
+        },
+        "usedTokens": {
+          "optional": false,
+          "type": "number"
+        }
+      }
     },
     {
       "contexts": [],

@@ -388,7 +388,12 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {
+        "showValues": {
+          "optional": false,
+          "type": "boolean"
+        }
+      }
     },
     {
       "contexts": [],
@@ -572,7 +577,12 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {
+        "showValues": {
+          "optional": false,
+          "type": "boolean"
+        }
+      }
     },
     {
       "contexts": [],

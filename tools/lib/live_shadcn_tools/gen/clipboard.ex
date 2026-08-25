@@ -39,6 +39,7 @@ defmodule LiveShadcnTools.Gen.Clipboard do
   """
 
   alias LiveShadcnTools.Gen.Presentational
+  alias LiveShadcnTools.Gen.Tree
   alias LiveShadcnTools.Spec
 
   # `useState(false)`: the browser starts in the `else` branch, and the `then`
@@ -70,14 +71,70 @@ defmodule LiveShadcnTools.Gen.Clipboard do
     part = copy_button!(spec)
     copies = Map.fetch!(@copies, spec["name"])
 
-    Presentational.module(
-      spec,
+    spec
+    |> switch(spec["name"])
+    |> Presentational.module(
       opts
-      |> Keyword.put(:declare, %{part["name"] => declarations(copies)})
+      |> Keyword.put(:declare, declared(spec, part, copies))
       |> Keyword.put(:attrs, %{Spec.key(part["tree"]) => attributes(copies)})
       |> Keyword.put(:client_state, %{"isCopied" => @state})
     )
   end
+
+  # `environment-variables` folds `shadcn/switch`, and a fold copies markup
+  # rather than behaviour: what arrived was a `<span>` with the switch's class
+  # string, React's `checked` prop written out as an HTML attribute, and no
+  # `role`, no `tabindex` and no `aria-checked`. axe reports that, and is right
+  # to — a span nobody can reach is not a switch.
+  #
+  # So the recipe writes the switch's contract over the folded markup. Not the
+  # shadcn switch's own behaviour, which toggles a hidden input on the client:
+  # this one reveals a secret, so it asks the server, which is the trade phase 1
+  # stated. The switch recipe's attributes and this recipe's event are the same
+  # contract read from two sides.
+  defp switch(spec, "environment-variables") do
+    spec
+    # React's prop, not markup. A `<span>` has no `checked`.
+    |> Tree.drop_attr_at_slot("switch", "checked")
+    |> Tree.put_attrs_at_slot("switch", [
+      {"role", :text, "switch"},
+      {"tabindex", :text, "0"},
+      # A word, not a presence: Tailwind compiles `aria-checked:` to
+      # `[aria-checked="true"]`, and ARIA defines no empty value.
+      {"aria-checked", :code, "to_string(@show_values == true)"},
+      {"phx-click", :code, "@on_toggle"},
+      # A switch answers the space bar wherever it is drawn, and this one is
+      # drawn as a `<span>` — the element shadcn's class string is written for.
+      {"phx-keydown", :code, "@on_toggle"},
+      {"phx-key", :text, " "},
+      {"data-checked", :code, "@show_values == true"},
+      {"data-unchecked", :code, "@show_values != true"}
+    ])
+    |> Tree.put_attrs_at_slot("switch-thumb", [
+      {"data-checked", :code, "@show_values == true"},
+      {"data-unchecked", :code, "@show_values != true"}
+    ])
+  end
+
+  defp switch(spec, _name), do: spec
+
+  # What the caller has to supply that upstream never destructured.
+  defp declared(spec, part, copies) do
+    %{part["name"] => declarations(copies)}
+    |> Map.merge(toggle_declaration(spec["name"]))
+  end
+
+  defp toggle_declaration("environment-variables") do
+    %{
+      "environment_variables_toggle" => [
+        ~s|attr :on_toggle, :any,| <>
+          ~s| default: nil,| <>
+          ~s| doc: "Pushed when the switch is flipped. The server owns `show_values`, because the value it reveals is a secret."|
+      ]
+    }
+  end
+
+  defp toggle_declaration(_name), do: %{}
 
   @doc """
   The state the client owns, named on both sides of the choice.

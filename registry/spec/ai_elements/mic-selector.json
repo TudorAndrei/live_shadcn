@@ -371,7 +371,12 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {
+        "width": {
+          "optional": false,
+          "type": "number"
+        }
+      }
     },
     {
       "contexts": [],

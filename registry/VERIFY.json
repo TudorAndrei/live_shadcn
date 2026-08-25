@@ -1118,7 +1118,7 @@
       }
     },
     "pass": false,
-    "spec": "abff28dd6c6580c8e0df5f46c0a78a5305cb726b04d7570005797d5d85dca7fb"
+    "spec": "728f17c6a3960fa5240e114ea8d1a015a502b1414557078743f7ac11bd5f2249"
   },
   "shadcn/switch": {
     "checks": {
@@ -1164,7 +1164,7 @@
       }
     },
     "pass": false,
-    "spec": "d0243e87f8fa6772f9ab49a250cf1a64fceaacb71cc4c4f27cb4bbe792a79366"
+    "spec": "b93af59493b11c50a6382433b867f17f0f24faa004a4be283d711ebf27c49620"
   },
   "shadcn/label": {
     "checks": {
