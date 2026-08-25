@@ -16,7 +16,11 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 
-import { collect, compare, PROPERTIES } from "./measure.mjs";
+import { collect, compare, describeRow, outline, PROPERTIES } from "./measure.mjs";
+
+// Enough of a tree to find a difference in, and not so much that the report
+// becomes the thing nobody reads.
+const OUTLINE_ROWS = 400;
 
 const here = dirname(fileURLToPath(import.meta.url));
 const only = process.env.PREVIEW_COMPONENT;
@@ -68,12 +72,109 @@ for (const { component, example } of pages) {
 
     await page.goto(`${parity}/preview/${component}/${example}`);
     const react = await measured(page, selector);
+    const reactTree = await page.evaluate(outline, { selector, limit: OUTLINE_ROWS });
 
     await page.goto(`/preview/${component}/${example}`);
     const phoenix = await measured(page, selector);
+    const phoenixTree = await page.evaluate(outline, { selector, limit: OUTLINE_ROWS });
 
-    expect(described(compare(react, phoenix))).toEqual([]);
+    const differences = described(compare(react, phoenix));
+    let where;
+
+    // Only on a failure. A passing example has nothing to explain, and 66 of
+    // these attached to every green run is a way of hiding the six that are not.
+    if (differences.length > 0) {
+      where = divergence(reactTree, phoenixTree);
+
+      await testInfo.attach("outline-react.txt", {
+        body: reactTree.map(describeRow).join("\n"),
+        contentType: "text/plain",
+      });
+      await testInfo.attach("outline-phoenix.txt", {
+        body: phoenixTree.map(describeRow).join("\n"),
+        contentType: "text/plain",
+      });
+    }
+
+    expect(differences, where).toEqual([]);
   });
+}
+
+// The rows where the two trees stop agreeing.
+//
+// `width — React 157.2, Phoenix 165.7` says a component is 8.5px too wide and
+// stops there. This says which element is, and the text and class string it
+// carries — which is usually the whole diagnosis. The full trees are attached;
+// this is the part that belongs in the failure itself.
+//
+// Aligning by row number does not work: one side having two `sr-only` headings
+// the other has not shifts every row after them, and then everything differs.
+// So the trees are aligned on position-and-tag first, and only the rows that
+// pair up are compared.
+function divergence(react, phoenix, rows = 6) {
+  const shown = [];
+
+  for (const [left, right] of align(react, phoenix)) {
+    if (shown.length >= rows) break;
+
+    if (!left || !right) {
+      shown.push(`  React   ${describeRow(left)}\n  Phoenix ${describeRow(right)}`);
+      continue;
+    }
+
+    const why = [
+      left.tag !== right.tag && `tag <${left.tag}> → <${right.tag}>`,
+      Math.abs(left.width - right.width) > 0.5 && `width ${left.width} → ${right.width}`,
+      Math.abs(left.height - right.height) > 0.5 && `height ${left.height} → ${right.height}`,
+      left.text !== right.text && `text ${JSON.stringify(left.text)} → ${JSON.stringify(right.text)}`,
+      left.class !== right.class && "class",
+    ].filter(Boolean);
+
+    if (why.length === 0) continue;
+
+    shown.push(`  React   ${describeRow(left)}\n  Phoenix ${describeRow(right)}\n  ← ${why.join(", ")}`);
+  }
+
+  if (shown.length === 0) return "the element trees agree; the difference is in a computed style";
+
+  return `where the two trees differ (full trees attached):\n${shown.join("\n\n")}`;
+}
+
+// Longest common subsequence over "where in the tree, and which part" — so an
+// element only one side draws is reported as exactly that, rather than as every
+// row after it being wrong.
+//
+// A `data-slot` identifies a part across both renderers, so where there is one
+// it outranks the tag: React's calendar root is a `<div>` and the generated one
+// is a `<section>`, and those are the same part drawn differently rather than
+// two elements neither side shares.
+function align(react, phoenix) {
+  const key = (row) => `${row.depth}/${row.slot || row.tag}`;
+  const lengths = Array.from({ length: react.length + 1 }, () => new Array(phoenix.length + 1).fill(0));
+
+  for (let a = react.length - 1; a >= 0; a--) {
+    for (let b = phoenix.length - 1; b >= 0; b--) {
+      lengths[a][b] =
+        key(react[a]) === key(phoenix[b])
+          ? lengths[a + 1][b + 1] + 1
+          : Math.max(lengths[a + 1][b], lengths[a][b + 1]);
+    }
+  }
+
+  const pairs = [];
+  let a = 0;
+  let b = 0;
+
+  while (a < react.length && b < phoenix.length) {
+    if (key(react[a]) === key(phoenix[b])) pairs.push([react[a++], phoenix[b++]]);
+    else if (lengths[a + 1][b] >= lengths[a][b + 1]) pairs.push([react[a++], null]);
+    else pairs.push([null, phoenix[b++]]);
+  }
+
+  while (a < react.length) pairs.push([react[a++], null]);
+  while (b < phoenix.length) pairs.push([null, phoenix[b++]]);
+
+  return pairs;
 }
 
 // Visible is not finished.

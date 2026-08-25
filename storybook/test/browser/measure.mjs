@@ -132,6 +132,82 @@ export function collect({ selector, properties }) {
   };
 }
 
+// Every element, not only the ones wearing a `data-slot`.
+//
+// `collect` compares the vocabulary the two renderers share, and that
+// vocabulary can be very small: a calendar carries exactly one `data-slot`,
+// because `<DayPicker>` draws a whole month grid behind it. So a real
+// difference — seven weekday headings reading `Sun` where React reads `Su` —
+// arrives as `width — React 157.2, Phoenix 165.7` and names nothing.
+//
+// This is not a second check. It runs only when a comparison has already
+// failed, and it exists to answer the next question a person asks: *where*.
+export function outline({ selector, limit }) {
+  const root = document.querySelector(selector);
+  if (!root) return [];
+
+  const rows = [];
+  const round = (n) => Math.round(n * 100) / 100;
+
+  const walk = (element, depth) => {
+    if (rows.length >= limit) return;
+
+    const box = element.getBoundingClientRect();
+
+    // What a reader cannot see is not part of what the two renderers draw.
+    // `collect` skips `hidden` for the same reason; this adds the other way a
+    // page hides something, which is the preview page's own `sr-only` headings
+    // — chrome that belongs to the fixture rather than to the component, and
+    // that would otherwise head every report of every failing example.
+    if (element.hidden || screenReaderOnly(element, box)) return;
+
+    rows.push({
+      depth,
+      tag: element.tagName.toLowerCase(),
+      slot: element.getAttribute("data-slot") || "",
+      width: round(box.width),
+      height: round(box.height),
+      // Leaf text only. An ancestor's `textContent` is every descendant's, and
+      // repeating it on the way down buries the row that actually holds it.
+      text: element.children.length === 0 ? element.textContent.trim().slice(0, 40) : "",
+      class: element.getAttribute("class") || "",
+    });
+
+    for (const child of element.children) walk(child, depth + 1);
+  };
+
+  // Clipped to nothing, in a box no bigger than a pixel. That is what every
+  // `sr-only` utility comes down to, whichever of the two spellings it uses.
+  function screenReaderOnly(element, box) {
+    if (box.width > 1 || box.height > 1) return false;
+
+    const style = getComputedStyle(element);
+
+    return (
+      style.position === "absolute" &&
+      (style.clipPath === "inset(50%)" || style.clip === "rect(0px, 0px, 0px, 0px)")
+    );
+  }
+
+  walk(root, 0);
+  return rows;
+}
+
+/** One outline row as a line of text. */
+export function describeRow(row) {
+  if (!row) return "<nothing>";
+
+  return [
+    "  ".repeat(row.depth) + row.tag,
+    `${row.width}x${row.height}`,
+    row.slot && `[${row.slot}]`,
+    row.text && JSON.stringify(row.text),
+    row.class,
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
 // Half a pixel. Text rendering puts a box at 61.328125 on one side and 61.33 on
 // the other, and a report that said so would bury the difference that matters.
 const TOLERANCE = 0.5;
