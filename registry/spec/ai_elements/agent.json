@@ -1,0 +1,990 @@
+{
+  "anatomy": [],
+  "css_vars": [
+    "--accordion-panel-height",
+    "--accordion-panel-width"
+  ],
+  "folds": [
+    "shadcn/accordion",
+    "shadcn/badge"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "agent",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "Agent",
+      "name": "agent",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "not-prose w-full rounded-md border",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AgentHeader",
+      "name": "agent_header",
+      "params": {
+        "className": null,
+        "model": null,
+        "name": null,
+        "render": null,
+        "variant": "secondary"
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "name",
+        "model"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4 text-muted-foreground",
+                "class_when": [],
+                "icons": {
+                  "lucide": "BotIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "name",
+                    "identifiers": [
+                      "name"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "font-medium text-sm",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "children": [
+                  {
+                    "attrs": [
+                      {
+                        "identifiers": [
+                          "variant"
+                        ],
+                        "kind": "code",
+                        "name": "data-variant",
+                        "value": "variant"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "code": "model",
+                        "identifiers": [
+                          "model"
+                        ],
+                        "type": "value"
+                      }
+                    ],
+                    "class": "font-mono text-xs",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": true,
+                    "reads": {
+                      "group": [],
+                      "self": [
+                        {
+                          "name": "aria-invalid",
+                          "value": null
+                        }
+                      ]
+                    },
+                    "render_as": null,
+                    "slot": "badge",
+                    "tag": "span",
+                    "type": "element",
+                    "variant_calls": [
+                      {
+                        "args": [
+                          "variant"
+                        ],
+                        "table": "badgeVariants"
+                      }
+                    ],
+                    "vars": []
+                  }
+                ],
+                "identifiers": [
+                  "model"
+                ],
+                "type": "optional",
+                "when": "model"
+              }
+            ],
+            "class": "flex items-center gap-2",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "flex w-full items-center justify-between gap-4 p-3",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AgentContent",
+      "name": "agent_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "space-y-4 p-4 pt-0",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AgentInstructions",
+      "name": "agent_instructions",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "Instructions"
+              }
+            ],
+            "class": "font-medium text-muted-foreground text-sm",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "children"
+                  }
+                ],
+                "class": "",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "p",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "rounded-md bg-muted/50 p-3 text-muted-foreground text-sm",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "space-y-2",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AgentTools",
+      "name": "agent_tools",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "Tools"
+              }
+            ],
+            "class": "font-medium text-muted-foreground text-sm",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [],
+            "class": "cn-accordion flex w-full flex-col rounded-md border",
+            "class_when": [],
+            "merges_class": false,
+            "module": "accordion",
+            "part": "Root",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "accordion",
+            "tag": "div",
+            "type": "primitive",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "space-y-2",
+        "class_when": [],
+        "merges_class": true,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AgentTool",
+      "name": "agent_tool",
+      "params": {
+        "className": null,
+        "schema": null,
+        "tool": null,
+        "value": null
+      },
+      "primitive": null,
+      "refs": [
+        "tool",
+        "className",
+        "value",
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "value"
+            ],
+            "kind": "code",
+            "name": "value",
+            "value": "value"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "code": "tool.description ?? \"No description\"",
+                "identifiers": [
+                  "tool"
+                ],
+                "member_roots": [
+                  "tool"
+                ],
+                "type": "value"
+              }
+            ],
+            "class": "px-3 py-2 text-sm hover:no-underline",
+            "class_when": [],
+            "component": "accordion",
+            "function": "accordion_trigger",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "h3",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [
+                      {
+                        "identifiers": [
+                          "JSON",
+                          "schema"
+                        ],
+                        "kind": "code",
+                        "member_roots": [
+                          "JSON"
+                        ],
+                        "name": "code",
+                        "value": "JSON.stringify(schema, null, 2)"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "language",
+                        "value": "json"
+                      }
+                    ],
+                    "children": [],
+                    "class": "",
+                    "class_when": [],
+                    "component": "code-block",
+                    "function": "code_block",
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "recipe": "presentational",
+                    "render_as": null,
+                    "slot": null,
+                    "source": "ai_elements",
+                    "tag": null,
+                    "type": "component_ref",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "class": "rounded-md bg-muted/50",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "px-3 pb-3",
+            "class_when": [],
+            "component": "accordion",
+            "function": "accordion_content",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "div",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "border-b last:border-b-0",
+        "class_when": [],
+        "component": "accordion",
+        "function": "accordion_item",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "recipe": "disclosure",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": "div",
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AgentOutput",
+      "name": "agent_output",
+      "params": {
+        "className": null,
+        "schema": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "schema"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "Output Schema"
+              }
+            ],
+            "class": "font-medium text-muted-foreground text-sm",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [
+                  {
+                    "identifiers": [
+                      "schema"
+                    ],
+                    "kind": "code",
+                    "name": "code",
+                    "value": "schema"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "language",
+                    "value": "typescript"
+                  }
+                ],
+                "children": [],
+                "class": "",
+                "class_when": [],
+                "component": "code-block",
+                "function": "code_block",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "recipe": "presentational",
+                "render_as": null,
+                "slot": null,
+                "source": "ai_elements",
+                "tag": null,
+                "type": "component_ref",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "rounded-md bg-muted/50",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "space-y-2",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    }
+  ],
+  "primitives": {
+    "accordion.Header": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-disabled",
+        "data-index"
+      ],
+      "element": "h3",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "((state: Accordion.Header.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Accordion.Header.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Accordion.Header.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A heading that labels the corresponding panel."
+    },
+    "accordion.Item": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-disabled",
+        "data-index"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "A unique value that identifies this accordion item. If no value is provided, a unique ID will be generated automatically. Use when controlling the accordion programmatically, or to set an initial open state.",
+          "name": "value",
+          "type": "any"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called when the panel is opened or closed.",
+          "name": "onOpenChange",
+          "type": "((open: boolean, eventDetails: Accordion.Item.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Accordion.Item.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Accordion.Item.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Accordion.Item.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Groups an accordion header with the corresponding panel."
+    },
+    "accordion.Panel": {
+      "css_vars": [
+        "--accordion-panel-height",
+        "--accordion-panel-width"
+      ],
+      "data": [
+        "data-open",
+        "data-orientation",
+        "data-disabled",
+        "data-index",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
+          "name": "hiddenUntilFound",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Accordion.Panel.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Accordion.Panel.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the element in the DOM while the panel is closed. This prop is ignored when `hiddenUntilFound` is used.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: Accordion.Panel.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A collapsible panel with the accordion item contents."
+    },
+    "accordion.Root": {
+      "css_vars": [],
+      "data": [
+        "data-orientation",
+        "data-disabled"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": null,
+          "doc": "The uncontrolled value of the item(s) that should be initially expanded. To render a controlled accordion, use the `value` prop instead.",
+          "name": "defaultValue",
+          "type": "Value[]"
+        },
+        {
+          "default": null,
+          "doc": "The controlled value of the item(s) that should be expanded. To render an uncontrolled accordion, use the `defaultValue` prop instead.",
+          "name": "value",
+          "type": "Value[]"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called when an accordion item is expanded or collapsed. Provides the new value as an argument.",
+          "name": "onValueChange",
+          "type": "((value: Value[], eventDetails: Accordion.Root.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "false",
+          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
+          "name": "hiddenUntilFound",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Deprecated following the [APG guidance update](https://github.com/w3c/aria-practices/pull/3434) to remove roving focus. This prop no longer affects keyboard focus behavior.",
+          "name": "loopFocus",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "Whether multiple items can be open at the same time.",
+          "name": "multiple",
+          "type": "boolean"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "'vertical'",
+          "doc": "Deprecated following the [APG guidance update](https://github.com/w3c/aria-practices/pull/3434) to remove roving focus. This prop no longer affects keyboard focus behavior.",
+          "name": "orientation",
+          "type": "Orientation"
+        },
+        {
+          "default": "((state: Accordion.Root.State<Value>) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Accordion.Root.State<Value>) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the element in the DOM while the panel is closed. This prop is ignored when `hiddenUntilFound` is used.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: Accordion.Root.State<Value>) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Groups all parts of the accordion."
+    },
+    "accordion.Trigger": {
+      "css_vars": [],
+      "data": [
+        "data-panel-open",
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Accordion.Trigger.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Accordion.Trigger.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Accordion.Trigger.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button that opens and closes the corresponding panel."
+    }
+  },
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {
+    "luma": {
+      "cn-accordion": "overflow-hidden rounded-2xl border"
+    },
+    "maia": {
+      "cn-accordion": "overflow-hidden rounded-2xl border"
+    },
+    "mira": {
+      "cn-accordion": "overflow-hidden rounded-md border"
+    },
+    "rhea": {
+      "cn-accordion": "overflow-hidden rounded-2xl border"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/agent.tsx",
+      "sha256": "7d96005ace889eaa790b293ae75883d62546b6c7983aec3e7e6784c0392e30c7"
+    }
+  },
+  "variants": {
+    "badgeVariants": {
+      "base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": {
+        "variant": {
+          "default": "cn-badge-variant-default",
+          "destructive": "cn-badge-variant-destructive",
+          "ghost": "cn-badge-variant-ghost",
+          "link": "cn-badge-variant-link",
+          "outline": "cn-badge-variant-outline",
+          "secondary": "cn-badge-variant-secondary"
+        }
+      }
+    }
+  }
+}

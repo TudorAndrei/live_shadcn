@@ -1,0 +1,1228 @@
+{
+  "anatomy": [],
+  "css_vars": [
+    "--collapsible-panel-height",
+    "--collapsible-panel-width"
+  ],
+  "folds": [
+    "shadcn/badge",
+    "shadcn/collapsible"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "tool",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "Tool",
+      "name": "tool",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "group not-prose mb-4 w-full rounded-md border",
+        "class_when": [],
+        "merges_class": true,
+        "module": "collapsible",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "collapsible",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "getStatusBadge",
+      "name": "get_status_badge",
+      "params": {
+        "className": null,
+        "render": null,
+        "status": null,
+        "variant": "secondary"
+      },
+      "primitive": null,
+      "refs": [
+        "status"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "variant"
+            ],
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
+        "children": [
+          {
+            "entries": [
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-4 text-yellow-600",
+                  "class_when": [],
+                  "icons": {
+                    "lucide": "ClockIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_calls": [],
+                  "vars": []
+                },
+                "value": "approval-requested"
+              },
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-4 text-blue-600",
+                  "class_when": [],
+                  "icons": {
+                    "lucide": "CheckCircleIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_calls": [],
+                  "vars": []
+                },
+                "value": "approval-responded"
+              },
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-4 animate-pulse",
+                  "class_when": [],
+                  "icons": {
+                    "lucide": "ClockIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_calls": [],
+                  "vars": []
+                },
+                "value": "input-available"
+              },
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-4",
+                  "class_when": [],
+                  "icons": {
+                    "lucide": "CircleIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_calls": [],
+                  "vars": []
+                },
+                "value": "input-streaming"
+              },
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-4 text-green-600",
+                  "class_when": [],
+                  "icons": {
+                    "lucide": "CheckCircleIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_calls": [],
+                  "vars": []
+                },
+                "value": "output-available"
+              },
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-4 text-orange-600",
+                  "class_when": [],
+                  "icons": {
+                    "lucide": "XCircleIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_calls": [],
+                  "vars": []
+                },
+                "value": "output-denied"
+              },
+              {
+                "node": {
+                  "attrs": [],
+                  "children": [],
+                  "class": "size-4 text-red-600",
+                  "class_when": [],
+                  "icons": {
+                    "lucide": "XCircleIcon"
+                  },
+                  "merges_class": false,
+                  "props": false,
+                  "reads": {
+                    "group": [],
+                    "self": []
+                  },
+                  "render_as": null,
+                  "slot": null,
+                  "type": "icon",
+                  "variant_calls": [],
+                  "vars": []
+                },
+                "value": "output-error"
+              }
+            ],
+            "identifiers": [
+              "status",
+              "statusIcons"
+            ],
+            "key": "status",
+            "member_roots": [
+              "statusIcons"
+            ],
+            "type": "lookup"
+          },
+          {
+            "entries": [
+              {
+                "node": {
+                  "type": "text",
+                  "value": "Awaiting Approval"
+                },
+                "value": "approval-requested"
+              },
+              {
+                "node": {
+                  "type": "text",
+                  "value": "Responded"
+                },
+                "value": "approval-responded"
+              },
+              {
+                "node": {
+                  "type": "text",
+                  "value": "Running"
+                },
+                "value": "input-available"
+              },
+              {
+                "node": {
+                  "type": "text",
+                  "value": "Pending"
+                },
+                "value": "input-streaming"
+              },
+              {
+                "node": {
+                  "type": "text",
+                  "value": "Completed"
+                },
+                "value": "output-available"
+              },
+              {
+                "node": {
+                  "type": "text",
+                  "value": "Denied"
+                },
+                "value": "output-denied"
+              },
+              {
+                "node": {
+                  "type": "text",
+                  "value": "Error"
+                },
+                "value": "output-error"
+              }
+            ],
+            "identifiers": [
+              "status",
+              "statusLabels"
+            ],
+            "key": "status",
+            "member_roots": [
+              "statusLabels"
+            ],
+            "type": "lookup"
+          }
+        ],
+        "class": "gap-1.5 rounded-full text-xs",
+        "class_when": [],
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "aria-invalid",
+              "value": null
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "badge",
+        "tag": "span",
+        "type": "element",
+        "variant_calls": [
+          {
+            "args": [
+              "variant"
+            ],
+            "table": "badgeVariants"
+          }
+        ],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "ToolHeader",
+      "name": "tool_header",
+      "params": {
+        "className": null,
+        "derivedName": null,
+        "render": null,
+        "state": null,
+        "title": null,
+        "toolName": null,
+        "type": null,
+        "variant": "secondary"
+      },
+      "primitive": null,
+      "refs": [
+        "type",
+        "toolName",
+        "className",
+        "props",
+        "title",
+        "state"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4 text-muted-foreground",
+                "class_when": [],
+                "icons": {
+                  "lucide": "WrenchIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "title ?? derivedName",
+                    "identifiers": [
+                      "derivedName",
+                      "title"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "font-medium text-sm",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [
+                  {
+                    "identifiers": [
+                      "variant"
+                    ],
+                    "kind": "code",
+                    "name": "data-variant",
+                    "value": "variant"
+                  }
+                ],
+                "children": [
+                  {
+                    "entries": [
+                      {
+                        "node": {
+                          "attrs": [],
+                          "children": [],
+                          "class": "size-4 text-yellow-600",
+                          "class_when": [],
+                          "icons": {
+                            "lucide": "ClockIcon"
+                          },
+                          "merges_class": false,
+                          "props": false,
+                          "reads": {
+                            "group": [],
+                            "self": []
+                          },
+                          "render_as": null,
+                          "slot": null,
+                          "type": "icon",
+                          "variant_calls": [],
+                          "vars": []
+                        },
+                        "value": "approval-requested"
+                      },
+                      {
+                        "node": {
+                          "attrs": [],
+                          "children": [],
+                          "class": "size-4 text-blue-600",
+                          "class_when": [],
+                          "icons": {
+                            "lucide": "CheckCircleIcon"
+                          },
+                          "merges_class": false,
+                          "props": false,
+                          "reads": {
+                            "group": [],
+                            "self": []
+                          },
+                          "render_as": null,
+                          "slot": null,
+                          "type": "icon",
+                          "variant_calls": [],
+                          "vars": []
+                        },
+                        "value": "approval-responded"
+                      },
+                      {
+                        "node": {
+                          "attrs": [],
+                          "children": [],
+                          "class": "size-4 animate-pulse",
+                          "class_when": [],
+                          "icons": {
+                            "lucide": "ClockIcon"
+                          },
+                          "merges_class": false,
+                          "props": false,
+                          "reads": {
+                            "group": [],
+                            "self": []
+                          },
+                          "render_as": null,
+                          "slot": null,
+                          "type": "icon",
+                          "variant_calls": [],
+                          "vars": []
+                        },
+                        "value": "input-available"
+                      },
+                      {
+                        "node": {
+                          "attrs": [],
+                          "children": [],
+                          "class": "size-4",
+                          "class_when": [],
+                          "icons": {
+                            "lucide": "CircleIcon"
+                          },
+                          "merges_class": false,
+                          "props": false,
+                          "reads": {
+                            "group": [],
+                            "self": []
+                          },
+                          "render_as": null,
+                          "slot": null,
+                          "type": "icon",
+                          "variant_calls": [],
+                          "vars": []
+                        },
+                        "value": "input-streaming"
+                      },
+                      {
+                        "node": {
+                          "attrs": [],
+                          "children": [],
+                          "class": "size-4 text-green-600",
+                          "class_when": [],
+                          "icons": {
+                            "lucide": "CheckCircleIcon"
+                          },
+                          "merges_class": false,
+                          "props": false,
+                          "reads": {
+                            "group": [],
+                            "self": []
+                          },
+                          "render_as": null,
+                          "slot": null,
+                          "type": "icon",
+                          "variant_calls": [],
+                          "vars": []
+                        },
+                        "value": "output-available"
+                      },
+                      {
+                        "node": {
+                          "attrs": [],
+                          "children": [],
+                          "class": "size-4 text-orange-600",
+                          "class_when": [],
+                          "icons": {
+                            "lucide": "XCircleIcon"
+                          },
+                          "merges_class": false,
+                          "props": false,
+                          "reads": {
+                            "group": [],
+                            "self": []
+                          },
+                          "render_as": null,
+                          "slot": null,
+                          "type": "icon",
+                          "variant_calls": [],
+                          "vars": []
+                        },
+                        "value": "output-denied"
+                      },
+                      {
+                        "node": {
+                          "attrs": [],
+                          "children": [],
+                          "class": "size-4 text-red-600",
+                          "class_when": [],
+                          "icons": {
+                            "lucide": "XCircleIcon"
+                          },
+                          "merges_class": false,
+                          "props": false,
+                          "reads": {
+                            "group": [],
+                            "self": []
+                          },
+                          "render_as": null,
+                          "slot": null,
+                          "type": "icon",
+                          "variant_calls": [],
+                          "vars": []
+                        },
+                        "value": "output-error"
+                      }
+                    ],
+                    "identifiers": [
+                      "status",
+                      "statusIcons"
+                    ],
+                    "key": "state",
+                    "member_roots": [
+                      "statusIcons"
+                    ],
+                    "type": "lookup"
+                  },
+                  {
+                    "entries": [
+                      {
+                        "node": {
+                          "type": "text",
+                          "value": "Awaiting Approval"
+                        },
+                        "value": "approval-requested"
+                      },
+                      {
+                        "node": {
+                          "type": "text",
+                          "value": "Responded"
+                        },
+                        "value": "approval-responded"
+                      },
+                      {
+                        "node": {
+                          "type": "text",
+                          "value": "Running"
+                        },
+                        "value": "input-available"
+                      },
+                      {
+                        "node": {
+                          "type": "text",
+                          "value": "Pending"
+                        },
+                        "value": "input-streaming"
+                      },
+                      {
+                        "node": {
+                          "type": "text",
+                          "value": "Completed"
+                        },
+                        "value": "output-available"
+                      },
+                      {
+                        "node": {
+                          "type": "text",
+                          "value": "Denied"
+                        },
+                        "value": "output-denied"
+                      },
+                      {
+                        "node": {
+                          "type": "text",
+                          "value": "Error"
+                        },
+                        "value": "output-error"
+                      }
+                    ],
+                    "identifiers": [
+                      "status",
+                      "statusLabels"
+                    ],
+                    "key": "state",
+                    "member_roots": [
+                      "statusLabels"
+                    ],
+                    "type": "lookup"
+                  }
+                ],
+                "class": "gap-1.5 rounded-full text-xs",
+                "class_when": [],
+                "merges_class": false,
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": [
+                    {
+                      "name": "aria-invalid",
+                      "value": null
+                    }
+                  ]
+                },
+                "render_as": null,
+                "slot": "badge",
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [
+                  {
+                    "args": [
+                      "variant"
+                    ],
+                    "table": "badgeVariants"
+                  }
+                ],
+                "vars": []
+              }
+            ],
+            "class": "flex items-center gap-2",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [],
+            "class": "size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180",
+            "class_when": [],
+            "icons": {
+              "lucide": "ChevronDownIcon"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "icon",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "flex w-full items-center justify-between gap-4 p-3",
+        "class_when": [],
+        "merges_class": true,
+        "module": "collapsible",
+        "part": "Trigger",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "collapsible-trigger",
+        "tag": "button",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "ToolContent",
+      "name": "tool_content",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 space-y-4 p-4 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "class_when": [],
+        "merges_class": true,
+        "module": "collapsible",
+        "part": "Panel",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "collapsible-content",
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "ToolInput",
+      "name": "tool_input",
+      "params": {
+        "className": null,
+        "input": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "input"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "text",
+                "value": "Parameters"
+              }
+            ],
+            "class": "font-medium text-muted-foreground text-xs uppercase tracking-wide",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "h4",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [
+                  {
+                    "identifiers": [
+                      "JSON",
+                      "input"
+                    ],
+                    "kind": "code",
+                    "member_roots": [
+                      "JSON"
+                    ],
+                    "name": "code",
+                    "value": "JSON.stringify(input, null, 2)"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "language",
+                    "value": "json"
+                  }
+                ],
+                "children": [],
+                "class": "",
+                "class_when": [],
+                "component": "code-block",
+                "function": "code_block",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "recipe": "presentational",
+                "render_as": null,
+                "slot": null,
+                "source": "ai_elements",
+                "tag": null,
+                "type": "component_ref",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "rounded-md bg-muted/50",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "space-y-2 overflow-hidden",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "ToolOutput",
+      "name": "tool_output",
+      "params": {
+        "Output": null,
+        "className": null,
+        "errorText": null,
+        "output": null
+      },
+      "primitive": null,
+      "refs": [
+        "output",
+        "errorText",
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "code": "errorText ? \"Error\" : \"Result\"",
+                "identifiers": [
+                  "errorText"
+                ],
+                "type": "value"
+              }
+            ],
+            "class": "font-medium text-muted-foreground text-xs uppercase tracking-wide",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "h4",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "code": "errorText",
+                        "identifiers": [
+                          "errorText"
+                        ],
+                        "type": "value"
+                      }
+                    ],
+                    "class": "",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "div",
+                    "type": "element",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "identifiers": [
+                  "errorText"
+                ],
+                "type": "optional",
+                "when": "errorText"
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "output",
+                    "identifiers": [
+                      "ReactNode",
+                      "output"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "",
+                "class_when": [],
+                "identifiers": [
+                  "Output"
+                ],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "overflow-x-auto rounded-md text-xs [&_table]:w-full",
+            "class_when": [
+              {
+                "else": "bg-muted/50 text-foreground",
+                "identifiers": [
+                  "errorText"
+                ],
+                "then": "bg-destructive/10 text-destructive",
+                "when": "errorText"
+              }
+            ],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "space-y-2",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    }
+  ],
+  "primitives": {
+    "collapsible.Panel": {
+      "css_vars": [
+        "--collapsible-panel-height",
+        "--collapsible-panel-width"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
+          "name": "hiddenUntilFound",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Collapsible.Panel.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Collapsible.Panel.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the element in the DOM while the panel is hidden. This prop is ignored when `hiddenUntilFound` is used.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: Collapsible.Panel.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A panel with the collapsible contents."
+    },
+    "collapsible.Root": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the collapsible panel is initially open. To render a controlled collapsible, use the `open` prop instead.",
+          "name": "defaultOpen",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the collapsible panel is currently open. To render an uncontrolled collapsible, use the `defaultOpen` prop instead.",
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called when the panel is opened or closed.",
+          "name": "onOpenChange",
+          "type": "((open: boolean, eventDetails: Collapsible.Root.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Collapsible.Root.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Collapsible.Root.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Collapsible.Root.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Groups all parts of the collapsible."
+    },
+    "collapsible.Trigger": {
+      "css_vars": [],
+      "data": [
+        "data-panel-open"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Collapsible.Trigger.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Collapsible.Trigger.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Collapsible.Trigger.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button that opens and closes the collapsible panel."
+    }
+  },
+  "recipe": "disclosure",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/tool.tsx",
+      "sha256": "5b520e0c33792cba0ceb04e1cb18c69b212cffacdb52d7297e292c7af568dda4"
+    }
+  },
+  "variants": {
+    "badgeVariants": {
+      "base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": {
+        "variant": {
+          "default": "cn-badge-variant-default",
+          "destructive": "cn-badge-variant-destructive",
+          "ghost": "cn-badge-variant-ghost",
+          "link": "cn-badge-variant-link",
+          "outline": "cn-badge-variant-outline",
+          "secondary": "cn-badge-variant-secondary"
+        }
+      }
+    }
+  }
+}

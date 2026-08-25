@@ -11,6 +11,7 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
 
   @doc "The `environment_variables` part."
   attr(:default_show_values, :boolean, default: false)
+  attr(:show_values, :boolean, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)

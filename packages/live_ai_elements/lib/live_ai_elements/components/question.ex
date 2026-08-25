@@ -13,6 +13,7 @@ defmodule LiveAiElements.Components.Question do
   attr(:default_value, :string, default: "EMPTY_VALUE")
   attr(:disabled, :boolean, default: false)
   attr(:selection_mode, :string, default: "single")
+  attr(:value, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
   attr(:rest, :global,
@@ -186,7 +187,7 @@ defmodule LiveAiElements.Components.Question do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "button"}
-      disabled={@disabled || @disabled || !@has_response}
+      disabled={@disabled || !@has_response}
       type="submit"
       class={[
         "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",

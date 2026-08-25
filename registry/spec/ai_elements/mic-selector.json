@@ -27,16 +27,17 @@
       "params": {
         "defaultOpen": "false",
         "defaultValue": null,
-        "open": null
+        "open": null,
+        "value": null
       },
       "primitive": null,
       "refs": [
         "defaultValue",
-        "controlledOnValueChange",
-        "controlledValue",
+        "onValueChange",
+        "value",
         "defaultOpen",
-        "controlledOnOpenChange",
-        "controlledOpen",
+        "onOpenChange",
+        "open",
         "props"
       ],
       "tree": {
@@ -799,7 +800,7 @@
             "children": [
               {
                 "type": "text",
-                "value": "("
+                "value": " ("
               },
               {
                 "code": "deviceId",

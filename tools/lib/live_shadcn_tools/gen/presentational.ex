@@ -269,6 +269,19 @@ defmodule LiveShadcnTools.Gen.Presentational do
 
   defp literal(":boolean", "true"), do: true
   defp literal(":boolean", "false"), do: false
+
+  # `defaultExpanded = new Set()` is JavaScript running at render, not a value.
+  # Written out as it stands it declared a component whose default is the four
+  # words `new Set()`, which is worse than having none: a caller who passes
+  # nothing gets a string that reads like code.
+  #
+  # Nothing is the honest default for a computed one. What upstream computes is
+  # a starting point for state the client owns, and a HEEx component takes that
+  # from its caller.
+  defp literal(_type, default) when is_binary(default) do
+    if Regex.match?(~r/[(\[{]/, default), do: nil, else: default
+  end
+
   defp literal(_type, default), do: default
 
   # A render prop is a slot, and a slot rendered but not declared raises on the

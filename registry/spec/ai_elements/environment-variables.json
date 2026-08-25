@@ -16,12 +16,13 @@
       "params": {
         "children": null,
         "className": null,
-        "defaultShowValues": "false"
+        "defaultShowValues": "false",
+        "showValues": null
       },
       "primitive": null,
       "refs": [
         "defaultShowValues",
-        "controlledShowValues",
+        "showValues",
         "show",
         "onShowValuesChange",
         "className",

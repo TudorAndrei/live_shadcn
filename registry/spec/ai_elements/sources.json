@@ -73,7 +73,7 @@
                     "children": [
                       {
                         "type": "text",
-                        "value": "Used"
+                        "value": "Used "
                       },
                       {
                         "code": "count",
@@ -84,7 +84,7 @@
                       },
                       {
                         "type": "text",
-                        "value": "sources"
+                        "value": " sources"
                       }
                     ],
                     "class": "font-medium",

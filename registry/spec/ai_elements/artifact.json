@@ -288,9 +288,9 @@
       "export": "ArtifactAction",
       "name": "artifact_action",
       "params": {
-        "button": null,
         "children": null,
         "className": null,
+        "icon": null,
         "label": null,
         "size": "sm",
         "tooltip": null,
@@ -302,17 +302,116 @@
         "size",
         "variant",
         "props",
-        "Icon",
+        "icon",
         "children",
         "label",
         "tooltip"
       ],
       "tree": {
-        "code": "button",
-        "identifiers": [
-          "button"
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "type",
+            "value": "button"
+          }
         ],
-        "type": "value"
+        "children": [
+          {
+            "else": [
+              {
+                "code": "children",
+                "type": "value"
+              }
+            ],
+            "identifiers": [
+              "Icon",
+              "children"
+            ],
+            "then": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4",
+                "class_when": [],
+                "merges_class": false,
+                "prop": "icon",
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "type": "choice",
+            "when": "icon"
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "code": "label || tooltip",
+                "identifiers": [
+                  "label",
+                  "tooltip"
+                ],
+                "type": "value"
+              }
+            ],
+            "class": "sr-only",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "size-8 p-0 text-muted-foreground hover:text-foreground",
+        "class_when": [],
+        "merges_class": true,
+        "module": "button",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "button",
+        "tag": "button",
+        "type": "primitive",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size",
+              "className"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
+        "vars": []
       },
       "types": {}
     },

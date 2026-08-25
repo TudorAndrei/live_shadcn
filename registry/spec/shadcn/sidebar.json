@@ -1224,9 +1224,9 @@
       "primitive": null,
       "refs": [
         "defaultOpen",
-        "openProp",
+        "open",
         "value",
-        "setOpenProp",
+        "onOpenChange",
         "open",
         "event",
         "style",

@@ -17,10 +17,20 @@
         "isDisabled": null,
         "isListening": "false",
         "isProcessing": "false",
+        "lang": "en-US",
         "size": "default",
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "onTranscriptionChange",
+        "onAudioRecorded",
+        "event",
+        "lang",
+        "index",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -32,6 +42,9 @@
                   {
                     "attrs": [
                       {
+                        "identifiers": [
+                          "index"
+                        ],
                         "kind": "style",
                         "name": "style",
                         "value": [
@@ -71,12 +84,19 @@
                 "type": "repeat_over"
               }
             ],
+            "identifiers": [
+              "index",
+              "isListening"
+            ],
             "type": "optional",
             "when": "isListening"
           },
           {
             "attrs": [
               {
+                "identifiers": [
+                  "isDisabled"
+                ],
                 "kind": "code",
                 "name": "disabled",
                 "value": "isDisabled"
@@ -133,7 +153,7 @@
                       "remixicon": "RiLoaderLine",
                       "tabler": "IconLoader"
                     },
-                    "merges_class": true,
+                    "merges_class": false,
                     "props": true,
                     "reads": {
                       "group": [],
@@ -145,6 +165,9 @@
                     "variant_calls": [],
                     "vars": []
                   }
+                ],
+                "identifiers": [
+                  "isProcessing"
                 ],
                 "type": "optional",
                 "when": "isProcessing"
@@ -172,6 +195,10 @@
                     "vars": []
                   }
                 ],
+                "identifiers": [
+                  "isListening",
+                  "isProcessing"
+                ],
                 "type": "optional",
                 "when": "!isProcessing && isListening"
               },
@@ -198,6 +225,10 @@
                     "vars": []
                   }
                 ],
+                "identifiers": [
+                  "isListening",
+                  "isProcessing"
+                ],
                 "type": "optional",
                 "when": "!(isProcessing || isListening)"
               }
@@ -206,6 +237,9 @@
             "class_when": [
               {
                 "else": "bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground",
+                "identifiers": [
+                  "isListening"
+                ],
                 "then": "bg-destructive text-white hover:bg-destructive/80 hover:text-white",
                 "when": "isListening"
               }
@@ -217,8 +251,14 @@
             "reads": {
               "group": [],
               "self": [
-                "aria-invalid",
-                "aria-expanded"
+                {
+                  "name": "aria-invalid",
+                  "value": null
+                },
+                {
+                  "name": "aria-expanded",
+                  "value": null
+                }
               ]
             },
             "render_as": null,
@@ -227,7 +267,11 @@
             "type": "primitive",
             "variant_calls": [
               {
-                "args": [],
+                "args": [
+                  "variant",
+                  "size",
+                  "className"
+                ],
                 "table": "buttonVariants"
               }
             ],
@@ -248,7 +292,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

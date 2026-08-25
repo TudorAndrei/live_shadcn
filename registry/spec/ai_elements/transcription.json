@@ -11,12 +11,13 @@
       "params": {
         "children": null,
         "className": null,
+        "currentTime": null,
         "segments": null
       },
       "primitive": null,
       "refs": [
         "onSeek",
-        "externalCurrentTime",
+        "currentTime",
         "segments",
         "className",
         "props",

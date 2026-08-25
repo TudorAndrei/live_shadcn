@@ -69,6 +69,7 @@ defmodule LiveAiElements.Components.Checkpoint do
   def checkpoint_trigger(assigns) do
     ~H"""
     <button
+      :if={@tooltip}
       data-slot={@rest[:"data-slot"] || "tooltip-trigger"}
       type="button"
       class={[
@@ -81,7 +82,7 @@ defmodule LiveAiElements.Components.Checkpoint do
     >
       {render_slot(@inner_block)}
     </button>
-    <div>
+    <div :if={@tooltip}>
       <div
         align={@align}
         alignOffset={@align_offset}

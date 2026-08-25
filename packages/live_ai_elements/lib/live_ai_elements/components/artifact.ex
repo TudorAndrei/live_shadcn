@@ -121,18 +121,46 @@ defmodule LiveAiElements.Components.Artifact do
     """
   end
 
-  @doc "The `artifact_action` part."
-  attr(:button, :string, default: nil)
+  @doc "The `button` part."
+  attr(:icon, :string, default: nil)
   attr(:label, :string, default: nil)
-  attr(:size, :string, default: "sm")
+
+  attr(:size, :string,
+    default: "sm",
+    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
+  )
+
   attr(:tooltip, :string, default: nil)
-  attr(:variant, :string, default: "ghost")
+
+  attr(:variant, :string,
+    default: "ghost",
+    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  slot(:inner_block)
 
   def artifact_action(assigns) do
     ~H"""
-    {@button}
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
+      type="button"
+      class={[
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-8 p-0 text-muted-foreground hover:text-foreground",
+        variant_class("buttonVariants", "size", @size),
+        variant_class("buttonVariants", "variant", @variant),
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
+    >
+      <LiveShadcn.Icon.icon :if={@icon} name={@icon} class="size-4" />
+      {@children}
+      <span class="sr-only">
+        {@label || @tooltip}
+      </span>
+      {render_slot(@inner_block)}
+    </button>
     """
   end
 

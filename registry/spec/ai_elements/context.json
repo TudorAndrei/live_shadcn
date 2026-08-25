@@ -515,7 +515,7 @@
                           },
                           {
                             "type": "text",
-                            "value": "/"
+                            "value": " / "
                           },
                           {
                             "code": "total",
@@ -887,7 +887,7 @@
             "children": [
               {
                 "children": [],
-                "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "code": "inputTokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(inputTokens)",
                 "identifiers": [
                   "Intl",
                   "tokens",
@@ -915,7 +915,7 @@
                     "children": [
                       {
                         "type": "text",
-                        "value": "•"
+                        "value": "• "
                       },
                       {
                         "code": "inputCostText",
@@ -1023,7 +1023,7 @@
             "children": [
               {
                 "children": [],
-                "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "code": "outputTokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(outputTokens)",
                 "identifiers": [
                   "Intl",
                   "tokens",
@@ -1051,7 +1051,7 @@
                     "children": [
                       {
                         "type": "text",
-                        "value": "•"
+                        "value": "• "
                       },
                       {
                         "code": "outputCostText",
@@ -1159,7 +1159,7 @@
             "children": [
               {
                 "children": [],
-                "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "code": "reasoningTokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(reasoningTokens)",
                 "identifiers": [
                   "Intl",
                   "tokens",
@@ -1187,7 +1187,7 @@
                     "children": [
                       {
                         "type": "text",
-                        "value": "•"
+                        "value": "• "
                       },
                       {
                         "code": "reasoningCostText",
@@ -1295,7 +1295,7 @@
             "children": [
               {
                 "children": [],
-                "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "code": "cacheTokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(cacheTokens)",
                 "identifiers": [
                   "Intl",
                   "tokens",
@@ -1323,7 +1323,7 @@
                     "children": [
                       {
                         "type": "text",
-                        "value": "•"
+                        "value": "• "
                       },
                       {
                         "code": "cacheCostText",

@@ -321,6 +321,45 @@ defmodule LiveShadcnTools.Ast do
   end
 
   @doc """
+  Splits `frame.raw.replace(AT_PREFIX_REGEX, "")` into the thing, the method,
+  and the arguments — `{"frame.raw", "replace", ["AT_PREFIX_REGEX", ~s("")]}`.
+
+  Reading one by splitting the text on `.` works until the receiver has a
+  bracket in it or an argument has a dot: `(ms / 1000).toFixed(2)` splits into
+  three pieces, none of which is an expression. Where the receiver stops is a
+  question for the parser.
+
+  Returns `nil` when the code is not a method call at all.
+  """
+  def method_call(code) when is_binary(code) do
+    wrapped = "const __x = (\n#{code}\n)"
+
+    case cached_tree(wrapped) do
+      %{"body" => [%{"declarations" => [%{"init" => init}]}]} -> method_of(bare(init), wrapped)
+      _ -> nil
+    end
+  rescue
+    _error -> nil
+  end
+
+  defp method_of(
+         %{"type" => "CallExpression", "callee" => callee, "arguments" => arguments},
+         source
+       ) do
+    case bare(callee) do
+      %{"type" => "MemberExpression", "property" => %{"name" => method}, "computed" => false} =
+          member ->
+        {slice(bare(member["object"]), source), method,
+         Enum.map(arguments, &slice(bare(&1), source))}
+
+      _other ->
+        nil
+    end
+  end
+
+  defp method_of(_node, _source), do: nil
+
+  @doc """
   Splits `items.map((item) => …)` into the list, the name, and the body.
 
   Where the body ends is the same question again, and a regular expression that
@@ -781,7 +820,14 @@ defmodule LiveShadcnTools.Ast do
   Brackets a person wrote for readability, and a cast written for the type
   checker. Neither is markup and neither changes what the thing inside is, so
   every place that asks "what kind of node is this" looks through them first.
+
+  `ChainExpression` is the wrapper oxc puts around a `?.` chain. It says the
+  chain stops at the first `nil` — which is what `parameters?.map(…)` needs and
+  an Elixir list attribute already gives, because its default is `[]`. What is
+  inside is still a call to `map`, and a reader that cannot see through the
+  wrapper cannot see the call.
   """
+  def bare(%{"type" => "ChainExpression", "expression" => inner}), do: bare(inner)
   def bare(%{"type" => "ParenthesizedExpression", "expression" => inner}), do: bare(inner)
   def bare(%{"type" => "TSAsExpression", "expression" => inner}), do: bare(inner)
   def bare(%{"type" => "TSNonNullExpression", "expression" => inner}), do: bare(inner)
@@ -1048,6 +1094,19 @@ defmodule LiveShadcnTools.Ast do
         into: %{},
         do: {name, default(property["value"], source)}
   end
+
+  # `getStatusBadge = (status) => <Badge>{statusIcons[status]}…</Badge>` takes
+  # one plain parameter rather than an object to pull apart. It is still the
+  # name the body was written against, and whoever inlines the helper has to
+  # know it to put the caller's argument in its place — `getStatusBadge(state)`
+  # reads `state`, and a helper whose parameter nobody recorded reads `status`,
+  # which is a name the component was never given.
+  #
+  # `props` is the exception: a component written as `(props) => …` reads
+  # `props.title`, and the prop is `title`. The object is not a prop and asking
+  # a caller for one called `props` asks for the wrong thing.
+  defp destructured(%{"type" => "Identifier", "name" => name}, _source) when name != "props",
+    do: %{name => nil}
 
   defp destructured(_signature, _source), do: %{}
 

@@ -238,6 +238,7 @@
         "children": null,
         "className": null,
         "description": null,
+        "icon": "dot",
         "label": null,
         "status": "complete"
       },
@@ -246,7 +247,7 @@
         "status",
         "className",
         "props",
-        "Icon",
+        "icon",
         "label",
         "description",
         "children"

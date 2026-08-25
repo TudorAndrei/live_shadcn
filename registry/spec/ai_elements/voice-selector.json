@@ -18,16 +18,17 @@
         "children": null,
         "defaultOpen": "false",
         "defaultValue": null,
-        "open": null
+        "open": null,
+        "value": null
       },
       "primitive": null,
       "refs": [
         "defaultValue",
         "onValueChange",
-        "valueProp",
+        "value",
         "defaultOpen",
         "onOpenChange",
-        "openProp",
+        "open",
         "props",
         "children"
       ],

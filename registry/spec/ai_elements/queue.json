@@ -454,7 +454,8 @@
       "name": "queue_list",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "orientation": "vertical"
       },
       "primitive": null,
       "refs": [

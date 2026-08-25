@@ -121,7 +121,7 @@ defmodule LiveAiElements.Components.VoiceSelector do
   def voice_selector_bullet(assigns) do
     ~H"""
     <span aria-hidden="true" class={["select-none text-border", @class]} {@rest}>
-      &bull; {render_slot(@inner_block)}
+      &bull;{render_slot(@inner_block)}
     </span>
     """
   end

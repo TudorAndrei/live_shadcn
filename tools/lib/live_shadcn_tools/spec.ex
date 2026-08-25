@@ -607,14 +607,40 @@ defmodule LiveShadcnTools.Spec do
     end
   end
 
+  # A prop the markup reads off the rest object rather than out of the
+  # signature. `image` writes `<img {...props} alt={props.alt} />` and declares
+  # `alt` in its type; destructuring is not the only way a component says what
+  # it takes, and read only there the generated `<img>` had an `@alt` nobody
+  # declared.
+  defp props_of_rest(part) do
+    part["tree"]
+    |> codes()
+    |> Enum.flat_map(&Regex.scan(~r/\bprops\.([a-z_][A-Za-z0-9_]*)/, &1, capture: :all_but_first))
+    |> List.flatten()
+  end
+
+  # The props this function reads, by the names it declared them under.
+  #
+  # `icon: Icon` is one prop with two names: `icon` is what the caller passes and
+  # `Icon` is what the body says, because JSX reads a lowercase tag as an HTML
+  # element. Recorded under the body's name, `props_read/2` threw the prop away
+  # as unread — and `artifact` then stopped on a name it had itself dropped.
+  defp referenced(function),
+    do: Enum.map(function.refs, &Map.get(function.renames, &1, &1))
+
   defp props_read(part, variant_props) do
+    off_rest = props_of_rest(part)
+
     references =
       MapSet.new(
-        (part["refs"] || []) ++ (part["context_fields"] || []) ++ identifiers(part["tree"])
+        (part["refs"] || []) ++
+          (part["context_fields"] || []) ++ off_rest ++ identifiers(part["tree"])
       )
 
     Map.update(part, "params", %{}, fn params ->
-      Map.filter(params, fn {name, _default} ->
+      params
+      |> Map.merge(Map.new(off_rest, &{&1, nil}))
+      |> Map.filter(fn {name, _default} ->
         name in @always or name in variant_props or
           MapSet.member?(references, name)
       end)
@@ -690,7 +716,7 @@ defmodule LiveShadcnTools.Spec do
         %{
           "name" => underscored,
           "params" => function.params,
-          "refs" => function.refs,
+          "refs" => referenced(function),
           "types" => function.param_types,
           "tree" => node(function.jsx, private_ctx(ctx, function))
         }
@@ -866,6 +892,12 @@ defmodule LiveShadcnTools.Spec do
       # answer for a reference two components away.
       inlined = inline_parts(narrow(target["tree"], node, acc.own), spec, [])
 
+      # A sibling part the fold pulled in brings its own props. shadcn's scroll
+      # area draws its scrollbar from another part of the same file, and that
+      # part reads `orientation` — so `queue`, which renders `<ScrollArea>` and
+      # names nothing, met an `orientation` it had never been given.
+      acc = %{acc | params: known(inlined_params(spec, inlined), acc.params)}
+
       {tree, acc} = fold_node(inlined, source, resolve, acc)
 
       {tree
@@ -887,6 +919,18 @@ defmodule LiveShadcnTools.Spec do
     do: Enum.map_reduce(nodes, acc, &fold_node(&1, source, resolve, &2))
 
   defp fold_node(value, _source, _resolve, acc), do: {value, acc}
+
+  # The props of the folded component that the inlined markup reads, with the
+  # defaults that component gave them.
+  defp inlined_params(spec, inlined) do
+    read = MapSet.new(identifiers(inlined))
+
+    for part <- spec["parts"] || [],
+        {name, default} <- Map.get(part, "params") || %{},
+        MapSet.member?(read, name),
+        into: %{},
+        do: {name, default}
+  end
 
   defp fold_children(node, source, resolve, acc) do
     {children, acc} = fold_node(Map.get(node, "children") || [], source, resolve, acc)
@@ -1268,7 +1312,7 @@ defmodule LiveShadcnTools.Spec do
           "export" => export,
           "primitive" => primitive_of(function.props_type),
           "params" => Map.new(function.params, &icon_default(&1, ctx)),
-          "refs" => function.refs,
+          "refs" => referenced(function),
           "types" => function.param_types,
           "contexts" => function.contexts |> MapSet.to_list() |> Enum.sort(),
           "tree" => node(function.jsx, ctx)
@@ -1312,7 +1356,7 @@ defmodule LiveShadcnTools.Spec do
   end
 
   defp node(%{type: :text, value: value}, _ctx),
-    do: %{"type" => "text", "value" => String.trim(value)}
+    do: %{"type" => "text", "value" => jsx_text(value)}
 
   defp node(%{type: :element, tag: tag} = element, ctx) do
     class_value = Tsx.attr(element, "className")
@@ -1504,10 +1548,37 @@ defmodule LiveShadcnTools.Spec do
 
   defp forget_context_value(node), do: node
 
+  # `{output as ReactNode}` and `{parameters?.length}` are `{output}` and
+  # `{parameters.length}` with a wrapper around them that says something to the
+  # TypeScript compiler and nothing to the markup. Every test below reads the
+  # source text, so the wrapper is taken off first — by oxc, which knows where
+  # the wrapper ends — and the expression is read again as what it is.
+  defp expression({:expr, _code, node} = expression, ctx) do
+    case unwrapped(node) do
+      nil -> understood(expression, ctx)
+      inner -> expression(unchained(Ast.expression(expression, inner), node), ctx)
+    end
+  end
+
+  @wrappers ~w(ChainExpression TSAsExpression TSNonNullExpression TSSatisfiesExpression)
+
+  defp unwrapped(%{"type" => type, "expression" => inner}) when type in @wrappers, do: inner
+  defp unwrapped(_node), do: nil
+
+  # Taking the `ChainExpression` off leaves the `?.` behind, because the span
+  # oxc gives for what is inside covers it. A `?.` is a `.` that stops at the
+  # first `nil`, and every list this reader hands the generator is an attribute
+  # whose default is `[]`: `parameters?.length` is `length(@parameters)` and
+  # there is no nil to stop at. So the question mark comes off with the wrapper.
+  defp unchained({:expr, code, node}, %{"type" => "ChainExpression"}),
+    do: {:expr, String.replace(code, "?.", "."), node}
+
+  defp unchained(expression, _wrapper), do: expression
+
   # The four expressions shadcn actually writes inside JSX. Each one carries a
   # decision the generated component has to make too, so each becomes a node
   # rather than being dropped.
-  defp expression({:expr, code, _node} = expression, ctx) do
+  defp understood({:expr, code, _node} = expression, ctx) do
     cond do
       literal = string_literal(code) ->
         %{"type" => "text", "value" => literal}
@@ -1523,12 +1594,20 @@ defmodule LiveShadcnTools.Spec do
       match = default_for_children(expression) ->
         %{"type" => "children", "default" => [fallback(match, ctx)]}
 
+      match = default_for_slot(expression, ctx) ->
+        {name, default} = match
+        %{"type" => "slot", "name" => name, "default" => [default]}
+
       # `{frame.filePath && (<span>…</span>)}` — markup drawn only when the
       # condition holds.
       match = only_when(expression) ->
         {condition, jsx} = match
 
-        %{"type" => "optional", "when" => condition, "children" => [markup(jsx, ctx)]}
+        %{
+          "type" => "optional",
+          "when" => under_its_own_name(condition, ctx),
+          "children" => [markup(jsx, ctx)]
+        }
 
       # `{tooltip ? <Tooltip>…</Tooltip> : button}` — one of two things, chosen
       # at render. `:if` on each is what HEEx has and it says the same: the
@@ -1538,7 +1617,7 @@ defmodule LiveShadcnTools.Spec do
 
         %{
           "type" => "choice",
-          "when" => condition,
+          "when" => under_its_own_name(condition, ctx),
           "then" => [branch(yes, ctx)],
           "else" => [branch(no, ctx)]
         }
@@ -1604,6 +1683,16 @@ defmodule LiveShadcnTools.Spec do
       value?(code) ->
         %{"type" => "value", "code" => String.trim(code)}
 
+      # `{tool.description ?? "No description"}`, `{frame.raw.replace(RE, "")}`,
+      # ``{`${(ms / 1000).toFixed(2)}s`}`` — one value, computed. The three
+      # regular expressions above guess at this shape and each one has been
+      # widened until it stopped saying what it meant; oxc already knows, so it
+      # is asked instead, and what it is asked is a closed question: is every
+      # node in here a name, a literal, an operator, or a call to a method this
+      # pipeline can write in Elixir?
+      computed?(expression) ->
+        %{"type" => "value", "code" => code |> String.trim() |> with_regexes(ctx)}
+
       true ->
         raise """
         the spec reader met a JSX expression it cannot turn into markup: {#{code}}
@@ -1629,7 +1718,11 @@ defmodule LiveShadcnTools.Spec do
   # them for the wrong reason — the reader's job is to say what the expression
   # is, and `{currentBranch + 1}` is a value however the number is reached.
   @value ~r/^[a-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$/
-  @arithmetic ~r/^[a-z_][A-Za-z0-9_.]*(\s*(\+|-|\*|\/|\?\?)\s*([a-z_][A-Za-z0-9_.]*|-?\d+))+$/
+  # `||` belongs with `??` here: `{label || tooltip}` is a value with a fallback,
+  # and `message` writes one. Refused, it stopped the whole component being read
+  # — and the only reason nobody noticed is that nothing had reached that
+  # expression before.
+  @arithmetic ~r/^[a-z_][A-Za-z0-9_.]*(\s*(\+|-|\*|\/|\?\?|\|\|)\s*([a-z_][A-Za-z0-9_.]*|-?\d+))+$/
   # `errorText ? "Error" : "Result"` — a choice between two values, which is a
   # value. A choice between two pieces of markup contains `<` and is not one.
   @ternary ~r/^[^?<]+\?[^:<]+:[^<]+$/s
@@ -1673,17 +1766,52 @@ defmodule LiveShadcnTools.Spec do
     do: %{node | "key" => Map.get(bindings, key, key)}
 
   defp rebind(%{"type" => "value", "code" => code} = node, bindings),
-    do: %{node | "code" => Map.get(bindings, code, code)}
+    do: %{node | "code" => renamed(code, bindings)}
 
   # An attribute reads a name too — `<Progress value={percent} />` inside a
   # component called with `percent={usedPercent}` has to read `usedPercent`.
   defp rebind(%{"kind" => "code", "value" => value} = attr, bindings),
-    do: %{attr | "value" => Map.get(bindings, value, value)}
+    do: %{attr | "value" => renamed(value, bindings)}
 
   defp rebind(%{"when" => condition} = node, bindings),
-    do: %{node | "when" => Map.get(bindings, condition, condition)}
+    do: %{node | "when" => renamed(condition, bindings)}
 
   defp rebind(node, _bindings), do: node
+
+  # The parameter, wherever it stands in the expression rather than only when it
+  # is the whole of it. ``formatDuration(summary.duration)`` inlines a body that
+  # says ``` `${(ms / 1000).toFixed(2)}s` ```, and a name swapped only when it is
+  # the entire code leaves `ms` in there — a name the component was never given.
+  defp renamed(code, bindings) when is_binary(code) do
+    Enum.reduce(bindings, code, fn {param, argument}, code ->
+      String.replace(code, ~r/\b#{Regex.escape(param)}\b/, argument)
+    end)
+  end
+
+  defp renamed(code, _bindings), do: code
+
+  # JSX's own rule for the text between tags, which is not `String.trim/1`.
+  #
+  # A line break and the indentation around it are how the file is laid out and
+  # JSX drops them; a space on the same line as an expression is content and JSX
+  # keeps it. Trimming both took `{passedPercent.toFixed(0)}%` and made it
+  # `{…} %`, which draws `100 %` where upstream draws `100%` — and took
+  # `{summary.passed} / {summary.total}` down to `/` and got away with it only
+  # because the generator puts each child on a line of its own and HTML then
+  # collapses the newline back into the space that was thrown away.
+  defp jsx_text(value) do
+    lines = String.split(value, "\n")
+    last = length(lines) - 1
+
+    lines
+    |> Enum.with_index()
+    |> Enum.map(fn {line, index} ->
+      line = if index == 0, do: line, else: String.trim_leading(line)
+      if index == last, do: line, else: String.trim_trailing(line)
+    end)
+    |> Enum.reject(&(&1 == ""))
+    |> Enum.join(" ")
+  end
 
   # `table[key]`, where `table` is an object this file declared at the top level.
   #
@@ -1743,6 +1871,82 @@ defmodule LiveShadcnTools.Spec do
       Regex.match?(@ternary, code)
   end
 
+  # The methods a value may call. Every one of them has a translation in
+  # `LiveShadcnTools.Gen.Heex`, and that is the whole reason the list is short:
+  # a reader that accepts what the generator cannot write moves a gap from one
+  # report to another instead of closing it. Adding a name here means writing
+  # its Elixir in the same change.
+  @methods ~w(trim replace replaceAll toFixed toLocaleTimeString toISOString
+              toUpperCase toLowerCase join filter)
+
+  # `frame.raw.replace(AT_PREFIX_REGEX, "")`, with the pattern itself in the
+  # place of its name. A regular expression upstream declared once at the top of
+  # the file is a literal that was given a name for reading, not a value the
+  # component is passed: nobody can supply `AT_PREFIX_REGEX`, and a generator
+  # that met the name could only report it as a prop that does not exist.
+  #
+  # Only regular expressions are inlined. A named table is data the spec already
+  # carries as a lookup, and pasting it into an expression would say it twice.
+  defp with_regexes(code, ctx) do
+    Enum.reduce(ctx.consts, code, fn {name, declared}, code ->
+      if String.starts_with?(declared, "/"),
+        do: String.replace(code, ~r/\b#{Regex.escape(name)}\b/, declared),
+        else: code
+    end)
+  end
+
+  # Whether every node in the expression is one this pipeline can write in
+  # Elixir: a name, a literal, an operator, or a call to one of `@methods`.
+  #
+  # A JSX element anywhere inside makes it markup and not a value, and it is
+  # refused here so that the clauses above — a slot with a default, markup drawn
+  # only when a condition holds — keep their meaning.
+  defp computed?({:expr, _code, node}), do: computed_node?(Ast.bare(node))
+
+  # oxc answers in ESTree, where a string, a number, a boolean, `null` and a
+  # regular expression are all one node type.
+  defp computed_node?(%{"type" => type}) when type in ~w(Identifier Literal TemplateElement),
+    do: true
+
+  defp computed_node?(%{"type" => "TemplateLiteral", "expressions" => expressions}),
+    do: Enum.all?(expressions, &computed_node?(Ast.bare(&1)))
+
+  defp computed_node?(%{"type" => "MemberExpression"} = node),
+    do: computed_node?(Ast.bare(node["object"])) and computed_node?(Ast.bare(node["property"]))
+
+  defp computed_node?(%{"type" => type} = node)
+       when type in ~w(BinaryExpression LogicalExpression),
+       do: computed_node?(Ast.bare(node["left"])) and computed_node?(Ast.bare(node["right"]))
+
+  defp computed_node?(%{"type" => "ConditionalExpression"} = node),
+    do:
+      Enum.all?(
+        [node["test"], node["consequent"], node["alternate"]],
+        &computed_node?(Ast.bare(&1))
+      )
+
+  defp computed_node?(%{"type" => type} = node)
+       when type in ~w(UnaryExpression ParenthesizedExpression ChainExpression
+                       TSAsExpression TSNonNullExpression TSSatisfiesExpression),
+       do: computed_node?(Ast.bare(node["argument"] || node["expression"]))
+
+  # `frame.raw.replace(AT_PREFIX_REGEX, "")` — a method on a value, called with
+  # values. The callee has to be a member, because a bare `f(x)` is a function
+  # this file declared and inlining one is a different job.
+  defp computed_node?(%{"type" => "CallExpression", "callee" => callee} = node) do
+    case Ast.bare(callee) do
+      %{"type" => "MemberExpression", "property" => %{"name" => method}} = member
+      when method in @methods ->
+        computed_node?(Ast.bare(member["object"])) and
+          Enum.all?(node["arguments"], &computed_node?(Ast.bare(&1)))
+
+      _other ->
+        false
+    end
+  end
+
+  defp computed_node?(_node), do: false
+
   defp string_literal(code) do
     case String.trim(code) do
       <<q, _::binary>> = literal when q in [?", ?'] -> String.slice(literal, 1..-2//1)
@@ -1762,27 +1966,63 @@ defmodule LiveShadcnTools.Spec do
     end
   end
 
+  # `icon ?? <FileIcon className="size-4 text-muted-foreground" />` — the same
+  # sentence about a prop that is not `children`. React has one anonymous
+  # children prop and any number of named ones; HEEx has one `inner_block` and
+  # any number of named slots, and they line up. So the named one becomes a
+  # named slot, and what upstream draws when nobody filled it becomes the
+  # slot's default rather than being dropped.
+  defp default_for_slot({:expr, _code, _node} = expression, ctx) do
+    with {operator, left, default} when operator in ~w(?? ||) <- Ast.logical(expression),
+         name when name != "children" <- source(left),
+         true <- Regex.match?(@value, name),
+         true <- Regex.match?(~r/</, source(default)) do
+      {Macro.underscore(name), markup(default, ctx)}
+    else
+      _ -> nil
+    end
+  end
+
   # `condition && <markup>`. Only when the right side is markup: `a && b` with
   # no element in it is a value, and the generator reads it as one.
   defp only_when({:expr, _code, _node} = expression) do
     case Ast.logical(expression) do
-      {"&&", condition, right} -> if Ast.jsx(right), do: {source(condition), right}
-      _ -> nil
+      # Markup, or a loop over markup. `speech-input` writes
+      # `{isListening && [0, 1, 2].map(…)}` — three pulses drawn while the
+      # microphone is on — and read as neither, the whole component stopped.
+      {"&&", condition, right} ->
+        if Ast.jsx(right) || repeat_over(right), do: {source(condition), right}
+
+      _ ->
+        nil
     end
   end
 
   # A ternary with markup on at least one side. Which `?` is the ternary's is a
   # question for the parser, not for a bracket count: a `?` inside a string, or
   # between two JSX tags, is at no depth at all.
+  # A prop destructured under another name, asked about by that name.
+  # `artifact` writes `icon: Icon` and then `{Icon ? <Icon /> : children}`, and
+  # the condition has to read the prop rather than the local capital it was
+  # given for JSX's sake.
+  defp under_its_own_name(condition, ctx),
+    do: Map.get(Map.get(ctx, :renames) || %{}, String.trim(condition), condition)
+
   defp choice({:expr, _code, _node} = expression) do
     case Ast.conditional(expression) do
       {condition, yes, no} ->
-        if Ast.jsx(yes) || Ast.jsx(no), do: {source(condition), yes, no}
+        if Enum.any?([yes, no], &draws?/1), do: {source(condition), yes, no}
 
       _ ->
         nil
     end
   end
+
+  # A branch that draws something. An element is the usual one; a loop is the
+  # other, and `keyedLine.tokens.length === 0 ? "\n" : keyedLine.tokens.map(…)`
+  # has one of each. Asking only about elements read that as a value, which is
+  # what a code block's every line of code went through before it drew nothing.
+  defp draws?(branch), do: Ast.jsx(branch) != nil or Ast.mapped(branch) != nil
 
   # What a loop or a condition draws. Usually one element; sometimes another
   # expression, because `lines.map((line) => line.tokens.map(…))` is a loop
@@ -2074,12 +2314,20 @@ defmodule LiveShadcnTools.Spec do
   # of thing: an icon, here, which is a name the caller passes rather than a
   # module it imports.
   defp icon_prop(tag, ctx) do
-    with prop when is_binary(prop) <- Map.get(Map.get(ctx, :renames, %{}), tag),
-         default when is_binary(default) <- Map.get(Map.get(ctx, :params_of) || %{}, prop),
-         true <- icon_set(default, ctx) != nil do
-      Macro.underscore(prop)
-    else
-      _ -> nil
+    case Map.get(Map.get(ctx, :renames, %{}), tag) do
+      prop when is_binary(prop) -> if icon_prop?(prop, ctx), do: Macro.underscore(prop)
+      _not_renamed -> nil
+    end
+  end
+
+  # A prop rendered as a tag is an icon when its default is one — `icon: Icon =
+  # DotIcon` — or, with no default, when it is called one. `artifact` writes
+  # `icon: Icon` and types it `LucideIcon`, and read as neither the whole
+  # component stopped on `<Icon>`.
+  defp icon_prop?(prop, ctx) do
+    case Map.get(Map.get(ctx, :params_of) || %{}, prop) do
+      default when is_binary(default) -> icon_set(default, ctx) != nil
+      _no_default -> prop == "icon" or String.ends_with?(prop, "Icon")
     end
   end
 

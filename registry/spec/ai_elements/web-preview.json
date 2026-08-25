@@ -1,0 +1,879 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "folds": [
+    "shadcn/input"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "web-preview",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "WebPreview",
+      "name": "web_preview",
+      "params": {
+        "children": null,
+        "className": null,
+        "defaultUrl": ""
+      },
+      "primitive": null,
+      "refs": [
+        "defaultUrl",
+        "newUrl",
+        "onUrlChange",
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "flex size-full flex-col rounded-lg border bg-card",
+            "class_when": [],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "WebPreviewNavigation",
+      "name": "web_preview_navigation",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "flex items-center gap-1 border-b p-2",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "WebPreviewNavigationButton",
+      "name": "web_preview_navigation_button",
+      "params": {
+        "children": null,
+        "disabled": null,
+        "tooltip": null
+      },
+      "primitive": null,
+      "refs": [
+        "disabled",
+        "onClick",
+        "props",
+        "children",
+        "tooltip"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [
+                      {
+                        "identifiers": [
+                          "disabled"
+                        ],
+                        "kind": "code",
+                        "name": "disabled",
+                        "value": "disabled"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "size",
+                        "value": "sm"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "variant",
+                        "value": "ghost"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "type": "children"
+                      }
+                    ],
+                    "class": "h-8 w-8 p-0 hover:text-foreground",
+                    "class_when": [],
+                    "component": "button",
+                    "function": "button",
+                    "merges_class": false,
+                    "props": true,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "recipe": "presentational",
+                    "render_as": null,
+                    "slot": null,
+                    "source": "shadcn",
+                    "tag": "button",
+                    "type": "component_ref",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "class_when": [],
+                "component": "tooltip",
+                "function": "tooltip_trigger",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "recipe": "popover",
+                "render_as": null,
+                "slot": null,
+                "source": "shadcn",
+                "tag": "button",
+                "type": "component_ref",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "code": "tooltip",
+                        "identifiers": [
+                          "tooltip"
+                        ],
+                        "type": "value"
+                      }
+                    ],
+                    "class": "",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "p",
+                    "type": "element",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "class_when": [],
+                "component": "tooltip",
+                "function": "tooltip_content",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "recipe": "popover",
+                "render_as": null,
+                "slot": null,
+                "source": "shadcn",
+                "tag": "div",
+                "type": "component_ref",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "",
+            "class_when": [],
+            "component": "tooltip",
+            "function": "tooltip",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "popover",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": null,
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "component": "tooltip",
+        "function": "tooltip_provider",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "recipe": "popover",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": null,
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "WebPreviewUrl",
+      "name": "web_preview_url",
+      "params": {
+        "className": null,
+        "inputValue": null,
+        "type": null,
+        "value": null
+      },
+      "primitive": null,
+      "refs": [
+        "event",
+        "onKeyDown",
+        "onChange",
+        "value",
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "type"
+            ],
+            "kind": "code",
+            "name": "type",
+            "value": "type"
+          },
+          {
+            "kind": "text",
+            "name": "placeholder",
+            "value": "Enter URL..."
+          },
+          {
+            "identifiers": [
+              "inputValue",
+              "value"
+            ],
+            "kind": "code",
+            "name": "value",
+            "value": "value ?? inputValue"
+          }
+        ],
+        "children": [],
+        "class": "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 h-8 flex-1 text-sm",
+        "class_when": [],
+        "merges_class": true,
+        "module": "input",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "aria-invalid",
+              "value": null
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "input",
+        "tag": "input",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "WebPreviewBody",
+      "name": "web_preview_body",
+      "params": {
+        "className": null,
+        "loading": null,
+        "src": null,
+        "url": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "src",
+        "props",
+        "loading"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "sandbox",
+                "value": "allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"
+              },
+              {
+                "identifiers": [
+                  "src",
+                  "undefined",
+                  "url"
+                ],
+                "kind": "code",
+                "name": "src",
+                "value": "(src ?? url) || undefined"
+              },
+              {
+                "kind": "text",
+                "name": "title",
+                "value": "Preview"
+              }
+            ],
+            "children": [],
+            "class": "size-full",
+            "class_when": [],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "iframe",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "code": "loading",
+            "identifiers": [
+              "loading"
+            ],
+            "type": "value"
+          }
+        ],
+        "class": "flex-1",
+        "class_when": [],
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "WebPreviewConsole",
+      "name": "web_preview_console",
+      "params": {
+        "children": null,
+        "className": null,
+        "consoleOpen": null,
+        "logs": "[]"
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "logs",
+        "log",
+        "children"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "consoleOpen"
+            ],
+            "kind": "code",
+            "name": "open",
+            "value": "consoleOpen"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "variant",
+                    "value": "ghost"
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Console"
+                  },
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "h-4 w-4 transition-transform duration-200",
+                    "class_when": [
+                      {
+                        "else": null,
+                        "identifiers": [
+                          "consoleOpen"
+                        ],
+                        "then": "rotate-180",
+                        "when": "consoleOpen"
+                      }
+                    ],
+                    "icons": {
+                      "lucide": "ChevronDownIcon"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "class": "flex w-full items-center justify-between p-4 text-left font-medium hover:bg-muted/50",
+                "class_when": [],
+                "component": "button",
+                "function": "button",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "recipe": "presentational",
+                "render_as": null,
+                "slot": null,
+                "source": "shadcn",
+                "tag": "button",
+                "type": "component_ref",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "",
+            "class_when": [],
+            "component": "collapsible",
+            "function": "collapsible_trigger",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "button",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "else": [
+                      {
+                        "binding": "log",
+                        "children": [
+                          {
+                            "attrs": [],
+                            "children": [
+                              {
+                                "attrs": [],
+                                "children": [
+                                  {
+                                    "code": "log.timestamp.toLocaleTimeString()",
+                                    "identifiers": [
+                                      "log"
+                                    ],
+                                    "member_roots": [
+                                      "log"
+                                    ],
+                                    "type": "value"
+                                  }
+                                ],
+                                "class": "text-muted-foreground",
+                                "class_when": [],
+                                "merges_class": false,
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": null,
+                                "tag": "span",
+                                "type": "element",
+                                "variant_calls": [],
+                                "vars": []
+                              },
+                              {
+                                "type": "text",
+                                "value": " "
+                              },
+                              {
+                                "code": "log.message",
+                                "identifiers": [
+                                  "log"
+                                ],
+                                "member_roots": [
+                                  "log"
+                                ],
+                                "type": "value"
+                              }
+                            ],
+                            "class": "text-xs",
+                            "class_when": [
+                              {
+                                "else": null,
+                                "identifiers": [
+                                  "log"
+                                ],
+                                "then": "text-destructive",
+                                "when": "log.level === \"error\""
+                              },
+                              {
+                                "else": null,
+                                "identifiers": [
+                                  "log"
+                                ],
+                                "then": "text-yellow-600",
+                                "when": "log.level === \"warn\""
+                              },
+                              {
+                                "else": null,
+                                "identifiers": [
+                                  "log"
+                                ],
+                                "then": "text-foreground",
+                                "when": "log.level === \"log\""
+                              }
+                            ],
+                            "merges_class": false,
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "tag": "div",
+                            "type": "element",
+                            "variant_calls": [],
+                            "vars": []
+                          }
+                        ],
+                        "collection": "logs",
+                        "counter": null,
+                        "fields": [],
+                        "type": "repeat_over"
+                      }
+                    ],
+                    "identifiers": [
+                      "cn",
+                      "log",
+                      "logs"
+                    ],
+                    "member_roots": [
+                      "log",
+                      "logs"
+                    ],
+                    "then": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "No console output"
+                          }
+                        ],
+                        "class": "text-muted-foreground",
+                        "class_when": [],
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "p",
+                        "type": "element",
+                        "variant_calls": [],
+                        "vars": []
+                      }
+                    ],
+                    "type": "choice",
+                    "when": "logs.length === 0"
+                  },
+                  {
+                    "type": "children"
+                  }
+                ],
+                "class": "max-h-48 space-y-1 overflow-y-auto",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "px-4 pb-4 data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+            "class_when": [],
+            "component": "collapsible",
+            "function": "collapsible_content",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": [
+                {
+                  "name": "data-state",
+                  "value": "closed"
+                },
+                {
+                  "name": "data-state",
+                  "value": "open"
+                },
+                {
+                  "name": "data-side",
+                  "value": "bottom"
+                },
+                {
+                  "name": "data-side",
+                  "value": "left"
+                },
+                {
+                  "name": "data-side",
+                  "value": "right"
+                },
+                {
+                  "name": "data-side",
+                  "value": "top"
+                }
+              ]
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "div",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "border-t bg-muted/50 font-mono text-sm",
+        "class_when": [],
+        "component": "collapsible",
+        "function": "collapsible",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "recipe": "disclosure",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": "div",
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    }
+  ],
+  "primitives": {
+    "input.Root": {
+      "css_vars": [],
+      "data": [
+        "data-disabled",
+        "data-valid",
+        "data-invalid",
+        "data-dirty",
+        "data-touched",
+        "data-filled",
+        "data-focused"
+      ],
+      "element": "input",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "number \\",
+          "doc": "string[]",
+          "name": "defaultValue",
+          "type": "string \\"
+        },
+        {
+          "default": "string[] \\",
+          "doc": "number",
+          "name": "value",
+          "type": "string \\"
+        },
+        {
+          "default": null,
+          "doc": "Callback fired when the `value` changes. Use when controlled.",
+          "name": "onValueChange",
+          "type": "((value: string, eventDetails: Input.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "((state: Input.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Input.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Input.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A native input element that automatically works with [Field](https://base-ui.com/react/components/field)."
+    }
+  },
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {
+    "luma": {
+      "cn-input": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-3xl border px-3 py-1 text-base transition-[color,box-shadow,background-color] file:h-7 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
+    },
+    "lyra": {
+      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-none border bg-transparent px-2.5 py-1 text-xs transition-colors file:h-6 file:text-xs file:font-medium focus-visible:ring-1 aria-invalid:ring-1 md:text-xs"
+    },
+    "maia": {
+      "cn-input": "bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-4xl border px-3 py-1 text-base transition-colors file:h-7 file:text-sm file:font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] md:text-sm"
+    },
+    "mira": {
+      "cn-input": "bg-input/20 dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-7 rounded-md border px-2 py-0.5 text-sm transition-colors file:h-6 file:text-xs/relaxed file:font-medium focus-visible:ring-2 aria-invalid:ring-2 md:text-xs/relaxed"
+    },
+    "nova": {
+      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-lg border bg-transparent px-2.5 py-1 text-base transition-colors file:h-6 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
+    },
+    "rhea": {
+      "cn-input": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 rounded-2xl border px-2.5 py-1 text-base transition-[color,box-shadow] duration-200 file:h-6 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
+    },
+    "sera": {
+      "cn-input": "border-transparent border-b-input bg-transparent focus-visible:border-b-ring aria-invalid:border-b-destructive dark:aria-invalid:border-b-destructive/50 h-10 border px-0 py-1 text-base transition-[color,border-color] file:h-7 file:text-sm file:font-medium md:text-sm"
+    },
+    "vega": {
+      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-md border bg-transparent px-2.5 py-1 text-base shadow-xs transition-[color,box-shadow] file:h-7 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/web-preview.tsx",
+      "sha256": "7ae44586766db67c5341b36a30340b202e6f45c205457ad98f0817968d162d2c"
+    }
+  },
+  "variants": {}
+}

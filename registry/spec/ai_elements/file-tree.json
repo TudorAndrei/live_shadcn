@@ -1,0 +1,931 @@
+{
+  "anatomy": [],
+  "css_vars": [
+    "--collapsible-panel-height",
+    "--collapsible-panel-width"
+  ],
+  "folds": [
+    "shadcn/collapsible"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "file-tree",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "FileTree",
+      "name": "file_tree",
+      "params": {
+        "children": null,
+        "className": null,
+        "defaultExpanded": "new Set()",
+        "expanded": null,
+        "selectedPath": null
+      },
+      "primitive": null,
+      "refs": [
+        "defaultExpanded",
+        "expanded",
+        "path",
+        "onExpandedChange",
+        "onSelect",
+        "selectedPath",
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "role",
+                "value": "tree"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "children"
+                  }
+                ],
+                "class": "p-2",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "rounded-lg border bg-background font-mono text-sm",
+            "class_when": [],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "FileTreeIcon",
+      "name": "file_tree_icon",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "shrink-0",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "span",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "FileTreeName",
+      "name": "file_tree_name",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "truncate",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "span",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "FileTreeFolder",
+      "name": "file_tree_folder",
+      "params": {
+        "children": null,
+        "className": null,
+        "isExpanded": null,
+        "isSelected": null,
+        "name": null,
+        "path": null
+      },
+      "primitive": null,
+      "refs": [
+        "path",
+        "name",
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [
+              {
+                "identifiers": [
+                  "isExpanded"
+                ],
+                "kind": "code",
+                "name": "open",
+                "value": "isExpanded"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "role",
+                    "value": "treeitem"
+                  },
+                  {
+                    "kind": "code",
+                    "name": "tabindex",
+                    "value": "0"
+                  }
+                ],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "attrs": [
+                          {
+                            "kind": "text",
+                            "name": "type",
+                            "value": "button"
+                          }
+                        ],
+                        "children": [
+                          {
+                            "attrs": [],
+                            "children": [],
+                            "class": "size-4 shrink-0 text-muted-foreground transition-transform",
+                            "class_when": [
+                              {
+                                "else": null,
+                                "identifiers": [
+                                  "isExpanded"
+                                ],
+                                "then": "rotate-90",
+                                "when": "isExpanded"
+                              }
+                            ],
+                            "icons": {
+                              "lucide": "ChevronRightIcon"
+                            },
+                            "merges_class": false,
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "type": "icon",
+                            "variant_calls": [],
+                            "vars": []
+                          }
+                        ],
+                        "class": "flex shrink-0 cursor-pointer items-center border-none bg-transparent p-0",
+                        "class_when": [],
+                        "merges_class": false,
+                        "module": "collapsible",
+                        "part": "Trigger",
+                        "props": true,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": "collapsible-trigger",
+                        "tag": "button",
+                        "type": "primitive",
+                        "variant_calls": [],
+                        "vars": []
+                      },
+                      {
+                        "attrs": [
+                          {
+                            "kind": "text",
+                            "name": "type",
+                            "value": "button"
+                          }
+                        ],
+                        "children": [
+                          {
+                            "attrs": [],
+                            "children": [
+                              {
+                                "else": [
+                                  {
+                                    "attrs": [],
+                                    "children": [],
+                                    "class": "size-4 text-blue-500",
+                                    "class_when": [],
+                                    "icons": {
+                                      "lucide": "FolderIcon"
+                                    },
+                                    "merges_class": false,
+                                    "props": false,
+                                    "reads": {
+                                      "group": [],
+                                      "self": []
+                                    },
+                                    "render_as": null,
+                                    "slot": null,
+                                    "type": "icon",
+                                    "variant_calls": [],
+                                    "vars": []
+                                  }
+                                ],
+                                "identifiers": [
+                                  "isExpanded"
+                                ],
+                                "then": [
+                                  {
+                                    "attrs": [],
+                                    "children": [],
+                                    "class": "size-4 text-blue-500",
+                                    "class_when": [],
+                                    "icons": {
+                                      "lucide": "FolderOpenIcon"
+                                    },
+                                    "merges_class": false,
+                                    "props": false,
+                                    "reads": {
+                                      "group": [],
+                                      "self": []
+                                    },
+                                    "render_as": null,
+                                    "slot": null,
+                                    "type": "icon",
+                                    "variant_calls": [],
+                                    "vars": []
+                                  }
+                                ],
+                                "type": "choice",
+                                "when": "isExpanded"
+                              }
+                            ],
+                            "class": "",
+                            "class_when": [],
+                            "merges_class": false,
+                            "part": "file_tree_icon",
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "type": "part_ref",
+                            "variant_calls": [],
+                            "vars": []
+                          },
+                          {
+                            "attrs": [],
+                            "children": [
+                              {
+                                "code": "name",
+                                "identifiers": [
+                                  "name"
+                                ],
+                                "type": "value"
+                              }
+                            ],
+                            "class": "",
+                            "class_when": [],
+                            "merges_class": false,
+                            "part": "file_tree_name",
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "type": "part_ref",
+                            "variant_calls": [],
+                            "vars": []
+                          }
+                        ],
+                        "class": "flex min-w-0 flex-1 cursor-pointer items-center gap-1 border-none bg-transparent p-0 text-left",
+                        "class_when": [],
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "button",
+                        "type": "element",
+                        "variant_calls": [],
+                        "vars": []
+                      }
+                    ],
+                    "class": "flex w-full items-center gap-1 rounded px-2 py-1 text-left transition-colors hover:bg-muted/50",
+                    "class_when": [
+                      {
+                        "else": null,
+                        "identifiers": [
+                          "isSelected"
+                        ],
+                        "then": "bg-muted",
+                        "when": "isSelected"
+                      }
+                    ],
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "div",
+                    "type": "element",
+                    "variant_calls": [],
+                    "vars": []
+                  },
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "type": "children"
+                          }
+                        ],
+                        "class": "ml-4 border-l pl-2",
+                        "class_when": [],
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "div",
+                        "type": "element",
+                        "variant_calls": [],
+                        "vars": []
+                      }
+                    ],
+                    "class": "",
+                    "class_when": [],
+                    "merges_class": false,
+                    "module": "collapsible",
+                    "part": "Panel",
+                    "props": true,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": "collapsible-content",
+                    "tag": "div",
+                    "type": "primitive",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "class_when": [],
+                "merges_class": true,
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "",
+            "class_when": [],
+            "merges_class": false,
+            "module": "collapsible",
+            "part": "Root",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "collapsible",
+            "tag": "div",
+            "type": "primitive",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "FileTreeFile",
+      "name": "file_tree_file",
+      "params": {
+        "children": null,
+        "className": null,
+        "icon": null,
+        "isSelected": null,
+        "name": null,
+        "path": null
+      },
+      "primitive": null,
+      "refs": [
+        "path",
+        "e",
+        "name",
+        "className",
+        "props",
+        "children",
+        "icon"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "role",
+                "value": "treeitem"
+              },
+              {
+                "kind": "code",
+                "name": "tabindex",
+                "value": "0"
+              }
+            ],
+            "children": [
+              {
+                "default": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [],
+                        "class": "size-4 shrink-0",
+                        "class_when": [],
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "span",
+                        "type": "element",
+                        "variant_calls": [],
+                        "vars": []
+                      },
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "default": [
+                              {
+                                "attrs": [],
+                                "children": [],
+                                "class": "size-4 text-muted-foreground",
+                                "class_when": [],
+                                "icons": {
+                                  "lucide": "FileIcon"
+                                },
+                                "merges_class": false,
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": null,
+                                "type": "icon",
+                                "variant_calls": [],
+                                "vars": []
+                              }
+                            ],
+                            "identifiers": [
+                              "icon"
+                            ],
+                            "name": "icon",
+                            "type": "slot"
+                          }
+                        ],
+                        "class": "",
+                        "class_when": [],
+                        "merges_class": false,
+                        "part": "file_tree_icon",
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "type": "part_ref",
+                        "variant_calls": [],
+                        "vars": []
+                      },
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "code": "name",
+                            "identifiers": [
+                              "name"
+                            ],
+                            "type": "value"
+                          }
+                        ],
+                        "class": "",
+                        "class_when": [],
+                        "merges_class": false,
+                        "part": "file_tree_name",
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "type": "part_ref",
+                        "variant_calls": [],
+                        "vars": []
+                      }
+                    ],
+                    "class": "",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "reason": "a fragment",
+                    "render_as": null,
+                    "slot": null,
+                    "type": "transparent",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "identifiers": [
+                  "children",
+                  "icon",
+                  "name"
+                ],
+                "type": "children"
+              }
+            ],
+            "class": "flex cursor-pointer items-center gap-1 rounded px-2 py-1 transition-colors hover:bg-muted/50",
+            "class_when": [
+              {
+                "else": null,
+                "identifiers": [
+                  "isSelected"
+                ],
+                "then": "bg-muted",
+                "when": "isSelected"
+              }
+            ],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "FileTreeActions",
+      "name": "file_tree_actions",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "group"
+          }
+        ],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "ml-auto flex items-center gap-1",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    }
+  ],
+  "primitives": {
+    "collapsible.Panel": {
+      "css_vars": [
+        "--collapsible-panel-height",
+        "--collapsible-panel-width"
+      ],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
+          "name": "hiddenUntilFound",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Collapsible.Panel.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Collapsible.Panel.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "false",
+          "doc": "Whether to keep the element in the DOM while the panel is hidden. This prop is ignored when `hiddenUntilFound` is used.",
+          "name": "keepMounted",
+          "type": "boolean"
+        },
+        {
+          "default": "((props: HTMLProps, state: Collapsible.Panel.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A panel with the collapsible contents."
+    },
+    "collapsible.Root": {
+      "css_vars": [],
+      "data": [
+        "data-open",
+        "data-closed",
+        "data-starting-style",
+        "data-ending-style"
+      ],
+      "element": "div",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the collapsible panel is initially open. To render a controlled collapsible, use the `open` prop instead.",
+          "name": "defaultOpen",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Whether the collapsible panel is currently open. To render an uncontrolled collapsible, use the `defaultOpen` prop instead.",
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "default": null,
+          "doc": "Event handler called when the panel is opened or closed.",
+          "name": "onOpenChange",
+          "type": "((open: boolean, eventDetails: Collapsible.Root.ChangeEventDetails) => void)"
+        },
+        {
+          "default": "false",
+          "doc": "Whether the component should ignore user interaction.",
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Collapsible.Root.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Collapsible.Root.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Collapsible.Root.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "Groups all parts of the collapsible."
+    },
+    "collapsible.Trigger": {
+      "css_vars": [],
+      "data": [
+        "data-panel-open"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Collapsible.Trigger.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Collapsible.Trigger.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Collapsible.Trigger.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button that opens and closes the collapsible panel."
+    }
+  },
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/file-tree.tsx",
+      "sha256": "9b6946171369d224d5d10df686c3c18ce7608aa4a4792744fc5c313499cec0cb"
+    }
+  },
+  "variants": {}
+}

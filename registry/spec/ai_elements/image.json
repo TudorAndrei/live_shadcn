@@ -9,6 +9,7 @@
       "export": "Image",
       "name": "image",
       "params": {
+        "alt": null,
         "base64": null,
         "mediaType": null
       },

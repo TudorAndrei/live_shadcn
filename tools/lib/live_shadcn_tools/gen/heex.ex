@@ -17,6 +17,7 @@ defmodule LiveShadcnTools.Gen.Heex do
       props
   """
 
+  alias LiveShadcnTools.Ast
   alias LiveShadcnTools.Spec
 
   @doc """
@@ -115,6 +116,22 @@ defmodule LiveShadcnTools.Gen.Heex do
   def render(%{"type" => "value", "code" => code}, ctx, indent),
     do: pad(indent) <> "{#{expression(code, ctx)}}"
 
+  # A named slot with something to draw when the caller filled nothing, which
+  # `{icon ?? <FileIcon />}` says. `render_slot/1` draws nothing for an empty
+  # slot, so only the default is guarded and exactly one of the two ever draws —
+  # the same shape `children` uses, asked of a name.
+  def render(%{"type" => "slot", "name" => name, "default" => [_ | _] = default}, ctx, indent) do
+    Enum.join(
+      [
+        pad(indent) <> "<%= if @#{name} == [] do %>",
+        Enum.map_join(default, "\n", &render(&1, ctx, indent + 1)),
+        pad(indent) <> "<% end %>",
+        pad(indent) <> "{render_slot(@#{name})}"
+      ],
+      "\n"
+    )
+  end
+
   # A render prop. React passes a function and calls it here; HEEx takes a slot
   # and renders it here, and the caller decides what goes in either way.
   def render(%{"type" => "slot", "name" => name}, _ctx, indent),
@@ -142,9 +159,12 @@ defmodule LiveShadcnTools.Gen.Heex do
   end
 
   # Base UI says this part renders no element of its own, so neither does the
-  # generated component. Its children still have to reach the page.
+  # generated component. Its children still have to reach the page, and so does
+  # whatever was written on the thing that draws nothing: a `:if` on a React
+  # context provider is a `:if` on everything inside it. Dropped, `checkpoint`
+  # drew its tooltip whether or not it was given one.
   def render(%{"type" => "transparent"} = node, ctx, indent),
-    do: children(node, ctx, indent) |> Enum.join("\n")
+    do: node |> handed_down() |> children(ctx, indent) |> Enum.join("\n")
 
   # `{showCloseButton && (<Close />)}` — the same decision, made in HEEx.
   def render(%{"type" => "optional", "when" => condition} = node, ctx, indent) do
@@ -180,10 +200,10 @@ defmodule LiveShadcnTools.Gen.Heex do
     generator =
       case node["counter"] do
         nil ->
-          "#{node["binding"]} <- #{expression(collection, ctx)}"
+          "#{node["binding"]} <- #{walked(collection, ctx)}"
 
         counter ->
-          "{#{node["binding"]}, #{counter}} <- Enum.with_index(#{expression(collection, ctx)})"
+          "{#{node["binding"]}, #{counter}} <- Enum.with_index(#{walked(collection, ctx)})"
       end
 
     # The binding is in scope inside the loop and nowhere else, so it reads like
@@ -203,6 +223,7 @@ defmodule LiveShadcnTools.Gen.Heex do
       end)
 
     node
+    |> handed_down()
     |> Map.get("children")
     |> List.wrap()
     |> Enum.map_join("\n", &render(with_attr(&1, {":for", :code, generator}), inner, indent))
@@ -331,6 +352,23 @@ defmodule LiveShadcnTools.Gen.Heex do
   # the icon set is configuration and a name is what every set has in common.
   defp icon_attr(%{"prop" => prop}), do: {"name", :code, "@" <> prop}
   defp icon_attr(node), do: {"name", :text, icon_name(node)}
+
+  # What was written on a node that draws no element of its own belongs to what
+  # it draws instead. `:if` and `:for` are the two, and both are the enclosing
+  # markup's rather than upstream's — see `structural/1`.
+  defp handed_down(node) do
+    case structural(node) do
+      [] ->
+        node
+
+      inherited ->
+        Map.update(node, "children", [], fn children ->
+          Enum.map(List.wrap(children), fn child ->
+            Enum.reduce(inherited, child, &with_attr(&2, &1))
+          end)
+        end)
+    end
+  end
 
   defp server_choice(node, yes, ctx, indent) do
     [{"then", yes}, {"else", "!(#{yes})"}]
@@ -649,8 +687,32 @@ defmodule LiveShadcnTools.Gen.Heex do
     tag(name, attrs, children(node, ctx, indent), indent)
   end
 
-  defp children(node, ctx, indent),
-    do: node |> Map.get("children") |> List.wrap() |> Enum.map(&render(&1, ctx, indent + 1))
+  # A run of text and values is one line, not one line each.
+  #
+  # `{passedPercent.toFixed(0)}%` is a number and a per-cent sign with nothing
+  # between them. Put on two lines they are a number, a newline and a per-cent
+  # sign, and HTML turns that newline into the space upstream never wrote. The
+  # spec keeps the spacing JSX kept, so the way to draw it is to write the
+  # children out as they stand.
+  @inline ~w(text value slot children)
+
+  defp children(node, ctx, indent) do
+    children = node |> Map.get("children") |> List.wrap()
+
+    if inline_run?(children),
+      do: [pad(indent + 1) <> Enum.map_join(children, &render(&1, ctx, 0))],
+      else: Enum.map(children, &render(&1, ctx, indent + 1))
+  end
+
+  # Two or more children, all of them inline, at least one of them text. One
+  # text child on its own is already right — HTML collapses the newlines around
+  # it — and leaving it alone keeps the generated markup readable.
+  defp inline_run?([_first, _second | _rest] = children) do
+    Enum.all?(children, &(&1["type"] in @inline and not Map.has_key?(&1, "default"))) and
+      Enum.any?(children, &(&1["type"] == "text"))
+  end
+
+  defp inline_run?(_children), do: false
 
   defp attributes(attrs) do
     attrs
@@ -769,14 +831,21 @@ defmodule LiveShadcnTools.Gen.Heex do
           "\#{@#{LiveShadcnTools.assign(property)}}"
 
         %{"kind" => "text", "property" => property, "value" => value} ->
-          "#{property}: #{value}"
+          "#{css(property)}: #{value}"
 
         %{"property" => property, "value" => value} ->
-          "#{property}: \#{#{expression(value, ctx)}}"
+          "#{css(property)}: \#{#{expression(value, ctx)}}"
       end)
 
     ~s|"#{body}"|
   end
+
+  # React writes a style property as JavaScript names it and CSS does not.
+  # `animationDelay` is `animation-delay` in a style attribute, and written as
+  # upstream typed it the declaration is one a browser skips: `speech-input`'s
+  # three pulses all began at once.
+  defp css(property),
+    do: Regex.replace(~r/([a-z])([A-Z])/, property, "\\1-\\2") |> String.downcase()
 
   # JavaScript that means the same thing in Elixir, and nothing more. An
   # identifier upstream destructured from its props is an assign here; anything
@@ -789,6 +858,7 @@ defmodule LiveShadcnTools.Gen.Heex do
     cond do
       code in ~w(true false) -> code
       code in ~w(undefined null) -> "nil"
+      handler?(code) -> "true"
       Regex.match?(~r/^-?\d+(\.\d+)?$/, code) -> code
       binding = Map.get(Map.get(ctx, :bindings) || %{}, code) -> binding
       Map.has_key?(params, code) -> "@" <> LiveShadcnTools.assign(code)
@@ -796,6 +866,10 @@ defmodule LiveShadcnTools.Gen.Heex do
       fallback = fallback(code, ctx) -> fallback
       ternary = ternary(code, ctx) -> ternary
       literal?(code) -> code
+      list = list(code, ctx) -> list
+      iso = iso8601(code, ctx) -> iso
+      template = template(code, ctx) -> template
+      method = method(code, ctx) -> method
       member = member(code, ctx) -> member
       binary = binary(code, ctx) -> binary
       true -> raise unbound(code)
@@ -884,15 +958,180 @@ defmodule LiveShadcnTools.Gen.Heex do
       (Regex.match?(~r/^`[^`$]*`$/, code) and not String.contains?(code, "${"))
   end
 
+  # `[0, 1, 2].map(…)` — a list written where it is walked. `speech-input` draws
+  # three bars that way, and a list of literals means in Elixir what it means in
+  # JavaScript.
+  defp list("[" <> rest, ctx) do
+    if String.ends_with?(rest, "]") do
+      items =
+        rest
+        |> binary_part(0, byte_size(rest) - 1)
+        |> String.split(",")
+        |> Enum.map(&String.trim/1)
+        |> Enum.reject(&(&1 == ""))
+
+      if items != [], do: "[" <> Enum.map_join(items, ", ", &expression(&1, ctx)) <> "]"
+    end
+  end
+
+  defp list(_code, _ctx), do: nil
+
+  # `onSeek && "cursor-pointer"` — a class string that asks whether the caller
+  # passed a handler. Upstream has to ask, because a React callback is a prop
+  # that may be missing. Here it never is: a caller binds `phx-click` through
+  # the component's `:global`, and the component cannot see whether they did.
+  #
+  # So the answer is yes. `transcription` draws a segment that can be seeked to,
+  # which is the state a caller who wired one is in and the only state this side
+  # can know about.
+  defp handler?(code), do: code =~ ~r/^on[A-Z][A-Za-z0-9_]*$/
+
+  # What the loop walks, with whatever it was told to leave out.
+  #
+  # `segments.filter((segment) => segment.text.trim())` — `transcription` draws
+  # every segment that has words in it. The list is filtered before the walk
+  # rather than inside it, because a `.map` that counts counts the ones that
+  # were kept.
+  #
+  # The test is written for JavaScript's idea of true, where an empty string is
+  # false and here is not — the same conversion `!!x` already asks for.
+  defp walked(collection, ctx) do
+    filter = ~r/^(.+)\.filter\(\s*\(?\s*([a-z_][A-Za-z0-9_]*)\s*\)?\s*=>\s*(.+?)\s*\)$/s
+
+    case Regex.run(filter, String.trim(collection), capture: :all_but_first) do
+      [list, item, test] ->
+        kept = expression(test, bind(ctx, item))
+
+        "Enum.filter(#{expression(list, ctx)}, fn #{item} -> " <>
+          "#{kept} not in [nil, false, \"\"] end)"
+
+      nil ->
+        expression(collection, ctx)
+    end
+  end
+
+  # `date.toISOString()` — JavaScript asks a `Date` for the string that
+  # `<time datetime>` wants. Elixir prints a `DateTime` that way already, and a
+  # caller who holds the string passes the string. So the attribute reads the
+  # prop, and neither side has to know which of the two it was given.
+  defp iso8601(code, ctx) do
+    case Regex.run(~r/^([a-z_][A-Za-z0-9_.]*)\.toISOString\(\)$/, code, capture: :all_but_first) do
+      [name] -> expression(name, ctx)
+      nil -> nil
+    end
+  end
+
+  # A template literal with something in it. `` `${provider} logo` `` is a
+  # string with an expression inside, and Elixir writes that the same way — so
+  # the only work is the punctuation and the expression inside the braces, which
+  # is `expression/2` again and therefore still reports an unknown name by name.
+  defp template("`" <> rest, ctx) do
+    if String.ends_with?(rest, "`") do
+      inner = binary_part(rest, 0, byte_size(rest) - 1)
+
+      body =
+        Regex.replace(~r/\$\{([^{}]*)\}/, escaped(inner), fn _whole, code ->
+          "\#{" <> expression(code, ctx) <> "}"
+        end)
+
+      ~s|"#{body}"|
+    end
+  end
+
+  defp template(_code, _ctx), do: nil
+
+  # The quotes and backslashes a template held as text, written so that what
+  # comes out is one Elixir string and not three.
+  defp escaped(text), do: text |> String.replace("\\", "\\\\") |> String.replace("\"", "\\\"")
+
+  # A method on a value. JavaScript asks the value; Elixir asks the module that
+  # knows about that kind of value, so each one is written out by name.
+  #
+  # The list is short and closed on purpose: `LiveShadcnTools.Spec` accepts an
+  # expression as a value only when every call in it is one of these, so a
+  # method added there without a translation here would read as understood and
+  # then fail to generate.
+  defp method(code, ctx) do
+    case Ast.method_call(code) do
+      {of, method, args} -> translated(method, of, args, ctx)
+      nil -> nil
+    end
+  end
+
+  defp translated(method, of, [], ctx) when method in ~w(trim toUpperCase toLowerCase) do
+    module = %{"trim" => "String.trim", "toUpperCase" => "String.upcase"}
+    module = Map.get(module, method, "String.downcase")
+
+    with value when is_binary(value) <- expression!(of, ctx), do: "#{module}(#{value})"
+  end
+
+  # JavaScript's `replace` changes the first match and `replaceAll` changes
+  # every one; Elixir's `String.replace/4` changes every one unless told not to.
+  defp translated(method, of, [pattern, with_what], ctx) when method in ~w(replace replaceAll) do
+    with value when is_binary(value) <- expression!(of, ctx),
+         replacement when is_binary(replacement) <- expression!(with_what, ctx),
+         regex when is_binary(regex) <- regex(pattern) do
+      global = if method == "replaceAll", do: "", else: ", global: false"
+      "String.replace(#{value}, #{regex}, #{replacement}#{global})"
+    end
+  end
+
+  # `(ms / 1000).toFixed(2)` — a number written with a fixed number of decimal
+  # places. `float_to_binary/2` wants a float and the arithmetic above it may
+  # have produced an integer, so it is made one.
+  defp translated("toFixed", of, [digits], ctx) do
+    with value when is_binary(value) <- expression!(of, ctx),
+         {decimals, ""} <- Integer.parse(String.trim(digits)) do
+      ":erlang.float_to_binary(#{value} / 1, decimals: #{decimals})"
+    else
+      _other -> nil
+    end
+  end
+
+  # `log.timestamp.toLocaleTimeString()` — the time of day, in the reader's
+  # locale. A server has no reader to ask, so it writes the one format every
+  # locale agrees on the meaning of.
+  defp translated("toLocaleTimeString", of, [], ctx) do
+    with value when is_binary(value) <- expression!(of, ctx),
+         do: ~s|Calendar.strftime(#{value}, "%H:%M:%S")|
+  end
+
+  defp translated("join", of, [separator], ctx) do
+    with value when is_binary(value) <- expression!(of, ctx),
+         separator when is_binary(separator) <- expression!(separator, ctx),
+         do: "Enum.join(#{value}, #{separator})"
+  end
+
+  defp translated(_method, _of, _args, _ctx), do: nil
+
+  # `expression/2` raises for a name it cannot place, which is right where a
+  # component is being written and wrong here: a method this generator does not
+  # know is a `nil` that lets the next reader in the chain try.
+  defp expression!(code, ctx) do
+    expression(code, ctx)
+  rescue
+    _error -> nil
+  end
+
+  # `/^at\s+/` as an Elixir sigil. The two languages write the same patterns;
+  # what differs is the delimiter and where the flags go.
+  defp regex(pattern) do
+    case Regex.run(~r|^/(.*)/([a-z]*)$|s, String.trim(pattern), capture: :all_but_first) do
+      [source, flags] -> "~r/#{source}/#{String.replace(flags, "g", "")}"
+      nil -> nil
+    end
+  end
+
   # `values.length` is `length(values)` here. JavaScript reads the size of a
   # list as a field of it and Elixir asks a function, and a `.length` left as
   # written would read a key nobody put in a map.
   defp member(code, ctx) do
     case String.split(code, ".") do
       [_head, _more | _rest] = parts ->
-        if List.last(parts) == "length",
-          do: sized(parts, ctx),
-          else: path(parts, ctx)
+        case List.last(parts) do
+          "length" -> sized(parts, ctx)
+          _field -> path(parts, ctx)
+        end
 
       _shorter ->
         nil
@@ -914,6 +1153,13 @@ defmodule LiveShadcnTools.Gen.Heex do
       _nothing -> nil
     end
   end
+
+  # `props.alt` — a prop read off the rest object rather than destructured.
+  # `image` writes `<img {...props} alt={props.alt} />`, and upstream's own type
+  # declares `alt`. So the path through `props` is the prop, exactly as a path
+  # through a React context is.
+  defp path(["props", field], _ctx) when is_binary(field),
+    do: "@" <> LiveShadcnTools.assign(field)
 
   defp path([head | rest], ctx) do
     with true <- Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, head),
@@ -952,15 +1198,20 @@ defmodule LiveShadcnTools.Gen.Heex do
   # `question.disabled || disabled` asks two sources for the same fact: the
   # group and the option. A HEEx component has no group to ask, so both sides
   # read the one prop, and asking it twice reads no better than asking once.
+  #
+  # Where the left side stops is a question for the parser, not for a split on
+  # the first operator it finds. `(src ?? url) || undefined` has two of them,
+  # and split on the first one the left side was `(src` — an open bracket and a
+  # name, which is not an expression at all.
   defp fallback(code, ctx) do
-    case String.split(code, ~r/\?\?|\|\|/, parts: 2) do
-      [value, default] ->
+    case Ast.logical(code) do
+      {operator, value, default} when operator in ~w(?? ||) ->
         case {expression(value, ctx), expression(default, ctx)} do
           {same, same} -> same
           {value, default} -> "#{value} || #{default}"
         end
 
-      [_] ->
+      _other ->
         nil
     end
   end
@@ -1071,10 +1322,21 @@ defmodule LiveShadcnTools.Gen.Heex do
   # other branch, because a class list drops what is nil.
   defp conditional_classes(node, ctx) do
     for segment <- Map.get(node, "class_when") || [] do
-      condition = expression(segment["when"], ctx)
+      case expression(segment["when"], ctx) do
+        # A question with one answer is not a question. `onSeek &&
+        # "cursor-pointer"` asks whether a handler was passed, and here one
+        # always is — written out, `if(true, do: …)` is a line a reader has to
+        # read twice to learn nothing.
+        "true" ->
+          {:code, inspect(segment["then"])}
 
-      {:code,
-       "if(#{condition}, do: #{inspect(segment["then"])}, else: #{inspect(segment["else"])})"}
+        "false" ->
+          {:code, inspect(segment["else"])}
+
+        condition ->
+          {:code,
+           "if(#{condition}, do: #{inspect(segment["then"])}, else: #{inspect(segment["else"])})"}
+      end
     end
   end
 

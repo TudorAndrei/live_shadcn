@@ -17,12 +17,13 @@
         "className": null,
         "defaultValue": "EMPTY_VALUE",
         "disabled": "false",
-        "selectionMode": "single"
+        "selectionMode": "single",
+        "value": null
       },
       "primitive": null,
       "refs": [
         "defaultValue",
-        "controlledValue",
+        "value",
         "nextValue",
         "onValueChange",
         "text",

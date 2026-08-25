@@ -1,0 +1,1876 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "folds": [
+    "shadcn/badge"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "schema-display",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "SchemaDisplayHeader",
+      "name": "schema_display_header",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "flex items-center gap-3 border-b px-4 py-3",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplayMethod",
+      "name": "schema_display_method",
+      "params": {
+        "children": null,
+        "className": null,
+        "method": null,
+        "render": null,
+        "variant": "secondary"
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "variant"
+            ],
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
+        "children": [
+          {
+            "default": [
+              {
+                "code": "method",
+                "type": "value"
+              }
+            ],
+            "identifiers": [
+              "children",
+              "method"
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "font-mono text-xs",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "aria-invalid",
+              "value": null
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "badge",
+        "tag": "span",
+        "type": "element",
+        "variant_calls": [
+          {
+            "args": [
+              "variant"
+            ],
+            "table": "badgeVariants"
+          }
+        ],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplayPath",
+      "name": "schema_display_path",
+      "params": {
+        "children": null,
+        "className": null,
+        "highlightedPath": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "children",
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "children",
+              "highlightedPath"
+            ],
+            "kind": "code",
+            "name": "dangerouslySetInnerHTML",
+            "value": "{ __html: children ?? highlightedPath }"
+          }
+        ],
+        "children": [],
+        "class": "font-mono text-sm",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "span",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplayDescription",
+      "name": "schema_display_description",
+      "params": {
+        "children": null,
+        "className": null,
+        "description": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "default": [
+              {
+                "code": "description",
+                "type": "value"
+              }
+            ],
+            "identifiers": [
+              "children",
+              "description"
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "border-b px-4 py-3 text-muted-foreground text-sm",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "p",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplayContent",
+      "name": "schema_display_content",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "divide-y",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplayParameter",
+      "name": "schema_display_parameter",
+      "params": {
+        "className": null,
+        "description": null,
+        "location": null,
+        "name": null,
+        "render": null,
+        "required": null,
+        "type": null,
+        "variant": "outline"
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "name",
+        "type",
+        "location",
+        "required",
+        "description"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "name",
+                    "identifiers": [
+                      "name"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "font-mono text-sm",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [
+                  {
+                    "identifiers": [
+                      "variant"
+                    ],
+                    "kind": "code",
+                    "name": "data-variant",
+                    "value": "variant"
+                  }
+                ],
+                "children": [
+                  {
+                    "code": "type",
+                    "identifiers": [
+                      "type"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "text-xs",
+                "class_when": [],
+                "merges_class": false,
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": [
+                    {
+                      "name": "aria-invalid",
+                      "value": null
+                    }
+                  ]
+                },
+                "render_as": null,
+                "slot": "badge",
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [
+                  {
+                    "args": [
+                      "variant"
+                    ],
+                    "table": "badgeVariants"
+                  }
+                ],
+                "vars": []
+              },
+              {
+                "children": [
+                  {
+                    "attrs": [
+                      {
+                        "identifiers": [
+                          "variant"
+                        ],
+                        "kind": "code",
+                        "name": "data-variant",
+                        "value": "variant"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "code": "location",
+                        "identifiers": [
+                          "location"
+                        ],
+                        "type": "value"
+                      }
+                    ],
+                    "class": "text-xs",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": true,
+                    "reads": {
+                      "group": [],
+                      "self": [
+                        {
+                          "name": "aria-invalid",
+                          "value": null
+                        }
+                      ]
+                    },
+                    "render_as": null,
+                    "slot": "badge",
+                    "tag": "span",
+                    "type": "element",
+                    "variant_calls": [
+                      {
+                        "args": [
+                          "variant"
+                        ],
+                        "table": "badgeVariants"
+                      }
+                    ],
+                    "vars": []
+                  }
+                ],
+                "identifiers": [
+                  "location"
+                ],
+                "type": "optional",
+                "when": "location"
+              },
+              {
+                "children": [
+                  {
+                    "attrs": [
+                      {
+                        "identifiers": [
+                          "variant"
+                        ],
+                        "kind": "code",
+                        "name": "data-variant",
+                        "value": "variant"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "required"
+                      }
+                    ],
+                    "class": "bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": true,
+                    "reads": {
+                      "group": [],
+                      "self": [
+                        {
+                          "name": "aria-invalid",
+                          "value": null
+                        }
+                      ]
+                    },
+                    "render_as": null,
+                    "slot": "badge",
+                    "tag": "span",
+                    "type": "element",
+                    "variant_calls": [
+                      {
+                        "args": [
+                          "variant"
+                        ],
+                        "table": "badgeVariants"
+                      }
+                    ],
+                    "vars": []
+                  }
+                ],
+                "identifiers": [
+                  "required"
+                ],
+                "type": "optional",
+                "when": "required"
+              }
+            ],
+            "class": "flex items-center gap-2",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "description",
+                    "identifiers": [
+                      "description"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "mt-1 text-muted-foreground text-sm",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "p",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "identifiers": [
+              "description"
+            ],
+            "type": "optional",
+            "when": "description"
+          }
+        ],
+        "class": "px-4 py-3 pl-10",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {
+        "location": {
+          "optional": true,
+          "values": [
+            "path",
+            "query",
+            "header"
+          ]
+        },
+        "required": {
+          "optional": true,
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplayParameters",
+      "name": "schema_display_parameters",
+      "params": {
+        "children": null,
+        "className": null,
+        "parameters": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children",
+        "param"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "defaultOpen",
+            "value": null
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4 shrink-0 text-muted-foreground transition-transform group-data-[state=open]:rotate-90",
+                "class_when": [],
+                "icons": {
+                  "lucide": "ChevronRightIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Parameters"
+                  }
+                ],
+                "class": "font-medium text-sm",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "variant",
+                    "value": "secondary"
+                  }
+                ],
+                "children": [
+                  {
+                    "code": "parameters.length",
+                    "identifiers": [
+                      "parameters"
+                    ],
+                    "member_roots": [
+                      "parameters"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "ml-auto text-xs",
+                "class_when": [],
+                "component": "badge",
+                "function": "badge",
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "recipe": "presentational",
+                "render_as": null,
+                "slot": null,
+                "source": "shadcn",
+                "tag": "span",
+                "type": "component_ref",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "group flex w-full items-center gap-2 px-4 py-3 text-left transition-colors hover:bg-muted/50",
+            "class_when": [],
+            "component": "collapsible",
+            "function": "collapsible_trigger",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "button",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "default": [
+                      {
+                        "binding": "param",
+                        "children": [
+                          {
+                            "attrs": [],
+                            "children": [],
+                            "class": "",
+                            "class_when": [],
+                            "merges_class": false,
+                            "part": "schema_display_parameter",
+                            "props": true,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "type": "part_ref",
+                            "variant_calls": [],
+                            "vars": []
+                          }
+                        ],
+                        "collection": "parameters",
+                        "counter": null,
+                        "fields": [],
+                        "type": "repeat_over"
+                      }
+                    ],
+                    "identifiers": [
+                      "children",
+                      "param",
+                      "parameters"
+                    ],
+                    "member_roots": [
+                      "param",
+                      "parameters"
+                    ],
+                    "type": "children"
+                  }
+                ],
+                "class": "divide-y border-t",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "",
+            "class_when": [],
+            "component": "collapsible",
+            "function": "collapsible_content",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "div",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "component": "collapsible",
+        "function": "collapsible",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "recipe": "disclosure",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": "div",
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplayProperty",
+      "name": "schema_display_property",
+      "params": {
+        "className": null,
+        "depth": "0",
+        "description": null,
+        "items": null,
+        "name": null,
+        "paddingLeft": null,
+        "properties": null,
+        "render": null,
+        "required": null,
+        "type": null,
+        "variant": "outline"
+      },
+      "primitive": null,
+      "refs": [
+        "properties",
+        "items",
+        "depth",
+        "className",
+        "name",
+        "type",
+        "required",
+        "description",
+        "prop",
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "paddingLeft"
+            ],
+            "kind": "style",
+            "name": "style",
+            "value": [
+              {
+                "kind": "code",
+                "property": "paddingLeft",
+                "value": "paddingLeft"
+              }
+            ]
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "name",
+                    "identifiers": [
+                      "name"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "font-mono text-sm",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [
+                  {
+                    "identifiers": [
+                      "variant"
+                    ],
+                    "kind": "code",
+                    "name": "data-variant",
+                    "value": "variant"
+                  }
+                ],
+                "children": [
+                  {
+                    "code": "type",
+                    "identifiers": [
+                      "type"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "text-xs",
+                "class_when": [],
+                "merges_class": false,
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": [
+                    {
+                      "name": "aria-invalid",
+                      "value": null
+                    }
+                  ]
+                },
+                "render_as": null,
+                "slot": "badge",
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [
+                  {
+                    "args": [
+                      "variant"
+                    ],
+                    "table": "badgeVariants"
+                  }
+                ],
+                "vars": []
+              },
+              {
+                "children": [
+                  {
+                    "attrs": [
+                      {
+                        "identifiers": [
+                          "variant"
+                        ],
+                        "kind": "code",
+                        "name": "data-variant",
+                        "value": "variant"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "required"
+                      }
+                    ],
+                    "class": "bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": true,
+                    "reads": {
+                      "group": [],
+                      "self": [
+                        {
+                          "name": "aria-invalid",
+                          "value": null
+                        }
+                      ]
+                    },
+                    "render_as": null,
+                    "slot": "badge",
+                    "tag": "span",
+                    "type": "element",
+                    "variant_calls": [
+                      {
+                        "args": [
+                          "variant"
+                        ],
+                        "table": "badgeVariants"
+                      }
+                    ],
+                    "vars": []
+                  }
+                ],
+                "identifiers": [
+                  "required"
+                ],
+                "type": "optional",
+                "when": "required"
+              }
+            ],
+            "class": "flex items-center gap-2",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "description",
+                    "identifiers": [
+                      "description"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "mt-1 pl-6 text-muted-foreground text-sm",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "p",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "identifiers": [
+              "description"
+            ],
+            "type": "optional",
+            "when": "description"
+          }
+        ],
+        "class": "py-3 pr-4",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {
+        "depth": {
+          "optional": true,
+          "type": "number"
+        },
+        "required": {
+          "optional": true,
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplayRequest",
+      "name": "schema_display_request",
+      "params": {
+        "children": null,
+        "className": null,
+        "requestBody": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children",
+        "prop"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "defaultOpen",
+            "value": null
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4 shrink-0 text-muted-foreground transition-transform group-data-[state=open]:rotate-90",
+                "class_when": [],
+                "icons": {
+                  "lucide": "ChevronRightIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Request Body"
+                  }
+                ],
+                "class": "font-medium text-sm",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "group flex w-full items-center gap-2 px-4 py-3 text-left transition-colors hover:bg-muted/50",
+            "class_when": [],
+            "component": "collapsible",
+            "function": "collapsible_trigger",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "button",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "default": [
+                      {
+                        "binding": "prop",
+                        "children": [
+                          {
+                            "attrs": [
+                              {
+                                "kind": "code",
+                                "name": "depth",
+                                "value": "0"
+                              }
+                            ],
+                            "children": [],
+                            "class": "",
+                            "class_when": [],
+                            "merges_class": false,
+                            "part": "schema_display_property",
+                            "props": true,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "type": "part_ref",
+                            "variant_calls": [],
+                            "vars": []
+                          }
+                        ],
+                        "collection": "requestBody",
+                        "counter": null,
+                        "fields": [],
+                        "type": "repeat_over"
+                      }
+                    ],
+                    "identifiers": [
+                      "children",
+                      "prop",
+                      "requestBody"
+                    ],
+                    "member_roots": [
+                      "prop",
+                      "requestBody"
+                    ],
+                    "type": "children"
+                  }
+                ],
+                "class": "border-t",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "",
+            "class_when": [],
+            "component": "collapsible",
+            "function": "collapsible_content",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "div",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "component": "collapsible",
+        "function": "collapsible",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "recipe": "disclosure",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": "div",
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplayResponse",
+      "name": "schema_display_response",
+      "params": {
+        "children": null,
+        "className": null,
+        "responseBody": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children",
+        "prop"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "defaultOpen",
+            "value": null
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "size-4 shrink-0 text-muted-foreground transition-transform group-data-[state=open]:rotate-90",
+                "class_when": [],
+                "icons": {
+                  "lucide": "ChevronRightIcon"
+                },
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "type": "icon",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Response"
+                  }
+                ],
+                "class": "font-medium text-sm",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "span",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "group flex w-full items-center gap-2 px-4 py-3 text-left transition-colors hover:bg-muted/50",
+            "class_when": [],
+            "component": "collapsible",
+            "function": "collapsible_trigger",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "button",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "default": [
+                      {
+                        "binding": "prop",
+                        "children": [
+                          {
+                            "attrs": [
+                              {
+                                "kind": "code",
+                                "name": "depth",
+                                "value": "0"
+                              }
+                            ],
+                            "children": [],
+                            "class": "",
+                            "class_when": [],
+                            "merges_class": false,
+                            "part": "schema_display_property",
+                            "props": true,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "type": "part_ref",
+                            "variant_calls": [],
+                            "vars": []
+                          }
+                        ],
+                        "collection": "responseBody",
+                        "counter": null,
+                        "fields": [],
+                        "type": "repeat_over"
+                      }
+                    ],
+                    "identifiers": [
+                      "children",
+                      "prop",
+                      "responseBody"
+                    ],
+                    "member_roots": [
+                      "prop",
+                      "responseBody"
+                    ],
+                    "type": "children"
+                  }
+                ],
+                "class": "border-t",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "",
+            "class_when": [],
+            "component": "collapsible",
+            "function": "collapsible_content",
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "div",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "component": "collapsible",
+        "function": "collapsible",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "recipe": "disclosure",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": "div",
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplay",
+      "name": "schema_display",
+      "params": {
+        "children": null,
+        "className": null,
+        "description": null,
+        "method": null,
+        "parameters": null,
+        "path": null,
+        "requestBody": null,
+        "responseBody": null
+      },
+      "primitive": null,
+      "refs": [
+        "description",
+        "method",
+        "parameters",
+        "path",
+        "requestBody",
+        "responseBody",
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "default": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "attrs": [],
+                            "children": [
+                              {
+                                "attrs": [],
+                                "children": [],
+                                "class": "",
+                                "class_when": [],
+                                "merges_class": false,
+                                "part": "schema_display_method",
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": null,
+                                "type": "part_ref",
+                                "variant_calls": [],
+                                "vars": []
+                              },
+                              {
+                                "attrs": [],
+                                "children": [],
+                                "class": "",
+                                "class_when": [],
+                                "merges_class": false,
+                                "part": "schema_display_path",
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": null,
+                                "type": "part_ref",
+                                "variant_calls": [],
+                                "vars": []
+                              }
+                            ],
+                            "class": "flex items-center gap-3",
+                            "class_when": [],
+                            "merges_class": false,
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "tag": "div",
+                            "type": "element",
+                            "variant_calls": [],
+                            "vars": []
+                          }
+                        ],
+                        "class": "",
+                        "class_when": [],
+                        "merges_class": false,
+                        "part": "schema_display_header",
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "type": "part_ref",
+                        "variant_calls": [],
+                        "vars": []
+                      },
+                      {
+                        "children": [
+                          {
+                            "attrs": [],
+                            "children": [],
+                            "class": "",
+                            "class_when": [],
+                            "merges_class": false,
+                            "part": "schema_display_description",
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "type": "part_ref",
+                            "variant_calls": [],
+                            "vars": []
+                          }
+                        ],
+                        "identifiers": [
+                          "description"
+                        ],
+                        "type": "optional",
+                        "when": "description"
+                      },
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "attrs": [],
+                                "children": [],
+                                "class": "",
+                                "class_when": [],
+                                "merges_class": false,
+                                "part": "schema_display_parameters",
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": null,
+                                "type": "part_ref",
+                                "variant_calls": [],
+                                "vars": []
+                              }
+                            ],
+                            "identifiers": [
+                              "parameters"
+                            ],
+                            "member_roots": [
+                              "parameters"
+                            ],
+                            "type": "optional",
+                            "when": "parameters && parameters.length > 0"
+                          },
+                          {
+                            "children": [
+                              {
+                                "attrs": [],
+                                "children": [],
+                                "class": "",
+                                "class_when": [],
+                                "merges_class": false,
+                                "part": "schema_display_request",
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": null,
+                                "type": "part_ref",
+                                "variant_calls": [],
+                                "vars": []
+                              }
+                            ],
+                            "identifiers": [
+                              "requestBody"
+                            ],
+                            "member_roots": [
+                              "requestBody"
+                            ],
+                            "type": "optional",
+                            "when": "requestBody && requestBody.length > 0"
+                          },
+                          {
+                            "children": [
+                              {
+                                "attrs": [],
+                                "children": [],
+                                "class": "",
+                                "class_when": [],
+                                "merges_class": false,
+                                "part": "schema_display_response",
+                                "props": false,
+                                "reads": {
+                                  "group": [],
+                                  "self": []
+                                },
+                                "render_as": null,
+                                "slot": null,
+                                "type": "part_ref",
+                                "variant_calls": [],
+                                "vars": []
+                              }
+                            ],
+                            "identifiers": [
+                              "responseBody"
+                            ],
+                            "member_roots": [
+                              "responseBody"
+                            ],
+                            "type": "optional",
+                            "when": "responseBody && responseBody.length > 0"
+                          }
+                        ],
+                        "class": "",
+                        "class_when": [],
+                        "merges_class": false,
+                        "part": "schema_display_content",
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "type": "part_ref",
+                        "variant_calls": [],
+                        "vars": []
+                      }
+                    ],
+                    "class": "",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "reason": "a fragment",
+                    "render_as": null,
+                    "slot": null,
+                    "type": "transparent",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "identifiers": [
+                  "children",
+                  "description",
+                  "parameters",
+                  "requestBody",
+                  "responseBody"
+                ],
+                "member_roots": [
+                  "parameters",
+                  "requestBody",
+                  "responseBody"
+                ],
+                "type": "children"
+              }
+            ],
+            "class": "overflow-hidden rounded-lg border bg-background",
+            "class_when": [],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplayBody",
+      "name": "schema_display_body",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "divide-y",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "SchemaDisplayExample",
+      "name": "schema_display_example",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "mx-4 mb-4 overflow-auto rounded-md bg-muted p-4 font-mono text-sm",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "pre",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/schema-display.tsx",
+      "sha256": "805ca0b043ff5beb21f15b616df19df995fd4ecd3c48f8a9bc2ce588c86adfe7"
+    }
+  },
+  "variants": {
+    "badgeVariants": {
+      "base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": {
+        "variant": {
+          "default": "cn-badge-variant-default",
+          "destructive": "cn-badge-variant-destructive",
+          "ghost": "cn-badge-variant-ghost",
+          "link": "cn-badge-variant-link",
+          "outline": "cn-badge-variant-outline",
+          "secondary": "cn-badge-variant-secondary"
+        }
+      }
+    }
+  }
+}

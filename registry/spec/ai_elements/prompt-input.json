@@ -14,11 +14,12 @@
       "export": "PromptInputProvider",
       "name": "prompt_input_provider",
       "params": {
-        "children": null
+        "children": null,
+        "initialInput": ""
       },
       "primitive": null,
       "refs": [
-        "initialTextInput",
+        "initialInput",
         "files",
         "prev",
         "file",

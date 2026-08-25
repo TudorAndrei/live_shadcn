@@ -64,18 +64,43 @@ defmodule LiveAiElements.Components.Message do
     """
   end
 
-  @doc "The `message_action` part."
-  attr(:button, :string, default: nil)
+  @doc "The `button` part."
   attr(:label, :string, default: nil)
-  attr(:size, :string, default: "icon-sm")
+
+  attr(:size, :string,
+    default: "icon-sm",
+    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
+  )
+
   attr(:tooltip, :string, default: nil)
-  attr(:variant, :string, default: "ghost")
+
+  attr(:variant, :string,
+    default: "ghost",
+    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  slot(:inner_block)
 
   def message_action(assigns) do
     ~H"""
-    {@button}
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
+      type="button"
+      class={[
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        variant_class("buttonVariants", "size", @size),
+        variant_class("buttonVariants", "variant", @variant),
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
+    >
+      {render_slot(@inner_block)}
+      <span class="sr-only">
+        {@label || @tooltip}
+      </span>
+    </button>
     """
   end
 
@@ -237,8 +262,7 @@ defmodule LiveAiElements.Components.Message do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      {@current_branch + 1} of {@total_branches}
-      {render_slot(@inner_block)}
+      {@current_branch + 1} of {@total_branches}{render_slot(@inner_block)}
     </div>
     """
   end

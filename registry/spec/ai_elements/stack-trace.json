@@ -1,0 +1,1169 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "folds": [
+    "shadcn/button"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "stack-trace",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "StackTrace",
+      "name": "stack_trace",
+      "params": {
+        "children": null,
+        "className": null,
+        "defaultOpen": "false",
+        "open": null,
+        "trace": null
+      },
+      "primitive": null,
+      "refs": [
+        "defaultOpen",
+        "onOpenChange",
+        "open",
+        "trace",
+        "onFilePathClick",
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "not-prose w-full overflow-hidden rounded-lg border bg-background font-mono text-sm",
+            "class_when": [],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {
+        "defaultOpen": {
+          "optional": true,
+          "type": "boolean"
+        },
+        "open": {
+          "optional": true,
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "contexts": [],
+      "export": "StackTraceHeader",
+      "name": "stack_trace_header",
+      "params": {
+        "children": null,
+        "className": null,
+        "isOpen": null
+      },
+      "primitive": null,
+      "refs": [
+        "props",
+        "className",
+        "children"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "isOpen"
+            ],
+            "kind": "code",
+            "name": "open",
+            "value": "isOpen"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "children"
+                  }
+                ],
+                "class": "flex w-full cursor-pointer items-center gap-3 p-3 text-left transition-colors hover:bg-muted/50",
+                "class_when": [],
+                "merges_class": true,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "",
+            "class_when": [],
+            "component": "collapsible",
+            "function": "collapsible_trigger",
+            "merges_class": false,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "button",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "component": "collapsible",
+        "function": "collapsible",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "recipe": "disclosure",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": "div",
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "StackTraceError",
+      "name": "stack_trace_error",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "size-4 shrink-0 text-destructive",
+            "class_when": [],
+            "icons": {
+              "lucide": "AlertTriangleIcon"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "icon",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "type": "children"
+          }
+        ],
+        "class": "flex flex-1 items-center gap-2 overflow-hidden",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "StackTraceErrorType",
+      "name": "stack_trace_error_type",
+      "params": {
+        "children": null,
+        "className": null,
+        "trace": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "default": [
+              {
+                "code": "trace.errorType",
+                "type": "value"
+              }
+            ],
+            "identifiers": [
+              "children",
+              "trace"
+            ],
+            "member_roots": [
+              "trace"
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "shrink-0 font-semibold text-destructive",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "span",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "StackTraceErrorMessage",
+      "name": "stack_trace_error_message",
+      "params": {
+        "children": null,
+        "className": null,
+        "trace": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "default": [
+              {
+                "code": "trace.errorMessage",
+                "type": "value"
+              }
+            ],
+            "identifiers": [
+              "children",
+              "trace"
+            ],
+            "member_roots": [
+              "trace"
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "truncate text-foreground",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "span",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "StackTraceActions",
+      "name": "stack_trace_actions",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "group"
+          }
+        ],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "flex shrink-0 items-center gap-1",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "StackTraceCopyButton",
+      "name": "stack_trace_copy_button",
+      "params": {
+        "children": null,
+        "className": null,
+        "size": "icon",
+        "timeout": "2000",
+        "variant": "ghost"
+      },
+      "primitive": null,
+      "refs": [
+        "onCopy",
+        "onError",
+        "timeout",
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "default": [
+              {
+                "attrs": [
+                  {
+                    "kind": "code",
+                    "name": "size",
+                    "value": "14"
+                  }
+                ],
+                "children": [],
+                "class": "",
+                "class_when": [],
+                "else": [
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "",
+                    "class_when": [],
+                    "icons": {
+                      "lucide": "CopyIcon"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "then": [
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "",
+                    "class_when": [],
+                    "icons": {
+                      "lucide": "CheckIcon"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "type": "choice",
+                "variant_calls": [],
+                "vars": [],
+                "when": "isCopied"
+              }
+            ],
+            "identifiers": [
+              "children"
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "size-7",
+        "class_when": [],
+        "merges_class": true,
+        "module": "button",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "button",
+        "tag": "button",
+        "type": "primitive",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size",
+              "className"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
+        "vars": []
+      },
+      "types": {
+        "timeout": {
+          "optional": true,
+          "type": "number"
+        }
+      }
+    },
+    {
+      "contexts": [],
+      "export": "StackTraceExpandButton",
+      "name": "stack_trace_expand_button",
+      "params": {
+        "className": null,
+        "isOpen": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "size-4 text-muted-foreground transition-transform",
+            "class_when": [
+              {
+                "else": "rotate-0",
+                "identifiers": [
+                  "isOpen"
+                ],
+                "then": "rotate-180",
+                "when": "isOpen"
+              }
+            ],
+            "icons": {
+              "lucide": "ChevronDownIcon"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "icon",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "flex size-7 items-center justify-center",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "StackTraceContent",
+      "name": "stack_trace_content",
+      "params": {
+        "children": null,
+        "className": null,
+        "isOpen": null,
+        "maxHeight": "400"
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "maxHeight",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "isOpen"
+            ],
+            "kind": "code",
+            "name": "open",
+            "value": "isOpen"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "identifiers": [
+                  "maxHeight"
+                ],
+                "kind": "style",
+                "name": "style",
+                "value": [
+                  {
+                    "kind": "code",
+                    "property": "maxHeight",
+                    "value": "maxHeight"
+                  }
+                ]
+              }
+            ],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "overflow-auto border-t bg-muted/30 data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=open]:animate-in",
+            "class_when": [],
+            "component": "collapsible",
+            "function": "collapsible_content",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": [
+                {
+                  "name": "data-state",
+                  "value": "closed"
+                },
+                {
+                  "name": "data-state",
+                  "value": "open"
+                }
+              ]
+            },
+            "recipe": "disclosure",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "div",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "component": "collapsible",
+        "function": "collapsible",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "recipe": "disclosure",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": "div",
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {
+        "maxHeight": {
+          "optional": true,
+          "type": "number"
+        }
+      }
+    },
+    {
+      "contexts": [],
+      "export": "StackTraceFrames",
+      "name": "stack_trace_frames",
+      "params": {
+        "className": null,
+        "framesToShow": null,
+        "showInternalFrames": "true"
+      },
+      "primitive": null,
+      "refs": [
+        "showInternalFrames",
+        "f",
+        "className",
+        "props",
+        "frame"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "binding": "frame",
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "at "
+                      }
+                    ],
+                    "class": "text-muted-foreground",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_calls": [],
+                    "vars": []
+                  },
+                  {
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "code": "frame.functionName",
+                            "identifiers": [
+                              "frame"
+                            ],
+                            "member_roots": [
+                              "frame"
+                            ],
+                            "type": "value"
+                          },
+                          {
+                            "type": "text",
+                            "value": " "
+                          }
+                        ],
+                        "class": "",
+                        "class_when": [],
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "span",
+                        "type": "element",
+                        "variant_calls": [],
+                        "vars": []
+                      }
+                    ],
+                    "identifiers": [
+                      "frame"
+                    ],
+                    "member_roots": [
+                      "frame"
+                    ],
+                    "type": "optional",
+                    "when": "frame.functionName"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "attrs": [],
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "("
+                              }
+                            ],
+                            "class": "text-muted-foreground",
+                            "class_when": [],
+                            "merges_class": false,
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "tag": "span",
+                            "type": "element",
+                            "variant_calls": [],
+                            "vars": []
+                          },
+                          {
+                            "attrs": [
+                              {
+                                "identifiers": [
+                                  "onFilePathClick"
+                                ],
+                                "kind": "code",
+                                "name": "disabled",
+                                "value": "!onFilePathClick"
+                              },
+                              {
+                                "kind": "text",
+                                "name": "type",
+                                "value": "button"
+                              }
+                            ],
+                            "children": [
+                              {
+                                "children": [],
+                                "code": "frame.filePath",
+                                "identifiers": [
+                                  "frame"
+                                ],
+                                "member_roots": [
+                                  "frame"
+                                ],
+                                "type": "value"
+                              },
+                              {
+                                "children": [],
+                                "code": "frame.lineNumber !== null && `:${frame.lineNumber}`",
+                                "identifiers": [
+                                  "frame"
+                                ],
+                                "member_roots": [
+                                  "frame"
+                                ],
+                                "type": "value"
+                              },
+                              {
+                                "children": [],
+                                "code": "frame.columnNumber !== null && `:${frame.columnNumber}`",
+                                "identifiers": [
+                                  "frame"
+                                ],
+                                "member_roots": [
+                                  "frame"
+                                ],
+                                "type": "value"
+                              }
+                            ],
+                            "class": "underline decoration-dotted hover:text-primary",
+                            "class_when": [
+                              {
+                                "else": null,
+                                "identifiers": [
+                                  "onFilePathClick"
+                                ],
+                                "then": "cursor-pointer",
+                                "when": "onFilePathClick"
+                              }
+                            ],
+                            "merges_class": false,
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "tag": "button",
+                            "type": "element",
+                            "variant_calls": [],
+                            "vars": []
+                          },
+                          {
+                            "attrs": [],
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": ")"
+                              }
+                            ],
+                            "class": "text-muted-foreground",
+                            "class_when": [],
+                            "merges_class": false,
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "tag": "span",
+                            "type": "element",
+                            "variant_calls": [],
+                            "vars": []
+                          }
+                        ],
+                        "class": "",
+                        "class_when": [],
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "reason": "a fragment",
+                        "render_as": null,
+                        "slot": null,
+                        "type": "transparent",
+                        "variant_calls": [],
+                        "vars": []
+                      }
+                    ],
+                    "identifiers": [
+                      "frame",
+                      "onFilePathClick"
+                    ],
+                    "member_roots": [
+                      "frame"
+                    ],
+                    "type": "optional",
+                    "when": "frame.filePath"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "code": "frame.raw.replace(/^at\\s+/, \"\")",
+                            "identifiers": [
+                              "AT_PREFIX_REGEX",
+                              "frame"
+                            ],
+                            "member_roots": [
+                              "frame"
+                            ],
+                            "type": "value"
+                          }
+                        ],
+                        "class": "",
+                        "class_when": [],
+                        "merges_class": false,
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": null,
+                        "slot": null,
+                        "tag": "span",
+                        "type": "element",
+                        "variant_calls": [],
+                        "vars": []
+                      }
+                    ],
+                    "identifiers": [
+                      "AT_PREFIX_REGEX",
+                      "frame"
+                    ],
+                    "member_roots": [
+                      "frame"
+                    ],
+                    "type": "optional",
+                    "when": "!(frame.filePath || frame.functionName)"
+                  }
+                ],
+                "class": "text-xs",
+                "class_when": [
+                  {
+                    "else": "text-foreground/90",
+                    "identifiers": [
+                      "frame"
+                    ],
+                    "then": "text-muted-foreground/50",
+                    "when": "frame.isInternal"
+                  }
+                ],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "collection": "framesToShow",
+            "counter": null,
+            "fields": [],
+            "identifiers": [
+              "AT_PREFIX_REGEX",
+              "cn",
+              "frame",
+              "framesToShow",
+              "onFilePathClick"
+            ],
+            "member_roots": [
+              "frame",
+              "framesToShow"
+            ],
+            "type": "repeat_over"
+          },
+          {
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "No stack frames"
+                  }
+                ],
+                "class": "text-muted-foreground text-xs",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "identifiers": [
+              "framesToShow"
+            ],
+            "member_roots": [
+              "framesToShow"
+            ],
+            "type": "optional",
+            "when": "framesToShow.length === 0"
+          }
+        ],
+        "class": "space-y-1 p-3",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {
+        "showInternalFrames": {
+          "optional": true,
+          "type": "boolean"
+        }
+      }
+    }
+  ],
+  "primitives": {
+    "button.Root": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the button should be focusable when disabled.",
+          "name": "focusableWhenDisabled",
+          "type": "boolean"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Button.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Button.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button component that can be used to trigger actions."
+    }
+  },
+  "recipe": "clipboard",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/stack-trace.tsx",
+      "sha256": "a2d31824b2b09df91fc6fc5921f2a7610abe2c839655d51770d9c3072db7e546"
+    }
+  },
+  "variants": {
+    "buttonVariants": {
+      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-button-size-default",
+          "icon": "cn-button-size-icon",
+          "icon-lg": "cn-button-size-icon-lg",
+          "icon-sm": "cn-button-size-icon-sm",
+          "icon-xs": "cn-button-size-icon-xs",
+          "lg": "cn-button-size-lg",
+          "sm": "cn-button-size-sm",
+          "xs": "cn-button-size-xs"
+        },
+        "variant": {
+          "default": "cn-button-variant-default",
+          "destructive": "cn-button-variant-destructive",
+          "ghost": "cn-button-variant-ghost",
+          "link": "cn-button-variant-link",
+          "outline": "cn-button-variant-outline",
+          "secondary": "cn-button-variant-secondary"
+        }
+      }
+    }
+  }
+}

@@ -132,8 +132,8 @@
       "export": "MessageAction",
       "name": "message_action",
       "params": {
-        "button": null,
         "children": null,
+        "className": null,
         "label": null,
         "size": "icon-sm",
         "tooltip": null,
@@ -149,11 +149,79 @@
         "tooltip"
       ],
       "tree": {
-        "code": "button",
-        "identifiers": [
-          "button"
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "type",
+            "value": "button"
+          }
         ],
-        "type": "value"
+        "children": [
+          {
+            "type": "children"
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "code": "label || tooltip",
+                "identifiers": [
+                  "label",
+                  "tooltip"
+                ],
+                "type": "value"
+              }
+            ],
+            "class": "sr-only",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "span",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": true,
+        "module": "button",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "button",
+        "tag": "button",
+        "type": "primitive",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size",
+              "className"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
+        "vars": []
       },
       "types": {}
     },
@@ -609,7 +677,7 @@
           },
           {
             "type": "text",
-            "value": "of"
+            "value": " of "
           },
           {
             "code": "totalBranches",
