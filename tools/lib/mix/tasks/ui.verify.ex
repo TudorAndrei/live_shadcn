@@ -191,15 +191,44 @@ defmodule Mix.Tasks.Ui.Verify do
   defp pixel_check(nil), do: no_example()
 
   defp pixel_check(key) do
-    if ported?(key) do
-      run_in(browser_dir(), "npx", ["playwright", "test", "--project", "pixel"], %{
-        "PREVIEW_COMPONENT" => key
-      })
+    cond do
+      not ported?(key) ->
+        %{
+          "pass" => false,
+          "detail" =>
+            "no React reference yet: add one to parity/src/examples/#{key}.<example>.tsx"
+        }
+
+      pending = pending_pixels(key) ->
+        # A pending example *passes* the spec — that is what lets the check land
+        # without a red build on day one. It must not pass verification.
+        #
+        # Pending means measured and not yet decided, and a component recorded
+        # as verified while one of its examples differs by a known number of
+        # pixels is the inventory claiming something nobody established. The
+        # suite stays green; the record tells the truth.
+        %{
+          "pass" => false,
+          "detail" => "measured, not yet gated: #{pending}"
+        }
+
+      true ->
+        run_in(browser_dir(), "npx", ["playwright", "test", "--project", "pixel"], %{
+          "PREVIEW_COMPONENT" => key
+        })
+    end
+  end
+
+  # The examples of this component that are still in `pending`, if any.
+  defp pending_pixels(key) do
+    path = Path.join([browser_dir(), "pixel-budget.json"])
+
+    with true <- File.exists?(path),
+         %{"pending" => pending} <- read_json!(path),
+         [_ | _] = mine <- Enum.filter(pending, &String.starts_with?(&1, "#{key}.")) do
+      Enum.join(mine, ", ")
     else
-      %{
-        "pass" => false,
-        "detail" => "no React reference yet: add one to parity/src/examples/#{key}.<example>.tsx"
-      }
+      _none -> nil
     end
   end
 

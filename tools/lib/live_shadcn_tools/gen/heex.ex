@@ -532,15 +532,34 @@ defmodule LiveShadcnTools.Gen.Heex do
   def slots(nodes) when is_list(nodes), do: nodes |> Enum.flat_map(&slots/1) |> Enum.uniq()
   def slots(_node), do: []
 
+  # An element whose content is text rather than markup, where the whitespace
+  # this generator indents with would become part of the value.
+  #
+  # `<textarea>` is the one that bit. Rendered like any other element it came
+  # out as `<textarea>\n  {render_slot(@inner_block)}\n</textarea>`, and a
+  # textarea is a raw-text element: those newlines *are* its value. So every
+  # generated textarea shipped with `"\n"` in it, which means the placeholder
+  # never showed and a form submitted a stray newline.
+  #
+  # Nothing caught it. The markup is valid, the snapshot was stable, axe has no
+  # opinion, and the geometric parity check compares boxes and computed styles —
+  # a textarea with a placeholder and one with none are the same box. It took
+  # the pixel check: 972 differing pixels, all of them outside any `data-slot`,
+  # which is exactly the region that check exists to see.
+  @raw_text ~w(textarea)
+
   @doc "One HTML tag, its attributes, and its already-rendered children."
   def tag(name, attrs, children, indent) do
     open = pad(indent) <> "<" <> name <> attributes(attrs)
 
-    case children do
-      [] ->
+    cond do
+      children == [] ->
         open <> " />"
 
-      children ->
+      name in @raw_text ->
+        open <> ">" <> Enum.map_join(children, &String.trim/1) <> "</" <> name <> ">"
+
+      true ->
         Enum.join([open <> ">"] ++ children ++ [pad(indent) <> "</" <> name <> ">"], "\n")
     end
   end

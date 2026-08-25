@@ -226,6 +226,12 @@ clean, so anything below is new information rather than a backlog.
 
 ## Phase 12 — Pixel parity, and where verification runs
 
+A component with a `pending` pixel example no longer counts as verified.
+`pending` passes the spec — that is what lets the check land green — but
+`mix ui.verify` records it as `measured, not yet gated`. A component marked
+verified while one of its examples differs by a known number of pixels is the
+inventory claiming something nobody established.
+
 ### 12a — CI checks the record; the browser runs locally
 
 - [x] Remove the browser job from CI. It fetched `--only accordion` and never
@@ -265,8 +271,12 @@ has been diagnosed. They stay `pending`: measured, reported, not yet decided.
 - [ ] `calendar.default` — 8,077 px. The known grid problem; parity fails this
       component too. The recipe writes its own month grid instead of reading
       react-day-picker's
-- [ ] `textarea.default` — 972 px, **every one outside any slot**. Exactly the
-      bucket the geometric check cannot see, found on the first census
+- [x] `textarea.default` — **0 px.** A real defect, not a rendering difference:
+      the generated markup was `<textarea>\n  {render_slot(…)}\n</textarea>`,
+      and a textarea is a raw-text element, so those newlines *were* its value.
+      Every generated textarea shipped with `"\n"` in it — the placeholder
+      never showed and a form submitted a stray newline. `ai_elements/question`
+      had it too
 - [ ] `toast.default` — 173 px
 - [x] `chart.default` — **0 px, and stable across three runs.** The variance was
       a symptom, not a harness problem: the reference rendered `recharts`

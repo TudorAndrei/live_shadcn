@@ -79,6 +79,7 @@
     "switch.default": 0,
     "table.default": 0,
     "tabs.default": 0,
+    "textarea.default": 0,
     "toggle-group.default": 0,
     "toggle.default": 0,
     "tooltip.default": 0
@@ -87,7 +88,6 @@
     "calendar.default",
     "scroll-area.default",
     "sidebar.default",
-    "textarea.default",
     "toast.default"
   ],
   "skips": {}

@@ -133,10 +133,7 @@ defmodule LiveAiElements.Components.Question do
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
-    >
-    {@text}
-    {render_slot(@inner_block)}
-    </textarea>
+    >{@text}{render_slot(@inner_block)}</textarea>
     """
   end
 

@@ -51,9 +51,7 @@ defmodule LiveShadcn.UI.Textarea do
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
-    >
-    {render_slot(@inner_block)}
-    </textarea>
+    >{render_slot(@inner_block)}</textarea>
     """
   end
 end
