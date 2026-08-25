@@ -21,11 +21,8 @@ defmodule LiveAiElements.Components.Checkpoint do
       {render_slot(@inner_block)}
       <div
         data-slot={@rest[:"data-slot"] || "separator"}
-        orientation={@orientation}
-        class={[
-          "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
-          @class
-        ]}
+        data-orientation={@orientation}
+        class="shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
         {Map.drop(@rest, [:"data-slot"])}
       />
     </div>
@@ -48,9 +45,9 @@ defmodule LiveAiElements.Components.Checkpoint do
   end
 
   @doc "The `checkpoint_trigger` part."
-  attr(:align, :string, default: "center")
+  attr(:align, :string, default: "start")
   attr(:align_offset, :string, default: "0")
-  attr(:side, :string, default: "top")
+  attr(:side, :string, default: "bottom")
   attr(:side_offset, :string, default: "4")
 
   attr(:size, :string,
@@ -67,6 +64,7 @@ defmodule LiveAiElements.Components.Checkpoint do
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
+  slot(:inner_block)
 
   def checkpoint_trigger(assigns) do
     ~H"""

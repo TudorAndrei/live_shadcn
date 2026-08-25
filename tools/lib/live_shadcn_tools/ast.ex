@@ -521,6 +521,16 @@ defmodule LiveShadcnTools.Ast do
     end
   end
 
+  # A list of class strings is one class string written on several lines.
+  # `attachments` writes its list variant that way — four strings in an array —
+  # and read as "not a literal" the whole variant was dropped: an attachment
+  # with `variant="list"` came out with no border, no padding and no row.
+  def string_literal(%{"type" => "ArrayExpression", "elements" => elements}) do
+    literals = Enum.map(elements, &string_literal/1)
+
+    if literals != [] and Enum.all?(literals, &is_binary/1), do: Enum.join(literals, " ")
+  end
+
   def string_literal(node) when is_map(node) do
     case bare(node) do
       ^node -> nil

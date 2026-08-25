@@ -300,7 +300,9 @@
         "variant_calls": [
           {
             "args": [
-              "variant"
+              "variant",
+              "size",
+              "className"
             ],
             "table": "buttonVariants"
           }
@@ -485,7 +487,11 @@
         "type": "primitive",
         "variant_calls": [
           {
-            "args": [],
+            "args": [
+              "variant",
+              "size",
+              "className"
+            ],
             "table": "buttonVariants"
           }
         ],

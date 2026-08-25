@@ -297,7 +297,7 @@
       "name": "message_branch_selector",
       "params": {
         "className": null,
-        "orientation": null
+        "orientation": "horizontal"
       },
       "primitive": null,
       "refs": [
@@ -369,9 +369,9 @@
       "params": {
         "children": null,
         "className": null,
-        "size": "default",
+        "size": "icon-sm",
         "totalBranches": null,
-        "variant": "default"
+        "variant": "ghost"
       },
       "primitive": null,
       "refs": [
@@ -462,7 +462,8 @@
           {
             "args": [
               "variant",
-              "size"
+              "size",
+              "className"
             ],
             "table": "buttonVariants"
           }
@@ -478,9 +479,9 @@
       "params": {
         "children": null,
         "className": null,
-        "size": "default",
+        "size": "icon-sm",
         "totalBranches": null,
-        "variant": "default"
+        "variant": "ghost"
       },
       "primitive": null,
       "refs": [
@@ -571,7 +572,8 @@
           {
             "args": [
               "variant",
-              "size"
+              "size",
+              "className"
             ],
             "table": "buttonVariants"
           }

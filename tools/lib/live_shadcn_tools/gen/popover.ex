@@ -155,6 +155,7 @@ defmodule LiveShadcnTools.Gen.Popover do
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
+      class="contents"
       {@rest}
     >
     #{render(spec, roles, roles.trigger, "{render_slot(@trigger)}")}
@@ -254,7 +255,15 @@ defmodule LiveShadcnTools.Gen.Popover do
   end
 
   defp role_attributes(:root), do: []
-  defp role_attributes(:portal), do: []
+  # Base UI's portal renders into the document body, so it is never in the
+  # layout of whatever wrote it. This one has to stay where it is — a `JS`
+  # command reaches what it can name, and a popup moved to the body is outside
+  # the element that dismisses it — so it is taken out of the flow instead.
+  #
+  # An empty `<div>` between a trigger and its neighbours is a flex item: an
+  # attachment list with `gap-2` was eight pixels taller than upstream's, and
+  # the box that made it so was the portal of a hover card that was not open.
+  defp role_attributes(:portal), do: [{"class", :text, "contents"}]
 
   # The positioner is what the hook moves. Everything it needs to do that is on
   # the element, so a popover that is never opened costs nothing.

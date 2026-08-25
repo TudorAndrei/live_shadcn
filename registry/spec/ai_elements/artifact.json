@@ -177,7 +177,8 @@
           {
             "args": [
               "variant",
-              "size"
+              "size",
+              "className"
             ],
             "table": "buttonVariants"
           }

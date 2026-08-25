@@ -28,16 +28,6 @@ const only = process.env.PREVIEW_COMPONENT;
 // Written by `mix snapshot`. Read rather than fetched, because Playwright
 // collects tests before it starts a server.
 const previews = JSON.parse(readFileSync(join(here, "../../../registry/snapshot/index.json")));
-const inventory = JSON.parse(readFileSync(join(here, "../../../registry/INVENTORY.json")));
-const shadcnComponents = new Set(
-  inventory.components
-    .filter(({ source }) => source === "shadcn")
-    .map(({ name }) => name)
-);
-
-function sourceComponent(component) {
-  return component === "shadcn-message" ? "message" : component;
-}
 
 // One file per example, named `<component>.<example>.tsx`. The directory is the
 // record of what has been ported.
@@ -47,8 +37,23 @@ const ported = new Set(
     .map((name) => name.replace(/\.tsx$/, ""))
 );
 
+// Where a generated component deliberately does not draw what upstream draws,
+// by the slot the two disagree on. Everything else on the page still gates at
+// zero, and a slot that stops differing fails the run. See the file.
+const { divergences } = JSON.parse(readFileSync(join(here, "parity-divergence.json")));
+
+// `plan > card: only in React` and `plan: width — React 720, Phoenix 448` are
+// both about `plan > card` and `plan`. The slot is what a decision is recorded
+// against, because a decision moves twenty numbers and none of them is the
+// reason.
+const subject = (difference) => difference.slice(0, difference.indexOf(":"));
+
+// Every example, from both registries. This used to be the shadcn half alone,
+// because AI Elements had one reference and a gap test naming twelve missing
+// files would have been red from the day it landed. It is not the half that
+// needs the check least: an AI Elements component is a *fold* of shadcn markup,
+// and a fold is exactly the reading nothing else looks at.
 const pages = Object.entries(previews)
-  .filter(([component]) => shadcnComponents.has(sourceComponent(component)))
   .filter(([component]) => !only || component === only)
   .flatMap(([component, examples]) => examples.map((example) => ({ component, example })));
 
@@ -61,6 +66,15 @@ test("every example has a React reference", () => {
     .filter((name) => !ported.has(name));
 
   expect(missing, `add parity/src/examples/<name>.tsx for each`).toEqual([]);
+});
+
+// A decision recorded against an example that no longer exists is a decision
+// nobody is reading. The same rule `pixel-budget.json` is held to.
+test("every recorded divergence names an example that exists", () => {
+  const named = new Set(pages.map(({ component, example }) => `${component}.${example}`));
+  const stale = Object.keys(divergences).filter((name) => !named.has(name));
+
+  expect(only ? [] : stale, "remove these from parity-divergence.json").toEqual([]);
 });
 
 for (const { component, example } of pages) {
@@ -78,7 +92,10 @@ for (const { component, example } of pages) {
     const phoenix = await measured(page, selector);
     const phoenixTree = await page.evaluate(outline, { selector, limit: OUTLINE_ROWS });
 
-    const differences = described(compare(react, phoenix));
+    const name = `${component}.${example}`;
+    const recorded = divergences[name]?.slots ?? [];
+    const all = described(compare(react, phoenix));
+    const differences = all.filter((difference) => !recorded.includes(subject(difference)));
     let where;
 
     // Only on a failure. A passing example has nothing to explain, and 66 of
@@ -97,6 +114,15 @@ for (const { component, example } of pages) {
     }
 
     expect(differences, where).toEqual([]);
+
+    // A decision that has stopped costing anything is a decision to delete.
+    // Either the recipe changed or upstream did, and a list nobody prunes is
+    // the tolerance problem wearing a different coat.
+    const settled = recorded.filter((slot) => !all.some((d) => subject(d) === slot));
+
+    expect(settled, `${name}: these agree now — remove them from parity-divergence.json`).toEqual(
+      []
+    );
   });
 }
 

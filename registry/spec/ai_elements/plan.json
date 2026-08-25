@@ -387,8 +387,8 @@
       "name": "plan_trigger",
       "params": {
         "className": null,
-        "size": "default",
-        "variant": "default"
+        "size": "icon",
+        "variant": "ghost"
       },
       "primitive": null,
       "refs": [
@@ -469,7 +469,8 @@
           {
             "args": [
               "variant",
-              "size"
+              "size",
+              "className"
             ],
             "table": "buttonVariants"
           }

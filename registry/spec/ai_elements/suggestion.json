@@ -24,7 +24,7 @@
       "params": {
         "children": null,
         "className": null,
-        "orientation": "vertical"
+        "orientation": "horizontal"
       },
       "primitive": null,
       "refs": [
@@ -103,7 +103,7 @@
                 ],
                 "class": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none hidden",
                 "class_when": [],
-                "merges_class": true,
+                "merges_class": false,
                 "module": "scroll-area",
                 "part": "Scrollbar",
                 "props": true,
@@ -235,7 +235,7 @@
         ],
         "class": "cn-scroll-area relative w-full overflow-x-auto whitespace-nowrap",
         "class_when": [],
-        "merges_class": true,
+        "merges_class": false,
         "module": "scroll-area",
         "part": "Root",
         "props": true,
@@ -323,7 +323,8 @@
           {
             "args": [
               "variant",
-              "size"
+              "size",
+              "className"
             ],
             "table": "buttonVariants"
           }

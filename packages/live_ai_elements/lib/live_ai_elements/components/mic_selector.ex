@@ -59,10 +59,14 @@ defmodule LiveAiElements.Components.MicSelector do
   attr(:default_value, :string, default: nil)
   attr(:popover_options, :string, default: nil)
   attr(:side_offset, :string, default: "4")
-  attr(:size, :string, default: "default")
+
+  attr(:size, :string,
+    default: "default",
+    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
+  )
 
   attr(:variant, :string,
-    default: "default",
+    default: "outline",
     values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
   )
 
@@ -103,13 +107,19 @@ defmodule LiveAiElements.Components.MicSelector do
         data-pressed={flag(@open)}
         aria-invalid={to_string(@errors != [])}
         class={[
-          "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default",
+          "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+          variant_class("buttonVariants", "size", @size),
           variant_class("buttonVariants", "variant", @variant),
           @trigger_class
         ]}
       >
         {label(@option, @value) || @placeholder}
-        <LiveShadcn.Icon.icon name="chevrons-up-down" class="shrink-0 text-muted-foreground" />
+        <LiveShadcn.Icon.icon
+          name="chevrons-up-down"
+          width="16"
+          height="16"
+          class="shrink-0 text-muted-foreground"
+        />
       </button>
       <input
         type="hidden"
@@ -188,7 +198,7 @@ defmodule LiveAiElements.Components.MicSelector do
         <div
           data-slot="command"
           value={@value}
-          class={["cn-command flex size-full flex-col overflow-hidden", @class]}
+          class="cn-command flex size-full flex-col overflow-hidden"
         />
       </div>
     </div>
@@ -209,6 +219,16 @@ defmodule LiveAiElements.Components.MicSelector do
   # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
     "buttonVariants" => %{
+      "size" => %{
+        "default" => "cn-button-size-default",
+        "icon" => "cn-button-size-icon",
+        "icon-lg" => "cn-button-size-icon-lg",
+        "icon-sm" => "cn-button-size-icon-sm",
+        "icon-xs" => "cn-button-size-icon-xs",
+        "lg" => "cn-button-size-lg",
+        "sm" => "cn-button-size-sm",
+        "xs" => "cn-button-size-xs"
+      },
       "variant" => %{
         "default" => "cn-button-variant-default",
         "destructive" => "cn-button-variant-destructive",

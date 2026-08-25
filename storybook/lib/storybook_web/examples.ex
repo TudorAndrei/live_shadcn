@@ -1362,12 +1362,12 @@ defmodule StorybookWeb.Examples do
   # of naming a module that `mix ui.add` renamed.
   defp attachments_default(assigns) do
     ~H"""
-    <AiAttachments.attachments class="max-w-md">
+    <AiAttachments.attachments variant="list" class="max-w-md">
       <.hover_card id="spec-preview" align="start">
         <:trigger>
-          <AiAttachments.attachment class="flex items-center gap-3">
+          <AiAttachments.attachment variant="list">
             <AiAttachments.attachment_preview variant="list">
-              <LiveShadcn.Icon.icon name="file-json" class="size-5" />
+              <LiveShadcn.Icon.icon name="file-text" class="size-4 text-muted-foreground" />
             </AiAttachments.attachment_preview>
             <AiAttachments.attachment_info
               label="accordion.json"
@@ -1378,16 +1378,16 @@ defmodule StorybookWeb.Examples do
         </:trigger>
         The spec the accordion was generated from.
       </.hover_card>
-      <AiAttachments.attachment class="flex items-center gap-3">
+      <AiAttachments.attachment variant="list">
         <AiAttachments.attachment_preview variant="list">
-          <LiveShadcn.Icon.icon name="image" class="size-5" />
+          <LiveShadcn.Icon.icon name="image" class="size-4 text-muted-foreground" />
         </AiAttachments.attachment_preview>
         <AiAttachments.attachment_info
           label="upstream.png"
           data={%{mediaType: "image/png"}}
           show_media_type
         />
-        <AiAttachments.attachment_remove label="Remove upstream.png" variant="ghost" />
+        <AiAttachments.attachment_remove label="Remove upstream.png" variant="list" />
       </AiAttachments.attachment>
     </AiAttachments.attachments>
     """
@@ -1410,7 +1410,13 @@ defmodule StorybookWeb.Examples do
             <.environment_variable_required />
           </.environment_variable_group>
           <.environment_variable_group>
-            <.environment_variable_value display_value="prod" show_values />
+            <%!-- Masked until the reader asks, like the secret below it: what a
+                  value is worth hiding is the caller's decision, and upstream
+                  hides every one of them. --%>
+            <.environment_variable_value
+              display_value={if @show_values, do: "prod", else: "••••"}
+              show_values={@show_values}
+            />
             <.environment_variable_copy_button
               id="copy-mix-env"
               name="MIX_ENV"
@@ -1425,7 +1431,7 @@ defmodule StorybookWeb.Examples do
           </.environment_variable_group>
           <.environment_variable_group>
             <.environment_variable_value
-              display_value={if @show_values, do: "sup3rs3cr3t", else: "••••••••••••"}
+              display_value={if @show_values, do: "sup3rs3cr3t", else: "•••••••••••"}
               show_values={@show_values}
             />
             <.environment_variable_copy_button

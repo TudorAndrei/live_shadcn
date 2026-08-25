@@ -69,7 +69,7 @@ defmodule LiveAiElements.Components.Sources do
         data-panel-open={flag(@open)}
         class={["flex items-center gap-2", @trigger_class]}
       >
-        <%= if @inner_block == [] do %>
+        <%= if @title in [nil, ""] do %>
           <p class="font-medium">
             Used {@count} sources
           </p>

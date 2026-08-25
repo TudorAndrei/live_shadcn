@@ -278,6 +278,10 @@ defmodule LiveShadcnTools.Gen.Disclosure do
     Heex.render(Heex.with_children(node), %{
       attrs: attributes(spec, roles, shape),
       children: children,
+      # What upstream calls the trigger's children, this recipe calls `title`:
+      # a folded component has one slot and it belongs to the panel. So the
+      # fallback `{children ?? …}` draws is the one for a title nobody gave.
+      empty: empty(shape, children),
       class: class_expression(spec, role, roles, shape),
       params: Map.get(part, "params", %{}),
       contexts: Map.get(part, "contexts", []),
@@ -291,6 +295,17 @@ defmodule LiveShadcnTools.Gen.Disclosure do
       rest: Keyword.get(opts, :rest, false)
     })
   end
+
+  defp empty(shape, children) do
+    if children == shape.title,
+      do: "#{unbraced(children)} in [nil, \"\"]",
+      else: "@inner_block == []"
+  end
+
+  # `{@title}` is markup; `@title` is the expression inside it, which is what an
+  # `if` reads.
+  defp unbraced(expression),
+    do: expression |> String.trim_leading("{") |> String.trim_trailing("}")
 
   # The caller's class goes on the element shadcn merged `className` into. The
   # name it is exposed under follows the part: `accordion_trigger` becomes

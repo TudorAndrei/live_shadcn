@@ -34,7 +34,7 @@
             "children": [],
             "class": "",
             "class_when": [],
-            "merges_class": false,
+            "merges_class": true,
             "part": "Root",
             "props": true,
             "reads": {
@@ -615,7 +615,7 @@
                         ],
                         "class": "cn-progress-root flex flex-wrap gap-3 bg-muted",
                         "class_when": [],
-                        "merges_class": true,
+                        "merges_class": false,
                         "module": "progress",
                         "part": "Root",
                         "props": true,

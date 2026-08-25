@@ -28,6 +28,16 @@ shadcn's registry does not publish:
 | `utils.ts` | `cn`, which every class string is built with |
 | `use-mobile.ts` | a hook that reports the viewport width, read only by `sidebar` |
 | `icon-placeholder.tsx` | shadcn writes an icon as one name per icon library; this renders the lucide one, which is the set `LiveShadcn.Icon` ships |
+| `streamdown.tsx` | the markdown renderer, which is the one shim standing in for a package upstream really does depend on — see below |
+
+**The markdown renderer is shimmed, and that is a decision.** AI Elements
+renders assistant prose with Streamdown. The generated components render no
+markdown at all: `LiveAiElements.Markdown` is a seam, and which renderer sits
+behind it is the application's, on the argument that everybody who renders LLM
+output already has one. A comparison that rendered Streamdown here and
+`phoenix_streamdown` there would be comparing two markdown renderers, and
+neither of them is the component. With no renderer configured the seam renders
+the text as text, and that is what the shim draws.
 
 `upstream.mjs` copies the fetched sources into `src/upstream/` before the server
 starts, because Node resolves a bare import by walking up from the file that

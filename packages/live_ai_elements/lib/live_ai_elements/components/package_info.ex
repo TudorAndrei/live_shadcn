@@ -47,7 +47,7 @@ defmodule LiveAiElements.Components.PackageInfo do
   attr(:change_type, :string, default: nil)
 
   attr(:variant, :string,
-    default: "default",
+    default: "secondary",
     values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
   )
 

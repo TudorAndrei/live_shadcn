@@ -332,7 +332,7 @@
             ],
             "class": "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
             "class_when": [],
-            "merges_class": true,
+            "merges_class": false,
             "module": "switch",
             "part": "Root",
             "props": true,
@@ -732,9 +732,9 @@
         "children": null,
         "className": null,
         "copyFormat": "value",
-        "size": "default",
+        "size": "icon",
         "timeout": "2000",
-        "variant": "default"
+        "variant": "ghost"
       },
       "primitive": null,
       "refs": [
@@ -853,7 +853,8 @@
           {
             "args": [
               "variant",
-              "size"
+              "size",
+              "className"
             ],
             "table": "buttonVariants"
           }
@@ -883,7 +884,7 @@
         "children": null,
         "className": null,
         "render": null,
-        "variant": "default"
+        "variant": "secondary"
       },
       "primitive": null,
       "refs": [

@@ -193,7 +193,11 @@
         "type": "primitive",
         "variant_calls": [
           {
-            "args": [],
+            "args": [
+              "variant",
+              "size",
+              "className"
+            ],
             "table": "buttonVariants"
           }
         ],

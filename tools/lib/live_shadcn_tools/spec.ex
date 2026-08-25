@@ -771,11 +771,16 @@ defmodule LiveShadcnTools.Spec do
   """
   def fold(parts, source, recipe, resolve) do
     {parts, acc} =
-      Enum.map_reduce(parts, %{specs: %{}, params: %{}}, fn part, acc ->
+      Enum.map_reduce(parts, %{specs: %{}, params: %{}, own: %{}}, fn part, acc ->
+        # This part's own props, for the one question the fold cannot answer
+        # from the reference alone: whether the caller's class reaches what was
+        # folded in. See `merges_class/3`.
+        acc = %{acc | params: %{}, own: Map.get(part, "params") || %{}}
+
         {tree, acc} =
           if wraps_behaviour?(part["tree"], recipe),
-            do: {part["tree"], %{acc | params: %{}}},
-            else: fold_node(part["tree"], source, resolve, %{acc | params: %{}})
+            do: {part["tree"], acc},
+            else: fold_node(part["tree"], source, resolve, acc)
 
         # A folded part's props come with it. shadcn's scroll-area computes an
         # attribute from its own `orientation`, and once that markup is here,
@@ -811,6 +816,30 @@ defmodule LiveShadcnTools.Spec do
 
   defp wraps_behaviour?(_tree, _own), do: false
 
+  # A prop the reference chose for the component it renders.
+  #
+  # `<Badge variant="secondary">` is not markup — `variant` is a class string
+  # the badge builds — and it is not the badge's own default either. It is the
+  # value this component renders the badge *with*, so it is the default the
+  # generated attribute takes: a caller who writes nothing gets the badge
+  # upstream drew. `package-info` was the case, and its change-type badge came
+  # out grey where upstream draws it in the secondary variant.
+  #
+  # Only literals. `variant={variant}` passes this component's own prop along,
+  # and the default for that is the one this component declared.
+  defp chosen(node, target, own) do
+    params = Map.get(target, "params") || %{}
+
+    for %{"name" => name, "kind" => "text", "value" => value} <- Map.get(node, "attrs") || [],
+        Map.has_key?(params, name),
+        # Unless this component already means something else by the name. An
+        # attachment's `variant` is grid, inline or list, and the ghost its
+        # remove button is drawn with is not one of them.
+        not Map.has_key?(own || %{}, name),
+        into: %{},
+        do: {name, value}
+  end
+
   defp fold_node(%{"type" => "component_ref", "source" => other} = node, source, resolve, acc)
        when other != source do
     with spec when is_map(spec) <- resolve.(other, node["component"]),
@@ -818,7 +847,10 @@ defmodule LiveShadcnTools.Spec do
       acc = %{
         acc
         | specs: Map.put(acc.specs, {other, node["component"]}, spec),
-          params: known(Map.get(target, "params") || %{}, acc.params)
+          params:
+            (Map.get(target, "params") || %{})
+            |> Map.merge(chosen(node, target, acc.own))
+            |> known(acc.params)
       }
 
       # The reference's own children first. `<DropdownMenuTrigger><Button /></…>`
@@ -832,10 +864,13 @@ defmodule LiveShadcnTools.Spec do
       # reference passed *before* it goes down, because each level knows only
       # about its own reference and narrowing again on the way back up would
       # answer for a reference two components away.
-      inlined = inline_parts(narrow(target["tree"], node), spec, [])
+      inlined = inline_parts(narrow(target["tree"], node, acc.own), spec, [])
 
       {tree, acc} = fold_node(inlined, source, resolve, acc)
-      {absorb(tree, node, Map.get(target, "params") || %{}), acc}
+
+      {tree
+       |> absorb(node, Map.get(target, "params") || %{})
+       |> merges_class(node, acc.own), acc}
     else
       _unresolved -> {node, acc}
     end
@@ -916,6 +951,26 @@ defmodule LiveShadcnTools.Spec do
   # The reference's own markup, merged onto the markup it points at. Upstream
   # writes `<CollapsibleTrigger className="flex w-full …">`, and both class
   # strings apply: shadcn's, then the one AI Elements added.
+  # Whether the caller's class reaches the markup that just arrived.
+  #
+  # A folded component merges a `className` prop, and after the fold the
+  # question is whether this component ever hands it one. `Suggestions` writes
+  # `<ScrollArea className="w-full overflow-x-auto whitespace-nowrap" {...props}>`
+  # and puts the caller's class on the `<div>` inside it, having destructured
+  # `className` out of the spread — so the caller's `max-w-md` belongs on that
+  # div. Kept on both, the scroll area was 448px wide where upstream's is 720.
+  #
+  # Two ways it does reach: the reference writes a class expression that merges
+  # it, or the reference spreads props the component never took `className` out
+  # of.
+  defp merges_class(tree, node, own) do
+    merges =
+      node["merges_class"] == true or
+        (node["props"] == true and not Map.has_key?(own || %{}, "className"))
+
+    Map.put(tree, "merges_class", merges)
+  end
+
   defp absorb(tree, node, params) do
     tree
     |> Map.merge(%{
@@ -958,8 +1013,8 @@ defmodule LiveShadcnTools.Spec do
   defp known(into, params),
     do: Map.merge(into, params, fn _name, mine, theirs -> theirs || mine end)
 
-  defp narrow(tree, node),
-    do: Map.put(tree, "variant_calls", narrowed(tree["variant_calls"], node))
+  defp narrow(tree, node, own),
+    do: Map.put(tree, "variant_calls", narrowed(tree["variant_calls"], node, own))
 
   # What the reference passed the folded component's own `cva` call.
   #
@@ -969,15 +1024,77 @@ defmodule LiveShadcnTools.Spec do
   # data-size={size} className={…} />` sets the variant and deliberately does not
   # set the size, so the button's own `size` group takes the button's own
   # default and stops asking for an assign that means something else.
-  defp narrowed(calls, node) do
+  defp narrowed(calls, node, own) do
     case for(attr <- Map.get(node, "attrs") || [], do: attr["name"]) do
       [] ->
         calls || []
 
       passed ->
-        for call <- calls || [],
-            do: Map.update(call, "args", [], fn args -> Enum.filter(args, &(&1 in passed)) end)
+        for call <- calls || [] do
+          {kept, chosen} =
+            Enum.split_with(
+              call["args"] || [],
+              &((&1 in passed and not spoken_for?(&1, node, own)) or forwarded?(&1, node))
+            )
+
+          call
+          |> Map.put("args", kept)
+          |> chose(chosen, node)
+        end
     end
+  end
+
+  # The value a dropped group was chosen with, so the class string can be
+  # written rather than looked up. Without it the group falls back to the
+  # table's own default, and `<Button variant="ghost">` came out wearing
+  # `cn-button-variant-default`.
+  defp chose(call, groups, node) do
+    literals =
+      for group <- groups,
+          %{"kind" => "text", "value" => value} <-
+            [Enum.find(Map.get(node, "attrs") || [], &(&1["name"] == group))],
+          into: %{},
+          do: {group, value}
+
+    if literals == %{}, do: call, else: Map.put(call, "chosen", literals)
+  end
+
+  # A group the reference chose with a literal, on a name this component already
+  # means something else by.
+  #
+  # `attachments` reads a `variant` off its own context — grid, inline or list —
+  # and renders `<Button variant="ghost">`, whose `variant` is a class table.
+  # Both become `@variant` here, and the button read the layout variant: an
+  # attachment's remove button in a list came out six pixels wide of upstream's,
+  # wearing neither the ghost variant nor the list one. The literal is the
+  # answer for the group, so the class is written rather than looked up, and the
+  # name is left to mean what this component means by it.
+  defp spoken_for?(group, node, own) do
+    Map.has_key?(own || %{}, group) and
+      Enum.any?(
+        Map.get(node, "attrs") || [],
+        &(&1["name"] == group and &1["kind"] == "text")
+      )
+  end
+
+  # A group the reference did not name, on a reference that spreads.
+  #
+  # `<Button disabled={…} type="submit" {...props}>` names two things and hands
+  # over everything else it was given — `size` included. Narrowed to the
+  # button's own default, `question_submit` wore `cn-button-size-default` as a
+  # literal and the `size` attribute it declared did nothing: the parity check
+  # measured a submit button four pixels taller than upstream's.
+  #
+  # Unless the reference spends the name on something else. `input-group`'s
+  # button writes `data-size={size}`, so `size` there is an attribute rather
+  # than the button's own group, and reading the group from it would style the
+  # button by a value that means something else.
+  defp forwarded?(group, node) do
+    node["props"] == true and
+      not Enum.any?(
+        Map.get(node, "attrs") || [],
+        &(&1["name"] == group or (&1["kind"] == "code" and &1["value"] == group))
+      )
   end
 
   @doc """

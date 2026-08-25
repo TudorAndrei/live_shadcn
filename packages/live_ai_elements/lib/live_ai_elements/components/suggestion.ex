@@ -10,7 +10,7 @@ defmodule LiveAiElements.Components.Suggestion do
   use Phoenix.Component
 
   @doc "The `scroll-area` part."
-  attr(:orientation, :string, default: "vertical")
+  attr(:orientation, :string, default: "horizontal")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -19,7 +19,7 @@ defmodule LiveAiElements.Components.Suggestion do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "scroll-area"}
-      class={["cn-scroll-area relative w-full overflow-x-auto whitespace-nowrap", @class]}
+      class="cn-scroll-area relative w-full overflow-x-auto whitespace-nowrap"
       {Map.drop(@rest, [:"data-slot"])}
     >
       <div
@@ -33,10 +33,7 @@ defmodule LiveAiElements.Components.Suggestion do
           data-slot={@rest[:"data-slot"] || "scroll-area-scrollbar"}
           data-orientation={@orientation}
           orientation={@orientation}
-          class={[
-            "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none hidden",
-            @class
-          ]}
+          class="cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none hidden"
           {Map.drop(@rest, [:"data-slot"])}
         >
           <div data-slot="scroll-area-thumb" class="cn-scroll-area-thumb relative flex-1 bg-border" />

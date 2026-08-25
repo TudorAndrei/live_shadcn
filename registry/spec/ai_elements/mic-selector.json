@@ -56,7 +56,7 @@
             "children": [],
             "class": "",
             "class_when": [],
-            "merges_class": false,
+            "merges_class": true,
             "part": "Root",
             "props": true,
             "reads": {
@@ -101,7 +101,7 @@
         "children": null,
         "className": null,
         "size": "default",
-        "variant": "default"
+        "variant": "outline"
       },
       "primitive": null,
       "refs": [
@@ -168,7 +168,9 @@
         "variant_calls": [
           {
             "args": [
-              "variant"
+              "variant",
+              "size",
+              "className"
             ],
             "table": "buttonVariants"
           }
@@ -338,7 +340,7 @@
             "children": [],
             "class": "cn-command flex size-full flex-col overflow-hidden",
             "class_when": [],
-            "merges_class": true,
+            "merges_class": false,
             "module": "external/cmdk",
             "part": "Root",
             "props": true,
@@ -498,7 +500,7 @@
                 ],
                 "class": "",
                 "class_when": [],
-                "merges_class": true,
+                "merges_class": false,
                 "props": true,
                 "reads": {
                   "group": [
@@ -532,7 +534,7 @@
             ],
             "class": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto cn-command-input-group",
             "class_when": [],
-            "merges_class": true,
+            "merges_class": false,
             "props": true,
             "reads": {
               "group": [],
@@ -548,7 +550,7 @@
         ],
         "class": "cn-command-input-wrapper",
         "class_when": [],
-        "merges_class": false,
+        "merges_class": true,
         "props": true,
         "reads": {
           "group": [],

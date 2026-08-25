@@ -45,7 +45,9 @@ defmodule LiveShadcn.Icon do
 
   attr(:name, :string, required: true, doc: "The lucide icon name, in kebab case.")
   attr(:class, :any, default: nil)
-  attr(:rest, :global, include: ~w(data-slot))
+  # `width` and `height` because lucide's `size` prop is those two attributes,
+  # and upstream writes it on an icon whose size a class string does not set.
+  attr(:rest, :global, include: ~w(data-slot width height))
 
   @doc """
   Renders an icon through the configured icon component.

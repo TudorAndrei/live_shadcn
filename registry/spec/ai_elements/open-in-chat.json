@@ -37,7 +37,7 @@
             "children": [],
             "class": "",
             "class_when": [],
-            "merges_class": false,
+            "merges_class": true,
             "part": "Root",
             "props": true,
             "reads": {

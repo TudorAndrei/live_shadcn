@@ -16,6 +16,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Chart
   alias LiveShadcnTools.Gen.Checkbox
   alias LiveShadcnTools.Gen.Clipboard
+  alias LiveShadcnTools.Gen.Decorate
   alias LiveShadcnTools.Gen.Dialog
   alias LiveShadcnTools.Gen.Disclosure
   alias LiveShadcnTools.Gen.FormControl
@@ -80,7 +81,10 @@ defmodule LiveShadcnTools.Gen do
 
     case Map.fetch(@recipes, recipe) do
       {:ok, implementation} ->
+        # What the components this one folded write for themselves, written over
+        # the copy. A fold takes markup; a recipe adds what markup cannot say.
         spec
+        |> Decorate.folded(Keyword.get(opts, :resolve, fn _source, _name -> nil end))
         |> implementation.module(opts)
         |> with_variants(spec)
         |> format()

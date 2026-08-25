@@ -74,7 +74,7 @@ defmodule LiveAiElements.Components.Reasoning do
           @trigger_class
         ]}
       >
-        <%= if @inner_block == [] do %>
+        <%= if @title in [nil, ""] do %>
           <LiveShadcn.Icon.icon name="brain" class="size-4" />
           {render_slot(@get_thinking_message)}
           <LiveShadcn.Icon.icon

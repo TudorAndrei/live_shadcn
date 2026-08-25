@@ -1,0 +1,48 @@
+{
+  "_comment": [
+    "Where a generated component deliberately does not draw what upstream draws,",
+    "named by the slot the two disagree on and by the reason.",
+    "",
+    "Every other slot on the same page still gates at zero. This is not a",
+    "tolerance: it is the list of decisions this pipeline has made against its",
+    "own source, each one written down where the check would otherwise report it",
+    "every run and teach nobody anything.",
+    "",
+    "A slot listed here that no longer differs FAILS the run: the decision was",
+    "reversed, or upstream moved, and either way the list is wrong. A slot that",
+    "differs and is not listed fails as it always did.",
+    "",
+    "Adding one is a decision, not a fix. The question to answer first is",
+    "whether the difference is the reader misreading upstream — which is what",
+    "this check exists to find, and what it has found every other time."
+  ],
+  "divergences": {
+    "plan.default": {
+      "why": "AI Elements writes `asChild` and this shadcn build is Base UI, whose equivalent is `render`. So `<Collapsible asChild><Card>` and `<CollapsibleTrigger asChild><Button>` each draw two elements upstream, and the second of those is a <button> inside a <button> — which axe reports as nested-interactive and is right to. The reader takes `asChild` at its word and draws one element, so the card is the collapsible and the trigger is the button.",
+      "slots": [
+        "(the whole)",
+        "plan",
+        "plan > card",
+        "plan > card > collapsible-trigger",
+        "plan > card > collapsible-trigger > plan-trigger",
+        "plan > plan-trigger"
+      ]
+    },
+    "chain-of-thought.default": {
+      "why": "Upstream renders two `<Collapsible>` wrappers — one around the header and one around the content — and threads the open state between them through a React context. The disclosure recipe folds a component into one function precisely because its parts have to agree about one id, so there is one collapsible here and the 16px `space-y-4` between the two of upstream's has nothing to sit between.",
+      "slots": ["collapsible", "collapsible #2"]
+    },
+    "suggestion.default": {
+      "why": "The scroll area is folded as markup and its recipe stays behind: Base UI unmounts a scrollbar with nothing to scroll and measures the viewport with a hook, and neither travels with a copy. A fold that carries a hook-owning recipe is the half of phase 3 that was recorded rather than built — see PLAN.md.",
+      "slots": [
+        "(the whole)",
+        "scroll-area",
+        "scroll-area > scroll-area-viewport",
+        "scroll-area > scroll-area-viewport > scroll-area-scrollbar",
+        "scroll-area > scroll-area-viewport > scroll-area-scrollbar > scroll-area-thumb",
+        "scroll-area > scroll-area-scrollbar",
+        "scroll-area > scroll-area-scrollbar > scroll-area-thumb"
+      ]
+    }
+  }
+}

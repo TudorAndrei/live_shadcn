@@ -79,7 +79,7 @@ generator can only render a choice the **server** decides.
 - [x] `show_values` is a `:boolean`: a context field's type is in the context's
       interface, and the reader read type aliases but not interfaces
 - [x] axe is clean on all three preview pages, once phase 4 gave them one
-- [ ] Commit: `fix(ai-elements): a fold carries the recipe, not only the markup`
+- [x] Commit: `fix(ai-elements): a fold carries the recipe, not only the markup`
 
 ## Phase 4: An example for the three that have none
 
@@ -94,26 +94,36 @@ generator can only render a choice the **server** decides.
 - [x] `mix snapshot` and the axe run green for all three
 - [x] Their record shows two failures rather than four — `parity` and `pixel`
       only, which phase 5 closes
-- [ ] Commit: `feat(storybook): an example for the three that had none`
+- [x] Commit: `feat(storybook): an example for the three that had none`
 
 ## Phase 5: A React reference for every AI Elements component
 
-- [ ] One `parity/src/examples/<component>.<example>.tsx` per generated
-      component, ported from its `Examples` function — a port, not a second
-      design
-- [ ] Every reported difference corrected in the reader or the recipe, never in
-      the reference
-- [ ] Every example decided in `pixel-budget.json`: gated at zero, a measured
-      budget, or a skip with its reason. Nothing left pending
+- [x] One `parity/src/examples/<component>.<example>.tsx` per example with a
+      component behind it — thirteen of them, ported rather than designed
+- [x] Nine differences corrected in the reader or the recipe: a trigger's
+      default markup, a chosen prop, a `cva` group behind a spread, one name
+      meaning two things, an icon's size, a list of class strings, the caller's
+      class in two places, a folded recipe's own attributes, and a closed
+      popover taking up space. All nine are listed in [PLAN.md](PLAN.md)
+- [x] Three differences recorded as decisions in `parity-divergence.json`, by
+      the slot they show on, so every other slot still gates at zero
+- [x] `streamdown` shimmed on the React side: the markdown renderer is the
+      application's, and comparing two of them compares neither component
+- [x] Every example decided in `pixel-budget.json`: twelve at zero and `plan`
+      skipped with its reason. Nothing pending
+- [x] 81 parity and 81 pixel comparisons pass, and the whole browser suite —
+      364 tests — is green
 - [ ] `mix ui.verify` reports every generated AI Elements component verified
 - [ ] Commit: `test(parity): a React reference for every AI Elements component`
 
 ## Phase 6: The gap tests cover both registries
 
-- [ ] `parity.spec.mjs` — drop the `source === "shadcn"` filter on *every
-      example has a React reference*
-- [ ] `pixel.spec.mjs` — an unported example is named, not skipped
-- [ ] Deleting one reference turns the suite red, and says which
+- [x] `parity.spec.mjs` — the `source === "shadcn"` filter is gone, from the gap
+      test and from the comparison itself
+- [x] `pixel.spec.mjs` — an unported example is a skip with a reason rather than
+      a test that was never registered
+- [x] Deleting one reference turns the suite red, and says which: moving
+      `task.default.tsx` out names it in the gap test and skips its pixel run
 - [ ] Commit: `test(parity): the gap tests cover both registries`
 
 ## Phase 7: Three components filed under the wrong recipe

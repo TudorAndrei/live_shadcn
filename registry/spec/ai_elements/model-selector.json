@@ -198,9 +198,9 @@
         "className": null,
         "description": "Search for a command to run...",
         "showCloseButton": "false",
-        "size": "default",
+        "size": "icon-sm",
         "title": "Command Palette",
-        "variant": "default"
+        "variant": "ghost"
       },
       "primitive": null,
       "refs": [
@@ -226,7 +226,7 @@
                 ],
                 "class": "cn-dialog-title cn-font-heading",
                 "class_when": [],
-                "merges_class": true,
+                "merges_class": false,
                 "module": "dialog",
                 "part": "Title",
                 "props": true,
@@ -255,7 +255,7 @@
                 ],
                 "class": "cn-dialog-description",
                 "class_when": [],
-                "merges_class": true,
+                "merges_class": false,
                 "module": "dialog",
                 "part": "Description",
                 "props": true,
@@ -273,7 +273,7 @@
             ],
             "class": "cn-dialog-header flex flex-col sr-only",
             "class_when": [],
-            "merges_class": true,
+            "merges_class": false,
             "props": true,
             "reads": {
               "group": [],
@@ -415,7 +415,7 @@
                           "children": [],
                           "class": "cn-dialog-close",
                           "class_when": [],
-                          "merges_class": true,
+                          "merges_class": false,
                           "module": "button",
                           "part": "Root",
                           "props": true,
@@ -508,7 +508,7 @@
         ],
         "class": "",
         "class_when": [],
-        "merges_class": false,
+        "merges_class": true,
         "part": "Root",
         "props": true,
         "reads": {
@@ -639,7 +639,7 @@
                 ],
                 "class": "",
                 "class_when": [],
-                "merges_class": true,
+                "merges_class": false,
                 "props": true,
                 "reads": {
                   "group": [
@@ -673,7 +673,7 @@
             ],
             "class": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto cn-command-input-group",
             "class_when": [],
-            "merges_class": true,
+            "merges_class": false,
             "props": true,
             "reads": {
               "group": [],

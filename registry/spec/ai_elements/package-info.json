@@ -142,7 +142,7 @@
         "children": null,
         "className": null,
         "render": null,
-        "variant": "default"
+        "variant": "secondary"
       },
       "primitive": null,
       "refs": [

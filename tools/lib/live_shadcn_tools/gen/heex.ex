@@ -43,6 +43,9 @@ defmodule LiveShadcnTools.Gen.Heex do
       marker because the hook already holds it
     * `:client_state` — `%{condition => %{then: name, else: name, initial: name}}`,
       the conditions a recipe says the client owns rather than the server
+    * `:empty` — the expression that says the caller gave no content, for the
+      fallback `{children ?? …}` draws. `@inner_block == []` unless a recipe
+      passes something other than a slot as `:children`
     * `:rest` — whether this tree carries the component's `:global` attribute
 
   An attribute is `{name, :text, value}`, `{name, :code, expression}`,
@@ -83,15 +86,26 @@ defmodule LiveShadcnTools.Gen.Heex do
     # is guarded. Exactly one of the two ever draws.
     otherwise = Enum.map_join(default, "\n", &render(&1, ctx, indent + 1))
 
-    Enum.join(
-      [
-        pad(indent) <> "<%= if @inner_block == [] do %>",
-        otherwise,
-        pad(indent) <> "<% end %>",
-        pad(indent) <> ctx.children
-      ],
-      "\n"
-    )
+    # Sometimes the fallback *is* the markup, and what the caller gives goes
+    # inside it. Upstream's task trigger is
+    # `{children ?? <div><SearchIcon/><p>{title}</p><ChevronDown/></div>}`: a
+    # component with no trigger slot can never take the first branch, so the
+    # second is drawn always — and the title is already inside it. Appended
+    # again, it drew twice; guarded, the icons were never drawn at all and the
+    # parity check reported a trigger four pixels tall and missing two icons.
+    if String.contains?(otherwise, ctx.children) do
+      otherwise
+    else
+      Enum.join(
+        [
+          pad(indent) <> "<%= if #{Map.get(ctx, :empty, "@inner_block == []")} do %>",
+          otherwise,
+          pad(indent) <> "<% end %>",
+          pad(indent) <> ctx.children
+        ],
+        "\n"
+      )
+    end
   end
 
   def render(%{"type" => "children"}, ctx, indent), do: pad(indent) <> ctx.children
@@ -246,7 +260,8 @@ defmodule LiveShadcnTools.Gen.Heex do
       # every entry of a lookup table at once: five icons, one after another,
       # where the table meant one.
       structural(node) ++
-        [icon_attr(node)] ++ slot_attr(node, ctx) ++ class_attr(node, ctx) ++ rest_attr(node, ctx),
+        [icon_attr(node)] ++
+        sized(node) ++ slot_attr(node, ctx) ++ class_attr(node, ctx) ++ rest_attr(node, ctx),
       [],
       indent
     )
@@ -278,6 +293,27 @@ defmodule LiveShadcnTools.Gen.Heex do
       indent
     )
   end
+
+  # `<EyeIcon size={14} />` — lucide's `size` prop, which is written out as the
+  # `width` and `height` attributes of the glyph. Written nowhere, the icon drew
+  # at lucide's own 24px default and the environment variables header came out
+  # four pixels taller than upstream's.
+  #
+  # Attributes and not a class, which is the difference between 12px and 16px on
+  # the very next component: shadcn's button styles an icon inside it with
+  # `[&_svg:not([class*='size-'])]:size-4`, so a class *disables* that rule and
+  # an attribute loses to it. Upstream writes `size={12}` on a copy icon inside
+  # a button and draws it at 16.
+  defp sized(%{"attrs" => attrs}) do
+    with %{"value" => pixels} <- Enum.find(attrs, &(&1["name"] == "size")),
+         {pixels, ""} <- Integer.parse(to_string(pixels)) do
+      [{"width", :text, to_string(pixels)}, {"height", :text, to_string(pixels)}]
+    else
+      _unwritten -> []
+    end
+  end
+
+  defp sized(_node), do: []
 
   # A name in scope for one subtree: a loop's binding. It is written without an
   # `@`, so `:bindings` is where it goes rather than `:params`.
@@ -1000,20 +1036,24 @@ defmodule LiveShadcnTools.Gen.Heex do
   defp variant_base(node, ctx) do
     node
     |> calls(ctx)
-    |> Enum.flat_map(fn {_binding, table, args} -> [table["base"] | unpassed(table, args)] end)
+    |> Enum.flat_map(fn {call, table} -> [table["base"] | unpassed(table, call)] end)
     |> Enum.reject(&(&1 in [nil, ""]))
     |> Enum.join(" ")
   end
 
-  # A group the call did not pass takes the table's own default, which is one
-  # class string forever. `<Button>` inside an input group is given no `size`,
-  # so it wears `cn-button-size-default` and nothing asks.
-  defp unpassed(table, args) do
-    defaults = Map.get(table, "defaults") || %{}
+  # A group the call did not pass takes the value the reference chose it with,
+  # or the table's own default — which is one class string forever either way.
+  # `<Button>` inside an input group is given no `size`, so it wears
+  # `cn-button-size-default` and nothing asks; `<Button variant="ghost">` in an
+  # attachment's remove button wears the ghost variant for the same reason, and
+  # leaves the name `variant` to mean what that component means by it.
+  defp unpassed(table, call) do
+    answered = Map.merge(Map.get(table, "defaults") || %{}, Map.get(call, "chosen") || %{})
+    args = Map.get(call, "args") || []
 
     for {group, values} <- Map.get(table, "variants") || %{},
         group not in args,
-        chosen = Map.get(defaults, group),
+        chosen = Map.get(answered, group),
         do: Map.get(values, chosen)
   end
 
@@ -1024,7 +1064,7 @@ defmodule LiveShadcnTools.Gen.Heex do
 
     for call <- Map.get(node, "variant_calls") || [],
         table = Map.get(tables, call["table"]),
-        do: {call["table"], table, call["args"] || []}
+        do: {call, table}
   end
 
   # A class string the element wears only when something is true. `nil` on the
@@ -1043,11 +1083,12 @@ defmodule LiveShadcnTools.Gen.Heex do
   # different answers, and a lookup keyed by the group alone answered whichever
   # table the map happened to iterate last.
   defp variant_classes(node, ctx) do
-    for {binding, table, args} <- calls(node, ctx),
+    for {call, table} <- calls(node, ctx),
         group <- table |> Map.get("variants", %{}) |> Map.keys() |> Enum.sort(),
-        group in args,
+        group in (Map.get(call, "args") || []),
         do:
-          {:code, ~s|variant_class("#{binding}", "#{group}", @#{LiveShadcnTools.assign(group)})|}
+          {:code,
+           ~s|variant_class("#{call["table"]}", "#{group}", @#{LiveShadcnTools.assign(group)})|}
   end
 
   defp caller_class(node, ctx) do

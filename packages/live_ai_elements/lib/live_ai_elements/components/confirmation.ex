@@ -70,8 +70,16 @@ defmodule LiveAiElements.Components.Confirmation do
   end
 
   @doc "The `button` part."
-  attr(:size, :string, default: "default")
-  attr(:variant, :string, default: "default")
+  attr(:size, :string,
+    default: "default",
+    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
+  )
+
+  attr(:variant, :string,
+    default: "default",
+    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
   slot(:inner_block)
@@ -82,7 +90,9 @@ defmodule LiveAiElements.Components.Confirmation do
       data-slot={@rest[:"data-slot"] || "button"}
       type="button"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-button-variant-default h-8 px-3 text-sm",
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 h-8 px-3 text-sm",
+        variant_class("buttonVariants", "size", @size),
+        variant_class("buttonVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -98,6 +108,26 @@ defmodule LiveAiElements.Components.Confirmation do
       "variant" => %{
         "default" => "cn-alert-variant-default",
         "destructive" => "cn-alert-variant-destructive"
+      }
+    },
+    "buttonVariants" => %{
+      "size" => %{
+        "default" => "cn-button-size-default",
+        "icon" => "cn-button-size-icon",
+        "icon-lg" => "cn-button-size-icon-lg",
+        "icon-sm" => "cn-button-size-icon-sm",
+        "icon-xs" => "cn-button-size-icon-xs",
+        "lg" => "cn-button-size-lg",
+        "sm" => "cn-button-size-sm",
+        "xs" => "cn-button-size-xs"
+      },
+      "variant" => %{
+        "default" => "cn-button-variant-default",
+        "destructive" => "cn-button-variant-destructive",
+        "ghost" => "cn-button-variant-ghost",
+        "link" => "cn-button-variant-link",
+        "outline" => "cn-button-variant-outline",
+        "secondary" => "cn-button-variant-secondary"
       }
     }
   }

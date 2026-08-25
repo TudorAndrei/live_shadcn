@@ -68,19 +68,16 @@ defmodule LiveAiElements.Components.Task do
         data-panel-open={flag(@open)}
         class={["group", @trigger_class]}
       >
-        <%= if @inner_block == [] do %>
-          <div class="flex w-full cursor-pointer items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground">
-            <LiveShadcn.Icon.icon name="search" class="size-4" />
-            <p class="text-sm">
-              {@title}
-            </p>
-            <LiveShadcn.Icon.icon
-              name="chevron-down"
-              class="size-4 transition-transform group-data-[state=open]:rotate-180"
-            />
-          </div>
-        <% end %>
-        {@title}
+        <div class="flex w-full cursor-pointer items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground">
+          <LiveShadcn.Icon.icon name="search" class="size-4" />
+          <p class="text-sm">
+            {@title}
+          </p>
+          <LiveShadcn.Icon.icon
+            name="chevron-down"
+            class="size-4 transition-transform group-data-[state=open]:rotate-180"
+          />
+        </div>
       </button>
       <div
         data-slot="collapsible-content"

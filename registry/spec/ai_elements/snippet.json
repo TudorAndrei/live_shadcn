@@ -240,7 +240,7 @@
       "params": {
         "children": null,
         "className": null,
-        "size": "xs",
+        "size": "icon-sm",
         "timeout": "2000",
         "type": "button",
         "variant": "ghost"
@@ -387,7 +387,8 @@
         "variant_calls": [
           {
             "args": [
-              "variant"
+              "variant",
+              "className"
             ],
             "table": "buttonVariants"
           },

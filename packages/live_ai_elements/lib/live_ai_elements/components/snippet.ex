@@ -121,7 +121,7 @@ defmodule LiveAiElements.Components.Snippet do
   end
 
   @doc "The `button` part."
-  attr(:size, :string, default: "xs", values: ["icon-sm", "icon-xs", "sm", "xs"])
+  attr(:size, :string, default: "icon-sm", values: ["icon-sm", "icon-xs", "sm", "xs"])
   attr(:timeout, :any, default: "2000")
   attr(:type, :string, default: "button")
 
@@ -158,8 +158,21 @@ defmodule LiveAiElements.Components.Snippet do
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" class="size-3.5" />
-        <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" class="size-3.5" />
+        <LiveShadcn.Icon.icon
+          data-lb-state="copied"
+          hidden
+          name="check"
+          width="14"
+          height="14"
+          class="size-3.5"
+        />
+        <LiveShadcn.Icon.icon
+          data-lb-state="idle"
+          name="copy"
+          width="14"
+          height="14"
+          class="size-3.5"
+        />
       <% end %>
       {render_slot(@inner_block)}
     </button>

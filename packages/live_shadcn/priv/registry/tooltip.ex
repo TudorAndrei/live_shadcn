@@ -56,6 +56,7 @@ defmodule LiveShadcn.UI.Tooltip do
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
+      class="contents"
       {@rest}
     >
       <button
@@ -72,7 +73,7 @@ defmodule LiveShadcn.UI.Tooltip do
       >
         {render_slot(@trigger)}
       </button>
-      <div>
+      <div class="contents">
         <div
           id={Popover.positioner_id(@id)}
           hidden={not @open}

@@ -142,14 +142,14 @@ defmodule LiveAiElements.Components.Message do
 
   @doc "The `button` part."
   attr(:size, :string,
-    default: "default",
+    default: "icon-sm",
     values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
   )
 
   attr(:total_branches, :string, default: nil)
 
   attr(:variant, :string,
-    default: "default",
+    default: "ghost",
     values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
   )
 
@@ -173,7 +173,7 @@ defmodule LiveAiElements.Components.Message do
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon name="chevron-left" />
+        <LiveShadcn.Icon.icon name="chevron-left" width="14" height="14" />
       <% end %>
       {render_slot(@inner_block)}
     </button>
@@ -182,14 +182,14 @@ defmodule LiveAiElements.Components.Message do
 
   @doc "The `button` part."
   attr(:size, :string,
-    default: "default",
+    default: "icon-sm",
     values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
   )
 
   attr(:total_branches, :string, default: nil)
 
   attr(:variant, :string,
-    default: "default",
+    default: "ghost",
     values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
   )
 
@@ -213,7 +213,7 @@ defmodule LiveAiElements.Components.Message do
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon name="chevron-right" />
+        <LiveShadcn.Icon.icon name="chevron-right" width="14" height="14" />
       <% end %>
       {render_slot(@inner_block)}
     </button>

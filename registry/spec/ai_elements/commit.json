@@ -408,7 +408,7 @@
             ],
             "class": "cn-avatar-fallback flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs text-xs",
             "class_when": [],
-            "merges_class": true,
+            "merges_class": false,
             "module": "avatar",
             "part": "Fallback",
             "props": true,
@@ -573,9 +573,9 @@
         "children": null,
         "className": null,
         "hash": null,
-        "size": "default",
+        "size": "icon",
         "timeout": "2000",
-        "variant": "default"
+        "variant": "ghost"
       },
       "primitive": null,
       "refs": [
@@ -694,7 +694,8 @@
           {
             "args": [
               "variant",
-              "size"
+              "size",
+              "className"
             ],
             "table": "buttonVariants"
           }

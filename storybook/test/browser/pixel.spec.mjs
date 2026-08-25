@@ -87,9 +87,13 @@ test("every example has a budget or is pending", () => {
 
 for (const { component, example } of pages) {
   const name = named(component, example);
-  if (!ported.has(name)) continue;
 
   test(`${component} / ${example} paints what React paints`, async ({ page }, testInfo) => {
+    // Named rather than passed over. A `continue` here left an example out of
+    // the run with nothing in the output to say so, and a check that cannot
+    // tell "did not run" from "passed" is worse than no check.
+    test.skip(!ported.has(name), `no React reference: add parity/src/examples/${name}.tsx`);
+
     const selector = `[data-preview='${component}']`;
     const parity = testInfo.project.use.parityURL;
 

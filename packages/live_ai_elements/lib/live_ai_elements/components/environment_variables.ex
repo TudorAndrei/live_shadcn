@@ -72,8 +72,8 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
     ~H"""
     <div class={["flex items-center gap-2", @class]}>
       <span class="text-muted-foreground text-xs">
-        <LiveShadcn.Icon.icon :if={@show_values} name="eye" />
-        <LiveShadcn.Icon.icon :if={!@show_values} name="eye-off" />
+        <LiveShadcn.Icon.icon :if={@show_values} name="eye" width="14" height="14" />
+        <LiveShadcn.Icon.icon :if={!@show_values} name="eye-off" width="14" height="14" />
       </span>
       <span
         role="switch"
@@ -87,10 +87,7 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
         data-slot={@rest[:"data-slot"] || "switch"}
         data-size={@size}
         aria-label="Toggle value visibility"
-        class={[
-          "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
-          @class
-        ]}
+        class="cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50"
         {Map.drop(@rest, [:"data-slot"])}
       >
         <span
@@ -200,14 +197,14 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
   attr(:copy_format, :string, default: "value", values: ["name", "value", "export"])
 
   attr(:size, :string,
-    default: "default",
+    default: "icon",
     values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
   )
 
   attr(:timeout, :any, default: "2000")
 
   attr(:variant, :string,
-    default: "default",
+    default: "ghost",
     values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
   )
 
@@ -238,8 +235,8 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" />
-        <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" />
+        <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" width="12" height="12" />
+        <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" width="12" height="12" />
       <% end %>
       {render_slot(@inner_block)}
     </button>
@@ -248,7 +245,7 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
 
   @doc "The `badge` part."
   attr(:variant, :string,
-    default: "default",
+    default: "secondary",
     values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
   )
 

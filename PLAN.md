@@ -358,35 +358,86 @@ secret and hid it would pass every other test on the page.
 
 **Commit:** `feat(storybook): an example for the three that had none`
 
-### Phase 5: A React reference for every AI Elements component
+### Phase 5: A React reference for every AI Elements component — done
 
-The backfill. 14 files under `parity/src/examples/`, one per generated
-component, ported from the matching `Examples` function — a port, not a second
-design, per `parity/README.md`.
+The backfill: thirteen files under `parity/src/examples/`, one per example with
+a component behind it, ported from the matching `Examples` function.
 
-Every difference the check reports is a finding about the **reader**. Correct it
-in `tools/lib/live_shadcn_tools/`, never in the reference. When a comparison
-fails, read the outline the failure attaches before anything else.
+Every difference the check reported was corrected in the reader or the recipe,
+and there were nine of them. They are worth listing, because every one had been
+generated, snapshotted, reviewed and shipped without anything noticing:
 
-- One reference per generated component, oldest-generated first
-- Every reported difference corrected in the reader or the recipe
-- A pixel budget decided for each: gated at zero, a measured budget, or a skip
-  with its reason. Never pending-and-forgotten
-- `mix ui.verify` reports every generated AI Elements component verified
+1. **A trigger's default markup was never drawn.** `{children ?? <div>…{title}…</div>}`
+   was guarded by `@inner_block == []`, and a folded component's one slot
+   belongs to its panel — so the guard asked about the panel and skipped the
+   icons. Where the fallback contains the value, it *is* the markup and is
+   drawn always; where it does not, it is the fallback for a title nobody gave.
+2. **A prop the fold's call site chose was thrown away.** `<Badge variant="secondary">`
+   is neither markup nor the badge's own default; it is what this component
+   draws a badge with, so it is the generated attribute's default. `package-info`
+   drew its change-type badge grey.
+3. **A `cva` group behind a spread was frozen at the table's default.**
+   `<Button disabled={…} type="submit" {...props}>` forwards `size`, and
+   `question_submit` wore `cn-button-size-default` as a literal while declaring
+   a `size` attribute that did nothing.
+4. **One name meant two things.** `attachments` reads a layout `variant` — grid,
+   inline, list — off a context and renders `<Button variant="ghost">`. Both
+   became `@variant`. A literal on a name the component already spends is
+   written into the class string instead, and the name keeps its meaning.
+5. **An icon's size was written nowhere.** lucide's `size` prop is the `width`
+   and `height` attributes, and as *attributes* rather than a class, which is
+   the difference between 12px and 16px on the next component: shadcn styles an
+   icon inside a button with `[&_svg:not([class*='size-'])]:size-4`, so a class
+   disables that rule and an attribute loses to it.
+6. **A list of class strings was read as no class string at all.** `attachments`
+   writes its list and inline variants as arrays, and an attachment in a list
+   came out with no border, no padding and no row.
+7. **The caller's class was merged in two places.** A folded component merges a
+   `className` prop; whether this component ever hands it one is a different
+   question. `suggestion`'s scroll area was 448px wide where upstream's is 720.
+8. **A folded component's own recipe stayed behind.** `Gen.Decorate` applies it
+   where the whole contribution is attributes on a named slot — `separator`
+   renames `orientation` to `data-orientation`, and `checkpoint` drew a
+   separator zero pixels wide without it.
+9. **A closed popover took up space.** The recipe's wrapper and its portal are
+   `display: contents` now: Base UI renders no element for the root and portals
+   the popup to the body, and an empty `<div>` between a trigger and its
+   neighbour is a flex item — eight pixels of one, in an attachment list.
+
+**Three differences are decisions rather than defects**, and they are recorded
+in `parity-divergence.json` by the slot they show up on, so every other slot on
+the same page still gates at zero:
+
+- `plan` — AI Elements writes `asChild`; this shadcn build is Base UI, whose
+  equivalent is `render`. Upstream therefore draws a `<button>` inside a
+  `<button>`, which axe reports and is right to. Taking `asChild` at its word is
+  a decision against upstream's own page, and the pixel check skips this one
+  example for the same reason.
+- `chain-of-thought` — upstream renders two collapsibles threaded by a React
+  context, and the disclosure recipe folds a component into one function
+  precisely because its parts have to agree about one id.
+- `suggestion` — the scroll area is folded as markup and its recipe owns a hook,
+  which is the half of phase 3 that was recorded rather than built.
+
+Every other example gates at zero on both checks. 81 parity comparisons and 81
+pixel comparisons pass, and `streamdown` is shimmed on the React side because
+the markdown renderer is the application's decision and comparing two of them
+compares neither component.
 
 **Commit:** `test(parity): a React reference for every AI Elements component`
 
-### Phase 6: The gap tests cover both registries
+### Phase 6: The gap tests cover both registries — done
 
-`parity.spec.mjs` has a test called *every example has a React reference*, and
-it is filtered to shadcn — `pixel.spec.mjs` filters its undecided list by which
-examples are ported. So the ten missing AI Elements references were skipped by
+`parity.spec.mjs` had a test called *every example has a React reference*, and
+it was filtered to shadcn; `pixel.spec.mjs` walked past an unported example with
+a bare `continue`. So the twelve missing AI Elements references were skipped by
 both, silently. That is the shape of check this repository refuses everywhere
-else, and it is only safe to widen once phase 5 has filled the gap.
+else, and it was only safe to widen once phase 5 had filled the gap.
 
-- Drop the `source === "shadcn"` filter in `parity.spec.mjs`
-- Make `pixel.spec.mjs` name an unported example rather than skip it
-- A new AI Elements component with no reference turns the suite red
+The filter is gone, and an unported example is now a **skip with a reason** in
+the pixel run rather than a test that was never registered. Moving one reference
+out of the directory was the check: the gap test fails and names
+`task.default`, and the pixel run reports it skipped for want of that file.
 
 **Commit:** `test(parity): the gap tests cover both registries`
 

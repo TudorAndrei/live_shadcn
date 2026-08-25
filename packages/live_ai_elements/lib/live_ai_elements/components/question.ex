@@ -81,7 +81,12 @@ defmodule LiveAiElements.Components.Question do
   attr(:role, :string, default: nil)
   attr(:selected_values, :string, default: nil)
   attr(:selection_mode, :string, default: nil)
-  attr(:size, :string, default: "default")
+
+  attr(:size, :string,
+    default: "default",
+    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
+  )
+
   attr(:value, :string, default: nil)
 
   attr(:variant, :string,
@@ -102,7 +107,8 @@ defmodule LiveAiElements.Components.Question do
       role={@role}
       type="button"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default h-auto whitespace-normal",
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 h-auto whitespace-normal",
+        variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
         @class
       ]}
@@ -159,9 +165,19 @@ defmodule LiveAiElements.Components.Question do
   attr(:disabled, :string, default: nil)
   attr(:has_response, :string, default: nil)
   attr(:selected_values, :string, default: nil)
-  attr(:size, :string, default: "default")
+
+  attr(:size, :string,
+    default: "default",
+    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
+  )
+
   attr(:text, :string, default: nil)
-  attr(:variant, :string, default: "default")
+
+  attr(:variant, :string,
+    default: "default",
+    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
   slot(:inner_block)
@@ -173,7 +189,9 @@ defmodule LiveAiElements.Components.Question do
       disabled={@disabled || @disabled || !@has_response}
       type="submit"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-button-variant-default",
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        variant_class("buttonVariants", "size", @size),
+        variant_class("buttonVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -186,6 +204,16 @@ defmodule LiveAiElements.Components.Question do
   # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
     "buttonVariants" => %{
+      "size" => %{
+        "default" => "cn-button-size-default",
+        "icon" => "cn-button-size-icon",
+        "icon-lg" => "cn-button-size-icon-lg",
+        "icon-sm" => "cn-button-size-icon-sm",
+        "icon-xs" => "cn-button-size-icon-xs",
+        "lg" => "cn-button-size-lg",
+        "sm" => "cn-button-size-sm",
+        "xs" => "cn-button-size-xs"
+      },
       "variant" => %{
         "default" => "cn-button-variant-default",
         "destructive" => "cn-button-variant-destructive",

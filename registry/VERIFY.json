@@ -20,6 +20,31 @@
     "pass": true,
     "spec": "f91fc2354523ccfebb5cf17a4df2390f863cb9916514a445a1a485aa25d2fe6c"
   },
+  "ai_elements/open-in-chat": {
+    "checks": {
+      "browser": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "pixel": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "snapshot": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      }
+    },
+    "pass": false,
+    "spec": "ea9be6ce197a364c4cc251aa937b9dbdfe15d30f5fba249a98a61e9c0396d62f"
+  },
   "shadcn/alert-dialog": {
     "checks": {
       "browser": {
@@ -92,19 +117,17 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/chain-of-thought.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/chain-of-thought.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "c087fffc35f765c296892391531a11daa6784553c0f694ec99f5aa05e52250e8"
+    "pass": true,
+    "spec": "2262d7837a2f9c28972cbf8c22291b692f0741cfb16398c0acb380f1b6c3f690"
   },
   "shadcn/context-menu": {
     "checks": {
@@ -178,19 +201,17 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/package-info.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/package-info.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "144ac42214784632171a4ed8ea33f307a14704e0917fc1df1a2f624b9252a79e"
+    "pass": true,
+    "spec": "9d046555e270da274aed8f238dda46e28e0d8c1c9104f2efeffb5d6d03e9c609"
   },
   "shadcn/pagination": {
     "checks": {
@@ -285,18 +306,16 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/task.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/task.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "4ae81686e250059aed725c78f76e8df78f1082fe9fee5302d823ee4d6638fbfc"
   },
   "shadcn/bubble": {
@@ -371,19 +390,17 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/attachments.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/attachments.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "6014ab07bce705283869cc83dde4aadfddf635e984036c485de328cc4eaae053"
+    "pass": true,
+    "spec": "6fe17a0d5f381dc3820dfa852989859decc114cda9a871910b0b28fbb4c3382e"
   },
   "shadcn/field": {
     "checks": {
@@ -541,19 +558,18 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/plan.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/plan.<example>.tsx",
-        "pass": false
+        "detail": "plan.default is not compared: Upstream draws two elements where the reader reads one, twice over: AI Elements writes `asChild` and this shadcn build is Base UI, whose equivalent is `render`, so `<Collapsible asChild><Card>` and `<CollapsibleTrigger asChild><Button>` each nest instead of merging — and the second of those is a <button> inside a <button>, which axe reports and is right to. Taking `asChild` at its word is a decision against upstream's own page, and `parity-divergence.json` records the same one slot by slot. Every other AI Elements example gates at zero.",
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "74ea6a27fd30980189fbdcdbe1502d50e8fdb0a9de77628e187d84cd7182f204"
+    "pass": true,
+    "spec": "f94f036202330c0e4873baa6cce2c1d8b0e0b311b350990617016f2b8563dbfa"
   },
   "ai_elements/confirmation": {
     "checks": {
@@ -564,19 +580,17 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/confirmation.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/confirmation.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "9e2c36361ab737098cb37ac78cbbba54d8b63fd6b5fe6e0dd5f55eafb3b5fb82"
+    "pass": true,
+    "spec": "c7aaa9304ee4338efc3c9b8a1537e98f53d64e1edd7280fd9ff50a5f4ee7bea1"
   },
   "shadcn/skeleton": {
     "checks": {
@@ -650,19 +664,17 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/checkpoint.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/checkpoint.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "911a0455f9558c0bfff5567dfd1ece77413d9e3b6281aa81bd0c082030cce991"
+    "pass": true,
+    "spec": "1af7efc48f6b267c852d7b641ac6b4e4e8b83b22adceeb5f89b1e3192167b5e0"
   },
   "shadcn/input-group": {
     "checks": {
@@ -779,18 +791,16 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/sources.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/sources.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "88ad9a0ddc38ebe62b374399d0b2a011bb2bce8a4703dc3f7cbc56b289a6a103"
   },
   "shadcn/calendar": {
@@ -907,18 +917,16 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/reasoning.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/reasoning.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "cffef67125081f32d474b5c3fcf5ea11fe745d9f8ccbdbadccf2a696b465ad21"
   },
   "shadcn/tabs": {
@@ -1056,19 +1064,17 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/ai_elements-message.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/ai_elements-message.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "c8bdb182c718590f3ec83ab276d3a58f642c42abb97e88a94314ad4e66461d77"
+    "pass": true,
+    "spec": "cc8c94f591f88621d78da56f94f66c64c8c2a6eb25259e96a1bb3d5cc6b12c61"
   },
   "ai_elements/snippet": {
     "checks": {
@@ -1089,7 +1095,7 @@
       }
     },
     "pass": true,
-    "spec": "a2c015107dcf76c6b072525fa7261a081b64db8380a607e73933d3fa0d29fb76"
+    "spec": "3a8e8bae82b21e17b21e31c7de2f2ba82e9880f7e7a2dc960148c2cd70d59df5"
   },
   "ai_elements/environment-variables": {
     "checks": {
@@ -1100,19 +1106,17 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/environment-variables.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/environment-variables.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "728f17c6a3960fa5240e114ea8d1a015a502b1414557078743f7ac11bd5f2249"
+    "pass": true,
+    "spec": "861e89b74dad593d633e366741c2eeec80ccf38d201988340f5afa5379bcfa4c"
   },
   "shadcn/switch": {
     "checks": {
@@ -1158,7 +1162,7 @@
       }
     },
     "pass": false,
-    "spec": "b93af59493b11c50a6382433b867f17f0f24faa004a4be283d711ebf27c49620"
+    "spec": "3063369b3610cd9bebeabaa1be32605d668aea516eb468b57eeb2aeae21fe814"
   },
   "shadcn/label": {
     "checks": {
@@ -1337,19 +1341,17 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/suggestion.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/suggestion.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "a6dbd17f5d318000a753e6e59d98fc782fd31bec3b142a443a06dcf08971f22e"
+    "pass": true,
+    "spec": "587cca3ebe5eebeae2182b2b44868502c69486102878b2493fd4cb8a8e5af9d6"
   },
   "ai_elements/question": {
     "checks": {
@@ -1360,19 +1362,17 @@
         "pass": true
       },
       "parity": {
-        "detail": "no React reference yet: add one to parity/src/examples/question.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no React reference yet: add one to parity/src/examples/question.<example>.tsx",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "e385f853b746fcabf52cd03cd4373d6625a5e20819eaa96369a0193f92d999ae"
+    "pass": true,
+    "spec": "97bc07563a18cfbf83ad13e154f0e365b9049cc33ad598cc97ee679e11f8cb39"
   },
   "shadcn/separator": {
     "checks": {

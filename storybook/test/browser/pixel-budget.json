@@ -85,10 +85,23 @@
     "toast.default": 0,
     "toggle-group.default": 0,
     "toggle.default": 0,
-    "tooltip.default": 0
+    "tooltip.default": 0,
+    "ai_elements-message.default": 0,
+    "attachments.default": 0,
+    "chain-of-thought.default": 0,
+    "checkpoint.default": 0,
+    "confirmation.default": 0,
+    "environment-variables.default": 0,
+    "package-info.default": 0,
+    "question.default": 0,
+    "reasoning.default": 0,
+    "sources.default": 0,
+    "suggestion.default": 0,
+    "task.default": 0
   },
   "pending": [],
   "skips": {
+    "plan.default": "Upstream draws two elements where the reader reads one, twice over: AI Elements writes `asChild` and this shadcn build is Base UI, whose equivalent is `render`, so `<Collapsible asChild><Card>` and `<CollapsibleTrigger asChild><Button>` each nest instead of merging — and the second of those is a <button> inside a <button>, which axe reports and is right to. Taking `asChild` at its word is a decision against upstream's own page, and `parity-divergence.json` records the same one slot by slot. Every other AI Elements example gates at zero.",
     "chart.default": "Only one side can draw. `ChartContainer` puts the caller's children inside recharts' <ResponsiveContainer>, which sizes an inner wrapper to 0x0 for anything that is not a recharts element \u2014 so the reference renders the chrome and no plot, whatever the example passes it. A reference that drew a recharts <LineChart> instead would be a second design rather than a port, which parity/README.md forbids, and it was also the only example whose pixel count moved between runs. The chrome is still compared: parity.spec.mjs measures every data-slot box and 37 computed properties on both sides. This example passed at zero for as long as neither side drew: chart_style/2 returned \"\" and the <style> emitted its own source text."
   },
   "reasons": {

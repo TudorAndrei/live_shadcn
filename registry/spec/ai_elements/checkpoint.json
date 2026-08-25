@@ -54,7 +54,7 @@
             "children": [],
             "class": "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
             "class_when": [],
-            "merges_class": true,
+            "merges_class": false,
             "module": "separator",
             "part": "Root",
             "props": true,
@@ -148,11 +148,11 @@
       "export": "CheckpointTrigger",
       "name": "checkpoint_trigger",
       "params": {
-        "align": "center",
+        "align": "start",
         "alignOffset": "0",
         "children": null,
         "className": null,
-        "side": "top",
+        "side": "bottom",
         "sideOffset": "4",
         "size": "sm",
         "tooltip": null,
@@ -208,7 +208,8 @@
               {
                 "args": [
                   "variant",
-                  "size"
+                  "size",
+                  "className"
                 ],
                 "table": "buttonVariants"
               }
@@ -267,7 +268,8 @@
                   {
                     "args": [
                       "variant",
-                      "size"
+                      "size",
+                      "className"
                     ],
                     "table": "buttonVariants"
                   }

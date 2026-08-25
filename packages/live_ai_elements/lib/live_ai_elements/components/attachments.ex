@@ -50,6 +50,15 @@ defmodule LiveAiElements.Components.Attachments do
       class={[
         "group relative",
         if(@variant == "grid", do: "size-24 overflow-hidden rounded-lg", else: nil),
+        if(@variant == "inline",
+          do:
+            "flex h-8 cursor-pointer select-none items-center gap-1.5 rounded-md border border-border px-1.5 font-medium text-sm transition-all hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+          else: nil
+        ),
+        if(@variant == "list",
+          do: "flex w-full items-center gap-3 rounded-lg border p-3 hover:bg-accent/50",
+          else: nil
+        ),
         @class
       ]}
       {@rest}
@@ -112,13 +121,13 @@ defmodule LiveAiElements.Components.Attachments do
 
   @doc "The `button` part."
   attr(:label, :string, default: "Remove")
-  attr(:size, :string, default: "default")
 
-  attr(:variant, :string,
+  attr(:size, :string,
     default: "default",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
+    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
   )
 
+  attr(:variant, :string, default: "default")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
   slot(:inner_block)
@@ -130,8 +139,19 @@ defmodule LiveAiElements.Components.Attachments do
       aria-label={@label}
       type="button"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default",
-        variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-variant-ghost",
+        if(@variant == "grid",
+          do:
+            "absolute top-2 right-2 size-6 rounded-full p-0 bg-background/80 backdrop-blur-sm opacity-0 transition-opacity group-hover:opacity-100 hover:bg-background [&>svg]:size-3",
+          else: nil
+        ),
+        if(@variant == "inline",
+          do:
+            "size-5 rounded p-0 opacity-0 transition-opacity group-hover:opacity-100 [&>svg]:size-2.5",
+          else: nil
+        ),
+        if(@variant == "list", do: "size-8 shrink-0 rounded p-0 [&>svg]:size-4", else: nil),
+        variant_class("buttonVariants", "size", @size),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -170,13 +190,15 @@ defmodule LiveAiElements.Components.Attachments do
   # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
     "buttonVariants" => %{
-      "variant" => %{
-        "default" => "cn-button-variant-default",
-        "destructive" => "cn-button-variant-destructive",
-        "ghost" => "cn-button-variant-ghost",
-        "link" => "cn-button-variant-link",
-        "outline" => "cn-button-variant-outline",
-        "secondary" => "cn-button-variant-secondary"
+      "size" => %{
+        "default" => "cn-button-size-default",
+        "icon" => "cn-button-size-icon",
+        "icon-lg" => "cn-button-size-icon-lg",
+        "icon-sm" => "cn-button-size-icon-sm",
+        "icon-xs" => "cn-button-size-icon-xs",
+        "lg" => "cn-button-size-lg",
+        "sm" => "cn-button-size-sm",
+        "xs" => "cn-button-size-xs"
       }
     }
   }

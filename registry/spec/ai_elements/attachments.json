@@ -120,6 +120,22 @@
                 ],
                 "then": "size-24 overflow-hidden rounded-lg",
                 "when": "variant === \"grid\""
+              },
+              {
+                "else": null,
+                "identifiers": [
+                  "variant"
+                ],
+                "then": "flex h-8 cursor-pointer select-none items-center gap-1.5 rounded-md border border-border px-1.5 font-medium text-sm transition-all hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+                "when": "variant === \"inline\""
+              },
+              {
+                "else": null,
+                "identifiers": [
+                  "variant"
+                ],
+                "then": "flex w-full items-center gap-3 rounded-lg border p-3 hover:bg-accent/50",
+                "when": "variant === \"list\""
               }
             ],
             "merges_class": true,
@@ -424,7 +440,32 @@
           }
         ],
         "class": "",
-        "class_when": [],
+        "class_when": [
+          {
+            "else": null,
+            "identifiers": [
+              "variant"
+            ],
+            "then": "absolute top-2 right-2 size-6 rounded-full p-0 bg-background/80 backdrop-blur-sm opacity-0 transition-opacity group-hover:opacity-100 hover:bg-background [&>svg]:size-3",
+            "when": "variant === \"grid\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "variant"
+            ],
+            "then": "size-5 rounded p-0 opacity-0 transition-opacity group-hover:opacity-100 [&>svg]:size-2.5",
+            "when": "variant === \"inline\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "variant"
+            ],
+            "then": "size-8 shrink-0 rounded p-0 [&>svg]:size-4",
+            "when": "variant === \"list\""
+          }
+        ],
         "merges_class": true,
         "module": "button",
         "part": "Root",
@@ -449,8 +490,12 @@
         "variant_calls": [
           {
             "args": [
-              "variant"
+              "size",
+              "className"
             ],
+            "chosen": {
+              "variant": "ghost"
+            },
             "table": "buttonVariants"
           }
         ],

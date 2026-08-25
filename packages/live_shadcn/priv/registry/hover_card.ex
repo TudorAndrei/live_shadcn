@@ -56,6 +56,7 @@ defmodule LiveShadcn.UI.HoverCard do
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
+      class="contents"
       {@rest}
     >
       <a
@@ -67,7 +68,7 @@ defmodule LiveShadcn.UI.HoverCard do
       >
         {render_slot(@trigger)}
       </a>
-      <div data-slot="hover-card-portal">
+      <div data-slot="hover-card-portal" class="contents">
         <div
           id={Popover.positioner_id(@id)}
           hidden={not @open}
