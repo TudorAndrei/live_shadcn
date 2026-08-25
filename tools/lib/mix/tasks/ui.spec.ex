@@ -235,9 +235,13 @@ defmodule Mix.Tasks.Ui.Spec do
 
   # Not every file in the registry is a component. `direction` re-exports Base
   # UI's `DirectionProvider` and a hook, and renders nothing at all: what it
-  # provides, HTML already has as `dir`. The inventory says so with the
-  # `utility` recipe, and a component with nothing to read is not a component
-  # the reader failed on.
+  # provides, HTML already has as `dir`. The React Flow family — `canvas`,
+  # `controls`, `edge`, `node`, `panel`, `toolbar` and `connection` — has the
+  # opposite shape and the same answer: the markup belongs to `@xyflow/react`,
+  # which owns the layout and calls the component as one of its own nodes, so
+  # there is nothing here to fold. Both are a recorded non-goal in `ROADMAP.md`,
+  # the inventory says so with the `utility` recipe, and a file the reader is
+  # not asked to read is not a file the reader failed on.
   defp utility("utility"), do: :utility
   defp utility(_recipe), do: :component
 

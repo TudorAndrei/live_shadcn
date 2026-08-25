@@ -52,7 +52,7 @@
     {
       "name": "canvas",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "utility",
       "tier": 3
     },
     {
@@ -76,7 +76,7 @@
     {
       "name": "commit",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "clipboard",
       "tier": 2
     },
     {
@@ -88,7 +88,7 @@
     {
       "name": "connection",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "utility",
       "tier": 3
     },
     {
@@ -100,7 +100,7 @@
     {
       "name": "controls",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "utility",
       "tier": 2
     },
     {
@@ -112,7 +112,7 @@
     {
       "name": "edge",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "utility",
       "tier": 3
     },
     {
@@ -166,7 +166,7 @@
     {
       "name": "node",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "utility",
       "tier": 3
     },
     {
@@ -184,7 +184,7 @@
     {
       "name": "panel",
       "source": "ai_elements",
-      "recipe": "disclosure",
+      "recipe": "utility",
       "tier": 2
     },
     {
@@ -298,7 +298,7 @@
     {
       "name": "toolbar",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "utility",
       "tier": 2
     },
     {

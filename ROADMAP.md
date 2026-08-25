@@ -795,6 +795,12 @@ says two images agree, not that either has a component in it.
   the class strings: both are fetched, and neither is retyped.
 - **No model in the daily loop.** A model may draft a new recipe once. A person
   reviews it and it is then frozen.
+- **No React Flow.** `canvas`, `controls`, `edge`, `node`, `panel`, `toolbar`
+  and `connection` are `@xyflow/react` — a graph library that owns the layout,
+  the panning and the edges, and renders the component as one of its own nodes.
+  There is no markup to fold, and `connection` is the clearest case: it is four
+  numbers and an SVG path that React Flow calls while a wire is being dragged.
+  Six of the seven already say `not Base UI`; the seventh is here.
 - **No `open-in-chat`.** Every one of its twelve parts is a thin wrapper around
   a part of `dropdown-menu`, and the thirteenth puts a query string in a React
   context. Drop the wrappers — which is what `menubar` already does, and the
