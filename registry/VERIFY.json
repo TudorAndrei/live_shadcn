@@ -875,14 +875,13 @@
         "pass": true
       },
       "pixel": {
-        "detail": "measured, not yet gated: textarea.default",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "ba418b844321576faae40f8eef1f9b89b251e83c0c6f419611da34c11c5178eb"
   },
   "shadcn/toast": {
