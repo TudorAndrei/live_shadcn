@@ -58,7 +58,6 @@ defmodule LiveAiElements.Components.MicSelector do
   attr(:default_open, :boolean, default: false)
   attr(:default_value, :string, default: nil)
   attr(:popover_options, :string, default: nil)
-  attr(:ref, :string, default: nil)
   attr(:side_offset, :string, default: "4")
   attr(:size, :string, default: "default")
 
@@ -102,19 +101,15 @@ defmodule LiveAiElements.Components.MicSelector do
         phx-mounted={Popover.owned_attributes(:trigger)}
         data-popup-open={flag(@open)}
         data-pressed={flag(@open)}
+        aria-invalid={to_string(@errors != [])}
+        class={[
+          "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default",
+          variant_class("buttonVariants", "variant", @variant),
+          @trigger_class
+        ]}
       >
-        <button
-          data-slot="button"
-          ref={@ref}
-          class={[
-            "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default",
-            variant_class("buttonVariants", "variant", @variant),
-            @trigger_class
-          ]}
-        >
-          {label(@option, @value) || @placeholder}
-          <LiveShadcn.Icon.icon name="chevrons-up-down" class="shrink-0 text-muted-foreground" />
-        </button>
+        {label(@option, @value) || @placeholder}
+        <LiveShadcn.Icon.icon name="chevrons-up-down" class="shrink-0 text-muted-foreground" />
       </button>
       <input
         type="hidden"

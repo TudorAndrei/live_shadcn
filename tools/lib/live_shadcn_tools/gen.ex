@@ -176,7 +176,7 @@ defmodule LiveShadcnTools.Gen do
   that needs it is named here rather than generated wrong.
   """
   def reachable!(spec) do
-    case Enum.uniq(foreign_refs(spec["parts"], spec["source"])) do
+    case Enum.uniq(foreign_refs(spec["parts"], spec)) do
       [] ->
         :ok
 
@@ -190,20 +190,27 @@ defmodule LiveShadcnTools.Gen do
     end
   end
 
-  defp foreign_refs(node, source) when is_list(node),
-    do: Enum.flat_map(node, &foreign_refs(&1, source))
+  defp foreign_refs(node, spec) when is_list(node),
+    do: Enum.flat_map(node, &foreign_refs(&1, spec))
 
   defp foreign_refs(
-         %{"type" => "component_ref", "source" => other, "component" => component},
-         source
+         %{"type" => "component_ref", "source" => other, "component" => component} = node,
+         %{"source" => source} = spec
        )
-       when other != source,
-       do: ["#{other}/#{component}"]
+       when other != source do
+    # A reference the reader left standing on purpose: the component it names
+    # behaves, and nothing here can write that behaviour, so the part is dropped
+    # and the moduledoc says what to compose instead. See
+    # `LiveShadcnTools.carries?/2`.
+    if LiveShadcnTools.carries?(spec["recipe"], node["recipe"]),
+      do: ["#{other}/#{component}"],
+      else: []
+  end
 
-  defp foreign_refs(node, source) when is_map(node),
-    do: node |> Map.values() |> Enum.flat_map(&foreign_refs(&1, source))
+  defp foreign_refs(node, spec) when is_map(node),
+    do: node |> Map.values() |> Enum.flat_map(&foreign_refs(&1, spec))
 
-  defp foreign_refs(_node, _source), do: []
+  defp foreign_refs(_node, _spec), do: []
 
   defp other("ai_elements"), do: "the shadcn registry"
   defp other(_source), do: "AI Elements"

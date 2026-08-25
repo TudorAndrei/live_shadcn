@@ -2,7 +2,6 @@
   "anatomy": [],
   "css_vars": [],
   "folds": [
-    "shadcn/button",
     "shadcn/hover-card",
     "shadcn/progress"
   ],
@@ -73,10 +72,7 @@
       "name": "context_trigger",
       "params": {
         "children": null,
-        "className": null,
-        "renderedPercent": null,
-        "size": "default",
-        "variant": "default"
+        "renderedPercent": null
       },
       "primitive": null,
       "refs": [
@@ -94,6 +90,11 @@
                     "kind": "text",
                     "name": "type",
                     "value": "button"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "variant",
+                    "value": "ghost"
                   }
                 ],
                 "children": [
@@ -354,35 +355,21 @@
                 ],
                 "class": "",
                 "class_when": [],
-                "merges_class": true,
-                "module": "button",
-                "part": "Root",
+                "component": "button",
+                "function": "button",
+                "merges_class": false,
                 "props": true,
                 "reads": {
                   "group": [],
-                  "self": [
-                    {
-                      "name": "aria-invalid",
-                      "value": null
-                    },
-                    {
-                      "name": "aria-expanded",
-                      "value": null
-                    }
-                  ]
+                  "self": []
                 },
+                "recipe": "presentational",
                 "render_as": null,
-                "slot": "button",
+                "slot": null,
+                "source": "shadcn",
                 "tag": "button",
-                "type": "primitive",
-                "variant_calls": [
-                  {
-                    "args": [
-                      "variant"
-                    ],
-                    "table": "buttonVariants"
-                  }
-                ],
+                "type": "component_ref",
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -396,18 +383,20 @@
         ],
         "class": "",
         "class_when": [],
+        "component": "hover-card",
+        "function": "hover_card_trigger",
         "merges_class": false,
-        "module": "preview-card",
-        "part": "Trigger",
-        "props": true,
+        "props": false,
         "reads": {
           "group": [],
           "self": []
         },
+        "recipe": "popover",
         "render_as": null,
-        "slot": "hover-card-trigger",
+        "slot": null,
+        "source": "shadcn",
         "tag": "a",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -418,11 +407,7 @@
       "export": "ContextContent",
       "name": "context_content",
       "params": {
-        "align": "center",
-        "alignOffset": "4",
-        "className": null,
-        "side": "bottom",
-        "sideOffset": "4"
+        "className": null
       },
       "primitive": null,
       "refs": [
@@ -431,131 +416,23 @@
       ],
       "tree": {
         "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "align"
-                ],
-                "kind": "code",
-                "name": "align",
-                "value": "align"
-              },
-              {
-                "identifiers": [
-                  "alignOffset"
-                ],
-                "kind": "code",
-                "name": "alignOffset",
-                "value": "alignOffset"
-              },
-              {
-                "identifiers": [
-                  "side"
-                ],
-                "kind": "code",
-                "name": "side",
-                "value": "side"
-              },
-              {
-                "identifiers": [
-                  "sideOffset"
-                ],
-                "kind": "code",
-                "name": "sideOffset",
-                "value": "sideOffset"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "cn-hover-card-content cn-hover-card-content-logical z-50 origin-(--transform-origin) outline-hidden",
-                "class_when": [],
-                "merges_class": true,
-                "module": "preview-card",
-                "part": "Popup",
-                "props": true,
-                "reads": {
-                  "group": [],
-                  "self": [
-                    {
-                      "name": "data-open",
-                      "value": null
-                    },
-                    {
-                      "name": "data-closed",
-                      "value": null
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "bottom"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "left"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "right"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "top"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "inline-start"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "inline-end"
-                    }
-                  ]
-                },
-                "render_as": null,
-                "slot": "hover-card-content",
-                "tag": "div",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": [
-                  "--transform-origin"
-                ]
-              }
-            ],
-            "class": "isolate z-50",
-            "class_when": [],
-            "merges_class": false,
-            "module": "preview-card",
-            "part": "Positioner",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
+        "children": [],
         "class": "min-w-60 divide-y overflow-hidden p-0",
         "class_when": [],
+        "component": "hover-card",
+        "function": "hover_card_content",
         "merges_class": true,
-        "module": "preview-card",
-        "part": "Portal",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
+        "recipe": "popover",
         "render_as": null,
-        "slot": "hover-card-portal",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -1502,48 +1379,6 @@
     }
   ],
   "primitives": {
-    "button.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the button should be focusable when disabled.",
-          "name": "focusableWhenDisabled",
-          "type": "boolean"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Button.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Button.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button component that can be used to trigger actions."
-    },
     "preview-card.Arrow": {
       "css_vars": [],
       "data": [
@@ -2172,40 +2007,7 @@
   },
   "recipe": "presentational",
   "source": "ai_elements",
-  "styles": {
-    "luma": {
-      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 bg-popover text-popover-foreground w-72 rounded-3xl p-4 text-sm shadow-lg ring-1 duration-100",
-      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "lyra": {
-      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground w-64 rounded-none p-2.5 text-xs/relaxed shadow-md ring-1 duration-100",
-      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "maia": {
-      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 bg-popover text-popover-foreground w-72 rounded-2xl p-4 text-sm shadow-2xl ring-1 duration-100",
-      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "mira": {
-      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground w-72 rounded-lg p-2.5 text-xs/relaxed shadow-md ring-1 duration-100",
-      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "nova": {
-      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground w-64 rounded-lg p-2.5 text-sm shadow-md ring-1 duration-100",
-      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "rhea": {
-      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 bg-popover text-popover-foreground w-72 rounded-3xl p-4 text-sm shadow-lg ring-1 duration-100",
-      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "sera": {
-      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground w-72 p-4 text-sm shadow-md ring-1 duration-100",
-      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "vega": {
-      "cn-hover-card-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground w-64 rounded-lg p-4 text-sm shadow-md ring-1 duration-100",
-      "cn-hover-card-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    }
-  },
+  "styles": {},
   "upstream": {
     "base_ui": {},
     "shadcn": {
@@ -2213,33 +2015,5 @@
       "sha256": "e511015bd0d58d4dcc179d672fe2de980ff923654a53541d4396f209bf02c243"
     }
   },
-  "variants": {
-    "buttonVariants": {
-      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-button-size-default",
-          "icon": "cn-button-size-icon",
-          "icon-lg": "cn-button-size-icon-lg",
-          "icon-sm": "cn-button-size-icon-sm",
-          "icon-xs": "cn-button-size-icon-xs",
-          "lg": "cn-button-size-lg",
-          "sm": "cn-button-size-sm",
-          "xs": "cn-button-size-xs"
-        },
-        "variant": {
-          "default": "cn-button-variant-default",
-          "destructive": "cn-button-variant-destructive",
-          "ghost": "cn-button-variant-ghost",
-          "link": "cn-button-variant-link",
-          "outline": "cn-button-variant-outline",
-          "secondary": "cn-button-variant-secondary"
-        }
-      }
-    }
-  }
+  "variants": {}
 }

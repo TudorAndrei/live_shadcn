@@ -12,7 +12,6 @@
     "--transform-origin"
   ],
   "folds": [
-    "shadcn/button",
     "shadcn/dropdown-menu"
   ],
   "generated_by": "mix ui.spec",
@@ -75,11 +74,7 @@
       "export": "OpenInContent",
       "name": "open_in_content",
       "params": {
-        "align": "start",
-        "alignOffset": "0",
-        "className": null,
-        "side": "bottom",
-        "sideOffset": "4"
+        "className": null
       },
       "primitive": null,
       "refs": [
@@ -87,158 +82,30 @@
         "props"
       ],
       "tree": {
-        "attrs": [],
-        "children": [
+        "attrs": [
           {
-            "attrs": [
-              {
-                "identifiers": [
-                  "align"
-                ],
-                "kind": "code",
-                "name": "align",
-                "value": "align"
-              },
-              {
-                "identifiers": [
-                  "alignOffset"
-                ],
-                "kind": "code",
-                "name": "alignOffset",
-                "value": "alignOffset"
-              },
-              {
-                "identifiers": [
-                  "side"
-                ],
-                "kind": "code",
-                "name": "side",
-                "value": "side"
-              },
-              {
-                "identifiers": [
-                  "sideOffset"
-                ],
-                "kind": "code",
-                "name": "sideOffset",
-                "value": "sideOffset"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
-                "class_when": [],
-                "merges_class": true,
-                "module": "menu",
-                "part": "Popup",
-                "props": true,
-                "reads": {
-                  "group": [],
-                  "self": [
-                    {
-                      "name": "data-closed",
-                      "value": null
-                    },
-                    {
-                      "name": "data-open",
-                      "value": null
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "bottom"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "left"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "right"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "top"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "inline-start"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "inline-end"
-                    },
-                    {
-                      "name": "data-slot",
-                      "value": "-item"
-                    },
-                    {
-                      "name": "data-highlighted",
-                      "value": null
-                    },
-                    {
-                      "name": "data-slot",
-                      "value": "-separator"
-                    },
-                    {
-                      "name": "data-slot",
-                      "value": "-trigger"
-                    },
-                    {
-                      "name": "aria-expanded",
-                      "value": null
-                    },
-                    {
-                      "name": "data-variant",
-                      "value": "destructive"
-                    }
-                  ]
-                },
-                "render_as": null,
-                "slot": "dropdown-menu-content",
-                "tag": "div",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": [
-                  "--available-height",
-                  "--anchor-width",
-                  "--transform-origin"
-                ]
-              }
-            ],
-            "class": "isolate z-50 outline-none",
-            "class_when": [],
-            "merges_class": false,
-            "module": "menu",
-            "part": "Positioner",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
+            "kind": "text",
+            "name": "align",
+            "value": "start"
           }
         ],
+        "children": [],
         "class": "w-[240px]",
         "class_when": [],
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_content",
         "merges_class": true,
-        "module": "menu",
-        "part": "Portal",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
+        "recipe": "menu",
         "render_as": null,
         "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -248,62 +115,30 @@
       "contexts": [],
       "export": "OpenInItem",
       "name": "open_in_item",
-      "params": {
-        "className": null,
-        "inset": null,
-        "variant": "default"
-      },
+      "params": {},
       "primitive": null,
       "refs": [
         "props"
       ],
       "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "inset"
-            ],
-            "kind": "code",
-            "name": "data-inset",
-            "value": "inset"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
+        "attrs": [],
         "children": [],
-        "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
-        "module": "menu",
-        "part": "Item",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "data-disabled",
-              "value": null
-            },
-            {
-              "name": "data-variant",
-              "value": "destructive"
-            },
-            {
-              "name": "data-inset",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "menu",
         "render_as": null,
-        "slot": "dropdown-menu-item",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -313,45 +148,30 @@
       "contexts": [],
       "export": "OpenInLabel",
       "name": "open_in_label",
-      "params": {
-        "className": null,
-        "inset": null
-      },
+      "params": {},
       "primitive": null,
       "refs": [
         "props"
       ],
       "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "inset"
-            ],
-            "kind": "code",
-            "name": "data-inset",
-            "value": "inset"
-          }
-        ],
+        "attrs": [],
         "children": [],
-        "class": "cn-dropdown-menu-label",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
-        "module": "menu",
-        "part": "GroupLabel",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_label",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "data-inset",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "menu",
         "render_as": null,
-        "slot": "dropdown-menu-label",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -361,9 +181,7 @@
       "contexts": [],
       "export": "OpenInSeparator",
       "name": "open_in_separator",
-      "params": {
-        "className": null
-      },
+      "params": {},
       "primitive": null,
       "refs": [
         "props"
@@ -371,20 +189,22 @@
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "cn-dropdown-menu-separator",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
-        "module": "menu",
-        "part": "Separator",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_separator",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
+        "recipe": "menu",
         "render_as": null,
-        "slot": "dropdown-menu-separator",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -395,10 +215,7 @@
       "export": "OpenInTrigger",
       "name": "open_in_trigger",
       "params": {
-        "children": null,
-        "className": null,
-        "size": "default",
-        "variant": "default"
+        "children": null
       },
       "primitive": null,
       "refs": [
@@ -416,6 +233,11 @@
                     "kind": "text",
                     "name": "type",
                     "value": "button"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "variant",
+                    "value": "outline"
                   }
                 ],
                 "children": [
@@ -446,35 +268,21 @@
                 ],
                 "class": "",
                 "class_when": [],
-                "merges_class": true,
-                "module": "button",
-                "part": "Root",
-                "props": true,
+                "component": "button",
+                "function": "button",
+                "merges_class": false,
+                "props": false,
                 "reads": {
                   "group": [],
-                  "self": [
-                    {
-                      "name": "aria-invalid",
-                      "value": null
-                    },
-                    {
-                      "name": "aria-expanded",
-                      "value": null
-                    }
-                  ]
+                  "self": []
                 },
+                "recipe": "presentational",
                 "render_as": null,
-                "slot": "button",
+                "slot": null,
+                "source": "shadcn",
                 "tag": "button",
-                "type": "primitive",
-                "variant_calls": [
-                  {
-                    "args": [
-                      "variant"
-                    ],
-                    "table": "buttonVariants"
-                  }
-                ],
+                "type": "component_ref",
+                "variant_calls": [],
                 "vars": []
               }
             ],
@@ -486,18 +294,20 @@
         ],
         "class": "",
         "class_when": [],
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_trigger",
         "merges_class": false,
-        "module": "menu",
-        "part": "Trigger",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
+        "recipe": "menu",
         "render_as": null,
-        "slot": "dropdown-menu-trigger",
+        "slot": null,
+        "source": "shadcn",
         "tag": "button",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -508,34 +318,14 @@
       "export": "OpenInChatGPT",
       "name": "open_in_chat_gpt",
       "params": {
-        "className": null,
-        "inset": null,
-        "query": null,
-        "variant": "default"
+        "query": null
       },
       "primitive": null,
       "refs": [
         "props"
       ],
       "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "inset"
-            ],
-            "kind": "code",
-            "name": "data-inset",
-            "value": "inset"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -658,33 +448,22 @@
             "vars": []
           }
         ],
-        "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
-        "module": "menu",
-        "part": "Item",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "data-disabled",
-              "value": null
-            },
-            {
-              "name": "data-variant",
-              "value": "destructive"
-            },
-            {
-              "name": "data-inset",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "menu",
         "render_as": null,
-        "slot": "dropdown-menu-item",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -695,34 +474,14 @@
       "export": "OpenInClaude",
       "name": "open_in_claude",
       "params": {
-        "className": null,
-        "inset": null,
-        "query": null,
-        "variant": "default"
+        "query": null
       },
       "primitive": null,
       "refs": [
         "props"
       ],
       "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "inset"
-            ],
-            "kind": "code",
-            "name": "data-inset",
-            "value": "inset"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -845,33 +604,22 @@
             "vars": []
           }
         ],
-        "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
-        "module": "menu",
-        "part": "Item",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "data-disabled",
-              "value": null
-            },
-            {
-              "name": "data-variant",
-              "value": "destructive"
-            },
-            {
-              "name": "data-inset",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "menu",
         "render_as": null,
-        "slot": "dropdown-menu-item",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -882,34 +630,14 @@
       "export": "OpenInT3",
       "name": "open_in_t3",
       "params": {
-        "className": null,
-        "inset": null,
-        "query": null,
-        "variant": "default"
+        "query": null
       },
       "primitive": null,
       "refs": [
         "props"
       ],
       "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "inset"
-            ],
-            "kind": "code",
-            "name": "data-inset",
-            "value": "inset"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -1032,33 +760,22 @@
             "vars": []
           }
         ],
-        "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
-        "module": "menu",
-        "part": "Item",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "data-disabled",
-              "value": null
-            },
-            {
-              "name": "data-variant",
-              "value": "destructive"
-            },
-            {
-              "name": "data-inset",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "menu",
         "render_as": null,
-        "slot": "dropdown-menu-item",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -1069,34 +786,14 @@
       "export": "OpenInScira",
       "name": "open_in_scira",
       "params": {
-        "className": null,
-        "inset": null,
-        "query": null,
-        "variant": "default"
+        "query": null
       },
       "primitive": null,
       "refs": [
         "props"
       ],
       "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "inset"
-            ],
-            "kind": "code",
-            "name": "data-inset",
-            "value": "inset"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -1219,33 +916,22 @@
             "vars": []
           }
         ],
-        "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
-        "module": "menu",
-        "part": "Item",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "data-disabled",
-              "value": null
-            },
-            {
-              "name": "data-variant",
-              "value": "destructive"
-            },
-            {
-              "name": "data-inset",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "menu",
         "render_as": null,
-        "slot": "dropdown-menu-item",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -1256,34 +942,14 @@
       "export": "OpenInv0",
       "name": "open_inv0",
       "params": {
-        "className": null,
-        "inset": null,
-        "query": null,
-        "variant": "default"
+        "query": null
       },
       "primitive": null,
       "refs": [
         "props"
       ],
       "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "inset"
-            ],
-            "kind": "code",
-            "name": "data-inset",
-            "value": "inset"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -1406,33 +1072,22 @@
             "vars": []
           }
         ],
-        "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
-        "module": "menu",
-        "part": "Item",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "data-disabled",
-              "value": null
-            },
-            {
-              "name": "data-variant",
-              "value": "destructive"
-            },
-            {
-              "name": "data-inset",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "menu",
         "render_as": null,
-        "slot": "dropdown-menu-item",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -1443,34 +1098,14 @@
       "export": "OpenInCursor",
       "name": "open_in_cursor",
       "params": {
-        "className": null,
-        "inset": null,
-        "query": null,
-        "variant": "default"
+        "query": null
       },
       "primitive": null,
       "refs": [
         "props"
       ],
       "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "inset"
-            ],
-            "kind": "code",
-            "name": "data-inset",
-            "value": "inset"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
+        "attrs": [],
         "children": [
           {
             "attrs": [
@@ -1593,33 +1228,22 @@
             "vars": []
           }
         ],
-        "class": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
-        "module": "menu",
-        "part": "Item",
+        "component": "dropdown-menu",
+        "function": "dropdown_menu_item",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "data-disabled",
-              "value": null
-            },
-            {
-              "name": "data-variant",
-              "value": "destructive"
-            },
-            {
-              "name": "data-inset",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "menu",
         "render_as": null,
-        "slot": "dropdown-menu-item",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -1829,48 +1453,6 @@
       ],
       "renders": true,
       "summary": "Groups related radio items."
-    },
-    "button.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the button should be focusable when disabled.",
-          "name": "focusableWhenDisabled",
-          "type": "boolean"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Button.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Button.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button component that can be used to trigger actions."
     },
     "dropdown-menu.Popup": {
       "css_vars": [],
@@ -3928,71 +3510,7 @@
   },
   "recipe": "presentational",
   "source": "ai_elements",
-  "styles": {
-    "luma": {
-      "cn-dropdown-menu-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 bg-popover text-popover-foreground min-w-48 rounded-3xl p-1.5 shadow-lg ring-1 duration-100",
-      "cn-dropdown-menu-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2",
-      "cn-dropdown-menu-item": "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2.5 rounded-2xl px-3 py-2 text-sm font-medium data-inset:pl-9.5 [&_svg:not([class*='size-'])]:size-4",
-      "cn-dropdown-menu-label": "text-muted-foreground px-3 py-2.5 text-xs data-inset:pl-9.5",
-      "cn-dropdown-menu-separator": "bg-border/50 -mx-1.5 my-1.5 h-px",
-      "cn-menu-translucent": "animate-none! relative bg-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:focus:bg-foreground/10! **:data-[variant=destructive]:text-accent-foreground! **:data-[variant=destructive]:**:text-accent-foreground!"
-    },
-    "lyra": {
-      "cn-dropdown-menu-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 rounded-none shadow-md ring-1 duration-100",
-      "cn-dropdown-menu-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2",
-      "cn-dropdown-menu-item": "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2 rounded-none px-2 py-2 text-xs data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4",
-      "cn-dropdown-menu-label": "text-muted-foreground px-2 py-2 text-xs data-inset:pl-7",
-      "cn-dropdown-menu-separator": "bg-border -mx-1 h-px"
-    },
-    "maia": {
-      "cn-dropdown-menu-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 bg-popover text-popover-foreground min-w-48 rounded-2xl p-1 shadow-2xl ring-1 duration-100 dark:ring-foreground/10",
-      "cn-dropdown-menu-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2",
-      "cn-dropdown-menu-item": "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2.5 rounded-xl px-3 py-2 text-sm data-inset:pl-9.5 [&_svg:not([class*='size-'])]:size-4",
-      "cn-dropdown-menu-label": "text-muted-foreground px-3 py-2.5 text-xs data-inset:pl-9.5",
-      "cn-dropdown-menu-separator": "bg-border/50 -mx-1 my-1 h-px",
-      "cn-menu-translucent": "animate-none! relative bg-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:focus:bg-foreground/10! **:data-[variant=destructive]:text-accent-foreground! **:data-[variant=destructive]:**:text-accent-foreground!"
-    },
-    "mira": {
-      "cn-dropdown-menu-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 rounded-lg p-1 shadow-md ring-1 duration-100",
-      "cn-dropdown-menu-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2",
-      "cn-dropdown-menu-item": "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground min-h-7 gap-2 rounded-md px-2 py-1 text-xs/relaxed data-inset:pl-7.5 [&_svg:not([class*='size-'])]:size-3.5",
-      "cn-dropdown-menu-label": "text-muted-foreground px-2 py-1.5 text-xs data-inset:pl-7.5",
-      "cn-dropdown-menu-separator": "bg-border/50 -mx-1 my-1 h-px",
-      "cn-menu-translucent": "animate-none! relative bg-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:focus:bg-foreground/10! **:data-[variant=destructive]:text-accent-foreground! **:data-[variant=destructive]:**:text-accent-foreground!"
-    },
-    "nova": {
-      "cn-dropdown-menu-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 rounded-lg p-1 shadow-md ring-1 duration-100",
-      "cn-dropdown-menu-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2",
-      "cn-dropdown-menu-item": "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4",
-      "cn-dropdown-menu-label": "text-muted-foreground px-1.5 py-1 text-xs font-medium data-inset:pl-7",
-      "cn-dropdown-menu-separator": "bg-border -mx-1 my-1 h-px",
-      "cn-menu-translucent": "animate-none! relative bg-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:focus:bg-foreground/10! **:data-[variant=destructive]:text-accent-foreground! **:data-[variant=destructive]:**:text-accent-foreground!"
-    },
-    "rhea": {
-      "cn-dropdown-menu-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 bg-popover text-popover-foreground min-w-32 rounded-2xl p-1 shadow-lg ring-1 duration-100",
-      "cn-dropdown-menu-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2",
-      "cn-dropdown-menu-item": "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2 min-h-7 rounded-xl px-2 py-1.5 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4",
-      "cn-dropdown-menu-label": "text-muted-foreground px-2 py-1 text-xs data-inset:pl-7",
-      "cn-dropdown-menu-separator": "bg-border/50 -mx-1 my-1 h-px",
-      "cn-menu-translucent": "animate-none! relative bg-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:focus:bg-foreground/10! **:data-[variant=destructive]:text-accent-foreground! **:data-[variant=destructive]:**:text-accent-foreground!"
-    },
-    "sera": {
-      "cn-dropdown-menu-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-48 rounded-none p-1.5 shadow-md ring-1 duration-100",
-      "cn-dropdown-menu-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2",
-      "cn-dropdown-menu-item": "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2.5 rounded-none px-3 py-2 text-xs font-medium uppercase tracking-wider data-inset:pl-9.5 [&_svg:not([class*='size-'])]:size-3.5",
-      "cn-dropdown-menu-label": "px-3 py-2 text-xs uppercase tracking-wider data-inset:pl-9.5 font-semibold text-muted-foreground",
-      "cn-dropdown-menu-separator": "bg-border/50 -mx-1.5 my-1.5 h-px",
-      "cn-menu-translucent": "animate-none! relative bg-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:focus:bg-foreground/10! **:data-[variant=destructive]:text-accent-foreground! **:data-[variant=destructive]:**:text-accent-foreground!"
-    },
-    "vega": {
-      "cn-dropdown-menu-content": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 rounded-md p-1 shadow-md ring-1 duration-100",
-      "cn-dropdown-menu-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2",
-      "cn-dropdown-menu-item": "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2 rounded-sm px-2 py-1.5 text-sm data-inset:pl-8 [&_svg:not([class*='size-'])]:size-4",
-      "cn-dropdown-menu-label": "text-muted-foreground px-2 py-1.5 text-xs font-medium data-inset:pl-8",
-      "cn-dropdown-menu-separator": "bg-border -mx-1 my-1 h-px",
-      "cn-menu-translucent": "animate-none! relative bg-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:focus:bg-foreground/10! **:data-[variant=destructive]:text-accent-foreground! **:data-[variant=destructive]:**:text-accent-foreground!"
-    }
-  },
+  "styles": {},
   "upstream": {
     "base_ui": {},
     "shadcn": {
@@ -4000,33 +3518,5 @@
       "sha256": "0370a813ed09e9b23857717cff0704a028049d2cf014dbd11e5f56d05db6db33"
     }
   },
-  "variants": {
-    "buttonVariants": {
-      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-button-size-default",
-          "icon": "cn-button-size-icon",
-          "icon-lg": "cn-button-size-icon-lg",
-          "icon-sm": "cn-button-size-icon-sm",
-          "icon-xs": "cn-button-size-icon-xs",
-          "lg": "cn-button-size-lg",
-          "sm": "cn-button-size-sm",
-          "xs": "cn-button-size-xs"
-        },
-        "variant": {
-          "default": "cn-button-variant-default",
-          "destructive": "cn-button-variant-destructive",
-          "ghost": "cn-button-variant-ghost",
-          "link": "cn-button-variant-link",
-          "outline": "cn-button-variant-outline",
-          "secondary": "cn-button-variant-secondary"
-        }
-      }
-    }
-  }
+  "variants": {}
 }

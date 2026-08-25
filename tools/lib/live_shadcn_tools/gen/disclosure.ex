@@ -97,6 +97,19 @@ defmodule LiveShadcnTools.Gen.Disclosure do
   def attribute!("data-index", _role, shape), do: {:code, shape.index}
   def attribute!("data-slot", _role, _shape), do: :existing
 
+  # A card's own size, which the card's markup writes. `plan` is a collapsible
+  # that *is* a card — `<Collapsible asChild><Card …>` — so the root wears both
+  # contracts, and this half of it is already on the element.
+  def attribute!("data-size", _role, _shape), do: :existing
+
+  # Both arrive when a trigger *is* a `Button`, which is what `asChild` says in
+  # `plan`: the button's class string reads them, so they reach the trigger's
+  # contract. Neither is this recipe's to write. `role_attributes/4` already
+  # computes `aria-expanded` from the same fact, and a collapsible's trigger is
+  # in no form and has no validity — React draws no `aria-invalid` on it either.
+  def attribute!(name, _role, _shape) when name in ~w(aria-expanded aria-invalid),
+    do: :existing
+
   def attribute!(name, role, _shape) do
     raise """
     the disclosure recipe does not know how to compute #{name} on the #{role}.

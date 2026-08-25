@@ -92,6 +92,12 @@ defmodule LiveShadcnTools.Gen.Listbox do
   # `role="listbox"` cannot be expanded.
   def attribute!("aria-expanded", :popup), do: :client
 
+  # The trigger's own, and `role_attributes/3` already writes it from `@open`.
+  # It arrives here as well when the trigger is a folded `Button`, because the
+  # button's class string reads it — the same contract, said twice, and an
+  # element carries an attribute once.
+  def attribute!("aria-expanded", :trigger), do: :existing
+
   # What the reader has done to it, and where the popup landed. Neither is a
   # fact the server has.
   def attribute!(name, _role)

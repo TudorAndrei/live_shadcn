@@ -56,56 +56,47 @@ defmodule LiveAiElements.Components.Plan do
       id={@id}
       data-open={flag(@open)}
       data-closed={flag(not @open)}
+      data-size={@size}
+      class={["cn-card group/card flex flex-col shadow-none", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <div
-        data-slot={@rest[:"data-slot"] || "card"}
-        data-size={@size}
-        class={["cn-card group/card flex flex-col shadow-none", @class]}
-        {Map.drop(@rest, [:"data-slot"])}
+      <button
+        data-slot="plan-trigger"
+        id={Disclosure.trigger_id(@id)}
+        type="button"
+        aria-expanded={to_string(@open)}
+        aria-controls={Disclosure.panel_id(@id)}
+        phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
+        phx-mounted={Disclosure.owned_attributes(:trigger)}
+        data-panel-open={flag(@open)}
+        class={[
+          "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-8",
+          variant_class("buttonVariants", "size", @size),
+          variant_class("buttonVariants", "variant", @variant),
+          @trigger_class
+        ]}
       >
-        <button
-          data-slot="collapsible-trigger"
-          id={Disclosure.trigger_id(@id)}
-          type="button"
-          aria-expanded={to_string(@open)}
-          aria-controls={Disclosure.panel_id(@id)}
-          phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
-          phx-mounted={Disclosure.owned_attributes(:trigger)}
-          data-panel-open={flag(@open)}
-        >
-          <button
-            data-slot="plan-trigger"
-            class={[
-              "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-8",
-              variant_class("buttonVariants", "size", @size),
-              variant_class("buttonVariants", "variant", @variant),
-              @trigger_class
-            ]}
-          >
-            <LiveShadcn.Icon.icon name="chevrons-up-down" class="size-4" />
-            <span class="sr-only">
-              Toggle plan
-            </span>
-          </button>
-          {@title}
-        </button>
-        <div
-          data-slot="collapsible-content"
-          id={Disclosure.panel_id(@id)}
-          role="region"
-          aria-labelledby={Disclosure.trigger_id(@id)}
-          hidden={not @open}
-          phx-hook={Disclosure.hook()}
-          phx-mounted={Disclosure.owned_attributes(:panel)}
-          data-lb-height-var="--collapsible-panel-height"
-          data-lb-width-var="--collapsible-panel-width"
-          data-open={flag(@open)}
-          data-closed={flag(not @open)}
-        >
-          <div data-slot="plan-content" class={["cn-card-content", @content_class]} />
-          {render_slot(@inner_block)}
-        </div>
+        <LiveShadcn.Icon.icon name="chevrons-up-down" class="size-4" />
+        <span class="sr-only">
+          Toggle plan
+        </span>
+        {@title}
+      </button>
+      <div
+        data-slot="plan-content"
+        id={Disclosure.panel_id(@id)}
+        role="region"
+        aria-labelledby={Disclosure.trigger_id(@id)}
+        hidden={not @open}
+        phx-hook={Disclosure.hook()}
+        phx-mounted={Disclosure.owned_attributes(:panel)}
+        data-lb-height-var="--collapsible-panel-height"
+        data-lb-width-var="--collapsible-panel-width"
+        data-open={flag(@open)}
+        data-closed={flag(not @open)}
+        class={["cn-card-content", @content_class]}
+      >
+        {render_slot(@inner_block)}
       </div>
     </div>
     """

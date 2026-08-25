@@ -92,12 +92,18 @@ defmodule LiveShadcnTools.Spec do
       parts
       |> Enum.map(&markdown_content/1)
       |> private_parts(ctx)
-      |> fold(source, Keyword.get(opts, :resolve, fn _source, _name -> nil end))
+      |> fold(
+        source,
+        Keyword.fetch!(opts, :recipe),
+        Keyword.get(opts, :resolve, fn _source, _name -> nil end)
+      )
 
     parts =
       parts
       |> Enum.map(fn part ->
-        Map.update!(part, "tree", fn tree -> walk(tree, &written_content/1) end)
+        Map.update!(part, "tree", fn tree ->
+          tree |> walk(&one_element/1) |> walk(&written_content/1)
+        end)
       end)
       |> Enum.map(&props_read(&1, variant_props(folded, variants)))
 
@@ -763,10 +769,13 @@ defmodule LiveShadcnTools.Spec do
   nothing is left alone, so `mix ui.gen` reports it rather than the reader
   guessing at markup it has not read.
   """
-  def fold(parts, source, resolve) do
+  def fold(parts, source, recipe, resolve) do
     {parts, acc} =
       Enum.map_reduce(parts, %{specs: %{}, params: %{}}, fn part, acc ->
-        {tree, acc} = fold_node(part["tree"], source, resolve, %{acc | params: %{}})
+        {tree, acc} =
+          if wraps_behaviour?(part["tree"], recipe),
+            do: {part["tree"], %{acc | params: %{}}},
+            else: fold_node(part["tree"], source, resolve, %{acc | params: %{}})
 
         # A folded part's props come with it. shadcn's scroll-area computes an
         # attribute from its own `orientation`, and once that markup is here,
@@ -783,6 +792,24 @@ defmodule LiveShadcnTools.Spec do
 
     {parts, Map.values(acc.specs)}
   end
+
+  # A part that is nothing but a reference to a component that behaves, drawn by
+  # a component that is not that thing.
+  #
+  # `AttachmentHoverCard` is `<HoverCard closeDelay openDelay {...props} />` and
+  # adds two defaults; its trigger and its content add a class string between
+  # them. Folding the markup in copies a popover with no trigger id, no
+  # positioner and no hover — three functions that draw a popup which never
+  # opens, and a caller who calls them gets a broken page.
+  #
+  # The caller composes the real one instead. That is the answer `menubar`
+  # already gives for thirteen wrappers around a menu, and the moduledoc says
+  # which component to compose; the only new thing here is that the component to
+  # compose is in the other package.
+  defp wraps_behaviour?(%{"type" => "component_ref", "recipe" => recipe}, own),
+    do: not LiveShadcnTools.carries?(own, recipe)
+
+  defp wraps_behaviour?(_tree, _own), do: false
 
   defp fold_node(%{"type" => "component_ref", "source" => other} = node, source, resolve, acc)
        when other != source do
@@ -905,7 +932,20 @@ defmodule LiveShadcnTools.Spec do
       "props" => node["props"] || tree["props"],
       "slot" => node["slot"] || tree["slot"]
     })
+    |> travels(node, "as_child")
     |> place(Map.get(node, "children") || [])
+  end
+
+  # `<CollapsibleTrigger asChild>` says the trigger and the element inside it are
+  # one element, and the trigger's markup is what just arrived here. So the word
+  # travels with it, to be acted on once the child is an element rather than a
+  # reference to one — and only where it was written, because a key holding
+  # `null` on every folded node in the registry says nothing at some length.
+  defp travels(tree, node, key) do
+    case Map.get(node, key) do
+      nil -> tree
+      value -> Map.put(tree, key, value)
+    end
   end
 
   # Two defaults for one prop, and the nearer one wins.
@@ -1185,9 +1225,122 @@ defmodule LiveShadcnTools.Spec do
       "vars" => vars(styling),
       "children" => Enum.map(element.children, &node(&1, ctx))
     })
+    |> as_child(element)
     |> external_defaults()
     |> forget_context_value()
   end
+
+  # `asChild` is shadcn's spelling of Base UI's `render` prop, and it says the
+  # same thing: this element and the one inside it are **one** element.
+  #
+  #     <CollapsibleTrigger asChild><Button …>…</Button></CollapsibleTrigger>
+  #
+  # Read as two, `plan` came out with a `<button>` inside a `<button>` — which
+  # axe reports and is right to — and `plan_content` came out as an empty
+  # `<div>` beside the content it was supposed to hold. Recorded here and
+  # collapsed after the fold, because until then the child is a reference to
+  # another component and the element it becomes is not known yet.
+  # The `data-slot` the one element ends up with is decided here, where both
+  # halves are still as upstream wrote them. React merges the outer's props into
+  # the child's JSX props, and the child spreads them last — so a `data-slot`
+  # written on the child in *this* file wins, and the one the child component
+  # writes on itself never does.
+  defp as_child(node, element) do
+    if Tsx.attr(element, "asChild") == true do
+      written = node |> Map.get("children") |> List.wrap() |> Enum.find_value(& &1["slot"])
+
+      Map.put(node, "as_child", %{"slot" => written})
+    else
+      node
+    end
+  end
+
+  # The two elements `asChild` wrote, as the one element it meant.
+  #
+  # The outer one keeps its identity — a recipe finds its trigger by the Base UI
+  # part that element draws, and after this the part is drawn here — and
+  # everything a reader sees comes from the inner one: its tag, its `data-slot`,
+  # its class string, its children. That is React's own order, which merges the
+  # child's props over the slot's.
+  # A reference the fold left standing — the component it names behaves, and
+  # this one is not it. There is no element yet to be one with, and the part is
+  # dropped rather than drawn, so the word is simply forgotten.
+  defp one_element(%{"as_child" => %{}, "type" => "component_ref"} = node),
+    do: Map.delete(node, "as_child")
+
+  defp one_element(%{"as_child" => %{} = as_child} = node) do
+    case Enum.split_with(Map.get(node, "children") || [], &drawn?/1) do
+      {[child], rest} when is_map(child) ->
+        child
+        |> Map.merge(%{
+          "type" => node["type"],
+          "slot" => as_child["slot"] || node["slot"],
+          "attrs" => kept(node["attrs"], child["attrs"]) ++ (child["attrs"] || []),
+          "class" =>
+            [node["class"], child["class"]] |> Enum.reject(&(&1 in [nil, ""])) |> Enum.join(" "),
+          "class_when" => (node["class_when"] || []) ++ (child["class_when"] || []),
+          "variant_calls" => (node["variant_calls"] || []) ++ (child["variant_calls"] || []),
+          "merges_class" => node["merges_class"] == true or child["merges_class"] == true,
+          "props" => node["props"] == true or child["props"] == true,
+          "reads" => %{
+            "self" => reads_of(node, "self") ++ reads_of(child, "self"),
+            "group" => reads_of(node, "group") ++ reads_of(child, "group")
+          },
+          "vars" => Enum.uniq((node["vars"] || []) ++ (child["vars"] || [])),
+          "children" => (child["children"] || []) ++ rest
+        })
+        |> identified_as(node)
+
+      # `<CollapsibleTrigger asChild>{children ?? <div …/>}</CollapsibleTrigger>`
+      # — the element to become is the caller's, and a HEEx component is passed
+      # content rather than an element to merge props into. So the element stays
+      # as upstream's own component draws it, which is a `<button>` here and a
+      # `<div>` upstream: React hands the trigger's behaviour to whatever the
+      # caller wrote, and a `<div>` given `aria-expanded` and a click handler is
+      # not a button. Ours is.
+      {[], _rest} ->
+        Map.delete(node, "as_child")
+
+      _other ->
+        raise """
+        an `asChild` element does not hold exactly one element.
+
+        `asChild` says the element and the one inside it are one element, so \
+        there has to be exactly one to become. Read as written, this would \
+        generate one element nested inside another — which is what `asChild` \
+        exists to say it is not.
+        """
+    end
+  end
+
+  defp one_element(node), do: node
+
+  # Which Base UI part an element draws, if it draws one. The names a recipe
+  # looks a role up by, and the merge above must not hand them to the child.
+  defp identified_as(merged, node) do
+    Enum.reduce(~w(module part), Map.delete(merged, "as_child"), fn key, merged ->
+      case Map.fetch(node, key) do
+        {:ok, value} -> Map.put(merged, key, value)
+        :error -> Map.delete(merged, key)
+      end
+    end)
+  end
+
+  defp reads_of(node, side), do: node |> get_in(["reads", side]) |> List.wrap()
+
+  # What the outer element wrote and the inner one did not. Both said, the
+  # element would carry the same attribute twice, and an HTML parser reads one
+  # of them and discards the other.
+  defp kept(attrs, replaced) do
+    names = replaced |> List.wrap() |> Enum.map(& &1["name"])
+
+    attrs |> List.wrap() |> Enum.reject(&(&1["name"] in names))
+  end
+
+  # Something that reaches the page as an element of its own. Text does not,
+  # and neither does the marker that says where the caller's content goes.
+  defp drawn?(%{"type" => type}), do: type not in ~w(text children)
+  defp drawn?(_node), do: false
 
   # The questionnaire library chooses a radio input for a choice when the
   # caller does not provide one. That is browser-visible: an untyped input is
@@ -1991,7 +2144,14 @@ defmodule LiveShadcnTools.Spec do
   #
   # `key` is not markup at all: it is how React tells one item of a list from
   # another between renders, and no element has an attribute by that name.
-  @recorded_elsewhere ~w(className data-slot render key)
+  # Neither is `ref`, which is how React hands a component the DOM node it
+  # rendered. It surfaced when `asChild` merged shadcn's `Button` into a folded
+  # trigger and put `ref={@ref}` on a `<button>`.
+  #
+  # `asChild` is recorded on the node, for the same reason `render` is: it says
+  # the element and its child are one element, which is a fact about the markup
+  # rather than an attribute of it.
+  @recorded_elsewhere ~w(className data-slot render key ref asChild)
 
   # What HTML calls the attribute React writes in camelCase.
   #

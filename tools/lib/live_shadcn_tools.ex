@@ -56,6 +56,40 @@ defmodule LiveShadcnTools do
   """
   def ref(source, name) when source in @sources, do: source <> "/" <> name
 
+  # A recipe that writes one function for the whole component, because its parts
+  # have to agree about one id and an id repeated is an id to mistype.
+  @folding ~w(dialog disclosure listbox menu popover tabs)
+
+  @doc "The recipes that fold every part of a component into one function."
+  def folding_recipes, do: @folding
+
+  # Which recipe carries which other recipe's behaviour. A component whose own
+  # recipe is here folds that component's markup *and* the recipe writes the
+  # ids, the commands and the attributes over it: `task` is a collapsible, and
+  # `mic-selector` is a listbox drawn inside a popover.
+  @carries %{
+    "dialog" => ~w(dialog),
+    "disclosure" => ~w(disclosure),
+    "listbox" => ~w(listbox popover),
+    "menu" => ~w(menu popover),
+    "navigation-menu" => ~w(navigation-menu popover menu),
+    "popover" => ~w(popover),
+    "tabs" => ~w(tabs)
+  }
+
+  @doc """
+  Whether a component built by `recipe` can carry a component built by `folded`.
+
+  A component that renders a behaving one has to *be* it: the fold copies the
+  markup, and only the recipe writes the behaviour over that markup. So a
+  presentational component that renders a popover has nobody to write the
+  trigger's id, and folding the markup in would give it a popup that never
+  opens. It is the caller who composes the real one — the same answer `menubar`
+  already gives for a wrapper around a menu.
+  """
+  def carries?(recipe, folded),
+    do: folded not in @folding or folded in Map.get(@carries, recipe, [])
+
   @namespaces %{"shadcn" => LiveShadcn.UI, "ai_elements" => LiveAiElements.Components}
 
   @doc """

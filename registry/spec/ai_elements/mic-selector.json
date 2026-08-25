@@ -100,7 +100,6 @@
       "params": {
         "children": null,
         "className": null,
-        "ref": null,
         "size": "default",
         "variant": "default"
       },
@@ -114,96 +113,66 @@
         "attrs": [],
         "children": [
           {
+            "type": "children"
+          },
+          {
             "attrs": [
               {
-                "identifiers": [
-                  "ref"
-                ],
                 "kind": "code",
-                "name": "ref",
-                "value": "ref"
+                "name": "size",
+                "value": "16"
               }
             ],
-            "children": [
-              {
-                "type": "children"
-              },
-              {
-                "attrs": [
-                  {
-                    "kind": "code",
-                    "name": "size",
-                    "value": "16"
-                  }
-                ],
-                "children": [],
-                "class": "shrink-0 text-muted-foreground",
-                "class_when": [],
-                "icons": {
-                  "lucide": "ChevronsUpDownIcon"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "",
+            "children": [],
+            "class": "shrink-0 text-muted-foreground",
             "class_when": [],
-            "merges_class": true,
-            "module": "button",
-            "part": "Root",
-            "props": true,
+            "icons": {
+              "lucide": "ChevronsUpDownIcon"
+            },
+            "merges_class": false,
+            "props": false,
             "reads": {
               "group": [],
-              "self": [
-                {
-                  "name": "aria-invalid",
-                  "value": null
-                },
-                {
-                  "name": "aria-expanded",
-                  "value": null
-                }
-              ]
+              "self": []
             },
             "render_as": null,
-            "slot": "button",
-            "tag": "button",
-            "type": "primitive",
-            "variant_calls": [
-              {
-                "args": [
-                  "variant"
-                ],
-                "table": "buttonVariants"
-              }
-            ],
+            "slot": null,
+            "type": "icon",
+            "variant_calls": [],
             "vars": []
           }
         ],
         "class": "",
         "class_when": [],
-        "merges_class": false,
+        "merges_class": true,
         "module": "popover",
         "part": "Trigger",
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
+          ]
         },
         "render_as": null,
         "slot": "popover-trigger",
         "tag": "button",
         "type": "primitive",
-        "variant_calls": [],
+        "variant_calls": [
+          {
+            "args": [
+              "variant"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
         "vars": []
       },
       "types": {}

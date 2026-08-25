@@ -8,8 +8,8 @@
 |---|---:|---|
 | `planned` | 0 | ························ |
 | `fetched` | 23 | █████··················· |
-| `spec` | 12 | ███····················· |
-| `generated` | 14 | ███····················· |
+| `spec` | 11 | ██······················ |
+| `generated` | 15 | ███····················· |
 | `verified` | 62 | █████████████··········· |
 
 ## Recipes
@@ -141,7 +141,7 @@ Only the recipes are written by hand; every component is data.
 | `image` | 2 | `presentational` | 🟨 spec |
 | `inline-citation` | 2 | `presentational` | 🟦 fetched |
 | `model-selector` | 2 | `listbox` | 🟨 spec |
-| `open-in-chat` | 2 | `presentational` | 🟨 spec |
+| `open-in-chat` | 2 | `presentational` | 🟩 generated |
 | `package-info` | 2 | `presentational` | 🟩 generated |
 | `panel` | 2 | `disclosure` | 🟦 fetched |
 | `persona` | 2 | `presentational` | 🟦 fetched |

@@ -151,6 +151,45 @@ defmodule LiveShadcnTools.SpecTest do
       assert Map.has_key?(part["params"], "title")
     end
 
+    # `asChild` is shadcn's spelling of Base UI's `render` prop: the element and
+    # the one inside it are one element. Read as two, `plan` came out with a
+    # `<button>` inside a `<button>` and `plan_content` came out as an empty
+    # `<div>` beside the content it was meant to hold.
+    test "an `asChild` element and its child are one element" do
+      tsx =
+        String.replace(
+          @tsx,
+          "{children}",
+          ~s|<span data-slot="inner" className="p-4">{children}</span>|
+        )
+        |> String.replace(
+          "<ThingPrimitive.Panel data-slot",
+          "<ThingPrimitive.Panel asChild data-slot"
+        )
+
+      assert [%{"tree" => tree}] = build(tsx)["parts"]
+
+      # The behaving element keeps the Base UI part a recipe finds it by, and
+      # everything a reader sees is the child's: its tag, its `data-slot`, and
+      # both class strings.
+      assert tree["part"] == "Panel"
+      assert tree["tag"] == "span"
+      assert tree["slot"] == "inner"
+      assert tree["class"] == "p-2 p-4"
+      assert [%{"type" => "children"}] = tree["children"]
+    end
+
+    test "an `asChild` element holding two elements is refused" do
+      tsx =
+        String.replace(@tsx, "{children}", "<span /><em />")
+        |> String.replace(
+          "<ThingPrimitive.Panel data-slot",
+          "<ThingPrimitive.Panel asChild data-slot"
+        )
+
+      assert_raise RuntimeError, ~r/exactly one element/, fn -> build(tsx) end
+    end
+
     test "the heex function name is derived from the shadcn export" do
       assert [%{"name" => "thing", "export" => "Thing"}] = build()["parts"]
     end

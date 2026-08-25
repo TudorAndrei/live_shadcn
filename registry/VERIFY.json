@@ -666,7 +666,7 @@
       }
     },
     "pass": false,
-    "spec": "7e20058006680811236d158a96dd98945d45e779a10a534f91d7367362b13a7f"
+    "spec": "911a0455f9558c0bfff5567dfd1ece77413d9e3b6281aa81bd0c082030cce991"
   },
   "shadcn/input-group": {
     "checks": {
@@ -1311,7 +1311,7 @@
       }
     },
     "pass": true,
-    "spec": "3de9325a04cbea1b907edbc3b93050ac4316b1ff0c0392473db8c54550f7e781"
+    "spec": "d2977ae0d5042c4ddefee0b36d25d30acc0496c569dee5778e0e2b0b26445818"
   },
   "shadcn/card": {
     "checks": {

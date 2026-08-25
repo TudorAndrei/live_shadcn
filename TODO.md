@@ -62,7 +62,7 @@ generator can only render a choice the **server** decides.
 - [x] `mix ui.spec --check --source ai_elements` in the `reader` job of
       `.github/workflows/ci.yml`, as a second gate beside the shadcn one — one
       per library, so neither hides behind the other
-- [ ] Commit: `fix(spec): re-read every AI Elements spec, and gate it in CI`
+- [x] Commit: `fix(spec): re-read every AI Elements spec, and gate it in CI`
 
 ## Phase 3: A fold that carries behaviour, not only markup
 

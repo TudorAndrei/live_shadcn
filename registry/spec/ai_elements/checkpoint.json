@@ -228,71 +228,50 @@
             "attrs": [],
             "children": [
               {
-                "attrs": [],
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "type",
+                    "value": "button"
+                  }
+                ],
                 "children": [
                   {
-                    "attrs": [
-                      {
-                        "kind": "text",
-                        "name": "type",
-                        "value": "button"
-                      }
-                    ],
-                    "children": [
-                      {
-                        "type": "children"
-                      }
-                    ],
-                    "class": "",
-                    "class_when": [],
-                    "merges_class": true,
-                    "module": "button",
-                    "part": "Root",
-                    "props": true,
-                    "reads": {
-                      "group": [],
-                      "self": [
-                        {
-                          "name": "aria-invalid",
-                          "value": null
-                        },
-                        {
-                          "name": "aria-expanded",
-                          "value": null
-                        }
-                      ]
-                    },
-                    "render_as": null,
-                    "slot": "button",
-                    "tag": "button",
-                    "type": "primitive",
-                    "variant_calls": [
-                      {
-                        "args": [
-                          "variant",
-                          "size"
-                        ],
-                        "table": "buttonVariants"
-                      }
-                    ],
-                    "vars": []
+                    "type": "children"
                   }
                 ],
                 "class": "",
                 "class_when": [],
-                "merges_class": false,
+                "merges_class": true,
                 "module": "tooltip",
                 "part": "Trigger",
                 "props": true,
                 "reads": {
                   "group": [],
-                  "self": []
+                  "self": [
+                    {
+                      "name": "aria-invalid",
+                      "value": null
+                    },
+                    {
+                      "name": "aria-expanded",
+                      "value": null
+                    }
+                  ]
                 },
                 "render_as": null,
                 "slot": "tooltip-trigger",
                 "tag": "button",
                 "type": "primitive",
-                "variant_calls": [],
+                "variant_calls": [
+                  {
+                    "args": [
+                      "variant",
+                      "size"
+                    ],
+                    "table": "buttonVariants"
+                  }
+                ],
                 "vars": []
               },
               {
