@@ -228,22 +228,41 @@ when it is listening, which a style sheet can read and the suite waits for.
 **Commit:** `fix(spec): a prop read through a context or a condition`
 **Commit:** `feat(ai-elements): a choice the client owns, and the clipboard`
 
-### Phase 2: Re-read every AI Elements spec, and gate the reading
+### Phase 2: Re-read every AI Elements spec, and gate the reading — done
 
-Now safe. This is the free half: the corrected shadcn specs are what
-`mic-selector` was waiting for.
+The free half, and it was free: 22 specs moved, and **`mic-selector` generates
+with no work of its own** — the corrected shadcn specs are what it was waiting
+for. It folds `command`'s markup in and comes out a listbox.
 
-- `mix ui.spec --source ai_elements`, then `mix ui.drift` to say what moved
-  before anything is regenerated
-- `mix ui.gen`, `mix snapshot`, and re-verify every component whose spec moved
-- Add `mix ui.spec --check --source ai_elements` to the `reader` job in
-  `.github/workflows/ci.yml`, beside the shadcn one
+`mix ui.drift` said what moved before anything was regenerated: 18 attributes,
+46 class strings, 34 parts, 12 variants, across nine components. The three
+command-based ones account for most of it; the rest is a data attribute here and
+a class string there.
+
+Four generated components changed, and one changed what a reader sets eyes on:
+`package-info`'s badge now writes `data-variant`, which is shadcn's and was
+missing. The other three gained attributes upstream destructures.
+
+`confirmation` lost three exported parts, and that is the re-read doing its job.
+`ConfirmationRequest`, `ConfirmationAccepted` and `ConfirmationRejected` each
+return `null` unless the context is in one particular state; the spec on disk
+had them as wrappers that always render their children, which is not what
+upstream draws. The reader no longer claims them. Phase 3 is where a fold
+carries the recipe, and these three are the same question asked about a context
+rather than a positioner.
+
+Every AI Elements component whose spec moved is re-verified, and the record now
+says exactly what the plan predicted: ten fail only `parity` and `pixel` for
+want of a React reference, three have no example, and `mic-selector` joins them
+as the fourth. `snippet` is the one that verifies.
+
+The gate is in CI as a second step beside the shadcn one.
 
 **The gate stays one per library, decided rather than left over.** `--source`
-exists because AI Elements could not run at all, and after this phase it can —
-but two gates are still the right shape. Each library is published on its own,
-each fails for its own reasons, and one registry going red must not take the
-other's gate with it or hide behind it. The build says which library moved.
+exists because AI Elements could not run at all, and now it can — but two gates
+are still the right shape. Each library is published on its own, each fails for
+its own reasons, and one registry going red must not take the other's gate with
+it or hide behind it. The build says which library moved.
 
 **Commit:** `fix(spec): re-read every AI Elements spec, and gate it in CI`
 

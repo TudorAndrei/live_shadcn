@@ -22,9 +22,13 @@ defmodule Mix.Tasks.Ui.Spec do
   own source indefinitely and both stay green.
 
   It could not be a gate while any component stopped the reader, because a gate
-  that cannot run is worse than none. Three AI Elements components do — see M4
-  in `ROADMAP.md` — and no shadcn one does. So the gate runs per registry, and
-  CI runs the shadcn half rather than waiting for the other three.
+  that cannot run is worse than none. Three AI Elements components did, which is
+  why the flag exists; none does now, and CI runs both halves — one step each.
+
+  The split stays because it is the right shape rather than because one half
+  cannot run: each library is published on its own and fails for its own
+  reasons, so one going red must not take the other's gate with it, and the
+  build says which library moved.
 
   The directory is per source because a name is not an identity: upstream has a
   `message` in the shadcn registry and a different `message` in AI Elements.

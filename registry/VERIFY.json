@@ -104,7 +104,7 @@
       }
     },
     "pass": false,
-    "spec": "e0fdb1559b19b8a9b7aafd204626e7263fd35fce9ab7d9e71a4324f7ea63ccea"
+    "spec": "c087fffc35f765c296892391531a11daa6784553c0f694ec99f5aa05e52250e8"
   },
   "shadcn/context-menu": {
     "checks": {
@@ -190,7 +190,7 @@
       }
     },
     "pass": false,
-    "spec": "3a51c9f8e55a8925563eb1cd2f9fba25197d383be7f5350c92e64d9dce7af58b"
+    "spec": "144ac42214784632171a4ed8ea33f307a14704e0917fc1df1a2f624b9252a79e"
   },
   "shadcn/pagination": {
     "checks": {
@@ -297,7 +297,7 @@
       }
     },
     "pass": false,
-    "spec": "742a36f54fe2c4752c480d297889c9fed1601cc50cfeebdc6e44b6afa68fe158"
+    "spec": "4ae81686e250059aed725c78f76e8df78f1082fe9fee5302d823ee4d6638fbfc"
   },
   "shadcn/bubble": {
     "checks": {
@@ -385,7 +385,7 @@
       }
     },
     "pass": false,
-    "spec": "f205740845ed758c3f5ccc237ad737bd17bd2cb040c844b016f0a67b660a3e3f"
+    "spec": "0b99de09cddf06247ab1c4129bd2ce726c562075523b356aabfc53f30a79f361"
   },
   "shadcn/field": {
     "checks": {
@@ -557,7 +557,7 @@
       }
     },
     "pass": false,
-    "spec": "5f508e05653a98fd5684c240ecc3a9bea4604b2487db57fd88e42da6623ce515"
+    "spec": "39da1c9d7fced3a659733f258684e53726b2f9e823a8556983c6a08b7d2fc477"
   },
   "ai_elements/confirmation": {
     "checks": {
@@ -580,7 +580,7 @@
       }
     },
     "pass": false,
-    "spec": "2360fa498b6ec63291425e420f1ee957cb63a59d6fb132a6723ee6fbfb9432a4"
+    "spec": "9e2c36361ab737098cb37ac78cbbba54d8b63fd6b5fe6e0dd5f55eafb3b5fb82"
   },
   "shadcn/skeleton": {
     "checks": {
@@ -666,7 +666,7 @@
       }
     },
     "pass": false,
-    "spec": "faf44b29a3bd9891c7e71d860379daa324a273b0f81d02acc9b1cd9c42e833d2"
+    "spec": "7e20058006680811236d158a96dd98945d45e779a10a534f91d7367362b13a7f"
   },
   "shadcn/input-group": {
     "checks": {
@@ -795,7 +795,7 @@
       }
     },
     "pass": false,
-    "spec": "603e6b9cbf15c854a4f11400a5bba33dfbe38bfe359a35ccbc8e33d7eb5dc7de"
+    "spec": "88ad9a0ddc38ebe62b374399d0b2a011bb2bce8a4703dc3f7cbc56b289a6a103"
   },
   "shadcn/calendar": {
     "checks": {
@@ -923,7 +923,7 @@
       }
     },
     "pass": false,
-    "spec": "56856557b5757a6b000320325111936e54600dacc69764af6f7e7345bf016b31"
+    "spec": "cffef67125081f32d474b5c3fcf5ea11fe745d9f8ccbdbadccf2a696b465ad21"
   },
   "shadcn/tabs": {
     "checks": {
@@ -1072,7 +1072,7 @@
       }
     },
     "pass": false,
-    "spec": "c5d19d0fa5527049738adedc2b0c4094375fb83023abd241121bf79e7ce9d7bd"
+    "spec": "c8bdb182c718590f3ec83ab276d3a58f642c42abb97e88a94314ad4e66461d77"
   },
   "ai_elements/snippet": {
     "checks": {
@@ -1140,6 +1140,31 @@
     },
     "pass": true,
     "spec": "05e26de36c45bba934fff270a0a9245f1a7acf38977a6562fd89be6ec8797fac"
+  },
+  "ai_elements/mic-selector": {
+    "checks": {
+      "browser": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "pixel": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "snapshot": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      }
+    },
+    "pass": false,
+    "spec": "d0243e87f8fa6772f9ab49a250cf1a64fceaacb71cc4c4f27cb4bbe792a79366"
   },
   "shadcn/label": {
     "checks": {
@@ -1330,7 +1355,7 @@
       }
     },
     "pass": false,
-    "spec": "ad723f1d4a6fc871493740346b7a8d8d9102a607e07d1e257947d9518aac7308"
+    "spec": "a6dbd17f5d318000a753e6e59d98fc782fd31bec3b142a443a06dcf08971f22e"
   },
   "ai_elements/question": {
     "checks": {

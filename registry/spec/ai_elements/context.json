@@ -13,8 +13,20 @@
       "contexts": [],
       "export": "Context",
       "name": "context",
-      "params": {},
+      "params": {
+        "maxTokens": null,
+        "modelId": null,
+        "usage": null,
+        "usedTokens": null
+      },
       "primitive": null,
+      "refs": [
+        "maxTokens",
+        "modelId",
+        "usage",
+        "usedTokens",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -52,7 +64,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -66,6 +79,10 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "children",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -85,6 +102,9 @@
                     "children": [
                       {
                         "code": "renderedPercent",
+                        "identifiers": [
+                          "renderedPercent"
+                        ],
                         "type": "value"
                       }
                     ],
@@ -132,6 +152,9 @@
                         ]
                       },
                       {
+                        "identifiers": [
+                          "ICON_VIEWBOX"
+                        ],
                         "kind": "code",
                         "name": "viewBox",
                         "value": "`0 0 ${ICON_VIEWBOX} ${ICON_VIEWBOX}`"
@@ -146,11 +169,17 @@
                       {
                         "attrs": [
                           {
+                            "identifiers": [
+                              "ICON_CENTER"
+                            ],
                             "kind": "code",
                             "name": "cx",
                             "value": "ICON_CENTER"
                           },
                           {
+                            "identifiers": [
+                              "ICON_CENTER"
+                            ],
                             "kind": "code",
                             "name": "cy",
                             "value": "ICON_CENTER"
@@ -166,6 +195,9 @@
                             "value": "0.25"
                           },
                           {
+                            "identifiers": [
+                              "ICON_RADIUS"
+                            ],
                             "kind": "code",
                             "name": "r",
                             "value": "ICON_RADIUS"
@@ -176,6 +208,9 @@
                             "value": "currentColor"
                           },
                           {
+                            "identifiers": [
+                              "ICON_STROKE_WIDTH"
+                            ],
                             "kind": "code",
                             "name": "strokeWidth",
                             "value": "ICON_STROKE_WIDTH"
@@ -200,11 +235,17 @@
                       {
                         "attrs": [
                           {
+                            "identifiers": [
+                              "ICON_CENTER"
+                            ],
                             "kind": "code",
                             "name": "cx",
                             "value": "ICON_CENTER"
                           },
                           {
+                            "identifiers": [
+                              "ICON_CENTER"
+                            ],
                             "kind": "code",
                             "name": "cy",
                             "value": "ICON_CENTER"
@@ -220,6 +261,9 @@
                             "value": "0.7"
                           },
                           {
+                            "identifiers": [
+                              "ICON_RADIUS"
+                            ],
                             "kind": "code",
                             "name": "r",
                             "value": "ICON_RADIUS"
@@ -230,11 +274,17 @@
                             "value": "currentColor"
                           },
                           {
+                            "identifiers": [
+                              "circumference"
+                            ],
                             "kind": "code",
                             "name": "strokeDasharray",
                             "value": "`${circumference} ${circumference}`"
                           },
                           {
+                            "identifiers": [
+                              "dashOffset"
+                            ],
                             "kind": "code",
                             "name": "strokeDashoffset",
                             "value": "dashOffset"
@@ -245,6 +295,9 @@
                             "value": "round"
                           },
                           {
+                            "identifiers": [
+                              "ICON_STROKE_WIDTH"
+                            ],
                             "kind": "code",
                             "name": "strokeWidth",
                             "value": "ICON_STROKE_WIDTH"
@@ -308,8 +361,14 @@
                 "reads": {
                   "group": [],
                   "self": [
-                    "aria-invalid",
-                    "aria-expanded"
+                    {
+                      "name": "aria-invalid",
+                      "value": null
+                    },
+                    {
+                      "name": "aria-expanded",
+                      "value": null
+                    }
                   ]
                 },
                 "render_as": null,
@@ -326,6 +385,11 @@
                 ],
                 "vars": []
               }
+            ],
+            "identifiers": [
+              "children",
+              "props",
+              "renderedPercent"
             ],
             "type": "children"
           }
@@ -346,7 +410,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -360,27 +425,43 @@
         "sideOffset": "4"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
           {
             "attrs": [
               {
+                "identifiers": [
+                  "align"
+                ],
                 "kind": "code",
                 "name": "align",
                 "value": "align"
               },
               {
+                "identifiers": [
+                  "alignOffset"
+                ],
                 "kind": "code",
                 "name": "alignOffset",
                 "value": "alignOffset"
               },
               {
+                "identifiers": [
+                  "side"
+                ],
                 "kind": "code",
                 "name": "side",
                 "value": "side"
               },
               {
+                "identifiers": [
+                  "sideOffset"
+                ],
                 "kind": "code",
                 "name": "sideOffset",
                 "value": "sideOffset"
@@ -399,8 +480,38 @@
                 "reads": {
                   "group": [],
                   "self": [
-                    "data-open",
-                    "data-closed"
+                    {
+                      "name": "data-open",
+                      "value": null
+                    },
+                    {
+                      "name": "data-closed",
+                      "value": null
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "bottom"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "left"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "right"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "top"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "inline-start"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "inline-end"
+                    }
                   ]
                 },
                 "render_as": null,
@@ -447,7 +558,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -459,9 +571,15 @@
         "displayPct": null,
         "total": null,
         "used": null,
+        "usedPercent": null,
         "value": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -478,6 +596,9 @@
                         "children": [
                           {
                             "code": "displayPct",
+                            "identifiers": [
+                              "displayPct"
+                            ],
                             "type": "value"
                           }
                         ],
@@ -501,6 +622,9 @@
                         "children": [
                           {
                             "code": "used",
+                            "identifiers": [
+                              "used"
+                            ],
                             "type": "value"
                           },
                           {
@@ -509,6 +633,9 @@
                           },
                           {
                             "code": "total",
+                            "identifiers": [
+                              "total"
+                            ],
                             "type": "value"
                           }
                         ],
@@ -549,6 +676,9 @@
                       {
                         "attrs": [
                           {
+                            "identifiers": [
+                              "value"
+                            ],
                             "kind": "code",
                             "name": "value",
                             "value": "value"
@@ -647,6 +777,14 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "PERCENT_MAX",
+              "children",
+              "displayPct",
+              "total",
+              "used",
+              "usedPercent"
+            ],
             "type": "children"
           }
         ],
@@ -664,7 +802,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -675,6 +814,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -696,7 +840,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -708,6 +853,11 @@
         "totalCost": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -744,6 +894,9 @@
                     "children": [
                       {
                         "code": "totalCost",
+                        "identifiers": [
+                          "totalCost"
+                        ],
                         "type": "value"
                       }
                     ],
@@ -779,6 +932,10 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "children",
+              "totalCost"
+            ],
             "type": "children"
           }
         ],
@@ -796,7 +953,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -804,10 +962,14 @@
       "name": "context_input_usage",
       "params": {
         "children": null,
-        "className": null,
-        "inputCostText": null
+        "className": null
       },
       "primitive": null,
+      "refs": [
+        "children",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -840,6 +1002,14 @@
               {
                 "children": [],
                 "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "identifiers": [
+                  "Intl",
+                  "tokens",
+                  "undefined"
+                ],
+                "member_roots": [
+                  "Intl"
+                ],
                 "type": "value"
               },
               {
@@ -849,6 +1019,9 @@
                     "code": "null",
                     "type": "value"
                   }
+                ],
+                "identifiers": [
+                  "costText"
                 ],
                 "then": [
                   {
@@ -860,6 +1033,9 @@
                       },
                       {
                         "code": "inputCostText",
+                        "identifiers": [
+                          "costText"
+                        ],
                         "type": "value"
                       }
                     ],
@@ -913,7 +1089,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -921,10 +1098,14 @@
       "name": "context_output_usage",
       "params": {
         "children": null,
-        "className": null,
-        "outputCostText": null
+        "className": null
       },
       "primitive": null,
+      "refs": [
+        "children",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -957,6 +1138,14 @@
               {
                 "children": [],
                 "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "identifiers": [
+                  "Intl",
+                  "tokens",
+                  "undefined"
+                ],
+                "member_roots": [
+                  "Intl"
+                ],
                 "type": "value"
               },
               {
@@ -966,6 +1155,9 @@
                     "code": "null",
                     "type": "value"
                   }
+                ],
+                "identifiers": [
+                  "costText"
                 ],
                 "then": [
                   {
@@ -977,6 +1169,9 @@
                       },
                       {
                         "code": "outputCostText",
+                        "identifiers": [
+                          "costText"
+                        ],
                         "type": "value"
                       }
                     ],
@@ -1030,7 +1225,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -1038,10 +1234,14 @@
       "name": "context_reasoning_usage",
       "params": {
         "children": null,
-        "className": null,
-        "reasoningCostText": null
+        "className": null
       },
       "primitive": null,
+      "refs": [
+        "children",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -1074,6 +1274,14 @@
               {
                 "children": [],
                 "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "identifiers": [
+                  "Intl",
+                  "tokens",
+                  "undefined"
+                ],
+                "member_roots": [
+                  "Intl"
+                ],
                 "type": "value"
               },
               {
@@ -1083,6 +1291,9 @@
                     "code": "null",
                     "type": "value"
                   }
+                ],
+                "identifiers": [
+                  "costText"
                 ],
                 "then": [
                   {
@@ -1094,6 +1305,9 @@
                       },
                       {
                         "code": "reasoningCostText",
+                        "identifiers": [
+                          "costText"
+                        ],
                         "type": "value"
                       }
                     ],
@@ -1147,18 +1361,23 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "ContextCacheUsage",
       "name": "context_cache_usage",
       "params": {
-        "cacheCostText": null,
         "children": null,
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "children",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -1191,6 +1410,14 @@
               {
                 "children": [],
                 "code": "tokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(tokens)",
+                "identifiers": [
+                  "Intl",
+                  "tokens",
+                  "undefined"
+                ],
+                "member_roots": [
+                  "Intl"
+                ],
                 "type": "value"
               },
               {
@@ -1200,6 +1427,9 @@
                     "code": "null",
                     "type": "value"
                   }
+                ],
+                "identifiers": [
+                  "costText"
                 ],
                 "then": [
                   {
@@ -1211,6 +1441,9 @@
                       },
                       {
                         "code": "cacheCostText",
+                        "identifiers": [
+                          "costText"
+                        ],
                         "type": "value"
                       }
                     ],
@@ -1264,7 +1497,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

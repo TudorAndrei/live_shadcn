@@ -13,14 +13,29 @@
         "mediaType": null
       },
       "primitive": null,
+      "refs": [
+        "props",
+        "mediaType",
+        "base64"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "props"
+            ],
             "kind": "code",
+            "member_roots": [
+              "props"
+            ],
             "name": "alt",
             "value": "props.alt"
           },
           {
+            "identifiers": [
+              "base64",
+              "mediaType"
+            ],
             "kind": "code",
             "name": "src",
             "value": "`data:${mediaType};base64,${base64}`"
@@ -41,7 +56,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {},

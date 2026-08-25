@@ -45,16 +45,21 @@ generator can only render a choice the **server** decides.
 - [x] `snippet.spec.mjs`, which found both bugs a snapshot cannot: `hidden` is
       `HTMLElement`'s and both branches are an `<svg>`, and a connected socket
       is not a mounted hook (`data-lb-ready`)
-- [ ] Commit: `feat(ai-elements): a choice the client owns, and the clipboard`
+- [x] Commit: `feat(ai-elements): a choice the client owns, and the clipboard`
 
 ## Phase 2: Re-read every AI Elements spec, and gate the reading
 
-- [ ] `mix ui.spec --source ai_elements`, then `mix ui.drift` — say what moved
-      before regenerating anything
-- [ ] `mix ui.gen` and `mix snapshot`
-- [ ] `mic-selector` generates, with no work of its own
-- [ ] `mix ui.verify` for every component whose spec digest moved
-- [ ] `mix ui.spec --check --source ai_elements` in the `reader` job of
+- [x] `mix ui.spec --source ai_elements`, then `mix ui.drift` — 22 specs moved:
+      18 attributes, 46 class strings, 34 parts, 12 variants, over nine
+      components
+- [x] `mix ui.gen` and `mix snapshot` — one snapshot moves, and it is a
+      correction: `package-info`'s badge writes shadcn's `data-variant`
+- [x] `mic-selector` generates, with no work of its own
+- [x] `confirmation` loses three parts that always rendered their children and
+      upstream renders only in one state. Phase 3's question, asked about a
+      context
+- [x] `mix ui.verify` for every component whose spec digest moved
+- [x] `mix ui.spec --check --source ai_elements` in the `reader` job of
       `.github/workflows/ci.yml`, as a second gate beside the shadcn one — one
       per library, so neither hides behind the other
 - [ ] Commit: `fix(spec): re-read every AI Elements spec, and gate it in CI`

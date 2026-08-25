@@ -19,9 +19,16 @@
       "params": {
         "children": null,
         "className": null,
+        "isStreaming": "false",
         "size": "default"
       },
       "primitive": null,
+      "refs": [
+        "isStreaming",
+        "props",
+        "className",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -31,6 +38,9 @@
               {
                 "attrs": [
                   {
+                    "identifiers": [
+                      "size"
+                    ],
                     "kind": "code",
                     "name": "data-size",
                     "value": "size"
@@ -47,7 +57,12 @@
                 "props": true,
                 "reads": {
                   "group": [],
-                  "self": []
+                  "self": [
+                    {
+                      "name": "data-size",
+                      "value": "sm"
+                    }
+                  ]
                 },
                 "render_as": null,
                 "slot": "card",
@@ -89,6 +104,12 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "isStreaming": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -99,6 +120,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -116,7 +141,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -128,6 +154,10 @@
         "isStreaming": null
       },
       "primitive": null,
+      "refs": [
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -137,6 +167,10 @@
                 "code": "children",
                 "type": "value"
               }
+            ],
+            "identifiers": [
+              "children",
+              "isStreaming"
             ],
             "then": [
               {
@@ -175,7 +209,13 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "card",
+              "name": "data-size",
+              "value": "sm"
+            }
+          ],
           "self": []
         },
         "render_as": null,
@@ -184,7 +224,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -196,6 +237,11 @@
         "isStreaming": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -205,6 +251,10 @@
                 "code": "children",
                 "type": "value"
               }
+            ],
+            "identifiers": [
+              "children",
+              "isStreaming"
             ],
             "then": [
               {
@@ -252,7 +302,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -262,6 +313,9 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -279,7 +333,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -289,6 +344,9 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -327,7 +385,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -337,6 +396,9 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -354,7 +416,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -366,6 +429,10 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -425,8 +492,14 @@
             "reads": {
               "group": [],
               "self": [
-                "aria-invalid",
-                "aria-expanded"
+                {
+                  "name": "aria-invalid",
+                  "value": null
+                },
+                {
+                  "name": "aria-expanded",
+                  "value": null
+                }
               ]
             },
             "render_as": null,
@@ -461,7 +534,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

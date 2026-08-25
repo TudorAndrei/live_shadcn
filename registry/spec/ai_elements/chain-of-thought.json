@@ -17,9 +17,19 @@
       "name": "chain_of_thought",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "defaultOpen": "false",
+        "open": null
       },
       "primitive": null,
+      "refs": [
+        "defaultOpen",
+        "onOpenChange",
+        "open",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -60,6 +70,16 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "defaultOpen": {
+          "optional": true,
+          "type": "boolean"
+        },
+        "open": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -72,9 +92,17 @@
         "isOpen": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "isOpen"
+            ],
             "kind": "code",
             "name": "open",
             "value": "isOpen"
@@ -114,6 +142,9 @@
                         "value": "Chain of Thought"
                       }
                     ],
+                    "identifiers": [
+                      "children"
+                    ],
                     "type": "children"
                   }
                 ],
@@ -139,6 +170,9 @@
                 "class_when": [
                   {
                     "else": "rotate-0",
+                    "identifiers": [
+                      "isOpen"
+                    ],
                     "then": "rotate-180",
                     "when": "isOpen"
                   }
@@ -193,7 +227,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -203,9 +238,19 @@
         "children": null,
         "className": null,
         "description": null,
-        "label": null
+        "label": null,
+        "status": "complete"
       },
       "primitive": null,
+      "refs": [
+        "status",
+        "className",
+        "props",
+        "Icon",
+        "label",
+        "description",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -272,6 +317,9 @@
                 "children": [
                   {
                     "code": "label",
+                    "identifiers": [
+                      "label"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -297,6 +345,9 @@
                     "children": [
                       {
                         "code": "description",
+                        "identifiers": [
+                          "description"
+                        ],
                         "type": "value"
                       }
                     ],
@@ -315,6 +366,9 @@
                     "variant_calls": [],
                     "vars": []
                   }
+                ],
+                "identifiers": [
+                  "description"
                 ],
                 "type": "optional",
                 "when": "description"
@@ -353,6 +407,16 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "status": {
+          "optional": true,
+          "values": [
+            "complete",
+            "active",
+            "pending"
+          ]
+        }
       }
     },
     {
@@ -363,6 +427,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -380,7 +448,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -393,8 +462,22 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
-        "attrs": [],
+        "attrs": [
+          {
+            "identifiers": [
+              "variant"
+            ],
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
         "children": [
           {
             "type": "children"
@@ -407,7 +490,10 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-invalid"
+            {
+              "name": "aria-invalid",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -423,7 +509,8 @@
           }
         ],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -435,9 +522,17 @@
         "isOpen": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "isOpen"
+            ],
             "kind": "code",
             "name": "open",
             "value": "isOpen"
@@ -485,7 +580,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -497,6 +593,12 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children",
+        "caption"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -529,6 +631,9 @@
                 "children": [
                   {
                     "code": "caption",
+                    "identifiers": [
+                      "caption"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -548,6 +653,9 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "caption"
+            ],
             "type": "optional",
             "when": "caption"
           }
@@ -566,7 +674,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

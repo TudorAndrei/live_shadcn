@@ -14,6 +14,15 @@
         "segments": null
       },
       "primitive": null,
+      "refs": [
+        "onSeek",
+        "externalCurrentTime",
+        "segments",
+        "className",
+        "props",
+        "segment",
+        "index"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -31,6 +40,16 @@
                 "collection": "segments\n          .filter((segment) => segment.text.trim())",
                 "counter": "index",
                 "fields": [],
+                "identifiers": [
+                  "children",
+                  "index",
+                  "segment",
+                  "segments"
+                ],
+                "member_roots": [
+                  "segment",
+                  "segments"
+                ],
                 "type": "repeat_over"
               }
             ],
@@ -64,6 +83,12 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "currentTime": {
+          "optional": true,
+          "type": "number"
+        }
       }
     },
     {
@@ -78,14 +103,28 @@
         "segment": null
       },
       "primitive": null,
+      "refs": [
+        "segment",
+        "event",
+        "onClick",
+        "className",
+        "index",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "isActive"
+            ],
             "kind": "code",
             "name": "data-active",
             "value": "isActive"
           },
           {
+            "identifiers": [
+              "index"
+            ],
             "kind": "code",
             "name": "data-index",
             "value": "index"
@@ -99,6 +138,12 @@
         "children": [
           {
             "code": "segment.text",
+            "identifiers": [
+              "segment"
+            ],
+            "member_roots": [
+              "segment"
+            ],
             "type": "value"
           }
         ],
@@ -106,26 +151,42 @@
         "class_when": [
           {
             "else": null,
+            "identifiers": [
+              "isActive"
+            ],
             "then": "text-primary",
             "when": "isActive"
           },
           {
             "else": null,
+            "identifiers": [
+              "isPast"
+            ],
             "then": "text-muted-foreground",
             "when": "isPast"
           },
           {
             "else": null,
+            "identifiers": [
+              "isActive",
+              "isPast"
+            ],
             "then": "text-muted-foreground/60",
             "when": "!(isActive || isPast)"
           },
           {
             "else": null,
+            "identifiers": [
+              "onSeek"
+            ],
             "then": "cursor-pointer hover:text-foreground",
             "when": "onSeek"
           },
           {
             "else": null,
+            "identifiers": [
+              "onSeek"
+            ],
             "then": "cursor-default",
             "when": "!onSeek"
           }
@@ -142,6 +203,12 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "index": {
+          "optional": false,
+          "type": "number"
+        }
       }
     }
   ],

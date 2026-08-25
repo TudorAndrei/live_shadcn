@@ -29,6 +29,11 @@
         "orientation": "horizontal"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -38,6 +43,9 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "orientation"
+                ],
                 "kind": "code",
                 "name": "orientation",
                 "value": "orientation"
@@ -53,8 +61,14 @@
             "reads": {
               "group": [],
               "self": [
-                "data-horizontal",
-                "data-vertical"
+                {
+                  "name": "data-horizontal",
+                  "value": null
+                },
+                {
+                  "name": "data-vertical",
+                  "value": null
+                }
               ]
             },
             "render_as": null,
@@ -79,7 +93,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -90,6 +105,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "children",
+        "className",
+        "props"
+      ],
       "tree": {
         "default": [
           {
@@ -113,8 +133,15 @@
             "vars": []
           }
         ],
+        "identifiers": [
+          "children",
+          "className",
+          "cn",
+          "props"
+        ],
         "type": "children"
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -132,6 +159,13 @@
         "variant": "ghost"
       },
       "primitive": null,
+      "refs": [
+        "tooltip",
+        "size",
+        "variant",
+        "props",
+        "children"
+      ],
       "tree": {
         "else": [
           {
@@ -156,8 +190,14 @@
             "reads": {
               "group": [],
               "self": [
-                "aria-invalid",
-                "aria-expanded"
+                {
+                  "name": "aria-invalid",
+                  "value": null
+                },
+                {
+                  "name": "aria-expanded",
+                  "value": null
+                }
               ]
             },
             "render_as": null,
@@ -175,6 +215,13 @@
             ],
             "vars": []
           }
+        ],
+        "identifiers": [
+          "children",
+          "props",
+          "size",
+          "tooltip",
+          "variant"
         ],
         "then": [
           {
@@ -205,8 +252,14 @@
                     "reads": {
                       "group": [],
                       "self": [
-                        "aria-invalid",
-                        "aria-expanded"
+                        {
+                          "name": "aria-invalid",
+                          "value": null
+                        },
+                        {
+                          "name": "aria-expanded",
+                          "value": null
+                        }
                       ]
                     },
                     "render_as": null,
@@ -248,21 +301,33 @@
                   {
                     "attrs": [
                       {
+                        "identifiers": [
+                          "align"
+                        ],
                         "kind": "code",
                         "name": "align",
                         "value": "align"
                       },
                       {
+                        "identifiers": [
+                          "alignOffset"
+                        ],
                         "kind": "code",
                         "name": "alignOffset",
                         "value": "alignOffset"
                       },
                       {
+                        "identifiers": [
+                          "side"
+                        ],
                         "kind": "code",
                         "name": "side",
                         "value": "side"
                       },
                       {
+                        "identifiers": [
+                          "sideOffset"
+                        ],
                         "kind": "code",
                         "name": "sideOffset",
                         "value": "sideOffset"
@@ -274,6 +339,9 @@
                         "children": [
                           {
                             "code": "tooltip",
+                            "identifiers": [
+                              "tooltip"
+                            ],
                             "type": "value"
                           },
                           {
@@ -287,7 +355,32 @@
                             "props": false,
                             "reads": {
                               "group": [],
-                              "self": []
+                              "self": [
+                                {
+                                  "name": "data-side",
+                                  "value": "bottom"
+                                },
+                                {
+                                  "name": "data-side",
+                                  "value": "left"
+                                },
+                                {
+                                  "name": "data-side",
+                                  "value": "right"
+                                },
+                                {
+                                  "name": "data-side",
+                                  "value": "top"
+                                },
+                                {
+                                  "name": "data-side",
+                                  "value": "inline-end"
+                                },
+                                {
+                                  "name": "data-side",
+                                  "value": "inline-start"
+                                }
+                              ]
                             },
                             "render_as": null,
                             "slot": null,
@@ -306,8 +399,46 @@
                         "reads": {
                           "group": [],
                           "self": [
-                            "data-open",
-                            "data-closed"
+                            {
+                              "name": "data-open",
+                              "value": null
+                            },
+                            {
+                              "name": "data-state",
+                              "value": "delayed-open"
+                            },
+                            {
+                              "name": "data-closed",
+                              "value": null
+                            },
+                            {
+                              "name": "data-side",
+                              "value": "bottom"
+                            },
+                            {
+                              "name": "data-side",
+                              "value": "left"
+                            },
+                            {
+                              "name": "data-side",
+                              "value": "right"
+                            },
+                            {
+                              "name": "data-side",
+                              "value": "top"
+                            },
+                            {
+                              "name": "data-slot",
+                              "value": "kbd"
+                            },
+                            {
+                              "name": "data-side",
+                              "value": "inline-start"
+                            },
+                            {
+                              "name": "data-side",
+                              "value": "inline-end"
+                            }
                           ]
                         },
                         "render_as": null,
@@ -375,7 +506,8 @@
         ],
         "type": "choice",
         "when": "tooltip"
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

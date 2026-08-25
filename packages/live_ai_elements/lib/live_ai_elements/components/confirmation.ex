@@ -10,6 +10,8 @@ defmodule LiveAiElements.Components.Confirmation do
   use Phoenix.Component
 
   @doc "The `confirmation` part."
+  attr(:approval, :string, default: nil)
+  attr(:state, :string, default: nil)
   attr(:variant, :string, default: "default", values: ["default", "destructive"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
@@ -50,42 +52,6 @@ defmodule LiveAiElements.Components.Confirmation do
     >
       {render_slot(@inner_block)}
     </div>
-    """
-  end
-
-  @doc "The `confirmation_request` part."
-
-  attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
-  slot(:inner_block)
-
-  def confirmation_request(assigns) do
-    ~H"""
-    {render_slot(@inner_block)}
-    """
-  end
-
-  @doc "The `confirmation_accepted` part."
-
-  attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
-  slot(:inner_block)
-
-  def confirmation_accepted(assigns) do
-    ~H"""
-    {render_slot(@inner_block)}
-    """
-  end
-
-  @doc "The `confirmation_rejected` part."
-
-  attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
-  slot(:inner_block)
-
-  def confirmation_rejected(assigns) do
-    ~H"""
-    {render_slot(@inner_block)}
     """
   end
 

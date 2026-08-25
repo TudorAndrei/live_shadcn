@@ -16,6 +16,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -37,7 +42,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -49,6 +55,11 @@
         "name": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -81,6 +92,10 @@
                     "code": "name",
                     "type": "value"
                   }
+                ],
+                "identifiers": [
+                  "children",
+                  "name"
                 ],
                 "type": "children"
               }
@@ -115,7 +130,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -129,8 +145,22 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
-        "attrs": [],
+        "attrs": [
+          {
+            "identifiers": [
+              "variant"
+            ],
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
         "children": [
           {
             "entries": [
@@ -250,7 +280,14 @@
                 "value": "removed"
               }
             ],
+            "identifiers": [
+              "changeType",
+              "changeTypeIcons"
+            ],
             "key": "changeType",
+            "member_roots": [
+              "changeTypeIcons"
+            ],
             "type": "lookup"
           },
           {
@@ -259,6 +296,10 @@
                 "code": "changeType",
                 "type": "value"
               }
+            ],
+            "identifiers": [
+              "changeType",
+              "children"
             ],
             "type": "children"
           }
@@ -270,7 +311,10 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-invalid"
+            {
+              "name": "aria-invalid",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -286,7 +330,8 @@
           }
         ],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -299,6 +344,11 @@
         "newVersion": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -314,6 +364,9 @@
                         "children": [
                           {
                             "code": "currentVersion",
+                            "identifiers": [
+                              "currentVersion"
+                            ],
                             "type": "value"
                           }
                         ],
@@ -332,6 +385,9 @@
                         "variant_calls": [],
                         "vars": []
                       }
+                    ],
+                    "identifiers": [
+                      "currentVersion"
                     ],
                     "type": "optional",
                     "when": "currentVersion"
@@ -359,6 +415,10 @@
                         "vars": []
                       }
                     ],
+                    "identifiers": [
+                      "currentVersion",
+                      "newVersion"
+                    ],
                     "type": "optional",
                     "when": "currentVersion && newVersion"
                   },
@@ -369,6 +429,9 @@
                         "children": [
                           {
                             "code": "newVersion",
+                            "identifiers": [
+                              "newVersion"
+                            ],
                             "type": "value"
                           }
                         ],
@@ -387,6 +450,9 @@
                         "variant_calls": [],
                         "vars": []
                       }
+                    ],
+                    "identifiers": [
+                      "newVersion"
                     ],
                     "type": "optional",
                     "when": "newVersion"
@@ -408,6 +474,11 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "children",
+              "currentVersion",
+              "newVersion"
+            ],
             "type": "children"
           }
         ],
@@ -425,7 +496,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -436,9 +508,19 @@
         "children": null,
         "className": null,
         "currentVersion": null,
+        "name": null,
         "newVersion": null
       },
       "primitive": null,
+      "refs": [
+        "changeType",
+        "currentVersion",
+        "name",
+        "newVersion",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -492,6 +574,9 @@
                                 "vars": []
                               }
                             ],
+                            "identifiers": [
+                              "changeType"
+                            ],
                             "type": "optional",
                             "when": "changeType"
                           }
@@ -532,6 +617,10 @@
                             "vars": []
                           }
                         ],
+                        "identifiers": [
+                          "currentVersion",
+                          "newVersion"
+                        ],
                         "type": "optional",
                         "when": "currentVersion || newVersion"
                       }
@@ -551,6 +640,12 @@
                     "variant_calls": [],
                     "vars": []
                   }
+                ],
+                "identifiers": [
+                  "changeType",
+                  "children",
+                  "currentVersion",
+                  "newVersion"
                 ],
                 "type": "children"
               }
@@ -585,7 +680,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -596,6 +692,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -617,7 +718,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -628,6 +730,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -649,7 +756,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -660,6 +768,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -723,7 +836,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -736,6 +850,13 @@
         "version": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children",
+        "name",
+        "version"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -749,6 +870,9 @@
                     "children": [
                       {
                         "code": "name",
+                        "identifiers": [
+                          "name"
+                        ],
                         "type": "value"
                       }
                     ],
@@ -774,6 +898,9 @@
                         "children": [
                           {
                             "code": "version",
+                            "identifiers": [
+                              "version"
+                            ],
                             "type": "value"
                           }
                         ],
@@ -792,6 +919,9 @@
                         "variant_calls": [],
                         "vars": []
                       }
+                    ],
+                    "identifiers": [
+                      "version"
                     ],
                     "type": "optional",
                     "when": "version"
@@ -813,6 +943,11 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "children",
+              "name",
+              "version"
+            ],
             "type": "children"
           }
         ],
@@ -830,7 +965,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {},

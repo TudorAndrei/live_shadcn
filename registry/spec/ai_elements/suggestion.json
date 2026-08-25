@@ -27,6 +27,11 @@
         "orientation": "vertical"
       },
       "primitive": null,
+      "refs": [
+        "props",
+        "className",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -58,11 +63,17 @@
               {
                 "attrs": [
                   {
+                    "identifiers": [
+                      "orientation"
+                    ],
                     "kind": "code",
                     "name": "data-orientation",
                     "value": "orientation"
                   },
                   {
+                    "identifiers": [
+                      "orientation"
+                    ],
                     "kind": "code",
                     "name": "orientation",
                     "value": "orientation"
@@ -99,8 +110,14 @@
                 "reads": {
                   "group": [],
                   "self": [
-                    "data-horizontal",
-                    "data-vertical"
+                    {
+                      "name": "data-horizontal",
+                      "value": null
+                    },
+                    {
+                      "name": "data-vertical",
+                      "value": null
+                    }
                   ]
                 },
                 "render_as": null,
@@ -131,11 +148,17 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "orientation"
+                ],
                 "kind": "code",
                 "name": "data-orientation",
                 "value": "orientation"
               },
               {
+                "identifiers": [
+                  "orientation"
+                ],
                 "kind": "code",
                 "name": "orientation",
                 "value": "orientation"
@@ -172,8 +195,14 @@
             "reads": {
               "group": [],
               "self": [
-                "data-horizontal",
-                "data-vertical"
+                {
+                  "name": "data-horizontal",
+                  "value": null
+                },
+                {
+                  "name": "data-vertical",
+                  "value": null
+                }
               ]
             },
             "render_as": null,
@@ -220,7 +249,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -234,6 +264,15 @@
         "variant": "outline"
       },
       "primitive": null,
+      "refs": [
+        "onClick",
+        "suggestion",
+        "className",
+        "size",
+        "variant",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
@@ -250,6 +289,10 @@
                 "type": "value"
               }
             ],
+            "identifiers": [
+              "children",
+              "suggestion"
+            ],
             "type": "children"
           }
         ],
@@ -262,8 +305,14 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-invalid",
-            "aria-expanded"
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -280,7 +329,8 @@
           }
         ],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

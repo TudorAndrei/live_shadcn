@@ -13,10 +13,18 @@
       "export": "Confirmation",
       "name": "confirmation",
       "params": {
+        "approval": null,
         "className": null,
+        "state": null,
         "variant": null
       },
       "primitive": null,
+      "refs": [
+        "approval",
+        "state",
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -35,7 +43,12 @@
             "props": true,
             "reads": {
               "group": [],
-              "self": []
+              "self": [
+                {
+                  "name": "data-slot",
+                  "value": "alert-description"
+                }
+              ]
             },
             "render_as": null,
             "slot": "alert",
@@ -66,7 +79,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -76,6 +90,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -93,43 +111,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
-    },
-    {
-      "contexts": [],
-      "export": "ConfirmationRequest",
-      "name": "confirmation_request",
-      "params": {
-        "children": null
       },
-      "primitive": null,
-      "tree": {
-        "type": "children"
-      }
-    },
-    {
-      "contexts": [],
-      "export": "ConfirmationAccepted",
-      "name": "confirmation_accepted",
-      "params": {
-        "children": null
-      },
-      "primitive": null,
-      "tree": {
-        "type": "children"
-      }
-    },
-    {
-      "contexts": [],
-      "export": "ConfirmationRejected",
-      "name": "confirmation_rejected",
-      "params": {
-        "children": null
-      },
-      "primitive": null,
-      "tree": {
-        "type": "children"
-      }
+      "types": {}
     },
     {
       "contexts": [],
@@ -139,6 +122,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -156,7 +143,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -168,6 +156,9 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -186,8 +177,14 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-invalid",
-            "aria-expanded"
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -201,7 +198,8 @@
           }
         ],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

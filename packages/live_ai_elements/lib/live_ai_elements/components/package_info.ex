@@ -59,6 +59,7 @@ defmodule LiveAiElements.Components.PackageInfo do
     ~H"""
     <span
       data-slot={@rest[:"data-slot"] || "badge"}
+      data-variant={@variant}
       class={[
         "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 text-xs capitalize",
         variant_class("badgeVariants", "variant", @variant),
@@ -113,6 +114,7 @@ defmodule LiveAiElements.Components.PackageInfo do
   @doc "The `package_info` part."
   attr(:change_type, :string, default: nil)
   attr(:current_version, :string, default: nil)
+  attr(:name, :string, default: nil)
   attr(:new_version, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])

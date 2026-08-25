@@ -154,16 +154,16 @@ jobs:
   # question the committed record cannot ask itself: does what is on disk still
   # match what the reader produces from the same file.
   #
-  # `--source shadcn`, because three AI Elements components stop the reader
-  # (M4 in ROADMAP.md) and a gate that cannot run is worse than none. No shadcn
-  # component does, so the shadcn half is a gate today rather than after those
-  # three are answered.
+  # One run per registry. `--source` exists because three AI Elements components
+  # stopped the reader and a gate that cannot run is worse than none; they no
+  # longer do, and the split stays anyway — each library is published on its own,
+  # each fails for its own reasons, and neither should hide behind the other.
   #
   # `--check` refuses when a source was not read, rather than reporting that the
   # specs it never compared are current. The browser job that used to live here
   # failed exactly that way.
   reader:
-    name: every shadcn spec still matches its source
+    name: every spec still matches its source
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
@@ -194,5 +194,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      # One gate per registry, decided rather than left over. `--source` exists
+      # because AI Elements could not be read at all; now that it can, two gates
+      # are still the right shape. Each library is published on its own and each
+      # fails for its own reasons, so one going red must not take the other's
+      # gate with it or hide behind it. The build says which library moved.
       - run: mix ui.spec --check --source shadcn
+        working-directory: tools
+
+      - run: mix ui.spec --check --source ai_elements
         working-directory: tools

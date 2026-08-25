@@ -66,7 +66,9 @@ defmodule LiveAiElements.Components.Message do
 
   @doc "The `message_action` part."
   attr(:button, :string, default: nil)
+  attr(:label, :string, default: nil)
   attr(:size, :string, default: "icon-sm")
+  attr(:tooltip, :string, default: nil)
   attr(:variant, :string, default: "ghost")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
@@ -78,7 +80,7 @@ defmodule LiveAiElements.Components.Message do
   end
 
   @doc "The `message_branch` part."
-
+  attr(:default_branch, :any, default: "0")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -92,7 +94,7 @@ defmodule LiveAiElements.Components.Message do
   end
 
   @doc "The `message_branch_content` part."
-  attr(:children_array, :string, default: nil)
+  attr(:children_array, :any, default: nil)
   attr(:current_branch, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])

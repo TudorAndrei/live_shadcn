@@ -18,6 +18,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -37,7 +41,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -49,6 +54,12 @@
         "count": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children",
+        "count"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -66,6 +77,9 @@
                       },
                       {
                         "code": "count",
+                        "identifiers": [
+                          "count"
+                        ],
                         "type": "value"
                       },
                       {
@@ -125,6 +139,10 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "children",
+              "count"
+            ],
             "type": "children"
           }
         ],
@@ -144,6 +162,12 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "count": {
+          "optional": false,
+          "type": "number"
+        }
       }
     },
     {
@@ -154,6 +178,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -173,7 +201,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -185,9 +214,18 @@
         "title": null
       },
       "primitive": null,
+      "refs": [
+        "href",
+        "props",
+        "children",
+        "title"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "href"
+            ],
             "kind": "code",
             "name": "href",
             "value": "href"
@@ -234,6 +272,9 @@
                     "children": [
                       {
                         "code": "title",
+                        "identifiers": [
+                          "title"
+                        ],
                         "type": "value"
                       }
                     ],
@@ -269,6 +310,10 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "children",
+              "title"
+            ],
             "type": "children"
           }
         ],
@@ -286,7 +331,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

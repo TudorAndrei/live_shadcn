@@ -22,8 +22,14 @@
       "contexts": [],
       "export": "OpenIn",
       "name": "open_in",
-      "params": {},
+      "params": {
+        "query": null
+      },
       "primitive": null,
+      "refs": [
+        "query",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -61,7 +67,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -75,27 +82,43 @@
         "sideOffset": "4"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
           {
             "attrs": [
               {
+                "identifiers": [
+                  "align"
+                ],
                 "kind": "code",
                 "name": "align",
                 "value": "align"
               },
               {
+                "identifiers": [
+                  "alignOffset"
+                ],
                 "kind": "code",
                 "name": "alignOffset",
                 "value": "alignOffset"
               },
               {
+                "identifiers": [
+                  "side"
+                ],
                 "kind": "code",
                 "name": "side",
                 "value": "side"
               },
               {
+                "identifiers": [
+                  "sideOffset"
+                ],
                 "kind": "code",
                 "name": "sideOffset",
                 "value": "sideOffset"
@@ -114,10 +137,62 @@
                 "reads": {
                   "group": [],
                   "self": [
-                    "data-closed",
-                    "data-open",
-                    "data-highlighted",
-                    "aria-expanded"
+                    {
+                      "name": "data-closed",
+                      "value": null
+                    },
+                    {
+                      "name": "data-open",
+                      "value": null
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "bottom"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "left"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "right"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "top"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "inline-start"
+                    },
+                    {
+                      "name": "data-side",
+                      "value": "inline-end"
+                    },
+                    {
+                      "name": "data-slot",
+                      "value": "-item"
+                    },
+                    {
+                      "name": "data-highlighted",
+                      "value": null
+                    },
+                    {
+                      "name": "data-slot",
+                      "value": "-separator"
+                    },
+                    {
+                      "name": "data-slot",
+                      "value": "-trigger"
+                    },
+                    {
+                      "name": "aria-expanded",
+                      "value": null
+                    },
+                    {
+                      "name": "data-variant",
+                      "value": "destructive"
+                    }
                   ]
                 },
                 "render_as": null,
@@ -166,7 +241,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -178,14 +254,23 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -201,8 +286,18 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-inset"
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-variant",
+              "value": "destructive"
+            },
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -211,7 +306,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -222,9 +318,15 @@
         "inset": null
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
@@ -240,7 +342,10 @@
         "reads": {
           "group": [],
           "self": [
-            "data-inset"
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -249,7 +354,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -259,6 +365,9 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -278,7 +387,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -291,6 +401,10 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -339,8 +453,14 @@
                 "reads": {
                   "group": [],
                   "self": [
-                    "aria-invalid",
-                    "aria-expanded"
+                    {
+                      "name": "aria-invalid",
+                      "value": null
+                    },
+                    {
+                      "name": "aria-expanded",
+                      "value": null
+                    }
                   ]
                 },
                 "render_as": null,
@@ -357,6 +477,9 @@
                 ],
                 "vars": []
               }
+            ],
+            "identifiers": [
+              "children"
             ],
             "type": "children"
           }
@@ -377,7 +500,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -390,14 +514,23 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -407,7 +540,14 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "providers",
+                  "query"
+                ],
                 "kind": "code",
+                "member_roots": [
+                  "providers"
+                ],
                 "name": "href",
                 "value": "providers.chatgpt.createUrl(query)"
               },
@@ -428,6 +568,12 @@
                 "children": [
                   {
                     "code": "providers.chatgpt.icon",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -451,6 +597,12 @@
                 "children": [
                   {
                     "code": "providers.chatgpt.title",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -515,8 +667,18 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-inset"
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-variant",
+              "value": "destructive"
+            },
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -525,7 +687,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -538,14 +701,23 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -555,7 +727,14 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "providers",
+                  "query"
+                ],
                 "kind": "code",
+                "member_roots": [
+                  "providers"
+                ],
                 "name": "href",
                 "value": "providers.claude.createUrl(query)"
               },
@@ -576,6 +755,12 @@
                 "children": [
                   {
                     "code": "providers.claude.icon",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -599,6 +784,12 @@
                 "children": [
                   {
                     "code": "providers.claude.title",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -663,8 +854,18 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-inset"
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-variant",
+              "value": "destructive"
+            },
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -673,7 +874,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -686,14 +888,23 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -703,7 +914,14 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "providers",
+                  "query"
+                ],
                 "kind": "code",
+                "member_roots": [
+                  "providers"
+                ],
                 "name": "href",
                 "value": "providers.t3.createUrl(query)"
               },
@@ -724,6 +942,12 @@
                 "children": [
                   {
                     "code": "providers.t3.icon",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -747,6 +971,12 @@
                 "children": [
                   {
                     "code": "providers.t3.title",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -811,8 +1041,18 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-inset"
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-variant",
+              "value": "destructive"
+            },
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -821,7 +1061,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -834,14 +1075,23 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -851,7 +1101,14 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "providers",
+                  "query"
+                ],
                 "kind": "code",
+                "member_roots": [
+                  "providers"
+                ],
                 "name": "href",
                 "value": "providers.scira.createUrl(query)"
               },
@@ -872,6 +1129,12 @@
                 "children": [
                   {
                     "code": "providers.scira.icon",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -895,6 +1158,12 @@
                 "children": [
                   {
                     "code": "providers.scira.title",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -959,8 +1228,18 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-inset"
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-variant",
+              "value": "destructive"
+            },
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -969,7 +1248,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -982,14 +1262,23 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -999,7 +1288,14 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "providers",
+                  "query"
+                ],
                 "kind": "code",
+                "member_roots": [
+                  "providers"
+                ],
                 "name": "href",
                 "value": "providers.v0.createUrl(query)"
               },
@@ -1020,6 +1316,12 @@
                 "children": [
                   {
                     "code": "providers.v0.icon",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -1043,6 +1345,12 @@
                 "children": [
                   {
                     "code": "providers.v0.title",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -1107,8 +1415,18 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-inset"
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-variant",
+              "value": "destructive"
+            },
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -1117,7 +1435,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -1130,14 +1449,23 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "inset"
+            ],
             "kind": "code",
             "name": "data-inset",
             "value": "inset"
           },
           {
+            "identifiers": [
+              "variant"
+            ],
             "kind": "code",
             "name": "data-variant",
             "value": "variant"
@@ -1147,7 +1475,14 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "providers",
+                  "query"
+                ],
                 "kind": "code",
+                "member_roots": [
+                  "providers"
+                ],
                 "name": "href",
                 "value": "providers.cursor.createUrl(query)"
               },
@@ -1168,6 +1503,12 @@
                 "children": [
                   {
                     "code": "providers.cursor.icon",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -1191,6 +1532,12 @@
                 "children": [
                   {
                     "code": "providers.cursor.title",
+                    "identifiers": [
+                      "providers"
+                    ],
+                    "member_roots": [
+                      "providers"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -1255,8 +1602,18 @@
         "reads": {
           "group": [],
           "self": [
-            "data-disabled",
-            "data-inset"
+            {
+              "name": "data-disabled",
+              "value": null
+            },
+            {
+              "name": "data-variant",
+              "value": "destructive"
+            },
+            {
+              "name": "data-inset",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -1265,7 +1622,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

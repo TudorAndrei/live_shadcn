@@ -8,8 +8,8 @@
 |---|---:|---|
 | `planned` | 0 | ························ |
 | `fetched` | 23 | █████··················· |
-| `spec` | 13 | ███····················· |
-| `generated` | 13 | ███····················· |
+| `spec` | 12 | ███····················· |
+| `generated` | 14 | ███····················· |
 | `verified` | 62 | █████████████··········· |
 
 ## Recipes
@@ -158,7 +158,7 @@ Only the recipes are written by hand; every component is data.
 | `connection` | 3 | `presentational` | 🟨 spec |
 | `edge` | 3 | `presentational` | 🟦 fetched |
 | `jsx-preview` | 3 | `presentational` | 🟦 fetched |
-| `mic-selector` | 3 | `listbox` | 🟨 spec |
+| `mic-selector` | 3 | `listbox` | 🟩 generated |
 | `node` | 3 | `presentational` | 🟦 fetched |
 | `sandbox` | 3 | `presentational` | 🟦 fetched |
 | `speech-input` | 3 | `presentational` | 🟨 spec |

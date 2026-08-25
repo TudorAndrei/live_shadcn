@@ -5,7 +5,9 @@
   ],
   "folds": [
     "shadcn/button",
-    "shadcn/dialog"
+    "shadcn/command",
+    "shadcn/dialog",
+    "shadcn/input-group"
   ],
   "generated_by": "mix ui.spec",
   "name": "model-selector",
@@ -16,6 +18,9 @@
       "name": "model_selector",
       "params": {},
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -34,7 +39,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -42,6 +48,9 @@
       "name": "model_selector_trigger",
       "params": {},
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -61,7 +70,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -76,9 +86,18 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "title",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "undefined"
+            ],
             "kind": "code",
             "name": "aria-describedby",
             "value": "undefined"
@@ -97,8 +116,14 @@
             "reads": {
               "group": [],
               "self": [
-                "data-open",
-                "data-closed"
+                {
+                  "name": "data-open",
+                  "value": null
+                },
+                {
+                  "name": "data-closed",
+                  "value": null
+                }
               ]
             },
             "render_as": null,
@@ -116,6 +141,9 @@
                 "children": [
                   {
                     "code": "title",
+                    "identifiers": [
+                      "title"
+                    ],
                     "type": "value"
                   }
                 ],
@@ -143,22 +171,20 @@
                     "type": "children"
                   }
                 ],
-                "class": "**:data-[slot=command-input-wrapper]:h-auto",
+                "class": "cn-command flex size-full flex-col overflow-hidden **:data-[slot=command-input-wrapper]:h-auto",
                 "class_when": [],
-                "component": "command",
-                "function": "command",
-                "merges_class": false,
-                "props": false,
+                "merges_class": true,
+                "module": "external/cmdk",
+                "part": "Root",
+                "props": true,
                 "reads": {
                   "group": [],
                   "self": []
                 },
-                "recipe": null,
                 "render_as": null,
-                "slot": null,
-                "source": "shadcn",
-                "tag": null,
-                "type": "component_ref",
+                "slot": "command",
+                "tag": "div",
+                "type": "primitive",
                 "variant_calls": [],
                 "vars": []
               },
@@ -263,8 +289,14 @@
                       "reads": {
                         "group": [],
                         "self": [
-                          "aria-invalid",
-                          "aria-expanded"
+                          {
+                            "name": "aria-invalid",
+                            "value": null
+                          },
+                          {
+                            "name": "aria-expanded",
+                            "value": null
+                          }
                         ]
                       },
                       "render_as": null,
@@ -289,6 +321,9 @@
                     "vars": []
                   }
                 ],
+                "identifiers": [
+                  "showCloseButton"
+                ],
                 "type": "optional",
                 "when": "showCloseButton"
               }
@@ -302,8 +337,14 @@
             "reads": {
               "group": [],
               "self": [
-                "data-open",
-                "data-closed"
+                {
+                  "name": "data-open",
+                  "value": null
+                },
+                {
+                  "name": "data-closed",
+                  "value": null
+                }
               ]
             },
             "render_as": null,
@@ -330,241 +371,792 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "ModelSelectorDialog",
       "name": "model_selector_dialog",
-      "params": {},
+      "params": {
+        "children": null,
+        "className": null,
+        "description": "Search for a command to run...",
+        "showCloseButton": "false",
+        "size": "default",
+        "title": "Command Palette",
+        "variant": "default"
+      },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
-        "children": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "children": [],
+                    "code": "title",
+                    "identifiers": [
+                      "title"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "cn-dialog-title cn-font-heading",
+                "class_when": [],
+                "merges_class": true,
+                "module": "dialog",
+                "part": "Title",
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "dialog-title",
+                "tag": "h2",
+                "type": "primitive",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "children": [],
+                    "code": "description",
+                    "identifiers": [
+                      "description"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "cn-dialog-description",
+                "class_when": [],
+                "merges_class": true,
+                "module": "dialog",
+                "part": "Description",
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "dialog-description",
+                "tag": "p",
+                "type": "primitive",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "cn-dialog-header flex flex-col sr-only",
+            "class_when": [],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "dialog-header",
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "cn-dialog-overlay fixed inset-0 isolate z-50",
+                "class_when": [],
+                "merges_class": true,
+                "module": "dialog",
+                "part": "Backdrop",
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": [
+                    {
+                      "name": "data-open",
+                      "value": null
+                    },
+                    {
+                      "name": "data-closed",
+                      "value": null
+                    }
+                  ]
+                },
+                "render_as": null,
+                "slot": "dialog-overlay",
+                "tag": "div",
+                "type": "primitive",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attrs": [],
+                        "children": [
+                          {
+                            "attrs": [
+                              {
+                                "kind": "text",
+                                "name": "lucide",
+                                "value": "XIcon"
+                              },
+                              {
+                                "kind": "text",
+                                "name": "tabler",
+                                "value": "IconX"
+                              },
+                              {
+                                "kind": "text",
+                                "name": "hugeicons",
+                                "value": "Cancel01Icon"
+                              },
+                              {
+                                "kind": "text",
+                                "name": "phosphor",
+                                "value": "XIcon"
+                              },
+                              {
+                                "kind": "text",
+                                "name": "remixicon",
+                                "value": "RiCloseLine"
+                              }
+                            ],
+                            "children": [],
+                            "class": "",
+                            "class_when": [],
+                            "icons": {
+                              "hugeicons": "Cancel01Icon",
+                              "lucide": "XIcon",
+                              "phosphor": "XIcon",
+                              "remixicon": "RiCloseLine",
+                              "tabler": "IconX"
+                            },
+                            "merges_class": false,
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "type": "icon",
+                            "variant_calls": [],
+                            "vars": []
+                          },
+                          {
+                            "attrs": [],
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "Close"
+                              }
+                            ],
+                            "class": "sr-only",
+                            "class_when": [],
+                            "merges_class": false,
+                            "props": false,
+                            "reads": {
+                              "group": [],
+                              "self": []
+                            },
+                            "render_as": null,
+                            "slot": null,
+                            "tag": "span",
+                            "type": "element",
+                            "variant_calls": [],
+                            "vars": []
+                          }
+                        ],
+                        "class": "",
+                        "class_when": [],
+                        "merges_class": false,
+                        "module": "dialog",
+                        "part": "Close",
+                        "props": false,
+                        "reads": {
+                          "group": [],
+                          "self": []
+                        },
+                        "render_as": {
+                          "attrs": [],
+                          "children": [],
+                          "class": "cn-dialog-close",
+                          "class_when": [],
+                          "merges_class": true,
+                          "module": "button",
+                          "part": "Root",
+                          "props": true,
+                          "reads": {
+                            "group": [],
+                            "self": [
+                              {
+                                "name": "aria-invalid",
+                                "value": null
+                              },
+                              {
+                                "name": "aria-expanded",
+                                "value": null
+                              }
+                            ]
+                          },
+                          "render_as": null,
+                          "slot": "button",
+                          "tag": "button",
+                          "type": "primitive",
+                          "variant_calls": [
+                            {
+                              "args": [
+                                "variant",
+                                "size"
+                              ],
+                              "table": "buttonVariants"
+                            }
+                          ],
+                          "vars": []
+                        },
+                        "slot": "dialog-close",
+                        "tag": "button",
+                        "type": "primitive",
+                        "variant_calls": [],
+                        "vars": []
+                      }
+                    ],
+                    "identifiers": [
+                      "showCloseButton"
+                    ],
+                    "type": "optional",
+                    "when": "showCloseButton"
+                  }
+                ],
+                "class": "cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+                "class_when": [],
+                "merges_class": true,
+                "module": "dialog",
+                "part": "Popup",
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": [
+                    {
+                      "name": "data-open",
+                      "value": null
+                    },
+                    {
+                      "name": "data-closed",
+                      "value": null
+                    }
+                  ]
+                },
+                "render_as": null,
+                "slot": "dialog-content",
+                "tag": "div",
+                "type": "primitive",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0",
+            "class_when": [],
+            "merges_class": true,
+            "module": "dialog",
+            "part": "Portal",
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "dialog-portal",
+            "tag": "div",
+            "type": "primitive",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
         "class": "",
         "class_when": [],
-        "component": "command",
-        "function": "command_dialog",
         "merges_class": false,
+        "part": "Root",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
-        "recipe": null,
+        "reason": "renders no element",
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
+        "slot": "dialog",
+        "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "ModelSelectorInput",
       "name": "model_selector_input",
       "params": {
+        "align": "inline-start",
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
-        "children": [],
-        "class": "h-auto py-3.5",
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "role",
+                "value": "group"
+              }
+            ],
+            "children": [
+              {
+                "attrs": [],
+                "children": [],
+                "class": "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+                "class_when": [],
+                "merges_class": true,
+                "module": "external/cmdk",
+                "part": "Input",
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "command-input",
+                "tag": "input",
+                "type": "primitive",
+                "variant_calls": [],
+                "vars": []
+              },
+              {
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "role",
+                    "value": "group"
+                  },
+                  {
+                    "identifiers": [
+                      "align"
+                    ],
+                    "kind": "code",
+                    "name": "data-align",
+                    "value": "align"
+                  }
+                ],
+                "children": [
+                  {
+                    "attrs": [
+                      {
+                        "kind": "text",
+                        "name": "lucide",
+                        "value": "SearchIcon"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "tabler",
+                        "value": "IconSearch"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "hugeicons",
+                        "value": "SearchIcon"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "phosphor",
+                        "value": "MagnifyingGlassIcon"
+                      },
+                      {
+                        "kind": "text",
+                        "name": "remixicon",
+                        "value": "RiSearchLine"
+                      }
+                    ],
+                    "children": [],
+                    "class": "cn-command-input-icon",
+                    "class_when": [],
+                    "icons": {
+                      "hugeicons": "SearchIcon",
+                      "lucide": "SearchIcon",
+                      "phosphor": "MagnifyingGlassIcon",
+                      "remixicon": "RiSearchLine",
+                      "tabler": "IconSearch"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "class_when": [],
+                "merges_class": true,
+                "props": true,
+                "reads": {
+                  "group": [
+                    {
+                      "group": "input-group",
+                      "name": "data-disabled",
+                      "value": "true"
+                    }
+                  ],
+                  "self": [
+                    {
+                      "name": "data-slot",
+                      "value": "kbd"
+                    }
+                  ]
+                },
+                "render_as": null,
+                "slot": "input-group-addon",
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [
+                  {
+                    "args": [
+                      "align"
+                    ],
+                    "table": "inputGroupAddonVariants"
+                  }
+                ],
+                "vars": []
+              }
+            ],
+            "class": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto cn-command-input-group",
+            "class_when": [],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": "input-group",
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "cn-command-input-wrapper h-auto py-3.5",
         "class_when": [],
-        "component": "command",
-        "function": "command_input",
         "merges_class": true,
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
-        "recipe": null,
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
+        "slot": "command-input-wrapper",
+        "tag": "div",
+        "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "ModelSelectorList",
       "name": "model_selector_list",
-      "params": {},
+      "params": {
+        "className": null
+      },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "",
+        "class": "cn-command-list overflow-x-hidden overflow-y-auto",
         "class_when": [],
-        "component": "command",
-        "function": "command_list",
-        "merges_class": false,
+        "merges_class": true,
+        "module": "external/cmdk",
+        "part": "List",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
-        "recipe": null,
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
+        "slot": "command-list",
+        "tag": "div",
+        "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "ModelSelectorEmpty",
       "name": "model_selector_empty",
-      "params": {},
+      "params": {
+        "className": null
+      },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "",
+        "class": "cn-command-empty",
         "class_when": [],
-        "component": "command",
-        "function": "command_empty",
-        "merges_class": false,
+        "merges_class": true,
+        "module": "external/cmdk",
+        "part": "Empty",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
-        "recipe": null,
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
+        "slot": "command-empty",
+        "tag": "div",
+        "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "ModelSelectorGroup",
       "name": "model_selector_group",
-      "params": {},
+      "params": {
+        "className": null
+      },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "",
+        "class": "cn-command-group",
         "class_when": [],
-        "component": "command",
-        "function": "command_group",
-        "merges_class": false,
+        "merges_class": true,
+        "module": "external/cmdk",
+        "part": "Group",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
-        "recipe": null,
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
+        "slot": "command-group",
+        "tag": "div",
+        "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "ModelSelectorItem",
       "name": "model_selector_item",
-      "params": {},
+      "params": {
+        "children": null,
+        "className": null
+      },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
-        "children": [],
-        "class": "",
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "lucide",
+                "value": "CheckIcon"
+              },
+              {
+                "kind": "text",
+                "name": "tabler",
+                "value": "IconCheck"
+              },
+              {
+                "kind": "text",
+                "name": "hugeicons",
+                "value": "Tick02Icon"
+              },
+              {
+                "kind": "text",
+                "name": "phosphor",
+                "value": "CheckIcon"
+              },
+              {
+                "kind": "text",
+                "name": "remixicon",
+                "value": "RiCheckLine"
+              }
+            ],
+            "children": [],
+            "class": "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
+            "class_when": [],
+            "icons": {
+              "hugeicons": "Tick02Icon",
+              "lucide": "CheckIcon",
+              "phosphor": "CheckIcon",
+              "remixicon": "RiCheckLine",
+              "tabler": "IconCheck"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [
+                {
+                  "group": "command-item",
+                  "name": "data-checked",
+                  "value": "true"
+                }
+              ],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "icon",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         "class_when": [],
-        "component": "command",
-        "function": "command_item",
-        "merges_class": false,
+        "merges_class": true,
+        "module": "external/cmdk",
+        "part": "Item",
         "props": true,
         "reads": {
           "group": [],
-          "self": []
+          "self": [
+            {
+              "name": "data-disabled",
+              "value": "true"
+            },
+            {
+              "name": "data-selected",
+              "value": null
+            }
+          ]
         },
-        "recipe": null,
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
+        "slot": "command-item",
+        "tag": "div",
+        "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "ModelSelectorShortcut",
       "name": "model_selector_shortcut",
-      "params": {},
+      "params": {
+        "className": null
+      },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "",
+        "class": "cn-command-shortcut",
         "class_when": [],
-        "component": "command",
-        "function": "command_shortcut",
-        "merges_class": false,
+        "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
+          "group": [
+            {
+              "group": "command-item",
+              "name": "data-selected",
+              "value": null
+            }
+          ],
           "self": []
         },
-        "recipe": null,
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
+        "slot": "command-shortcut",
+        "tag": "span",
+        "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
       "export": "ModelSelectorSeparator",
       "name": "model_selector_separator",
-      "params": {},
+      "params": {
+        "className": null
+      },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "",
+        "class": "cn-command-separator",
         "class_when": [],
-        "component": "command",
-        "function": "command_separator",
-        "merges_class": false,
+        "merges_class": true,
+        "module": "external/cmdk",
+        "part": "Separator",
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
-        "recipe": null,
         "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
+        "slot": "command-separator",
+        "tag": "div",
+        "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -575,9 +1167,17 @@
         "provider": null
       },
       "primitive": null,
+      "refs": [
+        "props",
+        "provider",
+        "className"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "provider"
+            ],
             "kind": "code",
             "name": "alt",
             "value": "`${provider} logo`"
@@ -588,6 +1188,9 @@
             "value": "12"
           },
           {
+            "identifiers": [
+              "provider"
+            ],
             "kind": "code",
             "name": "src",
             "value": "`https://models.dev/logos/${provider}.svg`"
@@ -613,7 +1216,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -623,6 +1227,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -640,7 +1248,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -650,6 +1259,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -667,7 +1280,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {
@@ -1104,44 +1718,164 @@
   "source": "ai_elements",
   "styles": {
     "luma": {
+      "cn-command": "bg-popover text-popover-foreground rounded-4xl p-1",
+      "cn-command-dialog": "rounded-4xl! p-0",
+      "cn-command-empty": "py-6 text-center text-sm",
+      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1.5 **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:py-2 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
+      "cn-command-input": "w-full text-sm",
+      "cn-command-input-group": "bg-input/50 h-9",
+      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
+      "cn-command-input-wrapper": "p-1 pb-0",
+      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium outline-hidden select-none in-data-[slot=dialog-content]:rounded-3xl [&_svg:not([class*='size-'])]:size-4",
+      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
+      "cn-command-separator": "bg-border/50 my-1.5 h-px",
+      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest",
       "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 dark:ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-4xl p-6 text-sm shadow-xl ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-header": "gap-1.5",
       "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/30 duration-100 supports-backdrop-filter:backdrop-blur-sm",
-      "cn-dialog-title": "text-base leading-none font-medium"
+      "cn-dialog-title": "text-base leading-none font-medium",
+      "cn-input-group": "bg-input/50 border-transparent has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-[color,box-shadow,background-color] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-3xl has-data-[align=block-start]:rounded-3xl has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[textarea]:rounded-2xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5"
     },
     "lyra": {
+      "cn-command": "bg-popover text-popover-foreground rounded-none",
+      "cn-command-dialog": "rounded-none",
+      "cn-command-empty": "py-6 text-center text-xs",
+      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs",
+      "cn-command-input": "w-full text-xs",
+      "cn-command-input-group": "bg-input/30 border-input/30 h-8 border-none shadow-none! *:data-[slot=input-group-addon]:pl-2!",
+      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
+      "cn-command-input-wrapper": "border-b pb-0",
+      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-none px-2 py-2 text-xs outline-hidden select-none in-data-[slot=dialog-content]:rounded-none! [&_svg:not([class*='size-'])]:size-4",
+      "cn-command-list": "no-scrollbar max-h-72 scroll-py-0 outline-none",
+      "cn-command-separator": "bg-border -mx-1 h-px",
+      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest",
       "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-none p-4 text-xs/relaxed ring-1 duration-100 sm:max-w-sm",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-xs/relaxed *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-header": "gap-1 text-left",
       "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
-      "cn-dialog-title": "text-sm font-medium"
+      "cn-dialog-title": "text-sm font-medium",
+      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 h-8 rounded-none border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-1 has-[[data-slot][aria-invalid=true]]:ring-1 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5"
     },
     "maia": {
+      "cn-command": "bg-popover text-popover-foreground rounded-4xl p-1",
+      "cn-command-dialog": "rounded-4xl! p-0",
+      "cn-command-empty": "py-6 text-center text-sm",
+      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:py-2 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
+      "cn-command-input": "w-full text-sm",
+      "cn-command-input-group": "bg-input/30 h-9",
+      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
+      "cn-command-input-wrapper": "p-1 pb-0",
+      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-lg px-3 py-2 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-2xl [&_svg:not([class*='size-'])]:size-4",
+      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
+      "cn-command-separator": "bg-border/50 my-1 h-px",
+      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest",
       "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 grid max-w-[calc(100%-2rem)] gap-6 rounded-4xl p-6 text-sm ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-header": "gap-2",
       "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/80 duration-100 supports-backdrop-filter:backdrop-blur-xs",
-      "cn-dialog-title": "text-base leading-none font-medium"
+      "cn-dialog-title": "text-base leading-none font-medium",
+      "cn-input-group": "border-input bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-2xl has-data-[align=block-start]:rounded-2xl has-[[data-slot=input-group-control]:focus-visible]:ring-[3px] has-[[data-slot][aria-invalid=true]]:ring-[3px] has-[textarea]:rounded-xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5"
     },
     "mira": {
+      "cn-command": "bg-popover text-popover-foreground rounded-xl p-1",
+      "cn-command-dialog": "rounded-xl! p-0",
+      "cn-command-empty": "py-6 text-center text-xs/relaxed",
+      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2.5 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
+      "cn-command-input": "w-full text-xs/relaxed",
+      "cn-command-input-group": "bg-input/20 dark:bg-input/30 h-8!",
+      "cn-command-input-icon": "size-3.5 shrink-0 opacity-50",
+      "cn-command-input-wrapper": "p-1 pb-0",
+      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex min-h-7 cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 text-xs/relaxed outline-hidden select-none in-data-[slot=dialog-content]:rounded-md [&_svg:not([class*='size-'])]:size-3.5",
+      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
+      "cn-command-separator": "bg-border/50 -mx-1 my-1 h-px",
+      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-[0.625rem] tracking-widest",
       "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-xs/relaxed ring-1 duration-100 sm:max-w-sm",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-xs/relaxed *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-header": "gap-1",
       "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/80 duration-100 supports-backdrop-filter:backdrop-blur-xs",
-      "cn-dialog-title": "text-sm font-medium"
+      "cn-dialog-title": "text-sm font-medium",
+      "cn-input-group": "border-input bg-input/20 dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-7 rounded-md border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-md has-data-[align=block-start]:rounded-md has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot][aria-invalid=true]]:ring-2 has-[textarea]:rounded-md has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5"
     },
     "nova": {
+      "cn-command": "bg-popover text-popover-foreground rounded-xl! p-1",
+      "cn-command-dialog": "rounded-xl!",
+      "cn-command-empty": "py-6 text-center text-sm",
+      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
+      "cn-command-input": "w-full text-sm",
+      "cn-command-input-group": "bg-input/30 border-input/30 h-8! rounded-lg! shadow-none! *:data-[slot=input-group-addon]:pl-2!",
+      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
+      "cn-command-input-wrapper": "p-1 pb-0",
+      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_svg:not([class*='size-'])]:size-4",
+      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
+      "cn-command-separator": "bg-border -mx-1 h-px",
+      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest",
       "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-sm ring-1 duration-100 sm:max-w-sm",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-header": "gap-2",
       "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
-      "cn-dialog-title": "text-base leading-none font-medium"
+      "cn-dialog-title": "text-base leading-none font-medium",
+      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 h-8 rounded-lg border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5"
     },
     "rhea": {
+      "cn-command": "bg-popover text-popover-foreground rounded-3xl p-1",
+      "cn-command-dialog": "rounded-3xl! p-0",
+      "cn-command-empty": "py-6 text-center text-sm",
+      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
+      "cn-command-input": "w-full text-sm",
+      "cn-command-input-group": "bg-input/50 h-8!",
+      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
+      "cn-command-input-wrapper": "p-1 pb-0",
+      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 min-h-7 rounded-xl px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-2xl [&_svg:not([class*='size-'])]:size-4",
+      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
+      "cn-command-separator": "bg-border/50 my-1 h-px",
+      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest",
       "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 dark:ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-[min(var(--radius-4xl),24px)] p-6 text-sm shadow-xl ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-header": "gap-1.5",
       "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/30 duration-100 supports-backdrop-filter:backdrop-blur-sm",
-      "cn-dialog-title": "text-base leading-none font-medium"
+      "cn-dialog-title": "text-base leading-none font-medium",
+      "cn-input-group": "bg-input/50 border-transparent has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-8 rounded-2xl border transition-[color,box-shadow] duration-200 in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5"
     },
     "sera": {
+      "cn-command": "bg-popover text-popover-foreground",
+      "cn-command-dialog": "p-0",
+      "cn-command-empty": "py-6 text-center text-sm",
+      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1.5 **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:py-2 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-semibold **:[[cmdk-group-heading]]:uppercase **:[[cmdk-group-heading]]:tracking-wider",
+      "cn-command-input": "w-full text-sm px-2",
+      "cn-command-input-group": "bg-transparent border-transparent border-b-input px-3",
+      "cn-command-input-icon": "size-3.5 shrink-0 opacity-50",
+      "cn-command-input-wrapper": "p-1",
+      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-none px-3 py-2 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-none [&_svg:not([class*='size-'])]:size-3.5",
+      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
+      "cn-command-separator": "bg-border/50 -mx-1.5 my-1.5 h-px",
+      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest",
       "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-none p-6 text-sm shadow-md ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3 leading-relaxed mt-0.5",
+      "cn-dialog-header": "gap-2",
       "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/20 duration-100 supports-backdrop-filter:backdrop-blur-sm",
-      "cn-dialog-title": "text-lg font-semibold leading-none uppercase tracking-wider"
+      "cn-dialog-title": "text-lg font-semibold leading-none uppercase tracking-wider",
+      "cn-input-group": "border-transparent border-b-input bg-transparent has-[[data-slot=input-group-control]:focus-visible]:border-b-ring has-[[data-slot][aria-invalid=true]]:border-b-destructive dark:has-[[data-slot][aria-invalid=true]]:border-b-destructive/50 h-10 rounded-none border transition-[color,border-color] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-none has-data-[align=block-start]:rounded-none has-[textarea]:rounded-none has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3"
     },
     "vega": {
+      "cn-command": "bg-popover text-popover-foreground rounded-xl! p-1",
+      "cn-command-dialog": "rounded-xl!",
+      "cn-command-empty": "py-6 text-center text-sm",
+      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
+      "cn-command-input": "w-full text-sm",
+      "cn-command-input-group": "bg-input/30 border-input/30 h-8! rounded-lg! shadow-none! *:data-[slot=input-group-addon]:pl-2!",
+      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
+      "cn-command-input-wrapper": "p-1 pb-0",
+      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:**:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_svg:not([class*='size-'])]:size-4",
+      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
+      "cn-command-separator": "bg-border -mx-1 h-px w-auto",
+      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest",
       "cn-dialog-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-xl p-6 text-sm ring-1 duration-100 sm:max-w-md",
+      "cn-dialog-description": "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3",
+      "cn-dialog-header": "gap-2",
       "cn-dialog-overlay": "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
-      "cn-dialog-title": "leading-none font-medium"
+      "cn-dialog-title": "leading-none font-medium",
+      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-md border shadow-xs transition-[color,box-shadow] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5"
     }
   },
   "upstream": {
@@ -1176,6 +1910,34 @@
           "link": "cn-button-variant-link",
           "outline": "cn-button-variant-outline",
           "secondary": "cn-button-variant-secondary"
+        }
+      }
+    },
+    "inputGroupAddonVariants": {
+      "base": "cn-input-group-addon flex cursor-text items-center justify-center select-none",
+      "defaults": {
+        "align": "inline-start"
+      },
+      "variants": {
+        "align": {
+          "block-end": "cn-input-group-addon-align-block-end order-last w-full justify-start",
+          "block-start": "cn-input-group-addon-align-block-start order-first w-full justify-start",
+          "inline-end": "cn-input-group-addon-align-inline-end order-last",
+          "inline-start": "cn-input-group-addon-align-inline-start order-first"
+        }
+      }
+    },
+    "inputGroupButtonVariants": {
+      "base": "cn-input-group-button flex items-center shadow-none",
+      "defaults": {
+        "size": "xs"
+      },
+      "variants": {
+        "size": {
+          "icon-sm": "cn-input-group-button-size-icon-sm",
+          "icon-xs": "cn-input-group-button-size-icon-xs",
+          "sm": "cn-input-group-button-size-sm",
+          "xs": "cn-input-group-button-size-xs"
         }
       }
     }

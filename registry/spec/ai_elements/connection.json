@@ -15,12 +15,25 @@
         "toY": null
       },
       "primitive": null,
+      "refs": [
+        "fromX",
+        "fromY",
+        "toX",
+        "toY"
+      ],
       "tree": {
         "attrs": [],
         "children": [
           {
             "attrs": [
               {
+                "identifiers": [
+                  "HALF",
+                  "fromX",
+                  "fromY",
+                  "toX",
+                  "toY"
+                ],
                 "kind": "code",
                 "name": "d",
                 "value": "`M${fromX},${fromY} C ${fromX + (toX - fromX) * HALF},${fromY} ${fromX + (toX - fromX) * HALF},${toY} ${toX},${toY}`"
@@ -60,11 +73,17 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "toX"
+                ],
                 "kind": "code",
                 "name": "cx",
                 "value": "toX"
               },
               {
+                "identifiers": [
+                  "toY"
+                ],
                 "kind": "code",
                 "name": "cy",
                 "value": "toY"
@@ -121,7 +140,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {},

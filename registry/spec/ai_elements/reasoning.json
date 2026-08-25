@@ -17,15 +17,32 @@
       "params": {
         "children": null,
         "className": null,
-        "isOpen": null
+        "defaultOpen": null,
+        "isOpen": null,
+        "isStreaming": "false",
+        "open": null
       },
       "primitive": null,
+      "refs": [
+        "defaultOpen",
+        "isStreaming",
+        "onOpenChange",
+        "open",
+        "durationProp",
+        "newOpen",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
           {
             "attrs": [
               {
+                "identifiers": [
+                  "isOpen"
+                ],
                 "kind": "code",
                 "name": "open",
                 "value": "isOpen"
@@ -68,6 +85,24 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "defaultOpen": {
+          "optional": true,
+          "type": "boolean"
+        },
+        "duration": {
+          "optional": true,
+          "type": "number"
+        },
+        "isStreaming": {
+          "optional": true,
+          "type": "boolean"
+        },
+        "open": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -77,9 +112,18 @@
       "params": {
         "children": null,
         "className": null,
-        "isOpen": null
+        "duration": null,
+        "getThinkingMessage": "defaultGetThinkingMessage",
+        "isOpen": null,
+        "isStreaming": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children",
+        "getThinkingMessage"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -109,6 +153,11 @@
                     "vars": []
                   },
                   {
+                    "identifiers": [
+                      "duration",
+                      "getThinkingMessage",
+                      "isStreaming"
+                    ],
                     "name": "get_thinking_message",
                     "type": "slot"
                   },
@@ -119,6 +168,9 @@
                     "class_when": [
                       {
                         "else": "rotate-0",
+                        "identifiers": [
+                          "isOpen"
+                        ],
                         "then": "rotate-180",
                         "when": "isOpen"
                       }
@@ -155,6 +207,14 @@
                 "vars": []
               }
             ],
+            "identifiers": [
+              "children",
+              "cn",
+              "duration",
+              "getThinkingMessage",
+              "isOpen",
+              "isStreaming"
+            ],
             "type": "children"
           }
         ],
@@ -174,7 +234,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -186,12 +247,20 @@
         "content": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
           {
             "attrs": [
               {
+                "identifiers": [
+                  "streamdownPlugins"
+                ],
                 "kind": "code",
                 "name": "plugins",
                 "value": "streamdownPlugins"
@@ -230,7 +299,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {

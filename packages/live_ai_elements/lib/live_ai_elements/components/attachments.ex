@@ -32,6 +32,7 @@ defmodule LiveAiElements.Components.Attachments do
   end
 
   @doc "The `attachment` part."
+  attr(:data, :string, default: nil)
   attr(:variant, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
@@ -78,7 +79,7 @@ defmodule LiveAiElements.Components.Attachments do
   end
 
   @doc "The `attachment_info` part."
-  attr(:data, :string, default: nil)
+  attr(:data, :any, default: nil)
   attr(:label, :string, default: nil)
   attr(:show_media_type, :boolean, default: false)
   attr(:variant, :string, default: nil)
@@ -141,7 +142,8 @@ defmodule LiveAiElements.Components.Attachments do
   end
 
   @doc "The `hover-card` part."
-
+  attr(:close_delay, :string, default: "0")
+  attr(:open_delay, :string, default: "0")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
