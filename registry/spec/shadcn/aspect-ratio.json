@@ -21,6 +21,11 @@
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "CSSProperties",
+              "React",
+              "ratio"
+            ],
             "kind": "style",
             "name": "style",
             "value": [
@@ -53,7 +58,7 @@
       "types": {
         "ratio": {
           "optional": false,
-          "type": "integer"
+          "type": "number"
         }
       }
     }

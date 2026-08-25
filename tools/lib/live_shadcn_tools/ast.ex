@@ -983,7 +983,7 @@ defmodule LiveShadcnTools.Ast do
   defp fields(_annotation, _definitions), do: %{}
 
   defp attribute_type(%{"type" => "TSBooleanKeyword"}, _definitions), do: %{"type" => "boolean"}
-  defp attribute_type(%{"type" => "TSNumberKeyword"}, _definitions), do: %{"type" => "integer"}
+  defp attribute_type(%{"type" => "TSNumberKeyword"}, _definitions), do: %{"type" => "number"}
 
   defp attribute_type(%{"type" => "TSUnionType", "types" => types}, _definitions) do
     values =

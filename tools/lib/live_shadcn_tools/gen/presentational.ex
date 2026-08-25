@@ -139,6 +139,9 @@ defmodule LiveShadcnTools.Gen.Presentational do
   # holding `"false"` is true to every `:if` that reads it.
   defp type(_name, _default, _paths, %{"type" => "boolean"}), do: ":boolean"
   defp type(_name, _default, _paths, %{"type" => "integer"}), do: ":integer"
+  # Phoenix has no numeric type that accepts both Elixir integers and floats.
+  # TypeScript `number` permits both, so keep the public component contract open.
+  defp type(_name, _default, _paths, %{"type" => "number"}), do: ":any"
   defp type(_name, default, _paths, _annotation) when default in ["true", "false"], do: ":boolean"
 
   defp type(name, _default, paths, _annotation),

@@ -202,7 +202,7 @@ defmodule LiveShadcnTools.AstTest do
 
       assert row.param_types == %{
                "enabled" => %{"optional" => true, "type" => "boolean"},
-               "count" => %{"optional" => false, "type" => "integer"},
+               "count" => %{"optional" => false, "type" => "number"},
                "side" => %{"optional" => true, "values" => ["left", "right"]}
              }
     end

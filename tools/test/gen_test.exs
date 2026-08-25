@@ -71,13 +71,13 @@ defmodule LiveShadcnTools.GenTest do
         "tree" => %{},
         "types" => %{
           "enabled" => %{"type" => "boolean", "optional" => true},
-          "count" => %{"type" => "integer", "optional" => false},
+          "count" => %{"type" => "number", "optional" => false},
           "side" => %{"values" => ["left", "right"], "optional" => true}
         }
       }
 
       assert Presentational.attributes(part, %{"parts" => []}) == [
-               %{name: "count", default: nil, values: nil, type: ":integer"},
+               %{name: "count", default: nil, values: nil, type: ":any"},
                %{name: "enabled", default: nil, values: nil, type: ":boolean"},
                %{name: "side", default: nil, values: ["left", "right"], type: ":string"}
              ]

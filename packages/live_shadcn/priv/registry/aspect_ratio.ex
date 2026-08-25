@@ -10,7 +10,7 @@ defmodule LiveShadcn.UI.AspectRatio do
   use Phoenix.Component
 
   @doc "The `aspect-ratio` part."
-  attr(:ratio, :integer, default: nil)
+  attr(:ratio, :any, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
