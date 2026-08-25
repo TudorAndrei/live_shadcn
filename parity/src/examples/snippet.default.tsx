@@ -1,5 +1,3 @@
-import { Icon } from "../shim/lucide";
-
 import {
   Snippet,
   SnippetAddon,
@@ -10,10 +8,10 @@ import {
 
 // Ported from `StorybookWeb.Examples.snippet_default/1`.
 //
-// The copy button is given its icon rather than left to its default, because
-// the storybook example gives it one. Upstream's default is
-// `isCopied ? CheckIcon : CopyIcon`, an icon chosen at render, and the two
-// examples have to ask for the same thing or the difference is theirs.
+// Neither side gives the copy button an icon, so both draw the default:
+// `isCopied ? CheckIcon : CopyIcon`. React draws the branch it is in and
+// unmounts the other; the generated component draws both and hides the one the
+// browser is not in, which `measure.mjs` skips for exactly this reason.
 export default function SnippetDefault() {
   return (
     <Snippet className="max-w-md" code="mix ui.add accordion">
@@ -22,9 +20,7 @@ export default function SnippetDefault() {
       </SnippetAddon>
       <SnippetInput aria-label="The command" />
       <SnippetAddon align="inline-end">
-        <SnippetCopyButton variant="ghost">
-          <Icon name="copy" className="size-4" />
-        </SnippetCopyButton>
+        <SnippetCopyButton variant="ghost" />
       </SnippetAddon>
     </Snippet>
   );

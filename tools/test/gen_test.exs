@@ -2,6 +2,8 @@ defmodule LiveShadcnTools.GenTest do
   use ExUnit.Case, async: true
 
   alias LiveShadcnTools.Gen
+  alias LiveShadcnTools.Gen.Clipboard
+  alias LiveShadcnTools.Gen.Heex
   alias LiveShadcnTools.Gen.Presentational
 
   @specs Path.expand("../../registry/spec", __DIR__)
@@ -103,6 +105,55 @@ defmodule LiveShadcnTools.GenTest do
 
       for recipe <- Gen.recipes() do
         assert recipe in named, "the #{recipe} recipe is written but no component names it"
+      end
+    end
+  end
+
+  describe "a choice the client owns" do
+    # `const Icon = isCopied ? CheckIcon : CopyIcon`. The server has no answer
+    # to write — the browser holds it for two seconds — so both branches are
+    # drawn and the hook shows one.
+    defp choice do
+      %{
+        "type" => "choice",
+        "when" => "isCopied",
+        "then" => [%{"type" => "icon", "icons" => %{"lucide" => "CheckIcon"}}],
+        "else" => [%{"type" => "icon", "icons" => %{"lucide" => "CopyIcon"}}]
+      }
+    end
+
+    defp ctx(extra \\ %{}) do
+      Map.merge(
+        %{
+          attrs: %{},
+          children: "{render_slot(@inner_block)}",
+          class: "@class",
+          variants: %{},
+          params: %{},
+          contexts: [],
+          client_attributes: [],
+          hook_part: nil,
+          rest: false
+        },
+        extra
+      )
+    end
+
+    test "both branches are drawn, marked, and the one not started in is hidden" do
+      source =
+        Heex.render(choice(), ctx(%{client_state: %{"isCopied" => Clipboard.state()}}))
+
+      assert source =~ ~s|data-lb-state="copied" hidden name="check"|
+      assert source =~ ~s|data-lb-state="idle" name="copy"|
+      refute source =~ ":if"
+    end
+
+    # The mechanism is something a recipe asks for. Every other choice in the
+    # registry is the server's, and one that quietly became the client's would
+    # draw two elements where upstream draws one.
+    test "the same choice, undeclared, is still the server's decision" do
+      assert_raise RuntimeError, ~r/isCopied/, fn ->
+        Heex.render(choice(), ctx())
       end
     end
   end

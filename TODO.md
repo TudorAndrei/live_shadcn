@@ -19,7 +19,7 @@ params something in the markup reads, and neither reaches the tree as a name.
       **Neither component changes** — `ui.gen --check` green, snapshots
       unmoved — and both are re-verified
 - [x] A test for each gap, in `spec_test.exs` and `ast_test.exs`
-- [ ] Commit: `fix(spec): a prop read through a context or a condition`
+- [x] Commit: `fix(spec): a prop read through a context or a condition`
 
 ## Phase 1b: `isCopied`, and a choice the client owns
 
@@ -27,16 +27,24 @@ params something in the markup reads, and neither reaches the tree as a name.
 `const Icon = isCopied ? CheckIcon : CopyIcon`. The reader reads it; the
 generator can only render a choice the **server** decides.
 
-- [ ] A choice whose condition a recipe declares client-owned renders both
+- [x] A choice whose condition a recipe declares client-owned renders both
       branches, each marked with the state it belongs to, the inactive one
-      `hidden`
-- [ ] `LiveBase.Clipboard` and its hook, beside `LiveBase.Toast`. Built, not
+      `hidden` — which `measure.mjs` already skips, so parity reads the two
+      pages as the same page
+- [x] `LiveBase.Clipboard` and its hook, beside `LiveBase.Toast`. Built, not
       depended on: the clipboard is a browser API, and `live_base` takes one
       dependency by a non-goal
-- [ ] `JS.ignore_attributes`, so a patch does not put the server's guess back
-- [ ] Not an assign: that costs a round trip and a server-side timer per copy,
+- [x] `JS.ignore_attributes`, so a patch does not put the server's guess back
+- [x] Not an assign: that costs a round trip and a server-side timer per copy,
       and makes the caller write `handle_event` for a 2-second icon swap
-- [ ] `snippet` and `environment-variables` generate
+- [x] The `clipboard` recipe, for the two components that are presentational
+      everywhere except one button. What it copies is a prop, because React
+      reads it off a context in a callback and HEEx has no context
+- [x] `snippet` and `environment-variables` generate, and `snippet` is
+      re-verified against a re-ported React reference
+- [x] `snippet.spec.mjs`, which found both bugs a snapshot cannot: `hidden` is
+      `HTMLElement`'s and both branches are an `<svg>`, and a connected socket
+      is not a mounted hook (`data-lb-ready`)
 - [ ] Commit: `feat(ai-elements): a choice the client owns, and the clipboard`
 
 ## Phase 2: Re-read every AI Elements spec, and gate the reading

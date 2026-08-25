@@ -1093,7 +1093,7 @@
       }
     },
     "pass": true,
-    "spec": "a55373ee61b0349f32613f51a3a08391ec4c6e2a13e49367bfe9cf7584c09452"
+    "spec": "a2c015107dcf76c6b072525fa7261a081b64db8380a607e73933d3fa0d29fb76"
   },
   "ai_elements/environment-variables": {
     "checks": {
@@ -1118,7 +1118,7 @@
       }
     },
     "pass": false,
-    "spec": "ccffb01372cf8f753b63b5185ccdd64cba4d34bee4c3df155571208e695a29ef"
+    "spec": "abff28dd6c6580c8e0df5f46c0a78a5305cb726b04d7570005797d5d85dca7fb"
   },
   "shadcn/switch": {
     "checks": {

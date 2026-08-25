@@ -14,6 +14,7 @@
 import { Disclosure } from "./disclosure.js";
 import { Carousel } from "./carousel.js";
 import { Calendar } from "./calendar.js";
+import { Clipboard } from "./clipboard.js";
 import { Floating } from "./floating.js";
 import { Overlay } from "./overlay.js";
 import { Roving } from "./roving.js";
@@ -25,6 +26,7 @@ import { Toast } from "./toast.js";
 export const hooks = {
   "LiveBase.Carousel": Carousel,
   "LiveBase.Calendar": Calendar,
+  "LiveBase.Clipboard": Clipboard,
   "LiveBase.Disclosure": Disclosure,
   "LiveBase.Floating": Floating,
   "LiveBase.Overlay": Overlay,
@@ -35,5 +37,17 @@ export const hooks = {
   "LiveBase.Toast": Toast,
 };
 
-export { Calendar, Carousel, Disclosure, Floating, Overlay, Resizable, Roving, Scroller, Slider, Toast };
+export {
+  Calendar,
+  Carousel,
+  Clipboard,
+  Disclosure,
+  Floating,
+  Overlay,
+  Resizable,
+  Roving,
+  Scroller,
+  Slider,
+  Toast,
+};
 export default hooks;

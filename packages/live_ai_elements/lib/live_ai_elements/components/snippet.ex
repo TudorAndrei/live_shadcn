@@ -10,7 +10,7 @@ defmodule LiveAiElements.Components.Snippet do
   use Phoenix.Component
 
   @doc "The `snippet` part."
-
+  attr(:code, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -121,8 +121,8 @@ defmodule LiveAiElements.Components.Snippet do
   end
 
   @doc "The `button` part."
-  attr(:is_copied, :boolean, default: false)
   attr(:size, :string, default: "xs", values: ["icon-sm", "icon-xs", "sm", "xs"])
+  attr(:timeout, :any, default: "2000")
   attr(:type, :string, default: "button")
 
   attr(:variant, :string,
@@ -130,6 +130,8 @@ defmodule LiveAiElements.Components.Snippet do
     values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
   )
 
+  attr(:id, :string, required: true, doc: "The hook needs one to be found by.")
+  attr(:code, :string, required: true, doc: "The text the button copies.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
   slot(:inner_block)
@@ -138,6 +140,11 @@ defmodule LiveAiElements.Components.Snippet do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "button"}
+      id={@id}
+      phx-hook={LiveBase.Clipboard.hook()}
+      phx-mounted={LiveBase.Clipboard.owned_attributes()}
+      data-lb-clipboard={@code}
+      data-lb-timeout={@timeout}
       type={@type}
       data-size={@size}
       aria-label="Copy"
@@ -151,8 +158,8 @@ defmodule LiveAiElements.Components.Snippet do
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon :if={@is_copied} name="check" class="size-3.5" />
-        <LiveShadcn.Icon.icon :if={!@is_copied} name="copy" class="size-3.5" />
+        <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" class="size-3.5" />
+        <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" class="size-3.5" />
       <% end %>
       {render_slot(@inner_block)}
     </button>

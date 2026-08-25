@@ -15,9 +15,19 @@
       "name": "environment_variables",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "defaultShowValues": "false"
       },
       "primitive": null,
+      "refs": [
+        "defaultShowValues",
+        "controlledShowValues",
+        "show",
+        "onShowValuesChange",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -58,6 +68,16 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
+      },
+      "types": {
+        "defaultShowValues": {
+          "optional": true,
+          "type": "boolean"
+        },
+        "showValues": {
+          "optional": true,
+          "type": "boolean"
+        }
       }
     },
     {
@@ -69,6 +89,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -90,7 +115,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -101,6 +127,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -110,6 +141,9 @@
                 "type": "text",
                 "value": "Environment Variables"
               }
+            ],
+            "identifiers": [
+              "children"
             ],
             "type": "children"
           }
@@ -128,7 +162,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -140,6 +175,10 @@
         "size": "default"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -174,6 +213,9 @@
                     "variant_calls": [],
                     "vars": []
                   }
+                ],
+                "identifiers": [
+                  "showValues"
                 ],
                 "then": [
                   {
@@ -225,6 +267,9 @@
           {
             "attrs": [
               {
+                "identifiers": [
+                  "size"
+                ],
                 "kind": "code",
                 "name": "data-size",
                 "value": "size"
@@ -235,6 +280,9 @@
                 "value": "Toggle value visibility"
               },
               {
+                "identifiers": [
+                  "showValues"
+                ],
                 "kind": "code",
                 "name": "checked",
                 "value": "showValues"
@@ -251,10 +299,27 @@
                 "part": "Thumb",
                 "props": false,
                 "reads": {
-                  "group": [],
+                  "group": [
+                    {
+                      "group": "switch",
+                      "name": "data-size",
+                      "value": "default"
+                    },
+                    {
+                      "group": "switch",
+                      "name": "data-size",
+                      "value": "sm"
+                    }
+                  ],
                   "self": [
-                    "data-unchecked",
-                    "data-checked"
+                    {
+                      "name": "data-unchecked",
+                      "value": null
+                    },
+                    {
+                      "name": "data-checked",
+                      "value": null
+                    }
                   ]
                 },
                 "render_as": null,
@@ -274,10 +339,30 @@
             "reads": {
               "group": [],
               "self": [
-                "data-disabled",
-                "data-checked",
-                "data-unchecked",
-                "aria-invalid"
+                {
+                  "name": "data-disabled",
+                  "value": null
+                },
+                {
+                  "name": "data-checked",
+                  "value": null
+                },
+                {
+                  "name": "data-unchecked",
+                  "value": null
+                },
+                {
+                  "name": "aria-invalid",
+                  "value": null
+                },
+                {
+                  "name": "data-size",
+                  "value": "default"
+                },
+                {
+                  "name": "data-size",
+                  "value": "sm"
+                }
               ]
             },
             "render_as": null,
@@ -302,7 +387,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -313,6 +399,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -334,7 +425,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -345,6 +437,11 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -366,7 +463,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -378,6 +476,11 @@
         "name": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -387,6 +490,10 @@
                 "code": "name",
                 "type": "value"
               }
+            ],
+            "identifiers": [
+              "children",
+              "name"
             ],
             "type": "children"
           }
@@ -405,7 +512,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -418,6 +526,11 @@
         "showValues": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -428,6 +541,10 @@
                 "type": "value"
               }
             ],
+            "identifiers": [
+              "children",
+              "displayValue"
+            ],
             "type": "children"
           }
         ],
@@ -435,6 +552,9 @@
         "class_when": [
           {
             "else": null,
+            "identifiers": [
+              "showValues"
+            ],
             "then": "select-none",
             "when": "!showValues"
           }
@@ -451,7 +571,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -459,9 +580,18 @@
       "name": "environment_variable",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "name": null,
+        "value": null
       },
       "primitive": null,
+      "refs": [
+        "name",
+        "value",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -545,6 +675,9 @@
                     "vars": []
                   }
                 ],
+                "identifiers": [
+                  "children"
+                ],
                 "type": "children"
               }
             ],
@@ -578,7 +711,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -587,11 +721,21 @@
       "params": {
         "children": null,
         "className": null,
-        "isCopied": "false",
+        "copyFormat": "value",
         "size": "default",
+        "timeout": "2000",
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "copyFormat",
+        "onCopy",
+        "onError",
+        "timeout",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -666,6 +810,9 @@
                 "when": "isCopied"
               }
             ],
+            "identifiers": [
+              "children"
+            ],
             "type": "children"
           }
         ],
@@ -678,8 +825,14 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-invalid",
-            "aria-expanded"
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -696,6 +849,20 @@
           }
         ],
         "vars": []
+      },
+      "types": {
+        "copyFormat": {
+          "optional": true,
+          "values": [
+            "name",
+            "value",
+            "export"
+          ]
+        },
+        "timeout": {
+          "optional": true,
+          "type": "number"
+        }
       }
     },
     {
@@ -709,8 +876,22 @@
         "variant": "default"
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
-        "attrs": [],
+        "attrs": [
+          {
+            "identifiers": [
+              "variant"
+            ],
+            "kind": "code",
+            "name": "data-variant",
+            "value": "variant"
+          }
+        ],
         "children": [
           {
             "default": [
@@ -718,6 +899,9 @@
                 "type": "text",
                 "value": "Required"
               }
+            ],
+            "identifiers": [
+              "children"
             ],
             "type": "children"
           }
@@ -729,7 +913,10 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-invalid"
+            {
+              "name": "aria-invalid",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -745,7 +932,8 @@
           }
         ],
         "vars": []
-      }
+      },
+      "types": {}
     }
   ],
   "primitives": {
@@ -950,7 +1138,7 @@
       "summary": "The movable part of the switch that indicates whether the switch is on or off."
     }
   },
-  "recipe": "presentational",
+  "recipe": "clipboard",
   "source": "ai_elements",
   "styles": {
     "luma": {

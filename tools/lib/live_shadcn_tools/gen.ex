@@ -15,6 +15,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Carousel
   alias LiveShadcnTools.Gen.Chart
   alias LiveShadcnTools.Gen.Checkbox
+  alias LiveShadcnTools.Gen.Clipboard
   alias LiveShadcnTools.Gen.Dialog
   alias LiveShadcnTools.Gen.Disclosure
   alias LiveShadcnTools.Gen.FormControl
@@ -41,6 +42,7 @@ defmodule LiveShadcnTools.Gen do
     "chart" => Chart,
     "carousel" => Carousel,
     "checkbox" => Checkbox,
+    "clipboard" => Clipboard,
     "dialog" => Dialog,
     "disclosure" => Disclosure,
     "form-control" => FormControl,

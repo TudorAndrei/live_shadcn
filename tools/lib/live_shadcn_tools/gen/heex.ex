@@ -41,6 +41,8 @@ defmodule LiveShadcnTools.Gen.Heex do
     * `:client_attributes` — the attribute names the client hook owns
     * `:hook_part` — the part the hook is declared on, which never needs a
       marker because the hook already holds it
+    * `:client_state` — `%{condition => %{then: name, else: name, initial: name}}`,
+      the conditions a recipe says the client owns rather than the server
     * `:rest` — whether this tree carries the component's `:global` attribute
 
   An attribute is `{name, :text, value}`, `{name, :code, expression}`,
@@ -144,17 +146,18 @@ defmodule LiveShadcnTools.Gen.Heex do
   # `{tooltip ? <Tooltip>…</Tooltip> : button}`. HEEx has `:if` and no `:else`,
   # so the condition is written twice — once as itself and once negated — and
   # only one branch is ever drawn.
+  #
+  # Unless the recipe says the client owns the condition. Then the server has no
+  # answer to write: `isCopied` is true for two seconds in one browser, and
+  # asking the server would cost a round trip and a timer per copy. So both
+  # branches are drawn, each marked with the state it belongs to, and the one
+  # the client does not start in is `hidden` — a hook shows the other. This is
+  # what `measure.mjs` already skips as "ready for a client-side state change".
   def render(%{"type" => "choice", "when" => condition} = node, ctx, indent) do
-    yes = expression(condition, ctx)
-
-    [{"then", yes}, {"else", "!(#{yes})"}]
-    |> Enum.flat_map(fn {branch, test} ->
-      node
-      |> Map.get(branch)
-      |> List.wrap()
-      |> Enum.map(&(&1 |> onto(node) |> with_attr({":if", :code, test})))
-    end)
-    |> Enum.map_join("\n", &render(&1, ctx, indent))
+    case ctx |> Map.get(:client_state, %{}) |> Map.get(String.trim(condition)) do
+      nil -> server_choice(node, expression(condition, ctx), ctx, indent)
+      state -> client_choice(node, state, ctx, indent)
+    end
   end
 
   def render(%{"type" => "repeat_over", "collection" => collection} = node, ctx, indent) do
@@ -292,6 +295,40 @@ defmodule LiveShadcnTools.Gen.Heex do
   # the icon set is configuration and a name is what every set has in common.
   defp icon_attr(%{"prop" => prop}), do: {"name", :code, "@" <> prop}
   defp icon_attr(node), do: {"name", :text, icon_name(node)}
+
+  defp server_choice(node, yes, ctx, indent) do
+    [{"then", yes}, {"else", "!(#{yes})"}]
+    |> Enum.flat_map(fn {branch, test} ->
+      node
+      |> Map.get(branch)
+      |> List.wrap()
+      |> Enum.map(&(&1 |> onto(node) |> with_attr({":if", :code, test})))
+    end)
+    |> Enum.map_join("\n", &render(&1, ctx, indent))
+  end
+
+  # Both branches, marked and one of them hidden. The mark is what the hook
+  # reads to show the other one, and it is the state's name rather than the
+  # condition's: a browser holding `isCopied` is a button that has been copied
+  # from, and the class strings and the hook both read it that way.
+  defp client_choice(node, state, ctx, indent) do
+    [{"then", state.then}, {"else", state.else}]
+    |> Enum.flat_map(fn {branch, name} ->
+      node
+      |> Map.get(branch)
+      |> List.wrap()
+      |> Enum.map(fn child ->
+        child
+        |> onto(node)
+        |> with_attr({"data-lb-state", :text, name})
+        |> hidden_unless(name == state.initial)
+      end)
+    end)
+    |> Enum.map_join("\n", &render(&1, ctx, indent))
+  end
+
+  defp hidden_unless(node, true), do: node
+  defp hidden_unless(node, false), do: with_attr(node, {"hidden", :bare})
 
   # What was written on the choice belongs to whichever branch is drawn.
   # `<Icon className="size-4" />` where `Icon` is one of two icons puts the

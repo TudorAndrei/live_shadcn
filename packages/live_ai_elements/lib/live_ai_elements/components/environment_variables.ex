@@ -10,7 +10,7 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
   use Phoenix.Component
 
   @doc "The `environment_variables` part."
-
+  attr(:default_show_values, :boolean, default: false)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -160,7 +160,8 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
   end
 
   @doc "The `environment_variable` part."
-
+  attr(:name, :string, default: nil)
+  attr(:value, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -180,18 +181,23 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
   end
 
   @doc "The `button` part."
-  attr(:is_copied, :boolean, default: false)
+  attr(:copy_format, :string, default: "value", values: ["name", "value", "export"])
 
   attr(:size, :string,
     default: "default",
     values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
   )
 
+  attr(:timeout, :any, default: "2000")
+
   attr(:variant, :string,
     default: "default",
     values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
   )
 
+  attr(:id, :string, required: true, doc: "The hook needs one to be found by.")
+  attr(:name, :string, required: true, doc: "The variable's name.")
+  attr(:value, :string, required: true, doc: "The variable's value.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
   slot(:inner_block)
@@ -200,6 +206,13 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "button"}
+      id={@id}
+      phx-hook={LiveBase.Clipboard.hook()}
+      phx-mounted={LiveBase.Clipboard.owned_attributes()}
+      data-lb-clipboard={
+        Map.get(%{"name" => @name, "export" => "export #{@name}=\"#{@value}\""}, @copy_format, @value)
+      }
+      data-lb-timeout={@timeout}
       class={[
         "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-6 shrink-0",
         variant_class("buttonVariants", "size", @size),
@@ -209,8 +222,8 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon :if={@is_copied} name="check" />
-        <LiveShadcn.Icon.icon :if={!@is_copied} name="copy" />
+        <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" />
+        <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" />
       <% end %>
       {render_slot(@inner_block)}
     </button>
@@ -231,6 +244,7 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
     ~H"""
     <span
       data-slot={@rest[:"data-slot"] || "badge"}
+      data-variant={@variant}
       class={[
         "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none text-xs",
         variant_class("badgeVariants", "variant", @variant),

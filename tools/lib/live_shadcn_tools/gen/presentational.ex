@@ -213,6 +213,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
       params: Map.get(part, "params", %{}),
       contexts: Map.get(part, "contexts", []),
       client_attributes: [],
+      client_state: Keyword.get(opts, :client_state, %{}),
       hook_part: nil,
       rest: true
     })

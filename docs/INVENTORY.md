@@ -14,12 +14,12 @@
 
 ## Recipes
 
-Eight core recipes cover 93 of 111 components.
+Eight core recipes cover 91 of 111 components.
 Only the recipes are written by hand; every component is data.
 
 | Recipe | Kind | Components |
 |---|---|---:|
-| `presentational` | core | 57 |
+| `presentational` | core | 55 |
 | `disclosure` | core | 10 |
 | `form-control` | core | 8 |
 | `listbox` | core | 6 |
@@ -28,6 +28,7 @@ Only the recipes are written by hand; every component is data.
 | `menu` | core | 2 |
 | `tabs` | core | 1 |
 | `scroller` | specialist | 3 |
+| `clipboard` | specialist | 2 |
 | `toast` | specialist | 2 |
 | `calendar` | specialist | 1 |
 | `carousel` | specialist | 1 |
@@ -135,7 +136,7 @@ Only the recipes are written by hand; every component is data.
 | `commit` | 2 | `presentational` | 🟨 spec |
 | `confirmation` | 2 | `presentational` | 🟩 generated |
 | `controls` | 2 | `presentational` | 🟦 fetched |
-| `environment-variables` | 2 | `presentational` | 🟩 generated |
+| `environment-variables` | 2 | `clipboard` | 🟩 generated |
 | `file-tree` | 2 | `presentational` | 🟦 fetched |
 | `image` | 2 | `presentational` | 🟨 spec |
 | `inline-citation` | 2 | `presentational` | 🟦 fetched |
@@ -148,7 +149,7 @@ Only the recipes are written by hand; every component is data.
 | `question` | 2 | `presentational` | 🟩 generated |
 | `queue` | 2 | `presentational` | 🟨 spec |
 | `schema-display` | 2 | `presentational` | 🟦 fetched |
-| `snippet` | 2 | `presentational` | ✅ verified |
+| `snippet` | 2 | `clipboard` | ✅ verified |
 | `stack-trace` | 2 | `presentational` | 🟦 fetched |
 | `test-results` | 2 | `presentational` | 🟦 fetched |
 | `toolbar` | 2 | `presentational` | 🟦 fetched |

@@ -1599,9 +1599,12 @@ defmodule StorybookWeb.Examples do
         readonly
       />
       <.snippet_addon align="inline-end">
-        <.snippet_copy_button variant="ghost" size="icon-sm">
-          <LiveShadcn.Icon.icon name="copy" class="size-4" />
-        </.snippet_copy_button>
+        <.snippet_copy_button
+          id="snippet-copy"
+          code="mix ui.add accordion"
+          variant="ghost"
+          size="icon-sm"
+        />
       </.snippet_addon>
     </.snippet>
     """

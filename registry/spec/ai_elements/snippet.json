@@ -15,9 +15,16 @@
       "name": "snippet",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "code": null
       },
       "primitive": null,
+      "refs": [
+        "code",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [],
         "children": [
@@ -64,7 +71,8 @@
         "type": "transparent",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -75,6 +83,9 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
@@ -83,6 +94,9 @@
             "value": "group"
           },
           {
+            "identifiers": [
+              "align"
+            ],
             "kind": "code",
             "name": "data-align",
             "value": "align"
@@ -94,8 +108,19 @@
         "merges_class": true,
         "props": true,
         "reads": {
-          "group": [],
-          "self": []
+          "group": [
+            {
+              "group": "input-group",
+              "name": "data-disabled",
+              "value": "true"
+            }
+          ],
+          "self": [
+            {
+              "name": "data-slot",
+              "value": "kbd"
+            }
+          ]
         },
         "render_as": null,
         "slot": "input-group-addon",
@@ -110,7 +135,8 @@
           }
         ],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -120,6 +146,10 @@
         "className": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [],
         "children": [],
@@ -137,7 +167,8 @@
         "type": "element",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -149,9 +180,16 @@
         "type": null
       },
       "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "type"
+            ],
             "kind": "code",
             "name": "type",
             "value": "type"
@@ -162,6 +200,9 @@
             "value": null
           },
           {
+            "identifiers": [
+              "code"
+            ],
             "kind": "code",
             "name": "value",
             "value": "code"
@@ -177,7 +218,10 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-invalid"
+            {
+              "name": "aria-invalid",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -186,7 +230,8 @@
         "type": "primitive",
         "variant_calls": [],
         "vars": []
-      }
+      },
+      "types": {}
     },
     {
       "contexts": [],
@@ -195,20 +240,34 @@
       "params": {
         "children": null,
         "className": null,
-        "isCopied": "false",
         "size": "xs",
+        "timeout": "2000",
         "type": "button",
         "variant": "ghost"
       },
       "primitive": null,
+      "refs": [
+        "onCopy",
+        "onError",
+        "timeout",
+        "className",
+        "props",
+        "children"
+      ],
       "tree": {
         "attrs": [
           {
+            "identifiers": [
+              "type"
+            ],
             "kind": "code",
             "name": "type",
             "value": "type"
           },
           {
+            "identifiers": [
+              "size"
+            ],
             "kind": "code",
             "name": "data-size",
             "value": "size"
@@ -296,6 +355,9 @@
                 "when": "isCopied"
               }
             ],
+            "identifiers": [
+              "children"
+            ],
             "type": "children"
           }
         ],
@@ -308,8 +370,14 @@
         "reads": {
           "group": [],
           "self": [
-            "aria-invalid",
-            "aria-expanded"
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
           ]
         },
         "render_as": null,
@@ -331,6 +399,12 @@
           }
         ],
         "vars": []
+      },
+      "types": {
+        "timeout": {
+          "optional": true,
+          "type": "number"
+        }
       }
     }
   ],
@@ -432,7 +506,7 @@
       "summary": "A native input element that automatically works with [Field](https://base-ui.com/react/components/field)."
     }
   },
-  "recipe": "presentational",
+  "recipe": "clipboard",
   "source": "ai_elements",
   "styles": {
     "luma": {

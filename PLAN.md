@@ -168,10 +168,10 @@ The second turned up two shadcn specs — `carousel` and `sidebar` — that gain
 
 `question` generates.
 
-#### Phase 1b: `isCopied`, and a choice the client owns
+#### Phase 1b: `isCopied`, and a choice the client owns — done
 
-`snippet` and `environment-variables` both stop here, on the same name and the
-same shape:
+`snippet` and `environment-variables` both stopped here, on the same name and
+the same shape:
 
 ```tsx
 const Icon = isCopied ? CheckIcon : CopyIcon
@@ -192,11 +192,38 @@ So the pipeline learns to say it, rather than a one-component recipe absorbing
 what the pipeline could not — which is what
 [ROADMAP.md](ROADMAP.md) 7c warns about.
 
-- A choice whose condition a recipe declares client-owned renders **both**
-  branches, each marked with the state it belongs to, the inactive one `hidden`
-- `LiveBase.Clipboard` writes to the clipboard and flips that attribute, with
-  `JS.ignore_attributes` so a patch does not put the server's guess back
-- `snippet` and `environment-variables` generate
+A choice whose condition a recipe declares client-owned now renders **both**
+branches, each marked with the state it belongs to and the one the client does
+not start in `hidden`. `measure.mjs` already skips a hidden node as "ready for a
+client-side state change", so the parity check reads the two pages as the same
+page — which is what makes the design a comparison rather than an exception.
+
+`LiveBase.Clipboard` writes to the clipboard and swaps which branch is hidden,
+and `owned_attributes/1` is `JS.ignore_attributes` over `hidden` inside the
+button, so a patch during those two seconds does not put the server's guess
+back. Nothing is pushed: the element dispatches `lb:copied` and `lb:copy-error`,
+which is upstream's `onCopy` and `onError` without the round trip.
+
+The recipe is `clipboard`, and it is two components: the parts are
+presentational, and one button is not. What the button copies is a prop, because
+React reads it off a context inside the click handler — a callback the reader
+never sees, and a context a HEEx component does not have. Which is also the
+honest answer for a secret: a value the page was never given cannot be copied
+from the page.
+
+`snippet` and `environment-variables` generate, and `snippet` is re-verified
+with its React reference re-ported to the same default.
+
+**Two things the browser found, and nothing else could.** `hidden` is
+`HTMLElement`'s, and both branches are an `<svg>`: `element.hidden = false` set
+a JavaScript property nothing reads and left the icon exactly as it was. The
+snapshot could not see it — both icons are in the markup either way — and the
+suite that clicks the button is what said so. It is `toggleAttribute` now.
+
+And a connected socket is not a mounted hook. `page.goto` resolves on the
+server-rendered HTML, `live.mjs` then waits for the socket, and the hook mounts
+after that — so a click in between is dropped. The hook writes `data-lb-ready`
+when it is listening, which a style sheet can read and the suite waits for.
 
 **Commit:** `fix(spec): a prop read through a context or a condition`
 **Commit:** `feat(ai-elements): a choice the client owns, and the clipboard`
