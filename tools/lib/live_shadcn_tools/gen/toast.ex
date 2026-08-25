@@ -183,10 +183,8 @@ defmodule LiveShadcnTools.Gen.Toast do
   # — so the recipe nests them, the way the dialog recipe assembles a dialog.
   defp markup(spec, roles) do
     toaster = Enum.find(spec["parts"], &(&1["name"] == "toaster"))
-    icon = helper!(toaster["tree"], &(&1["slot"] == "toast-icon"))
-
-    text =
-      helper!(toaster["tree"], &(&1["class"] == "flex min-w-0 flex-1 flex-col gap-1"))
+    icon = helper!(toaster["tree"], "the icon", &(&1["slot"] == "toast-icon"))
+    text = helper!(toaster["tree"], "the title and description wrapper", &wraps_text?(&1, roles))
 
     body =
       [
@@ -205,9 +203,39 @@ defmodule LiveShadcnTools.Gen.Toast do
     render(spec, roles, roles.portal, viewport)
   end
 
-  defp helper!(node, predicate) do
+  # The one element of a toast that upstream gives no `data-slot`.
+  #
+  # It has no name, but it has a place: it is what holds the title and the
+  # description. That is its anatomy, and anatomy is what this pipeline reads
+  # upstream by.
+  #
+  # It used to be found by matching the Tailwind string it happens to wear —
+  # `&(&1["class"] == "flex min-w-0 flex-1 flex-col gap-1")` — which is reading
+  # upstream by its styling. The class is not an identity: shadcn reflows it and
+  # the predicate matches nothing, which is the one failure this recipe cannot
+  # afford, because a toast that fails to assemble is a toast that raises during
+  # generation and says only that a helper is missing.
+  defp wraps_text?(%{"type" => "element"} = node, roles) do
+    wanted = MapSet.new([roles.title.part["name"], roles.description.part["name"]])
+
+    references =
+      node
+      |> Map.get("children")
+      |> List.wrap()
+      |> Enum.flat_map(fn
+        %{"type" => "part_ref", "part" => part} when is_binary(part) -> [part]
+        _other -> []
+      end)
+      |> MapSet.new()
+
+    MapSet.subset?(wanted, references)
+  end
+
+  defp wraps_text?(_node, _roles), do: false
+
+  defp helper!(node, what, predicate) do
     case find_node(node, predicate) do
-      nil -> raise "toast list has no required helper"
+      nil -> raise "the toast list has no element this recipe can read as #{what}"
       found -> found
     end
   end
