@@ -262,7 +262,7 @@
     {
       "name": "stack-trace",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "clipboard",
       "tier": 2
     },
     {

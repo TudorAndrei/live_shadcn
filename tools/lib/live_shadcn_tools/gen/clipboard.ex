@@ -55,6 +55,18 @@ defmodule LiveShadcnTools.Gen.Clipboard do
       ],
       text: "@code"
     },
+    "commit" => %{
+      declare: [
+        ~s|attr :hash, :string, required: true, doc: "The commit hash the button copies."|
+      ],
+      text: "@hash"
+    },
+    "stack-trace" => %{
+      declare: [
+        ~s|attr :raw, :string, required: true, doc: "The stack trace the button copies."|
+      ],
+      text: "@raw"
+    },
     "environment-variables" => %{
       declare: [
         ~s|attr :name, :string, required: true, doc: "The variable's name."|,
@@ -124,7 +136,7 @@ defmodule LiveShadcnTools.Gen.Clipboard do
 
   # What the caller has to supply that upstream never destructured.
   defp declared(spec, part, copies) do
-    %{part["name"] => declarations(copies)}
+    %{part["name"] => declarations(part, copies)}
     |> Map.merge(toggle_declaration(spec["name"]))
   end
 
@@ -169,9 +181,22 @@ defmodule LiveShadcnTools.Gen.Clipboard do
   defp copies?(nodes) when is_list(nodes), do: Enum.any?(nodes, &copies?/1)
   defp copies?(_node), do: false
 
-  defp declarations(copies) do
-    [~s|attr :id, :string, required: true, doc: "The hook needs one to be found by."|] ++
-      copies.declare
+  defp declarations(part, copies) do
+    ([~s|attr :id, :string, required: true, doc: "The hook needs one to be found by."|] ++
+       copies.declare)
+    |> Enum.reject(&already_declared?(&1, part))
+  end
+
+  # What upstream destructured, the recipe does not declare again. `commit`
+  # takes its `hash` as a prop and `snippet` reads its `code` off a context, so
+  # one of the two already has the attribute and Phoenix refuses the second.
+  defp already_declared?(declaration, part) do
+    declared = Map.keys(Map.get(part, "params") || %{}) |> Enum.map(&LiveShadcnTools.assign/1)
+
+    case Regex.run(~r/^attr :([a-z_][a-z_0-9]*)/, declaration, capture: :all_but_first) do
+      [name] -> name in declared
+      nil -> false
+    end
   end
 
   defp attributes(copies) do
