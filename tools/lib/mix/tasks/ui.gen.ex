@@ -37,7 +37,11 @@ defmodule Mix.Tasks.Ui.Gen do
     {opts, names, _} = OptionParser.parse(argv, strict: [check: :boolean])
     check? = Keyword.get(opts, :check, false)
 
-    results = names |> specs() |> Enum.flat_map(&List.wrap(one(&1, check?)))
+    results =
+      names
+      |> specs()
+      |> Enum.flat_map(&List.wrap(one(&1, check?)))
+      |> without_missing_siblings(check?)
 
     for {:no_recipe, reference, recipe} <- results,
         do: Mix.shell().info("  skip #{reference}: no `#{recipe}` recipe yet")
@@ -90,6 +94,99 @@ defmodule Mix.Tasks.Ui.Gen do
       stale(reference, check?) ++ [{:failed, reference, first_line(error)}]
   end
 
+  # A component that calls a sibling which did not generate.
+  #
+  # `reachable!/1` refuses a call into another package. This refuses the other
+  # half: `agent` renders `code-block`, they ship in the same package, and while
+  # `code-block` has no recipe the `agent` that generated named a module nothing
+  # defines. The package stopped compiling, which is a late and confusing way to
+  # learn that one component is missing.
+  #
+  # It settles rather than passing once, because dropping `code-block` drops
+  # `tool` with it and dropping `tool` drops `sandbox`.
+  defp without_missing_siblings(results, check?) do
+    tried = MapSet.new(Enum.map(results, &named/1))
+
+    calls =
+      for {state, reference, rendered} <- results,
+          state in [:wrote, :current, :outdated],
+          into: %{},
+          do: {reference, calls_of(reference, rendered)}
+
+    kept = settled(calls |> Map.keys() |> MapSet.new(), calls, tried)
+
+    Enum.flat_map(results, fn result ->
+      reference = made(result)
+
+      if reference && not MapSet.member?(kept, reference) do
+        missing = Enum.reject(Map.fetch!(calls, reference), &satisfied?(&1, kept, tried))
+
+        stale(reference, check?) ++
+          [
+            {:failed, reference,
+             "it renders #{Enum.join(missing, ", ")}, which does not generate."}
+          ]
+      else
+        [result]
+      end
+    end)
+  end
+
+  defp made({state, reference, _rendered}) when state in [:wrote, :current, :outdated],
+    do: reference
+
+  defp made(_result), do: nil
+
+  defp named({_state, reference}), do: reference
+  defp named({_state, reference, _more}), do: reference
+
+  # What the module names, read off the module this run produced rather than off
+  # the spec. A recipe that folds decides for itself which of a spec's
+  # references it draws and which it leaves to the caller to compose — `plan`
+  # has a `shimmer` in its spec and no `Shimmer` in its markup — so the spec
+  # says what upstream renders and only the written module says what it calls.
+  @calls ~r/\b(LiveAiElements\.Components|LiveShadcn\.UI)\.([A-Z][A-Za-z0-9]*)\./
+
+  defp calls_of(reference, rendered) do
+    @calls
+    |> Regex.scan(rendered, capture: :all_but_first)
+    |> Enum.map(fn [namespace, module] -> ref(package(namespace), dashed(module)) end)
+    |> Enum.uniq()
+    |> List.delete(reference)
+  end
+
+  defp package("LiveAiElements.Components"), do: "ai_elements"
+  defp package(_namespace), do: "shadcn"
+
+  defp dashed(module), do: module |> Macro.underscore() |> String.replace("_", "-")
+
+  defp settled(kept, calls, tried) do
+    smaller =
+      for {reference, called} <- calls,
+          Enum.all?(called, &satisfied?(&1, kept, tried)),
+          into: MapSet.new(),
+          do: reference
+
+    if MapSet.size(smaller) == MapSet.size(kept),
+      do: kept,
+      else: settled(smaller, calls, tried)
+  end
+
+  # A call this run generated, or one this run never looked at whose module is
+  # on disk from a run before it: `mix ui.gen accordion` generates one component
+  # and the rest of the package is still there.
+  #
+  # A component this run *did* look at is judged by `kept` alone. Its file is on
+  # disk either way at this point — the run wrote it before this pass decided
+  # whether to take it back — so asking the file system would answer yes about a
+  # module that is one line below from being deleted.
+  defp satisfied?(reference, kept, tried) do
+    {source, name} = parse_ref(reference)
+
+    MapSet.member?(kept, reference) or
+      (not MapSet.member?(tried, reference) and File.exists?(module_path(source, name)))
+  end
+
   # A module left over from a run that could still generate it. Nothing else
   # would remove it: the file compiles into a package, so a stale one breaks the
   # build or, worse, keeps working while the spec it claims to come from has
@@ -103,7 +200,7 @@ defmodule Mix.Tasks.Ui.Gen do
         []
 
       check? ->
-        [{:outdated, reference}]
+        [{:leftover, reference}]
 
       true ->
         File.rm!(path)
@@ -119,25 +216,37 @@ defmodule Mix.Tasks.Ui.Gen do
   defp first_line(error),
     do: error |> Exception.message() |> String.split("\n") |> Enum.find(&(String.trim(&1) != ""))
 
+  # The rendered source travels with the result, because the pass that refuses a
+  # component calling a sibling that did not generate has to read what this run
+  # produced. Under `--check` nothing is written, so the file on disk is either
+  # the previous run's answer or not there at all — and a component that is
+  # absent because it cannot generate would have looked like one that calls
+  # nothing.
   defp write_or_check(source, name, rendered, check?) do
     path = module_path(source, name)
 
     cond do
       not check? ->
         write!(path, rendered)
-        {:wrote, ref(source, name)}
+        {:wrote, ref(source, name), rendered}
 
       File.exists?(path) and File.read!(path) == rendered ->
-        {:current, ref(source, name)}
+        {:current, ref(source, name), rendered}
 
       true ->
-        {:outdated, ref(source, name)}
+        {:outdated, ref(source, name), rendered}
     end
   end
 
   defp report(results, check?) do
-    outdated = for {:outdated, reference} <- results, do: reference
-    wrote = for {:wrote, reference} <- results, do: reference
+    # A module whose bytes no longer match its spec, and a module still on disk
+    # for a component that no longer generates. Both are the same answer under
+    # `--check`: what is committed is not what this pipeline produces.
+    outdated =
+      for({:outdated, reference, _rendered} <- results, do: reference) ++
+        for {:leftover, reference} <- results, do: reference
+
+    wrote = for {:wrote, reference, _rendered} <- results, do: reference
     failed = for {:failed, reference, why} <- results, do: "#{reference}: #{why}"
 
     if failed != [] do
