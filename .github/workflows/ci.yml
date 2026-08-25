@@ -86,8 +86,24 @@ jobs:
       - run: mix dialyzer --format short
         working-directory: ${{ matrix.package }}
 
+  # ── What CI checks, and what it deliberately does not ──
+  #
+  # CI checks that the committed record is internally consistent. It does not
+  # open a browser, and it does not fetch upstream.
+  #
+  # The browser suite used to run here and could not have been working: the job
+  # fetched `--only accordion`, `registry/upstream/**` is gitignored, and
+  # `parity/` was never installed at all — so the parity server could not build
+  # 65 of its 66 references. A check that cannot tell "did not run" from
+  # "passed" is worse than no check, and this was one.
+  #
+  # Verification runs on a developer's machine, where upstream is fetched and
+  # the renderer is one known browser. `mix ui.verify` writes its result to
+  # `registry/VERIFY.json`, which is committed — and `mix ui.status --check`
+  # below refuses an inventory whose verification no longer matches the specs on
+  # disk. So CI enforces that somebody verified, without pretending to verify.
   inventory:
-    name: inventory is current
+    name: the committed record is consistent
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
@@ -102,7 +118,8 @@ jobs:
       - run: mix deps.get
         working-directory: tools
 
-      # docs/INVENTORY.md is generated. A stale one is a broken build.
+      # docs/INVENTORY.md is generated. A stale one is a broken build, and a
+      # component whose spec moved since it was verified demotes here.
       - run: mix ui.status --check
         working-directory: tools
 
@@ -115,51 +132,10 @@ jobs:
       - run: mix ui.gen --check
         working-directory: tools
 
-  browser:
-    name: behaviour and accessibility
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-        with:
-          persist-credentials: false
-
-      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
-        with:
-          elixir-version: "1.20"
-          otp-version: "29"
-
-      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
-        with:
-          node-version: "22"
-
       - run: mix deps.get
-        working-directory: tools
-
-      # The styling layer is gitignored, so the browser job fetches it. Without
-      # it the demo renders unstyled, and a height that is never animated is a
-      # height this suite cannot check.
-      - run: mix ui.fetch --only accordion
-        working-directory: tools
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - run: mix setup
         working-directory: storybook
 
-      - run: mix assets.build
-        working-directory: storybook
-
-      # The markup a reader gets is committed. A diff here is a change to it.
+      # The markup a reader gets is committed. A diff here is a change to it,
+      # and it renders server-side — no browser, no styling layer, no fetch.
       - run: mix snapshot --check
         working-directory: storybook
-
-      - run: npm ci
-        working-directory: storybook/test/browser
-
-      - run: npm run verify:install
-        working-directory: storybook/test/browser
-
-      - run: npm run verify
-        working-directory: storybook/test/browser
-        env:
-          CI: "true"

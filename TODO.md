@@ -214,3 +214,34 @@ clean, so anything below is new information rather than a backlog.
       string — `helper!(tree, &(&1["class"] == "flex min-w-0 flex-1 …"))`. It
       is the last recipe that reads upstream by its styling rather than by its
       anatomy, and it breaks the moment upstream reflows that string
+
+## Phase 12 — Pixel parity, and where verification runs
+
+### 12a — CI checks the record; the browser runs locally
+
+- [x] Remove the browser job from CI. It fetched `--only accordion` and never
+      installed `parity/`, so the reference server could not build 65 of its 66
+      pages — it cannot have been passing
+- [x] Move `mix snapshot --check` into the record job. Verified on a clean
+      clone with no `registry/upstream/` and no asset build: `ui.gen --check`,
+      `ui.status --check` and `snapshot --check` all pass
+- [x] `CONTRIBUTING.md` says where verification runs and why
+- [ ] Run `mix ui.verify` locally and commit `registry/VERIFY.json`. Until then
+      `mix ui.status --check` is red, which is the mechanism working
+
+### 12b — A fifth check: pixel parity
+
+- [ ] `pixel.spec.mjs`, `shoot.mjs`, `pixel-budget.json`; `pixelmatch` + `pngjs`
+- [ ] No committed goldens. Shoot both sides in one run, one browser, one
+      machine; diff in memory. The React render is the baseline, recomputed
+- [ ] Viewport screenshots at a viewport sized to the taller document — a
+      preview root can have a zero-height box, and portals paint outside it
+- [ ] A second Playwright project for the determinism knobs: forced headless,
+      DPR 2, `--disable-gpu`, `--disable-lcd-text`, reduced motion
+- [ ] Freeze Web Animations API animations; a CSS override cannot
+- [ ] Budgets default to zero, cap at 0.5% of area, and a budget more than 10×
+      its observed diff fails — a slack budget is a stale budget
+- [ ] Localise each diff region against the slot boxes `collect()` returns
+- [ ] A fifth check in `mix ui.verify`, not a replacement for the fourth
+- [ ] Land with every example in `pending`, which still runs and prints its
+      diff: green on day one, and a census that replaces the estimates

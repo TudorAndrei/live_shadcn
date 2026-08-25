@@ -579,6 +579,109 @@ byte-identical to what it renders today; and `mix ui.verify` still passes.
 
 ---
 
+## Phase 12 — Pixel parity, and where verification runs
+
+### 12a — CI checks the record; the browser runs locally
+
+The browser suite ran in CI and **could not have been working**. The job fetched
+`--only accordion`, `registry/upstream/**` is gitignored, and `parity/` was
+never installed at all — so the reference server could not build 65 of its 66
+pages. A check that cannot tell "did not run" from "passed" is worse than no
+check, and this was one.
+
+The fix is not to make CI fetch everything. It is to put the browser where the
+things it needs are already true.
+
+- **CI** runs what is hermetic and cheap: format, compile, test, credo,
+  `deps.audit`, dialyzer, `mix ui.gen --check`, `mix ui.status --check`,
+  `mix snapshot --check`. No browser, no fetch. Verified on a clean clone with
+  no `registry/upstream/` and no asset build: all three pipeline gates pass.
+- **A developer's machine** runs `mix ui.verify`, which writes
+  `registry/VERIFY.json` — and that file is committed.
+- **CI enforces the record.** `mix ui.status --check` refuses an inventory whose
+  verification no longer matches the specs on disk. Change a spec without
+  re-verifying and the component demotes, the inventory diff shows it, and the
+  build goes red.
+
+So CI enforces that somebody verified without pretending to verify. That is the
+repository's existing mechanism, used for what it was already for.
+
+### 12b — A fifth check: pixel parity
+
+The geometric check compares numbers and strings, never rendered output. It is
+blind to painted shadows and gradients, `::before`/`::after` content, z-order,
+transforms, SVG glyphs, background images, text rendering, anti-aliasing of
+borders and radii — and to any element without a `data-slot` at all.
+
+**The one decision the rest follows from: no committed golden images.**
+Photograph both sides in the same run, in the same browser, on the same machine,
+and diff the two buffers in memory. The React render is the baseline,
+recomputed every run — the same shape the geometric check already uses.
+
+That single choice removes the whole class of screenshot-test misery:
+platform-suffixed baselines, `--update-snapshots` churn, goldens that go stale
+the moment `registry/UPSTREAM.json` moves, and macOS-against-Linux font
+differences. Both images come from one Chromium, so every environmental
+variable cancels and only the components can differ. It also keeps the rule
+this repository holds itself to: a difference is a finding about the reader or
+the recipe, because the reference is rebuilt from unmodified upstream at the
+pinned commit on every run.
+
+**Mechanism.** `pixelmatch` + `pngjs`, in new files:
+
+```text
+storybook/test/browser/pixel.spec.mjs      # the check
+storybook/test/browser/shoot.mjs           # settle, freeze, shoot, diff, localise
+storybook/test/browser/pixel-budget.json   # budgets, pending, skips
+```
+
+Viewport screenshots — not element screenshots — at a viewport sized to the
+taller of the two documents. A preview root can have a zero-height box, which
+`measure.mjs` already documents, and portals paint outside it. A viewport shot
+is also what makes fixed toasts and portals comparable, because
+`position: fixed` is viewport-relative however the DOM is arranged.
+
+Rejected: `toHaveScreenshot` (a golden mechanism, and the baselines would be our
+own output — the wrong source of truth); SSIM (one opaque score a reviewer
+cannot act on); `odiff` (a native binary per platform, for milliseconds saved).
+
+**Determinism**, in a second Playwright project so the knobs never leak into the
+behaviour specs: forced headless, `deviceScaleFactor: 2`, `colorScheme: "light"`,
+`reducedMotion`, and `--disable-gpu --disable-lcd-text
+--disable-font-subpixel-positioning --force-color-profile=srgb`. Before every
+shot, reuse the existing settle discipline, then `document.getAnimations({subtree:
+true})` finished — a CSS override cannot stop a Web Animations API animation,
+and Sonner and Recharts use one.
+
+**Threshold:** differing pixels ≤ a committed per-example budget, default zero,
+hard-capped at 0.5% of image area. The anti-absorption rule is the part that
+matters: a budget more than 10× its observed diff **fails**, so a slack budget
+is a stale budget rather than a quiet blanket. A global percentage tolerance was
+rejected because 0.3% of a large image is a whole missing border on every
+element.
+
+**Reporting** hit-tests diff regions against the slot boxes `collect()` already
+returns, so a failure reads
+`4,812 px differ, budget 0 — hottest: card > card-footer (3,904), outside any
+slot (298)`. That last bucket is what the geometric check is structurally blind
+to, and naming it is the point.
+
+**A fifth check, not a replacement.** Geometry names the fix in the vocabulary a
+recipe is written in — `padding-left: React 0.5rem, Phoenix 8px`. Pixels catch
+what geometry cannot see but name only a region. Each is the other's triage
+tool.
+
+**Migration** reuses the pattern this repository already owns — "one test for
+the whole gap". Land the harness with every example in `pending`; pending
+examples still run and print their observed diff, so day one is green *and*
+produces a complete noise census that replaces every estimated number with a
+measured one. Burn down in batches; done when `pending` is empty.
+
+**Order:** 12a first. Adding a fifth check on top of a fourth that has never run
+would be building on a foundation nobody has seen work.
+
+---
+
 ## Verification
 
 Run this at each phase boundary. It is the list in

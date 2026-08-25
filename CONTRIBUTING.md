@@ -144,16 +144,44 @@ the message names exactly what is missing.
 
 ```bash
 # In each of tools/, packages/*/ and storybook/
-mix format && mix compile --warnings-as-errors && mix test
+mix check                       # format, compile, credo, deps.audit, dialyzer
+mix test
 
 cd tools && mix ui.gen --check && mix ui.status --check
 cd ../storybook && mix snapshot --check
-cd test/browser && npm run verify
 ```
 
 `--check` is what keeps the generated files honest: it fails if a file no longer
 matches what its spec produces, whether that is because the spec moved or
 because somebody edited the output.
+
+## Verification runs on your machine, not in CI
+
+`mix ui.verify` opens a browser. CI does not, and that is deliberate.
+
+`registry/upstream/` is gitignored, so a CI run would have to fetch every
+upstream source before it could render the React reference — and pixel-level
+comparison wants one known renderer rather than whatever a runner provides.
+So the browser checks run where those things are already true: locally.
+
+```bash
+cd tools && mix ui.verify              # everything
+cd tools && mix ui.verify shadcn/badge # one component
+```
+
+That writes `registry/VERIFY.json`, **which is committed**. CI then runs
+`mix ui.status --check`, which refuses an inventory whose verification no longer
+matches the specs on disk: change a spec without re-verifying and the component
+demotes, the inventory diff shows it, and the build goes red.
+
+So CI enforces that somebody verified. It does not pretend to verify. The
+browser suite used to run in CI and could not have been working — the job
+fetched `--only accordion` while `parity/` was never installed at all, so the
+reference server could not build 65 of its 66 pages.
+
+If a port is already taken, `STORYBOOK_PORT` and `PARITY_PORT` override it. The
+harness refuses a port held by something that is not ours rather than measuring
+it by accident.
 
 ## What not to do
 
