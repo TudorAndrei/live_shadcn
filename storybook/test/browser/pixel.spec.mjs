@@ -21,7 +21,16 @@ import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 import { PNG } from "pngjs";
 
-import { MINIMUM_HEIGHT, compare, documentHeight, localise, shoot } from "./shoot.mjs";
+import {
+  MINIMUM_HEIGHT,
+  compare,
+  documentHeight,
+  localise,
+  paintedBox,
+  settle,
+  shoot,
+  union,
+} from "./shoot.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const only = process.env.PREVIEW_COMPONENT;
@@ -87,8 +96,10 @@ for (const { component, example } of pages) {
     const reactURL = `${parity}/preview/${component}/${example}`;
     const phoenixURL = `/preview/${component}/${example}`;
 
-    // Both sides get one viewport, sized to whichever document is taller, so
-    // the two images have identical dimensions by construction.
+    // One viewport for both sides, tall enough for either document, then one
+    // clip rectangle covering what either side paints. Equal dimensions are a
+    // hard requirement of the diff; tight framing is what makes a percentage
+    // mean anything.
     await page.setViewportSize({ width: 1280, height: MINIMUM_HEIGHT });
     await page.goto(reactURL);
     const reactHeight = await documentHeight(page);
@@ -96,8 +107,21 @@ for (const { component, example } of pages) {
     const phoenixHeight = await documentHeight(page);
     const height = Math.max(MINIMUM_HEIGHT, reactHeight, phoenixHeight);
 
-    const react = await shoot(page, reactURL, selector, height);
-    const phoenix = await shoot(page, phoenixURL, selector, height);
+    const viewport = { width: 1280, height };
+    await page.setViewportSize(viewport);
+
+    await page.goto(reactURL);
+    await settle(page, selector);
+    const reactPaint = await paintedBox(page, selector);
+
+    await page.goto(phoenixURL);
+    await settle(page, selector);
+    const phoenixPaint = await paintedBox(page, selector);
+
+    const clip = union(reactPaint, phoenixPaint, viewport);
+
+    const react = await shoot(page, reactURL, selector, height, clip);
+    const phoenix = await shoot(page, phoenixURL, selector, height, clip);
 
     const { differing, diff, width } = compare(react.image, phoenix.image);
 
@@ -105,12 +129,21 @@ for (const { component, example } of pages) {
     await testInfo.attach("phoenix.png", { body: PNG.sync.write(phoenix.image), contentType: "image/png" });
     await testInfo.attach("diff.png", { body: PNG.sync.write(diff), contentType: "image/png" });
 
-    const hottest = localise(diff.data, width, height, phoenix.measured?.slots)
+    const scale = width / clip.width;
+
+    const hottest = localise(diff.data, width, height, phoenix.measured?.slots, {
+      origin: phoenix.origin,
+      clip,
+      scale,
+    })
       .slice(0, 4)
       .map(({ slot, count }) => `${slot} (${count} px)`)
       .join(", ");
 
-    const share = ((differing / (width * height)) * 100).toFixed(3);
+    // A percentage of the component now, not of a mostly-blank page. That was
+    // the point of clipping: `calendar` differs by about 5% of itself, and a
+    // viewport shot reported the same difference as 0.019%.
+    const share = ((differing / (width * height)) * 100).toFixed(2);
     const report = `${differing} px differ (${share}%) — hottest: ${hottest || "nothing"}`;
 
     if (budget.skips[name]) {

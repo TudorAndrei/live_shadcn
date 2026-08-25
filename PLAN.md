@@ -699,11 +699,27 @@ exactly the bucket the geometric check is structurally blind to, found on the
 first census. `chart` varies between runs, so something there is not
 deterministic.
 
-**One number in this plan was wrong.** The 0.5% cap is measured against the
-whole image, which is mostly blank page: `calendar`'s 8,077px is 0.019% of the
-image and about 5% of the component. A cap that a five-percent-wrong component
-passes comfortably is not a cap. It should be relative to the component's own
-box.
+**The shot is clipped to the component, not the viewport.** The first version
+photographed the whole viewport, and the census showed why that will not do:
+`calendar` differs by about 5% of itself and reported as **0.019%** of a
+mostly-blank image. A cap a five-percent-wrong component sails through is not a
+cap.
+
+`element.screenshot()` cannot be the answer — it clips to that element's own
+box, so two components of different sizes give two images of different sizes,
+and differing size is the thing under test. Instead both sides are clipped to
+**one rectangle computed across both**: the union of every `data-slot` box plus
+anything painted outside the root. That keeps dimensions equal, which the diff
+requires, and framing tight, which is what makes a percentage mean anything.
+`calendar` now reports 1.19%, and would fail a 0.5% cap as it should.
+
+The union has to exclude the root's *ancestors*. They satisfy "outside the root"
+on a naive reading — an element does not contain its own parent — and including
+`<main>` put the whole 1280px column back in the clip.
+
+Portalled content still lands in the shot: `toast`'s root is zero pixels tall
+and React portals 38 elements to `document.body`, and its measured difference is
+unchanged at 173px under clipping.
 
 ---
 

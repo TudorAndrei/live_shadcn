@@ -273,7 +273,8 @@ has been diagnosed. They stay `pending`: measured, reported, not yet decided.
       that is understood
 - [ ] `scroll-area.default` — 91 px
 - [ ] `sidebar.default` — 68 px
-- [ ] The 0.5% cap in PLAN.md is measured against the whole image, which is
-      mostly blank page. `calendar`'s 8,077 px is 0.019% of the image and about
-      5% of the component. The cap should be relative to the component's own
-      box
+- [x] Clip the shot to the component. `calendar` reported 0.019% of a
+      mostly-blank viewport and reports 1.19% now — a cap means something again,
+      and the census runs in 1.3m rather than 2.4m
+- [x] Exclude the root's ancestors from the clip. They are "outside the root" on
+      a naive reading, and `<main>` put the whole 1280px column back in

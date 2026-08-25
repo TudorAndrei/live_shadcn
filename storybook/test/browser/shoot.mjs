@@ -97,15 +97,95 @@ export async function documentHeight(page) {
 }
 
 /**
+ * The rectangle the component actually paints into.
+ *
+ * Not the preview root's box. That box is the wrapper — 720px wide for every
+ * example — so a shot clipped to it is mostly blank page, and a difference that
+ * is 5% of a component reads as 0.019% of the image. A cap that a
+ * five-percent-wrong component passes comfortably is not a cap.
+ *
+ * Nor is it the root's box narrowed to the component, because plenty of
+ * components paint outside their root entirely. `toast` is the honest example:
+ * its preview root is **zero pixels tall**, and React portals 38 elements to
+ * `document.body`. An element screenshot of that root photographs nothing at
+ * all.
+ *
+ * So: the union of the root and everything painted outside it — portalled
+ * content, fixed overlays, backdrops. Taken on both sides and unioned again, so
+ * one rectangle frames both images. If a component paints somewhere on one side
+ * and nowhere on the other, that shows up as painted against blank, which is
+ * exactly the finding wanted.
+ */
+export async function paintedBox(page, selector) {
+  return page.evaluate((css) => {
+    const root = document.querySelector(css);
+    if (!root) return null;
+
+    const boxes = [];
+
+    // What the component paints, not the column it sits in. The preview root is
+    // 720px wide for every example, so clipping to it leaves most of the image
+    // blank and a percentage means nothing. `data-slot` is the anatomy both
+    // sides share, so those boxes are the component.
+    for (const part of root.querySelectorAll("[data-slot]")) {
+      const box = part.getBoundingClientRect();
+      if (box.width > 0 && box.height > 0) boxes.push(box);
+    }
+
+    // Plus anything painted outside the root at all: portalled content, fixed
+    // overlays, backdrops. `toast` needs this — its root is zero pixels tall
+    // and React portals every toast to `document.body`.
+    for (const element of document.body.querySelectorAll("*")) {
+      const box = element.getBoundingClientRect();
+      if (box.width <= 0 || box.height <= 0) continue;
+
+      // An ancestor of the root is page chrome, not component. It satisfies
+      // "outside the root" on a naive reading — the root does not contain its
+      // own parent — and including `<main>` put the whole 1280px column in the
+      // clip, which is how a five-percent difference kept reporting as 0.15%.
+      if (element.contains(root)) continue;
+      if (root.contains(element)) continue;
+
+      const position = getComputedStyle(element).position;
+      const portalled = element.parentElement === document.body;
+      if (position === "fixed" || portalled) boxes.push(box);
+    }
+
+    // A component with neither is one that paints nothing recognisable; fall
+    // back to the root rather than return an empty rectangle.
+    if (boxes.length === 0) boxes.push(root.getBoundingClientRect());
+
+    const left = Math.min(...boxes.map((b) => b.left));
+    const top = Math.min(...boxes.map((b) => b.top));
+    const right = Math.max(...boxes.map((b) => b.right));
+    const bottom = Math.max(...boxes.map((b) => b.bottom));
+
+    return { left, top, right, bottom };
+  }, selector);
+}
+
+/** One rectangle covering what either side paints, in whole pixels. */
+export function union(a, b, viewport) {
+  const margin = 4;
+
+  const left = Math.max(0, Math.floor(Math.min(a.left, b.left)) - margin);
+  const top = Math.max(0, Math.floor(Math.min(a.top, b.top)) - margin);
+  const right = Math.min(viewport.width, Math.ceil(Math.max(a.right, b.right)) + margin);
+  const bottom = Math.min(viewport.height, Math.ceil(Math.max(a.bottom, b.bottom)) + margin);
+
+  return { x: left, y: top, width: Math.max(1, right - left), height: Math.max(1, bottom - top) };
+}
+
+/**
  * One side: size the viewport, settle, photograph, and record the slot boxes.
  *
- * A viewport screenshot rather than an element one, deliberately. A preview
- * root can have a zero-height box — `measure.mjs` documents a component that
- * positions every child outside it — and a portal paints outside it too. A
- * viewport shot catches both, because `position: fixed` is viewport-relative
- * however the DOM is arranged.
+ * `clip` rather than `element.screenshot()`, and the difference matters.
+ * Clipping to an element's own box gives each side a different image whenever
+ * the two components are different sizes — which is the thing under test, and
+ * pixelmatch refuses images of different dimensions. One rectangle computed
+ * across both sides keeps the framing tight *and* the dimensions equal.
  */
-export async function shoot(page, url, selector, height) {
+export async function shoot(page, url, selector, height, clip) {
   await page.setViewportSize({ width: WIDTH, height });
   await page.goto(url);
 
@@ -120,9 +200,18 @@ export async function shoot(page, url, selector, height) {
   await settle(page, selector);
 
   const measured = await page.evaluate(collect, { selector, properties: PROPERTIES });
-  const image = PNG.sync.read(await page.screenshot());
 
-  return { image, measured };
+  // Where the root sits on the page. `collect` reports every slot relative to
+  // it, and the image is clipped somewhere else entirely, so this is what lets
+  // a differing pixel be named after the part it fell in.
+  const origin = await page.evaluate((css) => {
+    const { x, y } = document.querySelector(css).getBoundingClientRect();
+    return { x, y };
+  }, selector);
+
+  const image = PNG.sync.read(await page.screenshot(clip ? { clip } : {}));
+
+  return { image, measured, origin, clip };
 }
 
 /**
@@ -135,16 +224,33 @@ export async function shoot(page, url, selector, height) {
  * what the geometric check is structurally blind to, and naming it is the point
  * of photographing anything.
  */
-export function localise(diff, width, height, slots) {
+export function localise(diff, width, height, slots, into) {
   const counts = new Map();
-  const boxes = (slots ?? []).map(({ slot, box }) => ({ slot, box }));
+
+  // Slot boxes arrive relative to the component root, in CSS pixels. The image
+  // is clipped to somewhere else on the page and rendered at a device scale
+  // factor, so both have to be applied before a coordinate means anything.
+  const { origin, clip, scale } = into ?? { origin: { x: 0, y: 0 }, clip: { x: 0, y: 0 }, scale: 1 };
+
+  const boxes = (slots ?? []).map(({ slot, box }) => ({
+    slot,
+    box: {
+      x: (box.x + origin.x - clip.x) * scale,
+      y: (box.y + origin.y - clip.y) * scale,
+      width: box.width * scale,
+      height: box.height * scale,
+    },
+  }));
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      // pixelmatch paints a difference red; an unchanged pixel keeps the
-      // faded original, whose channels stay equal.
+      // pixelmatch paints a changed pixel in exactly its diff colour, which is
+      // pure red by default. Anything looser than an exact test counts faded
+      // originals too — an earlier version reported 3.5 million differing
+      // pixels out of 8,077, which is the kind of number that tells you the
+      // test is wrong rather than the component.
       const at = (y * width + x) * 4;
-      if (diff[at] < 200 || diff[at + 1] > 100) continue;
+      if (diff[at] !== 255 || diff[at + 1] !== 0 || diff[at + 2] !== 0) continue;
 
       const hit = innermost(boxes, x, y);
       const name = hit ?? "outside any slot";
