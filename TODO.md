@@ -191,3 +191,26 @@ check, which is what it is for.
       own server serves, and refuses before a test runs
 - [x] The failure names the port and the override, rather than arriving as
       sixty confusing test failures
+
+## Phase 11 — Static analysis, and what it is now telling us
+
+`mix check` runs credo, `deps.audit` and dialyzer in each project. All five are
+clean, so anything below is new information rather than a backlog.
+
+- [ ] Run a full `mix ui.verify`. `docs/INVENTORY.md` says 1 verified, which is
+      true: it had been claiming 62 because it was written before the last
+      verify run and before the specs moved again. `mix ui.status --check`
+      gates this, and CI runs it
+- [ ] Three AI Elements components stop generating when their specs are
+      re-read: `question` (`text`), `snippet` (`isCopied`),
+      `environment-variables` (`showValues`). Each is a `useRender` state key
+      bound to component-local state, and the generator cannot bind it. This
+      predates the reader work in `a43ccb6` — confirmed by re-running with that
+      change stashed — and is why only the shadcn specs were re-read there
+- [ ] `calendar` and `message-scroller` parity, and `resizable` and
+      `message-scroller` axe, fail. All four predate this work; confirmed by
+      running the same suites at the previous HEAD
+- [ ] `gen/toast.ex` finds its parts by matching a hard-coded Tailwind class
+      string — `helper!(tree, &(&1["class"] == "flex min-w-0 flex-1 …"))`. It
+      is the last recipe that reads upstream by its styling rather than by its
+      anatomy, and it breaks the moment upstream reflows that string
