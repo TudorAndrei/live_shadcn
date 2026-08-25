@@ -10,68 +10,89 @@ AI Elements, M5 for Ouro — and each is a plan of its own when its turn comes.
 
 ## Where this stands
 
-**Parity is reached.** 62 of 62 shadcn components generate and verify.
-`mix ui.verify` makes five checks — `generated`, `snapshot`, `browser`,
-`parity`, `pixel` — and all five are green for every one of them.
+62 of 62 shadcn components generate and 61 verify on all five checks. The
+exception is `chart`, which drew nothing at all until this week and is item 1
+below.
 
-The pixel census covers 66 examples. 65 are gated at zero differing pixels and
-one carries a measured budget: `scroll-area.default`, 137 px of glyph
-rasterisation, diagnosed and stable. Nothing is `pending`.
+The pixel census covers 66 examples. 64 are gated at zero differing pixels, one
+carries a measured budget (`scroll-area.default`, 137 px of glyph
+rasterisation), and one is `pending`: `chart.default`.
 
-`mix ui.gen --check`, `mix ui.status --check` and `mix snapshot --check` are
-green on a clean tree, and CI runs all three. 316 browser tests, 160 Elixir
-tests.
+Four gates are green on a clean tree and CI runs all four:
+`mix ui.gen --check`, `mix ui.status --check`, `mix snapshot --check`, and
+`mix ui.spec --check --source shadcn` — the last being the only one that
+re-reads upstream, and the only one that can tell a spec has drifted from the
+source it was built from.
 
-Three jobs are left. Two came out of reaching parity and neither is a component
-difference; the third needs an account rather than code.
-
----
-
-## 1 — `mix ui.spec --check` is red, and no gate watches it
-
-63 specs on disk do not match what the reader produces from the same sources —
-38 shadcn and 25 AI Elements. This is not new and it was not caused by the
-calendar work: the same 63 are stale at the commit before it.
-
-It is invisible because CI runs `ui.gen --check`, `ui.status --check` and
-`snapshot --check`, and none of them re-reads upstream. A spec can drift from
-its own source indefinitely and every gate stays green, which is the exact shape
-of the problem `mix ui.status` was built to stop one level up.
-
-Two things to establish, in this order:
-
-- **What the difference is.** A stale spec is not automatically a wrong one:
-  `mix ui.drift` compares specs and says whether a class string moved or an
-  attribute appeared. Read that before regenerating 63 files.
-- **Whether `ui.spec --check` can join CI.** It cannot today, because three AI
-  Elements components stop the reader (recorded in
-  [ROADMAP.md](ROADMAP.md#state-is-a-prop-because-the-server-owns-state)) and a
-  gate that cannot run is worse than no gate. Either those three are answered
-  first, or the gate runs per registry.
-
-This is what the calendar work found, and it is the largest remaining hole in
-the record.
+Two jobs are left. The first is a component; the second needs an account.
 
 ---
 
-## 2 — One class string is still typed, and it is typed twice
+## 1 — The chart is a hand-written component wearing a spec
 
-`gen/toast.ex` hand-writes `<div class="flex min-w-0 flex-1 flex-col gap-1">` in
-the heredoc that renders `sonner`. It is upstream's string, retyped, and it is
-the same string the `toast` half now reads out of its spec.
+`registry/spec/shadcn/chart.json` has **no parts** and two class strings typed
+by hand, because the reader refuses `chart.tsx`. Everything below follows from
+that.
 
-The two halves take different heredocs through one recipe, which is how the
-icon defect got in: `sonner` carried the type-to-icon mapping and `toast` did
-not. This is the same shape.
+### What is already fixed
 
-The fix is not to retype it a third time. `sonner` renders a stack whose parts
-belong to the toast anatomy, and the recipe already has that anatomy on disk in
-`registry/spec/shadcn/toast.json`. Give the sonner half the same reading rather
-than its own copy.
+`chart_style/2` returned `""`, so a caller's `config` produced no
+`--color-<key>` rules and every `var(--color-…)` resolved to nothing. And the
+block could not have worked anyway: `<style>` is a raw-text element, so HEEx
+does not interpolate `{…}` inside one and the component shipped a stylesheet
+whose content was the literal characters `{@chart_style}`.
+
+Both are fixed. The chart draws in the right colour now.
+
+### What is not
+
+**The reader refuses `chart.tsx`, three times over.** `ResponsiveContainer`,
+`Tooltip` and `Legend` are recharts primitives, which an `@external_primitives`
+entry answers — that much was tried and works. The one left is the `<style>`
+block: upstream builds it as a template string through
+`dangerouslySetInnerHTML`, which is a computation rather than markup, and the
+reader has nothing to turn it into. Until that has an answer, `chart.json`
+stays hand-written.
+
+**So the recipe types upstream's class strings, and types some of them wrongly.**
+
+| Where | What is missing |
+|---|---|
+| `classes["container"]` | twelve `[&_.recharts-*]` selectors — most of what upstream's string says |
+| the tooltip's value | `text-foreground` |
+| the legend's item | `[&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground` |
+
+These are the last upstream class strings a person maintains, and the roadmap's
+non-goal says plainly that a class string typed by a person is a gap in the
+pipeline.
+
+**And the comparison cannot see any of it.** `chart.default` is `pending` at
+21,169 px, and the difference is that only one side draws: `ChartContainer` puts
+its children inside `<ResponsiveContainer>`, which sizes an inner wrapper to
+0×0 for anything that is not a recharts element. So the reference renders the
+chrome and nothing inside it.
+
+That is not a rendering difference to budget away. It is the reference and the
+component answering different questions, and it needs a decision:
+
+- **Give the reference a recharts element to draw**, and deal with the mount
+  animation that made this example the only one whose pixel count moved between
+  runs (129, 134, 142). `parity/README.md` forbids two different pictures, and
+  that is what took it here in the first place.
+- **Or compare the chrome with an empty child**, and say in the example that the
+  plot is the caller's and is not under test.
+
+The second is smaller and true. The first is what would actually exercise the
+twelve `[&_.recharts-*]` selectors, which are the whole reason they exist.
+
+**Done when** `chart.json` is read rather than typed, or the chart is recorded
+in the roadmap as a deliberately hand-written component with its reason — and
+either way `chart.default` leaves `pending` and `mix ui.verify shadcn/chart`
+passes all five checks.
 
 ---
 
-## 3 — Publish 0.1.0
+## 2 — Publish 0.1.0
 
 Not code. [DEFERRED.md](DEFERRED.md) is the full guide, and every step there is
 blocked on an account rather than on work:
@@ -81,9 +102,6 @@ blocked on an account rather than on work:
 | Publish to hex | a `HEX_API_KEY` repository secret under a `hex` environment |
 | Deploy the storybook | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and a `SECRET_KEY_BASE` worker secret |
 | Prove the sync bot | one `Sync upstream` run by hand, and a readable pull request |
-
-Parity is reached, so what gets published now tells the truth about its own
-coverage.
 
 ---
 
@@ -99,6 +117,9 @@ mix format && mix compile --warnings-as-errors && mix test
 cd tools && mix ui.gen --check && mix ui.status --check
 cd ../storybook && mix snapshot --check
 cd test/browser && npm run verify        # behaviour, axe, parity and pixels
+
+# and, if you changed the reader — needs `mix ui.fetch` first
+cd ../../../tools && mix ui.spec --check --source shadcn
 ```
 
 A `--check` failure is the purpose of the gate. It means a generated file no
@@ -124,10 +145,19 @@ where they stop agreeing into the failure itself. That is what to read first:
 `collect` compares the vocabulary both sides share, and for a component with one
 `data-slot` that vocabulary is one word.
 
+### When a comparison passes, ask what it compared
+
+`chart.default` was gated at zero for weeks, and both sides were drawing
+nothing. A green pixel check says the two images agree, not that either one has
+a component in it.
+
 ## What this plan does not cover
 
-**AI Elements.** M4 in [ROADMAP.md](ROADMAP.md). Item 1 above touches it only
-where it blocks a shadcn gate.
+**AI Elements.** M4 in [ROADMAP.md](ROADMAP.md). Its specs are stale on purpose:
+re-reading them deletes `question`, `snippet` and `environment-variables`, whose
+`useRender` state keys have no answer yet, and shipped components do not
+disappear as a side effect of a shadcn gate. That is why
+`mix ui.spec --check` runs per registry.
 
 **Ouro.** M5 in the roadmap. A different repository, and it needs components
 worth swapping in — which this plan has now supplied.
