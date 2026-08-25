@@ -740,6 +740,49 @@ a slice of a part disagreed with the spec about which table applied.
 a component: it has no markup and nothing to draw. It is named as such rather
 than counted as a gap.
 
+### `chart` is hand-written, and this is the reason
+
+Every other shadcn component reads into a spec. `chart` does not, and after
+working the reader up to it three times over the conclusion is that it should
+not be made to.
+
+`chart.tsx` stops the reader in four places, and only the first is a table
+entry: `ResponsiveContainer`, `Tooltip` and `Legend` are recharts primitives.
+The `<style>` block is a template string built through
+`dangerouslySetInnerHTML` — a computation, not markup. And `ChartTooltipContent`
+maps over a recharts payload in a callback whose body is a block of `const`
+declarations, `??` chains over `item.payload?.fill`, and a helper that reads a
+config by a key it derives at render.
+
+Teaching the reader those is teaching it recharts' payload model. That is a
+large amount of reader for one component whose plot is the caller's anyway, and
+the roadmap's own rule — *fix the pipeline* — is worth suspending only where the
+pipeline would be learning somebody else's data model rather than upstream's
+markup. So `registry/spec/shadcn/chart.json` is written by hand: two class
+strings and no parts, next to a recipe that ports the chrome.
+
+The cost is stated rather than hidden. **Its class strings do not follow
+upstream**, so `mix ui.drift` cannot report a chart change and the sync bot
+will not notice one. Two of the three were already wrong when this was
+written — the tooltip's value was missing `text-foreground`, the legend's item
+its three `[&>svg]:*` rules, and the container was missing twelve
+`[&_.recharts-*]` selectors, which is most of what upstream's string says.
+
+**And its example cannot be pixel-compared.** `ChartContainer` puts the caller's
+children inside `<ResponsiveContainer>`, which sizes anything that is not a
+recharts element to nothing — so the reference draws the chrome and no plot,
+whatever it is passed. A reference drawing a recharts `<LineChart>` instead
+would be a second design rather than a port. `chart.default` is therefore a
+recorded skip with that reason, and `mix ui.verify` writes *not compared* into
+the record rather than *pass*. The chrome is still compared: `parity.spec.mjs`
+measures every `data-slot` box and 37 computed properties on both sides.
+
+That skip hid two real defects for as long as it was a zero-pixel pass, because
+neither side was drawing: `chart_style/2` returned `""`, and the `<style>` was
+emitting the literal characters `{@chart_style}` — HEEx does not interpolate a
+curly expression inside a raw-text element. Both are fixed. A green pixel check
+says two images agree, not that either has a component in it.
+
 ---
 
 ## Non-goals

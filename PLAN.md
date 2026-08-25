@@ -10,98 +10,67 @@ AI Elements, M5 for Ouro — and each is a plan of its own when its turn comes.
 
 ## Where this stands
 
-62 of 62 shadcn components generate and 61 verify on all five checks. The
-exception is `chart`, which drew nothing at all until this week and is item 1
-below.
+**62 of 62 shadcn components generate and verify** on all five checks.
 
 The pixel census covers 66 examples. 64 are gated at zero differing pixels, one
 carries a measured budget (`scroll-area.default`, 137 px of glyph
-rasterisation), and one is `pending`: `chart.default`.
+rasterisation), and one is a recorded skip (`chart.default`, which only one side
+can draw). Nothing is pending.
 
 Four gates are green on a clean tree and CI runs all four:
-`mix ui.gen --check`, `mix ui.status --check`, `mix snapshot --check`, and
-`mix ui.spec --check --source shadcn` — the last being the only one that
-re-reads upstream, and the only one that can tell a spec has drifted from the
-source it was built from.
 
-Two jobs are left. The first is a component; the second needs an account.
-
----
-
-## 1 — The chart is a hand-written component wearing a spec
-
-`registry/spec/shadcn/chart.json` has **no parts** and two class strings typed
-by hand, because the reader refuses `chart.tsx`. Everything below follows from
-that.
-
-### What is already fixed
-
-`chart_style/2` returned `""`, so a caller's `config` produced no
-`--color-<key>` rules and every `var(--color-…)` resolved to nothing. And the
-block could not have worked anyway: `<style>` is a raw-text element, so HEEx
-does not interpolate `{…}` inside one and the component shipped a stylesheet
-whose content was the literal characters `{@chart_style}`.
-
-Both are fixed. The chart draws in the right colour now.
-
-### What is not
-
-**The reader refuses `chart.tsx`, three times over.** `ResponsiveContainer`,
-`Tooltip` and `Legend` are recharts primitives, which an `@external_primitives`
-entry answers — that much was tried and works. The one left is the `<style>`
-block: upstream builds it as a template string through
-`dangerouslySetInnerHTML`, which is a computation rather than markup, and the
-reader has nothing to turn it into. Until that has an answer, `chart.json`
-stays hand-written.
-
-**So the recipe types upstream's class strings, and types some of them wrongly.**
-
-| Where | What is missing |
+| Gate | What it compares |
 |---|---|
-| `classes["container"]` | twelve `[&_.recharts-*]` selectors — most of what upstream's string says |
-| the tooltip's value | `text-foreground` |
-| the legend's item | `[&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground` |
+| `mix ui.gen --check` | a component with its spec |
+| `mix ui.status --check` | the inventory with the verification record |
+| `mix snapshot --check` | the markup a reader gets with its snapshot |
+| `mix ui.spec --check --source shadcn` | **a spec with the source it was built from** |
 
-These are the last upstream class strings a person maintains, and the roadmap's
-non-goal says plainly that a class string typed by a person is a gap in the
-pipeline.
+The fourth is the one added last and the only one that re-reads upstream. The
+first three compare two committed things, so before it existed a spec could
+drift from its own source indefinitely and every gate stayed green — which is
+what 38 shadcn specs had done.
 
-**And the comparison cannot see any of it.** `chart.default` is `pending` at
-21,169 px, and the difference is that only one side draws: `ChartContainer` puts
-its children inside `<ResponsiveContainer>`, which sizes an inner wrapper to
-0×0 for anything that is not a recharts element. So the reference renders the
-chrome and nothing inside it.
-
-That is not a rendering difference to budget away. It is the reference and the
-component answering different questions, and it needs a decision:
-
-- **Give the reference a recharts element to draw**, and deal with the mount
-  animation that made this example the only one whose pixel count moved between
-  runs (129, 134, 142). `parity/README.md` forbids two different pictures, and
-  that is what took it here in the first place.
-- **Or compare the chrome with an empty child**, and say in the example that the
-  plot is the caller's and is not under test.
-
-The second is smaller and true. The first is what would actually exercise the
-twelve `[&_.recharts-*]` selectors, which are the whole reason they exist.
-
-**Done when** `chart.json` is read rather than typed, or the chart is recorded
-in the roadmap as a deliberately hand-written component with its reason — and
-either way `chart.default` leaves `pending` and `mix ui.verify shadcn/chart`
-passes all five checks.
+One job is left, and it needs an account rather than code.
 
 ---
 
-## 2 — Publish 0.1.0
+## 1 — Publish 0.1.0
 
 Not code. [DEFERRED.md](DEFERRED.md) is the full guide, and every step there is
-blocked on an account rather than on work:
+blocked on an account:
 
 | Step | Blocked on |
 |---|---|
 | Publish to hex | a `HEX_API_KEY` repository secret under a `hex` environment |
 | Deploy the storybook | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and a `SECRET_KEY_BASE` worker secret |
 | Prove the sync bot | one `Sync upstream` run by hand, and a readable pull request |
+
+Parity is reached, so what gets published tells the truth about its own
+coverage.
+
+---
+
+## Two decisions that are recorded rather than open
+
+Neither is work. Each is a decision whose cost is stated where somebody meeting
+it will find it, and each names the one thing that would reopen it.
+
+**`chart` is hand-written.** `chart.tsx` stops the reader in four places, and
+teaching it the last three means teaching it recharts' payload model — a large
+amount of reader for one component whose plot is the caller's anyway. So its
+spec is two class strings and no parts, and its example is a recorded skip
+because `<ResponsiveContainer>` sizes anything that is not a recharts element to
+nothing. Both costs, and the two defects the skip was hiding, are in
+[ROADMAP.md](ROADMAP.md#chart-is-hand-written-and-this-is-the-reason).
+
+Reopen it if `mix ui.drift` ever needs to report a chart change: it cannot
+today, because the class strings do not follow upstream.
+
+**AI Elements specs are stale on purpose.** Re-reading them deletes `question`,
+`snippet` and `environment-variables`, whose `useRender` state keys have no
+answer yet, and shipped components do not disappear as a side effect of a shadcn
+gate. That is why `mix ui.spec --check` takes `--source`. Reopen it with M4.
 
 ---
 
@@ -147,17 +116,6 @@ where they stop agreeing into the failure itself. That is what to read first:
 
 ### When a comparison passes, ask what it compared
 
-`chart.default` was gated at zero for weeks, and both sides were drawing
-nothing. A green pixel check says the two images agree, not that either one has
-a component in it.
-
-## What this plan does not cover
-
-**AI Elements.** M4 in [ROADMAP.md](ROADMAP.md). Its specs are stale on purpose:
-re-reading them deletes `question`, `snippet` and `environment-variables`, whose
-`useRender` state keys have no answer yet, and shipped components do not
-disappear as a side effect of a shadcn gate. That is why
-`mix ui.spec --check` runs per registry.
-
-**Ouro.** M5 in the roadmap. A different repository, and it needs components
-worth swapping in — which this plan has now supplied.
+`chart.default` was gated at zero for weeks and both sides were drawing nothing.
+A green pixel check says the two images agree, not that either one has a
+component in it.

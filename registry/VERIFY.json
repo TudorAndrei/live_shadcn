@@ -743,15 +743,15 @@
         "pass": true
       },
       "pixel": {
-        "detail": "measured, not yet gated: chart.default",
-        "pass": false
+        "detail": "chart.default is not compared: Only one side can draw. `ChartContainer` puts the caller's children inside recharts' <ResponsiveContainer>, which sizes an inner wrapper to 0x0 for anything that is not a recharts element — so the reference renders the chrome and no plot, whatever the example passes it. A reference that drew a recharts <LineChart> instead would be a second design rather than a port, which parity/README.md forbids, and it was also the only example whose pixel count moved between runs. The chrome is still compared: parity.spec.mjs measures every data-slot box and 37 computed properties on both sides. This example passed at zero for as long as neither side drew: chart_style/2 returned \"\" and the <style> emitted its own source text.",
+        "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": false,
-    "spec": "16e0a35c2bae92f5e1cb5c8153436e0ab8ad5bb91385938b6445842fb897e5bb"
+    "pass": true,
+    "spec": "dc10d7387935e35f87fd708023970ec7ceb69ed55de9d686920ca1ecf01a78c2"
   },
   "shadcn/command": {
     "checks": {

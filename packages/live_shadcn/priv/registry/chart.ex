@@ -18,7 +18,10 @@ defmodule LiveShadcn.UI.Chart do
     <div
       data-slot="chart"
       data-chart={"chart-" <> @id}
-      class={["cn-chart flex aspect-video justify-center text-xs", @class]}
+      class={[
+        "cn-chart flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+        @class
+      ]}
       {@rest}
     >
       <%!-- `<%= %>` rather than `{…}`. A `<style>` is a raw-text element and
@@ -44,7 +47,7 @@ defmodule LiveShadcn.UI.Chart do
       <p :if={@label} class="font-medium">{@label}</p>
       <div class="grid gap-1.5">
         <div :for={item <- @item} class="flex items-center justify-between gap-2">
-          <span class="text-muted-foreground">{item[:label]}</span><span class="font-mono font-medium tabular-nums">{render_slot(
+          <span class="text-muted-foreground">{item[:label]}</span><span class="font-mono font-medium text-foreground tabular-nums">{render_slot(
             item
           )}</span>
         </div>
@@ -67,10 +70,12 @@ defmodule LiveShadcn.UI.Chart do
         @class
       ]}
     >
-      <span :for={item <- @item} class="flex items-center gap-1.5"><span
-        class="size-2 rounded-sm"
-        style={"background: " <> (item[:color] || "currentColor")}
-      ></span>{render_slot(item)}</span>
+      <span
+        :for={item <- @item}
+        class="flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
+      ><span class="size-2 rounded-sm" style={"background: " <> (item[:color] || "currentColor")}></span>{render_slot(
+        item
+      )}</span>
     </div>
     """
   end

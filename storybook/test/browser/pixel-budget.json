@@ -87,12 +87,11 @@
     "toggle.default": 0,
     "tooltip.default": 0
   },
-  "pending": [
-    "chart.default"
-  ],
-  "skips": {},
+  "pending": [],
+  "skips": {
+    "chart.default": "Only one side can draw. `ChartContainer` puts the caller's children inside recharts' <ResponsiveContainer>, which sizes an inner wrapper to 0x0 for anything that is not a recharts element \u2014 so the reference renders the chrome and no plot, whatever the example passes it. A reference that drew a recharts <LineChart> instead would be a second design rather than a port, which parity/README.md forbids, and it was also the only example whose pixel count moved between runs. The chrome is still compared: parity.spec.mjs measures every data-slot box and 37 computed properties on both sides. This example passed at zero for as long as neither side drew: chart_style/2 returned \"\" and the <style> emitted its own source text."
+  },
   "reasons": {
-    "chart.default": "21,169 px, and the difference is that only one side draws. `ChartContainer` puts its children inside recharts' <ResponsiveContainer>, which sizes an inner wrapper to 0x0 for anything that is not a recharts element \u2014 so the reference renders the chrome and nothing inside it. The generated component has no ResponsiveContainer, deliberately: it is a measurement wrapper and `aspect-video` is already on the container. This example passed at zero for as long as the Elixir side drew nothing either, because `chart_style/2` returned \"\" and every `var(--color-*)` resolved to nothing. It draws now, so the difference is visible and undiagnosed. See PLAN.md.",
     "scroll-area.default": "91 px, stable across three runs, scattered over twelve lines of wrapped text rather than clustered. Markup is byte-identical, positions match to two decimals, and font smoothing, text-rendering and body classes are the same on both sides \u2014 this is glyph rasterisation, not a component difference. Budget is the measured maximum times 1.5, per PLAN.md."
   }
 }

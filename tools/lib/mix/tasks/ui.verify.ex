@@ -202,6 +202,17 @@ defmodule Mix.Tasks.Ui.Verify do
             "no React reference yet: add one to parity/src/examples/#{key}.<example>.tsx"
         }
 
+      # A skip is a decision, and the record should say so rather than say
+      # "pass". `chart` is the one: its example cannot be compared at all,
+      # because upstream puts the caller's children inside recharts'
+      # `ResponsiveContainer` and that sizes anything which is not a recharts
+      # element to nothing. The reason lives beside the skip, and
+      # `pixel.spec.mjs` fails if the example would now pass at zero — so a
+      # skip that outlives its reason is caught rather than kept.
+      skipped = skipped_pixels(key) ->
+        {example, why} = skipped
+        %{"pass" => true, "detail" => "#{example} is not compared: #{why}"}
+
       pending = pending_pixels(key) ->
         # A pending example *passes* the spec — that is what lets the check land
         # without a red build on day one. It must not pass verification.
@@ -222,17 +233,29 @@ defmodule Mix.Tasks.Ui.Verify do
     end
   end
 
+  # The example of this component that will not be compared, and why.
+  defp skipped_pixels(key) do
+    with %{"skips" => skips} <- budget(),
+         {example, why} <- Enum.find(skips, &String.starts_with?(elem(&1, 0), "#{key}.")) do
+      {example, why}
+    else
+      _none -> nil
+    end
+  end
+
   # The examples of this component that are still in `pending`, if any.
   defp pending_pixels(key) do
-    path = Path.join([browser_dir(), "pixel-budget.json"])
-
-    with true <- File.exists?(path),
-         %{"pending" => pending} <- read_json!(path),
+    with %{"pending" => pending} <- budget(),
          [_ | _] = mine <- Enum.filter(pending, &String.starts_with?(&1, "#{key}.")) do
       Enum.join(mine, ", ")
     else
       _none -> nil
     end
+  end
+
+  defp budget do
+    path = Path.join([browser_dir(), "pixel-budget.json"])
+    if File.exists?(path), do: read_json!(path)
   end
 
   defp ported?(key) do

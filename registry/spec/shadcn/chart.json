@@ -1,1 +1,16 @@
-{"anatomy":[],"classes":{"container":"cn-chart flex aspect-video justify-center text-xs","tooltip":"cn-chart-tooltip grid min-w-32 items-start"},"css_vars":[],"generated_by":"chart recipe","name":"chart","parts":[],"primitives":{},"recipe":"chart","source":"shadcn","styles":{},"upstream":"registry/upstream/shadcn/ui/chart.tsx"}
+{
+  "anatomy": [],
+  "classes": {
+    "container": "cn-chart flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+    "tooltip": "cn-chart-tooltip grid min-w-32 items-start"
+  },
+  "css_vars": [],
+  "generated_by": "chart recipe",
+  "name": "chart",
+  "parts": [],
+  "primitives": {},
+  "recipe": "chart",
+  "source": "shadcn",
+  "styles": {},
+  "upstream": "registry/upstream/shadcn/ui/chart.tsx"
+}

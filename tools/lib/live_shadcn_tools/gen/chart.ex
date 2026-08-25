@@ -42,7 +42,7 @@ defmodule LiveShadcnTools.Gen.Chart do
         ~H\"\"\"
         <div data-slot="chart-tooltip" class={[#{inspect(classes["tooltip"])}, @class]}>
           <p :if={@label} class="font-medium">{@label}</p>
-          <div class="grid gap-1.5"><div :for={item <- @item} class="flex items-center justify-between gap-2"><span class="text-muted-foreground">{item[:label]}</span><span class="font-mono font-medium tabular-nums">{render_slot(item)}</span></div></div>
+          <div class="grid gap-1.5"><div :for={item <- @item} class="flex items-center justify-between gap-2"><span class="text-muted-foreground">{item[:label]}</span><span class="font-mono font-medium text-foreground tabular-nums">{render_slot(item)}</span></div></div>
         </div>
         \"\"\"
       end
@@ -54,7 +54,7 @@ defmodule LiveShadcnTools.Gen.Chart do
       def chart_legend_content(assigns) do
         ~H\"\"\"
         <div data-slot="chart-legend" class={["flex items-center justify-center gap-4", if(@vertical_align == "top", do: "pb-3", else: "pt-3"), @class]}>
-          <span :for={item <- @item} class="flex items-center gap-1.5"><span class="size-2 rounded-sm" style={"background: " <> (item[:color] || "currentColor")}></span>{render_slot(item)}</span>
+          <span :for={item <- @item} class="flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"><span class="size-2 rounded-sm" style={"background: " <> (item[:color] || "currentColor")}></span>{render_slot(item)}</span>
         </div>
         \"\"\"
       end
