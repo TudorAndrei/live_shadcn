@@ -125,3 +125,38 @@ shadcn only. The phases are in order: each one makes the next one checkable.
 - [x] 8e — Use `visitorKeys` instead of the hand-rolled parser walk.
 - [x] Use `oxc-walker` scope tracking for parameter reads. This replaces the
       word-boundary check in `spec.ex`.
+
+## Phase 9 — The storybook becomes the documentation site
+
+### 9a — The shape
+
+- [ ] `/docs/:component` — one page per component, replacing the flat index
+- [ ] Sidebar navigation from `Examples.components/0`, built with `<.sidebar>`
+- [ ] `⌘K` search, built with `<.command>`
+- [ ] A Preview / Code block per example, built with `<.tabs>`
+- [ ] An Installation section — `mix ui.add <name>`
+- [ ] Leave `/preview/:component/:example` byte-identical. It is the fixture
+      that `mix snapshot`, axe and `parity.spec.mjs` drive, and it carries no
+      chrome on purpose
+
+### 9b — Three things generate, none is typed
+
+- [ ] The Code tab: `Code.string_to_quoted(token_metadata: true)` over
+      `examples.ex`; the `~H` sigil node carries its own body
+- [ ] The API table: `Module.__components__/0` gives every attribute's name,
+      type, required, doc, `default:` and `values:`, and each slot's attributes
+- [ ] The navigation: `Examples.components/0` and `Examples.all/1`
+
+### 9c — Drop `phoenix_storybook`
+
+- [ ] Remove the dependency and the `live_storybook` / `storybook_assets`
+      routes
+- [ ] Delete `storybook/storybook/*.exs` and the backend module. It documents
+      one component of 63, by holding a second copy of the example markup
+
+### 9d — The sidebar example demonstrates nothing
+
+- [ ] Replace `Examples.sidebar_default/1`: a header with a brand, two labelled
+      groups with icons, a footer user item, and enough height that collapsing
+      is visible
+- [ ] Keep `sidebar_inset` out. It is a `<main>` and the preview page has one

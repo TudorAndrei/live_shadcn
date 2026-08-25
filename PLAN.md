@@ -476,6 +476,109 @@ reachable version of it.
 
 ---
 
+## Phase 9 — The storybook becomes the documentation site
+
+Two things are called "the storybook" today, and neither is the thing a reader
+wants.
+
+`phoenix_storybook` is mounted at `/storybook` with **one** story out of 63,
+and that story's three variations are a retyped copy of
+`Examples.accordion_default/1` and its siblings — the same markup in two
+places, which is what this repository refuses everywhere else.
+`StorybookWeb.IndexLive` at `/` is a flat page that renders every example at
+once, which is why a fixed-position toaster sits over the whole listing.
+
+The target is the shadcn website's structure, built out of `live_shadcn`'s own
+components. It looks like shadcn because it **is** shadcn, and the site becomes
+the honest test of the components it documents: if the sidebar is awkward to
+navigate with, the sidebar is awkward.
+
+### 9a — The shape
+
+```text
+┌─ sidebar ─┐┌─ main ───────────────────────┐
+│ search ⌘K ││ Badge                        │
+│           ││ A label for a status.        │
+│ Getting.. ││                              │
+│  Install  ││ ┌ Preview ┐ Code             │
+│           ││ │  [new] [beta] [old]      │ │
+│ Components││ └──────────────────────────┘ │
+│  Accordion││                              │
+│  Badge  ● ││ Installation                 │
+│  Button   ││  mix ui.add badge            │
+│  ...      ││                              │
+│           ││ API   (generated from attr)  │
+│           ││  variant  :string  "default" │
+└───────────┘└──────────────────────────────┘
+```
+
+- `/` — getting started and installation
+- `/docs/:component` — one page per component, replacing the flat index
+- `/preview/:component/:example` — **unchanged.** It is the fixture that
+  `mix snapshot`, axe-core and `parity.spec.mjs` drive, and
+  `PreviewLive`'s moduledoc says why it carries no chrome: a violation has to
+  belong to the component rather than to the navigation around it. This phase
+  is additive.
+
+The sidebar is `<.sidebar>`, the search is `<.command>` on `⌘K`, the
+Preview/Code block is `<.tabs>`, the API table is `<.table>`.
+
+### 9b — Three things generate rather than being typed
+
+This is what makes the site worth building here rather than copying. All three
+were checked against the code before being written down.
+
+**The Code tab.** `Code.string_to_quoted(token_metadata: true)` over
+`storybook/lib/storybook_web/examples.ex` finds all 75 example functions, and
+the `~H` sigil node carries its own body — no file slicing and no regular
+expression:
+
+```elixir
+{:defp, _, [{name, _, [_]}, [do: {:sigil_H, _, [{:<<>>, _, [heex]}, _]}]]}
+```
+
+That yields exactly the markup a person would write, which is what shadcn's own
+site shows.
+
+**The API reference.** Every generated module answers `__components__/0` with
+each function's attributes and slots — `name`, `type`, `required`, `doc`, and
+the `opts` holding `default:` and `values:`, plus each slot's own attributes and
+their docs. shadcn hand-writes that table on its site. Here it is data:
+
+```elixir
+%{name: :variant, type: :string, required: false,
+  opts: [default: "default", values: ["default", "destructive", …]],
+  doc: "…"}
+```
+
+**The navigation.** `Examples.components/0` and `Examples.all/1` already exist.
+
+Nothing on the page is retyped. If a component gains an attribute, its
+documentation gains a row.
+
+### 9c — Drop `phoenix_storybook`
+
+Remove the dependency, the `live_storybook` and `storybook_assets` routes, the
+backend module, and `storybook/storybook/*.exs`. It documents one component of
+63, and the way it documents that one is by holding a second copy of the
+example markup.
+
+### 9d — The sidebar example demonstrates nothing
+
+`Examples.sidebar_default/1` draws Pipeline → Fetch, Spec, Generate, Verify
+inside `min-h-64`, so collapsing it changes nothing a reader can see. Give it a
+real shell: a header with a brand, two labelled groups with icons, a footer
+holding a user item, and enough height that collapsing is visible.
+
+One constraint stays. `sidebar_inset` is left out on purpose — it is a `<main>`,
+the preview page already has one, and axe is right to object to the second.
+
+**Done when** `/docs/badge` shows the badge, the HEEx that drew it, and its
+attribute table, with none of the three typed by hand; `/preview/*` is
+byte-identical to what it renders today; and `mix ui.verify` still passes.
+
+---
+
 ## Verification
 
 Run this at each phase boundary. It is the list in
