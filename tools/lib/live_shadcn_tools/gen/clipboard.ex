@@ -107,12 +107,16 @@ defmodule LiveShadcnTools.Gen.Clipboard do
       # drawn as a `<span>` — the element shadcn's class string is written for.
       {"phx-keydown", :code, "@on_toggle"},
       {"phx-key", :text, " "},
-      {"data-checked", :code, "@show_values == true"},
-      {"data-unchecked", :code, "@show_values != true"}
+      # Present or absent, and empty when present — which is how Base UI marks
+      # state and what every other generated component writes.
+      {"data-checked", :code, ~s|if(@show_values == true, do: "")|},
+      {"data-unchecked", :code, ~s|if(@show_values != true, do: "")|}
     ])
     |> Tree.put_attrs_at_slot("switch-thumb", [
-      {"data-checked", :code, "@show_values == true"},
-      {"data-unchecked", :code, "@show_values != true"}
+      # Present or absent, and empty when present — which is how Base UI marks
+      # state and what every other generated component writes.
+      {"data-checked", :code, ~s|if(@show_values == true, do: "")|},
+      {"data-unchecked", :code, ~s|if(@show_values != true, do: "")|}
     ])
   end
 

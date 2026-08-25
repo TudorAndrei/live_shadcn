@@ -365,27 +365,25 @@
   "ai_elements/attachments": {
     "checks": {
       "browser": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
       },
       "parity": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "detail": "no React reference yet: add one to parity/src/examples/attachments.<example>.tsx",
         "pass": false
       },
       "pixel": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "detail": "no React reference yet: add one to parity/src/examples/attachments.<example>.tsx",
         "pass": false
       },
       "snapshot": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       }
     },
     "pass": false,
-    "spec": "0b99de09cddf06247ab1c4129bd2ce726c562075523b356aabfc53f30a79f361"
+    "spec": "6014ab07bce705283869cc83dde4aadfddf635e984036c485de328cc4eaae053"
   },
   "shadcn/field": {
     "checks": {
@@ -537,27 +535,25 @@
   "ai_elements/plan": {
     "checks": {
       "browser": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
       },
       "parity": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "detail": "no React reference yet: add one to parity/src/examples/plan.<example>.tsx",
         "pass": false
       },
       "pixel": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "detail": "no React reference yet: add one to parity/src/examples/plan.<example>.tsx",
         "pass": false
       },
       "snapshot": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       }
     },
     "pass": false,
-    "spec": "39da1c9d7fced3a659733f258684e53726b2f9e823a8556983c6a08b7d2fc477"
+    "spec": "74ea6a27fd30980189fbdcdbe1502d50e8fdb0a9de77628e187d84cd7182f204"
   },
   "ai_elements/confirmation": {
     "checks": {
@@ -1098,23 +1094,21 @@
   "ai_elements/environment-variables": {
     "checks": {
       "browser": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
       },
       "parity": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "detail": "no React reference yet: add one to parity/src/examples/environment-variables.<example>.tsx",
         "pass": false
       },
       "pixel": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "detail": "no React reference yet: add one to parity/src/examples/environment-variables.<example>.tsx",
         "pass": false
       },
       "snapshot": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       }
     },
     "pass": false,

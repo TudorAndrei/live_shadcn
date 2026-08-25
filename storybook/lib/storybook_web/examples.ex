@@ -80,9 +80,16 @@ defmodule StorybookWeb.Examples do
   # two registries having a `message` is the same fact at the Elixir level.
   alias LiveAiElements.Components.Message, as: AiMessage
 
+  # Aliased for the same reason `Message` is: `LiveShadcn.UI.Attachment` exports
+  # an `attachment/1` too, and the two registries drawing an attachment is one
+  # fact about upstream rather than a collision to rename away.
+  alias LiveAiElements.Components.Attachments, as: AiAttachments
+
   import LiveAiElements.Components.ChainOfThought
   import LiveAiElements.Components.Checkpoint
   import LiveAiElements.Components.Confirmation
+  import LiveAiElements.Components.EnvironmentVariables
+  import LiveAiElements.Components.Plan
   import LiveAiElements.Components.PackageInfo
   import LiveAiElements.Components.Question
   import LiveAiElements.Components.Reasoning
@@ -112,8 +119,12 @@ defmodule StorybookWeb.Examples do
 
   Three places render one — the index, the preview, and `mix snapshot` — and an
   example that reads an assign has to find it in all three.
+
+  `show_values` is the environment variables example's, and it is an assign for
+  the reason that component exists: the value it reveals is a secret, so the
+  server decides when the page is given it.
   """
-  def page_assigns, do: %{toasts: @toasts}
+  def page_assigns, do: %{toasts: @toasts, show_values: false}
 
   @doc "The list with one toast gone, given the id the component pushed back."
   def dismiss(toasts, toaster, id),
@@ -124,7 +135,8 @@ defmodule StorybookWeb.Examples do
     ~w(accordion alert alert-dialog aspect-ratio attachment avatar badge breadcrumb bubble button calendar carousel
        button-group card chart checkbox collapsible combobox command context-menu dialog drawer dropdown-menu empty hover-card input item kbd label marker menubar
        input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group resizable scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
-       toggle-group question questionnaire sidebar snippet sonner toast shadcn-message ai_elements-message)
+       toggle-group question questionnaire sidebar snippet sonner toast shadcn-message ai_elements-message
+       attachments environment-variables plan)
   end
 
   @doc "The examples for a component."
@@ -500,6 +512,43 @@ defmodule StorybookWeb.Examples do
         "AI Elements builds this out of shadcn's collapsible, so the disclosure " <>
           "recipe generates it and the panel opens with no round trip.",
         &task_default/1
+      )
+    ]
+  end
+
+  def all("plan") do
+    [
+      one(
+        "default",
+        "A plan the model is working through",
+        "A card that opens, which is shadcn's collapsible folded into shadcn's " <>
+          "card. `asChild` is what says those are one element and not two.",
+        &plan_default/1
+      )
+    ]
+  end
+
+  def all("attachments") do
+    [
+      one(
+        "default",
+        "What was attached",
+        "The hover card is composed rather than generated: it is the " <>
+          "application's own `<.hover_card>`, because a dependency cannot name " <>
+          "a module `mix ui.add` renames on the way in.",
+        &attachments_default/1
+      )
+    ]
+  end
+
+  def all("environment-variables") do
+    [
+      one(
+        "default",
+        "Variables, and the secret one",
+        "The switch asks the server, because what it reveals is a secret: a " <>
+          "value the page was never given cannot be read out of the page.",
+        &environment_variables_default/1
       )
     ]
   end
@@ -1296,6 +1345,99 @@ defmodule StorybookWeb.Examples do
     <.task id="search" title="Searched the registry" class="max-w-80">
       Read 62 component sources and 41 Base UI pages.
     </.task>
+    """
+  end
+
+  defp plan_default(assigns) do
+    ~H"""
+    <.plan id="rollout" title="Three steps to a verified component" class="max-w-md">
+      Read the source, write the spec, generate the module.
+    </.plan>
+    """
+  end
+
+  # The hover card is the application's own, wrapped around a part of the
+  # dependency. `attachments` exports three wrappers around one upstream, and
+  # this is what they were wrapping — a caller composes it in one place instead
+  # of naming a module that `mix ui.add` renamed.
+  defp attachments_default(assigns) do
+    ~H"""
+    <AiAttachments.attachments class="max-w-md">
+      <.hover_card id="spec-preview" align="start">
+        <:trigger>
+          <AiAttachments.attachment class="flex items-center gap-3">
+            <AiAttachments.attachment_preview variant="list">
+              <LiveShadcn.Icon.icon name="file-json" class="size-5" />
+            </AiAttachments.attachment_preview>
+            <AiAttachments.attachment_info
+              label="accordion.json"
+              data={%{mediaType: "application/json"}}
+              show_media_type
+            />
+          </AiAttachments.attachment>
+        </:trigger>
+        The spec the accordion was generated from.
+      </.hover_card>
+      <AiAttachments.attachment class="flex items-center gap-3">
+        <AiAttachments.attachment_preview variant="list">
+          <LiveShadcn.Icon.icon name="image" class="size-5" />
+        </AiAttachments.attachment_preview>
+        <AiAttachments.attachment_info
+          label="upstream.png"
+          data={%{mediaType: "image/png"}}
+          show_media_type
+        />
+        <AiAttachments.attachment_remove label="Remove upstream.png" variant="ghost" />
+      </AiAttachments.attachment>
+    </AiAttachments.attachments>
+    """
+  end
+
+  # `show_values` is the server's, and the switch pushes an event to move it.
+  # That is one round trip per reveal, stated rather than hidden: the value is a
+  # secret, and a page that had been given it could not un-give it.
+  defp environment_variables_default(assigns) do
+    ~H"""
+    <.environment_variables class="max-w-md">
+      <.environment_variables_header>
+        <.environment_variables_title />
+        <.environment_variables_toggle show_values={@show_values} on_toggle="toggle_values" />
+      </.environment_variables_header>
+      <.environment_variables_content>
+        <.environment_variable>
+          <.environment_variable_group>
+            <.environment_variable_name name="MIX_ENV" />
+            <.environment_variable_required />
+          </.environment_variable_group>
+          <.environment_variable_group>
+            <.environment_variable_value display_value="prod" show_values />
+            <.environment_variable_copy_button
+              id="copy-mix-env"
+              name="MIX_ENV"
+              value="prod"
+              aria-label="Copy MIX_ENV"
+            />
+          </.environment_variable_group>
+        </.environment_variable>
+        <.environment_variable>
+          <.environment_variable_group>
+            <.environment_variable_name name="SECRET_KEY_BASE" />
+          </.environment_variable_group>
+          <.environment_variable_group>
+            <.environment_variable_value
+              display_value={if @show_values, do: "sup3rs3cr3t", else: "••••••••••••"}
+              show_values={@show_values}
+            />
+            <.environment_variable_copy_button
+              id="copy-secret-key-base"
+              name="SECRET_KEY_BASE"
+              value={if @show_values, do: "sup3rs3cr3t", else: ""}
+              aria-label="Copy SECRET_KEY_BASE"
+            />
+          </.environment_variable_group>
+        </.environment_variable>
+      </.environment_variables_content>
+    </.environment_variables>
     """
   end
 

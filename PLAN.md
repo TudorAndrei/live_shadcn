@@ -327,16 +327,34 @@ it did not need three times. Recorded rather than half-built.
 
 **Commit:** `fix(ai-elements): a fold carries the recipe, not only the markup`
 
-### Phase 4: An example for the three that have none
+### Phase 4: An example for the three that have none — done
 
 An example is the fixture every check drives — `mix snapshot`, axe, parity and
-pixel all render it. Three components have none, which is why their record shows
-four failures rather than two.
+pixel all render it. Three components had none, which is why their record showed
+four failures rather than two. It shows two now, and both are phase 5's.
 
-- `Examples.attachments_default/1`, `environment_variables_default/1`,
-  `plan_default/1`, and their entries in `Examples.components/0` and `all/1`
-- A browser suite for the two with behaviour, as `task.spec.mjs` is one
-- `mix snapshot` and axe green for all three
+The attachments example composes the application's own `<.hover_card>` around a
+part of the dependency, which is exactly what phase 3 said a caller would do —
+so the sentence in that moduledoc is now something a page demonstrates rather
+than something a moduledoc claims. It is aliased rather than imported, because
+`LiveShadcn.UI.Attachment` exports an `attachment/1` too and two registries
+drawing an attachment is a fact about upstream rather than a collision.
+
+`show_values` is an assign the preview LiveView owns, and the switch pushes
+`toggle_values` to move it. An example that held it on the client would be
+demonstrating something the component deliberately does not do.
+
+Two browser suites, in the shape of `task.spec.mjs`, and between them they hold
+the three decisions this plan made:
+
+- `plan`: the trigger is **one** button, opening costs no round trip, and axe is
+  clean open and closed
+- `environment-variables`: the toggle is a switch a keyboard can reach, the
+  secret **is not in the page** before it is asked for, flipping asks the server,
+  and copying asks nobody
+
+That second one is a negative test on purpose. A component that rendered the
+secret and hid it would pass every other test on the page.
 
 **Commit:** `feat(storybook): an example for the three that had none`
 

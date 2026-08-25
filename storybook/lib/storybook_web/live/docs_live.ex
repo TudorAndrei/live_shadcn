@@ -153,6 +153,10 @@ defmodule StorybookWeb.DocsLive do
     {:noreply, assign(socket, toasts: Examples.dismiss(socket.assigns.toasts, "notices", id))}
   end
 
+  def handle_event("toggle_values", _params, socket) do
+    {:noreply, assign(socket, show_values: not socket.assigns.show_values)}
+  end
+
   # Everything else belongs to the shell — the ⌘K palette's `search`. Defining
   # any clause here replaces the one `docs_live_view` installed, so the rest has
   # to be handed back explicitly rather than silently disappearing.

@@ -36,6 +36,13 @@ defmodule StorybookWeb.PreviewLive do
     {:noreply, assign(socket, toasts: Examples.dismiss(socket.assigns.toasts, "notices", id))}
   end
 
+  # One round trip to reveal a secret, which is the whole design of the
+  # environment variables component: the page is given the value when it asks,
+  # and not before.
+  def handle_event("toggle_values", _params, socket) do
+    {:noreply, assign(socket, show_values: not socket.assigns.show_values)}
+  end
+
   @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""

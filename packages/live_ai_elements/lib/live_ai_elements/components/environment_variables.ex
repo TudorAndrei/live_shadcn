@@ -82,8 +82,8 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
         phx-click={@on_toggle}
         phx-keydown={@on_toggle}
         phx-key=" "
-        data-checked={@show_values == true}
-        data-unchecked={@show_values != true}
+        data-checked={if(@show_values == true, do: "")}
+        data-unchecked={if(@show_values != true, do: "")}
         data-slot={@rest[:"data-slot"] || "switch"}
         data-size={@size}
         aria-label="Toggle value visibility"
@@ -94,8 +94,8 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
         {Map.drop(@rest, [:"data-slot"])}
       >
         <span
-          data-checked={@show_values == true}
-          data-unchecked={@show_values != true}
+          data-checked={if(@show_values == true, do: "")}
+          data-unchecked={if(@show_values != true, do: "")}
           data-slot="switch-thumb"
           class="cn-switch-thumb pointer-events-none block ring-0 transition-transform"
         />

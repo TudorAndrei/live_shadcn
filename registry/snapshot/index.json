@@ -17,6 +17,9 @@
   "resizable": [
     "default"
   ],
+  "environment-variables": [
+    "default"
+  ],
   "scroll-area": [
     "default"
   ],
@@ -25,6 +28,9 @@
   ],
   "badge": [
     "variants"
+  ],
+  "plan": [
+    "default"
   ],
   "message-scroller": [
     "default"
@@ -148,6 +154,9 @@
     "default"
   ],
   "dropdown-menu": [
+    "default"
+  ],
+  "attachments": [
     "default"
   ],
   "combobox": [

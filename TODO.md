@@ -78,16 +78,21 @@ generator can only render a choice the **server** decides.
       secret and the server owns it
 - [x] `show_values` is a `:boolean`: a context field's type is in the context's
       interface, and the reader read type aliases but not interfaces
-- [ ] axe is clean on all three preview pages — needs the examples phase 4 adds
+- [x] axe is clean on all three preview pages, once phase 4 gave them one
 - [ ] Commit: `fix(ai-elements): a fold carries the recipe, not only the markup`
 
 ## Phase 4: An example for the three that have none
 
-- [ ] `Examples.attachments_default/1`, `environment_variables_default/1`,
+- [x] `Examples.attachments_default/1`, `environment_variables_default/1`,
       `plan_default/1`, each listed in `components/0` and `all/1`
-- [ ] A browser suite for the two that behave, in the shape of `task.spec.mjs`
-- [ ] `mix snapshot` and the axe run green for all three
-- [ ] Their record shows two failures rather than four — `parity` and `pixel`
+- [x] The attachments example composes the application's own `<.hover_card>`,
+      which is what phase 3 said a caller would do. Aliased, not imported:
+      `LiveShadcn.UI.Attachment` exports an `attachment/1` too
+- [x] `show_values` is an assign and the switch pushes an event, so the preview
+      LiveView answers `toggle_values` — one round trip per reveal
+- [x] A browser suite for the two that behave, in the shape of `task.spec.mjs`
+- [x] `mix snapshot` and the axe run green for all three
+- [x] Their record shows two failures rather than four — `parity` and `pixel`
       only, which phase 5 closes
 - [ ] Commit: `feat(storybook): an example for the three that had none`
 
