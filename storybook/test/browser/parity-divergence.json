@@ -38,11 +38,23 @@
         "audio-player > audio-player-control-bar > button-group > button-group-text > audio-player-time-range"
       ]
     },
+    "canvas.default": {
+      "why": "Only one side can draw. `<ReactFlow>` with no nodes and no edges collapses to two pixels, and filling it would be a second design rather than a port. The generated component is the board and the background pattern behind it; the panning, the zooming and the fitting are the engine's, and an application that wants them loads the library — the same arrangement media-chrome gets.",
+      "slots": [
+        "(the whole)"
+      ]
+    },
     "chain-of-thought.default": {
       "why": "Upstream renders two `<Collapsible>` wrappers — one around the header and one around the content — and threads the open state between them through a React context. The disclosure recipe folds a component into one function precisely because its parts have to agree about one id, so there is one collapsible here and the 16px `space-y-4` between the two of upstream's has nothing to sit between.",
       "slots": [
         "collapsible",
         "collapsible #2"
+      ]
+    },
+    "controls.default": {
+      "why": "Only one side can draw. React Flow's own component reads a store that a mounted graph fills in — the viewport, the nodes, the node this belongs to — and outside one it renders null, which is what the reference does here. Building a graph around it would be a second design rather than a port, which `parity/README.md` forbids and which the `chart` skip already records for the same reason. What AI Elements adds is a box and a class string, and that box is what the generated component is.",
+      "slots": [
+        "(the whole)"
       ]
     },
     "file-tree.default": {
@@ -58,6 +70,20 @@
         "popover-trigger",
         "popover-trigger > button",
         "command"
+      ]
+    },
+    "open-in-chat.default": {
+      "why": "The same `asChild` that `plan.default` records. Upstream writes `<DropdownMenuItem asChild><a href={…}>`, and this shadcn build is Base UI, whose equivalent is `render` — so `asChild` is a no-op there and React draws a menu item with a link inside it. The reader takes it at its word: the item *is* the link, which is what lets `open-in-chat` be a component at all rather than twelve wrappers with nothing in them.",
+      "slots": [
+        "(the whole)",
+        "dropdown-menu-item",
+        "dropdown-menu-item #2"
+      ]
+    },
+    "panel.default": {
+      "why": "Only one side can draw. React Flow's own component reads a store that a mounted graph fills in — the viewport, the nodes, the node this belongs to — and outside one it renders null, which is what the reference does here. Building a graph around it would be a second design rather than a port, which `parity/README.md` forbids and which the `chart` skip already records for the same reason. What AI Elements adds is a box and a class string, and that box is what the generated component is.",
+      "slots": [
+        "(the whole)"
       ]
     },
     "plan.default": {
@@ -98,6 +124,12 @@
         "scroll-area > scroll-area-viewport > scroll-area-scrollbar > scroll-area-thumb",
         "scroll-area > scroll-area-scrollbar",
         "scroll-area > scroll-area-scrollbar > scroll-area-thumb"
+      ]
+    },
+    "toolbar.default": {
+      "why": "Only one side can draw. React Flow's own component reads a store that a mounted graph fills in — the viewport, the nodes, the node this belongs to — and outside one it renders null, which is what the reference does here. Building a graph around it would be a second design rather than a port, which `parity/README.md` forbids and which the `chart` skip already records for the same reason. What AI Elements adds is a box and a class string, and that box is what the generated component is.",
+      "slots": [
+        "(the whole)"
       ]
     }
   }

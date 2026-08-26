@@ -140,7 +140,9 @@ defmodule StorybookWeb.Examples do
        queue speech-input transcription voice-selector
        inline-citation stack-trace test-results tool web-preview
        agent audio-player code-block context conversation file-tree prompt-input
-       sandbox schema-display shimmer terminal)
+       sandbox schema-display shimmer terminal
+       canvas connection controls edge jsx-preview node panel persona toolbar
+       open-in-chat)
   end
 
   @doc "The examples for a component."
@@ -601,6 +603,134 @@ defmodule StorybookWeb.Examples do
         "Filed as a listbox and it is not one: eleven of its parts wrap a " <>
           "command dialog, and these eight are its own.",
         &voice_selector_default/1
+      )
+    ]
+  end
+
+  # The seven React Flow files that are markup, and the two beside them.
+  #
+  # `ROADMAP.md` said the graph library owns all seven, and it owns three: the
+  # engine, and the two that are SVG arithmetic it runs while a wire is being
+  # dragged. The rest are a box and a class string.
+  def all("canvas") do
+    [
+      one(
+        "default",
+        "The board a graph is drawn on",
+        "React Flow pans and zooms it; what the component is, is the box and " <>
+          "the background inside it.",
+        &canvas_default/1
+      )
+    ]
+  end
+
+  def all("open-in-chat") do
+    [
+      one(
+        "default",
+        "The same question, somewhere else",
+        "Twelve wrappers around a dropdown menu, and six of them are links " <>
+          "with a logo, a title and a query string. `asChild` says the item " <>
+          "*is* the link, so the link is what the component draws.",
+        &open_in_chat_default/1
+      )
+    ]
+  end
+
+  def all("connection") do
+    [
+      one(
+        "default",
+        "The wire being dragged",
+        "Four numbers and a bezier. Upstream computes the path in a template " <>
+          "literal, and so does this.",
+        &connection_default/1
+      )
+    ]
+  end
+
+  def all("controls") do
+    [
+      one(
+        "default",
+        "The buttons that zoom a graph",
+        "A box with a class string, which is the whole of what AI Elements " <>
+          "adds to React Flow's own control bar.",
+        &controls_default/1
+      )
+    ]
+  end
+
+  def all("edge") do
+    [
+      one(
+        "default",
+        "A line between two nodes",
+        "The path is React Flow's arithmetic over where the nodes ended up, " <>
+          "so it is an attribute here — the same answer `code-block` gives " <>
+          "about its tokens.",
+        &edge_default/1
+      )
+    ]
+  end
+
+  def all("jsx-preview") do
+    [
+      one(
+        "default",
+        "Markup a model wrote",
+        "Upstream compiles a string of JSX at render. A server cannot, and a " <>
+          "template language that drew markup from a string would be the " <>
+          "injection this pipeline is built to avoid — so what goes there is " <>
+          "the caller's.",
+        &jsx_preview_default/1
+      )
+    ]
+  end
+
+  def all("node") do
+    [
+      one(
+        "default",
+        "A box on the graph",
+        "shadcn's card, with the class strings AI Elements writes over it and " <>
+          "a handle at either side.",
+        &node_default/1
+      )
+    ]
+  end
+
+  def all("panel") do
+    [
+      one(
+        "default",
+        "A box that floats over the graph",
+        "Where it floats is React Flow's; the box is the component.",
+        &panel_default/1
+      )
+    ]
+  end
+
+  def all("persona") do
+    [
+      one(
+        "default",
+        "The canvas a face is painted into",
+        "One element, and the Rive runtime that paints it is the " <>
+          "application's — the same arrangement media-chrome gets.",
+        &persona_default/1
+      )
+    ]
+  end
+
+  def all("toolbar") do
+    [
+      one(
+        "default",
+        "The row of actions on a node",
+        "React Flow puts it under the node it belongs to. The row is the " <>
+          "component.",
+        &toolbar_default/1
       )
     ]
   end
@@ -1812,6 +1942,94 @@ defmodule StorybookWeb.Examples do
         </LiveAiElements.Components.CodeBlock.code_block_actions>
       </LiveAiElements.Components.CodeBlock.code_block_header>
     </LiveAiElements.Components.CodeBlock.code_block_container>
+    """
+  end
+
+  defp canvas_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Canvas.canvas class="h-40 max-w-md border" />
+    """
+  end
+
+  defp open_in_chat_default(assigns) do
+    ~H"""
+    <div class="w-fit">
+      <LiveAiElements.Components.OpenInChat.open_in_chat_gpt query="How does the fold work?" />
+      <LiveAiElements.Components.OpenInChat.open_in_claude query="How does the fold work?" />
+    </div>
+    """
+  end
+
+  defp connection_default(assigns) do
+    ~H"""
+    <svg class="h-24 w-64" viewBox="0 0 240 96">
+      <LiveAiElements.Components.Connection.connection from_x={8} from_y={16} to_x={220} to_y={80} />
+    </svg>
+    """
+  end
+
+  defp controls_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Controls.controls class="w-fit">
+      <button type="button" class="p-1" aria-label="Zoom in">+</button>
+      <button type="button" class="p-1" aria-label="Zoom out">-</button>
+    </LiveAiElements.Components.Controls.controls>
+    """
+  end
+
+  defp edge_default(assigns) do
+    ~H"""
+    <svg class="h-24 w-64" viewBox="0 0 240 96">
+      <LiveAiElements.Components.Edge.edge_temporary
+        id="wire"
+        edge_path="M8,16 C 114,16 114,80 220,80"
+      />
+    </svg>
+    """
+  end
+
+  defp jsx_preview_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.JsxPreview.jsx_preview class="max-w-md">
+      <LiveAiElements.Components.JsxPreview.jsx_preview_content>
+        <p class="text-sm">What the model wrote, already markup.</p>
+      </LiveAiElements.Components.JsxPreview.jsx_preview_content>
+    </LiveAiElements.Components.JsxPreview.jsx_preview>
+    """
+  end
+
+  defp node_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Node.node handles={%{target: false, source: false}}>
+      <LiveAiElements.Components.Node.node_header>
+        <LiveAiElements.Components.Node.node_title>Reader</LiveAiElements.Components.Node.node_title>
+      </LiveAiElements.Components.Node.node_header>
+      <LiveAiElements.Components.Node.node_content>
+        Reads a registry source and writes a spec.
+      </LiveAiElements.Components.Node.node_content>
+    </LiveAiElements.Components.Node.node>
+    """
+  end
+
+  defp panel_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Panel.panel class="w-fit">
+      <span class="text-xs">62 components</span>
+    </LiveAiElements.Components.Panel.panel>
+    """
+  end
+
+  defp persona_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Persona.persona />
+    """
+  end
+
+  defp toolbar_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Toolbar.toolbar class="w-fit">
+      <button type="button" class="text-xs" aria-label="Run">Run</button>
+    </LiveAiElements.Components.Toolbar.toolbar>
     """
   end
 
