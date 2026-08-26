@@ -269,7 +269,7 @@
       }
     },
     "pass": true,
-    "spec": "45062e51e7f014e9f2f7a1c47cb7c1387b9b2aa02e880bf0a5256e582dd13114"
+    "spec": "59cebdf07d84e459c4618b1a39570ecf2be45f4fa7e97947cf6202be7b25bef2"
   },
   "ai_elements/package-info": {
     "checks": {
@@ -294,7 +294,7 @@
       }
     },
     "pass": true,
-    "spec": "6bc78d2b637df39018025b0ff4a1156ae17a06951fcc8e0188614f5fa6dfea01"
+    "spec": "579004726535e8ea8df263dcbb05b800abb0338b5175c4626f2252f375c1fb57"
   },
   "shadcn/pagination": {
     "checks": {
@@ -449,7 +449,7 @@
       }
     },
     "pass": true,
-    "spec": "44efccee9a9d38d72877bada5076245df3e2cf223912122f97f24481c6f9eedb"
+    "spec": "8294f661dc9834430b3073e13586972ad67dcbef859f7155d1a2aac33d1ad37d"
   },
   "shadcn/sheet": {
     "checks": {
@@ -516,7 +516,7 @@
       }
     },
     "pass": true,
-    "spec": "add71cb389ed7263fe39902027ad844a97ddbeaae769f035252799534e9e6a91"
+    "spec": "ec4a3bb9bb18342b96a9595f32b38b0de0741c1ec799b56fcca2afa3f36302b9"
   },
   "ai_elements/image": {
     "checks": {
@@ -671,7 +671,7 @@
       }
     },
     "pass": true,
-    "spec": "22e139a58ad822e677452364b8c58f72c7198f790a1094ed49d21315d3af7571"
+    "spec": "c3d948ee8459da7c617a948a46f06d5864282c415a77083fa7436fadd7a086ff"
   },
   "shadcn/input": {
     "checks": {
@@ -813,7 +813,7 @@
       }
     },
     "pass": true,
-    "spec": "8ddbf0a7e82b8453407a25082f219d2cfd6583edbf771449c9eca73c54571862"
+    "spec": "523f142e89992e9f5b826f2e82146da63b546dc35d49df0a4fe02a22deb15f01"
   },
   "shadcn/skeleton": {
     "checks": {
@@ -901,7 +901,7 @@
       }
     },
     "pass": true,
-    "spec": "d746f642c4abd4dd66d70c17652edbad3de81bafc7a811870bae3af9995d4395"
+    "spec": "d28e116bd35bc3640d8363756b1ac0b2a70162311d065a266d7fc79a8a39fb70"
   },
   "shadcn/input-group": {
     "checks": {
@@ -1078,7 +1078,7 @@
       }
     },
     "pass": true,
-    "spec": "c1a52eedc2209e3cb9ffa1056be8eb60f7f0ae8f9d14b5628a3f7b55539cc654"
+    "spec": "58dad448c0f633e68de3038d484c786083ebedd33d3017d6d7f313b2988aa324"
   },
   "shadcn/sonner": {
     "checks": {
@@ -1149,7 +1149,7 @@
       }
     },
     "pass": true,
-    "spec": "df394ce2ff581ce4db6c826ab116970cdb25f46a8849da802e5d047c8edc50f5"
+    "spec": "e763826209b9daa9a6ce446b55c4cdbcc37d45ceef113e75e057f330dcb3a0f3"
   },
   "shadcn/dropdown-menu": {
     "checks": {
@@ -1379,7 +1379,7 @@
       }
     },
     "pass": true,
-    "spec": "370294b7f6a966dbda4d84325fa58c18b88685c7fc374941f0a4a0b9d1c7a986"
+    "spec": "42f3b4a8a32abc4dbf407871944d4b83088ae05efb246a4fc4b7e729d35f9a3c"
   },
   "ai_elements/schema-display": {
     "checks": {
@@ -1404,7 +1404,7 @@
       }
     },
     "pass": true,
-    "spec": "2af0c4f616ada904d68457c1101ec864bb9ff6b4b473fbb7d6c1e8e0e33c2f0f"
+    "spec": "00e4409d069121981bbfbf22fb84ff3ce8d69be22101ee3dc80ed525ad64f062"
   },
   "ai_elements/toolbar": {
     "checks": {
@@ -1517,7 +1517,7 @@
       }
     },
     "pass": true,
-    "spec": "e2c5891b27552b734df7a99cce0c3578653732ac56833bd6265f3384ac86681b"
+    "spec": "ba6994c993d147a05d5447f23124fbb43c13e97a92d25815467ae1b81a666724"
   },
   "shadcn/toast": {
     "checks": {
@@ -1563,7 +1563,7 @@
       }
     },
     "pass": true,
-    "spec": "597419d0ef41cbd3129de64a0523ed4411e8a3235d7b84ad3f4271b74ed927dd"
+    "spec": "52dd54efde942f57bed29c490dd62d26e3819ecf2271c63e2a4241bed8e140f9"
   },
   "ai_elements/snippet": {
     "checks": {
@@ -1588,7 +1588,7 @@
       }
     },
     "pass": true,
-    "spec": "4bb27143c869405d9ffca127ff641f06e0a0491160708909368dded57db1b65c"
+    "spec": "5069ef1b39822de0a96acc3a3a39d1a17e5e8d7e75dc601f93935b4a6e05f063"
   },
   "ai_elements/speech-input": {
     "checks": {
@@ -1613,7 +1613,7 @@
       }
     },
     "pass": true,
-    "spec": "5b8194f982fd23506b2b291e40ac9fd47cefb17aac4507c772f69c16980f0f6e"
+    "spec": "7955739f8f5d3e1159d2622b06d8d211179341c1c4738dbd45a722514aba2726"
   },
   "ai_elements/environment-variables": {
     "checks": {
@@ -1638,7 +1638,7 @@
       }
     },
     "pass": true,
-    "spec": "a21199e6ec1e941300af18c1cda4099223d41d23486ca2490ae4782c990e7338"
+    "spec": "232670b1c8cde764016e84790d984e75e0dedd29abfe9d180ebdb24784f44f8b"
   },
   "shadcn/switch": {
     "checks": {
@@ -1776,7 +1776,7 @@
       }
     },
     "pass": true,
-    "spec": "5276bf3d35e3f73d0464482579ece63665d72ed7bd28da7879f263b2a40d5b3e"
+    "spec": "93f27c25e650e8dc4e66be55fa8b34af2097b965b7979a12496778f7eeaf5811"
   },
   "shadcn/item": {
     "checks": {
@@ -2002,7 +2002,7 @@
       }
     },
     "pass": true,
-    "spec": "7dbe8aadb47db5683b9c1d9b221364cd0044e9b03b124d73b686b2dce7547934"
+    "spec": "69f14e2fb41d061e4c29768387d37c7feeb2bc3b7e2884c6452208c62c0a8f99"
   },
   "ai_elements/audio-player": {
     "checks": {
@@ -2027,7 +2027,7 @@
       }
     },
     "pass": true,
-    "spec": "96995c1c430bb766dd66fc6d09479dd9669e058cb82d0dc2597eb264940ee242"
+    "spec": "aa7cc0a28cdb2fb47f9484adbdea89e654797288495a4d363d6be15b37f266c6"
   },
   "ai_elements/suggestion": {
     "checks": {
@@ -2052,7 +2052,7 @@
       }
     },
     "pass": true,
-    "spec": "587cca3ebe5eebeae2182b2b44868502c69486102878b2493fd4cb8a8e5af9d6"
+    "spec": "c28a09b6e9b64114f5f75bc33ae3920affd8fdfe451d6a8a1a86d671feee1b5c"
   },
   "ai_elements/conversation": {
     "checks": {
@@ -2102,7 +2102,7 @@
       }
     },
     "pass": true,
-    "spec": "56c45d7fd22562e04b99aac24b0261992e1c8f1ef53722dd50b7ad3b9c2821b9"
+    "spec": "7322d925fe47518054212f90df587f31b8622b940f31f08e8ffbd77f02283306"
   },
   "ai_elements/transcription": {
     "checks": {
@@ -2194,7 +2194,7 @@
       }
     },
     "pass": true,
-    "spec": "6e6fd3767ac66228b87050c9d2f4ffd5e2216ed03a13a7a008b1720956bb6562"
+    "spec": "e319f06462b5eaacd040da89a176206e6af89d3e3334e3b2d7a19d21398b1061"
   },
   "shadcn/navigation-menu": {
     "checks": {
@@ -2261,7 +2261,7 @@
       }
     },
     "pass": true,
-    "spec": "0f512cf34737e3d9788bb92ffb6610ba2498354a81d887ff5dd1a0397440ef1c"
+    "spec": "f15fef428f542a116ac1ede04f98ee3d1bd0ae743aba23923a3340edbe0f8edd"
   },
   "ai_elements/agent": {
     "checks": {
@@ -2286,7 +2286,7 @@
       }
     },
     "pass": true,
-    "spec": "3f0c3f39f42323cdd476c46fcfb1c3187cb277944e266e8119bbf1599342ec64"
+    "spec": "893defd3fcd23d8043663e077f65596434617b1b76ccb978a712057bc71c1958"
   },
   "shadcn/collapsible": {
     "checks": {

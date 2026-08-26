@@ -1,9 +1,6 @@
 {
   "anatomy": [],
   "css_vars": [],
-  "folds": [
-    "shadcn/card"
-  ],
   "generated_by": "mix ui.spec",
   "name": "node",
   "parts": [
@@ -29,7 +26,7 @@
               "size"
             ],
             "kind": "code",
-            "name": "data-size",
+            "name": "size",
             "value": "size"
           }
         ],
@@ -146,23 +143,22 @@
             "type": "children"
           }
         ],
-        "class": "cn-card group/card flex flex-col node-container relative size-full h-auto w-sm gap-0 rounded-md p-0",
+        "class": "node-container relative size-full h-auto w-sm gap-0 rounded-md p-0",
         "class_when": [],
+        "component": "card",
+        "function": "card",
         "merges_class": true,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "data-size",
-              "value": "sm"
-            }
-          ]
+          "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "card",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "element",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -183,18 +179,22 @@
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "cn-card-header group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] gap-0.5 rounded-t-md border-b bg-secondary p-3!",
+        "class": "gap-0.5 rounded-t-md border-b bg-secondary p-3!",
         "class_when": [],
+        "component": "card",
+        "function": "card_header",
         "merges_class": true,
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "card-header",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "element",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -204,9 +204,7 @@
       "contexts": [],
       "export": "NodeTitle",
       "name": "node_title",
-      "params": {
-        "className": null
-      },
+      "params": {},
       "primitive": null,
       "refs": [
         "props"
@@ -214,24 +212,22 @@
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "cn-card-title cn-font-heading",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
+        "component": "card",
+        "function": "card_title",
+        "merges_class": false,
         "props": true,
         "reads": {
-          "group": [
-            {
-              "group": "card",
-              "name": "data-size",
-              "value": "sm"
-            }
-          ],
+          "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "card-title",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "element",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -241,9 +237,7 @@
       "contexts": [],
       "export": "NodeDescription",
       "name": "node_description",
-      "params": {
-        "className": null
-      },
+      "params": {},
       "primitive": null,
       "refs": [
         "props"
@@ -251,18 +245,22 @@
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "cn-card-description",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
+        "component": "card",
+        "function": "card_description",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "card-description",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "element",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -272,9 +270,7 @@
       "contexts": [],
       "export": "NodeAction",
       "name": "node_action",
-      "params": {
-        "className": null
-      },
+      "params": {},
       "primitive": null,
       "refs": [
         "props"
@@ -282,18 +278,22 @@
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+        "class": "",
         "class_when": [],
-        "merges_class": true,
+        "component": "card",
+        "function": "card_action",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "card-action",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "element",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -314,18 +314,22 @@
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "cn-card-content p-3",
+        "class": "p-3",
         "class_when": [],
+        "component": "card",
+        "function": "card_content",
         "merges_class": true,
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "card-content",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "element",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -346,18 +350,22 @@
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "cn-card-footer flex items-center rounded-b-md border-t bg-secondary p-3!",
+        "class": "rounded-b-md border-t bg-secondary p-3!",
         "class_when": [],
+        "component": "card",
+        "function": "card_footer",
         "merges_class": true,
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "card-footer",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "element",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -384,72 +392,7 @@
   },
   "recipe": "presentational",
   "source": "ai_elements",
-  "styles": {
-    "luma": {
-      "cn-card": "bg-card text-card-foreground ring-foreground/5 dark:ring-foreground/10 gap-(--card-spacing) overflow-hidden rounded-4xl py-(--card-spacing) text-sm shadow-md ring-1 [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-4xl *:[img:last-child]:rounded-b-4xl",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm",
-      "cn-card-footer": "rounded-b-4xl px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-1.5 rounded-t-4xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-base font-medium"
-    },
-    "lyra": {
-      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-none py-(--card-spacing) text-xs/relaxed ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-none *:[img:last-child]:rounded-none",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-xs/relaxed",
-      "cn-card-footer": "rounded-none border-t p-(--card-spacing)",
-      "cn-card-header": "gap-1 rounded-none px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-sm font-medium group-data-[size=sm]/card:text-sm"
-    },
-    "maia": {
-      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-2xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm",
-      "cn-card-footer": "rounded-b-xl px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-2 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-base font-medium"
-    },
-    "mira": {
-      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-lg py-(--card-spacing) text-xs/relaxed ring-1 [--card-spacing:--spacing(4)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] *:[img:first-child]:rounded-t-lg *:[img:last-child]:rounded-b-lg",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-xs/relaxed",
-      "cn-card-footer": "rounded-b-lg px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-1 rounded-t-lg px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-sm font-medium"
-    },
-    "nova": {
-      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm",
-      "cn-card-footer": "bg-muted/50 rounded-b-xl border-t p-(--card-spacing)",
-      "cn-card-header": "gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-base leading-snug font-medium group-data-[size=sm]/card:text-sm"
-    },
-    "rhea": {
-      "cn-card": "bg-card text-card-foreground ring-foreground/5 dark:ring-foreground/10 gap-(--card-spacing) overflow-hidden rounded-[min(var(--radius-4xl),24px)] py-(--card-spacing) text-sm shadow-sm ring-1 [--card-spacing:--spacing(5)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-[min(var(--radius-4xl),24px)] *:[img:last-child]:rounded-b-[min(var(--radius-4xl),24px)]",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm",
-      "cn-card-footer": "rounded-b-[min(var(--radius-4xl),24px)] px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-1.5 rounded-t-[min(var(--radius-4xl),24px)] px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-base font-medium"
-    },
-    "sera": {
-      "cn-card": "bg-card text-card-foreground ring-foreground/5 gap-(--card-spacing) overflow-hidden py-(--card-spacing) text-sm shadow-sm ring-1 [--card-spacing:--spacing(8)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(5)] *:[img:first-child]:rounded-none *:[img:last-child]:rounded-none",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm leading-relaxed",
-      "cn-card-footer": "px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-1.5 rounded-none px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-lg font-semibold tracking-wider uppercase"
-    },
-    "vega": {
-      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm shadow-xs ring-1 [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm",
-      "cn-card-footer": "rounded-b-xl px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-base leading-normal font-medium group-data-[size=sm]/card:text-sm"
-    }
-  },
+  "styles": {},
   "upstream": {
     "base_ui": {},
     "shadcn": {

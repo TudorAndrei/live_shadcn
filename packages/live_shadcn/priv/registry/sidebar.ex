@@ -150,7 +150,7 @@ defmodule LiveShadcn.UI.Sidebar do
   @doc "The `sidebar-group-action` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def sidebar_group_action(assigns) do
@@ -249,7 +249,9 @@ defmodule LiveShadcn.UI.Sidebar do
       "pattern",
       "readonly",
       "multiple",
-      "autocomplete"
+      "autocomplete",
+      "disabled",
+      "required"
     ]
   )
 
@@ -304,7 +306,7 @@ defmodule LiveShadcn.UI.Sidebar do
   @doc "The `sidebar-menu-action` part."
   attr(:show_on_hover, :boolean, default: false)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def sidebar_menu_action(assigns) do
@@ -359,7 +361,7 @@ defmodule LiveShadcn.UI.Sidebar do
   attr(:tooltip, :string, default: nil)
   attr(:variant, :string, default: "default", values: ["default", "outline"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def sidebar_menu_button(assigns) do

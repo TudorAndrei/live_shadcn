@@ -114,7 +114,7 @@ defmodule LiveShadcn.UI.MessageScroller do
   attr(:size, :string, default: "icon-sm")
   attr(:variant, :string, default: "secondary")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def message_scroller_button(assigns) do

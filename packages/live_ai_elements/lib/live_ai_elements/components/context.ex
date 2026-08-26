@@ -1,6 +1,6 @@
 defmodule LiveAiElements.Components.Context do
   @moduledoc """
-  Context. Built on `shadcn/hover-card`, `shadcn/progress`.
+  Context. Built on `shadcn/hover-card`.
 
   Upstream exports 3 more parts, each a thin
   wrapper around a part of `<.hover_card>`. That component is one
@@ -38,24 +38,7 @@ defmodule LiveAiElements.Components.Context do
           </p>
         </div>
         <div class="space-y-2">
-          <div
-            data-slot={@rest[:"data-slot"] || "progress"}
-            value={@value}
-            class="cn-progress-root flex flex-wrap gap-3 bg-muted"
-            {Map.drop(@rest, [:"data-slot"])}
-          >
-            <div
-              data-slot={@rest[:"data-slot"] || "progress-track"}
-              class={["cn-progress-track relative flex w-full items-center overflow-x-hidden", @class]}
-              {Map.drop(@rest, [:"data-slot"])}
-            >
-              <div
-                data-slot={@rest[:"data-slot"] || "progress-indicator"}
-                class={["cn-progress-indicator h-full transition-all", @class]}
-                {Map.drop(@rest, [:"data-slot"])}
-              />
-            </div>
-          </div>
+          <LiveShadcn.UI.Progress.progress value={@value} class="bg-muted" />
         </div>
       <% end %>
       {render_slot(@inner_block)}

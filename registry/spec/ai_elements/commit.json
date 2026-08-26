@@ -1,10 +1,6 @@
 {
   "anatomy": [],
   "css_vars": [],
-  "folds": [
-    "shadcn/avatar",
-    "shadcn/button"
-  ],
   "generated_by": "mix ui.spec",
   "name": "commit",
   "parts": [
@@ -368,7 +364,7 @@
               "size"
             ],
             "kind": "code",
-            "name": "data-size",
+            "name": "size",
             "value": "size"
           }
         ],
@@ -384,53 +380,42 @@
                 "type": "value"
               }
             ],
-            "class": "cn-avatar-fallback flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs text-xs",
+            "class": "text-xs",
             "class_when": [],
+            "component": "avatar",
+            "function": "avatar_fallback",
             "merges_class": false,
-            "module": "avatar",
-            "part": "Fallback",
-            "props": true,
+            "props": false,
             "reads": {
-              "group": [
-                {
-                  "group": "avatar",
-                  "name": "data-size",
-                  "value": "sm"
-                }
-              ],
+              "group": [],
               "self": []
             },
+            "recipe": "presentational",
             "render_as": null,
-            "slot": "avatar-fallback",
+            "slot": null,
+            "source": "shadcn",
             "tag": "span",
-            "type": "primitive",
+            "type": "component_ref",
             "variant_calls": [],
             "vars": []
           }
         ],
-        "class": "cn-avatar group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten size-8",
+        "class": "size-8",
         "class_when": [],
+        "component": "avatar",
+        "function": "avatar",
         "merges_class": true,
-        "module": "avatar",
-        "part": "Root",
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "data-size",
-              "value": "lg"
-            },
-            {
-              "name": "data-size",
-              "value": "sm"
-            }
-          ]
+          "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "avatar",
+        "slot": null,
+        "source": "shadcn",
         "tag": "span",
-        "type": "primitive",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -566,7 +551,24 @@
         "children"
       ],
       "tree": {
-        "attrs": [],
+        "attrs": [
+          {
+            "identifiers": [
+              "size"
+            ],
+            "kind": "code",
+            "name": "size",
+            "value": "size"
+          },
+          {
+            "identifiers": [
+              "variant"
+            ],
+            "kind": "code",
+            "name": "variant",
+            "value": "variant"
+          }
+        ],
         "children": [
           {
             "default": [
@@ -647,37 +649,21 @@
         ],
         "class": "size-7 shrink-0",
         "class_when": [],
+        "component": "button",
+        "function": "button",
         "merges_class": true,
-        "module": "button",
-        "part": "Root",
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            },
-            {
-              "name": "aria-expanded",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "button",
+        "slot": null,
+        "source": "shadcn",
         "tag": "button",
-        "type": "primitive",
-        "variant_calls": [
-          {
-            "args": [
-              "variant",
-              "size",
-              "className"
-            ],
-            "table": "buttonVariants"
-          }
-        ],
+        "type": "component_ref",
+        "variant_calls": [],
         "vars": []
       },
       "types": {
@@ -1277,185 +1263,10 @@
       "when": "!(count <= 0)"
     }
   ],
-  "primitives": {
-    "avatar.Fallback": {
-      "css_vars": [],
-      "data": [],
-      "element": "span",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "0",
-          "doc": "How long to wait before showing the fallback. Specified in milliseconds.",
-          "name": "delay",
-          "type": "number"
-        },
-        {
-          "default": "((state: Avatar.Fallback.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Avatar.Fallback.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Avatar.Fallback.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Rendered when the image fails to load or when no image is provided."
-    },
-    "avatar.Image": {
-      "css_vars": [],
-      "data": [
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "img",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": null,
-          "doc": "Callback fired when the loading status changes.",
-          "name": "onLoadingStatusChange",
-          "type": "((status: ImageLoadingStatus) => void)"
-        },
-        {
-          "default": "((state: Avatar.Image.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Avatar.Image.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, state: Avatar.Image.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "The image to be displayed in the avatar."
-    },
-    "avatar.Root": {
-      "css_vars": [],
-      "data": [],
-      "element": "span",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Avatar.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Avatar.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Avatar.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Displays a user's profile picture, initials, or fallback icon."
-    },
-    "button.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the button should be focusable when disabled.",
-          "name": "focusableWhenDisabled",
-          "type": "boolean"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Button.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Button.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button component that can be used to trigger actions."
-    }
-  },
+  "primitives": {},
   "recipe": "clipboard",
   "source": "ai_elements",
-  "styles": {
-    "luma": {
-      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
-      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full"
-    },
-    "lyra": {
-      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
-      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full"
-    },
-    "maia": {
-      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
-      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full"
-    },
-    "mira": {
-      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
-      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full"
-    },
-    "nova": {
-      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
-      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full"
-    },
-    "rhea": {
-      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
-      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full"
-    },
-    "sera": {
-      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
-      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full"
-    },
-    "vega": {
-      "cn-avatar": "size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6",
-      "cn-avatar-fallback": "bg-muted text-muted-foreground rounded-full"
-    }
-  },
+  "styles": {},
   "upstream": {
     "base_ui": {},
     "shadcn": {
@@ -1463,33 +1274,5 @@
       "sha256": "877708682428984f5776dafb774da222fbee837804f220ce699956e32938fa1b"
     }
   },
-  "variants": {
-    "buttonVariants": {
-      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-button-size-default",
-          "icon": "cn-button-size-icon",
-          "icon-lg": "cn-button-size-icon-lg",
-          "icon-sm": "cn-button-size-icon-sm",
-          "icon-xs": "cn-button-size-icon-xs",
-          "lg": "cn-button-size-lg",
-          "sm": "cn-button-size-sm",
-          "xs": "cn-button-size-xs"
-        },
-        "variant": {
-          "default": "cn-button-variant-default",
-          "destructive": "cn-button-variant-destructive",
-          "ghost": "cn-button-variant-ghost",
-          "link": "cn-button-variant-link",
-          "outline": "cn-button-variant-outline",
-          "secondary": "cn-button-variant-secondary"
-        }
-      }
-    }
-  }
+  "variants": {}
 }

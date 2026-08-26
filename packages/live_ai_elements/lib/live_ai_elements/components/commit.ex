@@ -1,6 +1,6 @@
 defmodule LiveAiElements.Components.Commit do
   @moduledoc """
-  Commit. Built on `shadcn/avatar`, `shadcn/button`.
+  Commit.
 
   Upstream exports 2 more parts, each a thin
   wrapper around a part of `<.collapsible>`. That component is one
@@ -124,7 +124,7 @@ defmodule LiveAiElements.Components.Commit do
     """
   end
 
-  @doc "The `avatar` part."
+  @doc "The `commit_author_avatar` part."
   attr(:initials, :string, default: nil)
   attr(:size, :string, default: "default")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -133,24 +133,12 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_author_avatar(assigns) do
     ~H"""
-    <span
-      data-slot={@rest[:"data-slot"] || "avatar"}
-      data-size={@size}
-      class={[
-        "cn-avatar group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten size-8",
-        @class
-      ]}
-      {Map.drop(@rest, [:"data-slot"])}
-    >
-      <span
-        data-slot={@rest[:"data-slot"] || "avatar-fallback"}
-        class="cn-avatar-fallback flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs text-xs"
-        {Map.drop(@rest, [:"data-slot"])}
-      >
+    <LiveShadcn.UI.Avatar.avatar size={@size} class={["size-8", @class]} {@rest}>
+      <LiveShadcn.UI.Avatar.avatar_fallback class="text-xs">
         {@initials}
-      </span>
+      </LiveShadcn.UI.Avatar.avatar_fallback>
       {render_slot(@inner_block)}
-    </span>
+    </LiveShadcn.UI.Avatar.avatar>
     """
   end
 
@@ -186,49 +174,35 @@ defmodule LiveAiElements.Components.Commit do
     """
   end
 
-  @doc "The `button` part."
+  @doc "The `commit_copy_button` part."
   attr(:hash, :string, default: nil)
-
-  attr(:size, :string,
-    default: "icon",
-    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
-  )
-
+  attr(:size, :string, default: "icon")
   attr(:timeout, :any, default: 2000)
-
-  attr(:variant, :string,
-    default: "ghost",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
-  )
-
+  attr(:variant, :string, default: "ghost")
   attr(:id, :string, required: true, doc: "The hook needs one to be found by.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def commit_copy_button(assigns) do
     ~H"""
-    <button
+    <LiveShadcn.UI.Button.button
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@hash}
       data-lb-timeout={@timeout}
-      data-slot={@rest[:"data-slot"] || "button"}
-      class={[
-        variant_class("buttonVariants", "size", @size),
-        variant_class("buttonVariants", "variant", @variant),
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7 shrink-0",
-        @class
-      ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      size={@size}
+      variant={@variant}
+      class={["size-7 shrink-0", @class]}
+      {@rest}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" width="14" height="14" />
         <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" width="14" height="14" />
       <% end %>
       {render_slot(@inner_block)}
-    </button>
+    </LiveShadcn.UI.Button.button>
     """
   end
 
@@ -384,30 +358,4 @@ defmodule LiveAiElements.Components.Commit do
     </span>
     """
   end
-
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "buttonVariants" => %{
-      "size" => %{
-        "default" => "cn-button-size-default",
-        "icon" => "cn-button-size-icon",
-        "icon-lg" => "cn-button-size-icon-lg",
-        "icon-sm" => "cn-button-size-icon-sm",
-        "icon-xs" => "cn-button-size-icon-xs",
-        "lg" => "cn-button-size-lg",
-        "sm" => "cn-button-size-sm",
-        "xs" => "cn-button-size-xs"
-      },
-      "variant" => %{
-        "default" => "cn-button-variant-default",
-        "destructive" => "cn-button-variant-destructive",
-        "ghost" => "cn-button-variant-ghost",
-        "link" => "cn-button-variant-link",
-        "outline" => "cn-button-variant-outline",
-        "secondary" => "cn-button-variant-secondary"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

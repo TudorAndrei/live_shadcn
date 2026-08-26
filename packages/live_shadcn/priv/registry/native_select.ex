@@ -12,7 +12,7 @@ defmodule LiveShadcn.UI.NativeSelect do
   @doc "The `native-select-wrapper` part."
   attr(:size, :string, default: "default", values: ["sm", "default"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "name", "multiple", "size"])
+  attr(:rest, :global, include: ["data-slot", "name", "multiple", "size", "disabled", "required"])
   slot(:inner_block)
 
   def native_select(assigns) do

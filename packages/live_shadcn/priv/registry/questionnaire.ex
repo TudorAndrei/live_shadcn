@@ -189,7 +189,9 @@ defmodule LiveShadcn.UI.Questionnaire do
       "pattern",
       "readonly",
       "multiple",
-      "autocomplete"
+      "autocomplete",
+      "disabled",
+      "required"
     ]
   )
 
@@ -236,7 +238,7 @@ defmodule LiveShadcn.UI.Questionnaire do
   attr(:size, :string, default: "default")
   attr(:variant, :string, default: "default")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def questionnaire_next(assigns) do
@@ -263,7 +265,7 @@ defmodule LiveShadcn.UI.Questionnaire do
   attr(:size, :string, default: "default")
   attr(:variant, :string, default: "outline")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def questionnaire_previous(assigns) do
@@ -311,7 +313,7 @@ defmodule LiveShadcn.UI.Questionnaire do
   attr(:size, :string, default: "default")
   attr(:variant, :string, default: "outline")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def questionnaire_skip(assigns) do
@@ -338,7 +340,7 @@ defmodule LiveShadcn.UI.Questionnaire do
   attr(:size, :string, default: "default")
   attr(:variant, :string, default: "default")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def questionnaire_submit(assigns) do

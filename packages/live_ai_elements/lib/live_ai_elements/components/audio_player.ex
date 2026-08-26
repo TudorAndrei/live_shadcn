@@ -53,7 +53,7 @@ defmodule LiveAiElements.Components.AudioPlayer do
   end
 
   @doc "The `audio-player-control-bar` part."
-  attr(:orientation, :string, default: "horizontal", values: ["horizontal", "vertical"])
+  attr(:orientation, :string, default: "horizontal")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -64,18 +64,9 @@ defmodule LiveAiElements.Components.AudioPlayer do
       data-slot={@rest[:"data-slot"] || "audio-player-control-bar"}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <div
-        data-slot={@rest[:"data-slot"] || "button-group"}
-        role="group"
-        data-orientation={@orientation}
-        class={[
-          variant_class("buttonGroupVariants", "orientation", @orientation),
-          "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1"
-        ]}
-        {Map.drop(@rest, [:"data-slot"])}
-      >
+      <LiveShadcn.UI.ButtonGroup.button_group orientation={@orientation}>
         {render_slot(@inner_block)}
-      </div>
+      </LiveShadcn.UI.ButtonGroup.button_group>
     </media-control-bar>
     """
   end
@@ -287,14 +278,6 @@ defmodule LiveAiElements.Components.AudioPlayer do
 
   # The variant tables, from the `cva` calls upstream writes them in.
   @variants %{
-    "buttonGroupVariants" => %{
-      "orientation" => %{
-        "horizontal" =>
-          "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
-        "vertical" =>
-          "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0"
-      }
-    },
     "buttonVariants" => %{
       "size" => %{
         "default" => "cn-button-size-default",

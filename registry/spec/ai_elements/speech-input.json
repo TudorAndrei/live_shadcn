@@ -1,10 +1,6 @@
 {
   "anatomy": [],
   "css_vars": [],
-  "folds": [
-    "shadcn/button",
-    "shadcn/spinner"
-  ],
   "generated_by": "mix ui.spec",
   "name": "speech-input",
   "parts": [
@@ -100,68 +96,46 @@
                 "kind": "code",
                 "name": "disabled",
                 "value": "isDisabled"
+              },
+              {
+                "identifiers": [
+                  "size"
+                ],
+                "kind": "code",
+                "name": "size",
+                "value": "size"
+              },
+              {
+                "identifiers": [
+                  "variant"
+                ],
+                "kind": "code",
+                "name": "variant",
+                "value": "variant"
               }
             ],
             "children": [
               {
                 "children": [
                   {
-                    "attrs": [
-                      {
-                        "kind": "text",
-                        "name": "lucide",
-                        "value": "Loader2Icon"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "tabler",
-                        "value": "IconLoader"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "hugeicons",
-                        "value": "Loading03Icon"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "phosphor",
-                        "value": "SpinnerIcon"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "remixicon",
-                        "value": "RiLoaderLine"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "role",
-                        "value": "status"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "aria-label",
-                        "value": "Loading"
-                      }
-                    ],
+                    "attrs": [],
                     "children": [],
-                    "class": "size-4 animate-spin",
+                    "class": "",
                     "class_when": [],
-                    "icons": {
-                      "hugeicons": "Loading03Icon",
-                      "lucide": "LoaderCircle",
-                      "phosphor": "SpinnerIcon",
-                      "remixicon": "RiLoaderLine",
-                      "tabler": "IconLoader"
-                    },
+                    "component": "spinner",
+                    "function": "spinner",
                     "merges_class": false,
-                    "props": true,
+                    "props": false,
                     "reads": {
                       "group": [],
                       "self": []
                     },
+                    "recipe": "presentational",
                     "render_as": null,
-                    "slot": "spinner",
-                    "type": "icon",
+                    "slot": null,
+                    "source": "shadcn",
+                    "tag": null,
+                    "type": "component_ref",
                     "variant_calls": [],
                     "vars": []
                   }
@@ -244,37 +218,21 @@
                 "when": "isListening"
               }
             ],
+            "component": "button",
+            "function": "button",
             "merges_class": true,
-            "module": "button",
-            "part": "Root",
             "props": true,
             "reads": {
               "group": [],
-              "self": [
-                {
-                  "name": "aria-invalid",
-                  "value": null
-                },
-                {
-                  "name": "aria-expanded",
-                  "value": null
-                }
-              ]
+              "self": []
             },
+            "recipe": "presentational",
             "render_as": null,
-            "slot": "button",
+            "slot": null,
+            "source": "shadcn",
             "tag": "button",
-            "type": "primitive",
-            "variant_calls": [
-              {
-                "args": [
-                  "variant",
-                  "size",
-                  "className"
-                ],
-                "table": "buttonVariants"
-              }
-            ],
+            "type": "component_ref",
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -296,50 +254,7 @@
       "types": {}
     }
   ],
-  "primitives": {
-    "button.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the button should be focusable when disabled.",
-          "name": "focusableWhenDisabled",
-          "type": "boolean"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Button.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Button.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button component that can be used to trigger actions."
-    }
-  },
+  "primitives": {},
   "recipe": "presentational",
   "source": "ai_elements",
   "styles": {},
@@ -350,33 +265,5 @@
       "sha256": "25747138c9c41cca6f96caf69faa9ff6e39910dabac534c84eba41cbd9ba54d3"
     }
   },
-  "variants": {
-    "buttonVariants": {
-      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-button-size-default",
-          "icon": "cn-button-size-icon",
-          "icon-lg": "cn-button-size-icon-lg",
-          "icon-sm": "cn-button-size-icon-sm",
-          "icon-xs": "cn-button-size-icon-xs",
-          "lg": "cn-button-size-lg",
-          "sm": "cn-button-size-sm",
-          "xs": "cn-button-size-xs"
-        },
-        "variant": {
-          "default": "cn-button-variant-default",
-          "destructive": "cn-button-variant-destructive",
-          "ghost": "cn-button-variant-ghost",
-          "link": "cn-button-variant-link",
-          "outline": "cn-button-variant-outline",
-          "secondary": "cn-button-variant-secondary"
-        }
-      }
-    }
-  }
+  "variants": {}
 }

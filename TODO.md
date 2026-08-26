@@ -335,16 +335,27 @@ Drop the gate:
 
 Call what is a component:
 
-- [ ] The reader records the shadcn component an AI Element renders, by the
-      function this repository generates for it
-- [ ] The generator calls it — `LiveShadcn.UI.Button.button/1` — for
-      `ai_elements` sources only. A copied file still folds, because
-      `mix ui.add` renames it
-- [ ] `button` first: 21 components, and the widest fold there is
-- [ ] Then `badge` (7), `collapsible` stays folded, `card`, `avatar`, `alert`,
-      `progress`, `switch`, `input`, `textarea`, `spinner`, `separator`
-- [ ] **`mix snapshot --check` is the proof.** A call that draws what the fold
-      drew moves no snapshot; one that does is the finding
+- [x] The reader leaves the reference standing instead of folding it, and the
+      generator's existing `component_ref` clause calls it
+- [x] `LiveShadcnTools.callable?/3` says when: an AI Element, a caller that
+      writes one function per part, and a callee whose recipe is
+      `presentational`, `separator` or `progress`
+- [x] 24 components call one now — 44 buttons, 24 badges, 14 cards, 6 button
+      groups, 4 avatars, 4 alerts, a spinner, a separator and a progress
+- [x] `asChild` folds: the reference *is* the element inside it, and a call
+      draws an element of its own
+- [x] A recipe that folds a component into one function folds what it renders
+      too — it builds its own tree and has no call site to put a call at
+- [x] The call passes what the reference wrote, plus what a `{...props}` spread
+      carries: React's spread carries a component's props where HEEx's
+      `:global` carries HTML attributes
+- [x] `disabled` and `required` are not global attributes. A `<button>` that
+      only ever appeared as folded markup never needed them declared
+- [x] **`mix snapshot --check`**: six of 114 moved, and every one of them is the
+      same class names in a different order — the sets are identical and so is
+      the rest of the markup
+- [ ] `form-control` (input, textarea, input-group) and `switch` are still
+      folded. They take a name and a value, and a call has to carry those
 
 ## Verification
 

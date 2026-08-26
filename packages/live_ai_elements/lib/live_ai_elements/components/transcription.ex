@@ -36,7 +36,7 @@ defmodule LiveAiElements.Components.Transcription do
   attr(:is_past, :string, default: nil)
   attr(:segment, :any, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def transcription_segment(assigns) do

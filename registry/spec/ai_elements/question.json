@@ -2,7 +2,6 @@
   "anatomy": [],
   "css_vars": [],
   "folds": [
-    "shadcn/button",
     "shadcn/textarea"
   ],
   "generated_by": "mix ui.spec",
@@ -258,6 +257,23 @@
             "kind": "text",
             "name": "type",
             "value": "button"
+          },
+          {
+            "identifiers": [
+              "size"
+            ],
+            "kind": "code",
+            "name": "size",
+            "value": "size"
+          },
+          {
+            "identifiers": [
+              "isSelected",
+              "variant"
+            ],
+            "kind": "code",
+            "name": "variant",
+            "value": "variant ?? (isSelected ? \"default\" : \"outline\")"
           }
         ],
         "children": [
@@ -277,37 +293,21 @@
         ],
         "class": "h-auto whitespace-normal",
         "class_when": [],
+        "component": "button",
+        "function": "button",
         "merges_class": true,
-        "module": "button",
-        "part": "Root",
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            },
-            {
-              "name": "aria-expanded",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "button",
+        "slot": null,
+        "source": "shadcn",
         "tag": "button",
-        "type": "primitive",
-        "variant_calls": [
-          {
-            "args": [
-              "variant",
-              "size",
-              "className"
-            ],
-            "table": "buttonVariants"
-          }
-        ],
+        "type": "component_ref",
+        "variant_calls": [],
         "vars": []
       },
       "types": {}
@@ -423,7 +423,6 @@
       "name": "question_submit",
       "params": {
         "children": "Submit",
-        "className": null,
         "disabled": null,
         "hasResponse": null,
         "selectedValues": null,
@@ -456,6 +455,22 @@
             "kind": "text",
             "name": "type",
             "value": "submit"
+          },
+          {
+            "identifiers": [
+              "size"
+            ],
+            "kind": "code",
+            "name": "size",
+            "value": "size"
+          },
+          {
+            "identifiers": [
+              "variant"
+            ],
+            "kind": "code",
+            "name": "variant",
+            "value": "variant"
           }
         ],
         "children": [
@@ -465,86 +480,27 @@
         ],
         "class": "",
         "class_when": [],
-        "merges_class": true,
-        "module": "button",
-        "part": "Root",
+        "component": "button",
+        "function": "button",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            },
-            {
-              "name": "aria-expanded",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "button",
+        "slot": null,
+        "source": "shadcn",
         "tag": "button",
-        "type": "primitive",
-        "variant_calls": [
-          {
-            "args": [
-              "variant",
-              "size",
-              "className"
-            ],
-            "table": "buttonVariants"
-          }
-        ],
+        "type": "component_ref",
+        "variant_calls": [],
         "vars": []
       },
       "types": {}
     }
   ],
-  "primitives": {
-    "button.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the button should be focusable when disabled.",
-          "name": "focusableWhenDisabled",
-          "type": "boolean"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Button.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Button.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button component that can be used to trigger actions."
-    }
-  },
+  "primitives": {},
   "recipe": "presentational",
   "source": "ai_elements",
   "styles": {
@@ -580,33 +536,5 @@
       "sha256": "47c69ba8f555734209bc9eae5d62d419fbd0cbe6089ec26c97d2ebcc9114fde3"
     }
   },
-  "variants": {
-    "buttonVariants": {
-      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-button-size-default",
-          "icon": "cn-button-size-icon",
-          "icon-lg": "cn-button-size-icon-lg",
-          "icon-sm": "cn-button-size-icon-sm",
-          "icon-xs": "cn-button-size-icon-xs",
-          "lg": "cn-button-size-lg",
-          "sm": "cn-button-size-sm",
-          "xs": "cn-button-size-xs"
-        },
-        "variant": {
-          "default": "cn-button-variant-default",
-          "destructive": "cn-button-variant-destructive",
-          "ghost": "cn-button-variant-ghost",
-          "link": "cn-button-variant-link",
-          "outline": "cn-button-variant-outline",
-          "secondary": "cn-button-variant-secondary"
-        }
-      }
-    }
-  }
+  "variants": {}
 }

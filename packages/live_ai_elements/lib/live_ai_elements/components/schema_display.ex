@@ -1,6 +1,6 @@
 defmodule LiveAiElements.Components.SchemaDisplay do
   @moduledoc """
-  Schema display. Built on `shadcn/badge`.
+  Schema display.
 
   Upstream exports 3 more parts, each a thin
   wrapper around a part of `<.collapsible>`. That component is one
@@ -29,26 +29,19 @@ defmodule LiveAiElements.Components.SchemaDisplay do
     """
   end
 
-  @doc "The `badge` part."
+  @doc "The `schema_display_method` part."
   attr(:method, :string, default: nil)
-
-  attr(:variant, :string,
-    default: "secondary",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
-  )
-
+  attr(:variant, :string, default: "secondary")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def schema_display_method(assigns) do
     ~H"""
-    <span
-      data-slot={@rest[:"data-slot"] || "badge"}
-      data-variant={@variant}
+    <LiveShadcn.UI.Badge.badge
+      variant={@variant}
       class={[
-        variant_class("badgeVariants", "variant", @variant),
-        "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none font-mono text-xs",
+        "font-mono text-xs",
         if(@method == "DELETE",
           do: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
           else: nil
@@ -71,13 +64,13 @@ defmodule LiveAiElements.Components.SchemaDisplay do
         ),
         @class
       ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      {@rest}
     >
       <%= if @inner_block == [] do %>
         {@method}
       <% end %>
       {render_slot(@inner_block)}
-    </span>
+    </LiveShadcn.UI.Badge.badge>
     """
   end
 
@@ -135,12 +128,7 @@ defmodule LiveAiElements.Components.SchemaDisplay do
   attr(:name, :string, default: nil)
   attr(:required, :boolean, default: nil)
   attr(:type, :string, default: nil)
-
-  attr(:variant, :string,
-    default: "outline",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
-  )
-
+  attr(:variant, :string, default: "outline")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -152,41 +140,19 @@ defmodule LiveAiElements.Components.SchemaDisplay do
         <span class="font-mono text-sm">
           {@name}
         </span>
-        <span
-          data-slot={@rest[:"data-slot"] || "badge"}
-          data-variant={@variant}
-          class={[
-            variant_class("badgeVariants", "variant", @variant),
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none text-xs"
-          ]}
-          {Map.drop(@rest, [:"data-slot"])}
-        >
+        <LiveShadcn.UI.Badge.badge variant={@variant} class="text-xs">
           {@type}
-        </span>
-        <span
-          :if={@location}
-          data-slot={@rest[:"data-slot"] || "badge"}
-          data-variant={@variant}
-          class={[
-            variant_class("badgeVariants", "variant", @variant),
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none text-xs"
-          ]}
-          {Map.drop(@rest, [:"data-slot"])}
-        >
+        </LiveShadcn.UI.Badge.badge>
+        <LiveShadcn.UI.Badge.badge :if={@location} variant={@variant} class="text-xs">
           {@location}
-        </span>
-        <span
+        </LiveShadcn.UI.Badge.badge>
+        <LiveShadcn.UI.Badge.badge
           :if={@required}
-          data-slot={@rest[:"data-slot"] || "badge"}
-          data-variant={@variant}
-          class={[
-            variant_class("badgeVariants", "variant", @variant),
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400"
-          ]}
-          {Map.drop(@rest, [:"data-slot"])}
+          variant={@variant}
+          class="bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400"
         >
           required
-        </span>
+        </LiveShadcn.UI.Badge.badge>
       </div>
       <p :if={@description} class="mt-1 text-muted-foreground text-sm">
         {@description}
@@ -205,12 +171,7 @@ defmodule LiveAiElements.Components.SchemaDisplay do
   attr(:properties, :string, default: nil)
   attr(:required, :boolean, default: nil)
   attr(:type, :string, default: nil)
-
-  attr(:variant, :string,
-    default: "outline",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
-  )
-
+  attr(:variant, :string, default: "outline")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -223,29 +184,16 @@ defmodule LiveAiElements.Components.SchemaDisplay do
         <span class="font-mono text-sm">
           {@name}
         </span>
-        <span
-          data-slot={@rest[:"data-slot"] || "badge"}
-          data-variant={@variant}
-          class={[
-            variant_class("badgeVariants", "variant", @variant),
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none text-xs"
-          ]}
-          {Map.drop(@rest, [:"data-slot"])}
-        >
+        <LiveShadcn.UI.Badge.badge variant={@variant} class="text-xs">
           {@type}
-        </span>
-        <span
+        </LiveShadcn.UI.Badge.badge>
+        <LiveShadcn.UI.Badge.badge
           :if={@required}
-          data-slot={@rest[:"data-slot"] || "badge"}
-          data-variant={@variant}
-          class={[
-            variant_class("badgeVariants", "variant", @variant),
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400"
-          ]}
-          {Map.drop(@rest, [:"data-slot"])}
+          variant={@variant}
+          class="bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400"
         >
           required
-        </span>
+        </LiveShadcn.UI.Badge.badge>
       </div>
       <p :if={@description} class="mt-1 pl-6 text-muted-foreground text-sm">
         {@description}
@@ -309,20 +257,4 @@ defmodule LiveAiElements.Components.SchemaDisplay do
     <pre class={["mx-4 mb-4 overflow-auto rounded-md bg-muted p-4 font-mono text-sm", @class]} {@rest}>{render_slot(@inner_block)}</pre>
     """
   end
-
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "badgeVariants" => %{
-      "variant" => %{
-        "default" => "cn-badge-variant-default",
-        "destructive" => "cn-badge-variant-destructive",
-        "ghost" => "cn-badge-variant-ghost",
-        "link" => "cn-badge-variant-link",
-        "outline" => "cn-badge-variant-outline",
-        "secondary" => "cn-badge-variant-secondary"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

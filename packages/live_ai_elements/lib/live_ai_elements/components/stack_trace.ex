@@ -1,6 +1,6 @@
 defmodule LiveAiElements.Components.StackTrace do
   @moduledoc """
-  Stack trace. Built on `shadcn/button`.
+  Stack trace.
 
   Upstream exports 1 more part, each a thin
   wrapper around a part of `<.collapsible>`. That component is one
@@ -121,48 +121,35 @@ defmodule LiveAiElements.Components.StackTrace do
     """
   end
 
-  @doc "The `button` part."
-  attr(:size, :string,
-    default: "icon",
-    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
-  )
-
+  @doc "The `stack_trace_copy_button` part."
+  attr(:size, :string, default: "icon")
   attr(:timeout, :any, default: 2000)
-
-  attr(:variant, :string,
-    default: "ghost",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
-  )
-
+  attr(:variant, :string, default: "ghost")
   attr(:id, :string, required: true, doc: "The hook needs one to be found by.")
   attr(:raw, :string, required: true, doc: "The stack trace the button copies.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def stack_trace_copy_button(assigns) do
     ~H"""
-    <button
+    <LiveShadcn.UI.Button.button
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@raw}
       data-lb-timeout={@timeout}
-      data-slot={@rest[:"data-slot"] || "button"}
-      class={[
-        variant_class("buttonVariants", "size", @size),
-        variant_class("buttonVariants", "variant", @variant),
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7",
-        @class
-      ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      size={@size}
+      variant={@variant}
+      class={["size-7", @class]}
+      {@rest}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" width="14" height="14" />
         <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" width="14" height="14" />
       <% end %>
       {render_slot(@inner_block)}
-    </button>
+    </LiveShadcn.UI.Button.button>
     """
   end
 
@@ -231,30 +218,4 @@ defmodule LiveAiElements.Components.StackTrace do
     </div>
     """
   end
-
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "buttonVariants" => %{
-      "size" => %{
-        "default" => "cn-button-size-default",
-        "icon" => "cn-button-size-icon",
-        "icon-lg" => "cn-button-size-icon-lg",
-        "icon-sm" => "cn-button-size-icon-sm",
-        "icon-xs" => "cn-button-size-icon-xs",
-        "lg" => "cn-button-size-lg",
-        "sm" => "cn-button-size-sm",
-        "xs" => "cn-button-size-xs"
-      },
-      "variant" => %{
-        "default" => "cn-button-variant-default",
-        "destructive" => "cn-button-variant-destructive",
-        "ghost" => "cn-button-variant-ghost",
-        "link" => "cn-button-variant-link",
-        "outline" => "cn-button-variant-outline",
-        "secondary" => "cn-button-variant-secondary"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

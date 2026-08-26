@@ -865,29 +865,38 @@ defmodule LiveShadcnTools.Spec do
   """
   def fold(parts, source, recipe, resolve) do
     {parts, acc} =
-      Enum.map_reduce(parts, %{specs: %{}, params: %{}, own: %{}}, fn part, acc ->
-        # This part's own props, for the one question the fold cannot answer
-        # from the reference alone: whether the caller's class reaches what was
-        # folded in. See `merges_class/3`.
-        acc = %{acc | params: %{}, own: Map.get(part, "params") || %{}}
+      Enum.map_reduce(
+        parts,
+        %{specs: %{}, params: %{}, own: %{}, destructured: %{}, recipe: recipe},
+        fn part, acc ->
+          # This part's own props, for the one question the fold cannot answer
+          # from the reference alone: whether the caller's class reaches what was
+          # folded in. See `merges_class/3`.
+          #
+          # `destructured` is the same thing for whichever component the fold is
+          # currently inside, which is what says where a `{...props}` spread
+          # picked its props up. See `passes/3`.
+          own = Map.get(part, "params") || %{}
+          acc = %{acc | params: %{}, own: own, destructured: own}
 
-        {tree, acc} =
-          if wraps_behaviour?(part["tree"], recipe),
-            do: {part["tree"], acc},
-            else: fold_node(part["tree"], source, resolve, acc)
+          {tree, acc} =
+            if wraps_behaviour?(part["tree"], recipe),
+              do: {part["tree"], acc},
+              else: fold_node(part["tree"], source, resolve, acc)
 
-        # A folded part's props come with it. shadcn's scroll-area computes an
-        # attribute from its own `orientation`, and once that markup is here,
-        # `orientation` is a prop of this component too — with the default
-        # shadcn gave it, because that is the value React used when upstream
-        # rendered `<ScrollArea>` without one.
-        #
-        # The component's own props win: it destructured them itself, and a
-        # folded default cannot know better.
-        params = known(acc.params, Map.get(part, "params") || %{})
+          # A folded part's props come with it. shadcn's scroll-area computes an
+          # attribute from its own `orientation`, and once that markup is here,
+          # `orientation` is a prop of this component too — with the default
+          # shadcn gave it, because that is the value React used when upstream
+          # rendered `<ScrollArea>` without one.
+          #
+          # The component's own props win: it destructured them itself, and a
+          # folded default cannot know better.
+          params = known(acc.params, own)
 
-        {part |> Map.put("tree", tree) |> Map.put("params", params), acc}
-      end)
+          {part |> Map.put("tree", tree) |> Map.put("params", params), acc}
+        end
+      )
 
     {parts, Map.values(acc.specs)}
   end
@@ -936,41 +945,20 @@ defmodule LiveShadcnTools.Spec do
 
   defp fold_node(%{"type" => "component_ref", "source" => other} = node, source, resolve, acc)
        when other != source do
-    with spec when is_map(spec) <- resolve.(other, node["component"]),
-         target when is_map(target) <- find_part(spec, node["function"]) do
-      acc = %{
-        acc
-        | specs: Map.put(acc.specs, {other, node["component"]}, spec),
-          params:
-            (Map.get(target, "params") || %{})
-            |> Map.merge(chosen(node, target, acc.own))
-            |> known(acc.params)
-      }
+    with spec when is_map(spec) <- resolve.(other, node["component"]) do
+      case find_part(spec, node["function"]) do
+        nil ->
+          {node, acc}
 
-      # The reference's own children first. `<DropdownMenuTrigger><Button /></…>`
-      # is two references, and matching the outer one here means nothing else
-      # will ever look inside it: the children go straight into the tree the
-      # outer one folds to, and the inner reference would arrive unread.
-      {node, acc} = fold_children(node, source, resolve, acc)
-
-      # The target may itself reference a third component, and from here that
-      # one is just as far away. Its own `cva` call is narrowed to what this
-      # reference passed *before* it goes down, because each level knows only
-      # about its own reference and narrowing again on the way back up would
-      # answer for a reference two components away.
-      inlined = inline_parts(narrow(target["tree"], node, acc.own), spec, [])
-
-      # A sibling part the fold pulled in brings its own props. shadcn's scroll
-      # area draws its scrollbar from another part of the same file, and that
-      # part reads `orientation` — so `queue`, which renders `<ScrollArea>` and
-      # names nothing, met an `orientation` it had never been given.
-      acc = %{acc | params: known(inlined_params(spec, inlined), acc.params)}
-
-      {tree, acc} = fold_node(inlined, source, resolve, acc)
-
-      {tree
-       |> absorb(node, Map.get(target, "params") || %{})
-       |> merges_class(node, acc.own), acc}
+        target ->
+          # `asChild` says this reference *is* the element inside it, and a call
+          # draws an element of its own. So the markup folds in and the child
+          # carries it, which is what `one_element/1` collapses them into.
+          if LiveShadcnTools.callable?(source, acc.recipe, spec["recipe"]) and
+               not Map.has_key?(node, "as_child"),
+             do: called(node, spec, target, source, resolve, acc),
+             else: folded(node, spec, target, source, resolve, acc)
+      end
     else
       _unresolved -> {node, acc}
     end
@@ -987,6 +975,124 @@ defmodule LiveShadcnTools.Spec do
     do: Enum.map_reduce(nodes, acc, &fold_node(&1, source, resolve, &2))
 
   defp fold_node(value, _source, _resolve, acc), do: {value, acc}
+
+  # A reference this component calls rather than folds.
+  #
+  # The props the target takes are declared here and passed on by name, so the
+  # call keeps the API the fold gave it: a caller who writes `variant="ghost"`
+  # reaches the button, and one who writes nothing gets the variant upstream
+  # chose at the reference.
+  defp called(node, spec, target, source, resolve, acc) do
+    params = Map.drop(taken(target, spec), ~w(children className render))
+    acc = %{acc | params: params |> Map.merge(chosen(node, target, acc.own)) |> known(acc.params)}
+
+    {node, acc} = fold_children(node, source, resolve, acc)
+    {passing(node, passes(node, params, acc.destructured), acc.own), acc}
+  end
+
+  # What the reference passes and the component behind the call takes.
+  #
+  # What it wrote, and — if it spreads — every prop of the target it did not
+  # destructure away, because that is what `{...props}` carries. React's spread
+  # carries a component's props where HEEx's `:global` carries HTML attributes,
+  # so a prop that arrives that way is declared here and passed by name.
+  #
+  # `InputGroupButton` destructures `size` and renders a button without one, so
+  # the button draws at its own size.
+  defp passes(node, params, own) do
+    written = Enum.map(Map.get(node, "attrs") || [], & &1["name"])
+    spread = if node["props"] == true, do: Map.keys(params) -- Map.keys(own || %{}), else: []
+
+    params |> Map.keys() |> Enum.filter(&(&1 in written)) |> Enum.concat(spread) |> Enum.uniq()
+  end
+
+  # The props the component behind the call takes, each with the default it
+  # applies: the one it destructured, or the one its own `cva` table gives a
+  # prop it destructured without one. Declared here with any other default, the
+  # call would pass `nil` and override the table.
+  defp taken(target, spec) do
+    defaults =
+      for call <- get_in(target, ["tree", "variant_calls"]) || [],
+          {name, value} <- get_in(spec, ["variants", call["table"], "defaults"]) || %{},
+          into: %{},
+          do: {name, value}
+
+    target
+    |> Map.get("params", %{})
+    |> Map.new(fn {name, default} -> {name, default || Map.get(defaults, name)} end)
+  end
+
+  # What the call passes on.
+  #
+  # A prop this component declares under the same name is passed by name, so a
+  # caller reaches the component behind the call and the literal the reference
+  # wrote is that prop's default. A name this component already means something
+  # else by is passed exactly as the reference wrote it: an attachment's
+  # `variant` is grid, inline or list, and the ghost its remove button is drawn
+  # with is none of them.
+  defp passing(node, names, own) do
+    written = Map.new(Map.get(node, "attrs") || [], &{&1["name"], &1})
+    kept = Enum.reject(Map.get(node, "attrs") || [], &(&1["name"] in names))
+
+    Map.put(node, "attrs", kept ++ Enum.flat_map(Enum.sort(names), &passed(&1, written, own)))
+  end
+
+  defp passed(name, written, own) do
+    case {Map.fetch(written, name), Map.has_key?(own || %{}, name)} do
+      {{:ok, attr}, true} ->
+        [attr]
+
+      {_written, true} ->
+        []
+
+      {_written, false} ->
+        [%{"name" => name, "kind" => "code", "value" => name, "identifiers" => [name]}]
+    end
+  end
+
+  defp folded(node, spec, target, source, resolve, acc) do
+    other = node["source"]
+
+    acc =
+      %{
+        acc
+        | specs: Map.put(acc.specs, {other, node["component"]}, spec),
+          params:
+            (Map.get(target, "params") || %{})
+            |> Map.merge(chosen(node, target, acc.own))
+            |> known(acc.params)
+      }
+
+    # The reference's own children first. `<DropdownMenuTrigger><Button /></…>`
+    # is two references, and matching the outer one here means nothing else
+    # will ever look inside it: the children go straight into the tree the
+    # outer one folds to, and the inner reference would arrive unread.
+    {node, acc} = fold_children(node, source, resolve, acc)
+
+    # The target may itself reference a third component, and from here that
+    # one is just as far away. Its own `cva` call is narrowed to what this
+    # reference passed *before* it goes down, because each level knows only
+    # about its own reference and narrowing again on the way back up would
+    # answer for a reference two components away.
+    inlined = inline_parts(narrow(target["tree"], node, acc.own), spec, [])
+
+    # A sibling part the fold pulled in brings its own props. shadcn's scroll
+    # area draws its scrollbar from another part of the same file, and that
+    # part reads `orientation` — so `queue`, which renders `<ScrollArea>` and
+    # names nothing, met an `orientation` it had never been given.
+    acc = %{acc | params: known(inlined_params(spec, inlined), acc.params)}
+
+    # Inside the target, a `{...props}` spread is the target's own props: what
+    # the reference was given, minus what the target destructured.
+    outer = acc.destructured
+
+    {tree, acc} =
+      fold_node(inlined, source, resolve, %{acc | destructured: target["params"] || %{}})
+
+    {tree
+     |> absorb(node, Map.get(target, "params") || %{})
+     |> merges_class(node, acc.own), %{acc | destructured: outer}}
+  end
 
   # The props of the folded component that the inlined markup reads, with the
   # defaults that component gave them.

@@ -275,14 +275,17 @@ no parts, which on disk is indistinguishable from one the reader understood.
 The reader knows both shapes now, and refuses to write a spec with no parts at
 all.
 
-**A dependency cannot name a module `mix ui.add` renames.** Every AI Elements
-component is built out of shadcn components, and the obvious generated call is
-`LiveShadcn.UI.Collapsible.collapsible`. That module does not exist in an
-application: `mix ui.add` copies the file in and rewrites it to
-`MyAppWeb.Components.UI.Collapsible`, and it cannot reach into a compiled
-dependency to rewrite the call. So the markup has to be folded in the way a
-Base UI part already is. Until the reader does that, `mix ui.gen` names the
-component instead of generating it wrong.
+**A copied file cannot name a module `mix ui.add` renames.** `mix ui.add` copies
+a shadcn component into the application and rewrites it to
+`MyAppWeb.Components.UI.Collapsible`, so a call it carried to another package
+would name a module the rename never reached. A shadcn component therefore folds
+in the markup of everything it renders, the way a Base UI part already is.
+
+An AI Element is a dependency, compiled against `live_shadcn` itself, so it
+calls: `LiveShadcn.UI.Button.button/1` for anything that writes one function per
+part with no id for the parts to agree about. It folds the rest — a behaviour,
+an `asChild` reference, and anything a recipe draws inside its own tree. See
+PLAN.md phase 14.
 
 **A `part` key shadowed a `part` key.** `render={<Button />}` merges the
 replacement's keys over the primitive it replaces. A component reference that

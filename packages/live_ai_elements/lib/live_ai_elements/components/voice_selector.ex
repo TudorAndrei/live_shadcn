@@ -1,6 +1,6 @@
 defmodule LiveAiElements.Components.VoiceSelector do
   @moduledoc """
-  Voice selector. Built on `shadcn/button`, `shadcn/dialog`.
+  Voice selector. Built on `shadcn/dialog`.
 
   Upstream exports 11 more parts, each a thin
   wrapper around a part of `<.dialog>`, `<.command>`. That component is one
@@ -126,68 +126,29 @@ defmodule LiveAiElements.Components.VoiceSelector do
     """
   end
 
-  @doc "The `button` part."
+  @doc "The `voice_selector_preview` part."
   attr(:icon, :string, default: nil)
   attr(:loading, :boolean, default: nil)
   attr(:playing, :boolean, default: nil)
-
-  attr(:size, :string,
-    default: "icon-sm",
-    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
-  )
-
-  attr(:variant, :string,
-    default: "outline",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
-  )
-
+  attr(:size, :string, default: "icon-sm")
+  attr(:variant, :string, default: "outline")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def voice_selector_preview(assigns) do
     ~H"""
-    <button
-      data-slot={@rest[:"data-slot"] || "button"}
+    <LiveShadcn.UI.Button.button
       aria-label={if(@playing, do: "Pause preview", else: "Play preview")}
       disabled={@loading}
       type="button"
-      class={[
-        variant_class("buttonVariants", "size", @size),
-        variant_class("buttonVariants", "variant", @variant),
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-6",
-        @class
-      ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      size={@size}
+      variant={@variant}
+      class={["size-6", @class]}
+      {@rest}
     >
       <LiveShadcn.Icon.icon name="play" class="size-3" />{render_slot(@inner_block)}
-    </button>
+    </LiveShadcn.UI.Button.button>
     """
   end
-
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "buttonVariants" => %{
-      "size" => %{
-        "default" => "cn-button-size-default",
-        "icon" => "cn-button-size-icon",
-        "icon-lg" => "cn-button-size-icon-lg",
-        "icon-sm" => "cn-button-size-icon-sm",
-        "icon-xs" => "cn-button-size-icon-xs",
-        "lg" => "cn-button-size-lg",
-        "sm" => "cn-button-size-sm",
-        "xs" => "cn-button-size-xs"
-      },
-      "variant" => %{
-        "default" => "cn-button-variant-default",
-        "destructive" => "cn-button-variant-destructive",
-        "ghost" => "cn-button-variant-ghost",
-        "link" => "cn-button-variant-link",
-        "outline" => "cn-button-variant-outline",
-        "secondary" => "cn-button-variant-secondary"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

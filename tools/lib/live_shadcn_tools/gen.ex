@@ -307,24 +307,19 @@ defmodule LiveShadcnTools.Gen do
   @doc """
   Refuses a component that names a module the host application will not have.
 
-  A component may call another component this pipeline generates, and inside
-  one package that works. Across packages it cannot, and the reason is how the
-  two packages ship:
+  Which way a reference across packages may go follows from how the two ship:
 
     * `live_shadcn` is copied into the application by `mix ui.add`, which
-      rewrites `LiveShadcn.UI.Button` to `MyAppWeb.Components.UI.Button`
-    * `live_ai_elements` is an ordinary dependency, compiled once, with its
-      module names fixed before the application is built
+      rewrites `LiveShadcn.UI.Button` to `MyAppWeb.Components.UI.Button`. A
+      copied file that called another package would name a module the rename
+      never reached, so a shadcn component folds everything it renders.
+    * `live_ai_elements` is an ordinary dependency, compiled against
+      `live_shadcn` itself, so it calls `LiveShadcn.UI.Button.button/1` for
+      anything `LiveShadcnTools.callable?/2` allows: one function per part, and
+      no id for the parts to agree about.
 
-  So a compiled `LiveAiElements.Components.Reasoning` that calls
-  `LiveShadcn.UI.Collapsible` names a module that does not exist: `mix ui.add`
-  renamed it on the way in, and had no way to reach into a dependency and
-  rename the call.
-
-  The reference is real and upstream writes it, so the fix is not to drop it.
-  It is to fold the referenced component's markup into this one, the way the
-  spec already folds a Base UI part. Until the reader does that, a component
-  that needs it is named here rather than generated wrong.
+  A reference that is neither is folded, and one that is neither folded nor
+  callable is named here rather than generated wrong.
   """
   def reachable!(spec) do
     # A part that is *nothing but* such a reference is dropped — by the recipes
@@ -366,11 +361,14 @@ defmodule LiveShadcnTools.Gen do
     do: Enum.flat_map(node, &foreign_refs(&1, spec))
 
   defp foreign_refs(
-         %{"type" => "component_ref", "source" => other, "component" => component},
-         %{"source" => source}
+         %{"type" => "component_ref", "source" => other, "component" => component} = node,
+         %{"source" => source, "recipe" => own}
        )
-       when other != source,
-       do: ["#{other}/#{component}"]
+       when other != source do
+    if LiveShadcnTools.callable?(source, own, node["recipe"]),
+      do: [],
+      else: ["#{other}/#{component}"]
+  end
 
   defp foreign_refs(node, spec) when is_map(node),
     do: node |> Map.values() |> Enum.flat_map(&foreign_refs(&1, spec))

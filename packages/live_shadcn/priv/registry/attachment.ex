@@ -168,7 +168,7 @@ defmodule LiveShadcn.UI.Attachment do
   attr(:size, :string, default: "icon-xs")
   attr(:variant, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def attachment_action(assigns) do
@@ -188,7 +188,7 @@ defmodule LiveShadcn.UI.Attachment do
   @doc "The `attachment-trigger` part."
   attr(:type, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def attachment_trigger(assigns) do

@@ -1,6 +1,6 @@
 defmodule LiveAiElements.Components.Attachments do
   @moduledoc """
-  Attachments. Built on `shadcn/button`.
+  Attachments.
 
   Upstream exports 3 more parts, each a thin
   wrapper around a part of `<.hover_card>`. That component is one
@@ -118,29 +118,23 @@ defmodule LiveAiElements.Components.Attachments do
     """
   end
 
-  @doc "The `button` part."
+  @doc "The `attachment_remove` part."
   attr(:label, :string, default: "Remove")
-
-  attr(:size, :string,
-    default: "default",
-    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
-  )
-
+  attr(:size, :string, default: "default")
   attr(:variant, :string, default: "default")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def attachment_remove(assigns) do
     ~H"""
-    <button
+    <LiveShadcn.UI.Button.button
       :if={true}
-      data-slot={@rest[:"data-slot"] || "button"}
       aria-label={@label}
       type="button"
+      size={@size}
+      variant="ghost"
       class={[
-        variant_class("buttonVariants", "size", @size),
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-variant-ghost",
         if(@variant == "grid",
           do:
             "absolute top-2 right-2 size-6 rounded-full p-0 bg-background/80 backdrop-blur-sm opacity-0 transition-opacity group-hover:opacity-100 hover:bg-background [&>svg]:size-3",
@@ -154,7 +148,7 @@ defmodule LiveAiElements.Components.Attachments do
         if(@variant == "list", do: "size-8 shrink-0 rounded p-0 [&>svg]:size-4", else: nil),
         @class
       ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      {@rest}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon name="x" />
@@ -163,7 +157,7 @@ defmodule LiveAiElements.Components.Attachments do
       <span class="sr-only">
         {@label}
       </span>
-    </button>
+    </LiveShadcn.UI.Button.button>
     """
   end
 
@@ -186,22 +180,4 @@ defmodule LiveAiElements.Components.Attachments do
     </div>
     """
   end
-
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "buttonVariants" => %{
-      "size" => %{
-        "default" => "cn-button-size-default",
-        "icon" => "cn-button-size-icon",
-        "icon-lg" => "cn-button-size-icon-lg",
-        "icon-sm" => "cn-button-size-icon-sm",
-        "icon-xs" => "cn-button-size-icon-xs",
-        "lg" => "cn-button-size-lg",
-        "sm" => "cn-button-size-sm",
-        "xs" => "cn-button-size-xs"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

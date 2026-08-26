@@ -65,7 +65,9 @@ defmodule LiveAiElements.Components.WebPreview do
       "pattern",
       "readonly",
       "multiple",
-      "autocomplete"
+      "autocomplete",
+      "disabled",
+      "required"
     ]
   )
 

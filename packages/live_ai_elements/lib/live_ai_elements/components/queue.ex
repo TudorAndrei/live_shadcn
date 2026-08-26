@@ -1,6 +1,6 @@
 defmodule LiveAiElements.Components.Queue do
   @moduledoc """
-  Queue. Built on `shadcn/button`, `shadcn/scroll-area`.
+  Queue. Built on `shadcn/scroll-area`.
 
   Upstream exports 2 more parts, each a thin
   wrapper around a part of `<.collapsible>`. That component is one
@@ -115,36 +115,27 @@ defmodule LiveAiElements.Components.Queue do
     """
   end
 
-  @doc "The `button` part."
-  attr(:size, :string,
-    default: "icon",
-    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
-  )
-
-  attr(:variant, :string,
-    default: "ghost",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
-  )
-
+  @doc "The `queue_item_action` part."
+  attr(:size, :string, default: "icon")
+  attr(:variant, :string, default: "ghost")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def queue_item_action(assigns) do
     ~H"""
-    <button
-      data-slot={@rest[:"data-slot"] || "button"}
+    <LiveShadcn.UI.Button.button
       type="button"
+      size={@size}
+      variant={@variant}
       class={[
-        variant_class("buttonVariants", "size", @size),
-        variant_class("buttonVariants", "variant", @variant),
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-auto rounded p-1 text-muted-foreground opacity-0 transition-opacity hover:bg-muted-foreground/10 hover:text-foreground group-hover:opacity-100",
+        "size-auto rounded p-1 text-muted-foreground opacity-0 transition-opacity hover:bg-muted-foreground/10 hover:text-foreground group-hover:opacity-100",
         @class
       ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      {@rest}
     >
       {render_slot(@inner_block)}
-    </button>
+    </LiveShadcn.UI.Button.button>
     """
   end
 
@@ -251,7 +242,7 @@ defmodule LiveAiElements.Components.Queue do
   @doc "The `queue_section_trigger` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def queue_section_trigger(assigns) do
@@ -307,30 +298,4 @@ defmodule LiveAiElements.Components.Queue do
     </div>
     """
   end
-
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "buttonVariants" => %{
-      "size" => %{
-        "default" => "cn-button-size-default",
-        "icon" => "cn-button-size-icon",
-        "icon-lg" => "cn-button-size-icon-lg",
-        "icon-sm" => "cn-button-size-icon-sm",
-        "icon-xs" => "cn-button-size-icon-xs",
-        "lg" => "cn-button-size-lg",
-        "sm" => "cn-button-size-sm",
-        "xs" => "cn-button-size-xs"
-      },
-      "variant" => %{
-        "default" => "cn-button-variant-default",
-        "destructive" => "cn-button-variant-destructive",
-        "ghost" => "cn-button-variant-ghost",
-        "link" => "cn-button-variant-link",
-        "outline" => "cn-button-variant-outline",
-        "secondary" => "cn-button-variant-secondary"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

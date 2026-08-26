@@ -90,6 +90,24 @@ defmodule LiveShadcnTools do
   def carries?(recipe, folded),
     do: folded not in @folding or folded in Map.get(@carries, recipe, [])
 
+  # What a call needs at each end. The component called writes one function per
+  # part with nothing for the parts to agree about; the component calling writes
+  # one function per part too, because a recipe that folds a component into one
+  # function builds its own tree and has no call site to put this at.
+  @callable ~w(presentational separator progress)
+  @calling ~w(presentational clipboard form-control file-tree shimmer)
+
+  @doc """
+  Whether a component calls another rather than folding its markup in.
+
+  `live_ai_elements` depends on `live_shadcn`, so an AI Element that renders
+  shadcn's `<Button>` calls `LiveShadcn.UI.Button.button/1`. A `live_shadcn`
+  component folds instead: `mix ui.add` copies it into an application's own
+  namespace, where a call would name a module that is not there.
+  """
+  def callable?("ai_elements", own, called), do: own in @calling and called in @callable
+  def callable?(_source, _own, _called), do: false
+
   @namespaces %{"shadcn" => LiveShadcn.UI, "ai_elements" => LiveAiElements.Components}
 
   @doc """

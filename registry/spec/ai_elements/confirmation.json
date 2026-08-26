@@ -1,10 +1,6 @@
 {
   "anatomy": [],
   "css_vars": [],
-  "folds": [
-    "shadcn/alert",
-    "shadcn/button"
-  ],
   "generated_by": "mix ui.spec",
   "name": "confirmation",
   "parts": [
@@ -16,7 +12,7 @@
         "approval": null,
         "className": null,
         "state": null,
-        "variant": null
+        "variant": "default"
       },
       "primitive": null,
       "refs": [
@@ -31,37 +27,32 @@
           {
             "attrs": [
               {
-                "kind": "text",
-                "name": "role",
-                "value": "alert"
+                "identifiers": [
+                  "variant"
+                ],
+                "kind": "code",
+                "name": "variant",
+                "value": "variant"
               }
             ],
             "children": [],
             "class": "flex flex-col gap-2",
             "class_when": [],
+            "component": "alert",
+            "function": "alert",
             "merges_class": true,
             "props": true,
             "reads": {
               "group": [],
-              "self": [
-                {
-                  "name": "data-slot",
-                  "value": "alert-description"
-                }
-              ]
+              "self": []
             },
+            "recipe": "presentational",
             "render_as": null,
-            "slot": "alert",
+            "slot": null,
+            "source": "shadcn",
             "tag": "div",
-            "type": "element",
-            "variant_calls": [
-              {
-                "args": [
-                  "variant"
-                ],
-                "table": "alertVariants"
-              }
-            ],
+            "type": "component_ref",
+            "variant_calls": [],
             "vars": []
           }
         ],
@@ -98,18 +89,22 @@
       "tree": {
         "attrs": [],
         "children": [],
-        "class": "cn-alert-description [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground inline",
+        "class": "inline",
         "class_when": [],
+        "component": "alert",
+        "function": "alert_description",
         "merges_class": true,
         "props": true,
         "reads": {
           "group": [],
           "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "alert-description",
+        "slot": null,
+        "source": "shadcn",
         "tag": "div",
-        "type": "element",
+        "type": "component_ref",
         "variant_calls": [],
         "vars": []
       },
@@ -154,7 +149,6 @@
       "export": "ConfirmationAction",
       "name": "confirmation_action",
       "params": {
-        "className": null,
         "size": "default",
         "variant": "default"
       },
@@ -168,119 +162,51 @@
             "kind": "text",
             "name": "type",
             "value": "button"
+          },
+          {
+            "identifiers": [
+              "size"
+            ],
+            "kind": "code",
+            "name": "size",
+            "value": "size"
+          },
+          {
+            "identifiers": [
+              "variant"
+            ],
+            "kind": "code",
+            "name": "variant",
+            "value": "variant"
           }
         ],
         "children": [],
         "class": "h-8 px-3 text-sm",
         "class_when": [],
-        "merges_class": true,
-        "module": "button",
-        "part": "Root",
+        "component": "button",
+        "function": "button",
+        "merges_class": false,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            },
-            {
-              "name": "aria-expanded",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "button",
+        "slot": null,
+        "source": "shadcn",
         "tag": "button",
-        "type": "primitive",
-        "variant_calls": [
-          {
-            "args": [
-              "variant",
-              "size",
-              "className"
-            ],
-            "table": "buttonVariants"
-          }
-        ],
+        "type": "component_ref",
+        "variant_calls": [],
         "vars": []
       },
       "types": {}
     }
   ],
-  "primitives": {
-    "button.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the button should be focusable when disabled.",
-          "name": "focusableWhenDisabled",
-          "type": "boolean"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Button.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Button.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button component that can be used to trigger actions."
-    }
-  },
+  "primitives": {},
   "recipe": "presentational",
   "source": "ai_elements",
-  "styles": {
-    "luma": {
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
-    },
-    "lyra": {
-      "cn-alert-description": "text-muted-foreground text-xs/relaxed text-balance md:text-pretty [&_p:not(:last-child)]:mb-2"
-    },
-    "maia": {
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
-    },
-    "mira": {
-      "cn-alert-description": "text-muted-foreground text-xs/relaxed text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
-    },
-    "nova": {
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
-    },
-    "rhea": {
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
-    },
-    "sera": {
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
-    },
-    "vega": {
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4"
-    }
-  },
+  "styles": {},
   "upstream": {
     "base_ui": {},
     "shadcn": {
@@ -288,45 +214,5 @@
       "sha256": "7cc0befed99499ed9010643e7a90ec619180a3f6e79cba5668cfc84126b96a10"
     }
   },
-  "variants": {
-    "alertVariants": {
-      "base": "cn-alert group/alert relative w-full",
-      "defaults": {
-        "variant": "default"
-      },
-      "variants": {
-        "variant": {
-          "default": "cn-alert-variant-default",
-          "destructive": "cn-alert-variant-destructive"
-        }
-      }
-    },
-    "buttonVariants": {
-      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-button-size-default",
-          "icon": "cn-button-size-icon",
-          "icon-lg": "cn-button-size-icon-lg",
-          "icon-sm": "cn-button-size-icon-sm",
-          "icon-xs": "cn-button-size-icon-xs",
-          "lg": "cn-button-size-lg",
-          "sm": "cn-button-size-sm",
-          "xs": "cn-button-size-xs"
-        },
-        "variant": {
-          "default": "cn-button-variant-default",
-          "destructive": "cn-button-variant-destructive",
-          "ghost": "cn-button-variant-ghost",
-          "link": "cn-button-variant-link",
-          "outline": "cn-button-variant-outline",
-          "secondary": "cn-button-variant-secondary"
-        }
-      }
-    }
-  }
+  "variants": {}
 }

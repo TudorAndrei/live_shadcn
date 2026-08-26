@@ -150,7 +150,7 @@ defmodule LiveAiElements.Components.InlineCitation do
   @doc "The `inline_citation_carousel_prev` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def inline_citation_carousel_prev(assigns) do
@@ -166,7 +166,7 @@ defmodule LiveAiElements.Components.InlineCitation do
   @doc "The `inline_citation_carousel_next` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def inline_citation_carousel_next(assigns) do

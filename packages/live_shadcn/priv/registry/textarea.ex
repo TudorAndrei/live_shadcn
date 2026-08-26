@@ -35,7 +35,17 @@ defmodule LiveShadcn.UI.Textarea do
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
   attr(:rest, :global,
-    include: ["data-slot", "name", "placeholder", "rows", "cols", "readonly", "wrap"]
+    include: [
+      "data-slot",
+      "name",
+      "placeholder",
+      "rows",
+      "cols",
+      "readonly",
+      "wrap",
+      "disabled",
+      "required"
+    ]
   )
 
   slot(:inner_block)

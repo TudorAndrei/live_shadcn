@@ -51,7 +51,9 @@ defmodule LiveShadcn.UI.Input do
       "pattern",
       "readonly",
       "multiple",
-      "autocomplete"
+      "autocomplete",
+      "disabled",
+      "required"
     ]
   )
 

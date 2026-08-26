@@ -731,8 +731,29 @@ drew changes no snapshot. So `mix snapshot --check` is the equivalence proof for
 the rebuild, and the shadcn parity gate then covers the AI Elements markup
 transitively — the button they call is the button that is compared.
 
+Six of 114 snapshots moved, and every one is the same class names in a different
+order: the fold wrote the variant class where the reference sat, and the
+component writes it where its own template does. The sets are identical and the
+rest of the markup is byte-for-byte.
+
+Four rules came out of doing it, each one a case where a call is not a fold:
+
+- **`asChild` folds.** The reference *is* the element inside it, and a call
+  draws an element of its own. `audio-player` is `<Button asChild>` around a
+  `<media-play-button>`: folded it is one custom element wearing the button's
+  class string, called it is a `<button>` with a custom element inside.
+- **A recipe that folds a component into one function folds what it renders.**
+  It builds its own tree from the parts and has no call site to put a call at.
+- **The call passes what the reference wrote, and what a spread carries.**
+  React's `{...props}` carries a component's props; HEEx's `:global` carries
+  HTML attributes. So a prop that arrives by spread is declared here and passed
+  by name — and a prop the reference destructured away is not passed at all,
+  which is why `InputGroupButton`'s button draws at its own size.
+- **A prop is declared with the default the callee applies**, its own or its
+  `cva` table's. Any other default and the call passes `nil` over the table.
+
 **Commits:** `refactor(verify): the AI Elements gate compares against a
-combination that does not exist`, then one per tranche of the rebuild.
+combination that does not exist`, then the rebuild.
 
 ## Risks & Tradeoffs
 

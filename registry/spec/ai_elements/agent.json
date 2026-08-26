@@ -5,8 +5,7 @@
     "--accordion-panel-width"
   ],
   "folds": [
-    "shadcn/accordion",
-    "shadcn/badge"
+    "shadcn/accordion"
   ],
   "generated_by": "mix ui.spec",
   "name": "agent",
@@ -51,7 +50,6 @@
         "className": null,
         "model": null,
         "name": null,
-        "render": null,
         "variant": "secondary"
       },
       "primitive": null,
@@ -122,7 +120,7 @@
                           "variant"
                         ],
                         "kind": "code",
-                        "name": "data-variant",
+                        "name": "variant",
                         "value": "variant"
                       }
                     ],
@@ -137,29 +135,21 @@
                     ],
                     "class": "font-mono text-xs",
                     "class_when": [],
+                    "component": "badge",
+                    "function": "badge",
                     "merges_class": false,
-                    "props": true,
+                    "props": false,
                     "reads": {
                       "group": [],
-                      "self": [
-                        {
-                          "name": "aria-invalid",
-                          "value": null
-                        }
-                      ]
+                      "self": []
                     },
+                    "recipe": "presentational",
                     "render_as": null,
-                    "slot": "badge",
+                    "slot": null,
+                    "source": "shadcn",
                     "tag": "span",
-                    "type": "element",
-                    "variant_calls": [
-                      {
-                        "args": [
-                          "variant"
-                        ],
-                        "table": "badgeVariants"
-                      }
-                    ],
+                    "type": "component_ref",
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -969,22 +959,5 @@
       "sha256": "7d96005ace889eaa790b293ae75883d62546b6c7983aec3e7e6784c0392e30c7"
     }
   },
-  "variants": {
-    "badgeVariants": {
-      "base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
-      "defaults": {
-        "variant": "default"
-      },
-      "variants": {
-        "variant": {
-          "default": "cn-badge-variant-default",
-          "destructive": "cn-badge-variant-destructive",
-          "ghost": "cn-badge-variant-ghost",
-          "link": "cn-badge-variant-link",
-          "outline": "cn-badge-variant-outline",
-          "secondary": "cn-badge-variant-secondary"
-        }
-      }
-    }
-  }
+  "variants": {}
 }

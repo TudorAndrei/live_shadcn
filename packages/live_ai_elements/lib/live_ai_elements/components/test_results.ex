@@ -1,6 +1,6 @@
 defmodule LiveAiElements.Components.TestResults do
   @moduledoc """
-  Test results. Built on `shadcn/badge`, `shadcn/collapsible`.
+  Test results. Built on `shadcn/collapsible`.
 
   Upstream exports 2 more parts, each a thin
   wrapper around a part of `<.collapsible>`. That component is one
@@ -48,12 +48,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   @doc "The `test_results_summary` part."
   attr(:summary, :any, default: nil)
-
-  attr(:variant, :string,
-    default: "secondary",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
-  )
-
+  attr(:variant, :string, default: "secondary")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -62,41 +57,26 @@ defmodule LiveAiElements.Components.TestResults do
     ~H"""
     <div :if={@summary} class={["flex items-center gap-3", @class]} {@rest}>
       <%= if @inner_block == [] do %>
-        <span
-          data-slot={@rest[:"data-slot"] || "badge"}
-          data-variant={@variant}
-          class={[
-            variant_class("badgeVariants", "variant", @variant),
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-          ]}
-          {Map.drop(@rest, [:"data-slot"])}
+        <LiveShadcn.UI.Badge.badge
+          variant={@variant}
+          class="gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
         >
           <LiveShadcn.Icon.icon name="circle-check" class="size-3" />{@summary.passed} passed
-        </span>
-        <span
+        </LiveShadcn.UI.Badge.badge>
+        <LiveShadcn.UI.Badge.badge
           :if={@summary.failed > 0}
-          data-slot={@rest[:"data-slot"] || "badge"}
-          data-variant={@variant}
-          class={[
-            variant_class("badgeVariants", "variant", @variant),
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
-          ]}
-          {Map.drop(@rest, [:"data-slot"])}
+          variant={@variant}
+          class="gap-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
         >
           <LiveShadcn.Icon.icon name="circle-x" class="size-3" />{@summary.failed} failed
-        </span>
-        <span
+        </LiveShadcn.UI.Badge.badge>
+        <LiveShadcn.UI.Badge.badge
           :if={@summary.skipped > 0}
-          data-slot={@rest[:"data-slot"] || "badge"}
-          data-variant={@variant}
-          class={[
-            variant_class("badgeVariants", "variant", @variant),
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
-          ]}
-          {Map.drop(@rest, [:"data-slot"])}
+          variant={@variant}
+          class="gap-1 bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
         >
           <LiveShadcn.Icon.icon name="circle" class="size-3" />{@summary.skipped} skipped
-        </span>
+        </LiveShadcn.UI.Badge.badge>
       <% end %>
       {render_slot(@inner_block)}
     </div>
@@ -340,20 +320,4 @@ defmodule LiveAiElements.Components.TestResults do
     >{render_slot(@inner_block)}</pre>
     """
   end
-
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "badgeVariants" => %{
-      "variant" => %{
-        "default" => "cn-badge-variant-default",
-        "destructive" => "cn-badge-variant-destructive",
-        "ghost" => "cn-badge-variant-ghost",
-        "link" => "cn-badge-variant-link",
-        "outline" => "cn-badge-variant-outline",
-        "secondary" => "cn-badge-variant-secondary"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end

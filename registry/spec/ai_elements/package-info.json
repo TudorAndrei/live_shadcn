@@ -1,9 +1,6 @@
 {
   "anatomy": [],
   "css_vars": [],
-  "folds": [
-    "shadcn/badge"
-  ],
   "generated_by": "mix ui.spec",
   "name": "package-info",
   "parts": [
@@ -141,7 +138,6 @@
         "changeType": null,
         "children": null,
         "className": null,
-        "render": null,
         "variant": "secondary"
       },
       "primitive": null,
@@ -157,7 +153,7 @@
               "variant"
             ],
             "kind": "code",
-            "name": "data-variant",
+            "name": "variant",
             "value": "variant"
           }
         ],
@@ -347,29 +343,21 @@
             "when": "changeType === \"removed\""
           }
         ],
+        "component": "badge",
+        "function": "badge",
         "merges_class": true,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "badge",
+        "slot": null,
+        "source": "shadcn",
         "tag": "span",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "variant"
-            ],
-            "table": "badgeVariants"
-          }
-        ],
+        "type": "component_ref",
+        "variant_calls": [],
         "vars": []
       },
       "types": {},
@@ -1023,22 +1011,5 @@
       "sha256": "f6cb384a2f76acd7b305481e5a7b28a78c290e02fcda1867badf8801d29cf242"
     }
   },
-  "variants": {
-    "badgeVariants": {
-      "base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
-      "defaults": {
-        "variant": "default"
-      },
-      "variants": {
-        "variant": {
-          "default": "cn-badge-variant-default",
-          "destructive": "cn-badge-variant-destructive",
-          "ghost": "cn-badge-variant-ghost",
-          "link": "cn-badge-variant-link",
-          "outline": "cn-badge-variant-outline",
-          "secondary": "cn-badge-variant-secondary"
-        }
-      }
-    }
-  }
+  "variants": {}
 }

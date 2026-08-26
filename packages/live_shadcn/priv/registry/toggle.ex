@@ -42,7 +42,7 @@ defmodule LiveShadcn.UI.Toggle do
   attr(:size, :string, default: "default", values: ["default", "lg", "sm"])
   attr(:variant, :string, default: "default", values: ["default", "outline"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def toggle(assigns) do

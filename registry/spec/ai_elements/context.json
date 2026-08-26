@@ -2,8 +2,7 @@
   "anatomy": [],
   "css_vars": [],
   "folds": [
-    "shadcn/hover-card",
-    "shadcn/progress"
+    "shadcn/hover-card"
   ],
   "generated_by": "mix ui.spec",
   "name": "context",
@@ -572,63 +571,23 @@
                             "value": "value"
                           }
                         ],
-                        "children": [
-                          {
-                            "attrs": [],
-                            "children": [
-                              {
-                                "attrs": [],
-                                "children": [],
-                                "class": "cn-progress-indicator h-full transition-all",
-                                "class_when": [],
-                                "merges_class": true,
-                                "module": "progress",
-                                "part": "Indicator",
-                                "props": true,
-                                "reads": {
-                                  "group": [],
-                                  "self": []
-                                },
-                                "render_as": null,
-                                "slot": "progress-indicator",
-                                "tag": "div",
-                                "type": "primitive",
-                                "variant_calls": [],
-                                "vars": []
-                              }
-                            ],
-                            "class": "cn-progress-track relative flex w-full items-center overflow-x-hidden",
-                            "class_when": [],
-                            "merges_class": true,
-                            "module": "progress",
-                            "part": "Track",
-                            "props": true,
-                            "reads": {
-                              "group": [],
-                              "self": []
-                            },
-                            "render_as": null,
-                            "slot": "progress-track",
-                            "tag": "div",
-                            "type": "primitive",
-                            "variant_calls": [],
-                            "vars": []
-                          }
-                        ],
-                        "class": "cn-progress-root flex flex-wrap gap-3 bg-muted",
+                        "children": [],
+                        "class": "bg-muted",
                         "class_when": [],
+                        "component": "progress",
+                        "function": "progress",
                         "merges_class": false,
-                        "module": "progress",
-                        "part": "Root",
-                        "props": true,
+                        "props": false,
                         "reads": {
                           "group": [],
                           "self": []
                         },
+                        "recipe": "progress",
                         "render_as": null,
-                        "slot": "progress",
+                        "slot": null,
+                        "source": "shadcn",
                         "tag": "div",
-                        "type": "primitive",
+                        "type": "component_ref",
                         "variant_calls": [],
                         "vars": []
                       }
@@ -1822,214 +1781,6 @@
       ],
       "renders": true,
       "summary": "A viewport for displaying content transitions."
-    },
-    "progress.Indicator": {
-      "css_vars": [],
-      "data": [
-        "data-complete",
-        "data-indeterminate",
-        "data-progressing"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Progress.Indicator.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Progress.Indicator.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Progress.Indicator.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Visualizes the completion status of the task."
-    },
-    "progress.Label": {
-      "css_vars": [],
-      "data": [
-        "data-complete",
-        "data-indeterminate",
-        "data-progressing"
-      ],
-      "element": "span",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Progress.Label.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Progress.Label.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Progress.Label.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "An accessible label for the progress bar."
-    },
-    "progress.Root": {
-      "css_vars": [],
-      "data": [
-        "data-complete",
-        "data-indeterminate",
-        "data-progressing"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "null",
-          "doc": "-",
-          "name": "value\\*",
-          "type": "number \\"
-        },
-        {
-          "default": null,
-          "doc": "A string value that provides a user-friendly name for `aria-valuenow`, the current value of the progress bar.",
-          "name": "aria-valuetext",
-          "type": "string"
-        },
-        {
-          "default": "null) => string)",
-          "doc": "-",
-          "name": "getAriaValueText",
-          "type": "((formattedValue: string, value: number \\"
-        },
-        {
-          "default": null,
-          "doc": "The locale used by `Intl.NumberFormat` when formatting the value. Defaults to the user's runtime locale.",
-          "name": "locale",
-          "type": "Intl.LocalesArgument"
-        },
-        {
-          "default": "0",
-          "doc": "The minimum value.",
-          "name": "min",
-          "type": "number"
-        },
-        {
-          "default": "100",
-          "doc": "The maximum value.",
-          "name": "max",
-          "type": "number"
-        },
-        {
-          "default": null,
-          "doc": "Options to format the value.",
-          "name": "format",
-          "type": "Intl.NumberFormatOptions"
-        },
-        {
-          "default": "((state: Progress.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Progress.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Progress.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups all parts of the progress bar and provides the task completion status to screen readers."
-    },
-    "progress.Track": {
-      "css_vars": [],
-      "data": [
-        "data-complete",
-        "data-indeterminate",
-        "data-progressing"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Progress.Track.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Progress.Track.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Progress.Track.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Contains the progress bar indicator."
-    },
-    "progress.Value": {
-      "css_vars": [],
-      "data": [
-        "data-complete",
-        "data-indeterminate",
-        "data-progressing"
-      ],
-      "element": "span",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "null, value: number \\",
-          "doc": "null) => React.ReactNode) \\",
-          "name": "children",
-          "type": "((formattedValue: string \\"
-        },
-        {
-          "default": "((state: Progress.Value.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Progress.Value.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Progress.Value.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A text element displaying the current value."
     }
   },
   "recipe": "presentational",

@@ -66,7 +66,7 @@ defmodule LiveShadcn.UI.InputGroup do
   attr(:type, :string, default: "button", values: ["button", "submit", "reset"])
   attr(:variant, :string, default: "ghost")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def input_group_button(assigns) do
@@ -143,7 +143,9 @@ defmodule LiveShadcn.UI.InputGroup do
       "pattern",
       "readonly",
       "multiple",
-      "autocomplete"
+      "autocomplete",
+      "disabled",
+      "required"
     ]
   )
 
@@ -189,7 +191,17 @@ defmodule LiveShadcn.UI.InputGroup do
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
   attr(:rest, :global,
-    include: ["data-slot", "name", "placeholder", "rows", "cols", "readonly", "wrap"]
+    include: [
+      "data-slot",
+      "name",
+      "placeholder",
+      "rows",
+      "cols",
+      "readonly",
+      "wrap",
+      "disabled",
+      "required"
+    ]
   )
 
   slot(:inner_block)

@@ -1,9 +1,6 @@
 {
   "anatomy": [],
   "css_vars": [],
-  "folds": [
-    "shadcn/badge"
-  ],
   "generated_by": "mix ui.spec",
   "name": "schema-display",
   "parts": [
@@ -53,7 +50,6 @@
         "children": null,
         "className": null,
         "method": null,
-        "render": null,
         "variant": "secondary"
       },
       "primitive": null,
@@ -69,7 +65,7 @@
               "variant"
             ],
             "kind": "code",
-            "name": "data-variant",
+            "name": "variant",
             "value": "variant"
           }
         ],
@@ -131,29 +127,21 @@
             "when": "method === \"PUT\""
           }
         ],
+        "component": "badge",
+        "function": "badge",
         "merges_class": true,
         "props": true,
         "reads": {
           "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            }
-          ]
+          "self": []
         },
+        "recipe": "presentational",
         "render_as": null,
-        "slot": "badge",
+        "slot": null,
+        "source": "shadcn",
         "tag": "span",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "variant"
-            ],
-            "table": "badgeVariants"
-          }
-        ],
+        "type": "component_ref",
+        "variant_calls": [],
         "vars": []
       },
       "types": {}
@@ -299,7 +287,6 @@
         "description": null,
         "location": null,
         "name": null,
-        "render": null,
         "required": null,
         "type": null,
         "variant": "outline"
@@ -353,7 +340,7 @@
                       "variant"
                     ],
                     "kind": "code",
-                    "name": "data-variant",
+                    "name": "variant",
                     "value": "variant"
                   }
                 ],
@@ -368,29 +355,21 @@
                 ],
                 "class": "text-xs",
                 "class_when": [],
+                "component": "badge",
+                "function": "badge",
                 "merges_class": false,
-                "props": true,
+                "props": false,
                 "reads": {
                   "group": [],
-                  "self": [
-                    {
-                      "name": "aria-invalid",
-                      "value": null
-                    }
-                  ]
+                  "self": []
                 },
+                "recipe": "presentational",
                 "render_as": null,
-                "slot": "badge",
+                "slot": null,
+                "source": "shadcn",
                 "tag": "span",
-                "type": "element",
-                "variant_calls": [
-                  {
-                    "args": [
-                      "variant"
-                    ],
-                    "table": "badgeVariants"
-                  }
-                ],
+                "type": "component_ref",
+                "variant_calls": [],
                 "vars": []
               },
               {
@@ -402,7 +381,7 @@
                           "variant"
                         ],
                         "kind": "code",
-                        "name": "data-variant",
+                        "name": "variant",
                         "value": "variant"
                       }
                     ],
@@ -417,29 +396,21 @@
                     ],
                     "class": "text-xs",
                     "class_when": [],
+                    "component": "badge",
+                    "function": "badge",
                     "merges_class": false,
-                    "props": true,
+                    "props": false,
                     "reads": {
                       "group": [],
-                      "self": [
-                        {
-                          "name": "aria-invalid",
-                          "value": null
-                        }
-                      ]
+                      "self": []
                     },
+                    "recipe": "presentational",
                     "render_as": null,
-                    "slot": "badge",
+                    "slot": null,
+                    "source": "shadcn",
                     "tag": "span",
-                    "type": "element",
-                    "variant_calls": [
-                      {
-                        "args": [
-                          "variant"
-                        ],
-                        "table": "badgeVariants"
-                      }
-                    ],
+                    "type": "component_ref",
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -458,7 +429,7 @@
                           "variant"
                         ],
                         "kind": "code",
-                        "name": "data-variant",
+                        "name": "variant",
                         "value": "variant"
                       }
                     ],
@@ -470,29 +441,21 @@
                     ],
                     "class": "bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400",
                     "class_when": [],
+                    "component": "badge",
+                    "function": "badge",
                     "merges_class": false,
-                    "props": true,
+                    "props": false,
                     "reads": {
                       "group": [],
-                      "self": [
-                        {
-                          "name": "aria-invalid",
-                          "value": null
-                        }
-                      ]
+                      "self": []
                     },
+                    "recipe": "presentational",
                     "render_as": null,
-                    "slot": "badge",
+                    "slot": null,
+                    "source": "shadcn",
                     "tag": "span",
-                    "type": "element",
-                    "variant_calls": [
-                      {
-                        "args": [
-                          "variant"
-                        ],
-                        "table": "badgeVariants"
-                      }
-                    ],
+                    "type": "component_ref",
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -831,7 +794,6 @@
         "name": null,
         "paddingLeft": null,
         "properties": null,
-        "render": null,
         "required": null,
         "type": null,
         "variant": "outline"
@@ -921,7 +883,7 @@
                       "variant"
                     ],
                     "kind": "code",
-                    "name": "data-variant",
+                    "name": "variant",
                     "value": "variant"
                   }
                 ],
@@ -936,29 +898,21 @@
                 ],
                 "class": "text-xs",
                 "class_when": [],
+                "component": "badge",
+                "function": "badge",
                 "merges_class": false,
-                "props": true,
+                "props": false,
                 "reads": {
                   "group": [],
-                  "self": [
-                    {
-                      "name": "aria-invalid",
-                      "value": null
-                    }
-                  ]
+                  "self": []
                 },
+                "recipe": "presentational",
                 "render_as": null,
-                "slot": "badge",
+                "slot": null,
+                "source": "shadcn",
                 "tag": "span",
-                "type": "element",
-                "variant_calls": [
-                  {
-                    "args": [
-                      "variant"
-                    ],
-                    "table": "badgeVariants"
-                  }
-                ],
+                "type": "component_ref",
+                "variant_calls": [],
                 "vars": []
               },
               {
@@ -970,7 +924,7 @@
                           "variant"
                         ],
                         "kind": "code",
-                        "name": "data-variant",
+                        "name": "variant",
                         "value": "variant"
                       }
                     ],
@@ -982,29 +936,21 @@
                     ],
                     "class": "bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400",
                     "class_when": [],
+                    "component": "badge",
+                    "function": "badge",
                     "merges_class": false,
-                    "props": true,
+                    "props": false,
                     "reads": {
                       "group": [],
-                      "self": [
-                        {
-                          "name": "aria-invalid",
-                          "value": null
-                        }
-                      ]
+                      "self": []
                     },
+                    "recipe": "presentational",
                     "render_as": null,
-                    "slot": "badge",
+                    "slot": null,
+                    "source": "shadcn",
                     "tag": "span",
-                    "type": "element",
-                    "variant_calls": [
-                      {
-                        "args": [
-                          "variant"
-                        ],
-                        "table": "badgeVariants"
-                      }
-                    ],
+                    "type": "component_ref",
+                    "variant_calls": [],
                     "vars": []
                   }
                 ],
@@ -1896,22 +1842,5 @@
       "sha256": "805ca0b043ff5beb21f15b616df19df995fd4ecd3c48f8a9bc2ce588c86adfe7"
     }
   },
-  "variants": {
-    "badgeVariants": {
-      "base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
-      "defaults": {
-        "variant": "default"
-      },
-      "variants": {
-        "variant": {
-          "default": "cn-badge-variant-default",
-          "destructive": "cn-badge-variant-destructive",
-          "ghost": "cn-badge-variant-ghost",
-          "link": "cn-badge-variant-link",
-          "outline": "cn-badge-variant-outline",
-          "secondary": "cn-badge-variant-secondary"
-        }
-      }
-    }
-  }
+  "variants": {}
 }

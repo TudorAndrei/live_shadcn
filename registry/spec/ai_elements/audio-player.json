@@ -223,7 +223,6 @@
       "name": "audio_player_control_bar",
       "params": {
         "children": null,
-        "className": null,
         "orientation": "horizontal"
       },
       "primitive": null,
@@ -237,16 +236,11 @@
           {
             "attrs": [
               {
-                "kind": "text",
-                "name": "role",
-                "value": "group"
-              },
-              {
                 "identifiers": [
                   "orientation"
                 ],
                 "kind": "code",
-                "name": "data-orientation",
+                "name": "orientation",
                 "value": "orientation"
               }
             ],
@@ -257,41 +251,21 @@
             ],
             "class": "",
             "class_when": [],
+            "component": "button-group",
+            "function": "button_group",
             "merges_class": false,
-            "props": true,
+            "props": false,
             "reads": {
               "group": [],
-              "self": [
-                {
-                  "name": "data-slot",
-                  "value": null
-                },
-                {
-                  "name": "data-slot",
-                  "value": "input-group"
-                },
-                {
-                  "name": "data-slot",
-                  "value": "select-trigger"
-                },
-                {
-                  "name": "data-slot",
-                  "value": "input"
-                }
-              ]
+              "self": []
             },
+            "recipe": "presentational",
             "render_as": null,
-            "slot": "button-group",
+            "slot": null,
+            "source": "shadcn",
             "tag": "div",
-            "type": "element",
-            "variant_calls": [
-              {
-                "args": [
-                  "orientation"
-                ],
-                "table": "buttonGroupVariants"
-              }
-            ],
+            "type": "component_ref",
+            "variant_calls": [],
             "vars": []
           }
         ],

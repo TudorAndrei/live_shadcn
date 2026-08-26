@@ -1,6 +1,6 @@
 defmodule LiveAiElements.Components.Agent do
   @moduledoc """
-  Agent. Built on `shadcn/accordion`, `shadcn/badge`.
+  Agent. Built on `shadcn/accordion`.
 
   Upstream exports 1 more part, each a thin
   wrapper around a part of `<.accordion>`. That component is one
@@ -32,12 +32,7 @@ defmodule LiveAiElements.Components.Agent do
   @doc "The `agent_header` part."
   attr(:model, :string, default: nil)
   attr(:name, :string, default: nil)
-
-  attr(:variant, :string,
-    default: "secondary",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
-  )
-
+  attr(:variant, :string, default: "secondary")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -50,18 +45,9 @@ defmodule LiveAiElements.Components.Agent do
         <span class="font-medium text-sm">
           {@name}
         </span>
-        <span
-          :if={@model}
-          data-slot={@rest[:"data-slot"] || "badge"}
-          data-variant={@variant}
-          class={[
-            variant_class("badgeVariants", "variant", @variant),
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none font-mono text-xs"
-          ]}
-          {Map.drop(@rest, [:"data-slot"])}
-        >
+        <LiveShadcn.UI.Badge.badge :if={@model} variant={@variant} class="font-mono text-xs">
           {@model}
-        </span>
+        </LiveShadcn.UI.Badge.badge>
       </div>
       {render_slot(@inner_block)}
     </div>
@@ -145,20 +131,4 @@ defmodule LiveAiElements.Components.Agent do
     </div>
     """
   end
-
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "badgeVariants" => %{
-      "variant" => %{
-        "default" => "cn-badge-variant-default",
-        "destructive" => "cn-badge-variant-destructive",
-        "ghost" => "cn-badge-variant-ghost",
-        "link" => "cn-badge-variant-link",
-        "outline" => "cn-badge-variant-outline",
-        "secondary" => "cn-badge-variant-secondary"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
 end
