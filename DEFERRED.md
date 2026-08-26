@@ -105,9 +105,14 @@ repository root, because the storybook depends on the packages by path and its
 asset build reads the registry beside them.
 
 ```bash
-fly secrets set SECRET_KEY_BASE="$(cd storybook && mix phx.gen.secret)"
+fly apps create live-shadcn-storybook
+fly secrets set -c storybook/fly.toml SECRET_KEY_BASE="$(cd storybook && mix phx.gen.secret)"
 fly deploy -c storybook/fly.toml .
 ```
+
+Every one of them takes `-c`. `flyctl` reads the app name out of a `fly.toml` in
+the working directory, and this one is a directory down — without `-c` it says
+"the config for your app is missing an app name".
 
 `PHX_HOST` is in the file rather than a secret — it is the public hostname, and
 Phoenix checks the socket's origin against it. `--remote-only` is the default
