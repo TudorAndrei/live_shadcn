@@ -1,0 +1,38 @@
+# The storybook on Fly: one small machine that stops when nobody reads it
+# and starts on the next request.
+#
+# The build context is the repository root — the storybook depends on the
+# packages by path and its asset build reads the registry beside them — so
+# deploy from up there:
+#
+#     fly deploy -c storybook/fly.toml .
+#
+# `--remote-only` is the default on Apple Silicon worth being explicit about:
+# the image must be linux/amd64, and Fly's remote builder is one.
+
+app = "live-shadcn-storybook"
+primary_region = "otp"
+
+[build]
+# Relative to this file, per fly.toml rules; the context is still the
+# working directory `fly deploy` is given.
+dockerfile = "Dockerfile"
+
+[env]
+# Phoenix checks the LiveView socket's origin against this. A wrong value
+# is a storybook whose pages render and whose components do nothing.
+PHX_HOST = "live-shadcn-storybook.fly.dev"
+PORT = "4100"
+
+[http_service]
+internal_port = 4100
+force_https = true
+# The demo sleeps between readers; the proxy holds the first request while
+# the machine starts. Fly does not stop a machine with an open WebSocket.
+auto_stop_machines = "stop"
+auto_start_machines = true
+min_machines_running = 0
+
+[[vm]]
+size = "shared-cpu-1x"
+memory = "512mb"

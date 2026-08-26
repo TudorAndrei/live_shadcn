@@ -9,6 +9,9 @@ node = "22"
 hk = "1.56.1"
 pkl = "0.32.1"
 
+# The storybook deploys to Fly.io.
+flyctl = "latest"
+
 # actionlint shells out to shellcheck for every `run:` block. Without it the
 # workflow lint reports an error instead of a finding.
 actionlint = "latest"

@@ -97,6 +97,26 @@ locally. It has never been pushed to Cloudflare.
 
 Run the `Deploy storybook` workflow. It is `workflow_dispatch` only.
 
+### Or Fly, which is configured
+
+`storybook/fly.toml` is the second target: one shared-cpu machine that stops
+when nobody is reading and starts on the next request. The build context is the
+repository root, because the storybook depends on the packages by path and its
+asset build reads the registry beside them.
+
+```bash
+fly secrets set SECRET_KEY_BASE="$(cd storybook && mix phx.gen.secret)"
+fly deploy -c storybook/fly.toml .
+```
+
+`PHX_HOST` is in the file rather than a secret — it is the public hostname, and
+Phoenix checks the socket's origin against it. `--remote-only` is the default
+worth knowing about on Apple Silicon: the image must be linux/amd64, and Fly's
+remote builder is one. `.dockerignore` at the repository root says what the
+upload leaves out, and `mise.toml` pins `flyctl`.
+
+Neither target has been deployed.
+
 ### Do not deploy from an Apple Silicon Mac
 
 Cloudflare Containers run linux/amd64, and `wrangler deploy` builds the image

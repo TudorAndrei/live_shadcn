@@ -1,0 +1,9 @@
+# What a build from the repository root uploads as context — both
+# `docker buildx build` and `fly deploy`. The image rebuilds everything
+# itself, so nothing a developer's machine compiled belongs in the upload.
+.git
+**/_build
+**/deps
+**/node_modules
+**/erl_crash.dump
+**/test-results
