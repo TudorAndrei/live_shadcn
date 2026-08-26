@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 
 import { collect, compare, describeRow, outline, PROPERTIES } from "./measure.mjs";
+import { gated } from "./registries.mjs";
 
 // Enough of a tree to find a difference in, and not so much that the report
 // becomes the thing nobody reads.
@@ -48,12 +49,10 @@ const { divergences } = JSON.parse(readFileSync(join(here, "parity-divergence.js
 // reason.
 const subject = (difference) => difference.slice(0, difference.indexOf(":"));
 
-// Every example, from both registries. This used to be the shadcn half alone,
-// because AI Elements had one reference and a gap test naming twelve missing
-// files would have been red from the day it landed. It is not the half that
-// needs the check least: an AI Elements component is a *fold* of shadcn markup,
-// and a fold is exactly the reading nothing else looks at.
+// Every shadcn example. `registries.mjs` says why the AI Elements ones are not
+// compared.
 const pages = Object.entries(previews)
+  .filter(([component]) => gated(component))
   .filter(([component]) => !only || component === only)
   .flatMap(([component, examples]) => examples.map((example) => ({ component, example })));
 
@@ -68,9 +67,11 @@ test("every example has a React reference", () => {
   expect(missing, `add parity/src/examples/<name>.tsx for each`).toEqual([]);
 });
 
-// A decision recorded against an example that no longer exists is a decision
-// nobody is reading. The same rule `pixel-budget.json` is held to.
-test("every recorded divergence names an example that exists", () => {
+// A decision recorded against an example this check does not compare is a
+// decision nobody is reading — whether the example was deleted or the registry
+// it belongs to stopped being gated. The same rule `pixel-budget.json` is held
+// to.
+test("every recorded divergence names an example this check compares", () => {
   const named = new Set(pages.map(({ component, example }) => `${component}.${example}`));
   const stale = Object.keys(divergences).filter((name) => !named.has(name));
 

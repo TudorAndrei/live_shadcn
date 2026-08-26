@@ -730,20 +730,12 @@ defmodule LiveShadcnTools.Gen.Heex do
   # sign, and HTML turns that newline into the space upstream never wrote. The
   # spec keeps the spacing JSX kept, so the way to draw it is to write the
   # children out as they stand.
-  # `icon` is one of these: a glyph drawn in the line, and upstream writes the
-  # gap it wants beside it as a class — `mr-1` on the commit hash's own icon. A
-  # newline after it is a second gap nobody asked for, and it moved the hash
-  # four pixels to the right of the one React draws.
+  # An `icon` is one of these: a glyph drawn in the line, whose gap upstream
+  # writes as a class — `mr-1` on the commit hash's icon.
   @inline ~w(text value slot children icon)
 
   # The elements a browser lays out in the line rather than as a block of their
   # own. Between two of these a newline is a space, and JSX wrote none.
-  #
-  # `at divergence (parity.spec.mjs:142:31)` is a stack frame: a `<span>`, a
-  # `<span>`, a `<span>` holding the bracket, a `<button>` holding the path, and
-  # a `<span>` holding the other bracket. One per line, HTML put a space either
-  # side of each bracket and one before every `:142`, and the frame read
-  # `at divergence ( parity.spec.mjs :142 :31 )`.
   @inline_tags ~w(a abbr b button code em i img kbd label mark s small span strong sub sup time u)
 
   defp children(node, ctx, indent) do
@@ -754,12 +746,9 @@ defmodule LiveShadcnTools.Gen.Heex do
       else: Enum.map(children, &render(&1, ctx, indent + 1))
   end
 
-  # A child of an inline run, with the layout taken back out of it.
-  #
-  # Every newline this generator writes between children is indentation, and
-  # inside a run of inline content a browser draws indentation as a space. The
-  # spacing that is content is in the spec — `at ` keeps its own — because the
-  # reader applies JSX's whitespace rule where JSX applied it.
+  # A child of an inline run, with the indentation taken back out of it. The
+  # spacing that is content stays: it is in the spec, because the reader applies
+  # JSX's whitespace rule where JSX applies it.
   defp one_line(node, ctx), do: node |> render(ctx, 0) |> String.replace(~r/\n\s*/, "")
 
   # Two or more children, all of them drawn in the line. One child on its own is
@@ -923,19 +912,13 @@ defmodule LiveShadcnTools.Gen.Heex do
   defp css(property),
     do: Regex.replace(~r/([a-z])([A-Z])/, property, "\\1-\\2") |> String.downcase()
 
-  # A value drawn between tags, which is where JSX writes "draw this if that".
+  # A value drawn between tags, where JSX writes "draw this if that":
+  # `{frame.lineNumber !== null && `:${frame.lineNumber}`}`. React draws nothing
+  # for `false` and Elixir renders it as the word, so a top-level `&&` becomes
+  # an `if` — `nil` when the question fails, and `nil` draws nothing.
   #
-  # `{frame.lineNumber !== null && `:${frame.lineNumber}`}` is a question and an
-  # answer: React draws nothing for `false`, so the `&&` is a guard rather than
-  # arithmetic. Across as an `&&` it is a different statement — Elixir renders
-  # `false` as the word — and a frame with no line number printed `false` where
-  # upstream printed nothing. It never showed, because the example drew the
-  # error and none of its frames.
-  #
-  # `if` says it: `nil` when the question fails, and `nil` draws nothing.
-  #
-  # In an attribute the same code means what it says, so this is asked here and
-  # not in `expression/2`.
+  # Only between tags. In an attribute the same code means what it says, which
+  # is why `expression/2` does not ask this.
   defp drawn(code, ctx) do
     trimmed = code |> String.trim() |> unwrapped()
 

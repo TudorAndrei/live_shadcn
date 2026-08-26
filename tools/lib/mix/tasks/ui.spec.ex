@@ -225,8 +225,7 @@ defmodule Mix.Tasks.Ui.Spec do
   defp fetched(manifest) do
     files = Map.keys(manifest["files"] || %{})
 
-    # A component is a source file. The fetch stores other things beside them —
-    # the documentation index the storybook groups its navigation by is one —
+    # A component is a source file: the fetch stores other things beside them,
     # and a manifest entry that is not a `.tsx` names no component.
     shadcn = for "shadcn/ui/" <> file <- files, source?(file), do: {"shadcn", named(file)}
     ai = for "ai_elements/" <> file <- files, source?(file), do: {"ai_elements", named(file)}

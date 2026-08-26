@@ -62,22 +62,14 @@ defmodule LiveShadcnTools.Tsx do
 
   `cond && "a"` says the same thing with nothing on the other side.
 
-  ## A className with no call in it
+  A `className` with no call in it is read the same way:
+  `className={frame.isInternal ? "" : "text-foreground"}` is one argument, and
+  `cn` of one argument is that argument.
 
-  `className={frame.isInternal ? "" : "text-foreground"}` is the same fact
-  written without the wrapper, because there is one argument and `cn` of one
-  argument is that argument. Reading only what is inside a `cn(…)` call found
-  nothing here, so two elements were generated with no class at all: a stack
-  frame's function name, and every line of a code block that does not number
-  its lines. Neither showed, because no example drew either one.
-
-  ## A branch that names a class string rather than writing one
-
-  `showLineNumbers ? LINE_NUMBER_CLASSES : "block"` says which of two class
-  strings, and one of them is declared at the top of the file. `constants` is
-  what the file declared, so the branch is read where it is written — recording
-  the name would put an identifier in a class attribute, and dropping it would
-  say the element has no class under that condition.
+  A branch may name a class string rather than write one —
+  `showLineNumbers ? LINE_NUMBER_CLASSES : "block"`. `constants` is what the
+  file declared, and the branch is read there: an identifier in a class
+  attribute is not a class, and dropping it would say the element has none.
   """
   def conditional_classes(value, constants \\ %{})
 

@@ -99,9 +99,8 @@ defmodule Mix.Tasks.Ui.Status do
   defp upstream_entry(_), do: []
 
   # What makes a fetched file a component is that it is a source file. The fetch
-  # stores other things beside them — the documentation index the storybook
-  # groups its navigation by is one — and none of those is a component to
-  # triage. One arrived as `docs-meta.json`, with a recipe waiting for it.
+  # stores other things beside them — the documentation index is one — and none
+  # of those is a component to triage.
   defp entry(source, file) do
     if Path.extname(file) == ".tsx" do
       [

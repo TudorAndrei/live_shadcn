@@ -211,22 +211,15 @@ defmodule StorybookWeb.Docs do
   @doc """
   The components, grouped for the navigation.
 
-  Two facts, and the navigation says both. Which package a component ships in
-  decides how it is installed — `mix ui.add badge` copies a file in, and an AI
-  Element is a dependency — and it is what tells the two components called
-  `Message` apart. Which section it belongs to is how its own documentation is
-  read: a person looking for `Conversation` looks under Chatbot, because that is
-  where ai-sdk.dev puts it.
+  The sections are the groups, and the package is named once, on the first group
+  that ships in it — which is how it is installed, and what tells the two
+  components called `Message` apart.
 
-  So the sections are the groups, and the package is named once, on the first
-  group that ships in it. Neither is typed here: the package comes from the
-  namespace the component generates into, and the sections come from
-  `registry/UPSTREAM.json`, which `mix ui.fetch` reads out of upstream's own
-  documentation tree.
+  Neither is typed here: the package comes from the namespace the component
+  generates into, and the sections come from `registry/UPSTREAM.json`.
 
   `live_shadcn` has one group and no sections, because ui.shadcn.com does not
-  group its components either — one alphabetical list is what the site shows.
-  It is titled after the package, which is the only name that list has.
+  group its components either. It is titled after the package.
   """
   def groups do
     shadcn = components_in(LiveShadcn.UI)

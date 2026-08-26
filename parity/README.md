@@ -78,6 +78,23 @@ examples introduce is a difference the report blames on the components.
 Playwright starts it on its own, so `mix ui.verify` needs no separate step. The
 comparison is `parity` in `registry/VERIFY.json`.
 
+## Which registry it gates
+
+`shadcn`. The AI Elements references are here and nothing compares them.
+
+AI Elements composes with `asChild`. This repository pins shadcn's Base UI base,
+where that prop does not merge, does not warn, and does not reach the DOM: Base
+UI draws its own `<button>` around the element that was to become the trigger.
+The reader reads `asChild` as one element — which is what both Radix's `asChild`
+and Base UI's `render` do — so the reference is the only side drawing two.
+
+**Editing a reference to agree with a port is the one thing this application
+must never do.** It would prove that the port agrees with the porter.
+
+The gate is one line in `storybook/test/browser/registries.mjs`. What holds
+`live_ai_elements` is `generated`, `snapshot` and `browser`+axe, and its markup
+is a composition of the shadcn components this application does gate.
+
 ## What is compared
 
 Not markup. Two renderers of the same component differ in ways nobody should be

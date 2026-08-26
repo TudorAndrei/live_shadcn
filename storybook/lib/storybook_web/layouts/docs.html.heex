@@ -27,16 +27,11 @@
       <.search matches={assigns[:matches] || []} />
     </.sidebar_header>
 
-    <%!-- A live navigation replaces the LiveView's DOM, and the sidebar is in
-         it. Everything the browser owned about the navigation — the scroll
-         position, and whether it is collapsed — goes with it, so the `Nav` hook
-         remembers the two of them for the life of the tab. --%>
+    <%!-- The `Nav` hook keeps the scroll position and the collapsed state
+         across a live navigation, which replaces this DOM. --%>
     <.sidebar_content id="docs-nav-content" phx-hook="Nav">
       <%!-- One group per section of the documentation upstream publishes, and
-           the package named once on the first group that ships in it. Which
-           section a component is in says where to look for it; which package it
-           is in says how to install it, and tells the two components called
-           `Message` apart. --%>
+           the package named once on the first group that ships in it. --%>
       <.sidebar_group :for={group <- Docs.groups()}>
         <.sidebar_group_label>
           {group.title}

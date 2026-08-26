@@ -21,6 +21,8 @@ import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 import { PNG } from "pngjs";
 
+import { gated } from "./registries.mjs";
+
 import {
   MINIMUM_HEIGHT,
   compare,
@@ -44,17 +46,23 @@ const ported = new Set(
     .map((name) => name.replace(/\.tsx$/, "")),
 );
 
+// Every shadcn example. `registries.mjs` says why the AI Elements ones are not
+// photographed.
 const pages = Object.entries(previews)
+  .filter(([component]) => gated(component))
   .filter(([component]) => !only || component === only)
   .flatMap(([component, examples]) => examples.map((example) => ({ component, example })));
 
 const named = (component, example) => `${component}.${example}`;
 
-// A budget or a skip for an example that no longer exists is a check that
-// quietly stopped running. Say so rather than carry it.
-test("every budget and skip names an example that exists", () => {
+// A budget or a skip for an example this check does not photograph is a check
+// that quietly stopped running — whether the example was deleted or the
+// registry it belongs to stopped being gated. Say so rather than carry it.
+test("every budget and skip names an example this check compares", () => {
   const all = new Set(
-    Object.entries(previews).flatMap(([c, es]) => es.map((e) => named(c, e))),
+    Object.entries(previews)
+      .filter(([component]) => gated(component))
+      .flatMap(([c, es]) => es.map((e) => named(c, e))),
   );
 
   const stale = [

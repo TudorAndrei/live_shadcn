@@ -40,15 +40,10 @@ defmodule Mix.Tasks.Ui.Fetch do
   @ai_elements_dir "packages/elements/src"
 
   # The sections the AI Elements documentation files its components under —
-  # Chatbot, Code, Voice, Workflow, Utilities. A reader who knows that sidebar
-  # should meet the same grouping in the storybook, and upstream keeps it in two
-  # places this fetch already walks past: the directory a page sits in,
-  # `(chatbot)/attachments.mdx`, and `meta.json`, which titles the sections and
-  # puts them in order.
-  #
-  # Reading it is the same argument the rest of the pipeline makes. A list of
-  # categories typed here would be a second copy of something upstream
-  # publishes, and the copy is the one that goes stale when a component moves.
+  # Chatbot, Code, Voice, Workflow, Utilities — which the storybook navigation
+  # is grouped by. Upstream keeps them in two places: the directory a page sits
+  # in, `(chatbot)/attachments.mdx`, and `meta.json`, which titles the sections
+  # and puts them in order.
   @ai_docs_dir "apps/docs/content/components"
   @base_ui_docs "https://base-ui.com/react/components"
 

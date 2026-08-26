@@ -319,6 +319,33 @@ generator can only render a choice the **server** decides.
       application's choice — a wrapper that trims it would have to rebuild the
       rendered struct
 
+## Phase 14: AI Elements has not been updated for Base UI
+
+Drop the gate:
+
+- [ ] `parity.spec.mjs` and `pixel.spec.mjs` gate `shadcn` alone. The 49 React
+      references stay on disk; nothing compares them
+- [ ] The gap tests narrow with them: an AI Elements example needs no reference,
+      no budget and no skip
+- [ ] `mix ui.verify` records `parity` and `pixel` for an AI Element as *not
+      gated*, with the reason, rather than as a pass
+- [ ] Every AI Elements entry out of `parity-divergence.json` and
+      `pixel-budget.json` — a decision nothing reads is a decision nobody prunes
+- [ ] [parity/README.md](parity/README.md) says which registry it is for and why
+
+Call what is a component:
+
+- [ ] The reader records the shadcn component an AI Element renders, by the
+      function this repository generates for it
+- [ ] The generator calls it — `LiveShadcn.UI.Button.button/1` — for
+      `ai_elements` sources only. A copied file still folds, because
+      `mix ui.add` renames it
+- [ ] `button` first: 21 components, and the widest fold there is
+- [ ] Then `badge` (7), `collapsible` stays folded, `card`, `avatar`, `alert`,
+      `progress`, `switch`, `input`, `textarea`, `spinner`, `separator`
+- [ ] **`mix snapshot --check` is the proof.** A call that draws what the fold
+      drew moves no snapshot; one that does is the finding
+
 ## Verification
 
 Run at every phase boundary, as [CONTRIBUTING.md](CONTRIBUTING.md) lists it.

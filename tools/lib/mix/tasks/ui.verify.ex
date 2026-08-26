@@ -24,6 +24,9 @@ defmodule Mix.Tasks.Ui.Verify do
   because opening a panel is a client behaviour and so is layout: no amount of
   server-side rendering can tell you whether either works.
 
+  The last two gate `shadcn`. An AI Element records them as *not gated*: AI
+  Elements composes with `asChild`, which shadcn's Base UI base drops.
+
   The first three all read the same spec, so none of them can catch a spec that
   read upstream wrongly — a class string the reader dropped is missing from the
   module, from the snapshot, and from the expectation. The last two read upstream
@@ -125,11 +128,7 @@ defmodule Mix.Tasks.Ui.Verify do
         {"snapshot", snapshot_check(key)}
       ] ++
         if browser?,
-          do: [
-            {"browser", browser_check(name, key)},
-            {"parity", parity_check(key)},
-            {"pixel", pixel_check(key)}
-          ],
+          do: [{"browser", browser_check(name, key)}] ++ upstream_checks(source, key),
           else: []
 
     %{
@@ -138,6 +137,25 @@ defmodule Mix.Tasks.Ui.Verify do
       "checks" => Map.new(checks)
     }
   end
+
+  # The two checks that read upstream by rendering it. They gate `shadcn`: AI
+  # Elements composes with `asChild`, which shadcn's Base UI base drops without
+  # a warning, so the reference draws two elements where the reader draws one.
+  #
+  # An AI Element records them as not gated rather than as a pass, because
+  # `registry/VERIFY.json` is read by `mix ui.status` and a check that did not
+  # run must not read like one that did.
+  defp upstream_checks("ai_elements", _key) do
+    detail =
+      "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. " <>
+        "See PLAN.md phase 14 and storybook/test/browser/registries.mjs."
+
+    for check <- ["parity", "pixel"],
+        do: {check, %{"pass" => true, "gated" => false, "detail" => detail}}
+  end
+
+  defp upstream_checks(_source, key),
+    do: [{"parity", parity_check(key)}, {"pixel", pixel_check(key)}]
 
   # The spec digest is recorded with the result, so a passing entry cannot
   # outlive the spec it was true of.

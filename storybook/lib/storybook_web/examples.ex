@@ -1819,10 +1819,9 @@ defmodule StorybookWeb.Examples do
   defp commit_default(assigns) do
     ~H"""
     <LiveAiElements.Components.Commit.commit_info class="max-w-md">
-      <%!-- The hash sits against its tags, and `phx-no-format` keeps it there.
-            HEEx renders the whitespace a caller writes and JSX drops it, so a
-            value on a line of its own inside an inline element is a space — and
-            this one is beside the icon upstream spaces with `mr-1`. --%>
+      <%!-- HEEx renders the whitespace a caller writes, and this value sits
+            beside an inline icon, so a line of its own would be a space.
+            `phx-no-format` keeps the formatter from putting one there. --%>
       <LiveAiElements.Components.Commit.commit_hash phx-no-format>a99f1b7</LiveAiElements.Components.Commit.commit_hash>
       <LiveAiElements.Components.Commit.commit_message>
         the recipe three components are built on
@@ -2126,11 +2125,9 @@ defmodule StorybookWeb.Examples do
             method="GET"
             variant="secondary"
           />
-          <%!-- Upstream highlights a path parameter by running a regular expression
-                over the path and handing the result to `dangerouslySetInnerHTML`,
-                which is a string of markup put where markup goes. HEEx has no such
-                door — and does not need one, because markup is what a slot takes.
-                So the caller writes the `{name}` it wants coloured. --%>
+          <%!-- Upstream highlights a path parameter through
+                `dangerouslySetInnerHTML`. HEEx has no such door and needs none:
+                the caller writes the `{name}` it wants coloured. --%>
           <LiveAiElements.Components.SchemaDisplay.schema_display_path phx-no-format>/components/<span class="text-blue-600 dark:text-blue-400">{"{name}"}</span></LiveAiElements.Components.SchemaDisplay.schema_display_path>
         </LiveAiElements.Components.SchemaDisplay.schema_display_header>
         <LiveAiElements.Components.SchemaDisplay.schema_display_description description="One component, by name." />
@@ -2197,17 +2194,11 @@ defmodule StorybookWeb.Examples do
     """
   end
 
-  # The trace the example copies, and the frames a reader of it draws.
+  # The trace the example copies, and the frames a reader of it draws. Upstream
+  # parses the string into a context; here the caller passes what it parsed.
   #
-  # Upstream parses the string once and puts the frames in a context; here the
-  # caller passes what it parsed, which is the same answer every other AI
-  # Element gets. The two have to agree about it: the React reference is given
-  # this exact string, parses it itself, and the parity check compares the
-  # frames it draws with these.
-  #
-  # `isInternal` is upstream's rule and not a preference — a path under
-  # `node_modules`, or one that starts with `node:` — and it is what dims the
-  # two frames that are somebody else's code.
+  # `isInternal` is upstream's rule — a path under `node_modules`, or one
+  # starting with `node:` — and it dims the frames that are somebody else's.
   @trace """
   TypeError: Cannot read properties of undefined (reading 'slots')
       at divergence (storybook/test/browser/parity.spec.mjs:142:31)

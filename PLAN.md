@@ -680,6 +680,60 @@ beside it is not a string.
 
 **Commit:** `feat(ai-elements): the eleven that were not components after all`
 
+### Phase 14: AI Elements has not been updated for Base UI
+
+The parity check has been comparing `live_ai_elements` against a combination
+that exists nowhere: AI Elements composed over shadcn's Base UI base. AI
+Elements was written when shadcn was Radix, and it composes with `asChild`. On
+this base that prop does not merge, does not warn, and does not even reach the
+DOM — React drops it and Base UI draws its own `<button>` around the element
+that was supposed to become the trigger. Six examples record it, and one of
+them, `stack-trace`, overflows its own box because a `<button>` sizes itself to
+its content.
+
+The reader already reads `asChild` as one element, which is what Radix's
+`asChild` does and what Base UI's `render` does. So the generated component
+draws what a Base-UI-ported AI Elements would draw, and the reference is the
+only side drawing two. Porting the reference is the one thing
+[parity/README.md](parity/README.md) forbids: a reference edited to agree with
+the port proves the port agrees with the porter.
+
+So upstream stops being the standard for this registry, and the components are
+re-created on the shadcn components this repository already proves.
+
+**Drop the gate, keep the references.** `parity` and `pixel` gate `shadcn`
+alone. The 49 `.tsx` files stay on disk as the record of what upstream draws,
+and the day a component becomes comparable again the gate is one line. What
+holds `live_ai_elements` afterwards is `generated`, `snapshot` and
+`browser`+axe — and the snapshot is the strong one, because it is the diff a
+reader would see.
+
+**Call what is a component; fold what is a behaviour.** An AI Element that
+renders shadcn's `<Button>` calls `LiveShadcn.UI.Button.button/1` instead of
+carrying a copy of its class string. Twenty-one components carry that copy
+today, seven carry `badge`, and each copy is a class string that stops moving
+when the shadcn one does. `live_ai_elements` already depends on `live_shadcn`,
+and `LiveShadcn.UI.*` is compiled out of `priv/registry`, so the call resolves.
+
+The fold stays where the component folded is a *behaviour* whose parts have to
+agree about one id — `dialog`, `disclosure`, `listbox`, `menu`, `popover`,
+`tabs`. Those are one function here on purpose, the caller composes them, and
+the moduledoc already says so.
+
+**The old reason for folding does not survive being written down.** It was that
+`mix ui.add` renames a copy into the application's namespace, so a call could
+not name it. True — but a folded class string is exactly as disconnected from
+an application's edited button as a call is. Folding never solved that; it
+bought self-containment, and it cost one copy of every class string.
+
+**The acceptance test is that nothing moves.** A call that draws what the fold
+drew changes no snapshot. So `mix snapshot --check` is the equivalence proof for
+the rebuild, and the shadcn parity gate then covers the AI Elements markup
+transitively — the button they call is the button that is compared.
+
+**Commits:** `refactor(verify): the AI Elements gate compares against a
+combination that does not exist`, then one per tranche of the rebuild.
+
 ## Risks & Tradeoffs
 
 - **Phase 5 is the long one.** shadcn's equivalent was 51 references and it
