@@ -138,7 +138,8 @@ defmodule StorybookWeb.Examples do
        toggle-group question questionnaire sidebar snippet sonner toast shadcn-message ai_elements-message
        artifact attachments commit environment-variables image mic-selector model-selector plan
        queue speech-input transcription voice-selector
-       inline-citation stack-trace test-results tool web-preview)
+       inline-citation stack-trace test-results tool web-preview
+       agent audio-player code-block context conversation sandbox shimmer)
   end
 
   @doc "The examples for a component."
@@ -599,6 +600,95 @@ defmodule StorybookWeb.Examples do
         "Filed as a listbox and it is not one: eleven of its parts wrap a " <>
           "command dialog, and these eight are its own.",
         &voice_selector_default/1
+      )
+    ]
+  end
+
+  def all("agent") do
+    [
+      one(
+        "default",
+        "A model, and what it may reach for",
+        "The output is a code block, which is why neither generated until the " <>
+          "other did.",
+        &agent_default/1
+      )
+    ]
+  end
+
+  def all("audio-player") do
+    [
+      one(
+        "default",
+        "A player made of custom elements",
+        "media-chrome is a set of custom elements, and its React package " <>
+          "renders them. A HEEx template writes the same tags, and the " <>
+          "browser upgrades them once the application loads the library.",
+        &audio_player_default/1
+      )
+    ]
+  end
+
+  def all("code-block") do
+    [
+      one(
+        "default",
+        "Code, in the state upstream draws first",
+        "shiki tokenises in the browser, so upstream draws one token per line " <>
+          "until it has loaded. That is what a server can draw, and the " <>
+          "tokens are the caller's to supply.",
+        &code_block_default/1
+      )
+    ]
+  end
+
+  def all("context") do
+    [
+      one(
+        "default",
+        "What a window has been spent on",
+        "`Intl.NumberFormat` writes `1.2K` and `$0.02`; the module carries " <>
+          "the two functions that write the same, because Elixir's standard " <>
+          "library has neither.",
+        &context_default/1
+      )
+    ]
+  end
+
+  def all("conversation") do
+    [
+      one(
+        "default",
+        "A log that stays at the bottom",
+        "Upstream sticks to the bottom with `use-stick-to-bottom`; here the " <>
+          "scroller recipe places `LiveBase.Scroller`, which is the same job " <>
+          "and the same measurements.",
+        &conversation_default/1
+      )
+    ]
+  end
+
+  def all("sandbox") do
+    [
+      one(
+        "default",
+        "The one part that is its own",
+        "Every other part wraps a collapsible, so the moduledoc says to " <>
+          "compose `<.collapsible>` and this is what is left.",
+        &sandbox_default/1
+      )
+    ]
+  end
+
+  def all("shimmer") do
+    [
+      one(
+        "default",
+        "A line still being written",
+        "Upstream animates `background-position` with `motion`, which calls " <>
+          "the Web Animations API. `LiveBase.Shimmer` calls it too, with the " <>
+          "same two keyframes read off `initial` and `animate`.",
+        &shimmer_default/1
       )
     ]
   end
@@ -1641,6 +1731,93 @@ defmodule StorybookWeb.Examples do
         </LiveAiElements.Components.VoiceSelector.voice_selector_age>
       </LiveAiElements.Components.VoiceSelector.voice_selector_attributes>
     </div>
+    """
+  end
+
+  # The chrome only, on both sides. shiki tokenises in the browser, so a
+  # screenshot of upstream's body is a race between the page and the
+  # highlighter — and the tokens are the caller's to supply here, which is a
+  # different fixture rather than a different component.
+  defp code_block_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.CodeBlock.code_block_container language="shell" class="max-w-md">
+      <LiveAiElements.Components.CodeBlock.code_block_header>
+        <LiveAiElements.Components.CodeBlock.code_block_filename>
+          Makefile
+        </LiveAiElements.Components.CodeBlock.code_block_filename>
+        <LiveAiElements.Components.CodeBlock.code_block_actions>
+          <LiveAiElements.Components.CodeBlock.code_block_copy_button
+            id="copy-code"
+            code="mix ui.gen"
+            aria-label="Copy the code"
+          />
+        </LiveAiElements.Components.CodeBlock.code_block_actions>
+      </LiveAiElements.Components.CodeBlock.code_block_header>
+    </LiveAiElements.Components.CodeBlock.code_block_container>
+    """
+  end
+
+  defp agent_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Agent.agent class="max-w-md">
+      <LiveAiElements.Components.Agent.agent_header name="Reader" model="claude-opus-4.5" />
+      <LiveAiElements.Components.Agent.agent_content>
+        <LiveAiElements.Components.Agent.agent_instructions>
+          Read every registry source and write one spec for each.
+        </LiveAiElements.Components.Agent.agent_instructions>
+      </LiveAiElements.Components.Agent.agent_content>
+    </LiveAiElements.Components.Agent.agent>
+    """
+  end
+
+  defp audio_player_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.AudioPlayer.audio_player class="max-w-md">
+      <LiveAiElements.Components.AudioPlayer.audio_player_control_bar>
+        <LiveAiElements.Components.AudioPlayer.audio_player_play_button />
+        <LiveAiElements.Components.AudioPlayer.audio_player_time_display />
+        <LiveAiElements.Components.AudioPlayer.audio_player_time_range />
+        <LiveAiElements.Components.AudioPlayer.audio_player_mute_button />
+      </LiveAiElements.Components.AudioPlayer.audio_player_control_bar>
+    </LiveAiElements.Components.AudioPlayer.audio_player>
+    """
+  end
+
+  defp context_default(assigns) do
+    ~H"""
+    <div class="max-w-xs space-y-1">
+      <%!-- The cost is `$0.00` because no model was named, which is what
+      upstream draws when it has no price to look up: a component that draws a
+      price is not the thing that knows the price. --%>
+      <LiveAiElements.Components.Context.context_input_usage
+        input_tokens={12_400}
+        input_cost_text="$0.00"
+      />
+    </div>
+    """
+  end
+
+  defp conversation_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Conversation.conversation id="log" class="h-40 max-w-md border">
+      <p :for={line <- 1..6} class="text-sm">Message {line}</p>
+    </LiveAiElements.Components.Conversation.conversation>
+    """
+  end
+
+  defp sandbox_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Sandbox.sandbox_tabs_bar class="max-w-md">
+      <span class="text-muted-foreground text-xs">Files</span>
+    </LiveAiElements.Components.Sandbox.sandbox_tabs_bar>
+    """
+  end
+
+  defp shimmer_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Shimmer.shimmer id="thinking" dynamic_spread="30">
+      Reading every registry source
+    </LiveAiElements.Components.Shimmer.shimmer>
     """
   end
 

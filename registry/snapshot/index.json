@@ -17,6 +17,9 @@
   "calendar": [
     "default"
   ],
+  "shimmer": [
+    "default"
+  ],
   "resizable": [
     "default"
   ],
@@ -54,6 +57,9 @@
     "default"
   ],
   "chart": [
+    "default"
+  ],
+  "conversation": [
     "default"
   ],
   "marker": [
@@ -130,6 +136,9 @@
     "default"
   ],
   "suggestion": [
+    "default"
+  ],
+  "sandbox": [
     "default"
   ],
   "transcription": [
@@ -212,10 +221,16 @@
   "collapsible": [
     "default"
   ],
+  "audio-player": [
+    "default"
+  ],
   "confirmation": [
     "default"
   ],
   "button-group": [
+    "default"
+  ],
+  "agent": [
     "default"
   ],
   "radio-group": [
@@ -224,6 +239,9 @@
   "button": [
     "variants",
     "sizes"
+  ],
+  "code-block": [
+    "default"
   ],
   "test-results": [
     "default"
@@ -256,6 +274,9 @@
     "default"
   ],
   "queue": [
+    "default"
+  ],
+  "context": [
     "default"
   ],
   "hover-card": [

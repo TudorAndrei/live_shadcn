@@ -17,6 +17,43 @@
     "this check exists to find, and what it has found every other time."
   ],
   "divergences": {
+    "audio-player.default": {
+      "why": "Two differences, both about a library the page has to load. First, `asChild`: AI Elements writes `<Button asChild><MediaPlayButton>` and `<ButtonGroupText asChild><MediaTimeDisplay>`, and this shadcn build is Base UI, whose equivalent is `render` — so upstream draws two elements where the reader draws one, which is the same decision `plan.default` records. Second, media-chrome is a set of custom elements: the parity application installs the package and the browser upgrades `<media-controller>` into a positioned inline-block that clips its own overflow, while the storybook does not ship the library, so the same tag stays an unknown element with no styling of its own. Which media library an application loads is the application's decision, the way the markdown renderer is.",
+      "slots": [
+        "(the whole)",
+        "audio-player",
+        "audio-player > audio-player-control-bar",
+        "audio-player > audio-player-control-bar > button-group",
+        "audio-player > audio-player-control-bar > button-group > audio-player-mute-button",
+        "audio-player > audio-player-control-bar > button-group > audio-player-play-button",
+        "audio-player > audio-player-control-bar > button-group > audio-player-time-display",
+        "audio-player > audio-player-control-bar > button-group > audio-player-time-range",
+        "audio-player > audio-player-control-bar > button-group > button",
+        "audio-player > audio-player-control-bar > button-group > button > audio-player-play-button",
+        "audio-player > audio-player-control-bar > button-group > button-group-text",
+        "audio-player > audio-player-control-bar > button-group > button-group-text #2",
+        "audio-player > audio-player-control-bar > button-group > button-group-text #3",
+        "audio-player > audio-player-control-bar > button-group > button-group-text > audio-player-mute-button",
+        "audio-player > audio-player-control-bar > button-group > button-group-text > audio-player-time-display",
+        "audio-player > audio-player-control-bar > button-group > button-group-text > audio-player-time-range"
+      ]
+    },
+    "chain-of-thought.default": {
+      "why": "Upstream renders two `<Collapsible>` wrappers — one around the header and one around the content — and threads the open state between them through a React context. The disclosure recipe folds a component into one function precisely because its parts have to agree about one id, so there is one collapsible here and the 16px `space-y-4` between the two of upstream's has nothing to sit between.",
+      "slots": [
+        "collapsible",
+        "collapsible #2"
+      ]
+    },
+    "mic-selector.default": {
+      "why": "Two of a kind. `<PopoverTrigger asChild><Button>` is the same `asChild` that `plan.default` records — a no-op in a Base UI build, so upstream draws a button inside its trigger and the reader draws one element. And the command palette this component folds is drawn closed here and not drawn at all there: upstream reads the device list from `navigator.mediaDevices`, which reports nothing without a permission prompt, so React renders an empty list and unmounts it.",
+      "slots": [
+        "(the whole)",
+        "popover-trigger",
+        "popover-trigger > button",
+        "command"
+      ]
+    },
     "plan.default": {
       "why": "AI Elements writes `asChild` and this shadcn build is Base UI, whose equivalent is `render`. So `<Collapsible asChild><Card>` and `<CollapsibleTrigger asChild><Button>` each draw two elements upstream, and the second of those is a <button> inside a <button> — which axe reports as nested-interactive and is right to. The reader takes `asChild` at its word and draws one element, so the card is the collapsible and the trigger is the button.",
       "slots": [
@@ -27,14 +64,6 @@
         "plan > card > collapsible-trigger > plan-trigger",
         "plan > plan-trigger"
       ]
-    },
-    "mic-selector.default": {
-      "why": "Two of a kind. `<PopoverTrigger asChild><Button>` is the same `asChild` that `plan.default` records — a no-op in a Base UI build, so upstream draws a button inside its trigger and the reader draws one element. And the command palette this component folds is drawn closed here and not drawn at all there: upstream reads the device list from `navigator.mediaDevices`, which reports nothing without a permission prompt, so React renders an empty list and unmounts it.",
-      "slots": ["(the whole)", "popover-trigger", "popover-trigger > button", "command"]
-    },
-    "chain-of-thought.default": {
-      "why": "Upstream renders two `<Collapsible>` wrappers — one around the header and one around the content — and threads the open state between them through a React context. The disclosure recipe folds a component into one function precisely because its parts have to agree about one id, so there is one collapsible here and the 16px `space-y-4` between the two of upstream's has nothing to sit between.",
-      "slots": ["collapsible", "collapsible #2"]
     },
     "queue.default": {
       "why": "The same scroll area as `suggestion.default`, folded as markup with its recipe left behind: Base UI unmounts a scrollbar with nothing to scroll and measures the viewport with a hook, and neither travels with a copy. A fold that carries a hook-owning recipe is the half of phase 3 that was recorded rather than built — see PLAN.md.",
