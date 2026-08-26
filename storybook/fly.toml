@@ -11,7 +11,9 @@
 # the image must be linux/amd64, and Fly's remote builder is one.
 
 app = "live-shadcn-storybook"
-primary_region = "otp"
+
+# Frankfurt. Bucharest — `otp` — is deprecated and refuses new machines.
+primary_region = "fra"
 
 [build]
 # Relative to this file, per fly.toml rules; the context is still the
