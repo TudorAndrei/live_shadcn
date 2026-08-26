@@ -45,6 +45,12 @@
         "collapsible #2"
       ]
     },
+    "file-tree.default": {
+      "why": "The same `asChild` that `plan.default` records. Upstream writes `<CollapsibleTrigger asChild><button className=\"flex …\">`, and this shadcn build is Base UI, whose equivalent is `render` — so `asChild` is a no-op there and React draws a block trigger with a flex button inside it. The reader takes it at its word and draws one element, which carries the button's own class string. Every other slot on the page gates at zero, and so does every pixel.",
+      "slots": [
+        "collapsible > collapsible-trigger"
+      ]
+    },
     "mic-selector.default": {
       "why": "Two of a kind. `<PopoverTrigger asChild><Button>` is the same `asChild` that `plan.default` records — a no-op in a Base UI build, so upstream draws a button inside its trigger and the reader draws one element. And the command palette this component folds is drawn closed here and not drawn at all there: upstream reads the device list from `navigator.mediaDevices`, which reports nothing without a permission prompt, so React renders an empty list and unmounts it.",
       "slots": [
@@ -63,6 +69,13 @@
         "plan > card > collapsible-trigger",
         "plan > card > collapsible-trigger > plan-trigger",
         "plan > plan-trigger"
+      ]
+    },
+    "prompt-input.default": {
+      "why": "The class list is not merged at render. Upstream's `cn()` is tailwind-merge, which sees the `cva` table's `justify-start`, the component's `justify-center` and the caller's `justify-between` together and keeps the last — so React's footer draws its tools and its submit button at either end. The generated component writes all three, and which one a browser applies is then stylesheet order rather than the order they were written in. Two of the three are merged where the reader can see both; the third comes out of a table read at render, so merging it needs a merge at render. Every other slot on the page gates at zero.",
+      "slots": [
+        "input-group > input-group-addon",
+        "input-group > input-group-addon > button"
       ]
     },
     "queue.default": {

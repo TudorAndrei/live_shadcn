@@ -59,6 +59,7 @@
     "empty.default": 0,
     "environment-variables.default": 0,
     "field.default": 0,
+    "file-tree.default": 0,
     "hover-card.default": 0,
     "image.default": 0,
     "inline-citation.default": 0,
@@ -85,6 +86,7 @@
     "reasoning.default": 0,
     "resizable.default": 0,
     "sandbox.default": 0,
+    "schema-display.default": 0,
     "scroll-area.default": 137,
     "select.default": 0,
     "separator.default": 0,
@@ -105,6 +107,7 @@
     "table.default": 0,
     "tabs.default": 0,
     "task.default": 0,
+    "terminal.default": 0,
     "test-results.default": 0,
     "textarea.default": 0,
     "toast.default": 0,
@@ -123,6 +126,7 @@
     "conversation.default": "`<StickToBottom.Content>` is two elements upstream — an outer box it scrolls, carrying `scrollbar-gutter: stable both-edges`, and an inner one holding the content — and the scroller recipe folds a component into one function because its parts have to agree about one scroll position. So the gutter is on a different element here, and the platform's scrollbar sits in a different place. Every slot still gates at zero in `parity.spec.mjs`.",
     "mic-selector.default": "The same `asChild` as `plan.default`, plus a list only one side can draw: upstream reads the microphones from `navigator.mediaDevices`, which reports nothing without a permission prompt, and a server has no such list at all. `parity-divergence.json` records the four slots this shows up on; the trigger differs by too much of its own box to compare what is painted.",
     "plan.default": "Upstream draws two elements where the reader reads one, twice over: AI Elements writes `asChild` and this shadcn build is Base UI, whose equivalent is `render`, so `<Collapsible asChild><Card>` and `<CollapsibleTrigger asChild><Button>` each nest instead of merging — and the second of those is a <button> inside a <button>, which axe reports and is right to. Taking `asChild` at its word is a decision against upstream's own page, and `parity-divergence.json` records the same one slot by slot. Every other AI Elements example gates at zero.",
+    "prompt-input.default": "The submit button is at the other end of the footer, because the class list is not merged at render: `parity-divergence.json` has the whole of it. A button 366 pixels from where the other side draws it is not a tolerance to measure.",
     "shimmer.default": "Both sides animate, and a screenshot of an animation is a race. Upstream moves `background-position` with `motion` and `LiveBase.Shimmer` moves it with the same Web Animations API, from the same two keyframes — but neither run starts on the same frame, so what is compared is two phases of one gradient. `parity.spec.mjs` still measures the box and its 37 computed properties on both sides."
   },
   "reasons": {

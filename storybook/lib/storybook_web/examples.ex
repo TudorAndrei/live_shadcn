@@ -139,7 +139,8 @@ defmodule StorybookWeb.Examples do
        artifact attachments commit environment-variables image mic-selector model-selector plan
        queue speech-input transcription voice-selector
        inline-citation stack-trace test-results tool web-preview
-       agent audio-player code-block context conversation sandbox shimmer)
+       agent audio-player code-block context conversation file-tree prompt-input
+       sandbox schema-display shimmer terminal)
   end
 
   @doc "The examples for a component."
@@ -668,6 +669,19 @@ defmodule StorybookWeb.Examples do
     ]
   end
 
+  def all("prompt-input") do
+    [
+      one(
+        "default",
+        "The box a question is typed into",
+        "Twenty-two of its thirty-five parts wrap a menu, a select, a hover " <>
+          "card or a command palette, and each of those is one function here. " <>
+          "These thirteen are its own.",
+        &prompt_input_default/1
+      )
+    ]
+  end
+
   def all("sandbox") do
     [
       one(
@@ -676,6 +690,44 @@ defmodule StorybookWeb.Examples do
         "Every other part wraps a collapsible, so the moduledoc says to " <>
           "compose `<.collapsible>` and this is what is left.",
         &sandbox_default/1
+      )
+    ]
+  end
+
+  def all("file-tree") do
+    [
+      one(
+        "default",
+        "A folder, open, with a file in it",
+        "`role=\"tree\"` is upstream's and so is `role=\"treeitem\"`; the " <>
+          "recipe adds the groups that contract needs and takes the unnamed " <>
+          "chevron out of the accessibility tree.",
+        &file_tree_default/1
+      )
+    ]
+  end
+
+  def all("schema-display") do
+    [
+      one(
+        "default",
+        "One endpoint, described",
+        "`dangerouslySetInnerHTML` is read as what it means — the element's " <>
+          "children — because HEEx has no door for a string of markup.",
+        &schema_display_default/1
+      )
+    ]
+  end
+
+  def all("terminal") do
+    [
+      one(
+        "default",
+        "What a command printed",
+        "The escape codes a program writes for colour are a job Elixir " <>
+          "already does, so the component names the seam and the application " <>
+          "chooses what sits behind it.",
+        &terminal_default/1
       )
     ]
   end
@@ -1567,7 +1619,13 @@ defmodule StorybookWeb.Examples do
 
   defp confirmation_default(assigns) do
     ~H"""
-    <.confirmation class="max-w-md">Delete the branch?</.confirmation>
+    <%!-- `approval` and `state` are what upstream draws anything at all for:
+    with no approval, or with a tool call still streaming, it renders nothing.
+    The generated component keeps that guard, so the example is in the state
+    the component is about. --%>
+    <.confirmation approval="branch" state="approval-requested" class="max-w-md">
+      Delete the branch?
+    </.confirmation>
     """
   end
 
@@ -1805,11 +1863,83 @@ defmodule StorybookWeb.Examples do
     """
   end
 
+  defp prompt_input_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.PromptInput.prompt_input class="max-w-md">
+      <LiveAiElements.Components.PromptInput.prompt_input_body>
+        <LiveAiElements.Components.PromptInput.prompt_input_textarea placeholder="What would you like to know?" />
+        <LiveAiElements.Components.PromptInput.prompt_input_footer>
+          <LiveAiElements.Components.PromptInput.prompt_input_tools />
+          <LiveAiElements.Components.PromptInput.prompt_input_submit />
+        </LiveAiElements.Components.PromptInput.prompt_input_footer>
+      </LiveAiElements.Components.PromptInput.prompt_input_body>
+    </LiveAiElements.Components.PromptInput.prompt_input>
+    """
+  end
+
   defp sandbox_default(assigns) do
     ~H"""
     <LiveAiElements.Components.Sandbox.sandbox_tabs_bar class="max-w-md">
       <span class="text-muted-foreground text-xs">Files</span>
     </LiveAiElements.Components.Sandbox.sandbox_tabs_bar>
+    """
+  end
+
+  defp file_tree_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.FileTree.file_tree class="max-w-xs">
+      <LiveAiElements.Components.FileTree.file_tree_folder name="registry" is_expanded="true">
+        <LiveAiElements.Components.FileTree.file_tree_file name="INVENTORY.json" />
+        <LiveAiElements.Components.FileTree.file_tree_file name="UPSTREAM.json" />
+      </LiveAiElements.Components.FileTree.file_tree_folder>
+      <LiveAiElements.Components.FileTree.file_tree_file name="ROADMAP.md" />
+    </LiveAiElements.Components.FileTree.file_tree>
+    """
+  end
+
+  defp schema_display_default(assigns) do
+    ~H"""
+    <div class="max-w-md space-y-2">
+      <LiveAiElements.Components.SchemaDisplay.schema_display>
+        <LiveAiElements.Components.SchemaDisplay.schema_display_header>
+          <LiveAiElements.Components.SchemaDisplay.schema_display_method
+            method="GET"
+            variant="secondary"
+          />
+          <LiveAiElements.Components.SchemaDisplay.schema_display_path highlighted_path="/components/{name}" />
+        </LiveAiElements.Components.SchemaDisplay.schema_display_header>
+        <LiveAiElements.Components.SchemaDisplay.schema_display_description description="One component, by name." />
+      </LiveAiElements.Components.SchemaDisplay.schema_display>
+    </div>
+    """
+  end
+
+  # Composed rather than left to draw itself. Upstream's two header buttons are
+  # an icon each and no words, which axe reports and is right to — so the
+  # example names them, which is the caller's to do and costs no pixels.
+  defp terminal_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Terminal.terminal
+      id="build"
+      output="Compiling 4 files (.ex)"
+      class="max-w-md"
+    >
+      <LiveAiElements.Components.Terminal.terminal_header>
+        <LiveAiElements.Components.Terminal.terminal_title />
+        <div class="flex items-center gap-1">
+          <LiveAiElements.Components.Terminal.terminal_status />
+          <LiveAiElements.Components.Terminal.terminal_actions>
+            <LiveAiElements.Components.Terminal.terminal_copy_button
+              id="copy-output"
+              output="Compiling 4 files (.ex)"
+              aria-label="Copy the output"
+            />
+            <LiveAiElements.Components.Terminal.terminal_clear_button aria-label="Clear the output" />
+          </LiveAiElements.Components.Terminal.terminal_actions>
+        </div>
+      </LiveAiElements.Components.Terminal.terminal_header>
+      <LiveAiElements.Components.Terminal.terminal_content output="Compiling 4 files (.ex)" />
+    </LiveAiElements.Components.Terminal.terminal>
     """
   end
 
