@@ -740,31 +740,6 @@
     "pass": true,
     "spec": "9fd274c3589adafb160c96e92a4d3916ba82a26140d0b6b971ee1bb0b8285085"
   },
-  "ai_elements/canvas": {
-    "checks": {
-      "browser": {
-        "pass": true
-      },
-      "generated": {
-        "pass": true
-      },
-      "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
-        "pass": true
-      },
-      "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
-        "pass": true
-      },
-      "snapshot": {
-        "pass": true
-      }
-    },
-    "pass": true,
-    "spec": "9653a15116d0bfe7eaa7108b187a9d6b856c78af2545002085ee9a86408dad41"
-  },
   "ai_elements/plan": {
     "checks": {
       "browser": {

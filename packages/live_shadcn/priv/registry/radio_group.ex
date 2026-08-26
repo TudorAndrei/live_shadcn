@@ -96,7 +96,7 @@ defmodule LiveShadcn.UI.RadioGroup do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <span :if={@checked} data-slot="radio-group-indicator" class="cn-radio-group-indicator">
+      <span hidden={not @checked} data-slot="radio-group-indicator" class="cn-radio-group-indicator">
         <span class="cn-radio-group-indicator-icon" />
       </span>
       {render_slot(@inner_block)}

@@ -36,11 +36,10 @@ defmodule StorybookWeb.DocsLive do
               `Message` and they are not the same component; without this the
               page gives a reader no way to tell which one they are reading. --%>
         <.badge variant="secondary"><code>{@library.package}</code></.badge>
+        <%!-- Where the page comes from. The spec is the whole answer, so it is
+              a badge beside the package rather than a sentence about it. --%>
+        <.badge variant="outline"><code>{@library.spec}</code></.badge>
       </div>
-      <p class="mt-2 text-muted-foreground">
-        Generated from <code class="text-xs">{@library.spec}</code>. Nothing below
-        was written by hand except the example markup.
-      </p>
     </header>
 
     <section :for={example <- @examples} class="mt-10">

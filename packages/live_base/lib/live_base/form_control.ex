@@ -154,6 +154,8 @@ defmodule LiveBase.FormControl do
 
     js
     |> JS.set_attribute({"aria-checked", "false"}, to: others)
+    |> JS.set_attribute({"hidden", ""}, to: indicator(others))
+    |> JS.remove_attribute("hidden", to: indicator(to))
     |> JS.remove_attribute("data-checked", to: others)
     |> JS.remove_attribute("data-filled", to: others)
     |> JS.set_attribute({"data-unchecked", ""}, to: others)
@@ -168,6 +170,14 @@ defmodule LiveBase.FormControl do
     |> JS.set_attribute({"data-touched", ""}, to: to)
   end
 
+  # The tick, which is drawn while the control is on.
+  #
+  # Base UI unmounts an indicator that is not checked. The client owns this
+  # control's state — a click costs no round trip — so an element that only
+  # exists when the *server* says checked can never appear on a click. It is in
+  # the DOM and `hidden` instead, and these commands flip that with the rest.
+  defp indicator(control), do: "#{control} [data-slot$='-indicator']"
+
   # A checkbox is checked or unchecked; a toggle is pressed or not. Base UI
   # names them differently because a screen reader announces them differently,
   # and a control that claimed both would be announced twice.
@@ -176,6 +186,7 @@ defmodule LiveBase.FormControl do
     |> JS.toggle_attribute({"aria-checked", "true", "false"}, to: to)
     |> JS.toggle_attribute({"data-checked", ""}, to: to)
     |> JS.toggle_attribute({"data-unchecked", ""}, to: to)
+    |> JS.toggle_attribute({"hidden", ""}, to: indicator(to))
   end
 
   defp state(js, to, :pressed) do

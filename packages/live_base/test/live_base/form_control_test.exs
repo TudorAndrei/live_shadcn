@@ -15,9 +15,26 @@ defmodule LiveBase.FormControlTest do
                "aria-checked",
                "data-checked",
                "data-unchecked",
+               "hidden",
                "data-filled",
                "checked"
              ]
+    end
+
+    # A toggle is pressed rather than checked, and it has no tick to show.
+    test "a pressed control has no indicator to flip" do
+      js = FormControl.toggle(control: "bold", state: :pressed)
+
+      refute "hidden" in attrs(js, "toggle_attr")
+    end
+
+    # The tick is in the DOM and hidden rather than mounted with the state, so
+    # a click that costs no round trip can still show it.
+    test "shows the indicator, which is where the tick is" do
+      js = FormControl.toggle(control: "subscribe")
+
+      assert [["toggle_attr", %{to: "#subscribe [data-slot$='-indicator']"}]] =
+               Enum.filter(ops(js), &match?(["toggle_attr", %{attr: ["hidden" | _]}], &1))
     end
 
     test "tells the form, so phx-change fires" do
