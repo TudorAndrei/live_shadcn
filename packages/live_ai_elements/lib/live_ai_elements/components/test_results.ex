@@ -71,7 +71,7 @@ defmodule LiveAiElements.Components.TestResults do
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
-          <LiveShadcn.Icon.icon name="check-circle-2" class="size-3" />
+          <LiveShadcn.Icon.icon name="circle-check" class="size-3" />
           {@summary.passed} passed
         </span>
         <span
@@ -84,7 +84,7 @@ defmodule LiveAiElements.Components.TestResults do
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
-          <LiveShadcn.Icon.icon name="x-circle" class="size-3" />
+          <LiveShadcn.Icon.icon name="circle-x" class="size-3" />
           {@summary.failed} failed
         </span>
         <span
@@ -260,8 +260,8 @@ defmodule LiveAiElements.Components.TestResults do
     ~H"""
     <span class={["shrink-0", @class]} {@rest}>
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon :if={@status == "failed"} name="x-circle" class="size-4" />
-        <LiveShadcn.Icon.icon :if={@status == "passed"} name="check-circle-2" class="size-4" />
+        <LiveShadcn.Icon.icon :if={@status == "failed"} name="circle-x" class="size-4" />
+        <LiveShadcn.Icon.icon :if={@status == "passed"} name="circle-check" class="size-4" />
         <LiveShadcn.Icon.icon
           :if={@status == "running"}
           name="circle-dot"

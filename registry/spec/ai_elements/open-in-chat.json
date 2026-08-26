@@ -251,7 +251,7 @@
                     "class": "size-4",
                     "class_when": [],
                     "icons": {
-                      "lucide": "ChevronDownIcon"
+                      "lucide": "ChevronDown"
                     },
                     "merges_class": false,
                     "props": false,
@@ -417,7 +417,7 @@
                 "class": "size-4 shrink-0",
                 "class_when": [],
                 "icons": {
-                  "lucide": "ExternalLinkIcon"
+                  "lucide": "ExternalLink"
                 },
                 "merges_class": false,
                 "props": false,
@@ -573,7 +573,7 @@
                 "class": "size-4 shrink-0",
                 "class_when": [],
                 "icons": {
-                  "lucide": "ExternalLinkIcon"
+                  "lucide": "ExternalLink"
                 },
                 "merges_class": false,
                 "props": false,
@@ -729,7 +729,7 @@
                 "class": "size-4 shrink-0",
                 "class_when": [],
                 "icons": {
-                  "lucide": "ExternalLinkIcon"
+                  "lucide": "ExternalLink"
                 },
                 "merges_class": false,
                 "props": false,
@@ -885,7 +885,7 @@
                 "class": "size-4 shrink-0",
                 "class_when": [],
                 "icons": {
-                  "lucide": "ExternalLinkIcon"
+                  "lucide": "ExternalLink"
                 },
                 "merges_class": false,
                 "props": false,
@@ -1041,7 +1041,7 @@
                 "class": "size-4 shrink-0",
                 "class_when": [],
                 "icons": {
-                  "lucide": "ExternalLinkIcon"
+                  "lucide": "ExternalLink"
                 },
                 "merges_class": false,
                 "props": false,
@@ -1197,7 +1197,7 @@
                 "class": "size-4 shrink-0",
                 "class_when": [],
                 "icons": {
-                  "lucide": "ExternalLinkIcon"
+                  "lucide": "ExternalLink"
                 },
                 "merges_class": false,
                 "props": false,

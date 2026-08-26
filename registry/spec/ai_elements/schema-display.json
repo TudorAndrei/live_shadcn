@@ -577,7 +577,7 @@
                 "class": "size-4 shrink-0 text-muted-foreground transition-transform group-data-[state=open]:rotate-90",
                 "class_when": [],
                 "icons": {
-                  "lucide": "ChevronRightIcon"
+                  "lucide": "ChevronRight"
                 },
                 "merges_class": false,
                 "props": false,
@@ -1085,7 +1085,7 @@
                 "class": "size-4 shrink-0 text-muted-foreground transition-transform group-data-[state=open]:rotate-90",
                 "class_when": [],
                 "icons": {
-                  "lucide": "ChevronRightIcon"
+                  "lucide": "ChevronRight"
                 },
                 "merges_class": false,
                 "props": false,
@@ -1287,7 +1287,7 @@
                 "class": "size-4 shrink-0 text-muted-foreground transition-transform group-data-[state=open]:rotate-90",
                 "class_when": [],
                 "icons": {
-                  "lucide": "ChevronRightIcon"
+                  "lucide": "ChevronRight"
                 },
                 "merges_class": false,
                 "props": false,

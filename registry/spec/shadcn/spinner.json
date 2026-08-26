@@ -59,7 +59,7 @@
         "class_when": [],
         "icons": {
           "hugeicons": "Loading03Icon",
-          "lucide": "Loader2Icon",
+          "lucide": "LoaderCircle",
           "phosphor": "SpinnerIcon",
           "remixicon": "RiLoaderLine",
           "tabler": "IconLoader"

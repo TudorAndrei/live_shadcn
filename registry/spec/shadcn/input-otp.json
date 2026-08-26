@@ -246,7 +246,7 @@
             "class_when": [],
             "icons": {
               "hugeicons": "MinusSignIcon",
-              "lucide": "MinusIcon",
+              "lucide": "Minus",
               "phosphor": "MinusIcon",
               "remixicon": "RiSubtractLine",
               "tabler": "IconMinus"

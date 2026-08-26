@@ -139,7 +139,7 @@
                     "class": "size-4",
                     "class_when": [],
                     "icons": {
-                      "lucide": "BrainIcon"
+                      "lucide": "Brain"
                     },
                     "merges_class": false,
                     "props": false,
@@ -177,7 +177,7 @@
                       }
                     ],
                     "icons": {
-                      "lucide": "ChevronDownIcon"
+                      "lucide": "ChevronDown"
                     },
                     "merges_class": false,
                     "props": false,

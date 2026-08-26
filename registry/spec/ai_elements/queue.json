@@ -394,7 +394,7 @@
             "class": "",
             "class_when": [],
             "icons": {
-              "lucide": "PaperclipIcon"
+              "lucide": "Paperclip"
             },
             "merges_class": false,
             "props": false,
@@ -776,7 +776,7 @@
             "class": "size-4 transition-transform group-data-[state=closed]:-rotate-90",
             "class_when": [],
             "icons": {
-              "lucide": "ChevronDownIcon"
+              "lucide": "ChevronDown"
             },
             "merges_class": false,
             "props": false,

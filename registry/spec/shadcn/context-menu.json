@@ -496,7 +496,7 @@
                     "class_when": [],
                     "icons": {
                       "hugeicons": "Tick02Icon",
-                      "lucide": "CheckIcon",
+                      "lucide": "Check",
                       "phosphor": "CheckIcon",
                       "remixicon": "RiCheckLine",
                       "tabler": "IconCheck"
@@ -651,7 +651,7 @@
                     "class_when": [],
                     "icons": {
                       "hugeicons": "Tick02Icon",
-                      "lucide": "CheckIcon",
+                      "lucide": "Check",
                       "phosphor": "CheckIcon",
                       "remixicon": "RiCheckLine",
                       "tabler": "IconCheck"
@@ -1076,7 +1076,7 @@
             "class_when": [],
             "icons": {
               "hugeicons": "ArrowRight01Icon",
-              "lucide": "ChevronRightIcon",
+              "lucide": "ChevronRight",
               "phosphor": "CaretRightIcon",
               "remixicon": "RiArrowRightSLine",
               "tabler": "IconChevronRight"

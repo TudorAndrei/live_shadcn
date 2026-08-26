@@ -65,6 +65,8 @@ defmodule LiveShadcnTools.Spec do
       const_nodes: tsx.const_nodes,
       imports: tsx.imports,
       variants: Map.keys(variants),
+      # `%{"CheckCircleIcon" => "CircleCheckBig"}` — see `LiveShadcnTools.Lucide`.
+      lucide: Keyword.get(opts, :lucide, %{}),
       resolve: Keyword.get(opts, :resolve, fn _source, _name -> nil end)
     }
 
@@ -1930,6 +1932,14 @@ defmodule LiveShadcnTools.Spec do
                        TSAsExpression TSNonNullExpression TSSatisfiesExpression),
        do: computed_node?(Ast.bare(node["argument"] || node["expression"]))
 
+  # `new URL(sources[0]).hostname` — the one constructor in the registry, and
+  # the reason it is here rather than in `@methods` is that `URL` is the whole
+  # of what it may construct. Elixir has `URI.parse/1` and the two agree about
+  # what a host is; anything else built with `new` is a value with a lifetime,
+  # which markup does not have.
+  defp computed_node?(%{"type" => "NewExpression", "callee" => %{"name" => "URL"}} = node),
+    do: Enum.all?(node["arguments"], &computed_node?(Ast.bare(&1)))
+
   # `frame.raw.replace(AT_PREFIX_REGEX, "")` — a method on a value, called with
   # values. The callee has to be a member, because a bare `f(x)` is a function
   # this file declared and inlining one is a different job.
@@ -2103,11 +2113,11 @@ defmodule LiveShadcnTools.Spec do
       # `<>…</>` — a React fragment groups children and renders nothing. HEEx
       # needs no grouping, so the children are simply emitted in place.
       tag == "" -> %{"type" => "transparent", "reason" => "a fragment"}
-      tag == "IconPlaceholder" -> %{"type" => "icon", "icons" => icons(element)}
+      tag == "IconPlaceholder" -> %{"type" => "icon", "icons" => icons(element, ctx)}
       tag =~ ~r/^[a-z]/ -> %{"type" => "element", "tag" => tag}
       Map.has_key?(ctx.functions, tag) -> %{"type" => "part_ref", "part" => Macro.underscore(tag)}
       base_ui?(tag, ctx) -> base_ui_node(tag, ctx)
-      set = icon_set(tag, ctx) -> %{"type" => "icon", "icons" => %{set => tag}}
+      set = icon_set(tag, ctx) -> %{"type" => "icon", "icons" => %{set => drawn(set, tag, ctx)}}
       prop = icon_prop(tag, ctx) -> %{"type" => "icon", "prop" => prop}
       local = local_tag(tag, ctx) -> local
       registry_component(tag, ctx) -> registry_node(tag, ctx)
@@ -2499,15 +2509,29 @@ defmodule LiveShadcnTools.Spec do
 
   @icon_sets ~w(lucide tabler hugeicons phosphor remixicon)
 
-  defp icons(element) do
+  defp icons(element, ctx) do
     Map.new(@icon_sets, fn set ->
       {set,
        case Tsx.attr(element, set) do
-         {:string, name} -> name
+         {:string, name} -> drawn(set, name, ctx)
          _ -> nil
        end}
     end)
   end
+
+  # The name lucide draws, for the name upstream wrote.
+  #
+  # `CheckCircleIcon` is an export lucide keeps for compatibility and draws as
+  # `CircleCheckBig`; `Loader2Icon` is `LoaderCircle` and `MoreHorizontalIcon` is
+  # `Ellipsis`. Kebab-cased as written, each names an icon a set does not have,
+  # and the parity check found the first of them by noticing that React drew
+  # `lucide-circle-check-big` where the component drew `lucide-check-circle`.
+  #
+  # Only lucide has a table here, because lucide's is the name shadcn's own
+  # documentation uses and the one the generated component asks for. The other
+  # four sets are recorded as written.
+  defp drawn("lucide", name, ctx), do: Map.get(Map.get(ctx, :lucide) || %{}, name, name)
+  defp drawn(_set, name, _ctx), do: name
 
   # Everything upstream writes on the element other than its class and its
   # `data-slot`, which are recorded on their own. `data-size={size}` on a card

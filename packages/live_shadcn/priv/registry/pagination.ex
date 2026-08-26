@@ -61,7 +61,7 @@ defmodule LiveShadcn.UI.Pagination do
       class={["cn-pagination-ellipsis flex items-center justify-center", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <LiveShadcn.Icon.icon name="more-horizontal" />
+      <LiveShadcn.Icon.icon name="ellipsis" />
       <span class="sr-only">
         More pages
       </span>

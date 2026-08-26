@@ -24,7 +24,7 @@ defmodule LiveAiElements.Components.Commit do
   def commit_hash(assigns) do
     ~H"""
     <span class={["font-mono text-xs", @class]} {@rest}>
-      <LiveShadcn.Icon.icon name="git-commit" class="mr-1 inline-block size-3" />
+      <LiveShadcn.Icon.icon name="git-commit-horizontal" class="mr-1 inline-block size-3" />
       {render_slot(@inner_block)}
     </span>
     """

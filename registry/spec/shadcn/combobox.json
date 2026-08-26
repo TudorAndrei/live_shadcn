@@ -353,7 +353,7 @@
                         "class_when": [],
                         "icons": {
                           "hugeicons": "Cancel01Icon",
-                          "lucide": "XIcon",
+                          "lucide": "X",
                           "phosphor": "XIcon",
                           "remixicon": "RiCloseLine",
                           "tabler": "IconX"
@@ -783,7 +783,7 @@
                 "class_when": [],
                 "icons": {
                   "hugeicons": "Tick02Icon",
-                  "lucide": "CheckIcon",
+                  "lucide": "Check",
                   "phosphor": "CheckIcon",
                   "remixicon": "RiCheckLine",
                   "tabler": "IconCheck"
@@ -1130,7 +1130,7 @@
                     "class_when": [],
                     "icons": {
                       "hugeicons": "Cancel01Icon",
-                      "lucide": "XIcon",
+                      "lucide": "X",
                       "phosphor": "XIcon",
                       "remixicon": "RiCloseLine",
                       "tabler": "IconX"
@@ -1321,7 +1321,7 @@
             "class_when": [],
             "icons": {
               "hugeicons": "ArrowDown01Icon",
-              "lucide": "ChevronDownIcon",
+              "lucide": "ChevronDown",
               "phosphor": "CaretDownIcon",
               "remixicon": "RiArrowDownSLine",
               "tabler": "IconChevronDown"

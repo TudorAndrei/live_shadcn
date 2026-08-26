@@ -265,7 +265,7 @@
                     "class_when": [],
                     "icons": {
                       "hugeicons": "ArrowDown02Icon",
-                      "lucide": "ArrowDownIcon",
+                      "lucide": "ArrowDown",
                       "phosphor": "ArrowDownIcon",
                       "remixicon": "RiArrowDownLine",
                       "tabler": "IconArrowDown"

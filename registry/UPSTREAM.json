@@ -520,6 +520,11 @@
       "sha256": "c7dc2a67386bc06d23fa42344f48f3b45e51f1f91b22e44801a2902acdf64018",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/inline-citation.tsx"
     },
+    "lucide/lucide-react.d.ts": {
+      "bytes": 2284943,
+      "sha256": "6f9f7b58c3fbc2d64d1f9bddc44c450eeaa46347cbe07bbfcb9494c9d4f67ef3",
+      "url": "https://cdn.jsdelivr.net/npm/lucide-react@1.32.0/dist/lucide-react.d.ts"
+    },
     "ai_elements/connection.tsx": {
       "bytes": 570,
       "sha256": "3da80a551da8a7eb4949a0b64b5329af463037dc15e6945e60ae66dcd903e71f",
@@ -785,6 +790,10 @@
     },
     "base_ui": {
       "origin": "https://base-ui.com/react/components"
+    },
+    "lucide": {
+      "package": "lucide-react",
+      "version": null
     },
     "shadcn": {
       "dir": "apps/v4/registry/bases/base/ui",

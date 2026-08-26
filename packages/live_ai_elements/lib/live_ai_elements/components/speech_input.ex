@@ -56,7 +56,7 @@ defmodule LiveAiElements.Components.SpeechInput do
       >
         <LiveShadcn.Icon.icon
           :if={@is_processing}
-          name="loader-2"
+          name="loader-circle"
           data-slot={@rest[:"data-slot"] || "spinner"}
           class="size-4 animate-spin"
           {Map.drop(@rest, [:"data-slot"])}

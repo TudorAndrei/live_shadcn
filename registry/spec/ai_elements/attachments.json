@@ -392,7 +392,7 @@
                 "class": "",
                 "class_when": [],
                 "icons": {
-                  "lucide": "XIcon"
+                  "lucide": "X"
                 },
                 "merges_class": false,
                 "props": false,

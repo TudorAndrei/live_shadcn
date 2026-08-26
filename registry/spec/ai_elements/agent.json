@@ -73,7 +73,7 @@
                 "class": "size-4 text-muted-foreground",
                 "class_when": [],
                 "icons": {
-                  "lucide": "BotIcon"
+                  "lucide": "Bot"
                 },
                 "merges_class": false,
                 "props": false,

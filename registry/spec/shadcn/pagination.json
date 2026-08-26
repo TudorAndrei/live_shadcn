@@ -133,7 +133,7 @@
             "class_when": [],
             "icons": {
               "hugeicons": "MoreHorizontalCircle01Icon",
-              "lucide": "MoreHorizontalIcon",
+              "lucide": "Ellipsis",
               "phosphor": "DotsThreeIcon",
               "remixicon": "RiMoreLine",
               "tabler": "IconDots"
@@ -414,7 +414,7 @@
             "class_when": [],
             "icons": {
               "hugeicons": "ArrowRight01Icon",
-              "lucide": "ChevronRightIcon",
+              "lucide": "ChevronRight",
               "phosphor": "CaretRightIcon",
               "remixicon": "RiArrowRightSLine",
               "tabler": "IconChevronRight"
@@ -515,7 +515,7 @@
             "class_when": [],
             "icons": {
               "hugeicons": "ArrowLeft01Icon",
-              "lucide": "ChevronLeftIcon",
+              "lucide": "ChevronLeft",
               "phosphor": "CaretLeftIcon",
               "remixicon": "RiArrowLeftSLine",
               "tabler": "IconChevronLeft"

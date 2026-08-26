@@ -304,7 +304,7 @@
                     "class": "",
                     "class_when": [],
                     "icons": {
-                      "lucide": "CopyIcon"
+                      "lucide": "Copy"
                     },
                     "merges_class": false,
                     "props": false,
@@ -334,7 +334,7 @@
                     "class": "",
                     "class_when": [],
                     "icons": {
-                      "lucide": "CheckIcon"
+                      "lucide": "Check"
                     },
                     "merges_class": false,
                     "props": false,

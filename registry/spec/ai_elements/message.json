@@ -482,7 +482,7 @@
                 "class": "",
                 "class_when": [],
                 "icons": {
-                  "lucide": "ChevronLeftIcon"
+                  "lucide": "ChevronLeft"
                 },
                 "merges_class": false,
                 "props": false,
@@ -592,7 +592,7 @@
                 "class": "",
                 "class_when": [],
                 "icons": {
-                  "lucide": "ChevronRightIcon"
+                  "lucide": "ChevronRight"
                 },
                 "merges_class": false,
                 "props": false,

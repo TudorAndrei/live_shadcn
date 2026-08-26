@@ -69,7 +69,7 @@
             "class": "size-4 text-muted-foreground",
             "class_when": [],
             "icons": {
-              "lucide": "PackageIcon"
+              "lucide": "Package"
             },
             "merges_class": false,
             "props": false,
@@ -171,7 +171,7 @@
                   "class": "size-3",
                   "class_when": [],
                   "icons": {
-                    "lucide": "PlusIcon"
+                    "lucide": "Plus"
                   },
                   "merges_class": false,
                   "props": false,
@@ -194,7 +194,7 @@
                   "class": "size-3",
                   "class_when": [],
                   "icons": {
-                    "lucide": "ArrowRightIcon"
+                    "lucide": "ArrowRight"
                   },
                   "merges_class": false,
                   "props": false,
@@ -217,7 +217,7 @@
                   "class": "size-3",
                   "class_when": [],
                   "icons": {
-                    "lucide": "ArrowRightIcon"
+                    "lucide": "ArrowRight"
                   },
                   "merges_class": false,
                   "props": false,
@@ -240,7 +240,7 @@
                   "class": "size-3",
                   "class_when": [],
                   "icons": {
-                    "lucide": "ArrowRightIcon"
+                    "lucide": "ArrowRight"
                   },
                   "merges_class": false,
                   "props": false,
@@ -263,7 +263,7 @@
                   "class": "size-3",
                   "class_when": [],
                   "icons": {
-                    "lucide": "MinusIcon"
+                    "lucide": "Minus"
                   },
                   "merges_class": false,
                   "props": false,
@@ -400,7 +400,7 @@
                         "class": "size-3",
                         "class_when": [],
                         "icons": {
-                          "lucide": "ArrowRightIcon"
+                          "lucide": "ArrowRight"
                         },
                         "merges_class": false,
                         "props": false,

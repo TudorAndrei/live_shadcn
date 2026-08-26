@@ -118,7 +118,7 @@
             "class": "size-4 shrink-0",
             "class_when": [],
             "icons": {
-              "lucide": "BookmarkIcon"
+              "lucide": "Bookmark"
             },
             "merges_class": true,
             "props": true,

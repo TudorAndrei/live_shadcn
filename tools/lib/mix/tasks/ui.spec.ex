@@ -46,6 +46,7 @@ defmodule Mix.Tasks.Ui.Spec do
 
   import LiveShadcnTools
 
+  alias LiveShadcnTools.Lucide
   alias LiveShadcnTools.Spec
   alias LiveShadcnTools.Style
 
@@ -60,6 +61,7 @@ defmodule Mix.Tasks.Ui.Spec do
     inventory = read_json!(registry_path("INVENTORY.json"))
     recipes = Map.new(inventory["components"], &{{&1["source"], &1["name"]}, &1["recipe"]})
     styles = styles(manifest)
+    lucide = lucide(manifest)
 
     components =
       if names == [],
@@ -67,7 +69,7 @@ defmodule Mix.Tasks.Ui.Spec do
         else: Enum.map(names, &resolve/1)
 
     if names == [], do: inventoried!(only_keys(recipes, source), manifest)
-    results = settle(components, manifest, recipes, styles, check?)
+    results = settle(components, manifest, recipes, {styles, lucide}, check?)
 
     report(results, check?)
   end
@@ -127,12 +129,12 @@ defmodule Mix.Tasks.Ui.Spec do
   # cycle is a thing to hear about rather than to loop on.
   @passes 3
 
-  defp settle(components, manifest, recipes, styles, check?, pass \\ 1, written \\ []) do
-    results = Enum.map(components, &one(&1, manifest, recipes, styles, check?))
+  defp settle(components, manifest, recipes, facts, check?, pass \\ 1, written \\ []) do
+    results = Enum.map(components, &one(&1, manifest, recipes, facts, check?))
     written = written ++ for {:wrote, reference} <- results, do: reference
 
     if not check? and pass < @passes and Enum.any?(results, &match?({:wrote, _}, &1)) do
-      settle(components, manifest, recipes, styles, check?, pass + 1, written)
+      settle(components, manifest, recipes, facts, check?, pass + 1, written)
     else
       # What the run wrote, not what its last pass wrote. By the last pass every
       # file is already what it should be, which is the point of the pass and
@@ -154,6 +156,23 @@ defmodule Mix.Tasks.Ui.Spec do
   defp resolve_spec(source, name) do
     path = spec_path(source, name)
     if File.exists?(path), do: read_json!(path)
+  end
+
+  # What each `lucide-react` export draws, which is not always what it is
+  # called. See `LiveShadcnTools.Lucide`. A run without it reads every icon name
+  # as written, which is what every run did before the table was fetched, so a
+  # missing file is a warning rather than a stop.
+  defp lucide(manifest) do
+    file = "lucide/lucide-react.d.ts"
+
+    case source(manifest, file) do
+      {:ok, declaration} ->
+        Lucide.aliases(declaration)
+
+      _absent ->
+        Mix.shell().error("  skip #{file}: not fetched. Run `mix ui.fetch`.")
+        %{}
+    end
   end
 
   # The `cn-` rules, one map per shadcn style. A missing sheet is reported once
@@ -195,7 +214,7 @@ defmodule Mix.Tasks.Ui.Spec do
   # One component that the reader cannot understand is a gap in the reader, not
   # a reason to leave the other sixty unspecced. It is reported by name and the
   # run continues, so the gaps are a list somebody can work through.
-  defp one({source, name}, manifest, recipes, styles, check?) do
+  defp one({source, name}, manifest, recipes, {styles, lucide}, check?) do
     tsx_file = tsx_file(source, name)
     md_file = "base_ui/#{name}.md"
     recipe = Map.get(recipes, {source, name}, "unassigned")
@@ -217,6 +236,7 @@ defmodule Mix.Tasks.Ui.Spec do
           module: name,
           markdown: pages,
           styles: styles,
+          lucide: lucide,
           source: source,
           resolve: &resolve_spec/2,
           recipe: recipe,

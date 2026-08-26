@@ -280,7 +280,7 @@
                     "class_when": [],
                     "icons": {
                       "hugeicons": "SearchIcon",
-                      "lucide": "SearchIcon",
+                      "lucide": "Search",
                       "phosphor": "MagnifyingGlassIcon",
                       "remixicon": "RiSearchLine",
                       "tabler": "IconSearch"
@@ -515,7 +515,7 @@
             "class_when": [],
             "icons": {
               "hugeicons": "Tick02Icon",
-              "lucide": "CheckIcon",
+              "lucide": "Check",
               "phosphor": "CheckIcon",
               "remixicon": "RiCheckLine",
               "tabler": "IconCheck"

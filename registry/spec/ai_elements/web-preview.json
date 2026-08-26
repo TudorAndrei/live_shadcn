@@ -501,7 +501,7 @@
                       }
                     ],
                     "icons": {
-                      "lucide": "ChevronDownIcon"
+                      "lucide": "ChevronDown"
                     },
                     "merges_class": false,
                     "props": false,

@@ -148,7 +148,7 @@
                     "class_when": [],
                     "icons": {
                       "hugeicons": "Loading03Icon",
-                      "lucide": "Loader2Icon",
+                      "lucide": "LoaderCircle",
                       "phosphor": "SpinnerIcon",
                       "remixicon": "RiLoaderLine",
                       "tabler": "IconLoader"
@@ -180,7 +180,7 @@
                     "class": "size-4",
                     "class_when": [],
                     "icons": {
-                      "lucide": "SquareIcon"
+                      "lucide": "Square"
                     },
                     "merges_class": false,
                     "props": false,
@@ -210,7 +210,7 @@
                     "class": "size-4",
                     "class_when": [],
                     "icons": {
-                      "lucide": "MicIcon"
+                      "lucide": "Mic"
                     },
                     "merges_class": false,
                     "props": false,

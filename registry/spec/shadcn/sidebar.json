@@ -1474,7 +1474,7 @@
             "class_when": [],
             "icons": {
               "hugeicons": "SidebarLeftIcon",
-              "lucide": "PanelLeftIcon",
+              "lucide": "PanelLeft",
               "phosphor": "SidebarIcon",
               "remixicon": "RiSideBarLine",
               "tabler": "IconLayoutSidebar"

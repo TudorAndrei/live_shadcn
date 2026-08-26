@@ -42,6 +42,19 @@ defmodule Mix.Tasks.Ui.Fetch do
   # `/react/utils/`. What makes a link a Base UI contract is the host.
   @base_ui_host "https://base-ui.com/"
 
+  # Every registry source names its icons by their `lucide-react` export, and
+  # some of those exports are aliases lucide has since renamed: `CheckCircleIcon`
+  # is `CircleCheckBig` now, `Loader2Icon` is `LoaderCircle`, `MoreHorizontalIcon`
+  # is `Ellipsis`. Kebab-cased as written they name icons an icon set does not
+  # have, and seven of the forty-four in this registry drew the wrong glyph.
+  #
+  # The table is one line of lucide's own type declaration — `CircleCheckBig as
+  # CheckCircleIcon`, twice per icon — so it is fetched with everything else
+  # rather than typed here, where it would go stale the next time lucide renames
+  # one. The version is pinned, and `parity/package.json` installs the same one:
+  # the React the components are compared against has to draw the same glyphs.
+  @lucide_version "1.32.0"
+
   @impl Mix.Task
   def run(argv) do
     Mix.Task.run("app.start")
@@ -63,6 +76,7 @@ defmodule Mix.Tasks.Ui.Fetch do
     shadcn_files = Enum.flat_map(components, &fetch_component(&1, shadcn_ref))
     {style_files, styles} = fetch_styles(shadcn_ref)
     ai_files = if only, do: [], else: fetch_ai_elements(ai_ref)
+    lucide_files = if only, do: [], else: fetch_lucide()
 
     manifest = %{
       "generated_by" => "mix ui.fetch",
@@ -74,9 +88,10 @@ defmodule Mix.Tasks.Ui.Fetch do
           "repo" => @ai_elements_repo,
           "ref" => ai_ref,
           "dir" => @ai_elements_dir
-        }
+        },
+        "lucide" => %{"package" => "lucide-react", "version" => @lucide_version}
       },
-      "files" => Map.new(shadcn_files ++ style_files ++ ai_files)
+      "files" => Map.new(shadcn_files ++ style_files ++ ai_files ++ lucide_files)
     }
 
     manifest =
@@ -241,6 +256,15 @@ defmodule Mix.Tasks.Ui.Fetch do
         {:error, status} -> warn(name, "AI Elements source", status)
       end
     end)
+  end
+
+  defp fetch_lucide do
+    url = "https://cdn.jsdelivr.net/npm/lucide-react@#{@lucide_version}/dist/lucide-react.d.ts"
+
+    case get(url) do
+      {:ok, body} -> [store("lucide/lucide-react.d.ts", body, url)]
+      {:error, status} -> warn("lucide-react", "the icon alias table", status)
+    end
   end
 
   defp store(relative, body, url) do

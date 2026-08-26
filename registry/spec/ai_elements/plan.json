@@ -404,7 +404,7 @@
             "class": "size-4",
             "class_when": [],
             "icons": {
-              "lucide": "ChevronsUpDownIcon"
+              "lucide": "ChevronsUpDown"
             },
             "merges_class": false,
             "props": false,

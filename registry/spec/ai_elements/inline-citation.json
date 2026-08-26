@@ -1,0 +1,902 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "folds": [
+    "shadcn/carousel"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "inline-citation",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "InlineCitation",
+      "name": "inline_citation",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "group inline items-center gap-1",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "span",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "InlineCitationText",
+      "name": "inline_citation_text",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "transition-colors group-hover:bg-accent",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "span",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "InlineCitationCard",
+      "name": "inline_citation_card",
+      "params": {},
+      "primitive": null,
+      "refs": [
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "closeDelay",
+            "value": "0"
+          },
+          {
+            "kind": "code",
+            "name": "openDelay",
+            "value": "0"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "class_when": [],
+        "component": "hover-card",
+        "function": "hover_card",
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "recipe": "popover",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": null,
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "InlineCitationCardTrigger",
+      "name": "inline_citation_card_trigger",
+      "params": {
+        "className": null,
+        "sources": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "sources"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "variant",
+                "value": "secondary"
+              }
+            ],
+            "children": [
+              {
+                "else": [
+                  {
+                    "type": "text",
+                    "value": "unknown"
+                  }
+                ],
+                "identifiers": [
+                  "URL",
+                  "sources"
+                ],
+                "member_roots": [
+                  "sources"
+                ],
+                "then": [
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "code": "new URL(sources[0]).hostname",
+                        "identifiers": [
+                          "URL",
+                          "sources"
+                        ],
+                        "member_roots": [
+                          "sources"
+                        ],
+                        "type": "value"
+                      },
+                      {
+                        "type": "text",
+                        "value": " "
+                      },
+                      {
+                        "code": "sources.length > 1 && `+${sources.length - 1}`",
+                        "identifiers": [
+                          "sources"
+                        ],
+                        "member_roots": [
+                          "sources"
+                        ],
+                        "type": "value"
+                      }
+                    ],
+                    "class": "",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "reason": "a fragment",
+                    "render_as": null,
+                    "slot": null,
+                    "type": "transparent",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "type": "choice",
+                "when": "sources[0]"
+              }
+            ],
+            "class": "ml-1 rounded-full",
+            "class_when": [],
+            "component": "badge",
+            "function": "badge",
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "recipe": "presentational",
+            "render_as": null,
+            "slot": null,
+            "source": "shadcn",
+            "tag": "span",
+            "type": "component_ref",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "component": "hover-card",
+        "function": "hover_card_trigger",
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "recipe": "popover",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": "a",
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "InlineCitationCardBody",
+      "name": "inline_citation_card_body",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "relative w-80 p-0",
+        "class_when": [],
+        "component": "hover-card",
+        "function": "hover_card_content",
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "recipe": "popover",
+        "render_as": null,
+        "slot": null,
+        "source": "shadcn",
+        "tag": "div",
+        "type": "component_ref",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "InlineCitationCarousel",
+      "name": "inline_citation_carousel",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "attrs": [
+                  {
+                    "kind": "text",
+                    "name": "role",
+                    "value": "region"
+                  },
+                  {
+                    "kind": "text",
+                    "name": "aria-roledescription",
+                    "value": "carousel"
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "children"
+                  }
+                ],
+                "class": "relative",
+                "class_when": [],
+                "merges_class": true,
+                "props": true,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": "carousel",
+                "tag": "div",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "class": "w-full",
+            "class_when": [],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "reason": "a React context",
+            "render_as": null,
+            "slot": null,
+            "type": "transparent",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "InlineCitationCarouselContent",
+      "name": "inline_citation_carousel_content",
+      "params": {
+        "className": null,
+        "orientation": null
+      },
+      "primitive": null,
+      "refs": [
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "flex",
+            "class_when": [
+              {
+                "else": "-mt-4 flex-col",
+                "identifiers": [
+                  "orientation"
+                ],
+                "then": "-ml-4",
+                "when": "orientation === \"horizontal\""
+              }
+            ],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "overflow-hidden",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "carousel-content",
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "InlineCitationCarouselItem",
+      "name": "inline_citation_carousel_item",
+      "params": {
+        "className": null,
+        "orientation": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "role",
+            "value": "group"
+          },
+          {
+            "kind": "text",
+            "name": "aria-roledescription",
+            "value": "slide"
+          }
+        ],
+        "children": [],
+        "class": "min-w-0 shrink-0 grow-0 basis-full w-full space-y-2 p-4 pl-8",
+        "class_when": [
+          {
+            "else": "pt-4",
+            "identifiers": [
+              "orientation"
+            ],
+            "then": "pl-4",
+            "when": "orientation === \"horizontal\""
+          }
+        ],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "carousel-item",
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "InlineCitationCarouselHeader",
+      "name": "inline_citation_carousel_header",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "flex items-center justify-between gap-2 rounded-t-md bg-secondary p-2",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [
+        "api"
+      ],
+      "export": "InlineCitationCarouselIndex",
+      "name": "inline_citation_carousel_index",
+      "params": {
+        "children": null,
+        "className": null,
+        "count": "0",
+        "current": "0"
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "default": [
+              {
+                "code": "`${current}/${count}`",
+                "type": "value"
+              }
+            ],
+            "identifiers": [
+              "children",
+              "count",
+              "current"
+            ],
+            "type": "children"
+          }
+        ],
+        "class": "flex flex-1 items-center justify-end px-3 py-1 text-muted-foreground text-xs",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [
+        "api"
+      ],
+      "export": "InlineCitationCarouselPrev",
+      "name": "inline_citation_carousel_prev",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "aria-label",
+            "value": "Previous"
+          },
+          {
+            "kind": "text",
+            "name": "type",
+            "value": "button"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "size-4 text-muted-foreground",
+            "class_when": [],
+            "icons": {
+              "lucide": "ArrowLeft"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "icon",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "shrink-0",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "button",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [
+        "api"
+      ],
+      "export": "InlineCitationCarouselNext",
+      "name": "inline_citation_carousel_next",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "aria-label",
+            "value": "Next"
+          },
+          {
+            "kind": "text",
+            "name": "type",
+            "value": "button"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [],
+            "children": [],
+            "class": "size-4 text-muted-foreground",
+            "class_when": [],
+            "icons": {
+              "lucide": "ArrowRight"
+            },
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "icon",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "shrink-0",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "button",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "InlineCitationSource",
+      "name": "inline_citation_source",
+      "params": {
+        "children": null,
+        "className": null,
+        "description": null,
+        "title": null,
+        "url": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "title",
+        "url",
+        "description",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "title",
+                    "identifiers": [
+                      "title"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "truncate font-medium text-sm leading-tight",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "h4",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "identifiers": [
+              "title"
+            ],
+            "type": "optional",
+            "when": "title"
+          },
+          {
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "url",
+                    "identifiers": [
+                      "url"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "truncate break-all text-muted-foreground text-xs",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "p",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "identifiers": [
+              "url"
+            ],
+            "type": "optional",
+            "when": "url"
+          },
+          {
+            "children": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "code": "description",
+                    "identifiers": [
+                      "description"
+                    ],
+                    "type": "value"
+                  }
+                ],
+                "class": "line-clamp-3 text-muted-foreground text-sm leading-relaxed",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "render_as": null,
+                "slot": null,
+                "tag": "p",
+                "type": "element",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "identifiers": [
+              "description"
+            ],
+            "type": "optional",
+            "when": "description"
+          },
+          {
+            "type": "children"
+          }
+        ],
+        "class": "space-y-1",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "InlineCitationQuote",
+      "name": "inline_citation_quote",
+      "params": {
+        "children": null,
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "border-muted border-l-2 pl-3 text-muted-foreground text-sm italic",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "blockquote",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/inline-citation.tsx",
+      "sha256": "c7dc2a67386bc06d23fa42344f48f3b45e51f1f91b22e44801a2902acdf64018"
+    }
+  },
+  "variants": {}
+}

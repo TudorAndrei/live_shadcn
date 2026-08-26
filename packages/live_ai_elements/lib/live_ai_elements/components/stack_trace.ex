@@ -46,7 +46,7 @@ defmodule LiveAiElements.Components.StackTrace do
   def stack_trace_error(assigns) do
     ~H"""
     <div class={["flex flex-1 items-center gap-2 overflow-hidden", @class]} {@rest}>
-      <LiveShadcn.Icon.icon name="alert-triangle" class="size-4 shrink-0 text-destructive" />
+      <LiveShadcn.Icon.icon name="triangle-alert" class="size-4 shrink-0 text-destructive" />
       {render_slot(@inner_block)}
     </div>
     """

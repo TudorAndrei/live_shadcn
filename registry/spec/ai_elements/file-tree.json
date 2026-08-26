@@ -253,7 +253,7 @@
                               }
                             ],
                             "icons": {
-                              "lucide": "ChevronRightIcon"
+                              "lucide": "ChevronRight"
                             },
                             "merges_class": false,
                             "props": false,
@@ -305,7 +305,7 @@
                                     "class": "size-4 text-blue-500",
                                     "class_when": [],
                                     "icons": {
-                                      "lucide": "FolderIcon"
+                                      "lucide": "Folder"
                                     },
                                     "merges_class": false,
                                     "props": false,
@@ -330,7 +330,7 @@
                                     "class": "size-4 text-blue-500",
                                     "class_when": [],
                                     "icons": {
-                                      "lucide": "FolderOpenIcon"
+                                      "lucide": "FolderOpen"
                                     },
                                     "merges_class": false,
                                     "props": false,
@@ -599,7 +599,7 @@
                                 "class": "size-4 text-muted-foreground",
                                 "class_when": [],
                                 "icons": {
-                                  "lucide": "FileIcon"
+                                  "lucide": "File"
                                 },
                                 "merges_class": false,
                                 "props": false,

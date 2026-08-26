@@ -869,6 +869,8 @@ defmodule LiveShadcnTools.Gen.Heex do
       list = list(code, ctx) -> list
       iso = iso8601(code, ctx) -> iso
       template = template(code, ctx) -> template
+      host = host(code, ctx) -> host
+      indexed = indexed(code, ctx) -> indexed
       method = method(code, ctx) -> method
       member = member(code, ctx) -> member
       binary = binary(code, ctx) -> binary
@@ -1043,6 +1045,33 @@ defmodule LiveShadcnTools.Gen.Heex do
   # The quotes and backslashes a template held as text, written so that what
   # comes out is one Elixir string and not three.
   defp escaped(text), do: text |> String.replace("\\", "\\\\") |> String.replace("\"", "\\\"")
+
+  # `new URL(sources[0]).hostname` — the site an address belongs to. Elixir
+  # parses a URI rather than constructing one, and calls the same thing `host`.
+  defp host(code, ctx) do
+    case Regex.run(~r/^new URL\((.+)\)\.hostname$/s, code, capture: :all_but_first) do
+      [address] ->
+        with value when is_binary(value) <- expression!(address, ctx),
+             do: "URI.parse(#{value}).host"
+
+      nil ->
+        nil
+    end
+  end
+
+  # `sources[0]` — one item of a list, by its place in it. JavaScript indexes a
+  # list the way it reads a field; Elixir asks `Enum`, and a `[0]` left as
+  # written would be a keyword-list lookup on something that is not one.
+  defp indexed(code, ctx) do
+    case Regex.run(~r/^([A-Za-z_][\w.]*)\[(\d+)\]$/, code, capture: :all_but_first) do
+      [list, at] ->
+        with value when is_binary(value) <- expression!(list, ctx),
+             do: "Enum.at(#{value}, #{at})"
+
+      nil ->
+        nil
+    end
+  end
 
   # A method on a value. JavaScript asks the value; Elixir asks the module that
   # knows about that kind of value, so each one is written out by name.

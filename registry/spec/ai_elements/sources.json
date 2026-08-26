@@ -108,7 +108,7 @@
                     "class": "h-4 w-4",
                     "class_when": [],
                     "icons": {
-                      "lucide": "ChevronDownIcon"
+                      "lucide": "ChevronDown"
                     },
                     "merges_class": false,
                     "props": false,
@@ -253,7 +253,7 @@
                     "class": "h-4 w-4",
                     "class_when": [],
                     "icons": {
-                      "lucide": "BookIcon"
+                      "lucide": "Book"
                     },
                     "merges_class": false,
                     "props": false,

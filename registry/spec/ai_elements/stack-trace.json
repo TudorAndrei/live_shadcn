@@ -198,7 +198,7 @@
             "class": "size-4 shrink-0 text-destructive",
             "class_when": [],
             "icons": {
-              "lucide": "AlertTriangleIcon"
+              "lucide": "TriangleAlert"
             },
             "merges_class": false,
             "props": false,
@@ -424,7 +424,7 @@
                     "class": "",
                     "class_when": [],
                     "icons": {
-                      "lucide": "CopyIcon"
+                      "lucide": "Copy"
                     },
                     "merges_class": false,
                     "props": false,
@@ -454,7 +454,7 @@
                     "class": "",
                     "class_when": [],
                     "icons": {
-                      "lucide": "CheckIcon"
+                      "lucide": "Check"
                     },
                     "merges_class": false,
                     "props": false,
@@ -554,7 +554,7 @@
               }
             ],
             "icons": {
-              "lucide": "ChevronDownIcon"
+              "lucide": "ChevronDown"
             },
             "merges_class": false,
             "props": false,

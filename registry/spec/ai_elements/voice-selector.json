@@ -843,7 +843,7 @@
             "class": "size-3",
             "class_when": [],
             "icons": {
-              "lucide": "PlayIcon"
+              "lucide": "Play"
             },
             "identifiers": [
               "icon"

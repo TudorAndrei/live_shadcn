@@ -80,7 +80,7 @@
                   "class": "size-4 text-yellow-600",
                   "class_when": [],
                   "icons": {
-                    "lucide": "ClockIcon"
+                    "lucide": "Clock"
                   },
                   "merges_class": false,
                   "props": false,
@@ -103,7 +103,7 @@
                   "class": "size-4 text-blue-600",
                   "class_when": [],
                   "icons": {
-                    "lucide": "CheckCircleIcon"
+                    "lucide": "CircleCheckBig"
                   },
                   "merges_class": false,
                   "props": false,
@@ -126,7 +126,7 @@
                   "class": "size-4 animate-pulse",
                   "class_when": [],
                   "icons": {
-                    "lucide": "ClockIcon"
+                    "lucide": "Clock"
                   },
                   "merges_class": false,
                   "props": false,
@@ -149,7 +149,7 @@
                   "class": "size-4",
                   "class_when": [],
                   "icons": {
-                    "lucide": "CircleIcon"
+                    "lucide": "Circle"
                   },
                   "merges_class": false,
                   "props": false,
@@ -172,7 +172,7 @@
                   "class": "size-4 text-green-600",
                   "class_when": [],
                   "icons": {
-                    "lucide": "CheckCircleIcon"
+                    "lucide": "CircleCheckBig"
                   },
                   "merges_class": false,
                   "props": false,
@@ -195,7 +195,7 @@
                   "class": "size-4 text-orange-600",
                   "class_when": [],
                   "icons": {
-                    "lucide": "XCircleIcon"
+                    "lucide": "CircleX"
                   },
                   "merges_class": false,
                   "props": false,
@@ -218,7 +218,7 @@
                   "class": "size-4 text-red-600",
                   "class_when": [],
                   "icons": {
-                    "lucide": "XCircleIcon"
+                    "lucide": "CircleX"
                   },
                   "merges_class": false,
                   "props": false,
@@ -372,7 +372,7 @@
                 "class": "size-4 text-muted-foreground",
                 "class_when": [],
                 "icons": {
-                  "lucide": "WrenchIcon"
+                  "lucide": "Wrench"
                 },
                 "merges_class": false,
                 "props": false,
@@ -434,7 +434,7 @@
                           "class": "size-4 text-yellow-600",
                           "class_when": [],
                           "icons": {
-                            "lucide": "ClockIcon"
+                            "lucide": "Clock"
                           },
                           "merges_class": false,
                           "props": false,
@@ -457,7 +457,7 @@
                           "class": "size-4 text-blue-600",
                           "class_when": [],
                           "icons": {
-                            "lucide": "CheckCircleIcon"
+                            "lucide": "CircleCheckBig"
                           },
                           "merges_class": false,
                           "props": false,
@@ -480,7 +480,7 @@
                           "class": "size-4 animate-pulse",
                           "class_when": [],
                           "icons": {
-                            "lucide": "ClockIcon"
+                            "lucide": "Clock"
                           },
                           "merges_class": false,
                           "props": false,
@@ -503,7 +503,7 @@
                           "class": "size-4",
                           "class_when": [],
                           "icons": {
-                            "lucide": "CircleIcon"
+                            "lucide": "Circle"
                           },
                           "merges_class": false,
                           "props": false,
@@ -526,7 +526,7 @@
                           "class": "size-4 text-green-600",
                           "class_when": [],
                           "icons": {
-                            "lucide": "CheckCircleIcon"
+                            "lucide": "CircleCheckBig"
                           },
                           "merges_class": false,
                           "props": false,
@@ -549,7 +549,7 @@
                           "class": "size-4 text-orange-600",
                           "class_when": [],
                           "icons": {
-                            "lucide": "XCircleIcon"
+                            "lucide": "CircleX"
                           },
                           "merges_class": false,
                           "props": false,
@@ -572,7 +572,7 @@
                           "class": "size-4 text-red-600",
                           "class_when": [],
                           "icons": {
-                            "lucide": "XCircleIcon"
+                            "lucide": "CircleX"
                           },
                           "merges_class": false,
                           "props": false,
@@ -711,7 +711,7 @@
             "class": "size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180",
             "class_when": [],
             "icons": {
-              "lucide": "ChevronDownIcon"
+              "lucide": "ChevronDown"
             },
             "merges_class": false,
             "props": false,

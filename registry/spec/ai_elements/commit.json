@@ -134,7 +134,7 @@
             "class": "mr-1 inline-block size-3",
             "class_when": [],
             "icons": {
-              "lucide": "GitCommitIcon"
+              "lucide": "GitCommitHorizontal"
             },
             "merges_class": false,
             "props": false,
@@ -610,7 +610,7 @@
                     "class": "",
                     "class_when": [],
                     "icons": {
-                      "lucide": "CopyIcon"
+                      "lucide": "Copy"
                     },
                     "merges_class": false,
                     "props": false,
@@ -640,7 +640,7 @@
                     "class": "",
                     "class_when": [],
                     "icons": {
-                      "lucide": "CheckIcon"
+                      "lucide": "Check"
                     },
                     "merges_class": false,
                     "props": false,
@@ -977,7 +977,7 @@
         "class": "size-3.5 shrink-0 text-muted-foreground",
         "class_when": [],
         "icons": {
-          "lucide": "FileIcon"
+          "lucide": "File"
         },
         "merges_class": true,
         "props": true,
@@ -1099,7 +1099,7 @@
                     "class": "inline-block size-3",
                     "class_when": [],
                     "icons": {
-                      "lucide": "PlusIcon"
+                      "lucide": "Plus"
                     },
                     "merges_class": false,
                     "props": false,
@@ -1196,7 +1196,7 @@
                     "class": "inline-block size-3",
                     "class_when": [],
                     "icons": {
-                      "lucide": "MinusIcon"
+                      "lucide": "Minus"
                     },
                     "merges_class": false,
                     "props": false,

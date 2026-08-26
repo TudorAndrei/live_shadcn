@@ -148,7 +148,7 @@
                         "class": "size-3",
                         "class_when": [],
                         "icons": {
-                          "lucide": "CheckCircle2Icon"
+                          "lucide": "CircleCheck"
                         },
                         "merges_class": false,
                         "props": false,
@@ -224,7 +224,7 @@
                             "class": "size-3",
                             "class_when": [],
                             "icons": {
-                              "lucide": "XCircleIcon"
+                              "lucide": "CircleX"
                             },
                             "merges_class": false,
                             "props": false,
@@ -310,7 +310,7 @@
                             "class": "size-3",
                             "class_when": [],
                             "icons": {
-                              "lucide": "CircleIcon"
+                              "lucide": "Circle"
                             },
                             "merges_class": false,
                             "props": false,
@@ -928,7 +928,7 @@
             "class": "size-4 shrink-0 text-muted-foreground transition-transform group-data-[state=open]:rotate-90",
             "class_when": [],
             "icons": {
-              "lucide": "ChevronRightIcon"
+              "lucide": "ChevronRight"
             },
             "merges_class": false,
             "props": false,
@@ -955,7 +955,7 @@
                       "class": "size-4",
                       "class_when": [],
                       "icons": {
-                        "lucide": "XCircleIcon"
+                        "lucide": "CircleX"
                       },
                       "merges_class": false,
                       "props": false,
@@ -978,7 +978,7 @@
                       "class": "size-4",
                       "class_when": [],
                       "icons": {
-                        "lucide": "CheckCircle2Icon"
+                        "lucide": "CircleCheck"
                       },
                       "merges_class": false,
                       "props": false,
@@ -1001,7 +1001,7 @@
                       "class": "size-4 animate-pulse",
                       "class_when": [],
                       "icons": {
-                        "lucide": "CircleDotIcon"
+                        "lucide": "CircleDot"
                       },
                       "merges_class": false,
                       "props": false,
@@ -1024,7 +1024,7 @@
                       "class": "size-4",
                       "class_when": [],
                       "icons": {
-                        "lucide": "CircleIcon"
+                        "lucide": "Circle"
                       },
                       "merges_class": false,
                       "props": false,
@@ -1515,7 +1515,7 @@
                       "class": "size-4",
                       "class_when": [],
                       "icons": {
-                        "lucide": "XCircleIcon"
+                        "lucide": "CircleX"
                       },
                       "merges_class": false,
                       "props": false,
@@ -1538,7 +1538,7 @@
                       "class": "size-4",
                       "class_when": [],
                       "icons": {
-                        "lucide": "CheckCircle2Icon"
+                        "lucide": "CircleCheck"
                       },
                       "merges_class": false,
                       "props": false,
@@ -1561,7 +1561,7 @@
                       "class": "size-4 animate-pulse",
                       "class_when": [],
                       "icons": {
-                        "lucide": "CircleDotIcon"
+                        "lucide": "CircleDot"
                       },
                       "merges_class": false,
                       "props": false,
@@ -1584,7 +1584,7 @@
                       "class": "size-4",
                       "class_when": [],
                       "icons": {
-                        "lucide": "CircleIcon"
+                        "lucide": "Circle"
                       },
                       "merges_class": false,
                       "props": false,
