@@ -7,19 +7,19 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 0 | ························ |
-| `fetched` | 1 | ························ |
+| `fetched` | 2 | ························ |
 | `spec` | 0 | ························ |
 | `generated` | 0 | ························ |
-| `verified` | 110 | ████████████████████████ |
+| `verified` | 109 | ████████████████████████ |
 
 ## Recipes
 
-Eight core recipes cover 85 of 111 components.
+Eight core recipes cover 84 of 111 components.
 Only the recipes are written by hand; every component is data.
 
 | Recipe | Kind | Components |
 |---|---|---:|
-| `presentational` | core | 53 |
+| `presentational` | core | 52 |
 | `disclosure` | core | 8 |
 | `form-control` | core | 8 |
 | `dialog` | core | 4 |
@@ -46,7 +46,8 @@ Only the recipes are written by hand; every component is data.
 | `slider` | specialist | 1 |
 | `switch` | specialist | 1 |
 | `toggle-group` | specialist | 1 |
-| `utility` | specialist | 1 |
+| `unsupported` | not built | 1 |
+| `utility` | not built | 1 |
 
 ## shadcn/ui
 
@@ -156,7 +157,7 @@ Only the recipes are written by hand; every component is data.
 | `test-results` | 2 | `presentational` | ✅ verified |
 | `toolbar` | 2 | `presentational` | ✅ verified |
 | `audio-player` | 3 | `presentational` | ✅ verified |
-| `canvas` | 3 | `presentational` | ✅ verified |
+| `canvas` | 3 | `unsupported` | 🟦 fetched |
 | `connection` | 3 | `presentational` | ✅ verified |
 | `edge` | 3 | `presentational` | ✅ verified |
 | `jsx-preview` | 3 | `presentational` | ✅ verified |

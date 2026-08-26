@@ -798,20 +798,27 @@ says two images agree, not that either has a component in it.
   the class strings: both are fetched, and neither is retyped.
 - **No model in the daily loop.** A model may draft a new recipe once. A person
   reviews it and it is then frozen.
-- **React Flow was a non-goal, and it was wrong.** This entry used to say that
-  `canvas`, `controls`, `edge`, `node`, `panel`, `toolbar` and `connection` are
-  `@xyflow/react` and have no markup to fold. Six of the seven are a box and a
-  class string, and the seventh — `connection` — is four numbers and a bezier
-  written in a template literal, which is arithmetic and not a library at all.
-  All seven generate and verify.
+- **The graph is a library; six of the seven components are a skin over it.**
+  `controls`, `panel`, `toolbar` and `node` are a box and a class string, `edge`
+  is a `<path>` that takes its geometry as an attribute, and `connection` is
+  four numbers and a bezier written in a template literal — arithmetic, not a
+  library. All six generate and verify.
 
-  What is true is the half the entry was reaching for: the graph library owns
-  where a thing sits, whether it pans, and the geometry between two nodes. So
-  an edge takes its path as an attribute rather than computing it, the same way
-  `code-block` takes its tokens, and an application that wants a graph loads
-  React Flow — the arrangement media-chrome, Rive and shiki all get.
-  `parity-divergence.json` records the four whose React counterpart draws
-  nothing at all outside a mounted graph.
+  What the library owns is where a thing sits, whether it pans, and the geometry
+  between two nodes. In React that is `@xyflow/react`. **In LiveView it is
+  [`live_flow`](https://hex.pm/packages/live_flow)** — MIT, "similar to React
+  Flow, but for LiveView", with the same vocabulary: `Flow`, `Node`, `Edge`,
+  `Handle`, `Marker`, and bezier, step, smoothstep and straight paths. An
+  application that wants a graph loads it, which is the arrangement
+  media-chrome, Rive and shiki all get.
+
+  **`canvas` is `unsupported`.** It is not a skin: it is `<ReactFlow>` with a
+  `<Background>` inside it, so what this pipeline generates from it is an empty
+  `<div>` and an empty `<svg>`. `live_flow` is what draws that, and it draws it
+  as a `LiveComponent` — which no example here can hold, because every example
+  is rendered statically by `mix snapshot`. So the file is marked `unsupported`
+  in `registry/INVENTORY.json`, it is not generated, and this entry is where the
+  package name lives.
 - **`direction` is not a component.** It re-exports Base UI's
   `DirectionProvider` and a hook, and renders nothing at all: what it provides,
   HTML already has as `dir`. There is no markup in the file to generate, which

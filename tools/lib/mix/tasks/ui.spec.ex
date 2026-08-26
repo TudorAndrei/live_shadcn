@@ -283,16 +283,17 @@ defmodule Mix.Tasks.Ui.Spec do
       {:unreadable, ref(source, name), Exception.message(error) |> String.split("\n") |> hd()}
   end
 
-  # Not every file in the registry is a component. `direction` re-exports Base
-  # UI's `DirectionProvider` and a hook, and renders nothing at all: what it
-  # provides, HTML already has as `dir`. The React Flow family — `canvas`,
-  # `controls`, `edge`, `node`, `panel`, `toolbar` and `connection` — has the
-  # opposite shape and the same answer: the markup belongs to `@xyflow/react`,
-  # which owns the layout and calls the component as one of its own nodes, so
-  # there is nothing here to fold. Both are a recorded non-goal in `ROADMAP.md`,
-  # the inventory says so with the `utility` recipe, and a file the reader is
-  # not asked to read is not a file the reader failed on.
-  defp utility("utility"), do: :utility
+  # Not every file in the registry is a component this pipeline reads.
+  #
+  # `utility` draws nothing at all: `direction` re-exports Base UI's
+  # `DirectionProvider` and a hook, and what it provides HTML already has as
+  # `dir`.
+  #
+  # `unsupported` draws something, and what it draws belongs to a library rather
+  # than to a class string: `canvas` is `<ReactFlow>` with a `<Background>`
+  # inside it. `ROADMAP.md` names each one and what to reach for instead, and a
+  # file the reader is not asked to read is not a file the reader failed on.
+  defp utility(recipe) when recipe in ~w(utility unsupported), do: :utility
   defp utility(_recipe), do: :component
 
   defp tsx_file("shadcn", name), do: "shadcn/ui/#{name}.tsx"

@@ -141,7 +141,7 @@ defmodule StorybookWeb.Examples do
        inline-citation stack-trace test-results tool web-preview
        agent audio-player code-block context conversation file-tree prompt-input
        sandbox schema-display shimmer terminal
-       canvas connection controls edge jsx-preview node panel persona toolbar
+       connection controls edge jsx-preview node panel persona toolbar
        open-in-chat)
   end
 
@@ -609,20 +609,10 @@ defmodule StorybookWeb.Examples do
 
   # The seven React Flow files that are markup, and the two beside them.
   #
-  # `ROADMAP.md` said the graph library owns all seven, and it owns three: the
-  # engine, and the two that are SVG arithmetic it runs while a wire is being
-  # dragged. The rest are a box and a class string.
-  def all("canvas") do
-    [
-      one(
-        "default",
-        "The board a graph is drawn on",
-        "React Flow pans and zooms it; what the component is, is the box and " <>
-          "the background inside it.",
-        &canvas_default/1
-      )
-    ]
-  end
+  # `canvas` is not here. It is `<ReactFlow>` with a `<Background>` inside it —
+  # the graph engine rather than a skin over one — and `registry/INVENTORY.json`
+  # marks it `unsupported`. `ROADMAP.md` names the hex package to reach for.
+  # The other six are a box and a class string, or the arithmetic of a wire.
 
   def all("open-in-chat") do
     [
@@ -1945,12 +1935,6 @@ defmodule StorybookWeb.Examples do
         </LiveAiElements.Components.CodeBlock.code_block_actions>
       </LiveAiElements.Components.CodeBlock.code_block_header>
     </LiveAiElements.Components.CodeBlock.code_block_container>
-    """
-  end
-
-  defp canvas_default(assigns) do
-    ~H"""
-    <LiveAiElements.Components.Canvas.canvas class="h-40 max-w-md border" />
     """
   end
 

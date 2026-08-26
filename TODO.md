@@ -387,9 +387,16 @@ tell an empty `<media-controller>` from a full one.
       wrapped in the `display: contents` body that stops
       `has-[>textarea]:h-auto` matching, and a plan title inside a `size-8` icon
       button
-- [ ] `canvas` draws nothing on either side. React Flow renders null outside a
-      mounted graph, which `ROADMAP.md` records — but a blank example page still
-      teaches nobody anything
+- [x] `canvas` drew nothing on either side, and it is the one of the seven that
+      is the graph engine rather than a skin over it: `<ReactFlow>` with a
+      `<Background>`, which generates as an empty `<div>` and an empty `<svg>`
+- [x] The hex search, recorded either way it went:
+      [`live_flow`](https://hex.pm/packages/live_flow) is React Flow for
+      LiveView — MIT, `Flow`, `Node`, `Edge`, `Handle`, and bezier, step,
+      smoothstep and straight paths. It draws as a `LiveComponent`, and no
+      example here can hold one: `mix snapshot` renders every example statically
+- [x] So `canvas` is `unsupported` in the inventory — not generated, not
+      exampled, 109 verified of 111 — and `ROADMAP.md` names the package
 
 ## Verification
 

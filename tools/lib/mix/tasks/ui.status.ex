@@ -209,13 +209,19 @@ defmodule Mix.Tasks.Ui.Status do
   defp recipe_table(components) do
     core = ~w(disclosure dialog popover listbox menu tabs form-control presentational)
 
+    # `utility` and `unsupported` are not ways of building a component: one says
+    # the file draws nothing, the other that what it draws belongs to a library.
+    kind = fn
+      recipe when recipe in ~w(utility unsupported) -> "not built"
+      recipe -> if recipe in core, do: "core", else: "specialist"
+    end
+
     rows =
       components
       |> Enum.group_by(& &1["recipe"])
       |> Enum.sort_by(fn {recipe, group} -> {recipe not in core, -length(group), recipe} end)
       |> Enum.map_join("\n", fn {recipe, group} ->
-        kind = if recipe in core, do: "core", else: "specialist"
-        "| `#{recipe}` | #{kind} | #{length(group)} |"
+        "| `#{recipe}` | #{kind.(recipe)} | #{length(group)} |"
       end)
 
     "| Recipe | Kind | Components |\n|---|---|---:|\n" <> rows

@@ -81,11 +81,22 @@ defmodule StorybookWeb.ExamplesTest do
       # Read from the manifest `mix ui.fetch` writes, not typed here: the
       # sections are upstream's, and a test that named them would be a second
       # copy of the thing being checked.
+      #
+      # A section may name a component this repository does not build —
+      # `canvas` is `unsupported`, see ROADMAP.md — and one that has a page is
+      # in its own section.
       for %{"title" => title, "components" => components} <- sections() do
         assert html =~ title
 
-        for name <- components, do: assert(html =~ ~s(/docs/#{name}") or html =~ "-#{name}\"")
+        for name <- components, documented?(name) do
+          assert html =~ ~s(/docs/#{name}") or html =~ "-#{name}\""
+        end
       end
+    end
+
+    defp documented?(name) do
+      components = Examples.components()
+      name in components or "ai_elements-#{name}" in components
     end
 
     test "names each package once, on the first group that ships in it" do

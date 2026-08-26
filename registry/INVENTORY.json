@@ -54,7 +54,7 @@
     {
       "name": "canvas",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "unsupported",
       "tier": 3
     },
     {
