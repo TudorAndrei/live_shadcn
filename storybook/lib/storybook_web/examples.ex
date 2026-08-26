@@ -137,7 +137,8 @@ defmodule StorybookWeb.Examples do
        input-group input-otp message-scroller native-select navigation-menu pagination popover progress radio-group resizable scroll-area select separator sheet skeleton slider spinner switch table tabs task sources suggestion checkpoint confirmation chain-of-thought reasoning package-info field textarea toggle tooltip
        toggle-group question questionnaire sidebar snippet sonner toast shadcn-message ai_elements-message
        artifact attachments commit environment-variables image mic-selector model-selector plan
-       queue speech-input transcription voice-selector)
+       queue speech-input transcription voice-selector
+       inline-citation stack-trace test-results tool web-preview)
   end
 
   @doc "The examples for a component."
@@ -598,6 +599,67 @@ defmodule StorybookWeb.Examples do
         "Filed as a listbox and it is not one: eleven of its parts wrap a " <>
           "command dialog, and these eight are its own.",
         &voice_selector_default/1
+      )
+    ]
+  end
+
+  def all("inline-citation") do
+    [
+      one(
+        "default",
+        "A sentence, and where it came from",
+        "The source is a card the reader hovers, so it is drawn where a hover " <>
+          "card draws it and this example shows the citation and the source " <>
+          "side by side instead.",
+        &inline_citation_default/1
+      )
+    ]
+  end
+
+  def all("stack-trace") do
+    [
+      one(
+        "default",
+        "An error, and where it came from",
+        "The fourth component built on the clipboard recipe: one button whose " <>
+          "state the client owns, and the trace it copies comes from the caller.",
+        &stack_trace_default/1
+      )
+    ]
+  end
+
+  def all("test-results") do
+    [
+      one(
+        "default",
+        "What passed and what did not",
+        "The duration is upstream's own arithmetic, ported: seconds to two " <>
+          "decimal places, and a percentage with none.",
+        &test_results_default/1
+      )
+    ]
+  end
+
+  def all("tool") do
+    [
+      one(
+        "default",
+        "A tool call, with its state",
+        "One badge per state, chosen by the attribute. Opening the panel is a " <>
+          "disclosure, so it runs on the client.",
+        &tool_default/1
+      )
+    ]
+  end
+
+  def all("web-preview") do
+    [
+      one(
+        "default",
+        "A frame with an address bar",
+        "The frame is empty on purpose: a preview that fetched a page would " <>
+          "make the pixel check depend on a network.",
+        &web_preview_default/1
       )
     ]
   end
@@ -1579,6 +1641,97 @@ defmodule StorybookWeb.Examples do
         </LiveAiElements.Components.VoiceSelector.voice_selector_age>
       </LiveAiElements.Components.VoiceSelector.voice_selector_attributes>
     </div>
+    """
+  end
+
+  defp inline_citation_default(assigns) do
+    ~H"""
+    <div class="max-w-md space-y-3">
+      <LiveAiElements.Components.InlineCitation.inline_citation>
+        <LiveAiElements.Components.InlineCitation.inline_citation_text>
+          Base UI renders no element for a popover's root.
+        </LiveAiElements.Components.InlineCitation.inline_citation_text>
+      </LiveAiElements.Components.InlineCitation.inline_citation>
+      <%!-- The source's own title is an `<h4>`, and the deepest heading a
+      preview page has is the `<h2>` it gives the example. A page that skips a
+      level is one axe reports, and it is this page that skips it. --%>
+      <h3 class="sr-only">Source</h3>
+      <LiveAiElements.Components.InlineCitation.inline_citation_source
+        title="Popover"
+        url="https://base-ui.com/react/components/popover"
+        description="The root is a state container and draws nothing of its own."
+      />
+    </div>
+    """
+  end
+
+  defp stack_trace_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.StackTrace.stack_trace class="max-w-md">
+      <LiveAiElements.Components.StackTrace.stack_trace_error>
+        <LiveAiElements.Components.StackTrace.stack_trace_error_type>
+          ArgumentError
+        </LiveAiElements.Components.StackTrace.stack_trace_error_type>
+        <LiveAiElements.Components.StackTrace.stack_trace_error_message>
+          no recipe for ai_elements/code-block
+        </LiveAiElements.Components.StackTrace.stack_trace_error_message>
+      </LiveAiElements.Components.StackTrace.stack_trace_error>
+      <LiveAiElements.Components.StackTrace.stack_trace_actions>
+        <LiveAiElements.Components.StackTrace.stack_trace_copy_button
+          id="copy-trace"
+          raw="at Mix.Tasks.Ui.Gen.one/2"
+          aria-label="Copy the trace"
+        />
+      </LiveAiElements.Components.StackTrace.stack_trace_actions>
+    </LiveAiElements.Components.StackTrace.stack_trace>
+    """
+  end
+
+  @summary %{total: 8, passed: 6, failed: 2, skipped: 0, duration: 1240}
+
+  defp test_results_default(assigns) do
+    assigns = assign(assigns, summary: @summary)
+
+    ~H"""
+    <LiveAiElements.Components.TestResults.test_results class="max-w-md">
+      <LiveAiElements.Components.TestResults.test_results_header>
+        <LiveAiElements.Components.TestResults.test_results_summary summary={@summary} />
+        <LiveAiElements.Components.TestResults.test_results_duration summary={@summary} />
+      </LiveAiElements.Components.TestResults.test_results_header>
+      <LiveAiElements.Components.TestResults.test_results_content>
+        <LiveAiElements.Components.TestResults.test_results_progress
+          summary={@summary}
+          passed_percent={75}
+          failed_percent="25"
+        />
+      </LiveAiElements.Components.TestResults.test_results_content>
+    </LiveAiElements.Components.TestResults.test_results>
+    """
+  end
+
+  defp tool_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.Tool.tool
+      id="read-spec"
+      title="read_spec"
+      state="output-available"
+      variant="secondary"
+      open
+      class="max-w-md"
+    >
+      Read `registry/spec/ai_elements/tool.json`.
+    </LiveAiElements.Components.Tool.tool>
+    """
+  end
+
+  defp web_preview_default(assigns) do
+    ~H"""
+    <LiveAiElements.Components.WebPreview.web_preview class="h-64 max-w-md">
+      <LiveAiElements.Components.WebPreview.web_preview_navigation>
+        <LiveAiElements.Components.WebPreview.web_preview_url value="https://example.com" />
+      </LiveAiElements.Components.WebPreview.web_preview_navigation>
+      <LiveAiElements.Components.WebPreview.web_preview_body />
+    </LiveAiElements.Components.WebPreview.web_preview>
     """
   end
 

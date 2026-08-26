@@ -68,6 +68,9 @@
   "popover": [
     "default"
   ],
+  "tool": [
+    "default"
+  ],
   "voice-selector": [
     "default"
   ],
@@ -153,6 +156,9 @@
   "input-group": [
     "default"
   ],
+  "stack-trace": [
+    "default"
+  ],
   "pagination": [
     "default"
   ],
@@ -219,6 +225,9 @@
     "variants",
     "sizes"
   ],
+  "test-results": [
+    "default"
+  ],
   "speech-input": [
     "default"
   ],
@@ -228,10 +237,16 @@
   "mic-selector": [
     "default"
   ],
+  "web-preview": [
+    "default"
+  ],
   "item": [
     "default"
   ],
   "alert-dialog": [
+    "default"
+  ],
+  "inline-citation": [
     "default"
   ],
   "label": [
