@@ -640,6 +640,46 @@ not merged at render. `prompt-input`'s footer is where it shows.
 
 **Commit:** `feat(ai-elements): nothing generated and unverified`
 
+### Phase 12: The eleven that were not components after all
+
+Phase 11 ended with eleven recorded non-goals and a claim that each was
+somebody else's runtime, a string of markup, or a sentence about which component
+to compose. Ten of the eleven were wrong, and each was wrong in the same way:
+the entry described what the *library* does and not what the *file* draws.
+
+- **Six React Flow files are a box and a class string.** `controls`, `panel`,
+  `toolbar` and `node` are a `<div>` with the classes AI Elements writes over
+  React Flow's own; `canvas` is that box and the background pattern behind it;
+  `edge` is a `<path>`. What the library owns is where a thing sits and the
+  geometry between two nodes — so an edge takes its path as an attribute, the
+  way `code-block` takes its tokens.
+- **`connection` is not React Flow at all.** Four numbers and a bezier written
+  in a template literal, which is arithmetic.
+- **`persona` is one `<canvas>`.** The Rive runtime paints into it, the way
+  media-chrome upgrades a `<media-play-button>`.
+- **`jsx-preview`'s content is the caller's.** `renderInWrapper={false}` is
+  upstream saying it draws no element of its own, and what a server cannot
+  compile is exactly what a slot is for.
+- **`open-in-chat` is twelve links.** `<DropdownMenuItem asChild><a href={…}>`
+  is one element and it is the link — a logo, a title and a query string. Read
+  as twelve references to a menu it was a component with nothing in it, which is
+  what the old entry said about it.
+
+The eleventh is `direction`, and it is a re-export with no JSX in it. There is
+nothing to generate, which is a fact about the file.
+
+Nine findings came with them, each fixed at the source: a component that hands
+its children back draws no element; a choice between two of those is not a
+choice about markup; an object export is several components under one name; a
+`-` is an operator; a bracket a person wrote holds an expression together; a
+`?` and a `:` inside a template literal are not a ternary; `${…}` ends at the
+brace that matches; a named number is a literal; and a prop with arithmetic
+beside it is not a string.
+
+**110 of 111 verified.**
+
+**Commit:** `feat(ai-elements): the eleven that were not components after all`
+
 ## Risks & Tradeoffs
 
 - **Phase 5 is the long one.** shadcn's equivalent was 51 references and it

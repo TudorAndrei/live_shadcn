@@ -7,19 +7,19 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 0 | ························ |
-| `fetched` | 11 | ██······················ |
+| `fetched` | 1 | ························ |
 | `spec` | 0 | ························ |
 | `generated` | 0 | ························ |
-| `verified` | 100 | ██████████████████████·· |
+| `verified` | 110 | ████████████████████████ |
 
 ## Recipes
 
-Eight core recipes cover 75 of 111 components.
+Eight core recipes cover 85 of 111 components.
 Only the recipes are written by hand; every component is data.
 
 | Recipe | Kind | Components |
 |---|---|---:|
-| `presentational` | core | 43 |
+| `presentational` | core | 53 |
 | `disclosure` | core | 8 |
 | `form-control` | core | 8 |
 | `dialog` | core | 4 |
@@ -27,7 +27,6 @@ Only the recipes are written by hand; every component is data.
 | `popover` | core | 3 |
 | `menu` | core | 2 |
 | `tabs` | core | 1 |
-| `utility` | specialist | 11 |
 | `clipboard` | specialist | 6 |
 | `scroller` | specialist | 3 |
 | `toast` | specialist | 2 |
@@ -47,6 +46,7 @@ Only the recipes are written by hand; every component is data.
 | `slider` | specialist | 1 |
 | `switch` | specialist | 1 |
 | `toggle-group` | specialist | 1 |
+| `utility` | specialist | 1 |
 
 ## shadcn/ui
 
@@ -137,16 +137,16 @@ Only the recipes are written by hand; every component is data.
 | `checkpoint` | 2 | `presentational` | ✅ verified |
 | `commit` | 2 | `clipboard` | ✅ verified |
 | `confirmation` | 2 | `presentational` | ✅ verified |
-| `controls` | 2 | `utility` | 🟦 fetched |
+| `controls` | 2 | `presentational` | ✅ verified |
 | `environment-variables` | 2 | `clipboard` | ✅ verified |
 | `file-tree` | 2 | `file-tree` | ✅ verified |
 | `image` | 2 | `presentational` | ✅ verified |
 | `inline-citation` | 2 | `presentational` | ✅ verified |
 | `model-selector` | 2 | `presentational` | ✅ verified |
-| `open-in-chat` | 2 | `utility` | 🟦 fetched |
+| `open-in-chat` | 2 | `presentational` | ✅ verified |
 | `package-info` | 2 | `presentational` | ✅ verified |
-| `panel` | 2 | `utility` | 🟦 fetched |
-| `persona` | 2 | `utility` | 🟦 fetched |
+| `panel` | 2 | `presentational` | ✅ verified |
+| `persona` | 2 | `presentational` | ✅ verified |
 | `plan` | 2 | `disclosure` | ✅ verified |
 | `question` | 2 | `presentational` | ✅ verified |
 | `queue` | 2 | `presentational` | ✅ verified |
@@ -154,14 +154,14 @@ Only the recipes are written by hand; every component is data.
 | `snippet` | 2 | `clipboard` | ✅ verified |
 | `stack-trace` | 2 | `clipboard` | ✅ verified |
 | `test-results` | 2 | `presentational` | ✅ verified |
-| `toolbar` | 2 | `utility` | 🟦 fetched |
+| `toolbar` | 2 | `presentational` | ✅ verified |
 | `audio-player` | 3 | `presentational` | ✅ verified |
-| `canvas` | 3 | `utility` | 🟦 fetched |
-| `connection` | 3 | `utility` | 🟦 fetched |
-| `edge` | 3 | `utility` | 🟦 fetched |
-| `jsx-preview` | 3 | `utility` | 🟦 fetched |
+| `canvas` | 3 | `presentational` | ✅ verified |
+| `connection` | 3 | `presentational` | ✅ verified |
+| `edge` | 3 | `presentational` | ✅ verified |
+| `jsx-preview` | 3 | `presentational` | ✅ verified |
 | `mic-selector` | 3 | `listbox` | ✅ verified |
-| `node` | 3 | `utility` | 🟦 fetched |
+| `node` | 3 | `presentational` | ✅ verified |
 | `sandbox` | 3 | `presentational` | ✅ verified |
 | `speech-input` | 3 | `presentational` | ✅ verified |
 | `terminal` | 3 | `clipboard` | ✅ verified |

@@ -5,8 +5,8 @@ The checkbox form of [PLAN.md](PLAN.md), which holds the reasoning.
 49 AI Elements components are in the registry, 14 generate, and **one
 verifies**. The goal is that every one that generates also verifies.
 
-**Done.** 100 of 111 verify, and nothing generates without verifying. The other
-eleven are recorded non-goals in [ROADMAP.md](ROADMAP.md).
+**Done.** 110 of 111 verify, and nothing generates without verifying. The one
+that does not is `direction`, which re-exports a provider and has no JSX in it.
 
 ## Phase 1a: Two props the reader made and then filtered back out
 
@@ -272,6 +272,22 @@ generator can only render a choice the **server** decides.
 - [x] `open-in-chat` filed as a `utility`, beside the other ten non-goals, so
       the reader is not asked to read a file nobody generates
 - [x] Commit: `feat(ai-elements): nothing generated and unverified`
+
+## Phase 12: The eleven that were not components after all
+
+- [x] Six React Flow files are a box and a class string — `controls`, `panel`,
+      `toolbar`, `node`, `canvas` and `edge`. What the library owns is where a
+      thing sits and the geometry between two nodes, so an edge takes its path
+      as an attribute
+- [x] `connection` is four numbers and a bezier, which is arithmetic
+- [x] `persona` is one `<canvas>`, and Rive paints into it
+- [x] `jsx-preview` draws no element of its own — `renderInWrapper={false}` says
+      so — and what a server cannot compile is what a slot is for
+- [x] `open-in-chat` is twelve links: `asChild` says the menu item *is* the `<a>`
+- [x] `direction` is a re-export with no JSX in it, and is the one entry of a
+      hundred and eleven that will never verify
+- [x] **110 of 111 verified, and `mix ui.status` reads `0 generated`**
+- [x] Commit: `feat(ai-elements): the eleven that were not components after all`
 
 ## Verification
 

@@ -795,27 +795,22 @@ says two images agree, not that either has a component in it.
   the class strings: both are fetched, and neither is retyped.
 - **No model in the daily loop.** A model may draft a new recipe once. A person
   reviews it and it is then frozen.
-- **No React Flow.** `canvas`, `controls`, `edge`, `node`, `panel`, `toolbar`
-  and `connection` are `@xyflow/react` — a graph library that owns the layout,
-  the panning and the edges, and renders the component as one of its own nodes.
-  There is no markup to fold, and `connection` is the clearest case: it is four
-  numbers and an SVG path that React Flow calls while a wire is being dragged.
-  Six of the seven already say `not Base UI`; the seventh is here.
-- **No `persona`.** It is a Rive WebGL2 canvas: a `.riv` file fetched from blob
-  storage, a state machine inside it, and a runtime that paints it. The
-  component *is* that runtime — there is one element, `<RiveComponent>`, and
-  everything a reader sees is drawn into it. Nothing about that is markup, and a
-  server has no part in it. An application that wants one embeds Rive.
-- **No `jsx-preview`.** It compiles a JSX string at render and draws whatever
-  comes out. HEEx will not do that and should not: a template language that
-  renders caller-supplied markup from a string is the injection every other
-  decision in this pipeline is made to avoid — see how
-  `dangerouslySetInnerHTML` is read. The nearest honest thing is a code block
-  showing the source, which `code-block` already is.
-- **No `open-in-chat`.** Every one of its twelve parts is a thin wrapper around
-  a part of `dropdown-menu`, and the thirteenth puts a query string in a React
-  context. Drop the wrappers — which is what `menubar` already does, and the
-  right answer, because a menu's parts have to agree about one id — and nothing
-  is left to generate. Compose `<.dropdown_menu>` and write the query into the
-  links, which is all upstream does with it. `mix ui.gen` says so by name rather
-  than emitting a module whose one function renders its own children.
+- **React Flow was a non-goal, and it was wrong.** This entry used to say that
+  `canvas`, `controls`, `edge`, `node`, `panel`, `toolbar` and `connection` are
+  `@xyflow/react` and have no markup to fold. Six of the seven are a box and a
+  class string, and the seventh — `connection` — is four numbers and a bezier
+  written in a template literal, which is arithmetic and not a library at all.
+  All seven generate and verify.
+
+  What is true is the half the entry was reaching for: the graph library owns
+  where a thing sits, whether it pans, and the geometry between two nodes. So
+  an edge takes its path as an attribute rather than computing it, the same way
+  `code-block` takes its tokens, and an application that wants a graph loads
+  React Flow — the arrangement media-chrome, Rive and shiki all get.
+  `parity-divergence.json` records the four whose React counterpart draws
+  nothing at all outside a mounted graph.
+- **`direction` is not a component.** It re-exports Base UI's
+  `DirectionProvider` and a hook, and renders nothing at all: what it provides,
+  HTML already has as `dir`. There is no markup in the file to generate, which
+  is a fact about the file rather than a gap in the reader. It is the one entry
+  of a hundred and eleven that will never verify.
