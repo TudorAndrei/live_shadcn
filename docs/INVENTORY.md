@@ -7,28 +7,29 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 0 | ························ |
-| `fetched` | 22 | █████··················· |
-| `spec` | 11 | ██······················ |
+| `fetched` | 15 | ███····················· |
+| `spec` | 6 | █······················· |
 | `generated` | 1 | ························ |
-| `verified` | 77 | █████████████████······· |
+| `verified` | 89 | ███████████████████····· |
 
 ## Recipes
 
-Eight core recipes cover 91 of 111 components.
+Eight core recipes cover 82 of 111 components.
 Only the recipes are written by hand; every component is data.
 
 | Recipe | Kind | Components |
 |---|---|---:|
-| `presentational` | core | 58 |
-| `disclosure` | core | 9 |
+| `presentational` | core | 50 |
+| `disclosure` | core | 8 |
 | `form-control` | core | 8 |
 | `dialog` | core | 4 |
 | `listbox` | core | 4 |
 | `popover` | core | 3 |
 | `menu` | core | 2 |
 | `tabs` | core | 1 |
+| `utility` | specialist | 8 |
+| `clipboard` | specialist | 4 |
 | `scroller` | specialist | 3 |
-| `clipboard` | specialist | 2 |
 | `toast` | specialist | 2 |
 | `calendar` | specialist | 1 |
 | `carousel` | specialist | 1 |
@@ -44,7 +45,6 @@ Only the recipes are written by hand; every component is data.
 | `slider` | specialist | 1 |
 | `switch` | specialist | 1 |
 | `toggle-group` | specialist | 1 |
-| `utility` | specialist | 1 |
 
 ## shadcn/ui
 
@@ -128,41 +128,41 @@ Only the recipes are written by hand; every component is data.
 | `sources` | 1 | `disclosure` | ✅ verified |
 | `suggestion` | 1 | `presentational` | ✅ verified |
 | `task` | 1 | `disclosure` | ✅ verified |
-| `tool` | 1 | `disclosure` | 🟦 fetched |
-| `agent` | 2 | `presentational` | 🟦 fetched |
+| `tool` | 1 | `disclosure` | ✅ verified |
+| `agent` | 2 | `presentational` | 🟨 spec |
 | `artifact` | 2 | `presentational` | ✅ verified |
 | `attachments` | 2 | `presentational` | ✅ verified |
 | `checkpoint` | 2 | `presentational` | ✅ verified |
-| `commit` | 2 | `presentational` | 🟨 spec |
+| `commit` | 2 | `clipboard` | ✅ verified |
 | `confirmation` | 2 | `presentational` | ✅ verified |
-| `controls` | 2 | `presentational` | 🟦 fetched |
+| `controls` | 2 | `utility` | 🟦 fetched |
 | `environment-variables` | 2 | `clipboard` | ✅ verified |
-| `file-tree` | 2 | `presentational` | 🟦 fetched |
-| `image` | 2 | `presentational` | 🟨 spec |
-| `inline-citation` | 2 | `presentational` | 🟦 fetched |
-| `model-selector` | 2 | `presentational` | 🟨 spec |
+| `file-tree` | 2 | `presentational` | 🟩 generated |
+| `image` | 2 | `presentational` | ✅ verified |
+| `inline-citation` | 2 | `presentational` | ✅ verified |
+| `model-selector` | 2 | `presentational` | ✅ verified |
 | `open-in-chat` | 2 | `presentational` | 🟨 spec |
 | `package-info` | 2 | `presentational` | ✅ verified |
-| `panel` | 2 | `disclosure` | 🟦 fetched |
+| `panel` | 2 | `utility` | 🟦 fetched |
 | `persona` | 2 | `presentational` | 🟦 fetched |
 | `plan` | 2 | `disclosure` | ✅ verified |
 | `question` | 2 | `presentational` | ✅ verified |
-| `queue` | 2 | `presentational` | 🟨 spec |
-| `schema-display` | 2 | `presentational` | 🟦 fetched |
+| `queue` | 2 | `presentational` | ✅ verified |
+| `schema-display` | 2 | `presentational` | 🟨 spec |
 | `snippet` | 2 | `clipboard` | ✅ verified |
-| `stack-trace` | 2 | `presentational` | 🟦 fetched |
-| `test-results` | 2 | `presentational` | 🟦 fetched |
-| `toolbar` | 2 | `presentational` | 🟦 fetched |
+| `stack-trace` | 2 | `clipboard` | ✅ verified |
+| `test-results` | 2 | `presentational` | ✅ verified |
+| `toolbar` | 2 | `utility` | 🟦 fetched |
 | `audio-player` | 3 | `presentational` | 🟦 fetched |
-| `canvas` | 3 | `presentational` | 🟦 fetched |
-| `connection` | 3 | `presentational` | 🟨 spec |
-| `edge` | 3 | `presentational` | 🟦 fetched |
+| `canvas` | 3 | `utility` | 🟦 fetched |
+| `connection` | 3 | `utility` | 🟦 fetched |
+| `edge` | 3 | `utility` | 🟦 fetched |
 | `jsx-preview` | 3 | `presentational` | 🟦 fetched |
 | `mic-selector` | 3 | `listbox` | ✅ verified |
-| `node` | 3 | `presentational` | 🟦 fetched |
+| `node` | 3 | `utility` | 🟦 fetched |
 | `sandbox` | 3 | `presentational` | 🟦 fetched |
-| `speech-input` | 3 | `presentational` | 🟨 spec |
+| `speech-input` | 3 | `presentational` | ✅ verified |
 | `terminal` | 3 | `presentational` | 🟦 fetched |
-| `transcription` | 3 | `presentational` | 🟨 spec |
-| `voice-selector` | 3 | `presentational` | 🟩 generated |
-| `web-preview` | 3 | `presentational` | 🟦 fetched |
+| `transcription` | 3 | `presentational` | ✅ verified |
+| `voice-selector` | 3 | `presentational` | ✅ verified |
+| `web-preview` | 3 | `presentational` | ✅ verified |

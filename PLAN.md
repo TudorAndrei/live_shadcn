@@ -508,6 +508,59 @@ One decision each, not one change for all nine.
 
 **Commit:** `feat(ai-elements): markup that reads an undeclared name`
 
+Seven of the nine are done and each landed as its own commit. Five were the same
+answer — the caller passes it — which is the answer every React context in this
+registry gets, because a HEEx component has no ancestor to ask. Two are recorded
+non-goals. `context` is the one left, and it is a formatting question rather
+than a reader one: `Intl.NumberFormat` writes `1.2K` and `$0.02`, and Elixir has
+neither in its standard library.
+
+### Phase 9: The reader's own gaps, closed with the parser it already has
+
+Phase 8 was about names the generator met. This is about expressions the reader
+refused, which is the stage before: seventeen components never reached the
+generator at all.
+
+The reader decided whether `{…}` was a value by matching it against three
+regular expressions. Each had been widened at least once, and a widened regular
+expression says less each time about where the line now is. oxc has already read
+the file, so the question goes to it: is every node in here a name, a literal, an
+operator, or a call to a method this pipeline can write in Elixir? The method
+list is short and closed, and a name goes in it in the same change that writes
+its Elixir — a reader that accepts what the generator cannot write moves a gap
+from one report to another rather than closing it.
+
+Eight components read and generate that did not: `agent`, `code-block`,
+`file-tree`, `inline-citation`, `schema-display`, `stack-trace`, `test-results`
+and `web-preview`. Three findings came with them:
+
+- **`stack-trace` is a clipboard component.** The fourth to write
+  `useState(false)`, `navigator.clipboard.writeText`, and an icon chosen on the
+  flag. Filed presentational it stopped at a name nothing declares.
+- **JSX's text rule is not `String.trim/1`.** A line break is layout and JSX
+  drops it; a space beside an expression is content and JSX keeps it. Trimming
+  both drew `100 %` where upstream draws `100%`.
+- **A call to a sibling that did not generate is a call to nothing.** `agent`
+  renders `code-block`, and while `code-block` has no recipe the package stopped
+  compiling. `reachable!/1` refused a call into another package and nothing
+  refused one inside it.
+
+What is left is no longer reader work. Each remaining component wants a
+decision:
+
+- `code-block` — a specialist recipe. Its tokens come from shiki in the browser,
+  and the honest port draws upstream's own pre-highlight fallback and takes the
+  tokens as data. `agent`, `sandbox` and `tool`'s output part wait on it.
+- `conversation`, `shimmer` — tier 1, and both wait on a library:
+  `use-stick-to-bottom` and `motion`. Both want a `live_base` hook.
+- `schema-display` — `dangerouslySetInnerHTML` with a `replaceAll` whose
+  replacement is a `<span>`. In HEEx that is a split and a wrap, which is markup
+  rather than a string.
+- `audio-player`, `jsx-preview`, `persona`, `terminal` — one foreign component
+  each. A shim, a recipe, or a non-goal, decided per component.
+
+**Commit:** `feat(spec): ask oxc what an expression is`
+
 ## Risks & Tradeoffs
 
 - **Phase 5 is the long one.** shadcn's equivalent was 51 references and it

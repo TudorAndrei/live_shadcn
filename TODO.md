@@ -154,16 +154,69 @@ generator can only render a choice the **server** decides.
 
 ## Phase 8: The nine the generator meets an undeclared name in
 
-- [ ] Read all nine and group them: a prop the caller passes, a value the reader
+- [x] Read all nine and group them: a prop the caller passes, a value the reader
       should compute, or a non-goal — `code-block`, `commit`, `connection`,
       `context`, `image`, `open-in-chat`, `queue`, `speech-input`,
       `transcription`
-- [ ] Where one wants work a library would really do — syntax highlighting for
-      `code-block`, an audio meter for `speech-input` — search hex first and
-      record what was found, either way. A bare browser API is not that question
-- [ ] Land the groups, splitting this phase per group and updating
-      [PLAN.md](PLAN.md) when it splits
-- [ ] Commit: `feat(ai-elements): markup that reads an undeclared name`
+- [x] Four were a prop the caller passes: `commit`, `image`, `queue`,
+      `transcription`. `speech-input` is the fifth — listening is the browser's,
+      so whether it listens is an attribute
+- [x] `connection` and `open-in-chat` are non-goals, recorded in
+      [ROADMAP.md](ROADMAP.md) with their reasons
+- [ ] `context` is the one still open. `Intl.NumberFormat` writes "1.2K" and
+      "$0.02", and Elixir has neither compact notation nor a currency format in
+      the standard library. Hex has `ex_cldr_numbers` — 6.5M downloads, and it
+      does both — but it carries CLDR, and the cost half is not formatting at
+      all: upstream reads a price per model out of `tokenlens`. A component that
+      draws a price cannot be the thing that knows the price, so the text is the
+      caller's and the library is the caller's choice, the same seam the
+      markdown renderer already gets
+- [x] Commit: `feat(ai-elements): markup that reads an undeclared name` — landed
+      as five commits, one per group
+
+## Phase 9: The reader's own gaps, closed with the parser it already has
+
+- [x] Replace the three regular expressions that decided what a value is with
+      one question put to oxc: is every node a name, a literal, an operator, or
+      a call to a method this pipeline can write in Elixir?
+- [x] Six components read that did not: `agent`, `code-block`, `file-tree`,
+      `schema-display`, `stack-trace`, `test-results`, `web-preview`
+- [x] `inline-citation` — `new URL(sources[0]).hostname` is `URI.parse/1`, and
+      `sources[0]` is `Enum.at/2`
+- [x] `stack-trace` is the fourth clipboard component, not a presentational one
+- [x] JSX's text rule, which is not `String.trim/1`: `{percent.toFixed(0)}%`
+      drew `100 %`
+- [x] A component that calls a sibling which did not generate is refused rather
+      than shipped — `agent` renders `code-block`, and the package stopped
+      compiling
+- [ ] **`file-tree` generates and has no example, and that is a decision to
+      make rather than a gap to close.** Ported faithfully it carries two axe
+      violations, and both are upstream's: a `role="treeitem"` whose parent is a
+      plain `<div>` rather than a `tree` or a `group`, and a chevron button with
+      an icon and no name. `accessibility.spec.mjs` says markup is ours and
+      fails the run; the pipeline says markup is upstream's and is never typed
+      by hand. Both cannot hold. Either the axe floor gets a recorded-inherited
+      list the way the palette already has one, or the pipeline gains the right
+      to add an accessible name upstream forgot. The example is left out until
+      that is decided, rather than either gate being quietly weakened
+- [ ] The lucide name upstream writes can be a deprecated alias.
+      `CheckCircleIcon` is `circle-check-big` now, so `tool` draws one glyph and
+      React draws another. `lucide-react` publishes the whole alias table on one
+      line of its `.d.ts`; reading it belongs to `mix ui.fetch`, because a table
+      typed by hand is a table that goes stale
+- [ ] `code-block` needs a specialist recipe. Its tokens come from shiki in the
+      browser; the honest port draws upstream's own pre-highlight fallback and
+      takes the tokens as data. `agent`, `sandbox` and `tool`'s output part all
+      wait on it
+- [ ] `conversation` and `shimmer` are tier 1 and both wait on a library:
+      `use-stick-to-bottom` and `motion`. Both want a `live_base` hook, and
+      `conversation` wants the `scroller` recipe to carry the fold
+- [ ] `schema-display` renders `dangerouslySetInnerHTML` — a `replaceAll` whose
+      replacement is a `<span>`. In HEEx that is a split and a wrap, which is
+      markup rather than a string
+- [ ] `audio-player`, `jsx-preview`, `persona` and `terminal` each render one
+      foreign component. Decide per component: a shim, a recipe, or a non-goal
+- [ ] Commit: `feat(spec): ask oxc what an expression is`
 
 ## Verification
 
@@ -174,7 +227,7 @@ Run at every phase boundary, as [CONTRIBUTING.md](CONTRIBUTING.md) lists it.
 - [x] `mix ui.gen --check`, `mix ui.status --check`, `mix snapshot --check`
 - [x] `mix ui.spec --check --source shadcn` — **live_shadcn does not regress**;
       62 of 62 stay verified through every phase
-- [x] `npm run verify` in `storybook/test/browser` — the whole suite, 370 tests
+- [x] `npm run verify` in `storybook/test/browser` — the whole suite, 406 tests
 - [x] The full browser suite three times in a row: 370 passed, three times
 - [ ] ~~No behaviour change in `live_shadcn`~~ — **three shadcn components did
       change, on purpose.** `popover`, `hover-card` and `tooltip` wear
@@ -191,7 +244,8 @@ Run at every phase boundary, as [CONTRIBUTING.md](CONTRIBUTING.md) lists it.
 - [x] Every generated file regenerated, never edited — `mix ui.gen --check` says
       so
 - [x] `docs/INVENTORY.md` regenerated, and the verified count is the true one:
-      77 verified, 1 generated, 11 spec, 22 fetched
+      89 verified, 1 generated, 6 spec, 15 fetched. The one generated is
+      `file-tree`, which is a decision recorded above rather than work not done
 - [x] Each phase commit leaves every gate green
 - [x] [PLAN.md](PLAN.md) updated wherever the approach changed during the work,
       which was every phase from 3 on

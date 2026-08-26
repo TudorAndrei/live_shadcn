@@ -18,7 +18,7 @@
       }
     },
     "pass": true,
-    "spec": "f91fc2354523ccfebb5cf17a4df2390f863cb9916514a445a1a485aa25d2fe6c"
+    "spec": "6720419c0d690cff0dd2745b94936cd078974a533fb21f52840f8b8348961f94"
   },
   "shadcn/alert-dialog": {
     "checks": {
@@ -81,7 +81,7 @@
       }
     },
     "pass": true,
-    "spec": "4b1f78b8d46f86b0acda6fd596df02caf162cc65a7e015b99418a0a3f6dc4d3b"
+    "spec": "98e97e7573353a9d87119b56a25eee71e0d454fe33c0eaeab74146127cb84998"
   },
   "ai_elements/chain-of-thought": {
     "checks": {
@@ -102,7 +102,7 @@
       }
     },
     "pass": true,
-    "spec": "2262d7837a2f9c28972cbf8c22291b692f0741cfb16398c0acb380f1b6c3f690"
+    "spec": "050111e0310edb7176bfe61591cec6c139bddd00a62f4ab15de02edfd9a918b0"
   },
   "shadcn/context-menu": {
     "checks": {
@@ -123,7 +123,7 @@
       }
     },
     "pass": true,
-    "spec": "40d64986257d8754a42f491f67fea09464df99adc33528391c572bdf7421333f"
+    "spec": "15ad9b462597529656a0de225161fdf9568dac7f16efc255fdcd97a5ae201b93"
   },
   "shadcn/hover-card": {
     "checks": {
@@ -167,6 +167,27 @@
     "pass": true,
     "spec": "2bc973a5c24400ad2c0ce8a2a4d8f34506507e595403a56ccde073193456e08f"
   },
+  "ai_elements/stack-trace": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "0be9ef0f198632039764e148ba0b7410e5f777261bbda0d472c01d541f7612b6"
+  },
   "ai_elements/package-info": {
     "checks": {
       "browser": {
@@ -186,7 +207,7 @@
       }
     },
     "pass": true,
-    "spec": "9d046555e270da274aed8f238dda46e28e0d8c1c9104f2efeffb5d6d03e9c609"
+    "spec": "36457259a9fd2a9ea87bc70213ce3124ff6b92059fb2993ccfbdd4c537325f15"
   },
   "shadcn/pagination": {
     "checks": {
@@ -207,7 +228,7 @@
       }
     },
     "pass": true,
-    "spec": "7e8f900cf00e798906f4e29a4be1c4055daacf4871d4629d27f9c83f7b309ccc"
+    "spec": "ee531f3bc1e5efd65c52ddb37fb6d64222675a93b85bcac563598fe10cff55d6"
   },
   "shadcn/radio-group": {
     "checks": {
@@ -270,7 +291,7 @@
       }
     },
     "pass": true,
-    "spec": "b1c216de300c5453dfa87709c2dc064a857eb30e000c9ce3b18393460aa1bcac"
+    "spec": "19c592c68f827b003d1918cfb5049690aaac9d89391e0126a63cf8dc22e6dcd9"
   },
   "ai_elements/task": {
     "checks": {
@@ -291,7 +312,7 @@
       }
     },
     "pass": true,
-    "spec": "4ae81686e250059aed725c78f76e8df78f1082fe9fee5302d823ee4d6638fbfc"
+    "spec": "047b0f15edd207d9c962c5dae99f9e3b108d8ff881df37f716cbff7f0c0c02f5"
   },
   "shadcn/bubble": {
     "checks": {
@@ -314,6 +335,27 @@
     "pass": true,
     "spec": "cd0ad6ad1e10ec3706495c8cd18d39e62bcb0ff61fb37481f339088693682a3d"
   },
+  "ai_elements/queue": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "46e593b9263c416bf2c5e15f32f8d91ae74fc89cfd29baacedaaa1e18ee097fd"
+  },
   "shadcn/sheet": {
     "checks": {
       "browser": {
@@ -333,7 +375,7 @@
       }
     },
     "pass": true,
-    "spec": "85d2120ced8f0d7e8200ba45dea35fb520398e9dd37c5684c08e2ad05d52752b"
+    "spec": "1b6094688063a13982f3bbd996409b34975c2789250561e72a61b847d0bd3e77"
   },
   "shadcn/popover": {
     "checks": {
@@ -375,7 +417,28 @@
       }
     },
     "pass": true,
-    "spec": "6fe17a0d5f381dc3820dfa852989859decc114cda9a871910b0b28fbb4c3382e"
+    "spec": "4190d287380284b202bf4765e417cae506f4b7f236e54bf5117628a8b8c1f955"
+  },
+  "ai_elements/image": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "f1363845ded561eb251f721104726ea7f435683a37e364356d218de4e0ec3461"
   },
   "shadcn/field": {
     "checks": {
@@ -417,7 +480,7 @@
       }
     },
     "pass": true,
-    "spec": "dd6dfe2e7d843e0d2f216cf34e3d41f5bac64231c92d0d0c83295bf403286b37"
+    "spec": "86698fcc3ecac0feb6c0fc25ee6c1d934a34473e6a6b542c24c68dec6b557ec7"
   },
   "shadcn/input-otp": {
     "checks": {
@@ -438,7 +501,7 @@
       }
     },
     "pass": true,
-    "spec": "411868602756da426f17ef57dfd3a774bf410f4bd365a3d30747bad4f0f54571"
+    "spec": "cbf5d1634579a46a552c7f67f78e87304546e2ad7d78b6896e301f0115dd6ff9"
   },
   "shadcn/native-select": {
     "checks": {
@@ -459,7 +522,7 @@
       }
     },
     "pass": true,
-    "spec": "bd0f1c72dc1060d07b4a11e798764629565982bfab225e7ec6b4051f369979db"
+    "spec": "d78505bfb9995031620efd1bfcfd323432e1dd0d8f9e2d6cf463e26bf7396420"
   },
   "shadcn/toggle": {
     "checks": {
@@ -544,7 +607,7 @@
       }
     },
     "pass": true,
-    "spec": "f94f036202330c0e4873baa6cce2c1d8b0e0b311b350990617016f2b8563dbfa"
+    "spec": "f213d128d9a9db4ad188f3594575731e44b2cc2eb6327e3886fabbb29a8e896f"
   },
   "ai_elements/confirmation": {
     "checks": {
@@ -607,7 +670,7 @@
       }
     },
     "pass": true,
-    "spec": "85ea330f9fb0abe68436fb9e5f8eb28f6df49ae389e74191fb5db589ca4839d2"
+    "spec": "c6d46302eca71cd322014db21fcd41b7cac4640fe2caeb93835fc546876c7a96"
   },
   "shadcn/button-group": {
     "checks": {
@@ -649,7 +712,7 @@
       }
     },
     "pass": true,
-    "spec": "1af7efc48f6b267c852d7b641ac6b4e4e8b83b22adceeb5f89b1e3192167b5e0"
+    "spec": "0422c313017a2d9205042eefc91439621667abc4b54dc4b1ab6818daba5e1f79"
   },
   "shadcn/input-group": {
     "checks": {
@@ -755,7 +818,7 @@
       }
     },
     "pass": true,
-    "spec": "74f257addb3ccdd9e94e9036e9b8ae7f8aac098b5515633e10a9cb86eeff4861"
+    "spec": "7528aaa18033eb621f66205c7e78793ea97fe75bd2e67d52111ef8ac53de0bb0"
   },
   "ai_elements/sources": {
     "checks": {
@@ -776,7 +839,7 @@
       }
     },
     "pass": true,
-    "spec": "88ad9a0ddc38ebe62b374399d0b2a011bb2bce8a4703dc3f7cbc56b289a6a103"
+    "spec": "627567b2a328a9c8462f4b590e09ee4be694aefc83b5a4f6bffbcc97e238a127"
   },
   "shadcn/calendar": {
     "checks": {
@@ -797,7 +860,28 @@
       }
     },
     "pass": true,
-    "spec": "005a3f6dea2e31d3509669e7f47c1cfa0ef0320d0ae47d6daff3e9bbdecf4f9b"
+    "spec": "13aad082f67b946625b769ba833e36e4c4ffc264d421f7e43636887f77539225"
+  },
+  "ai_elements/test-results": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "278d23fa67c12ed68730666c46dd1deaa62aa9de9654beb496413f868405be5b"
   },
   "shadcn/sonner": {
     "checks": {
@@ -820,6 +904,27 @@
     "pass": true,
     "spec": "925ec5c4511ea62ef5edd1533560eb9d41e86b3d8e179fc469aff8d52a2c5e97"
   },
+  "ai_elements/web-preview": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "bee095dda48c619375b809112bc62c539522121eabd04a266498a55067094105"
+  },
   "ai_elements/artifact": {
     "checks": {
       "browser": {
@@ -839,7 +944,7 @@
       }
     },
     "pass": true,
-    "spec": "cf1141d6b69aa32ad72d2721ea0e829df7430febee8a99695970748becdd8e70"
+    "spec": "d41788289aaab2fde240d46dd21ed2347593bf453cfbdc69ffd9c2888d71960b"
   },
   "shadcn/dropdown-menu": {
     "checks": {
@@ -860,7 +965,7 @@
       }
     },
     "pass": true,
-    "spec": "a700e7cd013abf12694a1ba38c59f053d8b870c6e713f2b074f392db5613f418"
+    "spec": "5c9a99167338020bdafdd8a1cfe762489a8ad75856767617d8c3d5e5a6987eee"
   },
   "shadcn/dialog": {
     "checks": {
@@ -881,7 +986,7 @@
       }
     },
     "pass": true,
-    "spec": "9e07cd8fefc45d7900679dd6a51ea71b5383b28762fef7bd7e5d9248671d8166"
+    "spec": "fdaba5682027d887e869d5bffe1002cdfb4a6d663d7c937ab226bd983bf3c894"
   },
   "shadcn/accordion": {
     "checks": {
@@ -902,7 +1007,7 @@
       }
     },
     "pass": true,
-    "spec": "37ff1593f6b168c3da9e01e47d00dc3410141b186ef94713d7e43c13e1f35170"
+    "spec": "30699e8b7d006cf7af0dd2cf81f6bc87b2f0a7a5a8e2e2e06b688f89569f284a"
   },
   "ai_elements/reasoning": {
     "checks": {
@@ -923,7 +1028,7 @@
       }
     },
     "pass": true,
-    "spec": "cffef67125081f32d474b5c3fcf5ea11fe745d9f8ccbdbadccf2a696b465ad21"
+    "spec": "09ce339700c03e8807d3f06cd1f207a92242e5afb0338551f4efe5045daf8a51"
   },
   "shadcn/tabs": {
     "checks": {
@@ -945,6 +1050,27 @@
     },
     "pass": true,
     "spec": "73f2992743e33c20f93c8a87db8ee5f68227c1517d4ddfb2c14748160778b95f"
+  },
+  "ai_elements/tool": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "e35353d522ae53e76264fee9a95bf1592c02d3aec174dd0fa0f909d2267b118a"
   },
   "shadcn/tooltip": {
     "checks": {
@@ -1049,7 +1175,7 @@
       }
     },
     "pass": true,
-    "spec": "edba6c1e3be9659c92f5c69bca445be763e4dcb153aff9e8a3462634a8b459af"
+    "spec": "7bd3885c9743a58dea45bb5e138d214a0dc0327d4f40c008ed3764e1b611fe88"
   },
   "ai_elements/message": {
     "checks": {
@@ -1070,7 +1196,7 @@
       }
     },
     "pass": true,
-    "spec": "cc8c94f591f88621d78da56f94f66c64c8c2a6eb25259e96a1bb3d5cc6b12c61"
+    "spec": "135750812bb81552216b6e55b78321c6e49a60c01c005853cbec2c8a224445ca"
   },
   "ai_elements/snippet": {
     "checks": {
@@ -1091,7 +1217,28 @@
       }
     },
     "pass": true,
-    "spec": "3a8e8bae82b21e17b21e31c7de2f2ba82e9880f7e7a2dc960148c2cd70d59df5"
+    "spec": "4bb27143c869405d9ffca127ff641f06e0a0491160708909368dded57db1b65c"
+  },
+  "ai_elements/speech-input": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "5b8194f982fd23506b2b291e40ac9fd47cefb17aac4507c772f69c16980f0f6e"
   },
   "ai_elements/environment-variables": {
     "checks": {
@@ -1112,7 +1259,7 @@
       }
     },
     "pass": true,
-    "spec": "861e89b74dad593d633e366741c2eeec80ccf38d201988340f5afa5379bcfa4c"
+    "spec": "a21199e6ec1e941300af18c1cda4099223d41d23486ca2490ae4782c990e7338"
   },
   "shadcn/switch": {
     "checks": {
@@ -1155,7 +1302,7 @@
       }
     },
     "pass": true,
-    "spec": "3063369b3610cd9bebeabaa1be32605d668aea516eb468b57eeb2aeae21fe814"
+    "spec": "3978ad1b3494b990d8b013a09b5e014f22bcff828fb55225a0e3c62cde18b213"
   },
   "shadcn/label": {
     "checks": {
@@ -1199,6 +1346,27 @@
     "pass": true,
     "spec": "01e7577820de563922428a544630591fd047f67a660c558b9839efa8fcc2c5e5"
   },
+  "ai_elements/voice-selector": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "5276bf3d35e3f73d0464482579ece63665d72ed7bd28da7879f263b2a40d5b3e"
+  },
   "shadcn/item": {
     "checks": {
       "browser": {
@@ -1239,7 +1407,7 @@
       }
     },
     "pass": true,
-    "spec": "467c50a9cb1686b486f78f23def89659e5c5ce31ac9fb7ca2e9307f93e670ae8"
+    "spec": "0727a7e6839bff219abf43b0fc4722e39151d95534a9e98e6de3de64ef52b90b"
   },
   "shadcn/avatar": {
     "checks": {
@@ -1281,7 +1449,7 @@
       }
     },
     "pass": true,
-    "spec": "f1b93289c6d4fb6866cff1c71f9f1fa416116745bec4274d00fe5bae9dca7a55"
+    "spec": "934b3a86a57ef31bf4bcb7a83db6256b62a543f76c8d2f610dde6ac8051747c8"
   },
   "shadcn/carousel": {
     "checks": {
@@ -1302,7 +1470,7 @@
       }
     },
     "pass": true,
-    "spec": "d2977ae0d5042c4ddefee0b36d25d30acc0496c569dee5778e0e2b0b26445818"
+    "spec": "6d42db72c596661876d753c1922cfea5e3ef2fa973fe9095058c6e09099e6c9c"
   },
   "shadcn/card": {
     "checks": {
@@ -1324,6 +1492,69 @@
     },
     "pass": true,
     "spec": "54f95f071887db62c110403001dca2aebb855fc81ae426cde5cb6e97b7aa9431"
+  },
+  "ai_elements/inline-citation": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "2048c8ca5c8c81ddac8627f3ee3fed222b2e416950c4ad579d07bab25d786115"
+  },
+  "ai_elements/model-selector": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "aa908566c19ebb92434a97507a1b1c54b45e995d1e076e2b552dec3186b313c8"
+  },
+  "ai_elements/commit": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "b9c0ef08fa9cea0423fe8898fadf3e6b03e8a688f996d82f44e7c4cfe1bc4349"
   },
   "ai_elements/suggestion": {
     "checks": {
@@ -1365,7 +1596,28 @@
       }
     },
     "pass": true,
-    "spec": "97bc07563a18cfbf83ad13e154f0e365b9049cc33ad598cc97ee679e11f8cb39"
+    "spec": "56c45d7fd22562e04b99aac24b0261992e1c8f1ef53722dd50b7ad3b9c2821b9"
+  },
+  "ai_elements/transcription": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "d2418a29bedb59f50377caf73c48aa8117486a6598a75e98f906889c42ca9bae"
   },
   "shadcn/separator": {
     "checks": {
@@ -1428,7 +1680,7 @@
       }
     },
     "pass": true,
-    "spec": "ccafd562fbf7c0c2c5b655ad93f0eeb2eccb8be45f3a1b810288615e2ea8175c"
+    "spec": "bcd4d62630d3fe7604c439f140caa2b11ab85b0e8d711d2d47d2f011cd253b86"
   },
   "shadcn/progress": {
     "checks": {
@@ -1491,7 +1743,7 @@
       }
     },
     "pass": true,
-    "spec": "96f2fc1ab578684f727d8e71e7c3599d97040fa95d4b09c02c03ce276ca2af56"
+    "spec": "4970531b549176d5983c9d929eabb7551471d71a06c57fec3b188bba4ca647b4"
   },
   "shadcn/slider": {
     "checks": {
@@ -1513,6 +1765,31 @@
     },
     "pass": true,
     "spec": "9fb29e322de201a692592ddf969b674d94edcf326b78cd29876b3dca82816ceb"
+  },
+  "ai_elements/file-tree": {
+    "checks": {
+      "browser": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "pixel": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      },
+      "snapshot": {
+        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
+        "pass": false
+      }
+    },
+    "pass": false,
+    "spec": "902ef39de55386492436061b0823e4a2687031e3eeac2fffc50e8df95c87a2e7"
   },
   "shadcn/drawer": {
     "checks": {
@@ -1617,6 +1894,6 @@
       }
     },
     "pass": true,
-    "spec": "39bba9b166acc2cadcd485ed9a4ee224b67c8c13cd012c9486e1af3417fa8fd1"
+    "spec": "575dc248000c8a7891f3059e8eced745f52ddf10d6e7ad232e10b18291d397e9"
   }
 }
