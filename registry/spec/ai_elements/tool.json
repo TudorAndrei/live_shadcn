@@ -1051,7 +1051,8 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "(output || errorText)"
     }
   ],
   "primitives": {

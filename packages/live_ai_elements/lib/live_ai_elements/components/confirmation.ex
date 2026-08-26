@@ -20,11 +20,12 @@ defmodule LiveAiElements.Components.Confirmation do
   def confirmation(assigns) do
     ~H"""
     <div
+      :if={@approval || @state == "input-streaming" || @state == "input-available"}
       data-slot={@rest[:"data-slot"] || "alert"}
       role="alert"
       class={[
-        "cn-alert group/alert relative w-full flex flex-col gap-2",
         variant_class("alertVariants", "variant", @variant),
+        "cn-alert group/alert relative w-full flex flex-col gap-2",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -56,14 +57,18 @@ defmodule LiveAiElements.Components.Confirmation do
   end
 
   @doc "The `confirmation_actions` part."
-
+  attr(:state, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def confirmation_actions(assigns) do
     ~H"""
-    <div class={["flex items-center justify-end gap-2 self-end", @class]} {@rest}>
+    <div
+      :if={!(@state != "approval-requested")}
+      class={["flex items-center justify-end gap-2 self-end", @class]}
+      {@rest}
+    >
       {render_slot(@inner_block)}
     </div>
     """
@@ -90,9 +95,9 @@ defmodule LiveAiElements.Components.Confirmation do
       data-slot={@rest[:"data-slot"] || "button"}
       type="button"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 h-8 px-3 text-sm",
         variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 h-8 px-3 text-sm",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

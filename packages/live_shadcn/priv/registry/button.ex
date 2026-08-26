@@ -29,9 +29,9 @@ defmodule LiveShadcn.UI.Button do
     <button
       data-slot={@rest[:"data-slot"] || "button"}
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

@@ -195,9 +195,9 @@ defmodule LiveAiElements.Components.Commit do
       data-lb-timeout={@timeout}
       data-slot={@rest[:"data-slot"] || "button"}
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7 shrink-0",
         variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7 shrink-0",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -338,7 +338,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_file_additions(assigns) do
     ~H"""
-    <span class={["text-green-600 dark:text-green-400", @class]} {@rest}>
+    <span :if={!(@count <= 0)} class={["text-green-600 dark:text-green-400", @class]} {@rest}>
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon name="plus" class="inline-block size-3" />
         {@count}
@@ -356,7 +356,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_file_deletions(assigns) do
     ~H"""
-    <span class={["text-red-600 dark:text-red-400", @class]} {@rest}>
+    <span :if={!(@count <= 0)} class={["text-red-600 dark:text-red-400", @class]} {@rest}>
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon name="minus" class="inline-block size-3" />
         {@count}

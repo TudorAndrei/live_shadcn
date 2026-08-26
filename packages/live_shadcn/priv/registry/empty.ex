@@ -120,8 +120,8 @@ defmodule LiveShadcn.UI.Empty do
       data-slot={@rest[:"data-slot"] || "empty-icon"}
       data-variant={@variant}
       class={[
-        "cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
         variant_class("emptyMediaVariants", "variant", @variant),
+        "cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

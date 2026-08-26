@@ -649,7 +649,8 @@ defmodule LiveShadcnTools.Spec do
     references =
       MapSet.new(
         (part["refs"] || []) ++
-          (part["context_fields"] || []) ++ off_rest ++ identifiers(part["tree"])
+          (part["context_fields"] || []) ++
+          off_rest ++ identifiers(part["tree"]) ++ names(part["when"] || "")
       )
 
     Map.update(part, "params", %{}, fn params ->
@@ -1361,6 +1362,15 @@ defmodule LiveShadcnTools.Spec do
   # An export is a component two ways: a function with JSX, or a `const` that
   # aliases a Base UI part outright. shadcn writes the second when a part needs
   # no styling at all — `const Select = SelectPrimitive.Root`.
+  # `if (!isStreaming) return null` — the whole part, on a condition. See
+  # `LiveShadcnTools.Ast.guard/2`; `LiveShadcnTools.Gen` is what puts the `:if`
+  # on, because a recipe may draw a part or fold it and both need the same
+  # answer.
+  defp guarded(part, %{guard: condition}) when is_binary(condition),
+    do: Map.put(part, "when", String.replace(condition, "?.", "."))
+
+  defp guarded(part, _function), do: part
+
   defp part(export, ctx) do
     case Map.fetch(ctx.functions, export) do
       {:ok, function} ->
@@ -1380,6 +1390,7 @@ defmodule LiveShadcnTools.Spec do
           "contexts" => function.contexts |> MapSet.to_list() |> Enum.sort(),
           "tree" => node(function.jsx, ctx)
         }
+        |> guarded(function)
         |> context_fields(function)
 
       :error ->

@@ -22,7 +22,8 @@
       "calendar",
       "resizable",
       "utility",
-      "shimmer"
+      "shimmer",
+      "file-tree"
     ]
   },
   "components": [
@@ -125,7 +126,7 @@
     {
       "name": "file-tree",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "file-tree",
       "tier": 2
     },
     {
@@ -173,7 +174,7 @@
     {
       "name": "open-in-chat",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "utility",
       "tier": 2
     },
     {

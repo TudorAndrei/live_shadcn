@@ -69,8 +69,8 @@ defmodule LiveAiElements.Components.AudioPlayer do
         role="group"
         data-orientation={@orientation}
         class={[
-          "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
-          variant_class("buttonGroupVariants", "orientation", @orientation)
+          variant_class("buttonGroupVariants", "orientation", @orientation),
+          "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1"
         ]}
         {Map.drop(@rest, [:"data-slot"])}
       >
@@ -100,9 +100,9 @@ defmodule LiveAiElements.Components.AudioPlayer do
     <media-play-button
       data-slot={@rest[:"data-slot"] || "audio-player-play-button"}
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-transparent",
         variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-transparent",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -135,9 +135,9 @@ defmodule LiveAiElements.Components.AudioPlayer do
       data-slot={@rest[:"data-slot"] || "audio-player-seek-backward-button"}
       seekOffset={@seek_offset}
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         variant_class("buttonVariants", "size", @size),
-        variant_class("buttonVariants", "variant", @variant)
+        variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0"
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -169,9 +169,9 @@ defmodule LiveAiElements.Components.AudioPlayer do
       data-slot={@rest[:"data-slot"] || "audio-player-seek-forward-button"}
       seekOffset={@seek_offset}
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         variant_class("buttonVariants", "size", @size),
-        variant_class("buttonVariants", "variant", @variant)
+        variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0"
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >

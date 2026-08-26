@@ -48,8 +48,8 @@ defmodule LiveAiElements.Components.Snippet do
       role="group"
       data-align={@align}
       class={[
-        "cn-input-group-addon flex cursor-text items-center justify-center select-none",
         variant_class("inputGroupAddonVariants", "align", @align),
+        "cn-input-group-addon flex cursor-text items-center justify-center select-none",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -150,9 +150,9 @@ defmodule LiveAiElements.Components.Snippet do
       aria-label="Copy"
       title="Copy"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-input-group-button flex items-center shadow-none",
         variant_class("buttonVariants", "variant", @variant),
         variant_class("inputGroupButtonVariants", "size", @size),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-input-group-button flex items-center shadow-none",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

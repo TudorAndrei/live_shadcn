@@ -58,9 +58,11 @@ defmodule LiveAiElements.Components.PackageInfo do
   def package_info_change_type(assigns) do
     ~H"""
     <span
+      :if={@change_type}
       data-slot={@rest[:"data-slot"] || "badge"}
       data-variant={@variant}
       class={[
+        variant_class("badgeVariants", "variant", @variant),
         "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 text-xs capitalize",
         if(@change_type == "added",
           do: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
@@ -82,7 +84,6 @@ defmodule LiveAiElements.Components.PackageInfo do
           do: "bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400",
           else: nil
         ),
-        variant_class("badgeVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -110,6 +111,7 @@ defmodule LiveAiElements.Components.PackageInfo do
   def package_info_version(assigns) do
     ~H"""
     <div
+      :if={@current_version || @new_version}
       class={["mt-2 flex items-center gap-2 font-mono text-muted-foreground text-sm", @class]}
       {@rest}
     >

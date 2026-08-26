@@ -117,7 +117,7 @@ defmodule LiveAiElements.Components.Context do
         Input
       </span>
       <span>
-        {if(@input_tokens == nil, do: "—", else: compact_number(@input_tokens))}
+        {if(is_nil(@input_tokens), do: "—", else: compact_number(@input_tokens))}
         <span :if={@input_cost_text} class="ml-2 text-muted-foreground">
           • {@input_cost_text}
         </span>
@@ -143,7 +143,7 @@ defmodule LiveAiElements.Components.Context do
         Output
       </span>
       <span>
-        {if(@output_tokens == nil, do: "—", else: compact_number(@output_tokens))}
+        {if(is_nil(@output_tokens), do: "—", else: compact_number(@output_tokens))}
         <span :if={@output_cost_text} class="ml-2 text-muted-foreground">
           • {@output_cost_text}
         </span>
@@ -169,7 +169,7 @@ defmodule LiveAiElements.Components.Context do
         Reasoning
       </span>
       <span>
-        {if(@reasoning_tokens == nil, do: "—", else: compact_number(@reasoning_tokens))}
+        {if(is_nil(@reasoning_tokens), do: "—", else: compact_number(@reasoning_tokens))}
         <span :if={@reasoning_cost_text} class="ml-2 text-muted-foreground">
           • {@reasoning_cost_text}
         </span>
@@ -195,7 +195,7 @@ defmodule LiveAiElements.Components.Context do
         Cache
       </span>
       <span>
-        {if(@cache_tokens == nil, do: "—", else: compact_number(@cache_tokens))}
+        {if(is_nil(@cache_tokens), do: "—", else: compact_number(@cache_tokens))}
         <span :if={@cache_cost_text} class="ml-2 text-muted-foreground">
           • {@cache_cost_text}
         </span>

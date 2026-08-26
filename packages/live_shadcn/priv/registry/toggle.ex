@@ -64,9 +64,9 @@ defmodule LiveShadcn.UI.Toggle do
       data-pressed={flag(@checked)}
       data-disabled={flag(@disabled)}
       class={[
-        "cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         variant_class("toggleVariants", "size", @size),
         variant_class("toggleVariants", "variant", @variant),
+        "cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

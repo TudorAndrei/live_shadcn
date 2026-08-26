@@ -89,9 +89,9 @@ defmodule LiveAiElements.Components.Message do
       data-slot={@rest[:"data-slot"] || "button"}
       type="button"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -143,6 +143,7 @@ defmodule LiveAiElements.Components.Message do
 
   @doc "The `button-group` part."
   attr(:orientation, :string, default: "horizontal", values: ["horizontal", "vertical"])
+  attr(:total_branches, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -150,12 +151,13 @@ defmodule LiveAiElements.Components.Message do
   def message_branch_selector(assigns) do
     ~H"""
     <div
+      :if={!(@total_branches <= 1)}
       data-slot={@rest[:"data-slot"] || "button-group"}
       role="group"
       data-orientation={@orientation}
       class={[
-        "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 [&>*:not(:first-child)]:rounded-l-md [&>*:not(:last-child)]:rounded-r-md",
         variant_class("buttonGroupVariants", "orientation", @orientation),
+        "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 [&>*:not(:first-child)]:rounded-l-md [&>*:not(:last-child)]:rounded-r-md",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -190,9 +192,9 @@ defmodule LiveAiElements.Components.Message do
       disabled={@total_branches <= 1}
       type="button"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -230,9 +232,9 @@ defmodule LiveAiElements.Components.Message do
       disabled={@total_branches <= 1}
       type="button"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

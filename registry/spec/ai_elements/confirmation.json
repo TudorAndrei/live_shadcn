@@ -80,7 +80,8 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "approval || state === \"input-streaming\" || state === \"input-available\""
     },
     {
       "contexts": [],
@@ -119,7 +120,8 @@
       "export": "ConfirmationActions",
       "name": "confirmation_actions",
       "params": {
-        "className": null
+        "className": null,
+        "state": null
       },
       "primitive": null,
       "refs": [
@@ -144,7 +146,8 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "!(state !== \"approval-requested\")"
     },
     {
       "contexts": [],

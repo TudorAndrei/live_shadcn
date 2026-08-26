@@ -22,8 +22,8 @@ defmodule LiveShadcn.UI.ButtonGroup do
       role="group"
       data-orientation={@orientation}
       class={[
-        "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
         variant_class("buttonGroupVariants", "orientation", @orientation),
+        "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

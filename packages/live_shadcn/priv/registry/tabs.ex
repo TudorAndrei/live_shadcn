@@ -63,8 +63,8 @@ defmodule LiveShadcn.UI.Tabs do
         data-orientation={@orientation}
         data-variant={@variant}
         class={[
-          "cn-tabs-list group/tabs-list inline-flex w-fit items-center justify-center text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
           variant_class("tabsListVariants", "variant", @variant),
+          "cn-tabs-list group/tabs-list inline-flex w-fit items-center justify-center text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
           @list_class
         ]}
       >

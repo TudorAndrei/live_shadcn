@@ -76,9 +76,9 @@ defmodule LiveAiElements.Components.Suggestion do
       data-slot={@rest[:"data-slot"] || "button"}
       type="button"
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cursor-pointer rounded-full px-4",
         variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cursor-pointer rounded-full px-4",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

@@ -1197,7 +1197,8 @@
           "optional": false,
           "type": "number"
         }
-      }
+      },
+      "when": "!(count <= 0)"
     },
     {
       "contexts": [],
@@ -1294,7 +1295,8 @@
           "optional": false,
           "type": "number"
         }
-      }
+      },
+      "when": "!(count <= 0)"
     }
   ],
   "primitives": {

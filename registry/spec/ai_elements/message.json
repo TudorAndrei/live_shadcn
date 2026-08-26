@@ -365,7 +365,8 @@
       "name": "message_branch_selector",
       "params": {
         "className": null,
-        "orientation": "horizontal"
+        "orientation": "horizontal",
+        "totalBranches": null
       },
       "primitive": null,
       "refs": [
@@ -428,7 +429,8 @@
         ],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "!(totalBranches <= 1)"
     },
     {
       "contexts": [],

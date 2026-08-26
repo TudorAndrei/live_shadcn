@@ -873,11 +873,47 @@ defmodule LiveShadcnTools.Ast do
       contexts: contexts(body),
       context_fields: body |> context_fields(contexts(body)) |> Enum.uniq() |> Enum.sort(),
       renders?: renders?(body),
+      guard: guard(body, source),
       jsx: jsx(body, source)
     }
   rescue
     error -> {:unreadable, name, Exception.message(error)}
   end
+
+  @doc """
+  What a component draws nothing without.
+
+  `if (!isStreaming) { return null }` at the top of a render is React saying the
+  whole part is conditional. Dropped, `terminal`'s status is an empty `<div>`
+  that a header lays out and a reader never sees — four pixels of gap upstream
+  does not have, and a status that says nothing.
+
+  Returns the condition as source, in the affirmative: the part draws when it
+  holds. `nil` when the render has no such guard.
+  """
+  def guard(body, source) do
+    Enum.find_value(statements(body), fn statement ->
+      with %{"type" => "IfStatement", "test" => test, "consequent" => consequent} <- statement,
+           true <- returns_nothing?(consequent) do
+        affirmative(slice(bare(test), source))
+      else
+        _not_a_guard -> nil
+      end
+    end)
+  end
+
+  defp returns_nothing?(%{"type" => "BlockStatement", "body" => [statement]}),
+    do: returns_nothing?(statement)
+
+  defp returns_nothing?(%{"type" => "ReturnStatement", "argument" => argument}),
+    do: match?(%{"type" => "Literal", "value" => nil}, bare(argument || %{}))
+
+  defp returns_nothing?(_statement), do: false
+
+  # `!isStreaming` is "nothing unless it is streaming", so the part draws when
+  # `isStreaming`. Anything else is negated instead.
+  defp affirmative("!" <> rest), do: String.trim(rest)
+  defp affirmative(test), do: "!(#{String.trim(test)})"
 
   defp parameter_references(body, references) do
     for %{"name" => name, "start" => start, "end" => finish} <- references,

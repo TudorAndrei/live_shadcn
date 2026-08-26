@@ -943,7 +943,7 @@
       ]
     }
   },
-  "recipe": "presentational",
+  "recipe": "file-tree",
   "source": "ai_elements",
   "styles": {},
   "upstream": {

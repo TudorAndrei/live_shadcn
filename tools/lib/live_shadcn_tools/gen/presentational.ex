@@ -139,9 +139,15 @@ defmodule LiveShadcnTools.Gen.Presentational do
   # so.
   @folding ~w(dialog disclosure listbox menu popover tabs)
 
-  # A part with nothing of its own to draw: a reference to a component whose
-  # recipe folds, or a fold that came out empty.
-  defp wrapper?(%{"tree" => tree}), do: folds_elsewhere?(tree) or draws_nothing?(tree)
+  @doc """
+  Whether a part has nothing of its own to draw.
+
+  A reference to a component whose recipe folds, or a fold that came out empty.
+  Public because `form-control` asks the same question: `prompt-input` is a
+  textarea and a submit button wrapped in twenty-two references to a menu, a
+  select, a hover card and a command palette.
+  """
+  def wrapper?(%{"tree" => tree}), do: folds_elsewhere?(tree) or draws_nothing?(tree)
 
   # A component whose every part is one of those.
   #

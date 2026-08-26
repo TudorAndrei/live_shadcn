@@ -104,7 +104,7 @@ defmodule LiveAiElements.Components.Attachments do
 
   def attachment_info(assigns) do
     ~H"""
-    <div class={["min-w-0 flex-1", @class]} {@rest}>
+    <div :if={!(@variant == "grid")} class={["min-w-0 flex-1", @class]} {@rest}>
       <span class="block truncate">
         {@label}
       </span>
@@ -135,10 +135,12 @@ defmodule LiveAiElements.Components.Attachments do
   def attachment_remove(assigns) do
     ~H"""
     <button
+      :if={true}
       data-slot={@rest[:"data-slot"] || "button"}
       aria-label={@label}
       type="button"
       class={[
+        variant_class("buttonVariants", "size", @size),
         "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-variant-ghost",
         if(@variant == "grid",
           do:
@@ -151,7 +153,6 @@ defmodule LiveAiElements.Components.Attachments do
           else: nil
         ),
         if(@variant == "list", do: "size-8 shrink-0 rounded p-0 [&>svg]:size-4", else: nil),
-        variant_class("buttonVariants", "size", @size),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

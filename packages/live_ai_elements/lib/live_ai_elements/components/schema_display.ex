@@ -47,6 +47,7 @@ defmodule LiveAiElements.Components.SchemaDisplay do
       data-slot={@rest[:"data-slot"] || "badge"}
       data-variant={@variant}
       class={[
+        variant_class("badgeVariants", "variant", @variant),
         "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none font-mono text-xs",
         if(@method == "DELETE",
           do: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
@@ -68,7 +69,6 @@ defmodule LiveAiElements.Components.SchemaDisplay do
           do: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
           else: nil
         ),
-        variant_class("badgeVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -156,8 +156,8 @@ defmodule LiveAiElements.Components.SchemaDisplay do
           data-slot={@rest[:"data-slot"] || "badge"}
           data-variant={@variant}
           class={[
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none text-xs",
-            variant_class("badgeVariants", "variant", @variant)
+            variant_class("badgeVariants", "variant", @variant),
+            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none text-xs"
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
@@ -168,8 +168,8 @@ defmodule LiveAiElements.Components.SchemaDisplay do
           data-slot={@rest[:"data-slot"] || "badge"}
           data-variant={@variant}
           class={[
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none text-xs",
-            variant_class("badgeVariants", "variant", @variant)
+            variant_class("badgeVariants", "variant", @variant),
+            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none text-xs"
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
@@ -180,8 +180,8 @@ defmodule LiveAiElements.Components.SchemaDisplay do
           data-slot={@rest[:"data-slot"] || "badge"}
           data-variant={@variant}
           class={[
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400",
-            variant_class("badgeVariants", "variant", @variant)
+            variant_class("badgeVariants", "variant", @variant),
+            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400"
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
@@ -227,8 +227,8 @@ defmodule LiveAiElements.Components.SchemaDisplay do
           data-slot={@rest[:"data-slot"] || "badge"}
           data-variant={@variant}
           class={[
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none text-xs",
-            variant_class("badgeVariants", "variant", @variant)
+            variant_class("badgeVariants", "variant", @variant),
+            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none text-xs"
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
@@ -239,8 +239,8 @@ defmodule LiveAiElements.Components.SchemaDisplay do
           data-slot={@rest[:"data-slot"] || "badge"}
           data-variant={@variant}
           class={[
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400",
-            variant_class("badgeVariants", "variant", @variant)
+            variant_class("badgeVariants", "variant", @variant),
+            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400"
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >

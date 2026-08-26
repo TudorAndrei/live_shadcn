@@ -37,7 +37,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_results_duration(assigns) do
     ~H"""
-    <span class={["text-muted-foreground text-sm", @class]} {@rest}>
+    <span :if={@summary.duration} class={["text-muted-foreground text-sm", @class]} {@rest}>
       <%= if @inner_block == [] do %>
         {"#{:erlang.float_to_binary(@summary.duration / 1000 / 1, decimals: 2)}s"}
       <% end %>
@@ -60,14 +60,14 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_results_summary(assigns) do
     ~H"""
-    <div class={["flex items-center gap-3", @class]} {@rest}>
+    <div :if={@summary} class={["flex items-center gap-3", @class]} {@rest}>
       <%= if @inner_block == [] do %>
         <span
           data-slot={@rest[:"data-slot"] || "badge"}
           data-variant={@variant}
           class={[
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
-            variant_class("badgeVariants", "variant", @variant)
+            variant_class("badgeVariants", "variant", @variant),
+            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
@@ -79,8 +79,8 @@ defmodule LiveAiElements.Components.TestResults do
           data-slot={@rest[:"data-slot"] || "badge"}
           data-variant={@variant}
           class={[
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
-            variant_class("badgeVariants", "variant", @variant)
+            variant_class("badgeVariants", "variant", @variant),
+            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
@@ -92,8 +92,8 @@ defmodule LiveAiElements.Components.TestResults do
           data-slot={@rest[:"data-slot"] || "badge"}
           data-variant={@variant}
           class={[
-            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
-            variant_class("badgeVariants", "variant", @variant)
+            variant_class("badgeVariants", "variant", @variant),
+            "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
@@ -136,7 +136,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_results_progress(assigns) do
     ~H"""
-    <div class={["space-y-2", @class]} {@rest}>
+    <div :if={@summary} class={["space-y-2", @class]} {@rest}>
       <%= if @inner_block == [] do %>
         <div class="flex h-2 overflow-hidden rounded-full bg-muted">
           <div style={"width: #{"#{@passed_percent}%"}"} class="bg-green-500 transition-all" />
@@ -241,7 +241,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_duration(assigns) do
     ~H"""
-    <span class={["ml-auto text-muted-foreground text-xs", @class]} {@rest}>
+    <span :if={!is_nil(@duration)} class={["ml-auto text-muted-foreground text-xs", @class]} {@rest}>
       <%= if @inner_block == [] do %>
         {"#{@duration}ms"}
       <% end %>
@@ -298,7 +298,7 @@ defmodule LiveAiElements.Components.TestResults do
       <%= if @inner_block == [] do %>
         <.test_status status={@status} />
         <.test_name name={@name} />
-        <.test_duration :if={@duration != nil} duration={@duration} />
+        <.test_duration :if={not is_nil(@duration)} duration={@duration} />
       <% end %>
       {render_slot(@inner_block)}
     </div>

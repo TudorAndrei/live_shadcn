@@ -45,14 +45,14 @@ defmodule LiveAiElements.Components.Terminal do
   end
 
   @doc "The `terminal_status` part."
-
+  attr(:is_streaming, :boolean, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def terminal_status(assigns) do
     ~H"""
-    <div class={["flex items-center gap-2 text-xs text-zinc-400", @class]} {@rest}>
+    <div :if={@is_streaming} class={["flex items-center gap-2 text-xs text-zinc-400", @class]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -101,9 +101,9 @@ defmodule LiveAiElements.Components.Terminal do
       data-lb-timeout={@timeout}
       data-slot={@rest[:"data-slot"] || "button"}
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7 shrink-0 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100",
         variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7 shrink-0 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -135,11 +135,12 @@ defmodule LiveAiElements.Components.Terminal do
   def terminal_clear_button(assigns) do
     ~H"""
     <button
+      :if={true}
       data-slot={@rest[:"data-slot"] || "button"}
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7 shrink-0 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100",
         variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7 shrink-0 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -189,7 +190,7 @@ defmodule LiveAiElements.Components.Terminal do
         <.terminal_header>
           <.terminal_title />
           <div class="flex items-center gap-1">
-            <.terminal_status />
+            <.terminal_status is_streaming={@is_streaming} />
             <.terminal_actions>
               <.terminal_copy_button id={@id} output={@output} />
               <.terminal_clear_button :if={true} />

@@ -79,6 +79,13 @@ defmodule LiveShadcnTools.Gen.FormControl do
         Presentational.module(spec, opts)
 
       true ->
+        # A part that is nothing but a reference to a component whose recipe
+        # folds is not written, for the reason `Presentational` gives: there is
+        # no function to call and none to write. `prompt-input` is twenty-two of
+        # them — a dropdown menu, a select, a hover card and a command palette,
+        # each wrapped part by part — around the eight that are its own.
+        own = Enum.reject(spec["parts"], &Presentational.wrapper?/1)
+
         """
         defmodule #{inspect(Keyword.fetch!(opts, :module))} do
         #{moduledoc(spec)}
@@ -87,7 +94,7 @@ defmodule LiveShadcnTools.Gen.FormControl do
 
           alias LiveBase.FormControl
 
-        #{Enum.map_join(spec["parts"], "\n", &function(&1, spec))}
+        #{Enum.map_join(own, "\n", &function(&1, spec))}
         #{helpers(controls, spec)}
         end
         """

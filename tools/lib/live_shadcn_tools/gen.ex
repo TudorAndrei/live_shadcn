@@ -19,7 +19,9 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Decorate
   alias LiveShadcnTools.Gen.Dialog
   alias LiveShadcnTools.Gen.Disclosure
+  alias LiveShadcnTools.Gen.FileTree
   alias LiveShadcnTools.Gen.FormControl
+  alias LiveShadcnTools.Gen.Heex
   alias LiveShadcnTools.Gen.Listbox
   alias LiveShadcnTools.Gen.Menu
   alias LiveShadcnTools.Gen.NavigationMenu
@@ -47,6 +49,7 @@ defmodule LiveShadcnTools.Gen do
     "clipboard" => Clipboard,
     "dialog" => Dialog,
     "disclosure" => Disclosure,
+    "file-tree" => FileTree,
     "form-control" => FormControl,
     "listbox" => Listbox,
     "menu" => Menu,
@@ -87,6 +90,7 @@ defmodule LiveShadcnTools.Gen do
         # the copy. A fold takes markup; a recipe adds what markup cannot say.
         spec
         |> Decorate.folded(Keyword.get(opts, :resolve, fn _source, _name -> nil end))
+        |> guarded()
         |> implementation.module(opts)
         |> with_variants(spec)
         |> with_numbers()
@@ -95,6 +99,57 @@ defmodule LiveShadcnTools.Gen do
 
       :error ->
         {:error, recipe}
+    end
+  end
+
+  # `if (!isStreaming) return null` — the whole part, on a condition.
+  #
+  # Applied here rather than in a recipe because every recipe needs the same
+  # answer: a part that draws nothing without a value draws nothing whether it
+  # is written as its own function or folded into another. `terminal`'s status
+  # was an empty `<div>` in a header laid out with `gap-1`, which is four pixels
+  # of nothing and a status that says nothing.
+  defp guarded(spec) do
+    Map.update(spec, "parts", [], fn parts ->
+      Enum.map(parts, fn part ->
+        case part["when"] do
+          nil ->
+            part
+
+          condition ->
+            if asked_again?(condition, part),
+              do: part,
+              else: Map.update!(part, "tree", &Heex.only_if(&1, condition(condition, part)))
+        end
+      end)
+    end)
+  end
+
+  # The condition, as the generated component reads it. `Gen.Heex` translates
+  # every other expression a spec carries and this is one of them.
+  defp condition(source, part),
+    do: Heex.condition(source, %{params: Map.get(part, "params") || %{}})
+
+  # A guard the markup already asks.
+  #
+  # `ContextInputUsage` returns nothing without `inputTokens` and then draws
+  # `inputTokens === undefined ? "—" : …`. Upstream writes both because the
+  # second lives in a helper four parts share and the guard belongs to the
+  # caller; inlined, they are one question asked twice. Elixir's type checker
+  # says so — the second can never take its first branch — and this project
+  # builds with warnings as errors.
+  #
+  # The markup's own test is the one kept, because it is the one that draws
+  # something: a dash where there is no number.
+  defp asked_again?(condition, part) do
+    with true <- Regex.match?(~r/^[a-z_][A-Za-z0-9_.]*$/, condition),
+         codes = LiveShadcnTools.Spec.codes(part["tree"]) do
+      Enum.any?(
+        codes,
+        &Regex.match?(~r/\b#{Regex.escape(condition)}\s*[!=]==?\s*(undefined|null)/, &1)
+      )
+    else
+      _not_a_name -> false
     end
   end
 
@@ -247,7 +302,7 @@ defmodule LiveShadcnTools.Gen do
   # The recipes that write one function per exported part, and can therefore
   # leave one out. Every other recipe folds a component into one function, and a
   # part it needs is a part it draws.
-  @per_part ~w(presentational clipboard)
+  @per_part ~w(presentational clipboard form-control file-tree shimmer)
 
   @doc """
   Refuses a component that names a module the host application will not have.

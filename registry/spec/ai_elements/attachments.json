@@ -346,7 +346,8 @@
           "optional": true,
           "type": "boolean"
         }
-      }
+      },
+      "when": "!(variant === \"grid\")"
     },
     {
       "contexts": [],
@@ -501,7 +502,8 @@
         ],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "onRemove"
     },
     {
       "contexts": [],

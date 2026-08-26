@@ -46,8 +46,8 @@ defmodule LiveShadcn.UI.Bubble do
       data-variant={@variant}
       data-align={@align}
       class={[
-        "cn-bubble group/bubble relative flex w-fit min-w-0 flex-col",
         variant_class("bubbleVariants", "variant", @variant),
+        "cn-bubble group/bubble relative flex w-fit min-w-0 flex-col",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -92,9 +92,9 @@ defmodule LiveShadcn.UI.Bubble do
       data-align={@align}
       data-side={@side}
       class={[
-        "cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center",
         variant_class("bubbleReactionsVariants", "align", @align),
         variant_class("bubbleReactionsVariants", "side", @side),
+        "cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

@@ -42,14 +42,14 @@ defmodule LiveAiElements.Components.SpeechInput do
         data-slot={@rest[:"data-slot"] || "button"}
         disabled={@is_disabled}
         class={[
+          variant_class("buttonVariants", "size", @size),
+          variant_class("buttonVariants", "variant", @variant),
           "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 relative z-10 rounded-full transition-all duration-300",
           if(@is_listening,
             do: "bg-destructive text-white hover:bg-destructive/80 hover:text-white",
             else:
               "bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground"
           ),
-          variant_class("buttonVariants", "size", @size),
-          variant_class("buttonVariants", "variant", @variant),
           @class
         ]}
         {Map.drop(@rest, [:"data-slot"])}
@@ -62,7 +62,7 @@ defmodule LiveAiElements.Components.SpeechInput do
           {Map.drop(@rest, [:"data-slot"])}
         />
         <LiveShadcn.Icon.icon :if={!@is_processing && @is_listening} name="square" class="size-4" />
-        <LiveShadcn.Icon.icon :if={!@is_processing || @is_listening} name="mic" class="size-4" />
+        <LiveShadcn.Icon.icon :if={!(@is_processing || @is_listening)} name="mic" class="size-4" />
         {render_slot(@inner_block)}
       </button>
     </div>

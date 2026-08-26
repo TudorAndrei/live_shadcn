@@ -772,6 +772,22 @@ defmodule LiveShadcnTools.Gen.Heex do
     do: Map.update(node, "__structural__", [attr], &(&1 ++ [attr]))
 
   @doc """
+  Draws a node only when a condition holds.
+
+  For the guard a React render writes as `if (!isStreaming) return null`, which
+  is a fact about the whole part rather than about one attribute of it.
+  """
+  def only_if(node, expression), do: with_attr(node, {":if", :code, expression})
+
+  @doc """
+  One JavaScript condition, as the Elixir a generated component reads.
+
+  `ctx` needs `:params` and nothing else, because a guard reads props and only
+  props: it is the first thing a render does, before anything is computed.
+  """
+  def condition(source, ctx), do: expression(source, ctx)
+
+  @doc """
   Puts the recipe's own attributes on a node.
 
   `:attrs` in the context reaches a Base UI primitive, keyed by the part it
@@ -984,13 +1000,27 @@ defmodule LiveShadcnTools.Gen.Heex do
     Enum.find_value(@operators, fn {javascript, elixir} ->
       case String.split(code, javascript, parts: 2) do
         [left, right] when left != "" and right != "" ->
-          "#{expression(left, ctx)} #{elixir} #{expression(right, ctx)}"
+          absent(elixir, expression(left, ctx), expression(right, ctx))
 
         _ ->
           nil
       end
     end)
   end
+
+  # `inputTokens === undefined` is `is_nil(input_tokens)`, not a comparison with
+  # `nil`.
+  #
+  # Both say the same thing and Elixir's type checker reads only the second as a
+  # comparison between two kinds of value — which it then reports, because a
+  # part that draws nothing without a value has already established that the
+  # value is there. Upstream writes the belt and the braces; JavaScript has no
+  # opinion about that and this project builds with warnings as errors.
+  defp absent("==", left, "nil"), do: "is_nil(#{left})"
+  defp absent("==", "nil", right), do: "is_nil(#{right})"
+  defp absent("!=", left, "nil"), do: "not is_nil(#{left})"
+  defp absent("!=", "nil", right), do: "not is_nil(#{right})"
+  defp absent(operator, left, right), do: "#{left} #{operator} #{right}"
 
   # A quoted string, and a template literal with nothing interpolated. Both
   # already mean in Elixir what they meant in JavaScript.
@@ -1319,7 +1349,22 @@ defmodule LiveShadcnTools.Gen.Heex do
   # `!x` is "not x" and `!!x` is "x, as a yes or no". JavaScript's truthiness is
   # not Elixir's, so the second is written out rather than assumed.
   defp negation("!!" <> rest, ctx), do: "#{expression(rest, ctx)} not in [nil, false, \"\"]"
-  defp negation("!" <> rest, ctx), do: "!#{expression(rest, ctx)}"
+  # Bracketed only where upstream bracketed it.
+  #
+  # `!` binds tighter than `==` in Elixir, so `!(variant === "grid")` written
+  # without brackets is `!@variant == "grid"` — which asks whether `false` is
+  # the word grid. And `!isProcessing && isListening` written *with* them is
+  # `!(a && b)`, which is a different question again: the `!` is upstream's and
+  # so is the bracket, and both are kept as written.
+  defp negation("!" <> rest, ctx) do
+    trimmed = String.trim(rest)
+
+    case unwrapped(trimmed) do
+      ^trimmed -> "!#{expression(trimmed, ctx)}"
+      inner -> "!(#{expression(inner, ctx)})"
+    end
+  end
+
   defp negation(_code, _ctx), do: nil
 
   # `variant ?? "ghost"` — a default when the caller set nothing.
@@ -1375,10 +1420,16 @@ defmodule LiveShadcnTools.Gen.Heex do
   # shadcn merges the caller's class into whichever element called `cn` with it.
   # The spec records which element that was, so the generator never guesses.
   defp class_attr(node, ctx) do
+    # The order upstream writes: `cn(variants({size, variant}), "extra",
+    # className)`. A `cva` table is the base a class string is written over, and
+    # a utility beside it is the override — `prompt-input`'s footer is an input
+    # group addon with `justify-between` written over its `justify-start`, and
+    # with the table last the addon put its tools and its submit button side by
+    # side at the left instead of at either end.
     entries =
       layout_classes(node, ctx) ++
-        base_classes(node, ctx) ++
-        conditional_classes(node, ctx) ++ variant_classes(node, ctx) ++ caller_class(node, ctx)
+        variant_classes(node, ctx) ++
+        base_classes(node, ctx) ++ conditional_classes(node, ctx) ++ caller_class(node, ctx)
 
     case entries do
       [] -> []

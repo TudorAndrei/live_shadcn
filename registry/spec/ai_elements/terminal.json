@@ -118,7 +118,8 @@
       "name": "terminal_status",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "isStreaming": null
       },
       "primitive": null,
       "refs": [
@@ -153,7 +154,8 @@
           "optional": false,
           "type": "boolean"
         }
-      }
+      },
+      "when": "isStreaming"
     },
     {
       "contexts": [],
@@ -424,7 +426,8 @@
         ],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "onClear"
     },
     {
       "contexts": [],

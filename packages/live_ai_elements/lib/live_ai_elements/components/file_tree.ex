@@ -20,7 +20,7 @@ defmodule LiveAiElements.Components.FileTree do
   def file_tree(assigns) do
     ~H"""
     <div role="tree" class={["rounded-lg border bg-background font-mono text-sm", @class]} {@rest}>
-      <div class="p-2">
+      <div role="group" class="p-2">
         {render_slot(@inner_block)}
       </div>
     </div>
@@ -67,16 +67,19 @@ defmodule LiveAiElements.Components.FileTree do
   def file_tree_folder(assigns) do
     ~H"""
     <div
+      role="none"
       data-slot={@rest[:"data-slot"] || "collapsible"}
       open={@is_expanded}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <div role="treeitem" tabindex={0} class={[@class]} {@rest}>
+      <div role="treeitem" tabindex={0} aria-expanded={@is_expanded} class={[@class]} {@rest}>
         <div class={[
           "flex w-full items-center gap-1 rounded px-2 py-1 text-left transition-colors hover:bg-muted/50",
           if(@is_selected, do: "bg-muted", else: nil)
         ]}>
           <button
+            aria-hidden="true"
+            tabindex="-1"
             data-slot={@rest[:"data-slot"] || "collapsible-trigger"}
             type="button"
             class="flex shrink-0 cursor-pointer items-center border-none bg-transparent p-0"
@@ -111,7 +114,7 @@ defmodule LiveAiElements.Components.FileTree do
           data-slot={@rest[:"data-slot"] || "collapsible-content"}
           {Map.drop(@rest, [:"data-slot"])}
         >
-          <div class="ml-4 border-l pl-2">
+          <div role="group" class="ml-4 border-l pl-2">
             {render_slot(@inner_block)}
           </div>
         </div>

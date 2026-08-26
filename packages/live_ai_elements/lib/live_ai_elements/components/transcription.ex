@@ -50,7 +50,7 @@ defmodule LiveAiElements.Components.Transcription do
         "inline text-left",
         if(@is_active, do: "text-primary", else: nil),
         if(@is_past, do: "text-muted-foreground", else: nil),
-        if(!@is_active || @is_past, do: "text-muted-foreground/60", else: nil),
+        if(!(@is_active || @is_past), do: "text-muted-foreground/60", else: nil),
         "cursor-pointer hover:text-foreground",
         if(!true, do: "cursor-default", else: nil),
         @class

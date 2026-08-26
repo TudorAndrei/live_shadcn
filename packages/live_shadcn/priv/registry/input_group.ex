@@ -50,8 +50,8 @@ defmodule LiveShadcn.UI.InputGroup do
       role="group"
       data-align={@align}
       class={[
-        "cn-input-group-addon flex cursor-text items-center justify-center select-none",
         variant_class("inputGroupAddonVariants", "align", @align),
+        "cn-input-group-addon flex cursor-text items-center justify-center select-none",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -76,8 +76,8 @@ defmodule LiveShadcn.UI.InputGroup do
       data-size={@size}
       variant={@variant}
       class={[
-        "cn-input-group-button flex items-center shadow-none",
         variant_class("inputGroupButtonVariants", "size", @size),
+        "cn-input-group-button flex items-center shadow-none",
         @class
       ]}
       {@rest}

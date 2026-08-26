@@ -229,7 +229,7 @@
       }
     },
     "pass": true,
-    "spec": "c2c11f5fd8722b711f7974c70e51613bda67ab3ec6cad0df30920dd932ba8124"
+    "spec": "df5b01cf60227b164f2517810465a0ac47af73bbc8e53e346cfb337e927c1840"
   },
   "shadcn/pagination": {
     "checks": {
@@ -439,7 +439,7 @@
       }
     },
     "pass": true,
-    "spec": "012546c333f102882b09a80f89b47377a5525eb5b864582b81762376313d9c22"
+    "spec": "71f8540da8c3025ba493f9f0c89c730db85cddd84962c3bc841951298eb98b12"
   },
   "ai_elements/image": {
     "checks": {
@@ -481,7 +481,7 @@
       }
     },
     "pass": true,
-    "spec": "61ae7e3d33ebff0cdf6af956f815f17fad0c68d59c6f5854f7facac0da707593"
+    "spec": "4e87d0cdbb4aa006a32947495c8fab3a80a8f2e722433365b9bf9aa87bce6708"
   },
   "shadcn/menubar": {
     "checks": {
@@ -586,7 +586,7 @@
       }
     },
     "pass": true,
-    "spec": "b92d4deb974da7fa53c8b015d675321a3d9b15d47cb8a6b3d5bd4acebb339b79"
+    "spec": "3814afe18db1d6e67717e546f9768bc6a11b2882b88af90e814568009e7a84e0"
   },
   "shadcn/input": {
     "checks": {
@@ -692,7 +692,7 @@
       }
     },
     "pass": true,
-    "spec": "9dcbe32be97e0f1dcdbbdd80cd5660ab5e365a2ef32121efe39b047ca6725bae"
+    "spec": "3287a19c02302be1086b141abc52b1952f90c14103d0a098ccaeca0bb2c480cc"
   },
   "shadcn/skeleton": {
     "checks": {
@@ -945,7 +945,7 @@
       }
     },
     "pass": true,
-    "spec": "d9a1aabeb3e7403be76a44cfa0b66b173f1b9ce13ac430a963b21a287ecbca8a"
+    "spec": "0e4a9a5fb4158bb50b38a940a4af1f2658b03edf0e59cbdfed8f400cd82a40b5"
   },
   "shadcn/sonner": {
     "checks": {
@@ -1134,7 +1134,7 @@
       }
     },
     "pass": true,
-    "spec": "97a49ae20f81a7f4ff32ec64c4e0c52caa87d040b44d1bc8a49dbfc38902820d"
+    "spec": "3452313f8416e7b9e8acb275b5e3a0a84c200424ddb8d66f65395caee5b9d94b"
   },
   "shadcn/tooltip": {
     "checks": {
@@ -1160,26 +1160,22 @@
   "ai_elements/schema-display": {
     "checks": {
       "browser": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
       },
       "parity": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       }
     },
-    "pass": false,
+    "pass": true,
     "spec": "64e3870a95699906f22cca43c86b6a992c152b102efd35b78e175778e34bbca8"
   },
   "shadcn/toggle-group": {
@@ -1248,27 +1244,23 @@
   "ai_elements/terminal": {
     "checks": {
       "browser": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
       },
       "parity": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       }
     },
-    "pass": false,
-    "spec": "ba911da30752c54f47b204bf2ebb9ea7f662ed3463bb43b858ce2fa54c1bfebf"
+    "pass": true,
+    "spec": "7a3cd199da1102a510b94d5d8f26d1fd5ba5e0e9d0a22d2feddec59c2f138880"
   },
   "shadcn/toast": {
     "checks": {
@@ -1310,7 +1302,7 @@
       }
     },
     "pass": true,
-    "spec": "c931b407c78d7830c63cd9866be0f0fd1abaa3cb70ae4f05086b9c791d99de6b"
+    "spec": "267a5ebf1f342327b465b87cb2975bf1474cd33f231add0264e6d7b3bc396dd9"
   },
   "ai_elements/snippet": {
     "checks": {
@@ -1668,7 +1660,7 @@
       }
     },
     "pass": true,
-    "spec": "8f627a025bc01cead787f86914e4af3da5163798613408bbb1d1a099aee7fb38"
+    "spec": "e56dc657044c662729efb69b58b4b003bf14af7b4f1a84d4f46cf9b68cf29f4c"
   },
   "ai_elements/audio-player": {
     "checks": {
@@ -1818,6 +1810,28 @@
     },
     "pass": true,
     "spec": "c7272238374633d3f26192a93d43d702236e07cf31d717a937ab74dcdfb3e486"
+  },
+  "ai_elements/prompt-input": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "detail": "prompt-input.default is not compared: The submit button is at the other end of the footer, because the class list is not merged at render: `parity-divergence.json` has the whole of it. A button 366 pixels from where the other side draws it is not a tolerance to measure.",
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "2bc4102028e7fc7a2fcf3a10b3145706fdc2a1bc9a734a945c598e3618145d98"
   },
   "shadcn/navigation-menu": {
     "checks": {
@@ -1969,27 +1983,23 @@
   "ai_elements/file-tree": {
     "checks": {
       "browser": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
       },
       "parity": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "pixel": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       },
       "snapshot": {
-        "detail": "no example yet: add one to storybook/lib/storybook_web/examples.ex",
-        "pass": false
+        "pass": true
       }
     },
-    "pass": false,
-    "spec": "d218ec25433ba6f27ce4fe8aa53ed0eedfbc220c67bcd269f5f51718d08e086f"
+    "pass": true,
+    "spec": "f006add711c5056d53e24be9860d2ea2123896a6827573a603b0dceb4e6ed493"
   },
   "shadcn/drawer": {
     "checks": {

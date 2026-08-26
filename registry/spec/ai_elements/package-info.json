@@ -372,7 +372,8 @@
         ],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "changeType"
     },
     {
       "contexts": [],
@@ -538,7 +539,8 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "(currentVersion || newVersion)"
     },
     {
       "contexts": [],

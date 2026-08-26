@@ -21,8 +21,8 @@ defmodule LiveShadcn.UI.Marker do
       data-slot={@rest[:"data-slot"] || "marker"}
       data-variant={@variant}
       class={[
-        "cn-marker group/marker relative flex w-full items-center",
         variant_class("markerVariants", "variant", @variant),
+        "cn-marker group/marker relative flex w-full items-center",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

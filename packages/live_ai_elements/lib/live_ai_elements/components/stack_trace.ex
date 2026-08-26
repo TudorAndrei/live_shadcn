@@ -129,9 +129,9 @@ defmodule LiveAiElements.Components.StackTrace do
       data-lb-timeout={@timeout}
       data-slot={@rest[:"data-slot"] || "button"}
       class={[
-        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7",
         variant_class("buttonVariants", "size", @size),
         variant_class("buttonVariants", "variant", @variant),
+        "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -206,7 +206,7 @@ defmodule LiveAiElements.Components.StackTrace do
         <span :if={frame.filePath} class="text-muted-foreground">
           )
         </span>
-        <span :if={!frame.filePath || frame.functionName}>
+        <span :if={!(frame.filePath || frame.functionName)}>
           {String.replace(frame.raw, ~r/^at\s+/, "", global: false)}
         </span>
       </div>

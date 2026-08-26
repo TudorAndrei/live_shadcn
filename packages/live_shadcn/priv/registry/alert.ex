@@ -21,8 +21,8 @@ defmodule LiveShadcn.UI.Alert do
       data-slot={@rest[:"data-slot"] || "alert"}
       role="alert"
       class={[
-        "cn-alert group/alert relative w-full",
         variant_class("alertVariants", "variant", @variant),
+        "cn-alert group/alert relative w-full",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

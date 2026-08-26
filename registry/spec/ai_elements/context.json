@@ -981,7 +981,8 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "inputTokens"
     },
     {
       "contexts": [],
@@ -1120,7 +1121,8 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "outputTokens"
     },
     {
       "contexts": [],
@@ -1259,7 +1261,8 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "reasoningTokens"
     },
     {
       "contexts": [],
@@ -1398,7 +1401,8 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "cacheTokens"
     }
   ],
   "primitives": {

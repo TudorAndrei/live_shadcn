@@ -26,8 +26,8 @@ defmodule LiveShadcn.UI.Field do
       role="group"
       data-orientation={@orientation}
       class={[
-        "cn-field group/field flex w-full",
         variant_class("fieldVariants", "orientation", @orientation),
+        "cn-field group/field flex w-full",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -89,6 +89,7 @@ defmodule LiveShadcn.UI.Field do
   def field_error(assigns) do
     ~H"""
     <div
+      :if={@content}
       data-slot={@rest[:"data-slot"] || "field-error"}
       role="alert"
       class={["cn-field-error font-normal", @class]}

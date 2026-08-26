@@ -30,9 +30,9 @@ defmodule LiveShadcn.UI.Attachment do
       data-size={@size}
       data-orientation={@orientation}
       class={[
-        "cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
         variant_class("attachmentVariants", "orientation", @orientation),
         variant_class("attachmentVariants", "size", @size),
+        "cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -75,8 +75,8 @@ defmodule LiveShadcn.UI.Attachment do
       data-slot={@rest[:"data-slot"] || "attachment-media"}
       data-variant={@variant}
       class={[
-        "cn-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive [&_svg]:pointer-events-none",
         variant_class("attachmentMediaVariants", "variant", @variant),
+        "cn-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive [&_svg]:pointer-events-none",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

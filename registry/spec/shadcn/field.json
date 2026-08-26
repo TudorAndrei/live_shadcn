@@ -228,7 +228,8 @@
         "variant_calls": [],
         "vars": []
       },
-      "types": {}
+      "types": {},
+      "when": "content"
     },
     {
       "contexts": [],

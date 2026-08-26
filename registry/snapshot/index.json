@@ -20,6 +20,9 @@
   "shimmer": [
     "default"
   ],
+  "file-tree": [
+    "default"
+  ],
   "resizable": [
     "default"
   ],
@@ -39,6 +42,9 @@
     "default"
   ],
   "message-scroller": [
+    "default"
+  ],
+  "prompt-input": [
     "default"
   ],
   "shadcn-message": [
@@ -96,6 +102,9 @@
     "default"
   ],
   "sources": [
+    "default"
+  ],
+  "schema-display": [
     "default"
   ],
   "tooltip": [
@@ -157,6 +166,9 @@
     "default"
   ],
   "reasoning": [
+    "default"
+  ],
+  "terminal": [
     "default"
   ],
   "native-select": [
