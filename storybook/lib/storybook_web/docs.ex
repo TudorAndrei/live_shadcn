@@ -8,7 +8,7 @@ defmodule StorybookWeb.Docs do
 
   | On the page | Where it comes from |
   |---|---|
-  | the navigation | `StorybookWeb.Examples.components/0` |
+  | the navigation | `StorybookWeb.Examples.components/0`, grouped by the sections in `registry/UPSTREAM.json` |
   | the Code tab | the `~H` body of the example function, read from source |
   | the API table | the component module's own `__components__/0` |
 
@@ -39,6 +39,20 @@ defmodule StorybookWeb.Docs do
 
   @examples_path Path.join(__DIR__, "examples.ex")
   @external_resource @examples_path
+
+  @upstream_path Path.expand("../../../registry/UPSTREAM.json", __DIR__)
+  @external_resource @upstream_path
+
+  # The sections the AI Elements documentation groups its components under, in
+  # the order it lists them. `mix ui.fetch` reads them from upstream's own
+  # `meta.json` and the directory each page sits in; this module only reads the
+  # manifest, so a component that moves to another section moves here too.
+  @sections (fn ->
+               manifest = @upstream_path |> File.read!() |> Jason.decode!()
+
+               for section <- get_in(manifest, ["groups", "ai_elements"]) || [],
+                   do: {section["title"], section["components"]}
+             end).()
 
   # The markup inside every example function, by function name.
   #
@@ -174,10 +188,10 @@ defmodule StorybookWeb.Docs do
   and the first is a dependency — or that the two entries both called `Message`
   are different components from different registries.
 
-  Which package a component ships in is the grouping, and it is read rather than
-  maintained: the module a component generates into says which namespace it is
-  in, and the namespace belongs to exactly one package. A hand-kept list of
-  categories drifts from the components it names.
+  Which package a component ships in is read rather than maintained: the module
+  a component generates into says which namespace it is in, and the namespace
+  belongs to exactly one package. It is what `groups/0` names each of its groups
+  by, so the sidebar answers "how do I install this" as well as "where is it".
 
   The blurb and the version are the package's own, out of its application spec,
   which is what `mix.exs` puts there. Typing them here would be a second copy
@@ -197,12 +211,56 @@ defmodule StorybookWeb.Docs do
   @doc """
   The components, grouped for the navigation.
 
-  The same grouping as `libraries/0`, without the packages that draw nothing.
+  Two facts, and the navigation says both. Which package a component ships in
+  decides how it is installed — `mix ui.add badge` copies a file in, and an AI
+  Element is a dependency — and it is what tells the two components called
+  `Message` apart. Which section it belongs to is how its own documentation is
+  read: a person looking for `Conversation` looks under Chatbot, because that is
+  where ai-sdk.dev puts it.
+
+  So the sections are the groups, and the package is named once, on the first
+  group that ships in it. Neither is typed here: the package comes from the
+  namespace the component generates into, and the sections come from
+  `registry/UPSTREAM.json`, which `mix ui.fetch` reads out of upstream's own
+  documentation tree.
+
+  `live_shadcn` has one group and no sections, because ui.shadcn.com does not
+  group its components either — one alphabetical list is what the site shows.
+  It is titled after the package, which is the only name that list has.
   """
   def groups do
-    for library <- libraries(),
-        library.components != [],
-        do: {library.package, library.components}
+    shadcn = components_in(LiveShadcn.UI)
+    documented = MapSet.new(Examples.components())
+
+    sections =
+      for {title, names} <- @sections,
+          components = Enum.flat_map(names, &id(&1, documented)),
+          components != [],
+          do: %{title: title, components: components}
+
+    named([%{title: "live_shadcn", components: shadcn} | sections])
+  end
+
+  # The storybook id a documented component has here, if it has one at all. A
+  # page can name a component this pipeline does not generate, and both
+  # registries have a `message` — which is why one of them is `ai_elements-`.
+  defp id(name, documented) do
+    ["ai_elements-" <> name, name]
+    |> Enum.filter(&MapSet.member?(documented, &1))
+    |> Enum.filter(&String.starts_with?(to_string(module(&1)), "Elixir.LiveAiElements"))
+    |> Enum.take(1)
+  end
+
+  # The package a group ships in, said on the first group that ships in it.
+  defp named(groups) do
+    {named, _seen} =
+      Enum.map_reduce(groups, MapSet.new(), fn group, seen ->
+        package = library(hd(group.components)).package
+        said? = MapSet.member?(seen, package) or group.title == package
+        {Map.put(group, :package, unless(said?, do: package)), MapSet.put(seen, package)}
+      end)
+
+    named
   end
 
   @doc """

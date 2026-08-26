@@ -66,15 +66,20 @@ defmodule StorybookWeb.IndexLive do
       </p>
     </section>
 
-    <section :for={library <- @libraries} :if={library.components != []} class="mt-10">
+    <%!-- The same groups as the sidebar, in the same order: one per section of
+          the documentation each library publishes. --%>
+    <section :for={group <- @groups} class="mt-10">
       <h2 class="text-lg font-medium">
-        <code>{library.package}</code>
+        {group.title}
+        <code :if={group.package} class="ml-2 text-sm font-normal text-muted-foreground">
+          {group.package}
+        </code>
         <span class="ml-2 text-sm font-normal text-muted-foreground">
-          {length(library.components)} components
+          {length(group.components)} components
         </span>
       </h2>
       <ul class="mt-4 grid grid-cols-2 gap-x-6 gap-y-1 sm:grid-cols-3">
-        <li :for={component <- library.components}>
+        <li :for={component <- group.components}>
           <.link
             navigate={~p"/docs/#{component}"}
             class="text-sm underline-offset-4 hover:underline"
@@ -89,6 +94,11 @@ defmodule StorybookWeb.IndexLive do
 
   @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, libraries: Docs.libraries(), page_title: "live_shadcn")}
+    {:ok,
+     assign(socket,
+       libraries: Docs.libraries(),
+       groups: Docs.groups(),
+       page_title: "live_shadcn"
+     )}
   end
 end

@@ -67,6 +67,49 @@ defmodule StorybookWeb.ExamplesTest do
     end
   end
 
+  describe "the navigation" do
+    test "puts every documented component in exactly one group" do
+      grouped = StorybookWeb.Docs.groups() |> Enum.flat_map(& &1.components)
+
+      assert Enum.sort(grouped) == Enum.sort(Examples.components())
+      assert Enum.uniq(grouped) == grouped
+    end
+
+    test "groups them by the section their own documentation files them under", %{conn: conn} do
+      {:ok, _view, html} = live(conn, "/docs/badge")
+
+      # Read from the manifest `mix ui.fetch` writes, not typed here: the
+      # sections are upstream's, and a test that named them would be a second
+      # copy of the thing being checked.
+      for %{"title" => title, "components" => components} <- sections() do
+        assert html =~ title
+
+        for name <- components, do: assert(html =~ ~s(/docs/#{name}") or html =~ "-#{name}\"")
+      end
+    end
+
+    test "names each package once, on the first group that ships in it" do
+      # A group says the package in its title or beside it, and a package that
+      # draws components is said once — not on all five of its sections.
+      said =
+        StorybookWeb.Docs.groups()
+        |> Enum.flat_map(&[&1.package, &1.title])
+        |> Enum.reject(&is_nil/1)
+
+      for library <- StorybookWeb.Docs.libraries(), library.components != [] do
+        assert Enum.count(said, &(&1 == library.package)) == 1
+      end
+    end
+
+    defp sections do
+      "../../../registry/UPSTREAM.json"
+      |> Path.expand(__DIR__)
+      |> File.read!()
+      |> Jason.decode!()
+      |> get_in(["groups", "ai_elements"])
+    end
+  end
+
   describe "the page around the component" do
     test "supplies the heading levels above the component's own", %{conn: conn} do
       # The accordion's headings are `h3`, which Base UI documents. A page that

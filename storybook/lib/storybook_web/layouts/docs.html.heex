@@ -28,11 +28,21 @@
     </.sidebar_header>
 
     <.sidebar_content>
-      <.sidebar_group :for={{label, components} <- Docs.groups()}>
-        <.sidebar_group_label>{label}</.sidebar_group_label>
+      <%!-- One group per section of the documentation upstream publishes, and
+           the package named once on the first group that ships in it. Which
+           section a component is in says where to look for it; which package it
+           is in says how to install it, and tells the two components called
+           `Message` apart. --%>
+      <.sidebar_group :for={group <- Docs.groups()}>
+        <.sidebar_group_label>
+          {group.title}
+          <code :if={group.package} class="ml-2 text-[10px] font-normal opacity-60">
+            {group.package}
+          </code>
+        </.sidebar_group_label>
         <.sidebar_group_content>
           <.sidebar_menu>
-            <.sidebar_menu_item :for={component <- components}>
+            <.sidebar_menu_item :for={component <- group.components}>
               <.sidebar_menu_button is_active={component == assigns[:component]}>
                 <.link navigate={~p"/docs/#{component}"}>{Docs.title(component)}</.link>
               </.sidebar_menu_button>
