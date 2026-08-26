@@ -27,7 +27,11 @@
       <.search matches={assigns[:matches] || []} />
     </.sidebar_header>
 
-    <.sidebar_content>
+    <%!-- A live navigation replaces the LiveView's DOM, and the sidebar is in
+         it. Everything the browser owned about the navigation — the scroll
+         position, and whether it is collapsed — goes with it, so the `Nav` hook
+         remembers the two of them for the life of the tab. --%>
+    <.sidebar_content id="docs-nav-content" phx-hook="Nav">
       <%!-- One group per section of the documentation upstream publishes, and
            the package named once on the first group that ships in it. Which
            section a component is in says where to look for it; which package it
