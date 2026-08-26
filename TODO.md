@@ -5,6 +5,9 @@ The checkbox form of [PLAN.md](PLAN.md), which holds the reasoning.
 49 AI Elements components are in the registry, 14 generate, and **one
 verifies**. The goal is that every one that generates also verifies.
 
+**Done.** 100 of 111 verify, and nothing generates without verifying. The other
+eleven are recorded non-goals in [ROADMAP.md](ROADMAP.md).
+
 ## Phase 1a: Two props the reader made and then filtered back out
 
 Neither `text` nor `showValues` needed a decision. `props_read/2` keeps only the
@@ -189,29 +192,30 @@ generator can only render a choice the **server** decides.
 - [x] A component that calls a sibling which did not generate is refused rather
       than shipped — `agent` renders `code-block`, and the package stopped
       compiling
-- [ ] **`file-tree` generates and has no example, and that is a decision to
-      make rather than a gap to close.** Ported faithfully it carries two axe
-      violations, and both are upstream's: a `role="treeitem"` whose parent is a
-      plain `<div>` rather than a `tree` or a `group`, and a chevron button with
-      an icon and no name. `accessibility.spec.mjs` says markup is ours and
-      fails the run; the pipeline says markup is upstream's and is never typed
-      by hand. Both cannot hold. Either the axe floor gets a recorded-inherited
-      list the way the palette already has one, or the pipeline gains the right
-      to add an accessible name upstream forgot. The example is left out until
-      that is decided, rather than either gate being quietly weakened
-- [ ] **`schema-display` generates and has no example.** Its badge draws one
-      pixel left and one pixel up of upstream's, and the whole is six pixels
-      shorter. The `methodStyles[method]` lookup is in the class string now —
-      that was the first cause and it is fixed — and what is left is not
-      understood. `parity-divergence.json` says the question to answer first is
-      whether the reader misread upstream, so the example waits for the answer
-      rather than the answer waiting for a recorded tolerance
-- [ ] **`terminal` generates and has no example.** It draws twenty-three pixels
-      taller than upstream — one line of `leading-relaxed` — and the `<pre>`
-      that was indenting its own content is fixed, so that is not it any more.
-      Composing the example rather than letting the component draw its own
-      header is what its axe run needs, and that part is written; the example
-      lands when the line is accounted for
+- [x] **`file-tree` needed the ARIA the roles it already writes imply.**
+      `role="tree"` and `role="treeitem"` are upstream's own, and a `treeitem`
+      has to be owned by a `tree` or a `group` — so the recipe adds the two
+      groups, a `role="none"` on the collapsible between them, and an
+      `aria-expanded` the folder already takes. The chevron is a button with an
+      icon and no words; naming it would mean writing English, and the row's
+      other button already opens the folder, so it leaves the accessibility
+      tree instead. Neither is a difference of opinion with upstream about
+      markup, and neither draws a pixel
+- [ ] **The class list is not merged at render.** Upstream's `cn()` is
+      tailwind-merge and sees the `cva` table, the component's own string and
+      the caller's together; a generated component writes all three and lets
+      stylesheet order decide. Two of the three are merged where the reader can
+      see both. The third is read from a table at render, so the rest wants a
+      merge at render — `LiveShadcnTools.TwMerge` is the algorithm and a
+      `live_base` function is where it would go. `prompt-input`'s footer is the
+      first place it shows: `justify-start`, `justify-center` and
+      `justify-between` on one element
+- [x] **`schema-display` was the example, not the component.** The badge sat a
+      pixel out because the example composed the parts without the root they
+      belong in, and that root has a border. Both sides draw it now
+- [x] **`terminal` was the `<pre>` after all.** A `<pre>` indented like any
+      other element prints the indentation, and the line it gained was the
+      newline before its own content
 - [ ] **A value beside an element gains a space HTML does not drop.** `context`
       writes `<span>{tokens}<span class="ml-2">• {cost}</span></span>`, and the
       generator puts the two children on their own lines: the newline between
@@ -247,11 +251,27 @@ generator can only render a choice the **server** decides.
       element's children
 - [x] `persona` and `jsx-preview` recorded in [ROADMAP.md](ROADMAP.md) as
       non-goals: one is a Rive canvas, the other compiles markup from a string
-- [ ] `prompt-input` is the last one that could generate and does not. It
-      renders five shadcn components a dependency cannot name, so the fold has
-      to carry the menu, tooltip, select, hover-card and command recipes rather
-      than call them
+- [x] `prompt-input` — twenty-two of its thirty-five parts wrap a menu, a
+      select, a hover card or a command palette part by part, and each of those
+      is one function here. The form-control recipe drops them the way the
+      presentational recipe already did, and the thirteen that are its own
+      generate
 - [x] Commit: `feat(ai-elements): the last nine, one decision each`
+
+## Phase 11: Nothing generated and unverified
+
+- [x] **100 verified, and `mix ui.status` reads `0 generated`.** Every component
+      this pipeline generates has an example, a React reference, a snapshot, an
+      axe run and a pixel comparison. The eleven that are not verified are the
+      eleven recorded non-goals
+- [x] A guard is a fact about the whole part: `if (!isStreaming) return null` is
+      markup that does not exist
+- [x] `!` binds tighter in Elixir than in JavaScript, and only where upstream
+      bracketed it
+- [x] A `cva` table is the base a class string is written over, not the override
+- [x] `open-in-chat` filed as a `utility`, beside the other ten non-goals, so
+      the reader is not asked to read a file nobody generates
+- [x] Commit: `feat(ai-elements): nothing generated and unverified`
 
 ## Verification
 

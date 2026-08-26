@@ -7,19 +7,19 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 0 | ························ |
-| `fetched` | 10 | ██······················ |
-| `spec` | 2 | ························ |
-| `generated` | 3 | █······················· |
-| `verified` | 96 | █████████████████████··· |
+| `fetched` | 11 | ██······················ |
+| `spec` | 0 | ························ |
+| `generated` | 0 | ························ |
+| `verified` | 100 | ██████████████████████·· |
 
 ## Recipes
 
-Eight core recipes cover 77 of 111 components.
+Eight core recipes cover 75 of 111 components.
 Only the recipes are written by hand; every component is data.
 
 | Recipe | Kind | Components |
 |---|---|---:|
-| `presentational` | core | 45 |
+| `presentational` | core | 43 |
 | `disclosure` | core | 8 |
 | `form-control` | core | 8 |
 | `dialog` | core | 4 |
@@ -27,7 +27,7 @@ Only the recipes are written by hand; every component is data.
 | `popover` | core | 3 |
 | `menu` | core | 2 |
 | `tabs` | core | 1 |
-| `utility` | specialist | 10 |
+| `utility` | specialist | 11 |
 | `clipboard` | specialist | 6 |
 | `scroller` | specialist | 3 |
 | `toast` | specialist | 2 |
@@ -35,6 +35,7 @@ Only the recipes are written by hand; every component is data.
 | `carousel` | specialist | 1 |
 | `chart` | specialist | 1 |
 | `checkbox` | specialist | 1 |
+| `file-tree` | specialist | 1 |
 | `navigation-menu` | specialist | 1 |
 | `pagination` | specialist | 1 |
 | `progress` | specialist | 1 |
@@ -123,7 +124,7 @@ Only the recipes are written by hand; every component is data.
 | `context` | 1 | `presentational` | ✅ verified |
 | `conversation` | 1 | `scroller` | ✅ verified |
 | `message` | 1 | `presentational` | ✅ verified |
-| `prompt-input` | 1 | `form-control` | 🟨 spec |
+| `prompt-input` | 1 | `form-control` | ✅ verified |
 | `reasoning` | 1 | `disclosure` | ✅ verified |
 | `shimmer` | 1 | `shimmer` | ✅ verified |
 | `sources` | 1 | `disclosure` | ✅ verified |
@@ -138,18 +139,18 @@ Only the recipes are written by hand; every component is data.
 | `confirmation` | 2 | `presentational` | ✅ verified |
 | `controls` | 2 | `utility` | 🟦 fetched |
 | `environment-variables` | 2 | `clipboard` | ✅ verified |
-| `file-tree` | 2 | `presentational` | 🟩 generated |
+| `file-tree` | 2 | `file-tree` | ✅ verified |
 | `image` | 2 | `presentational` | ✅ verified |
 | `inline-citation` | 2 | `presentational` | ✅ verified |
 | `model-selector` | 2 | `presentational` | ✅ verified |
-| `open-in-chat` | 2 | `presentational` | 🟨 spec |
+| `open-in-chat` | 2 | `utility` | 🟦 fetched |
 | `package-info` | 2 | `presentational` | ✅ verified |
 | `panel` | 2 | `utility` | 🟦 fetched |
 | `persona` | 2 | `utility` | 🟦 fetched |
 | `plan` | 2 | `disclosure` | ✅ verified |
 | `question` | 2 | `presentational` | ✅ verified |
 | `queue` | 2 | `presentational` | ✅ verified |
-| `schema-display` | 2 | `presentational` | 🟩 generated |
+| `schema-display` | 2 | `presentational` | ✅ verified |
 | `snippet` | 2 | `clipboard` | ✅ verified |
 | `stack-trace` | 2 | `clipboard` | ✅ verified |
 | `test-results` | 2 | `presentational` | ✅ verified |
@@ -163,7 +164,7 @@ Only the recipes are written by hand; every component is data.
 | `node` | 3 | `utility` | 🟦 fetched |
 | `sandbox` | 3 | `presentational` | ✅ verified |
 | `speech-input` | 3 | `presentational` | ✅ verified |
-| `terminal` | 3 | `clipboard` | 🟩 generated |
+| `terminal` | 3 | `clipboard` | ✅ verified |
 | `transcription` | 3 | `presentational` | ✅ verified |
 | `voice-selector` | 3 | `presentational` | ✅ verified |
 | `web-preview` | 3 | `presentational` | ✅ verified |

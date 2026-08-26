@@ -594,11 +594,51 @@ Four findings the checks made along the way, each fixed at the source:
   Both of `terminal`'s buttons fold shadcn's `Button`, so the clipboard hook
   landed on the clear button too.
 
-96 verified. Three components generate and wait for an example, each for a
-reason written in [TODO.md](TODO.md); two are recorded non-goals; ten are
-utilities.
-
 **Commit:** `feat(ai-elements): the last nine, one decision each`
+
+### Phase 11: Nothing generated and unverified
+
+**100 verified, and nothing left in between.** Every component this pipeline
+generates now has an example, a React reference it is compared against, a markup
+snapshot, an axe run and a pixel comparison. The eleven that are not verified are
+the eleven recorded non-goals, and `mix ui.status` reads `0 generated`.
+
+The last four were each one thing:
+
+- **`file-tree`** wanted the ARIA the roles it already writes imply. A
+  `role="treeitem"` has to be owned by a `tree` or a `group`, and upstream wraps
+  its own in plain boxes; the chevron is a button with an icon and no words. The
+  recipe adds two groups, a `role="none"`, an `aria-expanded` the folder already
+  takes, and takes the chevron out of the accessibility tree — the row's other
+  button already opens the folder, and naming the chevron would mean writing
+  English. This was the decision recorded as open in phase 10, and it turned out
+  not to be a decision between the axe floor and "markup is never typed by hand":
+  every one of those attributes follows from a role upstream wrote.
+- **`schema-display`** was the example rather than the component. It composed
+  the parts without the root they belong in, and that root has a border.
+- **`terminal`** was the `<pre>`. Indented like any other element it prints the
+  indentation, and the line it gained was the newline before its own content.
+- **`prompt-input`** is twenty-two wrappers around a menu, a select, a hover
+  card and a command palette, and thirteen parts that are its own. The
+  form-control recipe drops a wrapper the way the presentational recipe already
+  did.
+
+Three findings came with them, each fixed at the source:
+
+- **A guard is a fact about the whole part.** `if (!isStreaming) return null` at
+  the top of a render is markup that does not exist, and dropped it made
+  `terminal`'s status an empty box in a header laid out with `gap-1`.
+- **`!` binds tighter in Elixir than in JavaScript, and only where upstream
+  bracketed it.** `!(variant === "grid")` and `!isProcessing && isListening` are
+  different questions and were being written as the same one.
+- **A `cva` table is the base, not the override.** `cn(variants({align}),
+  "justify-between", className)` is the order upstream writes, and the generator
+  had the table last.
+
+One thing is left, and it is general rather than per-component: the class list is
+not merged at render. `prompt-input`'s footer is where it shows.
+
+**Commit:** `feat(ai-elements): nothing generated and unverified`
 
 ## Risks & Tradeoffs
 
