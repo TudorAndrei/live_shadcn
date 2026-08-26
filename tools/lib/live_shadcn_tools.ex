@@ -91,9 +91,16 @@ defmodule LiveShadcnTools do
     do: folded not in @folding or folded in Map.get(@carries, recipe, [])
 
   # What a call needs at each end. The component called writes one function per
-  # part with nothing for the parts to agree about; the component calling writes
-  # one function per part too, because a recipe that folds a component into one
+  # part and carries no behaviour of its own; the component calling writes one
+  # function per part too, because a recipe that folds a component into one
   # function builds its own tree and has no call site to put this at.
+  #
+  # `form-control` and `switch` are the near misses: both write one function per
+  # part, and both attach behaviour to it. Called, shadcn's switch brings its
+  # hidden checkbox and its own `phx-click` — over the one
+  # `environment-variables` writes to toggle a secret — and shadcn's input
+  # brings the validity attributes a field owns. Their markup folds in and the
+  # AI Element keeps the behaviour it wrote.
   @callable ~w(presentational separator progress)
   @calling ~w(presentational clipboard form-control file-tree shimmer)
 

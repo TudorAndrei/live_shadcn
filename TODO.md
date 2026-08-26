@@ -354,8 +354,13 @@ Call what is a component:
 - [x] **`mix snapshot --check`**: six of 114 moved, and every one of them is the
       same class names in a different order — the sets are identical and so is
       the rest of the markup
-- [ ] `form-control` (input, textarea, input-group) and `switch` are still
-      folded. They take a name and a value, and a call has to carry those
+- [x] `form-control` and `switch` fold, and the run that tried them is why:
+      shadcn's switch brings its hidden checkbox and its own `phx-click` — over
+      the one `environment-variables` writes to toggle a secret — and shadcn's
+      input brings the validity attributes a field owns. A component that
+      carries behaviour is composed, not called
+- [x] The eight recipes that fold a component into one function are unchanged,
+      and their moduledocs already say which component to compose
 
 ## Verification
 
