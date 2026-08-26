@@ -545,21 +545,60 @@ and `web-preview`. Three findings came with them:
   compiling. `reachable!/1` refused a call into another package and nothing
   refused one inside it.
 
-What is left is no longer reader work. Each remaining component wants a
-decision:
-
-- `code-block` — a specialist recipe. Its tokens come from shiki in the browser,
-  and the honest port draws upstream's own pre-highlight fallback and takes the
-  tokens as data. `agent`, `sandbox` and `tool`'s output part wait on it.
-- `conversation`, `shimmer` — tier 1, and both wait on a library:
-  `use-stick-to-bottom` and `motion`. Both want a `live_base` hook.
-- `schema-display` — `dangerouslySetInnerHTML` with a `replaceAll` whose
-  replacement is a `<span>`. In HEEx that is a split and a wrap, which is markup
-  rather than a string.
-- `audio-player`, `jsx-preview`, `persona`, `terminal` — one foreign component
-  each. A shim, a recipe, or a non-goal, decided per component.
-
 **Commit:** `feat(spec): ask oxc what an expression is`
+
+### Phase 10: The rest of them, one decision each
+
+Nine components were left, and each wanted a decision rather than more reader.
+All nine are made.
+
+**Three are somebody else's runtime, and are non-goals.** `persona` is a Rive
+WebGL2 canvas — one element, everything drawn into it, nothing that is markup.
+`jsx-preview` compiles a JSX string at render, which is the injection this
+pipeline is built to avoid. Both join `open-in-chat` and the React Flow family
+in `ROADMAP.md`.
+
+**Three are a library the page loads, and the markup is still markup.**
+`audio-player` is media-chrome, whose React package renders custom elements —
+`<media-play-button>` is HTML, and a HEEx template writes it. `conversation` is
+`use-stick-to-bottom`, which is a box that scrolls and keeps itself at the
+bottom: the `scroller` recipe already owns that, once a scrollbar of its own
+stopped being required. `terminal` is `ansi-to-react`, and turning escape codes
+into spans is a job Elixir already does — so it gets the seam the markdown
+renderer has, `LiveAiElements.Ansi`.
+
+**One is an animation, and animation is behaviour.** `shimmer` moves
+`background-position` with `motion`, which calls the Web Animations API.
+`LiveBase.Shimmer` calls the same API with the same two keyframes, read off
+`initial` and `animate` — a `@keyframes` rule would have been a style rule
+typed by a person, which is the one thing this project does not do.
+
+**Two were arithmetic.** `code-block` masks a shiki bit field three times, so
+the reader inlines a one-line value helper and the generator writes the mask out
+— JavaScript reads a zero as false and Elixir does not, and every token would
+have come out bold. `context` writes `1.2K` and `$0.02` with
+`Intl.NumberFormat`; Elixir's standard library has neither and CLDR is a large
+dependency for two shapes whose locale upstream hard-codes, so the module
+carries the two functions the way it already carries `variant_class/3`.
+
+Four findings the checks made along the way, each fixed at the source:
+
+- **A class string can come from a plain table.** `methodStyles[method]` inside
+  `cn()` is `cva` written plainly, and dropping it took the colour off every
+  method a schema draws.
+- **A `<pre>` indented like any other element prints the indentation.**
+- **A part that calls a sibling has to hand it what upstream put in a context.**
+  `terminal`'s own header drew an empty box because the output stopped at the
+  root.
+- **A recipe keyed by a Base UI part reaches every element that draws it.**
+  Both of `terminal`'s buttons fold shadcn's `Button`, so the clipboard hook
+  landed on the clear button too.
+
+96 verified. Three components generate and wait for an example, each for a
+reason written in [TODO.md](TODO.md); two are recorded non-goals; ten are
+utilities.
+
+**Commit:** `feat(ai-elements): the last nine, one decision each`
 
 ## Risks & Tradeoffs
 

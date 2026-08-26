@@ -7,19 +7,19 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 0 | ························ |
-| `fetched` | 15 | ███····················· |
-| `spec` | 6 | █······················· |
-| `generated` | 1 | ························ |
-| `verified` | 89 | ███████████████████····· |
+| `fetched` | 10 | ██······················ |
+| `spec` | 2 | ························ |
+| `generated` | 3 | █······················· |
+| `verified` | 96 | █████████████████████··· |
 
 ## Recipes
 
-Eight core recipes cover 82 of 111 components.
+Eight core recipes cover 77 of 111 components.
 Only the recipes are written by hand; every component is data.
 
 | Recipe | Kind | Components |
 |---|---|---:|
-| `presentational` | core | 50 |
+| `presentational` | core | 45 |
 | `disclosure` | core | 8 |
 | `form-control` | core | 8 |
 | `dialog` | core | 4 |
@@ -27,8 +27,8 @@ Only the recipes are written by hand; every component is data.
 | `popover` | core | 3 |
 | `menu` | core | 2 |
 | `tabs` | core | 1 |
-| `utility` | specialist | 8 |
-| `clipboard` | specialist | 4 |
+| `utility` | specialist | 10 |
+| `clipboard` | specialist | 6 |
 | `scroller` | specialist | 3 |
 | `toast` | specialist | 2 |
 | `calendar` | specialist | 1 |
@@ -41,6 +41,7 @@ Only the recipes are written by hand; every component is data.
 | `radio-group` | specialist | 1 |
 | `resizable` | specialist | 1 |
 | `separator` | specialist | 1 |
+| `shimmer` | specialist | 1 |
 | `sidebar` | specialist | 1 |
 | `slider` | specialist | 1 |
 | `switch` | specialist | 1 |
@@ -118,18 +119,18 @@ Only the recipes are written by hand; every component is data.
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
 | `chain-of-thought` | 1 | `disclosure` | ✅ verified |
-| `code-block` | 1 | `presentational` | 🟨 spec |
-| `context` | 1 | `presentational` | 🟨 spec |
-| `conversation` | 1 | `scroller` | 🟦 fetched |
+| `code-block` | 1 | `clipboard` | ✅ verified |
+| `context` | 1 | `presentational` | ✅ verified |
+| `conversation` | 1 | `scroller` | ✅ verified |
 | `message` | 1 | `presentational` | ✅ verified |
 | `prompt-input` | 1 | `form-control` | 🟨 spec |
 | `reasoning` | 1 | `disclosure` | ✅ verified |
-| `shimmer` | 1 | `presentational` | 🟦 fetched |
+| `shimmer` | 1 | `shimmer` | ✅ verified |
 | `sources` | 1 | `disclosure` | ✅ verified |
 | `suggestion` | 1 | `presentational` | ✅ verified |
 | `task` | 1 | `disclosure` | ✅ verified |
 | `tool` | 1 | `disclosure` | ✅ verified |
-| `agent` | 2 | `presentational` | 🟨 spec |
+| `agent` | 2 | `presentational` | ✅ verified |
 | `artifact` | 2 | `presentational` | ✅ verified |
 | `attachments` | 2 | `presentational` | ✅ verified |
 | `checkpoint` | 2 | `presentational` | ✅ verified |
@@ -144,25 +145,25 @@ Only the recipes are written by hand; every component is data.
 | `open-in-chat` | 2 | `presentational` | 🟨 spec |
 | `package-info` | 2 | `presentational` | ✅ verified |
 | `panel` | 2 | `utility` | 🟦 fetched |
-| `persona` | 2 | `presentational` | 🟦 fetched |
+| `persona` | 2 | `utility` | 🟦 fetched |
 | `plan` | 2 | `disclosure` | ✅ verified |
 | `question` | 2 | `presentational` | ✅ verified |
 | `queue` | 2 | `presentational` | ✅ verified |
-| `schema-display` | 2 | `presentational` | 🟨 spec |
+| `schema-display` | 2 | `presentational` | 🟩 generated |
 | `snippet` | 2 | `clipboard` | ✅ verified |
 | `stack-trace` | 2 | `clipboard` | ✅ verified |
 | `test-results` | 2 | `presentational` | ✅ verified |
 | `toolbar` | 2 | `utility` | 🟦 fetched |
-| `audio-player` | 3 | `presentational` | 🟦 fetched |
+| `audio-player` | 3 | `presentational` | ✅ verified |
 | `canvas` | 3 | `utility` | 🟦 fetched |
 | `connection` | 3 | `utility` | 🟦 fetched |
 | `edge` | 3 | `utility` | 🟦 fetched |
-| `jsx-preview` | 3 | `presentational` | 🟦 fetched |
+| `jsx-preview` | 3 | `utility` | 🟦 fetched |
 | `mic-selector` | 3 | `listbox` | ✅ verified |
 | `node` | 3 | `utility` | 🟦 fetched |
-| `sandbox` | 3 | `presentational` | 🟦 fetched |
+| `sandbox` | 3 | `presentational` | ✅ verified |
 | `speech-input` | 3 | `presentational` | ✅ verified |
-| `terminal` | 3 | `presentational` | 🟦 fetched |
+| `terminal` | 3 | `clipboard` | 🟩 generated |
 | `transcription` | 3 | `presentational` | ✅ verified |
 | `voice-selector` | 3 | `presentational` | ✅ verified |
 | `web-preview` | 3 | `presentational` | ✅ verified |

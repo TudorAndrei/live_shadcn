@@ -199,24 +199,59 @@ generator can only render a choice the **server** decides.
       list the way the palette already has one, or the pipeline gains the right
       to add an accessible name upstream forgot. The example is left out until
       that is decided, rather than either gate being quietly weakened
+- [ ] **`schema-display` generates and has no example.** Its badge draws one
+      pixel left and one pixel up of upstream's, and the whole is six pixels
+      shorter. The `methodStyles[method]` lookup is in the class string now —
+      that was the first cause and it is fixed — and what is left is not
+      understood. `parity-divergence.json` says the question to answer first is
+      whether the reader misread upstream, so the example waits for the answer
+      rather than the answer waiting for a recorded tolerance
+- [ ] **`terminal` generates and has no example.** It draws twenty-three pixels
+      taller than upstream — one line of `leading-relaxed` — and the `<pre>`
+      that was indenting its own content is fixed, so that is not it any more.
+      Composing the example rather than letting the component draw its own
+      header is what its axe run needs, and that part is written; the example
+      lands when the line is accounted for
+- [ ] **A value beside an element gains a space HTML does not drop.** `context`
+      writes `<span>{tokens}<span class="ml-2">• {cost}</span></span>`, and the
+      generator puts the two children on their own lines: the newline between
+      them collapses to a space that upstream never wrote. The text rule fixed
+      the same fault between two text nodes; a value is text too. Budgeted at
+      the 180 pixels it costs until the renderer says so
 - [ ] The lucide name upstream writes can be a deprecated alias.
       `CheckCircleIcon` is `circle-check-big` now, so `tool` draws one glyph and
       React draws another. `lucide-react` publishes the whole alias table on one
       line of its `.d.ts`; reading it belongs to `mix ui.fetch`, because a table
       typed by hand is a table that goes stale
-- [ ] `code-block` needs a specialist recipe. Its tokens come from shiki in the
-      browser; the honest port draws upstream's own pre-highlight fallback and
-      takes the tokens as data. `agent`, `sandbox` and `tool`'s output part all
-      wait on it
-- [ ] `conversation` and `shimmer` are tier 1 and both wait on a library:
-      `use-stick-to-bottom` and `motion`. Both want a `live_base` hook, and
-      `conversation` wants the `scroller` recipe to carry the fold
-- [ ] `schema-display` renders `dangerouslySetInnerHTML` — a `replaceAll` whose
-      replacement is a `<span>`. In HEEx that is a split and a wrap, which is
-      markup rather than a string
-- [ ] `audio-player`, `jsx-preview`, `persona` and `terminal` each render one
-      foreign component. Decide per component: a shim, a recipe, or a non-goal
-- [ ] Commit: `feat(spec): ask oxc what an expression is`
+- [x] Commit: `feat(spec): ask oxc what an expression is`
+
+## Phase 10: The rest of them, one decision each
+
+- [x] `code-block` — a one-line value helper inlined, a shiki bit field masked
+      out, and the copy button filed as the clipboard component it is. `agent`
+      and `sandbox` generate with it
+- [x] `context` — `Intl.NumberFormat` written out. Hex has `ex_cldr_numbers`,
+      and CLDR is a large dependency for two shapes whose locale upstream
+      hard-codes, so the module carries the two functions
+- [x] `conversation` — `use-stick-to-bottom` is a box that scrolls and keeps
+      itself at the bottom, which the `scroller` recipe already owns once a
+      scrollbar of its own stopped being required
+- [x] `shimmer` — `LiveBase.Shimmer` runs upstream's two keyframes through the
+      Web Animations API, which is what `motion` runs them through
+- [x] `audio-player` — media-chrome renders custom elements, and a custom
+      element is HTML
+- [x] `terminal` — `LiveAiElements.Ansi`, the seam the markdown renderer has
+- [x] `sandbox` — a helper imported from a sibling file, inlined with that
+      file's own imports and tables
+- [x] `schema-display` — `dangerouslySetInnerHTML` read as what it means, the
+      element's children
+- [x] `persona` and `jsx-preview` recorded in [ROADMAP.md](ROADMAP.md) as
+      non-goals: one is a Rive canvas, the other compiles markup from a string
+- [ ] `prompt-input` is the last one that could generate and does not. It
+      renders five shadcn components a dependency cannot name, so the fold has
+      to carry the menu, tooltip, select, hover-card and command recipes rather
+      than call them
+- [x] Commit: `feat(ai-elements): the last nine, one decision each`
 
 ## Verification
 
