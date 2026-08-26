@@ -2616,6 +2616,32 @@
       ],
       "renders": false,
       "summary": "The current value of the combobox."
+    },
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
     }
   },
   "recipe": "listbox",

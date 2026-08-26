@@ -81,6 +81,8 @@
       "name": "context_trigger",
       "params": {
         "children": null,
+        "circumference": null,
+        "dashOffset": null,
         "renderedPercent": null
       },
       "primitive": null,
@@ -848,7 +850,10 @@
       "name": "context_input_usage",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "costText": null,
+        "inputCostText": null,
+        "inputTokens": null
       },
       "primitive": null,
       "refs": [
@@ -890,7 +895,7 @@
                 "code": "inputTokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(inputTokens)",
                 "identifiers": [
                   "Intl",
-                  "tokens",
+                  "inputTokens",
                   "undefined"
                 ],
                 "member_roots": [
@@ -920,7 +925,7 @@
                       {
                         "code": "inputCostText",
                         "identifiers": [
-                          "costText"
+                          "inputCostText"
                         ],
                         "type": "value"
                       }
@@ -984,7 +989,10 @@
       "name": "context_output_usage",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "costText": null,
+        "outputCostText": null,
+        "outputTokens": null
       },
       "primitive": null,
       "refs": [
@@ -1026,7 +1034,7 @@
                 "code": "outputTokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(outputTokens)",
                 "identifiers": [
                   "Intl",
-                  "tokens",
+                  "outputTokens",
                   "undefined"
                 ],
                 "member_roots": [
@@ -1056,7 +1064,7 @@
                       {
                         "code": "outputCostText",
                         "identifiers": [
-                          "costText"
+                          "outputCostText"
                         ],
                         "type": "value"
                       }
@@ -1120,7 +1128,10 @@
       "name": "context_reasoning_usage",
       "params": {
         "children": null,
-        "className": null
+        "className": null,
+        "costText": null,
+        "reasoningCostText": null,
+        "reasoningTokens": null
       },
       "primitive": null,
       "refs": [
@@ -1162,7 +1173,7 @@
                 "code": "reasoningTokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(reasoningTokens)",
                 "identifiers": [
                   "Intl",
-                  "tokens",
+                  "reasoningTokens",
                   "undefined"
                 ],
                 "member_roots": [
@@ -1192,7 +1203,7 @@
                       {
                         "code": "reasoningCostText",
                         "identifiers": [
-                          "costText"
+                          "reasoningCostText"
                         ],
                         "type": "value"
                       }
@@ -1255,8 +1266,11 @@
       "export": "ContextCacheUsage",
       "name": "context_cache_usage",
       "params": {
+        "cacheCostText": null,
+        "cacheTokens": null,
         "children": null,
-        "className": null
+        "className": null,
+        "costText": null
       },
       "primitive": null,
       "refs": [
@@ -1298,7 +1312,7 @@
                 "code": "cacheTokens === undefined\n      ? \"—\"\n      : new Intl.NumberFormat(\"en-US\", {\n          notation: \"compact\",\n        }).format(cacheTokens)",
                 "identifiers": [
                   "Intl",
-                  "tokens",
+                  "cacheTokens",
                   "undefined"
                 ],
                 "member_roots": [
@@ -1328,7 +1342,7 @@
                       {
                         "code": "cacheCostText",
                         "identifiers": [
-                          "costText"
+                          "cacheCostText"
                         ],
                         "type": "value"
                       }
@@ -1388,6 +1402,32 @@
     }
   ],
   "primitives": {
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
+    },
     "preview-card.Arrow": {
       "css_vars": [],
       "data": [

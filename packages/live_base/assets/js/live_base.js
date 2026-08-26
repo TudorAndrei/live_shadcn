@@ -20,6 +20,7 @@ import { Overlay } from "./overlay.js";
 import { Roving } from "./roving.js";
 import { Resizable } from "./resizable.js";
 import { Scroller } from "./scroller.js";
+import { Shimmer } from "./shimmer.js";
 import { Slider } from "./slider.js";
 import { Toast } from "./toast.js";
 
@@ -33,6 +34,7 @@ export const hooks = {
   "LiveBase.Roving": Roving,
   "LiveBase.Resizable": Resizable,
   "LiveBase.Scroller": Scroller,
+  "LiveBase.Shimmer": Shimmer,
   "LiveBase.Slider": Slider,
   "LiveBase.Toast": Toast,
 };
@@ -47,6 +49,7 @@ export {
   Resizable,
   Roving,
   Scroller,
+  Shimmer,
   Slider,
   Toast,
 };

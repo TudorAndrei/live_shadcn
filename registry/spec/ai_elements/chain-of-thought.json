@@ -395,7 +395,32 @@
           }
         ],
         "class": "flex gap-2 text-sm fade-in-0 slide-in-from-top-2 animate-in",
-        "class_when": [],
+        "class_when": [
+          {
+            "else": null,
+            "identifiers": [
+              "status"
+            ],
+            "then": "text-foreground",
+            "when": "status === \"active\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "status"
+            ],
+            "then": "text-muted-foreground",
+            "when": "status === \"complete\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "status"
+            ],
+            "then": "text-muted-foreground/50",
+            "when": "status === \"pending\""
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -820,6 +845,32 @@
       ],
       "renders": true,
       "summary": "A button that opens and closes the collapsible panel."
+    },
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
     }
   },
   "recipe": "disclosure",

@@ -117,8 +117,8 @@ defmodule LiveAiElements.Components.TestResults do
     <div class={["rounded-lg border bg-background", @class]} {@rest}>
       <%= if @inner_block == [] do %>
         <.test_results_header :if={@summary}>
-          <.test_results_summary />
-          <.test_results_duration />
+          <.test_results_summary summary={@summary} />
+          <.test_results_duration summary={@summary} />
         </.test_results_header>
       <% end %>
       {render_slot(@inner_block)}
@@ -190,9 +190,9 @@ defmodule LiveAiElements.Components.TestResults do
   end
 
   @doc "The `test_suite_stats` part."
-  attr(:failed, :any, default: "0")
-  attr(:passed, :any, default: "0")
-  attr(:skipped, :any, default: "0")
+  attr(:failed, :any, default: 0)
+  attr(:passed, :any, default: 0)
+  attr(:skipped, :any, default: 0)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -258,7 +258,17 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_status(assigns) do
     ~H"""
-    <span class={["shrink-0", @class]} {@rest}>
+    <span
+      class={[
+        "shrink-0",
+        if(@status == "failed", do: "text-red-600 dark:text-red-400", else: nil),
+        if(@status == "passed", do: "text-green-600 dark:text-green-400", else: nil),
+        if(@status == "running", do: "text-blue-600 dark:text-blue-400", else: nil),
+        if(@status == "skipped", do: "text-yellow-600 dark:text-yellow-400", else: nil),
+        @class
+      ]}
+      {@rest}
+    >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon :if={@status == "failed"} name="circle-x" class="size-4" />
         <LiveShadcn.Icon.icon :if={@status == "passed"} name="circle-check" class="size-4" />
@@ -286,9 +296,9 @@ defmodule LiveAiElements.Components.TestResults do
     ~H"""
     <div class={["flex items-center gap-2 px-4 py-2 text-sm", @class]} {@rest}>
       <%= if @inner_block == [] do %>
-        <.test_status />
-        <.test_name />
-        <.test_duration :if={@duration != nil} />
+        <.test_status status={@status} />
+        <.test_name name={@name} />
+        <.test_duration :if={@duration != nil} duration={@duration} />
       <% end %>
       {render_slot(@inner_block)}
     </div>
@@ -334,9 +344,7 @@ defmodule LiveAiElements.Components.TestResults do
     <pre
       class={["mt-2 overflow-auto font-mono text-red-600 text-xs dark:text-red-400", @class]}
       {@rest}
-    >
-    {render_slot(@inner_block)}
-    </pre>
+    >{render_slot(@inner_block)}</pre>
     """
   end
 

@@ -185,7 +185,7 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
     <div class={["flex items-center justify-between gap-4 px-4 py-3", @class]} {@rest}>
       <%= if @inner_block == [] do %>
         <div class="flex items-center gap-2">
-          <.environment_variable_name />
+          <.environment_variable_name name={@name} />
         </div>
         <.environment_variable_value />
       <% end %>
@@ -202,7 +202,7 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
     values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
   )
 
-  attr(:timeout, :any, default: "2000")
+  attr(:timeout, :any, default: 2000)
 
   attr(:variant, :string,
     default: "ghost",
@@ -219,7 +219,6 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
   def environment_variable_copy_button(assigns) do
     ~H"""
     <button
-      data-slot={@rest[:"data-slot"] || "button"}
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
@@ -227,6 +226,7 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
         Map.get(%{"name" => @name, "export" => "export #{@name}=\"#{@value}\""}, @copy_format, @value)
       }
       data-lb-timeout={@timeout}
+      data-slot={@rest[:"data-slot"] || "button"}
       class={[
         "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-6 shrink-0",
         variant_class("buttonVariants", "size", @size),

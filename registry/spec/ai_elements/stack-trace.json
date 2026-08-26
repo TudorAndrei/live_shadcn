@@ -698,6 +698,7 @@
       "name": "stack_trace_frames",
       "params": {
         "className": null,
+        "frame": null,
         "framesToShow": null,
         "showInternalFrames": "true"
       },
@@ -1125,6 +1126,32 @@
       ],
       "renders": true,
       "summary": "A button component that can be used to trigger actions."
+    },
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
     }
   },
   "recipe": "clipboard",

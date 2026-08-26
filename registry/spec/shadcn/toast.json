@@ -99,7 +99,9 @@
       "name": "toaster",
       "params": {
         "children": null,
-        "toastManager": "toast"
+        "icon": null,
+        "toastManager": "toast",
+        "toasts": null
       },
       "primitive": "Provider",
       "refs": [
@@ -798,6 +800,32 @@
     }
   ],
   "primitives": {
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
+    },
     "toast.Action": {
       "css_vars": [],
       "data": [

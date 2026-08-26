@@ -933,7 +933,40 @@
           }
         ],
         "class": "font-medium font-mono text-xs",
-        "class_when": [],
+        "class_when": [
+          {
+            "else": null,
+            "identifiers": [
+              "status"
+            ],
+            "then": "text-green-600 dark:text-green-400",
+            "when": "status === \"added\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "status"
+            ],
+            "then": "text-red-600 dark:text-red-400",
+            "when": "status === \"deleted\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "status"
+            ],
+            "then": "text-yellow-600 dark:text-yellow-400",
+            "when": "status === \"modified\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "status"
+            ],
+            "then": "text-blue-600 dark:text-blue-400",
+            "when": "status === \"renamed\""
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -1405,6 +1438,32 @@
       ],
       "renders": true,
       "summary": "A button component that can be used to trigger actions."
+    },
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
     }
   },
   "recipe": "clipboard",

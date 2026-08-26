@@ -89,7 +89,48 @@
           }
         ],
         "class": "font-mono text-xs",
-        "class_when": [],
+        "class_when": [
+          {
+            "else": null,
+            "identifiers": [
+              "method"
+            ],
+            "then": "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+            "when": "method === \"DELETE\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "method"
+            ],
+            "then": "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+            "when": "method === \"GET\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "method"
+            ],
+            "then": "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+            "when": "method === \"PATCH\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "method"
+            ],
+            "then": "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+            "when": "method === \"POST\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "method"
+            ],
+            "then": "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
+            "when": "method === \"PUT\""
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -133,18 +174,18 @@
         "props"
       ],
       "tree": {
-        "attrs": [
+        "attrs": [],
+        "children": [
           {
-            "identifiers": [
-              "children",
-              "highlightedPath"
+            "default": [
+              {
+                "code": "highlightedPath",
+                "type": "value"
+              }
             ],
-            "kind": "code",
-            "name": "dangerouslySetInnerHTML",
-            "value": "{ __html: children ?? highlightedPath }"
+            "type": "children"
           }
         ],
-        "children": [],
         "class": "font-mono text-sm",
         "class_when": [],
         "merges_class": true,
@@ -1844,7 +1885,34 @@
       "types": {}
     }
   ],
-  "primitives": {},
+  "primitives": {
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
+    }
+  },
   "recipe": "presentational",
   "source": "ai_elements",
   "styles": {},

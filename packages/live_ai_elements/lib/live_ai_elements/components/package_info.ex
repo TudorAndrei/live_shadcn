@@ -62,6 +62,26 @@ defmodule LiveAiElements.Components.PackageInfo do
       data-variant={@variant}
       class={[
         "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1 text-xs capitalize",
+        if(@change_type == "added",
+          do: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+          else: nil
+        ),
+        if(@change_type == "major",
+          do: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+          else: nil
+        ),
+        if(@change_type == "minor",
+          do: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+          else: nil
+        ),
+        if(@change_type == "patch",
+          do: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+          else: nil
+        ),
+        if(@change_type == "removed",
+          do: "bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400",
+          else: nil
+        ),
         variant_class("badgeVariants", "variant", @variant),
         @class
       ]}
@@ -125,10 +145,14 @@ defmodule LiveAiElements.Components.PackageInfo do
     <div class={["rounded-lg border bg-background p-4", @class]} {@rest}>
       <%= if @inner_block == [] do %>
         <.package_info_header>
-          <.package_info_name />
-          <.package_info_change_type :if={@change_type} />
+          <.package_info_name name={@name} />
+          <.package_info_change_type :if={@change_type} change_type={@change_type} />
         </.package_info_header>
-        <.package_info_version :if={@current_version || @new_version} />
+        <.package_info_version
+          :if={@current_version || @new_version}
+          current_version={@current_version}
+          new_version={@new_version}
+        />
       <% end %>
       {render_slot(@inner_block)}
     </div>

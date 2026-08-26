@@ -173,7 +173,7 @@ defmodule LiveAiElements.Components.Commit do
     values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
   )
 
-  attr(:timeout, :any, default: "2000")
+  attr(:timeout, :any, default: 2000)
 
   attr(:variant, :string,
     default: "ghost",
@@ -188,12 +188,12 @@ defmodule LiveAiElements.Components.Commit do
   def commit_copy_button(assigns) do
     ~H"""
     <button
-      data-slot={@rest[:"data-slot"] || "button"}
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@hash}
       data-lb-timeout={@timeout}
+      data-slot={@rest[:"data-slot"] || "button"}
       class={[
         "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7 shrink-0",
         variant_class("buttonVariants", "size", @size),
@@ -267,7 +267,17 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_file_status(assigns) do
     ~H"""
-    <span class={["font-medium font-mono text-xs", @class]} {@rest}>
+    <span
+      class={[
+        "font-medium font-mono text-xs",
+        if(@status == "added", do: "text-green-600 dark:text-green-400", else: nil),
+        if(@status == "deleted", do: "text-red-600 dark:text-red-400", else: nil),
+        if(@status == "modified", do: "text-yellow-600 dark:text-yellow-400", else: nil),
+        if(@status == "renamed", do: "text-blue-600 dark:text-blue-400", else: nil),
+        @class
+      ]}
+      {@rest}
+    >
       <%= if @inner_block == [] do %>
         {Map.get(%{"added" => "A", "deleted" => "D", "modified" => "M", "renamed" => "R"}, @status)}
       <% end %>

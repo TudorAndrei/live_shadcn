@@ -232,9 +232,14 @@
       "export": "CodeBlockContent",
       "name": "code_block_content",
       "params": {
+        "className": null,
         "code": null,
+        "keyedLine": null,
+        "keyedLines": null,
         "language": null,
-        "showLineNumbers": "false"
+        "preStyle": null,
+        "showLineNumbers": "false",
+        "token": null
       },
       "primitive": null,
       "refs": [
@@ -303,17 +308,17 @@
                                           {
                                             "kind": "code",
                                             "property": "fontStyle",
-                                            "value": "isItalic(token.fontStyle) ? \"italic\" : undefined"
+                                            "value": "(token.fontStyle && token.fontStyle & 1) ? \"italic\" : undefined"
                                           },
                                           {
                                             "kind": "code",
                                             "property": "fontWeight",
-                                            "value": "isBold(token.fontStyle) ? \"bold\" : undefined"
+                                            "value": "(token.fontStyle && token.fontStyle & 2) ? \"bold\" : undefined"
                                           },
                                           {
                                             "kind": "code",
                                             "property": "textDecoration",
-                                            "value": "isUnderline(token.fontStyle) ? \"underline\" : undefined"
+                                            "value": "(token.fontStyle && token.fontStyle & 4) ? \"underline\" : undefined"
                                           }
                                         ]
                                       }
@@ -965,9 +970,35 @@
       ],
       "renders": true,
       "summary": "A button component that can be used to trigger actions."
+    },
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
     }
   },
-  "recipe": "presentational",
+  "recipe": "clipboard",
   "source": "ai_elements",
   "styles": {},
   "upstream": {

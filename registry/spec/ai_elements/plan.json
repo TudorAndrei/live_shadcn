@@ -171,11 +171,11 @@
                   "group": [],
                   "self": []
                 },
-                "recipe": null,
+                "recipe": "shimmer",
                 "render_as": null,
                 "slot": null,
                 "source": "ai_elements",
-                "tag": null,
+                "tag": "p",
                 "type": "component_ref",
                 "variant_calls": [],
                 "vars": []
@@ -255,11 +255,11 @@
                   "group": [],
                   "self": []
                 },
-                "recipe": null,
+                "recipe": "shimmer",
                 "render_as": null,
                 "slot": null,
                 "source": "ai_elements",
-                "tag": null,
+                "tag": "p",
                 "type": "component_ref",
                 "variant_calls": [],
                 "vars": []
@@ -663,6 +663,32 @@
       ],
       "renders": true,
       "summary": "A button that opens and closes the collapsible panel."
+    },
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
     }
   },
   "recipe": "disclosure",

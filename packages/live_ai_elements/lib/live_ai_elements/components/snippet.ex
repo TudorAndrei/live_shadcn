@@ -122,7 +122,7 @@ defmodule LiveAiElements.Components.Snippet do
 
   @doc "The `button` part."
   attr(:size, :string, default: "icon-sm", values: ["icon-sm", "icon-xs", "sm", "xs"])
-  attr(:timeout, :any, default: "2000")
+  attr(:timeout, :any, default: 2000)
   attr(:type, :string, default: "button")
 
   attr(:variant, :string,
@@ -139,12 +139,12 @@ defmodule LiveAiElements.Components.Snippet do
   def snippet_copy_button(assigns) do
     ~H"""
     <button
-      data-slot={@rest[:"data-slot"] || "button"}
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@code}
       data-lb-timeout={@timeout}
+      data-slot={@rest[:"data-slot"] || "button"}
       type={@type}
       data-size={@size}
       aria-label="Copy"

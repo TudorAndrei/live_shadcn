@@ -158,6 +158,29 @@ defmodule Mix.Tasks.Ui.Spec do
     if File.exists?(path), do: read_json!(path)
   end
 
+  # The sources a component imports from beside it — `from "./tool"`.
+  #
+  # A registry file may write a piece of render down under a name and export it
+  # for its neighbour: `sandbox` renders `{getStatusBadge(state)}` and
+  # `getStatusBadge` lives in `tool.tsx`. The reader inlines such a helper, and
+  # it can only inline what it was given.
+  #
+  # A sibling that was never fetched is simply absent, and the reader then meets
+  # the call it cannot read and says so by name, which is what it did before.
+  defp siblings(tsx, manifest, source) do
+    ~r|from "\./([a-z0-9-]+)"|
+    |> Regex.scan(tsx, capture: :all_but_first)
+    |> List.flatten()
+    |> Enum.uniq()
+    |> Enum.flat_map(fn name ->
+      case source(manifest, tsx_file(source, name)) do
+        {:ok, body} -> [{name, body}]
+        _absent -> []
+      end
+    end)
+    |> Map.new()
+  end
+
   # What each `lucide-react` export draws, which is not always what it is
   # called. See `LiveShadcnTools.Lucide`. A run without it reads every icon name
   # as written, which is what every run did before the table was fetched, so a
@@ -237,6 +260,7 @@ defmodule Mix.Tasks.Ui.Spec do
           markdown: pages,
           styles: styles,
           lucide: lucide,
+          siblings: siblings(tsx, manifest, source),
           source: source,
           resolve: &resolve_spec/2,
           recipe: recipe,

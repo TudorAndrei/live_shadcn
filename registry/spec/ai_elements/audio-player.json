@@ -1,0 +1,808 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "folds": [
+    "shadcn/button",
+    "shadcn/button-group"
+  ],
+  "generated_by": "mix ui.spec",
+  "name": "audio-player",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "AudioPlayer",
+      "name": "audio_player",
+      "params": {
+        "children": null,
+        "style": null
+      },
+      "primitive": null,
+      "refs": [
+        "style",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "flag",
+            "name": "audio",
+            "value": null
+          },
+          {
+            "identifiers": [
+              "CSSProperties",
+              "style"
+            ],
+            "kind": "style",
+            "name": "style",
+            "value": [
+              {
+                "kind": "text",
+                "property": "--media-background-color",
+                "value": "transparent"
+              },
+              {
+                "kind": "text",
+                "property": "--media-button-icon-height",
+                "value": "1rem"
+              },
+              {
+                "kind": "text",
+                "property": "--media-button-icon-width",
+                "value": "1rem"
+              },
+              {
+                "kind": "text",
+                "property": "--media-control-background",
+                "value": "transparent"
+              },
+              {
+                "kind": "text",
+                "property": "--media-control-hover-background",
+                "value": "var(--color-accent)"
+              },
+              {
+                "kind": "text",
+                "property": "--media-control-padding",
+                "value": "0"
+              },
+              {
+                "kind": "text",
+                "property": "--media-font",
+                "value": "var(--font-sans)"
+              },
+              {
+                "kind": "text",
+                "property": "--media-font-size",
+                "value": "10px"
+              },
+              {
+                "kind": "text",
+                "property": "--media-icon-color",
+                "value": "currentColor"
+              },
+              {
+                "kind": "text",
+                "property": "--media-preview-time-background",
+                "value": "var(--color-background)"
+              },
+              {
+                "kind": "text",
+                "property": "--media-preview-time-border-radius",
+                "value": "var(--radius-md)"
+              },
+              {
+                "kind": "text",
+                "property": "--media-preview-time-text-shadow",
+                "value": "none"
+              },
+              {
+                "kind": "text",
+                "property": "--media-primary-color",
+                "value": "var(--color-primary)"
+              },
+              {
+                "kind": "text",
+                "property": "--media-range-bar-color",
+                "value": "var(--color-primary)"
+              },
+              {
+                "kind": "text",
+                "property": "--media-range-track-background",
+                "value": "var(--color-secondary)"
+              },
+              {
+                "kind": "text",
+                "property": "--media-secondary-color",
+                "value": "var(--color-secondary)"
+              },
+              {
+                "kind": "text",
+                "property": "--media-text-color",
+                "value": "var(--color-foreground)"
+              },
+              {
+                "kind": "text",
+                "property": "--media-tooltip-arrow-display",
+                "value": "none"
+              },
+              {
+                "kind": "text",
+                "property": "--media-tooltip-background",
+                "value": "var(--color-background)"
+              },
+              {
+                "kind": "text",
+                "property": "--media-tooltip-border-radius",
+                "value": "var(--radius-md)"
+              },
+              {
+                "kind": "spread",
+                "property": "style"
+              }
+            ]
+          }
+        ],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "module": "external/media-chrome/react",
+        "part": "Controller",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "audio-player",
+        "tag": "media-controller",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AudioPlayerElement",
+      "name": "audio_player_element",
+      "params": {
+        "data": null,
+        "src": null
+      },
+      "primitive": null,
+      "refs": [
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "text",
+            "name": "slot",
+            "value": "media"
+          },
+          {
+            "identifiers": [
+              "props"
+            ],
+            "kind": "code",
+            "member_roots": [
+              "props"
+            ],
+            "name": "src",
+            "value": "\"src\" in props\n        ? props.src\n        : `data:${props.data.mediaType};base64,${props.data.base64}`"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "audio-player-element",
+        "tag": "audio",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AudioPlayerControlBar",
+      "name": "audio_player_control_bar",
+      "params": {
+        "children": null,
+        "className": null,
+        "orientation": "horizontal"
+      },
+      "primitive": null,
+      "refs": [
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "role",
+                "value": "group"
+              },
+              {
+                "identifiers": [
+                  "orientation"
+                ],
+                "kind": "code",
+                "name": "data-orientation",
+                "value": "orientation"
+              }
+            ],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "",
+            "class_when": [],
+            "merges_class": false,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": [
+                {
+                  "name": "data-slot",
+                  "value": null
+                },
+                {
+                  "name": "data-slot",
+                  "value": "input-group"
+                },
+                {
+                  "name": "data-slot",
+                  "value": "select-trigger"
+                },
+                {
+                  "name": "data-slot",
+                  "value": "input"
+                }
+              ]
+            },
+            "render_as": null,
+            "slot": "button-group",
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [
+              {
+                "args": [
+                  "orientation"
+                ],
+                "table": "buttonGroupVariants"
+              }
+            ],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "module": "external/media-chrome/react",
+        "part": "ControlBar",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "audio-player-control-bar",
+        "tag": "media-control-bar",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AudioPlayerPlayButton",
+      "name": "audio_player_play_button",
+      "params": {
+        "className": null,
+        "size": "icon-sm",
+        "variant": "outline"
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "bg-transparent",
+        "class_when": [],
+        "merges_class": true,
+        "module": "button",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "audio-player-play-button",
+        "tag": "media-play-button",
+        "type": "primitive",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AudioPlayerSeekBackwardButton",
+      "name": "audio_player_seek_backward_button",
+      "params": {
+        "className": null,
+        "seekOffset": "10",
+        "size": "icon-sm",
+        "variant": "outline"
+      },
+      "primitive": null,
+      "refs": [
+        "seekOffset",
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "seekOffset"
+            ],
+            "kind": "code",
+            "name": "seekOffset",
+            "value": "seekOffset"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "module": "button",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "audio-player-seek-backward-button",
+        "tag": "media-seek-backward-button",
+        "type": "primitive",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AudioPlayerSeekForwardButton",
+      "name": "audio_player_seek_forward_button",
+      "params": {
+        "className": null,
+        "seekOffset": "10",
+        "size": "icon-sm",
+        "variant": "outline"
+      },
+      "primitive": null,
+      "refs": [
+        "seekOffset",
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "seekOffset"
+            ],
+            "kind": "code",
+            "name": "seekOffset",
+            "value": "seekOffset"
+          }
+        ],
+        "children": [],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "module": "button",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": [
+            {
+              "name": "aria-invalid",
+              "value": null
+            },
+            {
+              "name": "aria-expanded",
+              "value": null
+            }
+          ]
+        },
+        "render_as": null,
+        "slot": "audio-player-seek-forward-button",
+        "tag": "media-seek-forward-button",
+        "type": "primitive",
+        "variant_calls": [
+          {
+            "args": [
+              "variant",
+              "size"
+            ],
+            "table": "buttonVariants"
+          }
+        ],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AudioPlayerTimeDisplay",
+      "name": "audio_player_time_display",
+      "params": {
+        "className": null,
+        "render": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent tabular-nums",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "audio-player-time-display",
+        "tag": "media-time-display",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AudioPlayerTimeRange",
+      "name": "audio_player_time_range",
+      "params": {
+        "className": null,
+        "render": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "audio-player-time-range",
+        "tag": "media-time-range",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AudioPlayerDurationDisplay",
+      "name": "audio_player_duration_display",
+      "params": {
+        "className": null,
+        "render": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent tabular-nums",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "audio-player-duration-display",
+        "tag": "media-duration-display",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AudioPlayerMuteButton",
+      "name": "audio_player_mute_button",
+      "params": {
+        "className": null,
+        "render": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "audio-player-mute-button",
+        "tag": "media-mute-button",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "AudioPlayerVolumeRange",
+      "name": "audio_player_volume_range",
+      "params": {
+        "className": null,
+        "render": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": "audio-player-volume-range",
+        "tag": "media-volume-range",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    }
+  ],
+  "primitives": {
+    "button.Root": {
+      "css_vars": [],
+      "data": [
+        "data-disabled"
+      ],
+      "element": "button",
+      "hidden_input": false,
+      "props": [
+        {
+          "default": "false",
+          "doc": "Whether the button should be focusable when disabled.",
+          "name": "focusableWhenDisabled",
+          "type": "boolean"
+        },
+        {
+          "default": "true",
+          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "name": "nativeButton",
+          "type": "boolean"
+        },
+        {
+          "default": "((state: Button.State) => string \\",
+          "doc": "undefined)",
+          "name": "className",
+          "type": "string \\"
+        },
+        {
+          "default": "((state: Button.State) => React.CSSProperties \\",
+          "doc": "undefined)",
+          "name": "style",
+          "type": "React.CSSProperties \\"
+        },
+        {
+          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
+          "doc": "-",
+          "name": "render",
+          "type": "ReactElement \\"
+        }
+      ],
+      "renders": true,
+      "summary": "A button component that can be used to trigger actions."
+    },
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
+    }
+  },
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {
+    "luma": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-4xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "lyra": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-none border px-2.5 text-xs font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "maia": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-4xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "mira": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-md border px-2.5 text-xs/relaxed font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "nova": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-lg border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "rhea": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-2xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
+    },
+    "sera": {
+      "cn-button-group-text": "gap-2 border border-transparent border-b-input bg-transparent px-2.5 text-xs font-semibold [&_svg:not([class*='size-'])]:size-3.5 group-has-[>[data-variant=outline]]/button-group:border-border uppercase"
+    },
+    "vega": {
+      "cn-button-group-text": "bg-muted gap-2 rounded-md border px-2.5 text-sm font-medium shadow-xs [&_svg:not([class*='size-'])]:size-4"
+    }
+  },
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/audio-player.tsx",
+      "sha256": "375c174c83cf3770f1cf8b56a3e18584a773bce2141e451bfefc779d4901b5f3"
+    }
+  },
+  "variants": {
+    "buttonGroupVariants": {
+      "base": "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+      "defaults": {
+        "orientation": "horizontal"
+      },
+      "variants": {
+        "orientation": {
+          "horizontal": "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
+          "vertical": "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0"
+        }
+      }
+    },
+    "buttonVariants": {
+      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "defaults": {
+        "size": "default",
+        "variant": "default"
+      },
+      "variants": {
+        "size": {
+          "default": "cn-button-size-default",
+          "icon": "cn-button-size-icon",
+          "icon-lg": "cn-button-size-icon-lg",
+          "icon-sm": "cn-button-size-icon-sm",
+          "icon-xs": "cn-button-size-icon-xs",
+          "lg": "cn-button-size-lg",
+          "sm": "cn-button-size-sm",
+          "xs": "cn-button-size-xs"
+        },
+        "variant": {
+          "default": "cn-button-variant-default",
+          "destructive": "cn-button-variant-destructive",
+          "ghost": "cn-button-variant-ghost",
+          "link": "cn-button-variant-link",
+          "outline": "cn-button-variant-outline",
+          "secondary": "cn-button-variant-secondary"
+        }
+      }
+    }
+  }
+}

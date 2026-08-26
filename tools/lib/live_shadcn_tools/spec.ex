@@ -65,6 +65,8 @@ defmodule LiveShadcnTools.Spec do
       const_nodes: tsx.const_nodes,
       imports: tsx.imports,
       variants: Map.keys(variants),
+      # The markup helpers a sibling file exports, by name. See `helper/2`.
+      imported: imported(Keyword.get(opts, :siblings, %{})),
       # `%{"CheckCircleIcon" => "CircleCheckBig"}` — see `LiveShadcnTools.Lucide`.
       lucide: Keyword.get(opts, :lucide, %{}),
       resolve: Keyword.get(opts, :resolve, fn _source, _name -> nil end)
@@ -113,6 +115,8 @@ defmodule LiveShadcnTools.Spec do
       for {module, page} <- docs, {key, part} <- page.parts, into: %{} do
         {"#{module}.#{key}", primitive(part)}
       end
+
+    own_primitives = Map.merge(own_primitives, external_props())
 
     %{
       "name" => name,
@@ -614,11 +618,20 @@ defmodule LiveShadcnTools.Spec do
   # `alt` in its type; destructuring is not the only way a component says what
   # it takes, and read only there the generated `<img>` had an `@alt` nobody
   # declared.
+  # `props.alt`, and `"src" in props`. Both read a prop off the object upstream
+  # kept the rest of them in: the first reads its value and the second asks
+  # whether the caller passed one at all, which in HEEx is the same question,
+  # because an assign nobody set is `nil`.
   defp props_of_rest(part) do
-    part["tree"]
-    |> codes()
-    |> Enum.flat_map(&Regex.scan(~r/\bprops\.([a-z_][A-Za-z0-9_]*)/, &1, capture: :all_but_first))
-    |> List.flatten()
+    codes = codes(part["tree"])
+
+    for pattern <- [
+          ~r/\bprops\.([a-z_][A-Za-z0-9_]*)/,
+          ~r/"([a-z_][A-Za-z0-9_]*)"\s+in\s+props\b/
+        ],
+        code <- codes,
+        [name] <- Regex.scan(pattern, code, capture: :all_but_first),
+        do: name
   end
 
   # The props this function reads, by the names it declared them under.
@@ -653,11 +666,34 @@ defmodule LiveShadcnTools.Spec do
     names ++ (node |> Map.delete("identifiers") |> Map.values() |> Enum.flat_map(&identifiers/1))
   end
 
+  # A value node the reader built somewhere other than a child position has no
+  # recorded identifiers, and the names in it are read out of the expression
+  # instead. `{children ?? highlightedPath}` is one: its default is a value, and
+  # a prop nothing was seen to read is a prop this part does not declare — so
+  # the component drew a name it had never been given.
+  #
+  # The root of a path, because `summary.duration` is the `summary` prop and
+  # `duration` is a field of it.
+  defp identifiers(%{"type" => "value", "code" => code} = node) when is_binary(code) do
+    names(code) ++ (node |> Map.delete("code") |> Map.values() |> Enum.flat_map(&identifiers/1))
+  end
+
   defp identifiers(node) when is_map(node),
     do: node |> Map.values() |> Enum.flat_map(&identifiers/1)
 
   defp identifiers(nodes) when is_list(nodes), do: Enum.flat_map(nodes, &identifiers/1)
   defp identifiers(_node), do: []
+
+  # The names an expression reads, and only the names: a quoted string in it is
+  # words rather than a prop, and a method it calls is a method.
+  defp names(code) do
+    ~r/(?<![.\w"'])[a-z_][A-Za-z0-9_]*/
+    |> Regex.scan(without_strings(code))
+    |> List.flatten()
+  end
+
+  defp without_strings(code),
+    do: String.replace(code, ~r/"[^"]*"|'[^']*'|`[^`]*`/, "\"\"")
 
   # A `cva` group is read without being named either: `size` is not written in
   # the markup, it picks the class string the markup carries.
@@ -724,7 +760,32 @@ defmodule LiveShadcnTools.Spec do
         }
       end
 
-    Enum.map(parts, &Map.put(&1, "tree", inline_parts(&1["tree"], %{"parts" => private}, [])))
+    Enum.map(parts, fn part ->
+      inlined = inline_parts(part["tree"], %{"parts" => private}, [])
+
+      part
+      |> Map.put("tree", inlined)
+      |> with_private_params(private, inlined != part["tree"])
+    end)
+  end
+
+  # What a private helper reads and was not passed.
+  #
+  # `CodeBlockContent` renders `<CodeBlockBody tokenized={tokenized} />`, and the
+  # body computes `keyedLines` from what it was given. Inlined, the markup that
+  # walks `keyedLines` is here and the name is not: a part that never declares it
+  # is a part the generator meets an undeclared name in, which is where the whole
+  # of `code-block` stopped.
+  #
+  # Every private param is offered and `props_read/2` keeps the ones this part's
+  # markup actually reads, so a name the fold did substitute away is dropped
+  # again a moment later.
+  defp with_private_params(part, _private, false), do: part
+
+  defp with_private_params(part, private, true) do
+    offered = private |> Enum.map(&(&1["params"] || %{})) |> Enum.reduce(%{}, &Map.merge/2)
+
+    Map.update(part, "params", offered, &Map.merge(offered, &1))
   end
 
   defp private_ctx(ctx, function) do
@@ -1364,7 +1425,7 @@ defmodule LiveShadcnTools.Spec do
     class_value = Tsx.attr(element, "className")
     variant_calls = Tsx.variant_calls(class_value, ctx.variants)
     classes = Tsx.classes(class_value)
-    class_when = Tsx.conditional_classes(class_value)
+    class_when = Tsx.conditional_classes(class_value) ++ lookup_classes(class_value, ctx)
 
     styling =
       Enum.join(
@@ -1386,7 +1447,7 @@ defmodule LiveShadcnTools.Spec do
       "props" => Tsx.spread?(element),
       "reads" => reads(styling <> " " <> styled(styling, ctx.styles)),
       "vars" => vars(styling),
-      "children" => Enum.map(element.children, &node(&1, ctx))
+      "children" => inner_html(element, ctx) || Enum.map(element.children, &node(&1, ctx))
     })
     |> as_child(element)
     |> external_defaults()
@@ -1555,10 +1616,55 @@ defmodule LiveShadcnTools.Spec do
   # TypeScript compiler and nothing to the markup. Every test below reads the
   # source text, so the wrapper is taken off first — by oxc, which knows where
   # the wrapper ends — and the expression is read again as what it is.
-  defp expression({:expr, _code, node} = expression, ctx) do
+  defp expression({:expr, code, node} = expression, ctx) do
     case unwrapped(node) do
-      nil -> understood(expression, ctx)
+      nil -> understood(expanded(expression, code, ctx), ctx)
       inner -> expression(unchained(Ast.expression(expression, inner), node), ctx)
+    end
+  end
+
+  # `isItalic(token.fontStyle)` — a one-line function upstream wrote down
+  # because it says the same thing three times.
+  #
+  # `local_call/2` inlines a helper that returns markup. This inlines one that
+  # returns a value, and it does it as text: what the helper computes goes where
+  # its name was, and every test below then reads the expression rather than a
+  # call to something no HEEx template can call.
+  defp expanded(expression, code, ctx) do
+    case expand(code, ctx) do
+      ^code -> expression
+      widened -> expression_tuple!(widened)
+    end
+  end
+
+  defp expand(code, ctx) do
+    Regex.replace(~r/\b([a-z_][A-Za-z0-9_]*)\(([^()]*)\)/, code, fn whole, name, argument ->
+      case value_helper(name, ctx) do
+        nil -> whole
+        {param, body} -> "(" <> renamed(body, %{param => String.trim(argument)}) <> ")"
+      end
+    end)
+  end
+
+  # `const isItalic = (fontStyle: number | undefined) => fontStyle && fontStyle & 1`
+  # — one parameter, one expression, and no markup anywhere in it. A helper with
+  # a block body computes in steps a template has no place to take, and one that
+  # returns markup is `local_call/2`'s.
+  defp value_helper(name, ctx) do
+    with source when is_binary(source) <- Map.get(Map.get(ctx, :consts) || %{}, name),
+         [param, body] <-
+           Regex.run(
+             ~r/^\(\s*([a-z_][A-Za-z0-9_]*)[^)]*\)\s*=>\s*([^{].*)$/s,
+             String.trim(source),
+             capture: :all_but_first
+           ),
+         # `isUnderline` puts a lint pragma on its own line before the
+         # expression, and a comment is not part of what the helper computes.
+         body = String.replace(body, ~r{^\s*//[^\n]*$}m, ""),
+         false <- body =~ "<" do
+      {param, String.trim(body)}
+    else
+      _not_a_value_helper -> nil
     end
   end
 
@@ -1734,12 +1840,44 @@ defmodule LiveShadcnTools.Spec do
            Regex.run(~r/^([a-z_][A-Za-z0-9_]*)\((.*)\)$/s, String.trim(code),
              capture: :all_but_first
            ),
-         {:ok, helper} <- Map.fetch(ctx.functions, callee) do
+         {:ok, {helper, ctx}} <- helper(callee, ctx) do
       helper.jsx
       |> node(%{ctx | params_of: helper.params, renames: helper.renames})
       |> substitute(bind(helper.params, args))
     else
       _ -> nil
+    end
+  end
+
+  # A markup helper this file declared, or one it imported from a sibling.
+  #
+  # `sandbox` writes `import { getStatusBadge } from "./tool"` and then
+  # `{getStatusBadge(state)}`. The helper is a piece of render written down under
+  # a name, and which file it was written in changes nothing about that.
+  #
+  # The two are kept apart rather than merged, because `ctx.functions` also
+  # answers "is this tag a part of this component". A sibling's exported
+  # component is not, and merging the two made `sandbox` claim `tool`'s parts.
+  defp helper(callee, ctx) do
+    case Map.fetch(ctx.functions, callee) do
+      {:ok, helper} ->
+        {:ok, {helper, ctx}}
+
+      :error ->
+        with {:ok, elsewhere} <- Map.fetch(Map.get(ctx, :imported) || %{}, callee) do
+          # The names its own file has, over the names this one has. A tag or a
+          # table the helper reads is the sibling's, and the caller's file may
+          # have neither or, worse, a different one under the same name.
+          {:ok,
+           {elsewhere.function,
+            %{
+              ctx
+              | imports: Map.merge(ctx.imports, elsewhere.imports),
+                consts: Map.merge(ctx.consts, elsewhere.consts),
+                const_nodes: Map.merge(ctx.const_nodes, elsewhere.const_nodes),
+                functions: Map.merge(ctx.functions, elsewhere.functions)
+            }}}
+        end
     end
   end
 
@@ -1767,8 +1905,19 @@ defmodule LiveShadcnTools.Spec do
   defp rebind(%{"type" => "lookup", "key" => key} = node, bindings),
     do: %{node | "key" => Map.get(bindings, key, key)}
 
-  defp rebind(%{"type" => "value", "code" => code} = node, bindings),
-    do: %{node | "code" => renamed(code, bindings)}
+  # The names it reads move with the code that reads them. A helper records what
+  # its own body names, and inlining it puts the caller's arguments in their
+  # place: `TokensWithCost` reads `tokens`, `context` calls it with
+  # `inputTokens`, and a list still saying `tokens` describes a part that no
+  # longer exists — which is how `context_input_usage` came out drawing a name
+  # it had never been given.
+  defp rebind(%{"type" => "value", "code" => code} = node, bindings) do
+    node
+    |> Map.put("code", renamed(code, bindings))
+    |> Map.replace_lazy("identifiers", fn names ->
+      Enum.map(List.wrap(names), &Map.get(bindings, &1, &1))
+    end)
+  end
 
   # An attribute reads a name too — `<Progress value={percent} />` inside a
   # component called with `percent={usedPercent}` has to read `usedPercent`.
@@ -1791,6 +1940,91 @@ defmodule LiveShadcnTools.Spec do
   end
 
   defp renamed(code, _bindings), do: code
+
+  # `%{name => function}` for every lower-case function a sibling file exports.
+  #
+  # Lower-case on purpose: JSX reads a lower-case tag as an HTML element, so a
+  # name upstream can only *call* is a helper and a capitalised one is a
+  # component. A component is folded through its spec, which is a different
+  # road and already paved.
+  defp imported(siblings) do
+    for {_file, source} <- siblings,
+        parsed = Ast.parse!(source),
+        function <- parsed.functions,
+        function.name in parsed.exports,
+        String.match?(function.name, ~r/^[a-z]/),
+        into: %{},
+        # The helper travels with the file it was written in. Its body names
+        # what that file imported and what that file declared: `getStatusBadge`
+        # renders a `<Badge>` `sandbox` never imports, out of a `statusIcons`
+        # table `sandbox` never declares.
+        do:
+          {function.name,
+           %{
+             function: function,
+             imports: parsed.imports,
+             consts: parsed.consts,
+             const_nodes: parsed.const_nodes,
+             functions: Map.new(parsed.functions, &{&1.name, &1})
+           }}
+  end
+
+  # `dangerouslySetInnerHTML={{ __html: children ?? highlightedPath }}` is an
+  # attribute that is really content: React writes the element's children as a
+  # prop, because it is putting a string in where markup goes.
+  #
+  # HEEx has no such door and wants none — a string put in where markup goes is
+  # the injection this template language exists to prevent — so what upstream
+  # says here is read as what it means. The element's children are that
+  # expression, and it lands as content the caller gives or a value the
+  # component draws, like every other child.
+  defp inner_html(element, ctx) do
+    with {:expr, code, _node} <- Tsx.attr(element, "dangerouslySetInnerHTML"),
+         [held] <- Regex.run(~r/^\{\s*__html:\s*(.+?)\s*\}$/s, code, capture: :all_but_first) do
+      [markup(held, ctx)]
+    else
+      _not_inner_html -> nil
+    end
+  end
+
+  # `cn("font-mono text-xs", methodStyles[method], className)` — a class string
+  # chosen by a prop, out of a table declared at the top of the file.
+  #
+  # `cva` is the shape shadcn uses for this and the reader already reads it as
+  # data. A plain object is the same fact written plainly, and dropped it took
+  # the colour off every method a schema draws — which the parity check saw as
+  # a badge one pixel out of place, because what it lost was a border.
+  #
+  # Recorded as one condition per entry, which is the shape a conditional class
+  # already has: the generator asks the prop and applies the one that matches.
+  defp lookup_classes(class_value, ctx) do
+    for argument <- class_arguments(class_value),
+        [table, key] <-
+          [
+            Regex.run(~r/^([A-Za-z_]\w*)\[([a-z_]\w*)\]$/, source(argument),
+              capture: :all_but_first
+            )
+          ],
+        entries = Ast.object_entries(Map.get(ctx.const_nodes, table)),
+        {value, entry} <- Enum.sort(entries),
+        class = Ast.string_literal(entry),
+        is_binary(class) do
+      %{
+        "when" => ~s|#{key} === "#{value}"|,
+        "then" => class,
+        "else" => nil,
+        "identifiers" => [key]
+      }
+    end
+  end
+
+  defp class_arguments({:expr, _code, _node} = expression) do
+    expression
+    |> Ast.call_args("cn")
+    |> Enum.map(&Ast.expression(expression, &1))
+  end
+
+  defp class_arguments(_value), do: []
 
   # JSX's own rule for the text between tags, which is not `String.trim/1`.
   #
@@ -2123,6 +2357,7 @@ defmodule LiveShadcnTools.Spec do
       registry_component(tag, ctx) -> registry_node(tag, ctx)
       primitive = external_primitive(tag, ctx) -> primitive
       role = external_role(tag, ctx) -> %{"type" => "external", "role" => role}
+      element = motion_tag(tag, ctx) -> %{"type" => "element", "tag" => element}
       context_provider?(tag) -> %{"type" => "transparent", "reason" => "a React context"}
       package = third_party(tag, ctx) -> raise not_base_ui(tag, package)
       true -> raise "the spec reader does not know what <#{tag}> is"
@@ -2137,7 +2372,7 @@ defmodule LiveShadcnTools.Spec do
   # This table is short on purpose. A library goes in it only when the same job
   # exists in Elixir and is not worth writing again; everything else is still a
   # specialist recipe, and `not_base_ui/2` still says so.
-  @external_roles %{"streamdown" => "markdown"}
+  @external_roles %{"streamdown" => "markdown", "ansi-to-react" => "ansi"}
 
   defp external_role(tag, ctx), do: Map.get(@external_roles, third_party(tag, ctx) || "")
 
@@ -2206,6 +2441,34 @@ defmodule LiveShadcnTools.Spec do
       "ResizablePrimitive.Group" => {"Group", "div"},
       "ResizablePrimitive.Panel" => {"Panel", "div"},
       "ResizablePrimitive.Separator" => {"Separator", "div"}
+    },
+    # `<StickToBottom>` is a `<div>` and a React context. `<StickToBottom.Content>`
+    # is two: an outer one it scrolls and an inner one holding the content — the
+    # same two elements shadcn's own `scroll-area` has, which is why
+    # `conversation` is filed under the `scroller` recipe. The recipe owns that
+    # shape; this entry says only that the reader may stop here.
+    "use-stick-to-bottom" => %{
+      "StickToBottom" => {"Root", "div"},
+      "StickToBottom.Content" => {"Viewport", "div"}
+    },
+    # media-chrome is a set of custom elements, and its React package is a thin
+    # wrapper that renders them. A custom element is HTML: a HEEx template
+    # writes `<media-play-button>` and the browser upgrades it once the
+    # application has loaded the library, exactly as React's wrapper does.
+    #
+    # So this table is not a description of somebody else's anatomy — it is the
+    # tag each wrapper renders, which is the whole of what the wrapper is.
+    "media-chrome/react" => %{
+      "MediaController" => {"Controller", "media-controller"},
+      "MediaControlBar" => {"ControlBar", "media-control-bar"},
+      "MediaPlayButton" => {"PlayButton", "media-play-button"},
+      "MediaSeekBackwardButton" => {"SeekBackwardButton", "media-seek-backward-button"},
+      "MediaSeekForwardButton" => {"SeekForwardButton", "media-seek-forward-button"},
+      "MediaTimeDisplay" => {"TimeDisplay", "media-time-display"},
+      "MediaTimeRange" => {"TimeRange", "media-time-range"},
+      "MediaDurationDisplay" => {"DurationDisplay", "media-duration-display"},
+      "MediaMuteButton" => {"MuteButton", "media-mute-button"},
+      "MediaVolumeRange" => {"VolumeRange", "media-volume-range"}
     }
     # There is no `recharts` entry, and adding one is not enough on its own.
     # `chart.tsx` stops the reader three times — `ResponsiveContainer`,
@@ -2214,6 +2477,30 @@ defmodule LiveShadcnTools.Spec do
     # is a computation rather than markup. So `chart.json` still has no parts
     # and its class strings are typed. See PLAN.md.
   }
+
+  # What a third-party primitive takes as a prop rather than as an attribute.
+  #
+  # Base UI publishes a page per component and the reader reads the props off
+  # it, which is how `<Positioner align={align}>` stops being an `align` on a
+  # `<div>`. A package with no such page publishes nothing, and its props go
+  # straight through: `conversation` came out with `initial="smooth"` and
+  # `resize="smooth"` on a `<div>`, which are `use-stick-to-bottom`'s settings
+  # for how it scrolls and are not attributes of anything.
+  #
+  # Short on purpose, and for the same reason `@external_primitives` is: what
+  # goes in here is a prop this pipeline has actually met.
+  @external_prop_names %{
+    "external/use-stick-to-bottom.Root" => ~w(initial resize mass damping stiffness),
+    "external/use-stick-to-bottom.Viewport" => ~w(scrollClassName)
+  }
+
+  # The same shape a Base UI page produces, so that every reader of
+  # `spec["primitives"]` asks one question rather than two.
+  defp external_props do
+    Map.new(@external_prop_names, fn {key, props} ->
+      {key, %{"props" => Enum.map(props, &%{"name" => &1})}}
+    end)
+  end
 
   defp external_primitive(tag, ctx) do
     case third_party(tag, ctx) do
@@ -2280,6 +2567,35 @@ defmodule LiveShadcnTools.Spec do
       }
     else
       _ -> nil
+    end
+  end
+
+  # `const MotionComponent = getMotionComponent(Component)`, and then
+  # `<MotionComponent>`.
+  #
+  # `motion` does not draw anything of its own: it takes an element and animates
+  # a property of it. So the markup is that element, and the animation is
+  # behaviour — `LiveBase.Shimmer` runs it through the same Web Animations API
+  # `motion` uses, from the same two keyframes, which the `shimmer` recipe reads
+  # off `initial` and `animate`.
+  #
+  # `shimmer` writes `as: Component = "p"`. The tag is therefore the default of
+  # the prop the wrapper was given, which is what the caller changes when it
+  # wants a heading to shimmer instead of a paragraph.
+  defp motion_tag(tag, ctx) do
+    with "motion/react" <- Map.get(ctx.imports, "motion"),
+         local when is_binary(local) <- Map.get(Map.get(ctx, :locals) || %{}, tag),
+         [argument] <-
+           Regex.run(~r/\(\s*([A-Za-z_][A-Za-z0-9_]*)/, local, capture: :all_but_first),
+         name = Map.get(Map.get(ctx, :renames) || %{}, argument, argument),
+         default when is_binary(default) <- Map.get(Map.get(ctx, :params_of) || %{}, name),
+         # A destructuring default is recorded as the value rather than as its
+         # source, so `as: Component = "p"` is already `p` and not `"p"`.
+         element = string_literal(default) || default,
+         true <- element =~ ~r/^[a-z][a-z0-9]*$/ do
+      element
+    else
+      _not_a_motion_component -> nil
     end
   end
 
@@ -2547,7 +2863,10 @@ defmodule LiveShadcnTools.Spec do
   # `asChild` is recorded on the node, for the same reason `render` is: it says
   # the element and its child are one element, which is a fact about the markup
   # rather than an attribute of it.
-  @recorded_elsewhere ~w(className data-slot render key ref asChild)
+  # `dangerouslySetInnerHTML` is recorded on the node too, as the element's
+  # children: React writes content as a prop when the content is a string, and
+  # what it means is still content. See `inner_html/2`.
+  @recorded_elsewhere ~w(className data-slot render key ref asChild dangerouslySetInnerHTML)
 
   # What HTML calls the attribute React writes in camelCase.
   #
@@ -2658,7 +2977,10 @@ defmodule LiveShadcnTools.Spec do
             %{"property" => property, "kind" => "text", "value" => literal}
 
           nil ->
-            code = source(value)
+            # `fontStyle: isItalic(token.fontStyle) ? "italic" : undefined` — a
+            # declaration computed by a one-line function upstream wrote down
+            # because it says the same thing three times. See `expand/2`.
+            code = value |> source() |> expand(ctx)
 
             case constant(code, ctx) do
               nil -> %{"property" => property, "kind" => "code", "value" => code}

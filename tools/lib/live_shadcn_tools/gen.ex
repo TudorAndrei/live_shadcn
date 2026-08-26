@@ -31,6 +31,7 @@ defmodule LiveShadcnTools.Gen do
   alias LiveShadcnTools.Gen.Resizable
   alias LiveShadcnTools.Gen.Scroller
   alias LiveShadcnTools.Gen.Separator
+  alias LiveShadcnTools.Gen.Shimmer
   alias LiveShadcnTools.Gen.Sidebar
   alias LiveShadcnTools.Gen.Slider
   alias LiveShadcnTools.Gen.Switch
@@ -58,6 +59,7 @@ defmodule LiveShadcnTools.Gen do
     "presentational" => Presentational,
     "scroller" => Scroller,
     "separator" => Separator,
+    "shimmer" => Shimmer,
     "sidebar" => Sidebar,
     "slider" => Slider,
     "switch" => Switch,
@@ -87,6 +89,7 @@ defmodule LiveShadcnTools.Gen do
         |> Decorate.folded(Keyword.get(opts, :resolve, fn _source, _name -> nil end))
         |> implementation.module(opts)
         |> with_variants(spec)
+        |> with_numbers()
         |> format()
         |> unique_ids!()
 
@@ -107,6 +110,90 @@ defmodule LiveShadcnTools.Gen do
       "" -> source
       table -> String.replace_suffix(source, "end\n", table <> "end\n")
     end
+  end
+
+  # `new Intl.NumberFormat("en-US", { notation: "compact" }).format(n)`.
+  #
+  # Compact notation keeps two significant digits where that says more than none
+  # after the point, which is why 1234 is `1.2K` and 12345 is `12K`. Rounding can
+  # carry into the next unit: 999_999 is 999.999K, and a thousand K is a million.
+  @compact ~S'''
+
+    @doc false
+    defp compact_number(number) when is_number(number) do
+      {value, suffix} = compact_parts(number)
+      whole = trunc(value)
+
+      if value == whole, do: "#{whole}#{suffix}", else: "#{value}#{suffix}"
+    end
+
+    defp compact_number(_number), do: nil
+
+    defp compact_parts(number) do
+      {value, suffix} =
+        cond do
+          abs(number) >= 1.0e9 -> {number / 1.0e9, "B"}
+          abs(number) >= 1.0e6 -> {number / 1.0e6, "M"}
+          abs(number) >= 1.0e3 -> {number / 1.0e3, "K"}
+          true -> {number * 1.0, ""}
+        end
+
+      rounded = Float.round(value, if(abs(value) < 10, do: 1, else: 0))
+
+      if abs(rounded) >= 1000 and suffix != "B",
+        do: compact_parts(round(rounded * 1000)),
+        else: {rounded, suffix}
+    end
+  '''
+
+  # `new Intl.NumberFormat("en-US", { currency: "USD", style: "currency" })`.
+  @currency ~S'''
+
+    @doc false
+    defp currency(number, code) when is_number(number) do
+      cents = number |> abs() |> Kernel.*(100) |> round()
+      sign = if number < 0, do: "-", else: ""
+      pence = cents |> rem(100) |> Integer.to_string() |> String.pad_leading(2, "0")
+
+      "#{sign}#{currency_symbol(code)}#{grouped(div(cents, 100))}.#{pence}"
+    end
+
+    defp currency(_number, _code), do: nil
+
+    defp currency_symbol("USD"), do: "$"
+    defp currency_symbol("EUR"), do: "€"
+    defp currency_symbol("GBP"), do: "£"
+    defp currency_symbol(code), do: code <> " "
+
+    defp grouped(whole) do
+      whole
+      |> Integer.to_string()
+      |> String.graphemes()
+      |> Enum.reverse()
+      |> Enum.chunk_every(3)
+      |> Enum.map_join(",", &Enum.join/1)
+      |> String.reverse()
+    end
+  '''
+
+  # `Intl.NumberFormat` written out, appended to the one module that asks for
+  # it. A function nothing calls is a compiler warning, and this project
+  # compiles generated code with warnings as errors, so what the markup uses is
+  # read off the markup exactly as the `cva` tables are.
+  #
+  # It lives in the module rather than in `live_base`, whose whole promise is
+  # that it owns nothing but behaviour and the attributes behaviour changes. A
+  # number written for a reader is neither.
+  defp with_numbers(source) do
+    helpers =
+      [
+        String.contains?(source, "compact_number(") && @compact,
+        String.contains?(source, "currency(") && @currency
+      ]
+      |> Enum.filter(&is_binary/1)
+      |> Enum.join()
+
+    if helpers == "", do: source, else: String.replace_suffix(source, "end\n", helpers <> "end\n")
   end
 
   @doc """

@@ -273,6 +273,20 @@ defmodule LiveShadcnTools.Gen.Heex do
     )
   end
 
+  # `<Ansi>{output}</Ansi>` — the escape codes a program wrote, turned into
+  # spans. What is inside the tag is what is rendered, and unlike the markdown
+  # seam it is not always called `content`: `terminal` calls it `output`, which
+  # is the name its own caller passes.
+  def render(%{"type" => "external", "role" => "ansi"} = node, ctx, indent) do
+    tag(
+      "LiveAiElements.Ansi.ansi",
+      structural(node) ++
+        [{"content", :code, rendered_content(node, ctx)}] ++ class_attr(node, ctx),
+      [],
+      indent
+    )
+  end
+
   def render(%{"type" => "icon"} = node, ctx, indent) do
     tag(
       "LiveShadcn.Icon.icon",
@@ -657,7 +671,11 @@ defmodule LiveShadcnTools.Gen.Heex do
   # a textarea with a placeholder and one with none are the same box. It took
   # the pixel check: 972 differing pixels, all of them outside any `data-slot`,
   # which is exactly the region that check exists to see.
-  @raw_text ~w(textarea)
+  # `<pre>` is here for a different reason from `<textarea>`: its content is
+  # markup, but every space and newline in it is content too. Indented like any
+  # other element, a terminal's output gained a blank line and four spaces —
+  # twenty-three pixels, which the parity check reported as a box too tall.
+  @raw_text ~w(textarea pre)
 
   @doc "One HTML tag, its attributes, and its already-rendered children."
   def tag(name, attrs, children, indent) do
@@ -682,10 +700,28 @@ defmodule LiveShadcnTools.Gen.Heex do
       structural(node) ++
         slot_attr(node, ctx) ++
         Map.get(ctx.attrs, Spec.key(node), []) ++
-        own_attrs(node, ctx) ++ class_attr(node, ctx) ++ rest_attr(node, ctx)
+        Enum.map(own_attrs(node, ctx), &as_assign/1) ++
+        class_attr(node, ctx) ++ rest_attr(node, ctx)
 
     tag(name, attrs, children(node, ctx, indent), indent)
   end
+
+  # An attribute passed to a component is an assign, and an assign is named the
+  # way this pipeline names every other one. `<.code_block_content
+  # showLineNumbers={…}>` is React's spelling of a prop the receiving component
+  # declares as `show_line_numbers`, so it reaches nothing — Phoenix says so as
+  # "undefined attribute", and this project builds with warnings as errors.
+  #
+  # An attribute on an *element* is HTML's and keeps upstream's spelling, which
+  # is why this happens here and not in `own_attrs/2`.
+  defp as_assign({name, kind, value}), do: {assign_name(name), kind, value}
+  defp as_assign({name, :bare}), do: {assign_name(name), :bare}
+  defp as_assign(other), do: other
+
+  defp assign_name(":" <> _rest = structural), do: structural
+  defp assign_name("data-" <> _rest = data), do: data
+  defp assign_name("aria-" <> _rest = aria), do: aria
+  defp assign_name(name), do: LiveShadcnTools.assign(name)
 
   # A run of text and values is one line, not one line each.
   #
@@ -869,6 +905,9 @@ defmodule LiveShadcnTools.Gen.Heex do
       list = list(code, ctx) -> list
       iso = iso8601(code, ctx) -> iso
       template = template(code, ctx) -> template
+      given = given?(code) -> given
+      flag = bit_flag(code, ctx) -> flag
+      formatted = number_format(code, ctx) -> formatted
       host = host(code, ctx) -> host
       indexed = indexed(code, ctx) -> indexed
       method = method(code, ctx) -> method
@@ -1046,6 +1085,60 @@ defmodule LiveShadcnTools.Gen.Heex do
   # comes out is one Elixir string and not three.
   defp escaped(text), do: text |> String.replace("\\", "\\\\") |> String.replace("\"", "\\\"")
 
+  # `"src" in props` — React asking whether the caller passed a prop, out of the
+  # object it kept the rest of them in. HEEx asks the assign, which is `nil`
+  # when nobody set it, so the question and the value are the same expression.
+  defp given?(code) do
+    case Regex.run(~r/^"([a-z_][A-Za-z0-9_]*)"\s+in\s+props$/, code, capture: :all_but_first) do
+      [name] -> "@" <> LiveShadcnTools.assign(name)
+      nil -> nil
+    end
+  end
+
+  # `token.fontStyle && token.fontStyle & 1` — one bit of a bit field, tested.
+  # shiki packs italic, bold and underline into a number, and upstream asks each
+  # question by masking it.
+  #
+  # Written across, the answer is a number, and JavaScript reads a zero as false
+  # while Elixir reads it as true: `fontStyle & 2` on an italic token is `0`, and
+  # the generated component would have drawn every token bold.
+  defp bit_flag(code, ctx) do
+    with [value, bit] <-
+           Regex.run(~r/^(.+?)\s*&&\s*\1\s*&\s*(\d+)$/s, code, capture: :all_but_first),
+         held when is_binary(held) <- expression!(value, ctx) do
+      "Bitwise.band(#{held} || 0, #{bit}) != 0"
+    else
+      _not_a_bit_test -> nil
+    end
+  end
+
+  # `new Intl.NumberFormat("en-US", { notation: "compact" }).format(inputTokens)`
+  # — a number written the way a reader reads it. `context` draws two: a token
+  # count as `1.2K`, and a price as `$0.02`.
+  #
+  # Elixir's standard library has neither, and the CLDR package that does would
+  # be a large dependency for two shapes upstream hard-codes the locale of. So
+  # the module carries the two functions, the way it already carries
+  # `variant_class/3`: see `LiveShadcnTools.Gen.number_helpers/1`.
+  defp number_format(code, ctx) do
+    with [options, value] <-
+           Regex.run(~r/^new Intl\.NumberFormat\([^,]*,\s*(\{.*\})\s*\)\.format\((.+)\)$/s, code,
+             capture: :all_but_first
+           ),
+         number when is_binary(number) <- expression!(value, ctx) do
+      if options =~ ~r/notation:\s*"compact"/ do
+        "compact_number(#{number})"
+      else
+        case Regex.run(~r/currency:\s*"([A-Z]{3})"/, options, capture: :all_but_first) do
+          [currency] -> ~s|currency(#{number}, "#{currency}")|
+          nil -> nil
+        end
+      end
+    else
+      _not_a_number_format -> nil
+    end
+  end
+
   # `new URL(sources[0]).hostname` — the site an address belongs to. Elixir
   # parses a URI rather than constructing one, and calls the same thing `host`.
   defp host(code, ctx) do
@@ -1189,6 +1282,13 @@ defmodule LiveShadcnTools.Gen.Heex do
   # through a React context is.
   defp path(["props", field], _ctx) when is_binary(field),
     do: "@" <> LiveShadcnTools.assign(field)
+
+  # `props.data.mediaType` — the same prop, with a field read off it. The prop
+  # is `data` and the field is the caller's to fill, exactly as `summary.passed`
+  # is: the path through `props` disappears and what is left is an assign and a
+  # key.
+  defp path(["props", field | rest], _ctx) when is_binary(field),
+    do: Enum.join(["@" <> LiveShadcnTools.assign(field) | Enum.map(rest, &underscored/1)], ".")
 
   defp path([head | rest], ctx) do
     with true <- Regex.match?(~r/^[a-z_][A-Za-z0-9_]*$/, head),
@@ -1433,6 +1533,15 @@ defmodule LiveShadcnTools.Gen.Heex do
     |> Macro.underscore()
     |> String.replace("_", "-")
     |> String.replace(~r/([a-z])(\d)/, "\\1-\\2")
+  end
+
+  defp underscored(field), do: LiveShadcnTools.assign(field)
+
+  defp rendered_content(node, ctx) do
+    case node |> Map.get("children") |> List.wrap() do
+      [%{"type" => "value", "code" => code} | _rest] -> expression(code, ctx)
+      _other -> "@content"
+    end
   end
 
   defp pad(indent), do: String.duplicate("  ", indent)

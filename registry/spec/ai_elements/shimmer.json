@@ -1,0 +1,146 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "shimmer",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "Shimmer",
+      "name": "shimmer",
+      "params": {
+        "as": "p",
+        "children": null,
+        "className": null,
+        "duration": "2",
+        "dynamicSpread": null,
+        "spread": "2"
+      },
+      "primitive": null,
+      "refs": [
+        "as",
+        "children",
+        "spread",
+        "className",
+        "duration"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "kind": "code",
+            "name": "animate",
+            "value": "{ backgroundPosition: \"0% center\" }"
+          },
+          {
+            "kind": "code",
+            "name": "initial",
+            "value": "{ backgroundPosition: \"100% center\" }"
+          },
+          {
+            "identifiers": [
+              "CSSProperties",
+              "dynamicSpread"
+            ],
+            "kind": "style",
+            "name": "style",
+            "value": [
+              {
+                "kind": "code",
+                "property": "--spread",
+                "value": "`${dynamicSpread}px`"
+              },
+              {
+                "kind": "text",
+                "property": "backgroundImage",
+                "value": "var(--bg), linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))"
+              }
+            ]
+          },
+          {
+            "identifiers": [
+              "Number",
+              "duration"
+            ],
+            "kind": "code",
+            "member_roots": [
+              "Number"
+            ],
+            "name": "transition",
+            "value": "{\n        duration,\n        ease: \"linear\",\n        repeat: Number.POSITIVE_INFINITY,\n      }"
+          }
+        ],
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent [--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]",
+        "class_when": [],
+        "merges_class": true,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "p",
+        "type": "element",
+        "variant_calls": [],
+        "vars": [
+          "--spread",
+          "--color-background"
+        ]
+      },
+      "types": {
+        "duration": {
+          "optional": true,
+          "type": "number"
+        },
+        "spread": {
+          "optional": true,
+          "type": "number"
+        }
+      }
+    }
+  ],
+  "primitives": {
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
+    }
+  },
+  "recipe": "shimmer",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/shimmer.tsx",
+      "sha256": "89d2284ee165aa57fec960e17c6c71078d22ad3fb3798ca683d7e3d850919a46"
+    }
+  },
+  "variants": {}
+}

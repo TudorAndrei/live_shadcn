@@ -21,7 +21,8 @@
       "chart",
       "calendar",
       "resizable",
-      "utility"
+      "utility",
+      "shimmer"
     ]
   },
   "components": [
@@ -70,7 +71,7 @@
     {
       "name": "code-block",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "clipboard",
       "tier": 1
     },
     {
@@ -142,7 +143,7 @@
     {
       "name": "jsx-preview",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "utility",
       "tier": 3
     },
     {
@@ -190,7 +191,7 @@
     {
       "name": "persona",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "utility",
       "tier": 2
     },
     {
@@ -238,7 +239,7 @@
     {
       "name": "shimmer",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "shimmer",
       "tier": 1
     },
     {
@@ -280,7 +281,7 @@
     {
       "name": "terminal",
       "source": "ai_elements",
-      "recipe": "presentational",
+      "recipe": "clipboard",
       "tier": 3
     },
     {

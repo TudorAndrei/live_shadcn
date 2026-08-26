@@ -28,6 +28,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
     {folded, own} = Enum.split_with(spec["parts"], &wrapper?/1)
 
     anything!(spec, own)
+    own = own |> Enum.map(&without_dropped(&1, folded)) |> forwarding()
 
     """
     defmodule #{inspect(Keyword.fetch!(opts, :module))} do
@@ -40,6 +41,87 @@ defmodule LiveShadcnTools.Gen.Presentational do
     end
     """
   end
+
+  # What a part hands to the sibling it calls.
+  #
+  # `terminal` draws its own header when the caller gives no children, and that
+  # header contains `<TerminalContent />` with no props at all: upstream's
+  # content reads the output off a React context that the root put it in. There
+  # is no context here — that was decided in phase 1a — so the root takes the
+  # output and the call has to pass it on, or the header draws an empty box.
+  #
+  # Only what both already have. A name the caller does not take is not a name
+  # it can forward, and one the call already sets is upstream's own answer.
+  defp forwarding(parts) do
+    declared = Map.new(parts, &{&1["name"], Map.keys(&1["params"] || %{})})
+
+    Enum.map(parts, fn part ->
+      Map.update!(
+        part,
+        "tree",
+        &pass_down(&1, declared, MapSet.new(Map.keys(part["params"] || %{})))
+      )
+    end)
+  end
+
+  defp pass_down(%{"type" => "part_ref", "part" => name} = node, declared, mine) do
+    written = Enum.map(Map.get(node, "attrs") || [], & &1["name"])
+
+    shared =
+      declared
+      |> Map.get(name, [])
+      |> Enum.filter(&MapSet.member?(mine, &1))
+      |> Enum.reject(&(&1 in ["className", "children", "render"] or &1 in written))
+
+    node
+    |> Map.put(
+      "attrs",
+      (Map.get(node, "attrs") || []) ++
+        Enum.map(shared, &%{"name" => &1, "kind" => "code", "value" => &1})
+    )
+    |> Map.update("children", [], &pass_down(&1, declared, mine))
+  end
+
+  defp pass_down(node, declared, mine) when is_map(node),
+    do: Map.new(node, fn {key, value} -> {key, pass_down(value, declared, mine)} end)
+
+  defp pass_down(nodes, declared, mine) when is_list(nodes),
+    do: Enum.map(nodes, &pass_down(&1, declared, mine))
+
+  defp pass_down(value, _declared, _mine), do: value
+
+  # A call to a part this recipe decided not to write.
+  #
+  # `schema-display` draws three collapsible sections and its root calls all
+  # three by name. Each of the three is a wrapper around `shadcn/collapsible`, so
+  # none of them is written — and the root went on calling functions the module
+  # does not define, which is a compile error in a package rather than a gap in
+  # a report.
+  #
+  # The call goes with the function. What to compose in its place is the
+  # `@moduledoc`'s sentence, which names the component rather than the wrapper.
+  defp without_dropped(part, []), do: part
+
+  defp without_dropped(part, folded) do
+    dropped = MapSet.new(folded, & &1["name"])
+    Map.update!(part, "tree", &prune(&1, dropped))
+  end
+
+  defp prune(node, dropped) when is_map(node) do
+    node
+    |> Map.new(fn {key, value} -> {key, prune(value, dropped)} end)
+    |> Map.replace_lazy("children", fn children ->
+      Enum.reject(List.wrap(children), &calls_dropped?(&1, dropped))
+    end)
+  end
+
+  defp prune(nodes, dropped) when is_list(nodes), do: Enum.map(nodes, &prune(&1, dropped))
+  defp prune(value, _dropped), do: value
+
+  defp calls_dropped?(%{"type" => "part_ref", "part" => part}, dropped),
+    do: MapSet.member?(dropped, part)
+
+  defp calls_dropped?(_node, _dropped), do: false
 
   # A part that is one reference to a component whose recipe folds.
   #
@@ -186,7 +268,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
   @doc "The attributes a part exposes, with their defaults and allowed values."
   def attributes(part, spec) do
     calls = variant_calls_of(part, spec)
-    paths = path_roots(part)
+    paths = path_roots(part) ++ counted(part)
 
     # A render prop is declared as a slot, and a name cannot be both.
     rendered = Heex.slots(part["tree"])
@@ -233,6 +315,26 @@ defmodule LiveShadcnTools.Gen.Presentational do
   defp type(name, _default, paths, _annotation),
     do: if(name in paths, do: ":any", else: ":string")
 
+  # The props the markup counts rather than prints.
+  #
+  # `context` writes `Intl.NumberFormat(…).format(inputTokens)`, which is
+  # arithmetic on a number. Declared `:string` — which is what a prop with no
+  # default and no annotation gets — the component refuses the number a caller
+  # has, and takes a string it cannot divide.
+  #
+  # `:any` rather than `:integer` for the same reason a `number` annotation gets
+  # `:any`: TypeScript's `number` is both, and Phoenix has no type that is.
+  defp counted(part) do
+    part["tree"]
+    |> LiveShadcnTools.Spec.codes()
+    |> Enum.filter(&String.contains?(&1, "NumberFormat"))
+    |> Enum.flat_map(
+      &Regex.scan(~r/\.format\(([a-z_][A-Za-z0-9_]*)\)/, &1, capture: :all_but_first)
+    )
+    |> List.flatten()
+    |> Enum.uniq()
+  end
+
   # The props the markup reads a field off, rather than rendering whole.
   #
   defp path_roots(part) do
@@ -270,6 +372,20 @@ defmodule LiveShadcnTools.Gen.Presentational do
   defp literal(":boolean", "true"), do: true
   defp literal(":boolean", "false"), do: false
 
+  # A number upstream wrote as a number. `duration = 2` is two seconds, and two
+  # seconds written as `"2"` is a string every piece of arithmetic downstream
+  # then fails on — `trunc(@duration * 1000)` first.
+  defp literal(type, default) when type in [":any", ":integer"] and is_binary(default) do
+    case Integer.parse(default) do
+      {number, ""} -> number
+      _not_a_number -> computed(default)
+    end
+  end
+
+  defp literal(_type, default) when is_binary(default), do: computed(default)
+
+  defp literal(_type, default), do: default
+
   # `defaultExpanded = new Set()` is JavaScript running at render, not a value.
   # Written out as it stands it declared a component whose default is the four
   # words `new Set()`, which is worse than having none: a caller who passes
@@ -278,11 +394,9 @@ defmodule LiveShadcnTools.Gen.Presentational do
   # Nothing is the honest default for a computed one. What upstream computes is
   # a starting point for state the client owns, and a HEEx component takes that
   # from its caller.
-  defp literal(_type, default) when is_binary(default) do
+  defp computed(default) do
     if Regex.match?(~r/[(\[{]/, default), do: nil, else: default
   end
-
-  defp literal(_type, default), do: default
 
   # A render prop is a slot, and a slot rendered but not declared raises on the
   # component's first render.

@@ -106,7 +106,7 @@ defmodule LiveAiElements.Components.StackTrace do
     values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
   )
 
-  attr(:timeout, :any, default: "2000")
+  attr(:timeout, :any, default: 2000)
 
   attr(:variant, :string,
     default: "ghost",
@@ -122,12 +122,12 @@ defmodule LiveAiElements.Components.StackTrace do
   def stack_trace_copy_button(assigns) do
     ~H"""
     <button
-      data-slot={@rest[:"data-slot"] || "button"}
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@raw}
       data-lb-timeout={@timeout}
+      data-slot={@rest[:"data-slot"] || "button"}
       class={[
         "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-7",
         variant_class("buttonVariants", "size", @size),
@@ -167,6 +167,7 @@ defmodule LiveAiElements.Components.StackTrace do
   end
 
   @doc "The `stack_trace_frames` part."
+  attr(:frame, :any, default: nil)
   attr(:frames_to_show, :any, default: nil)
   attr(:show_internal_frames, :boolean, default: true)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")

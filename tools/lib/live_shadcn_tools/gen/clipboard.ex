@@ -38,9 +38,9 @@ defmodule LiveShadcnTools.Gen.Clipboard do
   over is the caller's decision rather than this component's.
   """
 
+  alias LiveShadcnTools.Gen.Heex
   alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Gen.Tree
-  alias LiveShadcnTools.Spec
 
   # `useState(false)`: the browser starts in the `else` branch, and the `then`
   # branch is the one drawn hidden.
@@ -60,6 +60,18 @@ defmodule LiveShadcnTools.Gen.Clipboard do
         ~s|attr :hash, :string, required: true, doc: "The commit hash the button copies."|
       ],
       text: "@hash"
+    },
+    "code-block" => %{
+      declare: [
+        ~s|attr :code, :string, required: true, doc: "The code the button copies."|
+      ],
+      text: "@code"
+    },
+    "terminal" => %{
+      declare: [
+        ~s|attr :output, :string, required: true, doc: "The output the button copies."|
+      ],
+      text: "@output"
     },
     "stack-trace" => %{
       declare: [
@@ -85,12 +97,91 @@ defmodule LiveShadcnTools.Gen.Clipboard do
 
     spec
     |> switch(spec["name"])
+    |> passing(part, copies)
+    |> hooked(part, attributes(copies))
     |> Presentational.module(
       opts
       |> Keyword.put(:declare, declared(spec, part, copies))
-      |> Keyword.put(:attrs, %{Spec.key(part["tree"]) => attributes(copies)})
       |> Keyword.put(:client_state, %{"isCopied" => @state})
     )
+  end
+
+  # On the copy button's node, and not through `:attrs`.
+  #
+  # `:attrs` in the context is keyed by the Base UI part a node draws, and both
+  # of `terminal`'s buttons draw shadcn's `Button` — so the hook, the text and
+  # the timeout landed on the clear button too, which then read an `@id` it had
+  # never declared and raised on its first render.
+  defp hooked(spec, button, attributes) do
+    Map.update!(spec, "parts", fn parts ->
+      Enum.map(parts, fn part ->
+        if part["name"] == button["name"],
+          do: Map.update!(part, "tree", &Heex.with_attrs(&1, attributes)),
+          else: part
+      end)
+    end)
+  end
+
+  # What a part that *calls* the copy button has to hand it.
+  #
+  # `terminal` draws its own header when the caller gives no children, and that
+  # header contains the copy button. Upstream can render it with no props
+  # because the button reads the output off a context; here it takes the output
+  # and an id, and a call that passes neither is a component that raises the
+  # first time anybody renders it — which Phoenix says at compile time, and this
+  # project builds with warnings as errors.
+  #
+  # So the call passes them, and the calling part takes them too: what it cannot
+  # read from a context, it asks its own caller for. That is the same answer
+  # every context in this registry gets.
+  defp passing(spec, button, copies) do
+    names = ["id" | Enum.map(copies.declare, &declared_name/1)]
+    called = button["name"]
+
+    Map.update!(spec, "parts", fn parts ->
+      Enum.map(parts, fn part ->
+        if part["name"] != called and calls?(part["tree"], called),
+          do: part |> forward(called, names) |> asking(names),
+          else: part
+      end)
+    end)
+  end
+
+  defp declared_name(declaration) do
+    [name] = Regex.run(~r/^attr :([a-z_]+),/, declaration, capture: :all_but_first)
+    name
+  end
+
+  defp calls?(%{"type" => "part_ref", "part" => part}, part), do: true
+
+  defp calls?(node, part) when is_map(node),
+    do: node |> Map.values() |> Enum.any?(&calls?(&1, part))
+
+  defp calls?(nodes, part) when is_list(nodes), do: Enum.any?(nodes, &calls?(&1, part))
+  defp calls?(_node, _part), do: false
+
+  defp forward(part, button, names) do
+    Map.update!(part, "tree", &pass(&1, button, names))
+  end
+
+  defp pass(%{"type" => "part_ref", "part" => button} = node, button, names) do
+    Map.put(node, "attrs", Enum.map(names, &%{"name" => &1, "kind" => "code", "value" => &1}))
+  end
+
+  defp pass(node, button, names) when is_map(node),
+    do: Map.new(node, fn {key, value} -> {key, pass(value, button, names)} end)
+
+  defp pass(nodes, button, names) when is_list(nodes),
+    do: Enum.map(nodes, &pass(&1, button, names))
+
+  defp pass(value, _button, _names), do: value
+
+  # A prop the part now reads, so that the generator resolves the name and
+  # declares it. A name upstream already destructured keeps its own default.
+  defp asking(part, names) do
+    Map.update(part, "params", %{}, fn params ->
+      Map.merge(Map.new(names, &{&1, nil}), params)
+    end)
   end
 
   # `environment-variables` folds `shadcn/switch`, and a fold copies markup

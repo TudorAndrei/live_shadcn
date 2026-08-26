@@ -936,6 +936,32 @@
       "renders": true,
       "summary": "A positioning container for the dialog popup that can be made scrollable."
     },
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
+    },
     "sheet.Backdrop": {
       "css_vars": [],
       "data": [

@@ -105,7 +105,7 @@ defmodule LiveAiElements.Components.Message do
   end
 
   @doc "The `message_branch` part."
-  attr(:default_branch, :any, default: "0")
+  attr(:default_branch, :any, default: 0)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)

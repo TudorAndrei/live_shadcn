@@ -37,7 +37,14 @@ defmodule LiveShadcnTools.Gen.Scroller do
   alias LiveShadcnTools.Gen.Presentational
   alias LiveShadcnTools.Spec
 
-  @required %{root: "Root", viewport: "Viewport", scrollbar: "Scrollbar", thumb: "Thumb"}
+  @required %{root: "Root", viewport: "Viewport"}
+
+  # A scrollbar the component draws itself, and the thumb inside it. Base UI's
+  # scroll area has both and hides the platform's; `use-stick-to-bottom`, which
+  # is what `conversation` scrolls with, has neither and lets the platform draw
+  # its own. Both are scrollers — a box that scrolls, with the hook that
+  # measures it — and only one of them has a bar to place.
+  @optional %{scrollbar: "Scrollbar", thumb: "Thumb"}
 
   @doc """
   The attribute names the client hook owns rather than the server.
@@ -114,12 +121,21 @@ defmodule LiveShadcnTools.Gen.Scroller do
   end
 
   defp roles!(spec) do
-    Map.new(@required, fn {role, primitive} ->
-      case find(spec["parts"], primitive) do
-        nil -> raise "#{spec["name"]} has no #{primitive} part, so it is not a scroll area"
-        found -> {role, found}
-      end
-    end)
+    required =
+      Map.new(@required, fn {role, primitive} ->
+        case find(spec["parts"], primitive) do
+          nil -> raise "#{spec["name"]} has no #{primitive} part, so it is not a scroll area"
+          found -> {role, found}
+        end
+      end)
+
+    optional =
+      for {role, primitive} <- @optional,
+          found = find(spec["parts"], primitive),
+          into: %{},
+          do: {role, found}
+
+    Map.merge(required, optional)
   end
 
   defp find(parts, primitive) do
@@ -138,12 +154,34 @@ defmodule LiveShadcnTools.Gen.Scroller do
 
   # ---- markup ----
 
+  # The viewport, when the root does not already contain it.
+  #
+  # shadcn's `ScrollArea` assembles its own anatomy, so the root's tree nests
+  # the viewport and the scrollbar and there is nothing to do. `conversation`
+  # does not: upstream exports `<Conversation>` and `<ConversationContent>` as
+  # two components and expects a caller to put one inside the other. Folded into
+  # one function, this recipe is that caller — and a root with no viewport in it
+  # is a component whose children have nowhere to go, which is what it drew.
+  defp nesting(tree, roles) do
+    if contains?(tree, Spec.key(roles.viewport.node)),
+      do: tree,
+      else: Map.put(tree, "children", [roles.viewport.part["tree"]])
+  end
+
+  defp contains?(node, key) when is_map(node) do
+    Spec.key(node) == key or
+      node |> Map.get("children") |> List.wrap() |> Enum.any?(&contains?(&1, key))
+  end
+
+  defp contains?(_node, _key), do: false
+
   # The root's own tree already nests the viewport, the scrollbar and the
   # corner, because shadcn's `ScrollArea` assembles them. The recipe places the
   # hook on the root and the markers inside it, and renders the tree as written.
   defp markup(spec, roles) do
     tree =
       roles.root.part["tree"]
+      |> nesting(roles)
       |> Heex.with_children_at(Spec.key(roles.viewport.node))
       |> only_root_takes(Spec.key(roles.root.node))
 
@@ -222,10 +260,26 @@ defmodule LiveShadcnTools.Gen.Scroller do
         # class string. Without it the viewport has more content than fits and
         # no way to reach it: `overflow` is what makes a box a scrolling box.
         #
-        # `scrollbar-width: none` because the point of the component is the
-        # scrollbar it draws, and the platform's beside it would be two.
-        {"style", :text, "overflow: scroll; scrollbar-width: none"}
-      ],
+        # `scrollbar-width: none` only where the component draws a scrollbar of
+        # its own, because the platform's beside it would be two. A scroller
+        # with no bar of its own keeps the platform's, which is the only one it
+        # has.
+        {"style", :text, viewport_style(roles)}
+      ]
+    }
+    |> Map.merge(bar(roles))
+  end
+
+  defp viewport_style(roles) do
+    if Map.has_key?(roles, :scrollbar),
+      do: "overflow: scroll; scrollbar-width: none",
+      else: "overflow: auto"
+  end
+
+  defp bar(roles) when not is_map_key(roles, :scrollbar) or not is_map_key(roles, :thumb), do: %{}
+
+  defp bar(roles) do
+    %{
       Spec.key(roles.scrollbar.node) => [
         {"data-orientation", :code, "@orientation"},
         {"style", :code,

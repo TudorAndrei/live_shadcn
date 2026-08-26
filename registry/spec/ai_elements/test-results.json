@@ -72,7 +72,7 @@
               {
                 "code": "`${(summary.duration / 1000).toFixed(2)}s`",
                 "identifiers": [
-                  "ms"
+                  "summary.duration"
                 ],
                 "type": "value"
               }
@@ -1053,7 +1053,40 @@
               }
             ],
             "class": "shrink-0",
-            "class_when": [],
+            "class_when": [
+              {
+                "else": null,
+                "identifiers": [
+                  "status"
+                ],
+                "then": "text-red-600 dark:text-red-400",
+                "when": "status === \"failed\""
+              },
+              {
+                "else": null,
+                "identifiers": [
+                  "status"
+                ],
+                "then": "text-green-600 dark:text-green-400",
+                "when": "status === \"passed\""
+              },
+              {
+                "else": null,
+                "identifiers": [
+                  "status"
+                ],
+                "then": "text-blue-600 dark:text-blue-400",
+                "when": "status === \"running\""
+              },
+              {
+                "else": null,
+                "identifiers": [
+                  "status"
+                ],
+                "then": "text-yellow-600 dark:text-yellow-400",
+                "when": "status === \"skipped\""
+              }
+            ],
             "merges_class": false,
             "props": false,
             "reads": {
@@ -1617,7 +1650,40 @@
           }
         ],
         "class": "shrink-0",
-        "class_when": [],
+        "class_when": [
+          {
+            "else": null,
+            "identifiers": [
+              "status"
+            ],
+            "then": "text-red-600 dark:text-red-400",
+            "when": "status === \"failed\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "status"
+            ],
+            "then": "text-green-600 dark:text-green-400",
+            "when": "status === \"passed\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "status"
+            ],
+            "then": "text-blue-600 dark:text-blue-400",
+            "when": "status === \"running\""
+          },
+          {
+            "else": null,
+            "identifiers": [
+              "status"
+            ],
+            "then": "text-yellow-600 dark:text-yellow-400",
+            "when": "status === \"skipped\""
+          }
+        ],
         "merges_class": true,
         "props": true,
         "reads": {
@@ -2047,6 +2113,32 @@
       ],
       "renders": true,
       "summary": "A button that opens and closes the collapsible panel."
+    },
+    "external/use-stick-to-bottom.Root": {
+      "props": [
+        {
+          "name": "initial"
+        },
+        {
+          "name": "resize"
+        },
+        {
+          "name": "mass"
+        },
+        {
+          "name": "damping"
+        },
+        {
+          "name": "stiffness"
+        }
+      ]
+    },
+    "external/use-stick-to-bottom.Viewport": {
+      "props": [
+        {
+          "name": "scrollClassName"
+        }
+      ]
     }
   },
   "recipe": "presentational",
