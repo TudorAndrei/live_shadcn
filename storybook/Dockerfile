@@ -3,11 +3,11 @@
 # The storybook, as one image.
 #
 # It is a demo application, so it holds no data and reaches no database. What it
-# does need is unusual: the shadcn styling layer is gitignored, so the build has
-# to run `mix ui.fetch` before it can compile any CSS. That is deliberate —
-# this repository records a digest per upstream file rather than redistributing
-# anybody else's source — and it means the image build needs network access to
-# GitHub and base-ui.com, once, in the builder stage.
+# does need is unusual: the shadcn styling layer is gitignored, so the build
+# runs `mix ui.fetch --styles` before it can compile any CSS. That is
+# deliberate — this repository records a digest per upstream file rather than
+# redistributing anybody else's source — and it means the image build reaches
+# GitHub once, in the builder stage, for the commit the branch pins.
 
 # These have to name tags that hexpm/elixir and debian actually publish. The
 # Elixir and OTP versions match the ones mise.toml pins, so the image and a
@@ -39,15 +39,21 @@ COPY registry ./registry
 COPY tools ./tools
 COPY storybook ./storybook
 
-# The styling layer, from the commit registry/UPSTREAM.json pins. This is the
-# one step that reaches the network for anything but a package: the layer is
-# git-ignored on purpose, so it is fetched rather than redistributed here.
-# An anonymous fetch works: only three of these requests go to api.github.com
-# and the rest go to raw.githubusercontent.com and base-ui.com. GITHUB_TOKEN is
-# here for the build that does get rate-limited, and it stays in the builder
-# stage — the runtime image below starts from a fresh FROM and never sees it.
+# The styling layer, at the commit `registry/UPSTREAM.json` pins. It is the one
+# thing this build needs that the branch does not carry: the sheets are
+# gitignored rather than redistributed here, and every class string in a
+# generated component is a `cn-` rule inside them.
+#
+# `--styles` fetches those eleven files and nothing else — no components, no
+# Base UI pages, no manifest written — so the image is the branch plus the
+# sheets the branch names. Everything else it compiles is already here: the
+# specs, the generated modules and the snapshots are all on the branch.
+#
+# Eleven requests, all to raw.githubusercontent.com. GITHUB_TOKEN is here for a
+# build that gets rate-limited anyway, and it stays in the builder stage — the
+# runtime image below starts from a fresh FROM and never sees it.
 ARG GITHUB_TOKEN=""
-RUN cd tools && mix deps.get --only prod && mix ui.fetch
+RUN cd tools && mix deps.get --only prod && mix ui.fetch --styles
 
 WORKDIR /build/storybook
 

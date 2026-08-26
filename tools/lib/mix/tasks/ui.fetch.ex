@@ -18,7 +18,12 @@ defmodule Mix.Tasks.Ui.Fetch do
       mix ui.fetch                 # everything
       mix ui.fetch --only accordion
       mix ui.fetch --ref a1b2c3d   # pin shadcn to an explicit commit
+      mix ui.fetch --styles        # the style sheets alone, at the pinned commit
 
+  `--styles` is what a build of this repository runs: the generated components
+  are on the branch and the sheets their class strings resolve against are not.
+  It reads the commit out of the manifest, writes no manifest of its own, and
+  asks GitHub for eleven files instead of two hundred.
   """
   use Mix.Task
 
@@ -69,7 +74,34 @@ defmodule Mix.Tasks.Ui.Fetch do
   def run(argv) do
     Mix.Task.run("app.start")
 
-    {opts, _, _} = OptionParser.parse(argv, strict: [only: :string, ref: :string])
+    {opts, _, _} =
+      OptionParser.parse(argv, strict: [only: :string, ref: :string, styles: :boolean])
+
+    if opts[:styles], do: styling_layer(opts[:ref]), else: everything(opts)
+  end
+
+  # The styling layer and nothing else, at the commit `registry/UPSTREAM.json`
+  # already pins.
+  #
+  # It is what a deployment needs. Every class string in a generated component
+  # is a `cn-` rule that lives in these sheets, and the sheets are gitignored
+  # rather than redistributed here — so they are the one part of a build that
+  # is not on the branch being deployed.
+  #
+  # No manifest is written: the pin this read is the pin that is there, and a
+  # run that fetched eleven files must not replace a record of a hundred and
+  # fifty-seven.
+  defp styling_layer(ref) do
+    ref = ref || pinned_ref() || resolve_ref(@shadcn_repo)
+    Mix.shell().info("shadcn-ui/ui @ #{ref}")
+
+    {files, _styles} = fetch_styles(ref)
+    Mix.shell().info("fetched #{length(files)} style file(s)")
+  end
+
+  defp pinned_ref, do: get_in(existing_manifest(), ["sources", "shadcn", "ref"])
+
+  defp everything(opts) do
     only = opts[:only]
 
     shadcn_ref = opts[:ref] || resolve_ref(@shadcn_repo)

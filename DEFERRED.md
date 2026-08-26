@@ -113,19 +113,21 @@ docker run --rm -p 4199:4100 \
   -e PHX_HOST=localhost storybook:check
 ```
 
-Open <http://localhost:4199>. Unstyled pages mean `mix ui.fetch` failed in the
-builder stage.
+Open <http://localhost:4199>. Unstyled pages mean `mix ui.fetch --styles` failed
+in the builder stage.
 
 ### What the build does that is unusual
 
-The builder stage runs `mix ui.fetch`. The shadcn styling layer is git-ignored
-on purpose, because this repository records a digest per upstream file rather
-than redistributing anybody else's source. So the image build reaches GitHub and
-base-ui.com once, and the image carries the result.
+The builder stage runs `mix ui.fetch --styles`. The shadcn styling layer is
+git-ignored on purpose, because this repository records a digest per upstream
+file rather than redistributing anybody else's source — so it is the one thing
+the image needs that the branch does not carry. The specs, the generated modules
+and the snapshots are all on the branch and are compiled as they stand.
 
-That fetch is anonymous and it works. Only three of its requests go to
-`api.github.com`. If a build is ever rate-limited, put a token in `image_vars`
-in `wrangler.jsonc` and do not commit it.
+`--styles` reads the commit out of `registry/UPSTREAM.json`, so what the image
+carries is what the branch pins. Eleven anonymous requests, all to
+`raw.githubusercontent.com`. If a build is ever rate-limited, put a token in
+`image_vars` in `wrangler.jsonc` and do not commit it.
 
 ---
 

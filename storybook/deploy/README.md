@@ -47,15 +47,17 @@ repository secrets: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
 
 ## What the build does that is unusual
 
-The builder stage runs `mix ui.fetch`. The shadcn styling layer is git-ignored
-on purpose — this repository records a digest per upstream file rather than
-redistributing anybody else's source — so the image build reaches GitHub and
-base-ui.com once, and the image carries the result.
+The builder stage runs `mix ui.fetch --styles`. The shadcn styling layer is
+git-ignored on purpose — this repository records a digest per upstream file
+rather than redistributing anybody else's source — so it is the one thing the
+image needs that the branch does not carry. Everything else it compiles is on
+the branch: the specs, the generated modules and the snapshots.
 
-That fetch is anonymous, and it works: only three of its requests go to
-`api.github.com` and the rest go to `raw.githubusercontent.com` and
-`base-ui.com`. If a build ever is rate-limited, put a token in `image_vars` and
-do not commit it.
+`--styles` reads the commit out of `registry/UPSTREAM.json`, so the sheets in
+the image are the sheets the branch names rather than whatever shadcn's `main`
+holds on the build day. Eleven files, all from `raw.githubusercontent.com`, and
+no manifest written. If a build is ever rate-limited, put a token in
+`image_vars` and do not commit it.
 
 ## Checking the image without deploying
 
