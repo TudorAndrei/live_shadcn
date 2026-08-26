@@ -1,4 +1,9 @@
 import "phoenix_html";
+// `audio_player` writes media-chrome's tags — `<media-controller>`,
+// `<media-play-button>` — and a custom element draws nothing until the browser
+// upgrades it. Which media library an application loads is the application's
+// choice; this one loads the same version `parity/` compares against.
+import "media-chrome";
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 import { hooks as liveBase } from "live_base";

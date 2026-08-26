@@ -13,6 +13,7 @@
   "dependencies": {
     "@floating-ui/dom": "^1.8.0",
     "live_base": "file:../../packages/live_base",
+    "media-chrome": "^4.19.2",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "phoenix_live_view": "file:../deps/phoenix_live_view",

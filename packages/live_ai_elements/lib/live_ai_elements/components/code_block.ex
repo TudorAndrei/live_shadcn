@@ -116,6 +116,7 @@ defmodule LiveAiElements.Components.CodeBlock do
     ~H"""
     <div class="relative overflow-auto">
       <pre
+        phx-no-format
         style=""
         class={[
           "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)] m-0 p-4 text-sm",

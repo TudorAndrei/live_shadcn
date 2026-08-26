@@ -254,7 +254,11 @@ defmodule LiveAiElements.Components.SchemaDisplay do
 
   def schema_display_example(assigns) do
     ~H"""
-    <pre class={["mx-4 mb-4 overflow-auto rounded-md bg-muted p-4 font-mono text-sm", @class]} {@rest}>{render_slot(@inner_block)}</pre>
+    <pre
+      phx-no-format
+      class={["mx-4 mb-4 overflow-auto rounded-md bg-muted p-4 font-mono text-sm", @class]}
+      {@rest}
+    >{render_slot(@inner_block)}</pre>
     """
   end
 end

@@ -139,7 +139,7 @@ defmodule LiveAiElements.Components.Terminal do
     ~H"""
     <div class={["max-h-96 overflow-auto p-4 font-mono text-sm leading-relaxed", @class]} {@rest}>
       <%= if @inner_block == [] do %>
-        <pre class="whitespace-pre-wrap break-words"><LiveAiElements.Ansi.ansi content={@output} /><span :if={@is_streaming} class="ml-0.5 inline-block h-4 w-2 animate-pulse bg-zinc-100" /></pre>
+        <pre phx-no-format class="whitespace-pre-wrap break-words"><LiveAiElements.Ansi.ansi content={@output} /><span :if={@is_streaming} class="ml-0.5 inline-block h-4 w-2 animate-pulse bg-zinc-100" /></pre>
       <% end %>
       {render_slot(@inner_block)}
     </div>

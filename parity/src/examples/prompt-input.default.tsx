@@ -1,6 +1,5 @@
 import {
   PromptInput,
-  PromptInputBody,
   PromptInputFooter,
   PromptInputSubmit,
   PromptInputTextarea,
@@ -17,13 +16,11 @@ import {
 export default function PromptInputDefault() {
   return (
     <PromptInput className="max-w-md" onSubmit={() => undefined}>
-      <PromptInputBody>
-        <PromptInputTextarea placeholder="What would you like to know?" />
-        <PromptInputFooter>
-          <PromptInputTools />
-          <PromptInputSubmit />
-        </PromptInputFooter>
-      </PromptInputBody>
+      <PromptInputTextarea placeholder="What would you like to know?" />
+      <PromptInputFooter>
+        <PromptInputTools />
+        <PromptInputSubmit />
+      </PromptInputFooter>
     </PromptInput>
   );
 }

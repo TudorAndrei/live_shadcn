@@ -636,9 +636,18 @@ defmodule LiveShadcnTools.Gen.Heex do
   defdelegate codes(tree), to: Spec
   defdelegate member_roots(tree), to: Spec
 
-  @doc "Whether a tree renders the caller's content anywhere."
+  @doc """
+  Whether a tree renders the caller's content anywhere.
+
+  Anywhere, and not only under `children`: `checkpoint_trigger` draws one of two
+  buttons depending on whether it was given a tooltip, and both of them render
+  the caller's content. Looked for in one place, the slot went undeclared and
+  the component raised on its first render.
+  """
   def marker?(%{"type" => "children"}), do: true
-  def marker?(node), do: node |> Map.get("children") |> List.wrap() |> Enum.any?(&marker?/1)
+  def marker?(node) when is_map(node), do: node |> Map.values() |> marker?()
+  def marker?(nodes) when is_list(nodes), do: Enum.any?(nodes, &marker?/1)
+  def marker?(_node), do: false
 
   @doc """
   The slots a tree renders, by name.
@@ -657,35 +666,37 @@ defmodule LiveShadcnTools.Gen.Heex do
   def slots(nodes) when is_list(nodes), do: nodes |> Enum.flat_map(&slots/1) |> Enum.uniq()
   def slots(_node), do: []
 
-  # An element whose content is text rather than markup, where the whitespace
-  # this generator indents with would become part of the value.
+  # Elements where the whitespace this generator indents with is content.
   #
-  # `<textarea>` is the one that bit. Rendered like any other element it came
-  # out as `<textarea>\n  {render_slot(@inner_block)}\n</textarea>`, and a
-  # textarea is a raw-text element: those newlines *are* its value. So every
-  # generated textarea shipped with `"\n"` in it, which means the placeholder
-  # never showed and a form submitted a stray newline.
-  #
-  # Nothing caught it. The markup is valid, the snapshot was stable, axe has no
-  # opinion, and the geometric parity check compares boxes and computed styles —
-  # a textarea with a placeholder and one with none are the same box. It took
-  # the pixel check: 972 differing pixels, all of them outside any `data-slot`,
-  # which is exactly the region that check exists to see.
-  # `<pre>` is here for a different reason from `<textarea>`: its content is
-  # markup, but every space and newline in it is content too. Indented like any
-  # other element, a terminal's output gained a blank line and four spaces —
-  # twenty-three pixels, which the parity check reported as a box too tall.
+  # `<textarea>` is a raw-text element: the newlines around
+  # `{render_slot(@inner_block)}` *are* its value, so a generated one shipped
+  # with `"\n"` in it — no placeholder, and a stray newline submitted with the
+  # form. `<pre>` holds markup, and every space and newline in it is content
+  # too.
   @raw_text ~w(textarea pre)
+
+  # A custom element is the third: its light DOM decides which of its shadow
+  # slots draw, and whitespace is assigned to the default slot like any other
+  # node. media-chrome's `<media-time-display>` writes `<slot>0:00</slot>`, so
+  # one newline inside the tag suppresses the `0:00` and the control draws
+  # blank.
+  defp custom_element?(name), do: Regex.match?(~r/^[a-z][a-z0-9]*(-[a-z0-9]+)+$/, name)
 
   @doc "One HTML tag, its attributes, and its already-rendered children."
   def tag(name, attrs, children, indent) do
+    tight? = name in @raw_text or custom_element?(name)
+
+    # The HEEx formatter lays a tag's content out on lines of its own unless it
+    # is told not to. `phx-no-format` tells it; Phoenix strips the attribute
+    # before rendering, so it reaches no page.
+    attrs = if tight? and children != [], do: [{"phx-no-format", :bare} | attrs], else: attrs
     open = pad(indent) <> "<" <> name <> attributes(attrs)
 
     cond do
       children == [] ->
         open <> " />"
 
-      name in @raw_text ->
+      tight? ->
         open <> ">" <> Enum.map_join(children, &String.trim/1) <> "</" <> name <> ">"
 
       true ->

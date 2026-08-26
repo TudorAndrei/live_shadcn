@@ -362,6 +362,35 @@ Call what is a component:
 - [x] The eight recipes that fold a component into one function are unchanged,
       and their moduledocs already say which component to compose
 
+## Phase 15: Nobody was looking at the AI Elements pages
+
+Dropping the gate left `generated`, `snapshot` and axe, and none of them can
+tell an empty `<media-controller>` from a full one.
+
+- [x] `pixel.spec.mjs` photographs every AI Elements example again and prints
+      its difference as a census. No number there is a verdict, and 33 of the 49
+      are at zero
+- [x] The storybook loads media-chrome. `audio_player` writes its tags, and a
+      custom element draws nothing until the browser upgrades it
+- [x] A custom element's subtree is `phx-update="ignore"`'s to own: media-chrome
+      writes a dozen state attributes onto the controller, and LiveView was
+      wiping them at mount
+- [x] Whitespace inside a custom element fills its default slot, so the shadow
+      fallback never draws — `<media-time-display>` was blank where its shadow
+      says `<slot>0:00</slot>`. Custom elements are written tight, and
+      `phx-no-format` keeps the formatter from opening them again
+- [x] `marker?/1` looks for the children marker anywhere, not only under
+      `children`. `checkpoint_trigger` renders one inside a condition and
+      declared no slot, so it raised on its first render
+- [x] Three examples composed parts that do not lay out: a checkpoint label
+      outside the trigger that gives it `whitespace-nowrap`, a prompt input
+      wrapped in the `display: contents` body that stops
+      `has-[>textarea]:h-auto` matching, and a plan title inside a `size-8` icon
+      button
+- [ ] `canvas` draws nothing on either side. React Flow renders null outside a
+      mounted graph, which `ROADMAP.md` records — but a blank example page still
+      teaches nobody anything
+
 ## Verification
 
 Run at every phase boundary, as [CONTRIBUTING.md](CONTRIBUTING.md) lists it.

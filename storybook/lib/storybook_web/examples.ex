@@ -1734,7 +1734,9 @@ defmodule StorybookWeb.Examples do
   defp checkpoint_default(assigns) do
     ~H"""
     <.checkpoint class="max-w-md">
-      Reverted to the spec before the fold
+      <.checkpoint_trigger>
+        <.checkpoint_icon /> Reverted to the spec before the fold
+      </.checkpoint_trigger>
     </.checkpoint>
     """
   end
@@ -2049,7 +2051,16 @@ defmodule StorybookWeb.Examples do
 
   defp audio_player_default(assigns) do
     ~H"""
-    <LiveAiElements.Components.AudioPlayer.audio_player class="max-w-md">
+    <%!-- A custom element owns its own DOM: media-chrome writes `mediapaused`,
+         `mediavolume` and a dozen more onto the controller once the browser
+         upgrades it, and re-renders its buttons from them. `phx-update="ignore"`
+         is what hands the subtree over, and every LiveView that renders a
+         custom element needs it. --%>
+    <LiveAiElements.Components.AudioPlayer.audio_player
+      id="player"
+      phx-update="ignore"
+      class="max-w-md"
+    >
       <LiveAiElements.Components.AudioPlayer.audio_player_control_bar>
         <LiveAiElements.Components.AudioPlayer.audio_player_play_button />
         <LiveAiElements.Components.AudioPlayer.audio_player_time_display />
@@ -2084,14 +2095,17 @@ defmodule StorybookWeb.Examples do
 
   defp prompt_input_default(assigns) do
     ~H"""
+    <%!-- The textarea is a direct child. `prompt_input_body` is
+         `display: contents`, and the input group grows to fit a textarea with
+         `has-[>textarea]:h-auto` — a selector that asks about a DOM child, which
+         `display: contents` does not change. Wrapped, the group keeps its
+         one-line height and squeezes the textarea to nothing. --%>
     <LiveAiElements.Components.PromptInput.prompt_input class="max-w-md">
-      <LiveAiElements.Components.PromptInput.prompt_input_body>
-        <LiveAiElements.Components.PromptInput.prompt_input_textarea placeholder="What would you like to know?" />
-        <LiveAiElements.Components.PromptInput.prompt_input_footer>
-          <LiveAiElements.Components.PromptInput.prompt_input_tools />
-          <LiveAiElements.Components.PromptInput.prompt_input_submit />
-        </LiveAiElements.Components.PromptInput.prompt_input_footer>
-      </LiveAiElements.Components.PromptInput.prompt_input_body>
+      <LiveAiElements.Components.PromptInput.prompt_input_textarea placeholder="What would you like to know?" />
+      <LiveAiElements.Components.PromptInput.prompt_input_footer>
+        <LiveAiElements.Components.PromptInput.prompt_input_tools />
+        <LiveAiElements.Components.PromptInput.prompt_input_submit />
+      </LiveAiElements.Components.PromptInput.prompt_input_footer>
     </LiveAiElements.Components.PromptInput.prompt_input>
     """
   end
@@ -2361,7 +2375,10 @@ defmodule StorybookWeb.Examples do
 
   defp plan_default(assigns) do
     ~H"""
-    <.plan id="rollout" title="Three steps to a verified component" class="max-w-md">
+    <%!-- Upstream's trigger is an icon button — a chevron and a screen-reader
+         label, in a `size-8` box — so the title it takes is empty. Text put in
+         it overflows the button and is clipped by the card. --%>
+    <.plan id="rollout" title="" class="max-w-md">
       Read the source, write the spec, generate the module.
     </.plan>
     """

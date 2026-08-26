@@ -37,6 +37,11 @@ export const Nav = {
 
   destroyed() {
     this.observer?.disconnect();
+    // A mutation callback is asynchronous and a navigation is not, so the last
+    // toggle before a click may never reach the observer. The attributes are
+    // still readable here, and the scroll offset is not: a detached element
+    // reports zero.
+    this.save();
   },
 
   key(part) {
@@ -71,12 +76,15 @@ export const Nav = {
 
     if (!this.panel) return;
 
-    this.observer = new MutationObserver(() => {
-      const owned = OWNED.map((name) => this.panel.getAttribute(name) ?? "");
-      write(this.key("state"), JSON.stringify(owned));
-    });
-
+    this.observer = new MutationObserver(() => this.save());
     this.observer.observe(this.panel, { attributeFilter: OWNED });
+  },
+
+  save() {
+    if (!this.panel) return;
+
+    const owned = OWNED.map((name) => this.panel.getAttribute(name) ?? "");
+    write(this.key("state"), JSON.stringify(owned));
   },
 
   // Every trigger says what the sidebar is doing, so a restored state has to

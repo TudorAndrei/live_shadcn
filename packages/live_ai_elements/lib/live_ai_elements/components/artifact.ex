@@ -134,7 +134,6 @@ defmodule LiveAiElements.Components.Artifact do
       <span class="sr-only">
         {@label || @tooltip}
       </span>
-      {render_slot(@inner_block)}
     </LiveShadcn.UI.Button.button>
     """
   end

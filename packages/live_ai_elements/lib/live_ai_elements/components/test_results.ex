@@ -315,6 +315,7 @@ defmodule LiveAiElements.Components.TestResults do
   def test_error_stack(assigns) do
     ~H"""
     <pre
+      phx-no-format
       class={["mt-2 overflow-auto font-mono text-red-600 text-xs dark:text-red-400", @class]}
       {@rest}
     >{render_slot(@inner_block)}</pre>

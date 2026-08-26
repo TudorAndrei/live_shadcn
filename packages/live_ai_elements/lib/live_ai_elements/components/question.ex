@@ -133,6 +133,7 @@ defmodule LiveAiElements.Components.Question do
   def question_input(assigns) do
     ~H"""
     <textarea
+      phx-no-format
       data-slot={@rest[:"data-slot"] || "textarea"}
       disabled={@disabled}
       class={[

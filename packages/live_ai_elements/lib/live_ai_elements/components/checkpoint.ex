@@ -49,6 +49,7 @@ defmodule LiveAiElements.Components.Checkpoint do
   attr(:variant, :string, default: "ghost")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
+  slot(:inner_block)
 
   def checkpoint_trigger(assigns) do
     ~H"""

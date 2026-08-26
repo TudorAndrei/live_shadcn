@@ -10,7 +10,7 @@ import { Plan, PlanContent, PlanTrigger } from "@upstream/ai_elements/plan";
 export default function PlanDefault() {
   return (
     <Plan className="max-w-md">
-      <PlanTrigger>Three steps to a verified component</PlanTrigger>
+      <PlanTrigger />
       <PlanContent keepMounted>Read the source, write the spec, generate the module.</PlanContent>
     </Plan>
   );

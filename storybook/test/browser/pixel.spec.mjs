@@ -46,10 +46,12 @@ const ported = new Set(
     .map((name) => name.replace(/\.tsx$/, "")),
 );
 
-// Every shadcn example. `registries.mjs` says why the AI Elements ones are not
-// photographed.
+// Every example. `registries.mjs` says which of them this gates: an AI Elements
+// page is photographed and its difference is printed, and no number here is a
+// verdict on it. That census is the only thing that looks at what those pages
+// draw — an empty `<media-controller>` and a full one are both valid markup,
+// and the checks that read the spec cannot tell them apart.
 const pages = Object.entries(previews)
-  .filter(([component]) => gated(component))
   .filter(([component]) => !only || component === only)
   .flatMap(([component, examples]) => examples.map((example) => ({ component, example })));
 
@@ -86,6 +88,7 @@ test("every example has a budget or is pending", () => {
   ]);
 
   const undecided = pages
+    .filter(({ component }) => gated(component))
     .filter(({ component, example }) => ported.has(named(component, example)))
     .map(({ component, example }) => named(component, example))
     .filter((name) => !decided.has(name));
@@ -165,7 +168,7 @@ for (const { component, example } of pages) {
       return;
     }
 
-    if (budget.pending.includes(name)) {
+    if (!gated(component) || budget.pending.includes(name)) {
       test.info().annotations.push({ type: "pending", description: report });
       // Printed, not only annotated. A census whose numbers live in an HTML
       // report is a census nobody reads, and these numbers are the whole point

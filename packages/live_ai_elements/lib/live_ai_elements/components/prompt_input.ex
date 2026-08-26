@@ -126,6 +126,7 @@ defmodule LiveAiElements.Components.PromptInput do
 
     ~H"""
     <textarea
+      phx-no-format
       data-slot={@rest[:"data-slot"] || "input-group-control"}
       placeholder={@placeholder}
       class={[
