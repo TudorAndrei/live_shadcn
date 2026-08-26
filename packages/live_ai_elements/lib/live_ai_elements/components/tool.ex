@@ -91,7 +91,7 @@ defmodule LiveAiElements.Components.Tool do
             />
             <LiveShadcn.Icon.icon
               :if={@state == "approval-responded"}
-              name="check-circle"
+              name="circle-check-big"
               class="size-4 text-blue-600"
             />
             <LiveShadcn.Icon.icon
@@ -102,17 +102,17 @@ defmodule LiveAiElements.Components.Tool do
             <LiveShadcn.Icon.icon :if={@state == "input-streaming"} name="circle" class="size-4" />
             <LiveShadcn.Icon.icon
               :if={@state == "output-available"}
-              name="check-circle"
+              name="circle-check-big"
               class="size-4 text-green-600"
             />
             <LiveShadcn.Icon.icon
               :if={@state == "output-denied"}
-              name="x-circle"
+              name="circle-x"
               class="size-4 text-orange-600"
             />
             <LiveShadcn.Icon.icon
               :if={@state == "output-error"}
-              name="x-circle"
+              name="circle-x"
               class="size-4 text-red-600"
             />
             {Map.get(
@@ -133,7 +133,6 @@ defmodule LiveAiElements.Components.Tool do
           name="chevron-down"
           class="size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180"
         />
-        {@title}
       </button>
       <div
         data-slot="collapsible-content"

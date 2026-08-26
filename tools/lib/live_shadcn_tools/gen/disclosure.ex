@@ -275,7 +275,7 @@ defmodule LiveShadcnTools.Gen.Disclosure do
       |> subtree(roles)
       |> Map.put("merges_class", role == roles.root or role.node["merges_class"] == true)
 
-    Heex.render(Heex.with_children(node), %{
+    Heex.render(holding(node, shape, children), %{
       attrs: attributes(spec, roles, shape),
       children: children,
       # What upstream calls the trigger's children, this recipe calls `title`:
@@ -295,6 +295,33 @@ defmodule LiveShadcnTools.Gen.Disclosure do
       rest: Keyword.get(opts, :rest, false)
     })
   end
+
+  # Where the caller's content goes, unless it is already there.
+  #
+  # `tool`'s trigger is `{title ?? derivedName}` and nothing else: upstream's
+  # whole trigger *is* the title, and this recipe calls the trigger's content
+  # `title` too. Appending the marker after it drew the title twice — once in
+  # the span upstream puts it in and once at the end of the button, four pixels
+  # further down, which is what the parity check reported.
+  #
+  # The same sentence for the panel's content would be wrong, so this asks only
+  # about the trigger: `children == shape.title` is what says which one this is.
+  defp holding(node, shape, children) do
+    if children == shape.title and draws?(node, unbraced(children)),
+      do: node,
+      else: Heex.with_children(node)
+  end
+
+  defp draws?(%{"type" => "value", "code" => code}, assign),
+    do: Regex.match?(~r/\b#{Regex.escape(String.trim_leading(assign, "@"))}\b/, code)
+
+  defp draws?(node, assign) when is_map(node),
+    do: node |> Map.values() |> Enum.any?(&draws?(&1, assign))
+
+  defp draws?(nodes, assign) when is_list(nodes),
+    do: Enum.any?(nodes, &draws?(&1, assign))
+
+  defp draws?(_node, _assign), do: false
 
   defp empty(shape, children) do
     if children == shape.title,
