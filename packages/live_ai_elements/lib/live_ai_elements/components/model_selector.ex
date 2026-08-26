@@ -16,7 +16,7 @@ defmodule LiveAiElements.Components.ModelSelector do
   use Phoenix.Component
 
   @doc "The `model_selector_logo` part."
-  attr(:provider, :string, default: nil)
+  attr(:provider, :any, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
   attr(:rest, :global,

@@ -314,32 +314,6 @@
       ],
       "renders": true,
       "summary": "Represents the checkbox itself."
-    },
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
-    },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
     }
   },
   "recipe": "checkbox",

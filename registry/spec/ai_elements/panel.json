@@ -1,0 +1,62 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "panel",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "Panel",
+      "name": "panel",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "m-4 overflow-hidden rounded-md border bg-card p-1",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@xyflow/react",
+        "part": "Panel",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    }
+  ],
+  "primitives": {
+    "external/@xyflow/react.Panel": {
+      "props": [
+        {
+          "name": "position"
+        }
+      ]
+    }
+  },
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/panel.tsx",
+      "sha256": "ed0a5e6bf2f11b5b9654c073a67391a8fbeacfd262ad0cb91f962970c9bc8028"
+    }
+  },
+  "variants": {}
+}

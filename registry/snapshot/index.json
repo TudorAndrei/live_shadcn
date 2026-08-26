@@ -20,10 +20,16 @@
   "shimmer": [
     "default"
   ],
+  "controls": [
+    "default"
+  ],
   "file-tree": [
     "default"
   ],
   "resizable": [
+    "default"
+  ],
+  "persona": [
     "default"
   ],
   "environment-variables": [
@@ -54,6 +60,12 @@
     "default"
   ],
   "skeleton": [
+    "default"
+  ],
+  "canvas": [
+    "default"
+  ],
+  "connection": [
     "default"
   ],
   "textarea": [
@@ -104,6 +116,9 @@
   "sources": [
     "default"
   ],
+  "toolbar": [
+    "default"
+  ],
   "schema-display": [
     "default"
   ],
@@ -122,6 +137,9 @@
   "question": [
     "default"
   ],
+  "jsx-preview": [
+    "default"
+  ],
   "input-otp": [
     "default"
   ],
@@ -131,6 +149,9 @@
   "slider": [
     "default",
     "range"
+  ],
+  "node": [
+    "default"
   ],
   "toggle": [
     "default"
@@ -172,6 +193,9 @@
     "default"
   ],
   "native-select": [
+    "default"
+  ],
+  "open-in-chat": [
     "default"
   ],
   "input-group": [
@@ -242,6 +266,9 @@
   "button-group": [
     "default"
   ],
+  "edge": [
+    "default"
+  ],
   "agent": [
     "default"
   ],
@@ -274,6 +301,9 @@
     "default"
   ],
   "alert-dialog": [
+    "default"
+  ],
+  "panel": [
     "default"
   ],
   "inline-citation": [

@@ -873,11 +873,41 @@ defmodule LiveShadcnTools.Ast do
       contexts: contexts(body),
       context_fields: body |> context_fields(contexts(body)) |> Enum.uniq() |> Enum.sort(),
       renders?: renders?(body),
+      passthrough?: returns_children?(body),
       guard: guard(body, source),
       jsx: jsx(body, source)
     }
   rescue
     error -> {:unreadable, name, Exception.message(error)}
+  end
+
+  @doc """
+  Whether a component draws its children and nothing else.
+
+  `({ children }) => children` and `return children` at the end of a render that
+  only sets things up. `persona` has two — one binds a Rive view model to the
+  page's colours and the other does not — and neither draws an element, so the
+  markup is the `<canvas>` inside them either way.
+
+  Not the same question as `renders?`: that one asks whether there is JSX, and
+  a component that hands its children back has none.
+  """
+  def returns_children?(body) do
+    case bare(body) do
+      %{"type" => "Identifier", "name" => "children"} ->
+        true
+
+      %{"type" => "BlockStatement"} = block ->
+        block
+        |> statements()
+        |> List.last()
+        |> then(
+          &match?(%{"type" => "ReturnStatement", "argument" => %{"name" => "children"}}, &1)
+        )
+
+      _other ->
+        false
+    end
   end
 
   @doc """

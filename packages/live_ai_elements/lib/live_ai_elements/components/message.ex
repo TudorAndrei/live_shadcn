@@ -248,7 +248,7 @@ defmodule LiveAiElements.Components.Message do
   end
 
   @doc "The `button-group-text` part."
-  attr(:current_branch, :string, default: nil)
+  attr(:current_branch, :any, default: nil)
   attr(:total_branches, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])

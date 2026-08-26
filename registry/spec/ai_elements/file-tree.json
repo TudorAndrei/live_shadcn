@@ -270,6 +270,7 @@
                         ],
                         "class": "flex shrink-0 cursor-pointer items-center border-none bg-transparent p-0",
                         "class_when": [],
+                        "drew": true,
                         "merges_class": false,
                         "module": "collapsible",
                         "part": "Trigger",
@@ -915,32 +916,6 @@
       ],
       "renders": true,
       "summary": "A button that opens and closes the collapsible panel."
-    },
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
-    },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
     }
   },
   "recipe": "file-tree",

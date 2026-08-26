@@ -2856,13 +2856,6 @@
       "renders": false,
       "summary": "Groups all parts of a submenu."
     },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
-    },
     "menu.Popup": {
       "css_vars": [],
       "data": [
@@ -3061,25 +3054,6 @@
       ],
       "renders": true,
       "summary": "Indicates whether the radio item is selected."
-    },
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
     },
     "menu.Separator": {
       "css_vars": [],

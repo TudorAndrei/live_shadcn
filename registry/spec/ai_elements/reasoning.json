@@ -445,32 +445,6 @@
       ],
       "renders": true,
       "summary": "A button that opens and closes the collapsible panel."
-    },
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
-    },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
     }
   },
   "recipe": "disclosure",

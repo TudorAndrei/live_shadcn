@@ -921,6 +921,8 @@ defmodule LiveShadcnTools.Gen.Heex do
       list = list(code, ctx) -> list
       iso = iso8601(code, ctx) -> iso
       template = template(code, ctx) -> template
+      query = search_params(code, ctx) -> query
+      global = global_call(code, ctx) -> global
       given = given?(code) -> given
       flag = bit_flag(code, ctx) -> flag
       formatted = number_format(code, ctx) -> formatted
@@ -993,19 +995,36 @@ defmodule LiveShadcnTools.Gen.Heex do
     {">", ">"},
     {"+", "+"},
     {"*", "*"},
-    {"/", "/"}
+    {"/", "/"},
+    # Last of all, and not only because `->` and `<=` contain one: a name may
+    # not, but a class string in a template may, and everything that reads a
+    # class string has already had its turn by the time this is asked.
+    {"-", "-"}
   ]
 
   defp binary(code, ctx) do
     Enum.find_value(@operators, fn {javascript, elixir} ->
       case String.split(code, javascript, parts: 2) do
         [left, right] when left != "" and right != "" ->
-          absent(elixir, expression(left, ctx), expression(right, ctx))
+          absent(elixir, grouped(expression(left, ctx)), grouped(expression(right, ctx)))
 
         _ ->
           nil
       end
     end)
+  end
+
+  # A side that is itself an expression, kept together.
+  #
+  # `unwrapped/1` takes off the brackets a person wrote, because every reader
+  # below it splits on an operator and would otherwise find one inside a
+  # bracket. Put back together without them, `fromX + (toX - fromX) * HALF`
+  # became `from_x + to_x - from_x * 0.5` — which is a different curve.
+  #
+  # Extra brackets never change what an expression means, so a side with an
+  # operator in it gets them whether upstream wrote them or not.
+  defp grouped(rendered) do
+    if Regex.match?(~r/ [-+*\/<>=!&|]+ /, rendered), do: "(#{rendered})", else: rendered
   end
 
   # `inputTokens === undefined` is `is_nil(input_tokens)`, not a comparison with
@@ -1096,13 +1115,31 @@ defmodule LiveShadcnTools.Gen.Heex do
   # string with an expression inside, and Elixir writes that the same way — so
   # the only work is the punctuation and the expression inside the braces, which
   # is `expression/2` again and therefore still reports an unknown name by name.
+  # `${…}`, up to the brace that matches rather than the first one.
+  @interpolation ~r/(\$\{((?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*)\})/
+
   defp template("`" <> rest, ctx) do
     if String.ends_with?(rest, "`") do
       inner = binary_part(rest, 0, byte_size(rest) - 1)
 
+      # Two things the first version of this got wrong, and both show in one
+      # expression — `` `https://chatgpt.com/?${new URLSearchParams({ hints:
+      # "search", query })}` ``.
+      #
+      # `[^{}]*` reads to the first closing brace, which is the wrong one when
+      # the expression has braces of its own. And escaping the whole template
+      # before splitting escapes the quotes *inside* the expression too, so what
+      # reached the translator was `\"search\"` rather than a string.
+      #
+      # So the text is escaped and the code is not, each in its own turn.
       body =
-        Regex.replace(~r/\$\{([^{}]*)\}/, escaped(inner), fn _whole, code ->
-          "\#{" <> expression(code, ctx) <> "}"
+        @interpolation
+        |> Regex.split(inner, include_captures: true)
+        |> Enum.map_join(fn piece ->
+          case Regex.run(@interpolation, piece, capture: :all_but_first) do
+            [_whole, code] -> "\#{" <> expression(code, ctx) <> "}"
+            _text -> escaped(piece)
+          end
         end)
 
       ~s|"#{body}"|
@@ -1114,6 +1151,49 @@ defmodule LiveShadcnTools.Gen.Heex do
   # The quotes and backslashes a template held as text, written so that what
   # comes out is one Elixir string and not three.
   defp escaped(text), do: text |> String.replace("\\", "\\\\") |> String.replace("\"", "\\\"")
+
+  # `new URLSearchParams({ hints: "search", query })` — a query string built
+  # from a map, which is `URI.encode_query/1`. Both write a space as `+`, which
+  # is what a query string wants and what `encodeURIComponent` does not do.
+  #
+  # `query,` on its own is JavaScript's shorthand for `query: query`.
+  defp search_params(code, ctx) do
+    with [inside] <-
+           Regex.run(~r/^new URLSearchParams\(\s*\{(.*)\}\s*\)$/s, code, capture: :all_but_first),
+         pairs when pairs != [] <- entries(inside, ctx) do
+      "URI.encode_query(%{#{Enum.join(pairs, ", ")}})"
+    else
+      _not_a_query_string -> nil
+    end
+  end
+
+  defp entries(inside, ctx) do
+    inside
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    |> Enum.reject(&(&1 == ""))
+    |> Enum.map(fn entry ->
+      case String.split(entry, ":", parts: 2) do
+        [name, value] -> ~s|"#{String.trim(name)}" => #{expression(String.trim(value), ctx)}|
+        [name] -> ~s|"#{name}" => #{expression(name, ctx)}|
+      end
+    end)
+  end
+
+  # `encodeURIComponent(query)` — a function JavaScript provides and Elixir
+  # provides too, under a longer name. `URI.encode_www_form/1` is the other
+  # candidate and is the wrong one: it writes a space as `+`, which is a form
+  # field's rule rather than a query string's.
+  defp global_call(code, ctx) do
+    with [name, argument] <-
+           Regex.run(~r/^(encodeURIComponent|encodeURI)\((.+)\)$/s, code, capture: :all_but_first),
+         value when is_binary(value) <- expression!(argument, ctx) do
+      unreserved = if name == "encodeURI", do: "URI.char_unescaped?", else: "URI.char_unreserved?"
+      "URI.encode(#{value}, &#{unreserved}/1)"
+    else
+      _not_a_global -> nil
+    end
+  end
 
   # `"src" in props` — React asking whether the caller passed a prop, out of the
   # object it kept the rest of them in. HEEx asks the assign, which is `nil`
@@ -1391,6 +1471,11 @@ defmodule LiveShadcnTools.Gen.Heex do
   end
 
   # `isActive ? "page" : undefined` says the same thing an `if` does.
+  # Not of a template literal. `` `https://chatgpt.com/?${…}` `` has a `?` and a
+  # `:` in it and neither is a question: split on them, the condition was
+  # `` `https `` and the whole of `open-in-chat` stopped on it.
+  defp ternary("`" <> _rest, _ctx), do: nil
+
   defp ternary(code, ctx) do
     case Regex.run(~r/^([^?]+)\?([^:]+):(.+)$/s, code, capture: :all_but_first) do
       [condition, yes, no] ->

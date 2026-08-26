@@ -155,7 +155,7 @@ defmodule LiveAiElements.Components.Artifact do
       {Map.drop(@rest, [:"data-slot"])}
     >
       <LiveShadcn.Icon.icon :if={@icon} name={@icon} class="size-4" />
-      {@children}
+      {render_slot(@inner_block)}
       <span class="sr-only">
         {@label || @tooltip}
       </span>

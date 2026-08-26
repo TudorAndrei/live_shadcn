@@ -1,0 +1,86 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "toolbar",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "Toolbar",
+      "name": "toolbar",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "Position"
+            ],
+            "kind": "code",
+            "member_roots": [
+              "Position"
+            ],
+            "name": "position",
+            "value": "Position.Bottom"
+          }
+        ],
+        "children": [],
+        "class": "flex items-center gap-1 rounded-sm border bg-background p-1.5",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@xyflow/react",
+        "part": "Toolbar",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    }
+  ],
+  "primitives": {
+    "external/@xyflow/react.Toolbar": {
+      "props": [
+        {
+          "name": "position"
+        },
+        {
+          "name": "nodeId"
+        },
+        {
+          "name": "isVisible"
+        },
+        {
+          "name": "offset"
+        },
+        {
+          "name": "align"
+        }
+      ]
+    }
+  },
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/toolbar.tsx",
+      "sha256": "36715bf898d1012dfca0fee6be0afa73b4e9564e64853476b766dcd07dc391b0"
+    }
+  },
+  "variants": {}
+}

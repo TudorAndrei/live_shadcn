@@ -2,7 +2,7 @@ defmodule LiveAiElements.Components.Commit do
   @moduledoc """
   Commit. Built on `shadcn/avatar`, `shadcn/button`.
 
-  Upstream exports 3 more parts, and every one of them is a
+  Upstream exports 2 more parts, and every one of them is a
   thin wrapper around a part of `<.collapsible>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
@@ -14,6 +14,26 @@ defmodule LiveAiElements.Components.Commit do
   """
 
   use Phoenix.Component
+
+  @doc "The `commit_header` part."
+
+  attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:rest, :global, include: ["data-slot"])
+  slot(:inner_block)
+
+  def commit_header(assigns) do
+    ~H"""
+    <div
+      class={[
+        "group flex cursor-pointer items-center justify-between gap-4 p-3 text-left transition-colors hover:opacity-80",
+        @class
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
 
   @doc "The `commit_hash` part."
 

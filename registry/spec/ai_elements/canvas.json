@@ -1,0 +1,187 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "canvas",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "Canvas",
+      "name": "canvas",
+      "params": {
+        "children": null
+      },
+      "primitive": null,
+      "refs": [
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [
+          {
+            "identifiers": [
+              "deleteKeyCode"
+            ],
+            "kind": "code",
+            "name": "deleteKeyCode",
+            "value": "deleteKeyCode"
+          },
+          {
+            "kind": "flag",
+            "name": "fitView",
+            "value": null
+          },
+          {
+            "kind": "code",
+            "name": "panOnDrag",
+            "value": "false"
+          },
+          {
+            "kind": "flag",
+            "name": "panOnScroll",
+            "value": null
+          },
+          {
+            "kind": "code",
+            "name": "selectionOnDrag",
+            "value": "true"
+          },
+          {
+            "kind": "code",
+            "name": "zoomOnDoubleClick",
+            "value": "false"
+          }
+        ],
+        "children": [
+          {
+            "attrs": [
+              {
+                "kind": "text",
+                "name": "bgColor",
+                "value": "var(--sidebar)"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "class_when": [],
+            "merges_class": false,
+            "module": "external/@xyflow/react",
+            "part": "Background",
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "svg",
+            "type": "primitive",
+            "variant_calls": [],
+            "vars": []
+          },
+          {
+            "type": "children"
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "module": "external/@xyflow/react",
+        "part": "Root",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    }
+  ],
+  "primitives": {
+    "external/@xyflow/react.Background": {
+      "props": [
+        {
+          "name": "bgColor"
+        },
+        {
+          "name": "variant"
+        },
+        {
+          "name": "gap"
+        },
+        {
+          "name": "size"
+        },
+        {
+          "name": "patternClassName"
+        }
+      ]
+    },
+    "external/@xyflow/react.Root": {
+      "props": [
+        {
+          "name": "deleteKeyCode"
+        },
+        {
+          "name": "fitView"
+        },
+        {
+          "name": "panOnDrag"
+        },
+        {
+          "name": "panOnScroll"
+        },
+        {
+          "name": "selectionOnDrag"
+        },
+        {
+          "name": "zoomOnDoubleClick"
+        },
+        {
+          "name": "nodes"
+        },
+        {
+          "name": "edges"
+        },
+        {
+          "name": "nodeTypes"
+        },
+        {
+          "name": "edgeTypes"
+        },
+        {
+          "name": "onNodesChange"
+        },
+        {
+          "name": "onEdgesChange"
+        },
+        {
+          "name": "onConnect"
+        },
+        {
+          "name": "connectionLineComponent"
+        },
+        {
+          "name": "proOptions"
+        }
+      ]
+    }
+  },
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/canvas.tsx",
+      "sha256": "7bc92905e97c182c9a2f52b421a4d70414c8700a66039af9a4466587f74d2687"
+    }
+  },
+  "variants": {}
+}

@@ -200,8 +200,8 @@ defmodule LiveAiElements.Components.StackTrace do
           class={["underline decoration-dotted hover:text-primary", "cursor-pointer"]}
         >
           {frame.filePath}
-          {frame.lineNumber != nil && ":#{frame.lineNumber}"}
-          {frame.columnNumber != nil && ":#{frame.columnNumber}"}
+          {frame.lineNumber != (nil && ":#{frame.lineNumber}")}
+          {frame.columnNumber != (nil && ":#{frame.columnNumber}")}
         </button>
         <span :if={frame.filePath} class="text-muted-foreground">
           )

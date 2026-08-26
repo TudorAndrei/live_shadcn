@@ -1,0 +1,77 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "controls",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "Controls",
+      "name": "controls",
+      "params": {
+        "className": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [],
+        "class": "gap-px overflow-hidden rounded-md border bg-card p-1 shadow-none! [&>button]:rounded-md [&>button]:border-none! [&>button]:bg-transparent! [&>button]:hover:bg-secondary!",
+        "class_when": [],
+        "merges_class": true,
+        "module": "external/@xyflow/react",
+        "part": "Controls",
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "primitive",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    }
+  ],
+  "primitives": {
+    "external/@xyflow/react.Controls": {
+      "props": [
+        {
+          "name": "position"
+        },
+        {
+          "name": "orientation"
+        },
+        {
+          "name": "showZoom"
+        },
+        {
+          "name": "showFitView"
+        },
+        {
+          "name": "showInteractive"
+        },
+        {
+          "name": "fitViewOptions"
+        }
+      ]
+    }
+  },
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/controls.tsx",
+      "sha256": "3f851a1906a1a8e017899983507c4537b300849b098dc38c51a4a36dbf52d085"
+    }
+  },
+  "variants": {}
+}

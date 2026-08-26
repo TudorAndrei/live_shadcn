@@ -252,32 +252,6 @@
     }
   ],
   "primitives": {
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
-    },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
-    },
     "tabs.Indicator": {
       "css_vars": [
         "--active-tab-bottom",

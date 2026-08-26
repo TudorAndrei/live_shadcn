@@ -333,6 +333,7 @@
         "children": [],
         "class": "bg-transparent",
         "class_when": [],
+        "drew": true,
         "merges_class": true,
         "module": "button",
         "part": "Root",
@@ -396,6 +397,7 @@
         "children": [],
         "class": "",
         "class_when": [],
+        "drew": true,
         "merges_class": false,
         "module": "button",
         "part": "Root",
@@ -459,6 +461,7 @@
         "children": [],
         "class": "",
         "class_when": [],
+        "drew": true,
         "merges_class": false,
         "module": "button",
         "part": "Root",
@@ -511,6 +514,7 @@
         "children": [],
         "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent tabular-nums",
         "class_when": [],
+        "drew": true,
         "merges_class": true,
         "props": true,
         "reads": {
@@ -544,6 +548,7 @@
         "children": [],
         "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent",
         "class_when": [],
+        "drew": true,
         "merges_class": true,
         "props": true,
         "reads": {
@@ -577,6 +582,7 @@
         "children": [],
         "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent tabular-nums",
         "class_when": [],
+        "drew": true,
         "merges_class": true,
         "props": true,
         "reads": {
@@ -610,6 +616,7 @@
         "children": [],
         "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent",
         "class_when": [],
+        "drew": true,
         "merges_class": true,
         "props": true,
         "reads": {
@@ -643,6 +650,7 @@
         "children": [],
         "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent",
         "class_when": [],
+        "drew": true,
         "merges_class": true,
         "props": true,
         "reads": {
@@ -701,32 +709,6 @@
       ],
       "renders": true,
       "summary": "A button component that can be used to trigger actions."
-    },
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
-    },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
     }
   },
   "recipe": "presentational",

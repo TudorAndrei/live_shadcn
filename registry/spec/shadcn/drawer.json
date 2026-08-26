@@ -1409,32 +1409,6 @@
       ],
       "renders": false,
       "summary": "Provides keyboard-aware focus and scroll handling for bottom-sheet drawers with form fields."
-    },
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
-    },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
     }
   },
   "recipe": "dialog",

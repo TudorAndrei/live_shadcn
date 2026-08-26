@@ -169,7 +169,7 @@
                         ],
                         "kind": "code",
                         "name": "viewBox",
-                        "value": "`0 0 ${ICON_VIEWBOX} ${ICON_VIEWBOX}`"
+                        "value": "`0 0 ${24} ${24}`"
                       },
                       {
                         "kind": "text",
@@ -186,7 +186,7 @@
                             ],
                             "kind": "code",
                             "name": "cx",
-                            "value": "ICON_CENTER"
+                            "value": "12"
                           },
                           {
                             "identifiers": [
@@ -194,7 +194,7 @@
                             ],
                             "kind": "code",
                             "name": "cy",
-                            "value": "ICON_CENTER"
+                            "value": "12"
                           },
                           {
                             "kind": "text",
@@ -212,7 +212,7 @@
                             ],
                             "kind": "code",
                             "name": "r",
-                            "value": "ICON_RADIUS"
+                            "value": "10"
                           },
                           {
                             "kind": "text",
@@ -224,8 +224,8 @@
                               "ICON_STROKE_WIDTH"
                             ],
                             "kind": "code",
-                            "name": "strokeWidth",
-                            "value": "ICON_STROKE_WIDTH"
+                            "name": "stroke-width",
+                            "value": "2"
                           }
                         ],
                         "children": [],
@@ -252,7 +252,7 @@
                             ],
                             "kind": "code",
                             "name": "cx",
-                            "value": "ICON_CENTER"
+                            "value": "12"
                           },
                           {
                             "identifiers": [
@@ -260,7 +260,7 @@
                             ],
                             "kind": "code",
                             "name": "cy",
-                            "value": "ICON_CENTER"
+                            "value": "12"
                           },
                           {
                             "kind": "text",
@@ -278,7 +278,7 @@
                             ],
                             "kind": "code",
                             "name": "r",
-                            "value": "ICON_RADIUS"
+                            "value": "10"
                           },
                           {
                             "kind": "text",
@@ -290,7 +290,7 @@
                               "circumference"
                             ],
                             "kind": "code",
-                            "name": "strokeDasharray",
+                            "name": "stroke-dasharray",
                             "value": "`${circumference} ${circumference}`"
                           },
                           {
@@ -303,7 +303,7 @@
                           },
                           {
                             "kind": "text",
-                            "name": "strokeLinecap",
+                            "name": "stroke-linecap",
                             "value": "round"
                           },
                           {
@@ -311,8 +311,8 @@
                               "ICON_STROKE_WIDTH"
                             ],
                             "kind": "code",
-                            "name": "strokeWidth",
-                            "value": "ICON_STROKE_WIDTH"
+                            "name": "stroke-width",
+                            "value": "2"
                           },
                           {
                             "kind": "style",
@@ -1406,32 +1406,6 @@
     }
   ],
   "primitives": {
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
-    },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
-    },
     "preview-card.Arrow": {
       "css_vars": [],
       "data": [

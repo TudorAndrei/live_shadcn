@@ -145,6 +145,7 @@
         ],
         "class": "",
         "class_when": [],
+        "drew": true,
         "merges_class": true,
         "module": "popover",
         "part": "Trigger",
@@ -933,32 +934,6 @@
       ],
       "renders": true,
       "summary": "A button component that can be used to trigger actions."
-    },
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
-    },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
     },
     "popover.Arrow": {
       "css_vars": [],

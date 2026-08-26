@@ -2,7 +2,7 @@ defmodule LiveAiElements.Components.Queue do
   @moduledoc """
   Queue. Built on `shadcn/button`, `shadcn/scroll-area`.
 
-  Upstream exports 3 more parts, and every one of them is a
+  Upstream exports 2 more parts, and every one of them is a
   thin wrapper around a part of `<.collapsible>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
@@ -246,6 +246,27 @@ defmodule LiveAiElements.Components.Queue do
       </div>
       <div />
     </div>
+    """
+  end
+
+  @doc "The `queue_section_trigger` part."
+
+  attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction"])
+  slot(:inner_block)
+
+  def queue_section_trigger(assigns) do
+    ~H"""
+    <button
+      type="button"
+      class={[
+        "group flex w-full items-center justify-between rounded-md bg-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted",
+        @class
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </button>
     """
   end
 

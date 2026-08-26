@@ -18,7 +18,29 @@
       }
     },
     "pass": true,
-    "spec": "1ed4b834a70c13ba31e0d42c49e8689f02be2b5a056036515a1568c30ef8ce10"
+    "spec": "6720419c0d690cff0dd2745b94936cd078974a533fb21f52840f8b8348961f94"
+  },
+  "ai_elements/open-in-chat": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "detail": "open-in-chat.default is not compared: The `asChild` divergence `parity-divergence.json` records: upstream draws a menu item around each link and the reader draws the link, so the two lists are sixteen pixels apart in height and every row sits at a different y.",
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "4073f7f8ce646e26548db29e6bee992857f76687eb5ff3592e6ff7e25b4db6f0"
   },
   "shadcn/alert-dialog": {
     "checks": {
@@ -39,7 +61,7 @@
       }
     },
     "pass": true,
-    "spec": "afd87afc89d9dfb4de9f388758188fe9aa358cafa9c2996b7338e4ba65e41712"
+    "spec": "2b5f22400e22e81e9e45b232859e66d39a185be7ab3d243717e78997caa7b8d8"
   },
   "shadcn/scroll-area": {
     "checks": {
@@ -60,7 +82,7 @@
       }
     },
     "pass": true,
-    "spec": "9de8b194544c14be88c2abe12a1cf5f8b73957991c125af819794fabe3f025ef"
+    "spec": "4117d914b7335606bc35fd561371f4e369f6c33a5b83bcfb14b78408ad3f992d"
   },
   "ai_elements/shimmer": {
     "checks": {
@@ -82,7 +104,7 @@
       }
     },
     "pass": true,
-    "spec": "4f14fd3953f93d4e6af61f19182e750500fd6b158579beaed50a63b128e514ba"
+    "spec": "eb7ec7c6906f0473cdd0d2098975e9ff91633f81241f6d3aca996df99e071386"
   },
   "shadcn/checkbox": {
     "checks": {
@@ -103,7 +125,7 @@
       }
     },
     "pass": true,
-    "spec": "b2afde23bbb33cf549ce49eb57eee670000138e5f4a2b3c5a64d60277a3c6138"
+    "spec": "98e97e7573353a9d87119b56a25eee71e0d454fe33c0eaeab74146127cb84998"
   },
   "ai_elements/chain-of-thought": {
     "checks": {
@@ -124,7 +146,7 @@
       }
     },
     "pass": true,
-    "spec": "abc7b92995d94f190dcdd1e27d1f6f5446afb1e3887977e2c674eb330cbb6bf5"
+    "spec": "98148d3bc3515d55206bb6d59cfd93d59a6ca0bc4e65e7da8ad6902cd76a5d2b"
   },
   "shadcn/context-menu": {
     "checks": {
@@ -145,7 +167,29 @@
       }
     },
     "pass": true,
-    "spec": "6e9975a3ffa80fdbce53651f67d40049426f45b23630858e2c7831b599eb43f6"
+    "spec": "15ad9b462597529656a0de225161fdf9568dac7f16efc255fdcd97a5ae201b93"
+  },
+  "ai_elements/edge": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "detail": "edge.default is not compared: React Flow ships a stylesheet, `canvas.tsx` imports it, and the parity application therefore loads it: its `.react-flow__edge-path` colours the line, and the class sits beside the `stroke-1 stroke-ring` AI Elements writes. The storybook does not ship the library — which library an application loads is the application's decision, the way the markdown renderer is — so the two lines are the same curve in two colours. `parity.spec.mjs` still compares the element and its 37 computed properties.",
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "f9dbdd23895e741487570eb26712d8bec5a93b6fbd4282c6ce00273e9789d6ae"
   },
   "shadcn/hover-card": {
     "checks": {
@@ -166,7 +210,7 @@
       }
     },
     "pass": true,
-    "spec": "606aa20fe52f5ebfeb764ff9af553efeed4be20df8284adbd0294944697d1a55"
+    "spec": "56d68a3ab395e0d97d983c6da58bf890ae1967724604a1367d26a607d5203b82"
   },
   "shadcn/resizable": {
     "checks": {
@@ -187,7 +231,7 @@
       }
     },
     "pass": true,
-    "spec": "5fe11273f560b038f9fffbbd8d1cfa030793c5b25cea7299aebef1e112e9983a"
+    "spec": "2bc973a5c24400ad2c0ce8a2a4d8f34506507e595403a56ccde073193456e08f"
   },
   "ai_elements/stack-trace": {
     "checks": {
@@ -208,7 +252,7 @@
       }
     },
     "pass": true,
-    "spec": "3750b891e01b897dcd42832a95ed87221776c746dba82335af998a50d625c6d6"
+    "spec": "8e48561464fd3fa15a9d68efe0ee98ad37a37dfd14043c5dfb1372a32e9ead4b"
   },
   "ai_elements/package-info": {
     "checks": {
@@ -229,7 +273,7 @@
       }
     },
     "pass": true,
-    "spec": "df5b01cf60227b164f2517810465a0ac47af73bbc8e53e346cfb337e927c1840"
+    "spec": "6bc78d2b637df39018025b0ff4a1156ae17a06951fcc8e0188614f5fa6dfea01"
   },
   "shadcn/pagination": {
     "checks": {
@@ -250,7 +294,7 @@
       }
     },
     "pass": true,
-    "spec": "e2a9df5858e11537bdd491b0760f984b68350209601bbf1cefded4c15f14ac97"
+    "spec": "ee531f3bc1e5efd65c52ddb37fb6d64222675a93b85bcac563598fe10cff55d6"
   },
   "shadcn/radio-group": {
     "checks": {
@@ -271,7 +315,7 @@
       }
     },
     "pass": true,
-    "spec": "8a181f51164d5b96da8435ffa78a02f953d381c1cdb7f5bc06751626cab497ca"
+    "spec": "891e951397deee7ee9d0ab4aee2505d68ac0139e5f408a57d954e00564f66c04"
   },
   "shadcn/attachment": {
     "checks": {
@@ -292,7 +336,7 @@
       }
     },
     "pass": true,
-    "spec": "084bd076dcb616dce484685a711512ab1b95db34656c4d07afcaecbd88f1cf58"
+    "spec": "48d4c088c1127c13f8aa75408d6e92e366706dd1d2a80885714dea9b56b17ee4"
   },
   "shadcn/sidebar": {
     "checks": {
@@ -313,7 +357,7 @@
       }
     },
     "pass": true,
-    "spec": "db7c69717b2ec63a6bb4f8f35007c91c953937559c48710c3033ad30cdabb6c4"
+    "spec": "19c592c68f827b003d1918cfb5049690aaac9d89391e0126a63cf8dc22e6dcd9"
   },
   "ai_elements/task": {
     "checks": {
@@ -334,7 +378,7 @@
       }
     },
     "pass": true,
-    "spec": "279ea28306a58b3337ace2739052fd967e8a6598c597512ba7d4c2b7a5e730c5"
+    "spec": "047b0f15edd207d9c962c5dae99f9e3b108d8ff881df37f716cbff7f0c0c02f5"
   },
   "shadcn/bubble": {
     "checks": {
@@ -355,7 +399,7 @@
       }
     },
     "pass": true,
-    "spec": "440c5fb5dd8c235bcc5bc44c96d93bbfda35f70c40ae00622a51899557f977e0"
+    "spec": "cd0ad6ad1e10ec3706495c8cd18d39e62bcb0ff61fb37481f339088693682a3d"
   },
   "ai_elements/queue": {
     "checks": {
@@ -376,7 +420,7 @@
       }
     },
     "pass": true,
-    "spec": "c4d3e32f8fbd6d4f81eb7fd87dc127b95cf95ba0009362ce526dbc73173b6c3c"
+    "spec": "44efccee9a9d38d72877bada5076245df3e2cf223912122f97f24481c6f9eedb"
   },
   "shadcn/sheet": {
     "checks": {
@@ -397,7 +441,7 @@
       }
     },
     "pass": true,
-    "spec": "fa8d0092d09ea1fb49b20c6eb8f9350f30578425ca04af44efad7220a9b767ef"
+    "spec": "1b6094688063a13982f3bbd996409b34975c2789250561e72a61b847d0bd3e77"
   },
   "shadcn/popover": {
     "checks": {
@@ -418,7 +462,7 @@
       }
     },
     "pass": true,
-    "spec": "824d8a102265473db21dc77e0d941f478931aa27f17830a8061936febd4764c2"
+    "spec": "57c2de824907f2dc908cdb9bdf1925070d1161eb46b89a0ee1d92085da152e2a"
   },
   "ai_elements/attachments": {
     "checks": {
@@ -439,7 +483,7 @@
       }
     },
     "pass": true,
-    "spec": "71f8540da8c3025ba493f9f0c89c730db85cddd84962c3bc841951298eb98b12"
+    "spec": "add71cb389ed7263fe39902027ad844a97ddbeaae769f035252799534e9e6a91"
   },
   "ai_elements/image": {
     "checks": {
@@ -460,7 +504,7 @@
       }
     },
     "pass": true,
-    "spec": "faf25b171d9833db832122a912212cc8f9546b991d33e3596b2868d349090e4d"
+    "spec": "f1363845ded561eb251f721104726ea7f435683a37e364356d218de4e0ec3461"
   },
   "shadcn/field": {
     "checks": {
@@ -481,7 +525,7 @@
       }
     },
     "pass": true,
-    "spec": "4e87d0cdbb4aa006a32947495c8fab3a80a8f2e722433365b9bf9aa87bce6708"
+    "spec": "5f4a27071dbbfe807d2a02894d1ef879738d3600ea00961337024ce999c58493"
   },
   "shadcn/menubar": {
     "checks": {
@@ -502,7 +546,7 @@
       }
     },
     "pass": true,
-    "spec": "687d23e1add0a410ccba18c85b984af3ea9e3f5d906d1aa484f048177fa9d143"
+    "spec": "86698fcc3ecac0feb6c0fc25ee6c1d934a34473e6a6b542c24c68dec6b557ec7"
   },
   "shadcn/input-otp": {
     "checks": {
@@ -523,7 +567,7 @@
       }
     },
     "pass": true,
-    "spec": "c34cffac0e10d619f2a76e0cf33b455c919a1e93f6702483edc679177bb4060c"
+    "spec": "cbf5d1634579a46a552c7f67f78e87304546e2ad7d78b6896e301f0115dd6ff9"
   },
   "shadcn/native-select": {
     "checks": {
@@ -544,7 +588,7 @@
       }
     },
     "pass": true,
-    "spec": "e5493036afd6bea5a3b737c2bcac533bef5651b55e141653ea4bd9a955c9f6fe"
+    "spec": "d78505bfb9995031620efd1bfcfd323432e1dd0d8f9e2d6cf463e26bf7396420"
   },
   "shadcn/toggle": {
     "checks": {
@@ -565,7 +609,7 @@
       }
     },
     "pass": true,
-    "spec": "448dde3890a428265c67bd22e2ee6d7e393266525a1bfe6420f77006ddb85c83"
+    "spec": "eacc7e5f65d7578ef3dc0c8af3182ddbc3cc9ab2b7a82df6fae249c6571d2662"
   },
   "ai_elements/context": {
     "checks": {
@@ -586,7 +630,7 @@
       }
     },
     "pass": true,
-    "spec": "3814afe18db1d6e67717e546f9768bc6a11b2882b88af90e814568009e7a84e0"
+    "spec": "22e139a58ad822e677452364b8c58f72c7198f790a1094ed49d21315d3af7571"
   },
   "shadcn/input": {
     "checks": {
@@ -607,7 +651,7 @@
       }
     },
     "pass": true,
-    "spec": "8f3daf9687b2c76aae225210b44de5cde23aa0c5f9e7ffd62339e47b91ec46e6"
+    "spec": "e4246bbb6da1d41e835a64ff91d67655fa55a04ea9309814cf849e845eebdcec"
   },
   "shadcn/marker": {
     "checks": {
@@ -628,7 +672,7 @@
       }
     },
     "pass": true,
-    "spec": "8b156305da95029426721dce35e3821c711c846c96452f4897232a955340751a"
+    "spec": "3f93f809deed4be0090e1b63505bc09e67afaa06f1075fd02e5d51a384511a18"
   },
   "ai_elements/sandbox": {
     "checks": {
@@ -649,7 +693,28 @@
       }
     },
     "pass": true,
-    "spec": "d1437e68e97db711c3c9d20b85d994849f41eb46979bef5600977fb1a37b7023"
+    "spec": "9fd274c3589adafb160c96e92a4d3916ba82a26140d0b6b971ee1bb0b8285085"
+  },
+  "ai_elements/canvas": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "9653a15116d0bfe7eaa7108b187a9d6b856c78af2545002085ee9a86408dad41"
   },
   "ai_elements/plan": {
     "checks": {
@@ -671,7 +736,7 @@
       }
     },
     "pass": true,
-    "spec": "a40faa5aebe5f2cf204f7361a972f8825ddcdb3f114d1f6103038ca7a10b130f"
+    "spec": "736540cb8bb560685dc4cbfabf1e2d2397ddad33717c93318b07ee5ef63e94ec"
   },
   "ai_elements/confirmation": {
     "checks": {
@@ -692,7 +757,7 @@
       }
     },
     "pass": true,
-    "spec": "3287a19c02302be1086b141abc52b1952f90c14103d0a098ccaeca0bb2c480cc"
+    "spec": "8ddbf0a7e82b8453407a25082f219d2cfd6583edbf771449c9eca73c54571862"
   },
   "shadcn/skeleton": {
     "checks": {
@@ -713,7 +778,7 @@
       }
     },
     "pass": true,
-    "spec": "64dc1a3416e8f857fb72e038e07d67f2db84edd96313e11bf6a311175cb7a0d5"
+    "spec": "ea5e8f24d30588ed7ec22f457398f85ba3fbb8849d8994b42b8a55eb267235b7"
   },
   "shadcn/spinner": {
     "checks": {
@@ -734,7 +799,7 @@
       }
     },
     "pass": true,
-    "spec": "1142a6f1e75dddd2a91ed733fa0fbcf2fa2d847fc62f30014cff24cc5770c969"
+    "spec": "c6d46302eca71cd322014db21fcd41b7cac4640fe2caeb93835fc546876c7a96"
   },
   "shadcn/button-group": {
     "checks": {
@@ -755,7 +820,7 @@
       }
     },
     "pass": true,
-    "spec": "db410d76ea7add8dc8d1cb482f7b8db99ff30c5840611313e1b84ff4e7f9d7c7"
+    "spec": "f29d2c7a017fc9d8e230045e789f9f6cb8385a8ddf30db1f77ec1caf57aa0c89"
   },
   "ai_elements/checkpoint": {
     "checks": {
@@ -776,7 +841,7 @@
       }
     },
     "pass": true,
-    "spec": "ea11d5563ec5bbb55f5f9628b737a4699c0afc771176a80f32bbd347447c6f0a"
+    "spec": "d746f642c4abd4dd66d70c17652edbad3de81bafc7a811870bae3af9995d4395"
   },
   "shadcn/input-group": {
     "checks": {
@@ -797,7 +862,7 @@
       }
     },
     "pass": true,
-    "spec": "cd582d61b4b0e079d12d0a8720d084a3d34f147032f1c1e1494c3cf4f409a7e6"
+    "spec": "673417aa4ae90e85f46d518fdfe0efd2061976862538620c9d65ddb61c466568"
   },
   "shadcn/message": {
     "checks": {
@@ -818,7 +883,7 @@
       }
     },
     "pass": true,
-    "spec": "1a4c58781ad549d2f5e6945923568677bb703fee9e2e0961aa021519b08731db"
+    "spec": "516698f5aa01cd4e709184b7b14cb1db617f4e0460d665c690a2eb09310b6c24"
   },
   "shadcn/badge": {
     "checks": {
@@ -839,7 +904,7 @@
       }
     },
     "pass": true,
-    "spec": "42a07b78aa15dfd3f3d0c68e03a00d2ad871ef0e13a9a5d81f789baa743f5561"
+    "spec": "c0dabe96bbcdb6bc8491ac8a48329bc74240399b63db4dca4dfb6049b761a090"
   },
   "shadcn/chart": {
     "checks": {
@@ -882,7 +947,7 @@
       }
     },
     "pass": true,
-    "spec": "8d3c39312b7cc6ec8b5a1a3a1e5adb311302cd8d4fb3d72a78fb3fa32cf9849c"
+    "spec": "7528aaa18033eb621f66205c7e78793ea97fe75bd2e67d52111ef8ac53de0bb0"
   },
   "ai_elements/sources": {
     "checks": {
@@ -903,7 +968,7 @@
       }
     },
     "pass": true,
-    "spec": "15e09ea1b64b6e07a1661505062fc2f9b4db31e4b0769497b75e7c1d62ed5fae"
+    "spec": "627567b2a328a9c8462f4b590e09ee4be694aefc83b5a4f6bffbcc97e238a127"
   },
   "shadcn/calendar": {
     "checks": {
@@ -924,7 +989,7 @@
       }
     },
     "pass": true,
-    "spec": "bb72cfc0fea26d3f7d0b8b216db60b802400d9161d6cd54f3816c33c1f76678c"
+    "spec": "13aad082f67b946625b769ba833e36e4c4ffc264d421f7e43636887f77539225"
   },
   "ai_elements/test-results": {
     "checks": {
@@ -945,7 +1010,7 @@
       }
     },
     "pass": true,
-    "spec": "0e4a9a5fb4158bb50b38a940a4af1f2658b03edf0e59cbdfed8f400cd82a40b5"
+    "spec": "c1a52eedc2209e3cb9ffa1056be8eb60f7f0ae8f9d14b5628a3f7b55539cc654"
   },
   "shadcn/sonner": {
     "checks": {
@@ -966,7 +1031,7 @@
       }
     },
     "pass": true,
-    "spec": "d8413c4ddfbe0eea8b9ce0d7fd63609dc88dd7d1bd6ddd05ddee56ed2b38925b"
+    "spec": "925ec5c4511ea62ef5edd1533560eb9d41e86b3d8e179fc469aff8d52a2c5e97"
   },
   "ai_elements/web-preview": {
     "checks": {
@@ -987,7 +1052,7 @@
       }
     },
     "pass": true,
-    "spec": "2b026652b068477ff71b706a6834d2b0b9e2a82be9ddc3c212d893f993647ba9"
+    "spec": "bee095dda48c619375b809112bc62c539522121eabd04a266498a55067094105"
   },
   "ai_elements/artifact": {
     "checks": {
@@ -1008,7 +1073,7 @@
       }
     },
     "pass": true,
-    "spec": "fc58a245e31ab123e5882f3b9ede3ff399dd751231218354ab0c2299e24a7efb"
+    "spec": "df394ce2ff581ce4db6c826ab116970cdb25f46a8849da802e5d047c8edc50f5"
   },
   "shadcn/dropdown-menu": {
     "checks": {
@@ -1029,7 +1094,7 @@
       }
     },
     "pass": true,
-    "spec": "a8a4089ca535832a6193bed5b80bac55c364580014c42427acae5dcfb1473713"
+    "spec": "5c9a99167338020bdafdd8a1cfe762489a8ad75856767617d8c3d5e5a6987eee"
   },
   "shadcn/dialog": {
     "checks": {
@@ -1050,7 +1115,7 @@
       }
     },
     "pass": true,
-    "spec": "bde5205bc54b1235c0a76f3095eb77aad1237038ecee679f36f4069ed807aba4"
+    "spec": "fdaba5682027d887e869d5bffe1002cdfb4a6d663d7c937ab226bd983bf3c894"
   },
   "shadcn/accordion": {
     "checks": {
@@ -1071,7 +1136,7 @@
       }
     },
     "pass": true,
-    "spec": "d2c0bf80fecae65f91239834aca84a8fee7e2634e823b8412a141c503f2040ab"
+    "spec": "30699e8b7d006cf7af0dd2cf81f6bc87b2f0a7a5a8e2e2e06b688f89569f284a"
   },
   "ai_elements/reasoning": {
     "checks": {
@@ -1092,7 +1157,7 @@
       }
     },
     "pass": true,
-    "spec": "7c57b83384cb3f65b446d7061723e5eb75af255cbe0529cf04033642b55ea9b6"
+    "spec": "09ce339700c03e8807d3f06cd1f207a92242e5afb0338551f4efe5045daf8a51"
   },
   "shadcn/tabs": {
     "checks": {
@@ -1113,7 +1178,28 @@
       }
     },
     "pass": true,
-    "spec": "0d7572658086e380eb2a15dca34dd1aa259fb3cfab5c8130e59aa4f7624f9fae"
+    "spec": "73f2992743e33c20f93c8a87db8ee5f68227c1517d4ddfb2c14748160778b95f"
+  },
+  "ai_elements/persona": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "9d7b56e19dddeb3cfa5e99b076a8aa3205a589bad88f3b67ccc6dce09c8486fb"
   },
   "ai_elements/tool": {
     "checks": {
@@ -1134,7 +1220,29 @@
       }
     },
     "pass": true,
-    "spec": "3452313f8416e7b9e8acb275b5e3a0a84c200424ddb8d66f65395caee5b9d94b"
+    "spec": "3fd1d346a3feb4c242c3746e2daa9cd4606fc8411a2a9d48cab6ca9e718f83f7"
+  },
+  "ai_elements/controls": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "detail": "controls.default is not compared: Only one side draws it: React Flow's component renders null outside a mounted graph, and `parity-divergence.json` records the whole of that. A box compared against nothing is not a tolerance to measure.",
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "0014b91f5d366f6f65beeb3d534545b8dff8e1860e15bb961caa6a4a2fecb8d4"
   },
   "shadcn/tooltip": {
     "checks": {
@@ -1155,7 +1263,28 @@
       }
     },
     "pass": true,
-    "spec": "970aaf8333413e3bee4de579d60031e63f3aace59be89a84d691ab019ae79f55"
+    "spec": "f7ecad9d9ce72085746e33583036e168a6142fa1b444f007ec0aee2745fd68ab"
+  },
+  "ai_elements/node": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "370294b7f6a966dbda4d84325fa58c18b88685c7fc374941f0a4a0b9d1c7a986"
   },
   "ai_elements/schema-display": {
     "checks": {
@@ -1176,7 +1305,29 @@
       }
     },
     "pass": true,
-    "spec": "64e3870a95699906f22cca43c86b6a992c152b102efd35b78e175778e34bbca8"
+    "spec": "2af0c4f616ada904d68457c1101ec864bb9ff6b4b473fbb7d6c1e8e0e33c2f0f"
+  },
+  "ai_elements/toolbar": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "detail": "toolbar.default is not compared: Only one side draws it: React Flow's component renders null outside a mounted graph, and `parity-divergence.json` records the whole of that. A box compared against nothing is not a tolerance to measure.",
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "0b260a2419650df29d583caa2c0c5511dcb82f2a9554039ae5aa831e50e904bf"
   },
   "shadcn/toggle-group": {
     "checks": {
@@ -1197,7 +1348,7 @@
       }
     },
     "pass": true,
-    "spec": "66839ae8c93381132ddafc4e5754c12ce8466e237074471281f39b10342a9ec5"
+    "spec": "38c3ad7b14485474fa6f99b76e7fc590fb183b99776b1382e781f39cc2372894"
   },
   "shadcn/aspect-ratio": {
     "checks": {
@@ -1218,7 +1369,7 @@
       }
     },
     "pass": true,
-    "spec": "4130c71b0fc6900d462bcf3b698d58357c7d390423dfd12f342ca34b2fb06bd0"
+    "spec": "4ddb4928ab397c942e95b9c663e63897be81d7b36f6c5434d6df7111a1a1a94e"
   },
   "shadcn/textarea": {
     "checks": {
@@ -1239,7 +1390,7 @@
       }
     },
     "pass": true,
-    "spec": "104fb5ab4bc6ebcbb41f44bf782d1a05531724eb31c57a8ba54c4e83888def09"
+    "spec": "ba418b844321576faae40f8eef1f9b89b251e83c0c6f419611da34c11c5178eb"
   },
   "ai_elements/terminal": {
     "checks": {
@@ -1260,7 +1411,7 @@
       }
     },
     "pass": true,
-    "spec": "7a3cd199da1102a510b94d5d8f26d1fd5ba5e0e9d0a22d2feddec59c2f138880"
+    "spec": "e2c5891b27552b734df7a99cce0c3578653732ac56833bd6265f3384ac86681b"
   },
   "shadcn/toast": {
     "checks": {
@@ -1281,7 +1432,7 @@
       }
     },
     "pass": true,
-    "spec": "5e7d904bc158a908845a09ecf997c5ceff490aa29ea3f2ac5cac3181d5ad9c7e"
+    "spec": "304e9670936d7a2a2ce677de00108242a88f4a8fdae1969eca90ae9d515bf3f5"
   },
   "ai_elements/message": {
     "checks": {
@@ -1302,7 +1453,7 @@
       }
     },
     "pass": true,
-    "spec": "267a5ebf1f342327b465b87cb2975bf1474cd33f231add0264e6d7b3bc396dd9"
+    "spec": "597419d0ef41cbd3129de64a0523ed4411e8a3235d7b84ad3f4271b74ed927dd"
   },
   "ai_elements/snippet": {
     "checks": {
@@ -1323,7 +1474,7 @@
       }
     },
     "pass": true,
-    "spec": "9569cac4e8d24462f585b0d1bc2282518cee652d7c1363e926c906f00aa610ba"
+    "spec": "4bb27143c869405d9ffca127ff641f06e0a0491160708909368dded57db1b65c"
   },
   "ai_elements/speech-input": {
     "checks": {
@@ -1344,7 +1495,7 @@
       }
     },
     "pass": true,
-    "spec": "4abd638960888e582a4ca25f2a9a0630e1d8533f4ca24d428142a29edf89c44c"
+    "spec": "5b8194f982fd23506b2b291e40ac9fd47cefb17aac4507c772f69c16980f0f6e"
   },
   "ai_elements/environment-variables": {
     "checks": {
@@ -1365,7 +1516,7 @@
       }
     },
     "pass": true,
-    "spec": "f9151d10fc7cb7acf9382f1a7d03673bba22f8408fdd074b05c348713f81f90d"
+    "spec": "a21199e6ec1e941300af18c1cda4099223d41d23486ca2490ae4782c990e7338"
   },
   "shadcn/switch": {
     "checks": {
@@ -1386,7 +1537,28 @@
       }
     },
     "pass": true,
-    "spec": "2d61ca4ce8af1841de39588fe89dfed6b4b612a862138936c703ca4a22d366bd"
+    "spec": "05e26de36c45bba934fff270a0a9245f1a7acf38977a6562fd89be6ec8797fac"
+  },
+  "ai_elements/jsx-preview": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "53954d5108801b6874e6608edb769214ae398642e1ba39397c378a22ac578521"
   },
   "ai_elements/mic-selector": {
     "checks": {
@@ -1408,7 +1580,7 @@
       }
     },
     "pass": true,
-    "spec": "96183654c6ee2be28fde8c419a503f34d5ec7e1e5f519dfc29ef5912880ec201"
+    "spec": "352e97a15872791aa56f650ae5a18fcc151590a4f61f7c1923d8936675825057"
   },
   "shadcn/label": {
     "checks": {
@@ -1429,7 +1601,7 @@
       }
     },
     "pass": true,
-    "spec": "047ca6c86d0c799d9b6c8495577d711912a0c2234406dbd08071cd7c75870c61"
+    "spec": "f020715efe9aee80559af7302ef7c6f4e551567fb16e3cea60377073719654cd"
   },
   "shadcn/alert": {
     "checks": {
@@ -1450,7 +1622,7 @@
       }
     },
     "pass": true,
-    "spec": "66a343ea954506131664271a05454e55a3d93506d85471312091e3ae46265414"
+    "spec": "01e7577820de563922428a544630591fd047f67a660c558b9839efa8fcc2c5e5"
   },
   "ai_elements/voice-selector": {
     "checks": {
@@ -1471,7 +1643,7 @@
       }
     },
     "pass": true,
-    "spec": "3625d57e61bed2c60488cc6bcc0a9b86e6404c4f008d7332e91327c4c21c75c1"
+    "spec": "5276bf3d35e3f73d0464482579ece63665d72ed7bd28da7879f263b2a40d5b3e"
   },
   "shadcn/item": {
     "checks": {
@@ -1492,7 +1664,7 @@
       }
     },
     "pass": true,
-    "spec": "d9c5dc2670d98f204f81451601458c00faec94c6818e7d0ecdce26a91386d884"
+    "spec": "0166e016d1860ec8bf9952621492a51b1bf7ec6b6ecbd05a570e7fc33b99f5da"
   },
   "shadcn/breadcrumb": {
     "checks": {
@@ -1513,7 +1685,7 @@
       }
     },
     "pass": true,
-    "spec": "7bf0aa8d7fe3b33e9c46fe9c00d408d7ff9fd68d190d52568fc54f4c3174477f"
+    "spec": "0727a7e6839bff219abf43b0fc4722e39151d95534a9e98e6de3de64ef52b90b"
   },
   "shadcn/avatar": {
     "checks": {
@@ -1534,7 +1706,7 @@
       }
     },
     "pass": true,
-    "spec": "39a95399ef622621d7f277ea31dcefbcf993c107fce52aa8ea226d3c4dc27cfd"
+    "spec": "ea482ea12bcdcd379d63878db01c61cbe9f4b03a6944bd2fa742b72de1002327"
   },
   "shadcn/select": {
     "checks": {
@@ -1555,7 +1727,7 @@
       }
     },
     "pass": true,
-    "spec": "376d638f119d8403971fd2676792a28fba1c1901ae83bab56bf6c3f691d9e17e"
+    "spec": "934b3a86a57ef31bf4bcb7a83db6256b62a543f76c8d2f610dde6ac8051747c8"
   },
   "shadcn/carousel": {
     "checks": {
@@ -1576,7 +1748,7 @@
       }
     },
     "pass": true,
-    "spec": "0cbf341b465b015411f6eb56340b3555135d05f51b2a0fbdcedec9e760428c91"
+    "spec": "6d42db72c596661876d753c1922cfea5e3ef2fa973fe9095058c6e09099e6c9c"
   },
   "shadcn/card": {
     "checks": {
@@ -1597,7 +1769,29 @@
       }
     },
     "pass": true,
-    "spec": "a501f276c2bf896eab376d1d1f35056f16362fa50bd82b3ca4526c6b3efc41e9"
+    "spec": "54f95f071887db62c110403001dca2aebb855fc81ae426cde5cb6e97b7aa9431"
+  },
+  "ai_elements/panel": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "detail": "panel.default is not compared: Only one side draws it: React Flow's component renders null outside a mounted graph, and `parity-divergence.json` records the whole of that. A box compared against nothing is not a tolerance to measure.",
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "c2d8895ba733efaa2e5e7d98172da771d05fa3121439248e36926fe40e2c888d"
   },
   "ai_elements/inline-citation": {
     "checks": {
@@ -1618,7 +1812,7 @@
       }
     },
     "pass": true,
-    "spec": "e55da991f7f162ab9944423c78dfb14ee3c8bb8dd07f796c104c98e645c65abf"
+    "spec": "2048c8ca5c8c81ddac8627f3ee3fed222b2e416950c4ad579d07bab25d786115"
   },
   "ai_elements/model-selector": {
     "checks": {
@@ -1639,7 +1833,7 @@
       }
     },
     "pass": true,
-    "spec": "b2cc77a90842f1dc5db46f624bcba4c2786103f236585d75a046ae8b968727e8"
+    "spec": "aa908566c19ebb92434a97507a1b1c54b45e995d1e076e2b552dec3186b313c8"
   },
   "ai_elements/commit": {
     "checks": {
@@ -1660,7 +1854,7 @@
       }
     },
     "pass": true,
-    "spec": "e56dc657044c662729efb69b58b4b003bf14af7b4f1a84d4f46cf9b68cf29f4c"
+    "spec": "7dbe8aadb47db5683b9c1d9b221364cd0044e9b03b124d73b686b2dce7547934"
   },
   "ai_elements/audio-player": {
     "checks": {
@@ -1682,7 +1876,7 @@
       }
     },
     "pass": true,
-    "spec": "5684e3e7549e8f9ca36669c58325457096cbc4c3302edc5dffcca7aa088e0628"
+    "spec": "96995c1c430bb766dd66fc6d09479dd9669e058cb82d0dc2597eb264940ee242"
   },
   "ai_elements/suggestion": {
     "checks": {
@@ -1703,7 +1897,7 @@
       }
     },
     "pass": true,
-    "spec": "69e2df893752c86a809999f4a366f769610ec1be5cb559eb984d0036939940bf"
+    "spec": "587cca3ebe5eebeae2182b2b44868502c69486102878b2493fd4cb8a8e5af9d6"
   },
   "ai_elements/conversation": {
     "checks": {
@@ -1746,7 +1940,7 @@
       }
     },
     "pass": true,
-    "spec": "3b8462581a531baa615700a6ae2de3ba669efaa8c97aa087e3bae8468969aa1b"
+    "spec": "56c45d7fd22562e04b99aac24b0261992e1c8f1ef53722dd50b7ad3b9c2821b9"
   },
   "ai_elements/transcription": {
     "checks": {
@@ -1767,7 +1961,7 @@
       }
     },
     "pass": true,
-    "spec": "c85b9ab5cfdad274de3897078607e63b66d66a035c0fd6fdd21023d37a022339"
+    "spec": "d2418a29bedb59f50377caf73c48aa8117486a6598a75e98f906889c42ca9bae"
   },
   "shadcn/separator": {
     "checks": {
@@ -1788,7 +1982,7 @@
       }
     },
     "pass": true,
-    "spec": "ead5c15847993b7d73391485bbb29ee96c8b5cbd5556e49f368de01220dbb52b"
+    "spec": "7ca2f317fb35130685ca643fef64911c69479aef7d3240fd236e9f789727c2a9"
   },
   "shadcn/empty": {
     "checks": {
@@ -1809,7 +2003,7 @@
       }
     },
     "pass": true,
-    "spec": "c7272238374633d3f26192a93d43d702236e07cf31d717a937ab74dcdfb3e486"
+    "spec": "e388effec2cf6b48d92f9cf2547f248534032e86fd794d7805904371f18236ee"
   },
   "ai_elements/prompt-input": {
     "checks": {
@@ -1831,7 +2025,7 @@
       }
     },
     "pass": true,
-    "spec": "2bc4102028e7fc7a2fcf3a10b3145706fdc2a1bc9a734a945c598e3618145d98"
+    "spec": "6e6fd3767ac66228b87050c9d2f4ffd5e2216ed03a13a7a008b1720956bb6562"
   },
   "shadcn/navigation-menu": {
     "checks": {
@@ -1852,7 +2046,7 @@
       }
     },
     "pass": true,
-    "spec": "159141ad12550115ed71525ad07ed55cda878c81f459c22ec30a6410ac597ffb"
+    "spec": "bcd4d62630d3fe7604c439f140caa2b11ab85b0e8d711d2d47d2f011cd253b86"
   },
   "shadcn/progress": {
     "checks": {
@@ -1873,7 +2067,7 @@
       }
     },
     "pass": true,
-    "spec": "f37a55b6d75555c23f4e6fbeddee3e4ed29928ad10ef3c6b6df09b21117a5186"
+    "spec": "f57a07359be4098e796b760bd5d6661133c13125bdd04f211b4d8079bd575d9a"
   },
   "ai_elements/code-block": {
     "checks": {
@@ -1894,7 +2088,7 @@
       }
     },
     "pass": true,
-    "spec": "0753a7a9ca3af5cf2d1c30d581a4a78d07f8d5b372887d3921b7f0af2ee4bc98"
+    "spec": "f2bdd4a90f736fb8868f88892ffc13e15609439e72baa590ffced6700ced6ad1"
   },
   "ai_elements/agent": {
     "checks": {
@@ -1915,7 +2109,7 @@
       }
     },
     "pass": true,
-    "spec": "59a9ea18a118400dbdc70b5f52a2c31e7620e0729156747f92316c4593b2a110"
+    "spec": "3f0c3f39f42323cdd476c46fcfb1c3187cb277944e266e8119bbf1599342ec64"
   },
   "shadcn/collapsible": {
     "checks": {
@@ -1936,7 +2130,7 @@
       }
     },
     "pass": true,
-    "spec": "44160714db0f9259a1eb0374251af737629f301c5a691883ef08874a6c4812e7"
+    "spec": "fdecbb38687ee5f349e199377b114b12b243b26abe44d47b8204a15df3974063"
   },
   "shadcn/questionnaire": {
     "checks": {
@@ -1957,7 +2151,7 @@
       }
     },
     "pass": true,
-    "spec": "e1d11b8334d02034278fd1e41c525a4a088cbe98c3157fd8f45b9caa70426d44"
+    "spec": "4970531b549176d5983c9d929eabb7551471d71a06c57fec3b188bba4ca647b4"
   },
   "shadcn/slider": {
     "checks": {
@@ -1978,7 +2172,7 @@
       }
     },
     "pass": true,
-    "spec": "ebcc14d40d7708da1d4b51a24a11eeedf64f9cf8a694d05cf6a9ba20ca220883"
+    "spec": "9fb29e322de201a692592ddf969b674d94edcf326b78cd29876b3dca82816ceb"
   },
   "ai_elements/file-tree": {
     "checks": {
@@ -1999,7 +2193,7 @@
       }
     },
     "pass": true,
-    "spec": "f006add711c5056d53e24be9860d2ea2123896a6827573a603b0dceb4e6ed493"
+    "spec": "e79bb1cfcb8d98ce592d2f3eb85adfca8858e3742ab0e451cc0e54cbb152f2a5"
   },
   "shadcn/drawer": {
     "checks": {
@@ -2020,7 +2214,28 @@
       }
     },
     "pass": true,
-    "spec": "5298de7aa59d28e4a1e580da42a4ae1236f3c6f9e1d81cb4bcf65f9bf354d5d8"
+    "spec": "61d07b0b6dc2487a2e075142c5c0b3a311b38aaa297012459140d756c6cf1b0d"
+  },
+  "ai_elements/connection": {
+    "checks": {
+      "browser": {
+        "pass": true
+      },
+      "generated": {
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "pass": true,
+    "spec": "dc4f1915ec01beb3c3a466a71f4beafda97c7c6d78b3a25570fce6ce4afd35fd"
   },
   "shadcn/button": {
     "checks": {
@@ -2041,7 +2256,7 @@
       }
     },
     "pass": true,
-    "spec": "a5642fdd61638d974a160bf3b26c171f9c79b9cfac296a1e20c847bbc8df060d"
+    "spec": "a91d54dc7b50d0af132a4f1f90cb8c52ecad6f2ca2719576d017a3f2b6569c32"
   },
   "shadcn/kbd": {
     "checks": {
@@ -2062,7 +2277,7 @@
       }
     },
     "pass": true,
-    "spec": "0fdd1ee8c07472a4bcb652b37106f885bd505ae90ef3f475763a97d4505c91e0"
+    "spec": "d3fa77036bc44020c50c62d1e8779ba366459acddf1d237bb73538496e28250d"
   },
   "shadcn/table": {
     "checks": {
@@ -2083,7 +2298,7 @@
       }
     },
     "pass": true,
-    "spec": "2d266620ec035d89287a143481b8ef2bfd15857b08c02281ab755e55298cd24e"
+    "spec": "0433f09f8170dcd27b10772868880e8a4086f4e028130abc2c01221003580956"
   },
   "shadcn/combobox": {
     "checks": {
@@ -2104,6 +2319,6 @@
       }
     },
     "pass": true,
-    "spec": "8e6f8ef8ba1e905937bcb54d2973412c206a02414ceffd45acf3cf1708578c64"
+    "spec": "575dc248000c8a7891f3059e8eced745f52ddf10d6e7ad232e10b18291d397e9"
   }
 }

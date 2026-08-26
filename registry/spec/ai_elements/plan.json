@@ -50,6 +50,7 @@
             ],
             "class": "cn-card group/card flex flex-col shadow-none",
             "class_when": [],
+            "drew": true,
             "merges_class": true,
             "module": "collapsible",
             "part": "Root",
@@ -145,8 +146,7 @@
           {
             "else": [
               {
-                "code": "children",
-                "type": "value"
+                "type": "children"
               }
             ],
             "identifiers": [
@@ -229,8 +229,7 @@
           {
             "else": [
               {
-                "code": "children",
-                "type": "value"
+                "type": "children"
               }
             ],
             "identifiers": [
@@ -333,6 +332,7 @@
         "children": [],
         "class": "cn-card-content",
         "class_when": [],
+        "drew": true,
         "merges_class": true,
         "module": "collapsible",
         "part": "Panel",
@@ -444,6 +444,7 @@
         ],
         "class": "size-8",
         "class_when": [],
+        "drew": true,
         "merges_class": true,
         "module": "collapsible",
         "part": "Trigger",
@@ -663,32 +664,6 @@
       ],
       "renders": true,
       "summary": "A button that opens and closes the collapsible panel."
-    },
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
-    },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
     }
   },
   "recipe": "disclosure",

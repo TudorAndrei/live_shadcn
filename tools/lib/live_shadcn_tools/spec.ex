@@ -75,7 +75,11 @@ defmodule LiveShadcnTools.Spec do
     exports = Enum.reject(tsx.exports, &Map.has_key?(variants, &1))
     unreadable!(exports, tsx.unreadable)
 
-    parts = exports |> Enum.filter(&component?(&1, ctx)) |> Enum.map(&part(&1, ctx))
+    parts =
+      exports
+      |> Enum.flat_map(&named_components(&1, ctx))
+      |> Enum.filter(&component?(elem(&1, 1), ctx))
+      |> Enum.map(fn {name, export} -> export |> part(ctx) |> Map.put("name", name) end)
 
     # A spec with no parts renders nothing, and it is indistinguishable on disk
     # from one the reader understood and found empty. That is the silent skip
@@ -116,7 +120,7 @@ defmodule LiveShadcnTools.Spec do
         {"#{module}.#{key}", primitive(part)}
       end
 
-    own_primitives = Map.merge(own_primitives, external_props())
+    own_primitives = Map.merge(own_primitives, external_props(parts))
 
     %{
       "name" => name,
@@ -1342,6 +1346,35 @@ defmodule LiveShadcnTools.Spec do
   # Not every export renders. A file may also export a hook, a variant table, or
   # a factory such as `createToastManager`. The parsed function tells us whether
   # it renders JSX, so an export name does not decide its role.
+  # The components one export names.
+  #
+  # Usually one, under its own name. `edge` exports an object —
+  # `export const Edge = { Animated, Temporary }` — which is two components
+  # published under one name, and read as one it was a component that renders a
+  # pair of braces. Each entry is a part, named the way a caller reaches it:
+  # `Edge.Animated` is `edge_animated`.
+  defp named_components(export, ctx) do
+    case object_components(export, ctx) do
+      [] -> [{Macro.underscore(export), export}]
+      entries -> for name <- entries, do: {Macro.underscore("#{export}#{name}"), name}
+    end
+  end
+
+  defp object_components(export, ctx) do
+    with source when is_binary(source) <- Map.get(ctx.consts, export),
+         [inside] <-
+           Regex.run(~r/^\{\s*([A-Za-z0-9_,\s]+?)\s*,?\s*\}$/s, String.trim(source),
+             capture: :all_but_first
+           ) do
+      inside
+      |> String.split(",")
+      |> Enum.map(&String.trim/1)
+      |> Enum.filter(&Map.has_key?(ctx.functions, &1))
+    else
+      _not_an_object -> []
+    end
+  end
+
   defp component?(export, ctx) do
     case Map.get(ctx.functions, export) do
       %{renders?: renders?} -> renders?
@@ -1449,7 +1482,7 @@ defmodule LiveShadcnTools.Spec do
     |> base_node(tag, ctx)
     |> Map.merge(%{
       "slot" => slot(element),
-      "attrs" => attributes(element, ctx),
+      "attrs" => external_renamed(base_node(element, tag, ctx), attributes(element, ctx)),
       "render_as" => render_as(element, ctx),
       "class" => classes,
       "class_when" => class_when,
@@ -1500,8 +1533,20 @@ defmodule LiveShadcnTools.Spec do
   # A reference the fold left standing — the component it names behaves, and
   # this one is not it. There is no element yet to be one with, and the part is
   # dropped rather than drawn, so the word is simply forgotten.
-  defp one_element(%{"as_child" => %{}, "type" => "component_ref"} = node),
-    do: Map.delete(node, "as_child")
+  #
+  # Unless the child is a plain element, which is a different sentence:
+  # `<DropdownMenuItem asChild><a href={…}>…</a></DropdownMenuItem>` says the
+  # item *is* that link, and the link is markup with a class string and three
+  # children. `open-in-chat` is twelve of those and was read as twelve
+  # references to a menu — a component with nothing in it. `plan`'s
+  # `<CollapsibleTrigger asChild><Button>` is the first sentence: its child is
+  # another component, and which element that ends up as is that component's
+  # to say.
+  defp one_element(%{"as_child" => %{}, "type" => "component_ref"} = node) do
+    if Enum.any?(Map.get(node, "children") || [], &match?(%{"type" => "element"}, &1)),
+      do: node |> Map.put("type", "element") |> one_element(),
+      else: Map.delete(node, "as_child")
+  end
 
   defp one_element(%{"as_child" => %{} = as_child} = node) do
     case Enum.split_with(Map.get(node, "children") || [], &drawn?/1) do
@@ -1522,7 +1567,13 @@ defmodule LiveShadcnTools.Spec do
             "group" => reads_of(node, "group") ++ reads_of(child, "group")
           },
           "vars" => Enum.uniq((node["vars"] || []) ++ (child["vars"] || [])),
-          "children" => (child["children"] || []) ++ rest
+          "children" => (child["children"] || []) ++ rest,
+          # This node *is* the element the child wrote, not a call to whatever
+          # the reference names. `open-in-chat`'s items are twelve `<a>`s that
+          # a dropdown menu item was told to render as, and a recipe deciding
+          # whether a reference is a wrapper has to be able to tell them from
+          # `menubar`'s twelve, which are calls and nothing else.
+          "drew" => true
         })
         |> identified_as(node)
 
@@ -1584,6 +1635,13 @@ defmodule LiveShadcnTools.Spec do
          %{"module" => "external/@shadcn/react/questionnaire", "part" => "ChoiceInput"} = node
        ) do
     Map.update!(node, "attrs", &[%{"kind" => "text", "name" => "type", "value" => "radio"} | &1])
+  end
+
+  # React Flow's edge is a `<path fill="none">`. Without it a bezier is filled
+  # rather than drawn: a black wedge under the curve, which the pixel check saw
+  # as forty-five thousand differing pixels on a two-hundred-pixel line.
+  defp external_defaults(%{"module" => "external/@xyflow/react", "part" => "Edge"} = node) do
+    Map.update!(node, "attrs", &[%{"kind" => "text", "name" => "fill", "value" => "none"} | &1])
   end
 
   # `input-otp` passes this property to its React wrapper. The mapped primitive
@@ -1649,12 +1707,62 @@ defmodule LiveShadcnTools.Spec do
   end
 
   defp expand(code, ctx) do
-    Regex.replace(~r/\b([a-z_][A-Za-z0-9_]*)\(([^()]*)\)/, code, fn whole, name, argument ->
+    Regex.replace(~r/\b([a-z_][A-Za-z0-9_.]*)\(([^()]*)\)/, code, fn whole, name, argument ->
       case value_helper(name, ctx) do
-        nil -> whole
-        {param, body} -> "(" <> renamed(body, %{param => String.trim(argument)}) <> ")"
+        nil ->
+          whole
+
+        {param, body} ->
+          # Bracketed so that an operator outside the call cannot reach inside
+          # it — unless the body is a template literal, which has its own
+          # brackets and reads as a whole either way.
+          inlined = renamed(body, %{param => String.trim(argument)})
+          if String.starts_with?(inlined, "`"), do: inlined, else: "(" <> inlined <> ")"
       end
     end)
+  end
+
+  # What a dotted path through a declared table holds, as markup or as words.
+  defp table_entry(code, ctx) do
+    trimmed = String.trim(code)
+
+    with true <- Regex.match?(~r/^[a-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*){2,}$/, trimmed),
+         source when is_binary(source) <- constant_at(trimmed, ctx) do
+      case string_literal(String.trim(source)) do
+        nil -> if source =~ "<", do: markup(source, ctx)
+        literal -> %{"type" => "text", "value" => literal}
+      end
+    else
+      _not_a_table_entry -> nil
+    end
+  end
+
+  # The source at a dotted path through the objects a file declares at the top.
+  #
+  # `open-in-chat` writes one entry per provider — a title, an icon and a
+  # `createUrl` — and then reads `providers.chatgpt.createUrl(query)`. It is a
+  # table, the same shape a `cva` table has and the same shape `statusIcons`
+  # has, and every one of them is data upstream wrote once. A caller cannot
+  # supply `providers`, so a generator that met the name could only report it as
+  # a prop that does not exist.
+  defp constant_at(path, ctx) do
+    case String.split(path, ".") do
+      [name] ->
+        Map.get(Map.get(ctx, :consts) || %{}, name)
+
+      [name | rest] ->
+        Enum.reduce_while(rest, Map.get(ctx.const_nodes, name), fn step, node ->
+          case node |> Ast.object_entries() |> Map.get(step) do
+            nil -> {:halt, nil}
+            found -> {:cont, found}
+          end
+        end)
+        |> then(fn
+          nil -> nil
+          {:expr, source, _node} -> source
+          _other -> nil
+        end)
+    end
   end
 
   # `const isItalic = (fontStyle: number | undefined) => fontStyle && fontStyle & 1`
@@ -1662,20 +1770,51 @@ defmodule LiveShadcnTools.Spec do
   # a block body computes in steps a template has no place to take, and one that
   # returns markup is `local_call/2`'s.
   defp value_helper(name, ctx) do
-    with source when is_binary(source) <- Map.get(Map.get(ctx, :consts) || %{}, name),
+    with source when is_binary(source) <- constant_at(name, ctx),
+         # One parameter, and a type annotation with no brackets of its own.
+         # `renderChildren(children: ReactNode | ((error: Error) => ReactNode),
+         # error)` takes two, and the first bracket inside that type ended the
+         # match halfway through a signature — which produced an expression
+         # nothing could parse and stopped the whole component.
          [param, body] <-
            Regex.run(
-             ~r/^\(\s*([a-z_][A-Za-z0-9_]*)[^)]*\)\s*=>\s*([^{].*)$/s,
+             ~r/^\(\s*([a-z_][A-Za-z0-9_]*)\s*(?::[^()]*)?\)\s*=>\s*([^{].*)$/s,
              String.trim(source),
              capture: :all_but_first
            ),
          # `isUnderline` puts a lint pragma on its own line before the
          # expression, and a comment is not part of what the helper computes.
          body = String.replace(body, ~r{^\s*//[^\n]*$}m, ""),
-         false <- body =~ "<" do
+         false <- body =~ "<",
+         false <- String.starts_with?(String.trim(body), "{") do
       {param, String.trim(body)}
     else
-      _not_a_value_helper -> nil
+      _not_a_value_helper -> built_url(name, ctx)
+    end
+  end
+
+  # A helper that builds a URL in three statements instead of one template.
+  #
+  #     (text) => {
+  #       const url = new URL("https://cursor.com/link/prompt")
+  #       url.searchParams.set("text", text)
+  #       return url.toString()
+  #     }
+  #
+  # One provider of `open-in-chat`'s six writes it this way and the other five
+  # write the template; they mean the same thing, and this is the rewrite that
+  # says so. A block body in any other shape is refused, as it was before.
+  defp built_url(name, ctx) do
+    with source when is_binary(source) <- constant_at(name, ctx),
+         [param, base, key, value] <-
+           Regex.run(
+             ~r/^\(\s*([a-z_]\w*)[^)]*\)\s*=>\s*\{\s*const\s+url\s*=\s*new URL\(\s*"([^"]+)"\s*\)\s*;?\s*url\.searchParams\.set\(\s*"([^"]+)"\s*,\s*([a-z_]\w*)\s*\)\s*;?\s*return\s+url\.toString\(\)\s*;?\s*\}$/s,
+             String.trim(source),
+             capture: :all_but_first
+           ) do
+      {param, "`#{base}?${new URLSearchParams({ #{key}: #{value} })}`"}
+    else
+      _not_a_built_url -> nil
     end
   end
 
@@ -1795,6 +1934,20 @@ defmodule LiveShadcnTools.Spec do
       # the contract — this content is the caller's — and the caller supplies it.
       name = render_prop(code, ctx) ->
         %{"type" => "slot", "name" => name}
+
+      # `{providers.chatgpt.icon}` and `{providers.chatgpt.title}` — one entry
+      # of a table upstream declared once, holding an `<svg>` and a word.
+      # `{statusIcons[status]}` is the same fact read by a prop and is already a
+      # lookup; this one names the row it wants, so there is nothing to look up
+      # and nothing for a caller to supply.
+      entry = table_entry(code, ctx) ->
+        entry
+
+      # `{props.children}` is `{children}` said the long way: `node` spreads
+      # `{...props}` onto its card and then writes the children out. Read as a
+      # value it became an assign called `children`, which nothing declares.
+      String.trim(code) in ["children", "props.children"] ->
+        %{"type" => "children"}
 
       # A bare value — `{text}`, `{error.message}` — is content the caller
       # supplies, so it becomes an attribute of the generated component rather
@@ -2136,10 +2289,18 @@ defmodule LiveShadcnTools.Spec do
   # carries as a lookup, and pasting it into an expression would say it twice.
   defp with_regexes(code, ctx) do
     Enum.reduce(ctx.consts, code, fn {name, declared}, code ->
-      if String.starts_with?(declared, "/"),
+      if inlinable_constant?(declared),
         do: String.replace(code, ~r/\b#{Regex.escape(name)}\b/, declared),
         else: code
     end)
+  end
+
+  # A regular expression, or a number. Both are literals upstream gave a name
+  # for reading — `const HALF = 0.5` is written once and read once, and a caller
+  # cannot supply it because it is not a prop. A generator that met the name
+  # could only report it as one that does not exist.
+  defp inlinable_constant?(declared) do
+    String.starts_with?(declared, "/") or Regex.match?(~r/^-?\d+(\.\d+)?$/, String.trim(declared))
   end
 
   # Whether every node in the expression is one this pipeline can write in
@@ -2188,6 +2349,18 @@ defmodule LiveShadcnTools.Spec do
   # `frame.raw.replace(AT_PREFIX_REGEX, "")` — a method on a value, called with
   # values. The callee has to be a member, because a bare `f(x)` is a function
   # this file declared and inlining one is a different job.
+  # `encodeURIComponent(query)` — a function the language provides, which Elixir
+  # also provides. The list is closed for the reason `@methods` is: a name in it
+  # has a translation in `Gen.Heex`.
+  @globals ~w(encodeURIComponent encodeURI)
+
+  defp computed_node?(
+         %{"type" => "CallExpression", "callee" => %{"type" => "Identifier", "name" => name}} =
+           node
+       )
+       when name in @globals,
+       do: Enum.all?(node["arguments"], &computed_node?(Ast.bare(&1)))
+
   defp computed_node?(%{"type" => "CallExpression", "callee" => callee} = node) do
     case Ast.bare(callee) do
       %{"type" => "MemberExpression", "property" => %{"name" => method}} = member
@@ -2357,21 +2530,63 @@ defmodule LiveShadcnTools.Spec do
     cond do
       # `<>…</>` — a React fragment groups children and renders nothing. HEEx
       # needs no grouping, so the children are simply emitted in place.
-      tag == "" -> %{"type" => "transparent", "reason" => "a fragment"}
-      tag == "IconPlaceholder" -> %{"type" => "icon", "icons" => icons(element, ctx)}
-      tag =~ ~r/^[a-z]/ -> %{"type" => "element", "tag" => tag}
-      Map.has_key?(ctx.functions, tag) -> %{"type" => "part_ref", "part" => Macro.underscore(tag)}
-      base_ui?(tag, ctx) -> base_ui_node(tag, ctx)
-      set = icon_set(tag, ctx) -> %{"type" => "icon", "icons" => %{set => drawn(set, tag, ctx)}}
-      prop = icon_prop(tag, ctx) -> %{"type" => "icon", "prop" => prop}
-      local = local_tag(tag, ctx) -> local
-      registry_component(tag, ctx) -> registry_node(tag, ctx)
-      primitive = external_primitive(tag, ctx) -> primitive
-      role = external_role(tag, ctx) -> %{"type" => "external", "role" => role}
-      element = motion_tag(tag, ctx) -> %{"type" => "element", "tag" => element}
-      context_provider?(tag) -> %{"type" => "transparent", "reason" => "a React context"}
-      package = third_party(tag, ctx) -> raise not_base_ui(tag, package)
-      true -> raise "the spec reader does not know what <#{tag}> is"
+      tag == "" ->
+        %{"type" => "transparent", "reason" => "a fragment"}
+
+      tag == "IconPlaceholder" ->
+        %{"type" => "icon", "icons" => icons(element, ctx)}
+
+      tag =~ ~r/^[a-z]/ ->
+        %{"type" => "element", "tag" => tag}
+
+      # A component that hands its children back draws no element, which is the
+      # same thing Base UI says about a root that renders nothing. `persona`
+      # chooses between two of them at render and the choice changes only what
+      # a Rive runtime is told, never what is drawn.
+      passthrough?(tag, ctx) ->
+        %{"type" => "transparent", "reason" => "a component that renders its children"}
+
+      Map.has_key?(ctx.functions, tag) ->
+        %{"type" => "part_ref", "part" => Macro.underscore(tag)}
+
+      base_ui?(tag, ctx) ->
+        base_ui_node(tag, ctx)
+
+      set = icon_set(tag, ctx) ->
+        %{"type" => "icon", "icons" => %{set => drawn(set, tag, ctx)}}
+
+      prop = icon_prop(tag, ctx) ->
+        %{"type" => "icon", "prop" => prop}
+
+      local = local_tag(tag, ctx) ->
+        local
+
+      registry_component(tag, ctx) ->
+        registry_node(tag, ctx)
+
+      primitive = external_primitive(tag, ctx) ->
+        primitive
+
+      role = external_role(tag, ctx) ->
+        %{"type" => "external", "role" => role}
+
+      renders_the_callers?(tag, ctx) ->
+        %{"type" => "children"}
+
+      element = motion_tag(tag, ctx) ->
+        %{"type" => "element", "tag" => element}
+
+      element = hook_element(tag, ctx) ->
+        %{"type" => "element", "tag" => element}
+
+      context_provider?(tag) ->
+        %{"type" => "transparent", "reason" => "a React context"}
+
+      package = third_party(tag, ctx) ->
+        raise not_base_ui(tag, package)
+
+      true ->
+        raise "the spec reader does not know what <#{tag}> is"
     end
   end
 
@@ -2386,6 +2601,20 @@ defmodule LiveShadcnTools.Spec do
   @external_roles %{"streamdown" => "markdown", "ansi-to-react" => "ansi"}
 
   defp external_role(tag, ctx), do: Map.get(@external_roles, third_party(tag, ctx) || "")
+
+  # A third-party component whose whole job is to draw what it was handed.
+  #
+  # `<JsxParser jsx={displayJsx} renderInWrapper={false} />` compiles a string of
+  # JSX at render and puts the result where it stands. A server cannot compile
+  # JSX and a template language that drew markup from a string would be the
+  # injection every other decision here is made to avoid — so what goes there is
+  # the caller's content, which is what a slot is.
+  #
+  # `renderInWrapper={false}` is upstream saying it draws no element of its own,
+  # and that is the whole of what the reader has to know.
+  @renders_the_callers ~w(react-jsx-parser)
+
+  defp renders_the_callers?(tag, ctx), do: third_party(tag, ctx) in @renders_the_callers
 
   # A third-party primitive can still be read when an existing recipe owns its
   # behaviour. The package supplies no Base UI page, so this table supplies the
@@ -2453,6 +2682,27 @@ defmodule LiveShadcnTools.Spec do
       "ResizablePrimitive.Panel" => {"Panel", "div"},
       "ResizablePrimitive.Separator" => {"Separator", "div"}
     },
+    # Four of React Flow's seven files are markup after all.
+    #
+    # `ROADMAP.md` says the graph library owns the layout, the panning and the
+    # edges, and it does — `canvas` is the engine, and `edge` and `connection`
+    # are SVG path arithmetic it calls while a wire is being dragged. But a
+    # control bar, a panel, a node toolbar and a node are a `<div>` and a class
+    # string, exactly like every other presentational component here: what
+    # React Flow adds is where they sit, and where a thing sits is the
+    # application's graph rather than the component.
+    #
+    # So these four are read, and the props React Flow takes are recorded below
+    # so that `position` does not become an attribute of a `<div>`.
+    "@xyflow/react" => %{
+      "ControlsPrimitive" => {"Controls", "div"},
+      "PanelPrimitive" => {"Panel", "div"},
+      "NodeToolbar" => {"Toolbar", "div"},
+      "Handle" => {"Handle", "div"},
+      "BaseEdge" => {"Edge", "path"},
+      "ReactFlow" => {"Root", "div"},
+      "Background" => {"Background", "svg"}
+    },
     # `<StickToBottom>` is a `<div>` and a React context. `<StickToBottom.Content>`
     # is two: an outer one it scrolls and an inner one holding the content — the
     # same two elements shadcn's own `scroll-area` has, which is why
@@ -2502,15 +2752,61 @@ defmodule LiveShadcnTools.Spec do
   # goes in here is a prop this pipeline has actually met.
   @external_prop_names %{
     "external/use-stick-to-bottom.Root" => ~w(initial resize mass damping stiffness),
-    "external/use-stick-to-bottom.Viewport" => ~w(scrollClassName)
+    "external/use-stick-to-bottom.Viewport" => ~w(scrollClassName),
+    # Where a thing sits on a graph, which is React Flow's and not HTML's.
+    "external/@xyflow/react.Controls" =>
+      ~w(position orientation showZoom showFitView showInteractive fitViewOptions),
+    "external/@xyflow/react.Panel" => ~w(position),
+    "external/@xyflow/react.Toolbar" => ~w(position nodeId isVisible offset align),
+    "external/@xyflow/react.Handle" => ~w(position type id isConnectable),
+    # `path` is the `d` of an SVG path, and React Flow computes it from where
+    # the two nodes ended up. `interactionWidth` draws a second, invisible path
+    # for a mouse to find.
+    "external/@xyflow/react.Edge" => ~w(interactionWidth label labelX labelY),
+    # Every one of these is how the graph behaves — what a drag does, what a
+    # scroll does, which key deletes a node — and none of them is an attribute
+    # of the `<div>` React Flow draws.
+    "external/@xyflow/react.Root" =>
+      ~w(deleteKeyCode fitView panOnDrag panOnScroll selectionOnDrag zoomOnDoubleClick
+         nodes edges nodeTypes edgeTypes onNodesChange onEdgesChange onConnect
+         connectionLineComponent proOptions),
+    "external/@xyflow/react.Background" => ~w(bgColor variant gap size patternClassName)
   }
 
   # The same shape a Base UI page produces, so that every reader of
   # `spec["primitives"]` asks one question rather than two.
-  defp external_props do
-    Map.new(@external_prop_names, fn {key, props} ->
-      {key, %{"props" => Enum.map(props, &%{"name" => &1})}}
-    end)
+  #
+  # Only the ones this component draws. A Base UI page reaches a spec because
+  # the component imported it; this table is one map for the whole registry, and
+  # written in whole it put React Flow's props into all ninety-nine specs.
+  defp external_props(parts) do
+    drawn = MapSet.new(primitive_keys(parts))
+
+    for {key, props} <- @external_prop_names,
+        MapSet.member?(drawn, key),
+        into: %{},
+        do: {key, %{"props" => Enum.map(props, &%{"name" => &1})}}
+  end
+
+  defp primitive_keys(node) when is_map(node) do
+    List.wrap(key(node)) ++ (node |> Map.values() |> Enum.flat_map(&primitive_keys/1))
+  end
+
+  defp primitive_keys(nodes) when is_list(nodes), do: Enum.flat_map(nodes, &primitive_keys/1)
+  defp primitive_keys(_node), do: []
+
+  # An attribute a third-party primitive takes under one name and writes under
+  # another. `<BaseEdge path={…}>` renders `<path d={…}>`, and an SVG `<path>`
+  # has no `path` attribute — while `<animateMotion path={…}>` does, so this
+  # cannot be a rename made everywhere.
+  @external_renames %{"external/@xyflow/react.Edge" => %{"path" => "d"}}
+
+  defp external_renamed(node, attrs) do
+    renames = Map.get(@external_renames, key(node), %{})
+
+    if renames == %{},
+      do: attrs,
+      else: Enum.map(attrs, &Map.update!(&1, "name", fn n -> Map.get(renames, n, n) end))
   end
 
   defp external_primitive(tag, ctx) do
@@ -2570,16 +2866,21 @@ defmodule LiveShadcnTools.Spec do
   defp local_tag(tag, ctx) do
     with value when is_binary(value) <- Map.get(Map.get(ctx, :locals) || %{}, tag),
          {condition, yes, no} <- Ast.conditional(value) do
-      %{
-        "type" => "choice",
-        "when" => condition,
-        "then" => [node(element(yes), ctx)],
-        "else" => [node(element(no), ctx)]
-      }
+      either(condition, node(element(yes), ctx), node(element(no), ctx))
     else
       _ -> nil
     end
   end
+
+  # A choice between two components that both draw their children is not a
+  # choice about markup. `persona` picks between two Rive wrappers — one binds a
+  # view model to the page's colours and the other does not — and either way
+  # what is drawn is the `<canvas>` inside them. Read as a choice, the children
+  # belonged to neither branch and the component drew nothing at all.
+  defp either(_condition, %{"type" => "transparent"} = yes, %{"type" => "transparent"}), do: yes
+
+  defp either(condition, yes, no),
+    do: %{"type" => "choice", "when" => condition, "then" => [yes], "else" => [no]}
 
   # `const MotionComponent = getMotionComponent(Component)`, and then
   # `<MotionComponent>`.
@@ -2608,6 +2909,33 @@ defmodule LiveShadcnTools.Spec do
     else
       _not_a_motion_component -> nil
     end
+  end
+
+  # A component a hook hands back, and the element it draws.
+  #
+  # `const { RiveComponent } = useRive(…)` and then `<RiveComponent />`. The
+  # component is not imported and not declared: it is a value a library made at
+  # render, so nothing else in `base_node/3` can say what it is. What it draws
+  # is one `<canvas>`, and the runtime that paints into it is the application's
+  # — which is the same arrangement media-chrome gets, and the reason the
+  # markup is still markup.
+  @hook_elements %{"@rive-app/react-webgl2" => %{"RiveComponent" => "canvas"}}
+
+  defp passthrough?(tag, ctx),
+    do: match?(%{passthrough?: true}, Map.get(ctx.functions, tag))
+
+  defp hook_element(tag, ctx) do
+    packages = ctx.imports |> Map.values() |> MapSet.new()
+
+    Enum.find_value(@hook_elements, fn {package, elements} ->
+      with element when is_binary(element) <- Map.get(elements, tag),
+           true <- MapSet.member?(packages, package),
+           true <- Map.has_key?(Map.get(ctx, :params_of) || %{}, tag) do
+        element
+      else
+        _not_from_that_hook -> nil
+      end
+    end)
   end
 
   defp local_render(code, ctx) do
@@ -2901,7 +3229,24 @@ defmodule LiveShadcnTools.Spec do
     "rowSpan" => "rowspan",
     "spellCheck" => "spellcheck",
     "srcSet" => "srcset",
-    "tabIndex" => "tabindex"
+    "tabIndex" => "tabindex",
+    # SVG writes its attributes with hyphens and React writes them in camel
+    # case, the same disagreement as `tabIndex`. `connection` draws a path with
+    # a `strokeWidth`, which an `<svg>` has never heard of.
+    "strokeWidth" => "stroke-width",
+    "strokeLinecap" => "stroke-linecap",
+    "strokeLinejoin" => "stroke-linejoin",
+    "strokeDasharray" => "stroke-dasharray",
+    "strokeOpacity" => "stroke-opacity",
+    "fillOpacity" => "fill-opacity",
+    "fillRule" => "fill-rule",
+    "clipPath" => "clip-path",
+    "markerEnd" => "marker-end",
+    "markerStart" => "marker-start",
+    "textAnchor" => "text-anchor",
+    "dominantBaseline" => "dominant-baseline",
+    "repeatCount" => "repeatCount",
+    "viewBox" => "viewBox"
   }
 
   defp attributes(element, ctx) do
@@ -2972,7 +3317,10 @@ defmodule LiveShadcnTools.Spec do
 
   defp expression_attr(name, code, ctx) do
     case constant(code, ctx) do
-      nil -> expression_attr(name, code)
+      # A name a value helper or a named literal stands for, written out. See
+      # `expand/2` and `with_regexes/2`: an attribute reads the same expressions
+      # a child does, and `connection`'s path is one long template full of both.
+      nil -> expression_attr(name, code |> expand(ctx) |> with_regexes(ctx))
       literal -> %{"name" => name, "kind" => "text", "value" => literal}
     end
   end

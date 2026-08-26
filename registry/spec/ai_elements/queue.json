@@ -697,53 +697,31 @@
         "children"
       ],
       "tree": {
-        "attrs": [],
-        "children": [
+        "attrs": [
           {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "type",
-                "value": "button"
-              }
-            ],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "group flex w-full items-center justify-between rounded-md bg-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted",
-            "class_when": [],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "button",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
+            "kind": "text",
+            "name": "type",
+            "value": "button"
           }
         ],
-        "class": "",
+        "children": [
+          {
+            "type": "children"
+          }
+        ],
+        "class": "group flex w-full items-center justify-between rounded-md bg-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted",
         "class_when": [],
-        "component": "collapsible",
-        "function": "collapsible_trigger",
-        "merges_class": false,
-        "props": false,
+        "drew": true,
+        "merges_class": true,
+        "props": true,
         "reads": {
           "group": [],
           "self": []
         },
-        "recipe": "disclosure",
         "render_as": null,
         "slot": null,
-        "source": "shadcn",
         "tag": "button",
-        "type": "component_ref",
+        "type": "element",
         "variant_calls": [],
         "vars": []
       },
@@ -964,32 +942,6 @@
       ],
       "renders": true,
       "summary": "A button component that can be used to trigger actions."
-    },
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
-    },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
     },
     "scroll-area.Content": {
       "css_vars": [],

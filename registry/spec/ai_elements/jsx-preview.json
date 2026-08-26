@@ -1,0 +1,299 @@
+{
+  "anatomy": [],
+  "css_vars": [],
+  "generated_by": "mix ui.spec",
+  "name": "jsx-preview",
+  "parts": [
+    {
+      "contexts": [],
+      "export": "JSXPreview",
+      "name": "jsx_preview",
+      "params": {
+        "bindings": null,
+        "children": null,
+        "className": null,
+        "components": null,
+        "isStreaming": "false",
+        "jsx": null
+      },
+      "primitive": null,
+      "refs": [
+        "jsx",
+        "isStreaming",
+        "bindings",
+        "components",
+        "onError",
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [],
+            "children": [
+              {
+                "type": "children"
+              }
+            ],
+            "class": "relative",
+            "class_when": [],
+            "merges_class": true,
+            "props": true,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "tag": "div",
+            "type": "element",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "",
+        "class_when": [],
+        "merges_class": false,
+        "props": false,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "reason": "a React context",
+        "render_as": null,
+        "slot": null,
+        "type": "transparent",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {
+        "isStreaming": {
+          "optional": true,
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "contexts": [],
+      "export": "JSXPreviewContent",
+      "name": "jsx_preview_content",
+      "params": {
+        "bindings": null,
+        "className": null,
+        "components": null,
+        "displayJsx": null
+      },
+      "primitive": null,
+      "refs": [
+        "err",
+        "className",
+        "props"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "attrs": [
+              {
+                "identifiers": [
+                  "bindings"
+                ],
+                "kind": "code",
+                "name": "bindings",
+                "value": "bindings"
+              },
+              {
+                "identifiers": [
+                  "components"
+                ],
+                "kind": "code",
+                "name": "components",
+                "value": "components"
+              },
+              {
+                "identifiers": [
+                  "displayJsx"
+                ],
+                "kind": "code",
+                "name": "jsx",
+                "value": "displayJsx"
+              },
+              {
+                "kind": "code",
+                "name": "renderInWrapper",
+                "value": "false"
+              }
+            ],
+            "children": [],
+            "class": "",
+            "class_when": [],
+            "merges_class": false,
+            "props": false,
+            "reads": {
+              "group": [],
+              "self": []
+            },
+            "render_as": null,
+            "slot": null,
+            "type": "children",
+            "variant_calls": [],
+            "vars": []
+          }
+        ],
+        "class": "jsx-preview-content",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {}
+    },
+    {
+      "contexts": [],
+      "export": "JSXPreviewError",
+      "name": "jsx_preview_error",
+      "params": {
+        "children": null,
+        "className": null,
+        "error": null
+      },
+      "primitive": null,
+      "refs": [
+        "className",
+        "props",
+        "children"
+      ],
+      "tree": {
+        "attrs": [],
+        "children": [
+          {
+            "else": [
+              {
+                "attrs": [],
+                "children": [
+                  {
+                    "attrs": [],
+                    "children": [],
+                    "class": "size-4 shrink-0",
+                    "class_when": [],
+                    "icons": {
+                      "lucide": "CircleAlert"
+                    },
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "type": "icon",
+                    "variant_calls": [],
+                    "vars": []
+                  },
+                  {
+                    "attrs": [],
+                    "children": [
+                      {
+                        "code": "error.message",
+                        "identifiers": [
+                          "error"
+                        ],
+                        "member_roots": [
+                          "error"
+                        ],
+                        "type": "value"
+                      }
+                    ],
+                    "class": "",
+                    "class_when": [],
+                    "merges_class": false,
+                    "props": false,
+                    "reads": {
+                      "group": [],
+                      "self": []
+                    },
+                    "render_as": null,
+                    "slot": null,
+                    "tag": "span",
+                    "type": "element",
+                    "variant_calls": [],
+                    "vars": []
+                  }
+                ],
+                "class": "",
+                "class_when": [],
+                "merges_class": false,
+                "props": false,
+                "reads": {
+                  "group": [],
+                  "self": []
+                },
+                "reason": "a fragment",
+                "render_as": null,
+                "slot": null,
+                "type": "transparent",
+                "variant_calls": [],
+                "vars": []
+              }
+            ],
+            "identifiers": [
+              "children",
+              "error",
+              "renderChildren"
+            ],
+            "member_roots": [
+              "error"
+            ],
+            "then": [
+              {
+                "type": "children"
+              }
+            ],
+            "type": "choice",
+            "when": "children"
+          }
+        ],
+        "class": "flex items-center gap-2 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-destructive text-sm",
+        "class_when": [],
+        "merges_class": true,
+        "props": true,
+        "reads": {
+          "group": [],
+          "self": []
+        },
+        "render_as": null,
+        "slot": null,
+        "tag": "div",
+        "type": "element",
+        "variant_calls": [],
+        "vars": []
+      },
+      "types": {},
+      "when": "error"
+    }
+  ],
+  "primitives": {},
+  "recipe": "presentational",
+  "source": "ai_elements",
+  "styles": {},
+  "upstream": {
+    "base_ui": {},
+    "shadcn": {
+      "file": "ai_elements/jsx-preview.tsx",
+      "sha256": "0701c0610bd651fbe1d8f2cf35ec3598571381d2641b5da6daac9c677eac5d8d"
+    }
+  },
+  "variants": {}
+}

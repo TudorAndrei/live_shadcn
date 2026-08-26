@@ -54,7 +54,7 @@
     {
       "name": "canvas",
       "source": "ai_elements",
-      "recipe": "utility",
+      "recipe": "presentational",
       "tier": 3
     },
     {
@@ -90,7 +90,7 @@
     {
       "name": "connection",
       "source": "ai_elements",
-      "recipe": "utility",
+      "recipe": "presentational",
       "tier": 3
     },
     {
@@ -102,7 +102,7 @@
     {
       "name": "controls",
       "source": "ai_elements",
-      "recipe": "utility",
+      "recipe": "presentational",
       "tier": 2
     },
     {
@@ -114,7 +114,7 @@
     {
       "name": "edge",
       "source": "ai_elements",
-      "recipe": "utility",
+      "recipe": "presentational",
       "tier": 3
     },
     {
@@ -144,7 +144,7 @@
     {
       "name": "jsx-preview",
       "source": "ai_elements",
-      "recipe": "utility",
+      "recipe": "presentational",
       "tier": 3
     },
     {
@@ -168,13 +168,13 @@
     {
       "name": "node",
       "source": "ai_elements",
-      "recipe": "utility",
+      "recipe": "presentational",
       "tier": 3
     },
     {
       "name": "open-in-chat",
       "source": "ai_elements",
-      "recipe": "utility",
+      "recipe": "presentational",
       "tier": 2
     },
     {
@@ -186,13 +186,13 @@
     {
       "name": "panel",
       "source": "ai_elements",
-      "recipe": "utility",
+      "recipe": "presentational",
       "tier": 2
     },
     {
       "name": "persona",
       "source": "ai_elements",
-      "recipe": "utility",
+      "recipe": "presentational",
       "tier": 2
     },
     {
@@ -300,7 +300,7 @@
     {
       "name": "toolbar",
       "source": "ai_elements",
-      "recipe": "utility",
+      "recipe": "presentational",
       "tier": 2
     },
     {

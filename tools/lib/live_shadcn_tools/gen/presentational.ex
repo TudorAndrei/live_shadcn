@@ -205,7 +205,16 @@ defmodule LiveShadcnTools.Gen.Presentational do
 
   defp nothing_drawn?(_node), do: true
 
-  defp folds_elsewhere?(%{"type" => "component_ref", "recipe" => recipe}), do: recipe in @folding
+  # A reference that drew an element of its own is not a wrapper.
+  #
+  # `<DropdownMenuItem asChild><a href={…}>…</a></DropdownMenuItem>` is one
+  # element, and it is the `<a>`: a link with a class string, an icon, a title
+  # and an external-link icon. `open-in-chat` is twelve of those, and read as
+  # twelve references to a menu it was a component with nothing in it — which
+  # is what `ROADMAP.md` said about it, before `asChild` was read as one
+  # element.
+  defp folds_elsewhere?(%{"type" => "component_ref", "recipe" => recipe} = node),
+    do: recipe in @folding and node["drew"] != true
 
   # A React context provider draws no element, so a part that is one holding a
   # wrapper is a wrapper. `open-in-chat` puts a query string in a context and
@@ -331,14 +340,29 @@ defmodule LiveShadcnTools.Gen.Presentational do
   # `:any` rather than `:integer` for the same reason a `number` annotation gets
   # `:any`: TypeScript's `number` is both, and Phoenix has no type that is.
   defp counted(part) do
-    part["tree"]
-    |> LiveShadcnTools.Spec.codes()
-    |> Enum.filter(&String.contains?(&1, "NumberFormat"))
-    |> Enum.flat_map(
-      &Regex.scan(~r/\.format\(([a-z_][A-Za-z0-9_]*)\)/, &1, capture: :all_but_first)
-    )
-    |> List.flatten()
-    |> Enum.uniq()
+    codes = LiveShadcnTools.Spec.codes(part["tree"])
+
+    formatted =
+      codes
+      |> Enum.filter(&String.contains?(&1, "NumberFormat"))
+      |> Enum.flat_map(
+        &Regex.scan(~r/\.format\(([a-z_][A-Za-z0-9_]*)\)/, &1, capture: :all_but_first)
+      )
+
+    # Every name in an expression that does arithmetic. `connection` writes
+    # `M${fromX},${fromY} C ${fromX + (toX - fromX) * 0.5},…` into the `d` of a
+    # path: four coordinates, two of which are added and two of which are only
+    # printed. Declared by the operator beside them, two came out `:any` and two
+    # `:string`, which is a component that wants numbers for x and words for y.
+    #
+    # One expression, one kind of value. `:any` for a name that is only printed
+    # costs nothing — it already accepts the string it would have been given.
+    arithmetic =
+      codes
+      |> Enum.filter(&Regex.match?(~r/[a-z_][A-Za-z0-9_]*\s*[-+*\/]\s*[a-z_(\d]/, &1))
+      |> Enum.flat_map(&Regex.scan(~r/\b([a-z_][A-Za-z0-9_]*)\b/, &1, capture: :all_but_first))
+
+    (formatted ++ arithmetic) |> List.flatten() |> Enum.reject(&(&1 == "")) |> Enum.uniq()
   end
 
   # The props the markup reads a field off, rather than rendering whole.
@@ -415,9 +439,26 @@ defmodule LiveShadcnTools.Gen.Presentational do
 
   defp tree(part), do: Heex.with_children(part["tree"])
 
+  # What a third-party primitive takes as a prop rather than as an attribute.
+  #
+  # `<NodeToolbar position={Position.Bottom}>` is React Flow being told where to
+  # put the toolbar, and a `<div>` has no `position` attribute — written out it
+  # is an invented attribute whose value names a JavaScript enum.
+  #
+  # Only the external ones. A Base UI part's props are documented too, and the
+  # recipes that fold one already decide for themselves which of them reach the
+  # element; taking that decision here would change fifty components at once.
+  defp external_props(spec) do
+    for {key, primitive} <- spec["primitives"] || %{},
+        String.starts_with?(key, "external/"),
+        into: %{},
+        do: {key, Enum.map(primitive["props"] || [], & &1["name"])}
+  end
+
   defp markup(part, spec, opts) do
     Heex.render(tree(part), %{
       attrs: Keyword.get(opts, :attrs, %{}),
+      props: external_props(spec),
       children: "{render_slot(@inner_block)}",
       class: "@class",
       variants: spec["variants"] || %{},
