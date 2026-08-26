@@ -103,8 +103,7 @@ defmodule LiveShadcn.UI.Combobox do
         data-placeholder={flag(@value in [nil, ""])}
         class={["cn-combobox-trigger", ["block w-full", @trigger_class]]}
       >
-        {label(@option, @value) || @placeholder}
-        <LiveShadcn.Icon.icon
+        {label(@option, @value) || @placeholder}<LiveShadcn.Icon.icon
           name="chevron-down"
           class="cn-combobox-trigger-icon pointer-events-none"
         />

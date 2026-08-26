@@ -741,7 +741,16 @@
                           }
                         ],
                         "class": "",
-                        "class_when": [],
+                        "class_when": [
+                          {
+                            "else": "text-foreground",
+                            "identifiers": [
+                              "frame"
+                            ],
+                            "then": "",
+                            "when": "frame.isInternal"
+                          }
+                        ],
                         "merges_class": false,
                         "props": false,
                         "reads": {

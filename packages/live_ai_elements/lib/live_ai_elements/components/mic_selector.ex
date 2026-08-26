@@ -113,8 +113,7 @@ defmodule LiveAiElements.Components.MicSelector do
           @trigger_class
         ]}
       >
-        {label(@option, @value) || @placeholder}
-        <LiveShadcn.Icon.icon
+        {label(@option, @value) || @placeholder}<LiveShadcn.Icon.icon
           name="chevrons-up-down"
           width="16"
           height="16"
@@ -190,8 +189,7 @@ defmodule LiveAiElements.Components.MicSelector do
               <LiveShadcn.Icon.icon
                 name="check"
                 class="cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100"
-              />
-              {option[:label] || option[:value]}
+              />{option[:label] || option[:value]}
             </div>
           </div>
         </div>

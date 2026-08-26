@@ -81,8 +81,7 @@ defmodule LiveShadcn.UI.Questionnaire do
         <span
           data-slot="questionnaire-choice-indicator-dot"
           class="cn-questionnaire-choice-indicator-dot hidden rounded-full group-data-[type=checkbox]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block"
-        />
-        <LiveShadcn.Icon.icon
+        /><LiveShadcn.Icon.icon
           name="check"
           data-slot="questionnaire-choice-indicator-check"
           class="cn-questionnaire-choice-indicator-check hidden group-data-[type=radio]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block"

@@ -2,8 +2,8 @@ defmodule LiveAiElements.Components.OpenInChat do
   @moduledoc """
   Open in chat. Built on `shadcn/dropdown-menu`.
 
-  Upstream exports 6 more parts, and every one of them is a
-  thin wrapper around a part of `<.dropdown_menu>`. That component is one
+  Upstream exports 6 more parts, each a thin
+  wrapper around a part of `<.dropdown_menu>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.
@@ -98,14 +98,10 @@ defmodule LiveAiElements.Components.OpenInChat do
       class="flex items-center gap-2"
       {@rest}
     >
-      <span class="shrink-0">
-        <LiveShadcn.Icon.icon name="message-circle" />
-      </span>
-      <span class="flex-1">
-        Open in T3 Chat
-      </span>
-      <LiveShadcn.Icon.icon name="external-link" class="size-4 shrink-0" />
-      {render_slot(@inner_block)}
+      <span class="shrink-0"><LiveShadcn.Icon.icon name="message-circle" /></span><span class="flex-1">Open in T3 Chat</span><LiveShadcn.Icon.icon
+        name="external-link"
+        class="size-4 shrink-0"
+      />{render_slot(@inner_block)}
     </a>
     """
   end

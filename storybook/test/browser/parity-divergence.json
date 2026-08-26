@@ -114,6 +114,15 @@
         "scroll-area > scroll-area-scrollbar > scroll-area-thumb"
       ]
     },
+    "stack-trace.default": {
+      "why": "`StackTraceHeader` is `<Collapsible><CollapsibleTrigger asChild>` around a `<div>`, and `asChild` means the trigger is that div — so what upstream draws of its own is the row an error and its buttons sit on, and that row is what the generated part is. The collapsible around it is behaviour, and the disclosure recipe folds a collapsible into one function because its parts have to agree about one id; so it is the caller's to compose, which the moduledoc says. Two ancestors on the React side, and the copy button counted at the path they give it. Every other slot on the page — the whole frame list included — gates at zero. It is also where the 793 px in `pixel-budget.json` come from: this shadcn build is Base UI, whose `asChild` is a no-op — the same thing `plan.default` records — so the trigger is a real `<button>`, a button sizes itself to its content, and upstream's header is 543px wide inside a 448px box. Its message therefore truncates 97px later than the generated one, and the two buttons beside it sit 97px further right.",
+      "slots": [
+        "collapsible",
+        "collapsible > collapsible-trigger",
+        "collapsible > collapsible-trigger > button",
+        "button"
+      ]
+    },
     "suggestion.default": {
       "why": "The scroll area is folded as markup and its recipe stays behind: Base UI unmounts a scrollbar with nothing to scroll and measures the viewport with a hook, and neither travels with a copy. A fold that carries a hook-owning recipe is the half of phase 3 that was recorded rather than built — see PLAN.md.",
       "slots": [

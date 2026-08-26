@@ -148,8 +148,7 @@ defmodule LiveShadcn.UI.InputOtp do
       class="cn-input-otp-separator flex items-center"
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <LiveShadcn.Icon.icon name="minus" />
-      {render_slot(@inner_block)}
+      <LiveShadcn.Icon.icon name="minus" />{render_slot(@inner_block)}
     </div>
     """
   end

@@ -2,8 +2,8 @@ defmodule LiveAiElements.Components.InlineCitation do
   @moduledoc """
   Inline citation. Built on `shadcn/carousel`.
 
-  Upstream exports 3 more parts, and every one of them is a
-  thin wrapper around a part of `<.hover_card>`. That component is one
+  Upstream exports 3 more parts, each a thin
+  wrapper around a part of `<.hover_card>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.
@@ -156,8 +156,9 @@ defmodule LiveAiElements.Components.InlineCitation do
   def inline_citation_carousel_prev(assigns) do
     ~H"""
     <button aria-label="Previous" type="button" class={["shrink-0", @class]} {@rest}>
-      <LiveShadcn.Icon.icon name="arrow-left" class="size-4 text-muted-foreground" />
-      {render_slot(@inner_block)}
+      <LiveShadcn.Icon.icon name="arrow-left" class="size-4 text-muted-foreground" />{render_slot(
+        @inner_block
+      )}
     </button>
     """
   end
@@ -171,8 +172,9 @@ defmodule LiveAiElements.Components.InlineCitation do
   def inline_citation_carousel_next(assigns) do
     ~H"""
     <button aria-label="Next" type="button" class={["shrink-0", @class]} {@rest}>
-      <LiveShadcn.Icon.icon name="arrow-right" class="size-4 text-muted-foreground" />
-      {render_slot(@inner_block)}
+      <LiveShadcn.Icon.icon name="arrow-right" class="size-4 text-muted-foreground" />{render_slot(
+        @inner_block
+      )}
     </button>
     """
   end

@@ -132,6 +132,22 @@ export async function paintedBox(page, selector) {
       if (box.width > 0 && box.height > 0) boxes.push(box);
     }
 
+    // And what the root holds, which is the component whether or not its parts
+    // carry a `data-slot`. shadcn puts one on every part; AI Elements puts one
+    // on almost none, so `stack-trace` was framed by the only element that had
+    // one — the copy button it folds from shadcn — and photographed through a
+    // hole that size. Its four frames of file paths were outside the clip, and
+    // the check reported the example as painting what React paints while
+    // looking at neither side's list.
+    //
+    // The root itself is still the wrong rectangle: it is 720px wide for every
+    // example, and clipping to it is what made a five-percent difference read
+    // as 0.019%. Its children are the component.
+    for (const own of root.children) {
+      const box = own.getBoundingClientRect();
+      if (box.width > 0 && box.height > 0) boxes.push(box);
+    }
+
     // Plus anything painted outside the root at all: portalled content, fixed
     // overlays, backdrops. `toast` needs this — its root is zero pixels tall
     // and React portals every toast to `document.body`.

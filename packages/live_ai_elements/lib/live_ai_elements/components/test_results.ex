@@ -2,8 +2,8 @@ defmodule LiveAiElements.Components.TestResults do
   @moduledoc """
   Test results. Built on `shadcn/badge`, `shadcn/collapsible`.
 
-  Upstream exports 2 more parts, and every one of them is a
-  thin wrapper around a part of `<.collapsible>`. That component is one
+  Upstream exports 2 more parts, each a thin
+  wrapper around a part of `<.collapsible>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.
@@ -71,8 +71,7 @@ defmodule LiveAiElements.Components.TestResults do
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
-          <LiveShadcn.Icon.icon name="circle-check" class="size-3" />
-          {@summary.passed} passed
+          <LiveShadcn.Icon.icon name="circle-check" class="size-3" />{@summary.passed} passed
         </span>
         <span
           :if={@summary.failed > 0}
@@ -84,8 +83,7 @@ defmodule LiveAiElements.Components.TestResults do
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
-          <LiveShadcn.Icon.icon name="circle-x" class="size-3" />
-          {@summary.failed} failed
+          <LiveShadcn.Icon.icon name="circle-x" class="size-3" />{@summary.failed} failed
         </span>
         <span
           :if={@summary.skipped > 0}
@@ -97,8 +95,7 @@ defmodule LiveAiElements.Components.TestResults do
           ]}
           {Map.drop(@rest, [:"data-slot"])}
         >
-          <LiveShadcn.Icon.icon name="circle" class="size-3" />
-          {@summary.skipped} skipped
+          <LiveShadcn.Icon.icon name="circle" class="size-3" />{@summary.skipped} skipped
         </span>
       <% end %>
       {render_slot(@inner_block)}
@@ -143,12 +140,8 @@ defmodule LiveAiElements.Components.TestResults do
           <div style={"width: #{"#{@failed_percent}%"}"} class="bg-red-500 transition-all" />
         </div>
         <div class="flex justify-between text-muted-foreground text-xs">
-          <span>
-            {@summary.passed}/{@summary.total} tests passed
-          </span>
-          <span>
-            {:erlang.float_to_binary(@passed_percent / 1, decimals: 0)}%
-          </span>
+          <span>{@summary.passed}/{@summary.total} tests passed</span><span>{:erlang.float_to_binary(
+            @passed_percent / 1, decimals: 0)}%</span>
         </div>
       <% end %>
       {render_slot(@inner_block)}

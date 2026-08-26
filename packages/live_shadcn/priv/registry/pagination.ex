@@ -61,11 +61,9 @@ defmodule LiveShadcn.UI.Pagination do
       class={["cn-pagination-ellipsis flex items-center justify-center", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <LiveShadcn.Icon.icon name="ellipsis" />
-      <span class="sr-only">
-        More pages
-      </span>
-      {render_slot(@inner_block)}
+      <LiveShadcn.Icon.icon name="ellipsis" /><span class="sr-only">More pages</span>{render_slot(
+        @inner_block
+      )}
     </span>
     """
   end
@@ -129,11 +127,10 @@ defmodule LiveShadcn.UI.Pagination do
       class={["cn-pagination-next", @class]}
       {@rest}
     >
-      <span class="cn-pagination-next-text hidden sm:block">
-        {@text}
-      </span>
-      <LiveShadcn.Icon.icon name="chevron-right" class="cn-rtl-flip" />
-      {render_slot(@inner_block)}
+      <span class="cn-pagination-next-text hidden sm:block">{@text}</span><LiveShadcn.Icon.icon
+        name="chevron-right"
+        class="cn-rtl-flip"
+      />{render_slot(@inner_block)}
     </.pagination_link>
     """
   end
@@ -152,11 +149,9 @@ defmodule LiveShadcn.UI.Pagination do
       class={["cn-pagination-previous", @class]}
       {@rest}
     >
-      <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip" />
-      <span class="cn-pagination-previous-text hidden sm:block">
-        {@text}
-      </span>
-      {render_slot(@inner_block)}
+      <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip" /><span class="cn-pagination-previous-text hidden sm:block">{@text}</span>{render_slot(
+        @inner_block
+      )}
     </.pagination_link>
     """
   end

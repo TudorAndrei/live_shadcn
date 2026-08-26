@@ -1819,9 +1819,11 @@ defmodule StorybookWeb.Examples do
   defp commit_default(assigns) do
     ~H"""
     <LiveAiElements.Components.Commit.commit_info class="max-w-md">
-      <LiveAiElements.Components.Commit.commit_hash>
-        a99f1b7
-      </LiveAiElements.Components.Commit.commit_hash>
+      <%!-- The hash sits against its tags, and `phx-no-format` keeps it there.
+            HEEx renders the whitespace a caller writes and JSX drops it, so a
+            value on a line of its own inside an inline element is a space — and
+            this one is beside the icon upstream spaces with `mr-1`. --%>
+      <LiveAiElements.Components.Commit.commit_hash phx-no-format>a99f1b7</LiveAiElements.Components.Commit.commit_hash>
       <LiveAiElements.Components.Commit.commit_message>
         the recipe three components are built on
       </LiveAiElements.Components.Commit.commit_message>
@@ -2124,7 +2126,12 @@ defmodule StorybookWeb.Examples do
             method="GET"
             variant="secondary"
           />
-          <LiveAiElements.Components.SchemaDisplay.schema_display_path highlighted_path="/components/{name}" />
+          <%!-- Upstream highlights a path parameter by running a regular expression
+                over the path and handing the result to `dangerouslySetInnerHTML`,
+                which is a string of markup put where markup goes. HEEx has no such
+                door — and does not need one, because markup is what a slot takes.
+                So the caller writes the `{name}` it wants coloured. --%>
+          <LiveAiElements.Components.SchemaDisplay.schema_display_path phx-no-format>/components/<span class="text-blue-600 dark:text-blue-400">{"{name}"}</span></LiveAiElements.Components.SchemaDisplay.schema_display_path>
         </LiveAiElements.Components.SchemaDisplay.schema_display_header>
         <LiveAiElements.Components.SchemaDisplay.schema_display_description description="One component, by name." />
       </LiveAiElements.Components.SchemaDisplay.schema_display>
@@ -2190,24 +2197,84 @@ defmodule StorybookWeb.Examples do
     """
   end
 
+  # The trace the example copies, and the frames a reader of it draws.
+  #
+  # Upstream parses the string once and puts the frames in a context; here the
+  # caller passes what it parsed, which is the same answer every other AI
+  # Element gets. The two have to agree about it: the React reference is given
+  # this exact string, parses it itself, and the parity check compares the
+  # frames it draws with these.
+  #
+  # `isInternal` is upstream's rule and not a preference — a path under
+  # `node_modules`, or one that starts with `node:` — and it is what dims the
+  # two frames that are somebody else's code.
+  @trace """
+  TypeError: Cannot read properties of undefined (reading 'slots')
+      at divergence (storybook/test/browser/parity.spec.mjs:142:31)
+      at compare (storybook/test/browser/measure.mjs:88:14)
+      at TestFunction (node_modules/@playwright/test/lib/worker.js:184:9)
+      at node:internal/process/task_queues:95:5\
+  """
+
+  @frames [
+    %{
+      raw: "at divergence (storybook/test/browser/parity.spec.mjs:142:31)",
+      functionName: "divergence",
+      filePath: "storybook/test/browser/parity.spec.mjs",
+      lineNumber: 142,
+      columnNumber: 31,
+      isInternal: false
+    },
+    %{
+      raw: "at compare (storybook/test/browser/measure.mjs:88:14)",
+      functionName: "compare",
+      filePath: "storybook/test/browser/measure.mjs",
+      lineNumber: 88,
+      columnNumber: 14,
+      isInternal: false
+    },
+    %{
+      raw: "at TestFunction (node_modules/@playwright/test/lib/worker.js:184:9)",
+      functionName: "TestFunction",
+      filePath: "node_modules/@playwright/test/lib/worker.js",
+      lineNumber: 184,
+      columnNumber: 9,
+      isInternal: true
+    },
+    %{
+      raw: "at node:internal/process/task_queues:95:5",
+      functionName: nil,
+      filePath: "node:internal/process/task_queues",
+      lineNumber: 95,
+      columnNumber: 5,
+      isInternal: true
+    }
+  ]
+
   defp stack_trace_default(assigns) do
+    assigns = assign(assigns, trace: @trace, frames: @frames)
+
     ~H"""
     <LiveAiElements.Components.StackTrace.stack_trace class="max-w-md">
-      <LiveAiElements.Components.StackTrace.stack_trace_error>
-        <LiveAiElements.Components.StackTrace.stack_trace_error_type>
-          ArgumentError
-        </LiveAiElements.Components.StackTrace.stack_trace_error_type>
-        <LiveAiElements.Components.StackTrace.stack_trace_error_message>
-          no recipe for ai_elements/code-block
-        </LiveAiElements.Components.StackTrace.stack_trace_error_message>
-      </LiveAiElements.Components.StackTrace.stack_trace_error>
-      <LiveAiElements.Components.StackTrace.stack_trace_actions>
-        <LiveAiElements.Components.StackTrace.stack_trace_copy_button
-          id="copy-trace"
-          raw="at Mix.Tasks.Ui.Gen.one/2"
-          aria-label="Copy the trace"
-        />
-      </LiveAiElements.Components.StackTrace.stack_trace_actions>
+      <LiveAiElements.Components.StackTrace.stack_trace_header>
+        <LiveAiElements.Components.StackTrace.stack_trace_error>
+          <LiveAiElements.Components.StackTrace.stack_trace_error_type>
+            TypeError
+          </LiveAiElements.Components.StackTrace.stack_trace_error_type>
+          <LiveAiElements.Components.StackTrace.stack_trace_error_message>
+            Cannot read properties of undefined (reading 'slots')
+          </LiveAiElements.Components.StackTrace.stack_trace_error_message>
+        </LiveAiElements.Components.StackTrace.stack_trace_error>
+        <LiveAiElements.Components.StackTrace.stack_trace_actions>
+          <LiveAiElements.Components.StackTrace.stack_trace_copy_button
+            id="copy-trace"
+            raw={@trace}
+            aria-label="Copy the trace"
+          />
+          <LiveAiElements.Components.StackTrace.stack_trace_expand_button is_open="true" />
+        </LiveAiElements.Components.StackTrace.stack_trace_actions>
+      </LiveAiElements.Components.StackTrace.stack_trace_header>
+      <LiveAiElements.Components.StackTrace.stack_trace_frames frames_to_show={@frames} />
     </LiveAiElements.Components.StackTrace.stack_trace>
     """
   end

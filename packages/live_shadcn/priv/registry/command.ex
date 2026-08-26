@@ -2,8 +2,8 @@ defmodule LiveShadcn.UI.Command do
   @moduledoc """
   Command.
 
-  Upstream exports 1 more parts, and every one of them is a
-  thin wrapper around a part of `<.dialog>`. That component is one
+  Upstream exports 1 more part, each a thin
+  wrapper around a part of `<.dialog>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.
@@ -150,8 +150,7 @@ defmodule LiveShadcn.UI.Command do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      {render_slot(@inner_block)}
-      <LiveShadcn.Icon.icon
+      {render_slot(@inner_block)}<LiveShadcn.Icon.icon
         name="check"
         class="cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100"
       />

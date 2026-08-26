@@ -2,8 +2,8 @@ defmodule LiveAiElements.Components.Agent do
   @moduledoc """
   Agent. Built on `shadcn/accordion`, `shadcn/badge`.
 
-  Upstream exports 1 more parts, and every one of them is a
-  thin wrapper around a part of `<.accordion>`. That component is one
+  Upstream exports 1 more part, each a thin
+  wrapper around a part of `<.accordion>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.

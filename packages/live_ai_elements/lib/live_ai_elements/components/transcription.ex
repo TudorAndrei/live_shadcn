@@ -57,8 +57,7 @@ defmodule LiveAiElements.Components.Transcription do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      {@segment.text}
-      {render_slot(@inner_block)}
+      {@segment.text}{render_slot(@inner_block)}
     </button>
     """
   end

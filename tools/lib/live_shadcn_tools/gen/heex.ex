@@ -114,7 +114,7 @@ defmodule LiveShadcnTools.Gen.Heex do
   def render(%{"type" => "text", "value" => value}, _ctx, indent), do: pad(indent) <> value
 
   def render(%{"type" => "value", "code" => code}, ctx, indent),
-    do: pad(indent) <> "{#{expression(code, ctx)}}"
+    do: pad(indent) <> "{#{drawn(code, ctx)}}"
 
   # A named slot with something to draw when the caller filled nothing, which
   # `{icon ?? <FileIcon />}` says. `render_slot/1` draws nothing for an empty
@@ -730,25 +730,49 @@ defmodule LiveShadcnTools.Gen.Heex do
   # sign, and HTML turns that newline into the space upstream never wrote. The
   # spec keeps the spacing JSX kept, so the way to draw it is to write the
   # children out as they stand.
-  @inline ~w(text value slot children)
+  # `icon` is one of these: a glyph drawn in the line, and upstream writes the
+  # gap it wants beside it as a class — `mr-1` on the commit hash's own icon. A
+  # newline after it is a second gap nobody asked for, and it moved the hash
+  # four pixels to the right of the one React draws.
+  @inline ~w(text value slot children icon)
+
+  # The elements a browser lays out in the line rather than as a block of their
+  # own. Between two of these a newline is a space, and JSX wrote none.
+  #
+  # `at divergence (parity.spec.mjs:142:31)` is a stack frame: a `<span>`, a
+  # `<span>`, a `<span>` holding the bracket, a `<button>` holding the path, and
+  # a `<span>` holding the other bracket. One per line, HTML put a space either
+  # side of each bracket and one before every `:142`, and the frame read
+  # `at divergence ( parity.spec.mjs :142 :31 )`.
+  @inline_tags ~w(a abbr b button code em i img kbd label mark s small span strong sub sup time u)
 
   defp children(node, ctx, indent) do
     children = node |> Map.get("children") |> List.wrap()
 
     if inline_run?(children),
-      do: [pad(indent + 1) <> Enum.map_join(children, &render(&1, ctx, 0))],
+      do: [pad(indent + 1) <> Enum.map_join(children, &one_line(&1, ctx))],
       else: Enum.map(children, &render(&1, ctx, indent + 1))
   end
 
-  # Two or more children, all of them inline, at least one of them text. One
-  # text child on its own is already right — HTML collapses the newlines around
-  # it — and leaving it alone keeps the generated markup readable.
-  defp inline_run?([_first, _second | _rest] = children) do
-    Enum.all?(children, &(&1["type"] in @inline and not Map.has_key?(&1, "default"))) and
-      Enum.any?(children, &(&1["type"] == "text"))
-  end
+  # A child of an inline run, with the layout taken back out of it.
+  #
+  # Every newline this generator writes between children is indentation, and
+  # inside a run of inline content a browser draws indentation as a space. The
+  # spacing that is content is in the spec — `at ` keeps its own — because the
+  # reader applies JSX's whitespace rule where JSX applied it.
+  defp one_line(node, ctx), do: node |> render(ctx, 0) |> String.replace(~r/\n\s*/, "")
+
+  # Two or more children, all of them drawn in the line. One child on its own is
+  # already right — HTML collapses the newlines around it — and leaving it alone
+  # keeps the generated markup readable.
+  defp inline_run?([_first, _second | _rest] = children), do: Enum.all?(children, &inline?/1)
 
   defp inline_run?(_children), do: false
+
+  defp inline?(%{"type" => "element", "tag" => tag} = node),
+    do: tag in @inline_tags and Enum.all?(List.wrap(node["children"]), &inline?/1)
+
+  defp inline?(node), do: node["type"] in @inline and not Map.has_key?(node, "default")
 
   defp attributes(attrs) do
     attrs
@@ -898,6 +922,41 @@ defmodule LiveShadcnTools.Gen.Heex do
   # three pulses all began at once.
   defp css(property),
     do: Regex.replace(~r/([a-z])([A-Z])/, property, "\\1-\\2") |> String.downcase()
+
+  # A value drawn between tags, which is where JSX writes "draw this if that".
+  #
+  # `{frame.lineNumber !== null && `:${frame.lineNumber}`}` is a question and an
+  # answer: React draws nothing for `false`, so the `&&` is a guard rather than
+  # arithmetic. Across as an `&&` it is a different statement — Elixir renders
+  # `false` as the word — and a frame with no line number printed `false` where
+  # upstream printed nothing. It never showed, because the example drew the
+  # error and none of its frames.
+  #
+  # `if` says it: `nil` when the question fails, and `nil` draws nothing.
+  #
+  # In an attribute the same code means what it says, so this is asked here and
+  # not in `expression/2`.
+  defp drawn(code, ctx) do
+    trimmed = code |> String.trim() |> unwrapped()
+
+    cond do
+      # `token.fontStyle && token.fontStyle & 1` is one value and not a guard:
+      # both sides are the same number, and the mask is the question.
+      flag = bit_flag(trimmed, ctx) -> flag
+      answer = guarded(trimmed, ctx) -> answer
+      true -> expression(code, ctx)
+    end
+  end
+
+  defp guarded(code, ctx) do
+    case String.split(code, "&&", parts: 2) do
+      [question, answer] when question != "" and answer != "" ->
+        "if(#{expression(question, ctx)}, do: #{expression(answer, ctx)})"
+
+      _one_value ->
+        nil
+    end
+  end
 
   # JavaScript that means the same thing in Elixir, and nothing more. An
   # identifier upstream destructured from its props is an assign here; anything

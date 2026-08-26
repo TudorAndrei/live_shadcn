@@ -1469,7 +1469,9 @@ defmodule LiveShadcnTools.Spec do
     class_value = Tsx.attr(element, "className")
     variant_calls = Tsx.variant_calls(class_value, ctx.variants)
     classes = Tsx.classes(class_value)
-    class_when = Tsx.conditional_classes(class_value) ++ lookup_classes(class_value, ctx)
+
+    class_when =
+      Tsx.conditional_classes(class_value, ctx.const_nodes) ++ lookup_classes(class_value, ctx)
 
     styling =
       Enum.join(

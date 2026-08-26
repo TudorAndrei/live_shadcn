@@ -2,8 +2,8 @@ defmodule LiveAiElements.Components.WebPreview do
   @moduledoc """
   Web preview. Built on `shadcn/input`.
 
-  Upstream exports 2 more parts, and every one of them is a
-  thin wrapper around a part of `<.tooltip>`, `<.collapsible>`. That component is one
+  Upstream exports 2 more parts, each a thin
+  wrapper around a part of `<.tooltip>`, `<.collapsible>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.

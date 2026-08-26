@@ -2,8 +2,8 @@ defmodule LiveShadcn.UI.Menubar do
   @moduledoc """
   Menubar. The container for menus.
 
-  Upstream exports 13 more parts, and every one of them is a
-  thin wrapper around a part of `<.dropdown_menu>`. That component is one
+  Upstream exports 13 more parts, each a thin
+  wrapper around a part of `<.dropdown_menu>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.

@@ -141,11 +141,9 @@ defmodule LiveShadcn.UI.Breadcrumb do
       class={["cn-breadcrumb-ellipsis flex items-center justify-center", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <LiveShadcn.Icon.icon name="ellipsis" />
-      <span class="sr-only">
-        More
-      </span>
-      {render_slot(@inner_block)}
+      <LiveShadcn.Icon.icon name="ellipsis" /><span class="sr-only">More</span>{render_slot(
+        @inner_block
+      )}
     </span>
     """
   end

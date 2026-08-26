@@ -2,8 +2,8 @@ defmodule LiveAiElements.Components.CodeBlock do
   @moduledoc """
   Code block. Built on `shadcn/button`.
 
-  Upstream exports 5 more parts, and every one of them is a
-  thin wrapper around a part of `<.select>`. That component is one
+  Upstream exports 5 more parts, each a thin
+  wrapper around a part of `<.select>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.
@@ -122,7 +122,7 @@ defmodule LiveAiElements.Components.CodeBlock do
           @class
         ]}
       ><code class={["font-mono text-sm", if(@show_line_numbers, do: "[counter-increment:line_0] [counter-reset:line]", else: nil)]}>
-      <span :for={keyedLine <- @keyed_lines}>
+      <span :for={keyedLine <- @keyed_lines} class={[if(@show_line_numbers, do: "block before:content-[counter(line)] before:inline-block before:[counter-increment:line] before:w-8 before:mr-4 before:text-right before:text-muted-foreground/50 before:font-mono before:select-none", else: "block")]}>
         \n
         <span :if={!(length(keyedLine.tokens) == 0)} :for={item <- keyedLine.tokens} style={"background-color: #{item.token.bgColor}; color: #{item.token.color}; font-style: #{if(Bitwise.band(item.token.fontStyle || 0, 1) != 0, do: "italic", else: nil)}; font-weight: #{if(Bitwise.band(item.token.fontStyle || 0, 2) != 0, do: "bold", else: nil)}; text-decoration: #{if(Bitwise.band(item.token.fontStyle || 0, 4) != 0, do: "underline", else: nil)}"} class="dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)]">
           {item.token.content}

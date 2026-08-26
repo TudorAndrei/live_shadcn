@@ -87,7 +87,6 @@ defmodule LiveShadcn.UI.NavigationMenu do
               data-lb-style-target
             >
               {render_slot(@trigger)}
-
               <LiveShadcn.Icon.icon name="chevron-down" class="cn-navigation-menu-trigger-icon" />
             </button>
           </li>

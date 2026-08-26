@@ -2,8 +2,8 @@ defmodule LiveAiElements.Components.StackTrace do
   @moduledoc """
   Stack trace. Built on `shadcn/button`.
 
-  Upstream exports 2 more parts, and every one of them is a
-  thin wrapper around a part of `<.collapsible>`. That component is one
+  Upstream exports 1 more part, each a thin
+  wrapper around a part of `<.collapsible>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.
@@ -37,6 +37,26 @@ defmodule LiveAiElements.Components.StackTrace do
     """
   end
 
+  @doc "The `stack_trace_header` part."
+
+  attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:rest, :global, include: ["data-slot"])
+  slot(:inner_block)
+
+  def stack_trace_header(assigns) do
+    ~H"""
+    <div
+      class={[
+        "flex w-full cursor-pointer items-center gap-3 p-3 text-left transition-colors hover:bg-muted/50",
+        @class
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
   @doc "The `stack_trace_error` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -46,8 +66,9 @@ defmodule LiveAiElements.Components.StackTrace do
   def stack_trace_error(assigns) do
     ~H"""
     <div class={["flex flex-1 items-center gap-2 overflow-hidden", @class]} {@rest}>
-      <LiveShadcn.Icon.icon name="triangle-alert" class="size-4 shrink-0 text-destructive" />
-      {render_slot(@inner_block)}
+      <LiveShadcn.Icon.icon name="triangle-alert" class="size-4 shrink-0 text-destructive" />{render_slot(
+        @inner_block
+      )}
     </div>
     """
   end
@@ -160,8 +181,7 @@ defmodule LiveAiElements.Components.StackTrace do
           "size-4 text-muted-foreground transition-transform",
           if(@is_open, do: "rotate-180", else: "rotate-0")
         ]}
-      />
-      {render_slot(@inner_block)}
+      />{render_slot(@inner_block)}
     </div>
     """
   end
@@ -187,25 +207,19 @@ defmodule LiveAiElements.Components.StackTrace do
         <span class="text-muted-foreground">
           at
         </span>
-        <span :if={frame.functionName}>
+        <span :if={frame.functionName} class={[if(frame.isInternal, do: "", else: "text-foreground")]}>
           {frame.functionName}
         </span>
-        <span :if={frame.filePath} class="text-muted-foreground">
-          (
-        </span>
-        <button
+        <span :if={frame.filePath} class="text-muted-foreground">(</span><button
           :if={frame.filePath}
           disabled={!true}
           type="button"
           class={["underline decoration-dotted hover:text-primary", "cursor-pointer"]}
-        >
-          {frame.filePath}
-          {frame.lineNumber != (nil && ":#{frame.lineNumber}")}
-          {frame.columnNumber != (nil && ":#{frame.columnNumber}")}
-        </button>
-        <span :if={frame.filePath} class="text-muted-foreground">
-          )
-        </span>
+        >{frame.filePath}{if(not is_nil(frame.lineNumber), do: ":#{frame.lineNumber}")}{if(
+          not is_nil(frame.columnNumber), do: ":#{frame.columnNumber}")}</button><span
+          :if={frame.filePath}
+          class="text-muted-foreground"
+        >)</span>
         <span :if={!(frame.filePath || frame.functionName)}>
           {String.replace(frame.raw, ~r/^at\s+/, "", global: false)}
         </span>

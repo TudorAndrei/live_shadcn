@@ -383,7 +383,16 @@
                           }
                         ],
                         "class": "",
-                        "class_when": [],
+                        "class_when": [
+                          {
+                            "else": "block",
+                            "identifiers": [
+                              "showLineNumbers"
+                            ],
+                            "then": "block before:content-[counter(line)] before:inline-block before:[counter-increment:line] before:w-8 before:mr-4 before:text-right before:text-muted-foreground/50 before:font-mono before:select-none",
+                            "when": "showLineNumbers"
+                          }
+                        ],
                         "merges_class": false,
                         "props": false,
                         "reads": {

@@ -2,8 +2,8 @@ defmodule LiveAiElements.Components.Commit do
   @moduledoc """
   Commit. Built on `shadcn/avatar`, `shadcn/button`.
 
-  Upstream exports 2 more parts, and every one of them is a
-  thin wrapper around a part of `<.collapsible>`. That component is one
+  Upstream exports 2 more parts, each a thin
+  wrapper around a part of `<.collapsible>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.
@@ -44,8 +44,9 @@ defmodule LiveAiElements.Components.Commit do
   def commit_hash(assigns) do
     ~H"""
     <span class={["font-mono text-xs", @class]} {@rest}>
-      <LiveShadcn.Icon.icon name="git-commit-horizontal" class="mr-1 inline-block size-3" />
-      {render_slot(@inner_block)}
+      <LiveShadcn.Icon.icon name="git-commit-horizontal" class="mr-1 inline-block size-3" />{render_slot(
+        @inner_block
+      )}
     </span>
     """
   end
@@ -360,8 +361,7 @@ defmodule LiveAiElements.Components.Commit do
     ~H"""
     <span :if={!(@count <= 0)} class={["text-green-600 dark:text-green-400", @class]} {@rest}>
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon name="plus" class="inline-block size-3" />
-        {@count}
+        <LiveShadcn.Icon.icon name="plus" class="inline-block size-3" />{@count}
       <% end %>
       {render_slot(@inner_block)}
     </span>
@@ -378,8 +378,7 @@ defmodule LiveAiElements.Components.Commit do
     ~H"""
     <span :if={!(@count <= 0)} class={["text-red-600 dark:text-red-400", @class]} {@rest}>
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon name="minus" class="inline-block size-3" />
-        {@count}
+        <LiveShadcn.Icon.icon name="minus" class="inline-block size-3" />{@count}
       <% end %>
       {render_slot(@inner_block)}
     </span>

@@ -133,10 +133,7 @@ defmodule LiveShadcn.UI.Dialog do
         size="icon-sm"
         class="cn-dialog-close"
       >
-        <LiveShadcn.Icon.icon name="x" />
-        <span class="sr-only">
-          Close
-        </span>
+        <LiveShadcn.Icon.icon name="x" /><span class="sr-only">Close</span>
       </LiveShadcn.UI.Button.button>
     </div>
     """

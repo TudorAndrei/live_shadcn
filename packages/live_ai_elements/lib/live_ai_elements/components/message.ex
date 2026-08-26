@@ -96,10 +96,7 @@ defmodule LiveAiElements.Components.Message do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      {render_slot(@inner_block)}
-      <span class="sr-only">
-        {@label || @tooltip}
-      </span>
+      {render_slot(@inner_block)}<span class="sr-only">{@label || @tooltip}</span>
     </button>
     """
   end
@@ -135,8 +132,7 @@ defmodule LiveAiElements.Components.Message do
       ]}
       {@rest}
     >
-      {branch}
-      {render_slot(@inner_block)}
+      {branch}{render_slot(@inner_block)}
     </div>
     """
   end

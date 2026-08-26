@@ -76,11 +76,7 @@ defmodule LiveAiElements.Components.Plan do
           @trigger_class
         ]}
       >
-        <LiveShadcn.Icon.icon name="chevrons-up-down" class="size-4" />
-        <span class="sr-only">
-          Toggle plan
-        </span>
-        {@title}
+        <LiveShadcn.Icon.icon name="chevrons-up-down" class="size-4" /><span class="sr-only">Toggle plan</span>{@title}
       </button>
       <div
         data-slot="plan-content"

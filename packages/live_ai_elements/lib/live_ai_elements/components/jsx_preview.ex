@@ -59,10 +59,9 @@ defmodule LiveAiElements.Components.JsxPreview do
       {@rest}
     >
       {render_slot(@inner_block)}
-      <LiveShadcn.Icon.icon :if={!@children} name="circle-alert" class="size-4 shrink-0" />
-      <span :if={!@children}>
-        {@error.message}
-      </span>
+      <LiveShadcn.Icon.icon :if={!@children} name="circle-alert" class="size-4 shrink-0" /><span :if={
+        !@children
+      }>{@error.message}</span>
       {render_slot(@inner_block)}
     </div>
     """

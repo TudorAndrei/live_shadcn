@@ -2,8 +2,8 @@ defmodule LiveAiElements.Components.Queue do
   @moduledoc """
   Queue. Built on `shadcn/button`, `shadcn/scroll-area`.
 
-  Upstream exports 2 more parts, and every one of them is a
-  thin wrapper around a part of `<.collapsible>`. That component is one
+  Upstream exports 2 more parts, each a thin
+  wrapper around a part of `<.collapsible>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.
@@ -204,10 +204,9 @@ defmodule LiveAiElements.Components.Queue do
       class={["flex items-center gap-1 rounded border bg-muted px-2 py-1 text-xs", @class]}
       {@rest}
     >
-      <LiveShadcn.Icon.icon name="paperclip" width="12" height="12" />
-      <span class="max-w-[100px] truncate">
-        {render_slot(@inner_block)}
-      </span>
+      <LiveShadcn.Icon.icon name="paperclip" width="12" height="12" /><span class="max-w-[100px] truncate">{render_slot(
+        @inner_block
+      )}</span>
     </span>
     """
   end
@@ -284,13 +283,7 @@ defmodule LiveAiElements.Components.Queue do
       <LiveShadcn.Icon.icon
         name="chevron-down"
         class="size-4 transition-transform group-data-[state=closed]:-rotate-90"
-      />
-      {@icon}
-      <span>
-        {@count}
-        {@label}
-      </span>
-      {render_slot(@inner_block)}
+      />{@icon}<span>{@count}{@label}</span>{render_slot(@inner_block)}
     </span>
     """
   end

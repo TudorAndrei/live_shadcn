@@ -25,7 +25,7 @@ defmodule LiveShadcnTools.Gen.Presentational do
 
   @doc "The module source for one component."
   def module(spec, opts) do
-    {folded, own} = Enum.split_with(spec["parts"], &wrapper?/1)
+    {folded, own} = spec["parts"] |> Enum.map(&unwrapped/1) |> Enum.split_with(&wrapper?/1)
 
     anything!(spec, own)
     own = own |> Enum.map(&without_dropped(&1, folded)) |> forwarding()
@@ -100,6 +100,47 @@ defmodule LiveShadcnTools.Gen.Presentational do
   #
   # The call goes with the function. What to compose in its place is the
   # `@moduledoc`'s sentence, which names the component rather than the wrapper.
+  # A wrapper whose child drew something.
+  #
+  # `stack_trace_header` is `<Collapsible><CollapsibleTrigger asChild>` around a
+  # `<div>`, and `asChild` means the trigger *is* that div. So what upstream
+  # draws is one element with a class string on it — the row an error message
+  # and its buttons sit on — and read as a reference to a collapsible the whole
+  # part was dropped. The storybook then had no way to draw that row except by
+  # typing the class string itself, which is the one thing this pipeline exists
+  # to avoid.
+  #
+  # The collapsible around it is behaviour, and behaviour is what the caller
+  # composes — the same answer `sandbox` and `menubar` get. The element is the
+  # part, and it keeps the class the caller merges into and the props it
+  # spreads, because those were always on the element rather than on the
+  # wrapper.
+  defp unwrapped(%{"tree" => %{"type" => "component_ref", "recipe" => recipe} = tree} = part)
+       when recipe != nil do
+    case tree["drew"] != true and Enum.filter(List.wrap(tree["children"]), &(&1["drew"] == true)) do
+      [element] -> part |> Map.put("tree", element) |> forgetting(tree, element)
+      _nothing_drawn -> part
+    end
+  end
+
+  defp unwrapped(part), do: part
+
+  # A prop only the wrapper read is a prop this part no longer has. The header
+  # took `isOpen` to tell the collapsible which way it was; the collapsible is
+  # the caller's now, and an attribute nobody reads is a promise the API table
+  # would make and the markup would not keep.
+  defp forgetting(part, tree, element) do
+    drawn = Jason.encode!(element)
+
+    dropped =
+      for attr <- List.wrap(tree["attrs"]),
+          name <- List.wrap(attr["identifiers"]),
+          not Regex.match?(~r/\b#{Regex.escape(name)}\b/, drawn),
+          do: name
+
+    Map.update(part, "params", %{}, &Map.drop(&1 || %{}, dropped))
+  end
+
   defp without_dropped(part, []), do: part
 
   defp without_dropped(part, folded) do
@@ -573,6 +614,9 @@ defmodule LiveShadcnTools.Gen.Presentational do
     """
   end
 
+  defp counted(1, thing), do: "1 #{thing}"
+  defp counted(many, thing), do: "#{many} #{thing}s"
+
   # The parts this module does not write, and what to call instead. Upstream
   # exports one wrapper per part of the component it is built on; here that
   # component is one function, so the wrappers have nothing to wrap.
@@ -595,8 +639,8 @@ defmodule LiveShadcnTools.Gen.Presentational do
     else
       """
 
-        Upstream exports #{length(folded)} more parts, and every one of them is a
-        thin wrapper around a part of #{components}. That component is one
+        Upstream exports #{counted(length(folded), "more part")}, each a thin
+        wrapper around a part of #{components}. That component is one
         function here — its parts have to agree about which one they belong to,
         and an id repeated is an id to mistype — so it is what to compose inside
         this, and there is nothing for the wrappers to wrap.

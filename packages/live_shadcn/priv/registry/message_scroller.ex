@@ -131,10 +131,10 @@ defmodule LiveShadcn.UI.MessageScroller do
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon name="arrow-down" />
-        <span class="sr-only">
-          {if(@direction == "end", do: "Scroll to end", else: "Scroll to start")}
-        </span>
+        <LiveShadcn.Icon.icon name="arrow-down" /><span class="sr-only">{if(@direction == "end",
+          do: "Scroll to end",
+          else: "Scroll to start"
+        )}</span>
       <% end %>
       {render_slot(@inner_block)}
     </button>

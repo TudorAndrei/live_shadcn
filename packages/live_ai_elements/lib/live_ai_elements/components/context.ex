@@ -2,8 +2,8 @@ defmodule LiveAiElements.Components.Context do
   @moduledoc """
   Context. Built on `shadcn/hover-card`, `shadcn/progress`.
 
-  Upstream exports 3 more parts, and every one of them is a
-  thin wrapper around a part of `<.hover_card>`. That component is one
+  Upstream exports 3 more parts, each a thin
+  wrapper around a part of `<.hover_card>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.
@@ -90,12 +90,7 @@ defmodule LiveAiElements.Components.Context do
       {@rest}
     >
       <%= if @inner_block == [] do %>
-        <span class="text-muted-foreground">
-          Total cost
-        </span>
-        <span>
-          {@total_cost}
-        </span>
+        <span class="text-muted-foreground">Total cost</span><span>{@total_cost}</span>
       <% end %>
       {render_slot(@inner_block)}
     </div>

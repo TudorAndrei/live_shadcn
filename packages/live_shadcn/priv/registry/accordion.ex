@@ -110,13 +110,11 @@ defmodule LiveShadcn.UI.Accordion do
               item[:trigger_class]
             ]}
           >
-            {item.title}
-            <LiveShadcn.Icon.icon
+            {item.title}<LiveShadcn.Icon.icon
               name="chevron-down"
               data-slot="accordion-trigger-icon"
               class="cn-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
-            />
-            <LiveShadcn.Icon.icon
+            /><LiveShadcn.Icon.icon
               name="chevron-up"
               data-slot="accordion-trigger-icon"
               class="cn-accordion-trigger-icon pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"

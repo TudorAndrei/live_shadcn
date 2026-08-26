@@ -75,9 +75,7 @@ defmodule LiveAiElements.Components.Reasoning do
         ]}
       >
         <%= if @title in [nil, ""] do %>
-          <LiveShadcn.Icon.icon name="brain" class="size-4" />
-          {render_slot(@get_thinking_message)}
-          <LiveShadcn.Icon.icon
+          <LiveShadcn.Icon.icon name="brain" class="size-4" />{render_slot(@get_thinking_message)}<LiveShadcn.Icon.icon
             name="chevron-down"
             class={["size-4 transition-transform", if(@open, do: "rotate-180", else: "rotate-0")]}
           />

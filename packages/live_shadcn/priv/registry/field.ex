@@ -95,8 +95,7 @@ defmodule LiveShadcn.UI.Field do
       class={["cn-field-error font-normal", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      {@content}
-      {render_slot(@inner_block)}
+      {@content}{render_slot(@inner_block)}
     </div>
     """
   end

@@ -2,8 +2,8 @@ defmodule LiveAiElements.Components.VoiceSelector do
   @moduledoc """
   Voice selector. Built on `shadcn/button`, `shadcn/dialog`.
 
-  Upstream exports 11 more parts, and every one of them is a
-  thin wrapper around a part of `<.dialog>`, `<.command>`. That component is one
+  Upstream exports 11 more parts, each a thin
+  wrapper around a part of `<.dialog>`, `<.command>`. That component is one
   function here — its parts have to agree about which one they belong to,
   and an id repeated is an id to mistype — so it is what to compose inside
   this, and there is nothing for the wrappers to wrap.
@@ -160,8 +160,7 @@ defmodule LiveAiElements.Components.VoiceSelector do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <LiveShadcn.Icon.icon name="play" class="size-3" />
-      {render_slot(@inner_block)}
+      <LiveShadcn.Icon.icon name="play" class="size-3" />{render_slot(@inner_block)}
     </button>
     """
   end

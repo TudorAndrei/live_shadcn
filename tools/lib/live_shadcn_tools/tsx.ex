@@ -61,23 +61,49 @@ defmodule LiveShadcnTools.Tsx do
   difference and left a component that draws both the same way.
 
   `cond && "a"` says the same thing with nothing on the other side.
+
+  ## A className with no call in it
+
+  `className={frame.isInternal ? "" : "text-foreground"}` is the same fact
+  written without the wrapper, because there is one argument and `cn` of one
+  argument is that argument. Reading only what is inside a `cn(…)` call found
+  nothing here, so two elements were generated with no class at all: a stack
+  frame's function name, and every line of a code block that does not number
+  its lines. Neither showed, because no example drew either one.
+
+  ## A branch that names a class string rather than writing one
+
+  `showLineNumbers ? LINE_NUMBER_CLASSES : "block"` says which of two class
+  strings, and one of them is declared at the top of the file. `constants` is
+  what the file declared, so the branch is read where it is written — recording
+  the name would put an identifier in a class attribute, and dropping it would
+  say the element has no class under that condition.
   """
-  def conditional_classes({:expr, code}) do
+  def conditional_classes(value, constants \\ %{})
+
+  def conditional_classes({:expr, code}, _constants) do
     code
     |> call_args("cn")
     |> Enum.flat_map(&condition/1)
   end
 
-  def conditional_classes({:expr, _code, _node} = expression) do
-    expression
-    |> Ast.call_args("cn")
-    |> Enum.map(&Ast.expression(expression, &1))
-    |> Enum.flat_map(&condition/1)
+  def conditional_classes({:expr, _code, _node} = expression, constants) do
+    case Ast.call_args(expression, "cn") do
+      [] ->
+        condition(expression, constants)
+
+      arguments ->
+        arguments
+        |> Enum.map(&Ast.expression(expression, &1))
+        |> Enum.flat_map(&condition(&1, constants))
+    end
   end
 
-  def conditional_classes(_value), do: []
+  def conditional_classes(_value, _constants), do: []
 
-  defp condition(arg) when is_binary(arg) do
+  defp condition(argument, constants \\ %{})
+
+  defp condition(arg, constants) when is_binary(arg) do
     arg = String.trim(arg)
 
     cond do
@@ -86,29 +112,29 @@ defmodule LiveShadcnTools.Tsx do
 
       parts = Ast.conditional(arg) ->
         {when_, yes, no} = parts
-        segment(when_, class_of(yes), class_of(no))
+        segment(when_, class_of(yes, constants), class_of(no, constants))
 
       match?({"&&", _, _}, Ast.logical(arg)) ->
         {"&&", left, right} = Ast.logical(arg)
-        segment(left, class_of(right), nil)
+        segment(left, class_of(right, constants), nil)
 
       true ->
         []
     end
   end
 
-  defp condition({:expr, _code, _node} = expression) do
+  defp condition({:expr, _code, _node} = expression, constants) do
     cond do
       Ast.string_literal(expression) ->
         []
 
       parts = Ast.conditional(expression) ->
         {when_, yes, no} = parts
-        segment(when_, class_of(yes), class_of(no))
+        segment(when_, class_of(yes, constants), class_of(no, constants))
 
       match?({"&&", _, _}, Ast.logical(expression)) ->
         {"&&", left, right} = Ast.logical(expression)
-        segment(left, class_of(right), nil)
+        segment(left, class_of(right, constants), nil)
 
       true ->
         []
@@ -139,19 +165,37 @@ defmodule LiveShadcnTools.Tsx do
   defp identifiers_of({:expr, _code, node}), do: Ast.identifiers(node)
   defp identifiers_of(_code), do: []
 
-  defp class_of(code) when is_binary(code) do
+  defp class_of(code, constants) when is_binary(code) do
     case literal(String.trim(code)) do
       [literal] -> normalise(literal)
-      [] -> nil
+      [] -> named(String.trim(code), constants)
     end
   end
 
-  defp class_of({:expr, _code, _node} = expression) do
+  defp class_of({:expr, _code, _node} = expression, constants) do
     case Ast.string_literal(expression) do
-      nil -> nil
+      nil -> named(expression, constants)
       literal -> normalise(literal)
     end
   end
+
+  # A branch that names a class string the file declares. `classes/1` reads the
+  # declaration the same way it reads the className itself, so a constant built
+  # out of `cn(…)` is the class names inside it.
+  defp named(branch, constants) do
+    with name when is_binary(name) <- identifier_name(branch),
+         node when not is_nil(node) <- Map.get(constants, name),
+         classes when classes != "" <- classes({:expr, name, node}) do
+      classes
+    else
+      _not_a_class_constant -> nil
+    end
+  end
+
+  defp identifier_name({:expr, _code, node}), do: identifier_name(node)
+  defp identifier_name(%{"type" => "Identifier", "name" => name}), do: name
+  defp identifier_name(code) when is_binary(code), do: nil
+  defp identifier_name(_node), do: nil
 
   @doc """
   Whether this element is the one that merges the caller's class.

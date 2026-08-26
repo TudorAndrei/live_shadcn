@@ -289,6 +289,36 @@ generator can only render a choice the **server** decides.
 - [x] **110 of 111 verified, and `mix ui.status` reads `0 generated`**
 - [x] Commit: `feat(ai-elements): the eleven that were not components after all`
 
+## Phase 13: An example that showed a header and called it a stack trace
+
+- [x] The example drew the error row and none of the frames, so four checks
+      agreed about markup nobody was looking at. It draws a trace now, with the
+      internal frames dimmed the way upstream dims them
+- [x] `x !== null && ":142"` is JSX's "draw this if that", not arithmetic — `!==`
+      was split before `&&` and the frame printed `false` where upstream printed
+      a line number
+- [x] A `className` with no `cn()` call in it is still a class string. Two
+      elements had none at all: a frame's function name, and every line of a
+      code block that does not number its lines
+- [x] `stack_trace_header` is `<CollapsibleTrigger asChild>` around a `<div>`,
+      which is one element and a class string. It generates, and the collapsible
+      around it stays the caller's
+- [x] A run of inline children is one line: JSX drops the newline between them
+      and HTML draws it as a space. `at divergence ( parity.spec.mjs :142 :31 )`
+      is what that cost
+- [x] The pixel check framed its photograph with `[data-slot]` boxes, and an AI
+      Element carries almost none — so it photographed `stack-trace` through its
+      copy button and reported the example as passing. It frames on what the
+      preview root holds now, which found three more differences
+- [x] `schema-display` never drew its highlighted path parameter. The caller
+      writes the markup, because a slot is what `dangerouslySetInnerHTML` is for
+- [ ] `commit.default` keeps a 396px budget: `lucide_icons` writes each icon as
+      its own `~H` template, and a template ends with a newline. Inside a line of
+      text that newline is a space, so the hash sits four pixels right of
+      upstream's. It is inside a dependency, and the icon set is the
+      application's choice — a wrapper that trims it would have to rebuild the
+      rendered struct
+
 ## Verification
 
 Run at every phase boundary, as [CONTRIBUTING.md](CONTRIBUTING.md) lists it.

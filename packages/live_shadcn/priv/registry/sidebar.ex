@@ -623,11 +623,9 @@ defmodule LiveShadcn.UI.Sidebar do
       class={["cn-sidebar-trigger", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <LiveShadcn.Icon.icon name="panel-left" class="cn-rtl-flip" />
-      <span class="sr-only">
-        Toggle Sidebar
-      </span>
-      {render_slot(@inner_block)}
+      <LiveShadcn.Icon.icon name="panel-left" class="cn-rtl-flip" /><span class="sr-only">Toggle Sidebar</span>{render_slot(
+        @inner_block
+      )}
     </LiveShadcn.UI.Button.button>
     """
   end
