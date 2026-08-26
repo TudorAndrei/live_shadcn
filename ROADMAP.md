@@ -801,6 +801,17 @@ says two images agree, not that either has a component in it.
   There is no markup to fold, and `connection` is the clearest case: it is four
   numbers and an SVG path that React Flow calls while a wire is being dragged.
   Six of the seven already say `not Base UI`; the seventh is here.
+- **No `persona`.** It is a Rive WebGL2 canvas: a `.riv` file fetched from blob
+  storage, a state machine inside it, and a runtime that paints it. The
+  component *is* that runtime — there is one element, `<RiveComponent>`, and
+  everything a reader sees is drawn into it. Nothing about that is markup, and a
+  server has no part in it. An application that wants one embeds Rive.
+- **No `jsx-preview`.** It compiles a JSX string at render and draws whatever
+  comes out. HEEx will not do that and should not: a template language that
+  renders caller-supplied markup from a string is the injection every other
+  decision in this pipeline is made to avoid — see how
+  `dangerouslySetInnerHTML` is read. The nearest honest thing is a code block
+  showing the source, which `code-block` already is.
 - **No `open-in-chat`.** Every one of its twelve parts is a thin wrapper around
   a part of `dropdown-menu`, and the thirteenth puts a query string in a React
   context. Drop the wrappers — which is what `menubar` already does, and the
