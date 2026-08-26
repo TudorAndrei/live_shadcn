@@ -520,6 +520,11 @@
       "sha256": "c7dc2a67386bc06d23fa42344f48f3b45e51f1f91b22e44801a2902acdf64018",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/inline-citation.tsx"
     },
+    "ai_elements/docs-meta.json": {
+      "bytes": 309,
+      "sha256": "661042b77be2291f0447f70c008cb2e21206562ac4ca11427f409ae37806fe73",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/apps/docs/content/components/meta.json"
+    },
     "lucide/lucide-react.d.ts": {
       "bytes": 2284943,
       "sha256": "6f9f7b58c3fbc2d64d1f9bddc44c450eeaa46347cbe07bbfcb9494c9d4f67ef3",
@@ -782,6 +787,84 @@
     }
   },
   "generated_by": "mix ui.fetch",
+  "groups": {
+    "ai_elements": [
+      {
+        "components": [
+          "attachments",
+          "chain-of-thought",
+          "checkpoint",
+          "confirmation",
+          "context",
+          "conversation",
+          "inline-citation",
+          "message",
+          "model-selector",
+          "plan",
+          "prompt-input",
+          "question",
+          "queue",
+          "reasoning",
+          "shimmer",
+          "sources",
+          "suggestion",
+          "task",
+          "tool"
+        ],
+        "title": "Chatbot"
+      },
+      {
+        "components": [
+          "agent",
+          "artifact",
+          "code-block",
+          "commit",
+          "environment-variables",
+          "file-tree",
+          "jsx-preview",
+          "package-info",
+          "sandbox",
+          "schema-display",
+          "snippet",
+          "stack-trace",
+          "terminal",
+          "test-results",
+          "web-preview"
+        ],
+        "title": "Code"
+      },
+      {
+        "components": [
+          "audio-player",
+          "mic-selector",
+          "persona",
+          "speech-input",
+          "transcription",
+          "voice-selector"
+        ],
+        "title": "Voice"
+      },
+      {
+        "components": [
+          "canvas",
+          "connection",
+          "controls",
+          "edge",
+          "node",
+          "panel",
+          "toolbar"
+        ],
+        "title": "Workflow"
+      },
+      {
+        "components": [
+          "image",
+          "open-in-chat"
+        ],
+        "title": "Utilities"
+      }
+    ]
+  },
   "sources": {
     "ai_elements": {
       "dir": "packages/elements/src",
@@ -793,7 +876,7 @@
     },
     "lucide": {
       "package": "lucide-react",
-      "version": null
+      "version": "1.32.0"
     },
     "shadcn": {
       "dir": "apps/v4/registry/bases/base/ui",

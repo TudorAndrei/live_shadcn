@@ -8,6 +8,9 @@ defmodule Mix.Tasks.Ui.Fetch do
   stages parse, and records a manifest of SHA-256 digests in
   `registry/UPSTREAM.json`.
 
+  The manifest also records the sections the AI Elements documentation groups
+  its components under, which is what the storybook navigation is built from.
+
   The downloaded files are gitignored. The manifest is not. A change upstream
   therefore shows up as a digest diff in the sync pull request, without this
   repository redistributing anybody else's source.
@@ -35,6 +38,18 @@ defmodule Mix.Tasks.Ui.Fetch do
   # style sheet fails to compile, so they are part of the styling contract.
   @shadcn_theme ["apps/v4/app/globals.css", "apps/v4/app/legacy-themes.css"]
   @ai_elements_dir "packages/elements/src"
+
+  # The sections the AI Elements documentation files its components under —
+  # Chatbot, Code, Voice, Workflow, Utilities. A reader who knows that sidebar
+  # should meet the same grouping in the storybook, and upstream keeps it in two
+  # places this fetch already walks past: the directory a page sits in,
+  # `(chatbot)/attachments.mdx`, and `meta.json`, which titles the sections and
+  # puts them in order.
+  #
+  # Reading it is the same argument the rest of the pipeline makes. A list of
+  # categories typed here would be a second copy of something upstream
+  # publishes, and the copy is the one that goes stale when a component moves.
+  @ai_docs_dir "apps/docs/content/components"
   @base_ui_docs "https://base-ui.com/react/components"
 
   # Base UI is one site, and its pages are not all under one path: most
@@ -75,7 +90,7 @@ defmodule Mix.Tasks.Ui.Fetch do
 
     shadcn_files = Enum.flat_map(components, &fetch_component(&1, shadcn_ref))
     {style_files, styles} = fetch_styles(shadcn_ref)
-    ai_files = if only, do: [], else: fetch_ai_elements(ai_ref)
+    {ai_files, ai_sections} = if only, do: {[], []}, else: fetch_ai_elements(ai_ref)
     lucide_files = if only, do: [], else: fetch_lucide()
 
     manifest = %{
@@ -91,14 +106,19 @@ defmodule Mix.Tasks.Ui.Fetch do
         },
         "lucide" => %{"package" => "lucide-react", "version" => @lucide_version}
       },
+      "groups" => %{"ai_elements" => ai_sections},
       "files" => Map.new(shadcn_files ++ style_files ++ ai_files ++ lucide_files)
     }
 
     manifest =
       if only do
-        # A partial fetch must not delete digests it did not refresh.
+        # A partial fetch must not delete digests it did not refresh, and it
+        # reads no documentation index at all.
         previous = existing_manifest()
-        put_in(manifest, ["files"], Map.merge(previous["files"] || %{}, manifest["files"]))
+
+        manifest
+        |> put_in(["files"], Map.merge(previous["files"] || %{}, manifest["files"]))
+        |> put_in(["groups"], previous["groups"] || %{})
       else
         manifest
       end
@@ -241,22 +261,80 @@ defmodule Mix.Tasks.Ui.Fetch do
     tree =
       fetch_json("https://api.github.com/repos/#{@ai_elements_repo}/git/trees/#{ref}?recursive=1")
 
-    tree["tree"]
-    |> Enum.filter(fn node ->
-      node["type"] == "blob" and String.starts_with?(node["path"], @ai_elements_dir <> "/") and
-        String.ends_with?(node["path"], ".tsx")
-    end)
-    |> tap(&Mix.shell().info("fetching #{length(&1)} AI Elements components"))
-    |> Enum.flat_map(fn node ->
-      url = raw_url(@ai_elements_repo, ref, node["path"])
-      name = node["path"] |> Path.basename(".tsx")
+    sources =
+      tree["tree"]
+      |> Enum.filter(fn node ->
+        node["type"] == "blob" and String.starts_with?(node["path"], @ai_elements_dir <> "/") and
+          String.ends_with?(node["path"], ".tsx")
+      end)
+      |> tap(&Mix.shell().info("fetching #{length(&1)} AI Elements components"))
+      |> Enum.flat_map(fn node ->
+        url = raw_url(@ai_elements_repo, ref, node["path"])
+        name = node["path"] |> Path.basename(".tsx")
 
-      case get(url) do
-        {:ok, body} -> [store("ai_elements/#{name}.tsx", body, url)]
-        {:error, status} -> warn(name, "AI Elements source", status)
-      end
-    end)
+        case get(url) do
+          {:ok, body} -> [store("ai_elements/#{name}.tsx", body, url)]
+          {:error, status} -> warn(name, "AI Elements source", status)
+        end
+      end)
+
+    {index, sections} = fetch_ai_sections(tree["tree"], ref)
+    {sources ++ index, sections}
   end
+
+  # The documentation index, and the sections it puts the components in.
+  defp fetch_ai_sections(tree, ref) do
+    url = raw_url(@ai_elements_repo, ref, "#{@ai_docs_dir}/meta.json")
+
+    case get(url) do
+      {:ok, body} ->
+        sections = sections(Jason.decode!(body)["pages"], documented(tree))
+        Mix.shell().info("#{length(sections)} documentation sections")
+        {[store("ai_elements/docs-meta.json", body, url)], sections}
+
+      {:error, status} ->
+        {warn("ai-elements", "the documentation index", status), []}
+    end
+  end
+
+  # Every documentation page, under the directory it sits in.
+  defp documented(tree) do
+    for %{"type" => "blob", "path" => path} <- tree,
+        String.starts_with?(path, @ai_docs_dir <> "/"),
+        String.ends_with?(path, ".mdx"),
+        reduce: %{} do
+      pages ->
+        directory = path |> Path.dirname() |> Path.basename()
+
+        Map.update(
+          pages,
+          directory,
+          [Path.basename(path, ".mdx")],
+          &[Path.basename(path, ".mdx") | &1]
+        )
+    end
+  end
+
+  # `meta.json` writes a heading as `---Chatbot---` and its contents as
+  # `...(chatbot)`, which is the documentation framework's own notation for
+  # "every page in that directory". A page named on its own is named on its own.
+  defp sections(entries, pages) do
+    entries |> Enum.reduce([], &section(&1, &2, pages)) |> Enum.reverse()
+  end
+
+  defp section("---" <> heading, sections, _pages) do
+    [%{"title" => String.trim_trailing(heading, "---"), "components" => []} | sections]
+  end
+
+  defp section(_entry, [], _pages), do: []
+
+  defp section("..." <> directory, [current | rest], pages) do
+    [add(current, pages |> Map.get(directory, []) |> Enum.sort()) | rest]
+  end
+
+  defp section(name, [current | rest], _pages), do: [add(current, [name]) | rest]
+
+  defp add(section, names), do: %{section | "components" => section["components"] ++ names}
 
   defp fetch_lucide do
     url = "https://cdn.jsdelivr.net/npm/lucide-react@#{@lucide_version}/dist/lucide-react.d.ts"

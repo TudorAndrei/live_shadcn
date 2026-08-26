@@ -94,27 +94,28 @@ defmodule Mix.Tasks.Ui.Status do
      Enum.map(added, &ref(&1["source"], &1["name"]))}
   end
 
-  defp upstream_entry("shadcn/ui/" <> file),
-    do: [
-      %{
-        "name" => Path.basename(file, ".tsx"),
-        "source" => "shadcn",
-        "recipe" => "unassigned",
-        "tier" => 2
-      }
-    ]
-
-  defp upstream_entry("ai_elements/" <> file),
-    do: [
-      %{
-        "name" => Path.basename(file, ".tsx"),
-        "source" => "ai_elements",
-        "recipe" => "unassigned",
-        "tier" => 2
-      }
-    ]
-
+  defp upstream_entry("shadcn/ui/" <> file), do: entry("shadcn", file)
+  defp upstream_entry("ai_elements/" <> file), do: entry("ai_elements", file)
   defp upstream_entry(_), do: []
+
+  # What makes a fetched file a component is that it is a source file. The fetch
+  # stores other things beside them — the documentation index the storybook
+  # groups its navigation by is one — and none of those is a component to
+  # triage. One arrived as `docs-meta.json`, with a recipe waiting for it.
+  defp entry(source, file) do
+    if Path.extname(file) == ".tsx" do
+      [
+        %{
+          "name" => Path.basename(file, ".tsx"),
+          "source" => source,
+          "recipe" => "unassigned",
+          "tier" => 2
+        }
+      ]
+    else
+      []
+    end
+  end
 
   defp with_status(component) do
     Map.put(component, "status", status_of(component))

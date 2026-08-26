@@ -225,14 +225,21 @@ defmodule Mix.Tasks.Ui.Spec do
   defp fetched(manifest) do
     files = Map.keys(manifest["files"] || %{})
 
-    shadcn = for "shadcn/ui/" <> file <- files, do: {"shadcn", Path.basename(file, ".tsx")}
-    ai = for "ai_elements/" <> file <- files, do: {"ai_elements", Path.basename(file, ".tsx")}
+    # A component is a source file. The fetch stores other things beside them —
+    # the documentation index the storybook groups its navigation by is one —
+    # and a manifest entry that is not a `.tsx` names no component.
+    shadcn = for "shadcn/ui/" <> file <- files, source?(file), do: {"shadcn", named(file)}
+    ai = for "ai_elements/" <> file <- files, source?(file), do: {"ai_elements", named(file)}
 
     # shadcn first, and not sorted together. An AI Elements component folds in
     # the markup of the shadcn component it renders, and it reads that spec off
     # disk, so the shadcn spec has to have been written this run.
     Enum.sort(shadcn) ++ Enum.sort(ai)
   end
+
+  defp source?(file), do: Path.extname(file) == ".tsx"
+
+  defp named(file), do: Path.basename(file, ".tsx")
 
   # One component that the reader cannot understand is a gap in the reader, not
   # a reason to leave the other sixty unspecced. It is reported by name and the
