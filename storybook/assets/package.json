@@ -8,7 +8,7 @@
     "deploy": "npm run upstream && npm run build:css -- --minify && npm run build:js -- --minify",
     "upstream": "node upstream.mjs",
     "build:css": "tailwindcss --input=css/app.css --output=../priv/static/assets/app.css",
-    "build:js": "rolldown js/app.js --dir ../priv/static/assets --format iife --platform browser"
+    "build:js": "rolldown -c rolldown.config.mjs"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.8.0",
