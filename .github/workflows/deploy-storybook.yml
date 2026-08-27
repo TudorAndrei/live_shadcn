@@ -1,16 +1,19 @@
 name: Deploy storybook
 
 # The storybook is a demo, so it deploys when somebody asks rather than on
-# every push. `wrangler deploy` builds the image where it runs and pushes it to
-# Cloudflare, and Containers run linux/amd64 — which is what this runner is.
-# Building it on an arm64 machine needs emulation, and the BEAM does not
-# survive that.
+# every push. Fly's remote builder builds the linux/amd64 image from the
+# repository root. The root is the required build context because the
+# storybook uses the local packages and registry.
 
 on:
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: deploy-storybook
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -22,22 +25,9 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
-        with:
-          node-version: "22"
-
-      - run: npm ci
-        working-directory: storybook/deploy
-
-      # The Worker is the only hand-written code in this deployment, and it is
-      # 40 lines. Type-checking it costs nothing and catches the rename that a
-      # container upgrade brings.
-      - run: npm run typecheck
-        working-directory: storybook/deploy
+      - uses: superfly/flyctl-actions/setup-flyctl@ed8efb33836e8b2096c7fd3ba1c8afe303ebbff1 # 1.6
 
       - name: Deploy
-        run: npx wrangler deploy
-        working-directory: storybook/deploy
+        run: flyctl deploy --remote-only -c storybook/fly.toml .
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
