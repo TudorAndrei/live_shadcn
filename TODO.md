@@ -5,20 +5,20 @@ and make its listed commit before work starts on the next phase.
 
 ## Phase 1: add the read-only synchronizer
 
-- [ ] Add batched Oxc fact extraction in `tools/priv/facts.mjs`.
-- [ ] Add `LiveShadcnTools.Converter.sync/1` in
+- [x] Add batched Oxc fact extraction in `tools/priv/facts.mjs`.
+- [x] Add `LiveShadcnTools.Converter.sync/1` in
       `tools/lib/live_shadcn_tools/converter.ex`.
-- [ ] Define stable keys, source spans, the structural fingerprint, the version
+- [x] Define stable keys, source spans, the structural fingerprint, the version
       2 contract, and the marked fact block.
-- [ ] Keep class and CVA literals as the only automatic source changes.
-- [ ] Return manual drift for state-read, JSX, export, prop-flow, hook, context,
+- [x] Keep class and CVA literals as the only automatic source changes.
+- [x] Return manual drift for state-read, JSX, export, prop-flow, hook, context,
       portal, primitive import, and Base UI contract changes.
-- [ ] Add `tools/test/converter_test.exs` at the external interface.
-- [ ] Verify that the same input returns identical contract and port bytes.
-- [ ] Verify that this phase does not change any existing spec or port.
-- [ ] Run `cd tools && mix test`.
-- [ ] Run `cd tools && mix check`.
-- [ ] Commit: `feat(converter): classify safe upstream changes`
+- [x] Add `tools/test/converter_test.exs` at the external interface.
+- [x] Verify that the same input returns identical contract and port bytes.
+- [x] Verify that this phase does not change any existing spec or port.
+- [x] Run `cd tools && mix test`.
+- [x] Run `cd tools && mix check`.
+- [x] Commit: `feat(converter): classify safe upstream changes`
 
 ## Phase 2: prove the contract with three ports
 
