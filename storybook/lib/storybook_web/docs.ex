@@ -239,8 +239,10 @@ defmodule StorybookWeb.Docs do
   # registries have a `message` — which is why one of them is `ai_elements-`.
   defp id(name, documented) do
     ["ai_elements-" <> name, name]
-    |> Enum.filter(&MapSet.member?(documented, &1))
-    |> Enum.filter(&String.starts_with?(to_string(module(&1)), "Elixir.LiveAiElements"))
+    |> Enum.filter(fn candidate ->
+      MapSet.member?(documented, candidate) and
+        String.starts_with?(to_string(module(candidate)), "Elixir.LiveAiElements")
+    end)
     |> Enum.take(1)
   end
 

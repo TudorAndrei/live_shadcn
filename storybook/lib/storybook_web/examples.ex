@@ -819,8 +819,8 @@ defmodule StorybookWeb.Examples do
       one(
         "default",
         "A folder, open, with a file in it",
-        "`role=\"tree\"` is upstream's and so is `role=\"treeitem\"`; the " <>
-          "recipe adds the groups that contract needs and takes the unnamed " <>
+        ~S|`role="tree"` is upstream's and so is `role="treeitem"`; the | <>
+          "port adds the groups that contract needs and takes the unnamed " <>
           "chevron out of the accessibility tree.",
         &file_tree_default/1
       )
