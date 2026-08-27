@@ -2045,6 +2045,10 @@ defmodule StorybookWeb.Examples do
       phx-update="ignore"
       class="max-w-md"
     >
+      <LiveAiElements.Components.AudioPlayer.audio_player_element
+        src="https://ejiidnob33g9ap1r.public.blob.vercel-storage.com/ElevenLabs_2025-11-10T22_07_46_Hayden_pvc_sp108_s50_sb75_se0_b_m2.mp3"
+        preload="metadata"
+      />
       <LiveAiElements.Components.AudioPlayer.audio_player_control_bar>
         <LiveAiElements.Components.AudioPlayer.audio_player_play_button />
         <LiveAiElements.Components.AudioPlayer.audio_player_time_display />
