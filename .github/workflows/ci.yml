@@ -30,17 +30,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
-        with:
-          elixir-version: "1.20"
-          otp-version: "29"
-
-      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
-        if: matrix.package == 'tools'
-        with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: tools/package-lock.json
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
 
       - run: npm ci
         if: matrix.package == 'tools'
@@ -121,10 +111,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
-        with:
-          elixir-version: "1.20"
-          otp-version: "29"
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
 
       - run: mix deps.get
         working-directory: tools
@@ -152,10 +139,6 @@ jobs:
       # global that is not there: the bundle throws on load and the deployed
       # page has no LiveView at all. `npm ci` is what the image runs, and it is
       # the install that has no accidental `node_modules` to resolve through.
-      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
-        with:
-          node-version: "22"
-
       - run: npm ci
         working-directory: storybook/assets
 
@@ -192,14 +175,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
-        with:
-          elixir-version: "1.20"
-          otp-version: "29"
-
-      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
-        with:
-          node-version: "22"
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
 
       - run: mix deps.get
         working-directory: tools

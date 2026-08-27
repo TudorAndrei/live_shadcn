@@ -30,16 +30,9 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
-          elixir-version: "1.20"
-          otp-version: "29"
-
-      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
-        if: matrix.package == 'tools'
-        with:
-          node-version: "22"
-          package-manager-cache: false
+          cache: false
 
       - run: npm ci
         if: matrix.package == 'tools'
@@ -65,10 +58,9 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
-          elixir-version: "1.20"
-          otp-version: "29"
+          cache: false
 
       - run: mix deps.get
         working-directory: tools
@@ -90,10 +82,9 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
-          elixir-version: "1.20"
-          otp-version: "29"
+          cache: false
 
       # The tag is the version. A mix.exs that says something else would
       # publish a release nobody can find from the repository.

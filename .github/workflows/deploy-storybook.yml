@@ -25,7 +25,9 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: superfly/flyctl-actions/setup-flyctl@ed8efb33836e8b2096c7fd3ba1c8afe303ebbff1 # 1.6
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          cache: false
 
       - name: Deploy
         run: flyctl deploy --remote-only -c storybook/fly.toml .
