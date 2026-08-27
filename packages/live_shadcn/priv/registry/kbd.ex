@@ -10,7 +10,8 @@ defmodule LiveShadcn.UI.Kbd do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/Kbd/class/0" => "cn-kbd pointer-events-none inline-flex items-center justify-center select-none",
+    "jsx/Kbd/class/0" =>
+      "cn-kbd pointer-events-none inline-flex items-center justify-center select-none",
     "jsx/KbdGroup/class/0" => "cn-kbd-group inline-flex items-center"
   }
   # live-shadcn: upstream facts end

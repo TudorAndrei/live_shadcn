@@ -271,6 +271,10 @@ small class composition operations. It does not use a general expression IR.
 - Do not add tests that only check that removed modules or files stay absent.
 - Measure the final production line count and compare it with the target.
 
+Final result: the Oxc extractor, converter, and final spec task contain 1,051
+production lines. The replaced reader and generator contained 15,069 lines.
+The new path removes 14,018 lines, or 93% of that code.
+
 **Commit:** `refactor(tools): remove the TSX-to-HEEx compiler`
 
 ### Phase 6: document the reviewed-port workflow

@@ -10,7 +10,8 @@ defmodule LiveShadcn.UI.Bubble do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "cva/bubbleReactionsVariants/base" => "cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center",
+    "cva/bubbleReactionsVariants/base" =>
+      "cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center",
     "cva/bubbleReactionsVariants/default/align" => "end",
     "cva/bubbleReactionsVariants/default/side" => "bottom",
     "cva/bubbleReactionsVariants/variant/align/end" => "cn-bubble-reactions-align-end",
@@ -26,7 +27,8 @@ defmodule LiveShadcn.UI.Bubble do
     "cva/bubbleVariants/variant/variant/outline" => "cn-bubble-variant-outline",
     "cva/bubbleVariants/variant/variant/secondary" => "cn-bubble-variant-secondary",
     "cva/bubbleVariants/variant/variant/tinted" => "cn-bubble-variant-tinted",
-    "jsx/BubbleContent/class/0" => "cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors",
+    "jsx/BubbleContent/class/0" =>
+      "cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors",
     "jsx/BubbleGroup/class/0" => "cn-bubble-group flex min-w-0 flex-col"
   }
   # live-shadcn: upstream facts end

@@ -11,10 +11,14 @@ defmodule LiveAiElements.Components.PromptInput do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "cva/inputGroupAddonVariants/variant/align/block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
-    "cva/inputGroupAddonVariants/variant/align/block-start" => "cn-input-group-addon-align-block-start order-first w-full justify-start",
-    "cva/inputGroupAddonVariants/variant/align/inline-end" => "cn-input-group-addon-align-inline-end order-last",
-    "cva/inputGroupAddonVariants/variant/align/inline-start" => "cn-input-group-addon-align-inline-start order-first",
+    "cva/inputGroupAddonVariants/variant/align/block-end" =>
+      "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/block-start" =>
+      "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end" =>
+      "cn-input-group-addon-align-inline-end order-last",
+    "cva/inputGroupAddonVariants/variant/align/inline-start" =>
+      "cn-input-group-addon-align-inline-start order-first",
     "cva/inputGroupButtonVariants/base" => "cn-input-group-button flex items-center shadow-none",
     "cva/inputGroupButtonVariants/variant/size/icon-sm" => "cn-input-group-button-size-icon-sm",
     "cva/inputGroupButtonVariants/variant/size/icon-xs" => "cn-input-group-button-size-icon-xs",
@@ -25,13 +29,18 @@ defmodule LiveAiElements.Components.PromptInput do
     "jsx/PromptInputActionMenuTrigger/class/0" => "size-4",
     "jsx/PromptInputBody/class/0" => "contents",
     "jsx/PromptInputTabBody/class/0" => "space-y-1",
-    "jsx/PromptInputTabItem/class/0" => "flex items-center gap-2 px-3 py-2 text-xs hover:bg-accent",
+    "jsx/PromptInputTabItem/class/0" =>
+      "flex items-center gap-2 px-3 py-2 text-xs hover:bg-accent",
     "jsx/PromptInputTabLabel/class/0" => "mb-2 px-3 font-medium text-muted-foreground text-xs",
     "jsx/PromptInputTools/class/0" => "flex min-w-0 items-center gap-1",
-    "port/class/0" => "cn-input-group-addon flex cursor-text items-center justify-center select-none justify-between gap-1",
-    "port/class/1" => "cn-input-group-addon flex cursor-text items-center justify-center select-none order-first flex-wrap gap-1",
-    "port/class/2" => "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 cn-input-group-textarea flex-1 resize-none field-sizing-content max-h-48 min-h-16",
-    "port/class/3" => "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto overflow-hidden"
+    "port/class/0" =>
+      "cn-input-group-addon flex cursor-text items-center justify-center select-none justify-between gap-1",
+    "port/class/1" =>
+      "cn-input-group-addon flex cursor-text items-center justify-center select-none order-first flex-wrap gap-1",
+    "port/class/2" =>
+      "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 cn-input-group-textarea flex-1 resize-none field-sizing-content max-h-48 min-h-16",
+    "port/class/3" =>
+      "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto overflow-hidden"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

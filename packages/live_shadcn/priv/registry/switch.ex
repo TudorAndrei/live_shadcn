@@ -11,8 +11,10 @@ defmodule LiveShadcn.UI.Switch do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/Switch/class/0" => "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
-    "jsx/Switch/class/1" => "cn-switch-thumb pointer-events-none block ring-0 transition-transform"
+    "jsx/Switch/class/0" =>
+      "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+    "jsx/Switch/class/1" =>
+      "cn-switch-thumb pointer-events-none block ring-0 transition-transform"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

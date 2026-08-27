@@ -16,7 +16,8 @@ defmodule LiveAiElements.Components.Question do
     "jsx/QuestionOption/class/0" => "h-auto whitespace-normal",
     "jsx/QuestionOptions/class/0" => "flex flex-wrap gap-2",
     "jsx/QuestionPrompt/class/0" => "font-medium text-sm",
-    "port/class/0" => "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 min-h-20"
+    "port/class/0" =>
+      "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 min-h-20"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

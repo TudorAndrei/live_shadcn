@@ -12,8 +12,10 @@ defmodule LiveShadcn.UI.ContextMenu do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/ContextMenuContent/class/0" => "isolate z-50 outline-none",
-    "jsx/ContextMenuContent/class/1" => "cn-context-menu-content cn-context-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none",
-    "jsx/ContextMenuItem/class/0" => "cn-context-menu-item group/context-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/ContextMenuContent/class/1" =>
+      "cn-context-menu-content cn-context-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none",
+    "jsx/ContextMenuItem/class/0" =>
+      "cn-context-menu-item group/context-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/ContextMenuTrigger/class/0" => "cn-context-menu-trigger select-none"
   }
   # live-shadcn: upstream facts end

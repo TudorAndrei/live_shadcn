@@ -2,26 +2,9 @@ defmodule Mix.Tasks.Ui.Spec do
   @shortdoc "Synchronize safe upstream facts into reviewed component ports"
 
   @moduledoc """
-  Stage 2 of the maintainer pipeline.
-
-  Every component must have a version-2 contract and a reviewed Elixir port.
-  The task uses Oxc facts to update class and CVA data. It stops when upstream
-  structure or behavior needs manual review.
-
-      mix ui.spec
-      mix ui.spec accordion
-      mix ui.spec shadcn/message
-      mix ui.spec --check
-      mix ui.spec --check --source shadcn
-      mix ui.spec --check --offline
-
-  An online run reads the pinned files from `registry/upstream/`. It computes
-  every result before it writes any port or contract. Thus one manual drift
-  stops all writes in that run.
-
-  `--check --offline` reads only committed contracts and ports. It checks fact
-  values, canonical fact blocks, port-body digests, and canonical JSON bytes.
-  It does not need `registry/UPSTREAM.json` or `registry/upstream/`.
+  Synchronizes Oxc facts into version-2 contracts and reviewed Elixir ports.
+  The task computes all results before it writes. Structural or behavior drift
+  stops all writes. Offline mode checks only committed contracts and ports.
   """
   use Mix.Task
 

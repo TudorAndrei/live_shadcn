@@ -20,14 +20,16 @@ defmodule LiveAiElements.Components.SchemaDisplay do
     "jsx/SchemaDisplay/class/1" => "flex items-center gap-3",
     "jsx/SchemaDisplayBody/class/0" => "divide-y",
     "jsx/SchemaDisplayDescription/class/0" => "border-b px-4 py-3 text-muted-foreground text-sm",
-    "jsx/SchemaDisplayExample/class/0" => "mx-4 mb-4 overflow-auto rounded-md bg-muted p-4 font-mono text-sm",
+    "jsx/SchemaDisplayExample/class/0" =>
+      "mx-4 mb-4 overflow-auto rounded-md bg-muted p-4 font-mono text-sm",
     "jsx/SchemaDisplayHeader/class/0" => "flex items-center gap-3 border-b px-4 py-3",
     "jsx/SchemaDisplayMethod/class/0" => "font-mono text-xs",
     "jsx/SchemaDisplayParameter/class/0" => "px-4 py-3 pl-10",
     "jsx/SchemaDisplayParameter/class/1" => "flex items-center gap-2",
     "jsx/SchemaDisplayParameter/class/2" => "font-mono text-sm",
     "jsx/SchemaDisplayParameter/class/3" => "text-xs",
-    "jsx/SchemaDisplayParameter/class/5" => "bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400",
+    "jsx/SchemaDisplayParameter/class/5" =>
+      "bg-red-100 text-red-700 text-xs dark:bg-red-900/30 dark:text-red-400",
     "jsx/SchemaDisplayParameter/class/6" => "mt-1 text-muted-foreground text-sm",
     "jsx/SchemaDisplayProperty/class/13" => "mt-1 pl-6 text-muted-foreground text-sm",
     "jsx/SchemaDisplayProperty/class/7" => "py-3 pr-4",

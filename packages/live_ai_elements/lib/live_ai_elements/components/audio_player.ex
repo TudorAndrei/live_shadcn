@@ -11,9 +11,12 @@ defmodule LiveAiElements.Components.AudioPlayer do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "cva/buttonGroupVariants/default/orientation" => "horizontal",
-    "cva/buttonGroupVariants/variant/orientation/horizontal" => "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
-    "cva/buttonGroupVariants/variant/orientation/vertical" => "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0",
-    "cva/buttonVariants/base" => "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/buttonGroupVariants/variant/orientation/horizontal" =>
+      "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
+    "cva/buttonGroupVariants/variant/orientation/vertical" =>
+      "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0",
+    "cva/buttonVariants/base" =>
+      "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "cva/buttonVariants/variant/size/default" => "cn-button-size-default",
     "cva/buttonVariants/variant/size/icon" => "cn-button-size-icon",
     "cva/buttonVariants/variant/size/icon-lg" => "cn-button-size-icon-lg",
@@ -28,9 +31,12 @@ defmodule LiveAiElements.Components.AudioPlayer do
     "cva/buttonVariants/variant/variant/link" => "cn-button-variant-link",
     "cva/buttonVariants/variant/variant/outline" => "cn-button-variant-outline",
     "cva/buttonVariants/variant/variant/secondary" => "cn-button-variant-secondary",
-    "port/class/0" => "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-transparent",
-    "port/class/1" => "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent",
-    "port/class/2" => "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent tabular-nums"
+    "port/class/0" =>
+      "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-transparent",
+    "port/class/1" =>
+      "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent",
+    "port/class/2" =>
+      "cn-button-group-text flex items-center [&_svg]:pointer-events-none bg-transparent tabular-nums"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

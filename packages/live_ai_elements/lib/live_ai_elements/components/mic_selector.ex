@@ -11,7 +11,8 @@ defmodule LiveAiElements.Components.MicSelector do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "cva/buttonVariants/base" => "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/buttonVariants/base" =>
+      "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "cva/buttonVariants/default/size" => "default",
     "cva/buttonVariants/variant/size/default" => "cn-button-size-default",
     "cva/buttonVariants/variant/size/icon" => "cn-button-size-icon",
@@ -27,21 +28,28 @@ defmodule LiveAiElements.Components.MicSelector do
     "cva/buttonVariants/variant/variant/link" => "cn-button-variant-link",
     "cva/buttonVariants/variant/variant/outline" => "cn-button-variant-outline",
     "cva/buttonVariants/variant/variant/secondary" => "cn-button-variant-secondary",
-    "cva/inputGroupAddonVariants/variant/align/block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
-    "cva/inputGroupAddonVariants/variant/align/block-start" => "cn-input-group-addon-align-block-start order-first w-full justify-start",
-    "cva/inputGroupAddonVariants/variant/align/inline-end" => "cn-input-group-addon-align-inline-end order-last",
-    "cva/inputGroupAddonVariants/variant/align/inline-start" => "cn-input-group-addon-align-inline-start order-first",
+    "cva/inputGroupAddonVariants/variant/align/block-end" =>
+      "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/block-start" =>
+      "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end" =>
+      "cn-input-group-addon-align-inline-end order-last",
+    "cva/inputGroupAddonVariants/variant/align/inline-start" =>
+      "cn-input-group-addon-align-inline-start order-first",
     "cva/inputGroupButtonVariants/variant/size/icon-sm" => "cn-input-group-button-size-icon-sm",
     "cva/inputGroupButtonVariants/variant/size/icon-xs" => "cn-input-group-button-size-icon-xs",
     "cva/inputGroupButtonVariants/variant/size/sm" => "cn-input-group-button-size-sm",
     "cva/inputGroupButtonVariants/variant/size/xs" => "cn-input-group-button-size-xs",
     "jsx/Command/class/0" => "cn-command flex size-full flex-col overflow-hidden",
-    "jsx/CommandItem/class/0" => "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-    "jsx/CommandItem/class/1" => "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
+    "jsx/CommandItem/class/0" =>
+      "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/CommandItem/class/1" =>
+      "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
     "jsx/MicSelectorContent/class/0" => "p-0",
     "jsx/MicSelectorTrigger/class/0" => "shrink-0 text-muted-foreground",
     "jsx/PopoverContent/class/0" => "isolate z-50",
-    "jsx/PopoverContent/class/1" => "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden"
+    "jsx/PopoverContent/class/1" =>
+      "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

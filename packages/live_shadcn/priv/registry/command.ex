@@ -21,10 +21,13 @@ defmodule LiveShadcn.UI.Command do
     "jsx/CommandGroup/class/0" => "cn-command-group",
     "jsx/CommandInput/class/0" => "cn-command-input-wrapper",
     "jsx/CommandInput/class/1" => "cn-command-input-group",
-    "jsx/CommandInput/class/2" => "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+    "jsx/CommandInput/class/2" =>
+      "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
     "jsx/CommandInput/class/3" => "cn-command-input-icon",
-    "jsx/CommandItem/class/0" => "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-    "jsx/CommandItem/class/1" => "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
+    "jsx/CommandItem/class/0" =>
+      "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/CommandItem/class/1" =>
+      "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
     "jsx/CommandList/class/0" => "cn-command-list overflow-x-hidden overflow-y-auto",
     "jsx/CommandSeparator/class/0" => "cn-command-separator",
     "jsx/CommandShortcut/class/0" => "cn-command-shortcut"

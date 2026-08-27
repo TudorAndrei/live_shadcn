@@ -11,8 +11,10 @@ defmodule LiveShadcn.UI.Checkbox do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/Checkbox/class/0" => "cn-checkbox peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
-    "jsx/Checkbox/class/1" => "cn-checkbox-indicator grid place-content-center text-current transition-none"
+    "jsx/Checkbox/class/0" =>
+      "cn-checkbox peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
+    "jsx/Checkbox/class/1" =>
+      "cn-checkbox-indicator grid place-content-center text-current transition-none"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

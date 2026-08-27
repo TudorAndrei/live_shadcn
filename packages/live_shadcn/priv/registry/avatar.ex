@@ -10,12 +10,17 @@ defmodule LiveShadcn.UI.Avatar do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/Avatar/class/0" => "cn-avatar group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten",
-    "jsx/AvatarFallback/class/0" => "cn-avatar-fallback flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs",
-    "jsx/AvatarGroup/class/0" => "cn-avatar-group group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background",
-    "jsx/AvatarGroupCount/class/0" => "cn-avatar-group-count relative flex shrink-0 items-center justify-center ring-2 ring-background",
+    "jsx/Avatar/class/0" =>
+      "cn-avatar group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten",
+    "jsx/AvatarFallback/class/0" =>
+      "cn-avatar-fallback flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs",
+    "jsx/AvatarGroup/class/0" =>
+      "cn-avatar-group group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background",
+    "jsx/AvatarGroupCount/class/0" =>
+      "cn-avatar-group-count relative flex shrink-0 items-center justify-center ring-2 ring-background",
     "jsx/AvatarImage/class/0" => "cn-avatar-image aspect-square size-full object-cover",
-    "port/class/0" => "cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2"
+    "port/class/0" =>
+      "cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

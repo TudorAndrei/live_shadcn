@@ -12,7 +12,8 @@ defmodule LiveShadcn.UI.Popover do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/PopoverContent/class/0" => "isolate z-50",
-    "jsx/PopoverContent/class/1" => "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
+    "jsx/PopoverContent/class/1" =>
+      "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
     "jsx/PopoverDescription/class/0" => "cn-popover-description",
     "jsx/PopoverTitle/class/0" => "cn-popover-title"
   }

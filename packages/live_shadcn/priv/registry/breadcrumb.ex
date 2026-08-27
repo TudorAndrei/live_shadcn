@@ -15,7 +15,8 @@ defmodule LiveShadcn.UI.Breadcrumb do
     "jsx/BreadcrumbEllipsis/class/1" => "sr-only",
     "jsx/BreadcrumbItem/class/0" => "cn-breadcrumb-item inline-flex items-center",
     "jsx/BreadcrumbLink/class/0" => "cn-breadcrumb-link",
-    "jsx/BreadcrumbList/class/0" => "cn-breadcrumb-list flex flex-wrap items-center wrap-break-word",
+    "jsx/BreadcrumbList/class/0" =>
+      "cn-breadcrumb-list flex flex-wrap items-center wrap-break-word",
     "jsx/BreadcrumbPage/class/0" => "cn-breadcrumb-page",
     "jsx/BreadcrumbSeparator/class/0" => "cn-breadcrumb-separator",
     "jsx/BreadcrumbSeparator/class/1" => "cn-rtl-flip"

@@ -16,8 +16,10 @@ defmodule LiveAiElements.Components.StackTrace do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/anonymous/class/0" => "not-prose w-full overflow-hidden rounded-lg border bg-background font-mono text-sm",
-    "jsx/anonymous/class/1" => "flex w-full cursor-pointer items-center gap-3 p-3 text-left transition-colors hover:bg-muted/50",
+    "jsx/anonymous/class/0" =>
+      "not-prose w-full overflow-hidden rounded-lg border bg-background font-mono text-sm",
+    "jsx/anonymous/class/1" =>
+      "flex w-full cursor-pointer items-center gap-3 p-3 text-left transition-colors hover:bg-muted/50",
     "jsx/anonymous/class/10" => "rotate-180",
     "jsx/anonymous/class/11" => "rotate-0",
     "jsx/anonymous/class/14" => "underline decoration-dotted hover:text-primary",
@@ -226,7 +228,6 @@ defmodule LiveAiElements.Components.StackTrace do
         </span>
         <span :if={frame.filePath} class={upstream_fact("jsx/anonymous/class/20")}>(</span><button
           :if={frame.filePath}
-          disabled={!true}
           type="button"
           class={[upstream_fact("jsx/anonymous/class/14"), upstream_fact("jsx/anonymous/class/15")]}
         >{frame.filePath}{if(not is_nil(frame.lineNumber), do: ":#{frame.lineNumber}")}{if(

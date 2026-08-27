@@ -66,7 +66,6 @@ defmodule LiveAiElements.Components.Transcription do
         if(@is_past, do: upstream_fact("jsx/TranscriptionSegment/class/2"), else: nil),
         if(!(@is_active || @is_past), do: upstream_fact("jsx/TranscriptionSegment/class/3"), else: nil),
         upstream_fact("jsx/TranscriptionSegment/class/4"),
-        if(!true, do: upstream_fact("jsx/TranscriptionSegment/class/5"), else: nil),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}

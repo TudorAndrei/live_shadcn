@@ -13,8 +13,10 @@ defmodule LiveAiElements.Components.Checkpoint do
     "jsx/Checkpoint/class/0" => "flex items-center gap-0.5 overflow-hidden text-muted-foreground",
     "jsx/CheckpointIcon/class/0" => "size-4 shrink-0",
     "jsx/TooltipContent/class/0" => "isolate z-50",
-    "jsx/TooltipContent/class/1" => "cn-tooltip-content cn-tooltip-content-logical z-50 w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background",
-    "jsx/TooltipContent/class/2" => "cn-tooltip-arrow cn-tooltip-arrow-logical z-50 bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
+    "jsx/TooltipContent/class/1" =>
+      "cn-tooltip-content cn-tooltip-content-logical z-50 w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background",
+    "jsx/TooltipContent/class/2" =>
+      "cn-tooltip-arrow cn-tooltip-arrow-logical z-50 bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

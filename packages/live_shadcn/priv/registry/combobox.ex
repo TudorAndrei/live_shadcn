@@ -12,8 +12,10 @@ defmodule LiveShadcn.UI.Combobox do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/ComboboxContent/class/0" => "isolate z-50",
-    "jsx/ComboboxContent/class/1" => "cn-combobox-content cn-combobox-content-logical cn-menu-target cn-menu-translucent group/combobox-content relative max-h-(--available-height) w-(--anchor-width) max-w-(--available-width) min-w-[calc(var(--anchor-width)+--spacing(7))] origin-(--transform-origin) data-[chips=true]:min-w-(--anchor-width)",
-    "jsx/ComboboxItem/class/0" => "cn-combobox-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/ComboboxContent/class/1" =>
+      "cn-combobox-content cn-combobox-content-logical cn-menu-target cn-menu-translucent group/combobox-content relative max-h-(--available-height) w-(--anchor-width) max-w-(--available-width) min-w-[calc(var(--anchor-width)+--spacing(7))] origin-(--transform-origin) data-[chips=true]:min-w-(--anchor-width)",
+    "jsx/ComboboxItem/class/0" =>
+      "cn-combobox-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/ComboboxItem/class/1" => "cn-combobox-item-indicator",
     "jsx/ComboboxItem/class/2" => "cn-combobox-item-indicator-icon pointer-events-none",
     "jsx/ComboboxTrigger/class/0" => "cn-combobox-trigger",

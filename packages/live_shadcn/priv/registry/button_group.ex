@@ -10,12 +10,17 @@ defmodule LiveShadcn.UI.ButtonGroup do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "cva/buttonGroupVariants/base" => "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+    "cva/buttonGroupVariants/base" =>
+      "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
     "cva/buttonGroupVariants/default/orientation" => "horizontal",
-    "cva/buttonGroupVariants/variant/orientation/horizontal" => "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
-    "cva/buttonGroupVariants/variant/orientation/vertical" => "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0",
-    "jsx/ButtonGroupSeparator/class/0" => "cn-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto",
-    "jsx/ButtonGroupText/class/0" => "cn-button-group-text flex items-center [&_svg]:pointer-events-none"
+    "cva/buttonGroupVariants/variant/orientation/horizontal" =>
+      "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
+    "cva/buttonGroupVariants/variant/orientation/vertical" =>
+      "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0",
+    "jsx/ButtonGroupSeparator/class/0" =>
+      "cn-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto",
+    "jsx/ButtonGroupText/class/0" =>
+      "cn-button-group-text flex items-center [&_svg]:pointer-events-none"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

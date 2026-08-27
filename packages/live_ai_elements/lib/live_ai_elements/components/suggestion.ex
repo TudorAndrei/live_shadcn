@@ -10,13 +10,16 @@ defmodule LiveAiElements.Components.Suggestion do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/ScrollArea/class/1" => "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
-    "jsx/ScrollBar/class/0" => "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
+    "jsx/ScrollArea/class/1" =>
+      "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
+    "jsx/ScrollBar/class/0" =>
+      "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
     "jsx/ScrollBar/class/1" => "cn-scroll-area-thumb relative flex-1 bg-border",
     "jsx/Suggestion/class/0" => "cursor-pointer rounded-full px-4",
     "jsx/Suggestions/class/1" => "flex w-max flex-nowrap items-center gap-2",
     "port/class/0" => "cn-scroll-area relative w-full overflow-x-auto whitespace-nowrap",
-    "port/class/1" => "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none hidden"
+    "port/class/1" =>
+      "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none hidden"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

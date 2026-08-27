@@ -17,10 +17,14 @@ defmodule LiveShadcn.UI.Menubar do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Menubar/class/0" => "cn-menubar flex items-center",
-    "jsx/MenubarCheckboxItem/class/0" => "cn-menubar-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-    "jsx/MenubarCheckboxItem/class/1" => "cn-menubar-checkbox-item-indicator pointer-events-none absolute flex items-center justify-center",
-    "jsx/MenubarRadioItem/class/0" => "cn-menubar-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
-    "jsx/MenubarRadioItem/class/1" => "cn-menubar-radio-item-indicator pointer-events-none absolute flex items-center justify-center"
+    "jsx/MenubarCheckboxItem/class/0" =>
+      "cn-menubar-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/MenubarCheckboxItem/class/1" =>
+      "cn-menubar-checkbox-item-indicator pointer-events-none absolute flex items-center justify-center",
+    "jsx/MenubarRadioItem/class/0" =>
+      "cn-menubar-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/MenubarRadioItem/class/1" =>
+      "cn-menubar-radio-item-indicator pointer-events-none absolute flex items-center justify-center"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

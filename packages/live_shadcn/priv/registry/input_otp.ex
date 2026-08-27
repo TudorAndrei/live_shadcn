@@ -15,8 +15,10 @@ defmodule LiveShadcn.UI.InputOtp do
     "jsx/InputOTP/class/1" => "cn-input-otp-input disabled:cursor-not-allowed",
     "jsx/InputOTPGroup/class/0" => "cn-input-otp-group flex items-center",
     "jsx/InputOTPSeparator/class/0" => "cn-input-otp-separator flex items-center",
-    "jsx/InputOTPSlot/class/0" => "cn-input-otp-slot relative flex items-center justify-center data-[active=true]:z-10",
-    "jsx/InputOTPSlot/class/1" => "cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center",
+    "jsx/InputOTPSlot/class/0" =>
+      "cn-input-otp-slot relative flex items-center justify-center data-[active=true]:z-10",
+    "jsx/InputOTPSlot/class/1" =>
+      "cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center",
     "jsx/InputOTPSlot/class/2" => "cn-input-otp-caret-line"
   }
   # live-shadcn: upstream facts end

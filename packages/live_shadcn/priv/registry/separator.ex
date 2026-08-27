@@ -10,7 +10,8 @@ defmodule LiveShadcn.UI.Separator do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/Separator/class/0" => "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
+    "jsx/Separator/class/0" =>
+      "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

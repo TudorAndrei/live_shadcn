@@ -13,15 +13,19 @@ defmodule LiveAiElements.Components.FileTree do
     "jsx/FileTree/class/0" => "rounded-lg border bg-background font-mono text-sm",
     "jsx/FileTree/class/1" => "p-2",
     "jsx/FileTreeActions/class/0" => "ml-auto flex items-center gap-1",
-    "jsx/FileTreeFile/class/0" => "flex cursor-pointer items-center gap-1 rounded px-2 py-1 transition-colors hover:bg-muted/50",
+    "jsx/FileTreeFile/class/0" =>
+      "flex cursor-pointer items-center gap-1 rounded px-2 py-1 transition-colors hover:bg-muted/50",
     "jsx/FileTreeFile/class/1" => "bg-muted",
     "jsx/FileTreeFile/class/2" => "size-4 shrink-0",
     "jsx/FileTreeFile/class/3" => "size-4 text-muted-foreground",
-    "jsx/FileTreeFolder/class/1" => "flex w-full items-center gap-1 rounded px-2 py-1 text-left transition-colors hover:bg-muted/50",
-    "jsx/FileTreeFolder/class/3" => "flex shrink-0 cursor-pointer items-center border-none bg-transparent p-0",
+    "jsx/FileTreeFolder/class/1" =>
+      "flex w-full items-center gap-1 rounded px-2 py-1 text-left transition-colors hover:bg-muted/50",
+    "jsx/FileTreeFolder/class/3" =>
+      "flex shrink-0 cursor-pointer items-center border-none bg-transparent p-0",
     "jsx/FileTreeFolder/class/4" => "size-4 shrink-0 text-muted-foreground transition-transform",
     "jsx/FileTreeFolder/class/5" => "rotate-90",
-    "jsx/FileTreeFolder/class/6" => "flex min-w-0 flex-1 cursor-pointer items-center gap-1 border-none bg-transparent p-0 text-left",
+    "jsx/FileTreeFolder/class/6" =>
+      "flex min-w-0 flex-1 cursor-pointer items-center gap-1 border-none bg-transparent p-0 text-left",
     "jsx/FileTreeFolder/class/7" => "size-4 text-blue-500",
     "jsx/FileTreeFolder/class/9" => "ml-4 border-l pl-2",
     "jsx/FileTreeIcon/class/0" => "shrink-0",

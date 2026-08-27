@@ -11,11 +11,13 @@ defmodule LiveShadcn.UI.Card do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Card/class/0" => "cn-card group/card flex flex-col",
-    "jsx/CardAction/class/0" => "cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+    "jsx/CardAction/class/0" =>
+      "cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end",
     "jsx/CardContent/class/0" => "cn-card-content",
     "jsx/CardDescription/class/0" => "cn-card-description",
     "jsx/CardFooter/class/0" => "cn-card-footer flex items-center",
-    "jsx/CardHeader/class/0" => "cn-card-header group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]",
+    "jsx/CardHeader/class/0" =>
+      "cn-card-header group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]",
     "jsx/CardTitle/class/0" => "cn-card-title cn-font-heading"
   }
   # live-shadcn: upstream facts end

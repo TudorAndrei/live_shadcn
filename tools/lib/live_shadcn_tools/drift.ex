@@ -48,7 +48,7 @@ defmodule LiveShadcnTools.Drift do
   def attributes(%{"schema_version" => 2} = contract) do
     contract
     |> Map.get("state_reads", [])
-    |> Enum.map(&LiveShadcnTools.Spec.read_name/1)
+    |> Enum.map(&read_name/1)
     |> MapSet.new()
   end
 
@@ -58,7 +58,7 @@ defmodule LiveShadcnTools.Drift do
         node
         |> get_in(["reads", "self"])
         |> List.wrap()
-        |> Enum.map(&LiveShadcnTools.Spec.read_name/1)
+        |> Enum.map(&read_name/1)
       end)
 
   @doc "Every class string the component renders."
@@ -119,6 +119,9 @@ defmodule LiveShadcnTools.Drift do
 
   defp nodes(nil), do: []
   defp nodes(node), do: [node | Enum.flat_map(Map.get(node, "children") || [], &nodes/1)]
+
+  defp read_name(%{"name" => name}), do: name
+  defp read_name(name) when is_binary(name), do: name
 
   @doc "One line, for a pull request title."
   def title([]), do: "sync shadcn — nothing moved"

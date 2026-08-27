@@ -15,10 +15,12 @@ defmodule LiveAiElements.Components.Task do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/TaskContent/class/0" => "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+    "jsx/TaskContent/class/0" =>
+      "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
     "jsx/TaskContent/class/1" => "mt-4 space-y-2 border-muted border-l-2 pl-4",
     "jsx/TaskTrigger/class/0" => "group",
-    "jsx/TaskTrigger/class/1" => "flex w-full cursor-pointer items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+    "jsx/TaskTrigger/class/1" =>
+      "flex w-full cursor-pointer items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
     "jsx/TaskTrigger/class/2" => "size-4",
     "jsx/TaskTrigger/class/3" => "text-sm",
     "jsx/TaskTrigger/class/4" => "size-4 transition-transform group-data-[state=open]:rotate-180"

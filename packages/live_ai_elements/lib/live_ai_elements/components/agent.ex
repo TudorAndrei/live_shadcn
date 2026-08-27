@@ -17,15 +17,18 @@ defmodule LiveAiElements.Components.Agent do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "file/ai_elements/agent.tsx/jsx/anonymous/class/0" => "not-prose w-full rounded-md border",
-    "file/ai_elements/agent.tsx/jsx/anonymous/class/1" => "flex w-full items-center justify-between gap-4 p-3",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/1" =>
+      "flex w-full items-center justify-between gap-4 p-3",
     "file/ai_elements/agent.tsx/jsx/anonymous/class/10" => "space-y-2",
-    "file/ai_elements/agent.tsx/jsx/anonymous/class/11" => "font-medium text-muted-foreground text-sm",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/11" =>
+      "font-medium text-muted-foreground text-sm",
     "file/ai_elements/agent.tsx/jsx/anonymous/class/2" => "flex items-center gap-2",
     "file/ai_elements/agent.tsx/jsx/anonymous/class/3" => "size-4 text-muted-foreground",
     "file/ai_elements/agent.tsx/jsx/anonymous/class/4" => "font-medium text-sm",
     "file/ai_elements/agent.tsx/jsx/anonymous/class/5" => "font-mono text-xs",
     "file/ai_elements/agent.tsx/jsx/anonymous/class/6" => "space-y-4 p-4 pt-0",
-    "file/ai_elements/agent.tsx/jsx/anonymous/class/9" => "rounded-md bg-muted/50 p-3 text-muted-foreground text-sm",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/9" =>
+      "rounded-md bg-muted/50 p-3 text-muted-foreground text-sm",
     "jsx/anonymous/class/16" => "rounded-md bg-muted/50",
     "port/class/0" => "cn-accordion flex w-full flex-col rounded-md border"
   }

@@ -11,7 +11,8 @@ defmodule LiveShadcn.UI.Toggle do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "cva/toggleVariants/base" => "cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/toggleVariants/base" =>
+      "cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "cva/toggleVariants/default/size" => "default",
     "cva/toggleVariants/default/variant" => "default",
     "cva/toggleVariants/variant/size/default" => "cn-toggle-size-default",

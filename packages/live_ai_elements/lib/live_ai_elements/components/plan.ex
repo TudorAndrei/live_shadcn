@@ -32,7 +32,8 @@ defmodule LiveAiElements.Components.Plan do
     "jsx/CardContent/class/0" => "cn-card-content",
     "jsx/PlanTrigger/class/1" => "size-4",
     "jsx/PlanTrigger/class/2" => "sr-only",
-    "port/class/0" => "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-8",
+    "port/class/0" =>
+      "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-8",
     "port/class/1" => "cn-card group/card flex flex-col shadow-none"
   }
   # live-shadcn: upstream facts end

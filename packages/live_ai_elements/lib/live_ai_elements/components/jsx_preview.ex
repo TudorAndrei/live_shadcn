@@ -12,7 +12,8 @@ defmodule LiveAiElements.Components.JsxPreview do
   @upstream_facts %{
     "jsx/anonymous/class/0" => "relative",
     "jsx/anonymous/class/1" => "jsx-preview-content",
-    "jsx/anonymous/class/2" => "flex items-center gap-2 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-destructive text-sm",
+    "jsx/anonymous/class/2" =>
+      "flex items-center gap-2 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-destructive text-sm",
     "jsx/anonymous/class/3" => "size-4 shrink-0"
   }
   # live-shadcn: upstream facts end

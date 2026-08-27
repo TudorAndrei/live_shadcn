@@ -92,30 +92,30 @@ and make its listed commit before work starts on the next phase.
 
 ## Phase 5: remove the old compiler
 
-- [ ] Delete `tools/lib/live_shadcn_tools/ast.ex`.
-- [ ] Delete `tools/lib/live_shadcn_tools/tsx.ex`.
-- [ ] Delete `tools/lib/live_shadcn_tools/cva.ex`.
-- [ ] Delete the replaced code from `tools/lib/live_shadcn_tools/spec.ex`.
-- [ ] Delete `tools/lib/live_shadcn_tools/gen.ex` and
+- [x] Delete `tools/lib/live_shadcn_tools/ast.ex`.
+- [x] Delete `tools/lib/live_shadcn_tools/tsx.ex`.
+- [x] Delete `tools/lib/live_shadcn_tools/cva.ex`.
+- [x] Delete the replaced code from `tools/lib/live_shadcn_tools/spec.ex`.
+- [x] Delete `tools/lib/live_shadcn_tools/gen.ex` and
       `tools/lib/live_shadcn_tools/gen/`.
-- [ ] Delete `tools/lib/mix/tasks/ui.gen.ex`.
-- [ ] Delete the temporary migration helper.
-- [ ] Delete the replaced internal tests from `tools/test/ast_test.exs`,
+- [x] Delete `tools/lib/mix/tasks/ui.gen.ex`.
+- [x] Delete the temporary migration helper.
+- [x] Delete the replaced internal tests from `tools/test/ast_test.exs`,
       `tools/test/spec_test.exs`, and `tools/test/gen_test.exs`.
-- [ ] Keep current API, security, persistence, and behavior tests. Do not add
+- [x] Keep current API, security, persistence, and behavior tests. Do not add
       tests that only check that deleted code stays absent.
-- [ ] Remove dead aliases, functions, and fixtures.
-- [ ] Run `cd tools && mix format`.
-- [ ] Run `cd tools && mix test`.
-- [ ] Run `cd tools && mix check`.
-- [ ] Run the test and check aliases in `packages/live_base`,
+- [x] Remove dead aliases, functions, and fixtures.
+- [x] Run `cd tools && mix format`.
+- [x] Run `cd tools && mix test`.
+- [x] Run `cd tools && mix check`.
+- [x] Run the test and check aliases in `packages/live_base`,
       `packages/live_shadcn`, and `packages/live_ai_elements`.
-- [ ] Run `cd tools && mix ui.spec --check --offline`.
-- [ ] Confirm that `tools/priv/facts.mjs`, the converter, and the final spec task
+- [x] Run `cd tools && mix ui.spec --check --offline`.
+- [x] Confirm that `tools/priv/facts.mjs`, the converter, and the final spec task
       contain no more than 1,650 new production lines in total.
-- [ ] Record the old count of 15,069 lines, the final count, and the net
+- [x] Record the old count of 15,069 lines, the final count, and the net
       deletion in `PLAN.md`.
-- [ ] Commit: `refactor(tools): remove the TSX-to-HEEx compiler`
+- [x] Commit: `refactor(tools): remove the TSX-to-HEEx compiler`
 
 ## Phase 6: document the reviewed-port workflow
 

@@ -10,13 +10,17 @@ defmodule LiveShadcn.UI.Empty do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "cva/emptyMediaVariants/base" => "cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/emptyMediaVariants/base" =>
+      "cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "cva/emptyMediaVariants/default/variant" => "default",
     "cva/emptyMediaVariants/variant/variant/default" => "cn-empty-media-default",
     "cva/emptyMediaVariants/variant/variant/icon" => "cn-empty-media-icon",
-    "jsx/Empty/class/0" => "cn-empty flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance",
-    "jsx/EmptyContent/class/0" => "cn-empty-content flex w-full max-w-sm min-w-0 flex-col items-center text-balance",
-    "jsx/EmptyDescription/class/0" => "cn-empty-description text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+    "jsx/Empty/class/0" =>
+      "cn-empty flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance",
+    "jsx/EmptyContent/class/0" =>
+      "cn-empty-content flex w-full max-w-sm min-w-0 flex-col items-center text-balance",
+    "jsx/EmptyDescription/class/0" =>
+      "cn-empty-description text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
     "jsx/EmptyHeader/class/0" => "cn-empty-header flex max-w-sm flex-col items-center",
     "jsx/EmptyTitle/class/0" => "cn-empty-title cn-font-heading"
   }

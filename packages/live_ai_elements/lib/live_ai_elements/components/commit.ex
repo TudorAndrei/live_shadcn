@@ -21,7 +21,8 @@ defmodule LiveAiElements.Components.Commit do
     "jsx/CommitAuthorAvatar/class/0" => "size-8",
     "jsx/CommitAuthorAvatar/class/1" => "text-xs",
     "jsx/CommitCopyButton/class/0" => "size-7 shrink-0",
-    "jsx/CommitFile/class/0" => "flex items-center justify-between gap-2 rounded px-2 py-1 text-sm hover:bg-muted/50",
+    "jsx/CommitFile/class/0" =>
+      "flex items-center justify-between gap-2 rounded px-2 py-1 text-sm hover:bg-muted/50",
     "jsx/CommitFileAdditions/class/0" => "text-green-600 dark:text-green-400",
     "jsx/CommitFileAdditions/class/1" => "inline-block size-3",
     "jsx/CommitFileChanges/class/0" => "flex shrink-0 items-center gap-1 font-mono text-xs",
@@ -33,7 +34,8 @@ defmodule LiveAiElements.Components.Commit do
     "jsx/CommitFiles/class/0" => "space-y-1",
     "jsx/CommitHash/class/0" => "font-mono text-xs",
     "jsx/CommitHash/class/1" => "mr-1 inline-block size-3",
-    "jsx/CommitHeader/class/0" => "group flex cursor-pointer items-center justify-between gap-4 p-3 text-left transition-colors hover:opacity-80",
+    "jsx/CommitHeader/class/0" =>
+      "group flex cursor-pointer items-center justify-between gap-4 p-3 text-left transition-colors hover:opacity-80",
     "jsx/CommitInfo/class/0" => "flex flex-1 flex-col",
     "jsx/CommitMessage/class/0" => "font-medium text-sm",
     "jsx/CommitMetadata/class/0" => "flex items-center gap-2 text-muted-foreground text-xs"

@@ -10,9 +10,12 @@ defmodule LiveShadcn.UI.NativeSelect do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/NativeSelect/class/0" => "cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50",
-    "jsx/NativeSelect/class/1" => "cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed",
-    "jsx/NativeSelect/class/2" => "cn-native-select-icon pointer-events-none absolute select-none",
+    "jsx/NativeSelect/class/0" =>
+      "cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50",
+    "jsx/NativeSelect/class/1" =>
+      "cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed",
+    "jsx/NativeSelect/class/2" =>
+      "cn-native-select-icon pointer-events-none absolute select-none",
     "jsx/NativeSelectOptGroup/class/0" => "bg-[Canvas] text-[CanvasText]"
   }
   # live-shadcn: upstream facts end

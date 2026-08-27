@@ -15,8 +15,10 @@ defmodule LiveShadcn.UI.Alert do
     "cva/alertVariants/variant/variant/default" => "cn-alert-variant-default",
     "cva/alertVariants/variant/variant/destructive" => "cn-alert-variant-destructive",
     "jsx/AlertAction/class/0" => "cn-alert-action",
-    "jsx/AlertDescription/class/0" => "cn-alert-description [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
-    "jsx/AlertTitle/class/0" => "cn-alert-title [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground"
+    "jsx/AlertDescription/class/0" =>
+      "cn-alert-description [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
+    "jsx/AlertTitle/class/0" =>
+      "cn-alert-title [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

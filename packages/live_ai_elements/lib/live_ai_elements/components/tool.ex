@@ -30,12 +30,15 @@ defmodule LiveAiElements.Components.Tool do
     "file/ai_elements/tool.tsx/jsx/anonymous/class/6" => "size-4 text-red-600",
     "jsx/CodeBlockTitle/class/0" => "flex items-center gap-2",
     "jsx/Tool/class/0" => "group not-prose mb-4 w-full rounded-md border",
-    "jsx/ToolContent/class/0" => "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 space-y-4 p-4 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+    "jsx/ToolContent/class/0" =>
+      "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 space-y-4 p-4 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
     "jsx/ToolHeader/class/0" => "flex w-full items-center justify-between gap-4 p-3",
     "jsx/ToolHeader/class/2" => "size-4 text-muted-foreground",
     "jsx/ToolHeader/class/3" => "font-medium text-sm",
-    "jsx/ToolHeader/class/4" => "size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180",
-    "port/class/0" => "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1.5 rounded-full text-xs"
+    "jsx/ToolHeader/class/4" =>
+      "size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180",
+    "port/class/0" =>
+      "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1.5 rounded-full text-xs"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

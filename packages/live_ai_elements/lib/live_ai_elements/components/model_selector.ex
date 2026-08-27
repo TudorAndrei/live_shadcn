@@ -17,7 +17,8 @@ defmodule LiveAiElements.Components.ModelSelector do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/ModelSelectorLogo/class/0" => "size-3 dark:invert",
-    "jsx/ModelSelectorLogoGroup/class/0" => "flex shrink-0 items-center -space-x-1 [&>img]:rounded-full [&>img]:bg-background [&>img]:p-px [&>img]:ring-1 dark:[&>img]:bg-foreground",
+    "jsx/ModelSelectorLogoGroup/class/0" =>
+      "flex shrink-0 items-center -space-x-1 [&>img]:rounded-full [&>img]:bg-background [&>img]:p-px [&>img]:ring-1 dark:[&>img]:bg-foreground",
     "jsx/ModelSelectorName/class/0" => "flex-1 truncate text-left"
   }
   # live-shadcn: upstream facts end

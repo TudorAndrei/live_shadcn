@@ -10,10 +10,14 @@ defmodule LiveShadcn.UI.Message do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/Message/class/0" => "cn-message group/message relative flex w-full min-w-0 data-[align=end]:flex-row-reverse",
-    "jsx/MessageAvatar/class/0" => "cn-message-avatar flex w-fit shrink-0 items-center justify-center self-end overflow-hidden rounded-full bg-muted",
-    "jsx/MessageContent/class/0" => "cn-message-content flex w-full min-w-0 flex-col wrap-break-word",
-    "jsx/MessageFooter/class/0" => "cn-message-footer flex max-w-full min-w-0 items-center group-data-[align=end]/message:justify-end",
+    "jsx/Message/class/0" =>
+      "cn-message group/message relative flex w-full min-w-0 data-[align=end]:flex-row-reverse",
+    "jsx/MessageAvatar/class/0" =>
+      "cn-message-avatar flex w-fit shrink-0 items-center justify-center self-end overflow-hidden rounded-full bg-muted",
+    "jsx/MessageContent/class/0" =>
+      "cn-message-content flex w-full min-w-0 flex-col wrap-break-word",
+    "jsx/MessageFooter/class/0" =>
+      "cn-message-footer flex max-w-full min-w-0 items-center group-data-[align=end]/message:justify-end",
     "jsx/MessageGroup/class/0" => "cn-message-group flex min-w-0 flex-col",
     "jsx/MessageHeader/class/0" => "cn-message-header flex max-w-full min-w-0 items-center"
   }

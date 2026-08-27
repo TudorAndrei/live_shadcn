@@ -15,13 +15,15 @@ defmodule LiveAiElements.Components.ChainOfThought do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/anonymous/class/1" => "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+    "jsx/anonymous/class/1" =>
+      "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
     "jsx/anonymous/class/10" => "size-4",
     "jsx/anonymous/class/3" => "flex-1 text-left",
     "jsx/anonymous/class/4" => "size-4 transition-transform",
     "jsx/anonymous/class/5" => "rotate-180",
     "jsx/anonymous/class/6" => "rotate-0",
-    "port/class/0" => "mt-2 space-y-3 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in"
+    "port/class/0" =>
+      "mt-2 space-y-3 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

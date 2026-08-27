@@ -12,8 +12,10 @@ defmodule LiveShadcn.UI.ScrollArea do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/ScrollArea/class/0" => "cn-scroll-area relative",
-    "jsx/ScrollArea/class/1" => "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
-    "jsx/ScrollBar/class/0" => "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
+    "jsx/ScrollArea/class/1" =>
+      "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
+    "jsx/ScrollBar/class/0" =>
+      "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
     "jsx/ScrollBar/class/1" => "cn-scroll-area-thumb relative flex-1 bg-border"
   }
   # live-shadcn: upstream facts end

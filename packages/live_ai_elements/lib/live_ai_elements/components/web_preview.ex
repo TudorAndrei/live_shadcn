@@ -20,7 +20,8 @@ defmodule LiveAiElements.Components.WebPreview do
     "jsx/WebPreviewBody/class/0" => "flex-1",
     "jsx/WebPreviewBody/class/1" => "size-full",
     "jsx/WebPreviewNavigation/class/0" => "flex items-center gap-1 border-b p-2",
-    "port/class/0" => "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 h-8 flex-1 text-sm"
+    "port/class/0" =>
+      "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 h-8 flex-1 text-sm"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

@@ -10,14 +10,16 @@ defmodule LiveAiElements.Components.Artifact do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/Artifact/class/0" => "flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm",
+    "jsx/Artifact/class/0" =>
+      "flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm",
     "jsx/ArtifactAction/class/0" => "size-8 p-0 text-muted-foreground hover:text-foreground",
     "jsx/ArtifactAction/class/1" => "size-4",
     "jsx/ArtifactAction/class/2" => "sr-only",
     "jsx/ArtifactActions/class/0" => "flex items-center gap-1",
     "jsx/ArtifactContent/class/0" => "flex-1 overflow-auto p-4",
     "jsx/ArtifactDescription/class/0" => "text-muted-foreground text-sm",
-    "jsx/ArtifactHeader/class/0" => "flex items-center justify-between border-b bg-muted/50 px-4 py-3",
+    "jsx/ArtifactHeader/class/0" =>
+      "flex items-center justify-between border-b bg-muted/50 px-4 py-3",
     "jsx/ArtifactTitle/class/0" => "font-medium text-foreground text-sm"
   }
   # live-shadcn: upstream facts end

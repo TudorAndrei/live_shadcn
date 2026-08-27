@@ -12,9 +12,11 @@ defmodule LiveShadcn.UI.Slider do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Slider/class/0" => "data-horizontal:w-full data-vertical:h-full",
-    "jsx/Slider/class/1" => "cn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col",
+    "jsx/Slider/class/1" =>
+      "cn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col",
     "jsx/Slider/class/2" => "cn-slider-track relative grow overflow-hidden select-none",
-    "jsx/Slider/class/4" => "cn-slider-thumb block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50"
+    "jsx/Slider/class/4" =>
+      "cn-slider-thumb block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

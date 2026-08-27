@@ -20,7 +20,8 @@ defmodule LiveAiElements.Components.TestResults do
     "jsx/TestDuration/class/0" => "ml-auto text-muted-foreground text-xs",
     "jsx/TestError/class/0" => "mt-2 rounded-md bg-red-50 p-3 dark:bg-red-900/20",
     "jsx/TestErrorMessage/class/0" => "font-medium text-red-700 text-sm dark:text-red-400",
-    "jsx/TestErrorStack/class/0" => "mt-2 overflow-auto font-mono text-red-600 text-xs dark:text-red-400",
+    "jsx/TestErrorStack/class/0" =>
+      "mt-2 overflow-auto font-mono text-red-600 text-xs dark:text-red-400",
     "jsx/TestName/class/0" => "flex-1",
     "jsx/TestResults/class/0" => "rounded-lg border bg-background",
     "jsx/TestResultsContent/class/0" => "space-y-2 p-4",
@@ -32,10 +33,13 @@ defmodule LiveAiElements.Components.TestResults do
     "jsx/TestResultsProgress/class/3" => "bg-red-500 transition-all",
     "jsx/TestResultsProgress/class/4" => "flex justify-between text-muted-foreground text-xs",
     "jsx/TestResultsSummary/class/0" => "flex items-center gap-3",
-    "jsx/TestResultsSummary/class/1" => "gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+    "jsx/TestResultsSummary/class/1" =>
+      "gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
     "jsx/TestResultsSummary/class/2" => "size-3",
-    "jsx/TestResultsSummary/class/3" => "gap-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
-    "jsx/TestResultsSummary/class/5" => "gap-1 bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+    "jsx/TestResultsSummary/class/3" =>
+      "gap-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+    "jsx/TestResultsSummary/class/5" =>
+      "gap-1 bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
     "jsx/TestStatus/class/0" => "shrink-0",
     "jsx/TestSuite/class/0" => "rounded-lg border",
     "jsx/TestSuiteStats/class/0" => "ml-auto flex items-center gap-2 text-xs",

@@ -11,26 +11,42 @@ defmodule LiveShadcn.UI.Questionnaire do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Questionnaire/class/0" => "cn-questionnaire flex w-full min-w-0 flex-col",
-    "jsx/QuestionnaireActions/class/0" => "cn-questionnaire-actions grid min-h-11 w-full grid-cols-[minmax(0,1fr)_auto_auto] items-center",
-    "jsx/QuestionnaireChoice/class/2" => "cn-questionnaire-choice-input absolute inset-0 z-10 size-full cursor-pointer opacity-0",
-    "jsx/QuestionnaireChoice/class/3" => "cn-questionnaire-choice-indicator pointer-events-none relative flex shrink-0 items-center justify-center border group-data-[type=radio]/questionnaire-choice:rounded-full",
-    "jsx/QuestionnaireChoice/class/4" => "cn-questionnaire-choice-indicator-dot hidden rounded-full group-data-[type=checkbox]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block",
-    "jsx/QuestionnaireChoice/class/5" => "cn-questionnaire-choice-indicator-check hidden group-data-[type=radio]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block",
-    "jsx/QuestionnaireChoice/class/6" => "cn-questionnaire-choice-label cn-questionnaire-choice-content flex min-w-0 flex-1 flex-col leading-snug",
+    "jsx/QuestionnaireActions/class/0" =>
+      "cn-questionnaire-actions grid min-h-11 w-full grid-cols-[minmax(0,1fr)_auto_auto] items-center",
+    "jsx/QuestionnaireChoice/class/2" =>
+      "cn-questionnaire-choice-input absolute inset-0 z-10 size-full cursor-pointer opacity-0",
+    "jsx/QuestionnaireChoice/class/3" =>
+      "cn-questionnaire-choice-indicator pointer-events-none relative flex shrink-0 items-center justify-center border group-data-[type=radio]/questionnaire-choice:rounded-full",
+    "jsx/QuestionnaireChoice/class/4" =>
+      "cn-questionnaire-choice-indicator-dot hidden rounded-full group-data-[type=checkbox]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block",
+    "jsx/QuestionnaireChoice/class/5" =>
+      "cn-questionnaire-choice-indicator-check hidden group-data-[type=radio]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block",
+    "jsx/QuestionnaireChoice/class/6" =>
+      "cn-questionnaire-choice-label cn-questionnaire-choice-content flex min-w-0 flex-1 flex-col leading-snug",
     "jsx/QuestionnaireChoiceDescription/class/0" => "cn-questionnaire-choice-description",
-    "jsx/QuestionnaireChoices/class/0" => "cn-questionnaire-choices group/questionnaire-choices grid min-w-0",
-    "jsx/QuestionnaireDescription/class/0" => "cn-questionnaire-description text-pretty text-muted-foreground",
+    "jsx/QuestionnaireChoices/class/0" =>
+      "cn-questionnaire-choices group/questionnaire-choices grid min-w-0",
+    "jsx/QuestionnaireDescription/class/0" =>
+      "cn-questionnaire-description text-pretty text-muted-foreground",
     "jsx/QuestionnaireError/class/0" => "cn-questionnaire-error text-destructive",
-    "jsx/QuestionnaireInput/class/0" => "cn-questionnaire-input-wrapper group/questionnaire-input relative min-w-0",
+    "jsx/QuestionnaireInput/class/0" =>
+      "cn-questionnaire-input-wrapper group/questionnaire-input relative min-w-0",
     "jsx/QuestionnaireItem/class/0" => "cn-questionnaire-item min-w-0 border-0 p-0 outline-none",
-    "jsx/QuestionnaireNext/class/0" => "cn-questionnaire-next col-start-3 row-start-1 min-h-11 justify-self-end sm:min-h-0",
-    "jsx/QuestionnairePrevious/class/0" => "cn-questionnaire-previous col-start-1 row-start-1 min-h-11 justify-self-start sm:min-h-0",
-    "jsx/QuestionnaireProgress/class/0" => "cn-questionnaire-progress min-h-[1lh] w-fit min-w-[14ch] font-medium text-muted-foreground tabular-nums",
-    "jsx/QuestionnaireSkip/class/0" => "cn-questionnaire-skip col-start-2 row-start-1 min-h-11 justify-self-end sm:min-h-0",
-    "jsx/QuestionnaireSubmit/class/0" => "cn-questionnaire-submit col-start-3 row-start-1 min-h-11 justify-self-end sm:min-h-0",
+    "jsx/QuestionnaireNext/class/0" =>
+      "cn-questionnaire-next col-start-3 row-start-1 min-h-11 justify-self-end sm:min-h-0",
+    "jsx/QuestionnairePrevious/class/0" =>
+      "cn-questionnaire-previous col-start-1 row-start-1 min-h-11 justify-self-start sm:min-h-0",
+    "jsx/QuestionnaireProgress/class/0" =>
+      "cn-questionnaire-progress min-h-[1lh] w-fit min-w-[14ch] font-medium text-muted-foreground tabular-nums",
+    "jsx/QuestionnaireSkip/class/0" =>
+      "cn-questionnaire-skip col-start-2 row-start-1 min-h-11 justify-self-end sm:min-h-0",
+    "jsx/QuestionnaireSubmit/class/0" =>
+      "cn-questionnaire-submit col-start-3 row-start-1 min-h-11 justify-self-end sm:min-h-0",
     "jsx/QuestionnaireTitle/class/0" => "cn-questionnaire-title cn-font-heading text-pretty",
-    "port/class/0" => "cn-questionnaire-choice group/questionnaire-choice relative flex min-h-11 cursor-pointer items-start text-start transition-colors outline-none select-none data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50",
-    "port/class/1" => "cn-questionnaire-input min-h-11 w-full min-w-0 transition-[color,box-shadow,background-color] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-0 selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground"
+    "port/class/0" =>
+      "cn-questionnaire-choice group/questionnaire-choice relative flex min-h-11 cursor-pointer items-start text-start transition-colors outline-none select-none data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50",
+    "port/class/1" =>
+      "cn-questionnaire-input min-h-11 w-full min-w-0 transition-[color,box-shadow,background-color] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-0 selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

@@ -14,7 +14,8 @@ defmodule LiveAiElements.Components.PackageInfo do
     "jsx/PackageInfoChangeType/class/0" => "gap-1 text-xs capitalize",
     "jsx/PackageInfoContent/class/0" => "mt-3 border-t pt-3",
     "jsx/PackageInfoDependencies/class/0" => "space-y-2",
-    "jsx/PackageInfoDependencies/class/1" => "font-medium text-muted-foreground text-xs uppercase tracking-wide",
+    "jsx/PackageInfoDependencies/class/1" =>
+      "font-medium text-muted-foreground text-xs uppercase tracking-wide",
     "jsx/PackageInfoDependencies/class/2" => "space-y-1",
     "jsx/PackageInfoDependency/class/0" => "flex items-center justify-between text-sm",
     "jsx/PackageInfoDependency/class/1" => "font-mono text-muted-foreground",
@@ -24,7 +25,8 @@ defmodule LiveAiElements.Components.PackageInfo do
     "jsx/PackageInfoName/class/0" => "flex items-center gap-2",
     "jsx/PackageInfoName/class/1" => "size-4 text-muted-foreground",
     "jsx/PackageInfoName/class/2" => "font-medium font-mono text-sm",
-    "jsx/PackageInfoVersion/class/0" => "mt-2 flex items-center gap-2 font-mono text-muted-foreground text-sm",
+    "jsx/PackageInfoVersion/class/0" =>
+      "mt-2 flex items-center gap-2 font-mono text-muted-foreground text-sm",
     "jsx/PackageInfoVersion/class/1" => "size-3",
     "jsx/PackageInfoVersion/class/2" => "font-medium text-foreground"
   }

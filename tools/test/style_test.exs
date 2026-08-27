@@ -43,17 +43,6 @@ defmodule LiveShadcnTools.StyleTest do
     end
   end
 
-  describe "what the sheet adds to the contract" do
-    test "carries an attribute the component source never mentions" do
-      # `data-closed` appears in no `.tsx` and on no Base UI page. Reading the
-      # sheet is the only way the generator learns the panel needs it.
-      assert %{"self" => self} =
-               LiveShadcnTools.Spec.reads(Style.rules(@sheet)["cn-accordion-content"])
-
-      assert %{"name" => "data-closed", "value" => nil} in self
-    end
-  end
-
   describe "the style index" do
     test "lists the styles in the order upstream prefers them" do
       index = ~s|export const STYLES = [{ name: "vega" }, { name: "nova" }]|

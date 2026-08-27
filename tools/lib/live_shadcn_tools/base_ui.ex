@@ -17,8 +17,6 @@ defmodule LiveShadcnTools.BaseUi do
   class strings that read the documented name.
   """
 
-  alias LiveShadcnTools.Ast
-
   @doc """
   Returns `%{parts: %{name => part}, anatomy: tree, order: [name]}`.
 
@@ -215,8 +213,7 @@ defmodule LiveShadcnTools.BaseUi do
   @doc """
   The part nesting, read from the `## Anatomy` block.
 
-  The block is JSX, so the TSX reader parses it. Returns a list of
-  `%{"part" => name, "children" => [...]}`.
+  Returns a list of `%{"part" => name, "children" => [...]}`.
   """
   def anatomy!(markdown) do
     case anatomy_source(markdown) do
@@ -224,10 +221,7 @@ defmodule LiveShadcnTools.BaseUi do
         []
 
       source ->
-        source
-        |> Ast.parse_jsx!()
-        |> anatomy_node()
-        |> List.wrap()
+        source |> anatomy_tokens() |> anatomy_tree()
     end
   end
 
@@ -254,10 +248,42 @@ defmodule LiveShadcnTools.BaseUi do
     if jsx == "", do: nil, else: jsx
   end
 
-  defp anatomy_node(%{tag: tag, children: children}) do
+  defp anatomy_tokens(source) do
+    ~r/<(\/?)([A-Z][A-Za-z0-9]*(?:\.[A-Z][A-Za-z0-9]*)?)(?:\s[^>]*?)?(\/?)>/
+    |> Regex.scan(source, capture: :all_but_first)
+  end
+
+  defp anatomy_tree(tokens) do
+    {roots, stack} = Enum.reduce(tokens, {[], []}, &anatomy_token/2)
+
+    if stack != [], do: raise("the Base UI anatomy has an unclosed JSX element")
+    Enum.reverse(roots)
+  end
+
+  defp anatomy_token(["/", tag, _self_close], {roots, [node | stack]}) do
+    if node.tag != tag, do: raise("the Base UI anatomy closes #{tag} before #{node.tag}")
+    add_anatomy_node(finish_anatomy_node(node), roots, stack)
+  end
+
+  defp anatomy_token(["/", tag, _self_close], {_roots, []}),
+    do: raise("the Base UI anatomy closes #{tag} without an open element")
+
+  defp anatomy_token(["", tag, "/"], {roots, stack}) do
+    add_anatomy_node(finish_anatomy_node(%{tag: tag, children: []}), roots, stack)
+  end
+
+  defp anatomy_token(["", tag, ""], {roots, stack}),
+    do: {roots, [%{tag: tag, children: []} | stack]}
+
+  defp add_anatomy_node(node, roots, []), do: {[node | roots], []}
+
+  defp add_anatomy_node(node, roots, [parent | stack]),
+    do: {roots, [%{parent | children: [node | parent.children]} | stack]}
+
+  defp finish_anatomy_node(node) do
     %{
-      "part" => tag |> String.split(".") |> List.last(),
-      "children" => children |> Enum.filter(&(&1.type == :element)) |> Enum.map(&anatomy_node/1)
+      "part" => node.tag |> String.split(".") |> List.last(),
+      "children" => Enum.reverse(node.children)
     }
   end
 end

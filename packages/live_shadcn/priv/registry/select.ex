@@ -12,14 +12,17 @@ defmodule LiveShadcn.UI.Select do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/SelectContent/class/0" => "isolate z-50",
-    "jsx/SelectContent/class/1" => "cn-select-content cn-select-content-logical cn-menu-target cn-menu-translucent relative isolate z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-[align-trigger=true]:animate-none",
-    "jsx/SelectItem/class/0" => "cn-select-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/SelectContent/class/1" =>
+      "cn-select-content cn-select-content-logical cn-menu-target cn-menu-translucent relative isolate z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-[align-trigger=true]:animate-none",
+    "jsx/SelectItem/class/0" =>
+      "cn-select-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/SelectItem/class/1" => "cn-select-item-text shrink-0 whitespace-nowrap",
     "jsx/SelectItem/class/2" => "cn-select-item-indicator",
     "jsx/SelectItem/class/3" => "cn-select-item-indicator-icon pointer-events-none",
     "jsx/SelectScrollDownButton/class/0" => "cn-select-scroll-down-button bottom-0 w-full",
     "jsx/SelectScrollUpButton/class/0" => "cn-select-scroll-up-button top-0 w-full",
-    "jsx/SelectTrigger/class/0" => "cn-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/SelectTrigger/class/0" =>
+      "cn-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/SelectTrigger/class/1" => "cn-select-trigger-icon pointer-events-none",
     "jsx/SelectValue/class/0" => "cn-select-value"
   }

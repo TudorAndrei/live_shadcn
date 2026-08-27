@@ -12,7 +12,8 @@ defmodule LiveShadcn.UI.RadioGroup do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/RadioGroup/class/0" => "cn-radio-group w-full",
-    "jsx/RadioGroupItem/class/0" => "cn-radio-group-item group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
+    "jsx/RadioGroupItem/class/0" =>
+      "cn-radio-group-item group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
     "jsx/RadioGroupItem/class/1" => "cn-radio-group-indicator",
     "jsx/RadioGroupItem/class/2" => "cn-radio-group-indicator-icon"
   }

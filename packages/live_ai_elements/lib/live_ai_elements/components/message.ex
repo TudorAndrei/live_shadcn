@@ -19,11 +19,14 @@ defmodule LiveAiElements.Components.Message do
     "jsx/MessageBranchContent/class/0" => "grid gap-2 overflow-hidden [&>div]:pb-0",
     "jsx/MessageBranchContent/class/1" => "block",
     "jsx/MessageBranchContent/class/2" => "hidden",
-    "jsx/MessageBranchPage/class/0" => "border-none bg-transparent text-muted-foreground shadow-none",
-    "jsx/MessageBranchSelector/class/0" => "[&>*:not(:first-child)]:rounded-l-md [&>*:not(:last-child)]:rounded-r-md",
+    "jsx/MessageBranchPage/class/0" =>
+      "border-none bg-transparent text-muted-foreground shadow-none",
+    "jsx/MessageBranchSelector/class/0" =>
+      "[&>*:not(:first-child)]:rounded-l-md [&>*:not(:last-child)]:rounded-r-md",
     "jsx/MessageToolbar/class/0" => "mt-4 flex w-full items-center justify-between gap-4",
     "jsx/anonymous/class/0" => "size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
-    "port/class/0" => "is-user:dark flex w-fit min-w-0 max-w-full flex-col gap-2 overflow-hidden text-sm group-[.is-user]:ml-auto group-[.is-user]:rounded-lg group-[.is-user]:bg-secondary group-[.is-user]:px-4 group-[.is-user]:py-3 group-[.is-user]:text-foreground group-[.is-assistant]:text-foreground"
+    "port/class/0" =>
+      "is-user:dark flex w-fit min-w-0 max-w-full flex-col gap-2 overflow-hidden text-sm group-[.is-user]:ml-auto group-[.is-user]:rounded-lg group-[.is-user]:bg-secondary group-[.is-user]:px-4 group-[.is-user]:py-3 group-[.is-user]:text-foreground group-[.is-assistant]:text-foreground"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

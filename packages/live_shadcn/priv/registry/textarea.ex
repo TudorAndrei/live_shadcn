@@ -11,7 +11,8 @@ defmodule LiveShadcn.UI.Textarea do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/Textarea/class/0" => "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+    "jsx/Textarea/class/0" =>
+      "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

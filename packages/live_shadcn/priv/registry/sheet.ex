@@ -11,13 +11,15 @@ defmodule LiveShadcn.UI.Sheet do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/SheetContent/class/0" => "cn-sheet-content data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem]",
+    "jsx/SheetContent/class/0" =>
+      "cn-sheet-content data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem]",
     "jsx/SheetContent/class/1" => "cn-sheet-close",
     "jsx/SheetContent/class/2" => "sr-only",
     "jsx/SheetDescription/class/0" => "cn-sheet-description",
     "jsx/SheetFooter/class/0" => "cn-sheet-footer mt-auto flex flex-col",
     "jsx/SheetHeader/class/0" => "cn-sheet-header flex flex-col",
-    "jsx/SheetOverlay/class/0" => "cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
+    "jsx/SheetOverlay/class/0" =>
+      "cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
     "jsx/SheetTitle/class/0" => "cn-sheet-title cn-font-heading"
   }
   # live-shadcn: upstream facts end

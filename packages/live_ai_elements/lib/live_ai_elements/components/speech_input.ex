@@ -11,10 +11,13 @@ defmodule LiveAiElements.Components.SpeechInput do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/SpeechInput/class/0" => "relative inline-flex items-center justify-center",
-    "jsx/SpeechInput/class/1" => "absolute inset-0 animate-ping rounded-full border-2 border-red-400/30",
+    "jsx/SpeechInput/class/1" =>
+      "absolute inset-0 animate-ping rounded-full border-2 border-red-400/30",
     "jsx/SpeechInput/class/2" => "relative z-10 rounded-full transition-all duration-300",
-    "jsx/SpeechInput/class/3" => "bg-destructive text-white hover:bg-destructive/80 hover:text-white",
-    "jsx/SpeechInput/class/4" => "bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground",
+    "jsx/SpeechInput/class/3" =>
+      "bg-destructive text-white hover:bg-destructive/80 hover:text-white",
+    "jsx/SpeechInput/class/4" =>
+      "bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground",
     "jsx/SpeechInput/class/5" => "size-4"
   }
   # live-shadcn: upstream facts end

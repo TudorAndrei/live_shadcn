@@ -11,15 +11,21 @@ defmodule LiveShadcn.UI.NavigationMenu do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/NavigationMenu/class/0" => "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
-    "jsx/NavigationMenuContent/class/0" => "cn-navigation-menu-content data-ending-style:data-activation-direction=left:translate-x-[50%] data-ending-style:data-activation-direction=right:translate-x-[-50%] data-starting-style:data-activation-direction=left:translate-x-[-50%] data-starting-style:data-activation-direction=right:translate-x-[50%] h-full w-auto transition-[opacity,transform,translate] duration-[0.35s] data-ending-style:opacity-0 data-starting-style:opacity-0 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
+    "jsx/NavigationMenu/class/0" =>
+      "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
+    "jsx/NavigationMenuContent/class/0" =>
+      "cn-navigation-menu-content data-ending-style:data-activation-direction=left:translate-x-[50%] data-ending-style:data-activation-direction=right:translate-x-[-50%] data-starting-style:data-activation-direction=left:translate-x-[-50%] data-starting-style:data-activation-direction=right:translate-x-[50%] h-full w-auto transition-[opacity,transform,translate] duration-[0.35s] data-ending-style:opacity-0 data-starting-style:opacity-0 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
     "jsx/NavigationMenuItem/class/0" => "cn-navigation-menu-item relative",
-    "jsx/NavigationMenuList/class/0" => "cn-navigation-menu-list group flex flex-1 list-none items-center justify-center",
-    "jsx/NavigationMenuPositioner/class/0" => "cn-navigation-menu-positioner isolate z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-[0.35s] data-instant:transition-none",
-    "jsx/NavigationMenuPositioner/class/1" => "cn-navigation-menu-popup data-[ending-style]:easing-[ease] xs:w-(--popup-width) relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]",
+    "jsx/NavigationMenuList/class/0" =>
+      "cn-navigation-menu-list group flex flex-1 list-none items-center justify-center",
+    "jsx/NavigationMenuPositioner/class/0" =>
+      "cn-navigation-menu-positioner isolate z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-[0.35s] data-instant:transition-none",
+    "jsx/NavigationMenuPositioner/class/1" =>
+      "cn-navigation-menu-popup data-[ending-style]:easing-[ease] xs:w-(--popup-width) relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]",
     "jsx/NavigationMenuPositioner/class/2" => "relative size-full overflow-hidden",
     "jsx/NavigationMenuTrigger/class/1" => "cn-navigation-menu-trigger-icon",
-    "port/class/0" => "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none group"
+    "port/class/0" =>
+      "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none group"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

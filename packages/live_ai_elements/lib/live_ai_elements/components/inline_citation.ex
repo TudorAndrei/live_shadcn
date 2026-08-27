@@ -24,15 +24,19 @@ defmodule LiveAiElements.Components.InlineCitation do
     "jsx/CarouselItem/class/1" => "pl-4",
     "jsx/CarouselItem/class/2" => "pt-4",
     "jsx/InlineCitation/class/0" => "group inline items-center gap-1",
-    "jsx/InlineCitationCarouselHeader/class/0" => "flex items-center justify-between gap-2 rounded-t-md bg-secondary p-2",
-    "jsx/InlineCitationCarouselIndex/class/0" => "flex flex-1 items-center justify-end px-3 py-1 text-muted-foreground text-xs",
+    "jsx/InlineCitationCarouselHeader/class/0" =>
+      "flex items-center justify-between gap-2 rounded-t-md bg-secondary p-2",
+    "jsx/InlineCitationCarouselIndex/class/0" =>
+      "flex flex-1 items-center justify-end px-3 py-1 text-muted-foreground text-xs",
     "jsx/InlineCitationCarouselNext/class/0" => "shrink-0",
     "jsx/InlineCitationCarouselNext/class/1" => "size-4 text-muted-foreground",
-    "jsx/InlineCitationQuote/class/0" => "border-muted border-l-2 pl-3 text-muted-foreground text-sm italic",
+    "jsx/InlineCitationQuote/class/0" =>
+      "border-muted border-l-2 pl-3 text-muted-foreground text-sm italic",
     "jsx/InlineCitationSource/class/0" => "space-y-1",
     "jsx/InlineCitationSource/class/1" => "truncate font-medium text-sm leading-tight",
     "jsx/InlineCitationSource/class/2" => "truncate break-all text-muted-foreground text-xs",
-    "jsx/InlineCitationSource/class/3" => "line-clamp-3 text-muted-foreground text-sm leading-relaxed",
+    "jsx/InlineCitationSource/class/3" =>
+      "line-clamp-3 text-muted-foreground text-sm leading-relaxed",
     "jsx/InlineCitationText/class/0" => "transition-colors group-hover:bg-accent",
     "port/class/0" => "min-w-0 shrink-0 grow-0 basis-full w-full space-y-2 p-4 pl-8"
   }

@@ -10,7 +10,8 @@ defmodule LiveShadcn.UI.Label do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/Label/class/0" => "cn-label flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed"
+    "jsx/Label/class/0" =>
+      "cn-label flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

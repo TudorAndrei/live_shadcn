@@ -13,7 +13,8 @@ defmodule LiveShadcn.UI.Progress do
     "jsx/Progress/class/0" => "cn-progress-root flex flex-wrap gap-3",
     "jsx/ProgressIndicator/class/0" => "cn-progress-indicator h-full transition-all",
     "jsx/ProgressLabel/class/0" => "cn-progress-label",
-    "jsx/ProgressTrack/class/0" => "cn-progress-track relative flex w-full items-center overflow-x-hidden",
+    "jsx/ProgressTrack/class/0" =>
+      "cn-progress-track relative flex w-full items-center overflow-x-hidden",
     "jsx/ProgressValue/class/0" => "cn-progress-value"
   }
   # live-shadcn: upstream facts end

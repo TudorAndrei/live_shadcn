@@ -269,7 +269,7 @@
       }
     },
     "pass": true,
-    "spec": "772e459daefc04d42f1ed04d9b9aa0d026494fdf9cd36abb29f95aaeda5a9867"
+    "spec": "8391ed15d7554093f975c55f51032cc360be741d55335bf0f2902289f6207379"
   },
   "ai_elements/package-info": {
     "checks": {
@@ -516,7 +516,7 @@
       }
     },
     "pass": true,
-    "spec": "db274180520933052997360abf345a1a77b7a94220116fbbe2c56c90a68b339b"
+    "spec": "b583a1a9e1f2e9a1ff8a139c4e86ef84aac8a63f85779b6b8cb67d8811014bb3"
   },
   "ai_elements/image": {
     "checks": {
@@ -1492,7 +1492,7 @@
       }
     },
     "pass": true,
-    "spec": "446404186a4b0e7dc0ebec0879c6bfcf93e1ae86e5fb7781d83b0b8022945ea3"
+    "spec": "44096bfc4d0b4871e8df8c3b434ff63ffbf6dbd43cda166d339a6e2307b20418"
   },
   "shadcn/toast": {
     "checks": {
@@ -2102,7 +2102,7 @@
       }
     },
     "pass": true,
-    "spec": "34cff5fda507249c9eb2e7d58bea47027cf03de449e07d6c038099a296af7e2f"
+    "spec": "3f1e33526892711aad8296b86f76f752a829fe883d3b89ffe72be66eaa9548d9"
   },
   "shadcn/separator": {
     "checks": {

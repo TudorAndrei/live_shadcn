@@ -17,12 +17,16 @@ defmodule LiveShadcn.UI.Accordion do
   @upstream_facts %{
     "jsx/Accordion/class/0" => "cn-accordion flex w-full flex-col",
     "jsx/AccordionContent/class/0" => "cn-accordion-content overflow-hidden",
-    "jsx/AccordionContent/class/1" => "cn-accordion-content-inner h-(--accordion-panel-height) data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
+    "jsx/AccordionContent/class/1" =>
+      "cn-accordion-content-inner h-(--accordion-panel-height) data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
     "jsx/AccordionItem/class/0" => "cn-accordion-item",
     "jsx/AccordionTrigger/class/0" => "flex",
-    "jsx/AccordionTrigger/class/1" => "cn-accordion-trigger group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50",
-    "jsx/AccordionTrigger/class/2" => "cn-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden",
-    "jsx/AccordionTrigger/class/3" => "cn-accordion-trigger-icon pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
+    "jsx/AccordionTrigger/class/1" =>
+      "cn-accordion-trigger group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50",
+    "jsx/AccordionTrigger/class/2" =>
+      "cn-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden",
+    "jsx/AccordionTrigger/class/3" =>
+      "cn-accordion-trigger-icon pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

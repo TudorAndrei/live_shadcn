@@ -10,13 +10,17 @@ defmodule LiveAiElements.Components.Terminal do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/Terminal/class/0" => "flex flex-col overflow-hidden rounded-lg border bg-zinc-950 text-zinc-100",
+    "jsx/Terminal/class/0" =>
+      "flex flex-col overflow-hidden rounded-lg border bg-zinc-950 text-zinc-100",
     "jsx/Terminal/class/1" => "flex items-center gap-1",
-    "jsx/TerminalClearButton/class/0" => "size-7 shrink-0 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100",
-    "jsx/TerminalContent/class/0" => "max-h-96 overflow-auto p-4 font-mono text-sm leading-relaxed",
+    "jsx/TerminalClearButton/class/0" =>
+      "size-7 shrink-0 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100",
+    "jsx/TerminalContent/class/0" =>
+      "max-h-96 overflow-auto p-4 font-mono text-sm leading-relaxed",
     "jsx/TerminalContent/class/1" => "whitespace-pre-wrap break-words",
     "jsx/TerminalContent/class/2" => "ml-0.5 inline-block h-4 w-2 animate-pulse bg-zinc-100",
-    "jsx/TerminalHeader/class/0" => "flex items-center justify-between border-zinc-800 border-b px-4 py-2",
+    "jsx/TerminalHeader/class/0" =>
+      "flex items-center justify-between border-zinc-800 border-b px-4 py-2",
     "jsx/TerminalStatus/class/0" => "flex items-center gap-2 text-xs text-zinc-400",
     "jsx/TerminalTitle/class/0" => "flex items-center gap-2 text-sm text-zinc-400",
     "jsx/TerminalTitle/class/1" => "size-4"
@@ -131,7 +135,6 @@ defmodule LiveAiElements.Components.Terminal do
   def terminal_clear_button(assigns) do
     ~H"""
     <LiveShadcn.UI.Button.button
-      :if={true}
       size={@size}
       variant={@variant}
       class={[upstream_fact("jsx/TerminalClearButton/class/0"), @class]}
@@ -185,7 +188,7 @@ defmodule LiveAiElements.Components.Terminal do
             <.terminal_status is_streaming={@is_streaming} />
             <.terminal_actions>
               <.terminal_copy_button id={@id} output={@output} />
-              <.terminal_clear_button :if={true} />
+              <.terminal_clear_button />
             </.terminal_actions>
           </div>
         </.terminal_header>

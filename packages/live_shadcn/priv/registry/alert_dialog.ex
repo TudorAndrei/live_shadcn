@@ -11,9 +11,11 @@ defmodule LiveShadcn.UI.AlertDialog do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/AlertDialogContent/class/0" => "cn-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+    "jsx/AlertDialogContent/class/0" =>
+      "cn-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 outline-none",
     "jsx/AlertDialogDescription/class/0" => "cn-alert-dialog-description",
-    "jsx/AlertDialogFooter/class/0" => "cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
+    "jsx/AlertDialogFooter/class/0" =>
+      "cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
     "jsx/AlertDialogHeader/class/0" => "cn-alert-dialog-header",
     "jsx/AlertDialogOverlay/class/0" => "cn-alert-dialog-overlay fixed inset-0 isolate z-50",
     "jsx/AlertDialogTitle/class/0" => "cn-alert-dialog-title cn-font-heading"

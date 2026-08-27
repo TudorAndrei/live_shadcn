@@ -10,7 +10,8 @@ defmodule LiveAiElements.Components.Controls do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "port/class/0" => "gap-px overflow-hidden rounded-md border bg-card p-1 shadow-none! [&>button]:rounded-md [&>button]:border-none! [&>button]:bg-transparent! [&>button]:hover:bg-secondary!"
+    "port/class/0" =>
+      "gap-px overflow-hidden rounded-md border bg-card p-1 shadow-none! [&>button]:rounded-md [&>button]:border-none! [&>button]:bg-transparent! [&>button]:hover:bg-secondary!"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

@@ -17,18 +17,22 @@ defmodule LiveAiElements.Components.CodeBlock do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/CodeBlockActions/class/0" => "-my-1 -mr-1 flex items-center gap-2",
-    "jsx/CodeBlockContainer/class/0" => "group relative w-full overflow-hidden rounded-md border bg-background text-foreground",
+    "jsx/CodeBlockContainer/class/0" =>
+      "group relative w-full overflow-hidden rounded-md border bg-background text-foreground",
     "jsx/CodeBlockContent/class/0" => "relative overflow-auto",
     "jsx/CodeBlockCopyButton/class/0" => "shrink-0",
     "jsx/CodeBlockFilename/class/0" => "font-mono",
-    "jsx/CodeBlockHeader/class/0" => "flex items-center justify-between border-b bg-muted/80 px-3 py-2 text-muted-foreground text-xs",
+    "jsx/CodeBlockHeader/class/0" =>
+      "flex items-center justify-between border-b bg-muted/80 px-3 py-2 text-muted-foreground text-xs",
     "jsx/CodeBlockTitle/class/0" => "flex items-center gap-2",
     "jsx/TokenSpan/class/0" => "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)]",
     "jsx/anonymous/class/0" => "block",
-    "jsx/anonymous/class/10" => "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)] m-0 p-4 text-sm",
+    "jsx/anonymous/class/10" =>
+      "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)] m-0 p-4 text-sm",
     "jsx/anonymous/class/11" => "font-mono text-sm",
     "jsx/anonymous/class/12" => "[counter-increment:line_0] [counter-reset:line]",
-    "port/class/0" => "block before:content-[counter(line)] before:inline-block before:[counter-increment:line] before:w-8 before:mr-4 before:text-right before:text-muted-foreground/50 before:font-mono before:select-none"
+    "port/class/0" =>
+      "block before:content-[counter(line)] before:inline-block before:[counter-increment:line] before:w-8 before:mr-4 before:text-right before:text-muted-foreground/50 before:font-mono before:select-none"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

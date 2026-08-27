@@ -320,6 +320,26 @@ defmodule LiveShadcnTools.ConverterTest do
     assert diagnostic.kind == :fact_block
   end
 
+  test "the canonical fact block follows the Elixir formatter" do
+    long_class = String.duplicate("utility ", 20) |> String.trim()
+    source = String.replace(@source, "inline-flex px-2", long_class)
+    port = String.replace(@port, "inline-flex px-2", long_class)
+
+    assert {:updated, artifact, _changes} =
+             Converter.sync(%{
+               source: "shadcn",
+               name: "button",
+               files: %{"shadcn/ui/button.tsx" => source},
+               styles: %{},
+               base_ui: %{},
+               contract: nil,
+               port: port
+             })
+
+    assert artifact.port =~
+             "\"jsx/Button/class/0\" =>\n      \"#{long_class}\""
+  end
+
   test "a Base UI contract change needs manual review" do
     input = %{
       source: "shadcn",

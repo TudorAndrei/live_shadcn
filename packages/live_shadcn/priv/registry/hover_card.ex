@@ -12,7 +12,8 @@ defmodule LiveShadcn.UI.HoverCard do
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/HoverCardContent/class/0" => "isolate z-50",
-    "jsx/HoverCardContent/class/1" => "cn-hover-card-content cn-hover-card-content-logical z-50 origin-(--transform-origin) outline-hidden"
+    "jsx/HoverCardContent/class/1" =>
+      "cn-hover-card-content cn-hover-card-content-logical z-50 origin-(--transform-origin) outline-hidden"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

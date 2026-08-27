@@ -11,21 +11,28 @@ defmodule LiveShadcn.UI.InputGroup do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "cva/inputGroupAddonVariants/base" => "cn-input-group-addon flex cursor-text items-center justify-center select-none",
+    "cva/inputGroupAddonVariants/base" =>
+      "cn-input-group-addon flex cursor-text items-center justify-center select-none",
     "cva/inputGroupAddonVariants/default/align" => "inline-start",
-    "cva/inputGroupAddonVariants/variant/align/block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
-    "cva/inputGroupAddonVariants/variant/align/block-start" => "cn-input-group-addon-align-block-start order-first w-full justify-start",
-    "cva/inputGroupAddonVariants/variant/align/inline-end" => "cn-input-group-addon-align-inline-end order-last",
-    "cva/inputGroupAddonVariants/variant/align/inline-start" => "cn-input-group-addon-align-inline-start order-first",
+    "cva/inputGroupAddonVariants/variant/align/block-end" =>
+      "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/block-start" =>
+      "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end" =>
+      "cn-input-group-addon-align-inline-end order-last",
+    "cva/inputGroupAddonVariants/variant/align/inline-start" =>
+      "cn-input-group-addon-align-inline-start order-first",
     "cva/inputGroupButtonVariants/base" => "cn-input-group-button flex items-center shadow-none",
     "cva/inputGroupButtonVariants/default/size" => "xs",
     "cva/inputGroupButtonVariants/variant/size/icon-sm" => "cn-input-group-button-size-icon-sm",
     "cva/inputGroupButtonVariants/variant/size/icon-xs" => "cn-input-group-button-size-icon-xs",
     "cva/inputGroupButtonVariants/variant/size/sm" => "cn-input-group-button-size-sm",
     "cva/inputGroupButtonVariants/variant/size/xs" => "cn-input-group-button-size-xs",
-    "jsx/InputGroup/class/0" => "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
+    "jsx/InputGroup/class/0" =>
+      "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
     "jsx/InputGroupInput/class/0" => "cn-input-group-input flex-1",
-    "jsx/InputGroupText/class/0" => "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
+    "jsx/InputGroupText/class/0" =>
+      "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
     "jsx/InputGroupTextarea/class/0" => "cn-input-group-textarea flex-1 resize-none"
   }
   # live-shadcn: upstream facts end

@@ -12,11 +12,13 @@ defmodule LiveShadcn.UI.Dialog do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/DialogContent/class/0" => "cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+    "jsx/DialogContent/class/0" =>
+      "cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
     "jsx/DialogContent/class/1" => "cn-dialog-close",
     "jsx/DialogContent/class/2" => "sr-only",
     "jsx/DialogDescription/class/0" => "cn-dialog-description",
-    "jsx/DialogFooter/class/0" => "cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+    "jsx/DialogFooter/class/0" =>
+      "cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
     "jsx/DialogHeader/class/0" => "cn-dialog-header flex flex-col",
     "jsx/DialogOverlay/class/0" => "cn-dialog-overlay fixed inset-0 isolate z-50",
     "jsx/DialogTitle/class/0" => "cn-dialog-title cn-font-heading"

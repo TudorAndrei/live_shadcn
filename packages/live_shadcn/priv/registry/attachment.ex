@@ -10,23 +10,31 @@ defmodule LiveShadcn.UI.Attachment do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "cva/attachmentMediaVariants/base" => "cn-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive [&_svg]:pointer-events-none",
+    "cva/attachmentMediaVariants/base" =>
+      "cn-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive [&_svg]:pointer-events-none",
     "cva/attachmentMediaVariants/default/variant" => "icon",
     "cva/attachmentMediaVariants/variant/variant/icon" => "cn-attachment-media-variant-icon",
-    "cva/attachmentMediaVariants/variant/variant/image" => "cn-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover",
-    "cva/attachmentVariants/base" => "cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
-    "cva/attachmentVariants/variant/orientation/horizontal" => "cn-attachment-orientation-horizontal items-center",
-    "cva/attachmentVariants/variant/orientation/vertical" => "cn-attachment-orientation-vertical flex-col",
+    "cva/attachmentMediaVariants/variant/variant/image" =>
+      "cn-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover",
+    "cva/attachmentVariants/base" =>
+      "cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
+    "cva/attachmentVariants/variant/orientation/horizontal" =>
+      "cn-attachment-orientation-horizontal items-center",
+    "cva/attachmentVariants/variant/orientation/vertical" =>
+      "cn-attachment-orientation-vertical flex-col",
     "cva/attachmentVariants/variant/size/default" => "cn-attachment-size-default",
     "cva/attachmentVariants/variant/size/sm" => "cn-attachment-size-sm",
     "cva/attachmentVariants/variant/size/xs" => "cn-attachment-size-xs",
     "jsx/AttachmentAction/class/0" => "cn-attachment-action",
     "jsx/AttachmentActions/class/0" => "cn-attachment-actions flex shrink-0 items-center",
     "jsx/AttachmentContent/class/0" => "cn-attachment-content max-w-full min-w-0 flex-1",
-    "jsx/AttachmentGroup/class/0" => "cn-attachment-group flex min-w-0 scroll-fade-x snap-x snap-mandatory scrollbar-none overflow-x-auto overscroll-x-contain *:data-[slot=attachment]:flex-none *:data-[slot=attachment]:snap-start",
-    "jsx/AttachmentTitle/class/0" => "cn-attachment-title block max-w-full min-w-0 truncate group-data-[state=processing]/attachment:shimmer group-data-[state=uploading]/attachment:shimmer",
+    "jsx/AttachmentGroup/class/0" =>
+      "cn-attachment-group flex min-w-0 scroll-fade-x snap-x snap-mandatory scrollbar-none overflow-x-auto overscroll-x-contain *:data-[slot=attachment]:flex-none *:data-[slot=attachment]:snap-start",
+    "jsx/AttachmentTitle/class/0" =>
+      "cn-attachment-title block max-w-full min-w-0 truncate group-data-[state=processing]/attachment:shimmer group-data-[state=uploading]/attachment:shimmer",
     "jsx/AttachmentTrigger/class/0" => "cn-attachment-trigger absolute inset-0 z-10 outline-none",
-    "port/class/0" => "cn-attachment-description block min-w-0 truncate text-muted-foreground group-data-[state=error]/attachment:text-destructive/80 max-w-full"
+    "port/class/0" =>
+      "cn-attachment-description block min-w-0 truncate text-muted-foreground group-data-[state=error]/attachment:text-destructive/80 max-w-full"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

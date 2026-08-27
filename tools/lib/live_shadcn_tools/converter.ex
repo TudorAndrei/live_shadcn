@@ -528,9 +528,13 @@ defmodule LiveShadcnTools.Converter do
     entries =
       facts
       |> Enum.sort()
-      |> Enum.map_join(",\n", fn {key, value} -> "    #{inspect(key)} => #{inspect(value)}" end)
+      |> Enum.map_join(",\n", fn {key, value} -> "  #{inspect(key)} => #{inspect(value)}" end)
 
-    "  #{@start}\n  @upstream_facts %{\n#{entries}\n  }\n  #{@finish}"
+    "#{@start}\n@upstream_facts %{\n#{entries}\n}\n#{@finish}"
+    |> Code.format_string!(line_length: 96)
+    |> IO.iodata_to_binary()
+    |> String.split("\n")
+    |> Enum.map_join("\n", &("  " <> &1))
   end
 
   defp port_body(port, block) do

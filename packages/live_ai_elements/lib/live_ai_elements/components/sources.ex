@@ -19,7 +19,8 @@ defmodule LiveAiElements.Components.Sources do
     "jsx/Source/class/1" => "h-4 w-4",
     "jsx/Sources/class/0" => "not-prose mb-4 text-primary text-xs",
     "jsx/SourcesTrigger/class/1" => "font-medium",
-    "port/class/0" => "mt-3 flex w-fit flex-col gap-2 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in"
+    "port/class/0" =>
+      "mt-3 flex w-fit flex-col gap-2 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)

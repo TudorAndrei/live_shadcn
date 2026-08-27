@@ -10,7 +10,8 @@ defmodule LiveShadcn.UI.Button do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "cva/buttonVariants/base" => "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/buttonVariants/base" =>
+      "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "cva/buttonVariants/default/size" => "default",
     "cva/buttonVariants/default/variant" => "default",
     "cva/buttonVariants/variant/size/default" => "cn-button-size-default",

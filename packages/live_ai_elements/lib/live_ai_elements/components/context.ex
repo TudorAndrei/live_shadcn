@@ -19,7 +19,8 @@ defmodule LiveAiElements.Components.Context do
     "jsx/ContextCacheUsage/class/0" => "flex items-center justify-between text-xs",
     "jsx/ContextCacheUsage/class/1" => "text-muted-foreground",
     "jsx/ContextContentBody/class/0" => "w-full p-3",
-    "jsx/ContextContentFooter/class/0" => "flex w-full items-center justify-between gap-3 bg-secondary p-3 text-xs",
+    "jsx/ContextContentFooter/class/0" =>
+      "flex w-full items-center justify-between gap-3 bg-secondary p-3 text-xs",
     "jsx/ContextContentHeader/class/0" => "w-full space-y-2 p-3",
     "jsx/ContextContentHeader/class/1" => "flex items-center justify-between gap-3 text-xs",
     "jsx/ContextContentHeader/class/2" => "font-mono text-muted-foreground",

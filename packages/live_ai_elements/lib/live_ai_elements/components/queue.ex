@@ -16,9 +16,12 @@ defmodule LiveAiElements.Components.Queue do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "jsx/Queue/class/0" => "flex flex-col gap-2 rounded-xl border border-border bg-background px-3 pt-2 pb-2 shadow-xs",
-    "jsx/QueueItem/class/0" => "group flex flex-col gap-1 rounded-md px-3 py-1 text-sm transition-colors hover:bg-muted",
-    "jsx/QueueItemAction/class/0" => "size-auto rounded p-1 text-muted-foreground opacity-0 transition-opacity hover:bg-muted-foreground/10 hover:text-foreground group-hover:opacity-100",
+    "jsx/Queue/class/0" =>
+      "flex flex-col gap-2 rounded-xl border border-border bg-background px-3 pt-2 pb-2 shadow-xs",
+    "jsx/QueueItem/class/0" =>
+      "group flex flex-col gap-1 rounded-md px-3 py-1 text-sm transition-colors hover:bg-muted",
+    "jsx/QueueItemAction/class/0" =>
+      "size-auto rounded p-1 text-muted-foreground opacity-0 transition-opacity hover:bg-muted-foreground/10 hover:text-foreground group-hover:opacity-100",
     "jsx/QueueItemActions/class/0" => "flex gap-1",
     "jsx/QueueItemAttachment/class/0" => "mt-1 flex flex-wrap gap-2",
     "jsx/QueueItemContent/class/0" => "line-clamp-1 grow break-words",
@@ -26,7 +29,8 @@ defmodule LiveAiElements.Components.Queue do
     "jsx/QueueItemContent/class/2" => "text-muted-foreground",
     "jsx/QueueItemDescription/class/0" => "ml-6 text-xs",
     "jsx/QueueItemDescription/class/1" => "text-muted-foreground/40 line-through",
-    "jsx/QueueItemFile/class/0" => "flex items-center gap-1 rounded border bg-muted px-2 py-1 text-xs",
+    "jsx/QueueItemFile/class/0" =>
+      "flex items-center gap-1 rounded border bg-muted px-2 py-1 text-xs",
     "jsx/QueueItemFile/class/1" => "max-w-[100px] truncate",
     "jsx/QueueItemImage/class/0" => "h-8 w-8 rounded border object-cover",
     "jsx/QueueItemIndicator/class/0" => "mt-0.5 inline-block size-2.5 rounded-full border",
@@ -34,10 +38,14 @@ defmodule LiveAiElements.Components.Queue do
     "jsx/QueueItemIndicator/class/2" => "border-muted-foreground/50",
     "jsx/QueueList/class/1" => "max-h-40 pr-4",
     "jsx/QueueSectionLabel/class/0" => "flex items-center gap-2",
-    "jsx/QueueSectionLabel/class/1" => "size-4 transition-transform group-data-[state=closed]:-rotate-90",
-    "jsx/QueueSectionTrigger/class/0" => "group flex w-full items-center justify-between rounded-md bg-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted",
-    "jsx/ScrollArea/class/1" => "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
-    "jsx/ScrollBar/class/0" => "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
+    "jsx/QueueSectionLabel/class/1" =>
+      "size-4 transition-transform group-data-[state=closed]:-rotate-90",
+    "jsx/QueueSectionTrigger/class/0" =>
+      "group flex w-full items-center justify-between rounded-md bg-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted",
+    "jsx/ScrollArea/class/1" =>
+      "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
+    "jsx/ScrollBar/class/0" =>
+      "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
     "jsx/ScrollBar/class/1" => "cn-scroll-area-thumb relative flex-1 bg-border",
     "port/class/0" => "cn-scroll-area relative mt-2 -mb-1"
   }

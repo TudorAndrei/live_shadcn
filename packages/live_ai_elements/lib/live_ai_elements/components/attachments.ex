@@ -18,11 +18,13 @@ defmodule LiveAiElements.Components.Attachments do
   @upstream_facts %{
     "jsx/Attachment/class/0" => "group relative",
     "jsx/Attachment/class/1" => "size-24 overflow-hidden rounded-lg",
-    "jsx/AttachmentEmpty/class/0" => "flex items-center justify-center p-4 text-muted-foreground text-sm",
+    "jsx/AttachmentEmpty/class/0" =>
+      "flex items-center justify-center p-4 text-muted-foreground text-sm",
     "jsx/AttachmentInfo/class/0" => "min-w-0 flex-1",
     "jsx/AttachmentInfo/class/1" => "block truncate",
     "jsx/AttachmentInfo/class/2" => "block truncate text-muted-foreground text-xs",
-    "jsx/AttachmentPreview/class/0" => "flex shrink-0 items-center justify-center overflow-hidden",
+    "jsx/AttachmentPreview/class/0" =>
+      "flex shrink-0 items-center justify-center overflow-hidden",
     "jsx/AttachmentPreview/class/1" => "size-full bg-muted",
     "jsx/AttachmentPreview/class/2" => "size-5 rounded bg-background",
     "jsx/AttachmentPreview/class/3" => "size-12 rounded bg-muted",
@@ -31,10 +33,13 @@ defmodule LiveAiElements.Components.Attachments do
     "jsx/Attachments/class/1" => "flex-col gap-2",
     "jsx/Attachments/class/2" => "flex-wrap gap-2",
     "jsx/Attachments/class/3" => "ml-auto w-fit",
-    "port/class/0" => "absolute top-2 right-2 size-6 rounded-full p-0 bg-background/80 backdrop-blur-sm opacity-0 transition-opacity group-hover:opacity-100 hover:bg-background [&>svg]:size-3",
-    "port/class/1" => "flex h-8 cursor-pointer select-none items-center gap-1.5 rounded-md border border-border px-1.5 font-medium text-sm transition-all hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+    "port/class/0" =>
+      "absolute top-2 right-2 size-6 rounded-full p-0 bg-background/80 backdrop-blur-sm opacity-0 transition-opacity group-hover:opacity-100 hover:bg-background [&>svg]:size-3",
+    "port/class/1" =>
+      "flex h-8 cursor-pointer select-none items-center gap-1.5 rounded-md border border-border px-1.5 font-medium text-sm transition-all hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
     "port/class/2" => "flex w-full items-center gap-3 rounded-lg border p-3 hover:bg-accent/50",
-    "port/class/3" => "size-5 rounded p-0 opacity-0 transition-opacity group-hover:opacity-100 [&>svg]:size-2.5",
+    "port/class/3" =>
+      "size-5 rounded p-0 opacity-0 transition-opacity group-hover:opacity-100 [&>svg]:size-2.5",
     "port/class/4" => "size-8 shrink-0 rounded p-0 [&>svg]:size-4"
   }
   # live-shadcn: upstream facts end
@@ -156,7 +161,6 @@ defmodule LiveAiElements.Components.Attachments do
   def attachment_remove(assigns) do
     ~H"""
     <LiveShadcn.UI.Button.button
-      :if={true}
       aria-label={@label}
       type="button"
       size={@size}

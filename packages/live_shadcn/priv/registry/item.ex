@@ -10,12 +10,14 @@ defmodule LiveShadcn.UI.Item do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
-    "cva/itemMediaVariants/base" => "cn-item-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none",
+    "cva/itemMediaVariants/base" =>
+      "cn-item-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none",
     "cva/itemMediaVariants/default/variant" => "default",
     "cva/itemMediaVariants/variant/variant/default" => "cn-item-media-variant-default",
     "cva/itemMediaVariants/variant/variant/icon" => "cn-item-media-variant-icon",
     "cva/itemMediaVariants/variant/variant/image" => "cn-item-media-variant-image",
-    "cva/itemVariants/base" => "cn-item group/item flex w-full flex-wrap items-center transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors",
+    "cva/itemVariants/base" =>
+      "cn-item group/item flex w-full flex-wrap items-center transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors",
     "cva/itemVariants/default/size" => "default",
     "cva/itemVariants/default/variant" => "default",
     "cva/itemVariants/variant/size/default" => "cn-item-size-default",
@@ -25,8 +27,10 @@ defmodule LiveShadcn.UI.Item do
     "cva/itemVariants/variant/variant/muted" => "cn-item-variant-muted",
     "cva/itemVariants/variant/variant/outline" => "cn-item-variant-outline",
     "jsx/ItemActions/class/0" => "cn-item-actions flex items-center",
-    "jsx/ItemContent/class/0" => "cn-item-content flex flex-1 flex-col [&+[data-slot=item-content]]:flex-none",
-    "jsx/ItemDescription/class/0" => "cn-item-description line-clamp-2 font-normal [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+    "jsx/ItemContent/class/0" =>
+      "cn-item-content flex flex-1 flex-col [&+[data-slot=item-content]]:flex-none",
+    "jsx/ItemDescription/class/0" =>
+      "cn-item-description line-clamp-2 font-normal [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
     "jsx/ItemFooter/class/0" => "cn-item-footer flex basis-full items-center justify-between",
     "jsx/ItemGroup/class/0" => "cn-item-group group/item-group flex w-full flex-col",
     "jsx/ItemHeader/class/0" => "cn-item-header flex basis-full items-center justify-between",
