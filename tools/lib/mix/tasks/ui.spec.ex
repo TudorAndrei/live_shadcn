@@ -46,6 +46,7 @@ defmodule Mix.Tasks.Ui.Spec do
 
   import LiveShadcnTools
 
+  alias LiveShadcnTools.Converter
   alias LiveShadcnTools.Lucide
   alias LiveShadcnTools.Spec
   alias LiveShadcnTools.Style
@@ -259,24 +260,30 @@ defmodule Mix.Tasks.Ui.Spec do
           _absent -> pages
         end
 
-      spec =
-        Spec.build(name,
-          tsx: tsx,
-          module: name,
-          markdown: pages,
-          styles: styles,
-          lucide: lucide,
-          siblings: siblings(tsx, manifest, source),
-          source: source,
-          resolve: &resolve_spec/2,
-          recipe: recipe,
-          upstream: %{
-            "shadcn" => %{"file" => tsx_file, "sha256" => digest(tsx)},
-            "base_ui" => Map.new(pages, fn {mod, md} -> {mod, digest(md)} end)
-          }
-        )
+      case existing_contract(source, name) do
+        %{"schema_version" => 2} = contract ->
+          synchronize_port(source, name, contract, manifest, pages, styles, check?)
 
-      write_or_check(source, name, spec, check?)
+        _old_contract ->
+          spec =
+            Spec.build(name,
+              tsx: tsx,
+              module: name,
+              markdown: pages,
+              styles: styles,
+              lucide: lucide,
+              siblings: siblings(tsx, manifest, source),
+              source: source,
+              resolve: &resolve_spec/2,
+              recipe: recipe,
+              upstream: %{
+                "shadcn" => %{"file" => tsx_file, "sha256" => digest(tsx)},
+                "base_ui" => Map.new(pages, fn {mod, md} -> {mod, digest(md)} end)
+              }
+            )
+
+          write_or_check(source, name, spec, check?)
+      end
     end
   rescue
     error ->
@@ -331,6 +338,75 @@ defmodule Mix.Tasks.Ui.Spec do
         {:ok, File.read!(path)}
     end
   end
+
+  defp existing_contract(source, name) do
+    path = spec_path(source, name)
+    if File.exists?(path), do: read_json!(path)
+  end
+
+  defp synchronize_port(source_name, name, contract, manifest, pages, styles, check?) do
+    files =
+      contract["upstream"]
+      |> Map.keys()
+      |> Map.new(fn file ->
+        case source(manifest, file) do
+          {:ok, body} -> {file, body}
+          {state, _file} -> raise "#{file} is #{state}; run `mix ui.fetch`"
+        end
+      end)
+
+    port = module_path(source_name, name) |> File.read!()
+
+    input = %{
+      source: source_name,
+      name: name,
+      files: files,
+      styles: styles,
+      base_ui: pages,
+      contract: contract,
+      port: port
+    }
+
+    case Converter.sync(input) do
+      {:current, artifact} -> write_or_check_port(source_name, name, artifact, check?)
+      {:updated, artifact, _changes} -> write_or_check_port(source_name, name, artifact, check?)
+      {:manual, drift} -> raise "manual upstream drift: #{inspect(drift)}"
+      {:error, diagnostics} -> raise diagnostics_message(diagnostics)
+    end
+  end
+
+  defp write_or_check_port(source, name, artifact, check?) do
+    contract_path = spec_path(source, name)
+    port_path = module_path(source, name)
+
+    unchanged? =
+      File.read!(contract_path) == artifact.contract_json and
+        File.read!(port_path) == artifact.port
+
+    cond do
+      check? and unchanged? ->
+        {:current, ref(source, name)}
+
+      check? ->
+        {:outdated, ref(source, name)}
+
+      unchanged? ->
+        {:current, ref(source, name)}
+
+      true ->
+        write!(port_path, artifact.port)
+        write!(contract_path, artifact.contract_json)
+        {:wrote, ref(source, name)}
+    end
+  end
+
+  defp diagnostics_message(diagnostics) do
+    Enum.map_join(diagnostics, "\n", &diagnostic_message/1)
+  end
+
+  defp diagnostic_message(%{message: message}), do: message
+  defp diagnostic_message(%{"message" => message}), do: message
+  defp diagnostic_message(diagnostic), do: inspect(diagnostic)
 
   defp write_or_check(source, name, spec, check?) do
     path = spec_path(source, name)

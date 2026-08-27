@@ -77,6 +77,10 @@ function extract(path, source) {
       readCva(node.id.name, node.init);
     }
 
+    if (node.type === "CallExpression" && ["cn", "clsx"].includes(calleeName(node.callee))) {
+      node.arguments.forEach((argument) => readClassOutput(argument, owner ?? "anonymous"));
+    }
+
     if (node.type === "JSXAttribute" && jsxName(node.name) === "className") {
       readClass(node.value?.expression ?? node.value, owner ?? "anonymous");
     }
@@ -100,16 +104,22 @@ function extract(path, source) {
       return;
     }
 
-    if (node.type === "CallExpression" && ["cn", "clsx"].includes(calleeName(node.callee))) {
-      node.arguments.forEach((argument) => readClassOutput(argument));
-    }
   }
 
-  function readClassOutput(node) {
+  function readClassOutput(node, owner) {
     if (!node) return;
 
+    if (staticRawTemplate(node)) {
+      const index = classCounts.get(owner) ?? 0;
+      classCounts.set(owner, index + 1);
+      safeNodes.add(node);
+      facts[`jsx/${owner}/class/${index}`] = node.quasi.quasis[0].value.raw;
+      return;
+    }
+
     if (stringNode(node)) {
-      const owner = enclosingOwner(node) ?? "anonymous";
+      if (safeNodes.has(node)) return;
+
       const index = classCounts.get(owner) ?? 0;
       classCounts.set(owner, index + 1);
       safeNodes.add(node);
@@ -119,53 +129,20 @@ function extract(path, source) {
 
     switch (node.type) {
       case "ConditionalExpression":
-        readClassOutput(node.consequent);
-        readClassOutput(node.alternate);
+        readClassOutput(node.consequent, owner);
+        readClassOutput(node.alternate, owner);
         break;
       case "LogicalExpression":
-        readClassOutput(node.right);
+        readClassOutput(node.right, owner);
         break;
       case "ArrayExpression":
-        node.elements.forEach(readClassOutput);
+        node.elements.forEach((element) => readClassOutput(element, owner));
         break;
       case "CallExpression":
         if (["cn", "clsx"].includes(calleeName(node.callee))) {
-          node.arguments.forEach(readClassOutput);
+          node.arguments.forEach((argument) => readClassOutput(argument, owner));
         }
         break;
-    }
-  }
-
-  // The generic visitor does not expose parents. Find the owner by source
-  // order from the function ranges. This path runs only for literals nested in
-  // a class expression.
-  function enclosingOwner(node) {
-    let answer = null;
-
-    find(program, null);
-    return answer;
-
-    function find(current, owner) {
-      if (!current || typeof current !== "object") return;
-      if (current.type === "FunctionDeclaration" && current.id?.name) owner = current.id.name;
-
-      if (
-        current.type === "VariableDeclarator" &&
-        current.id?.type === "Identifier" &&
-        isFunction(current.init)
-      ) {
-        owner = current.id.name;
-      }
-
-      if (current === node) answer = owner;
-      if (answer) return;
-
-      for (const key of visitorKeys[current.type] ?? []) {
-        const child = current[key];
-
-        if (Array.isArray(child)) child.forEach((item) => find(item, owner));
-        else find(child, owner);
-      }
     }
   }
 
@@ -254,4 +231,15 @@ function propertyName(property) {
 
 function propertyValue(object, name) {
   return objectProperties(object).find((item) => propertyName(item) === name)?.value;
+}
+
+function staticRawTemplate(node) {
+  return (
+    node?.type === "TaggedTemplateExpression" &&
+    node.tag?.type === "MemberExpression" &&
+    node.tag.object?.name === "String" &&
+    node.tag.property?.name === "raw" &&
+    node.quasi?.expressions?.length === 0 &&
+    node.quasi?.quasis?.length === 1
+  );
 }

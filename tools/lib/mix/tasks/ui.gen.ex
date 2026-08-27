@@ -27,6 +27,7 @@ defmodule Mix.Tasks.Ui.Gen do
 
   import LiveShadcnTools
 
+  alias LiveShadcnTools.Converter
   alias LiveShadcnTools.Gen
 
   @namespaces %{"shadcn" => LiveShadcn.UI, "ai_elements" => LiveAiElements.Components}
@@ -79,14 +80,24 @@ defmodule Mix.Tasks.Ui.Gen do
   defp one(path, check?) do
     spec = read_json!(path)
     %{"name" => name, "source" => source} = spec
-    namespace = Map.fetch!(@namespaces, source)
 
-    case Gen.module(spec, module: Gen.module_name(namespace, name), resolve: &resolve_spec/2) do
-      {:error, recipe} ->
-        {:no_recipe, ref(source, name), recipe}
+    if spec["schema_version"] == 2 do
+      port = module_path(source, name) |> File.read!()
 
-      {:ok, rendered} ->
-        write_or_check(source, name, rendered, check?)
+      case Converter.sync(%{mode: :offline, contract: spec, port: port}) do
+        {:current, artifact} -> write_or_check(source, name, artifact.port, check?)
+        {:error, diagnostics} -> raise diagnostics_message(diagnostics)
+      end
+    else
+      namespace = Map.fetch!(@namespaces, source)
+
+      case Gen.module(spec, module: Gen.module_name(namespace, name), resolve: &resolve_spec/2) do
+        {:error, recipe} ->
+          {:no_recipe, ref(source, name), recipe}
+
+        {:ok, rendered} ->
+          write_or_check(source, name, rendered, check?)
+      end
     end
   rescue
     error ->
@@ -215,6 +226,14 @@ defmodule Mix.Tasks.Ui.Gen do
 
   defp first_line(error),
     do: error |> Exception.message() |> String.split("\n") |> Enum.find(&(String.trim(&1) != ""))
+
+  defp diagnostics_message(diagnostics) do
+    Enum.map_join(diagnostics, "\n", &diagnostic_message/1)
+  end
+
+  defp diagnostic_message(%{message: message}), do: message
+  defp diagnostic_message(%{"message" => message}), do: message
+  defp diagnostic_message(diagnostic), do: inspect(diagnostic)
 
   # The rendered source travels with the result, because the pass that refuses a
   # component calling a sibling that did not generate has to read what this run

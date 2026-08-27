@@ -218,6 +218,10 @@ goal.
 - Measure the new production code. Stop if it breaks the 1,650-line limit or
   needs JavaScript expression translation.
 
+Pilot result: the new path has 1,160 production lines when the temporary
+migration helper and dual-route additions are included. The converter uses two
+small class composition operations. It does not use a general expression IR.
+
 **Commit:** `refactor(registry): prove fact-backed ports on three modules`
 
 ### Phase 3: migrate all verified ports
@@ -307,9 +311,9 @@ goal.
 
 No user decision blocks phase 1.
 
-- The pilot must show whether one fact block can cover the specialist calendar
-  without adding component-specific converter rules. If it cannot, stop and
-  revise the design.
+- The pilot showed that one fact block can cover the specialist calendar. The
+  component-specific binding manifest stays in the temporary migration helper,
+  and the converter has no calendar rule.
 - The first version treats `data-slot` and static attributes as manual drift.
   Add them to the safe set only after the complete migration, and only if the
   change removes more code than it adds.

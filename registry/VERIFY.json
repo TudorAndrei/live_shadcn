@@ -1028,7 +1028,7 @@
       }
     },
     "pass": true,
-    "spec": "13aad082f67b946625b769ba833e36e4c4ffc264d421f7e43636887f77539225"
+    "spec": "3edd545ff113a35e965cb6a684e22bc062378ac995b6d90a380175019c853b71"
   },
   "ai_elements/test-results": {
     "checks": {
@@ -1166,7 +1166,7 @@
       }
     },
     "pass": true,
-    "spec": "fdaba5682027d887e869d5bffe1002cdfb4a6d663d7c937ab226bd983bf3c894"
+    "spec": "5e0615394c7ea46f37e5c2b2f329202c27c375c4dcd501f414b65384f8c6d51b"
   },
   "shadcn/accordion": {
     "checks": {
@@ -2416,7 +2416,7 @@
       }
     },
     "pass": true,
-    "spec": "a91d54dc7b50d0af132a4f1f90cb8c52ecad6f2ca2719576d017a3f2b6569c32"
+    "spec": "a7283546ad1ae8275588c737dc82c3dd539efea6efbbd8b335f85269fa61107b"
   },
   "shadcn/kbd": {
     "checks": {

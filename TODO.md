@@ -22,28 +22,28 @@ and make its listed commit before work starts on the next phase.
 
 ## Phase 2: prove the contract with three ports
 
-- [ ] Add temporary version routing to `Mix.Tasks.Ui.Spec` and
+- [x] Add temporary version routing to `Mix.Tasks.Ui.Spec` and
       `Mix.Tasks.Ui.Gen`.
-- [ ] Add a checked migration helper for old specs and generated modules.
-- [ ] Convert `registry/spec/shadcn/button.json` and
+- [x] Add a checked migration helper for old specs and generated modules.
+- [x] Convert `registry/spec/shadcn/button.json` and
       `packages/live_shadcn/priv/registry/button.ex`.
-- [ ] Convert `registry/spec/shadcn/dialog.json` and
+- [x] Convert `registry/spec/shadcn/dialog.json` and
       `packages/live_shadcn/priv/registry/dialog.ex`.
-- [ ] Convert `registry/spec/shadcn/calendar.json` and
+- [x] Convert `registry/spec/shadcn/calendar.json` and
       `packages/live_shadcn/priv/registry/calendar.ex`.
-- [ ] Verify that class text, class order, CVA defaults, and CVA values do not
+- [x] Verify that class text, class order, CVA defaults, and CVA values do not
       change.
-- [ ] Verify that all three ports keep their compile-time `attr` and `slot`
+- [x] Verify that all three ports keep their compile-time `attr` and `slot`
       declarations.
-- [ ] Run `cd tools && mix test`.
-- [ ] Run `cd tools && mix ui.gen --check button dialog calendar`.
-- [ ] Run `cd packages/live_shadcn && mix test`.
-- [ ] Run `cd storybook && mix snapshot --check button dialog calendar`.
-- [ ] Run the browser, accessibility, React parity, and pixel checks for
+- [x] Run `cd tools && mix test`.
+- [x] Run `cd tools && mix ui.gen --check button dialog calendar`.
+- [x] Run `cd packages/live_shadcn && mix test`.
+- [x] Run `cd storybook && mix snapshot --check button dialog calendar`.
+- [x] Run the browser, accessibility, React parity, and pixel checks for
       `button`, `dialog`, and `calendar`.
-- [ ] Count the new production lines. Stop if the count is above 1,650 or if the
+- [x] Count the new production lines. Stop if the count is above 1,650 or if the
       converter needs a general expression IR.
-- [ ] Commit: `refactor(registry): prove fact-backed ports on three modules`
+- [x] Commit: `refactor(registry): prove fact-backed ports on three modules`
 
 ## Phase 3: migrate all verified ports
 
@@ -158,8 +158,8 @@ and make its listed commit before work starts on the next phase.
 
 ## Review
 
-- [ ] Review the converter interface and version 2 contract before phase 2.
-- [ ] Review the `button`, `dialog`, and `calendar` diff before phase 3.
+- [x] Review the converter interface and version 2 contract before phase 2.
+- [x] Review the `button`, `dialog`, and `calendar` diff before phase 3.
 - [ ] Update `PLAN.md` and `TODO.md` before work continues if the design changes.
 - [ ] Complete and commit each phase before the next phase starts.
 - [ ] Check that every phase commit uses the exact conventional commit message

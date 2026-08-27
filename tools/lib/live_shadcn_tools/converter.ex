@@ -9,6 +9,8 @@ defmodule LiveShadcnTools.Converter do
 
   import LiveShadcnTools, only: [digest: 1, repo_root: 0]
 
+  alias LiveShadcnTools.TwMerge
+
   @start "# live-shadcn: upstream facts start"
   @finish "# live-shadcn: upstream facts end"
 
@@ -26,17 +28,38 @@ defmodule LiveShadcnTools.Converter do
 
   def sync(input) do
     with {:ok, extracted} <- extract(Map.fetch!(input, :files)),
+         bindings = bindings(input, extracted.facts),
+         ignored = ignored(input),
+         uses = uses(input),
+         {:ok, facts} <- bind(extracted.facts, bindings, ignored),
          {:ok, block} <- fact_block(Map.fetch!(input, :port)),
-         :ok <- same_fact_keys(block.facts, extracted.facts, Map.get(input, :contract)),
+         :ok <- same_fact_keys(block.facts, facts, Map.get(input, :contract)),
          :ok <- same_structure(Map.get(input, :contract), extracted.file_fingerprints),
          base_ui = digest_entries(Map.get(input, :base_ui, %{})),
          :ok <- same_base_ui(Map.get(input, :contract), base_ui),
-         styles = digest_entries(Map.get(input, :styles, %{})),
-         class_sources = [extracted.facts, Map.get(input, :styles, %{})],
+         style_facts = relevant_styles(Map.get(input, :styles, %{}), facts),
+         styles = digest_entries(style_facts),
+         class_sources = [facts, style_facts],
          reads = state_reads(class_sources),
          :ok <- same_state_reads(Map.get(input, :contract), reads) do
-      contract = contract(input, extracted, block, reads, base_ui, styles, class_sources)
-      port = replace_block(input.port, block, render_block(extracted.facts))
+      contract =
+        contract(
+          input,
+          extracted,
+          block,
+          %{
+            facts: facts,
+            bindings: bindings,
+            ignored: ignored,
+            uses: uses,
+            reads: reads,
+            base_ui: base_ui,
+            styles: styles,
+            class_sources: class_sources
+          }
+        )
+
+      port = replace_block(input.port, block, render_block(facts))
       artifact = artifact(contract, port)
 
       case Map.get(input, :contract) do
@@ -49,13 +72,105 @@ defmodule LiveShadcnTools.Converter do
 
         current ->
           changes =
-            fact_changes(Map.get(current, "facts", %{}), extracted.facts) ++
+            fact_changes(Map.get(current, "facts", %{}), facts) ++
               port_changes(current, contract)
 
           {:updated, artifact, changes}
       end
     end
   end
+
+  defp bindings(%{contract: %{} = contract}, _source_facts),
+    do: Map.fetch!(contract, "bindings")
+
+  defp bindings(input, source_facts) do
+    Map.get(input, :bindings) ||
+      %{
+        "copy" => default_copy_bindings(source_facts),
+        "derived" => %{}
+      }
+  end
+
+  defp default_copy_bindings(source_facts) do
+    source_facts
+    |> Map.keys()
+    |> Enum.map(fn key ->
+      case String.split(key, "/", parts: 3) do
+        ["cva", binding, _rest] -> "cva/#{binding}/*"
+        _other -> key
+      end
+    end)
+    |> Enum.uniq()
+    |> Enum.sort()
+  end
+
+  defp ignored(%{contract: %{} = contract}), do: Map.get(contract, "ignored", %{})
+  defp ignored(input), do: Map.get(input, :ignored, %{})
+
+  defp uses(%{contract: %{} = contract}), do: Map.get(contract, "uses", [])
+  defp uses(input), do: Map.get(input, :uses, [])
+
+  defp bind(source, bindings, ignored) do
+    copy = Map.get(bindings, "copy", [])
+    derived = Map.get(bindings, "derived", %{})
+    used = MapSet.new(copy ++ derived_sources(derived) ++ Map.keys(ignored))
+
+    uncovered =
+      source
+      |> Map.keys()
+      |> Enum.reject(&covered?(&1, used))
+      |> Enum.sort()
+
+    if uncovered == [] do
+      copied =
+        source
+        |> Enum.filter(fn {key, _value} -> Enum.any?(copy, &matches?(&1, key)) end)
+        |> Map.new()
+
+      calculated =
+        Map.new(derived, fn {key, expression} -> {key, evaluate(expression, source)} end)
+
+      {:ok, Map.merge(copied, calculated)}
+    else
+      {:error,
+       [
+         %{
+           "message" =>
+             "upstream facts need a binding or ignored reason: #{Enum.join(uncovered, ", ")}"
+         }
+       ]}
+    end
+  end
+
+  defp derived_sources(derived) do
+    derived
+    |> Map.values()
+    |> Enum.flat_map(&expression_sources/1)
+  end
+
+  defp expression_sources(%{"fact" => key}), do: [key]
+  defp expression_sources(%{"items" => items}), do: Enum.flat_map(items, &expression_sources/1)
+  defp expression_sources(_expression), do: []
+
+  defp covered?(key, patterns), do: Enum.any?(patterns, &matches?(&1, key))
+  defp matches?(pattern, key) when pattern == key, do: true
+
+  defp matches?(pattern, key) do
+    if String.ends_with?(pattern, "/*") do
+      String.starts_with?(key, String.trim_trailing(pattern, "*"))
+    else
+      false
+    end
+  end
+
+  defp evaluate(%{"fact" => key}, source), do: Map.fetch!(source, key)
+  defp evaluate(%{"literal" => value}, _source), do: value
+
+  defp evaluate(%{"op" => "join", "items" => items}, source),
+    do: items |> Enum.map(&evaluate(&1, source)) |> Enum.reject(&(&1 == "")) |> Enum.join(" ")
+
+  defp evaluate(%{"op" => "tw_merge", "items" => items}, source),
+    do: items |> Enum.map(&evaluate(&1, source)) |> TwMerge.merge()
 
   defp fact_changes(previous, current) do
     (Map.keys(previous) ++ Map.keys(current))
@@ -94,7 +209,7 @@ defmodule LiveShadcnTools.Converter do
       else: {:error, [%{kind: :port_body, message: "the port body does not match its contract"}]}
   end
 
-  defp contract(input, extracted, block, reads, base_ui, styles, class_sources) do
+  defp contract(input, extracted, block, data) do
     %{
       "schema_version" => 2,
       "source" => Map.fetch!(input, :source),
@@ -106,11 +221,15 @@ defmodule LiveShadcnTools.Converter do
         |> Map.new(fn {path, source} -> {path, digest(source)} end),
       "fingerprint" => extracted.fingerprint,
       "file_fingerprints" => extracted.file_fingerprints,
-      "facts" => extracted.facts,
-      "state_reads" => reads,
-      "css_vars" => css_vars(class_sources),
-      "base_ui" => base_ui,
-      "styles" => styles,
+      "source_facts" => extracted.facts,
+      "facts" => data.facts,
+      "bindings" => data.bindings,
+      "ignored" => data.ignored,
+      "uses" => data.uses,
+      "state_reads" => data.reads,
+      "css_vars" => css_vars(data.class_sources),
+      "base_ui" => data.base_ui,
+      "styles" => data.styles,
       "port_body" => digest(port_body(input.port, block))
     }
   end
@@ -207,6 +326,22 @@ defmodule LiveShadcnTools.Converter do
     entries
     |> Enum.sort()
     |> Map.new(fn {key, value} -> {key, digest(:erlang.term_to_binary(value))} end)
+  end
+
+  defp relevant_styles(styles, facts) do
+    classes =
+      facts
+      |> Map.values()
+      |> Enum.filter(&is_binary/1)
+      |> Enum.flat_map(&String.split/1)
+      |> Enum.filter(&String.starts_with?(&1, "cn-"))
+      |> MapSet.new()
+      |> MapSet.to_list()
+
+    styles
+    |> Enum.map(fn {style, rules} -> {style, Map.take(rules, classes)} end)
+    |> Enum.reject(fn {_style, rules} -> rules == %{} end)
+    |> Map.new()
   end
 
   defp state_reads(values) do
@@ -349,6 +484,7 @@ defmodule LiveShadcnTools.Converter do
     end)
   end
 
+  defp same_fact_keys(port, _source, nil) when map_size(port) == 0, do: :ok
   defp same_fact_keys(port, source, nil), do: compare_fact_keys(port, source, "source")
 
   defp same_fact_keys(port, _source, contract),

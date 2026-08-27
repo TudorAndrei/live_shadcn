@@ -1,340 +1,417 @@
 {
-  "anatomy": [],
-  "classes": {
-    "button_next": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-button-variant-ghost size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_next",
-    "button_previous": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-button-variant-ghost size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_previous",
-    "caption_label": "font-medium select-none cn-calendar-caption text-sm rdp-caption_label",
-    "chevrons": {
-      "chevron-down": "size-4 rdp-chevron",
-      "chevron-left": "cn-rtl-flip size-4 rdp-chevron",
-      "chevron-right": "cn-rtl-flip size-4 rdp-chevron"
-    },
-    "day": "group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius) [&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius) rdp-day",
-    "day_button": "cn-button group/button shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-icon cn-button-variant-ghost cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70 rdp-day_button",
-    "disabled": "text-muted-foreground opacity-50 rdp-disabled",
-    "dropdown": "absolute inset-0 bg-popover opacity-0 rdp-dropdown",
-    "dropdown_root": "cn-calendar-dropdown-root relative rounded-(--cell-radius) rdp-dropdown_root",
-    "dropdowns": "flex h-(--cell-size) w-full items-center justify-center gap-1.5 text-sm font-medium rdp-dropdowns",
-    "hidden": "invisible rdp-hidden",
-    "month": "flex w-full flex-col gap-4 rdp-month",
-    "month_caption": "flex h-(--cell-size) w-full items-center justify-center px-(--cell-size) rdp-month_caption",
-    "month_grid": "w-full border-collapse rdp-month_grid",
-    "months": "relative flex flex-col gap-4 md:flex-row rdp-months",
-    "nav": "absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1 rdp-nav",
-    "outside": "text-muted-foreground aria-selected:text-muted-foreground rdp-outside",
-    "range_end": "relative isolate z-0 rounded-r-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-muted rdp-range_end",
-    "range_middle": "rounded-none rdp-range_middle",
-    "range_start": "relative isolate z-0 rounded-l-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-muted rdp-range_start",
-    "root": "w-fit rdp-root cn-calendar group/calendar bg-background in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent rtl:**:[.rdp-button\\_next>svg]:rotate-180 rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
-    "today": "rounded-(--cell-radius) bg-muted text-foreground data-[selected=true]:rounded-none rdp-today",
-    "week": "mt-2 flex w-full rdp-week",
-    "week_number": "text-[0.8rem] text-muted-foreground select-none rdp-week_number",
-    "week_number_header": "w-(--cell-size) select-none rdp-week_number_header",
-    "weekday": "flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none rdp-weekday",
-    "weekdays": "flex rdp-weekdays"
+  "base_ui": {},
+  "bindings": {
+    "copy": [],
+    "derived": {
+      "port/calendar/button_next": {
+        "items": [
+          {
+            "fact": "cva/buttonVariants/base"
+          },
+          {
+            "fact": "cva/buttonVariants/variant/size/default"
+          },
+          {
+            "fact": "cva/buttonVariants/variant/variant/ghost"
+          },
+          {
+            "fact": "jsx/Calendar/class/8"
+          },
+          {
+            "literal": "rdp-button_next"
+          }
+        ],
+        "op": "tw_merge"
+      },
+      "port/calendar/button_previous": {
+        "items": [
+          {
+            "fact": "cva/buttonVariants/base"
+          },
+          {
+            "fact": "cva/buttonVariants/variant/size/default"
+          },
+          {
+            "fact": "cva/buttonVariants/variant/variant/ghost"
+          },
+          {
+            "fact": "jsx/Calendar/class/7"
+          },
+          {
+            "literal": "rdp-button_previous"
+          }
+        ],
+        "op": "tw_merge"
+      },
+      "port/calendar/caption_label": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/13"
+          },
+          {
+            "fact": "jsx/Calendar/class/14"
+          },
+          {
+            "literal": "rdp-caption_label"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/chevron_left": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/32"
+          },
+          {
+            "literal": "rdp-chevron"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/chevron_right": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/33"
+          },
+          {
+            "literal": "rdp-chevron"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/day": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/22"
+          },
+          {
+            "fact": "jsx/Calendar/class/24"
+          },
+          {
+            "literal": "rdp-day"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/day_button": {
+        "items": [
+          {
+            "fact": "cva/buttonVariants/base"
+          },
+          {
+            "fact": "cva/buttonVariants/variant/size/icon"
+          },
+          {
+            "fact": "cva/buttonVariants/variant/variant/ghost"
+          },
+          {
+            "fact": "jsx/CalendarDayButton/class/0"
+          },
+          {
+            "literal": "rdp-day_button"
+          }
+        ],
+        "op": "tw_merge"
+      },
+      "port/calendar/month": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/5"
+          },
+          {
+            "literal": "rdp-month"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/month_caption": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/9"
+          },
+          {
+            "literal": "rdp-month_caption"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/month_grid": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/16"
+          },
+          {
+            "literal": "rdp-month_grid"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/months": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/4"
+          },
+          {
+            "literal": "rdp-months"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/nav": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/6"
+          },
+          {
+            "literal": "rdp-nav"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/outside": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/29"
+          },
+          {
+            "literal": "rdp-outside"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/root": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/3"
+          },
+          {
+            "literal": "rdp-root"
+          },
+          {
+            "fact": "jsx/Calendar/class/0"
+          },
+          {
+            "fact": "jsx/Calendar/class/1"
+          },
+          {
+            "fact": "jsx/Calendar/class/2"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/week": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/19"
+          },
+          {
+            "literal": "rdp-week"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/weekday": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/18"
+          },
+          {
+            "literal": "rdp-weekday"
+          }
+        ],
+        "op": "join"
+      },
+      "port/calendar/weekdays": {
+        "items": [
+          {
+            "fact": "jsx/Calendar/class/17"
+          },
+          {
+            "literal": "rdp-weekdays"
+          }
+        ],
+        "op": "join"
+      }
+    }
   },
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "css_vars": [
+    "--cell-radius",
+    "--cell-size",
+    "--radius-2xl",
+    "--radius-4xl",
+    "--radius-md"
+  ],
+  "facts": {
+    "port/calendar/button_next": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-button-variant-ghost size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_next",
+    "port/calendar/button_previous": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-button-variant-ghost size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_previous",
+    "port/calendar/caption_label": "font-medium select-none cn-calendar-caption text-sm rdp-caption_label",
+    "port/calendar/chevron_left": "cn-rtl-flip size-4 rdp-chevron",
+    "port/calendar/chevron_right": "cn-rtl-flip size-4 rdp-chevron",
+    "port/calendar/day": "group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius) [&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius) rdp-day",
+    "port/calendar/day_button": "cn-button group/button shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-icon cn-button-variant-ghost cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70 rdp-day_button",
+    "port/calendar/month": "flex w-full flex-col gap-4 rdp-month",
+    "port/calendar/month_caption": "flex h-(--cell-size) w-full items-center justify-center px-(--cell-size) rdp-month_caption",
+    "port/calendar/month_grid": "w-full border-collapse rdp-month_grid",
+    "port/calendar/months": "relative flex flex-col gap-4 md:flex-row rdp-months",
+    "port/calendar/nav": "absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1 rdp-nav",
+    "port/calendar/outside": "text-muted-foreground aria-selected:text-muted-foreground rdp-outside",
+    "port/calendar/root": "w-fit rdp-root cn-calendar group/calendar bg-background in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent rtl:**:[.rdp-button\\_next>svg]:rotate-180 rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
+    "port/calendar/week": "mt-2 flex w-full rdp-week",
+    "port/calendar/weekday": "flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none rdp-weekday",
+    "port/calendar/weekdays": "flex rdp-weekdays"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/button.tsx": "0c911259d9cce5dfd13cf06dd8ead680b5a3b67761bc27486503ead411968509",
+    "shadcn/ui/calendar.tsx": "9974bed4006dfc781145a6ac08543989c1fe998b6fbced9bf9208f3e6ac40a73"
+  },
+  "fingerprint": "d93dfef8bd4ddd169a0ca41d8fa3a29ed38a639b734dc4427c958a8e5adcfbd5",
+  "ignored": {
+    "cva/buttonVariants/default/size": "the reviewed month grid does not render it",
+    "cva/buttonVariants/default/variant": "the reviewed month grid does not render it",
+    "cva/buttonVariants/variant/size/icon-lg": "the reviewed month grid does not render it",
+    "cva/buttonVariants/variant/size/icon-sm": "the reviewed month grid does not render it",
+    "cva/buttonVariants/variant/size/icon-xs": "the reviewed month grid does not render it",
+    "cva/buttonVariants/variant/size/lg": "the reviewed month grid does not render it",
+    "cva/buttonVariants/variant/size/sm": "the reviewed month grid does not render it",
+    "cva/buttonVariants/variant/size/xs": "the reviewed month grid does not render it",
+    "cva/buttonVariants/variant/variant/default": "the reviewed month grid does not render it",
+    "cva/buttonVariants/variant/variant/destructive": "the reviewed month grid does not render it",
+    "cva/buttonVariants/variant/variant/link": "the reviewed month grid does not render it",
+    "cva/buttonVariants/variant/variant/outline": "the reviewed month grid does not render it",
+    "cva/buttonVariants/variant/variant/secondary": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/10": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/11": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/12": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/15": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/20": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/21": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/23": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/25": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/26": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/27": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/28": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/30": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/31": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/34": "the reviewed month grid does not render it",
+    "jsx/Calendar/class/35": "the reviewed month grid does not render it"
+  },
   "name": "calendar",
-  "parts": [
+  "port_body": "5d77cb5816633d2644649b17f4986f81e25df757f55d15be9cbe5f1e4b6ee684",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/Calendar/class/12": "absolute inset-0 bg-popover opacity-0",
+    "jsx/Calendar/class/8": "size-(--cell-size) p-0 select-none aria-disabled:opacity-50",
+    "jsx/Calendar/class/15": "cn-calendar-caption-label flex items-center gap-1 rounded-(--cell-radius) text-sm [&>svg]:size-3.5 [&>svg]:text-muted-foreground",
+    "jsx/Calendar/class/7": "size-(--cell-size) p-0 select-none aria-disabled:opacity-50",
+    "cva/buttonVariants/variant/variant/destructive": "cn-button-variant-destructive",
+    "jsx/CalendarDayButton/class/0": "cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70",
+    "jsx/Calendar/class/35": "flex size-(--cell-size) items-center justify-center text-center",
+    "jsx/Calendar/class/5": "flex w-full flex-col gap-4",
+    "cva/buttonVariants/variant/size/default": "cn-button-size-default",
+    "jsx/Calendar/class/31": "invisible",
+    "jsx/Calendar/class/2": "rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
+    "jsx/Calendar/class/18": "flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none",
+    "jsx/Calendar/class/4": "relative flex flex-col gap-4 md:flex-row",
+    "jsx/Calendar/class/1": "rtl:**:[.rdp-button\\_next>svg]:rotate-180",
+    "cva/buttonVariants/variant/variant/outline": "cn-button-variant-outline",
+    "cva/buttonVariants/variant/size/sm": "cn-button-size-sm",
+    "jsx/Calendar/class/11": "cn-calendar-dropdown-root relative rounded-(--cell-radius)",
+    "jsx/Calendar/class/27": "relative isolate z-0 rounded-r-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-muted",
+    "cva/buttonVariants/base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/Calendar/class/16": "w-full border-collapse",
+    "cva/buttonVariants/variant/variant/link": "cn-button-variant-link",
+    "jsx/Calendar/class/17": "flex",
+    "jsx/Calendar/class/0": "cn-calendar group/calendar bg-background in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
+    "jsx/Calendar/class/19": "mt-2 flex w-full",
+    "jsx/Calendar/class/10": "flex h-(--cell-size) w-full items-center justify-center gap-1.5 text-sm font-medium",
+    "jsx/Calendar/class/34": "size-4",
+    "jsx/Calendar/class/24": "[&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius)",
+    "cva/buttonVariants/variant/size/icon-sm": "cn-button-size-icon-sm",
+    "cva/buttonVariants/variant/size/lg": "cn-button-size-lg",
+    "jsx/Calendar/class/30": "text-muted-foreground opacity-50",
+    "cva/buttonVariants/variant/size/xs": "cn-button-size-xs",
+    "jsx/Calendar/class/25": "relative isolate z-0 rounded-l-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-muted",
+    "jsx/Calendar/class/21": "text-[0.8rem] text-muted-foreground select-none",
+    "jsx/Calendar/class/32": "cn-rtl-flip size-4",
+    "jsx/Calendar/class/29": "text-muted-foreground aria-selected:text-muted-foreground",
+    "cva/buttonVariants/default/variant": "default",
+    "jsx/Calendar/class/9": "flex h-(--cell-size) w-full items-center justify-center px-(--cell-size)",
+    "jsx/Calendar/class/3": "w-fit",
+    "cva/buttonVariants/default/size": "default",
+    "cva/buttonVariants/variant/variant/ghost": "cn-button-variant-ghost",
+    "jsx/Calendar/class/28": "rounded-(--cell-radius) bg-muted text-foreground data-[selected=true]:rounded-none",
+    "cva/buttonVariants/variant/variant/default": "cn-button-variant-default",
+    "cva/buttonVariants/variant/size/icon": "cn-button-size-icon",
+    "jsx/Calendar/class/23": "[&:nth-child(2)[data-selected=true]_button]:rounded-l-(--cell-radius)",
+    "jsx/Calendar/class/33": "cn-rtl-flip size-4",
+    "jsx/Calendar/class/14": "cn-calendar-caption text-sm",
+    "jsx/Calendar/class/26": "rounded-none",
+    "cva/buttonVariants/variant/variant/secondary": "cn-button-variant-secondary",
+    "jsx/Calendar/class/13": "font-medium select-none",
+    "jsx/Calendar/class/20": "w-(--cell-size) select-none",
+    "jsx/Calendar/class/6": "absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1",
+    "cva/buttonVariants/variant/size/icon-lg": "cn-button-size-icon-lg",
+    "jsx/Calendar/class/22": "group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius)",
+    "cva/buttonVariants/variant/size/icon-xs": "cn-button-size-icon-xs"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Calendar",
-      "name": "calendar",
-      "params": {
-        "buttonVariant": "ghost",
-        "captionLayout": "label",
-        "className": null,
-        "classNames": null,
-        "components": null,
-        "defaultClassNames": null,
-        "formatters": null,
-        "locale": null,
-        "showOutsideDays": "true",
-        "showWeekNumber": null
-      },
-      "primitive": null,
-      "refs": [
-        "showOutsideDays",
-        "className",
-        "captionLayout",
-        "locale",
-        "date",
-        "formatters",
-        "buttonVariant",
-        "props",
-        "classNames",
-        "rootRef",
-        "orientation",
-        "children",
-        "components"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "showOutsideDays"
-            ],
-            "kind": "code",
-            "name": "showOutsideDays",
-            "value": "showOutsideDays"
-          },
-          {
-            "identifiers": [
-              "captionLayout"
-            ],
-            "kind": "code",
-            "name": "captionLayout",
-            "value": "captionLayout"
-          },
-          {
-            "identifiers": [
-              "locale"
-            ],
-            "kind": "code",
-            "name": "locale",
-            "value": "locale"
-          },
-          {
-            "identifiers": [
-              "date",
-              "formatters",
-              "locale"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "date",
-              "locale"
-            ],
-            "name": "formatters",
-            "value": "{\n        formatMonthDropdown: (date) =>\n          date.toLocaleString(locale?.code, { month: \"short\" }),\n        ...formatters,\n      }"
-          },
-          {
-            "identifiers": [
-              "buttonVariant",
-              "buttonVariants",
-              "captionLayout",
-              "classNames",
-              "cn",
-              "defaultClassNames",
-              "props"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "defaultClassNames",
-              "props"
-            ],
-            "name": "classNames",
-            "value": "{\n        root: cn(\"w-fit\", defaultClassNames.root),\n        months: cn(\n          \"relative flex flex-col gap-4 md:flex-row\",\n          defaultClassNames.months\n        ),\n        month: cn(\"flex w-full flex-col gap-4\", defaultClassNames.month),\n        nav: cn(\n          \"absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1\",\n          defaultClassNames.nav\n        ),\n        button_previous: cn(\n          buttonVariants({ variant: buttonVariant }),\n          \"size-(--cell-size) p-0 select-none aria-disabled:opacity-50\",\n          defaultClassNames.button_previous\n        ),\n        button_next: cn(\n          buttonVariants({ variant: buttonVariant }),\n          \"size-(--cell-size) p-0 select-none aria-disabled:opacity-50\",\n          defaultClassNames.button_next\n        ),\n        month_caption: cn(\n          \"flex h-(--cell-size) w-full items-center justify-center px-(--cell-size)\",\n          defaultClassNames.month_caption\n        ),\n        dropdowns: cn(\n          \"flex h-(--cell-size) w-full items-center justify-center gap-1.5 text-sm font-medium\",\n          defaultClassNames.dropdowns\n        ),\n        dropdown_root: cn(\n          \"cn-calendar-dropdown-root relative rounded-(--cell-radius)\",\n          defaultClassNames.dropdown_root\n        ),\n        dropdown: cn(\n          \"absolute inset-0 bg-popover opacity-0\",\n          defaultClassNames.dropdown\n        ),\n        caption_label: cn(\n          \"font-medium select-none\",\n          captionLayout === \"label\"\n            ? \"cn-calendar-caption text-sm\"\n            : \"cn-calendar-caption-label flex items-center gap-1 rounded-(--cell-radius) text-sm [&>svg]:size-3.5 [&>svg]:text-muted-foreground\",\n          defaultClassNames.caption_label\n        ),\n        month_grid: cn(\"w-full border-collapse\", defaultClassNames.month_grid),\n        weekdays: cn(\"flex\", defaultClassNames.weekdays),\n        weekday: cn(\n          \"flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none\",\n          defaultClassNames.weekday\n        ),\n        week: cn(\"mt-2 flex w-full\", defaultClassNames.week),\n        week_number_header: cn(\n          \"w-(--cell-size) select-none\",\n          defaultClassNames.week_number_header\n        ),\n        week_number: cn(\n          \"text-[0.8rem] text-muted-foreground select-none\",\n          defaultClassNames.week_number\n        ),\n        day: cn(\n          \"group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius)\",\n          props.showWeekNumber\n            ? \"[&:nth-child(2)[data-selected=true]_button]:rounded-l-(--cell-radius)\"\n            : \"[&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius)\",\n          defaultClassNames.day\n        ),\n        range_start: cn(\n          \"relative isolate z-0 rounded-l-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-muted\",\n          defaultClassNames.range_start\n        ),\n        range_middle: cn(\"rounded-none\", defaultClassNames.range_middle),\n        range_end: cn(\n          \"relative isolate z-0 rounded-r-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-muted\",\n          defaultClassNames.range_end\n        ),\n        today: cn(\n          \"rounded-(--cell-radius) bg-muted text-foreground data-[selected=true]:rounded-none\",\n          defaultClassNames.today\n        ),\n        outside: cn(\n          \"text-muted-foreground aria-selected:text-muted-foreground\",\n          defaultClassNames.outside\n        ),\n        disabled: cn(\n          \"text-muted-foreground opacity-50\",\n          defaultClassNames.disabled\n        ),\n        hidden: cn(\"invisible\", defaultClassNames.hidden),\n        ...classNames,\n      }"
-          },
-          {
-            "identifiers": [
-              "children",
-              "className",
-              "cn",
-              "components",
-              "locale",
-              "orientation",
-              "props",
-              "rootRef"
-            ],
-            "kind": "code",
-            "name": "components",
-            "value": "{\n        Root: ({ className, rootRef, ...props }) => {\n          return (\n            <div\n              data-slot=\"calendar\"\n              ref={rootRef}\n              className={cn(className)}\n              {...props}\n            />\n          )\n        },\n        Chevron: ({ className, orientation, ...props }) => {\n          if (orientation === \"left\") {\n            return (\n              <IconPlaceholder\n                lucide=\"ChevronLeftIcon\"\n                tabler=\"IconChevronLeft\"\n                hugeicons=\"ArrowLeftIcon\"\n                phosphor=\"CaretLeftIcon\"\n                remixicon=\"RiArrowLeftSLine\"\n                className={cn(\"cn-rtl-flip size-4\", className)}\n                {...props}\n              />\n            )\n          }\n\n          if (orientation === \"right\") {\n            return (\n              <IconPlaceholder\n                lucide=\"ChevronRightIcon\"\n                tabler=\"IconChevronRight\"\n                hugeicons=\"ArrowRightIcon\"\n                phosphor=\"CaretRightIcon\"\n                remixicon=\"RiArrowRightSLine\"\n                className={cn(\"cn-rtl-flip size-4\", className)}\n                {...props}\n              />\n            )\n          }\n\n          return (\n            <IconPlaceholder\n              lucide=\"ChevronDownIcon\"\n              tabler=\"IconChevronDown\"\n              hugeicons=\"ArrowDownIcon\"\n              phosphor=\"CaretDownIcon\"\n              remixicon=\"RiArrowDownSLine\"\n              className={cn(\"size-4\", className)}\n              {...props}\n            />\n          )\n        },\n        DayButton: ({ ...props }) => (\n          <CalendarDayButton locale={locale} {...props} />\n        ),\n        WeekNumber: ({ children, ...props }) => {\n          return (\n            <td {...props}>\n              <div className=\"flex size-(--cell-size) items-center justify-center text-center\">\n                {children}\n              </div>\n            </td>\n          )\n        },\n        ...components,\n      }"
-          }
-        ],
-        "children": [],
-        "class": "cn-calendar group/calendar bg-background in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent rtl:**:[.rdp-button\\_next>svg]:rotate-180 rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/react-day-picker",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-disabled",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "CalendarDayButton",
-      "name": "calendar_day_button",
-      "params": {
-        "className": null,
-        "day": null,
-        "locale": null,
-        "modifiers": null
-      },
-      "primitive": null,
-      "refs": [
-        "modifiers",
-        "day",
-        "locale",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "variant",
-            "value": "ghost"
-          },
-          {
-            "kind": "text",
-            "name": "size",
-            "value": "icon"
-          },
-          {
-            "identifiers": [
-              "day",
-              "locale"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "day",
-              "locale"
-            ],
-            "name": "data-day",
-            "value": "day.date.toLocaleDateString(locale?.code)"
-          },
-          {
-            "identifiers": [
-              "modifiers"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "modifiers"
-            ],
-            "name": "data-selected-single",
-            "value": "modifiers.selected &&\n        !modifiers.range_start &&\n        !modifiers.range_end &&\n        !modifiers.range_middle"
-          },
-          {
-            "identifiers": [
-              "modifiers"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "modifiers"
-            ],
-            "name": "data-range-start",
-            "value": "modifiers.range_start"
-          },
-          {
-            "identifiers": [
-              "modifiers"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "modifiers"
-            ],
-            "name": "data-range-end",
-            "value": "modifiers.range_end"
-          },
-          {
-            "identifiers": [
-              "modifiers"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "modifiers"
-            ],
-            "name": "data-range-middle",
-            "value": "modifiers.range_middle"
-          }
-        ],
-        "children": [],
-        "class": "cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "day",
-              "name": "data-focused",
-              "value": "true"
-            }
-          ],
-          "self": [
-            {
-              "name": "data-range-end",
-              "value": "true"
-            },
-            {
-              "name": "data-range-middle",
-              "value": "true"
-            },
-            {
-              "name": "data-range-start",
-              "value": "true"
-            },
-            {
-              "name": "data-selected-single",
-              "value": "true"
-            }
-          ]
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": [
-          "--cell-size",
-          "--cell-radius"
-        ]
-      },
-      "types": {}
+      "name": "aria-expanded",
+      "value": null
+    },
+    {
+      "name": "aria-invalid",
+      "value": null
+    },
+    {
+      "name": "aria-selected",
+      "value": null
+    },
+    {
+      "name": "data-range-end",
+      "value": "true"
+    },
+    {
+      "name": "data-range-middle",
+      "value": "true"
+    },
+    {
+      "name": "data-range-start",
+      "value": "true"
+    },
+    {
+      "name": "data-selected-single",
+      "value": "true"
+    },
+    {
+      "group": "day",
+      "name": "data-focused",
+      "value": "true"
     }
   ],
-  "primitives": {},
-  "recipe": "calendar",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-calendar": "p-3 [--cell-radius:var(--radius-4xl)] [--cell-size:--spacing(8)]"
-    },
-    "lyra": {
-      "cn-calendar": "p-2 [--cell-size:--spacing(7)]"
-    },
-    "maia": {
-      "cn-calendar": "p-3 [--cell-radius:var(--radius-4xl)] [--cell-size:--spacing(8)]"
-    },
-    "mira": {
-      "cn-calendar": "p-3 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(6)]"
-    },
-    "nova": {
-      "cn-calendar": "p-2 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(7)]"
-    },
-    "rhea": {
-      "cn-calendar": "p-3 [--cell-radius:var(--radius-2xl)] [--cell-size:--spacing(8)]"
-    },
-    "sera": {
-      "cn-calendar": "p-3 [--cell-radius:0] [--cell-size:--spacing(8)]"
-    },
-    "vega": {
-      "cn-calendar": "p-3 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(8)]"
-    }
+    "luma": "0572cfcd2d4110d4ef8e18e9fdb5f02a55e64ca8945c0eb8e87fbebb2afa08e3",
+    "lyra": "95bea4c63eb32b608d34ba1159f7af012efb06e96f11bd7ef2ce654de003e2c4",
+    "maia": "8dddb2f961ce382831f3bf0251a65db9698fce068083a213ca41e212997019ee",
+    "mira": "2ef78573aa86bdb17221076a42451edbbd42e8f0cf849de27c8ba4f69c16280a",
+    "nova": "0c46ee8962b1fee7d87c4ee1bc1f7405958aa12ef07bbb52bd677f4d1023fbba",
+    "rhea": "8016c0c160f9c4364119e6d7ba87a493ea91586496f3c043f0a32179299436ab",
+    "sera": "848063f9d224a399f9033343ed0ea1c465eeae47804300a456e7015d101ef2b1",
+    "vega": "aee4f435ed37a30f3c91e51b7cf5bd1f417b710a55394432bf22e6037f884c14"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/calendar.tsx",
-      "sha256": "c88319b932b378349d643ef2c452f6095d5681998acc0c1e3c2a1682500c5bc9"
-    }
+    "shadcn/ui/button.tsx": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12",
+    "shadcn/ui/calendar.tsx": "c88319b932b378349d643ef2c452f6095d5681998acc0c1e3c2a1682500c5bc9"
   },
-  "variants": {}
+  "uses": [
+    "port/calendar/*"
+  ]
 }

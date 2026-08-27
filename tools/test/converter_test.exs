@@ -315,10 +315,12 @@ defmodule LiveShadcnTools.ConverterTest do
   end
 
   test "a style change that adds a state read needs manual review" do
+    source = String.replace(@source, "inline-flex px-2", "cn-button inline-flex px-2")
+
     input = %{
       source: "shadcn",
       name: "button",
-      files: %{"shadcn/ui/button.tsx" => @source},
+      files: %{"shadcn/ui/button.tsx" => source},
       styles: %{"vega" => %{"cn-button" => "px-2"}},
       base_ui: %{},
       contract: nil,
@@ -336,5 +338,129 @@ defmodule LiveShadcnTools.ConverterTest do
              })
 
     assert %{"name" => "data-active", "value" => nil} in reads
+  end
+
+  test "class facts include cn calls outside a className attribute" do
+    source = ~S'''
+    function Calendar({ defaults }) {
+      const classNames = {
+        root: cn("calendar-root", defaults.root),
+        day: cn("calendar-day", defaults.day),
+      }
+
+      return <DayPicker classNames={classNames} />
+    }
+
+    export { Calendar }
+    '''
+
+    port = ~S'''
+    defmodule LiveShadcn.UI.Calendar do
+      # live-shadcn: upstream facts start
+      @upstream_facts %{
+        "jsx/Calendar/class/0" => "calendar-root",
+        "jsx/Calendar/class/1" => "calendar-day"
+      }
+      # live-shadcn: upstream facts end
+    end
+    '''
+
+    assert {:updated, artifact, _changes} =
+             Converter.sync(%{
+               source: "shadcn",
+               name: "calendar",
+               files: %{"shadcn/ui/calendar.tsx" => source},
+               styles: %{},
+               base_ui: %{},
+               contract: nil,
+               port: port
+             })
+
+    assert artifact.contract["facts"] == %{
+             "jsx/Calendar/class/0" => "calendar-root",
+             "jsx/Calendar/class/1" => "calendar-day"
+           }
+  end
+
+  test "a static String.raw class template is a safe fact" do
+    source = ~S'''
+    function Calendar() {
+      return <div className={cn(String.raw`rtl:[.next\_icon]:rotate-180`)} />
+    }
+
+    export { Calendar }
+    '''
+
+    port = ~S'''
+    defmodule LiveShadcn.UI.Calendar do
+      # live-shadcn: upstream facts start
+      @upstream_facts %{
+        "jsx/Calendar/class/0" => "rtl:[.next\\_icon]:rotate-180"
+      }
+      # live-shadcn: upstream facts end
+    end
+    '''
+
+    assert {:updated, artifact, _changes} =
+             Converter.sync(%{
+               source: "shadcn",
+               name: "calendar",
+               files: %{"shadcn/ui/calendar.tsx" => source},
+               styles: %{},
+               base_ui: %{},
+               contract: nil,
+               port: port
+             })
+
+    assert artifact.contract["facts"] == %{
+             "jsx/Calendar/class/0" => "rtl:[.next\\_icon]:rotate-180"
+           }
+  end
+
+  test "a binding joins a source fact with a reviewed literal" do
+    port = ~S'''
+    defmodule LiveShadcn.UI.Calendar do
+      # live-shadcn: upstream facts start
+      @upstream_facts %{
+        "port/calendar/root" => "inline-flex rdp-root"
+      }
+      # live-shadcn: upstream facts end
+
+      defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+      def root_class, do: upstream_fact("port/calendar/root")
+    end
+    '''
+
+    bindings = %{
+      "copy" => [],
+      "derived" => %{
+        "port/calendar/root" => %{
+          "op" => "join",
+          "items" => [
+            %{"fact" => "jsx/Button/class/0"},
+            %{"literal" => "rdp-root"}
+          ]
+        }
+      }
+    }
+
+    assert {:updated, artifact, _changes} =
+             Converter.sync(%{
+               source: "shadcn",
+               name: "calendar",
+               files: %{"shadcn/ui/calendar.tsx" => @source},
+               styles: %{},
+               base_ui: %{},
+               bindings: bindings,
+               ignored: %{},
+               contract: nil,
+               port: String.replace(port, "inline-flex rdp-root", "inline-flex px-2 rdp-root")
+             })
+
+    assert artifact.contract["bindings"] == bindings
+
+    assert artifact.contract["facts"] == %{
+             "port/calendar/root" => "inline-flex px-2 rdp-root"
+           }
   end
 end

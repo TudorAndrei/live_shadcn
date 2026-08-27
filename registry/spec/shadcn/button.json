@@ -1,154 +1,92 @@
 {
-  "anatomy": [
-    {
-      "children": [],
-      "part": "Button"
-    }
+  "base_ui": {
+    "button": "8cd555553729515c3e02974fe1c9e0f0587a82f624aa28cdc999817df7befd6a"
+  },
+  "bindings": {
+    "copy": [
+      "cva/buttonVariants/*"
+    ],
+    "derived": {}
+  },
+  "css_vars": [
+    "--foreground",
+    "--radius-md",
+    "--secondary"
   ],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "cva/buttonVariants/base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/buttonVariants/default/size": "default",
+    "cva/buttonVariants/default/variant": "default",
+    "cva/buttonVariants/variant/size/default": "cn-button-size-default",
+    "cva/buttonVariants/variant/size/icon": "cn-button-size-icon",
+    "cva/buttonVariants/variant/size/icon-lg": "cn-button-size-icon-lg",
+    "cva/buttonVariants/variant/size/icon-sm": "cn-button-size-icon-sm",
+    "cva/buttonVariants/variant/size/icon-xs": "cn-button-size-icon-xs",
+    "cva/buttonVariants/variant/size/lg": "cn-button-size-lg",
+    "cva/buttonVariants/variant/size/sm": "cn-button-size-sm",
+    "cva/buttonVariants/variant/size/xs": "cn-button-size-xs",
+    "cva/buttonVariants/variant/variant/default": "cn-button-variant-default",
+    "cva/buttonVariants/variant/variant/destructive": "cn-button-variant-destructive",
+    "cva/buttonVariants/variant/variant/ghost": "cn-button-variant-ghost",
+    "cva/buttonVariants/variant/variant/link": "cn-button-variant-link",
+    "cva/buttonVariants/variant/variant/outline": "cn-button-variant-outline",
+    "cva/buttonVariants/variant/variant/secondary": "cn-button-variant-secondary"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/button.tsx": "0c911259d9cce5dfd13cf06dd8ead680b5a3b67761bc27486503ead411968509"
+  },
+  "fingerprint": "a84778eaa39406fa6745e53d3b9865316f1ef4dd2712a74d6a33266a08488200",
+  "ignored": {},
   "name": "button",
-  "parts": [
+  "port_body": "2d108b81baf030c0ca1627bf83894833d44c71f0f1c7adb7c964809247dac8d9",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "cva/buttonVariants/base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/buttonVariants/default/size": "default",
+    "cva/buttonVariants/default/variant": "default",
+    "cva/buttonVariants/variant/size/default": "cn-button-size-default",
+    "cva/buttonVariants/variant/size/icon": "cn-button-size-icon",
+    "cva/buttonVariants/variant/size/icon-lg": "cn-button-size-icon-lg",
+    "cva/buttonVariants/variant/size/icon-sm": "cn-button-size-icon-sm",
+    "cva/buttonVariants/variant/size/icon-xs": "cn-button-size-icon-xs",
+    "cva/buttonVariants/variant/size/lg": "cn-button-size-lg",
+    "cva/buttonVariants/variant/size/sm": "cn-button-size-sm",
+    "cva/buttonVariants/variant/size/xs": "cn-button-size-xs",
+    "cva/buttonVariants/variant/variant/default": "cn-button-variant-default",
+    "cva/buttonVariants/variant/variant/destructive": "cn-button-variant-destructive",
+    "cva/buttonVariants/variant/variant/ghost": "cn-button-variant-ghost",
+    "cva/buttonVariants/variant/variant/link": "cn-button-variant-link",
+    "cva/buttonVariants/variant/variant/outline": "cn-button-variant-outline",
+    "cva/buttonVariants/variant/variant/secondary": "cn-button-variant-secondary"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Button",
-      "name": "button",
-      "params": {
-        "className": null,
-        "size": "default",
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "size",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "module": "button",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            },
-            {
-              "name": "aria-expanded",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "button",
-        "tag": "button",
-        "type": "primitive",
-        "variant_calls": [
-          {
-            "args": [
-              "variant",
-              "size",
-              "className"
-            ],
-            "table": "buttonVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-expanded",
+      "value": null
+    },
+    {
+      "name": "aria-invalid",
+      "value": null
     }
   ],
-  "primitives": {
-    "button.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the button should be focusable when disabled.",
-          "name": "focusableWhenDisabled",
-          "type": "boolean"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Button.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Button.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button component that can be used to trigger actions."
-    }
+  "styles": {
+    "luma": "5a8befd2f973a3da809cf4c9c02ff15d45eb9e3c6525e0b8e4190ef68d23fa17",
+    "lyra": "338bd4babcd00ee882feec5d0f12a999ca0f12c268edbddb6fa59aeb7a2e4cfb",
+    "maia": "caf8d41abbd4eb6ed2aba40241731fc693eb4e44cd2a09c22124647b81956d69",
+    "mira": "1192f1f5197b359e48c23825563e76e28637cec45bdbcdf14a1c67bf9c873f5a",
+    "nova": "89f8862697ecdae3850755c089bb75ad786344320edaf2036be72738f4024c59",
+    "rhea": "819a1551a84f1439e2769d2cfdbc36ea51b6d9a40313d66e0ee36fbd1f66f111",
+    "sera": "d87774ab0a9035df83dcb030944d2e90bc2569405378a7798972ccac79ec9930",
+    "vega": "bca496d7a61c1b54c09ecf59ff5d32ff36ba3214e6b4cc4510ff3e0ee48486d5"
   },
-  "recipe": "presentational",
-  "source": "shadcn",
-  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
   "upstream": {
-    "base_ui": {
-      "button": "a330174924c1c354e7093a323bba536a453f59f02d15c047187783cedb36bd46"
-    },
-    "shadcn": {
-      "file": "shadcn/ui/button.tsx",
-      "sha256": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12"
-    }
+    "shadcn/ui/button.tsx": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12"
   },
-  "variants": {
-    "buttonVariants": {
-      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-button-size-default",
-          "icon": "cn-button-size-icon",
-          "icon-lg": "cn-button-size-icon-lg",
-          "icon-sm": "cn-button-size-icon-sm",
-          "icon-xs": "cn-button-size-icon-xs",
-          "lg": "cn-button-size-lg",
-          "sm": "cn-button-size-sm",
-          "xs": "cn-button-size-xs"
-        },
-        "variant": {
-          "default": "cn-button-variant-default",
-          "destructive": "cn-button-variant-destructive",
-          "ghost": "cn-button-variant-ghost",
-          "link": "cn-button-variant-link",
-          "outline": "cn-button-variant-outline",
-          "secondary": "cn-button-variant-secondary"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/buttonVariants/*"
+  ]
 }

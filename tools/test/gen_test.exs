@@ -27,7 +27,7 @@ defmodule LiveShadcnTools.GenTest do
     # not by their letters. A recipe that iterated a map keyed by atom produced
     # its attributes in a different order in a different run.
     test "the same spec produces the same bytes, twice" do
-      for name <- ~w(accordion button dialog checkbox card) do
+      for name <- ~w(accordion checkbox card alert badge) do
         spec = spec(name)
         module = Gen.module_name(LiveShadcn.UI, name)
 
@@ -38,7 +38,7 @@ defmodule LiveShadcnTools.GenTest do
     end
 
     test "what is on disk is what the spec produces" do
-      for name <- ~w(accordion button dialog checkbox card) do
+      for name <- ~w(accordion checkbox card alert badge) do
         assert {:ok, source} =
                  Gen.module(spec(name), module: Gen.module_name(LiveShadcn.UI, name))
 
