@@ -60,7 +60,7 @@
     "jsx/CarouselPrevious/class/4": "the generated port does not contain this source literal"
   },
   "name": "carousel",
-  "port_body": "4bd46048a9da97f6060b30c70151fed45ed8c3eeeca71d0c0dcce40a802eb3a1",
+  "port_body": "06f8b5d79b3b6bbd468d13ff556a130b15e9d53ee6846c4cd275623f0ff89fac",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

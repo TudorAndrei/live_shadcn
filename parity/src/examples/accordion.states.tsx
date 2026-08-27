@@ -8,7 +8,7 @@ import {
 // Ported from `StorybookWeb.Examples.accordion_states/1`.
 //
 // Base UI names an item by value and opens it by listing that value; the
-// generated component takes `open` on the item, because a HEEx slot has no
+// reviewed port takes `open` on the item, because a HEEx slot has no
 // value to be named by. The two spellings say the same thing.
 export default function AccordionStates() {
   return (

@@ -2,7 +2,7 @@ import { Reasoning, ReasoningContent, ReasoningTrigger } from "@upstream/ai_elem
 
 // Ported from `StorybookWeb.Examples.reasoning_default/1`.
 //
-// `content` is an attribute on the generated component and children here, for
+// `content` is an attribute on the reviewed port and children here, for
 // the same reason `title` is: a folded disclosure has one slot and it belongs to
 // the panel. The markdown renderer is shimmed away on this side — see
 // `src/shim/streamdown.tsx` — because it is the application's and not the

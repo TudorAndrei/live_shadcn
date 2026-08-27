@@ -1,171 +1,167 @@
 # live_shadcn
 
-shadcn/ui and AI Elements for Phoenix LiveView — generated from the upstream
-registries, not hand-copied.
+Reviewed shadcn/ui and AI Elements ports for Phoenix LiveView.
 
-> Status: all eight recipes are written, and every shadcn tier-1 component is
-> generated and verified — markup snapshot, behaviour in a real browser, and
-> axe-core clean — with no line edited by hand. `mix ui.add` and `mix ui.sync`
-> work against a real application. Nothing is published to hex yet.
->
-> The AI Elements reducer is done and its two adapters agree on five recorded
-> streams. The reader now reads both registries, and the first AI Elements
-> component is generated and verified. [docs/INVENTORY.md](docs/INVENTORY.md)
-> has the count, derived from disk rather than typed here.
+The repository keeps upstream class and CVA facts current without translating
+React into Elixir. Oxc extracts safe facts and structural fingerprints. A
+maintainer owns the HEEx API and behavior of each port.
+
+The current inventory has 109 verified ports. See
+[docs/INVENTORY.md](docs/INVENTORY.md) for the status derived from disk.
 
 ## Why another component library
 
-Every existing Phoenix port copies the styles by hand, then falls behind.
-shadcn changes weekly, and a hand-copied port has no way to see what moved.
+shadcn changes often. A copied port needs a clear way to identify safe upstream
+changes without replacing reviewed LiveView behavior.
 
-This one is a pipeline, not a copy:
+The synchronization inputs are machine-readable:
 
 | Upstream source | What it gives |
 |---|---|
-| `ui.shadcn.com/r/index.json` | the component list, with per-base doc links |
-| `shadcn-ui/ui` → `registry/bases/base/ui/*.tsx` | `data-slot` anatomy and the class strings |
-| `base-ui.com/react/components/*.md` | parts, props, data attributes, CSS variables |
-| `shadcn-ui/ui` → `registry/styles/style-*.css` | the `cn-` rules, one sheet per style |
-| `shadcn-ui/ui` → `app/globals.css` | the design tokens the rules resolve against |
-| `vercel/ai-elements` → `packages/elements/src/*.tsx` | the AI component set |
+| `ui.shadcn.com/r/index.json` | component names and source references |
+| shadcn `.tsx` files | class strings, CVA tables, and structure |
+| Base UI Markdown | parts, data attributes, and CSS variables |
+| shadcn style sheets | `cn-` rules and their state variants |
+| AI Elements `.tsx` files | AI component facts and structure |
 
-Every one of those is machine-readable. So keeping up with shadcn is a
-scheduled job that opens a pull request, not a person remembering to look.
+A scheduled workflow fetches these sources and opens a pull request when safe
+facts change. Structural or behavior drift stops the workflow for review.
 
 ## The key idea
 
-shadcn is **class strings keyed on data attributes**. Base UI is **the behavior
-that sets those attributes**.
+shadcn class strings use data and ARIA attributes. `live_base` supplies the
+LiveView behavior that sets those attributes.
 
 ```text
 data-panel-open   data-starting-style   data-ending-style
-data-side         data-highlighted      data-disabled
+data-side         data-highlighted      aria-disabled
 ```
 
-If the HEEx emits the same attributes, the shadcn class strings work unchanged.
-Port the behavior once, and the styling follows upstream for free.
+The port keeps the upstream class strings. Its reviewed HEEx body decides how
+LiveView provides the required state and behavior.
 
 ## Packages
 
 | Package | Install as | Contains |
 |---|---|---|
-| `live_base` | dependency | headless behavior: focus, dismiss, roving focus, typeahead, floating position |
-| `live_shadcn` | `mix ui.add` copy-in | the components, written into your own repo |
-| `live_ai_elements` | dependency | streaming message parts, reasoning, tool calls |
+| `live_base` | dependency | focus, dismiss, roving focus, typeahead, and floating position |
+| `live_shadcn` | `mix ui.add` copy | reviewed shadcn component ports |
+| `live_ai_elements` | dependency | streaming message parts, reasoning, and tool calls |
 
-`live_shadcn` copies source into your project, the way shadcn does, so you own
-and can edit every component:
+`live_shadcn` copies source into your application, as the shadcn CLI does:
 
 ```bash
-mix ui.add button card accordion   # into lib/my_app_web/components/ui/
-mix ui.sync                        # current, behind, or edited — per file
-mix ui.sync --apply                # update the ones you have not edited
+mix ui.add button card accordion
+mix ui.sync
+mix ui.sync --apply
 ```
 
-Every copy is stamped with the registry version it came from and a digest of its
-own body. An edited file no longer matches that digest, and **an edited file is
-never overwritten** — not by `--apply`, not silently. That is what a component
-library owes you when it writes into your repository: a dependency can be
-upgraded behind your back; a file in your `lib/` cannot.
+You own and can edit each copied file. `mix ui.sync` does not overwrite an
+edited file. Use `mix ui.add <name> --force` only when you want to discard local
+changes.
 
 ## LiveView-native behavior
 
-Behavior is declared on the server with `Phoenix.LiveView.JS` and runs on the
-client. No round trip, no socket traffic, no assigns for opening a menu.
+Behavior is declared with `Phoenix.LiveView.JS` and runs on the client. It does
+not need a server round trip for actions such as opening a menu.
 
-| Base UI needs | LiveView gives |
+| Base UI needs | LiveView provides |
 |---|---|
-| set `data-panel-open` | `JS.set_attribute` / `JS.toggle_attribute` |
+| set state attributes | `JS.set_attribute` and `JS.toggle_attribute` |
 | keep client state across a render | `JS.ignore_attributes` |
-| focus in, focus restore | `JS.focus_first`, `JS.push_focus`, `JS.pop_focus` |
-| close on outside click | `phx-click-away` |
+| manage focus | `JS.focus_first`, `JS.push_focus`, and `JS.pop_focus` |
+| close on an outside click | `phx-click-away` |
 | close on Escape | `phx-window-keydown` |
 
-Four hooks in the whole library, and each one is there because no `JS` command
-reaches it:
+Four hooks cover work that server-declared commands cannot do:
 
-| Hook | Because |
+| Hook | Purpose |
 |---|---|
-| `Disclosure` | `h-(--accordion-panel-height)` asks for a number only the browser can compute |
-| `Overlay` | scroll lock, focus containment, and holding an attribute for the length of a transition |
-| `Floating` | where a popup lands depends on how much room was left |
-| `Roving` | `phx-key` filters one key per binding, and the arrow keys are four |
+| `Disclosure` | measure content and hold transition attributes |
+| `Overlay` | lock scroll, contain focus, and control exit timing |
+| `Floating` | position a popup from available browser space |
+| `Roving` | move focus with arrow keys |
 
-The line they are held to: a hook decides *which* element, never *what happens
-to it*. What happens is the `JS` command already on that element.
+A hook decides which element to use. The `JS` command on that element decides
+what happens.
 
-## The pipeline
+## Maintainer workflow
 
 ```text
-mix ui.fetch  ->  mix ui.spec  ->  mix ui.gen  ->  mix ui.verify
-   upstream        registry/spec     HEEx +          snapshots,
-   sources         (our IR)          hooks           Playwright, axe
+mix ui.fetch  ->  mix ui.spec  ->  mix ui.verify
+ pinned source    facts + contract    snapshots, browser,
+                  reviewed port       accessibility, parity
 ```
 
-`registry/upstream/` is gitignored. `registry/UPSTREAM.json` records a SHA-256
-per upstream file, so drift is visible without redistributing anyone's source.
+`mix ui.fetch` stores fetched files in the ignored `registry/upstream/`
+directory. `registry/UPSTREAM.json` commits their SHA-256 digests.
 
-The `.tsx` is read with [oxc](https://oxc.rs), through a nine-line Node script
-that prints the syntax tree and decides nothing. Everything after that — what a
-class string is, what an expression means, what markup to emit — is Elixir. The
-reader used to be regular expressions, and most of what it got wrong it got
-wrong quietly: a `}` inside a template literal, a `return` belonging to a
-callback, a ternary with JSX on both sides. Each one dropped a part and said
-nothing until a browser did.
+`mix ui.spec` uses Oxc to extract class literals, CVA values, state reads, and
+a structural fingerprint. It can update only safe facts in the marked block of
+a reviewed port. It does not translate expressions, component structure, React
+state, or behavior.
 
-63 shadcn components collapse onto eight behavior recipes — `disclosure`,
-`dialog`, `popover`, `listbox`, `menu`, `tabs`, `form-control`, and
-`presentational`. All eight are written. Only the recipes are written by hand;
-everything else is data.
+```elixir
+# live-shadcn: upstream facts start
+@upstream_facts %{
+  "jsx/Button/class/0" => "cn-button inline-flex"
+}
+# live-shadcn: upstream facts end
+```
+
+Each `registry/spec/<source>/<name>.json` file records those facts, their
+bindings, source digests, fingerprints, and the digest of the reviewed port
+body. A class or CVA literal can update automatically. A structure, state-read,
+or Base UI contract change requires manual review. One manual change stops all
+writes in a full registry run.
+
+The offline check needs no fetched source and no JavaScript parser:
+
+```bash
+cd tools
+mix ui.spec --check --offline
+```
 
 ## Layout
 
 ```text
-packages/live_base/          headless primitives and the client hooks
-packages/live_shadcn/        priv/registry holds the generated components
-packages/live_ai_elements/   AI parts model, reducer, components
-tools/                       the codegen pipeline (never published)
-registry/UPSTREAM.json       pinned refs and digests
-registry/spec/<source>/      generated component IR, one directory per registry
-registry/snapshot/           the markup each example renders to
-registry/VERIFY.json         what `mix ui.verify` last proved
-storybook/                   demo application, and the browser suite
+packages/live_base/          headless primitives and client hooks
+packages/live_shadcn/        reviewed shadcn ports in priv/registry
+packages/live_ai_elements/   reducer and reviewed AI component ports
+tools/                       Oxc fact extraction and synchronization
+registry/UPSTREAM.json       pinned references and source digests
+registry/spec/<source>/      version-2 port contracts
+registry/snapshot/           rendered example markup
+registry/VERIFY.json         results from mix ui.verify
+storybook/                   demo application and browser tests
 ```
-
-## Status
-
-| | |
-|---|---|
-| [ROADMAP.md](ROADMAP.md) | milestones and their exit criteria |
-| [DEFERRED.md](DEFERRED.md) | publishing and deployment, and what each needs |
-| [docs/INVENTORY.md](docs/INVENTORY.md) | 112 components, status derived from disk |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | layers, contract, pipeline stages |
-
-Eight core recipes cover 102 of the 112 components.
 
 ## Development
 
 ```bash
 cd tools && mix deps.get && npm install
-mix ui.fetch --only accordion     # pin and download one component, and the styles
-mix ui.spec                       # upstream -> registry/spec
-mix ui.gen                        # spec -> HEEx modules
-mix ui.status                     # regenerate docs/INVENTORY.md
+mix ui.fetch
+mix ui.spec
+mix ui.spec --check --offline
+mix ui.status
 ```
 
-Verifying needs a browser once:
+To verify and view the components:
 
 ```bash
 cd storybook && mix setup
 cd test/browser && npm install && npm run verify:install
+cd ../../../tools && mix ui.verify
 
-cd tools && mix ui.verify         # generated, snapshot, browser
+cd ../storybook && mix phx.server
 ```
 
-To look at the components, run `mix phx.server` in `storybook/` and open
-<http://localhost:4100>. The demo builds shadcn's own styling from the sheets
-`mix ui.fetch` downloaded, so run the fetch first.
+Open <http://localhost:4100>. The demo uses the shadcn style sheets fetched by
+`mix ui.fetch`.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for safe updates and the first-port
+process. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for contract details.
 
 ## License
 
-Apache-2.0. See `NOTICE` for the upstream projects this work derives from.
+Apache-2.0. See [NOTICE](NOTICE) for the upstream projects.

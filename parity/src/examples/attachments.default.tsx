@@ -19,7 +19,7 @@ import {
 // the same hover card either way.
 //
 // `variant`, `data` and `onRemove` are context fields upstream and attributes in
-// the generated component, for the reason every context is one: a HEEx component
+// the reviewed port, for the reason every context is one: a HEEx component
 // has no ancestor to ask, so the part that draws a field takes it. `onRemove` is
 // what makes upstream draw the remove button at all, and only the second
 // attachment has one on either side.
@@ -38,7 +38,7 @@ export default function AttachmentsDefault() {
           </Attachment>
         </AttachmentHoverCardTrigger>
         <AttachmentHoverCardContent>
-          The spec the accordion was generated from.
+          The contract the accordion port uses.
         </AttachmentHoverCardContent>
       </AttachmentHoverCard>
       <Attachment

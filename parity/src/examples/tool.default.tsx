@@ -8,7 +8,7 @@ import { Tool, ToolContent, ToolHeader } from "@upstream/ai_elements/tool";
 //
 // `type` is upstream's `tool-<name>` and the header derives the name from it.
 // Passing `title` says the same thing without the prefix, which is what the
-// generated component takes.
+// reviewed port takes.
 export default function ToolDefault() {
   return (
     <Tool className="max-w-md" defaultOpen>

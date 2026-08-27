@@ -7,11 +7,11 @@ import {
 
 // Ported from `StorybookWeb.Examples.accordion_default/1`.
 //
-// The generated component takes one `id` and derives every id inside it; Base
+// The reviewed port takes one `id` and derives every id inside it; Base
 // UI generates its own. Ids are among the things the comparison never looks at,
 // for exactly that reason.
 //
-// `keepMounted` because the generated component always keeps the panel: it
+// `keepMounted` because the reviewed port always keeps the panel: it
 // hides it and lets a client hook measure it, which is how the panel animates
 // to its own height. Base UI unmounts by default, and a page with no panel in
 // it has nothing to compare. Both sides have to be asked for the same thing.

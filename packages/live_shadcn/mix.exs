@@ -11,7 +11,7 @@ defmodule LiveShadcn.MixProject do
       elixir: "~> 1.17",
       elixirc_options: [warnings_as_errors: true],
       # The registry is the source `mix ui.add` copies. Compiling it here is
-      # what proves every generated component still builds and renders.
+      # what proves every reviewed port still builds and renders.
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -24,8 +24,7 @@ defmodule LiveShadcn.MixProject do
         # calls as an unknown function.
         plt_add_apps: [:mix, :ex_unit]
       ],
-      description:
-        "shadcn/ui components for Phoenix LiveView, generated from the shadcn registry.",
+      description: "Reviewed shadcn/ui ports for Phoenix LiveView, synchronized with upstream.",
       package: package(),
       docs: docs()
     ]

@@ -2,7 +2,7 @@ defmodule Mix.Tasks.Ui.Fetch do
   @shortdoc "Fetch upstream shadcn, Base UI, and AI Elements sources into registry/upstream"
 
   @moduledoc """
-  Stage 1 of the codegen pipeline.
+  Stage 1 of the maintainer synchronization pipeline.
 
   Pins each upstream repository to a commit SHA, downloads the sources the later
   stages parse, and records a manifest of SHA-256 digests in
@@ -20,7 +20,7 @@ defmodule Mix.Tasks.Ui.Fetch do
       mix ui.fetch --ref a1b2c3d   # pin shadcn to an explicit commit
       mix ui.fetch --styles        # the style sheets alone, at the pinned commit
 
-  `--styles` is what a build of this repository runs: the generated components
+  `--styles` is what a build of this repository runs: the reviewed ports
   are on the branch and the sheets their class strings resolve against are not.
   It reads the commit out of the manifest, writes no manifest of its own, and
   asks GitHub for eleven files instead of two hundred.
@@ -83,7 +83,7 @@ defmodule Mix.Tasks.Ui.Fetch do
   # The styling layer and nothing else, at the commit `registry/UPSTREAM.json`
   # already pins.
   #
-  # It is what a deployment needs. Every class string in a generated component
+  # It is what a deployment needs. Every class string in a reviewed port
   # is a `cn-` rule that lives in these sheets, and the sheets are gitignored
   # rather than redistributed here — so they are the one part of a build that
   # is not on the branch being deployed.

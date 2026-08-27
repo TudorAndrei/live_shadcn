@@ -70,7 +70,7 @@ test.describe("a toaster", () => {
 
   // The frame stops overlapping its neighbours and the content inside it comes
   // back to full opacity. Two elements, one attribute, and the hook writes it
-  // to both because the generator marked both.
+  // to both because the port marks both.
   test("a pointer over the stack fans it apart", async ({ page }) => {
     await toasts(page).first().hover();
 

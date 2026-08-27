@@ -2,7 +2,7 @@
   "name": "live_shadcn_parity",
   "private": true,
   "type": "module",
-  "description": "The React reference the generated components are compared against. Renders the same upstream sources the specs were read from, at the same pinned commit.",
+  "description": "The upstream React references for reviewed LiveView ports, at the same pinned commit.",
   "scripts": {
     "upstream": "node upstream.mjs",
     "dev": "npm run upstream && vite",

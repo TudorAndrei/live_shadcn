@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 // The markdown renderer, neutralised on this side of the comparison.
 //
-// Upstream renders assistant prose with Streamdown. The generated components do
+// Upstream renders assistant prose with Streamdown. The reviewed ports do
 // not render markdown at all: `LiveAiElements.Markdown` is a **seam**, and which
 // renderer sits behind it is the application's decision — the argument being
 // that everybody who renders LLM output already has one, and a component library

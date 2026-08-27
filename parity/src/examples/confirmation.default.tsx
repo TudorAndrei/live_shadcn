@@ -4,7 +4,7 @@ import { Confirmation } from "@upstream/ai_elements/confirmation";
 //
 // `approval` and `state` are what upstream draws *anything* at all for: with no
 // approval, or with a tool call still streaming, `Confirmation` returns null.
-// The generated component keeps that guard — `if (…) return null` at the top of
+// The reviewed port keeps that guard — `if (…) return null` at the top of
 // a render is a fact about the whole part — so both sides are asked for the
 // state the component is about.
 export default function ConfirmationDefault() {

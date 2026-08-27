@@ -1,9 +1,9 @@
 defmodule StorybookWeb.Examples do
   @moduledoc """
-  The examples every generated component is shown and verified with.
+  The examples every reviewed port is shown and verified with.
 
   Each example is what a person would actually type. That is the point: if the
-  markup here is awkward, the generated API is awkward, and no amount of correct
+  markup here is awkward, the port API is awkward, and no amount of correct
   output makes up for that.
 
   `mix ui.verify` drives these same pages in a browser, so an example is both
@@ -1238,7 +1238,7 @@ defmodule StorybookWeb.Examples do
     ~H"""
     <.accordion id="release" multiple class="max-w-80">
       <:item id="release-added" title="Added">
-        The disclosure recipe, and the accordion generated from it.
+        The disclosure contract, and the accordion reviewed against it.
       </:item>
       <:item id="release-changed" title="Changed">
         The spec now records what the shadcn style sheets read, not only the
@@ -1743,7 +1743,7 @@ defmodule StorybookWeb.Examples do
     ~H"""
     <%!-- `approval` and `state` are what upstream draws anything at all for:
     with no approval, or with a tool call still streaming, it renders nothing.
-    The generated component keeps that guard, so the example is in the state
+    The reviewed port keeps that guard, so the example is in the state
     the component is about. --%>
     <.confirmation approval="branch" state="approval-requested" class="max-w-md">
       Delete the branch?
@@ -1929,7 +1929,7 @@ defmodule StorybookWeb.Examples do
         <LiveAiElements.Components.CodeBlock.code_block_actions>
           <LiveAiElements.Components.CodeBlock.code_block_copy_button
             id="copy-code"
-            code="mix ui.gen"
+            code="mix ui.spec"
             aria-label="Copy the code"
           />
         </LiveAiElements.Components.CodeBlock.code_block_actions>
@@ -2388,7 +2388,7 @@ defmodule StorybookWeb.Examples do
             />
           </AiAttachments.attachment>
         </:trigger>
-        The spec the accordion was generated from.
+        The contract the accordion port uses.
       </.hover_card>
       <AiAttachments.attachment variant="list">
         <AiAttachments.attachment_preview variant="list">
@@ -2838,8 +2838,8 @@ defmodule StorybookWeb.Examples do
       <:trigger>Delete the accordion</:trigger>
       <:title>Are you sure?</:title>
       <:description>This removes the component and its spec.</:description>
-      The upstream sources stay where they are. Only what the pipeline generated
-      is removed, and `mix ui.gen` puts it back.
+      The upstream sources stay where they are. `mix ui.spec` restores safe
+      upstream facts after the port is reviewed.
       <:footer>
         <.button variant="ghost" phx-click={LiveBase.Dialog.close("confirm")}>Cancel</.button>
         <.button variant="destructive">Delete</.button>
@@ -2853,7 +2853,7 @@ defmodule StorybookWeb.Examples do
     <.dropdown_menu id="actions">
       <:trigger>Actions</:trigger>
       <:item value="fetch">Fetch upstream</:item>
-      <:item value="generate">Regenerate</:item>
+      <:item value="synchronize">Synchronize</:item>
       <:item value="verify">Verify</:item>
       <:item value="publish" disabled>Publish</:item>
     </.dropdown_menu>
@@ -2865,7 +2865,7 @@ defmodule StorybookWeb.Examples do
     <.empty class="max-w-sm">
       <.empty_header>
         <.empty_title>No components yet</.empty_title>
-        <.empty_description>Run `mix ui.gen` to fill the registry.</.empty_description>
+        <.empty_description>Run `mix ui.fetch` to discover the registry.</.empty_description>
       </.empty_header>
       <.empty_content>
         <.button size="sm" variant="outline">Read the roadmap</.button>
@@ -2984,7 +2984,6 @@ defmodule StorybookWeb.Examples do
       assign(assigns, :stages, [
         {"ui.fetch", "registry/UPSTREAM.json"},
         {"ui.spec", "registry/spec/*.json"},
-        {"ui.gen", "priv/registry/*.ex"},
         {"ui.verify", "registry/VERIFY.json"}
       ])
 

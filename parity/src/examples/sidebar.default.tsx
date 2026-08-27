@@ -36,7 +36,7 @@ const REGISTRY = [
 //
 // `tooltip` is left out on both sides too, and for a reason worth writing
 // down. Upstream wraps the button in a `<Tooltip>` when it is given, which
-// needs a `TooltipProvider` above it; the generated component declares the
+// needs a `TooltipProvider` above it; the reviewed port declares the
 // attribute and renders nothing for it. So an example that passed `tooltip`
 // would be comparing a tooltip against nothing, and the port would be hiding
 // the difference rather than showing it.

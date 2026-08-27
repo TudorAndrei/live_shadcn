@@ -1,6 +1,6 @@
 defmodule LiveShadcnTools.BaseUi do
   @moduledoc """
-  Reads a Base UI component page into the facts the generator needs.
+  Reads a Base UI component page into port-contract facts.
 
   Base UI publishes one Markdown page per component with a fixed structure, so
   the page is a machine-readable contract rather than prose:
@@ -87,7 +87,7 @@ defmodule LiveShadcnTools.BaseUi do
     %{
       # Base UI writes "Doesn't render its own HTML element." for the parts that
       # exist only to hold context — a provider, a submenu root. They are still
-      # parts, and the generator has to render their children.
+      # parts, and a reviewed port has to render their children.
       #
       # Some pages say neither. `ToggleGroup` and `Menubar` are documented
       # without a "Renders a `<div>`" line and are plainly elements: both take a

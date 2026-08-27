@@ -50,7 +50,7 @@
     "jsx/ComboboxSeparator/class/0": "the generated port does not contain this source literal"
   },
   "name": "combobox",
-  "port_body": "82627e078224b91e2bb73ad2c596e6dccb5065821cd771ad5fbc44d757fafce7",
+  "port_body": "628a2c8e12ba0c0f07dda81a49a7070919ae002cc7f5048d7caab204ace1de20",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

@@ -12,7 +12,7 @@ import {
 // context in this registry gets, and the reason the reference says it once at
 // the root and the port says it on the folder.
 //
-// The generated component carries ARIA upstream does not: two `role="group"`,
+// The reviewed port carries ARIA upstream does not: two `role="group"`,
 // a `role="none"`, an `aria-expanded`, and a chevron taken out of the
 // accessibility tree. Every one of them follows from the `role="tree"` and
 // `role="treeitem"` upstream *does* write, and none of them draws a pixel.

@@ -13,8 +13,8 @@ This product includes work derived from:
   Copyright (c) Base UI contributors, licensed under the MIT License.
 
 Component anatomy, class strings, and behavior contracts are ported from
-these projects. No source code is redistributed verbatim; generated Elixir
-modules are derived works produced by the pipeline in tools/.
+these projects. No source code is redistributed verbatim; reviewed Elixir
+ports are derived works maintained with the tools/ synchronization pipeline.
 
 Where an upstream component uses a JavaScript library, live_ai_elements uses
 the Elixir library that does the same job rather than porting it. Each is an
@@ -23,7 +23,7 @@ optional dependency, so an application that wants none pulls in none:
   phoenix_streamdown — https://github.com/dannote/phoenix_streamdown
   Streaming markdown for LiveView, in place of AI Elements' use of Streamdown.
 
-The codegen pipeline in tools/ reads upstream TypeScript with:
+The synchronization tooling in tools/ reads upstream TypeScript with:
 
   oxc — https://oxc.rs
   Copyright (c) Boshen and oxc contributors, licensed under the MIT License.

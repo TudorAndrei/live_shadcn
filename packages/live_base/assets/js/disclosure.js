@@ -12,7 +12,7 @@
 //      command has no notion of "until the transition ends".
 //
 // The hook is declared on the panel and reads its own configuration from the
-// markup the generator emitted:
+// markup the port declares:
 //
 //   data-lb-height-var    the CSS variable that carries the measured height
 //   data-lb-width-var     the CSS variable that carries the measured width
@@ -20,7 +20,7 @@
 //   data-lb-style-target  on every descendant whose class string reads
 //                         data-starting-style or data-ending-style
 //
-// Those four are plumbing between the generator and this file. None of them is
+// Those four are plumbing between the port and this file. None of them is
 // read by a shadcn class string, which is why they carry a prefix that cannot
 // collide with a documented Base UI attribute name.
 
@@ -103,7 +103,7 @@ export const Disclosure = {
   },
 
   // Base UI documents these attributes on the panel. A descendant gets them
-  // too when its own class string reads them, which the generator recorded.
+  // too when its own class string reads them, which the port records.
   targets() {
     return [this.el, ...this.el.querySelectorAll("[data-lb-style-target]")];
   },

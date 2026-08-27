@@ -1,11 +1,11 @@
 # live_shadcn
 
-shadcn/ui components for Phoenix LiveView, generated from the shadcn registry
-rather than copied by hand.
+Reviewed shadcn/ui ports for Phoenix LiveView, synchronized with the upstream
+registry.
 
 Every class string, every `data-slot`, and every data attribute in these
-components came from upstream. No line of a generated component was typed by a
-person, which is what lets them keep up with a library that changes weekly.
+components came from upstream. Maintainers review the HEEx API and behavior;
+Oxc keeps the marked class and CVA facts current.
 
 ## Installation
 
@@ -46,7 +46,7 @@ own body:
 
 ```elixir
 # live_shadcn: button @ 0.1.0 (037da9a280f9)
-# Generated from the shadcn registry. Regenerate upstream, never here.
+# Copied from the live_shadcn registry. Local edits are allowed.
 ```
 
 `mix ui.sync` compares each installed file against the registry and gives one of

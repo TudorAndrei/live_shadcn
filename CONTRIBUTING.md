@@ -1,206 +1,143 @@
 # Contributing
 
-The pipeline is `mix ui.fetch → mix ui.spec → mix ui.gen → mix ui.verify`. Three
-of those four stages are pure data. The one place a person writes code that ends
-up in a component is a **recipe**, and this page is about writing one.
+The maintainer workflow is `mix ui.fetch → mix ui.spec → mix ui.verify`.
 
-## Setting up
+Oxc keeps class and CVA facts current. Maintainers review and edit the HEEx port
+body. The synchronizer does not translate React behavior.
+
+## Setup
 
 ```bash
-cd tools && mix deps.get
-mix ui.fetch                      # upstream sources, styles and theme
-mix ui.spec                       # -> registry/spec/<source>/*.json
-mix ui.gen                        # -> packages/live_shadcn/priv/registry/*.ex
+cd tools && mix deps.get && npm install
+mix ui.fetch
 
 cd ../storybook && mix setup
-cd test/browser && npm install && npm run verify:install   # Chromium, once
+cd test/browser && npm install && npm run verify:install
 ```
 
-Then `mix phx.server` in `storybook/` and open <http://localhost:4100>.
+Run `mix phx.server` in `storybook/` and open <http://localhost:4100>.
 
-## The rule everything else follows from
+## Ownership rules
 
-**Nothing that reaches a component is typed by a person.** Not a class string,
-not a `data-slot`, not the list of variants a component accepts. If you find
-yourself copying one out of upstream, the pipeline has a gap — widen the reader
-or the recipe, and let the generator emit it.
+Each component has two committed files:
 
-A recipe is the exception, and it is a narrow one. A recipe says three things:
+- a reviewed Elixir port in its package;
+- a version-2 contract in `registry/spec/<source>/`.
 
-1. which Base UI part plays which role
-2. what expression computes each attribute the spec says an element carries
-3. how the parts nest into one component
+The marked fact block belongs to the synchronizer. The remaining module belongs
+to maintainers.
 
-It never says what an element looks like, what tag it is, or what classes it
-has. Those are facts, and the spec already holds them.
+```elixir
+# live-shadcn: upstream facts start
+@upstream_facts %{
+  "jsx/Button/class/0" => "cn-button inline-flex"
+}
+# live-shadcn: upstream facts end
+```
 
-## Writing a recipe
+Do not edit a fact value during a normal update. Edit the HEEx body when a
+LiveView API or behavior needs a reviewed change. Then run the online spec task
+to record the new body digest.
 
-### 1. Read the spec first
+## Update existing ports
 
 ```bash
 cd tools
-mix run -e 'IO.puts(File.read!("../registry/spec/shadcn/select.json"))'
+mix ui.fetch
+mix ui.spec --check --source shadcn
+mix ui.spec --check --source ai_elements
+mix ui.spec
 ```
 
-Look for two things: which parts Base UI documents, and what each part's
-`reads` says. `reads` is the list of attributes the class strings key on — it is
-the contract you have to satisfy, and it is already written down.
+The check classifies every change before any write:
 
-### 2. Add the module
-
-A recipe lives in `tools/lib/live_shadcn_tools/gen/` and exports `module/2`.
-Take an existing one as the shape; `disclosure` is the simplest with behavior,
-`presentational` the simplest without.
-
-The part that matters is `attribute!/2`:
-
-```elixir
-def attribute!("data-checked", _role), do: {:code, "flag(@checked)"}
-def attribute!("data-side", _role), do: :client
-
-def attribute!(name, role) do
-  raise "the … recipe does not know how to compute #{name} on the #{role}."
-end
-```
-
-**Raise on an attribute you have not thought about.** Do not return `nil` and do
-not skip it. Base UI documents that attribute because a class string reads it,
-and a component that quietly omits it is a component whose styling is wrong in a
-state nobody tested. The raise is how you find out at generation time instead.
-
-Then register it in `LiveShadcnTools.Gen`:
-
-```elixir
-@recipes %{… "select" => Listbox}
-```
-
-### 3. Decide where each attribute lives
-
-Three answers, and only three:
-
-| Answer | Means | Example |
-|---|---|---|
-| `{:code, expr}` | the server renders it | `data-checked`, `data-disabled` |
-| `:client` | a hook owns it | `data-side`, `data-starting-style` |
-| raise | nobody has decided yet | anything else |
-
-The server owns application state. The client owns what the reader has done and
-what the browser measured. If you are unsure which, ask whether the server could
-possibly know it: it cannot know where a popup landed, and it cannot know that
-somebody has touched a field.
-
-### 4. Behavior goes in `live_base`, not in the recipe
-
-A recipe emits markup. The `Phoenix.LiveView.JS` commands that markup calls
-belong in `packages/live_base/lib/live_base/`, so an application can use them
-without generating anything.
-
-Reach for a hook only when no command can express the thing, and say why in the
-module's doc. The four that exist are there for measurements, timing, scroll
-lock, focus containment, and which element a key means — and each one holds to
-the same line: **a hook decides which element, never what happens to it.**
-
-## Verifying
-
-```bash
-cd tools && mix ui.gen && mix ui.verify select
-```
-
-`mix ui.verify` checks four things:
-
-| Check | Question |
+| Result | Meaning |
 |---|---|
-| generated | does the module on disk still match its spec? |
-| snapshot | has the markup a reader gets changed? |
-| browser | does it behave like Base UI, and is it clean under axe-core? |
-| parity | does it draw what the React it was generated from draws? |
+| safe fact update | a known class or CVA fact changed value |
+| manual drift | structure, state reads, or a Base UI contract changed |
+| error | a source is missing, a digest is stale, or a fact has no policy |
 
-A component with behavior needs a suite of its own in
-`storybook/test/browser/<name>.spec.mjs`. Transcribe it from the Base UI
-documentation page — that page is the specification, and a test that agrees with
-our implementation rather than with upstream proves nothing.
+`mix ui.spec` writes safe updates only when the full selected run has no manual
+drift or error. Do not bypass a manual result. Review the upstream source and
+change the port body, bindings, or ignored reasons as required.
 
-Every component needs an example in `storybook/lib/storybook_web/examples.ex`.
-The examples are the fixtures: `mix snapshot` renders them and the browser suite
-drives them. They are also the one place hand-written markup is expected, and
-they are the honest test of the generated API — **if the example is awkward to
-write, the component is awkward, and correct output does not make up for it.**
+## Add the first port for a component
 
-## Adding a component to an existing recipe
+The first port is manual because Oxc does not choose an API or translate React
+behavior.
 
-Often nothing needs writing at all:
+1. Run `mix ui.fetch` and add the source, tier, and classification to
+   `registry/INVENTORY.json`.
+2. Read the upstream `.tsx`, Base UI page, and nearest existing reviewed port.
+3. Select or add the required `live_base` primitive.
+4. Create the Elixir module at the path used by its source:
+   `packages/live_shadcn/priv/registry/` or
+   `packages/live_ai_elements/lib/live_ai_elements/components/`.
+5. Add an empty marked fact block, write the public attributes and slots, and
+   implement the HEEx behavior.
+6. In `iex -S mix` under `tools/`, call
+   `LiveShadcnTools.Converter.sync/1` with the fetched source bodies,
+   style rules, Base UI pages, the reviewed port, `contract: nil`, and explicit
+   `bindings`, `ignored`, and `uses` values. Write the returned `artifact.port`
+   and `artifact.contract_json` to their normal paths.
+7. Review every binding and ignored reason. A reason must explain why the port
+   does not use the upstream fact.
+8. Run `mix ui.spec --check <source>/<name>`.
+9. Add a Storybook example, a snapshot, browser behavior tests, and React parity
+   where it applies.
+10. Run `mix ui.verify <source>/<name>`.
+
+The converter accepts an empty fact block for the initial `contract: nil` call.
+It returns the canonical fact block. Later runs require the block, contract, and
+port body to agree.
+
+## Behavior placement
+
+Application state belongs on the server. Short-lived interface state and
+browser measurements belong on the client.
+
+Put reusable commands and hooks in `packages/live_base/`. Use a hook only when
+`Phoenix.LiveView.JS` cannot express the work. A hook decides which element to
+use; the `JS` command on that element decides what happens.
+
+## Verification
 
 ```bash
 cd tools
-# Say which recipe and tier it is, in registry/INVENTORY.json
-mix ui.spec <name> && mix ui.gen <name>
+mix ui.spec --check --offline
+mix ui.verify shadcn/select
+mix ui.status --check
 ```
 
-If it generates, add an example and a browser suite and verify it. If it raises,
-the message names exactly what is missing.
+Verification checks contract agreement, snapshots, browser behavior,
+accessibility, upstream geometry, and pixels. Every component also needs an
+example in `storybook/lib/storybook_web/examples.ex`.
 
-## Before opening a pull request
+If a local port is in use, select isolated browser ports:
 
 ```bash
-# In each of tools/, packages/*/ and storybook/
-mix check                       # format, compile, credo, deps.audit, dialyzer
+STORYBOOK_PORT=14101 PARITY_PORT=14102 mix ui.verify shadcn/select
+```
+
+## Before a pull request
+
+```bash
+# In tools/ and each packages/* project
 mix test
+mix check
 
-cd tools && mix ui.gen --check && mix ui.status --check
-cd ../storybook && mix snapshot --check
+cd tools
+mix ui.spec --check --offline
+mix ui.status --check
 
-# If you changed the reader — anything under tools/lib/live_shadcn_tools/ that
-# reads a `.tsx`. Needs the upstream sources, so `mix ui.fetch` first.
-cd ../tools && mix ui.spec --check --source shadcn
+cd ../storybook
+mix snapshot --check
 ```
 
-`--check` is what keeps the generated files honest: it fails if a file no longer
-matches what its spec produces, whether that is because the spec moved or
-because somebody edited the output.
+If the change reads upstream sources, also run both online source checks after
+`mix ui.fetch`.
 
-The first three compare two committed things and none of them re-reads upstream,
-so a spec can drift from the source it was built from and all three stay green.
-`mix ui.spec --check` is the one that asks. It runs per registry because three
-AI Elements components stop the reader, and it refuses rather than passing when
-a source was not fetched — a check that cannot tell "did not run" from "passed"
-is worse than no check.
-
-## Verification runs on your machine, not in CI
-
-`mix ui.verify` opens a browser. CI does not, and that is deliberate.
-
-`registry/upstream/` is gitignored, so a CI run would have to fetch every
-upstream source before it could render the React reference — and pixel-level
-comparison wants one known renderer rather than whatever a runner provides.
-So the browser checks run where those things are already true: locally.
-
-```bash
-cd tools && mix ui.verify              # everything
-cd tools && mix ui.verify shadcn/badge # one component
-```
-
-That writes `registry/VERIFY.json`, **which is committed**. CI then runs
-`mix ui.status --check`, which refuses an inventory whose verification no longer
-matches the specs on disk: change a spec without re-verifying and the component
-demotes, the inventory diff shows it, and the build goes red.
-
-So CI enforces that somebody verified. It does not pretend to verify. The
-browser suite used to run in CI and could not have been working — the job
-fetched `--only accordion` while `parity/` was never installed at all, so the
-reference server could not build 65 of its 66 pages.
-
-If a port is already taken, `STORYBOOK_PORT` and `PARITY_PORT` override it. The
-harness refuses a port held by something that is not ours rather than measuring
-it by accident.
-
-## What not to do
-
-- **Do not edit anything in `packages/live_shadcn/priv/registry/`.** Those files
-  are generated. `mix ui.gen --check` will catch you, and the fix is upstream.
-- **Do not commit anything from `registry/upstream/`.** It is gitignored on
-  purpose: `registry/UPSTREAM.json` records a digest per file, so drift is
-  visible without this repository redistributing anybody else's source.
-- **Do not use a model in the daily loop.** A model may draft a new recipe once.
-  A person reviews it and it is then frozen. Fetching, speccing and generating
-  are parsing and templating, and they stay that way.
+Do not commit `registry/upstream/`. The repository commits source digests, not
+copies of upstream files. Do not use a model in the scheduled synchronization
+loop. A model can help draft a first port, but a maintainer must review the API,
+behavior, bindings, and tests.

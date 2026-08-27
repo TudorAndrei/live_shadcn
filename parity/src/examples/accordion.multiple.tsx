@@ -7,7 +7,7 @@ import {
 
 // Ported from `StorybookWeb.Examples.accordion_multiple/1`.
 //
-// `openMultiple` is Base UI's default and the generated component's `multiple`
+// `openMultiple` is Base UI's default and the reviewed port's `multiple`
 // is not, so the storybook example asks for it and this one does not have to.
 // It is written out anyway: an example that relies on a default reads as though
 // the two sides agreed by accident.
@@ -17,7 +17,7 @@ export default function AccordionMultiple() {
       <AccordionItem>
         <AccordionTrigger>Added</AccordionTrigger>
         <AccordionContent keepMounted>
-          The disclosure recipe, and the accordion generated from it.
+          The disclosure contract, and the accordion reviewed against it.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem>

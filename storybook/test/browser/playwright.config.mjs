@@ -8,7 +8,7 @@ const PORT = process.env.STORYBOOK_PORT || "4101";
 
 // The React reference `parity.spec.mjs` compares against. It renders the same
 // upstream sources the specs were read from, so a difference between the two
-// pages is a difference between the generated component and upstream.
+// pages is a difference between the reviewed port and upstream.
 const PARITY_PORT = process.env.PARITY_PORT || "4102";
 
 // Refuse a server that is not ours before a single test runs.

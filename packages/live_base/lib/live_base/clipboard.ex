@@ -19,7 +19,7 @@ defmodule LiveBase.Clipboard do
   ## The two states, and how they are drawn
 
   The server cannot draw one icon or the other, because it does not know which.
-  So a generated component draws both, each marked with the state it belongs to,
+  So a reviewed port draws both, each marked with the state it belongs to,
   and the one the client does not start in is `hidden`:
 
       <button id="copy" phx-hook={LiveBase.Clipboard.hook()} data-lb-clipboard="mix deps.get">

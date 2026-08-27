@@ -7,7 +7,7 @@
 //
 // What the hook owns is the two seconds afterwards, in which the copy icon is a
 // check. The server cannot draw that state because it does not know it, so the
-// generated component draws both icons and hides one:
+// reviewed port draws both icons and hides one:
 //
 //   data-lb-clipboard   on the button: the text to copy
 //   data-lb-timeout     how long the copied state lasts, in milliseconds

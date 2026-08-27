@@ -38,7 +38,7 @@
     "jsx/DropdownMenuSubTrigger/class/1": "the generated port does not contain this source literal"
   },
   "name": "dropdown-menu",
-  "port_body": "d45fe70f8271e109072e322af7d5e4b068d667ef0a8f7adeafacad5146360b19",
+  "port_body": "e72e92aeffd54bc3768c3642a4becbc93a313ddb3324588ff3104cb3c22f8d97",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

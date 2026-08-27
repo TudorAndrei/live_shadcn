@@ -38,7 +38,7 @@
     "jsx/ContextMenuSubTrigger/class/1": "the generated port does not contain this source literal"
   },
   "name": "context-menu",
-  "port_body": "152c165f7928b7fe8b1e0fdcb805364d52a3ee94ef7258088a06cad73303fd0b",
+  "port_body": "6c46387d7165a34f09a1e117f8695a054812bb34b395472feb780a252e58dddd",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

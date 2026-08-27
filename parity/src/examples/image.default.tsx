@@ -4,7 +4,7 @@ import { Image } from "@upstream/ai_elements/image";
 //
 // A one-pixel PNG, so both sides draw the same picture without asking a network
 // for it. `alt` is read off the rest object upstream — `props.alt` — and is an
-// attribute in the generated component, which is what upstream's own type says
+// attribute in the reviewed port, which is what upstream's own type says
 // it is.
 const PIXEL =
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";

@@ -2,7 +2,7 @@
 //
 // The comparison is not of markup. Two renderers of the same component differ
 // in ways nobody should be told about — React generates `base-ui-_r_2_` where
-// the generated component takes an id from its caller, and only one side has
+// the reviewed port takes an id from its caller, and only one side has
 // `phx-click`. What they must agree on is what a reader sees: where each part
 // of the component is, how big it is, and what it looks like.
 //

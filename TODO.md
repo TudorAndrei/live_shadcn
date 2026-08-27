@@ -119,49 +119,49 @@ and make its listed commit before work starts on the next phase.
 
 ## Phase 6: document the reviewed-port workflow
 
-- [ ] Update the pipeline in `README.md`.
-- [ ] Update the stages and ownership rules in `docs/ARCHITECTURE.md`.
-- [ ] Remove statements that say every port is generated or must not be edited.
-- [ ] Document safe fact updates and manual structural drift.
-- [ ] Document how to create and verify the first port for a new upstream
+- [x] Update the pipeline in `README.md`.
+- [x] Update the stages and ownership rules in `docs/ARCHITECTURE.md`.
+- [x] Remove statements that say every port is generated or must not be edited.
+- [x] Document safe fact updates and manual structural drift.
+- [x] Document how to create and verify the first port for a new upstream
       component.
-- [ ] Document that Oxc extracts facts and does not translate React behavior.
-- [ ] Run Markdown and repository formatting checks.
-- [ ] Run `cd tools && mix ui.status --check`.
-- [ ] Commit: `docs(architecture): document port synchronization`
+- [x] Document that Oxc extracts facts and does not translate React behavior.
+- [x] Run Markdown and repository formatting checks.
+- [x] Run `cd tools && mix ui.status --check`.
+- [x] Commit: `docs(architecture): document port synchronization`
 
 ## Verification
 
-- [ ] No behavior change in the 109 currently verified entries.
-- [ ] All class strings and their order match the current ports before the
+- [x] No behavior change in the 109 currently verified entries.
+- [x] All class strings and their order match the current ports before the
       migration.
-- [ ] All CVA values, defaults, and compile-time accepted values match.
-- [ ] `mix ui.add` still copies standalone Elixir modules.
-- [ ] Two runs on the same input return byte-identical contracts and fact
+- [x] All CVA values, defaults, and compile-time accepted values match.
+- [x] `mix ui.add` still copies standalone Elixir modules.
+- [x] Two runs on the same input return byte-identical contracts and fact
       blocks.
-- [ ] A class-only change updates only safe facts and the marked block.
-- [ ] A CVA-only change updates the table and compile-time accepted values.
-- [ ] A new data or ARIA state read returns manual drift and writes nothing.
-- [ ] A JSX shape, export, prop-flow, hook, context, portal, primitive import,
+- [x] A class-only change updates only safe facts and the marked block.
+- [x] A CVA-only change updates the table and compile-time accepted values.
+- [x] A new data or ARIA state read returns manual drift and writes nothing.
+- [x] A JSX shape, export, prop-flow, hook, context, portal, primitive import,
       `data-slot`, static attribute, or Base UI contract change returns manual
       drift and writes nothing.
-- [ ] A syntax error reports the source file and span.
-- [ ] An edited port body fails the offline check until its contract records the
+- [x] A syntax error reports the source file and span.
+- [x] An edited port body fails the offline check until its contract records the
       new body digest.
-- [ ] A full-registry failure leaves all contracts and ports unchanged.
-- [ ] All package tests and static checks pass.
-- [ ] All snapshots pass.
-- [ ] All browser and accessibility checks pass.
-- [ ] All React parity and pixel checks pass.
-- [ ] `registry/VERIFY.json` and `docs/INVENTORY.md` are current.
-- [ ] The final replacement stays within the 1,650-line target.
+- [x] A full-registry failure leaves all contracts and ports unchanged.
+- [x] All package tests and static checks pass.
+- [x] All snapshots pass.
+- [x] All browser and accessibility checks pass.
+- [x] All React parity and pixel checks pass.
+- [x] `registry/VERIFY.json` and `docs/INVENTORY.md` are current.
+- [x] The final replacement stays within the 1,650-line target.
 
 ## Review
 
 - [x] Review the converter interface and version 2 contract before phase 2.
 - [x] Review the `button`, `dialog`, and `calendar` diff before phase 3.
-- [ ] Update `PLAN.md` and `TODO.md` before work continues if the design changes.
-- [ ] Complete and commit each phase before the next phase starts.
-- [ ] Check that every phase commit uses the exact conventional commit message
+- [x] Update `PLAN.md` and `TODO.md` before work continues if the design changes.
+- [x] Complete and commit each phase before the next phase starts.
+- [x] Check that every phase commit uses the exact conventional commit message
       in this file.
-- [ ] Check all TODO items before the migration is complete.
+- [x] Check all TODO items before the migration is complete.

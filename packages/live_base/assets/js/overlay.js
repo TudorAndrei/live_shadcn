@@ -18,7 +18,7 @@
 //   data-lb-modal     present when the page behind must not scroll or receive
 //                     focus, absent for a non-modal overlay
 //
-// Both are plumbing between the generator and this file, and neither is read by
+// Both are plumbing between the port and this file, and neither is read by
 // a shadcn class string.
 
 import { hide, show } from "./transition.js";

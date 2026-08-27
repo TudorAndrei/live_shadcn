@@ -14,7 +14,7 @@ const OUTPUT = "Compiling 4 files (.ex)";
 // Ported from `StorybookWeb.Examples.terminal_default/1`.
 //
 // The output carries the escape codes a program writes for colour. Upstream
-// turns them into spans with `ansi-to-react`; the generated component names the
+// turns them into spans with `ansi-to-react`; the reviewed port names the
 // job — `LiveAiElements.Ansi` — and the application chooses what sits behind it,
 // which is the same seam the markdown renderer gets.
 //

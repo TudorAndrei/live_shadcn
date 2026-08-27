@@ -57,7 +57,7 @@ test.describe("a dropdown menu", () => {
     await expect(menu(page).item("fetch")).toBeFocused();
 
     await page.keyboard.press("ArrowDown");
-    await expect(menu(page).item("generate")).toBeFocused();
+    await expect(menu(page).item("synchronize")).toBeFocused();
   });
 
   test("a disabled item is skipped, not merely unclickable", async ({ page }) => {
@@ -79,7 +79,7 @@ test.describe("a dropdown menu", () => {
     await trigger.click();
     await expect(popup).toBeVisible();
 
-    await item("generate").click();
+    await item("synchronize").click();
     await expect(popup).toBeHidden();
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
   });

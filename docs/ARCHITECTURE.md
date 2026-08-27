@@ -1,34 +1,28 @@
 # Architecture
 
-## Three layers
+## Three runtime layers
 
 ```text
-live_ai_elements   parts model, stream reducer, AI components
+live_ai_elements   stream reducer and AI component ports
         |
-   live_shadcn     63 components, copy-in through mix ui.add
+   live_shadcn     reviewed shadcn ports, copied by mix ui.add
         |
-    live_base      headless behavior, Base UI data-attribute contract
+    live_base      headless behavior and client hooks
         |
  phoenix_live_view
 ```
 
-`live_base` has exactly one dependency: `phoenix_live_view`. No AI framework,
-no Ash, no Ecto. This is deliberate. A component library that drags an agent
-framework behind it cannot be adopted by people using a different one.
+`live_base` depends only on `phoenix_live_view`. It owns reusable behavior such
+as focus management, popup positioning, dismiss actions, and roving focus.
+`live_shadcn` owns shadcn markup and API design. `live_ai_elements` owns AI
+component markup and streaming data adapters.
 
 ## The data-attribute contract
 
-Base UI publishes a stable set of data attributes per component. shadcn's class
-strings key on them. `live_base` emits them from HEEx and from its hooks.
+shadcn class strings use data and ARIA attributes. `live_base` and the reviewed
+ports must provide the same state contract.
 
-Nothing in `live_shadcn` may invent an attribute name. If a class string reads
-`data-panel-open`, the primitive sets `data-panel-open`. This rule is what lets
-class strings be copied verbatim and stay correct after an upstream change.
-
-### The contract has two sources, not one
-
-The `.tsx` is half of it. The other half is the style sheet, where every `cn-`
-class is defined:
+The component source is not the only input. A shadcn style can add a state read:
 
 ```css
 .cn-accordion-content {
@@ -36,226 +30,176 @@ class is defined:
 }
 ```
 
-`data-closed` appears in no `.tsx` and on no Base UI page. A component generated
-from the component source alone would never set it, and the collapse animation
-would silently not run. So `mix ui.spec` reads the sheets too, and an attribute
-a sheet reads is as binding as one Base UI documents.
+Here, `data-closed` does not occur in the component `.tsx` file. The style rule
+still makes it part of the contract.
 
-## Behavior placement
+## Behavior ownership
 
-Server owns application state. Client owns ephemeral UI state. The client
-behavior is declared on the server with `Phoenix.LiveView.JS`.
+The server owns application state. The client owns short-lived interface state,
+browser measurements, and focus movement. LiveView declares most client work
+with `Phoenix.LiveView.JS`.
 
-Four hooks exist, and each is there because no `JS` command reaches what it
-does:
-
-| Hook | Used by | Because |
+| Hook | Used by | Reason |
 |---|---|---|
-| `Disclosure` | accordion, collapsible | a height only the browser can compute, and an attribute held for one frame |
-| `Overlay` | dialog, alert dialog, sheet | scroll lock, focus containment, exit timing |
-| `Floating` | popover, tooltip, menu, select | where a popup lands depends on the room left for it |
-| `Roving` | tabs, menu, select | `phx-key` filters one key per binding, and the arrow keys are four |
+| `Disclosure` | accordion and collapsible ports | measure content and hold transition state |
+| `Overlay` | dialog, alert dialog, sheet, and drawer | focus containment, scroll lock, and exit timing |
+| `Floating` | popover, tooltip, menu, and select | position from available browser space |
+| `Roving` | tabs, menu, and select | move focus with arrow keys |
 
-Everything else is a `JS` command, `phx-click-away`, or `phx-window-keydown`.
+A hook decides which element to use. The `JS` command on the element decides
+what happens. This keeps application actions on the server-declared component
+API and keeps browser-only work in the browser.
 
-### The line a hook is held to
+Hooks read configuration from `data-lb-*` attributes. These names are internal
+to `live_base`; shadcn class strings do not use them.
 
-**A hook decides which element, never what happens to it.** Arriving at a tab
-shows its panel; arriving at a menu item does not choose it. The same roving
-hook does both, told which by one attribute, because what choosing means is the
-`JS` command already on that element.
+## Reviewed ports and synchronized facts
 
-That line is why the split survives: the discrete flip — `aria-expanded`,
-`data-open`, `data-selected` — is a `JS` command in every recipe, so no click
-reaches the server unless the caller asked for one. The hooks own measurements,
-timing, and which element a key means.
+The HEEx module is a reviewed port. A maintainer owns its public attributes,
+slots, markup, behavior, and use of `live_base`.
 
-### What a hook is told
+Only one marked block is synchronized:
 
-A hook reads its configuration from the markup the generator emitted, under a
-`data-lb-` prefix that no shadcn class string reads:
-
-```text
-data-lb-anchor  data-lb-side  data-lb-align  data-lb-offset   floating position
-data-lb-roving  data-lb-orientation  data-lb-loop            which items to walk
-data-lb-activate  data-lb-highlight                          what arriving does
-data-lb-measure  data-lb-style-target  data-lb-height-var     what to measure
-data-lb-modal  data-lb-autofocus  data-lb-popup  data-lb-backdrop
+```elixir
+# live-shadcn: upstream facts start
+@upstream_facts %{
+  "cva/buttonVariants/default/size" => "default",
+  "jsx/Button/class/0" => "cn-button inline-flex"
+}
+# live-shadcn: upstream facts end
 ```
 
-Every one of them follows from a fact the spec already records. None is a
-decision a person makes per component.
+The port reads these values through `upstream_fact/1`. The code outside the
+markers can combine facts with reviewed literals. The synchronizer records the
+digest of that body but does not rewrite it.
 
-## Recipes
+This separation is the main ownership rule:
 
-63 components map onto about eight behavior recipes:
-
-| Recipe | Components |
+| Data | Owner |
 |---|---|
-| `disclosure` | accordion, collapsible, sidebar |
-| `dialog` | dialog, alert-dialog, sheet, drawer |
-| `popover` | popover, hover-card, tooltip |
-| `listbox` | select, combobox, command, native-select |
-| `menu` | dropdown-menu, context-menu, menubar, navigation-menu |
-| `tabs` | tabs, toggle-group |
-| `form-control` | input, textarea, checkbox, radio-group, switch, slider, field |
-| `presentational` | badge, card, alert, separator, skeleton, table, and the rest |
+| class and CVA literals | upstream, synchronized by Oxc facts |
+| fact bindings and ignored reasons | maintainer, stored in the contract |
+| HEEx API, structure, and behavior | maintainer, stored in the port |
+| Base UI primitives and hooks | `live_base` maintainers |
 
-Recipes are hand-written and reviewed once. A component's spec names its recipe,
-and the generator does the rest.
+## Version-2 port contract
 
-A recipe says three things and nothing else:
-
-1. which Base UI part plays which role
-2. what expression computes each documented attribute
-3. how the parts nest into one component
-
-`presentational` is the degenerate case — no roles, no attributes to compute,
-one function per exported part. `disclosure` is the other end: five roles, two
-shapes (a list of items, or one panel), and a client hook.
-
-## Variants
-
-shadcn writes a component's variants as a `class-variance-authority` table:
-
-```ts
-const buttonVariants = cva("cn-button inline-flex …", {
-  variants: { variant: { default: "cn-button-variant-default", … } },
-  defaultVariants: { variant: "default" },
-})
-```
-
-Four decisions live there — which variants exist, what each is called, which is
-the default, and what class string each carries — and a HEEx component needs all
-four. The spec records the table, so `attr :variant, :string, values: …` is
-generated from it rather than retyped, and a variant nobody defined is a compile
-error instead of a class that does not exist.
-
-## Pipeline stages
-
-### `mix ui.fetch`
-
-Resolves each upstream repository to a commit SHA, downloads sources into
-`registry/upstream/` (gitignored), and writes `registry/UPSTREAM.json` with a
-SHA-256 per file. Four kinds of source:
-
-| Path | What it holds |
-|---|---|
-| `shadcn/ui/<name>.tsx` | the anatomy and the class strings |
-| `base_ui/<name>.md` | the parts, the data attributes, the CSS variables |
-| `shadcn/styles/<style>.css` | the `cn-` rules, one sheet per shadcn style |
-| `shadcn/theme/globals.css` | the design tokens every rule resolves against |
-
-Tracking digests rather than the sources keeps upstream code out of this
-repository while still making drift visible as a diff.
-
-### `mix ui.spec`
-
-Reads all four into `registry/spec/<source>/<name>.json`:
+Each port has `registry/spec/<source>/<name>.json`. The contract is compact and
+does not contain a translated JSX tree.
 
 ```jsonc
 {
-  "name": "accordion",
-  "recipe": "disclosure",
-  "primitives": {
-    "accordion.Trigger": {                          // module and part
-      "element": "button",                          // "Renders a <button> element."
-      "data": ["data-panel-open", "data-disabled"], // the documented contract
-      "props": [ /* name, type, default, doc */ ]
-    }
-  },
-  "parts": [
-    {
-      "name": "accordion_trigger",
-      "primitive": "Trigger",
-      "tree": {
-        "type": "primitive", "module": "accordion", "part": "Header", "tag": "h3",
-        "children": [
-          {
-            "type": "primitive", "module": "accordion", "part": "Trigger",
-            "tag": "button",
-            "slot": "accordion-trigger",            // from data-slot
-            "class": "cn-accordion-trigger group/accordion-trigger …",
-            "merges_class": true,                 // the caller's class goes here
-            "reads": {"self": ["aria-disabled"], "group": []},
-            "vars": []
-          }
-        ]
-      }
-    }
-  ],
-  "styles": {"vega": {"cn-accordion-content": "data-open:animate-… …"}},
-  "css_vars": ["--accordion-panel-height", "--accordion-panel-width"]
+  "schema_version": 2,
+  "source": "shadcn",
+  "name": "button",
+  "toolchain": {"oxc-parser": "0.74.0"},
+  "upstream": {"shadcn/ui/button.tsx": "<sha256>"},
+  "fingerprint": "<structural digest>",
+  "file_fingerprints": {"shadcn/ui/button.tsx": "<digest>"},
+  "source_facts": {"jsx/Button/class/0": "cn-button inline-flex"},
+  "facts": {"jsx/Button/class/0": "cn-button inline-flex"},
+  "bindings": {"copy": ["jsx/Button/class/0"], "derived": {}},
+  "ignored": {},
+  "uses": ["jsx/Button/class/0"],
+  "state_reads": [],
+  "css_vars": [],
+  "base_ui": {},
+  "styles": {},
+  "port_body": "<sha256>"
 }
 ```
 
-`reads` and `vars` are the two facts that make generation possible without a
-person placing attributes. A class string containing `data-ending-style:h-0`
-declares that this element must carry `data-ending-style` while it animates out;
-one containing `h-(--accordion-panel-height)` declares that something has to
-measure it.
+`bindings.copy` maps an upstream fact directly into the port. A derived binding
+can join facts and reviewed literals or apply the small Tailwind merge operation.
+Every source fact must have a binding or an `ignored` reason.
 
-The spec is the only thing the generator reads. It is committed, so a change in
-generated output always traces back to a change in the spec.
+## Oxc boundary
 
-### `mix ui.gen`
+`tools/priv/facts.mjs` parses TypeScript and JSX with Oxc. It returns:
 
-Spec to HEEx module plus hook wiring, from a deterministic template. No model
-involved. Rerunning on an unchanged spec must produce identical bytes, which is
-what makes `mix ui.gen --check` a usable gate against a hand edit.
+- static class literals;
+- CVA bases, variants, compound variants, and defaults;
+- source spans for diagnostics;
+- a structural fingerprint with safe literal values masked.
 
-The recipe folds a component's parts into one function. shadcn exports four
-components for the accordion and threads the item's identity between them with
-React context; HEEx has no implicit context, so four functions would mean the
-caller repeating an id on each of them. One `<.accordion>` with an `:item` slot
-names each item once, and `LiveBase.Disclosure` derives every id the ARIA
-contract needs from it.
+Oxc does not translate JavaScript expressions into Elixir. It does not choose a
+LiveView API, convert React state, select a `live_base` primitive, or write HEEx
+behavior. Those decisions stay in the reviewed port.
+
+## Maintainer stages
+
+### `mix ui.fetch`
+
+The task resolves upstream repositories to commit SHAs. It downloads sources to
+the ignored `registry/upstream/` directory and records their digests in
+`registry/UPSTREAM.json`.
+
+### `mix ui.spec`
+
+The task reads existing version-2 contracts and ports. It parses all required
+upstream files in one run and computes every result before it writes.
+
+| Change | Result |
+|---|---|
+| class or CVA value with the same fact key | safe fact update |
+| component or call structure | manual drift |
+| state-read set | manual drift |
+| Base UI page digest | manual drift |
+| missing binding or ignored reason | error |
+| reviewed port-body edit | new body digest after online review |
+
+One manual result stops all port and contract writes in a full run. The weekly
+workflow therefore cannot apply safe updates beside an unreviewed structural
+change.
+
+`mix ui.spec --check --offline` uses only committed contracts and ports. It
+checks the fact values, canonical fact-block format, contract JSON bytes, and
+the reviewed port-body digest. CI and release jobs use this mode.
+
+The reader gates stay separate:
+
+```bash
+mix ui.spec --check --source shadcn
+mix ui.spec --check --source ai_elements
+```
 
 ### `mix ui.verify`
 
-Three checks, written to `registry/VERIFY.json` so `mix ui.status` can mark a
-component verified without anybody typing a status:
+Verification writes `registry/VERIFY.json`. A result remains valid only while
+its contract digest is unchanged.
 
 | Check | Question |
 |---|---|
-| generated | does the module on disk still match its spec? |
-| snapshot | has the markup a reader gets changed? |
-| browser | does it behave like Base UI, and is it clean under axe-core? |
+| generated | does the reviewed port match its contract? |
+| snapshot | did rendered markup change? |
+| browser | does behavior work, and is the result clean under axe-core? |
+| parity | does the port draw the same measurable result as upstream React? |
+| pixel | does the port paint the same result as upstream React? |
 
-The snapshots live in `registry/snapshot/`, pretty-printed, so an upstream class
-change arrives in a pull request as a diff of what a reader sees. The browser
-check starts the demo application and drives it with Playwright, because opening
-a panel is a client behavior: no amount of server-side rendering can tell you
-whether it works.
+The historical key `generated` remains in the verification file to avoid an
+unrelated persistence migration. Its current meaning is contract agreement.
 
-A component with behavior has a suite of its own. One without still has an
-accessibility contract, and the generic axe-core run over its preview pages is
-what checks it.
+## A first port
 
-### Contrast is upstream's
+A new upstream component has no safe automatic translation. A maintainer must:
 
-axe-core reports colour contrast, and some of shadcn's own colours fall below
-4.5:1 — the `vega` destructive badge is 4.0:1, its `kbd` is 4.34:1. A generated
-component reproduces upstream's colours faithfully, which is the point, so it
-cannot be held to a ratio its own style sheet does not meet. Contrast findings
-are reported and do not fail the run. Everything else axe reports is markup,
-which is ours, and does.
+1. fetch the source and classify the inventory entry;
+2. choose the nearest reviewed port and `live_base` primitive;
+3. write the module API, markup, and behavior;
+4. add the marked fact block and explicit bindings or ignored reasons;
+5. use `LiveShadcnTools.Converter.sync/1` with `contract: nil` to create the
+   first version-2 contract, then review the returned port and contract;
+6. add Storybook examples, snapshots, browser behavior tests, and upstream
+   parity where it applies;
+7. run `mix ui.spec --check` and `mix ui.verify <source>/<name>`.
 
-## Where a model is allowed
+After this first review, normal updates use `mix ui.spec`.
 
-Only when a new recipe is needed, which happens once per behavior pattern. A
-person reviews it and it is then frozen. The daily sync loop is pure parsing
-and templating.
+## Sync workflow
 
-## Sync
+The scheduled workflow runs fetch, port synchronization, snapshots, offline
+contract checks, and browser verification. Safe fact changes can open a pull
+request. Manual structural drift stops before port or contract writes.
 
-A scheduled workflow runs fetch, spec, gen, and verify, then opens a pull
-request:
-
-```text
-sync shadcn @ ac60ef5 — 4 class strings changed, 1 new component, 0 behavior changes
-```
-
-In a user's application, `mix ui.sync` compares the installed component version
-against the registry, shows the upstream diff, and skips any file the user has
-edited.
+In a user's application, `mix ui.sync` compares installed copies with the
+package registry. It does not overwrite an edited copy.

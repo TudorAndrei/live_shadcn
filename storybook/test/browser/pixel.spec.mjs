@@ -1,5 +1,4 @@
-// Every generated component, photographed beside the React it was generated
-// from.
+// Every reviewed port, photographed beside its upstream React reference.
 //
 // `parity.spec.mjs` compares numbers and strings: box geometry and 37 computed
 // properties, per `data-slot`. That catches a padding, a colour, a font weight.

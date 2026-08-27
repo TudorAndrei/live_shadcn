@@ -1,11 +1,9 @@
 amends "package://github.com/jdx/hk/releases/download/v1.56.1/hk@1.56.1#/Config.pkl"
 import "package://github.com/jdx/hk/releases/download/v1.56.1/hk@1.56.1#/Builtins.pkl"
 
-// Everything a pipeline stage writes. A fixer that touches one of these edits a
-// generated file, and `mix ui.gen --check` and `mix ui.status --check` then fail
-// with nothing in the diff to explain why. That happened: the whitespace fixer
-// stripped a trailing space out of a generated moduledoc.
-local generated = List(
+// Ports and machine records have contract or deterministic-output checks. A
+// generic fixer must not change their bytes without updating that record.
+local managed = List(
     "packages/live_shadcn/priv/registry/**",
     "packages/live_ai_elements/lib/live_ai_elements/components/**",
     "registry/spec/**",
@@ -35,13 +33,13 @@ local linters = new Mapping<String, Step | Group> {
     //
     // Pins every action to a commit SHA. `zizmor` reads what this writes.
     ["pinact"] = Builtins.pinact
-    ["rumdl"] = (Builtins.rumdl) { exclude = generated }
+    ["rumdl"] = (Builtins.rumdl) { exclude = managed }
 
     // ── tier 3: formatters. Each one waits for the fixer that shares its files. ──
     // `mix format` resolves `import_deps` against the project it runs in, so each
     // mix.exs directory gets its own run instead of one run from the repo root.
     ["mix-format"] = (Builtins.mix_fmt) {
-        exclude = generated
+        exclude = managed
         workspace_indicator = "mix.exs"
         check = (Builtins.mix_fmt.check) {
             command = "cd {{workspace}} && mix format --check-formatted {{workspace_files}}"
@@ -52,15 +50,15 @@ local linters = new Mapping<String, Step | Group> {
     }
     ["rumdl-format"] = (Builtins.rumdl_format) {
         depends = List("rumdl")
-        exclude = generated
+        exclude = managed
     }
     ["tombi-format"] = Builtins.tombi_format
 
     // ── tier 4: whole-repo hygiene. One barrier for both steps. ──
     ["hygiene"] = new Group {
         steps {
-            ["trailing-whitespace"] = (Builtins.trailing_whitespace) { exclude = generated }
-            ["newlines"] = (Builtins.newlines) { exclude = generated }
+            ["trailing-whitespace"] = (Builtins.trailing_whitespace) { exclude = managed }
+            ["newlines"] = (Builtins.newlines) { exclude = managed }
         }
     }
 

@@ -7,7 +7,7 @@ export default function EmptyDefault() {
     <Empty className="max-w-sm">
       <EmptyHeader>
         <EmptyTitle>No components yet</EmptyTitle>
-        <EmptyDescription>Run `mix ui.gen` to fill the registry.</EmptyDescription>
+        <EmptyDescription>Run `mix ui.fetch` to discover the registry.</EmptyDescription>
       </EmptyHeader>
       <EmptyContent><Button size="sm" variant="outline">Read the roadmap</Button></EmptyContent>
     </Empty>

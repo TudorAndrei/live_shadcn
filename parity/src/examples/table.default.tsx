@@ -11,7 +11,6 @@ import {
 const stages = [
   ["ui.fetch", "registry/UPSTREAM.json"],
   ["ui.spec", "registry/spec/*.json"],
-  ["ui.gen", "priv/registry/*.ex"],
   ["ui.verify", "registry/VERIFY.json"],
 ];
 

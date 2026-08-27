@@ -1,7 +1,7 @@
 defmodule LiveShadcnTools.MixProject do
   use Mix.Project
 
-  # Maintainer-only codegen pipeline. Never published to hex.
+  # Maintainer-only synchronization tools. Never published to Hex.
   def project do
     [
       app: :live_shadcn_tools,

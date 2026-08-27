@@ -13,8 +13,8 @@
       This removes the component and its spec.
     </p>
   </div>
-  The upstream sources stay where they are. Only what the pipeline generated
-  is removed, and `mix ui.gen` puts it back.
+  The upstream sources stay where they are. `mix ui.spec` restores safe
+  upstream facts after the port is reviewed.
   <div data-slot="dialog-footer" class="cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
     <button data-slot="button" phx-click="[[&quot;remove_attr&quot;,{&quot;to&quot;:&quot;#confirm-trigger&quot;,&quot;attr&quot;:&quot;data-popup-open&quot;}],[&quot;set_attr&quot;,{&quot;to&quot;:&quot;#confirm-trigger&quot;,&quot;attr&quot;:[&quot;aria-expanded&quot;,&quot;false&quot;]}],[&quot;remove_attr&quot;,{&quot;to&quot;:&quot;#confirm-backdrop, #confirm-popup&quot;,&quot;attr&quot;:&quot;data-open&quot;}],[&quot;set_attr&quot;,{&quot;to&quot;:&quot;#confirm-backdrop, #confirm-popup&quot;,&quot;attr&quot;:[&quot;data-closed&quot;,&quot;&quot;]}],[&quot;pop_focus&quot;,{}]]" class="cn-button-size-default cn-button-variant-ghost cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0">
       Cancel

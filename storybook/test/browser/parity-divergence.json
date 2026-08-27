@@ -1,6 +1,6 @@
 {
   "_comment": [
-    "Where a generated component deliberately does not draw what upstream draws,",
+    "Where a reviewed port deliberately does not draw what upstream draws,",
     "named by the slot the two disagree on and by the reason.",
     "",
     "For shadcn examples only — see registries.mjs. An entry naming an AI",

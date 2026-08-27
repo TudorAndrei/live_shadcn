@@ -95,7 +95,7 @@
     "jsx/DrawerContent/class/0": "the generated port does not contain this source literal"
   },
   "name": "drawer",
-  "port_body": "5535da835d4125d00ff8c4650498b74bc8160da511238c95c8b9e7bc9bebd7ca",
+  "port_body": "33dda87cd2567abe9ebdc774f2c609a3a2f9ac0d31bb6f6f73cd71e3d1f05f6a",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

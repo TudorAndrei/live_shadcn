@@ -5,15 +5,13 @@
 # always found by somebody whose commit fails in one project and passes in
 # another.
 #
-# ── Generated files are not linted ──
+# ── Upstream ports and machine records are not linted ──
 #
 # `packages/live_shadcn/priv/registry/`, the AI Elements components and the
-# specs are written by `mix ui.gen`. A linter that reports on them asks a person
-# to edit a file the pipeline owns, and `mix ui.gen --check` then fails with
-# nothing in the diff to explain why. That has happened once already, with the
-# whitespace fixer, which is why `hk.pkl` carries the same exclusion list.
-#
-# If generated output has a problem, the recipe has the problem. Fix the recipe.
+# contracts have separate package, format, and contract checks. Broad Credo
+# style rules do not define the upstream port API. `hk.pkl` carries the same
+# exclusion list so a fixer cannot change a reviewed port without updating its
+# contract digest.
 %{
   configs: [
     %{
@@ -24,7 +22,7 @@
           ~r"/_build/",
           ~r"/deps/",
           ~r"/node_modules/",
-          # Generated. See above.
+          # Reviewed upstream ports. See above.
           ~r"/priv/registry/",
           ~r"/live_ai_elements/lib/live_ai_elements/components/"
         ]
@@ -42,10 +40,8 @@
         # `extra`, not `enabled`. `enabled` replaces credo's default set, which
         # silently left two checks running the first time this file was written.
         extra: [
-          # A Mix task's filename is `ui.gen.ex` by Mix's convention, and
-          # Phoenix puts a `StorybookWeb.DocsLive` in `live/` by its own. Both
-          # are conventions this repository follows rather than mistakes it
-          # made, so the check is pointed at the code that has a free choice.
+          # Mix task filenames and Phoenix LiveView directories follow framework
+          # conventions, so the check is pointed at code with a free choice.
           {CredoNaming.Check.Consistency.ModuleFilename,
            excluded_paths: [
              "mix.exs",
@@ -57,12 +53,8 @@
           {CredoNaming.Check.Warning.AvoidSpecificTermsInModuleNames,
            terms: ["Manager", "Helper"]},
 
-          # Tuned, not suppressed. A threshold that fires on every dispatch
-          # table in the repository is a threshold everybody learns to scroll
-          # past, and a check nobody acts on is worse than no check. The
-          # readers are `cond` and `case` tables — one clause per shape of JSX
-          # — and splitting one to satisfy a number puts each shape further
-          # from the others it has to be read against.
+          # Tuned, not suppressed. A threshold that fires on each explicit
+          # dispatch table becomes noise and hides new complex functions.
           {Credo.Check.Refactor.CyclomaticComplexity, max_complexity: 16},
           {Credo.Check.Refactor.Nesting, max_nesting: 3}
         ],
@@ -71,12 +63,11 @@
           # `hk.pkl`. Two tools with an opinion about one thing is one too many.
           {Credo.Check.Readability.MaxLineLength, []},
 
-          # The recipes are `quote`-like: a module is one long heredoc of the
-          # source it writes. Splitting one to satisfy a line count would put
-          # the markup further from the reason for it.
+          # Reviewed component ports can contain one large HEEx sigil. Splitting
+          # the markup only to satisfy a line count makes review harder.
           {Credo.Check.Refactor.LongQuoteBlocks, []},
 
-          # The generated components name each other in full —
+          # The reviewed ports name each other in full —
           # `LiveShadcn.Icon.icon` — because `mix ui.add` rewrites the namespace
           # on the way into an application and an alias would hide the name it
           # has to rewrite. The examples that call them read the same way.

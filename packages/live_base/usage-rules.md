@@ -1,7 +1,7 @@
 # live_base usage rules
 
 The headless half of `live_shadcn`: the client hooks and the `Phoenix.LiveView.JS`
-commands the generated components are built on. One dependency,
+commands the reviewed ports use. One dependency,
 `phoenix_live_view`, and no framework of its own.
 
 Most applications never call this directly — they use `live_shadcn` and register
@@ -19,7 +19,7 @@ const liveSocket = new LiveSocket("/live", Socket, {
 ```
 
 Hook names are namespaced — `LiveBase.Disclosure`, `LiveBase.Floating` — so they
-cannot collide with a hook of your own. Do not rename them; the generated markup
+cannot collide with a hook of your own. Do not rename them; the port markup
 writes those exact strings into `phx-hook`.
 
 ## A hook decides *which* element, never *what happens to it*
@@ -59,7 +59,7 @@ Base UI's attribute names are what the class strings read — `data-open`,
 state is a **word**, not a presence: write `aria-disabled="true"`, because a
 Tailwind `aria-disabled:` variant matches the value.
 
-## Markers the generator writes, which hooks read
+## Markers the ports write, which hooks read
 
 | Marker | Meaning |
 |---|---|

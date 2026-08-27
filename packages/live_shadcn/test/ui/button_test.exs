@@ -39,7 +39,7 @@ defmodule LiveShadcn.UI.ButtonTest do
     end
 
     test "a variant nobody defined is refused at compile time, not rendered wrong" do
-      # `values:` on the attr is generated from the table, so LiveView reports
+      # `values:` on the attr follows the upstream table, so LiveView reports
       # the mistake rather than emitting a class that does not exist.
       variant = Enum.find(Button.__components__()[:button][:attrs], &(&1.name == :variant))
 

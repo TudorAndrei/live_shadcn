@@ -34,7 +34,7 @@
     "jsx/AlertDialogMedia/class/0": "the generated port does not contain this source literal"
   },
   "name": "alert-dialog",
-  "port_body": "b05be7d569bda348f7e126e0beb4aea47fa09f47bdc213a5231ced60e5e67b51",
+  "port_body": "dadca8d41e084451211cf38a94a7aee891d64959656aff2a136a5780f0450ae9",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

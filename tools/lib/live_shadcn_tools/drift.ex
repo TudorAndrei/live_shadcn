@@ -7,10 +7,8 @@ defmodule LiveShadcnTools.Drift do
   they need to know is whether a class string moved, an attribute appeared, or a
   component gained a part — because the first is routine and the last is not.
 
-  So the comparison reads the specs, which is where the facts are. A spec is the
-  only thing the generator reads, so a spec that did not change cannot have
-  changed a component. That is what makes the summary trustworthy rather than a
-  guess at a diff.
+  So the comparison reads the contracts, which hold the synchronized facts.
+  That makes the summary a fact comparison instead of a guess from file lines.
   """
 
   @doc """

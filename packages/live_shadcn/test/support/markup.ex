@@ -3,7 +3,7 @@ defmodule LiveShadcn.Test.Markup do
   Assertions about rendered markup, written against the contract rather than
   against a string.
 
-  A generated component is correct when it emits the attributes Base UI
+  A reviewed port is correct when it emits the attributes Base UI
   documents, on the elements shadcn's class strings read them from. These
   helpers are how a test says that, so the test does not have to be rewritten
   every time upstream reorders a class.

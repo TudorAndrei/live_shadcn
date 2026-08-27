@@ -7,7 +7,7 @@ import { Icon } from "./lucide";
 //
 //     <IconPlaceholder lucide="ChevronDownIcon" tabler="IconChevronDown" … />
 //
-// The generated components render the lucide one, because that is the set
+// The reviewed ports render the lucide one, because that is the set
 // `LiveShadcn.Icon` ships. So this renders the lucide one too — a parity page
 // that drew a different icon library would report a difference this repository
 // chose on purpose.

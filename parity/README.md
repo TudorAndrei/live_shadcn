@@ -1,6 +1,6 @@
 # parity
 
-The React the generated components are compared against.
+The upstream React references for the reviewed ports.
 
 ## Why it exists
 
@@ -13,7 +13,7 @@ module, missing from the snapshot, and missing from the expectation.
 Nothing was reading upstream except the reader. This does, by rendering it.
 
 It also gives a hand-written component something to be checked against. A
-component with no spec has no generated check and no snapshot worth the name;
+component with no contract check has no snapshot worth the name;
 what it has is upstream, drawn beside it.
 
 ## What it renders
@@ -31,7 +31,7 @@ shadcn's registry does not publish:
 | `streamdown.tsx` | the markdown renderer, which is the one shim standing in for a package upstream really does depend on — see below |
 
 **The markdown renderer is shimmed, and that is a decision.** AI Elements
-renders assistant prose with Streamdown. The generated components render no
+renders assistant prose with Streamdown. The reviewed ports render no
 markdown at all: `LiveAiElements.Markdown` is a seam, and which renderer sits
 behind it is the application's, on the argument that everybody who renders LLM
 output already has one. A comparison that rendered Streamdown here and
@@ -66,7 +66,7 @@ than quietly skipped.
 
 Each one is a port of the matching `StorybookWeb.Examples` function, not a
 second design. **The two examples have to ask for the same thing.** Where a Base
-UI default differs from what the generated component does — Base UI unmounts a
+UI default differs from what the reviewed port does — Base UI unmounts a
 closed accordion panel and the disclosure recipe hides it, so a hook can measure
 it — the example says so out loud and passes `keepMounted`. A difference the
 examples introduce is a difference the report blames on the components.
@@ -92,13 +92,14 @@ and Base UI's `render` do — so the reference is the only side drawing two.
 must never do.** It would prove that the port agrees with the porter.
 
 The gate is one line in `storybook/test/browser/registries.mjs`. What holds
-`live_ai_elements` is `generated`, `snapshot` and `browser`+axe, and its markup
+`live_ai_elements` uses the historical `generated` key for its contract check,
+plus `snapshot` and `browser`+axe. Its markup
 is a composition of the shadcn components this application does gate.
 
 ## What is compared
 
 Not markup. Two renderers of the same component differ in ways nobody should be
-told about: React generates `base-ui-_r_2_` where the generated component takes
+told about: React creates `base-ui-_r_2_` where the reviewed port takes
 an id from its caller, and only one side has `phx-click`.
 
 What they must agree on is what a reader sees. For every element carrying a

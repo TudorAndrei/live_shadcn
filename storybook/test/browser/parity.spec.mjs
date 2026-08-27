@@ -1,4 +1,4 @@
-// Every generated component, beside the React it was generated from.
+// Every reviewed port beside its upstream React reference.
 //
 // The other checks in `mix ui.verify` ask whether a component matches its spec,
 // its snapshot and its own behaviour. None of them can ask the question that
@@ -38,7 +38,7 @@ const ported = new Set(
     .map((name) => name.replace(/\.tsx$/, ""))
 );
 
-// Where a generated component deliberately does not draw what upstream draws,
+// Where a reviewed port deliberately does not draw what upstream draws,
 // by the slot the two disagree on. Everything else on the page still gates at
 // zero, and a slot that stops differing fails the run. See the file.
 const { divergences } = JSON.parse(readFileSync(join(here, "parity-divergence.json")));

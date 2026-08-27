@@ -42,12 +42,12 @@ COPY storybook ./storybook
 # The styling layer, at the commit `registry/UPSTREAM.json` pins. It is the one
 # thing this build needs that the branch does not carry: the sheets are
 # gitignored rather than redistributed here, and every class string in a
-# generated component is a `cn-` rule inside them.
+# reviewed port is a `cn-` rule inside them.
 #
 # `--styles` fetches those eleven files and nothing else — no components, no
 # Base UI pages, no manifest written — so the image is the branch plus the
 # sheets the branch names. Everything else it compiles is already here: the
-# specs, the generated modules and the snapshots are all on the branch.
+# contracts, reviewed ports and snapshots are all on the branch.
 #
 # Eleven requests, all to raw.githubusercontent.com. GITHUB_TOKEN is here for a
 # build that gets rate-limited anyway, and it stays in the builder stage — the

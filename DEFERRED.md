@@ -146,7 +146,7 @@ in the builder stage.
 The builder stage runs `mix ui.fetch --styles`. The shadcn styling layer is
 git-ignored on purpose, because this repository records a digest per upstream
 file rather than redistributing anybody else's source — so it is the one thing
-the image needs that the branch does not carry. The specs, the generated modules
+the image needs that the branch does not carry. The contracts, the reviewed ports
 and the snapshots are all on the branch and are compiled as they stand.
 
 `--styles` reads the commit out of `registry/UPSTREAM.json`, so what the image

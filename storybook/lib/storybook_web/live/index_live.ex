@@ -17,10 +17,10 @@ defmodule StorybookWeb.IndexLive do
     ~H"""
     <h1 class="text-3xl font-semibold tracking-tight">live_shadcn</h1>
     <p class="mt-3 text-muted-foreground">
-      shadcn/ui for Phoenix LiveView. Every component is generated from the shadcn
-      registry — the class strings, the <code class="text-xs">data-slot</code>
-      names and the data-attribute contract all come from upstream, and no
-      generated line is edited by hand.
+      Reviewed shadcn/ui ports for Phoenix LiveView. Class strings,
+      <code class="text-xs">data-slot</code>
+      names, and state facts stay linked
+      to upstream. Maintainers own the HEEx API and behavior.
     </p>
 
     <%!-- Three packages, said once and up front.

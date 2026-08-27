@@ -14,7 +14,7 @@ defmodule LiveShadcnTools.Style do
 
   That matters for more than looks. The rule above reads `data-closed`, an
   attribute the `.tsx` never mentions and the Base UI page does not document. A
-  component generated from the `.tsx` alone would never set it, and the collapse
+  port reviewed from the `.tsx` alone would never set it, and the collapse
   animation would silently not run.
 
   So the style sheet is a source of contract, not only of appearance, and the

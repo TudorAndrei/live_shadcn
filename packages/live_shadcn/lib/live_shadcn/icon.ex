@@ -1,6 +1,6 @@
 defmodule LiveShadcn.Icon do
   @moduledoc """
-  The one indirection every generated component points at for an icon.
+  The one indirection every reviewed port uses for an icon.
 
   shadcn does not name a single icon library. Its registry sources render an
   `IconPlaceholder` that carries a name for each of five sets:
@@ -8,9 +8,8 @@ defmodule LiveShadcn.Icon do
       lucide="ChevronDownIcon"  tabler="IconChevronDown"  phosphor="CaretDownIcon"
       hugeicons="ArrowDown01Icon"  remixicon="RiArrowDownSLine"
 
-  The generator records all five in the spec and asks for the lucide name,
-  because that is the name shadcn's own documentation uses. Which set actually
-  draws it is the application's decision.
+  The reviewed ports use the lucide name because shadcn's documentation uses
+  it. Which set draws the icon is the application's decision.
 
   ## Lucide, by default
 
@@ -27,7 +26,7 @@ defmodule LiveShadcn.Icon do
 
   The configured function is a function component. It is given `:name` — the
   lucide name in kebab case, without the `Icon` suffix — plus the class string
-  and the `data-slot` the spec recorded. Map that name onto your own set.
+  and the `data-slot` the port recorded. Map that name onto your own set.
 
   ## With neither
 

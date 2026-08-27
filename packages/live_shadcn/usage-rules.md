@@ -1,8 +1,7 @@
 # live_shadcn usage rules
 
-shadcn/ui for Phoenix LiveView. Every component is generated from the shadcn
-registry: the class strings, the `data-slot` names and the data-attribute
-contract all come from upstream.
+Reviewed shadcn/ui ports for Phoenix LiveView. The class strings, `data-slot`
+names, and data-attribute contract come from upstream.
 
 ## The components are copied into your application, not called from the dependency
 
@@ -18,15 +17,15 @@ import MyAppWeb.Components.UI.Dialog
 Never write `import LiveShadcn.UI.Button` in an application. That module exists
 in the dependency, but `mix ui.add` renamed the copy, and the two will drift.
 
-## Never edit a copied component
+## Local edits are allowed
 
-Those files are generated. `mix ui.sync` reports upstream drift and **refuses to
-overwrite a file you have edited**, which means a hand edit silently freezes that
-component at the version you edited.
+`mix ui.sync` reports upstream drift and **refuses to overwrite a file you have
+edited**. An edited component stays at its installed version until you merge an
+update or replace it explicitly.
 
-To change what a component renders, change the spec or the recipe upstream and
-regenerate. To change how it looks, pass `class` — every component appends it to
-the class string upstream wrote.
+For a style change, prefer the `class` attribute because every component appends
+it to the upstream class string. Edit the copied module when the application
+needs a different API, markup, or behavior.
 
 ## Register the JavaScript hooks, or nothing behaves
 
@@ -69,7 +68,7 @@ that repeats takes a slot and derives every id from the entry's own `id`:
 
 ```heex
 <.accordion id="faq">
-  <:item id="what" title="What is this?">shadcn/ui, generated.</:item>
+  <:item id="what" title="What is this?">A reviewed shadcn/ui port.</:item>
   <:item id="how" title="How do I install it?">mix ui.add</:item>
 </.accordion>
 

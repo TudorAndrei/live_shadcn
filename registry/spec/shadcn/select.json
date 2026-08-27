@@ -47,7 +47,7 @@
     "jsx/SelectSeparator/class/0": "the generated port does not contain this source literal"
   },
   "name": "select",
-  "port_body": "e70a93f7470832516c0cbf57e6da8f79803b5aef8a4003480d33c7bfd16ea664",
+  "port_body": "0e8f98384c54392747d8eed4bb37640f0931d17a712dd39907d0c58e0a5c7a12",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

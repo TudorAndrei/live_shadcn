@@ -16,7 +16,7 @@ import {
 //
 // The page is drawn with the values hidden, which is where the storybook starts
 // and — on that side — the only state in which the secret is not in the page at
-// all. Upstream keeps `showValues` in a React context; the generated component
+// all. Upstream keeps `showValues` in a React context; the reviewed port
 // takes it as an attribute, because the server decides when the page is given a
 // secret.
 export default function EnvironmentVariablesDefault() {

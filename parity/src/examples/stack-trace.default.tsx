@@ -24,7 +24,7 @@ const TRACE = `TypeError: Cannot read properties of undefined (reading 'slots')
 // is given the same string to parse, so the frames the two draw are the same
 // frames or the check says which one is wrong.
 //
-// `onFilePathClick` is passed because the generated component draws the file
+// `onFilePathClick` is passed because the reviewed port draws the file
 // path as a button that can be clicked. Without it upstream disables that
 // button, which is a difference in the example rather than in the port.
 //

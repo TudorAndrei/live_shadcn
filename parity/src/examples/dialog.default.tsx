@@ -19,8 +19,8 @@ export default function DialogDefault() {
           <DialogTitle>Are you sure?</DialogTitle>
           <DialogDescription>This removes the component and its spec.</DialogDescription>
         </DialogHeader>
-        The upstream sources stay where they are. Only what the pipeline generated is removed, and
-        <code>mix ui.gen</code> puts it back.
+        The upstream sources stay where they are. <code>mix ui.spec</code> restores safe upstream
+        facts after the port is reviewed.
         <DialogFooter>
           <Button variant="ghost">Cancel</Button>
           <Button variant="destructive">Delete</Button>

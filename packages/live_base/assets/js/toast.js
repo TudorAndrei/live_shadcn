@@ -94,7 +94,7 @@ export const Toast = {
   },
 
   // One toast's own elements that read state: itself, and whatever the
-  // generator marked inside it.
+  // port marked inside it.
   mark(toast, attribute, on) {
     toast.toggleAttribute(attribute, on);
 
@@ -131,7 +131,7 @@ export const Toast = {
 
   // A toast is two elements that read the state, not one: the frame reads
   // `data-expanded` to stop overlapping its neighbours, and the content inside
-  // it reads the same attribute to come back to full opacity. The generator
+  // it reads the same attribute to come back to full opacity. The port
   // marks both with `data-lb-style-target`, so the hook writes to the marks
   // rather than to a shape it assumed.
   targets() {

@@ -64,7 +64,7 @@
       }
     },
     "pass": true,
-    "spec": "5fc16f1011b4c2a316908977e7fcf9d1f16804d006101682199c2868071b3ce5"
+    "spec": "6834d75939830c452d313acc98d0bb4dc79945d7896dd385ea50e617465c98c2"
   },
   "shadcn/scroll-area": {
     "checks": {
@@ -85,7 +85,7 @@
       }
     },
     "pass": true,
-    "spec": "f1abc7c20a96085e89b8f04cac1858e510f298218d06bb2df13d6b8c88a7f5bc"
+    "spec": "50a7ec2a3bf55498d4b6be12c62e99565fd8643a7e238c3ed71c64a36f3f3d97"
   },
   "ai_elements/shimmer": {
     "checks": {
@@ -131,7 +131,7 @@
       }
     },
     "pass": true,
-    "spec": "efecdef0d4b28b692fa8152d13a0253422c6c04116c9a5eca6d29fd255546180"
+    "spec": "c02c6281ec11fabf3d7f5bb8ef052d7d633762283d6fc2a4c1c2d0d774ad7c0a"
   },
   "ai_elements/chain-of-thought": {
     "checks": {
@@ -156,7 +156,7 @@
       }
     },
     "pass": true,
-    "spec": "b487235ec5a76f1d10ff2d8be3a8296b2508cdaad2cca1e464d24fc9b880375f"
+    "spec": "ca86b8b05f2f66d3f441c9b94ec247c3783fc04ab2c9acfd0f3571fcf602a830"
   },
   "shadcn/context-menu": {
     "checks": {
@@ -177,7 +177,7 @@
       }
     },
     "pass": true,
-    "spec": "a8a1ce6de3f20013c4580861051591d2f3d7b283bb495c695e7049c9567124d9"
+    "spec": "a7cbbc9c30e310c72f3c3951d2c9d7f9e9d9a2219045d42ef47bd50a8f46b5f9"
   },
   "ai_elements/edge": {
     "checks": {
@@ -223,7 +223,7 @@
       }
     },
     "pass": true,
-    "spec": "501660501bdf6f7ecd0a86ad74322febba5e2cead608c48a3ddc306bdcae1f89"
+    "spec": "455507a99fae1082b2e34f007183d342b2ab7f294309b68b39c6644c039cd088"
   },
   "shadcn/resizable": {
     "checks": {
@@ -336,7 +336,7 @@
       }
     },
     "pass": true,
-    "spec": "de96ff5328a1d3165e571084545cc6efa831ed9d5ea0ec9fbb5e2461baff7360"
+    "spec": "b36b647608fb4980bc422b1bf752769b144f332bbd2a8c728eef9b4b04a37140"
   },
   "shadcn/attachment": {
     "checks": {
@@ -403,7 +403,7 @@
       }
     },
     "pass": true,
-    "spec": "918a9d013e76741970b17966ad68ff53715a21c0110b223ddc164b6283d2ea05"
+    "spec": "79eab072972169b4b5df86ad1adc2e30463012bb426ed05467f2d8b89ff7a4b3"
   },
   "shadcn/bubble": {
     "checks": {
@@ -470,7 +470,7 @@
       }
     },
     "pass": true,
-    "spec": "b1679320bd0a39313454ba717ddfe442731dbcb75340b016c200a26eab69ce63"
+    "spec": "636e1362332ba6d8710639567ba46c11c292531d0a29e587fe08a4647c47c284"
   },
   "shadcn/popover": {
     "checks": {
@@ -491,7 +491,7 @@
       }
     },
     "pass": true,
-    "spec": "eec9131622d5b9a6b6e103173c065033cc60a2f285d877c07b278c82a109ed97"
+    "spec": "d9707e50bf9663903e1b6d5545afc772fb007396a1b7bf51d92cd54e284f7735"
   },
   "ai_elements/attachments": {
     "checks": {
@@ -604,7 +604,7 @@
       }
     },
     "pass": true,
-    "spec": "c5e3b8291edc76597d907622742a6fbb19f6335c9039d9e9d97254019f48b872"
+    "spec": "50364c8542b1472f7f2349628921f05caaf0c1c241c4bf423c668ece33b7bec0"
   },
   "shadcn/native-select": {
     "checks": {
@@ -646,7 +646,7 @@
       }
     },
     "pass": true,
-    "spec": "1fa309ba22d63d7d86b58f12c473ada04494b5bea35ff047a3c07c4cdb90bd47"
+    "spec": "ab9492e2644cbfc9970cfe439f6cbb7cc8b712c0dfd7051776b6a9d531e08bd4"
   },
   "ai_elements/context": {
     "checks": {
@@ -692,7 +692,7 @@
       }
     },
     "pass": true,
-    "spec": "b02ac56ae7be08ece2a8df450560bf13abcb79408cf8f087a0dab1242dce22d0"
+    "spec": "7d9ad8e45a367345e7f35d6a24e5102d238ccce79ba913a508794086ba95b71b"
   },
   "shadcn/marker": {
     "checks": {
@@ -763,7 +763,7 @@
       }
     },
     "pass": true,
-    "spec": "50c3a0d2420ca97ed55bb68817fc2f1b69efaf00fe1e125dc6277b3571627f22"
+    "spec": "37d9b1bf46ef69bf694468877c8774fd09d1ea17567e0219aefcde29b86f8ce2"
   },
   "ai_elements/confirmation": {
     "checks": {
@@ -897,7 +897,7 @@
       }
     },
     "pass": true,
-    "spec": "32774bacac69c9e160c4b94988754841dbe66af53b6c34a16500c06a7f874969"
+    "spec": "b16de3082d625b02265597ff9b6079d1c83947819365e13dbf61b5a7e095479d"
   },
   "shadcn/message": {
     "checks": {
@@ -1007,7 +1007,7 @@
       }
     },
     "pass": true,
-    "spec": "c0819cea16ea2abaaf4257ccd92a6a99bb993ef795734f31056871acb3492024"
+    "spec": "d8a3c0cd753169314a0a949d05438e491cae260c00f27022a177fd2140f62eff"
   },
   "shadcn/calendar": {
     "checks": {
@@ -1074,7 +1074,7 @@
       }
     },
     "pass": true,
-    "spec": "f16e47b0a70592da3cc482ce00b6541ba1136004e84ccf3ecfd0aecfe6267bd6"
+    "spec": "910d701a9137426331d93a0939e653e535fd30b0a040f615a47374203367cb48"
   },
   "ai_elements/web-preview": {
     "checks": {
@@ -1145,7 +1145,7 @@
       }
     },
     "pass": true,
-    "spec": "e29ddf7f56027e02eadf7b75074a0f62e3c9826b594a93970761ab35fef2fdbd"
+    "spec": "0499b14d35a596dc4c16c80e39dc8feed1fb4df850bf61010e4388f10d5aaf97"
   },
   "shadcn/dialog": {
     "checks": {
@@ -1187,7 +1187,7 @@
       }
     },
     "pass": true,
-    "spec": "8223229387015f8a1edd139593460e7783303aae19ed04abe665d8630868d2ce"
+    "spec": "1d0ba5e27d5066974bbec28bb02e88c0a9ac098af878e5bfe8d219f8769eda89"
   },
   "ai_elements/reasoning": {
     "checks": {
@@ -1212,7 +1212,7 @@
       }
     },
     "pass": true,
-    "spec": "d91351a1f139c868fb943ed087af2cf8a06c6358b09a8ff805b8e4170db04a07"
+    "spec": "addb883b31f25e4126562babc0f027245965814d1f247b92bb5b85bb14785df2"
   },
   "shadcn/tabs": {
     "checks": {
@@ -1233,7 +1233,7 @@
       }
     },
     "pass": true,
-    "spec": "474c2cd40965539e094b0b7703aa5a23a47eec66334a81d37ff9c2a15650a7b7"
+    "spec": "8713d52216b68373aeb8c7e285996c8b019031b9dcd3f068beab2f18f3015df9"
   },
   "ai_elements/persona": {
     "checks": {
@@ -1283,7 +1283,7 @@
       }
     },
     "pass": true,
-    "spec": "eca1d443f9fad27cd478d7bf427a2c0833a7eb5adc2185f0a29005ca564c3563"
+    "spec": "a0719039840e2171741cb256851b091dd2830bb5aa5d081c77bd3b9d759b8c34"
   },
   "ai_elements/controls": {
     "checks": {
@@ -1329,7 +1329,7 @@
       }
     },
     "pass": true,
-    "spec": "22501b8cdc6e1d27e6a89be1bc2fd592f0436f857a41bb249850d0f43fe3e903"
+    "spec": "bb2d65d2a2e4b032e6b8ffdec1da017cf404465e0a20ffb4ae61ce0c850e8548"
   },
   "ai_elements/node": {
     "checks": {
@@ -1467,7 +1467,7 @@
       }
     },
     "pass": true,
-    "spec": "1cd33d72c0d203eb898b9bbfa6349fc777a1fc5dad8946abfbb0c5798692c2e1"
+    "spec": "9aefc916ba70c3ab50b4fefc3268c496b0619ca14b98ba0ece6b4d22128b4f53"
   },
   "ai_elements/terminal": {
     "checks": {
@@ -1513,7 +1513,7 @@
       }
     },
     "pass": true,
-    "spec": "e6fe6eb83b985597912e0ae976051171fb36778b6c6752132d3038399dfdac14"
+    "spec": "87adeaf2791bbf3a17f6e974c01eb49838b55e0292b00e444bf9efc522240d9c"
   },
   "ai_elements/message": {
     "checks": {
@@ -1634,7 +1634,7 @@
       }
     },
     "pass": true,
-    "spec": "d4e234882670bd8f332050eaa183ad7387044a9a15f74c9a70ca60c56acfc2e9"
+    "spec": "fa9bd4ff8977fc22d4230c4a68d19a9dc4f9c65e7646a1637a22aa06fbfb0e6b"
   },
   "ai_elements/jsx-preview": {
     "checks": {
@@ -1684,7 +1684,7 @@
       }
     },
     "pass": true,
-    "spec": "375de9027586c286f54b888e30571a732a7a2130462e6434174ec1de2f8658e1"
+    "spec": "884d9bb1dc5c4154950ff636f104603acec4c4bdd689a789042d9ad699777c70"
   },
   "shadcn/label": {
     "checks": {
@@ -1835,7 +1835,7 @@
       }
     },
     "pass": true,
-    "spec": "0049fada3d1decb51506d485473607b51053f05f2adb6a53e0fabdbae5ff4e8e"
+    "spec": "7bd6a999fd52bdc149d438d7c4d3ebcde1fb36cd2fb60e77cf755ec6821ea617"
   },
   "shadcn/carousel": {
     "checks": {
@@ -1856,7 +1856,7 @@
       }
     },
     "pass": true,
-    "spec": "93e7492a402d1771d4a15cfe4c21170e7754d9234d707ac8cbd5f0792deb4831"
+    "spec": "b93cf32ce0ea6c2795791e4d4b4d4ad3ac7763ab7fcc51640ec744638a3bd4e1"
   },
   "shadcn/card": {
     "checks": {
@@ -2052,7 +2052,7 @@
       }
     },
     "pass": true,
-    "spec": "9a468d1a51db3a7cb94531354fd46b2c6359abd205d1492285fe58c331f45137"
+    "spec": "b7693402c43320b228cc5166df60efc6044d04b8630b02b8f6f756d3c0b23d50"
   },
   "ai_elements/question": {
     "checks": {
@@ -2169,7 +2169,7 @@
       }
     },
     "pass": true,
-    "spec": "399b1a228647428034e7716c3a6ff477078ac965e11702a410cda30b1de96bf4"
+    "spec": "0c654d4e92dfeda7d01fc1852759b35d46299b85da859351797b13acf88a6562"
   },
   "shadcn/navigation-menu": {
     "checks": {
@@ -2190,7 +2190,7 @@
       }
     },
     "pass": true,
-    "spec": "9e0f1b77f059a8c72e335a72d0306fd7d1153dbc5de0f18a9bc7d7f9f9679ef0"
+    "spec": "98feb0c5fa66b890cd2ffd3adc7a67c29b8023e06cf07daee16329c1cab9de2c"
   },
   "shadcn/progress": {
     "checks": {
@@ -2282,7 +2282,7 @@
       }
     },
     "pass": true,
-    "spec": "fa1485901fa22960a8f84e187d02b610336a483ee8435b53ba3ce816c5195f2c"
+    "spec": "a45b34fc413ceee4fe0933be6991e27288ab65c10757faf64f25ddfca67154d9"
   },
   "shadcn/questionnaire": {
     "checks": {
@@ -2324,7 +2324,7 @@
       }
     },
     "pass": true,
-    "spec": "fbc9f333a6062b9be6ee39b6b5635b70a5678ac35521c7951d30b2a4eb61e53c"
+    "spec": "b9e789e44abcb75e70142b52a76f5a5cb3fab190d5f32276ebb72684e5d97f55"
   },
   "ai_elements/file-tree": {
     "checks": {
@@ -2370,7 +2370,7 @@
       }
     },
     "pass": true,
-    "spec": "3670de6004d1cc5379d37a9904797db2a0ad064d39c1963cc4d5bc189900883e"
+    "spec": "08bcd2cc17b46ae746f1dbb3d7801044793e7700ddb865202e61f9115ec2e05c"
   },
   "ai_elements/connection": {
     "checks": {
@@ -2479,6 +2479,6 @@
       }
     },
     "pass": true,
-    "spec": "a46ac5d2780499a3c976c342191b481689afd3ce12552a41144403b7d56397cb"
+    "spec": "d188b420cc67540f0fce244176969f0fdf455883837b51e0d898dc10ee673676"
   }
 }

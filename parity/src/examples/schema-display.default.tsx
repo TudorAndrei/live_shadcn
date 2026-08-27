@@ -13,7 +13,7 @@ import {
 // React side has a context to read.
 //
 // The path is `dangerouslySetInnerHTML` upstream — a string of markup, put in
-// where markup goes. HEEx has no such door, so the generated component reads
+// where markup goes. HEEx has no such door, so the reviewed port reads
 // that attribute as what it means, the element's children.
 export default function SchemaDisplayDefault() {
   return (

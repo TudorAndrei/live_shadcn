@@ -41,7 +41,7 @@ export default defineConfig({
         find: "@/app/(create)/components/icon-placeholder",
         replacement: resolve(here, "src/shim/icon-placeholder.tsx"),
       },
-      // The markdown renderer, which the generated components do not have: the
+      // The markdown renderer, which the reviewed ports do not have: the
       // pipeline emits a seam and the application chooses what sits behind it.
       // Rendering Streamdown here would compare two markdown renderers, and
       // neither of them is the component. See `src/shim/streamdown.tsx`.

@@ -47,8 +47,8 @@ jobs:
       - run: mix test
         working-directory: ${{ matrix.package }}
 
-  generated:
-    name: generated output matches its spec
+  ports:
+    name: reviewed ports match their contracts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
@@ -63,9 +63,8 @@ jobs:
       - run: mix deps.get
         working-directory: tools
 
-      # Publishing a component that no longer matches its spec would ship a
-      # hand edit to everybody who installs it.
-      - run: mix ui.gen --check
+      # This check needs only the committed contracts and reviewed ports.
+      - run: mix ui.spec --check --offline
         working-directory: tools
 
       - run: mix ui.status --check
@@ -73,7 +72,7 @@ jobs:
 
   publish:
     name: publish to hex
-    needs: [check, generated]
+    needs: [check, ports]
     runs-on: ubuntu-latest
     environment: hex
     steps:

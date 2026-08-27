@@ -10,7 +10,7 @@ import {
 //
 // Neither side gives the copy button an icon, so both draw the default:
 // `isCopied ? CheckIcon : CopyIcon`. React draws the branch it is in and
-// unmounts the other; the generated component draws both and hides the one the
+// unmounts the other; the reviewed port draws both and hides the one the
 // browser is not in, which `measure.mjs` skips for exactly this reason.
 export default function SnippetDefault() {
   return (

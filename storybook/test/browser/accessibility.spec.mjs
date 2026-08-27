@@ -37,7 +37,7 @@ if (pages.length === 0) {
 }
 
 // Contrast is a property of the palette, and the palette is shadcn's. A
-// generated component reproduces upstream's colours faithfully, which is the
+// reviewed port reproduces upstream's colours faithfully, which is the
 // whole point, so a component cannot be held to a ratio its own style sheet
 // does not meet. These are reported and do not fail the run; everything else
 // is markup, which is ours, and does.
