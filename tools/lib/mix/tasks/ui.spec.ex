@@ -1,512 +1,267 @@
 defmodule Mix.Tasks.Ui.Spec do
-  @shortdoc "Turn the fetched upstream sources into registry/spec/<source>/<name>.json"
+  @shortdoc "Synchronize safe upstream facts into reviewed component ports"
 
   @moduledoc """
-  Stage 2 of the codegen pipeline.
+  Stage 2 of the maintainer pipeline.
 
-  Reads the shadcn `.tsx` and the Base UI `.md` that `mix ui.fetch` downloaded
-  and writes one JSON document per component into `registry/spec/<source>/`.
+  Every component must have a version-2 contract and a reviewed Elixir port.
+  The task uses Oxc facts to update class and CVA data. It stops when upstream
+  structure or behavior needs manual review.
 
-      mix ui.spec                        # every component that has both sources
-      mix ui.spec accordion              # one component
-      mix ui.spec shadcn/message         # one component, said unambiguously
-      mix ui.spec --check                # exit 1 if any spec on disk is stale
-      mix ui.spec --check --source shadcn   # …for one registry
+      mix ui.spec
+      mix ui.spec accordion
+      mix ui.spec shadcn/message
+      mix ui.spec --check
+      mix ui.spec --check --source shadcn
+      mix ui.spec --check --offline
 
-  ## Why one registry can be checked on its own
+  An online run reads the pinned files from `registry/upstream/`. It computes
+  every result before it writes any port or contract. Thus one manual drift
+  stops all writes in that run.
 
-  `--check` answers "does what is on disk still match what the reader produces
-  from the same sources", and that is the one gate no other stage can stand in
-  for: `ui.gen --check` compares a component with its spec and `ui.status
-  --check` compares the inventory with the record, so a spec may drift from its
-  own source indefinitely and both stay green.
-
-  It could not be a gate while any component stopped the reader, because a gate
-  that cannot run is worse than none. Three AI Elements components did, which is
-  why the flag exists; none does now, and CI runs both halves — one step each.
-
-  The split stays because it is the right shape rather than because one half
-  cannot run: each library is published on its own and fails for its own
-  reasons, so one going red must not take the other's gate with it, and the
-  build says which library moved.
-
-  The directory is per source because a name is not an identity: upstream has a
-  `message` in the shadcn registry and a different `message` in AI Elements.
-
-  The spec is committed and the upstream sources are not, so the spec is the
-  reviewable record of what upstream says. Each spec carries the SHA-256 of the
-  two files it was built from: if a digest in the spec and the digest in
-  `registry/UPSTREAM.json` disagree, the spec is stale and `--check` fails.
-
-  A component with no Base UI page is skipped, not guessed at. The Base UI page
-  is where the data-attribute contract comes from, and a component generated
-  without it would emit attributes nobody promised.
+  `--check --offline` reads only committed contracts and ports. It checks fact
+  values, canonical fact blocks, port-body digests, and canonical JSON bytes.
+  It does not need `registry/UPSTREAM.json` or `registry/upstream/`.
   """
   use Mix.Task
 
   import LiveShadcnTools
 
   alias LiveShadcnTools.Converter
-  alias LiveShadcnTools.Lucide
-  alias LiveShadcnTools.Spec
   alias LiveShadcnTools.Style
+
+  @switches [check: :boolean, source: :string, offline: :boolean]
 
   @impl Mix.Task
   def run(argv) do
     Mix.Task.run("app.start")
-    {opts, names, _} = OptionParser.parse(argv, strict: [check: :boolean, source: :string])
+    {opts, names, invalid} = OptionParser.parse(argv, strict: @switches)
+    valid_options!(invalid)
+
     check? = Keyword.get(opts, :check, false)
+    offline? = Keyword.get(opts, :offline, false)
     source = Keyword.get(opts, :source)
 
-    manifest = read_json!(registry_path("UPSTREAM.json"))
-    inventory = read_json!(registry_path("INVENTORY.json"))
-    recipes = Map.new(inventory["components"], &{{&1["source"], &1["name"]}, &1["recipe"]})
-    styles = styles(manifest)
-    lucide = lucide(manifest)
+    if offline? and not check? do
+      Mix.raise("`--offline` is valid only with `--check`.")
+    end
 
-    components =
-      if names == [],
-        do: only(fetched(manifest), source),
-        else: Enum.map(names, &resolve/1)
+    components = components(names, source)
 
-    if names == [], do: inventoried!(only_keys(recipes, source), manifest)
-    results = settle(components, manifest, recipes, {styles, lucide}, check?)
+    results =
+      if offline? do
+        Enum.map(components, &offline_result/1)
+      else
+        manifest = read_json!(registry_path("UPSTREAM.json"))
+        styles = styles!(manifest)
+        Enum.map(components, &online_result(&1, manifest, styles))
+      end
 
-    report(results, check?)
+    finish(results, check?)
   end
 
-  # One registry, or all of them. An AI Elements component reads the spec of the
-  # shadcn component it folds off disk, so narrowing to `ai_elements` alone
-  # would read shadcn specs this run did not write — which is the same thing
-  # `mix ui.spec ai_elements/message` already does, and is why the order in
-  # `fetched/1` is shadcn first rather than sorted together.
+  defp valid_options!([]), do: :ok
+
+  defp valid_options!(invalid) do
+    options = Enum.map_join(invalid, ", ", fn {option, _value} -> option end)
+    Mix.raise("invalid option(s): #{options}")
+  end
+
+  defp components([], source) do
+    registry_path(["spec", "*", "*.json"])
+    |> Path.wildcard()
+    |> Enum.map(&component_from_path/1)
+    |> only(source)
+    |> Enum.sort()
+  end
+
+  defp components(names, source) do
+    names
+    |> Enum.map(&resolve/1)
+    |> Enum.map(fn {component_source, name} = component ->
+      if source != nil and source != component_source do
+        Mix.raise("#{ref(component_source, name)} does not belong to source #{source}.")
+      end
+
+      unless File.exists?(spec_path(component_source, name)) do
+        Mix.raise("#{ref(component_source, name)} has no version-2 contract.")
+      end
+
+      component
+    end)
+    |> Enum.uniq()
+    |> Enum.sort()
+  end
+
+  defp component_from_path(path) do
+    source = path |> Path.dirname() |> Path.basename()
+    name = Path.basename(path, ".json")
+    {source, name}
+  end
+
   defp only(components, nil), do: components
   defp only(components, source), do: Enum.filter(components, &(elem(&1, 0) == source))
 
-  defp only_keys(recipes, nil), do: recipes
-  defp only_keys(recipes, source), do: Map.filter(recipes, fn {{s, _}, _} -> s == source end)
-
-  # The inventory names components; the manifest records what was fetched. A
-  # name in one and not the other is a disagreement nobody would see: this task
-  # walks what was fetched, so an inventory entry with no source is never
-  # mentioned at all, and it still counts toward "63 components" wherever
-  # somebody adds the list up.
-  #
-  # `form` was one. shadcn publishes a `form` in its Radix base and not in the
-  # Base UI one this project reads, so a recipe and a tier had been decided for
-  # a file that does not exist.
-  defp inventoried!(recipes, manifest) do
-    fetched = MapSet.new(fetched(manifest))
-
-    case for(
-           name <- Map.keys(recipes),
-           not MapSet.member?(fetched, name),
-           do: ref(elem(name, 0), elem(name, 1))
-         ) do
-      [] ->
-        :ok
-
-      missing ->
-        Mix.raise("""
-        the inventory names #{length(missing)} component(s) that were never fetched: \
-        #{Enum.join(Enum.sort(missing), ", ")}
-
-        Either the registry stopped publishing them, or the name is wrong. \
-        Remove the entry or run `mix ui.fetch`.
-        """)
-    end
-  end
-
-  # A spec that reads another spec is a fixpoint, not a sequence.
-  #
-  # `combobox` renders shadcn's input group and records the element that ends up
-  # as, and it reads that off the input group's spec. Whether that spec was
-  # current when combobox was built depends on the order the two were built in,
-  # which is alphabetical and means nothing. So the run repeats until no file
-  # moves, and one extra pass is what it costs to stop caring about the order.
-  #
-  # Two passes always settle it today: a reference is one deep. The cap is
-  # three, because a run that has not settled by then has a cycle in it, and a
-  # cycle is a thing to hear about rather than to loop on.
-  @passes 3
-
-  defp settle(components, manifest, recipes, facts, check?, pass \\ 1, written \\ []) do
-    results = Enum.map(components, &one(&1, manifest, recipes, facts, check?))
-    written = written ++ for {:wrote, reference} <- results, do: reference
-
-    if not check? and pass < @passes and Enum.any?(results, &match?({:wrote, _}, &1)) do
-      settle(components, manifest, recipes, facts, check?, pass + 1, written)
+  defp offline_result({source, name}) do
+    with {:ok, contract, contract_bytes, port} <- inputs(source, name),
+         {:ok, artifact} <- offline_sync(contract, port),
+         :ok <- byte_current(contract_bytes, port, artifact) do
+      {:current, ref(source, name), artifact}
     else
-      # What the run wrote, not what its last pass wrote. By the last pass every
-      # file is already what it should be, which is the point of the pass and
-      # not something to report as having done nothing.
-      Enum.map(results, fn
-        {:current, reference} ->
-          if reference in written, do: {:wrote, reference}, else: {:current, reference}
+      {:updated, artifact} -> {:updated, ref(source, name), artifact, []}
+      {:error, reason} -> {:error, ref(source, name), reason}
+    end
+  rescue
+    error -> {:error, ref(source, name), Exception.message(error)}
+  end
 
-        result ->
-          result
-      end)
+  defp online_result({source, name}, manifest, styles) do
+    with {:ok, contract, contract_bytes, port} <- inputs(source, name),
+         {:ok, files} <- upstream_files(contract, manifest),
+         {:ok, base_ui} <- base_ui_files(contract, manifest),
+         result <-
+           Converter.sync(%{
+             source: source,
+             name: name,
+             files: files,
+             styles: styles,
+             base_ui: base_ui,
+             contract: contract,
+             port: port
+           }) do
+      normalize(result, source, name, contract_bytes, port)
+    else
+      {:error, reason} -> {:error, ref(source, name), reason}
+    end
+  rescue
+    error -> {:error, ref(source, name), Exception.message(error)}
+  end
+
+  defp inputs(source, name) do
+    contract_path = spec_path(source, name)
+    port_path = module_path(source, name)
+    contract_bytes = File.read!(contract_path)
+    contract = Jason.decode!(contract_bytes)
+
+    if contract["schema_version"] != 2 do
+      {:error, "the contract is not schema version 2"}
+    else
+      {:ok, contract, contract_bytes, File.read!(port_path)}
     end
   end
 
-  # A component in one registry may be built out of a component in the other,
-  # and the reader folds that one's markup in rather than calling it. So the
-  # spec it folds has to be on disk, which is why this reads the file rather
-  # than a half-built map, and why `settle/6` runs until the files stop moving.
-  defp resolve_spec(source, name) do
-    path = spec_path(source, name)
-    if File.exists?(path), do: read_json!(path)
-  end
-
-  # The sources a component imports from beside it — `from "./tool"`.
-  #
-  # A registry file may write a piece of render down under a name and export it
-  # for its neighbour: `sandbox` renders `{getStatusBadge(state)}` and
-  # `getStatusBadge` lives in `tool.tsx`. The reader inlines such a helper, and
-  # it can only inline what it was given.
-  #
-  # A sibling that was never fetched is simply absent, and the reader then meets
-  # the call it cannot read and says so by name, which is what it did before.
-  defp siblings(tsx, manifest, source) do
-    ~r|from "\./([a-z0-9-]+)"|
-    |> Regex.scan(tsx, capture: :all_but_first)
-    |> List.flatten()
-    |> Enum.uniq()
-    |> Enum.flat_map(fn name ->
-      case source(manifest, tsx_file(source, name)) do
-        {:ok, body} -> [{name, body}]
-        _absent -> []
-      end
-    end)
-    |> Map.new()
-  end
-
-  # What each `lucide-react` export draws, which is not always what it is
-  # called. See `LiveShadcnTools.Lucide`. A run without it reads every icon name
-  # as written, which is what every run did before the table was fetched, so a
-  # missing file is a warning rather than a stop.
-  defp lucide(manifest) do
-    file = "lucide/lucide-react.d.ts"
-
-    case source(manifest, file) do
-      {:ok, declaration} ->
-        Lucide.aliases(declaration)
-
-      _absent ->
-        Mix.shell().error("  skip #{file}: not fetched. Run `mix ui.fetch`.")
-        %{}
+  defp offline_sync(contract, port) do
+    case Converter.sync(%{mode: :offline, contract: contract, port: port}) do
+      {:current, artifact} -> {:ok, artifact}
+      {:error, diagnostics} -> {:error, diagnostics_message(diagnostics)}
     end
   end
 
-  # The `cn-` rules, one map per shadcn style. A missing sheet is reported once
-  # here rather than per component.
-  defp styles(manifest) do
+  defp byte_current(contract_bytes, port, artifact) do
+    if contract_bytes == artifact.contract_json and port == artifact.port,
+      do: :ok,
+      else: {:updated, artifact}
+  end
+
+  defp upstream_files(contract, manifest) do
+    {:ok,
+     contract["upstream"]
+     |> Map.keys()
+     |> Enum.sort()
+     |> Map.new(&{&1, source!(manifest, &1)})}
+  rescue
+    error -> {:error, Exception.message(error)}
+  end
+
+  defp base_ui_files(contract, manifest) do
+    {:ok,
+     contract
+     |> Map.get("base_ui", %{})
+     |> Map.keys()
+     |> Enum.sort()
+     |> Map.new(fn name -> {name, source!(manifest, "base_ui/#{name}.md")} end)}
+  rescue
+    error -> {:error, Exception.message(error)}
+  end
+
+  defp normalize({:current, artifact}, source, name, contract_bytes, port) do
+    case byte_current(contract_bytes, port, artifact) do
+      :ok -> {:current, ref(source, name), artifact}
+      {:updated, artifact} -> {:updated, ref(source, name), artifact, []}
+    end
+  end
+
+  defp normalize({:updated, artifact, changes}, source, name, _contract_bytes, _port),
+    do: {:updated, ref(source, name), artifact, changes}
+
+  defp normalize({:manual, drift}, source, name, _contract_bytes, _port),
+    do: {:manual, ref(source, name), drift}
+
+  defp normalize({:error, diagnostics}, source, name, _contract_bytes, _port),
+    do: {:error, ref(source, name), diagnostics_message(diagnostics)}
+
+  defp source!(manifest, file) do
+    entry = get_in(manifest, ["files", file]) || raise "#{file} is not in registry/UPSTREAM.json"
+    path = registry_path(["upstream", file])
+    body = File.read!(path)
+
+    if entry["sha256"] != digest(body) do
+      raise "#{file} does not match its digest; run `mix ui.fetch`"
+    end
+
+    body
+  end
+
+  defp styles!(manifest) do
     manifest
     |> Map.get("files", %{})
     |> Map.keys()
     |> Enum.filter(&String.starts_with?(&1, "shadcn/styles/"))
     |> Enum.sort()
-    |> Enum.flat_map(fn file ->
-      path = registry_path(["upstream", file])
-
-      if File.exists?(path) do
-        [{Path.basename(file, ".css"), path |> File.read!() |> Style.rules()}]
-      else
-        Mix.shell().error("  skip #{file}: not fetched. Run `mix ui.fetch`.")
-        []
-      end
-    end)
-    |> Map.new()
-  end
-
-  # Both registries. AI Elements has no Base UI page of its own: it is built out
-  # of shadcn components, which have one each, so its contract arrives through
-  # the components it renders rather than through a page named after it.
-  defp fetched(manifest) do
-    files = Map.keys(manifest["files"] || %{})
-
-    # A component is a source file: the fetch stores other things beside them,
-    # and a manifest entry that is not a `.tsx` names no component.
-    shadcn = for "shadcn/ui/" <> file <- files, source?(file), do: {"shadcn", named(file)}
-    ai = for "ai_elements/" <> file <- files, source?(file), do: {"ai_elements", named(file)}
-
-    # shadcn first, and not sorted together. An AI Elements component folds in
-    # the markup of the shadcn component it renders, and it reads that spec off
-    # disk, so the shadcn spec has to have been written this run.
-    Enum.sort(shadcn) ++ Enum.sort(ai)
-  end
-
-  defp source?(file), do: Path.extname(file) == ".tsx"
-
-  defp named(file), do: Path.basename(file, ".tsx")
-
-  # One component that the reader cannot understand is a gap in the reader, not
-  # a reason to leave the other sixty unspecced. It is reported by name and the
-  # run continues, so the gaps are a list somebody can work through.
-  defp one({source, name}, manifest, recipes, {styles, lucide}, check?) do
-    tsx_file = tsx_file(source, name)
-    md_file = "base_ui/#{name}.md"
-    recipe = Map.get(recipes, {source, name}, "unassigned")
-
-    with :component <- utility(recipe),
-         {:ok, tsx} <- source(manifest, tsx_file),
-         {:ok, pages} <- extra_pages(tsx, manifest, name) do
-      # A component with no Base UI page is a component with no behaviour: a
-      # card is a `<div>` with a class string. It specs from the `.tsx` alone.
-      pages =
-        case source(manifest, md_file) do
-          {:ok, markdown} -> Map.put(pages, name, markdown)
-          _absent -> pages
-        end
-
-      case existing_contract(source, name) do
-        %{"schema_version" => 2} = contract ->
-          synchronize_port(source, name, contract, manifest, pages, styles, check?)
-
-        _old_contract ->
-          spec =
-            Spec.build(name,
-              tsx: tsx,
-              module: name,
-              markdown: pages,
-              styles: styles,
-              lucide: lucide,
-              siblings: siblings(tsx, manifest, source),
-              source: source,
-              resolve: &resolve_spec/2,
-              recipe: recipe,
-              upstream: %{
-                "shadcn" => %{"file" => tsx_file, "sha256" => digest(tsx)},
-                "base_ui" => Map.new(pages, fn {mod, md} -> {mod, digest(md)} end)
-              }
-            )
-
-          write_or_check(source, name, spec, check?)
-      end
-    end
-  rescue
-    error ->
-      {:unreadable, ref(source, name), Exception.message(error) |> String.split("\n") |> hd()}
-  end
-
-  # Not every file in the registry is a component this pipeline reads.
-  #
-  # `utility` draws nothing at all: `direction` re-exports Base UI's
-  # `DirectionProvider` and a hook, and what it provides HTML already has as
-  # `dir`.
-  #
-  # `unsupported` draws something, and what it draws belongs to a library rather
-  # than to a class string: `canvas` is `<ReactFlow>` with a `<Background>`
-  # inside it. `ROADMAP.md` names each one and what to reach for instead, and a
-  # file the reader is not asked to read is not a file the reader failed on.
-  defp utility(recipe) when recipe in ~w(utility unsupported), do: :utility
-  defp utility(_recipe), do: :component
-
-  defp tsx_file("shadcn", name), do: "shadcn/ui/#{name}.tsx"
-  defp tsx_file("ai_elements", name), do: "ai_elements/#{name}.tsx"
-
-  # menubar is built from `@base-ui/react/menubar` and `@base-ui/react/menu`.
-  # Both pages are its contract, so both are read.
-  defp extra_pages(tsx, manifest, name) do
-    ~r|from "@base-ui/react/([a-z0-9-]+)"|
-    |> Regex.scan(tsx, capture: :all_but_first)
-    |> List.flatten()
-    |> Enum.uniq()
-    |> Enum.reject(&(&1 == name))
-    |> Enum.reduce_while({:ok, %{}}, fn module, {:ok, pages} ->
-      case source(manifest, "base_ui/#{module}.md") do
-        {:ok, markdown} -> {:cont, {:ok, Map.put(pages, module, markdown)}}
-        # A module with no page of its own is not a component module: Base UI
-        # publishes utilities under the same namespace.
-        _missing -> {:cont, {:ok, pages}}
-      end
+    |> Map.new(fn file ->
+      {Path.basename(file, ".css"), manifest |> source!(file) |> Style.rules()}
     end)
   end
 
-  defp source(manifest, file) do
-    path = registry_path(["upstream", file])
+  defp finish(results, check?) do
+    problems = Enum.filter(results, &match?({kind, _, _} when kind in [:manual, :error], &1))
+    updates = Enum.filter(results, &match?({:updated, _, _, _}, &1))
 
     cond do
-      not File.exists?(path) ->
-        {:missing, file}
+      problems != [] ->
+        Mix.raise(problem_message(problems))
 
-      manifest["files"][file]["sha256"] != digest(File.read!(path)) ->
-        {:stale, file}
-
-      true ->
-        {:ok, File.read!(path)}
-    end
-  end
-
-  defp existing_contract(source, name) do
-    path = spec_path(source, name)
-    if File.exists?(path), do: read_json!(path)
-  end
-
-  defp synchronize_port(source_name, name, contract, manifest, pages, styles, check?) do
-    files =
-      contract["upstream"]
-      |> Map.keys()
-      |> Map.new(fn file ->
-        case source(manifest, file) do
-          {:ok, body} -> {file, body}
-          {state, _file} -> raise "#{file} is #{state}; run `mix ui.fetch`"
-        end
-      end)
-
-    port = module_path(source_name, name) |> File.read!()
-
-    input = %{
-      source: source_name,
-      name: name,
-      files: files,
-      styles: styles,
-      base_ui: pages,
-      contract: contract,
-      port: port
-    }
-
-    case Converter.sync(input) do
-      {:current, artifact} -> write_or_check_port(source_name, name, artifact, check?)
-      {:updated, artifact, _changes} -> write_or_check_port(source_name, name, artifact, check?)
-      {:manual, drift} -> raise "manual upstream drift: #{inspect(drift)}"
-      {:error, diagnostics} -> raise diagnostics_message(diagnostics)
-    end
-  end
-
-  defp write_or_check_port(source, name, artifact, check?) do
-    contract_path = spec_path(source, name)
-    port_path = module_path(source, name)
-
-    unchanged? =
-      File.read!(contract_path) == artifact.contract_json and
-        File.read!(port_path) == artifact.port
-
-    cond do
-      check? and unchanged? ->
-        {:current, ref(source, name)}
+      check? and updates != [] ->
+        names = Enum.map_join(updates, ", ", fn {:updated, name, _, _} -> name end)
+        Mix.raise("stale ports: #{names}. Run `mix ui.spec`.")
 
       check? ->
-        {:outdated, ref(source, name)}
-
-      unchanged? ->
-        {:current, ref(source, name)}
+        Mix.shell().info("every port is current (#{length(results)})")
 
       true ->
-        write!(port_path, artifact.port)
-        write!(contract_path, artifact.contract_json)
-        {:wrote, ref(source, name)}
+        Enum.each(updates, &write_update/1)
+        Mix.shell().info("synchronized #{length(updates)} port(s)")
     end
+  end
+
+  defp problem_message(problems) do
+    Enum.map_join(problems, "\n", fn
+      {:manual, name, drift} -> "#{name}: manual upstream drift: #{inspect(drift)}"
+      {:error, name, reason} -> "#{name}: #{reason}"
+    end)
+  end
+
+  defp write_update({:updated, name, artifact, _changes}) do
+    {source, component} = parse_ref(name)
+    write!(module_path(source, component), artifact.port)
+    write!(spec_path(source, component), artifact.contract_json)
   end
 
   defp diagnostics_message(diagnostics) do
-    Enum.map_join(diagnostics, "\n", &diagnostic_message/1)
-  end
-
-  defp diagnostic_message(%{message: message}), do: message
-  defp diagnostic_message(%{"message" => message}), do: message
-  defp diagnostic_message(diagnostic), do: inspect(diagnostic)
-
-  defp write_or_check(source, name, spec, check?) do
-    path = spec_path(source, name)
-    rendered = spec |> preserve_recipe_facts(path) |> json()
-
-    unchanged? = File.exists?(path) and File.read!(path) == rendered
-
-    cond do
-      check? and unchanged? ->
-        {:current, ref(source, name)}
-
-      check? ->
-        {:outdated, ref(source, name)}
-
-      # Already what it should be. Saying so rather than "wrote" is what lets
-      # `settle/6` know the run has stopped moving.
-      unchanged? ->
-        {:current, ref(source, name)}
-
-      true ->
-        write!(path, rendered)
-        {:wrote, ref(source, name)}
-    end
-  end
-
-  # A specialist recipe can need a server-only class that does not exist in a
-  # readable JSX part. Such facts live in the component spec, next to the
-  # parsed facts, and must survive a later reader run.
-  #
-  # A *parsed* class always wins over a preserved one. This used to replace the
-  # whole map, so once a class string had been typed into a spec by hand no
-  # amount of teaching the reader could dislodge it: the calendar learned to
-  # read twenty class strings out of `classNames` and kept reporting the four
-  # somebody had typed, silently, because the reader's answer was overwritten
-  # after it was computed.
-  defp preserve_recipe_facts(spec, path) do
-    with true <- File.exists?(path),
-         {:ok, existing} <- path |> File.read!() |> Jason.decode(),
-         %{} = classes <- existing["classes"] do
-      Map.put(spec, "classes", Map.merge(classes, spec["classes"] || %{}))
-    else
-      _ -> spec
-    end
-  end
-
-  defp json(spec),
-    do: (spec |> Jason.encode_to_iodata!(pretty: true) |> IO.iodata_to_binary()) <> "\n"
-
-  defp report(results, check?) do
-    for {:missing, file} <- results,
-        do: Mix.shell().error("  skip: #{file} is not fetched. Run `mix ui.fetch`.")
-
-    for {:stale, file} <- results,
-        do: Mix.shell().error("  skip: #{file} does not match its digest. Run `mix ui.fetch`.")
-
-    utilities = for :utility <- results, do: :utility
-    unreadable = for {:unreadable, name, why} <- results, do: "#{name}: #{why}"
-    outdated = for {:outdated, name} <- results, do: name
-    wrote = for {:wrote, name} <- results, do: name
-
-    if unreadable != [] do
-      Mix.shell().error("""
-
-      #{length(unreadable)} component(s) the reader cannot understand yet:
-
-        #{Enum.join(unreadable, "\n  ")}
-      """)
-    end
-
-    missing = for {:missing, file} <- results, do: file
-    stale = for {:stale, file} <- results, do: file
-
-    cond do
-      check? and outdated != [] ->
-        Mix.raise("stale specs: #{Enum.join(outdated, ", ")}. Run `mix ui.spec`.")
-
-      # A source this run could not read is a spec this run did not check, and a
-      # check that cannot tell "did not run" from "passed" is worse than no
-      # check. That is how the browser suite ran in CI for weeks against 65
-      # references it had never built.
-      #
-      # So a skip is a failure under `--check`, where the whole claim is that
-      # every spec was compared. Outside `--check` it stays a skip, because
-      # writing the sixty specs whose sources are present is useful.
-      check? and (missing != [] or stale != []) ->
-        Mix.raise("""
-        #{length(missing ++ stale)} source(s) were not read, so their specs were not checked:
-
-          #{Enum.join(missing ++ stale, "\n  ")}
-
-        Run `mix ui.fetch`. A spec nobody compared is not a spec that passed.\
-        """)
-
-      check? ->
-        Mix.shell().info(
-          "every spec is current (#{length(results) - length(unreadable) - length(utilities)})"
-        )
-
-      true ->
-        Mix.shell().info("wrote #{length(wrote)} spec(s)")
-    end
+    Enum.map_join(diagnostics, "\n", fn
+      %{message: message} -> message
+      %{"message" => message} -> message
+      diagnostic -> inspect(diagnostic)
+    end)
   end
 end

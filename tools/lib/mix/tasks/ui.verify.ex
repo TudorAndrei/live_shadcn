@@ -1,8 +1,8 @@
 defmodule Mix.Tasks.Ui.Verify do
-  @shortdoc "Check a generated component against its spec, its snapshot, and a browser"
+  @shortdoc "Check a reviewed component against its contract, snapshot, and browser"
 
   @moduledoc """
-  Stage 4 of the codegen pipeline, and the only stage that can say a component
+  The last stage of the maintainer pipeline, and the only stage that can say a component
   is finished.
 
       mix ui.verify
@@ -14,10 +14,10 @@ defmodule Mix.Tasks.Ui.Verify do
 
   | Check | Question |
   |---|---|
-  | generated | does the module on disk still match its spec? |
+  | generated | does the reviewed port on disk still match its contract? |
   | snapshot | has the markup a reader gets changed? |
   | browser | does it behave like Base UI, and is it clean under axe-core? |
-  | parity | does it draw what the React it was generated from draws? |
+  | parity | does it draw what the upstream React draws? |
   | pixel | does it *paint* what that React paints? |
 
   The first two are cheap and run anywhere. The last three start a browser,
@@ -52,7 +52,7 @@ defmodule Mix.Tasks.Ui.Verify do
     components = if names == [], do: generated(), else: Enum.map(names, &resolve/1)
 
     if components == [] do
-      Mix.raise("nothing to verify: no component has been generated yet. Run `mix ui.gen`.")
+      Mix.raise("nothing to verify: no reviewed component port exists.")
     end
 
     results =
@@ -165,7 +165,7 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   defp generated_check(reference),
-    do: run_in(tools_dir(), "mix", ["ui.gen", "--check", reference])
+    do: run_in(tools_dir(), "mix", ["ui.spec", "--check", "--offline", reference])
 
   defp snapshot_check(nil), do: no_example()
 
@@ -188,7 +188,7 @@ defmodule Mix.Tasks.Ui.Verify do
     end
   end
 
-  # The component beside the React it was generated from.
+  # The component beside its upstream React source.
   #
   # The three checks above all ask whether the pipeline was consistent with
   # itself: the module matches the spec, the markup matches the snapshot, the

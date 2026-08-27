@@ -1,8 +1,8 @@
 defmodule LiveShadcnTools do
   @moduledoc """
-  Shared helpers for the maintainer codegen pipeline.
+  Shared helpers for the maintainer synchronization pipeline.
 
-  The pipeline is `ui.fetch -> ui.spec -> ui.gen -> ui.verify`. Every stage is
+  The pipeline is `ui.fetch -> ui.spec -> ui.verify`. Every stage is
   deterministic and reads only from `registry/`, so a rerun on the same pinned
   upstream commit must produce a byte-identical result.
   """
@@ -118,10 +118,10 @@ defmodule LiveShadcnTools do
   @namespaces %{"shadcn" => LiveShadcn.UI, "ai_elements" => LiveAiElements.Components}
 
   @doc """
-  The module namespace a source's components are generated under.
+  The module namespace for a source's component ports.
 
-  `mix ui.gen` uses it to name the module it writes, and the generator uses it
-  to name a module it calls. Both have to agree, so there is one mapping.
+  The migration tool uses it to name a module it writes and to name a module it
+  calls. Both uses must agree, so there is one mapping.
 
       iex> LiveShadcnTools.namespace("shadcn")
       LiveShadcn.UI
@@ -149,7 +149,7 @@ defmodule LiveShadcnTools do
     do: registry_path(["spec", source, "#{name}.json"])
 
   @doc """
-  Where `mix ui.gen` writes a component's module.
+  Where a reviewed component module is stored.
 
   The two packages ship differently, and the paths say so. `live_shadcn` is
   copied into the host application by `mix ui.add`, so its modules are source

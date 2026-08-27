@@ -1,8 +1,8 @@
 name: Sync upstream
 
 # Keeping up with shadcn is a scheduled job, not a person remembering to look.
-# The run re-fetches upstream, regenerates, and opens a pull request when the
-# digests in registry/UPSTREAM.json move.
+# The run re-fetches upstream, synchronizes safe facts, and opens a pull request
+# when the digests in registry/UPSTREAM.json move.
 
 on:
   schedule:
@@ -43,20 +43,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      # Spec and generate. Both are deterministic, so anything that changes here
-      # changed upstream, and the diff says what.
-      - name: Respec and regenerate
-        run: mix ui.spec && mix ui.gen
+      # The task computes all results before it writes. Manual structural drift
+      # stops the run before it changes a port or contract.
+      - name: Synchronize safe facts
+        run: mix ui.spec
         working-directory: tools
 
       - name: Redraw the snapshots
         run: mix setup && mix assets.build && mix snapshot
         working-directory: storybook
 
-      # A generated file that does not match its own spec means the generator is
-      # not deterministic, and every diff below it is untrustworthy.
-      - name: Generated output matches its spec
-        run: mix ui.gen --check
+      # A port that does not match its contract makes later results unreliable.
+      - name: Reviewed ports match their contracts
+        run: mix ui.spec --check --offline
         working-directory: tools
 
       # A sync that opens a pull request nobody can trust is worse than none.
@@ -87,7 +86,7 @@ jobs:
             echo 'body<<DIFF'
             (cd tools && mix ui.drift)
             echo
-            echo 'Every generated file still matches its spec, and the whole'
+            echo 'Every reviewed port still matches its contract, and the whole'
             echo 'browser suite is green. Read the snapshot diff to see what'
             echo 'a reader would actually notice.'
             echo DIFF

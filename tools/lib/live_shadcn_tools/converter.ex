@@ -21,6 +21,7 @@ defmodule LiveShadcnTools.Converter do
 
     with {:ok, block} <- fact_block(port),
          :ok <- same_offline_facts(contract, block.facts),
+         :ok <- same_fact_block(port, block, contract["facts"]),
          :ok <- same_port_body(contract, port, block) do
       {:current, artifact(contract, port)}
     end
@@ -199,6 +200,12 @@ defmodule LiveShadcnTools.Converter do
       do: :ok,
       else:
         {:error, [%{kind: :facts, message: "the port fact block does not match its contract"}]}
+  end
+
+  defp same_fact_block(port, block, facts) do
+    if replace_block(port, block, render_block(facts)) == port,
+      do: :ok,
+      else: {:error, [%{kind: :fact_block, message: "the port fact block is not canonical"}]}
   end
 
   defp same_port_body(contract, port, block) do

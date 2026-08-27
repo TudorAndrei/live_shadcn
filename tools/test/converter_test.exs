@@ -290,6 +290,36 @@ defmodule LiveShadcnTools.ConverterTest do
              )
   end
 
+  test "the offline check rejects a noncanonical fact block" do
+    input = %{
+      source: "shadcn",
+      name: "button",
+      files: %{"shadcn/ui/button.tsx" => @source},
+      styles: %{},
+      base_ui: %{},
+      contract: nil,
+      port: @port
+    }
+
+    assert {:updated, current, _changes} = Converter.sync(input)
+
+    noncanonical =
+      String.replace(
+        current.port,
+        "@upstream_facts %{\n    \"jsx/Button/class/0\" => \"inline-flex px-2\"\n  }",
+        "@upstream_facts %{\"jsx/Button/class/0\" => \"inline-flex px-2\"}"
+      )
+
+    assert {:error, [diagnostic]} =
+             Converter.sync(%{
+               mode: :offline,
+               contract: current.contract,
+               port: noncanonical
+             })
+
+    assert diagnostic.kind == :fact_block
+  end
+
   test "a Base UI contract change needs manual review" do
     input = %{
       source: "shadcn",

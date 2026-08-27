@@ -73,22 +73,22 @@ and make its listed commit before work starts on the next phase.
 
 ## Phase 4: switch the maintainer workflow
 
-- [ ] Remove old-spec routing from `Mix.Tasks.Ui.Spec`.
-- [ ] Add `mix ui.spec --check --offline`.
-- [ ] Make full-registry writes all-or-nothing.
-- [ ] Change `Mix.Tasks.Ui.Verify.generated_check/1` to the offline spec check.
-- [ ] Change `.github/workflows/ci.yml` to the offline spec check.
-- [ ] Remove `mix ui.gen` from `.github/workflows/sync-upstream.yml`.
-- [ ] Make the sync workflow stop before writes on manual structural drift.
-- [ ] Keep separate source checks for shadcn and AI Elements.
-- [ ] Update `Mix.Tasks.Ui.Status` for the version 2 contract digest where
+- [x] Remove old-spec routing from `Mix.Tasks.Ui.Spec`.
+- [x] Add `mix ui.spec --check --offline`.
+- [x] Make full-registry writes all-or-nothing.
+- [x] Change `Mix.Tasks.Ui.Verify.generated_check/1` to the offline spec check.
+- [x] Change `.github/workflows/ci.yml` to the offline spec check.
+- [x] Remove `mix ui.gen` from `.github/workflows/sync-upstream.yml`.
+- [x] Make the sync workflow stop before writes on manual structural drift.
+- [x] Keep separate source checks for shadcn and AI Elements.
+- [x] Update `Mix.Tasks.Ui.Status` for the version 2 contract digest where
       required.
-- [ ] Run `cd tools && mix test`.
-- [ ] Run `cd tools && mix ui.spec --check --offline` without
+- [x] Run `cd tools && mix test`.
+- [x] Run `cd tools && mix ui.spec --check --offline` without
       `registry/upstream/`.
-- [ ] Run both fetched-source checks.
-- [ ] Run `cd tools && mix ui.status --check`.
-- [ ] Commit: `refactor(tools): switch registry updates to port synchronization`
+- [x] Run both fetched-source checks.
+- [x] Run `cd tools && mix ui.status --check`.
+- [x] Commit: `refactor(tools): switch registry updates to port synchronization`
 
 ## Phase 5: remove the old compiler
 
