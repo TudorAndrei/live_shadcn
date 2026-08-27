@@ -9,6 +9,16 @@ defmodule LiveShadcn.UI.Switch do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/Switch/class/0" => "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+    "jsx/Switch/class/1" => "cn-switch-thumb pointer-events-none block ring-0 transition-transform"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.FormControl
 
   @doc """
@@ -70,8 +80,8 @@ defmodule LiveShadcn.UI.Switch do
       data-filled={flag(@checked)}
       data-size={@size}
       class={[
-        "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
-        @class
+        upstream_fact("jsx/Switch/class/0"),
+        (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -79,7 +89,7 @@ defmodule LiveShadcn.UI.Switch do
         data-checked={flag(@checked)}
         data-unchecked={flag(not @checked)}
         data-slot="switch-thumb"
-        class="cn-switch-thumb pointer-events-none block ring-0 transition-transform"
+        class={upstream_fact("jsx/Switch/class/1")}
       />
       {render_slot(@inner_block)}
     </span>

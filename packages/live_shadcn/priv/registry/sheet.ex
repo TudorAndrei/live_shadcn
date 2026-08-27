@@ -9,6 +9,22 @@ defmodule LiveShadcn.UI.Sheet do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/SheetContent/class/0" => "cn-sheet-content data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem]",
+    "jsx/SheetContent/class/1" => "cn-sheet-close",
+    "jsx/SheetContent/class/2" => "sr-only",
+    "jsx/SheetDescription/class/0" => "cn-sheet-description",
+    "jsx/SheetFooter/class/0" => "cn-sheet-footer mt-auto flex flex-col",
+    "jsx/SheetHeader/class/0" => "cn-sheet-header flex flex-col",
+    "jsx/SheetOverlay/class/0" => "cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
+    "jsx/SheetTitle/class/0" => "cn-sheet-title cn-font-heading"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Dialog
 
   @doc """
@@ -75,8 +91,8 @@ defmodule LiveShadcn.UI.Sheet do
       data-open={flag(@open)}
       data-closed={flag(not @open)}
       class={[
-        "cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
-        @class
+        upstream_fact("jsx/SheetOverlay/class/0"),
+        (@class || "")
       ]}
       data-lb-style-target
     />
@@ -99,28 +115,28 @@ defmodule LiveShadcn.UI.Sheet do
       data-closed={flag(not @open)}
       data-side={@side}
       class={[
-        "cn-sheet-content data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem]",
-        @class
+        upstream_fact("jsx/SheetContent/class/0"),
+        (@class || "")
       ]}
     >
-      <div data-slot="sheet-header" class="cn-sheet-header flex flex-col">
+      <div data-slot="sheet-header" class={upstream_fact("jsx/SheetHeader/class/0")}>
         <h2
           data-slot="sheet-title"
           id={Dialog.title_id(@id)}
-          class={["cn-sheet-title cn-font-heading", @title_class]}
+          class={[upstream_fact("jsx/SheetTitle/class/0"), (@title_class || "")]}
         >
           {render_slot(@title)}
         </h2>
         <p
           data-slot="sheet-description"
           id={Dialog.description_id(@id)}
-          class={["cn-sheet-description", @description_class]}
+          class={[upstream_fact("jsx/SheetDescription/class/0"), (@description_class || "")]}
         >
           {render_slot(@description)}
         </p>
       </div>
       {render_slot(@inner_block)}
-      <div :if={@footer != []} data-slot="sheet-footer" class="cn-sheet-footer mt-auto flex flex-col">
+      <div :if={@footer != []} data-slot="sheet-footer" class={upstream_fact("jsx/SheetFooter/class/0")}>
         {render_slot(@footer)}
       </div>
       <LiveShadcn.UI.Button.button
@@ -131,9 +147,9 @@ defmodule LiveShadcn.UI.Sheet do
         data-disabled={flag(@disabled)}
         variant="ghost"
         size="icon-sm"
-        class="cn-sheet-close"
+        class={upstream_fact("jsx/SheetContent/class/1")}
       >
-        <LiveShadcn.Icon.icon name="x" /><span class="sr-only">Close</span>
+        <LiveShadcn.Icon.icon name="x" /><span class={upstream_fact("jsx/SheetContent/class/2")}>Close</span>
       </LiveShadcn.UI.Button.button>
     </div>
     """

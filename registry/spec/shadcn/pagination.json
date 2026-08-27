@@ -1,641 +1,84 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Pagination/class/0",
+      "jsx/PaginationContent/class/0",
+      "jsx/PaginationEllipsis/class/0",
+      "jsx/PaginationEllipsis/class/1",
+      "jsx/PaginationLink/class/0",
+      "jsx/PaginationNext/class/0",
+      "jsx/PaginationNext/class/1",
+      "jsx/PaginationNext/class/2",
+      "jsx/PaginationPrevious/class/0",
+      "jsx/PaginationPrevious/class/2"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Pagination/class/0": "cn-pagination mx-auto flex w-full justify-center",
+    "jsx/PaginationContent/class/0": "cn-pagination-content flex items-center",
+    "jsx/PaginationEllipsis/class/0": "cn-pagination-ellipsis flex items-center justify-center",
+    "jsx/PaginationEllipsis/class/1": "sr-only",
+    "jsx/PaginationLink/class/0": "cn-pagination-link",
+    "jsx/PaginationNext/class/0": "cn-pagination-next",
+    "jsx/PaginationNext/class/1": "cn-pagination-next-text hidden sm:block",
+    "jsx/PaginationNext/class/2": "cn-rtl-flip",
+    "jsx/PaginationPrevious/class/0": "cn-pagination-previous",
+    "jsx/PaginationPrevious/class/2": "cn-pagination-previous-text hidden sm:block"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/pagination.tsx": "63e16d96aa129ed61053946ebe552a0134579841edf7800344f0ecf8837c3392"
+  },
+  "fingerprint": "1101939661e7f086c6e299f104ac69d87f8ab14eca0c0d73c4ef309e4fb0fc9f",
+  "ignored": {
+    "jsx/PaginationPrevious/class/1": "the generated port does not contain this source literal"
+  },
   "name": "pagination",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Pagination",
-      "name": "pagination",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "role",
-            "value": "navigation"
-          },
-          {
-            "kind": "text",
-            "name": "aria-label",
-            "value": "pagination"
-          }
-        ],
-        "children": [],
-        "class": "cn-pagination mx-auto flex w-full justify-center",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "pagination",
-        "tag": "nav",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "PaginationContent",
-      "name": "pagination_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-pagination-content flex items-center",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "pagination-content",
-        "tag": "ul",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "PaginationEllipsis",
-      "name": "pagination_ellipsis",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "flag",
-            "name": "aria-hidden",
-            "value": null
-          }
-        ],
-        "children": [
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "lucide",
-                "value": "MoreHorizontalIcon"
-              },
-              {
-                "kind": "text",
-                "name": "tabler",
-                "value": "IconDots"
-              },
-              {
-                "kind": "text",
-                "name": "hugeicons",
-                "value": "MoreHorizontalCircle01Icon"
-              },
-              {
-                "kind": "text",
-                "name": "phosphor",
-                "value": "DotsThreeIcon"
-              },
-              {
-                "kind": "text",
-                "name": "remixicon",
-                "value": "RiMoreLine"
-              }
-            ],
-            "children": [],
-            "class": "",
-            "class_when": [],
-            "icons": {
-              "hugeicons": "MoreHorizontalCircle01Icon",
-              "lucide": "Ellipsis",
-              "phosphor": "DotsThreeIcon",
-              "remixicon": "RiMoreLine",
-              "tabler": "IconDots"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "text",
-                "value": "More pages"
-              }
-            ],
-            "class": "sr-only",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-pagination-ellipsis flex items-center justify-center",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "pagination-ellipsis",
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "PaginationItem",
-      "name": "pagination_item",
-      "params": {},
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "pagination-item",
-        "tag": "li",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "PaginationLink",
-      "name": "pagination_link",
-      "params": {
-        "className": null,
-        "isActive": null,
-        "size": "icon"
-      },
-      "primitive": null,
-      "refs": [
-        "isActive",
-        "size",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "isActive"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "isActive ? \"outline\" : \"ghost\""
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "kind": "code",
-            "name": "nativeButton",
-            "value": "false"
-          }
-        ],
-        "children": [],
-        "class": "cn-pagination-link",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": {
-          "attrs": [
-            {
-              "identifiers": [
-                "isActive",
-                "undefined"
-              ],
-              "kind": "code",
-              "name": "aria-current",
-              "value": "isActive ? \"page\" : undefined"
-            },
-            {
-              "identifiers": [
-                "isActive"
-              ],
-              "kind": "code",
-              "name": "data-active",
-              "value": "isActive"
-            }
-          ],
-          "children": [],
-          "class": "",
-          "class_when": [],
-          "merges_class": false,
-          "props": true,
-          "reads": {
-            "group": [],
-            "self": []
-          },
-          "render_as": null,
-          "slot": "pagination-link",
-          "tag": "a",
-          "type": "element",
-          "variant_calls": [],
-          "vars": []
-        },
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "isActive": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "PaginationNext",
-      "name": "pagination_next",
-      "params": {
-        "className": null,
-        "text": "Next"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "text"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "aria-label",
-            "value": "Go to next page"
-          },
-          {
-            "kind": "text",
-            "name": "size",
-            "value": "default"
-          }
-        ],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "code": "text",
-                "identifiers": [
-                  "text"
-                ],
-                "type": "value"
-              }
-            ],
-            "class": "cn-pagination-next-text hidden sm:block",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "lucide",
-                "value": "ChevronRightIcon"
-              },
-              {
-                "kind": "text",
-                "name": "tabler",
-                "value": "IconChevronRight"
-              },
-              {
-                "kind": "text",
-                "name": "hugeicons",
-                "value": "ArrowRight01Icon"
-              },
-              {
-                "kind": "text",
-                "name": "phosphor",
-                "value": "CaretRightIcon"
-              },
-              {
-                "kind": "text",
-                "name": "remixicon",
-                "value": "RiArrowRightSLine"
-              },
-              {
-                "kind": "text",
-                "name": "data-icon",
-                "value": "inline-end"
-              }
-            ],
-            "children": [],
-            "class": "cn-rtl-flip",
-            "class_when": [],
-            "icons": {
-              "hugeicons": "ArrowRight01Icon",
-              "lucide": "ChevronRight",
-              "phosphor": "CaretRightIcon",
-              "remixicon": "RiArrowRightSLine",
-              "tabler": "IconChevronRight"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-pagination-next",
-        "class_when": [],
-        "merges_class": true,
-        "part": "pagination_link",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "type": "part_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "PaginationPrevious",
-      "name": "pagination_previous",
-      "params": {
-        "className": null,
-        "text": "Previous"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "text"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "aria-label",
-            "value": "Go to previous page"
-          },
-          {
-            "kind": "text",
-            "name": "size",
-            "value": "default"
-          }
-        ],
-        "children": [
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "lucide",
-                "value": "ChevronLeftIcon"
-              },
-              {
-                "kind": "text",
-                "name": "tabler",
-                "value": "IconChevronLeft"
-              },
-              {
-                "kind": "text",
-                "name": "hugeicons",
-                "value": "ArrowLeft01Icon"
-              },
-              {
-                "kind": "text",
-                "name": "phosphor",
-                "value": "CaretLeftIcon"
-              },
-              {
-                "kind": "text",
-                "name": "remixicon",
-                "value": "RiArrowLeftSLine"
-              },
-              {
-                "kind": "text",
-                "name": "data-icon",
-                "value": "inline-start"
-              }
-            ],
-            "children": [],
-            "class": "cn-rtl-flip",
-            "class_when": [],
-            "icons": {
-              "hugeicons": "ArrowLeft01Icon",
-              "lucide": "ChevronLeft",
-              "phosphor": "CaretLeftIcon",
-              "remixicon": "RiArrowLeftSLine",
-              "tabler": "IconChevronLeft"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "code": "text",
-                "identifiers": [
-                  "text"
-                ],
-                "type": "value"
-              }
-            ],
-            "class": "cn-pagination-previous-text hidden sm:block",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-pagination-previous",
-        "class_when": [],
-        "merges_class": true,
-        "part": "pagination_link",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "type": "part_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "pagination",
+  "port_body": "2f659f951f57ef77877ffd57a6c9eddecab6523ac073579a3d3cba8f80c42bae",
+  "schema_version": 2,
   "source": "shadcn",
+  "source_facts": {
+    "jsx/Pagination/class/0": "cn-pagination mx-auto flex w-full justify-center",
+    "jsx/PaginationContent/class/0": "cn-pagination-content flex items-center",
+    "jsx/PaginationEllipsis/class/0": "cn-pagination-ellipsis flex items-center justify-center",
+    "jsx/PaginationEllipsis/class/1": "sr-only",
+    "jsx/PaginationLink/class/0": "cn-pagination-link",
+    "jsx/PaginationNext/class/0": "cn-pagination-next",
+    "jsx/PaginationNext/class/1": "cn-pagination-next-text hidden sm:block",
+    "jsx/PaginationNext/class/2": "cn-rtl-flip",
+    "jsx/PaginationPrevious/class/0": "cn-pagination-previous",
+    "jsx/PaginationPrevious/class/1": "cn-rtl-flip",
+    "jsx/PaginationPrevious/class/2": "cn-pagination-previous-text hidden sm:block"
+  },
+  "state_reads": [],
   "styles": {
-    "luma": {
-      "cn-pagination-content": "gap-1",
-      "cn-pagination-ellipsis": "size-9 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
-      "cn-pagination-next": "pr-2!",
-      "cn-pagination-previous": "pl-2!"
-    },
-    "lyra": {
-      "cn-pagination-content": "gap-0.5",
-      "cn-pagination-ellipsis": "size-8 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
-      "cn-pagination-next": "pr-1.5!",
-      "cn-pagination-previous": "pl-1.5!"
-    },
-    "maia": {
-      "cn-pagination-content": "gap-1",
-      "cn-pagination-ellipsis": "size-9 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
-      "cn-pagination-next": "pr-2!",
-      "cn-pagination-previous": "pl-2!"
-    },
-    "mira": {
-      "cn-pagination-content": "gap-0.5",
-      "cn-pagination-ellipsis": "size-7 items-center justify-center [&_svg:not([class*='size-'])]:size-3.5",
-      "cn-pagination-next": "pr-2!",
-      "cn-pagination-previous": "pl-2!"
-    },
-    "nova": {
-      "cn-pagination-content": "gap-0.5",
-      "cn-pagination-ellipsis": "size-8 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
-      "cn-pagination-next": "pr-1.5!",
-      "cn-pagination-previous": "pl-1.5!"
-    },
-    "rhea": {
-      "cn-pagination-content": "gap-1",
-      "cn-pagination-ellipsis": "size-8 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
-      "cn-pagination-next": "pr-1.5!",
-      "cn-pagination-previous": "pl-1.5!"
-    },
-    "sera": {
-      "cn-pagination-content": "gap-1",
-      "cn-pagination-ellipsis": "size-9 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
-      "cn-pagination-next": "pr-2!",
-      "cn-pagination-previous": "pl-2!"
-    },
-    "vega": {
-      "cn-pagination-content": "gap-1",
-      "cn-pagination-ellipsis": "size-9 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
-      "cn-pagination-next": "pr-2!",
-      "cn-pagination-previous": "pl-2!"
-    }
+    "luma": "903d3c430aa8c51c618cf027f757ed5a5195145a8784c1edeae942349fd24ca3",
+    "lyra": "12526983f4bbf6726cf02d34131f7757a5c81f02c1e4106e2ace23d1601d88a9",
+    "maia": "903d3c430aa8c51c618cf027f757ed5a5195145a8784c1edeae942349fd24ca3",
+    "mira": "35ba21550b29e43d4a11a49e1f675323d34df41d77de3910d009b365646eda4a",
+    "nova": "12526983f4bbf6726cf02d34131f7757a5c81f02c1e4106e2ace23d1601d88a9",
+    "rhea": "a601aac2f84a80da31d91668b7c739ae701aca82f3ee37968e210295301228d7",
+    "sera": "903d3c430aa8c51c618cf027f757ed5a5195145a8784c1edeae942349fd24ca3",
+    "vega": "903d3c430aa8c51c618cf027f757ed5a5195145a8784c1edeae942349fd24ca3"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/pagination.tsx",
-      "sha256": "7c1c3be5f743e8651300fa4f3d18201d298dde3ab5e28a3aebd688f2d48b86d3"
-    }
+    "shadcn/ui/pagination.tsx": "7c1c3be5f743e8651300fa4f3d18201d298dde3ab5e28a3aebd688f2d48b86d3"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Pagination/class/0",
+    "jsx/PaginationContent/class/0",
+    "jsx/PaginationEllipsis/class/0",
+    "jsx/PaginationEllipsis/class/1",
+    "jsx/PaginationLink/class/0",
+    "jsx/PaginationNext/class/0",
+    "jsx/PaginationNext/class/1",
+    "jsx/PaginationNext/class/2",
+    "jsx/PaginationPrevious/class/0",
+    "jsx/PaginationPrevious/class/2"
+  ]
 }

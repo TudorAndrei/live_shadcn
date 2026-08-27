@@ -1,94 +1,36 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "spinner",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Spinner",
-      "name": "spinner",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "lucide",
-            "value": "Loader2Icon"
-          },
-          {
-            "kind": "text",
-            "name": "tabler",
-            "value": "IconLoader"
-          },
-          {
-            "kind": "text",
-            "name": "hugeicons",
-            "value": "Loading03Icon"
-          },
-          {
-            "kind": "text",
-            "name": "phosphor",
-            "value": "SpinnerIcon"
-          },
-          {
-            "kind": "text",
-            "name": "remixicon",
-            "value": "RiLoaderLine"
-          },
-          {
-            "kind": "text",
-            "name": "role",
-            "value": "status"
-          },
-          {
-            "kind": "text",
-            "name": "aria-label",
-            "value": "Loading"
-          }
-        ],
-        "children": [],
-        "class": "size-4 animate-spin",
-        "class_when": [],
-        "icons": {
-          "hugeicons": "Loading03Icon",
-          "lucide": "LoaderCircle",
-          "phosphor": "SpinnerIcon",
-          "remixicon": "RiLoaderLine",
-          "tabler": "IconLoader"
-        },
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "spinner",
-        "type": "icon",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "shadcn",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/spinner.tsx",
-      "sha256": "2200e06760fe9f9eb78bcc57f38ed1d4fdf7eb9e8228b33ec0abaf5e55170742"
-    }
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Spinner/class/0"
+    ],
+    "derived": {}
   },
-  "variants": {}
+  "css_vars": [],
+  "facts": {
+    "jsx/Spinner/class/0": "size-4 animate-spin"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/spinner.tsx": "9ca372a9d1c507e0751661eabcfbaa1c472eef1e3fae5eb038c6c28a74f928b2"
+  },
+  "fingerprint": "6a9429f8fb0b512e3848848121440bc6ba2a92769d8d1dd5105a153290a04025",
+  "ignored": {},
+  "name": "spinner",
+  "port_body": "854977a7405eeb74f3a93a02d9b8d6db2be287d0b4e8c21e0a6df4fc63e287e4",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/Spinner/class/0": "size-4 animate-spin"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "shadcn/ui/spinner.tsx": "2200e06760fe9f9eb78bcc57f38ed1d4fdf7eb9e8228b33ec0abaf5e55170742"
+  },
+  "uses": [
+    "jsx/Spinner/class/0"
+  ]
 }

@@ -15,6 +15,49 @@ defmodule LiveShadcnTools.DriftTest do
   end
 
   describe "what a reviewer needs to know" do
+    test "version 2 contracts report safe facts and manual structure drift" do
+      before = %{
+        "schema_version" => 2,
+        "facts" => %{
+          "jsx/Button/class/0" => "inline-flex",
+          "cva/buttonVariants/variant/variant/default" => "bg-primary"
+        },
+        "source_facts" => %{
+          "jsx/Button/class/0" => "inline-flex",
+          "cva/buttonVariants/variant/variant/default" => "bg-primary"
+        },
+        "state_reads" => [%{"name" => "aria-expanded", "value" => nil}],
+        "fingerprint" => "before"
+      }
+
+      now = %{
+        "schema_version" => 2,
+        "facts" => %{
+          "jsx/Button/class/0" => "inline-grid",
+          "cva/buttonVariants/variant/variant/default" => "bg-primary",
+          "cva/buttonVariants/variant/variant/ghost" => "bg-transparent"
+        },
+        "source_facts" => %{
+          "jsx/Button/class/0" => "inline-grid",
+          "cva/buttonVariants/variant/variant/default" => "bg-primary",
+          "cva/buttonVariants/variant/variant/ghost" => "bg-transparent"
+        },
+        "state_reads" => [
+          %{"name" => "aria-expanded", "value" => nil},
+          %{"name" => "data-open", "value" => nil}
+        ],
+        "fingerprint" => "after"
+      }
+
+      drift = Drift.between(before, now)
+
+      assert {:added, "attribute", ["data-open"]} in drift
+      assert {:added, "variant", ["variant=ghost"]} in drift
+      assert {:added, "class string", ["bg-transparent", "inline-grid"]} in drift
+      assert {:removed, "class string", ["inline-flex"]} in drift
+      assert {:added, "structure", ["upstream structure"]} in drift
+    end
+
     test "a class string that moved is reported as a class string" do
       before = spec(element(%{"class" => "flex items-start"}))
       now = spec(element(%{"class" => "flex items-center"}))

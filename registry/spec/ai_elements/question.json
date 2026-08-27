@@ -1,540 +1,88 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "folds": [
-    "shadcn/textarea"
-  ],
-  "generated_by": "mix ui.spec",
-  "name": "question",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Question",
-      "name": "question",
-      "params": {
-        "children": null,
-        "className": null,
-        "defaultValue": "EMPTY_VALUE",
-        "disabled": "false",
-        "selectionMode": "single",
-        "value": null
-      },
-      "primitive": null,
-      "refs": [
-        "defaultValue",
-        "value",
-        "nextValue",
-        "onValueChange",
-        "text",
-        "optionValue",
-        "selectionMode",
-        "disabled",
-        "event",
-        "onSubmit",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Question/class/0",
+      "jsx/QuestionActions/class/0",
+      "jsx/QuestionDescription/class/0",
+      "jsx/QuestionOption/class/0",
+      "jsx/QuestionOptions/class/0",
+      "jsx/QuestionPrompt/class/0"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "attrs": [],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "space-y-4 rounded-lg border bg-background p-4",
-            "class_when": [],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "form",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
+            "fact": "jsx/Textarea/class/0"
+          },
+          {
+            "fact": "jsx/QuestionInput/class/0"
           }
         ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "disabled": {
-          "optional": true,
-          "type": "boolean"
-        }
+        "op": "join"
       }
-    },
+    }
+  },
+  "css_vars": [],
+  "facts": {
+    "jsx/Question/class/0": "space-y-4 rounded-lg border bg-background p-4",
+    "jsx/QuestionActions/class/0": "flex items-center justify-end gap-2",
+    "jsx/QuestionDescription/class/0": "text-muted-foreground text-sm",
+    "jsx/QuestionOption/class/0": "h-auto whitespace-normal",
+    "jsx/QuestionOptions/class/0": "flex flex-wrap gap-2",
+    "jsx/QuestionPrompt/class/0": "font-medium text-sm",
+    "port/class/0": "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 min-h-20"
+  },
+  "file_fingerprints": {
+    "ai_elements/question.tsx": "bc4e935ad74a4e262fc44a7b8b316cfbe717afd3c993f02e366b141771e59148",
+    "shadcn/ui/textarea.tsx": "c091a118245bbe7f4ae6cc2e9de306e42bbdc6577733f983f6e7fb4b540452a9"
+  },
+  "fingerprint": "359d1198cd2aee8a96d6fbb5608978660055d7f16815bbe99480434fffee7a9c",
+  "ignored": {},
+  "name": "question",
+  "port_body": "8371d71764ae972f4ba90d98d1f22ed415212bbc076a0d5dfc357d692d2a77e5",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/Question/class/0": "space-y-4 rounded-lg border bg-background p-4",
+    "jsx/QuestionActions/class/0": "flex items-center justify-end gap-2",
+    "jsx/QuestionDescription/class/0": "text-muted-foreground text-sm",
+    "jsx/QuestionInput/class/0": "min-h-20",
+    "jsx/QuestionOption/class/0": "h-auto whitespace-normal",
+    "jsx/QuestionOptions/class/0": "flex flex-wrap gap-2",
+    "jsx/QuestionPrompt/class/0": "font-medium text-sm",
+    "jsx/Textarea/class/0": "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "QuestionPrompt",
-      "name": "question_prompt",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "font-medium text-sm",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "p",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QuestionDescription",
-      "name": "question_description",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "text-muted-foreground text-sm",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "p",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QuestionOptions",
-      "name": "question_options",
-      "params": {
-        "className": null,
-        "selectionMode": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "selectionMode"
-            ],
-            "kind": "code",
-            "name": "role",
-            "value": "selectionMode === \"single\" ? \"radiogroup\" : \"group\""
-          }
-        ],
-        "children": [],
-        "class": "flex flex-wrap gap-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "context_fields": [
-        "disabled",
-        "selectedValues",
-        "selectionMode"
-      ],
-      "contexts": [
-        "question"
-      ],
-      "export": "QuestionOption",
-      "name": "question_option",
-      "params": {
-        "children": null,
-        "className": null,
-        "disabled": null,
-        "isSelected": null,
-        "role": null,
-        "selectedValues": null,
-        "selectionMode": null,
-        "size": "default",
-        "value": null,
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "value",
-        "event",
-        "onClick",
-        "className",
-        "disabled",
-        "variant",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "isSelected"
-            ],
-            "kind": "code",
-            "name": "aria-checked",
-            "value": "isSelected"
-          },
-          {
-            "identifiers": [
-              "disabled",
-              "question"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "question"
-            ],
-            "name": "disabled",
-            "value": "question.disabled || disabled"
-          },
-          {
-            "identifiers": [
-              "role"
-            ],
-            "kind": "code",
-            "name": "role",
-            "value": "role"
-          },
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "isSelected",
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant ?? (isSelected ? \"default\" : \"outline\")"
-          }
-        ],
-        "children": [
-          {
-            "default": [
-              {
-                "code": "value",
-                "type": "value"
-              }
-            ],
-            "identifiers": [
-              "children",
-              "value"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "h-auto whitespace-normal",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "context_fields": [
-        "disabled",
-        "text"
-      ],
-      "contexts": [
-        "question"
-      ],
-      "export": "QuestionInput",
-      "name": "question_input",
-      "params": {
-        "className": null,
-        "disabled": null,
-        "text": null
-      },
-      "primitive": null,
-      "refs": [
-        "event",
-        "onChange",
-        "className",
-        "disabled",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "disabled",
-              "question"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "question"
-            ],
-            "name": "disabled",
-            "value": "question.disabled || disabled"
-          }
-        ],
-        "children": [
-          {
-            "code": "question.text",
-            "type": "value"
-          }
-        ],
-        "class": "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 min-h-20",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "textarea",
-        "tag": "textarea",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QuestionActions",
-      "name": "question_actions",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex items-center justify-end gap-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "context_fields": [
-        "disabled",
-        "selectedValues",
-        "text"
-      ],
-      "contexts": [
-        "question"
-      ],
-      "export": "QuestionSubmit",
-      "name": "question_submit",
-      "params": {
-        "children": "Submit",
-        "disabled": null,
-        "hasResponse": null,
-        "selectedValues": null,
-        "size": "default",
-        "text": null,
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "disabled",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "disabled",
-              "hasResponse",
-              "question"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "question"
-            ],
-            "name": "disabled",
-            "value": "question.disabled || disabled || !hasResponse"
-          },
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "submit"
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          }
-        ],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-invalid",
+      "value": null
     }
   ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "ai_elements",
   "styles": {
-    "luma": {
-      "cn-textarea": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-2xl border px-3 py-3 text-base transition-[color,box-shadow,background-color] focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
-    },
-    "lyra": {
-      "cn-textarea": "border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 rounded-none border bg-transparent px-2.5 py-2 text-xs transition-colors focus-visible:ring-1 aria-invalid:ring-1 md:text-xs"
-    },
-    "maia": {
-      "cn-textarea": "border-input bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-xl border px-3 py-3 text-base transition-colors focus-visible:ring-[3px] aria-invalid:ring-[3px] md:text-sm"
-    },
-    "mira": {
-      "cn-textarea": "border-input bg-input/20 dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-md border px-2 py-2 text-sm transition-colors focus-visible:ring-2 aria-invalid:ring-2 md:text-xs/relaxed"
-    },
-    "nova": {
-      "cn-textarea": "border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 rounded-lg border bg-transparent px-2.5 py-2 text-base transition-colors focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
-    },
-    "rhea": {
-      "cn-textarea": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-2xl border px-2.5 py-2 text-base transition-[color,box-shadow] duration-200 focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
-    },
-    "sera": {
-      "cn-textarea": "border-transparent border-b-input bg-transparent focus-visible:border-b-ring aria-invalid:border-b-destructive dark:aria-invalid:border-b-destructive/50 resize-none rounded-none border px-0 py-3 text-base transition-[color,border-color] md:text-sm"
-    },
-    "vega": {
-      "cn-textarea": "border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-md border bg-transparent px-2.5 py-2 text-base shadow-xs transition-[color,box-shadow] focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
-    }
+    "luma": "374724d22754fe3dd2867175950d5f75ce71ba8038a13b7b7a7eb64c9735ae14",
+    "lyra": "a9718a209c76571673f02e5e352a6019cdd1b12b7e5f44a73e91f968b3847bd6",
+    "maia": "79f19ab8fd72e03fcbdb0caf8f181cc27d06bd91839bb8c75139aba773167a46",
+    "mira": "6f1bd12b15d66e4ade74ad5674f18156663026289b6644ebc9c5e90362d4b4d2",
+    "nova": "327b96139862ee77f7624da505211bec9db03261c9e49bbd3f28b3aa30984efc",
+    "rhea": "b54b1f777e00b99a170d2a83fcd93fd1f85f9698364539708c56cdb5b8327164",
+    "sera": "ea8885930ef827861689c5150b0f747752ed3a0e6f4be2eac771700030bc3fee",
+    "vega": "0a88039dc105542147c39f6e8b9c6c4aef9d047466bab66f48786d68b8a9f890"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/question.tsx",
-      "sha256": "47c69ba8f555734209bc9eae5d62d419fbd0cbe6089ec26c97d2ebcc9114fde3"
-    }
+    "ai_elements/question.tsx": "47c69ba8f555734209bc9eae5d62d419fbd0cbe6089ec26c97d2ebcc9114fde3",
+    "shadcn/ui/textarea.tsx": "b6948bf2916d1cf5487c24f3755cd3f90981680c06f51481545634276317c691"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Question/class/0",
+    "jsx/QuestionActions/class/0",
+    "jsx/QuestionDescription/class/0",
+    "jsx/QuestionOption/class/0",
+    "jsx/QuestionOptions/class/0",
+    "jsx/QuestionPrompt/class/0",
+    "port/class/0"
+  ]
 }

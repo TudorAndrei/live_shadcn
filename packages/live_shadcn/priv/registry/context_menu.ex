@@ -9,6 +9,18 @@ defmodule LiveShadcn.UI.ContextMenu do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/ContextMenuContent/class/0" => "isolate z-50 outline-none",
+    "jsx/ContextMenuContent/class/1" => "cn-context-menu-content cn-context-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none",
+    "jsx/ContextMenuItem/class/0" => "cn-context-menu-item group/context-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/ContextMenuTrigger/class/0" => "cn-context-menu-trigger select-none"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Menu
   alias LiveBase.Popover
 
@@ -82,11 +94,11 @@ defmodule LiveShadcn.UI.ContextMenu do
         data-slot={@trigger_slot}
         data-popup-open={flag(@open)}
         data-pressed={flag(@open)}
-        class={["cn-context-menu-trigger select-none", @trigger_class]}
+        class={[upstream_fact("jsx/ContextMenuTrigger/class/0"), (@trigger_class || "")]}
       >
         {render_slot(@trigger)}
       </div>
-      <div class={["contents", @class]}>
+      <div class={["contents", (@class || "")]}>
         <div
           id={Popover.positioner_id(@id)}
           hidden={not @open}
@@ -99,7 +111,7 @@ defmodule LiveShadcn.UI.ContextMenu do
           phx-mounted={Popover.owned_attributes(:positioner)}
           data-open={flag(@open)}
           data-closed={flag(not @open)}
-          class="isolate z-50 outline-none"
+          class={upstream_fact("jsx/ContextMenuContent/class/0")}
         >
           <div
             id={Popover.popup_id(@id)}
@@ -118,8 +130,8 @@ defmodule LiveShadcn.UI.ContextMenu do
             data-closed={flag(not @open)}
             data-variant={@variant}
             class={[
-              "cn-context-menu-content cn-context-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none",
-              @class
+              upstream_fact("jsx/ContextMenuContent/class/1"),
+              (@class || "")
             ]}
             data-lb-style-target
             data-lb-measure
@@ -137,8 +149,8 @@ defmodule LiveShadcn.UI.ContextMenu do
               data-variant={@variant}
               data-inset={flag(@inset)}
               class={[
-                "cn-context-menu-item group/context-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-                @item_class
+                upstream_fact("jsx/ContextMenuItem/class/0"),
+                (@item_class || "")
               ]}
             >
               {render_slot(item)}

@@ -1,198 +1,71 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/markerVariants/base",
+      "cva/markerVariants/variant/variant/border",
+      "cva/markerVariants/variant/variant/default",
+      "cva/markerVariants/variant/variant/separator",
+      "jsx/MarkerContent/class/0",
+      "jsx/MarkerIcon/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "cva/markerVariants/base": "cn-marker group/marker relative flex w-full items-center",
+    "cva/markerVariants/variant/variant/border": "cn-marker-variant-border",
+    "cva/markerVariants/variant/variant/default": "cn-marker-variant-default",
+    "cva/markerVariants/variant/variant/separator": "cn-marker-variant-separator",
+    "jsx/MarkerContent/class/0": "cn-marker-content min-w-0 wrap-break-word",
+    "jsx/MarkerIcon/class/0": "cn-marker-icon shrink-0"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/marker.tsx": "fe20dfef38c3921d6671a878f1c8a287f3bbeb9858436b130d5113169230b23f"
+  },
+  "fingerprint": "0fdd6b3e43ef164571e124b0ca3702a8c45b36c0c768fd3f78befc94969ccb8f",
+  "ignored": {},
   "name": "marker",
-  "parts": [
+  "port_body": "52458c8de45d33a0b227633d49dc94cb923672fabcdc803d357c3c2e38b5df53",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "cva/markerVariants/base": "cn-marker group/marker relative flex w-full items-center",
+    "cva/markerVariants/variant/variant/border": "cn-marker-variant-border",
+    "cva/markerVariants/variant/variant/default": "cn-marker-variant-default",
+    "cva/markerVariants/variant/variant/separator": "cn-marker-variant-separator",
+    "jsx/MarkerContent/class/0": "cn-marker-content min-w-0 wrap-break-word",
+    "jsx/MarkerIcon/class/0": "cn-marker-icon shrink-0"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Marker",
-      "name": "marker",
-      "params": {
-        "className": null,
-        "render": null,
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "className",
-        "props",
-        "render"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "marker",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "variant",
-              "className"
-            ],
-            "table": "markerVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MarkerIcon",
-      "name": "marker_icon",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "aria-hidden",
-            "value": "true"
-          }
-        ],
-        "children": [],
-        "class": "cn-marker-icon shrink-0",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "marker-icon",
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MarkerContent",
-      "name": "marker_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-marker-content min-w-0 wrap-break-word",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "marker",
-              "name": "data-variant",
-              "value": "separator"
-            }
-          ],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "marker-content",
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "group": "marker",
+      "name": "data-variant",
+      "value": "separator"
     }
   ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-marker-content": "group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:hover:text-foreground *:[a]:underline *:[a]:underline-offset-3",
-      "cn-marker-icon": "size-4 [&_svg:not([class*='size-'])]:size-4"
-    },
-    "lyra": {
-      "cn-marker-content": "group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:hover:text-foreground *:[a]:underline *:[a]:underline-offset-3",
-      "cn-marker-icon": "size-3.5 [&_svg:not([class*='size-'])]:size-3.5"
-    },
-    "maia": {
-      "cn-marker-content": "group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:hover:text-foreground *:[a]:underline *:[a]:underline-offset-3",
-      "cn-marker-icon": "size-4 [&_svg:not([class*='size-'])]:size-4"
-    },
-    "mira": {
-      "cn-marker-content": "group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:hover:text-foreground *:[a]:underline *:[a]:underline-offset-3",
-      "cn-marker-icon": "size-3.5 [&_svg:not([class*='size-'])]:size-3.5"
-    },
-    "nova": {
-      "cn-marker-content": "group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:hover:text-foreground *:[a]:underline *:[a]:underline-offset-3",
-      "cn-marker-icon": "size-4 [&_svg:not([class*='size-'])]:size-4"
-    },
-    "rhea": {
-      "cn-marker-content": "group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:hover:text-foreground *:[a]:underline *:[a]:underline-offset-3",
-      "cn-marker-icon": "size-4 [&_svg:not([class*='size-'])]:size-4"
-    },
-    "sera": {
-      "cn-marker-content": "group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:hover:text-foreground *:[a]:underline *:[a]:underline-offset-3",
-      "cn-marker-icon": "size-4 [&_svg:not([class*='size-'])]:size-4"
-    },
-    "vega": {
-      "cn-marker-content": "group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:hover:text-foreground *:[a]:underline *:[a]:underline-offset-3",
-      "cn-marker-icon": "size-4 [&_svg:not([class*='size-'])]:size-4"
-    }
+    "luma": "d1535cbaa633389b75e50990fda6023a894a4cc8ae5583acef7fdf0f89385ace",
+    "lyra": "95f5a5afa2d56ac480072b86ee0dc33c850a50c49ab2e69c2aad788fe2a29e51",
+    "maia": "d1535cbaa633389b75e50990fda6023a894a4cc8ae5583acef7fdf0f89385ace",
+    "mira": "873df8f95aea0c159cb6748dcaac272e467dd4203e39709b99eb8217deedc478",
+    "nova": "d1535cbaa633389b75e50990fda6023a894a4cc8ae5583acef7fdf0f89385ace",
+    "rhea": "d1535cbaa633389b75e50990fda6023a894a4cc8ae5583acef7fdf0f89385ace",
+    "sera": "18fd358e2ad190dfec95afdccbe5ad923164c041459d75704514e9929bbe91e6",
+    "vega": "d1535cbaa633389b75e50990fda6023a894a4cc8ae5583acef7fdf0f89385ace"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/marker.tsx",
-      "sha256": "5d39ae04df6ae4d3ea694eac782c66375f38d9968e398ad67020b7ab1a9ce5c2"
-    }
+    "shadcn/ui/marker.tsx": "5d39ae04df6ae4d3ea694eac782c66375f38d9968e398ad67020b7ab1a9ce5c2"
   },
-  "variants": {
-    "markerVariants": {
-      "base": "cn-marker group/marker relative flex w-full items-center",
-      "defaults": {},
-      "variants": {
-        "variant": {
-          "border": "cn-marker-variant-border",
-          "default": "cn-marker-variant-default",
-          "separator": "cn-marker-variant-separator"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/markerVariants/base",
+    "cva/markerVariants/variant/variant/border",
+    "cva/markerVariants/variant/variant/default",
+    "cva/markerVariants/variant/variant/separator",
+    "jsx/MarkerContent/class/0",
+    "jsx/MarkerIcon/class/0"
+  ]
 }

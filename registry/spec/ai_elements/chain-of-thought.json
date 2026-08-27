@@ -1,878 +1,128 @@
 {
-  "anatomy": [],
-  "css_vars": [
-    "--collapsible-panel-height",
-    "--collapsible-panel-width"
-  ],
-  "folds": [
-    "shadcn/badge",
-    "shadcn/collapsible"
-  ],
-  "generated_by": "mix ui.spec",
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/anonymous/class/1",
+      "jsx/anonymous/class/10",
+      "jsx/anonymous/class/3",
+      "jsx/anonymous/class/4",
+      "jsx/anonymous/class/5",
+      "jsx/anonymous/class/6"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
+          {
+            "fact": "jsx/anonymous/class/16"
+          },
+          {
+            "fact": "jsx/anonymous/class/17"
+          }
+        ],
+        "op": "join"
+      }
+    }
+  },
+  "css_vars": [],
+  "facts": {
+    "jsx/anonymous/class/1": "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+    "jsx/anonymous/class/10": "size-4",
+    "jsx/anonymous/class/3": "flex-1 text-left",
+    "jsx/anonymous/class/4": "size-4 transition-transform",
+    "jsx/anonymous/class/5": "rotate-180",
+    "jsx/anonymous/class/6": "rotate-0",
+    "port/class/0": "mt-2 space-y-3 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in"
+  },
+  "file_fingerprints": {
+    "ai_elements/chain-of-thought.tsx": "61068cf384de7c23fb43d1e7f76a8c6d12ad8b48967368a3fc7e684089299679",
+    "shadcn/ui/badge.tsx": "e8f70a77dc9b37d8bc33c05c480eb7d20005ebbc56c474879cf26ae18f86e925",
+    "shadcn/ui/collapsible.tsx": "236edd9fbac18f22a086841a4c7be8ef8de4bf46eefa6809813eca2ae9c496a5"
+  },
+  "fingerprint": "06c954736113f8c502478feeecb28251ae868949f63ec1db58b0314e6df8a1a6",
+  "ignored": {
+    "cva/badgeVariants/base": "the generated port does not contain this source literal",
+    "cva/badgeVariants/default/variant": "the generated port does not contain this source literal",
+    "cva/badgeVariants/variant/variant/default": "the generated port does not contain this source literal",
+    "cva/badgeVariants/variant/variant/destructive": "the generated port does not contain this source literal",
+    "cva/badgeVariants/variant/variant/ghost": "the generated port does not contain this source literal",
+    "cva/badgeVariants/variant/variant/link": "the generated port does not contain this source literal",
+    "cva/badgeVariants/variant/variant/outline": "the generated port does not contain this source literal",
+    "cva/badgeVariants/variant/variant/secondary": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/0": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/11": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/12": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/13": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/14": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/15": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/18": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/19": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/2": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/20": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/7": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/8": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/9": "the generated port does not contain this source literal"
+  },
   "name": "chain-of-thought",
-  "parts": [
+  "port_body": "3c3f2f009a8ae3aeb6e0daa073f9418d0efd47d21b7721e814d2896e5f684b8f",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "cva/badgeVariants/base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
+    "cva/badgeVariants/default/variant": "default",
+    "cva/badgeVariants/variant/variant/default": "cn-badge-variant-default",
+    "cva/badgeVariants/variant/variant/destructive": "cn-badge-variant-destructive",
+    "cva/badgeVariants/variant/variant/ghost": "cn-badge-variant-ghost",
+    "cva/badgeVariants/variant/variant/link": "cn-badge-variant-link",
+    "cva/badgeVariants/variant/variant/outline": "cn-badge-variant-outline",
+    "cva/badgeVariants/variant/variant/secondary": "cn-badge-variant-secondary",
+    "jsx/anonymous/class/0": "not-prose w-full space-y-4",
+    "jsx/anonymous/class/1": "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+    "jsx/anonymous/class/10": "size-4",
+    "jsx/anonymous/class/11": "absolute top-7 bottom-0 left-1/2 -mx-px w-px bg-border",
+    "jsx/anonymous/class/12": "flex-1 space-y-2 overflow-hidden",
+    "jsx/anonymous/class/13": "text-muted-foreground text-xs",
+    "jsx/anonymous/class/14": "flex flex-wrap items-center gap-2",
+    "jsx/anonymous/class/15": "gap-1 px-2 py-0.5 font-normal text-xs",
+    "jsx/anonymous/class/16": "mt-2 space-y-3",
+    "jsx/anonymous/class/17": "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+    "jsx/anonymous/class/18": "mt-2 space-y-2",
+    "jsx/anonymous/class/19": "relative flex max-h-[22rem] items-center justify-center overflow-hidden rounded-lg bg-muted p-3",
+    "jsx/anonymous/class/2": "size-4",
+    "jsx/anonymous/class/20": "text-muted-foreground text-xs",
+    "jsx/anonymous/class/3": "flex-1 text-left",
+    "jsx/anonymous/class/4": "size-4 transition-transform",
+    "jsx/anonymous/class/5": "rotate-180",
+    "jsx/anonymous/class/6": "rotate-0",
+    "jsx/anonymous/class/7": "flex gap-2 text-sm",
+    "jsx/anonymous/class/8": "fade-in-0 slide-in-from-top-2 animate-in",
+    "jsx/anonymous/class/9": "relative mt-0.5"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "ChainOfThought",
-      "name": "chain_of_thought",
-      "params": {
-        "children": null,
-        "className": null,
-        "defaultOpen": "false",
-        "open": null
-      },
-      "primitive": null,
-      "refs": [
-        "defaultOpen",
-        "onOpenChange",
-        "open",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "not-prose w-full space-y-4",
-            "class_when": [],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "defaultOpen": {
-          "optional": true,
-          "type": "boolean"
-        },
-        "open": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
+      "name": "data-state",
+      "value": "closed"
     },
     {
-      "contexts": [],
-      "export": "ChainOfThoughtHeader",
-      "name": "chain_of_thought_header",
-      "params": {
-        "children": null,
-        "className": null,
-        "isOpen": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "isOpen"
-            ],
-            "kind": "code",
-            "name": "open",
-            "value": "isOpen"
-          }
-        ],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "size-4",
-                "class_when": [],
-                "icons": {
-                  "lucide": "Brain"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "default": [
-                      {
-                        "type": "text",
-                        "value": "Chain of Thought"
-                      }
-                    ],
-                    "identifiers": [
-                      "children"
-                    ],
-                    "type": "children"
-                  }
-                ],
-                "class": "flex-1 text-left",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "span",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "attrs": [],
-                "children": [],
-                "class": "size-4 transition-transform",
-                "class_when": [
-                  {
-                    "else": "rotate-0",
-                    "identifiers": [
-                      "isOpen"
-                    ],
-                    "then": "rotate-180",
-                    "when": "isOpen"
-                  }
-                ],
-                "icons": {
-                  "lucide": "ChevronDown"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
-            "class_when": [],
-            "merges_class": true,
-            "module": "collapsible",
-            "part": "Trigger",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "collapsible-trigger",
-            "tag": "button",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "module": "collapsible",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "collapsible",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ChainOfThoughtStep",
-      "name": "chain_of_thought_step",
-      "params": {
-        "children": null,
-        "className": null,
-        "description": null,
-        "icon": "dot",
-        "label": null,
-        "status": "complete"
-      },
-      "primitive": null,
-      "refs": [
-        "status",
-        "className",
-        "props",
-        "icon",
-        "label",
-        "description",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "size-4",
-                "class_when": [],
-                "merges_class": false,
-                "prop": "icon",
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "attrs": [],
-                "children": [],
-                "class": "absolute top-7 bottom-0 left-1/2 -mx-px w-px bg-border",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "div",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "relative mt-0.5",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "code": "label",
-                    "identifiers": [
-                      "label"
-                    ],
-                    "type": "value"
-                  }
-                ],
-                "class": "",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "div",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "children": [
-                  {
-                    "attrs": [],
-                    "children": [
-                      {
-                        "code": "description",
-                        "identifiers": [
-                          "description"
-                        ],
-                        "type": "value"
-                      }
-                    ],
-                    "class": "text-muted-foreground text-xs",
-                    "class_when": [],
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "tag": "div",
-                    "type": "element",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "identifiers": [
-                  "description"
-                ],
-                "type": "optional",
-                "when": "description"
-              },
-              {
-                "type": "children"
-              }
-            ],
-            "class": "flex-1 space-y-2 overflow-hidden",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "flex gap-2 text-sm fade-in-0 slide-in-from-top-2 animate-in",
-        "class_when": [
-          {
-            "else": null,
-            "identifiers": [
-              "status"
-            ],
-            "then": "text-foreground",
-            "when": "status === \"active\""
-          },
-          {
-            "else": null,
-            "identifiers": [
-              "status"
-            ],
-            "then": "text-muted-foreground",
-            "when": "status === \"complete\""
-          },
-          {
-            "else": null,
-            "identifiers": [
-              "status"
-            ],
-            "then": "text-muted-foreground/50",
-            "when": "status === \"pending\""
-          }
-        ],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "status": {
-          "optional": true,
-          "values": [
-            "complete",
-            "active",
-            "pending"
-          ]
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "ChainOfThoughtSearchResults",
-      "name": "chain_of_thought_search_results",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex flex-wrap items-center gap-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ChainOfThoughtSearchResult",
-      "name": "chain_of_thought_search_result",
-      "params": {
-        "children": null,
-        "className": null,
-        "render": null,
-        "variant": "secondary"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "gap-1 px-2 py-0.5 font-normal text-xs",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "badge",
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "variant"
-            ],
-            "table": "badgeVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ChainOfThoughtContent",
-      "name": "chain_of_thought_content",
-      "params": {
-        "children": null,
-        "className": null,
-        "isOpen": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "isOpen"
-            ],
-            "kind": "code",
-            "name": "open",
-            "value": "isOpen"
-          }
-        ],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "mt-2 space-y-3 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
-            "class_when": [],
-            "merges_class": true,
-            "module": "collapsible",
-            "part": "Panel",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "collapsible-content",
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "module": "collapsible",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "collapsible",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ChainOfThoughtImage",
-      "name": "chain_of_thought_image",
-      "params": {
-        "caption": null,
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children",
-        "caption"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "relative flex max-h-[22rem] items-center justify-center overflow-hidden rounded-lg bg-muted p-3",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "code": "caption",
-                    "identifiers": [
-                      "caption"
-                    ],
-                    "type": "value"
-                  }
-                ],
-                "class": "text-muted-foreground text-xs",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "p",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "caption"
-            ],
-            "type": "optional",
-            "when": "caption"
-          }
-        ],
-        "class": "mt-2 space-y-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-state",
+      "value": "open"
     }
   ],
-  "primitives": {
-    "collapsible.Panel": {
-      "css_vars": [
-        "--collapsible-panel-height",
-        "--collapsible-panel-width"
-      ],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
-          "name": "hiddenUntilFound",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Collapsible.Panel.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Collapsible.Panel.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to keep the element in the DOM while the panel is hidden. This prop is ignored when `hiddenUntilFound` is used.",
-          "name": "keepMounted",
-          "type": "boolean"
-        },
-        {
-          "default": "((props: HTMLProps, state: Collapsible.Panel.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A panel with the collapsible contents."
-    },
-    "collapsible.Root": {
-      "css_vars": [],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the collapsible panel is initially open. To render a controlled collapsible, use the `open` prop instead.",
-          "name": "defaultOpen",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the collapsible panel is currently open. To render an uncontrolled collapsible, use the `defaultOpen` prop instead.",
-          "name": "open",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Event handler called when the panel is opened or closed.",
-          "name": "onOpenChange",
-          "type": "((open: boolean, eventDetails: Collapsible.Root.ChangeEventDetails) => void)"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component should ignore user interaction.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Collapsible.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Collapsible.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Collapsible.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups all parts of the collapsible."
-    },
-    "collapsible.Trigger": {
-      "css_vars": [],
-      "data": [
-        "data-panel-open"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Collapsible.Trigger.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Collapsible.Trigger.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Collapsible.Trigger.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button that opens and closes the collapsible panel."
-    }
-  },
-  "recipe": "disclosure",
-  "source": "ai_elements",
   "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/chain-of-thought.tsx",
-      "sha256": "ddc63b036299d636483b2041599248226e05ef01afd9c5e32724e3a849def8c4"
-    }
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
-  "variants": {
-    "badgeVariants": {
-      "base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
-      "defaults": {
-        "variant": "default"
-      },
-      "variants": {
-        "variant": {
-          "default": "cn-badge-variant-default",
-          "destructive": "cn-badge-variant-destructive",
-          "ghost": "cn-badge-variant-ghost",
-          "link": "cn-badge-variant-link",
-          "outline": "cn-badge-variant-outline",
-          "secondary": "cn-badge-variant-secondary"
-        }
-      }
-    }
-  }
+  "upstream": {
+    "ai_elements/chain-of-thought.tsx": "ddc63b036299d636483b2041599248226e05ef01afd9c5e32724e3a849def8c4",
+    "shadcn/ui/badge.tsx": "ba9be2fcd4eac13c482f77663f4cca797553e53d2efb9c6dc52eb1e3af9a0d2f",
+    "shadcn/ui/collapsible.tsx": "ead4349ff7b01d696ef89294a81d18ee1d3f732321398896462c834ab9b9e065"
+  },
+  "uses": [
+    "jsx/anonymous/class/1",
+    "jsx/anonymous/class/10",
+    "jsx/anonymous/class/3",
+    "jsx/anonymous/class/4",
+    "jsx/anonymous/class/5",
+    "jsx/anonymous/class/6",
+    "port/class/0"
+  ]
 }

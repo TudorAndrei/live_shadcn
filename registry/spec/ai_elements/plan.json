@@ -1,773 +1,190 @@
 {
-  "anatomy": [],
-  "css_vars": [
-    "--collapsible-panel-height",
-    "--collapsible-panel-width"
-  ],
-  "folds": [
-    "shadcn/button",
-    "shadcn/card",
-    "shadcn/collapsible"
-  ],
-  "generated_by": "mix ui.spec",
-  "name": "plan",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Plan",
-      "name": "plan",
-      "params": {
-        "children": null,
-        "className": null,
-        "isStreaming": "false",
-        "size": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "isStreaming",
-        "props",
-        "className",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/buttonVariants/variant/size/default",
+      "cva/buttonVariants/variant/size/icon",
+      "cva/buttonVariants/variant/size/icon-lg",
+      "cva/buttonVariants/variant/size/icon-sm",
+      "cva/buttonVariants/variant/size/icon-xs",
+      "cva/buttonVariants/variant/size/lg",
+      "cva/buttonVariants/variant/size/sm",
+      "cva/buttonVariants/variant/size/xs",
+      "cva/buttonVariants/variant/variant/default",
+      "cva/buttonVariants/variant/variant/destructive",
+      "cva/buttonVariants/variant/variant/ghost",
+      "cva/buttonVariants/variant/variant/link",
+      "cva/buttonVariants/variant/variant/outline",
+      "cva/buttonVariants/variant/variant/secondary",
+      "jsx/CardContent/class/0",
+      "jsx/PlanTrigger/class/1",
+      "jsx/PlanTrigger/class/2"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "attrs": [
-              {
-                "identifiers": [
-                  "size"
-                ],
-                "kind": "code",
-                "name": "data-size",
-                "value": "size"
-              }
-            ],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "cn-card group/card flex flex-col shadow-none",
-            "class_when": [],
-            "drew": true,
-            "merges_class": true,
-            "module": "collapsible",
-            "part": "Root",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": [
-                {
-                  "name": "data-size",
-                  "value": "sm"
-                }
-              ]
-            },
-            "render_as": null,
-            "slot": "plan",
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "isStreaming": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "PlanHeader",
-      "name": "plan_header",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-card-header group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] flex items-start justify-between",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "plan-header",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "PlanTitle",
-      "name": "plan_title",
-      "params": {
-        "children": null,
-        "className": null,
-        "isStreaming": null
-      },
-      "primitive": null,
-      "refs": [
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "else": [
-              {
-                "type": "children"
-              }
-            ],
-            "identifiers": [
-              "children",
-              "isStreaming"
-            ],
-            "then": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "type": "children"
-                  }
-                ],
-                "class": "",
-                "class_when": [],
-                "component": "shimmer",
-                "function": "shimmer",
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "recipe": "shimmer",
-                "render_as": null,
-                "slot": null,
-                "source": "ai_elements",
-                "tag": "p",
-                "type": "component_ref",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "type": "choice",
-            "when": "isStreaming"
-          }
-        ],
-        "class": "cn-card-title cn-font-heading",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "card",
-              "name": "data-size",
-              "value": "sm"
-            }
-          ],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "plan-title",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "PlanDescription",
-      "name": "plan_description",
-      "params": {
-        "children": null,
-        "className": null,
-        "isStreaming": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "else": [
-              {
-                "type": "children"
-              }
-            ],
-            "identifiers": [
-              "children",
-              "isStreaming"
-            ],
-            "then": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "type": "children"
-                  }
-                ],
-                "class": "",
-                "class_when": [],
-                "component": "shimmer",
-                "function": "shimmer",
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "recipe": "shimmer",
-                "render_as": null,
-                "slot": null,
-                "source": "ai_elements",
-                "tag": "p",
-                "type": "component_ref",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "type": "choice",
-            "when": "isStreaming"
-          }
-        ],
-        "class": "cn-card-description text-balance",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "plan-description",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "PlanAction",
-      "name": "plan_action",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "plan-action",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "PlanContent",
-      "name": "plan_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-card-content",
-        "class_when": [],
-        "drew": true,
-        "merges_class": true,
-        "module": "collapsible",
-        "part": "Panel",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "plan-content",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "PlanFooter",
-      "name": "plan_footer",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-card-footer flex items-center",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "plan-footer",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "PlanTrigger",
-      "name": "plan_trigger",
-      "params": {
-        "className": null,
-        "size": "icon",
-        "variant": "ghost"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [],
-            "class": "size-4",
-            "class_when": [],
-            "icons": {
-              "lucide": "ChevronsUpDown"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
+            "fact": "cva/buttonVariants/base"
           },
           {
-            "attrs": [],
-            "children": [
-              {
-                "type": "text",
-                "value": "Toggle plan"
-              }
-            ],
-            "class": "sr-only",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
+            "fact": "jsx/PlanTrigger/class/0"
           }
         ],
-        "class": "size-8",
-        "class_when": [],
-        "drew": true,
-        "merges_class": true,
-        "module": "collapsible",
-        "part": "Trigger",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            },
-            {
-              "name": "aria-expanded",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "plan-trigger",
-        "tag": "button",
-        "type": "primitive",
-        "variant_calls": [
+        "op": "join"
+      },
+      "port/class/1": {
+        "items": [
           {
-            "args": [
-              "variant",
-              "size",
-              "className"
-            ],
-            "table": "buttonVariants"
+            "fact": "jsx/Card/class/0"
+          },
+          {
+            "fact": "jsx/Plan/class/0"
           }
         ],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "button.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the button should be focusable when disabled.",
-          "name": "focusableWhenDisabled",
-          "type": "boolean"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Button.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Button.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button component that can be used to trigger actions."
-    },
-    "collapsible.Panel": {
-      "css_vars": [
-        "--collapsible-panel-height",
-        "--collapsible-panel-width"
-      ],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
-          "name": "hiddenUntilFound",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Collapsible.Panel.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Collapsible.Panel.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to keep the element in the DOM while the panel is hidden. This prop is ignored when `hiddenUntilFound` is used.",
-          "name": "keepMounted",
-          "type": "boolean"
-        },
-        {
-          "default": "((props: HTMLProps, state: Collapsible.Panel.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A panel with the collapsible contents."
-    },
-    "collapsible.Root": {
-      "css_vars": [],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the collapsible panel is initially open. To render a controlled collapsible, use the `open` prop instead.",
-          "name": "defaultOpen",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the collapsible panel is currently open. To render an uncontrolled collapsible, use the `defaultOpen` prop instead.",
-          "name": "open",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Event handler called when the panel is opened or closed.",
-          "name": "onOpenChange",
-          "type": "((open: boolean, eventDetails: Collapsible.Root.ChangeEventDetails) => void)"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component should ignore user interaction.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Collapsible.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Collapsible.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Collapsible.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups all parts of the collapsible."
-    },
-    "collapsible.Trigger": {
-      "css_vars": [],
-      "data": [
-        "data-panel-open"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Collapsible.Trigger.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Collapsible.Trigger.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Collapsible.Trigger.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button that opens and closes the collapsible panel."
-    }
-  },
-  "recipe": "disclosure",
-  "source": "ai_elements",
-  "styles": {
-    "luma": {
-      "cn-card": "bg-card text-card-foreground ring-foreground/5 dark:ring-foreground/10 gap-(--card-spacing) overflow-hidden rounded-4xl py-(--card-spacing) text-sm shadow-md ring-1 [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-4xl *:[img:last-child]:rounded-b-4xl",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm",
-      "cn-card-footer": "rounded-b-4xl px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-1.5 rounded-t-4xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-base font-medium"
-    },
-    "lyra": {
-      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-none py-(--card-spacing) text-xs/relaxed ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-none *:[img:last-child]:rounded-none",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-xs/relaxed",
-      "cn-card-footer": "rounded-none border-t p-(--card-spacing)",
-      "cn-card-header": "gap-1 rounded-none px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-sm font-medium group-data-[size=sm]/card:text-sm"
-    },
-    "maia": {
-      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-2xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm",
-      "cn-card-footer": "rounded-b-xl px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-2 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-base font-medium"
-    },
-    "mira": {
-      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-lg py-(--card-spacing) text-xs/relaxed ring-1 [--card-spacing:--spacing(4)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] *:[img:first-child]:rounded-t-lg *:[img:last-child]:rounded-b-lg",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-xs/relaxed",
-      "cn-card-footer": "rounded-b-lg px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-1 rounded-t-lg px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-sm font-medium"
-    },
-    "nova": {
-      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm",
-      "cn-card-footer": "bg-muted/50 rounded-b-xl border-t p-(--card-spacing)",
-      "cn-card-header": "gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-base leading-snug font-medium group-data-[size=sm]/card:text-sm"
-    },
-    "rhea": {
-      "cn-card": "bg-card text-card-foreground ring-foreground/5 dark:ring-foreground/10 gap-(--card-spacing) overflow-hidden rounded-[min(var(--radius-4xl),24px)] py-(--card-spacing) text-sm shadow-sm ring-1 [--card-spacing:--spacing(5)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-[min(var(--radius-4xl),24px)] *:[img:last-child]:rounded-b-[min(var(--radius-4xl),24px)]",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm",
-      "cn-card-footer": "rounded-b-[min(var(--radius-4xl),24px)] px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-1.5 rounded-t-[min(var(--radius-4xl),24px)] px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-base font-medium"
-    },
-    "sera": {
-      "cn-card": "bg-card text-card-foreground ring-foreground/5 gap-(--card-spacing) overflow-hidden py-(--card-spacing) text-sm shadow-sm ring-1 [--card-spacing:--spacing(8)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(5)] *:[img:first-child]:rounded-none *:[img:last-child]:rounded-none",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm leading-relaxed",
-      "cn-card-footer": "px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-1.5 rounded-none px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-lg font-semibold tracking-wider uppercase"
-    },
-    "vega": {
-      "cn-card": "ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm shadow-xs ring-1 [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-      "cn-card-content": "px-(--card-spacing)",
-      "cn-card-description": "text-muted-foreground text-sm",
-      "cn-card-footer": "rounded-b-xl px-(--card-spacing) [.border-t]:pt-(--card-spacing)",
-      "cn-card-header": "gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing)",
-      "cn-card-title": "text-base leading-normal font-medium group-data-[size=sm]/card:text-sm"
-    }
-  },
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/plan.tsx",
-      "sha256": "bfa20e90199fa40e5f714be131798406dc07b23051f8c48c590e91c65ade99d8"
-    }
-  },
-  "variants": {
-    "buttonVariants": {
-      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-button-size-default",
-          "icon": "cn-button-size-icon",
-          "icon-lg": "cn-button-size-icon-lg",
-          "icon-sm": "cn-button-size-icon-sm",
-          "icon-xs": "cn-button-size-icon-xs",
-          "lg": "cn-button-size-lg",
-          "sm": "cn-button-size-sm",
-          "xs": "cn-button-size-xs"
-        },
-        "variant": {
-          "default": "cn-button-variant-default",
-          "destructive": "cn-button-variant-destructive",
-          "ghost": "cn-button-variant-ghost",
-          "link": "cn-button-variant-link",
-          "outline": "cn-button-variant-outline",
-          "secondary": "cn-button-variant-secondary"
-        }
+        "op": "join"
       }
     }
-  }
+  },
+  "css_vars": [
+    "--card-spacing",
+    "--foreground",
+    "--radius-4xl",
+    "--radius-md",
+    "--secondary"
+  ],
+  "facts": {
+    "cva/buttonVariants/variant/size/default": "cn-button-size-default",
+    "cva/buttonVariants/variant/size/icon": "cn-button-size-icon",
+    "cva/buttonVariants/variant/size/icon-lg": "cn-button-size-icon-lg",
+    "cva/buttonVariants/variant/size/icon-sm": "cn-button-size-icon-sm",
+    "cva/buttonVariants/variant/size/icon-xs": "cn-button-size-icon-xs",
+    "cva/buttonVariants/variant/size/lg": "cn-button-size-lg",
+    "cva/buttonVariants/variant/size/sm": "cn-button-size-sm",
+    "cva/buttonVariants/variant/size/xs": "cn-button-size-xs",
+    "cva/buttonVariants/variant/variant/default": "cn-button-variant-default",
+    "cva/buttonVariants/variant/variant/destructive": "cn-button-variant-destructive",
+    "cva/buttonVariants/variant/variant/ghost": "cn-button-variant-ghost",
+    "cva/buttonVariants/variant/variant/link": "cn-button-variant-link",
+    "cva/buttonVariants/variant/variant/outline": "cn-button-variant-outline",
+    "cva/buttonVariants/variant/variant/secondary": "cn-button-variant-secondary",
+    "jsx/CardContent/class/0": "cn-card-content",
+    "jsx/PlanTrigger/class/1": "size-4",
+    "jsx/PlanTrigger/class/2": "sr-only",
+    "port/class/0": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-8",
+    "port/class/1": "cn-card group/card flex flex-col shadow-none"
+  },
+  "file_fingerprints": {
+    "ai_elements/plan.tsx": "2c1074f3b06f2e6bba32172f4325eb3ad09ed927ca482e5b617feeb1f59c2559",
+    "ai_elements/shimmer.tsx": "36d23fd36cb16a2dd816730d53c3046dea201a5f8eaaa7b463ceb6b8ad4fc8bc",
+    "shadcn/ui/button.tsx": "0c911259d9cce5dfd13cf06dd8ead680b5a3b67761bc27486503ead411968509",
+    "shadcn/ui/card.tsx": "e0f60e0b1a1c6776aa4a74f24a7948c0b11b1a0db684f41796c97a7f290f8fa9",
+    "shadcn/ui/collapsible.tsx": "236edd9fbac18f22a086841a4c7be8ef8de4bf46eefa6809813eca2ae9c496a5"
+  },
+  "fingerprint": "d40a002765ff1c1fbfb6b4b87b31efd14f2f5c3d483defd259fb47dd0997353c",
+  "ignored": {
+    "cva/buttonVariants/default/size": "the generated port does not contain this source literal",
+    "cva/buttonVariants/default/variant": "the generated port does not contain this source literal",
+    "jsx/CardAction/class/0": "the generated port does not contain this source literal",
+    "jsx/CardDescription/class/0": "the generated port does not contain this source literal",
+    "jsx/CardFooter/class/0": "the generated port does not contain this source literal",
+    "jsx/CardHeader/class/0": "the generated port does not contain this source literal",
+    "jsx/CardTitle/class/0": "the generated port does not contain this source literal",
+    "jsx/PlanDescription/class/0": "the generated port does not contain this source literal",
+    "jsx/PlanHeader/class/0": "the generated port does not contain this source literal",
+    "jsx/ShimmerComponent/class/0": "the generated port does not contain this source literal",
+    "jsx/ShimmerComponent/class/1": "the generated port does not contain this source literal"
+  },
+  "name": "plan",
+  "port_body": "4b3ac990702c27e905de0580a4f1caa346ec59efac6793d72b34a64066dd1730",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "cva/buttonVariants/base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/buttonVariants/default/size": "default",
+    "cva/buttonVariants/default/variant": "default",
+    "cva/buttonVariants/variant/size/default": "cn-button-size-default",
+    "cva/buttonVariants/variant/size/icon": "cn-button-size-icon",
+    "cva/buttonVariants/variant/size/icon-lg": "cn-button-size-icon-lg",
+    "cva/buttonVariants/variant/size/icon-sm": "cn-button-size-icon-sm",
+    "cva/buttonVariants/variant/size/icon-xs": "cn-button-size-icon-xs",
+    "cva/buttonVariants/variant/size/lg": "cn-button-size-lg",
+    "cva/buttonVariants/variant/size/sm": "cn-button-size-sm",
+    "cva/buttonVariants/variant/size/xs": "cn-button-size-xs",
+    "cva/buttonVariants/variant/variant/default": "cn-button-variant-default",
+    "cva/buttonVariants/variant/variant/destructive": "cn-button-variant-destructive",
+    "cva/buttonVariants/variant/variant/ghost": "cn-button-variant-ghost",
+    "cva/buttonVariants/variant/variant/link": "cn-button-variant-link",
+    "cva/buttonVariants/variant/variant/outline": "cn-button-variant-outline",
+    "cva/buttonVariants/variant/variant/secondary": "cn-button-variant-secondary",
+    "jsx/Card/class/0": "cn-card group/card flex flex-col",
+    "jsx/CardAction/class/0": "cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+    "jsx/CardContent/class/0": "cn-card-content",
+    "jsx/CardDescription/class/0": "cn-card-description",
+    "jsx/CardFooter/class/0": "cn-card-footer flex items-center",
+    "jsx/CardHeader/class/0": "cn-card-header group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]",
+    "jsx/CardTitle/class/0": "cn-card-title cn-font-heading",
+    "jsx/Plan/class/0": "shadow-none",
+    "jsx/PlanDescription/class/0": "text-balance",
+    "jsx/PlanHeader/class/0": "flex items-start justify-between",
+    "jsx/PlanTrigger/class/0": "size-8",
+    "jsx/PlanTrigger/class/1": "size-4",
+    "jsx/PlanTrigger/class/2": "sr-only",
+    "jsx/ShimmerComponent/class/0": "relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent",
+    "jsx/ShimmerComponent/class/1": "[--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]"
+  },
+  "state_reads": [
+    {
+      "name": "aria-expanded",
+      "value": null
+    },
+    {
+      "name": "aria-invalid",
+      "value": null
+    },
+    {
+      "name": "data-size",
+      "value": "sm"
+    }
+  ],
+  "styles": {
+    "luma": "3d08f5276ad7fa18cd4118f3a56234887a58c0c5b61113ec566870fc563f5742",
+    "lyra": "675d0ace7e3005b1c9977df7416aa2db305295861dfe74efa2122a44dfd2b653",
+    "maia": "62814638ca4215d60ffee09efef83b8fd8267bf272b0076f4da158282187c272",
+    "mira": "ae5824d3695587270b3646a254c752a8d6dc6f73ddb7176172c1ad104245c638",
+    "nova": "6aca105744079260d2ffcbb6c1c0e73145dd0b10ee2f272b6ae485a83b820fbd",
+    "rhea": "83b9743d6143ce2b94ed6116ad5e2d6023e82005fe2a082af7ed727f76f650bc",
+    "sera": "1e3c34afa7054958678affd9a2ed3a8b4bf818cbbbb166fd7369585d6bdd28c7",
+    "vega": "bcd8aadf308600d6041c8a32383f62f2bec8f38adc4a5320e8a102bb8e35a234"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/plan.tsx": "bfa20e90199fa40e5f714be131798406dc07b23051f8c48c590e91c65ade99d8",
+    "ai_elements/shimmer.tsx": "89d2284ee165aa57fec960e17c6c71078d22ad3fb3798ca683d7e3d850919a46",
+    "shadcn/ui/button.tsx": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12",
+    "shadcn/ui/card.tsx": "8b3ba229472f266d3c2e49e0feff6c59fb1842282d0842aae470675b0e926665",
+    "shadcn/ui/collapsible.tsx": "ead4349ff7b01d696ef89294a81d18ee1d3f732321398896462c834ab9b9e065"
+  },
+  "uses": [
+    "cva/buttonVariants/variant/size/default",
+    "cva/buttonVariants/variant/size/icon",
+    "cva/buttonVariants/variant/size/icon-lg",
+    "cva/buttonVariants/variant/size/icon-sm",
+    "cva/buttonVariants/variant/size/icon-xs",
+    "cva/buttonVariants/variant/size/lg",
+    "cva/buttonVariants/variant/size/sm",
+    "cva/buttonVariants/variant/size/xs",
+    "cva/buttonVariants/variant/variant/default",
+    "cva/buttonVariants/variant/variant/destructive",
+    "cva/buttonVariants/variant/variant/ghost",
+    "cva/buttonVariants/variant/variant/link",
+    "cva/buttonVariants/variant/variant/outline",
+    "cva/buttonVariants/variant/variant/secondary",
+    "jsx/CardContent/class/0",
+    "jsx/PlanTrigger/class/1",
+    "jsx/PlanTrigger/class/2",
+    "port/class/0",
+    "port/class/1"
+  ]
 }

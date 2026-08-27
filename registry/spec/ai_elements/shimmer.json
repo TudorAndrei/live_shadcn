@@ -1,119 +1,50 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "shimmer",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Shimmer",
-      "name": "shimmer",
-      "params": {
-        "as": "p",
-        "children": null,
-        "className": null,
-        "duration": "2",
-        "dynamicSpread": null,
-        "spread": "2"
-      },
-      "primitive": null,
-      "refs": [
-        "as",
-        "children",
-        "spread",
-        "className",
-        "duration"
-      ],
-      "tree": {
-        "attrs": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "kind": "code",
-            "name": "animate",
-            "value": "{ backgroundPosition: \"0% center\" }"
+            "fact": "jsx/ShimmerComponent/class/0"
           },
           {
-            "kind": "code",
-            "name": "initial",
-            "value": "{ backgroundPosition: \"100% center\" }"
-          },
-          {
-            "identifiers": [
-              "CSSProperties",
-              "dynamicSpread"
-            ],
-            "kind": "style",
-            "name": "style",
-            "value": [
-              {
-                "kind": "code",
-                "property": "--spread",
-                "value": "`${dynamicSpread}px`"
-              },
-              {
-                "kind": "text",
-                "property": "backgroundImage",
-                "value": "var(--bg), linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))"
-              }
-            ]
-          },
-          {
-            "identifiers": [
-              "Number",
-              "duration"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "Number"
-            ],
-            "name": "transition",
-            "value": "{\n        duration,\n        ease: \"linear\",\n        repeat: Number.POSITIVE_INFINITY,\n      }"
+            "fact": "jsx/ShimmerComponent/class/1"
           }
         ],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent [--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]",
-        "class_when": [],
-        "merges_class": true,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "p",
-        "type": "element",
-        "variant_calls": [],
-        "vars": [
-          "--spread",
-          "--color-background"
-        ]
-      },
-      "types": {
-        "duration": {
-          "optional": true,
-          "type": "number"
-        },
-        "spread": {
-          "optional": true,
-          "type": "number"
-        }
+        "op": "join"
       }
     }
-  ],
-  "primitives": {},
-  "recipe": "shimmer",
-  "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/shimmer.tsx",
-      "sha256": "89d2284ee165aa57fec960e17c6c71078d22ad3fb3798ca683d7e3d850919a46"
-    }
   },
-  "variants": {}
+  "css_vars": [
+    "--color-background",
+    "--spread"
+  ],
+  "facts": {
+    "port/class/0": "relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent [--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]"
+  },
+  "file_fingerprints": {
+    "ai_elements/shimmer.tsx": "36d23fd36cb16a2dd816730d53c3046dea201a5f8eaaa7b463ceb6b8ad4fc8bc"
+  },
+  "fingerprint": "1e185d57c3d0db935c333e576d0aee3f0ae3095f3b352e716f2203f8881a3ca5",
+  "ignored": {},
+  "name": "shimmer",
+  "port_body": "eb05a98dda386c31b41e28df5b447e55e09c4d5a2c7f544e6b2bef3027ec00d2",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/ShimmerComponent/class/0": "relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent",
+    "jsx/ShimmerComponent/class/1": "[--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/shimmer.tsx": "89d2284ee165aa57fec960e17c6c71078d22ad3fb3798ca683d7e3d850919a46"
+  },
+  "uses": [
+    "port/class/0"
+  ]
 }

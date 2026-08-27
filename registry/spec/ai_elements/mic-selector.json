@@ -1,1659 +1,287 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/buttonVariants/base",
+      "cva/buttonVariants/default/size",
+      "cva/buttonVariants/variant/size/default",
+      "cva/buttonVariants/variant/size/icon",
+      "cva/buttonVariants/variant/size/icon-lg",
+      "cva/buttonVariants/variant/size/icon-sm",
+      "cva/buttonVariants/variant/size/icon-xs",
+      "cva/buttonVariants/variant/size/lg",
+      "cva/buttonVariants/variant/size/sm",
+      "cva/buttonVariants/variant/size/xs",
+      "cva/buttonVariants/variant/variant/default",
+      "cva/buttonVariants/variant/variant/destructive",
+      "cva/buttonVariants/variant/variant/ghost",
+      "cva/buttonVariants/variant/variant/link",
+      "cva/buttonVariants/variant/variant/outline",
+      "cva/buttonVariants/variant/variant/secondary",
+      "cva/inputGroupAddonVariants/variant/align/block-end",
+      "cva/inputGroupAddonVariants/variant/align/block-start",
+      "cva/inputGroupAddonVariants/variant/align/inline-end",
+      "cva/inputGroupAddonVariants/variant/align/inline-start",
+      "cva/inputGroupButtonVariants/variant/size/icon-sm",
+      "cva/inputGroupButtonVariants/variant/size/icon-xs",
+      "cva/inputGroupButtonVariants/variant/size/sm",
+      "cva/inputGroupButtonVariants/variant/size/xs",
+      "jsx/Command/class/0",
+      "jsx/CommandItem/class/0",
+      "jsx/CommandItem/class/1",
+      "jsx/MicSelectorContent/class/0",
+      "jsx/MicSelectorTrigger/class/0",
+      "jsx/PopoverContent/class/0",
+      "jsx/PopoverContent/class/1"
+    ],
+    "derived": {}
+  },
   "css_vars": [
-    "--anchor-height",
-    "--anchor-width",
-    "--available-height",
-    "--available-width",
-    "--popup-height",
-    "--popup-width",
-    "--positioner-height",
-    "--positioner-width",
+    "--foreground",
+    "--radius",
+    "--radius-md",
+    "--radius-sm",
+    "--secondary",
     "--transform-origin"
   ],
-  "folds": [
-    "shadcn/button",
-    "shadcn/command",
-    "shadcn/input-group",
-    "shadcn/popover"
-  ],
-  "generated_by": "mix ui.spec",
-  "name": "mic-selector",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "MicSelector",
-      "name": "mic_selector",
-      "params": {
-        "defaultOpen": "false",
-        "defaultValue": null,
-        "open": null,
-        "value": null
-      },
-      "primitive": null,
-      "refs": [
-        "defaultValue",
-        "onValueChange",
-        "value",
-        "defaultOpen",
-        "onOpenChange",
-        "open",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "open"
-                ],
-                "kind": "code",
-                "name": "open",
-                "value": "open"
-              }
-            ],
-            "children": [],
-            "class": "",
-            "class_when": [],
-            "merges_class": true,
-            "part": "Root",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "reason": "renders no element",
-            "render_as": null,
-            "slot": "popover",
-            "type": "transparent",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "open": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "MicSelectorTrigger",
-      "name": "mic_selector_trigger",
-      "params": {
-        "children": null,
-        "className": null,
-        "size": "default",
-        "variant": "outline"
-      },
-      "primitive": null,
-      "refs": [
-        "entries",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          },
-          {
-            "attrs": [
-              {
-                "kind": "code",
-                "name": "size",
-                "value": "16"
-              }
-            ],
-            "children": [],
-            "class": "shrink-0 text-muted-foreground",
-            "class_when": [],
-            "icons": {
-              "lucide": "ChevronsUpDown"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "drew": true,
-        "merges_class": true,
-        "module": "popover",
-        "part": "Trigger",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            },
-            {
-              "name": "aria-expanded",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "popover-trigger",
-        "tag": "button",
-        "type": "primitive",
-        "variant_calls": [
-          {
-            "args": [
-              "variant",
-              "size",
-              "className"
-            ],
-            "table": "buttonVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MicSelectorContent",
-      "name": "mic_selector_content",
-      "params": {
-        "align": "center",
-        "alignOffset": "0",
-        "className": null,
-        "popoverOptions": null,
-        "side": "bottom",
-        "sideOffset": "4",
-        "value": null,
-        "width": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "popoverOptions",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "width"
-            ],
-            "kind": "style",
-            "name": "style",
-            "value": [
-              {
-                "kind": "code",
-                "property": "width",
-                "value": "width"
-              }
-            ]
-          }
-        ],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "align"
-                ],
-                "kind": "code",
-                "name": "align",
-                "value": "align"
-              },
-              {
-                "identifiers": [
-                  "alignOffset"
-                ],
-                "kind": "code",
-                "name": "alignOffset",
-                "value": "alignOffset"
-              },
-              {
-                "identifiers": [
-                  "side"
-                ],
-                "kind": "code",
-                "name": "side",
-                "value": "side"
-              },
-              {
-                "identifiers": [
-                  "sideOffset"
-                ],
-                "kind": "code",
-                "name": "sideOffset",
-                "value": "sideOffset"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
-                "class_when": [],
-                "merges_class": true,
-                "module": "popover",
-                "part": "Popup",
-                "props": true,
-                "reads": {
-                  "group": [],
-                  "self": [
-                    {
-                      "name": "data-open",
-                      "value": null
-                    },
-                    {
-                      "name": "data-closed",
-                      "value": null
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "bottom"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "left"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "right"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "top"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "inline-start"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "inline-end"
-                    }
-                  ]
-                },
-                "render_as": null,
-                "slot": "popover-content",
-                "tag": "div",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": [
-                  "--transform-origin"
-                ]
-              }
-            ],
-            "class": "isolate z-50",
-            "class_when": [],
-            "merges_class": false,
-            "module": "popover",
-            "part": "Positioner",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "value"
-                ],
-                "kind": "code",
-                "name": "value",
-                "value": "value"
-              }
-            ],
-            "children": [],
-            "class": "cn-command flex size-full flex-col overflow-hidden",
-            "class_when": [],
-            "merges_class": false,
-            "module": "external/cmdk",
-            "part": "Root",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "command",
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "p-0",
-        "class_when": [],
-        "merges_class": true,
-        "module": "popover",
-        "part": "Portal",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "width": {
-          "optional": false,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "MicSelectorInput",
-      "name": "mic_selector_input",
-      "params": {
-        "align": "inline-start",
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "placeholder",
-            "value": "Search microphones..."
-          }
-        ],
-        "children": [
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "role",
-                "value": "group"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
-                "class_when": [],
-                "merges_class": true,
-                "module": "external/cmdk",
-                "part": "Input",
-                "props": true,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": "command-input",
-                "tag": "input",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "attrs": [
-                  {
-                    "kind": "text",
-                    "name": "role",
-                    "value": "group"
-                  },
-                  {
-                    "identifiers": [
-                      "align"
-                    ],
-                    "kind": "code",
-                    "name": "data-align",
-                    "value": "align"
-                  }
-                ],
-                "children": [
-                  {
-                    "attrs": [
-                      {
-                        "kind": "text",
-                        "name": "lucide",
-                        "value": "SearchIcon"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "tabler",
-                        "value": "IconSearch"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "hugeicons",
-                        "value": "SearchIcon"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "phosphor",
-                        "value": "MagnifyingGlassIcon"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "remixicon",
-                        "value": "RiSearchLine"
-                      }
-                    ],
-                    "children": [],
-                    "class": "cn-command-input-icon",
-                    "class_when": [],
-                    "icons": {
-                      "hugeicons": "SearchIcon",
-                      "lucide": "Search",
-                      "phosphor": "MagnifyingGlassIcon",
-                      "remixicon": "RiSearchLine",
-                      "tabler": "IconSearch"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "class": "",
-                "class_when": [],
-                "merges_class": false,
-                "props": true,
-                "reads": {
-                  "group": [
-                    {
-                      "group": "input-group",
-                      "name": "data-disabled",
-                      "value": "true"
-                    }
-                  ],
-                  "self": [
-                    {
-                      "name": "data-slot",
-                      "value": "kbd"
-                    }
-                  ]
-                },
-                "render_as": null,
-                "slot": "input-group-addon",
-                "tag": "div",
-                "type": "element",
-                "variant_calls": [
-                  {
-                    "args": [
-                      "align"
-                    ],
-                    "table": "inputGroupAddonVariants"
-                  }
-                ],
-                "vars": []
-              }
-            ],
-            "class": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto cn-command-input-group",
-            "class_when": [],
-            "merges_class": false,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "input-group",
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-command-input-wrapper",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "command-input-wrapper",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MicSelectorList",
-      "name": "mic_selector_list",
-      "params": {
-        "children": null,
-        "className": null,
-        "data": null
-      },
-      "primitive": null,
-      "refs": [
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "identifiers": [
-              "children",
-              "data"
-            ],
-            "name": "children",
-            "type": "slot"
-          }
-        ],
-        "class": "cn-command-list overflow-x-hidden overflow-y-auto",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/cmdk",
-        "part": "List",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "command-list",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MicSelectorEmpty",
-      "name": "mic_selector_empty",
-      "params": {
-        "children": "No microphone found.",
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "cn-command-empty",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/cmdk",
-        "part": "Empty",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "command-empty",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MicSelectorItem",
-      "name": "mic_selector_item",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "currentValue",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "lucide",
-                "value": "CheckIcon"
-              },
-              {
-                "kind": "text",
-                "name": "tabler",
-                "value": "IconCheck"
-              },
-              {
-                "kind": "text",
-                "name": "hugeicons",
-                "value": "Tick02Icon"
-              },
-              {
-                "kind": "text",
-                "name": "phosphor",
-                "value": "CheckIcon"
-              },
-              {
-                "kind": "text",
-                "name": "remixicon",
-                "value": "RiCheckLine"
-              }
-            ],
-            "children": [],
-            "class": "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
-            "class_when": [],
-            "icons": {
-              "hugeicons": "Tick02Icon",
-              "lucide": "Check",
-              "phosphor": "CheckIcon",
-              "remixicon": "RiCheckLine",
-              "tabler": "IconCheck"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [
-                {
-                  "group": "command-item",
-                  "name": "data-checked",
-                  "value": "true"
-                }
-              ],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/cmdk",
-        "part": "Item",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-disabled",
-              "value": "true"
-            },
-            {
-              "name": "data-selected",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "command-item",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MicSelectorLabel",
-      "name": "mic_selector_label",
-      "params": {
-        "className": null,
-        "device": null,
-        "name": null
-      },
-      "primitive": null,
-      "refs": [
-        "device",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "code": "name",
-                "identifiers": [
-                  "name"
-                ],
-                "type": "value"
-              }
-            ],
-            "class": "",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "text",
-                "value": " ("
-              },
-              {
-                "code": "deviceId",
-                "identifiers": [
-                  "deviceId"
-                ],
-                "type": "value"
-              },
-              {
-                "type": "text",
-                "value": ")"
-              }
-            ],
-            "class": "text-muted-foreground",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MicSelectorValue",
-      "name": "mic_selector_value",
-      "params": {
-        "className": null,
-        "currentDevice": null
-      },
-      "primitive": null,
-      "refs": [
-        "d",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "currentDevice"
-            ],
-            "kind": "code",
-            "name": "device",
-            "value": "currentDevice"
-          }
-        ],
-        "children": [],
-        "class": "flex-1 text-left",
-        "class_when": [],
-        "merges_class": true,
-        "part": "mic_selector_label",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "type": "part_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "button.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the button should be focusable when disabled.",
-          "name": "focusableWhenDisabled",
-          "type": "boolean"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Button.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Button.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button component that can be used to trigger actions."
-    },
-    "popover.Arrow": {
-      "css_vars": [],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-uncentered",
-        "data-align",
-        "data-side"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Popover.Arrow.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Popover.Arrow.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Popover.Arrow.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Displays an element positioned against the popover anchor."
-    },
-    "popover.Backdrop": {
-      "css_vars": [],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Popover.Backdrop.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Popover.Backdrop.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Popover.Backdrop.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "An overlay displayed beneath the popover."
-    },
-    "popover.Close": {
-      "css_vars": [],
-      "data": [],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Popover.Close.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Popover.Close.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Popover.Close.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button that closes the popover."
-    },
-    "popover.Description": {
-      "css_vars": [],
-      "data": [],
-      "element": "p",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Popover.Description.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Popover.Description.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Popover.Description.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A paragraph with additional information about the popover."
-    },
-    "popover.Popup": {
-      "css_vars": [
-        "--popup-height",
-        "--popup-width"
-      ],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-align",
-        "data-instant",
-        "data-side",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "React.RefObject<HTMLElement \\",
-          "doc": "null> \\",
-          "name": "initialFocus",
-          "type": "boolean \\"
-        },
-        {
-          "default": "React.RefObject<HTMLElement \\",
-          "doc": "null> \\",
-          "name": "finalFocus",
-          "type": "boolean \\"
-        },
-        {
-          "default": "((state: Popover.Popup.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Popover.Popup.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Popover.Popup.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A container for the popover contents."
-    },
-    "popover.Portal": {
-      "css_vars": [],
-      "data": [],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "ShadowRoot \\",
-          "doc": "React.RefObject<HTMLElement \\",
-          "name": "container",
-          "type": "HTMLElement \\"
-        },
-        {
-          "default": "((state: Popover.Portal.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Popover.Portal.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to keep the portal mounted in the DOM while the popup is hidden.",
-          "name": "keepMounted",
-          "type": "boolean"
-        },
-        {
-          "default": "((props: HTMLProps, state: Popover.Portal.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A portal element that moves the popup to a different part of the DOM."
-    },
-    "popover.Positioner": {
-      "css_vars": [
-        "--anchor-height",
-        "--anchor-width",
-        "--available-height",
-        "--available-width",
-        "--positioner-height",
-        "--positioner-width",
-        "--transform-origin"
-      ],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-anchor-hidden",
-        "data-align",
-        "data-side"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether to disable the popup from tracking any layout shift of its positioning anchor.",
-          "name": "disableAnchorTracking",
-          "type": "boolean"
-        },
-        {
-          "default": "'center'",
-          "doc": "How to align the popup relative to the specified side.",
-          "name": "align",
-          "type": "Align"
-        },
-        {
-          "default": "OffsetFunction",
-          "doc": "0",
-          "name": "alignOffset",
-          "type": "number \\"
-        },
-        {
-          "default": "'bottom'",
-          "doc": "Which side of the anchor element to align the popup against. May automatically change to avoid collisions.",
-          "name": "side",
-          "type": "Side"
-        },
-        {
-          "default": "OffsetFunction",
-          "doc": "0",
-          "name": "sideOffset",
-          "type": "number \\"
-        },
-        {
-          "default": "5",
-          "doc": "Minimum distance to maintain between the arrow and the edges of the popup. Use it to prevent the arrow element from hanging out of the rounded corners of a popup.",
-          "name": "arrowPadding",
-          "type": "number"
-        },
-        {
-          "default": "VirtualElement \\",
-          "doc": "React.RefObject<Element \\",
-          "name": "anchor",
-          "type": "Element \\"
-        },
-        {
-          "default": null,
-          "doc": "Determines how to handle collisions when positioning the popup. `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`): `'flip'`: keep the requested side when it fits; otherwise try the opposite side (`top` and `bottom`, or `left` and `right`).`'shift'`: never change side; keep the requested side and move the popup within the clipping boundary so it stays visible.`'none'`: do not correct side-axis overflow. `align` controls overflow on the alignment axis (`start`/`center`/`end`): `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.`'shift'`: keep side and requested alignment, then nudge the popup along the alignment axis to fit.`'none'`: do not correct alignment-axis overflow. `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the preferred axis cannot fit: `'start'`: allow perpendicular fallback and try the logical start side first (`top` before `bottom`, or `left` before `right` in LTR).`'end'`: allow perpendicular fallback and try the logical end side first (`bottom` before `top`, or `right` before `left` in LTR).`'none'`: do not fallback to the perpendicular axis. When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`. If `align` is omitted, it defaults to `'flip'`.",
-          "name": "collisionAvoidance",
-          "type": "CollisionAvoidance"
-        },
-        {
-          "default": "'clipping-ancestors'",
-          "doc": "An element or a rectangle that delimits the area that the popup is confined to.",
-          "name": "collisionBoundary",
-          "type": "Boundary"
-        },
-        {
-          "default": "5",
-          "doc": "Additional space to maintain from the edge of the collision boundary.",
-          "name": "collisionPadding",
-          "type": "Padding"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to maintain the popup in the viewport after the anchor element was scrolled out of view.",
-          "name": "sticky",
-          "type": "boolean"
-        },
-        {
-          "default": "'fixed'",
-          "doc": "'absolute'",
-          "name": "positionMethod",
-          "type": "'absolute' \\"
-        },
-        {
-          "default": "((state: Popover.Positioner.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Popover.Positioner.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Popover.Positioner.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Positions the popover against the trigger."
-    },
-    "popover.Root": {
-      "css_vars": [],
-      "data": [],
-      "element": null,
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the popover is initially open. To render a controlled popover, use the `open` prop instead.",
-          "name": "defaultOpen",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the popover is currently open.",
-          "name": "open",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Event handler called when the popover is opened or closed.",
-          "name": "onOpenChange",
-          "type": "((open: boolean, eventDetails: Popover.Root.ChangeEventDetails) => void)"
-        },
-        {
-          "default": "null>",
-          "doc": "-",
-          "name": "actionsRef",
-          "type": "React.RefObject<Popover.Root.Actions \\"
-        },
-        {
-          "default": "null",
-          "doc": "-",
-          "name": "defaultTriggerId",
-          "type": "string \\"
-        },
-        {
-          "default": null,
-          "doc": "A handle to associate the popover with a trigger. If specified, allows external triggers to control the popover's open state.",
-          "name": "handle",
-          "type": "Popover.Handle<Payload>"
-        },
-        {
-          "default": "'trap-focus'",
-          "doc": "false",
-          "name": "modal",
-          "type": "boolean \\"
-        },
-        {
-          "default": null,
-          "doc": "Event handler called after any animations complete when the popover is opened or closed.",
-          "name": "onOpenChangeComplete",
-          "type": "((open: boolean) => void)"
-        },
-        {
-          "default": "null",
-          "doc": "-",
-          "name": "triggerId",
-          "type": "string \\"
-        },
-        {
-          "default": "PayloadChildRenderFunction<Payload>",
-          "doc": "-",
-          "name": "children",
-          "type": "React.ReactNode \\"
-        }
-      ],
-      "renders": false,
-      "summary": "Groups all parts of the popover."
-    },
-    "popover.Title": {
-      "css_vars": [],
-      "data": [],
-      "element": "h2",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Popover.Title.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Popover.Title.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Popover.Title.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A heading that labels the popover."
-    },
-    "popover.Trigger": {
-      "css_vars": [],
-      "data": [
-        "data-popup-open",
-        "data-pressed"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": null,
-          "doc": "A handle to associate the trigger with a popover.",
-          "name": "handle",
-          "type": "Popover.Handle<Payload>"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "A payload to pass to the popover when it is opened.",
-          "name": "payload",
-          "type": "Payload"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the popover should also open when the trigger is hovered.",
-          "name": "openOnHover",
-          "type": "boolean"
-        },
-        {
-          "default": "300",
-          "doc": "How long to wait before the popover may be opened on hover. Specified in milliseconds. Requires the `openOnHover` prop.",
-          "name": "delay",
-          "type": "number"
-        },
-        {
-          "default": "0",
-          "doc": "How long to wait before closing the popover that was opened on hover. Specified in milliseconds. Requires the `openOnHover` prop.",
-          "name": "closeDelay",
-          "type": "number"
-        },
-        {
-          "default": null,
-          "doc": "ID of the trigger. In addition to being forwarded to the rendered element, it is also used to specify the active trigger for the popover in controlled mode (with the Popover.Root `triggerId` prop).",
-          "name": "id",
-          "type": "string"
-        },
-        {
-          "default": "((state: Popover.Trigger.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Popover.Trigger.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Popover.Trigger.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button that opens the popover."
-    },
-    "popover.Viewport": {
-      "css_vars": [
-        "--popup-height",
-        "--popup-width"
-      ],
-      "data": [
-        "data-activation-direction",
-        "data-current",
-        "data-instant",
-        "data-previous",
-        "data-transitioning"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": null,
-          "doc": "The content to render inside the transition container.",
-          "name": "children",
-          "type": "React.ReactNode"
-        },
-        {
-          "default": "((state: Popover.Viewport.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Popover.Viewport.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Popover.Viewport.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A viewport for displaying content transitions."
-    }
+  "facts": {
+    "cva/buttonVariants/base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/buttonVariants/default/size": "default",
+    "cva/buttonVariants/variant/size/default": "cn-button-size-default",
+    "cva/buttonVariants/variant/size/icon": "cn-button-size-icon",
+    "cva/buttonVariants/variant/size/icon-lg": "cn-button-size-icon-lg",
+    "cva/buttonVariants/variant/size/icon-sm": "cn-button-size-icon-sm",
+    "cva/buttonVariants/variant/size/icon-xs": "cn-button-size-icon-xs",
+    "cva/buttonVariants/variant/size/lg": "cn-button-size-lg",
+    "cva/buttonVariants/variant/size/sm": "cn-button-size-sm",
+    "cva/buttonVariants/variant/size/xs": "cn-button-size-xs",
+    "cva/buttonVariants/variant/variant/default": "cn-button-variant-default",
+    "cva/buttonVariants/variant/variant/destructive": "cn-button-variant-destructive",
+    "cva/buttonVariants/variant/variant/ghost": "cn-button-variant-ghost",
+    "cva/buttonVariants/variant/variant/link": "cn-button-variant-link",
+    "cva/buttonVariants/variant/variant/outline": "cn-button-variant-outline",
+    "cva/buttonVariants/variant/variant/secondary": "cn-button-variant-secondary",
+    "cva/inputGroupAddonVariants/variant/align/block-end": "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/block-start": "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end": "cn-input-group-addon-align-inline-end order-last",
+    "cva/inputGroupAddonVariants/variant/align/inline-start": "cn-input-group-addon-align-inline-start order-first",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm": "cn-input-group-button-size-icon-sm",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs": "cn-input-group-button-size-icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm": "cn-input-group-button-size-sm",
+    "cva/inputGroupButtonVariants/variant/size/xs": "cn-input-group-button-size-xs",
+    "jsx/Command/class/0": "cn-command flex size-full flex-col overflow-hidden",
+    "jsx/CommandItem/class/0": "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/CommandItem/class/1": "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
+    "jsx/MicSelectorContent/class/0": "p-0",
+    "jsx/MicSelectorTrigger/class/0": "shrink-0 text-muted-foreground",
+    "jsx/PopoverContent/class/0": "isolate z-50",
+    "jsx/PopoverContent/class/1": "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden"
   },
-  "recipe": "listbox",
+  "file_fingerprints": {
+    "ai_elements/mic-selector.tsx": "7aeeba9a1dade161cc4ebfba13ace77ec668fa7d624ddb3ffe4f9adbea9b2353",
+    "shadcn/ui/button.tsx": "0c911259d9cce5dfd13cf06dd8ead680b5a3b67761bc27486503ead411968509",
+    "shadcn/ui/command.tsx": "4876d54d18bbd2e27a51f1e2a0b4b4e3cc73a783c81650dc81c342ad6740fa6a",
+    "shadcn/ui/input-group.tsx": "628473a39058fc34aea9622204e5f6a34dc9ee82dffa82e16fa19f6813be6900",
+    "shadcn/ui/popover.tsx": "1b6e4a1c5988d3f741d87b7b955335351e715b1121a1d5f342e26815d9cc21fe"
+  },
+  "fingerprint": "195b021eb2ca61bb85f3673dc1baad53aec45438ae0461e53a4bc23b3e7c3aee",
+  "ignored": {
+    "cva/buttonVariants/default/variant": "the generated port does not contain this source literal",
+    "cva/inputGroupAddonVariants/base": "the generated port does not contain this source literal",
+    "cva/inputGroupAddonVariants/default/align": "the generated port does not contain this source literal",
+    "cva/inputGroupButtonVariants/base": "the generated port does not contain this source literal",
+    "cva/inputGroupButtonVariants/default/size": "the generated port does not contain this source literal",
+    "jsx/CommandDialog/class/0": "the generated port does not contain this source literal",
+    "jsx/CommandDialog/class/1": "the generated port does not contain this source literal",
+    "jsx/CommandEmpty/class/0": "the generated port does not contain this source literal",
+    "jsx/CommandGroup/class/0": "the generated port does not contain this source literal",
+    "jsx/CommandInput/class/0": "the generated port does not contain this source literal",
+    "jsx/CommandInput/class/1": "the generated port does not contain this source literal",
+    "jsx/CommandInput/class/2": "the generated port does not contain this source literal",
+    "jsx/CommandInput/class/3": "the generated port does not contain this source literal",
+    "jsx/CommandList/class/0": "the generated port does not contain this source literal",
+    "jsx/CommandSeparator/class/0": "the generated port does not contain this source literal",
+    "jsx/CommandShortcut/class/0": "the generated port does not contain this source literal",
+    "jsx/InputGroup/class/0": "the generated port does not contain this source literal",
+    "jsx/InputGroupInput/class/0": "the generated port does not contain this source literal",
+    "jsx/InputGroupText/class/0": "the generated port does not contain this source literal",
+    "jsx/InputGroupTextarea/class/0": "the generated port does not contain this source literal",
+    "jsx/MicSelectorLabel/class/0": "the generated port does not contain this source literal",
+    "jsx/MicSelectorValue/class/0": "the generated port does not contain this source literal",
+    "jsx/MicSelectorValue/class/1": "the generated port does not contain this source literal",
+    "jsx/PopoverDescription/class/0": "the generated port does not contain this source literal",
+    "jsx/PopoverHeader/class/0": "the generated port does not contain this source literal",
+    "jsx/PopoverTitle/class/0": "the generated port does not contain this source literal"
+  },
+  "name": "mic-selector",
+  "port_body": "913c971149cb96296c1dc32786ef9a23e1f0535ab6be9344b57845a9817cb986",
+  "schema_version": 2,
   "source": "ai_elements",
-  "styles": {
-    "luma": {
-      "cn-command": "bg-popover text-popover-foreground rounded-4xl p-1",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-input": "w-full text-sm",
-      "cn-command-input-group": "bg-input/50 h-9",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium outline-hidden select-none in-data-[slot=dialog-content]:rounded-3xl [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-input-group": "bg-input/50 border-transparent has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-[color,box-shadow,background-color] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-3xl has-data-[align=block-start]:rounded-3xl has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[textarea]:rounded-2xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 flex flex-col gap-4 rounded-3xl p-4 text-sm shadow-lg ring-1 duration-100",
-      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+  "source_facts": {
+    "cva/inputGroupAddonVariants/variant/align/block-end": "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/buttonVariants/variant/variant/destructive": "cn-button-variant-destructive",
+    "cva/inputGroupButtonVariants/default/size": "xs",
+    "jsx/CommandSeparator/class/0": "cn-command-separator",
+    "jsx/CommandDialog/class/1": "cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0",
+    "jsx/MicSelectorValue/class/1": "flex-1 text-left",
+    "jsx/CommandInput/class/2": "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+    "cva/buttonVariants/variant/size/default": "cn-button-size-default",
+    "jsx/InputGroupInput/class/0": "cn-input-group-input flex-1",
+    "cva/inputGroupAddonVariants/variant/align/inline-start": "cn-input-group-addon-align-inline-start order-first",
+    "jsx/CommandInput/class/1": "cn-command-input-group",
+    "cva/buttonVariants/variant/variant/outline": "cn-button-variant-outline",
+    "cva/inputGroupButtonVariants/base": "cn-input-group-button flex items-center shadow-none",
+    "jsx/CommandItem/class/1": "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
+    "jsx/MicSelectorTrigger/class/0": "shrink-0 text-muted-foreground",
+    "cva/buttonVariants/variant/size/sm": "cn-button-size-sm",
+    "jsx/PopoverTitle/class/0": "cn-popover-title",
+    "cva/buttonVariants/base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/inputGroupAddonVariants/default/align": "inline-start",
+    "cva/buttonVariants/variant/variant/link": "cn-button-variant-link",
+    "jsx/InputGroup/class/0": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
+    "cva/inputGroupAddonVariants/base": "cn-input-group-addon flex cursor-text items-center justify-center select-none",
+    "jsx/MicSelectorLabel/class/0": "text-muted-foreground",
+    "jsx/PopoverHeader/class/0": "cn-popover-header",
+    "jsx/PopoverContent/class/1": "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
+    "jsx/InputGroupTextarea/class/0": "cn-input-group-textarea flex-1 resize-none",
+    "cva/inputGroupAddonVariants/variant/align/inline-end": "cn-input-group-addon-align-inline-end order-last",
+    "jsx/CommandGroup/class/0": "cn-command-group",
+    "cva/buttonVariants/variant/size/icon-sm": "cn-button-size-icon-sm",
+    "jsx/CommandItem/class/0": "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs": "cn-input-group-button-size-icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm": "cn-input-group-button-size-sm",
+    "cva/buttonVariants/variant/size/lg": "cn-button-size-lg",
+    "jsx/PopoverDescription/class/0": "cn-popover-description",
+    "cva/buttonVariants/variant/size/xs": "cn-button-size-xs",
+    "cva/buttonVariants/default/variant": "default",
+    "cva/buttonVariants/default/size": "default",
+    "cva/buttonVariants/variant/variant/ghost": "cn-button-variant-ghost",
+    "jsx/CommandInput/class/0": "cn-command-input-wrapper",
+    "cva/buttonVariants/variant/variant/default": "cn-button-variant-default",
+    "jsx/PopoverContent/class/0": "isolate z-50",
+    "cva/buttonVariants/variant/size/icon": "cn-button-size-icon",
+    "jsx/InputGroupText/class/0": "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
+    "jsx/MicSelectorValue/class/0": "flex-1 text-left",
+    "jsx/Command/class/0": "cn-command flex size-full flex-col overflow-hidden",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm": "cn-input-group-button-size-icon-sm",
+    "jsx/CommandList/class/0": "cn-command-list overflow-x-hidden overflow-y-auto",
+    "cva/inputGroupAddonVariants/variant/align/block-start": "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/buttonVariants/variant/variant/secondary": "cn-button-variant-secondary",
+    "jsx/CommandEmpty/class/0": "cn-command-empty",
+    "jsx/CommandShortcut/class/0": "cn-command-shortcut",
+    "cva/inputGroupButtonVariants/variant/size/xs": "cn-input-group-button-size-xs",
+    "jsx/CommandInput/class/3": "cn-command-input-icon",
+    "jsx/MicSelectorContent/class/0": "p-0",
+    "cva/buttonVariants/variant/size/icon-lg": "cn-button-size-icon-lg",
+    "jsx/CommandDialog/class/0": "sr-only",
+    "cva/buttonVariants/variant/size/icon-xs": "cn-button-size-icon-xs"
+  },
+  "state_reads": [
+    {
+      "name": "aria-expanded",
+      "value": null
     },
-    "lyra": {
-      "cn-command": "bg-popover text-popover-foreground rounded-none",
-      "cn-command-empty": "py-6 text-center text-xs",
-      "cn-command-input": "w-full text-xs",
-      "cn-command-input-group": "bg-input/30 border-input/30 h-8 border-none shadow-none! *:data-[slot=input-group-addon]:pl-2!",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "border-b pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-none px-2 py-2 text-xs outline-hidden select-none in-data-[slot=dialog-content]:rounded-none! [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-0 outline-none",
-      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 h-8 rounded-none border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-1 has-[[data-slot][aria-invalid=true]]:ring-1 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex flex-col gap-2.5 rounded-none p-2.5 text-xs shadow-md ring-1 duration-100",
-      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    {
+      "name": "aria-invalid",
+      "value": null
     },
-    "maia": {
-      "cn-command": "bg-popover text-popover-foreground rounded-4xl p-1",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-input": "w-full text-sm",
-      "cn-command-input-group": "bg-input/30 h-9",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-lg px-3 py-2 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-2xl [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-input-group": "border-input bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-2xl has-data-[align=block-start]:rounded-2xl has-[[data-slot=input-group-control]:focus-visible]:ring-[3px] has-[[data-slot][aria-invalid=true]]:ring-[3px] has-[textarea]:rounded-xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 flex flex-col gap-4 rounded-2xl p-4 text-sm shadow-2xl ring-1 duration-100",
-      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    {
+      "name": "data-closed",
+      "value": null
     },
-    "mira": {
-      "cn-command": "bg-popover text-popover-foreground rounded-xl p-1",
-      "cn-command-empty": "py-6 text-center text-xs/relaxed",
-      "cn-command-input": "w-full text-xs/relaxed",
-      "cn-command-input-group": "bg-input/20 dark:bg-input/30 h-8!",
-      "cn-command-input-icon": "size-3.5 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex min-h-7 cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 text-xs/relaxed outline-hidden select-none in-data-[slot=dialog-content]:rounded-md [&_svg:not([class*='size-'])]:size-3.5",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-input-group": "border-input bg-input/20 dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-7 rounded-md border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-md has-data-[align=block-start]:rounded-md has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot][aria-invalid=true]]:ring-2 has-[textarea]:rounded-md has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex flex-col gap-4 rounded-lg p-2.5 text-xs shadow-md ring-1 duration-100",
-      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    {
+      "name": "data-disabled",
+      "value": "true"
     },
-    "nova": {
-      "cn-command": "bg-popover text-popover-foreground rounded-xl! p-1",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-input": "w-full text-sm",
-      "cn-command-input-group": "bg-input/30 border-input/30 h-8! rounded-lg! shadow-none! *:data-[slot=input-group-addon]:pl-2!",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 h-8 rounded-lg border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex flex-col gap-2.5 rounded-lg p-2.5 text-sm shadow-md ring-1 duration-100",
-      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    {
+      "name": "data-open",
+      "value": null
     },
-    "rhea": {
-      "cn-command": "bg-popover text-popover-foreground rounded-3xl p-1",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-input": "w-full text-sm",
-      "cn-command-input-group": "bg-input/50 h-8!",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 min-h-7 rounded-xl px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-2xl [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-input-group": "bg-input/50 border-transparent has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-8 rounded-2xl border transition-[color,box-shadow] duration-200 in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 flex flex-col gap-4 rounded-3xl p-4 text-sm shadow-lg ring-1 duration-100",
-      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    {
+      "name": "data-selected",
+      "value": null
     },
-    "sera": {
-      "cn-command": "bg-popover text-popover-foreground",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-input": "w-full text-sm px-2",
-      "cn-command-input-group": "bg-transparent border-transparent border-b-input px-3",
-      "cn-command-input-icon": "size-3.5 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-none px-3 py-2 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-none [&_svg:not([class*='size-'])]:size-3.5",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-input-group": "border-transparent border-b-input bg-transparent has-[[data-slot=input-group-control]:focus-visible]:border-b-ring has-[[data-slot][aria-invalid=true]]:border-b-destructive dark:has-[[data-slot][aria-invalid=true]]:border-b-destructive/50 h-10 rounded-none border transition-[color,border-color] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-none has-data-[align=block-start]:rounded-none has-[textarea]:rounded-none has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3",
-      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex flex-col gap-4 rounded-none p-4 text-sm shadow-md ring-1 duration-100",
-      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    {
+      "name": "data-side",
+      "value": "bottom"
     },
-    "vega": {
-      "cn-command": "bg-popover text-popover-foreground rounded-xl! p-1",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-input": "w-full text-sm",
-      "cn-command-input-group": "bg-input/30 border-input/30 h-8! rounded-lg! shadow-none! *:data-[slot=input-group-addon]:pl-2!",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:**:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-md border shadow-xs transition-[color,box-shadow] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-popover-content": "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex flex-col gap-4 rounded-md p-4 text-sm shadow-md ring-1 duration-100",
-      "cn-popover-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
+    {
+      "name": "data-side",
+      "value": "inline-end"
+    },
+    {
+      "name": "data-side",
+      "value": "inline-start"
+    },
+    {
+      "name": "data-side",
+      "value": "left"
+    },
+    {
+      "name": "data-side",
+      "value": "right"
+    },
+    {
+      "name": "data-side",
+      "value": "top"
+    },
+    {
+      "group": "command-item",
+      "name": "data-checked",
+      "value": "true"
     }
+  ],
+  "styles": {
+    "luma": "73e9ff7999091ce450f2bd24f92374be867fb8ac45abb5ddd98966433bd23e92",
+    "lyra": "e37ab0b7fe61927b6cea2ca195384b2e47fb1787f2d7dab12e9687a8457d415b",
+    "maia": "865c76e3b7cfbe0b3a00c7617fed30364055b4130dcea62e883266c52673ccd1",
+    "mira": "586f0fa09fbd7f9ad5af7fec2eb16593fbdf1fb56648d2fd084eac9b46fb00a0",
+    "nova": "fbd4201c33213058fef6251dc3f119130affd910239bd5dc796ec6c0142da320",
+    "rhea": "707066534aef51d6ad91a1f42d1f182e075983d47a890d766d8d4fc07c47f689",
+    "sera": "de298928bd8224fee2c2e51d5bc5038f650226db3c963f798525656f6054eaee",
+    "vega": "7c1960c9fab82a259436e9650b6f341a6406c56fdc024486573cfdbbd02f61f7"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/mic-selector.tsx",
-      "sha256": "3b69b527315f81114fb99518f5078a183092f16ad4cf4105ef94861da1724dce"
-    }
+    "ai_elements/mic-selector.tsx": "3b69b527315f81114fb99518f5078a183092f16ad4cf4105ef94861da1724dce",
+    "shadcn/ui/button.tsx": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12",
+    "shadcn/ui/command.tsx": "3ad88a370242987b0981342fc7e87a7aa7908f3e81282b5a6e69b0c9505abdf0",
+    "shadcn/ui/input-group.tsx": "2ee53fb8792b8022ab433ed6d455dc790ed8a5be59fb99d923303665ce3a6dbb",
+    "shadcn/ui/popover.tsx": "27b854b12d7c7c0d531d2ee928b0d2b882bbb2081938c510d237c22cb819d25f"
   },
-  "variants": {
-    "buttonVariants": {
-      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-button-size-default",
-          "icon": "cn-button-size-icon",
-          "icon-lg": "cn-button-size-icon-lg",
-          "icon-sm": "cn-button-size-icon-sm",
-          "icon-xs": "cn-button-size-icon-xs",
-          "lg": "cn-button-size-lg",
-          "sm": "cn-button-size-sm",
-          "xs": "cn-button-size-xs"
-        },
-        "variant": {
-          "default": "cn-button-variant-default",
-          "destructive": "cn-button-variant-destructive",
-          "ghost": "cn-button-variant-ghost",
-          "link": "cn-button-variant-link",
-          "outline": "cn-button-variant-outline",
-          "secondary": "cn-button-variant-secondary"
-        }
-      }
-    },
-    "inputGroupAddonVariants": {
-      "base": "cn-input-group-addon flex cursor-text items-center justify-center select-none",
-      "defaults": {
-        "align": "inline-start"
-      },
-      "variants": {
-        "align": {
-          "block-end": "cn-input-group-addon-align-block-end order-last w-full justify-start",
-          "block-start": "cn-input-group-addon-align-block-start order-first w-full justify-start",
-          "inline-end": "cn-input-group-addon-align-inline-end order-last",
-          "inline-start": "cn-input-group-addon-align-inline-start order-first"
-        }
-      }
-    },
-    "inputGroupButtonVariants": {
-      "base": "cn-input-group-button flex items-center shadow-none",
-      "defaults": {
-        "size": "xs"
-      },
-      "variants": {
-        "size": {
-          "icon-sm": "cn-input-group-button-size-icon-sm",
-          "icon-xs": "cn-input-group-button-size-icon-xs",
-          "sm": "cn-input-group-button-size-sm",
-          "xs": "cn-input-group-button-size-xs"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/buttonVariants/base",
+    "cva/buttonVariants/default/size",
+    "cva/buttonVariants/variant/size/default",
+    "cva/buttonVariants/variant/size/icon",
+    "cva/buttonVariants/variant/size/icon-lg",
+    "cva/buttonVariants/variant/size/icon-sm",
+    "cva/buttonVariants/variant/size/icon-xs",
+    "cva/buttonVariants/variant/size/lg",
+    "cva/buttonVariants/variant/size/sm",
+    "cva/buttonVariants/variant/size/xs",
+    "cva/buttonVariants/variant/variant/default",
+    "cva/buttonVariants/variant/variant/destructive",
+    "cva/buttonVariants/variant/variant/ghost",
+    "cva/buttonVariants/variant/variant/link",
+    "cva/buttonVariants/variant/variant/outline",
+    "cva/buttonVariants/variant/variant/secondary",
+    "cva/inputGroupAddonVariants/variant/align/block-end",
+    "cva/inputGroupAddonVariants/variant/align/block-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end",
+    "cva/inputGroupAddonVariants/variant/align/inline-start",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm",
+    "cva/inputGroupButtonVariants/variant/size/xs",
+    "jsx/Command/class/0",
+    "jsx/CommandItem/class/0",
+    "jsx/CommandItem/class/1",
+    "jsx/MicSelectorContent/class/0",
+    "jsx/MicSelectorTrigger/class/0",
+    "jsx/PopoverContent/class/0",
+    "jsx/PopoverContent/class/1"
+  ]
 }

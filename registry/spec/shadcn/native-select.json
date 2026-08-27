@@ -1,266 +1,76 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/NativeSelect/class/0",
+      "jsx/NativeSelect/class/1",
+      "jsx/NativeSelect/class/2",
+      "jsx/NativeSelectOptGroup/class/0"
+    ],
+    "derived": {}
+  },
+  "css_vars": [
+    "--radius-md"
+  ],
+  "facts": {
+    "jsx/NativeSelect/class/0": "cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50",
+    "jsx/NativeSelect/class/1": "cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed",
+    "jsx/NativeSelect/class/2": "cn-native-select-icon pointer-events-none absolute select-none",
+    "jsx/NativeSelectOptGroup/class/0": "bg-[Canvas] text-[CanvasText]"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/native-select.tsx": "aa8ed4b05779ed812a6551e2978793689c4b341afeb47f9c9545e3ce98151ef0"
+  },
+  "fingerprint": "d2df655f3caf69c450aae9176fd752ef60e99ac48f1e2a414733c223bcbd9ca8",
+  "ignored": {
+    "jsx/NativeSelectOption/class/0": "the generated port does not contain this source literal"
+  },
   "name": "native-select",
-  "parts": [
+  "port_body": "973f6a78c2caca6a120cf50e044aa5f874f1891381b486a1a3e3270d54516d05",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/NativeSelect/class/0": "cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50",
+    "jsx/NativeSelect/class/1": "cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed",
+    "jsx/NativeSelect/class/2": "cn-native-select-icon pointer-events-none absolute select-none",
+    "jsx/NativeSelectOptGroup/class/0": "bg-[Canvas] text-[CanvasText]",
+    "jsx/NativeSelectOption/class/0": "bg-[Canvas] text-[CanvasText]"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "NativeSelect",
-      "name": "native_select",
-      "params": {
-        "className": null,
-        "size": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "size",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "data-size",
-            "value": "size"
-          }
-        ],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "size"
-                ],
-                "kind": "code",
-                "name": "data-size",
-                "value": "size"
-              }
-            ],
-            "children": [],
-            "class": "cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed",
-            "class_when": [],
-            "merges_class": false,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": [
-                {
-                  "name": "aria-invalid",
-                  "value": null
-                },
-                {
-                  "name": "data-size",
-                  "value": "sm"
-                }
-              ]
-            },
-            "render_as": null,
-            "slot": "native-select",
-            "tag": "select",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "lucide",
-                "value": "ChevronDownIcon"
-              },
-              {
-                "kind": "text",
-                "name": "tabler",
-                "value": "IconSelector"
-              },
-              {
-                "kind": "text",
-                "name": "hugeicons",
-                "value": "UnfoldMoreIcon"
-              },
-              {
-                "kind": "text",
-                "name": "phosphor",
-                "value": "CaretDownIcon"
-              },
-              {
-                "kind": "text",
-                "name": "remixicon",
-                "value": "RiArrowDownSLine"
-              },
-              {
-                "kind": "text",
-                "name": "aria-hidden",
-                "value": "true"
-              }
-            ],
-            "children": [],
-            "class": "cn-native-select-icon pointer-events-none absolute select-none",
-            "class_when": [],
-            "icons": {
-              "hugeicons": "UnfoldMoreIcon",
-              "lucide": "ChevronDown",
-              "phosphor": "CaretDownIcon",
-              "remixicon": "RiArrowDownSLine",
-              "tabler": "IconSelector"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [
-                {
-                  "group": "native-select",
-                  "name": "data-size",
-                  "value": "sm"
-                }
-              ],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "native-select-icon",
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50",
-        "class_when": [],
-        "merges_class": true,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "native-select-wrapper",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "size": {
-          "optional": true,
-          "values": [
-            "sm",
-            "default"
-          ]
-        }
-      }
+      "name": "aria-invalid",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "NativeSelectOptGroup",
-      "name": "native_select_opt_group",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "bg-[Canvas] text-[CanvasText]",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "native-select-optgroup",
-        "tag": "optgroup",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-size",
+      "value": "sm"
     },
     {
-      "contexts": [],
-      "export": "NativeSelectOption",
-      "name": "native_select_option",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "bg-[Canvas] text-[CanvasText]",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "native-select-option",
-        "tag": "option",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "group": "native-select",
+      "name": "data-size",
+      "value": "sm"
     }
   ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-native-select": "bg-input/50 border-transparent placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 w-full min-w-0 appearance-none rounded-3xl border py-1 pr-8 pl-3 text-sm transition-[color,box-shadow,background-color] select-none focus-visible:ring-3 aria-invalid:ring-3 data-[size=sm]:h-8",
-      "cn-native-select-icon": "text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2"
-    },
-    "lyra": {
-      "cn-native-select": "border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 w-full min-w-0 appearance-none rounded-none border bg-transparent py-1 pr-8 pl-2.5 text-xs transition-colors select-none focus-visible:ring-1 aria-invalid:ring-1 data-[size=sm]:h-7 data-[size=sm]:rounded-none data-[size=sm]:py-0.5",
-      "cn-native-select-icon": "text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2"
-    },
-    "maia": {
-      "cn-native-select": "border-input bg-input/30 placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 w-full min-w-0 appearance-none rounded-4xl border py-1 pr-8 pl-3 text-sm transition-colors select-none focus-visible:ring-[3px] aria-invalid:ring-[3px] data-[size=sm]:h-8",
-      "cn-native-select-icon": "text-muted-foreground top-1/2 right-3.5 size-4 -translate-y-1/2"
-    },
-    "mira": {
-      "cn-native-select": "border-input bg-input/20 placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-7 w-full min-w-0 appearance-none rounded-md border py-0.5 pr-6 pl-2 text-xs/relaxed transition-colors select-none focus-visible:ring-2 aria-invalid:ring-2 data-[size=sm]:h-6 data-[size=sm]:text-[0.625rem]",
-      "cn-native-select-icon": "text-muted-foreground top-1/2 right-1.5 size-3.5 -translate-y-1/2 group-data-[size=sm]/native-select:size-3 group-data-[size=sm]/native-select:-translate-y-[calc(--spacing(1.25))]"
-    },
-    "nova": {
-      "cn-native-select": "border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 w-full min-w-0 appearance-none rounded-lg border bg-transparent py-1 pr-8 pl-2.5 text-sm transition-colors select-none focus-visible:ring-3 aria-invalid:ring-3 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-[size=sm]:py-0.5",
-      "cn-native-select-icon": "text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2"
-    },
-    "rhea": {
-      "cn-native-select": "bg-input/50 border-transparent placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 w-full min-w-0 appearance-none rounded-2xl border py-1 pr-8 pl-2.5 text-sm transition-[color,box-shadow] duration-200 select-none focus-visible:ring-3 aria-invalid:ring-3 data-[size=sm]:h-7",
-      "cn-native-select-icon": "text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2"
-    },
-    "sera": {
-      "cn-native-select": "border-transparent border-b-input bg-transparent placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground focus-visible:border-b-ring aria-invalid:border-b-destructive dark:aria-invalid:border-b-destructive/50 h-10 w-full min-w-0 appearance-none rounded-none border py-2 pr-8 pl-0 text-sm transition-[color,border-color] select-none data-[size=sm]:h-9",
-      "cn-native-select-icon": "text-muted-foreground top-1/2 right-0 size-3.5 -translate-y-1/2"
-    },
-    "vega": {
-      "cn-native-select": "border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 w-full min-w-0 appearance-none rounded-md border bg-transparent py-1 pr-8 pl-2.5 text-sm shadow-xs transition-[color,box-shadow] select-none focus-visible:ring-3 aria-invalid:ring-3 data-[size=sm]:h-8",
-      "cn-native-select-icon": "text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2"
-    }
+    "luma": "6246f2940ff7c50cee0d78f06baf18571899ee5fe5bf176973aa192919d4cef7",
+    "lyra": "0c024713d0b063b920b94f704c287f33da54cc6c930b62ad1972463e2fe34dd8",
+    "maia": "e943462f4c86528f936cb5534d32466700cfad723edbcdbdf4bb46d438cb1e1c",
+    "mira": "cc3ce2e64a1e07c3c11669fbb1e8df6b7ce0208c00ce3c4cb56fd9983bade4be",
+    "nova": "37f201cbbc71cfabfa943ed01f6911917e3c0288d294c13b4f77b47154c3e277",
+    "rhea": "e7112d8ceca3f949f8acdda18cea8efab0d6f69002ff946c1a4ee3da1ef34645",
+    "sera": "ea71137fc4359e9dbf49d42074763594d80f996ab37712d896df7657b521b542",
+    "vega": "127ebab51b0b28b9ea820655df5ff15bbd3cb717d7a6091b2ef1418384c758c2"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/native-select.tsx",
-      "sha256": "6150b0918261c617cfe2c6186bcf7fff3954b0225187b46bdc0204cfa164347a"
-    }
+    "shadcn/ui/native-select.tsx": "6150b0918261c617cfe2c6186bcf7fff3954b0225187b46bdc0204cfa164347a"
   },
-  "variants": {}
+  "uses": [
+    "jsx/NativeSelect/class/0",
+    "jsx/NativeSelect/class/1",
+    "jsx/NativeSelect/class/2",
+    "jsx/NativeSelectOptGroup/class/0"
+  ]
 }

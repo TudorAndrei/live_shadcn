@@ -1,777 +1,104 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "message",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Message",
-      "name": "message",
-      "params": {
-        "className": null,
-        "from": null
-      },
-      "primitive": null,
-      "refs": [
-        "from",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "group flex w-full max-w-[95%] flex-col gap-2",
-        "class_when": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Message/class/0",
+      "jsx/Message/class/1",
+      "jsx/Message/class/2",
+      "jsx/MessageAction/class/0",
+      "jsx/MessageActions/class/0",
+      "jsx/MessageBranch/class/0",
+      "jsx/MessageBranchContent/class/0",
+      "jsx/MessageBranchContent/class/1",
+      "jsx/MessageBranchContent/class/2",
+      "jsx/MessageBranchPage/class/0",
+      "jsx/MessageBranchSelector/class/0",
+      "jsx/MessageToolbar/class/0",
+      "jsx/anonymous/class/0"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "else": "is-assistant",
-            "identifiers": [
-              "from"
-            ],
-            "then": "is-user ml-auto justify-end",
-            "when": "from === \"user\""
-          }
-        ],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageContent",
-      "name": "message_content",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "is-user:dark flex w-fit min-w-0 max-w-full flex-col gap-2 overflow-hidden text-sm group-[.is-user]:ml-auto group-[.is-user]:rounded-lg group-[.is-user]:bg-secondary group-[.is-user]:px-4 group-[.is-user]:py-3 group-[.is-user]:text-foreground group-[.is-assistant]:text-foreground",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageActions",
-      "name": "message_actions",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "flex items-center gap-1",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageAction",
-      "name": "message_action",
-      "params": {
-        "button": null,
-        "children": null,
-        "label": null,
-        "size": "icon-sm",
-        "tooltip": null,
-        "variant": "ghost"
-      },
-      "primitive": null,
-      "refs": [
-        "size",
-        "variant",
-        "props",
-        "children",
-        "label",
-        "tooltip"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
+            "fact": "jsx/MessageContent/class/0"
           },
           {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
+            "fact": "jsx/MessageContent/class/1"
           },
           {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
+            "fact": "jsx/MessageContent/class/2"
           }
         ],
-        "children": [
-          {
-            "type": "children"
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "code": "label || tooltip",
-                "identifiers": [
-                  "label",
-                  "tooltip"
-                ],
-                "type": "value"
-              }
-            ],
-            "class": "sr-only",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "identifiers": [
-          "button"
-        ],
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageBranch",
-      "name": "message_branch",
-      "params": {
-        "className": null,
-        "defaultBranch": "0"
-      },
-      "primitive": null,
-      "refs": [
-        "defaultBranch",
-        "newBranch",
-        "onBranchChange",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [],
-            "class": "grid w-full gap-2 [&>div]:pb-0",
-            "class_when": [],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "defaultBranch": {
-          "optional": true,
-          "type": "number"
-        }
+        "op": "join"
       }
-    },
-    {
-      "contexts": [],
-      "export": "MessageBranchContent",
-      "name": "message_branch_content",
-      "params": {
-        "children": null,
-        "childrenArray": null,
-        "currentBranch": null
-      },
-      "primitive": null,
-      "refs": [
-        "children",
-        "index",
-        "branch"
-      ],
-      "tree": {
-        "binding": "branch",
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "code": "branch",
-                "identifiers": [
-                  "branch"
-                ],
-                "type": "value"
-              }
-            ],
-            "class": "grid gap-2 overflow-hidden [&>div]:pb-0",
-            "class_when": [
-              {
-                "else": "hidden",
-                "identifiers": [
-                  "currentBranch",
-                  "index"
-                ],
-                "then": "block",
-                "when": "index === currentBranch"
-              }
-            ],
-            "merges_class": false,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "collection": "childrenArray",
-        "counter": "index",
-        "fields": [],
-        "identifiers": [
-          "branch",
-          "childrenArray",
-          "cn",
-          "currentBranch",
-          "index",
-          "props"
-        ],
-        "member_roots": [
-          "branch",
-          "childrenArray"
-        ],
-        "type": "repeat_over"
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageBranchSelector",
-      "name": "message_branch_selector",
-      "params": {
-        "className": null,
-        "orientation": "horizontal",
-        "totalBranches": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "orientation"
-            ],
-            "kind": "code",
-            "name": "orientation",
-            "value": "orientation"
-          }
-        ],
-        "children": [],
-        "class": "[&>*:not(:first-child)]:rounded-l-md [&>*:not(:last-child)]:rounded-r-md",
-        "class_when": [],
-        "component": "button-group",
-        "function": "button_group",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {},
-      "when": "!(totalBranches <= 1)"
-    },
-    {
-      "contexts": [],
-      "export": "MessageBranchPrevious",
-      "name": "message_branch_previous",
-      "params": {
-        "children": null,
-        "size": "icon-sm",
-        "totalBranches": null,
-        "variant": "ghost"
-      },
-      "primitive": null,
-      "refs": [
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "aria-label",
-            "value": "Previous branch"
-          },
-          {
-            "identifiers": [
-              "totalBranches"
-            ],
-            "kind": "code",
-            "name": "disabled",
-            "value": "totalBranches <= 1"
-          },
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          }
-        ],
-        "children": [
-          {
-            "default": [
-              {
-                "attrs": [
-                  {
-                    "kind": "code",
-                    "name": "size",
-                    "value": "14"
-                  }
-                ],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "icons": {
-                  "lucide": "ChevronLeft"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageBranchNext",
-      "name": "message_branch_next",
-      "params": {
-        "children": null,
-        "size": "icon-sm",
-        "totalBranches": null,
-        "variant": "ghost"
-      },
-      "primitive": null,
-      "refs": [
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "aria-label",
-            "value": "Next branch"
-          },
-          {
-            "identifiers": [
-              "totalBranches"
-            ],
-            "kind": "code",
-            "name": "disabled",
-            "value": "totalBranches <= 1"
-          },
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          }
-        ],
-        "children": [
-          {
-            "default": [
-              {
-                "attrs": [
-                  {
-                    "kind": "code",
-                    "name": "size",
-                    "value": "14"
-                  }
-                ],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "icons": {
-                  "lucide": "ChevronRight"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageBranchPage",
-      "name": "message_branch_page",
-      "params": {
-        "className": null,
-        "currentBranch": null,
-        "totalBranches": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "code": "currentBranch + 1",
-            "identifiers": [
-              "currentBranch"
-            ],
-            "type": "value"
-          },
-          {
-            "type": "text",
-            "value": " of "
-          },
-          {
-            "code": "totalBranches",
-            "identifiers": [
-              "totalBranches"
-            ],
-            "type": "value"
-          }
-        ],
-        "class": "border-none bg-transparent text-muted-foreground shadow-none",
-        "class_when": [],
-        "component": "button-group",
-        "function": "button_group_text",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageResponse",
-      "name": "message_response",
-      "params": {
-        "className": null,
-        "content": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "streamdownPlugins"
-            ],
-            "kind": "code",
-            "name": "plugins",
-            "value": "streamdownPlugins"
-          }
-        ],
-        "children": [],
-        "class": "size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "role": "markdown",
-        "slot": null,
-        "type": "external",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageToolbar",
-      "name": "message_toolbar",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "mt-4 flex w-full items-center justify-between gap-4",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/message.tsx",
-      "sha256": "19c7755740e116f221e4247f7b6d4f20b57a44e4c4fcf66d2db5e1f111476509"
     }
   },
-  "variants": {}
+  "css_vars": [],
+  "facts": {
+    "jsx/Message/class/0": "group flex w-full max-w-[95%] flex-col gap-2",
+    "jsx/Message/class/1": "is-user ml-auto justify-end",
+    "jsx/Message/class/2": "is-assistant",
+    "jsx/MessageAction/class/0": "sr-only",
+    "jsx/MessageActions/class/0": "flex items-center gap-1",
+    "jsx/MessageBranch/class/0": "grid w-full gap-2 [&>div]:pb-0",
+    "jsx/MessageBranchContent/class/0": "grid gap-2 overflow-hidden [&>div]:pb-0",
+    "jsx/MessageBranchContent/class/1": "block",
+    "jsx/MessageBranchContent/class/2": "hidden",
+    "jsx/MessageBranchPage/class/0": "border-none bg-transparent text-muted-foreground shadow-none",
+    "jsx/MessageBranchSelector/class/0": "[&>*:not(:first-child)]:rounded-l-md [&>*:not(:last-child)]:rounded-r-md",
+    "jsx/MessageToolbar/class/0": "mt-4 flex w-full items-center justify-between gap-4",
+    "jsx/anonymous/class/0": "size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
+    "port/class/0": "is-user:dark flex w-fit min-w-0 max-w-full flex-col gap-2 overflow-hidden text-sm group-[.is-user]:ml-auto group-[.is-user]:rounded-lg group-[.is-user]:bg-secondary group-[.is-user]:px-4 group-[.is-user]:py-3 group-[.is-user]:text-foreground group-[.is-assistant]:text-foreground"
+  },
+  "file_fingerprints": {
+    "ai_elements/message.tsx": "01bf24fff90e708347a5775a5e1b204d11e0e7d54b11dec3f7e62f19fb81bd92"
+  },
+  "fingerprint": "766f7f4a9f62049cc867058c58f3af61c05ba8e1a5219b9c78affb96f691af90",
+  "ignored": {},
+  "name": "message",
+  "port_body": "44fa4fc08819b268eafb82a209cb2a85998db3781270f1f97c400937dcbc437c",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/Message/class/0": "group flex w-full max-w-[95%] flex-col gap-2",
+    "jsx/Message/class/1": "is-user ml-auto justify-end",
+    "jsx/Message/class/2": "is-assistant",
+    "jsx/MessageAction/class/0": "sr-only",
+    "jsx/MessageActions/class/0": "flex items-center gap-1",
+    "jsx/MessageBranch/class/0": "grid w-full gap-2 [&>div]:pb-0",
+    "jsx/MessageBranchContent/class/0": "grid gap-2 overflow-hidden [&>div]:pb-0",
+    "jsx/MessageBranchContent/class/1": "block",
+    "jsx/MessageBranchContent/class/2": "hidden",
+    "jsx/MessageBranchPage/class/0": "border-none bg-transparent text-muted-foreground shadow-none",
+    "jsx/MessageBranchSelector/class/0": "[&>*:not(:first-child)]:rounded-l-md [&>*:not(:last-child)]:rounded-r-md",
+    "jsx/MessageContent/class/0": "is-user:dark flex w-fit min-w-0 max-w-full flex-col gap-2 overflow-hidden text-sm",
+    "jsx/MessageContent/class/1": "group-[.is-user]:ml-auto group-[.is-user]:rounded-lg group-[.is-user]:bg-secondary group-[.is-user]:px-4 group-[.is-user]:py-3 group-[.is-user]:text-foreground",
+    "jsx/MessageContent/class/2": "group-[.is-assistant]:text-foreground",
+    "jsx/MessageToolbar/class/0": "mt-4 flex w-full items-center justify-between gap-4",
+    "jsx/anonymous/class/0": "size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/message.tsx": "19c7755740e116f221e4247f7b6d4f20b57a44e4c4fcf66d2db5e1f111476509"
+  },
+  "uses": [
+    "jsx/Message/class/0",
+    "jsx/Message/class/1",
+    "jsx/Message/class/2",
+    "jsx/MessageAction/class/0",
+    "jsx/MessageActions/class/0",
+    "jsx/MessageBranch/class/0",
+    "jsx/MessageBranchContent/class/0",
+    "jsx/MessageBranchContent/class/1",
+    "jsx/MessageBranchContent/class/2",
+    "jsx/MessageBranchPage/class/0",
+    "jsx/MessageBranchSelector/class/0",
+    "jsx/MessageToolbar/class/0",
+    "jsx/anonymous/class/0",
+    "port/class/0"
+  ]
 }

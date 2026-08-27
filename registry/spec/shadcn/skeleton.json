@@ -1,77 +1,45 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Skeleton/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Skeleton/class/0": "cn-skeleton animate-pulse"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/skeleton.tsx": "bbeb6e9b83f1e51768c54b3335b85382dde5b943bf06644d3ef565abffc32b69"
+  },
+  "fingerprint": "7ae85bb54fa9ae6f9368be9ebe1f5a06efa8bc8cf171ea19e0844620d0b5df2e",
+  "ignored": {},
   "name": "skeleton",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Skeleton",
-      "name": "skeleton",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-skeleton animate-pulse",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "skeleton",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
+  "port_body": "79be479c892ab6247af05a174b4c2fc070693b1c98aa07d5fc75fac05f2a4870",
+  "schema_version": 2,
   "source": "shadcn",
+  "source_facts": {
+    "jsx/Skeleton/class/0": "cn-skeleton animate-pulse"
+  },
+  "state_reads": [],
   "styles": {
-    "luma": {
-      "cn-skeleton": "bg-muted rounded-2xl"
-    },
-    "lyra": {
-      "cn-skeleton": "bg-muted rounded-none"
-    },
-    "maia": {
-      "cn-skeleton": "bg-muted rounded-xl"
-    },
-    "mira": {
-      "cn-skeleton": "bg-muted rounded-md"
-    },
-    "nova": {
-      "cn-skeleton": "bg-muted rounded-md"
-    },
-    "rhea": {
-      "cn-skeleton": "bg-muted rounded-2xl"
-    },
-    "sera": {
-      "cn-skeleton": "bg-muted"
-    },
-    "vega": {
-      "cn-skeleton": "bg-muted rounded-md"
-    }
+    "luma": "216633ebbc1098aff1212c331def1b6be375debec801f95380bf3b62e9899ff2",
+    "lyra": "1b4a0d82106aa3391a0b0d191ae0d286b119e3798e942002b4a31ac5712273b4",
+    "maia": "6abed98650a34306c39f772f18b1542476e7260f56a905854fc9cffbd3c31395",
+    "mira": "235b435a3a1733890b7cc4460cde31d542083ce4d22eeda914c0a853f4b570e8",
+    "nova": "235b435a3a1733890b7cc4460cde31d542083ce4d22eeda914c0a853f4b570e8",
+    "rhea": "216633ebbc1098aff1212c331def1b6be375debec801f95380bf3b62e9899ff2",
+    "sera": "630192d8dd5acf13dd6252e57395da315ed121a089166e6e1867c2601bca2bd4",
+    "vega": "235b435a3a1733890b7cc4460cde31d542083ce4d22eeda914c0a853f4b570e8"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/skeleton.tsx",
-      "sha256": "f813fbd2ec0eab4eee518fff9847943929ab3ef2de0aa1330913647311bfb095"
-    }
+    "shadcn/ui/skeleton.tsx": "f813fbd2ec0eab4eee518fff9847943929ab3ef2de0aa1330913647311bfb095"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Skeleton/class/0"
+  ]
 }

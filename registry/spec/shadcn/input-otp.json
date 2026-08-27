@@ -1,346 +1,78 @@
 {
-  "anatomy": [],
-  "classes": {
-    "container": "cn-input-otp flex items-center has-disabled:opacity-50"
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/InputOTP/class/0",
+      "jsx/InputOTP/class/1",
+      "jsx/InputOTPGroup/class/0",
+      "jsx/InputOTPSeparator/class/0",
+      "jsx/InputOTPSlot/class/0",
+      "jsx/InputOTPSlot/class/1",
+      "jsx/InputOTPSlot/class/2"
+    ],
+    "derived": {}
   },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/InputOTP/class/0": "cn-input-otp flex items-center has-disabled:opacity-50",
+    "jsx/InputOTP/class/1": "cn-input-otp-input disabled:cursor-not-allowed",
+    "jsx/InputOTPGroup/class/0": "cn-input-otp-group flex items-center",
+    "jsx/InputOTPSeparator/class/0": "cn-input-otp-separator flex items-center",
+    "jsx/InputOTPSlot/class/0": "cn-input-otp-slot relative flex items-center justify-center data-[active=true]:z-10",
+    "jsx/InputOTPSlot/class/1": "cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center",
+    "jsx/InputOTPSlot/class/2": "cn-input-otp-caret-line"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/input-otp.tsx": "92fddb7cb54819bf8cd209e04de8f0486c7eef7a542f0d5303107c9e137c6152"
+  },
+  "fingerprint": "92c809701f34d6904a19c3470e2fd1ded4a5cec0d179a337531cd666b28639f2",
+  "ignored": {},
   "name": "input-otp",
-  "parts": [
+  "port_body": "437aa77484080ece90d559652ce703c059c417f096edda9cc2978230f00823a4",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/InputOTP/class/0": "cn-input-otp flex items-center has-disabled:opacity-50",
+    "jsx/InputOTP/class/1": "cn-input-otp-input disabled:cursor-not-allowed",
+    "jsx/InputOTPGroup/class/0": "cn-input-otp-group flex items-center",
+    "jsx/InputOTPSeparator/class/0": "cn-input-otp-separator flex items-center",
+    "jsx/InputOTPSlot/class/0": "cn-input-otp-slot relative flex items-center justify-center data-[active=true]:z-10",
+    "jsx/InputOTPSlot/class/1": "cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center",
+    "jsx/InputOTPSlot/class/2": "cn-input-otp-caret-line"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "InputOTP",
-      "name": "input_otp",
-      "params": {
-        "className": null,
-        "containerClassName": null
-      },
-      "primitive": null,
-      "refs": [
-        "containerClassName",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "code",
-            "name": "spellcheck",
-            "value": "false"
-          }
-        ],
-        "children": [],
-        "class": "cn-input-otp-input disabled:cursor-not-allowed",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/input-otp",
-        "part": "Input",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "input-otp",
-        "tag": "input",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-invalid",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "InputOTPGroup",
-      "name": "input_otp_group",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-input-otp-group flex items-center",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "input-otp-group",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "InputOTPSlot",
-      "name": "input_otp_slot",
-      "params": {
-        "char": null,
-        "className": null,
-        "hasFakeCaret": null,
-        "index": null,
-        "isActive": null
-      },
-      "primitive": null,
-      "refs": [
-        "index",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "isActive"
-            ],
-            "kind": "code",
-            "name": "data-active",
-            "value": "isActive"
-          }
-        ],
-        "children": [
-          {
-            "code": "char",
-            "identifiers": [
-              "char"
-            ],
-            "type": "value"
-          },
-          {
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "attrs": [],
-                    "children": [],
-                    "class": "cn-input-otp-caret-line",
-                    "class_when": [],
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "tag": "div",
-                    "type": "element",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "class": "cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "div",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "hasFakeCaret"
-            ],
-            "type": "optional",
-            "when": "hasFakeCaret"
-          }
-        ],
-        "class": "cn-input-otp-slot relative flex items-center justify-center data-[active=true]:z-10",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-active",
-              "value": "true"
-            },
-            {
-              "name": "aria-invalid",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "input-otp-slot",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "index": {
-          "optional": false,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "InputOTPSeparator",
-      "name": "input_otp_separator",
-      "params": {},
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "role",
-            "value": "separator"
-          }
-        ],
-        "children": [
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "lucide",
-                "value": "MinusIcon"
-              },
-              {
-                "kind": "text",
-                "name": "tabler",
-                "value": "IconMinus"
-              },
-              {
-                "kind": "text",
-                "name": "hugeicons",
-                "value": "MinusSignIcon"
-              },
-              {
-                "kind": "text",
-                "name": "phosphor",
-                "value": "MinusIcon"
-              },
-              {
-                "kind": "text",
-                "name": "remixicon",
-                "value": "RiSubtractLine"
-              }
-            ],
-            "children": [],
-            "class": "",
-            "class_when": [],
-            "icons": {
-              "hugeicons": "MinusSignIcon",
-              "lucide": "Minus",
-              "phosphor": "MinusIcon",
-              "remixicon": "RiSubtractLine",
-              "tabler": "IconMinus"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-input-otp-separator flex items-center",
-        "class_when": [],
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "input-otp-separator",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-active",
+      "value": "true"
     }
   ],
-  "primitives": {},
-  "recipe": "form-control",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-input-otp-caret-line": "animate-caret-blink bg-foreground h-4 w-px duration-1000",
-      "cn-input-otp-group": "has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive rounded-3xl has-aria-invalid:ring-3",
-      "cn-input-otp-separator": "[&_svg:not([class*='size-'])]:size-4",
-      "cn-input-otp-slot": "bg-input/50 border-input data-[active=true]:border-ring data-[active=true]:ring-ring/30 data-[active=true]:aria-invalid:ring-destructive/20 dark:data-[active=true]:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-9 border-y border-r text-sm transition-all outline-none first:rounded-l-3xl first:border-l last:rounded-r-3xl data-[active=true]:ring-3"
-    },
-    "lyra": {
-      "cn-input-otp-caret-line": "animate-caret-blink bg-foreground h-4 w-px duration-1000",
-      "cn-input-otp-group": "has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive rounded-none has-aria-invalid:ring-1",
-      "cn-input-otp-separator": "[&_svg:not([class*='size-'])]:size-4",
-      "cn-input-otp-slot": "dark:bg-input/30 border-input data-[active=true]:border-ring data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:ring-destructive/20 dark:data-[active=true]:aria-invalid:ring-destructive/40 aria-invalid:border-destructive data-[active=true]:aria-invalid:border-destructive size-8 border-y border-r text-xs transition-all outline-none first:rounded-none first:border-l last:rounded-none data-[active=true]:ring-1"
-    },
-    "maia": {
-      "cn-input-otp-caret-line": "animate-caret-blink bg-foreground h-4 w-px duration-1000",
-      "cn-input-otp-group": "has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive rounded-4xl has-aria-invalid:ring-[3px]",
-      "cn-input-otp-separator": "[&_svg:not([class*='size-'])]:size-4",
-      "cn-input-otp-slot": "bg-input/30 border-input data-[active=true]:border-ring data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:ring-destructive/20 dark:data-[active=true]:aria-invalid:ring-destructive/40 aria-invalid:border-destructive data-[active=true]:aria-invalid:border-destructive size-9 border-y border-r text-sm transition-all outline-none first:rounded-l-4xl first:border-l last:rounded-r-4xl data-[active=true]:ring-[3px]"
-    },
-    "mira": {
-      "cn-input-otp-caret-line": "animate-caret-blink bg-foreground h-4 w-px duration-1000",
-      "cn-input-otp-group": "has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive rounded-md has-aria-invalid:ring-2",
-      "cn-input-otp-separator": "[&_svg:not([class*='size-'])]:size-4",
-      "cn-input-otp-slot": "bg-input/20 dark:bg-input/30 border-input data-[active=true]:border-ring data-[active=true]:ring-ring/30 data-[active=true]:aria-invalid:ring-destructive/20 dark:data-[active=true]:aria-invalid:ring-destructive/40 aria-invalid:border-destructive data-[active=true]:aria-invalid:border-destructive size-7 border-y border-r text-xs/relaxed transition-all outline-none first:rounded-l-md first:border-l last:rounded-r-md data-[active=true]:ring-2"
-    },
-    "nova": {
-      "cn-input-otp-caret-line": "animate-caret-blink bg-foreground h-4 w-px duration-1000",
-      "cn-input-otp-group": "has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive rounded-lg has-aria-invalid:ring-3",
-      "cn-input-otp-separator": "[&_svg:not([class*='size-'])]:size-4",
-      "cn-input-otp-slot": "dark:bg-input/30 border-input data-[active=true]:border-ring data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:ring-destructive/20 dark:data-[active=true]:aria-invalid:ring-destructive/40 aria-invalid:border-destructive data-[active=true]:aria-invalid:border-destructive size-8 border-y border-r text-sm transition-all outline-none first:rounded-l-lg first:border-l last:rounded-r-lg data-[active=true]:ring-3"
-    },
-    "rhea": {
-      "cn-input-otp-caret-line": "animate-caret-blink bg-foreground h-4 w-px duration-1000",
-      "cn-input-otp-group": "has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive rounded-2xl has-aria-invalid:ring-3",
-      "cn-input-otp-separator": "[&_svg:not([class*='size-'])]:size-4",
-      "cn-input-otp-slot": "bg-input/50 border-input data-[active=true]:border-ring data-[active=true]:ring-ring/30 data-[active=true]:aria-invalid:ring-destructive/20 dark:data-[active=true]:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-8 border-y border-r text-sm transition-[color,box-shadow] duration-200 outline-none first:rounded-l-2xl first:border-l last:rounded-r-2xl data-[active=true]:ring-3"
-    },
-    "sera": {
-      "cn-input-otp-caret-line": "animate-caret-blink bg-foreground h-4 w-px duration-1000",
-      "cn-input-otp-group": "has-aria-invalid:border-b-destructive dark:has-aria-invalid:border-b-destructive/50 rounded-none gap-1",
-      "cn-input-otp-separator": "[&_svg:not([class*='size-'])]:size-3.5",
-      "cn-input-otp-slot": "border-transparent border-b-input bg-transparent data-[active=true]:border-b-ring aria-invalid:border-b-destructive dark:aria-invalid:border-b-destructive/50 size-10 border text-sm transition-[color,border-color] outline-none first:rounded-none last:rounded-none"
-    },
-    "vega": {
-      "cn-input-otp-caret-line": "animate-caret-blink bg-foreground h-4 w-px duration-1000",
-      "cn-input-otp-group": "has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive rounded-md has-aria-invalid:ring-3",
-      "cn-input-otp-separator": "[&_svg:not([class*='size-'])]:size-4",
-      "cn-input-otp-slot": "dark:bg-input/30 border-input data-[active=true]:border-ring data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:ring-destructive/20 dark:data-[active=true]:aria-invalid:ring-destructive/40 aria-invalid:border-destructive data-[active=true]:aria-invalid:border-destructive size-9 border-y border-r text-sm shadow-xs transition-all outline-none first:rounded-l-md first:border-l last:rounded-r-md data-[active=true]:ring-3"
-    }
+    "luma": "2cab190e501be39f5ead225d6d4750bd67753abc746de8f9f21ab02f072a513b",
+    "lyra": "58e86ac68cb95b15c3ccf3a707304925569985ceb8a54f71c2a6292d17c80d04",
+    "maia": "64f0654cd22b14eadb6d124d74165bd7eaac455e6adad2f8b894663e83df7caf",
+    "mira": "e5ee8b19ff2f63ddb55b77bae0b4bb1a195462724e18c2b8c746af165a58c7e2",
+    "nova": "771d17ed1e7693e466d032926ca6bafc57e69dfd77ad66a32fb889fa1762ce5d",
+    "rhea": "8132460a4e029919c49ca8c0b390a59546d5e3d9e76b0a8bc4f847d04e37cecd",
+    "sera": "167bf1411d547d0b67b90bd6b0ab0d5c04440b45d4b982cf1802381c4ebf538a",
+    "vega": "06caa11f032efdae54e35b122b2590b8d6df52f23a9be1ff8b9123697f41cfda"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/input-otp.tsx",
-      "sha256": "65e000e7b46d4b5a5c27f28d2468b763482dc8d1a1ae2ce5566ca5e82c65c8f6"
-    }
+    "shadcn/ui/input-otp.tsx": "65e000e7b46d4b5a5c27f28d2468b763482dc8d1a1ae2ce5566ca5e82c65c8f6"
   },
-  "variants": {}
+  "uses": [
+    "jsx/InputOTP/class/0",
+    "jsx/InputOTP/class/1",
+    "jsx/InputOTPGroup/class/0",
+    "jsx/InputOTPSeparator/class/0",
+    "jsx/InputOTPSlot/class/0",
+    "jsx/InputOTPSlot/class/1",
+    "jsx/InputOTPSlot/class/2"
+  ]
 }

@@ -262,13 +262,17 @@ defmodule LiveShadcnTools.Converter do
   end
 
   defp combine(%{"files" => files}) do
+    entries =
+      for {path, result} <- Enum.sort(files),
+          {key, value} <- Enum.sort(result["facts"]),
+          do: {path, key, value}
+
+    counts = Enum.frequencies_by(entries, fn {_path, key, _value} -> key end)
+
     facts =
-      files
-      |> Enum.sort()
-      |> Enum.reduce(%{}, fn {_path, result}, all ->
-        Map.merge(all, result["facts"], fn key, _left, _right ->
-          raise "duplicate upstream fact key: #{key}"
-        end)
+      Map.new(entries, fn {path, key, value} ->
+        stable_key = if counts[key] == 1, do: key, else: "file/#{path}/#{key}"
+        {stable_key, value}
       end)
 
     fingerprints =

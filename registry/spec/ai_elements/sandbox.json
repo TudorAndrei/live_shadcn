@@ -1,683 +1,153 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "sandbox",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Sandbox",
-      "name": "sandbox",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "flag",
-            "name": "defaultOpen",
-            "value": null
-          }
-        ],
-        "children": [],
-        "class": "not-prose group mb-4 w-full overflow-hidden rounded-md border",
-        "class_when": [],
-        "component": "collapsible",
-        "function": "collapsible",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "disclosure",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SandboxHeader",
-      "name": "sandbox_header",
-      "params": {
-        "className": null,
-        "state": null,
-        "title": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "title",
-        "state"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "size-4 text-muted-foreground",
-                "class_when": [],
-                "icons": {
-                  "lucide": "Code"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "code": "title",
-                    "identifiers": [
-                      "title"
-                    ],
-                    "type": "value"
-                  }
-                ],
-                "class": "font-medium text-sm",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "span",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "attrs": [
-                  {
-                    "kind": "text",
-                    "name": "variant",
-                    "value": "secondary"
-                  }
-                ],
-                "children": [
-                  {
-                    "entries": [
-                      {
-                        "node": {
-                          "attrs": [],
-                          "children": [],
-                          "class": "size-4 text-yellow-600",
-                          "class_when": [],
-                          "icons": {
-                            "lucide": "Clock"
-                          },
-                          "merges_class": false,
-                          "props": false,
-                          "reads": {
-                            "group": [],
-                            "self": []
-                          },
-                          "render_as": null,
-                          "slot": null,
-                          "type": "icon",
-                          "variant_calls": [],
-                          "vars": []
-                        },
-                        "value": "approval-requested"
-                      },
-                      {
-                        "node": {
-                          "attrs": [],
-                          "children": [],
-                          "class": "size-4 text-blue-600",
-                          "class_when": [],
-                          "icons": {
-                            "lucide": "CircleCheckBig"
-                          },
-                          "merges_class": false,
-                          "props": false,
-                          "reads": {
-                            "group": [],
-                            "self": []
-                          },
-                          "render_as": null,
-                          "slot": null,
-                          "type": "icon",
-                          "variant_calls": [],
-                          "vars": []
-                        },
-                        "value": "approval-responded"
-                      },
-                      {
-                        "node": {
-                          "attrs": [],
-                          "children": [],
-                          "class": "size-4 animate-pulse",
-                          "class_when": [],
-                          "icons": {
-                            "lucide": "Clock"
-                          },
-                          "merges_class": false,
-                          "props": false,
-                          "reads": {
-                            "group": [],
-                            "self": []
-                          },
-                          "render_as": null,
-                          "slot": null,
-                          "type": "icon",
-                          "variant_calls": [],
-                          "vars": []
-                        },
-                        "value": "input-available"
-                      },
-                      {
-                        "node": {
-                          "attrs": [],
-                          "children": [],
-                          "class": "size-4",
-                          "class_when": [],
-                          "icons": {
-                            "lucide": "Circle"
-                          },
-                          "merges_class": false,
-                          "props": false,
-                          "reads": {
-                            "group": [],
-                            "self": []
-                          },
-                          "render_as": null,
-                          "slot": null,
-                          "type": "icon",
-                          "variant_calls": [],
-                          "vars": []
-                        },
-                        "value": "input-streaming"
-                      },
-                      {
-                        "node": {
-                          "attrs": [],
-                          "children": [],
-                          "class": "size-4 text-green-600",
-                          "class_when": [],
-                          "icons": {
-                            "lucide": "CircleCheckBig"
-                          },
-                          "merges_class": false,
-                          "props": false,
-                          "reads": {
-                            "group": [],
-                            "self": []
-                          },
-                          "render_as": null,
-                          "slot": null,
-                          "type": "icon",
-                          "variant_calls": [],
-                          "vars": []
-                        },
-                        "value": "output-available"
-                      },
-                      {
-                        "node": {
-                          "attrs": [],
-                          "children": [],
-                          "class": "size-4 text-orange-600",
-                          "class_when": [],
-                          "icons": {
-                            "lucide": "CircleX"
-                          },
-                          "merges_class": false,
-                          "props": false,
-                          "reads": {
-                            "group": [],
-                            "self": []
-                          },
-                          "render_as": null,
-                          "slot": null,
-                          "type": "icon",
-                          "variant_calls": [],
-                          "vars": []
-                        },
-                        "value": "output-denied"
-                      },
-                      {
-                        "node": {
-                          "attrs": [],
-                          "children": [],
-                          "class": "size-4 text-red-600",
-                          "class_when": [],
-                          "icons": {
-                            "lucide": "CircleX"
-                          },
-                          "merges_class": false,
-                          "props": false,
-                          "reads": {
-                            "group": [],
-                            "self": []
-                          },
-                          "render_as": null,
-                          "slot": null,
-                          "type": "icon",
-                          "variant_calls": [],
-                          "vars": []
-                        },
-                        "value": "output-error"
-                      }
-                    ],
-                    "identifiers": [
-                      "status",
-                      "statusIcons"
-                    ],
-                    "key": "state",
-                    "member_roots": [
-                      "statusIcons"
-                    ],
-                    "type": "lookup"
-                  },
-                  {
-                    "entries": [
-                      {
-                        "node": {
-                          "type": "text",
-                          "value": "Awaiting Approval"
-                        },
-                        "value": "approval-requested"
-                      },
-                      {
-                        "node": {
-                          "type": "text",
-                          "value": "Responded"
-                        },
-                        "value": "approval-responded"
-                      },
-                      {
-                        "node": {
-                          "type": "text",
-                          "value": "Running"
-                        },
-                        "value": "input-available"
-                      },
-                      {
-                        "node": {
-                          "type": "text",
-                          "value": "Pending"
-                        },
-                        "value": "input-streaming"
-                      },
-                      {
-                        "node": {
-                          "type": "text",
-                          "value": "Completed"
-                        },
-                        "value": "output-available"
-                      },
-                      {
-                        "node": {
-                          "type": "text",
-                          "value": "Denied"
-                        },
-                        "value": "output-denied"
-                      },
-                      {
-                        "node": {
-                          "type": "text",
-                          "value": "Error"
-                        },
-                        "value": "output-error"
-                      }
-                    ],
-                    "identifiers": [
-                      "status",
-                      "statusLabels"
-                    ],
-                    "key": "state",
-                    "member_roots": [
-                      "statusLabels"
-                    ],
-                    "type": "lookup"
-                  }
-                ],
-                "class": "gap-1.5 rounded-full text-xs",
-                "class_when": [],
-                "component": "badge",
-                "function": "badge",
-                "identifiers": [
-                  "getStatusBadge",
-                  "state"
-                ],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "recipe": "presentational",
-                "render_as": null,
-                "slot": null,
-                "source": "shadcn",
-                "tag": "span",
-                "type": "component_ref",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "flex items-center gap-2",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [],
-            "class": "size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180",
-            "class_when": [],
-            "icons": {
-              "lucide": "ChevronDown"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "flex w-full items-center justify-between gap-4 p-3",
-        "class_when": [],
-        "component": "collapsible",
-        "function": "collapsible_trigger",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "disclosure",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SandboxContent",
-      "name": "sandbox_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
-        "class_when": [],
-        "component": "collapsible",
-        "function": "collapsible_content",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-state",
-              "value": "closed"
-            },
-            {
-              "name": "data-state",
-              "value": "open"
-            }
-          ]
-        },
-        "recipe": "disclosure",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SandboxTabs",
-      "name": "sandbox_tabs",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "w-full gap-0",
-        "class_when": [],
-        "component": "tabs",
-        "function": "tabs",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "tabs",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SandboxTabsBar",
-      "name": "sandbox_tabs_bar",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex w-full items-center border-border border-t border-b",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SandboxTabsList",
-      "name": "sandbox_tabs_list",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "h-auto rounded-none border-0 bg-transparent p-0",
-        "class_when": [],
-        "component": "tabs",
-        "function": "tabs_list",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "tabs",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SandboxTabsTrigger",
-      "name": "sandbox_tabs_trigger",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "rounded-none border-0 border-transparent border-b-2 px-4 py-2 font-medium text-muted-foreground text-sm transition-colors data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none",
-        "class_when": [],
-        "component": "tabs",
-        "function": "tabs_trigger",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-state",
-              "value": "active"
-            }
-          ]
-        },
-        "recipe": "tabs",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SandboxTabContent",
-      "name": "sandbox_tab_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "mt-0 text-sm",
-        "class_when": [],
-        "component": "tabs",
-        "function": "tabs_content",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "tabs",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/sandbox.tsx",
-      "sha256": "0a7ceffac784fdcfcf137f6532f33723a7e8c9e3c54c1bd45c594d1322d4ac3c"
-    }
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/SandboxTabsBar/class/0"
+    ],
+    "derived": {}
   },
-  "variants": {}
+  "css_vars": [],
+  "facts": {
+    "jsx/SandboxTabsBar/class/0": "flex w-full items-center border-border border-t border-b"
+  },
+  "file_fingerprints": {
+    "ai_elements/code-block.tsx": "0c49280b41a638076163ba961b7bc1f1e1fabae82ea776c55e4f4e182e6cda60",
+    "ai_elements/sandbox.tsx": "0f86a601e943728b878355dd6cb9b167e60fc41c24e4065e28ffbe8318c8fb8c",
+    "ai_elements/tool.tsx": "0ea1d9e39bcbb6976d86768edf2b78a727cbdbb251cdd5f754a7064d4709de7a"
+  },
+  "fingerprint": "3ab940f479a5544e149e9e66c8431c3c773b79d9fe10815e839494b842bd35f2",
+  "ignored": {
+    "jsx/ToolInput/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/4": "the generated port does not contain this source literal",
+    "jsx/ToolHeader/class/3": "the generated port does not contain this source literal",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/0": "the generated port does not contain this source literal",
+    "jsx/CodeBlockHeader/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/4": "the generated port does not contain this source literal",
+    "jsx/ToolOutput/class/2": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/9": "the generated port does not contain this source literal",
+    "jsx/ToolHeader/class/1": "the generated port does not contain this source literal",
+    "jsx/CodeBlockTitle/class/0": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/11": "the generated port does not contain this source literal",
+    "jsx/SandboxHeader/class/0": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/10": "the generated port does not contain this source literal",
+    "jsx/SandboxTabContent/class/0": "the generated port does not contain this source literal",
+    "jsx/CodeBlockContent/class/0": "the generated port does not contain this source literal",
+    "jsx/ToolContent/class/0": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/12": "the generated port does not contain this source literal",
+    "jsx/SandboxHeader/class/2": "the generated port does not contain this source literal",
+    "jsx/CodeBlockActions/class/0": "the generated port does not contain this source literal",
+    "jsx/CodeBlockCopyButton/class/0": "the generated port does not contain this source literal",
+    "jsx/TokenSpan/class/0": "the generated port does not contain this source literal",
+    "jsx/ToolInput/class/2": "the generated port does not contain this source literal",
+    "jsx/SandboxHeader/class/4": "the generated port does not contain this source literal",
+    "jsx/ToolOutput/class/1": "the generated port does not contain this source literal",
+    "jsx/CodeBlockFilename/class/0": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/8": "the generated port does not contain this source literal",
+    "jsx/CodeBlockLanguageSelectorTrigger/class/0": "the generated port does not contain this source literal",
+    "jsx/ToolOutput/class/0": "the generated port does not contain this source literal",
+    "jsx/ToolOutput/class/4": "the generated port does not contain this source literal",
+    "jsx/CodeBlockContainer/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/3": "the generated port does not contain this source literal",
+    "jsx/ToolOutput/class/3": "the generated port does not contain this source literal",
+    "jsx/SandboxContent/class/0": "the generated port does not contain this source literal",
+    "jsx/Sandbox/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/6": "the generated port does not contain this source literal",
+    "jsx/SandboxTabsList/class/0": "the generated port does not contain this source literal",
+    "jsx/SandboxTabsTrigger/class/0": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/7": "the generated port does not contain this source literal",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/2": "the generated port does not contain this source literal",
+    "jsx/ToolHeader/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/6": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/1": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/2": "the generated port does not contain this source literal",
+    "jsx/ToolHeader/class/4": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/5": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/0": "the generated port does not contain this source literal",
+    "jsx/SandboxHeader/class/1": "the generated port does not contain this source literal",
+    "jsx/Tool/class/0": "the generated port does not contain this source literal",
+    "jsx/SandboxHeader/class/3": "the generated port does not contain this source literal",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/5": "the generated port does not contain this source literal",
+    "jsx/ToolInput/class/1": "the generated port does not contain this source literal",
+    "jsx/getStatusBadge/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/1": "the generated port does not contain this source literal",
+    "jsx/SandboxTabs/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/3": "the generated port does not contain this source literal",
+    "jsx/ToolHeader/class/2": "the generated port does not contain this source literal"
+  },
+  "name": "sandbox",
+  "port_body": "330b8ef4688d22cda1ceaf76994e7ae5ed7e6e0ddbfb77f254c164ca8e23455b",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/ToolInput/class/0": "space-y-2 overflow-hidden",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/4": "size-4 text-green-600",
+    "jsx/ToolHeader/class/3": "font-medium text-sm",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/0": "size-4 text-yellow-600",
+    "jsx/CodeBlockHeader/class/0": "flex items-center justify-between border-b bg-muted/80 px-3 py-2 text-muted-foreground text-xs",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/4": "before:w-8",
+    "jsx/ToolOutput/class/2": "overflow-x-auto rounded-md text-xs [&_table]:w-full",
+    "jsx/anonymous/class/9": "before:select-none",
+    "jsx/ToolHeader/class/1": "flex items-center gap-2",
+    "jsx/CodeBlockTitle/class/0": "flex items-center gap-2",
+    "jsx/anonymous/class/11": "font-mono text-sm",
+    "jsx/SandboxHeader/class/0": "flex w-full items-center justify-between gap-4 p-3",
+    "jsx/anonymous/class/10": "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)] m-0 p-4 text-sm",
+    "jsx/SandboxTabContent/class/0": "mt-0 text-sm",
+    "jsx/SandboxTabsBar/class/0": "flex w-full items-center border-border border-t border-b",
+    "jsx/CodeBlockContent/class/0": "relative overflow-auto",
+    "jsx/ToolContent/class/0": "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 space-y-4 p-4 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+    "jsx/anonymous/class/12": "[counter-increment:line_0] [counter-reset:line]",
+    "jsx/SandboxHeader/class/2": "size-4 text-muted-foreground",
+    "jsx/CodeBlockActions/class/0": "-my-1 -mr-1 flex items-center gap-2",
+    "jsx/CodeBlockCopyButton/class/0": "shrink-0",
+    "jsx/TokenSpan/class/0": "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)]",
+    "jsx/ToolInput/class/2": "rounded-md bg-muted/50",
+    "jsx/SandboxHeader/class/4": "size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180",
+    "jsx/ToolOutput/class/1": "font-medium text-muted-foreground text-xs uppercase tracking-wide",
+    "jsx/CodeBlockFilename/class/0": "font-mono",
+    "jsx/anonymous/class/8": "before:font-mono",
+    "jsx/CodeBlockLanguageSelectorTrigger/class/0": "h-7 border-none bg-transparent px-2 text-xs shadow-none",
+    "jsx/ToolOutput/class/0": "space-y-2",
+    "jsx/ToolOutput/class/4": "bg-muted/50 text-foreground",
+    "jsx/CodeBlockContainer/class/0": "group relative w-full overflow-hidden rounded-md border bg-background text-foreground",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/3": "size-4",
+    "jsx/ToolOutput/class/3": "bg-destructive/10 text-destructive",
+    "jsx/SandboxContent/class/0": "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+    "jsx/Sandbox/class/0": "not-prose group mb-4 w-full overflow-hidden rounded-md border",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/6": "before:text-right",
+    "jsx/SandboxTabsList/class/0": "h-auto rounded-none border-0 bg-transparent p-0",
+    "jsx/SandboxTabsTrigger/class/0": "rounded-none border-0 border-transparent border-b-2 px-4 py-2 font-medium text-muted-foreground text-sm transition-colors data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none",
+    "jsx/anonymous/class/7": "before:text-muted-foreground/50",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/2": "size-4 animate-pulse",
+    "jsx/ToolHeader/class/0": "flex w-full items-center justify-between gap-4 p-3",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/6": "size-4 text-red-600",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/1": "before:content-[counter(line)]",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/2": "before:inline-block",
+    "jsx/ToolHeader/class/4": "size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/5": "before:mr-4",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/0": "block",
+    "jsx/SandboxHeader/class/1": "flex items-center gap-2",
+    "jsx/Tool/class/0": "group not-prose mb-4 w-full rounded-md border",
+    "jsx/SandboxHeader/class/3": "font-medium text-sm",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/5": "size-4 text-orange-600",
+    "jsx/ToolInput/class/1": "font-medium text-muted-foreground text-xs uppercase tracking-wide",
+    "jsx/getStatusBadge/class/0": "gap-1.5 rounded-full text-xs",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/1": "size-4 text-blue-600",
+    "jsx/SandboxTabs/class/0": "w-full gap-0",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/3": "before:[counter-increment:line]",
+    "jsx/ToolHeader/class/2": "size-4 text-muted-foreground"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/code-block.tsx": "5c7285171c5aa741749a1642a85f492a9b5e80dc4ccb704b5c3f58c45efebd04",
+    "ai_elements/sandbox.tsx": "0a7ceffac784fdcfcf137f6532f33723a7e8c9e3c54c1bd45c594d1322d4ac3c",
+    "ai_elements/tool.tsx": "5b520e0c33792cba0ceb04e1cb18c69b212cffacdb52d7297e292c7af568dda4"
+  },
+  "uses": [
+    "jsx/SandboxTabsBar/class/0"
+  ]
 }

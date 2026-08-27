@@ -1,189 +1,57 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/ResizableHandle/class/0",
+      "jsx/ResizableHandle/class/1"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/ResizableHandle/class/0": "cn-resizable-handle relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90",
+    "jsx/ResizableHandle/class/1": "cn-resizable-handle-icon z-10 flex shrink-0"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/resizable.tsx": "b75cd1201723c1ea9423fec1193088160c681d69065791dc4d8cf2e9b8663495"
+  },
+  "fingerprint": "3fe4da093fe3b204f5d3e33dd37219f51caa25eaf2c6ad859d8778e343a6e789",
+  "ignored": {
+    "jsx/ResizablePanelGroup/class/0": "the generated port does not contain this source literal"
+  },
   "name": "resizable",
-  "parts": [
+  "port_body": "2bdc00d94fa482c66db4fe506a8725bd582459b56cf79f24f62096088ba06cea",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/ResizableHandle/class/0": "cn-resizable-handle relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90",
+    "jsx/ResizableHandle/class/1": "cn-resizable-handle-icon z-10 flex shrink-0",
+    "jsx/ResizablePanelGroup/class/0": "cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "ResizableHandle",
-      "name": "resizable_handle",
-      "params": {
-        "className": null,
-        "withHandle": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "withHandle"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "cn-resizable-handle-icon z-10 flex shrink-0",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "div",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "withHandle"
-            ],
-            "type": "optional",
-            "when": "withHandle"
-          }
-        ],
-        "class": "cn-resizable-handle relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/react-resizable-panels",
-        "part": "Separator",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-orientation",
-              "value": "horizontal"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "resizable-handle",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "withHandle": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "ResizablePanel",
-      "name": "resizable_panel",
-      "params": {},
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "module": "external/react-resizable-panels",
-        "part": "Panel",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "resizable-panel",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ResizablePanelGroup",
-      "name": "resizable_panel_group",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/react-resizable-panels",
-        "part": "Group",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-orientation",
-              "value": "vertical"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "resizable-panel-group",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-orientation",
+      "value": "horizontal"
     }
   ],
-  "primitives": {},
-  "recipe": "resizable",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
-    },
-    "lyra": {
-      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-none"
-    },
-    "maia": {
-      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
-    },
-    "mira": {
-      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
-    },
-    "nova": {
-      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
-    },
-    "rhea": {
-      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
-    },
-    "sera": {
-      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-none"
-    },
-    "vega": {
-      "cn-resizable-handle-icon": "bg-border h-6 w-1 rounded-lg"
-    }
+    "luma": "9bf689b46eecd632d120f2c5df644695622d6d8a86cdf933bef7a6af41139a57",
+    "lyra": "44bcaabc633f3cf05b56d3d68a2f461cae910e9d2fc727a027a52d024e14b233",
+    "maia": "9bf689b46eecd632d120f2c5df644695622d6d8a86cdf933bef7a6af41139a57",
+    "mira": "9bf689b46eecd632d120f2c5df644695622d6d8a86cdf933bef7a6af41139a57",
+    "nova": "9bf689b46eecd632d120f2c5df644695622d6d8a86cdf933bef7a6af41139a57",
+    "rhea": "9bf689b46eecd632d120f2c5df644695622d6d8a86cdf933bef7a6af41139a57",
+    "sera": "44bcaabc633f3cf05b56d3d68a2f461cae910e9d2fc727a027a52d024e14b233",
+    "vega": "9bf689b46eecd632d120f2c5df644695622d6d8a86cdf933bef7a6af41139a57"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/resizable.tsx",
-      "sha256": "ce02b1176c769c44b21e267492fae1cba081a7917ee9f9d5b6c1749a90e4be0d"
-    }
+    "shadcn/ui/resizable.tsx": "ce02b1176c769c44b21e267492fae1cba081a7917ee9f9d5b6c1749a90e4be0d"
   },
-  "variants": {}
+  "uses": [
+    "jsx/ResizableHandle/class/0",
+    "jsx/ResizableHandle/class/1"
+  ]
 }

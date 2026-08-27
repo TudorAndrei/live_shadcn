@@ -1,1307 +1,195 @@
 {
-  "anatomy": [
-    {
-      "children": [
-        {
-          "children": [
-            {
-              "children": [
-                {
-                  "children": [
-                    {
-                      "children": [
-                        {
-                          "children": [],
-                          "part": "Title"
-                        },
-                        {
-                          "children": [],
-                          "part": "Description"
-                        },
-                        {
-                          "children": [],
-                          "part": "Action"
-                        },
-                        {
-                          "children": [],
-                          "part": "Close"
-                        }
-                      ],
-                      "part": "Content"
-                    }
-                  ],
-                  "part": "Root"
-                },
-                {
-                  "children": [
-                    {
-                      "children": [
-                        {
-                          "children": [],
-                          "part": "Arrow"
-                        },
-                        {
-                          "children": [
-                            {
-                              "children": [],
-                              "part": "Title"
-                            },
-                            {
-                              "children": [],
-                              "part": "Description"
-                            },
-                            {
-                              "children": [],
-                              "part": "Action"
-                            },
-                            {
-                              "children": [],
-                              "part": "Close"
-                            }
-                          ],
-                          "part": "Content"
-                        }
-                      ],
-                      "part": "Root"
-                    }
-                  ],
-                  "part": "Positioner"
-                }
-              ],
-              "part": "Viewport"
-            }
-          ],
-          "part": "Portal"
-        }
-      ],
-      "part": "Provider"
+  "base_ui": {
+    "toast": "bebaa7057085368d316b445176c31a4d4b2d5c22c8a438bea18828cd6dade136"
+  },
+  "bindings": {
+    "copy": [
+      "jsx/ToastClose/class/0",
+      "jsx/ToastContent/class/0",
+      "jsx/ToastDescription/class/0",
+      "jsx/ToastIcon/class/2",
+      "jsx/ToastList/class/0",
+      "jsx/ToastTitle/class/0",
+      "jsx/ToastViewport/class/0"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
+          {
+            "fact": "jsx/Toast/class/0"
+          },
+          {
+            "fact": "jsx/Toast/class/1"
+          },
+          {
+            "fact": "jsx/Toast/class/2"
+          },
+          {
+            "fact": "jsx/Toast/class/3"
+          },
+          {
+            "fact": "jsx/Toast/class/4"
+          },
+          {
+            "fact": "jsx/Toast/class/5"
+          },
+          {
+            "fact": "jsx/Toast/class/6"
+          },
+          {
+            "fact": "jsx/Toast/class/7"
+          },
+          {
+            "fact": "jsx/Toast/class/8"
+          },
+          {
+            "fact": "jsx/Toast/class/9"
+          },
+          {
+            "fact": "jsx/Toast/class/10"
+          },
+          {
+            "fact": "jsx/Toast/class/11"
+          },
+          {
+            "fact": "jsx/Toast/class/12"
+          },
+          {
+            "fact": "jsx/Toast/class/13"
+          },
+          {
+            "fact": "jsx/Toast/class/14"
+          }
+        ],
+        "op": "join"
+      }
     }
-  ],
+  },
   "css_vars": [
-    "--anchor-height",
-    "--anchor-width",
-    "--available-height",
-    "--available-width",
-    "--toast-frontmost-height",
+    "--gap",
+    "--height",
+    "--offset-y",
+    "--peek",
+    "--scale",
+    "--shrink",
     "--toast-height",
     "--toast-index",
     "--toast-offset-y",
     "--toast-swipe-movement-x",
-    "--toast-swipe-movement-y",
-    "--transform-origin"
+    "--toast-swipe-movement-y"
   ],
-  "generated_by": "mix ui.spec",
-  "name": "toast",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Toaster",
-      "name": "toaster",
-      "params": {
-        "children": null,
-        "icon": null,
-        "toastManager": "toast",
-        "toasts": null
-      },
-      "primitive": "Provider",
-      "refs": [
-        "toastManager",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "toastManager"
-            ],
-            "kind": "code",
-            "name": "toastManager",
-            "value": "toastManager"
-          }
-        ],
-        "children": [
-          {
-            "type": "children"
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "attrs": [],
-                    "binding": "toastItem",
-                    "children": [
-                      {
-                        "attrs": [
-                          {
-                            "identifiers": [
-                              "toastItem"
-                            ],
-                            "kind": "code",
-                            "name": "toast",
-                            "value": "toastItem"
-                          }
-                        ],
-                        "children": [
-                          {
-                            "attrs": [],
-                            "children": [
-                              {
-                                "attrs": [],
-                                "children": [
-                                  {
-                                    "children": [],
-                                    "code": "icon",
-                                    "identifiers": [
-                                      "icon"
-                                    ],
-                                    "type": "value"
-                                  }
-                                ],
-                                "class": "shrink-0 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
-                                "class_when": [],
-                                "merges_class": false,
-                                "props": false,
-                                "reads": {
-                                  "group": [],
-                                  "self": []
-                                },
-                                "render_as": null,
-                                "slot": "toast-icon",
-                                "tag": "span",
-                                "type": "element",
-                                "variant_calls": [],
-                                "vars": []
-                              },
-                              {
-                                "attrs": [],
-                                "children": [
-                                  {
-                                    "attrs": [],
-                                    "children": [],
-                                    "class": "",
-                                    "class_when": [],
-                                    "merges_class": false,
-                                    "part": "toast_title",
-                                    "props": false,
-                                    "reads": {
-                                      "group": [],
-                                      "self": []
-                                    },
-                                    "render_as": null,
-                                    "slot": null,
-                                    "type": "part_ref",
-                                    "variant_calls": [],
-                                    "vars": []
-                                  },
-                                  {
-                                    "attrs": [],
-                                    "children": [],
-                                    "class": "",
-                                    "class_when": [],
-                                    "merges_class": false,
-                                    "part": "toast_description",
-                                    "props": false,
-                                    "reads": {
-                                      "group": [],
-                                      "self": []
-                                    },
-                                    "render_as": null,
-                                    "slot": null,
-                                    "type": "part_ref",
-                                    "variant_calls": [],
-                                    "vars": []
-                                  }
-                                ],
-                                "class": "flex min-w-0 flex-1 flex-col gap-1",
-                                "class_when": [],
-                                "merges_class": false,
-                                "props": false,
-                                "reads": {
-                                  "group": [],
-                                  "self": []
-                                },
-                                "render_as": null,
-                                "slot": null,
-                                "tag": "div",
-                                "type": "element",
-                                "variant_calls": [],
-                                "vars": []
-                              },
-                              {
-                                "attrs": [],
-                                "children": [],
-                                "class": "",
-                                "class_when": [],
-                                "merges_class": false,
-                                "part": "toast_action",
-                                "props": false,
-                                "reads": {
-                                  "group": [],
-                                  "self": []
-                                },
-                                "render_as": null,
-                                "slot": null,
-                                "type": "part_ref",
-                                "variant_calls": [],
-                                "vars": []
-                              },
-                              {
-                                "attrs": [],
-                                "children": [],
-                                "class": "",
-                                "class_when": [],
-                                "merges_class": false,
-                                "part": "toast_close",
-                                "props": false,
-                                "reads": {
-                                  "group": [],
-                                  "self": []
-                                },
-                                "render_as": null,
-                                "slot": null,
-                                "type": "part_ref",
-                                "variant_calls": [],
-                                "vars": []
-                              }
-                            ],
-                            "class": "",
-                            "class_when": [],
-                            "merges_class": false,
-                            "part": "toast_content",
-                            "props": false,
-                            "reads": {
-                              "group": [],
-                              "self": []
-                            },
-                            "render_as": null,
-                            "slot": null,
-                            "type": "part_ref",
-                            "variant_calls": [],
-                            "vars": []
-                          }
-                        ],
-                        "class": "",
-                        "class_when": [],
-                        "merges_class": false,
-                        "part": "toast",
-                        "props": false,
-                        "reads": {
-                          "group": [],
-                          "self": []
-                        },
-                        "render_as": null,
-                        "slot": null,
-                        "type": "part_ref",
-                        "variant_calls": [],
-                        "vars": []
-                      }
-                    ],
-                    "class": "",
-                    "class_when": [],
-                    "collection": "toasts",
-                    "counter": null,
-                    "fields": [],
-                    "identifiers": [
-                      "toastItem",
-                      "toasts"
-                    ],
-                    "member_roots": [
-                      "toastItem",
-                      "toasts"
-                    ],
-                    "merges_class": null,
-                    "props": null,
-                    "slot": null,
-                    "type": "repeat_over",
-                    "variant_calls": []
-                  }
-                ],
-                "class": "",
-                "class_when": [],
-                "merges_class": false,
-                "part": "toast_viewport",
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "part_ref",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "",
-            "class_when": [],
-            "merges_class": false,
-            "part": "toast_portal",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "part_ref",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "part": "toast_provider",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "type": "part_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "Toast",
-      "name": "toast",
-      "params": {
-        "className": null
-      },
-      "primitive": "Root",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-toast group/toast pointer-events-auto absolute right-0 bottom-0 z-[calc(1000-var(--toast-index))] w-full origin-bottom border bg-popover text-popover-foreground shadow-lg will-change-transform outline-none select-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [--gap:0.75rem] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] h-(--height) [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1),opacity_500ms,height_150ms] after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-expanded:h-(--toast-height) data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(var(--offset-y))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]",
-        "class_when": [],
-        "merges_class": true,
-        "module": "toast",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-expanded",
-              "value": null
-            },
-            {
-              "name": "data-limited",
-              "value": null
-            },
-            {
-              "name": "data-starting-style",
-              "value": null
-            },
-            {
-              "name": "data-ending-style",
-              "value": null
-            },
-            {
-              "name": "data-swipe-direction",
-              "value": "down"
-            },
-            {
-              "name": "data-swipe-direction",
-              "value": "left"
-            },
-            {
-              "name": "data-swipe-direction",
-              "value": "right"
-            },
-            {
-              "name": "data-swipe-direction",
-              "value": "up"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "toast",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": [
-          "--toast-index",
-          "--toast-height",
-          "--toast-offset-y",
-          "--gap",
-          "--toast-swipe-movement-y",
-          "--scale",
-          "--height",
-          "--toast-swipe-movement-x",
-          "--peek",
-          "--shrink",
-          "--offset-y"
-        ]
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ToastAction",
-      "name": "toast_action",
-      "params": {
-        "className": null,
-        "render": "<Button variant=\"outline\" size=\"sm\" />"
-      },
-      "primitive": "Action",
-      "refs": [
-        "render",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "shrink-0",
-        "class_when": [],
-        "merges_class": true,
-        "module": "toast",
-        "part": "Action",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "toast-action",
-        "tag": "button",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ToastClose",
-      "name": "toast_close",
-      "params": {
-        "children": null,
-        "className": null,
-        "render": "<Button variant=\"ghost\" size=\"icon-sm\" />"
-      },
-      "primitive": "Close",
-      "refs": [
-        "render",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "aria-label",
-            "value": "Close toast"
-          }
-        ],
-        "children": [
-          {
-            "default": [
-              {
-                "attrs": [
-                  {
-                    "kind": "text",
-                    "name": "lucide",
-                    "value": "XIcon"
-                  },
-                  {
-                    "kind": "text",
-                    "name": "tabler",
-                    "value": "IconX"
-                  },
-                  {
-                    "kind": "text",
-                    "name": "hugeicons",
-                    "value": "Cancel01Icon"
-                  },
-                  {
-                    "kind": "text",
-                    "name": "phosphor",
-                    "value": "XIcon"
-                  },
-                  {
-                    "kind": "text",
-                    "name": "remixicon",
-                    "value": "RiCloseLine"
-                  },
-                  {
-                    "kind": "text",
-                    "name": "aria-hidden",
-                    "value": "true"
-                  }
-                ],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "icons": {
-                  "hugeicons": "Cancel01Icon",
-                  "lucide": "X",
-                  "phosphor": "XIcon",
-                  "remixicon": "RiCloseLine",
-                  "tabler": "IconX"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "relative shrink-0 text-muted-foreground after:absolute after:-inset-2 after:content-[''] hover:text-foreground",
-        "class_when": [],
-        "merges_class": true,
-        "module": "toast",
-        "part": "Close",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "toast-close",
-        "tag": "button",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ToastContent",
-      "name": "toast_content",
-      "params": {
-        "className": null
-      },
-      "primitive": "Content",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex h-full items-center gap-3 overflow-hidden p-4 transition-opacity duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100",
-        "class_when": [],
-        "merges_class": true,
-        "module": "toast",
-        "part": "Content",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-behind",
-              "value": null
-            },
-            {
-              "name": "data-expanded",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "toast-content",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ToastDescription",
-      "name": "toast_description",
-      "params": {
-        "className": null
-      },
-      "primitive": "Description",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "text-sm text-muted-foreground",
-        "class_when": [],
-        "merges_class": true,
-        "module": "toast",
-        "part": "Description",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "toast-description",
-        "tag": "p",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ToastPortal",
-      "name": "toast_portal",
-      "params": {},
-      "primitive": "Portal",
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "module": "toast",
-        "part": "Portal",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "toast-portal",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ToastProvider",
-      "name": "toast_provider",
-      "params": {},
-      "primitive": "Provider",
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "part": "Provider",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "renders no element",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ToastTitle",
-      "name": "toast_title",
-      "params": {
-        "className": null
-      },
-      "primitive": "Title",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "text-sm font-medium",
-        "class_when": [],
-        "merges_class": true,
-        "module": "toast",
-        "part": "Title",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "toast-title",
-        "tag": "h2",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ToastViewport",
-      "name": "toast_viewport",
-      "params": {
-        "className": null
-      },
-      "primitive": "Viewport",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "pointer-events-none fixed inset-x-4 bottom-4 z-50 mx-auto w-auto max-w-sm outline-none sm:right-4 sm:left-auto sm:mx-0 sm:w-full",
-        "class_when": [],
-        "merges_class": true,
-        "module": "toast",
-        "part": "Viewport",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "toast-viewport",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "toast.Action": {
-      "css_vars": [],
-      "data": [
-        "data-type"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Toast.Action.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Toast.Action.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Toast.Action.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Performs an action when clicked."
-    },
-    "toast.Arrow": {
-      "css_vars": [],
-      "data": [
-        "data-uncentered",
-        "data-align",
-        "data-side"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Toast.Arrow.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Toast.Arrow.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Toast.Arrow.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Displays an element positioned against the toast anchor."
-    },
-    "toast.Close": {
-      "css_vars": [],
-      "data": [
-        "data-type"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Toast.Close.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Toast.Close.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Toast.Close.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Closes the toast when clicked."
-    },
-    "toast.Content": {
-      "css_vars": [],
-      "data": [
-        "data-behind",
-        "data-expanded"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Toast.Content.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Toast.Content.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Toast.Content.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A container for the contents of a toast."
-    },
-    "toast.Description": {
-      "css_vars": [],
-      "data": [
-        "data-type"
-      ],
-      "element": "p",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Toast.Description.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Toast.Description.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Toast.Description.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A description that describes the toast."
-    },
-    "toast.Portal": {
-      "css_vars": [],
-      "data": [],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "ShadowRoot \\",
-          "doc": "React.RefObject<HTMLElement \\",
-          "name": "container",
-          "type": "HTMLElement \\"
-        },
-        {
-          "default": "((state: Toast.Portal.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Toast.Portal.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Toast.Portal.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A portal element that moves the viewport to a different part of the DOM."
-    },
-    "toast.Positioner": {
-      "css_vars": [
-        "--anchor-height",
-        "--anchor-width",
-        "--available-height",
-        "--available-width",
-        "--transform-origin"
-      ],
-      "data": [
-        "data-anchor-hidden",
-        "data-align",
-        "data-side"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether to disable the popup from tracking any layout shift of its positioning anchor.",
-          "name": "disableAnchorTracking",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "The toast object associated with the positioner.",
-          "name": "toast\\*",
-          "type": "ToastObject<any>"
-        },
-        {
-          "default": "'center'",
-          "doc": "How to align the popup relative to the specified side.",
-          "name": "align",
-          "type": "Align"
-        },
-        {
-          "default": "OffsetFunction",
-          "doc": "0",
-          "name": "alignOffset",
-          "type": "number \\"
-        },
-        {
-          "default": "'top'",
-          "doc": "Which side of the anchor element to align the toast against. May automatically change to avoid collisions.",
-          "name": "side",
-          "type": "Side"
-        },
-        {
-          "default": "OffsetFunction",
-          "doc": "0",
-          "name": "sideOffset",
-          "type": "number \\"
-        },
-        {
-          "default": "5",
-          "doc": "Minimum distance to maintain between the arrow and the edges of the popup. Use it to prevent the arrow element from hanging out of the rounded corners of a popup.",
-          "name": "arrowPadding",
-          "type": "number"
-        },
-        {
-          "default": "null",
-          "doc": "-",
-          "name": "anchor",
-          "type": "Element \\"
-        },
-        {
-          "default": null,
-          "doc": "Determines how to handle collisions when positioning the popup. `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`): `'flip'`: keep the requested side when it fits; otherwise try the opposite side (`top` and `bottom`, or `left` and `right`).`'shift'`: never change side; keep the requested side and move the popup within the clipping boundary so it stays visible.`'none'`: do not correct side-axis overflow. `align` controls overflow on the alignment axis (`start`/`center`/`end`): `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.`'shift'`: keep side and requested alignment, then nudge the popup along the alignment axis to fit.`'none'`: do not correct alignment-axis overflow. `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the preferred axis cannot fit: `'start'`: allow perpendicular fallback and try the logical start side first (`top` before `bottom`, or `left` before `right` in LTR).`'end'`: allow perpendicular fallback and try the logical end side first (`bottom` before `top`, or `right` before `left` in LTR).`'none'`: do not fallback to the perpendicular axis. When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`. If `align` is omitted, it defaults to `'flip'`.",
-          "name": "collisionAvoidance",
-          "type": "CollisionAvoidance"
-        },
-        {
-          "default": "'clipping-ancestors'",
-          "doc": "An element or a rectangle that delimits the area that the popup is confined to.",
-          "name": "collisionBoundary",
-          "type": "Boundary"
-        },
-        {
-          "default": "5",
-          "doc": "Additional space to maintain from the edge of the collision boundary.",
-          "name": "collisionPadding",
-          "type": "Padding"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to maintain the popup in the viewport after the anchor element was scrolled out of view.",
-          "name": "sticky",
-          "type": "boolean"
-        },
-        {
-          "default": "'fixed'",
-          "doc": "'absolute'",
-          "name": "positionMethod",
-          "type": "'absolute' \\"
-        },
-        {
-          "default": "((state: Toast.Positioner.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Toast.Positioner.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Toast.Positioner.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Positions the toast against the anchor."
-    },
-    "toast.Provider": {
-      "css_vars": [],
-      "data": [],
-      "element": null,
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "3",
-          "doc": "The maximum number of toasts that can be displayed at once. When the limit is exceeded, the oldest toasts are marked as `limited` (via the `data-limited` attribute) rather than removed, so they can be hidden or animated out.",
-          "name": "limit",
-          "type": "number"
-        },
-        {
-          "default": null,
-          "doc": "A global manager for toasts to use outside of a React component.",
-          "name": "toastManager",
-          "type": "ToastManager"
-        },
-        {
-          "default": "5000",
-          "doc": "The default amount of time (in ms) before a toast is auto dismissed. A value of `0` will prevent the toast from being dismissed automatically.",
-          "name": "timeout",
-          "type": "number"
-        },
-        {
-          "default": null,
-          "doc": "-",
-          "name": "children",
-          "type": "React.ReactNode"
-        }
-      ],
-      "renders": false,
-      "summary": "Provides a context for creating and managing toasts."
-    },
-    "toast.Root": {
-      "css_vars": [
-        "--toast-height",
-        "--toast-index",
-        "--toast-offset-y",
-        "--toast-swipe-movement-x",
-        "--toast-swipe-movement-y"
-      ],
-      "data": [
-        "data-expanded",
-        "data-limited",
-        "data-swipe-direction",
-        "data-swiping",
-        "data-type",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "'down' \\",
-          "doc": "'left' \\",
-          "name": "swipeDirection",
-          "type": "'up' \\"
-        },
-        {
-          "default": null,
-          "doc": "The toast to render.",
-          "name": "toast\\*",
-          "type": "Toast.Root.ToastObject"
-        },
-        {
-          "default": "((state: Toast.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Toast.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Toast.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups all parts of an individual toast."
-    },
-    "toast.Title": {
-      "css_vars": [],
-      "data": [
-        "data-type"
-      ],
-      "element": "h2",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Toast.Title.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Toast.Title.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Toast.Title.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A title that labels the toast."
-    },
-    "toast.Viewport": {
-      "css_vars": [
-        "--toast-frontmost-height"
-      ],
-      "data": [
-        "data-expanded"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Toast.Viewport.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Toast.Viewport.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Toast.Viewport.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A container viewport for toasts."
-    }
+  "facts": {
+    "jsx/ToastClose/class/0": "relative shrink-0 text-muted-foreground after:absolute after:-inset-2 after:content-[''] hover:text-foreground",
+    "jsx/ToastContent/class/0": "flex h-full items-center gap-3 overflow-hidden p-4 transition-opacity duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100",
+    "jsx/ToastDescription/class/0": "text-sm text-muted-foreground",
+    "jsx/ToastIcon/class/2": "shrink-0 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
+    "jsx/ToastList/class/0": "flex min-w-0 flex-1 flex-col gap-1",
+    "jsx/ToastTitle/class/0": "text-sm font-medium",
+    "jsx/ToastViewport/class/0": "pointer-events-none fixed inset-x-4 bottom-4 z-50 mx-auto w-auto max-w-sm outline-none sm:right-4 sm:left-auto sm:mx-0 sm:w-full",
+    "port/class/0": "cn-toast group/toast pointer-events-auto absolute right-0 bottom-0 z-[calc(1000-var(--toast-index))] w-full origin-bottom border bg-popover text-popover-foreground shadow-lg will-change-transform outline-none select-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [--gap:0.75rem] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] h-(--height) [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1),opacity_500ms,height_150ms] after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-expanded:h-(--toast-height) data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(var(--offset-y))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]"
   },
-  "recipe": "toast",
+  "file_fingerprints": {
+    "shadcn/ui/toast.tsx": "358c6eb4f9d42420ffcf7d7e9145f9a5827563841a8a280c98c43df4d00b1453"
+  },
+  "fingerprint": "5f77af32753c8efa41add6a3ef8fc8be2fbf1abf34db2f840875d159909281fb",
+  "ignored": {
+    "jsx/ToastAction/class/0": "the generated port does not contain this source literal",
+    "jsx/ToastIcon/class/0": "the generated port does not contain this source literal",
+    "jsx/ToastIcon/class/1": "the generated port does not contain this source literal"
+  },
+  "name": "toast",
+  "port_body": "8e39a70592a6a131f1934334780dfc5770ab3d8e16d57ed2143dcc64938bdf3f",
+  "schema_version": 2,
   "source": "shadcn",
-  "styles": {
-    "luma": {
-      "cn-toast": "rounded-2xl"
+  "source_facts": {
+    "jsx/Toast/class/0": "cn-toast group/toast pointer-events-auto absolute right-0 bottom-0 z-[calc(1000-var(--toast-index))] w-full origin-bottom border bg-popover text-popover-foreground shadow-lg will-change-transform outline-none select-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+    "jsx/Toast/class/1": "[--gap:0.75rem] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))]",
+    "jsx/Toast/class/10": "data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]",
+    "jsx/Toast/class/11": "data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))]",
+    "jsx/Toast/class/12": "data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))]",
+    "jsx/Toast/class/13": "data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))]",
+    "jsx/Toast/class/14": "data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]",
+    "jsx/Toast/class/2": "h-(--height) [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1),opacity_500ms,height_150ms]",
+    "jsx/Toast/class/3": "after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-['']",
+    "jsx/Toast/class/4": "data-expanded:h-(--toast-height) data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(var(--offset-y))]",
+    "jsx/Toast/class/5": "data-limited:opacity-0 data-starting-style:[transform:translateY(150%)]",
+    "jsx/Toast/class/6": "[&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)]",
+    "jsx/Toast/class/7": "data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))]",
+    "jsx/Toast/class/8": "data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))]",
+    "jsx/Toast/class/9": "data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))]",
+    "jsx/ToastAction/class/0": "shrink-0",
+    "jsx/ToastClose/class/0": "relative shrink-0 text-muted-foreground after:absolute after:-inset-2 after:content-[''] hover:text-foreground",
+    "jsx/ToastContent/class/0": "flex h-full items-center gap-3 overflow-hidden p-4 transition-opacity duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100",
+    "jsx/ToastDescription/class/0": "text-sm text-muted-foreground",
+    "jsx/ToastIcon/class/0": "text-destructive",
+    "jsx/ToastIcon/class/1": "animate-spin",
+    "jsx/ToastIcon/class/2": "shrink-0 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
+    "jsx/ToastList/class/0": "flex min-w-0 flex-1 flex-col gap-1",
+    "jsx/ToastTitle/class/0": "text-sm font-medium",
+    "jsx/ToastViewport/class/0": "pointer-events-none fixed inset-x-4 bottom-4 z-50 mx-auto w-auto max-w-sm outline-none sm:right-4 sm:left-auto sm:mx-0 sm:w-full"
+  },
+  "state_reads": [
+    {
+      "name": "data-behind",
+      "value": null
     },
-    "lyra": {
-      "cn-toast": "rounded-none"
+    {
+      "name": "data-ending-style",
+      "value": null
     },
-    "maia": {
-      "cn-toast": "rounded-2xl"
+    {
+      "name": "data-expanded",
+      "value": null
     },
-    "mira": {
-      "cn-toast": "rounded-md"
+    {
+      "name": "data-limited",
+      "value": null
     },
-    "nova": {
-      "cn-toast": "rounded-2xl"
+    {
+      "name": "data-starting-style",
+      "value": null
     },
-    "rhea": {
-      "cn-toast": "rounded-2xl!"
+    {
+      "name": "data-swipe-direction",
+      "value": "down"
     },
-    "sera": {
-      "cn-toast": "rounded-none!"
+    {
+      "name": "data-swipe-direction",
+      "value": "left"
     },
-    "vega": {
-      "cn-toast": "rounded-2xl"
+    {
+      "name": "data-swipe-direction",
+      "value": "right"
+    },
+    {
+      "name": "data-swipe-direction",
+      "value": "up"
     }
+  ],
+  "styles": {
+    "luma": "7de683d94822dd4b7ebd99b90713f9bf03997dbb0a63d2a78ff5409619e36a28",
+    "lyra": "e8099e5dce3408a799b09f769dfac17ae592b937b50bf1920581b6622a47c072",
+    "maia": "7de683d94822dd4b7ebd99b90713f9bf03997dbb0a63d2a78ff5409619e36a28",
+    "mira": "9b97cded66726bb788f406ec6806fe3931bc5919446077f94cb9a57cb72d1ba8",
+    "nova": "7de683d94822dd4b7ebd99b90713f9bf03997dbb0a63d2a78ff5409619e36a28",
+    "rhea": "7b422dfcccb7e8681fa5f7599aaf1044b39ee410a02782a2b7eefd8fc7b1e404",
+    "sera": "8ad19efbfee68880c4124a1de41c3983dbf3605bd87bfc43106cb9a724f94168",
+    "vega": "7de683d94822dd4b7ebd99b90713f9bf03997dbb0a63d2a78ff5409619e36a28"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {
-      "toast": "7647aa5cbfcefe22771b4d6f2aa362029be7405396dc6c6e0bf7ee7bc95bc262"
-    },
-    "shadcn": {
-      "file": "shadcn/ui/toast.tsx",
-      "sha256": "96ed24154a44297366cbb42104c1dcb18aa2f48d49e6c3829682e23436dce0e9"
-    }
+    "shadcn/ui/toast.tsx": "96ed24154a44297366cbb42104c1dcb18aa2f48d49e6c3829682e23436dce0e9"
   },
-  "variants": {}
+  "uses": [
+    "jsx/ToastClose/class/0",
+    "jsx/ToastContent/class/0",
+    "jsx/ToastDescription/class/0",
+    "jsx/ToastIcon/class/2",
+    "jsx/ToastList/class/0",
+    "jsx/ToastTitle/class/0",
+    "jsx/ToastViewport/class/0",
+    "port/class/0"
+  ]
 }

@@ -1,228 +1,60 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "transcription",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Transcription",
-      "name": "transcription",
-      "params": {
-        "children": null,
-        "className": null,
-        "currentTime": null,
-        "segments": null
-      },
-      "primitive": null,
-      "refs": [
-        "onSeek",
-        "currentTime",
-        "segments",
-        "className",
-        "props",
-        "segment",
-        "index"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "binding": "segment",
-                "children": [
-                  {
-                    "name": "children",
-                    "type": "slot"
-                  }
-                ],
-                "collection": "segments\n          .filter((segment) => segment.text.trim())",
-                "counter": "index",
-                "fields": [],
-                "identifiers": [
-                  "children",
-                  "index",
-                  "segment",
-                  "segments"
-                ],
-                "member_roots": [
-                  "segment",
-                  "segments"
-                ],
-                "type": "repeat_over"
-              }
-            ],
-            "class": "flex flex-wrap gap-1 text-sm leading-relaxed",
-            "class_when": [],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "transcription",
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "currentTime": {
-          "optional": true,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "TranscriptionSegment",
-      "name": "transcription_segment",
-      "params": {
-        "className": null,
-        "index": null,
-        "isActive": null,
-        "isPast": null,
-        "segment": null
-      },
-      "primitive": null,
-      "refs": [
-        "segment",
-        "event",
-        "onClick",
-        "className",
-        "index",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "isActive"
-            ],
-            "kind": "code",
-            "name": "data-active",
-            "value": "isActive"
-          },
-          {
-            "identifiers": [
-              "index"
-            ],
-            "kind": "code",
-            "name": "data-index",
-            "value": "index"
-          },
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
-          }
-        ],
-        "children": [
-          {
-            "code": "segment.text",
-            "identifiers": [
-              "segment"
-            ],
-            "member_roots": [
-              "segment"
-            ],
-            "type": "value"
-          }
-        ],
-        "class": "inline text-left",
-        "class_when": [
-          {
-            "else": null,
-            "identifiers": [
-              "isActive"
-            ],
-            "then": "text-primary",
-            "when": "isActive"
-          },
-          {
-            "else": null,
-            "identifiers": [
-              "isPast"
-            ],
-            "then": "text-muted-foreground",
-            "when": "isPast"
-          },
-          {
-            "else": null,
-            "identifiers": [
-              "isActive",
-              "isPast"
-            ],
-            "then": "text-muted-foreground/60",
-            "when": "!(isActive || isPast)"
-          },
-          {
-            "else": null,
-            "identifiers": [
-              "onSeek"
-            ],
-            "then": "cursor-pointer hover:text-foreground",
-            "when": "onSeek"
-          },
-          {
-            "else": null,
-            "identifiers": [
-              "onSeek"
-            ],
-            "then": "cursor-default",
-            "when": "!onSeek"
-          }
-        ],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "transcription-segment",
-        "tag": "button",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "index": {
-          "optional": false,
-          "type": "number"
-        }
-      }
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/transcription.tsx",
-      "sha256": "c9edab6a677ec9fdd09fdd5657bf56fcc674457e52ab7c6f686107c6ba787e29"
-    }
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Transcription/class/0",
+      "jsx/TranscriptionSegment/class/0",
+      "jsx/TranscriptionSegment/class/1",
+      "jsx/TranscriptionSegment/class/2",
+      "jsx/TranscriptionSegment/class/3",
+      "jsx/TranscriptionSegment/class/4",
+      "jsx/TranscriptionSegment/class/5"
+    ],
+    "derived": {}
   },
-  "variants": {}
+  "css_vars": [],
+  "facts": {
+    "jsx/Transcription/class/0": "flex flex-wrap gap-1 text-sm leading-relaxed",
+    "jsx/TranscriptionSegment/class/0": "inline text-left",
+    "jsx/TranscriptionSegment/class/1": "text-primary",
+    "jsx/TranscriptionSegment/class/2": "text-muted-foreground",
+    "jsx/TranscriptionSegment/class/3": "text-muted-foreground/60",
+    "jsx/TranscriptionSegment/class/4": "cursor-pointer hover:text-foreground",
+    "jsx/TranscriptionSegment/class/5": "cursor-default"
+  },
+  "file_fingerprints": {
+    "ai_elements/transcription.tsx": "7a3255b38cf80d3839b16e37b16fa1a6a81ec1e9d824af0320c9bb9db3eba6a3"
+  },
+  "fingerprint": "571fada695230d68beea7a6670b1599499dd9c0e1dd5e03ad070ec67d033a08c",
+  "ignored": {},
+  "name": "transcription",
+  "port_body": "324b49c7baaa17fedf2c3c71a4eff3380728799f5bd6bf48dc1983689bcf3c6d",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/Transcription/class/0": "flex flex-wrap gap-1 text-sm leading-relaxed",
+    "jsx/TranscriptionSegment/class/0": "inline text-left",
+    "jsx/TranscriptionSegment/class/1": "text-primary",
+    "jsx/TranscriptionSegment/class/2": "text-muted-foreground",
+    "jsx/TranscriptionSegment/class/3": "text-muted-foreground/60",
+    "jsx/TranscriptionSegment/class/4": "cursor-pointer hover:text-foreground",
+    "jsx/TranscriptionSegment/class/5": "cursor-default"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/transcription.tsx": "c9edab6a677ec9fdd09fdd5657bf56fcc674457e52ab7c6f686107c6ba787e29"
+  },
+  "uses": [
+    "jsx/Transcription/class/0",
+    "jsx/TranscriptionSegment/class/0",
+    "jsx/TranscriptionSegment/class/1",
+    "jsx/TranscriptionSegment/class/2",
+    "jsx/TranscriptionSegment/class/3",
+    "jsx/TranscriptionSegment/class/4",
+    "jsx/TranscriptionSegment/class/5"
+  ]
 }

@@ -1,616 +1,102 @@
 {
-  "anatomy": [],
-  "css_vars": [
-    "--scroll-area-corner-height",
-    "--scroll-area-corner-width",
-    "--scroll-area-overflow-x-end",
-    "--scroll-area-overflow-x-start",
-    "--scroll-area-overflow-y-end",
-    "--scroll-area-overflow-y-start",
-    "--scroll-area-thumb-height",
-    "--scroll-area-thumb-width"
-  ],
-  "folds": [
-    "shadcn/scroll-area"
-  ],
-  "generated_by": "mix ui.spec",
-  "name": "suggestion",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Suggestions",
-      "name": "suggestions",
-      "params": {
-        "children": null,
-        "className": null,
-        "orientation": "horizontal"
-      },
-      "primitive": null,
-      "refs": [
-        "props",
-        "className",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/ScrollArea/class/1",
+      "jsx/ScrollBar/class/0",
+      "jsx/ScrollBar/class/1",
+      "jsx/Suggestion/class/0",
+      "jsx/Suggestions/class/1"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "type": "children"
-                  }
-                ],
-                "class": "flex w-max flex-nowrap items-center gap-2",
-                "class_when": [],
-                "merges_class": true,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "div",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "attrs": [
-                  {
-                    "identifiers": [
-                      "orientation"
-                    ],
-                    "kind": "code",
-                    "name": "data-orientation",
-                    "value": "orientation"
-                  },
-                  {
-                    "identifiers": [
-                      "orientation"
-                    ],
-                    "kind": "code",
-                    "name": "orientation",
-                    "value": "orientation"
-                  }
-                ],
-                "children": [
-                  {
-                    "attrs": [],
-                    "children": [],
-                    "class": "cn-scroll-area-thumb relative flex-1 bg-border",
-                    "class_when": [],
-                    "merges_class": false,
-                    "module": "scroll-area",
-                    "part": "Thumb",
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": "scroll-area-thumb",
-                    "tag": "div",
-                    "type": "primitive",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "class": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none hidden",
-                "class_when": [],
-                "merges_class": false,
-                "module": "scroll-area",
-                "part": "Scrollbar",
-                "props": true,
-                "reads": {
-                  "group": [],
-                  "self": [
-                    {
-                      "name": "data-horizontal",
-                      "value": null
-                    },
-                    {
-                      "name": "data-vertical",
-                      "value": null
-                    }
-                  ]
-                },
-                "render_as": null,
-                "slot": "scroll-area-scrollbar",
-                "tag": "div",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
-            "class_when": [],
-            "merges_class": false,
-            "module": "scroll-area",
-            "part": "Viewport",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "scroll-area-viewport",
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
+            "fact": "jsx/ScrollArea/class/0"
           },
           {
-            "attrs": [
-              {
-                "identifiers": [
-                  "orientation"
-                ],
-                "kind": "code",
-                "name": "data-orientation",
-                "value": "orientation"
-              },
-              {
-                "identifiers": [
-                  "orientation"
-                ],
-                "kind": "code",
-                "name": "orientation",
-                "value": "orientation"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "cn-scroll-area-thumb relative flex-1 bg-border",
-                "class_when": [],
-                "merges_class": false,
-                "module": "scroll-area",
-                "part": "Thumb",
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": "scroll-area-thumb",
-                "tag": "div",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
-            "class_when": [],
-            "merges_class": true,
-            "module": "scroll-area",
-            "part": "Scrollbar",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": [
-                {
-                  "name": "data-horizontal",
-                  "value": null
-                },
-                {
-                  "name": "data-vertical",
-                  "value": null
-                }
-              ]
-            },
-            "render_as": null,
-            "slot": "scroll-area-scrollbar",
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [],
-            "class": "",
-            "class_when": [],
-            "merges_class": false,
-            "module": "scroll-area",
-            "part": "Corner",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
+            "fact": "jsx/Suggestions/class/0"
           }
         ],
-        "class": "cn-scroll-area relative w-full overflow-x-auto whitespace-nowrap",
-        "class_when": [],
-        "merges_class": false,
-        "module": "scroll-area",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "scroll-area",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
+        "op": "join"
       },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "Suggestion",
-      "name": "suggestion",
-      "params": {
-        "children": null,
-        "className": null,
-        "size": "sm",
-        "suggestion": null,
-        "variant": "outline"
-      },
-      "primitive": null,
-      "refs": [
-        "onClick",
-        "suggestion",
-        "className",
-        "size",
-        "variant",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
+      "port/class/1": {
+        "items": [
           {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
+            "literal": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none"
           },
           {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
+            "fact": "jsx/Suggestions/class/2"
           }
         ],
-        "children": [
-          {
-            "default": [
-              {
-                "code": "suggestion",
-                "type": "value"
-              }
-            ],
-            "identifiers": [
-              "children",
-              "suggestion"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "cursor-pointer rounded-full px-4",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "scroll-area.Content": {
-      "css_vars": [],
-      "data": [
-        "data-has-overflow-x",
-        "data-has-overflow-y",
-        "data-overflow-x-end",
-        "data-overflow-x-start",
-        "data-overflow-y-end",
-        "data-overflow-y-start",
-        "data-scrolling"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: ScrollArea.Content.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Content.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Content.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A container for the content of the scroll area."
-    },
-    "scroll-area.Corner": {
-      "css_vars": [],
-      "data": [],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: ScrollArea.Corner.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Corner.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Corner.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A small rectangular area that appears at the intersection of horizontal and vertical scrollbars."
-    },
-    "scroll-area.Root": {
-      "css_vars": [
-        "--scroll-area-corner-height",
-        "--scroll-area-corner-width"
-      ],
-      "data": [
-        "data-has-overflow-x",
-        "data-has-overflow-y",
-        "data-overflow-x-end",
-        "data-overflow-x-start",
-        "data-overflow-y-end",
-        "data-overflow-y-start",
-        "data-scrolling"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "Partial<{ xStart: number; xEnd: number; yStart: number; yEnd: number }>",
-          "doc": "0",
-          "name": "overflowEdgeThreshold",
-          "type": "number \\"
-        },
-        {
-          "default": "((state: ScrollArea.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups all parts of the scroll area."
-    },
-    "scroll-area.Scrollbar": {
-      "css_vars": [
-        "--scroll-area-thumb-height",
-        "--scroll-area-thumb-width"
-      ],
-      "data": [
-        "data-orientation",
-        "data-has-overflow-x",
-        "data-has-overflow-y",
-        "data-hovering",
-        "data-overflow-x-end",
-        "data-overflow-x-start",
-        "data-overflow-y-end",
-        "data-overflow-y-start",
-        "data-scrolling"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "'horizontal'",
-          "doc": "'vertical'",
-          "name": "orientation",
-          "type": "'vertical' \\"
-        },
-        {
-          "default": "((state: ScrollArea.Scrollbar.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Scrollbar.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to keep the HTML element in the DOM when the viewport isn't scrollable.",
-          "name": "keepMounted",
-          "type": "boolean"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Scrollbar.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A vertical or horizontal scrollbar for the scroll area."
-    },
-    "scroll-area.Thumb": {
-      "css_vars": [],
-      "data": [
-        "data-orientation",
-        "data-scrolling"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: ScrollArea.Thumb.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Thumb.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Thumb.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "The draggable part of the scrollbar that indicates the current scroll position."
-    },
-    "scroll-area.Viewport": {
-      "css_vars": [
-        "--scroll-area-overflow-x-end",
-        "--scroll-area-overflow-x-start",
-        "--scroll-area-overflow-y-end",
-        "--scroll-area-overflow-y-start"
-      ],
-      "data": [
-        "data-has-overflow-x",
-        "data-has-overflow-y",
-        "data-overflow-x-end",
-        "data-overflow-x-start",
-        "data-overflow-y-end",
-        "data-overflow-y-start",
-        "data-scrolling"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: ScrollArea.Viewport.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Viewport.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Viewport.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "The actual scrollable container of the scroll area."
+        "op": "join"
+      }
     }
   },
-  "recipe": "presentational",
+  "css_vars": [],
+  "facts": {
+    "jsx/ScrollArea/class/1": "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
+    "jsx/ScrollBar/class/0": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
+    "jsx/ScrollBar/class/1": "cn-scroll-area-thumb relative flex-1 bg-border",
+    "jsx/Suggestion/class/0": "cursor-pointer rounded-full px-4",
+    "jsx/Suggestions/class/1": "flex w-max flex-nowrap items-center gap-2",
+    "port/class/0": "cn-scroll-area relative w-full overflow-x-auto whitespace-nowrap",
+    "port/class/1": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none hidden"
+  },
+  "file_fingerprints": {
+    "ai_elements/suggestion.tsx": "c6893dbf079c33205225cee0b2c896c338287a109d33c67ba2aebcff8bdf2a8d",
+    "shadcn/ui/scroll-area.tsx": "c53af2913150706d117d65ea81bdea4931e4fdfc44aef9e7f389af7a048e1162"
+  },
+  "fingerprint": "0afb7186dd1d110930d32a04fbe276f117d6e422505ab2398a968d2ed6e16d0f",
+  "ignored": {},
+  "name": "suggestion",
+  "port_body": "b78f48acf669df194bc0fdef246ca4d30d460fe3aea16bcc4a780e670c35bde1",
+  "schema_version": 2,
   "source": "ai_elements",
-  "styles": {
-    "luma": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
+  "source_facts": {
+    "jsx/ScrollArea/class/0": "cn-scroll-area relative",
+    "jsx/ScrollArea/class/1": "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
+    "jsx/ScrollBar/class/0": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
+    "jsx/ScrollBar/class/1": "cn-scroll-area-thumb relative flex-1 bg-border",
+    "jsx/Suggestion/class/0": "cursor-pointer rounded-full px-4",
+    "jsx/Suggestions/class/0": "w-full overflow-x-auto whitespace-nowrap",
+    "jsx/Suggestions/class/1": "flex w-max flex-nowrap items-center gap-2",
+    "jsx/Suggestions/class/2": "hidden"
+  },
+  "state_reads": [
+    {
+      "name": "data-horizontal",
+      "value": null
     },
-    "lyra": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-none"
-    },
-    "maia": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
-    },
-    "mira": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
-    },
-    "nova": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
-    },
-    "rhea": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
-    },
-    "sera": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-none"
-    },
-    "vega": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
+    {
+      "name": "data-vertical",
+      "value": null
     }
+  ],
+  "styles": {
+    "luma": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b",
+    "lyra": "e21f691072d29c7d3458fb1119449104f97e4b0b030b92164906944bb571a016",
+    "maia": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b",
+    "mira": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b",
+    "nova": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b",
+    "rhea": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b",
+    "sera": "e21f691072d29c7d3458fb1119449104f97e4b0b030b92164906944bb571a016",
+    "vega": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/suggestion.tsx",
-      "sha256": "0703d777b4153ae20e93514acb9e8327eb03dd2ed2fd0230e03cf22271c7a249"
-    }
+    "ai_elements/suggestion.tsx": "0703d777b4153ae20e93514acb9e8327eb03dd2ed2fd0230e03cf22271c7a249",
+    "shadcn/ui/scroll-area.tsx": "6fb66a11b278222b7f59b3674b1931daecdefbe5df78e41953c7e7a800fb3e49"
   },
-  "variants": {}
+  "uses": [
+    "jsx/ScrollArea/class/1",
+    "jsx/ScrollBar/class/0",
+    "jsx/ScrollBar/class/1",
+    "jsx/Suggestion/class/0",
+    "jsx/Suggestions/class/1",
+    "port/class/0",
+    "port/class/1"
+  ]
 }

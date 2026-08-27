@@ -1,77 +1,45 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Label/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Label/class/0": "cn-label flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/label.tsx": "25ce24dd3a3abf3772529dd96e201647e40f1d025f8547f8903282e14f4a8083"
+  },
+  "fingerprint": "013620d9b4cc4f5473f6d87679c0e3e5b5933e87e5bf420a3fed4c75ddbece4d",
+  "ignored": {},
   "name": "label",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Label",
-      "name": "label",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-label flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "label",
-        "tag": "label",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "form-control",
+  "port_body": "0dc47fcd8df41b5f64560a02b2c3b5384c27b237a7d2c27cea3c8deb908aa9c8",
+  "schema_version": 2,
   "source": "shadcn",
+  "source_facts": {
+    "jsx/Label/class/0": "cn-label flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed"
+  },
+  "state_reads": [],
   "styles": {
-    "luma": {
-      "cn-label": "gap-2 text-sm leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50"
-    },
-    "lyra": {
-      "cn-label": "gap-2 text-xs leading-none group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50"
-    },
-    "maia": {
-      "cn-label": "gap-2 text-sm leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50"
-    },
-    "mira": {
-      "cn-label": "gap-2 text-xs/relaxed leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50"
-    },
-    "nova": {
-      "cn-label": "gap-2 text-sm leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50"
-    },
-    "rhea": {
-      "cn-label": "gap-2 text-sm leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50"
-    },
-    "sera": {
-      "cn-label": "gap-2 font-semibold peer-data-[slot=checkbox]:text-sm peer-data-[slot=radio-group-item]:text-sm peer-data-[slot=switch]:text-sm leading-relaxed group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50 peer-data-[slot=checkbox]:font-normal peer-data-[slot=radio-group-item]:font-normal peer-data-[slot=switch]:font-normal uppercase text-xs tracking-wide peer-data-[slot=checkbox]:normal-case peer-data-[slot=checkbox]:tracking-normal peer-data-[slot=radio-group-item]:normal-case peer-data-[slot=radio-group-item]:tracking-normal peer-data-[slot=switch]:normal-case peer-data-[slot=switch]:tracking-normal"
-    },
-    "vega": {
-      "cn-label": "gap-2 text-sm leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50"
-    }
+    "luma": "bbd22100c616580397ae30283f0bab7393b06be59dc231c5180e7898559a9180",
+    "lyra": "a7c90b93d56478a4cdec6de4b46328edafc9c7c798a29c4c9446b283f6f54152",
+    "maia": "bbd22100c616580397ae30283f0bab7393b06be59dc231c5180e7898559a9180",
+    "mira": "6223cb067f49919926176b36d0aa4ac0127e41db8b1d95257ecee870e24a0f5a",
+    "nova": "bbd22100c616580397ae30283f0bab7393b06be59dc231c5180e7898559a9180",
+    "rhea": "bbd22100c616580397ae30283f0bab7393b06be59dc231c5180e7898559a9180",
+    "sera": "a82c6ede92285451422fd5ef2be56d2a91905aad7b3834e472bc5e92b0d6182c",
+    "vega": "bbd22100c616580397ae30283f0bab7393b06be59dc231c5180e7898559a9180"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/label.tsx",
-      "sha256": "80581ffa241ed57c9b976ebca5bc44c7e98d287c629717fda2dd3135c96ebbc1"
-    }
+    "shadcn/ui/label.tsx": "80581ffa241ed57c9b976ebca5bc44c7e98d287c629717fda2dd3135c96ebbc1"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Label/class/0"
+  ]
 }

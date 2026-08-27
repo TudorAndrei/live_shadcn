@@ -1,77 +1,47 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [],
+    "derived": {
+      "port/class/0": {
+        "items": [
+          {
+            "fact": "jsx/Controls/class/0"
+          },
+          {
+            "fact": "jsx/Controls/class/1"
+          }
+        ],
+        "op": "join"
+      }
+    }
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "port/class/0": "gap-px overflow-hidden rounded-md border bg-card p-1 shadow-none! [&>button]:rounded-md [&>button]:border-none! [&>button]:bg-transparent! [&>button]:hover:bg-secondary!"
+  },
+  "file_fingerprints": {
+    "ai_elements/controls.tsx": "b0a00a972f40599b310efd628edec9eeec6eb963c44863b2204a06d2ce3dd88d"
+  },
+  "fingerprint": "050f487c27e3ef8e8c6359fcd21257bb209bee55c1b2e53360a982edf6c76149",
+  "ignored": {},
   "name": "controls",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Controls",
-      "name": "controls",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "gap-px overflow-hidden rounded-md border bg-card p-1 shadow-none! [&>button]:rounded-md [&>button]:border-none! [&>button]:bg-transparent! [&>button]:hover:bg-secondary!",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/@xyflow/react",
-        "part": "Controls",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "external/@xyflow/react.Controls": {
-      "props": [
-        {
-          "name": "position"
-        },
-        {
-          "name": "orientation"
-        },
-        {
-          "name": "showZoom"
-        },
-        {
-          "name": "showFitView"
-        },
-        {
-          "name": "showInteractive"
-        },
-        {
-          "name": "fitViewOptions"
-        }
-      ]
-    }
-  },
-  "recipe": "presentational",
+  "port_body": "7ec6fb8ea0190d60e3f5281d081e0efca5c0847159ba17941bee18f98b1044fa",
+  "schema_version": 2,
   "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/controls.tsx",
-      "sha256": "3f851a1906a1a8e017899983507c4537b300849b098dc38c51a4a36dbf52d085"
-    }
+  "source_facts": {
+    "jsx/Controls/class/0": "gap-px overflow-hidden rounded-md border bg-card p-1 shadow-none!",
+    "jsx/Controls/class/1": "[&>button]:rounded-md [&>button]:border-none! [&>button]:bg-transparent! [&>button]:hover:bg-secondary!"
   },
-  "variants": {}
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/controls.tsx": "3f851a1906a1a8e017899983507c4537b300849b098dc38c51a4a36dbf52d085"
+  },
+  "uses": [
+    "port/class/0"
+  ]
 }

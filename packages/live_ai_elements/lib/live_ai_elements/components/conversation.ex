@@ -9,6 +9,16 @@ defmodule LiveAiElements.Components.Conversation do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/Conversation/class/0" => "relative flex-1 overflow-y-hidden",
+    "jsx/ConversationContent/class/0" => "flex flex-col gap-8 p-4"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Scroller
 
   @doc """
@@ -43,10 +53,10 @@ defmodule LiveAiElements.Components.Conversation do
       phx-hook={Scroller.hook()}
       phx-mounted={Scroller.owned_attributes()}
       role="log"
-      class={["relative flex-1 overflow-y-hidden", @class]}
+      class={[upstream_fact("jsx/Conversation/class/0"), (@class || "")]}
       {@rest}
     >
-      <div data-lb-scroller tabindex="0" style="overflow: auto" class="flex flex-col gap-8 p-4">
+      <div data-lb-scroller tabindex="0" style="overflow: auto" class={upstream_fact("jsx/ConversationContent/class/0")}>
         {render_slot(@inner_block)}
       </div>
     </div>

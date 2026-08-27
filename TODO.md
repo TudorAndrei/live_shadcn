@@ -47,29 +47,29 @@ and make its listed commit before work starts on the next phase.
 
 ## Phase 3: migrate all verified ports
 
-- [ ] Convert every remaining verified shadcn port and contract to version 2.
-- [ ] Convert every remaining verified AI Elements port and contract to version
+- [x] Convert every remaining verified shadcn port and contract to version 2.
+- [x] Convert every remaining verified AI Elements port and contract to version
       2.
-- [ ] Keep the two fetched entries at their current stage.
-- [ ] Check that every extracted fact has a binding or an ignored reason.
-- [ ] Check that every bound old fact matches its current port value.
-- [ ] Check that every fact block has canonical key order and stable bytes.
-- [ ] Update `LiveShadcnTools.Drift` for version 2 contracts.
-- [ ] Run `cd tools && mix test`.
-- [ ] Run `cd tools && mix ui.spec --check --source shadcn` after
+- [x] Keep the two fetched entries at their current stage.
+- [x] Check that every extracted fact has a binding or an ignored reason.
+- [x] Check that every bound old fact matches its current port value.
+- [x] Check that every fact block has canonical key order and stable bytes.
+- [x] Update `LiveShadcnTools.Drift` for version 2 contracts.
+- [x] Run `cd tools && mix test`.
+- [x] Run `cd tools && mix ui.spec --check --source shadcn` after
       `mix ui.fetch`.
-- [ ] Run `cd tools && mix ui.spec --check --source ai_elements` after
+- [x] Run `cd tools && mix ui.spec --check --source ai_elements` after
       `mix ui.fetch`.
-- [ ] Run `cd tools && mix ui.gen --check` while the dual path still exists.
-- [ ] Run `cd packages/live_base && mix test`.
-- [ ] Run `cd packages/live_shadcn && mix test`.
-- [ ] Run `cd packages/live_ai_elements && mix test`.
-- [ ] Run all storybook snapshots.
-- [ ] Run the full browser, accessibility, React parity, and pixel suite.
-- [ ] Run `cd tools && mix ui.verify` for all changed contracts.
-- [ ] Run `cd tools && mix ui.status` and confirm that all 109 verified entries
+- [x] Run `cd tools && mix ui.gen --check` while the dual path still exists.
+- [x] Run `cd packages/live_base && mix test`.
+- [x] Run `cd packages/live_shadcn && mix test`.
+- [x] Run `cd packages/live_ai_elements && mix test`.
+- [x] Run all storybook snapshots.
+- [x] Run the full browser, accessibility, React parity, and pixel suite.
+- [x] Run `cd tools && mix ui.verify` for all changed contracts.
+- [x] Run `cd tools && mix ui.status` and confirm that all 109 verified entries
       remain verified.
-- [ ] Commit: `refactor(registry): migrate verified modules to fact-backed ports`
+- [x] Commit: `refactor(registry): migrate verified modules to fact-backed ports`
 
 ## Phase 4: switch the maintainer workflow
 

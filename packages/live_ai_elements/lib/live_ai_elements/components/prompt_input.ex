@@ -9,6 +9,50 @@ defmodule LiveAiElements.Components.PromptInput do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "cva/inputGroupAddonVariants/variant/align/block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/block-start" => "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end" => "cn-input-group-addon-align-inline-end order-last",
+    "cva/inputGroupAddonVariants/variant/align/inline-start" => "cn-input-group-addon-align-inline-start order-first",
+    "cva/inputGroupButtonVariants/base" => "cn-input-group-button flex items-center shadow-none",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm" => "cn-input-group-button-size-icon-sm",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs" => "cn-input-group-button-size-icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm" => "cn-input-group-button-size-sm",
+    "cva/inputGroupButtonVariants/variant/size/xs" => "cn-input-group-button-size-xs",
+    "jsx/PromptInput/class/0" => "hidden",
+    "jsx/PromptInput/class/1" => "w-full",
+    "jsx/PromptInputActionMenuTrigger/class/0" => "size-4",
+    "jsx/PromptInputBody/class/0" => "contents",
+    "jsx/PromptInputTabBody/class/0" => "space-y-1",
+    "jsx/PromptInputTabItem/class/0" => "flex items-center gap-2 px-3 py-2 text-xs hover:bg-accent",
+    "jsx/PromptInputTabLabel/class/0" => "mb-2 px-3 font-medium text-muted-foreground text-xs",
+    "jsx/PromptInputTools/class/0" => "flex min-w-0 items-center gap-1",
+    "port/class/0" => "cn-input-group-addon flex cursor-text items-center justify-center select-none justify-between gap-1",
+    "port/class/1" => "cn-input-group-addon flex cursor-text items-center justify-center select-none order-first flex-wrap gap-1",
+    "port/class/2" => "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 cn-input-group-textarea flex-1 resize-none field-sizing-content max-h-48 min-h-16",
+    "port/class/3" => "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto overflow-hidden"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
+  @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
+
   alias LiveBase.FormControl
 
   @doc "The `prompt_input_provider` part."
@@ -50,13 +94,13 @@ defmodule LiveAiElements.Components.PromptInput do
       multiple={@multiple}
       title="Upload files"
       type="file"
-      class="hidden"
+      class={upstream_fact("jsx/PromptInput/class/0")}
     />
-    <form class={["w-full", @class]} {@rest}>
+    <form class={[upstream_fact("jsx/PromptInput/class/1"), (@class || "")]} {@rest}>
       <div
         data-slot={@rest[:"data-slot"] || "input-group"}
         role="group"
-        class="group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto overflow-hidden"
+        class={upstream_fact("port/class/3")}
         {Map.drop(@rest, [:"data-slot"])}
       >
         {render_slot(@inner_block)}
@@ -73,7 +117,7 @@ defmodule LiveAiElements.Components.PromptInput do
 
   def prompt_input_body(assigns) do
     ~H"""
-    <div class={["contents", @class]} {@rest}>
+    <div class={[upstream_fact("jsx/PromptInputBody/class/0"), (@class || "")]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -130,8 +174,8 @@ defmodule LiveAiElements.Components.PromptInput do
       data-slot={@rest[:"data-slot"] || "input-group-control"}
       placeholder={@placeholder}
       class={[
-        "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 cn-input-group-textarea flex-1 resize-none field-sizing-content max-h-48 min-h-16",
-        @class
+        upstream_fact("port/class/2"),
+        (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >{render_slot(@inner_block)}</textarea>
@@ -141,7 +185,11 @@ defmodule LiveAiElements.Components.PromptInput do
   @doc "The `input-group-addon` part."
   attr(:align, :string,
     default: "block-end",
-    values: ["block-end", "block-start", "inline-end", "inline-start"]
+    values:
+      @variant_classes
+      |> get_in(["inputGroupAddonVariants", "align"])
+      |> Map.keys()
+      |> Enum.sort()
   )
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -156,7 +204,7 @@ defmodule LiveAiElements.Components.PromptInput do
       data-align={@align}
       class={[
         variant_class("inputGroupAddonVariants", "align", @align),
-        "cn-input-group-addon flex cursor-text items-center justify-center select-none order-first flex-wrap gap-1",
+        upstream_fact("port/class/1"),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -169,7 +217,11 @@ defmodule LiveAiElements.Components.PromptInput do
   @doc "The `input-group-addon` part."
   attr(:align, :string,
     default: "block-end",
-    values: ["block-end", "block-start", "inline-end", "inline-start"]
+    values:
+      @variant_classes
+      |> get_in(["inputGroupAddonVariants", "align"])
+      |> Map.keys()
+      |> Enum.sort()
   )
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -184,7 +236,7 @@ defmodule LiveAiElements.Components.PromptInput do
       data-align={@align}
       class={[
         variant_class("inputGroupAddonVariants", "align", @align),
-        "cn-input-group-addon flex cursor-text items-center justify-center select-none justify-between gap-1",
+        upstream_fact("port/class/0"),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -202,7 +254,7 @@ defmodule LiveAiElements.Components.PromptInput do
 
   def prompt_input_tools(assigns) do
     ~H"""
-    <div class={["flex min-w-0 items-center gap-1", @class]} {@rest}>
+    <div class={[upstream_fact("jsx/PromptInputTools/class/0"), (@class || "")]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -211,7 +263,16 @@ defmodule LiveAiElements.Components.PromptInput do
   @doc "The `prompt_input_submit` part."
   attr(:icon, :string, default: nil)
   attr(:is_generating, :string, default: nil)
-  attr(:size, :string, default: "icon-sm", values: ["icon-sm", "icon-xs", "sm", "xs"])
+
+  attr(:size, :string,
+    default: "icon-sm",
+    values:
+      @variant_classes
+      |> get_in(["inputGroupButtonVariants", "size"])
+      |> Map.keys()
+      |> Enum.sort()
+  )
+
   attr(:status, :string, default: nil)
   attr(:type, :string, default: "button")
   attr(:variant, :string, default: "default")
@@ -228,13 +289,13 @@ defmodule LiveAiElements.Components.PromptInput do
       aria-label={if(@is_generating, do: "Stop", else: "Submit")}
       class={[
         variant_class("inputGroupButtonVariants", "size", @size),
-        "cn-input-group-button flex items-center shadow-none",
+        upstream_fact("cva/inputGroupButtonVariants/base"),
         @class
       ]}
       {@rest}
     >
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon name="corner-down-left" class="size-4" />
+        <LiveShadcn.Icon.icon name="corner-down-left" class={upstream_fact("jsx/PromptInputActionMenuTrigger/class/0")} />
       <% end %>
       {render_slot(@inner_block)}
     </LiveShadcn.UI.Button.button>
@@ -277,7 +338,7 @@ defmodule LiveAiElements.Components.PromptInput do
 
   def prompt_input_tab_label(assigns) do
     ~H"""
-    <h3 class={["mb-2 px-3 font-medium text-muted-foreground text-xs", @class]} {@rest}>
+    <h3 class={[upstream_fact("jsx/PromptInputTabLabel/class/0"), (@class || "")]} {@rest}>
       {render_slot(@inner_block)}
     </h3>
     """
@@ -291,7 +352,7 @@ defmodule LiveAiElements.Components.PromptInput do
 
   def prompt_input_tab_body(assigns) do
     ~H"""
-    <div class={["space-y-1", @class]} {@rest}>
+    <div class={[upstream_fact("jsx/PromptInputTabBody/class/0"), (@class || "")]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -305,32 +366,12 @@ defmodule LiveAiElements.Components.PromptInput do
 
   def prompt_input_tab_item(assigns) do
     ~H"""
-    <div class={["flex items-center gap-2 px-3 py-2 text-xs hover:bg-accent", @class]} {@rest}>
+    <div class={[upstream_fact("jsx/PromptInputTabItem/class/0"), (@class || "")]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
   end
 
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "inputGroupAddonVariants" => %{
-      "align" => %{
-        "block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
-        "block-start" =>
-          "cn-input-group-addon-align-block-start order-first w-full justify-start",
-        "inline-end" => "cn-input-group-addon-align-inline-end order-last",
-        "inline-start" => "cn-input-group-addon-align-inline-start order-first"
-      }
-    },
-    "inputGroupButtonVariants" => %{
-      "size" => %{
-        "icon-sm" => "cn-input-group-button-size-icon-sm",
-        "icon-xs" => "cn-input-group-button-size-icon-xs",
-        "sm" => "cn-input-group-button-size-sm",
-        "xs" => "cn-input-group-button-size-xs"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
+  defp variant_class(table, group, value),
+    do: get_in(@variant_classes, [table, group, value])
 end

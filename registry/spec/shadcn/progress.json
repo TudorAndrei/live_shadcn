@@ -1,527 +1,63 @@
 {
-  "anatomy": [
-    {
-      "children": [
-        {
-          "children": [],
-          "part": "Label"
-        },
-        {
-          "children": [
-            {
-              "children": [],
-              "part": "Indicator"
-            }
-          ],
-          "part": "Track"
-        },
-        {
-          "children": [],
-          "part": "Value"
-        }
-      ],
-      "part": "Root"
-    }
-  ],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "progress",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Progress",
-      "name": "progress",
-      "params": {
-        "children": null,
-        "className": null,
-        "value": null
-      },
-      "primitive": "Root",
-      "refs": [
-        "value",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "value"
-            ],
-            "kind": "code",
-            "name": "value",
-            "value": "value"
-          }
-        ],
-        "children": [
-          {
-            "type": "children"
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "merges_class": false,
-                "part": "progress_indicator",
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "part_ref",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "",
-            "class_when": [],
-            "merges_class": false,
-            "part": "progress_track",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "part_ref",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-progress-root flex flex-wrap gap-3",
-        "class_when": [],
-        "merges_class": true,
-        "module": "progress",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "progress",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ProgressTrack",
-      "name": "progress_track",
-      "params": {
-        "className": null
-      },
-      "primitive": "Track",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-progress-track relative flex w-full items-center overflow-x-hidden",
-        "class_when": [],
-        "merges_class": true,
-        "module": "progress",
-        "part": "Track",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "progress-track",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ProgressIndicator",
-      "name": "progress_indicator",
-      "params": {
-        "className": null
-      },
-      "primitive": "Indicator",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-progress-indicator h-full transition-all",
-        "class_when": [],
-        "merges_class": true,
-        "module": "progress",
-        "part": "Indicator",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "progress-indicator",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ProgressLabel",
-      "name": "progress_label",
-      "params": {
-        "className": null
-      },
-      "primitive": "Label",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-progress-label",
-        "class_when": [],
-        "merges_class": true,
-        "module": "progress",
-        "part": "Label",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "progress-label",
-        "tag": "span",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ProgressValue",
-      "name": "progress_value",
-      "params": {
-        "className": null
-      },
-      "primitive": "Value",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-progress-value",
-        "class_when": [],
-        "merges_class": true,
-        "module": "progress",
-        "part": "Value",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "progress-value",
-        "tag": "span",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "progress.Indicator": {
-      "css_vars": [],
-      "data": [
-        "data-complete",
-        "data-indeterminate",
-        "data-progressing"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Progress.Indicator.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Progress.Indicator.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Progress.Indicator.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Visualizes the completion status of the task."
-    },
-    "progress.Label": {
-      "css_vars": [],
-      "data": [
-        "data-complete",
-        "data-indeterminate",
-        "data-progressing"
-      ],
-      "element": "span",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Progress.Label.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Progress.Label.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Progress.Label.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "An accessible label for the progress bar."
-    },
-    "progress.Root": {
-      "css_vars": [],
-      "data": [
-        "data-complete",
-        "data-indeterminate",
-        "data-progressing"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "null",
-          "doc": "-",
-          "name": "value\\*",
-          "type": "number \\"
-        },
-        {
-          "default": null,
-          "doc": "A string value that provides a user-friendly name for `aria-valuenow`, the current value of the progress bar.",
-          "name": "aria-valuetext",
-          "type": "string"
-        },
-        {
-          "default": "null) => string)",
-          "doc": "-",
-          "name": "getAriaValueText",
-          "type": "((formattedValue: string, value: number \\"
-        },
-        {
-          "default": null,
-          "doc": "The locale used by `Intl.NumberFormat` when formatting the value. Defaults to the user's runtime locale.",
-          "name": "locale",
-          "type": "Intl.LocalesArgument"
-        },
-        {
-          "default": "0",
-          "doc": "The minimum value.",
-          "name": "min",
-          "type": "number"
-        },
-        {
-          "default": "100",
-          "doc": "The maximum value.",
-          "name": "max",
-          "type": "number"
-        },
-        {
-          "default": null,
-          "doc": "Options to format the value.",
-          "name": "format",
-          "type": "Intl.NumberFormatOptions"
-        },
-        {
-          "default": "((state: Progress.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Progress.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Progress.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups all parts of the progress bar and provides the task completion status to screen readers."
-    },
-    "progress.Track": {
-      "css_vars": [],
-      "data": [
-        "data-complete",
-        "data-indeterminate",
-        "data-progressing"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Progress.Track.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Progress.Track.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Progress.Track.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Contains the progress bar indicator."
-    },
-    "progress.Value": {
-      "css_vars": [],
-      "data": [
-        "data-complete",
-        "data-indeterminate",
-        "data-progressing"
-      ],
-      "element": "span",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "null, value: number \\",
-          "doc": "null) => React.ReactNode) \\",
-          "name": "children",
-          "type": "((formattedValue: string \\"
-        },
-        {
-          "default": "((state: Progress.Value.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Progress.Value.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Progress.Value.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A text element displaying the current value."
-    }
+  "base_ui": {
+    "progress": "da0ef9e16b1c7b9e39f0d629778ed654f889c1315c31cb835dcba6fa5a2ad408"
   },
-  "recipe": "progress",
+  "bindings": {
+    "copy": [
+      "jsx/Progress/class/0",
+      "jsx/ProgressIndicator/class/0",
+      "jsx/ProgressLabel/class/0",
+      "jsx/ProgressTrack/class/0",
+      "jsx/ProgressValue/class/0"
+    ],
+    "derived": {}
+  },
+  "css_vars": [],
+  "facts": {
+    "jsx/Progress/class/0": "cn-progress-root flex flex-wrap gap-3",
+    "jsx/ProgressIndicator/class/0": "cn-progress-indicator h-full transition-all",
+    "jsx/ProgressLabel/class/0": "cn-progress-label",
+    "jsx/ProgressTrack/class/0": "cn-progress-track relative flex w-full items-center overflow-x-hidden",
+    "jsx/ProgressValue/class/0": "cn-progress-value"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/progress.tsx": "be4fb1041fffac9eb6c740e319f96c22a2a318a924900769e7bc85d02692d983"
+  },
+  "fingerprint": "512b17cae3ea4d9ada701a8354573c5d6fff04b35b724aff761ce33b5477dad8",
+  "ignored": {},
+  "name": "progress",
+  "port_body": "dcbe0537709a15067da374964cea2877861380297b85dc513d2ca8ff2421c356",
+  "schema_version": 2,
   "source": "shadcn",
+  "source_facts": {
+    "jsx/Progress/class/0": "cn-progress-root flex flex-wrap gap-3",
+    "jsx/ProgressIndicator/class/0": "cn-progress-indicator h-full transition-all",
+    "jsx/ProgressLabel/class/0": "cn-progress-label",
+    "jsx/ProgressTrack/class/0": "cn-progress-track relative flex w-full items-center overflow-x-hidden",
+    "jsx/ProgressValue/class/0": "cn-progress-value"
+  },
+  "state_reads": [],
   "styles": {
-    "luma": {
-      "cn-progress-indicator": "bg-primary",
-      "cn-progress-label": "text-sm font-medium",
-      "cn-progress-track": "bg-muted h-3 rounded-full",
-      "cn-progress-value": "text-muted-foreground ml-auto text-sm tabular-nums"
-    },
-    "lyra": {
-      "cn-progress-indicator": "bg-primary",
-      "cn-progress-label": "text-xs",
-      "cn-progress-track": "bg-muted h-1 rounded-none",
-      "cn-progress-value": "text-muted-foreground ml-auto text-xs tabular-nums"
-    },
-    "maia": {
-      "cn-progress-indicator": "bg-primary",
-      "cn-progress-label": "text-sm font-medium",
-      "cn-progress-track": "bg-muted h-3 rounded-4xl",
-      "cn-progress-value": "text-muted-foreground ml-auto text-sm tabular-nums"
-    },
-    "mira": {
-      "cn-progress-indicator": "bg-primary",
-      "cn-progress-label": "text-xs/relaxed font-medium",
-      "cn-progress-track": "bg-muted h-1 rounded-md",
-      "cn-progress-value": "text-muted-foreground ml-auto text-xs/relaxed tabular-nums"
-    },
-    "nova": {
-      "cn-progress-indicator": "bg-primary",
-      "cn-progress-label": "text-sm font-medium",
-      "cn-progress-track": "bg-muted h-1 rounded-full",
-      "cn-progress-value": "text-muted-foreground ml-auto text-sm tabular-nums"
-    },
-    "rhea": {
-      "cn-progress-indicator": "bg-primary",
-      "cn-progress-label": "text-sm font-medium",
-      "cn-progress-track": "bg-muted h-2 rounded-2xl",
-      "cn-progress-value": "text-muted-foreground ml-auto text-sm tabular-nums"
-    },
-    "sera": {
-      "cn-progress-indicator": "bg-primary",
-      "cn-progress-label": "text-xs font-semibold tracking-wide uppercase",
-      "cn-progress-track": "bg-muted h-0.5 rounded-none",
-      "cn-progress-value": "text-muted-foreground ml-auto text-sm tabular-nums"
-    },
-    "vega": {
-      "cn-progress-indicator": "bg-primary",
-      "cn-progress-label": "text-sm font-medium",
-      "cn-progress-track": "bg-muted h-1.5 rounded-full",
-      "cn-progress-value": "text-muted-foreground ml-auto text-sm tabular-nums"
-    }
+    "luma": "d1f6c1fd24d0b6d12faf2a400587056748c1d59c48936c4af9ac85a8bf6f9a25",
+    "lyra": "049389d07f0c4fbe575af1512613045e5588978aa0348b25766ce9456a99817c",
+    "maia": "f1836c8867f9930b426afa100a232a50f1289732302c9502f57cab63bbc4f2a5",
+    "mira": "55da7eb5c62f12bf5c56fbf3169b047568c4b18bd0d023e199f6bd483470301a",
+    "nova": "728711c6ab805f16d94341de09bc2e35aef7175854828a6fd36d012e2c48cd9e",
+    "rhea": "884a59d4afa1cc736f01dcba291f58dd1435338a9b4561268a6b6bd9cdb7bc1b",
+    "sera": "61a20ae60cbe186d8caa467526524a51cb9b897439efef978314df742c6d1e6b",
+    "vega": "54d562170544f6b2097187ca53714fc0c0fdaa4fb75b9f203ba8dad032648867"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {
-      "progress": "b7dff015a93fb55027da950ce9f0cab4d95352cf1edd8bfb51b2cf26c7d3a0bf"
-    },
-    "shadcn": {
-      "file": "shadcn/ui/progress.tsx",
-      "sha256": "01ce565018075d8aca92cbf6bc768b9dbc43b5e9ec1159a5491abe3f0cda0470"
-    }
+    "shadcn/ui/progress.tsx": "01ce565018075d8aca92cbf6bc768b9dbc43b5e9ec1159a5491abe3f0cda0470"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Progress/class/0",
+    "jsx/ProgressIndicator/class/0",
+    "jsx/ProgressLabel/class/0",
+    "jsx/ProgressTrack/class/0",
+    "jsx/ProgressValue/class/0"
+  ]
 }

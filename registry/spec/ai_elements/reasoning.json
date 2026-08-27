@@ -1,461 +1,90 @@
 {
-  "anatomy": [],
-  "css_vars": [
-    "--collapsible-panel-height",
-    "--collapsible-panel-width"
-  ],
-  "folds": [
-    "shadcn/collapsible"
-  ],
-  "generated_by": "mix ui.spec",
-  "name": "reasoning",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Reasoning",
-      "name": "reasoning",
-      "params": {
-        "children": null,
-        "className": null,
-        "defaultOpen": null,
-        "duration": null,
-        "isOpen": null,
-        "isStreaming": "false",
-        "open": null
-      },
-      "primitive": null,
-      "refs": [
-        "defaultOpen",
-        "isStreaming",
-        "onOpenChange",
-        "open",
-        "duration",
-        "newOpen",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/anonymous/class/0",
+      "jsx/anonymous/class/1",
+      "jsx/anonymous/class/2",
+      "jsx/anonymous/class/3",
+      "jsx/anonymous/class/4",
+      "jsx/anonymous/class/5"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "attrs": [
-              {
-                "identifiers": [
-                  "isOpen"
-                ],
-                "kind": "code",
-                "name": "open",
-                "value": "isOpen"
-              }
-            ],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "not-prose mb-4",
-            "class_when": [],
-            "merges_class": true,
-            "module": "collapsible",
-            "part": "Root",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "collapsible",
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
+            "fact": "jsx/anonymous/class/6"
+          },
+          {
+            "fact": "jsx/anonymous/class/7"
           }
         ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "defaultOpen": {
-          "optional": true,
-          "type": "boolean"
-        },
-        "duration": {
-          "optional": true,
-          "type": "number"
-        },
-        "isStreaming": {
-          "optional": true,
-          "type": "boolean"
-        },
-        "open": {
-          "optional": true,
-          "type": "boolean"
-        }
+        "op": "join"
       }
+    }
+  },
+  "css_vars": [],
+  "facts": {
+    "jsx/anonymous/class/0": "not-prose mb-4",
+    "jsx/anonymous/class/1": "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+    "jsx/anonymous/class/2": "size-4",
+    "jsx/anonymous/class/3": "size-4 transition-transform",
+    "jsx/anonymous/class/4": "rotate-180",
+    "jsx/anonymous/class/5": "rotate-0",
+    "port/class/0": "mt-4 text-sm data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-muted-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in"
+  },
+  "file_fingerprints": {
+    "ai_elements/reasoning.tsx": "0605dd138973e3f700054d8efe7f4315a6476dd9064a003a183b48851d4037f6",
+    "ai_elements/shimmer.tsx": "36d23fd36cb16a2dd816730d53c3046dea201a5f8eaaa7b463ceb6b8ad4fc8bc",
+    "shadcn/ui/collapsible.tsx": "236edd9fbac18f22a086841a4c7be8ef8de4bf46eefa6809813eca2ae9c496a5"
+  },
+  "fingerprint": "bcf68eee22b66567167a58b5a3d9a87951f2fd93bb5217db3ad366ffc10542e1",
+  "ignored": {
+    "jsx/ShimmerComponent/class/0": "the generated port does not contain this source literal",
+    "jsx/ShimmerComponent/class/1": "the generated port does not contain this source literal"
+  },
+  "name": "reasoning",
+  "port_body": "b1ebe69c1daed82d66562ec8b2ecbeaad0da5eb3017970fd5138167b4bda6908",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/ShimmerComponent/class/0": "relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent",
+    "jsx/ShimmerComponent/class/1": "[--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]",
+    "jsx/anonymous/class/0": "not-prose mb-4",
+    "jsx/anonymous/class/1": "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+    "jsx/anonymous/class/2": "size-4",
+    "jsx/anonymous/class/3": "size-4 transition-transform",
+    "jsx/anonymous/class/4": "rotate-180",
+    "jsx/anonymous/class/5": "rotate-0",
+    "jsx/anonymous/class/6": "mt-4 text-sm",
+    "jsx/anonymous/class/7": "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-muted-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in"
+  },
+  "state_reads": [
+    {
+      "name": "data-state",
+      "value": "closed"
     },
     {
-      "contexts": [],
-      "export": "ReasoningTrigger",
-      "name": "reasoning_trigger",
-      "params": {
-        "children": null,
-        "className": null,
-        "duration": null,
-        "getThinkingMessage": "defaultGetThinkingMessage",
-        "isOpen": null,
-        "isStreaming": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children",
-        "getThinkingMessage"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "default": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "attrs": [],
-                    "children": [],
-                    "class": "size-4",
-                    "class_when": [],
-                    "icons": {
-                      "lucide": "Brain"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  },
-                  {
-                    "identifiers": [
-                      "duration",
-                      "getThinkingMessage",
-                      "isStreaming"
-                    ],
-                    "name": "get_thinking_message",
-                    "type": "slot"
-                  },
-                  {
-                    "attrs": [],
-                    "children": [],
-                    "class": "size-4 transition-transform",
-                    "class_when": [
-                      {
-                        "else": "rotate-0",
-                        "identifiers": [
-                          "isOpen"
-                        ],
-                        "then": "rotate-180",
-                        "when": "isOpen"
-                      }
-                    ],
-                    "icons": {
-                      "lucide": "ChevronDown"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "class": "",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "reason": "a fragment",
-                "render_as": null,
-                "slot": null,
-                "type": "transparent",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "children",
-              "cn",
-              "duration",
-              "getThinkingMessage",
-              "isOpen",
-              "isStreaming"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
-        "class_when": [],
-        "merges_class": true,
-        "module": "collapsible",
-        "part": "Trigger",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "collapsible-trigger",
-        "tag": "button",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ReasoningContent",
-      "name": "reasoning_content",
-      "params": {
-        "children": null,
-        "className": null,
-        "content": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "streamdownPlugins"
-                ],
-                "kind": "code",
-                "name": "plugins",
-                "value": "streamdownPlugins"
-              }
-            ],
-            "children": [],
-            "class": "",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "role": "markdown",
-            "slot": null,
-            "type": "external",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "mt-4 text-sm data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-muted-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
-        "class_when": [],
-        "merges_class": true,
-        "module": "collapsible",
-        "part": "Panel",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "collapsible-content",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-state",
+      "value": "open"
     }
   ],
-  "primitives": {
-    "collapsible.Panel": {
-      "css_vars": [
-        "--collapsible-panel-height",
-        "--collapsible-panel-width"
-      ],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
-          "name": "hiddenUntilFound",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Collapsible.Panel.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Collapsible.Panel.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to keep the element in the DOM while the panel is hidden. This prop is ignored when `hiddenUntilFound` is used.",
-          "name": "keepMounted",
-          "type": "boolean"
-        },
-        {
-          "default": "((props: HTMLProps, state: Collapsible.Panel.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A panel with the collapsible contents."
-    },
-    "collapsible.Root": {
-      "css_vars": [],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the collapsible panel is initially open. To render a controlled collapsible, use the `open` prop instead.",
-          "name": "defaultOpen",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the collapsible panel is currently open. To render an uncontrolled collapsible, use the `defaultOpen` prop instead.",
-          "name": "open",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Event handler called when the panel is opened or closed.",
-          "name": "onOpenChange",
-          "type": "((open: boolean, eventDetails: Collapsible.Root.ChangeEventDetails) => void)"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component should ignore user interaction.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Collapsible.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Collapsible.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Collapsible.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups all parts of the collapsible."
-    },
-    "collapsible.Trigger": {
-      "css_vars": [],
-      "data": [
-        "data-panel-open"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Collapsible.Trigger.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Collapsible.Trigger.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Collapsible.Trigger.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button that opens and closes the collapsible panel."
-    }
-  },
-  "recipe": "disclosure",
-  "source": "ai_elements",
   "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/reasoning.tsx",
-      "sha256": "f138cddde35854f73632ff51d48230f8d6e16e0a49a74b44a93b51993a65550e"
-    }
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
-  "variants": {}
+  "upstream": {
+    "ai_elements/reasoning.tsx": "f138cddde35854f73632ff51d48230f8d6e16e0a49a74b44a93b51993a65550e",
+    "ai_elements/shimmer.tsx": "89d2284ee165aa57fec960e17c6c71078d22ad3fb3798ca683d7e3d850919a46",
+    "shadcn/ui/collapsible.tsx": "ead4349ff7b01d696ef89294a81d18ee1d3f732321398896462c834ab9b9e065"
+  },
+  "uses": [
+    "jsx/anonymous/class/0",
+    "jsx/anonymous/class/1",
+    "jsx/anonymous/class/2",
+    "jsx/anonymous/class/3",
+    "jsx/anonymous/class/4",
+    "jsx/anonymous/class/5",
+    "port/class/0"
+  ]
 }

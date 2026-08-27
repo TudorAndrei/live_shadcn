@@ -1,222 +1,74 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/alertVariants/base",
+      "cva/alertVariants/default/variant",
+      "cva/alertVariants/variant/variant/default",
+      "cva/alertVariants/variant/variant/destructive",
+      "jsx/AlertAction/class/0",
+      "jsx/AlertDescription/class/0",
+      "jsx/AlertTitle/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "cva/alertVariants/base": "cn-alert group/alert relative w-full",
+    "cva/alertVariants/default/variant": "default",
+    "cva/alertVariants/variant/variant/default": "cn-alert-variant-default",
+    "cva/alertVariants/variant/variant/destructive": "cn-alert-variant-destructive",
+    "jsx/AlertAction/class/0": "cn-alert-action",
+    "jsx/AlertDescription/class/0": "cn-alert-description [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
+    "jsx/AlertTitle/class/0": "cn-alert-title [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/alert.tsx": "c019fe02fc4bf4c294cea5274c322abb14f038471d500aaef7d9f9d9b2c27fe5"
+  },
+  "fingerprint": "dbf2e6a6fca86f300b445cda89a753fa6e1846690042d17f4fcd12e510fa6c23",
+  "ignored": {},
   "name": "alert",
-  "parts": [
+  "port_body": "460837772aea36240a572398914166188e8326b23a3ec4d6ac737eeae1fa3dc5",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "cva/alertVariants/base": "cn-alert group/alert relative w-full",
+    "cva/alertVariants/default/variant": "default",
+    "cva/alertVariants/variant/variant/default": "cn-alert-variant-default",
+    "cva/alertVariants/variant/variant/destructive": "cn-alert-variant-destructive",
+    "jsx/AlertAction/class/0": "cn-alert-action",
+    "jsx/AlertDescription/class/0": "cn-alert-description [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
+    "jsx/AlertTitle/class/0": "cn-alert-title [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Alert",
-      "name": "alert",
-      "params": {
-        "className": null,
-        "variant": null
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "role",
-            "value": "alert"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-slot",
-              "value": "alert-description"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "alert",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "variant"
-            ],
-            "table": "alertVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AlertTitle",
-      "name": "alert_title",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-alert-title [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "alert-title",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AlertDescription",
-      "name": "alert_description",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-alert-description [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "alert-description",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AlertAction",
-      "name": "alert_action",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-alert-action",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "alert-action",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-slot",
+      "value": "alert-description"
     }
   ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-alert-action": "absolute top-2.5 right-3",
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
-      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
-    },
-    "lyra": {
-      "cn-alert-action": "absolute top-[calc(--spacing(1.25))] right-[calc(--spacing(1.25))]",
-      "cn-alert-description": "text-muted-foreground text-xs/relaxed text-balance md:text-pretty [&_p:not(:last-child)]:mb-2",
-      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
-    },
-    "maia": {
-      "cn-alert-action": "absolute top-2.5 right-3",
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
-      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
-    },
-    "mira": {
-      "cn-alert-action": "absolute top-1.5 right-2",
-      "cn-alert-description": "text-muted-foreground text-xs/relaxed text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
-      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
-    },
-    "nova": {
-      "cn-alert-action": "absolute top-2 right-2",
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
-      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
-    },
-    "rhea": {
-      "cn-alert-action": "absolute top-2.5 right-3",
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
-      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
-    },
-    "sera": {
-      "cn-alert-action": "absolute top-2.5 right-3",
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
-      "cn-alert-title": "font-semibold group-has-[>svg]/alert:col-start-2 text-sm"
-    },
-    "vega": {
-      "cn-alert-action": "absolute top-2.5 right-3",
-      "cn-alert-description": "text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4",
-      "cn-alert-title": "font-medium group-has-[>svg]/alert:col-start-2"
-    }
+    "luma": "d6fe3108fa8ce512ab2580bdc167bda0e68926c06b6ab21ccf15dde293dd2bdf",
+    "lyra": "e4d9146bbd8e3af6e1f0accc01f5e5cd56f1877ecc9ed5937a0ec4b42545c942",
+    "maia": "86c2f8e47847585ecf8949443f04665c474089876509783ee5148e59a3e84a21",
+    "mira": "df2dfeb101babb319826e7b1b2d6cfcda81c5382707c9fab79cf6b98375059c2",
+    "nova": "cc37ee5bd342e4510582e9e3fc9b28adb20bba09ff71f2414278935b055a872b",
+    "rhea": "d6fe3108fa8ce512ab2580bdc167bda0e68926c06b6ab21ccf15dde293dd2bdf",
+    "sera": "2666afca6f44d4a2696f2c0eb4398adcc6a5d5090d1f54fe8d4cb00c42735ed7",
+    "vega": "86c2f8e47847585ecf8949443f04665c474089876509783ee5148e59a3e84a21"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/alert.tsx",
-      "sha256": "b28974495ba119b6c5bbbdff1bdec6e998537be20fc70f45d899814e4680c408"
-    }
+    "shadcn/ui/alert.tsx": "b28974495ba119b6c5bbbdff1bdec6e998537be20fc70f45d899814e4680c408"
   },
-  "variants": {
-    "alertVariants": {
-      "base": "cn-alert group/alert relative w-full",
-      "defaults": {
-        "variant": "default"
-      },
-      "variants": {
-        "variant": {
-          "default": "cn-alert-variant-default",
-          "destructive": "cn-alert-variant-destructive"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/alertVariants/base",
+    "cva/alertVariants/default/variant",
+    "cva/alertVariants/variant/variant/default",
+    "cva/alertVariants/variant/variant/destructive",
+    "jsx/AlertAction/class/0",
+    "jsx/AlertDescription/class/0",
+    "jsx/AlertTitle/class/0"
+  ]
 }

@@ -9,6 +9,16 @@ defmodule LiveShadcn.UI.Checkbox do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/Checkbox/class/0" => "cn-checkbox peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
+    "jsx/Checkbox/class/1" => "cn-checkbox-indicator grid place-content-center text-current transition-none"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.FormControl
 
   @doc """
@@ -69,15 +79,15 @@ defmodule LiveShadcn.UI.Checkbox do
       data-filled={flag(@checked)}
       data-indeterminate={flag(@indeterminate)}
       class={[
-        "cn-checkbox peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
-        @class
+        upstream_fact("jsx/Checkbox/class/0"),
+        (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <span
         hidden={not @checked}
         data-slot="checkbox-indicator"
-        class="cn-checkbox-indicator grid place-content-center text-current transition-none"
+        class={upstream_fact("jsx/Checkbox/class/1")}
       >
         <LiveShadcn.Icon.icon name="check" />
       </span>

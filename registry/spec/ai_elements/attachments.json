@@ -1,695 +1,204 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "attachments",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Attachments",
-      "name": "attachments",
-      "params": {
-        "children": null,
-        "className": null,
-        "variant": "grid"
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Attachment/class/0",
+      "jsx/Attachment/class/1",
+      "jsx/AttachmentEmpty/class/0",
+      "jsx/AttachmentInfo/class/0",
+      "jsx/AttachmentInfo/class/1",
+      "jsx/AttachmentInfo/class/2",
+      "jsx/AttachmentPreview/class/0",
+      "jsx/AttachmentPreview/class/1",
+      "jsx/AttachmentPreview/class/2",
+      "jsx/AttachmentPreview/class/3",
+      "jsx/AttachmentRemove/class/10",
+      "jsx/Attachments/class/0",
+      "jsx/Attachments/class/1",
+      "jsx/Attachments/class/2",
+      "jsx/Attachments/class/3"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "attrs": [],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "flex items-start",
-            "class_when": [
-              {
-                "else": "flex-wrap gap-2",
-                "identifiers": [
-                  "variant"
-                ],
-                "then": "flex-col gap-2",
-                "when": "variant === \"list\""
-              },
-              {
-                "else": null,
-                "identifiers": [
-                  "variant"
-                ],
-                "then": "ml-auto w-fit",
-                "when": "variant === \"grid\""
-              }
-            ],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "Attachment",
-      "name": "attachment",
-      "params": {
-        "children": null,
-        "className": null,
-        "data": null,
-        "variant": null
-      },
-      "primitive": null,
-      "refs": [
-        "data",
-        "onRemove",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "group relative",
-            "class_when": [
-              {
-                "else": null,
-                "identifiers": [
-                  "variant"
-                ],
-                "then": "size-24 overflow-hidden rounded-lg",
-                "when": "variant === \"grid\""
-              },
-              {
-                "else": null,
-                "identifiers": [
-                  "variant"
-                ],
-                "then": "flex h-8 cursor-pointer select-none items-center gap-1.5 rounded-md border border-border px-1.5 font-medium text-sm transition-all hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-                "when": "variant === \"inline\""
-              },
-              {
-                "else": null,
-                "identifiers": [
-                  "variant"
-                ],
-                "then": "flex w-full items-center gap-3 rounded-lg border p-3 hover:bg-accent/50",
-                "when": "variant === \"list\""
-              }
-            ],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AttachmentPreview",
-      "name": "attachment_preview",
-      "params": {
-        "className": null,
-        "renderContent": null,
-        "variant": null
-      },
-      "primitive": null,
-      "refs": [
-        "Icon",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "identifiers": [
-              "renderContent"
-            ],
-            "name": "render_content",
-            "type": "slot"
-          }
-        ],
-        "class": "flex shrink-0 items-center justify-center overflow-hidden",
-        "class_when": [
-          {
-            "else": null,
-            "identifiers": [
-              "variant"
-            ],
-            "then": "size-full bg-muted",
-            "when": "variant === \"grid\""
+            "fact": "jsx/AttachmentRemove/class/0"
           },
           {
-            "else": null,
-            "identifiers": [
-              "variant"
-            ],
-            "then": "size-5 rounded bg-background",
-            "when": "variant === \"inline\""
+            "fact": "jsx/AttachmentRemove/class/1"
           },
           {
-            "else": null,
-            "identifiers": [
-              "variant"
-            ],
-            "then": "size-12 rounded bg-muted",
-            "when": "variant === \"list\""
+            "fact": "jsx/AttachmentRemove/class/2"
+          },
+          {
+            "fact": "jsx/AttachmentRemove/class/3"
+          },
+          {
+            "fact": "jsx/AttachmentRemove/class/4"
           }
         ],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
+        "op": "join"
       },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AttachmentInfo",
-      "name": "attachment_info",
-      "params": {
-        "className": null,
-        "data": null,
-        "label": null,
-        "showMediaType": "false",
-        "variant": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "showMediaType"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
+      "port/class/1": {
+        "items": [
           {
-            "attrs": [],
-            "children": [
-              {
-                "code": "label",
-                "identifiers": [
-                  "label"
-                ],
-                "type": "value"
-              }
-            ],
-            "class": "block truncate",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
+            "fact": "jsx/Attachment/class/2"
           },
           {
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "code": "data.mediaType",
-                    "identifiers": [
-                      "data"
-                    ],
-                    "member_roots": [
-                      "data"
-                    ],
-                    "type": "value"
-                  }
-                ],
-                "class": "block truncate text-muted-foreground text-xs",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "span",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "data",
-              "showMediaType"
-            ],
-            "member_roots": [
-              "data"
-            ],
-            "type": "optional",
-            "when": "showMediaType && data.mediaType"
+            "fact": "jsx/Attachment/class/3"
+          },
+          {
+            "fact": "jsx/Attachment/class/4"
+          },
+          {
+            "fact": "jsx/Attachment/class/5"
           }
         ],
-        "class": "min-w-0 flex-1",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
+        "op": "join"
       },
-      "types": {
-        "showMediaType": {
-          "optional": true,
-          "type": "boolean"
-        }
-      },
-      "when": "!(variant === \"grid\")"
-    },
-    {
-      "contexts": [],
-      "export": "AttachmentRemove",
-      "name": "attachment_remove",
-      "params": {
-        "children": null,
-        "className": null,
-        "label": "Remove",
-        "size": "default",
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "e",
-        "label",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
+      "port/class/2": {
+        "items": [
           {
-            "identifiers": [
-              "label"
-            ],
-            "kind": "code",
-            "name": "aria-label",
-            "value": "label"
+            "fact": "jsx/Attachment/class/6"
           },
           {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "kind": "text",
-            "name": "variant",
-            "value": "ghost"
+            "fact": "jsx/Attachment/class/7"
           }
         ],
-        "children": [
+        "op": "join"
+      },
+      "port/class/3": {
+        "items": [
           {
-            "default": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "icons": {
-                  "lucide": "X"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
+            "fact": "jsx/AttachmentRemove/class/5"
           },
           {
-            "attrs": [],
-            "children": [
-              {
-                "code": "label",
-                "identifiers": [
-                  "label"
-                ],
-                "type": "value"
-              }
-            ],
-            "class": "sr-only",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [
-          {
-            "else": null,
-            "identifiers": [
-              "variant"
-            ],
-            "then": "absolute top-2 right-2 size-6 rounded-full p-0 bg-background/80 backdrop-blur-sm opacity-0 transition-opacity group-hover:opacity-100 hover:bg-background [&>svg]:size-3",
-            "when": "variant === \"grid\""
+            "fact": "jsx/AttachmentRemove/class/2"
           },
           {
-            "else": null,
-            "identifiers": [
-              "variant"
-            ],
-            "then": "size-5 rounded p-0 opacity-0 transition-opacity group-hover:opacity-100 [&>svg]:size-2.5",
-            "when": "variant === \"inline\""
+            "fact": "jsx/AttachmentRemove/class/7"
+          }
+        ],
+        "op": "join"
+      },
+      "port/class/4": {
+        "items": [
+          {
+            "fact": "jsx/AttachmentRemove/class/8"
           },
           {
-            "else": null,
-            "identifiers": [
-              "variant"
-            ],
-            "then": "size-8 shrink-0 rounded p-0 [&>svg]:size-4",
-            "when": "variant === \"list\""
+            "fact": "jsx/AttachmentRemove/class/9"
           }
         ],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {},
-      "when": "onRemove"
-    },
-    {
-      "contexts": [],
-      "export": "AttachmentHoverCard",
-      "name": "attachment_hover_card",
-      "params": {
-        "closeDelay": "0",
-        "openDelay": "0"
-      },
-      "primitive": null,
-      "refs": [
-        "closeDelay",
-        "openDelay",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "closeDelay"
-            ],
-            "kind": "code",
-            "name": "closeDelay",
-            "value": "closeDelay"
-          },
-          {
-            "identifiers": [
-              "openDelay"
-            ],
-            "kind": "code",
-            "name": "openDelay",
-            "value": "openDelay"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "hover-card",
-        "function": "hover_card",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "popover",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AttachmentHoverCardTrigger",
-      "name": "attachment_hover_card_trigger",
-      "params": {},
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "hover-card",
-        "function": "hover_card_trigger",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "popover",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "a",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AttachmentHoverCardContent",
-      "name": "attachment_hover_card_content",
-      "params": {
-        "align": "start",
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "align",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "align"
-            ],
-            "kind": "code",
-            "name": "align",
-            "value": "align"
-          }
-        ],
-        "children": [],
-        "class": "w-auto p-2",
-        "class_when": [],
-        "component": "hover-card",
-        "function": "hover_card_content",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "popover",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AttachmentEmpty",
-      "name": "attachment_empty",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "default": [
-              {
-                "type": "text",
-                "value": "No attachments"
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "flex items-center justify-center p-4 text-muted-foreground text-sm",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/attachments.tsx",
-      "sha256": "91c42be9a592fe8ff2468352b8636f6bc364567779618ac3a075f1080b378fad"
+        "op": "join"
+      }
     }
   },
-  "variants": {}
+  "css_vars": [],
+  "facts": {
+    "jsx/Attachment/class/0": "group relative",
+    "jsx/Attachment/class/1": "size-24 overflow-hidden rounded-lg",
+    "jsx/AttachmentEmpty/class/0": "flex items-center justify-center p-4 text-muted-foreground text-sm",
+    "jsx/AttachmentInfo/class/0": "min-w-0 flex-1",
+    "jsx/AttachmentInfo/class/1": "block truncate",
+    "jsx/AttachmentInfo/class/2": "block truncate text-muted-foreground text-xs",
+    "jsx/AttachmentPreview/class/0": "flex shrink-0 items-center justify-center overflow-hidden",
+    "jsx/AttachmentPreview/class/1": "size-full bg-muted",
+    "jsx/AttachmentPreview/class/2": "size-5 rounded bg-background",
+    "jsx/AttachmentPreview/class/3": "size-12 rounded bg-muted",
+    "jsx/AttachmentRemove/class/10": "sr-only",
+    "jsx/Attachments/class/0": "flex items-start",
+    "jsx/Attachments/class/1": "flex-col gap-2",
+    "jsx/Attachments/class/2": "flex-wrap gap-2",
+    "jsx/Attachments/class/3": "ml-auto w-fit",
+    "port/class/0": "absolute top-2 right-2 size-6 rounded-full p-0 bg-background/80 backdrop-blur-sm opacity-0 transition-opacity group-hover:opacity-100 hover:bg-background [&>svg]:size-3",
+    "port/class/1": "flex h-8 cursor-pointer select-none items-center gap-1.5 rounded-md border border-border px-1.5 font-medium text-sm transition-all hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+    "port/class/2": "flex w-full items-center gap-3 rounded-lg border p-3 hover:bg-accent/50",
+    "port/class/3": "size-5 rounded p-0 opacity-0 transition-opacity group-hover:opacity-100 [&>svg]:size-2.5",
+    "port/class/4": "size-8 shrink-0 rounded p-0 [&>svg]:size-4"
+  },
+  "file_fingerprints": {
+    "ai_elements/attachments.tsx": "22870086f086089c41e6548d915704c35766240e7e276e569dc34148d4faa3d7"
+  },
+  "fingerprint": "2ae41c6d21f9c3e1fe597571fe166830f1b01bcf20bdf5112827dbc3e1aff559",
+  "ignored": {
+    "jsx/AttachmentHoverCardContent/class/0": "the generated port does not contain this source literal",
+    "jsx/AttachmentRemove/class/6": "the generated port does not contain this source literal",
+    "jsx/renderAttachmentImage/class/0": "the generated port does not contain this source literal",
+    "jsx/renderAttachmentImage/class/1": "the generated port does not contain this source literal",
+    "jsx/renderContent/class/0": "the generated port does not contain this source literal",
+    "jsx/renderIcon/class/0": "the generated port does not contain this source literal"
+  },
+  "name": "attachments",
+  "port_body": "2e34ed77e17934956693d1584b3c300569656ba418af553124f1594d655ef515",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/AttachmentRemove/class/9": "[&>svg]:size-4",
+    "jsx/AttachmentRemove/class/6": "opacity-0 transition-opacity group-hover:opacity-100",
+    "jsx/AttachmentRemove/class/7": "[&>svg]:size-2.5",
+    "jsx/Attachment/class/3": "rounded-md border border-border px-1.5",
+    "jsx/Attachment/class/5": "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+    "jsx/Attachment/class/4": "font-medium text-sm transition-all",
+    "jsx/AttachmentInfo/class/2": "block truncate text-muted-foreground text-xs",
+    "jsx/AttachmentRemove/class/0": "absolute top-2 right-2 size-6 rounded-full p-0",
+    "jsx/AttachmentHoverCardContent/class/0": "w-auto p-2",
+    "jsx/Attachment/class/7": "hover:bg-accent/50",
+    "jsx/Attachments/class/3": "ml-auto w-fit",
+    "jsx/Attachment/class/2": "flex h-8 cursor-pointer select-none items-center gap-1.5",
+    "jsx/renderAttachmentImage/class/0": "size-full object-cover",
+    "jsx/AttachmentRemove/class/2": "opacity-0 transition-opacity group-hover:opacity-100",
+    "jsx/Attachment/class/1": "size-24 overflow-hidden rounded-lg",
+    "jsx/AttachmentRemove/class/8": "size-8 shrink-0 rounded p-0",
+    "jsx/AttachmentRemove/class/5": "size-5 rounded p-0",
+    "jsx/AttachmentRemove/class/1": "bg-background/80 backdrop-blur-sm",
+    "jsx/renderIcon/class/0": "text-muted-foreground",
+    "jsx/AttachmentInfo/class/0": "min-w-0 flex-1",
+    "jsx/AttachmentRemove/class/4": "[&>svg]:size-3",
+    "jsx/Attachment/class/0": "group relative",
+    "jsx/Attachments/class/1": "flex-col gap-2",
+    "jsx/AttachmentEmpty/class/0": "flex items-center justify-center p-4 text-muted-foreground text-sm",
+    "jsx/renderAttachmentImage/class/1": "size-full rounded object-cover",
+    "jsx/renderContent/class/0": "size-full object-cover",
+    "jsx/AttachmentRemove/class/10": "sr-only",
+    "jsx/AttachmentInfo/class/1": "block truncate",
+    "jsx/Attachments/class/2": "flex-wrap gap-2",
+    "jsx/Attachments/class/0": "flex items-start",
+    "jsx/AttachmentPreview/class/3": "size-12 rounded bg-muted",
+    "jsx/AttachmentRemove/class/3": "hover:bg-background",
+    "jsx/Attachment/class/6": "flex w-full items-center gap-3 rounded-lg border p-3",
+    "jsx/AttachmentPreview/class/0": "flex shrink-0 items-center justify-center overflow-hidden",
+    "jsx/AttachmentPreview/class/2": "size-5 rounded bg-background",
+    "jsx/AttachmentPreview/class/1": "size-full bg-muted"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/attachments.tsx": "91c42be9a592fe8ff2468352b8636f6bc364567779618ac3a075f1080b378fad"
+  },
+  "uses": [
+    "jsx/Attachment/class/0",
+    "jsx/Attachment/class/1",
+    "jsx/AttachmentEmpty/class/0",
+    "jsx/AttachmentInfo/class/0",
+    "jsx/AttachmentInfo/class/1",
+    "jsx/AttachmentInfo/class/2",
+    "jsx/AttachmentPreview/class/0",
+    "jsx/AttachmentPreview/class/1",
+    "jsx/AttachmentPreview/class/2",
+    "jsx/AttachmentPreview/class/3",
+    "jsx/AttachmentRemove/class/10",
+    "jsx/Attachments/class/0",
+    "jsx/Attachments/class/1",
+    "jsx/Attachments/class/2",
+    "jsx/Attachments/class/3",
+    "port/class/0",
+    "port/class/1",
+    "port/class/2",
+    "port/class/3",
+    "port/class/4"
+  ]
 }

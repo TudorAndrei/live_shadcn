@@ -9,6 +9,15 @@ defmodule LiveShadcn.UI.Sonner do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/Toaster/class/0" => "toaster group"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Toast
   alias Phoenix.LiveView.JS
 
@@ -76,7 +85,7 @@ defmodule LiveShadcn.UI.Sonner do
       phx-hook={Toast.hook()}
       role="region"
       aria-label={@label}
-      class={["toaster group", @class]}
+      class={[upstream_fact("jsx/Toaster/class/0"), (@class || "")]}
       style="--border-radius: var(--radius); --normal-bg: var(--popover); --normal-border: var(--border); --normal-text: var(--popover-foreground)"
       {@rest}
     >

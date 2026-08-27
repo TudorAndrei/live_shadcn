@@ -1,404 +1,48 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Node/class/0",
+      "jsx/NodeContent/class/0",
+      "jsx/NodeFooter/class/0",
+      "jsx/NodeHeader/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Node/class/0": "node-container relative size-full h-auto w-sm gap-0 rounded-md p-0",
+    "jsx/NodeContent/class/0": "p-3",
+    "jsx/NodeFooter/class/0": "rounded-b-md border-t bg-secondary p-3!",
+    "jsx/NodeHeader/class/0": "gap-0.5 rounded-t-md border-b bg-secondary p-3!"
+  },
+  "file_fingerprints": {
+    "ai_elements/node.tsx": "067f7ecaba0078471661bd4b41fd365af8ff71864b943f93fbe9868af8e00915"
+  },
+  "fingerprint": "4b87a719c5f43bc3430f7f75a43207688fb06ad83d39c19f1048ac2622b42cda",
+  "ignored": {},
   "name": "node",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Node",
-      "name": "node",
-      "params": {
-        "className": null,
-        "handles": null,
-        "size": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "handles"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          }
-        ],
-        "children": [
-          {
-            "children": [
-              {
-                "attrs": [
-                  {
-                    "identifiers": [
-                      "Position"
-                    ],
-                    "kind": "code",
-                    "member_roots": [
-                      "Position"
-                    ],
-                    "name": "position",
-                    "value": "Position.Left"
-                  },
-                  {
-                    "kind": "text",
-                    "name": "type",
-                    "value": "target"
-                  }
-                ],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "merges_class": false,
-                "module": "external/@xyflow/react",
-                "part": "Handle",
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "div",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "Position",
-              "handles"
-            ],
-            "member_roots": [
-              "Position",
-              "handles"
-            ],
-            "type": "optional",
-            "when": "handles.target"
-          },
-          {
-            "children": [
-              {
-                "attrs": [
-                  {
-                    "identifiers": [
-                      "Position"
-                    ],
-                    "kind": "code",
-                    "member_roots": [
-                      "Position"
-                    ],
-                    "name": "position",
-                    "value": "Position.Right"
-                  },
-                  {
-                    "kind": "text",
-                    "name": "type",
-                    "value": "source"
-                  }
-                ],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "merges_class": false,
-                "module": "external/@xyflow/react",
-                "part": "Handle",
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "div",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "Position",
-              "handles"
-            ],
-            "member_roots": [
-              "Position",
-              "handles"
-            ],
-            "type": "optional",
-            "when": "handles.source"
-          },
-          {
-            "identifiers": [
-              "props"
-            ],
-            "member_roots": [
-              "props"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "node-container relative size-full h-auto w-sm gap-0 rounded-md p-0",
-        "class_when": [],
-        "component": "card",
-        "function": "card",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "NodeHeader",
-      "name": "node_header",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "gap-0.5 rounded-t-md border-b bg-secondary p-3!",
-        "class_when": [],
-        "component": "card",
-        "function": "card_header",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "NodeTitle",
-      "name": "node_title",
-      "params": {},
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "card",
-        "function": "card_title",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "NodeDescription",
-      "name": "node_description",
-      "params": {},
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "card",
-        "function": "card_description",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "NodeAction",
-      "name": "node_action",
-      "params": {},
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "card",
-        "function": "card_action",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "NodeContent",
-      "name": "node_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "p-3",
-        "class_when": [],
-        "component": "card",
-        "function": "card_content",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "NodeFooter",
-      "name": "node_footer",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "rounded-b-md border-t bg-secondary p-3!",
-        "class_when": [],
-        "component": "card",
-        "function": "card_footer",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "external/@xyflow/react.Handle": {
-      "props": [
-        {
-          "name": "position"
-        },
-        {
-          "name": "type"
-        },
-        {
-          "name": "id"
-        },
-        {
-          "name": "isConnectable"
-        }
-      ]
-    }
-  },
-  "recipe": "presentational",
+  "port_body": "cdfd25ae105432ba240b9aadac0463a4aa8fa1d5abd92fd0e3c0ba5fd71e359d",
+  "schema_version": 2,
   "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/node.tsx",
-      "sha256": "67c30837d32aefcc1fc012f779a58465de86e2df8dd287f28da9a678d90ada61"
-    }
+  "source_facts": {
+    "jsx/Node/class/0": "node-container relative size-full h-auto w-sm gap-0 rounded-md p-0",
+    "jsx/NodeContent/class/0": "p-3",
+    "jsx/NodeFooter/class/0": "rounded-b-md border-t bg-secondary p-3!",
+    "jsx/NodeHeader/class/0": "gap-0.5 rounded-t-md border-b bg-secondary p-3!"
   },
-  "variants": {}
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/node.tsx": "67c30837d32aefcc1fc012f779a58465de86e2df8dd287f28da9a678d90ada61"
+  },
+  "uses": [
+    "jsx/Node/class/0",
+    "jsx/NodeContent/class/0",
+    "jsx/NodeFooter/class/0",
+    "jsx/NodeHeader/class/0"
+  ]
 }

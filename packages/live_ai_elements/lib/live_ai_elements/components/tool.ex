@@ -13,6 +13,50 @@ defmodule LiveAiElements.Components.Tool do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "cva/badgeVariants/variant/variant/default" => "cn-badge-variant-default",
+    "cva/badgeVariants/variant/variant/destructive" => "cn-badge-variant-destructive",
+    "cva/badgeVariants/variant/variant/ghost" => "cn-badge-variant-ghost",
+    "cva/badgeVariants/variant/variant/link" => "cn-badge-variant-link",
+    "cva/badgeVariants/variant/variant/outline" => "cn-badge-variant-outline",
+    "cva/badgeVariants/variant/variant/secondary" => "cn-badge-variant-secondary",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/0" => "size-4 text-yellow-600",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/1" => "size-4 text-blue-600",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/2" => "size-4 animate-pulse",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/3" => "size-4",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/4" => "size-4 text-green-600",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/5" => "size-4 text-orange-600",
+    "file/ai_elements/tool.tsx/jsx/anonymous/class/6" => "size-4 text-red-600",
+    "jsx/CodeBlockTitle/class/0" => "flex items-center gap-2",
+    "jsx/Tool/class/0" => "group not-prose mb-4 w-full rounded-md border",
+    "jsx/ToolContent/class/0" => "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 space-y-4 p-4 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+    "jsx/ToolHeader/class/0" => "flex w-full items-center justify-between gap-4 p-3",
+    "jsx/ToolHeader/class/2" => "size-4 text-muted-foreground",
+    "jsx/ToolHeader/class/3" => "font-medium text-sm",
+    "jsx/ToolHeader/class/4" => "size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180",
+    "port/class/0" => "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1.5 rounded-full text-xs"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
+  @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
+
   alias LiveBase.Disclosure
 
   @doc """
@@ -57,7 +101,7 @@ defmodule LiveAiElements.Components.Tool do
       id={@id}
       data-open={flag(@open)}
       data-closed={flag(not @open)}
-      class={["group not-prose mb-4 w-full rounded-md border", @class]}
+      class={[upstream_fact("jsx/Tool/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <button
@@ -69,11 +113,11 @@ defmodule LiveAiElements.Components.Tool do
         phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
         phx-mounted={Disclosure.owned_attributes(:trigger)}
         data-panel-open={flag(@open)}
-        class={["flex w-full items-center justify-between gap-4 p-3", @header_class]}
+        class={[upstream_fact("jsx/ToolHeader/class/0"), (@header_class || "")]}
       >
-        <div class="flex items-center gap-2">
-          <LiveShadcn.Icon.icon name="wrench" class="size-4 text-muted-foreground" />
-          <span class="font-medium text-sm">
+        <div class={upstream_fact("jsx/CodeBlockTitle/class/0")}>
+          <LiveShadcn.Icon.icon name="wrench" class={upstream_fact("jsx/ToolHeader/class/2")} />
+          <span class={upstream_fact("jsx/ToolHeader/class/3")}>
             {@title || @derived_name}
           </span>
           <span
@@ -81,39 +125,39 @@ defmodule LiveAiElements.Components.Tool do
             data-variant={@variant}
             class={[
               variant_class("badgeVariants", "variant", @variant),
-              "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none gap-1.5 rounded-full text-xs"
+              upstream_fact("port/class/0")
             ]}
           >
             <LiveShadcn.Icon.icon
               :if={@state == "approval-requested"}
               name="clock"
-              class="size-4 text-yellow-600"
+              class={upstream_fact("file/ai_elements/tool.tsx/jsx/anonymous/class/0")}
             />
             <LiveShadcn.Icon.icon
               :if={@state == "approval-responded"}
               name="circle-check-big"
-              class="size-4 text-blue-600"
+              class={upstream_fact("file/ai_elements/tool.tsx/jsx/anonymous/class/1")}
             />
             <LiveShadcn.Icon.icon
               :if={@state == "input-available"}
               name="clock"
-              class="size-4 animate-pulse"
+              class={upstream_fact("file/ai_elements/tool.tsx/jsx/anonymous/class/2")}
             />
-            <LiveShadcn.Icon.icon :if={@state == "input-streaming"} name="circle" class="size-4" />
+            <LiveShadcn.Icon.icon :if={@state == "input-streaming"} name="circle" class={upstream_fact("file/ai_elements/tool.tsx/jsx/anonymous/class/3")} />
             <LiveShadcn.Icon.icon
               :if={@state == "output-available"}
               name="circle-check-big"
-              class="size-4 text-green-600"
+              class={upstream_fact("file/ai_elements/tool.tsx/jsx/anonymous/class/4")}
             />
             <LiveShadcn.Icon.icon
               :if={@state == "output-denied"}
               name="circle-x"
-              class="size-4 text-orange-600"
+              class={upstream_fact("file/ai_elements/tool.tsx/jsx/anonymous/class/5")}
             />
             <LiveShadcn.Icon.icon
               :if={@state == "output-error"}
               name="circle-x"
-              class="size-4 text-red-600"
+              class={upstream_fact("file/ai_elements/tool.tsx/jsx/anonymous/class/6")}
             />
             {Map.get(
               %{
@@ -131,7 +175,7 @@ defmodule LiveAiElements.Components.Tool do
         </div>
         <LiveShadcn.Icon.icon
           name="chevron-down"
-          class="size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180"
+          class={upstream_fact("jsx/ToolHeader/class/4")}
         />
       </button>
       <div
@@ -147,8 +191,8 @@ defmodule LiveAiElements.Components.Tool do
         data-open={flag(@open)}
         data-closed={flag(not @open)}
         class={[
-          "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 space-y-4 p-4 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
-          @content_class
+          upstream_fact("jsx/ToolContent/class/0"),
+          (@content_class || "")
         ]}
       >
         {render_slot(@inner_block)}
@@ -169,19 +213,6 @@ defmodule LiveAiElements.Components.Tool do
   defp flag(true), do: ""
   defp flag(_state), do: nil
 
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "badgeVariants" => %{
-      "variant" => %{
-        "default" => "cn-badge-variant-default",
-        "destructive" => "cn-badge-variant-destructive",
-        "ghost" => "cn-badge-variant-ghost",
-        "link" => "cn-badge-variant-link",
-        "outline" => "cn-badge-variant-outline",
-        "secondary" => "cn-badge-variant-secondary"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
+  defp variant_class(table, group, value),
+    do: get_in(@variant_classes, [table, group, value])
 end

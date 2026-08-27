@@ -1,301 +1,77 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/emptyMediaVariants/base",
+      "cva/emptyMediaVariants/default/variant",
+      "cva/emptyMediaVariants/variant/variant/default",
+      "cva/emptyMediaVariants/variant/variant/icon",
+      "jsx/Empty/class/0",
+      "jsx/EmptyContent/class/0",
+      "jsx/EmptyDescription/class/0",
+      "jsx/EmptyHeader/class/0",
+      "jsx/EmptyTitle/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "cva/emptyMediaVariants/base": "cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/emptyMediaVariants/default/variant": "default",
+    "cva/emptyMediaVariants/variant/variant/default": "cn-empty-media-default",
+    "cva/emptyMediaVariants/variant/variant/icon": "cn-empty-media-icon",
+    "jsx/Empty/class/0": "cn-empty flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance",
+    "jsx/EmptyContent/class/0": "cn-empty-content flex w-full max-w-sm min-w-0 flex-col items-center text-balance",
+    "jsx/EmptyDescription/class/0": "cn-empty-description text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+    "jsx/EmptyHeader/class/0": "cn-empty-header flex max-w-sm flex-col items-center",
+    "jsx/EmptyTitle/class/0": "cn-empty-title cn-font-heading"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/empty.tsx": "1dacdba3fa79fcc89b8c50e6b4acae30b475fce7d4350de3c33ea455641cb316"
+  },
+  "fingerprint": "0365a9ff6c18f3bd61fb9119cd6763820f4ce93473f62326e2af20152acd169f",
+  "ignored": {},
   "name": "empty",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Empty",
-      "name": "empty",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-empty flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "empty",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "EmptyHeader",
-      "name": "empty_header",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-empty-header flex max-w-sm flex-col items-center",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "empty-header",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "EmptyTitle",
-      "name": "empty_title",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-empty-title cn-font-heading",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "empty-title",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "EmptyDescription",
-      "name": "empty_description",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-empty-description text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "empty-description",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "EmptyContent",
-      "name": "empty_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-empty-content flex w-full max-w-sm min-w-0 flex-col items-center text-balance",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "empty-content",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "EmptyMedia",
-      "name": "empty_media",
-      "params": {
-        "className": null,
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "empty-icon",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "variant",
-              "className"
-            ],
-            "table": "emptyMediaVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
+  "port_body": "7dadf41711741bc617ad8df8a7404a43d5c0cee6eac525bd983a42c892aba610",
+  "schema_version": 2,
   "source": "shadcn",
+  "source_facts": {
+    "cva/emptyMediaVariants/base": "cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/emptyMediaVariants/default/variant": "default",
+    "cva/emptyMediaVariants/variant/variant/default": "cn-empty-media-default",
+    "cva/emptyMediaVariants/variant/variant/icon": "cn-empty-media-icon",
+    "jsx/Empty/class/0": "cn-empty flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance",
+    "jsx/EmptyContent/class/0": "cn-empty-content flex w-full max-w-sm min-w-0 flex-col items-center text-balance",
+    "jsx/EmptyDescription/class/0": "cn-empty-description text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+    "jsx/EmptyHeader/class/0": "cn-empty-header flex max-w-sm flex-col items-center",
+    "jsx/EmptyTitle/class/0": "cn-empty-title cn-font-heading"
+  },
+  "state_reads": [],
   "styles": {
-    "luma": {
-      "cn-empty": "gap-4 rounded-2xl border-dashed p-12",
-      "cn-empty-content": "gap-4 text-sm",
-      "cn-empty-description": "text-sm/relaxed",
-      "cn-empty-header": "gap-2",
-      "cn-empty-title": "text-lg font-medium tracking-tight"
-    },
-    "lyra": {
-      "cn-empty": "gap-4 rounded-none border-dashed p-6",
-      "cn-empty-content": "gap-2.5 text-xs",
-      "cn-empty-description": "text-xs/relaxed",
-      "cn-empty-header": "gap-2",
-      "cn-empty-title": "text-sm font-medium"
-    },
-    "maia": {
-      "cn-empty": "gap-4 rounded-lg border-dashed p-12",
-      "cn-empty-content": "gap-4 text-sm",
-      "cn-empty-description": "text-sm/relaxed",
-      "cn-empty-header": "gap-2",
-      "cn-empty-title": "text-lg font-medium tracking-tight"
-    },
-    "mira": {
-      "cn-empty": "gap-4 rounded-xl border-dashed p-6",
-      "cn-empty-content": "gap-2 text-xs/relaxed",
-      "cn-empty-description": "text-xs/relaxed",
-      "cn-empty-header": "gap-1",
-      "cn-empty-title": "text-sm font-medium tracking-tight"
-    },
-    "nova": {
-      "cn-empty": "gap-4 rounded-xl border-dashed p-6",
-      "cn-empty-content": "gap-2.5 text-sm",
-      "cn-empty-description": "text-sm/relaxed",
-      "cn-empty-header": "gap-2",
-      "cn-empty-title": "text-sm font-medium tracking-tight"
-    },
-    "rhea": {
-      "cn-empty": "gap-4 rounded-3xl border-dashed p-12",
-      "cn-empty-content": "gap-4 text-sm",
-      "cn-empty-description": "text-sm/relaxed",
-      "cn-empty-header": "gap-2",
-      "cn-empty-title": "text-lg font-medium tracking-tight"
-    },
-    "sera": {
-      "cn-empty": "gap-4 border-dashed p-12",
-      "cn-empty-content": "gap-4 text-sm",
-      "cn-empty-description": "text-sm/relaxed mt-0.5",
-      "cn-empty-header": "gap-2",
-      "cn-empty-title": "text-lg font-semibold tracking-wider uppercase"
-    },
-    "vega": {
-      "cn-empty": "gap-4 rounded-lg border-dashed p-12",
-      "cn-empty-content": "gap-4 text-sm",
-      "cn-empty-description": "text-sm/relaxed",
-      "cn-empty-header": "gap-2",
-      "cn-empty-title": "text-lg font-medium tracking-tight"
-    }
+    "luma": "d0d9deac7f8944f56eb3782928c3971b1151f2584769f839c8e2ef69eaeb80e0",
+    "lyra": "3f5cfa8bbe1a711852bed6ba7e36927774f7d13bef67f3f83296762c92949419",
+    "maia": "188d4b7eea8edea5a6af869c299b8fbf9ad8db79c50d2f7225e647e245d22ea2",
+    "mira": "a427a86ad67163517c24e27467932bae0d47575eb9a0c766cc96f6cb92e6b0a0",
+    "nova": "93d51dc1e2af2661836841c6d90b2f5b9dce1c7053f00a8021539441a8509621",
+    "rhea": "98c4cf0cbb58f81b1ad7f856ef88f010eb919c29802281e2881def3e4f4ed77a",
+    "sera": "b9ea848d811f3b765bde91022bdc41dc47143076d921facbceaceb7e053b1998",
+    "vega": "188d4b7eea8edea5a6af869c299b8fbf9ad8db79c50d2f7225e647e245d22ea2"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/empty.tsx",
-      "sha256": "f022b2014448c212e3545d12e09a0fbe038ceebdb4dca848e9c3c9b1e1c640aa"
-    }
+    "shadcn/ui/empty.tsx": "f022b2014448c212e3545d12e09a0fbe038ceebdb4dca848e9c3c9b1e1c640aa"
   },
-  "variants": {
-    "emptyMediaVariants": {
-      "base": "cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "variant": "default"
-      },
-      "variants": {
-        "variant": {
-          "default": "cn-empty-media-default",
-          "icon": "cn-empty-media-icon"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/emptyMediaVariants/base",
+    "cva/emptyMediaVariants/default/variant",
+    "cva/emptyMediaVariants/variant/variant/default",
+    "cva/emptyMediaVariants/variant/variant/icon",
+    "jsx/Empty/class/0",
+    "jsx/EmptyContent/class/0",
+    "jsx/EmptyDescription/class/0",
+    "jsx/EmptyHeader/class/0",
+    "jsx/EmptyTitle/class/0"
+  ]
 }

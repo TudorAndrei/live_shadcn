@@ -9,6 +9,17 @@ defmodule LiveShadcn.UI.DropdownMenu do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/DropdownMenuContent/class/0" => "isolate z-50 outline-none",
+    "jsx/DropdownMenuContent/class/1" => "cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
+    "jsx/DropdownMenuItem/class/0" => "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Menu
   alias LiveBase.Popover
 
@@ -85,7 +96,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
       >
         {render_slot(@trigger)}
       </button>
-      <div class={["contents", @class]}>
+      <div class={["contents", (@class || "")]}>
         <div
           id={Popover.positioner_id(@id)}
           hidden={not @open}
@@ -98,7 +109,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
           phx-mounted={Popover.owned_attributes(:positioner)}
           data-open={flag(@open)}
           data-closed={flag(not @open)}
-          class="isolate z-50 outline-none"
+          class={upstream_fact("jsx/DropdownMenuContent/class/0")}
         >
           <div
             id={Popover.popup_id(@id)}
@@ -117,8 +128,8 @@ defmodule LiveShadcn.UI.DropdownMenu do
             data-closed={flag(not @open)}
             data-variant={@variant}
             class={[
-              "cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
-              @class
+              upstream_fact("jsx/DropdownMenuContent/class/1"),
+              (@class || "")
             ]}
             data-lb-style-target
             data-lb-measure
@@ -136,8 +147,8 @@ defmodule LiveShadcn.UI.DropdownMenu do
               data-variant={@variant}
               data-inset={flag(@inset)}
               class={[
-                "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-                @item_class
+                upstream_fact("jsx/DropdownMenuItem/class/0"),
+                (@item_class || "")
               ]}
             >
               {render_slot(item)}

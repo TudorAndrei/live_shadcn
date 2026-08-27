@@ -9,6 +9,21 @@ defmodule LiveShadcn.UI.InputOtp do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/InputOTP/class/0" => "cn-input-otp flex items-center has-disabled:opacity-50",
+    "jsx/InputOTP/class/1" => "cn-input-otp-input disabled:cursor-not-allowed",
+    "jsx/InputOTPGroup/class/0" => "cn-input-otp-group flex items-center",
+    "jsx/InputOTPSeparator/class/0" => "cn-input-otp-separator flex items-center",
+    "jsx/InputOTPSlot/class/0" => "cn-input-otp-slot relative flex items-center justify-center data-[active=true]:z-10",
+    "jsx/InputOTPSlot/class/1" => "cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center",
+    "jsx/InputOTPSlot/class/2" => "cn-input-otp-caret-line"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.FormControl
 
   @doc """
@@ -65,7 +80,7 @@ defmodule LiveShadcn.UI.InputOtp do
       data-input-otp-container
       translate="no"
       style="--root-height: 0px; position: relative; cursor: text; user-select: none; -webkit-user-select: none; pointer-events: none"
-      class="cn-input-otp flex items-center has-disabled:opacity-50"
+      class={upstream_fact("jsx/InputOTP/class/0")}
     >
       <input
         data-slot={@rest[:"data-slot"] || "input-otp"}
@@ -79,7 +94,7 @@ defmodule LiveShadcn.UI.InputOtp do
         phx-mounted={FormControl.owned_attributes()}
         spellcheck={false}
         style="position: absolute; inset: 0; width: 100%; height: 100%; display: flex; text-align: left; opacity: 1; color: transparent; pointer-events: all; background: transparent; caret-color: transparent; border: 0 solid transparent; outline: 0 solid transparent; box-shadow: none; line-height: 1; letter-spacing: -.5em; font-size: var(--root-height, 16px); font-family: monospace; font-variant-numeric: tabular-nums"
-        class={["cn-input-otp-input disabled:cursor-not-allowed", @class]}
+        class={[upstream_fact("jsx/InputOTP/class/1"), (@class || "")]}
         {Map.drop(@rest, [:"data-slot"])}
       />
     </div>
@@ -96,7 +111,7 @@ defmodule LiveShadcn.UI.InputOtp do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "input-otp-group"}
-      class={["cn-input-otp-group flex items-center", @class]}
+      class={[upstream_fact("jsx/InputOTPGroup/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -119,17 +134,17 @@ defmodule LiveShadcn.UI.InputOtp do
       data-slot={@rest[:"data-slot"] || "input-otp-slot"}
       data-active={@is_active}
       class={[
-        "cn-input-otp-slot relative flex items-center justify-center data-[active=true]:z-10",
-        @class
+        upstream_fact("jsx/InputOTPSlot/class/0"),
+        (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {@char}
       <div
         :if={@has_fake_caret}
-        class="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center"
+        class={upstream_fact("jsx/InputOTPSlot/class/1")}
       >
-        <div class="cn-input-otp-caret-line" />
+        <div class={upstream_fact("jsx/InputOTPSlot/class/2")} />
       </div>
       {render_slot(@inner_block)}
     </div>
@@ -147,7 +162,7 @@ defmodule LiveShadcn.UI.InputOtp do
     <div
       data-slot={@rest[:"data-slot"] || "input-otp-separator"}
       role="separator"
-      class="cn-input-otp-separator flex items-center"
+      class={upstream_fact("jsx/InputOTPSeparator/class/0")}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <LiveShadcn.Icon.icon name="minus" />{render_slot(@inner_block)}

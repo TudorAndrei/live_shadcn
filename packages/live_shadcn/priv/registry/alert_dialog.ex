@@ -9,6 +9,20 @@ defmodule LiveShadcn.UI.AlertDialog do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/AlertDialogContent/class/0" => "cn-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+    "jsx/AlertDialogDescription/class/0" => "cn-alert-dialog-description",
+    "jsx/AlertDialogFooter/class/0" => "cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
+    "jsx/AlertDialogHeader/class/0" => "cn-alert-dialog-header",
+    "jsx/AlertDialogOverlay/class/0" => "cn-alert-dialog-overlay fixed inset-0 isolate z-50",
+    "jsx/AlertDialogTitle/class/0" => "cn-alert-dialog-title cn-font-heading"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Dialog
 
   @doc """
@@ -76,7 +90,7 @@ defmodule LiveShadcn.UI.AlertDialog do
       phx-mounted={Dialog.owned_attributes(:backdrop)}
       data-open={flag(@open)}
       data-closed={flag(not @open)}
-      class={["cn-alert-dialog-overlay fixed inset-0 isolate z-50", @overlay_class]}
+      class={[upstream_fact("jsx/AlertDialogOverlay/class/0"), (@overlay_class || "")]}
     />
     <div
       data-slot="alert-dialog-content"
@@ -97,22 +111,22 @@ defmodule LiveShadcn.UI.AlertDialog do
       data-closed={flag(not @open)}
       data-size={@size}
       class={[
-        "cn-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 outline-none",
-        @class
+        upstream_fact("jsx/AlertDialogContent/class/0"),
+        (@class || "")
       ]}
     >
-      <div data-slot="alert-dialog-header" class="cn-alert-dialog-header">
+      <div data-slot="alert-dialog-header" class={upstream_fact("jsx/AlertDialogHeader/class/0")}>
         <h2
           data-slot="alert-dialog-title"
           id={Dialog.title_id(@id)}
-          class={["cn-alert-dialog-title cn-font-heading", @title_class]}
+          class={[upstream_fact("jsx/AlertDialogTitle/class/0"), (@title_class || "")]}
         >
           {render_slot(@title)}
         </h2>
         <p
           data-slot="alert-dialog-description"
           id={Dialog.description_id(@id)}
-          class={["cn-alert-dialog-description", @description_class]}
+          class={[upstream_fact("jsx/AlertDialogDescription/class/0"), (@description_class || "")]}
         >
           {render_slot(@description)}
         </p>
@@ -121,7 +135,7 @@ defmodule LiveShadcn.UI.AlertDialog do
       <div
         :if={@footer != []}
         data-slot="alert-dialog-footer"
-        class="cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end"
+        class={upstream_fact("jsx/AlertDialogFooter/class/0")}
       >
         {render_slot(@footer)}
       </div>

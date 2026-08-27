@@ -1,1756 +1,300 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/sidebarMenuButtonVariants/base",
+      "cva/sidebarMenuButtonVariants/default/size",
+      "cva/sidebarMenuButtonVariants/default/variant",
+      "cva/sidebarMenuButtonVariants/variant/size/default",
+      "cva/sidebarMenuButtonVariants/variant/size/lg",
+      "cva/sidebarMenuButtonVariants/variant/size/sm",
+      "cva/sidebarMenuButtonVariants/variant/variant/default",
+      "cva/sidebarMenuButtonVariants/variant/variant/outline",
+      "jsx/Sidebar/class/10",
+      "jsx/Sidebar/class/11",
+      "jsx/Sidebar/class/12",
+      "jsx/Sidebar/class/13",
+      "jsx/Sidebar/class/2",
+      "jsx/Sidebar/class/4",
+      "jsx/Sidebar/class/8",
+      "jsx/Sidebar/class/9",
+      "jsx/SidebarContent/class/0",
+      "jsx/SidebarFooter/class/0",
+      "jsx/SidebarGroup/class/0",
+      "jsx/SidebarGroupAction/class/0",
+      "jsx/SidebarGroupContent/class/0",
+      "jsx/SidebarGroupLabel/class/0",
+      "jsx/SidebarHeader/class/0",
+      "jsx/SidebarInput/class/0",
+      "jsx/SidebarInset/class/0",
+      "jsx/SidebarMenu/class/0",
+      "jsx/SidebarMenuAction/class/0",
+      "jsx/SidebarMenuAction/class/1",
+      "jsx/SidebarMenuBadge/class/0",
+      "jsx/SidebarMenuItem/class/0",
+      "jsx/SidebarMenuSkeleton/class/0",
+      "jsx/SidebarMenuSkeleton/class/1",
+      "jsx/SidebarMenuSkeleton/class/2",
+      "jsx/SidebarMenuSub/class/0",
+      "jsx/SidebarMenuSubButton/class/0",
+      "jsx/SidebarMenuSubItem/class/0",
+      "jsx/SidebarSeparator/class/0",
+      "jsx/SidebarTrigger/class/0",
+      "jsx/SidebarTrigger/class/1"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
+          {
+            "fact": "jsx/Sidebar/class/5"
+          },
+          {
+            "fact": "jsx/Sidebar/class/6"
+          },
+          {
+            "fact": "jsx/Sidebar/class/7"
+          }
+        ],
+        "op": "join"
+      },
+      "port/class/1": {
+        "items": [
+          {
+            "fact": "jsx/SidebarRail/class/0"
+          },
+          {
+            "fact": "jsx/SidebarRail/class/1"
+          },
+          {
+            "fact": "jsx/SidebarRail/class/2"
+          },
+          {
+            "fact": "jsx/SidebarRail/class/3"
+          },
+          {
+            "fact": "jsx/SidebarRail/class/4"
+          },
+          {
+            "fact": "jsx/SidebarRail/class/5"
+          }
+        ],
+        "op": "join"
+      }
+    }
+  },
+  "css_vars": [
+    "--radius-sm",
+    "--radius-xl",
+    "--sidebar-accent",
+    "--sidebar-border",
+    "--sidebar-width",
+    "--sidebar-width-icon",
+    "--skeleton-width"
+  ],
+  "facts": {
+    "jsx/SidebarMenuSkeleton/class/2": "cn-sidebar-menu-skeleton-text max-w-(--skeleton-width) flex-1",
+    "jsx/SidebarMenuSkeleton/class/1": "cn-sidebar-menu-skeleton-icon",
+    "jsx/SidebarMenuSkeleton/class/0": "cn-sidebar-menu-skeleton flex items-center",
+    "jsx/Sidebar/class/2": "sr-only",
+    "jsx/SidebarMenuSubItem/class/0": "group/menu-sub-item relative",
+    "jsx/Sidebar/class/13": "cn-sidebar-inner flex size-full flex-col",
+    "jsx/SidebarTrigger/class/1": "cn-rtl-flip",
+    "jsx/SidebarHeader/class/0": "cn-sidebar-header flex flex-col",
+    "jsx/SidebarInput/class/0": "cn-sidebar-input",
+    "cva/sidebarMenuButtonVariants/variant/size/lg": "cn-sidebar-menu-button-size-lg",
+    "jsx/SidebarInset/class/0": "cn-sidebar-inset relative flex w-full flex-1 flex-col",
+    "jsx/SidebarMenuAction/class/1": "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 md:opacity-0",
+    "jsx/SidebarMenuBadge/class/0": "cn-sidebar-menu-badge flex items-center justify-center tabular-nums select-none group-data-[collapsible=icon]:hidden",
+    "port/class/0": "cn-sidebar-gap relative w-(--sidebar-width) bg-transparent group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180",
+    "jsx/SidebarGroup/class/0": "cn-sidebar-group relative flex w-full min-w-0 flex-col",
+    "cva/sidebarMenuButtonVariants/variant/size/sm": "cn-sidebar-menu-button-size-sm",
+    "jsx/SidebarGroupAction/class/0": "cn-sidebar-group-action flex aspect-square items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
+    "cva/sidebarMenuButtonVariants/default/size": "default",
+    "jsx/Sidebar/class/4": "group peer hidden text-sidebar-foreground md:block",
+    "jsx/SidebarGroupLabel/class/0": "cn-sidebar-group-label flex shrink-0 items-center outline-hidden [&>svg]:shrink-0",
+    "jsx/Sidebar/class/11": "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]",
+    "jsx/Sidebar/class/12": "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
+    "jsx/Sidebar/class/10": "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
+    "jsx/Sidebar/class/8": "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]",
+    "jsx/SidebarContent/class/0": "cn-sidebar-content flex min-h-0 flex-1 flex-col overflow-auto group-data-[collapsible=icon]:overflow-hidden",
+    "jsx/SidebarTrigger/class/0": "cn-sidebar-trigger",
+    "jsx/Sidebar/class/9": "group-data-[collapsible=icon]:w-(--sidebar-width-icon)",
+    "jsx/SidebarSeparator/class/0": "cn-sidebar-separator w-auto",
+    "jsx/SidebarMenu/class/0": "cn-sidebar-menu flex w-full min-w-0 flex-col",
+    "cva/sidebarMenuButtonVariants/default/variant": "default",
+    "cva/sidebarMenuButtonVariants/variant/variant/default": "cn-sidebar-menu-button-variant-default",
+    "jsx/SidebarGroupContent/class/0": "cn-sidebar-group-content w-full",
+    "cva/sidebarMenuButtonVariants/base": "cn-sidebar-menu-button peer/menu-button group/menu-button flex w-full items-center overflow-hidden outline-hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate",
+    "jsx/SidebarMenuItem/class/0": "group/menu-item relative",
+    "port/class/1": "cn-sidebar-rail absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2 in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize [[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar [[data-side=left][data-collapsible=offcanvas]_&]:-right-2 [[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
+    "jsx/SidebarFooter/class/0": "cn-sidebar-footer flex flex-col",
+    "cva/sidebarMenuButtonVariants/variant/size/default": "cn-sidebar-menu-button-size-default",
+    "jsx/SidebarMenuSubButton/class/0": "cn-sidebar-menu-sub-button flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
+    "jsx/SidebarMenuSub/class/0": "cn-sidebar-menu-sub flex min-w-0 flex-col",
+    "jsx/SidebarMenuAction/class/0": "cn-sidebar-menu-action flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
+    "cva/sidebarMenuButtonVariants/variant/variant/outline": "cn-sidebar-menu-button-variant-outline"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/sidebar.tsx": "533722807728c430fabe0506111669d6fc43aa5f5d8fe020c666030835b55035"
+  },
+  "fingerprint": "843c6c0f4c2338ef0f642d6ae3d07837a68562b72d2a2243e912141d854bcf77",
+  "ignored": {
+    "jsx/Sidebar/class/0": "the generated port does not contain this source literal",
+    "jsx/Sidebar/class/1": "the generated port does not contain this source literal",
+    "jsx/Sidebar/class/3": "the generated port does not contain this source literal",
+    "jsx/SidebarProvider/class/0": "the generated port does not contain this source literal",
+    "jsx/SidebarTrigger/class/2": "the generated port does not contain this source literal"
+  },
   "name": "sidebar",
-  "parts": [
+  "port_body": "3a8390658708a182871619084c1848ab82c255d07039b89a13896baed2d0d5f9",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/Sidebar/class/0": "flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground",
+    "jsx/SidebarMenuSkeleton/class/2": "cn-sidebar-menu-skeleton-text max-w-(--skeleton-width) flex-1",
+    "jsx/SidebarMenuSkeleton/class/1": "cn-sidebar-menu-skeleton-icon",
+    "jsx/SidebarMenuSkeleton/class/0": "cn-sidebar-menu-skeleton flex items-center",
+    "jsx/Sidebar/class/2": "sr-only",
+    "jsx/SidebarMenuSubItem/class/0": "group/menu-sub-item relative",
+    "jsx/SidebarRail/class/3": "group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar",
+    "jsx/Sidebar/class/5": "cn-sidebar-gap relative w-(--sidebar-width) bg-transparent",
+    "jsx/Sidebar/class/13": "cn-sidebar-inner flex size-full flex-col",
+    "jsx/SidebarTrigger/class/1": "cn-rtl-flip",
+    "jsx/SidebarHeader/class/0": "cn-sidebar-header flex flex-col",
+    "jsx/SidebarInput/class/0": "cn-sidebar-input",
+    "cva/sidebarMenuButtonVariants/variant/size/lg": "cn-sidebar-menu-button-size-lg",
+    "jsx/SidebarInset/class/0": "cn-sidebar-inset relative flex w-full flex-1 flex-col",
+    "jsx/SidebarMenuAction/class/1": "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 md:opacity-0",
+    "jsx/SidebarRail/class/4": "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
+    "jsx/SidebarMenuBadge/class/0": "cn-sidebar-menu-badge flex items-center justify-center tabular-nums select-none group-data-[collapsible=icon]:hidden",
+    "jsx/SidebarGroup/class/0": "cn-sidebar-group relative flex w-full min-w-0 flex-col",
+    "cva/sidebarMenuButtonVariants/variant/size/sm": "cn-sidebar-menu-button-size-sm",
+    "jsx/SidebarGroupAction/class/0": "cn-sidebar-group-action flex aspect-square items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
+    "cva/sidebarMenuButtonVariants/default/size": "default",
+    "jsx/Sidebar/class/4": "group peer hidden text-sidebar-foreground md:block",
+    "jsx/SidebarGroupLabel/class/0": "cn-sidebar-group-label flex shrink-0 items-center outline-hidden [&>svg]:shrink-0",
+    "jsx/Sidebar/class/11": "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]",
+    "jsx/Sidebar/class/12": "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
+    "jsx/SidebarProvider/class/0": "group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar",
+    "jsx/SidebarTrigger/class/2": "sr-only",
+    "jsx/Sidebar/class/10": "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
+    "jsx/Sidebar/class/8": "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]",
+    "jsx/SidebarContent/class/0": "cn-sidebar-content flex min-h-0 flex-1 flex-col overflow-auto group-data-[collapsible=icon]:overflow-hidden",
+    "jsx/SidebarTrigger/class/0": "cn-sidebar-trigger",
+    "jsx/SidebarRail/class/5": "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
+    "jsx/Sidebar/class/9": "group-data-[collapsible=icon]:w-(--sidebar-width-icon)",
+    "jsx/SidebarSeparator/class/0": "cn-sidebar-separator w-auto",
+    "jsx/SidebarRail/class/0": "cn-sidebar-rail absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2",
+    "jsx/SidebarMenu/class/0": "cn-sidebar-menu flex w-full min-w-0 flex-col",
+    "jsx/SidebarRail/class/2": "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
+    "jsx/Sidebar/class/1": "w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden",
+    "cva/sidebarMenuButtonVariants/default/variant": "default",
+    "cva/sidebarMenuButtonVariants/variant/variant/default": "cn-sidebar-menu-button-variant-default",
+    "jsx/SidebarRail/class/1": "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize",
+    "jsx/SidebarGroupContent/class/0": "cn-sidebar-group-content w-full",
+    "jsx/Sidebar/class/6": "group-data-[collapsible=offcanvas]:w-0",
+    "cva/sidebarMenuButtonVariants/base": "cn-sidebar-menu-button peer/menu-button group/menu-button flex w-full items-center overflow-hidden outline-hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate",
+    "jsx/SidebarMenuItem/class/0": "group/menu-item relative",
+    "jsx/Sidebar/class/7": "group-data-[side=right]:rotate-180",
+    "jsx/SidebarFooter/class/0": "cn-sidebar-footer flex flex-col",
+    "cva/sidebarMenuButtonVariants/variant/size/default": "cn-sidebar-menu-button-size-default",
+    "jsx/SidebarMenuSubButton/class/0": "cn-sidebar-menu-sub-button flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
+    "jsx/SidebarMenuSub/class/0": "cn-sidebar-menu-sub flex min-w-0 flex-col",
+    "jsx/Sidebar/class/3": "flex h-full w-full flex-col",
+    "jsx/SidebarMenuAction/class/0": "cn-sidebar-menu-action flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
+    "cva/sidebarMenuButtonVariants/variant/variant/outline": "cn-sidebar-menu-button-variant-outline"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Sidebar",
-      "name": "sidebar",
-      "params": {
-        "children": null,
-        "className": null,
-        "collapsible": "offcanvas",
-        "dir": null,
-        "side": "left",
-        "state": null,
-        "variant": "sidebar"
-      },
-      "primitive": null,
-      "refs": [
-        "collapsible",
-        "className",
-        "props",
-        "children",
-        "dir",
-        "side",
-        "variant"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "state"
-            ],
-            "kind": "code",
-            "name": "data-state",
-            "value": "state"
-          },
-          {
-            "identifiers": [
-              "collapsible",
-              "state"
-            ],
-            "kind": "code",
-            "name": "data-collapsible",
-            "value": "state === \"collapsed\" ? collapsible : \"\""
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          },
-          {
-            "identifiers": [
-              "side"
-            ],
-            "kind": "code",
-            "name": "data-side",
-            "value": "side"
-          }
-        ],
-        "children": [
-          {
-            "attrs": [],
-            "children": [],
-            "class": "cn-sidebar-gap relative w-(--sidebar-width) bg-transparent group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180",
-            "class_when": [
-              {
-                "else": "group-data-[collapsible=icon]:w-(--sidebar-width-icon)",
-                "identifiers": [
-                  "variant"
-                ],
-                "then": "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]",
-                "when": "variant === \"floating\" || variant === \"inset\""
-              }
-            ],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "sidebar-gap",
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": [
-              "--sidebar-width",
-              "--sidebar-width-icon"
-            ]
-          },
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "side"
-                ],
-                "kind": "code",
-                "name": "data-side",
-                "value": "side"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [
-                  {
-                    "kind": "text",
-                    "name": "data-sidebar",
-                    "value": "sidebar"
-                  }
-                ],
-                "children": [
-                  {
-                    "type": "children"
-                  }
-                ],
-                "class": "cn-sidebar-inner flex size-full flex-col",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": "sidebar-inner",
-                "tag": "div",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
-            "class_when": [
-              {
-                "else": "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
-                "identifiers": [
-                  "variant"
-                ],
-                "then": "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]",
-                "when": "variant === \"floating\" || variant === \"inset\""
-              }
-            ],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": [
-                {
-                  "name": "data-side",
-                  "value": "left"
-                },
-                {
-                  "name": "data-side",
-                  "value": "right"
-                }
-              ]
-            },
-            "render_as": null,
-            "slot": "sidebar-container",
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": [
-              "--sidebar-width",
-              "--sidebar-width-icon"
-            ]
-          }
-        ],
-        "class": "group peer hidden text-sidebar-foreground md:block",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "collapsible": {
-          "optional": true,
-          "values": [
-            "offcanvas",
-            "icon",
-            "none"
-          ]
-        },
-        "side": {
-          "optional": true,
-          "values": [
-            "left",
-            "right"
-          ]
-        },
-        "variant": {
-          "optional": true,
-          "values": [
-            "sidebar",
-            "floating",
-            "inset"
-          ]
-        }
-      }
+      "name": "aria-disabled",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "SidebarContent",
-      "name": "sidebar_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "content"
-          }
-        ],
-        "children": [],
-        "class": "cn-sidebar-content flex min-h-0 flex-1 flex-col overflow-auto group-data-[collapsible=icon]:overflow-hidden",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-content",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-expanded",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "SidebarFooter",
-      "name": "sidebar_footer",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "footer"
-          }
-        ],
-        "children": [],
-        "class": "cn-sidebar-footer flex flex-col",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-footer",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-active",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "SidebarGroup",
-      "name": "sidebar_group",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "group"
-          }
-        ],
-        "children": [],
-        "class": "cn-sidebar-group relative flex w-full min-w-0 flex-col",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-group",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-open",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "SidebarGroupAction",
-      "name": "sidebar_group_action",
-      "params": {
-        "className": null,
-        "render": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "render"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "group-action"
-          }
-        ],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "cn-sidebar-group-action flex aspect-square items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-group-action",
-        "tag": "button",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-side",
+      "value": "left"
     },
     {
-      "contexts": [],
-      "export": "SidebarGroupContent",
-      "name": "sidebar_group_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "group-content"
-          }
-        ],
-        "children": [],
-        "class": "cn-sidebar-group-content w-full",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-group-content",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-side",
+      "value": "right"
     },
     {
-      "contexts": [],
-      "export": "SidebarGroupLabel",
-      "name": "sidebar_group_label",
-      "params": {
-        "className": null,
-        "render": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "render"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "group-label"
-          }
-        ],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "cn-sidebar-group-label flex shrink-0 items-center outline-hidden [&>svg]:shrink-0",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-group-label",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-size",
+      "value": "md"
     },
     {
-      "contexts": [],
-      "export": "SidebarHeader",
-      "name": "sidebar_header",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "header"
-          }
-        ],
-        "children": [],
-        "class": "cn-sidebar-header flex flex-col",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-header",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SidebarInput",
-      "name": "sidebar_input",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "input"
-          }
-        ],
-        "children": [],
-        "class": "cn-sidebar-input",
-        "class_when": [],
-        "component": "input",
-        "function": "input",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "form-control",
-        "render_as": null,
-        "slot": "sidebar-input",
-        "source": "shadcn",
-        "tag": "input",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SidebarInset",
-      "name": "sidebar_inset",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-sidebar-inset relative flex w-full flex-1 flex-col",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-inset",
-        "tag": "main",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SidebarMenu",
-      "name": "sidebar_menu",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "menu"
-          }
-        ],
-        "children": [],
-        "class": "cn-sidebar-menu flex w-full min-w-0 flex-col",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-menu",
-        "tag": "ul",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SidebarMenuAction",
-      "name": "sidebar_menu_action",
-      "params": {
-        "className": null,
-        "render": null,
-        "showOnHover": "false"
-      },
-      "primitive": null,
-      "refs": [
-        "showOnHover",
-        "className",
-        "props",
-        "render"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "menu-action"
-          }
-        ],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "cn-sidebar-menu-action flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
-        "class_when": [
-          {
-            "else": null,
-            "identifiers": [
-              "showOnHover"
-            ],
-            "then": "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 md:opacity-0",
-            "when": "showOnHover"
-          }
-        ],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-expanded",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "sidebar-menu-action",
-        "tag": "button",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "showOnHover": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "SidebarMenuBadge",
-      "name": "sidebar_menu_badge",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "menu-badge"
-          }
-        ],
-        "children": [],
-        "class": "cn-sidebar-menu-badge flex items-center justify-center tabular-nums select-none group-data-[collapsible=icon]:hidden",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-menu-badge",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SidebarMenuButton",
-      "name": "sidebar_menu_button",
-      "params": {
-        "className": null,
-        "comp": null,
-        "isActive": "false",
-        "isMobile": null,
-        "render": null,
-        "size": "default",
-        "state": null,
-        "tooltip": null,
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "size",
-        "className",
-        "props",
-        "tooltip",
-        "render",
-        "isActive"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "isActive"
-                ],
-                "kind": "code",
-                "name": "data-active",
-                "value": "isActive"
-              },
-              {
-                "kind": "text",
-                "name": "data-sidebar",
-                "value": "menu-button"
-              },
-              {
-                "identifiers": [
-                  "size"
-                ],
-                "kind": "code",
-                "name": "data-size",
-                "value": "size"
-              }
-            ],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "",
-            "class_when": [],
-            "identifiers": [
-              "comp"
-            ],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": [
-                {
-                  "name": "aria-disabled",
-                  "value": null
-                },
-                {
-                  "name": "data-active",
-                  "value": null
-                },
-                {
-                  "name": "data-open",
-                  "value": null
-                }
-              ]
-            },
-            "render_as": null,
-            "slot": "sidebar-menu-button",
-            "tag": "button",
-            "type": "element",
-            "variant_calls": [
-              {
-                "args": [
-                  "variant",
-                  "size"
-                ],
-                "table": "sidebarMenuButtonVariants"
-              }
-            ],
-            "vars": []
-          },
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "side",
-                "value": "right"
-              },
-              {
-                "kind": "text",
-                "name": "align",
-                "value": "center"
-              },
-              {
-                "identifiers": [
-                  "isMobile",
-                  "state"
-                ],
-                "kind": "code",
-                "name": "hidden",
-                "value": "state !== \"collapsed\" || isMobile"
-              }
-            ],
-            "children": [],
-            "class": "",
-            "class_when": [],
-            "component": "tooltip",
-            "function": "tooltip_content",
-            "merges_class": false,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "recipe": "popover",
-            "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "tag": "div",
-            "type": "component_ref",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "component": "tooltip",
-        "function": "tooltip",
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "popover",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "isActive": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "SidebarMenuItem",
-      "name": "sidebar_menu_item",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "menu-item"
-          }
-        ],
-        "children": [],
-        "class": "group/menu-item relative",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-menu-item",
-        "tag": "li",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SidebarMenuSkeleton",
-      "name": "sidebar_menu_skeleton",
-      "params": {
-        "className": null,
-        "showIcon": "false",
-        "width": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "showIcon"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "menu-skeleton"
-          }
-        ],
-        "children": [
-          {
-            "children": [
-              {
-                "attrs": [
-                  {
-                    "kind": "text",
-                    "name": "data-sidebar",
-                    "value": "menu-skeleton-icon"
-                  }
-                ],
-                "children": [],
-                "class": "cn-sidebar-menu-skeleton-icon",
-                "class_when": [],
-                "component": "skeleton",
-                "function": "skeleton",
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "recipe": "presentational",
-                "render_as": null,
-                "slot": null,
-                "source": "shadcn",
-                "tag": "div",
-                "type": "component_ref",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "showIcon"
-            ],
-            "type": "optional",
-            "when": "showIcon"
-          },
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "data-sidebar",
-                "value": "menu-skeleton-text"
-              },
-              {
-                "identifiers": [
-                  "CSSProperties",
-                  "React",
-                  "width"
-                ],
-                "kind": "style",
-                "name": "style",
-                "value": [
-                  {
-                    "kind": "code",
-                    "property": "--skeleton-width",
-                    "value": "width"
-                  }
-                ]
-              }
-            ],
-            "children": [],
-            "class": "cn-sidebar-menu-skeleton-text max-w-(--skeleton-width) flex-1",
-            "class_when": [],
-            "component": "skeleton",
-            "function": "skeleton",
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "recipe": "presentational",
-            "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "tag": "div",
-            "type": "component_ref",
-            "variant_calls": [],
-            "vars": [
-              "--skeleton-width"
-            ]
-          }
-        ],
-        "class": "cn-sidebar-menu-skeleton flex items-center",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-menu-skeleton",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "showIcon": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "SidebarMenuSub",
-      "name": "sidebar_menu_sub",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "menu-sub"
-          }
-        ],
-        "children": [],
-        "class": "cn-sidebar-menu-sub flex min-w-0 flex-col",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-menu-sub",
-        "tag": "ul",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SidebarMenuSubButton",
-      "name": "sidebar_menu_sub_button",
-      "params": {
-        "className": null,
-        "isActive": "false",
-        "render": null,
-        "size": "md"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "render",
-        "size",
-        "isActive"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "isActive"
-            ],
-            "kind": "code",
-            "name": "data-active",
-            "value": "isActive"
-          },
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "menu-sub-button"
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "data-size",
-            "value": "size"
-          }
-        ],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "cn-sidebar-menu-sub-button flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-disabled",
-              "value": null
-            },
-            {
-              "name": "data-active",
-              "value": null
-            },
-            {
-              "name": "data-size",
-              "value": "md"
-            },
-            {
-              "name": "data-size",
-              "value": "sm"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "sidebar-menu-sub-button",
-        "tag": "a",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "isActive": {
-          "optional": true,
-          "type": "boolean"
-        },
-        "size": {
-          "optional": true,
-          "values": [
-            "sm",
-            "md"
-          ]
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "SidebarMenuSubItem",
-      "name": "sidebar_menu_sub_item",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "menu-sub-item"
-          }
-        ],
-        "children": [],
-        "class": "group/menu-sub-item relative",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-menu-sub-item",
-        "tag": "li",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [
-        "isMobile"
-      ],
-      "export": "SidebarProvider",
-      "name": "sidebar_provider",
-      "params": {
-        "children": null,
-        "className": null,
-        "defaultOpen": "true",
-        "open": null,
-        "style": null
-      },
-      "primitive": null,
-      "refs": [
-        "defaultOpen",
-        "open",
-        "value",
-        "onOpenChange",
-        "open",
-        "event",
-        "style",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "CSSProperties",
-                  "React",
-                  "SIDEBAR_WIDTH",
-                  "SIDEBAR_WIDTH_ICON",
-                  "style"
-                ],
-                "kind": "style",
-                "name": "style",
-                "value": [
-                  {
-                    "kind": "text",
-                    "property": "--sidebar-width",
-                    "value": "16rem"
-                  },
-                  {
-                    "kind": "text",
-                    "property": "--sidebar-width-icon",
-                    "value": "3rem"
-                  },
-                  {
-                    "kind": "spread",
-                    "property": "style"
-                  }
-                ]
-              }
-            ],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar",
-            "class_when": [],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "sidebar-wrapper",
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "defaultOpen": {
-          "optional": true,
-          "type": "boolean"
-        },
-        "open": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "SidebarRail",
-      "name": "sidebar_rail",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "rail"
-          },
-          {
-            "kind": "text",
-            "name": "aria-label",
-            "value": "Toggle Sidebar"
-          },
-          {
-            "kind": "code",
-            "name": "tabindex",
-            "value": "-1"
-          },
-          {
-            "kind": "text",
-            "name": "title",
-            "value": "Toggle Sidebar"
-          }
-        ],
-        "children": [],
-        "class": "cn-sidebar-rail absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2 in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize [[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar [[data-side=left][data-collapsible=offcanvas]_&]:-right-2 [[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "sidebar-rail",
-        "tag": "button",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SidebarSeparator",
-      "name": "sidebar_separator",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "separator"
-          }
-        ],
-        "children": [],
-        "class": "cn-sidebar-separator w-auto",
-        "class_when": [],
-        "component": "separator",
-        "function": "separator",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "separator",
-        "render_as": null,
-        "slot": "sidebar-separator",
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SidebarTrigger",
-      "name": "sidebar_trigger",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "event",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "data-sidebar",
-            "value": "trigger"
-          },
-          {
-            "kind": "text",
-            "name": "variant",
-            "value": "ghost"
-          },
-          {
-            "kind": "text",
-            "name": "size",
-            "value": "icon-sm"
-          }
-        ],
-        "children": [
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "lucide",
-                "value": "PanelLeftIcon"
-              },
-              {
-                "kind": "text",
-                "name": "tabler",
-                "value": "IconLayoutSidebar"
-              },
-              {
-                "kind": "text",
-                "name": "hugeicons",
-                "value": "SidebarLeftIcon"
-              },
-              {
-                "kind": "text",
-                "name": "phosphor",
-                "value": "SidebarIcon"
-              },
-              {
-                "kind": "text",
-                "name": "remixicon",
-                "value": "RiSideBarLine"
-              }
-            ],
-            "children": [],
-            "class": "cn-rtl-flip",
-            "class_when": [],
-            "icons": {
-              "hugeicons": "SidebarLeftIcon",
-              "lucide": "PanelLeft",
-              "phosphor": "SidebarIcon",
-              "remixicon": "RiSideBarLine",
-              "tabler": "IconLayoutSidebar"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "text",
-                "value": "Toggle Sidebar"
-              }
-            ],
-            "class": "sr-only",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-sidebar-trigger",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": "sidebar-trigger",
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-size",
+      "value": "sm"
     }
   ],
-  "primitives": {},
-  "recipe": "sidebar",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-sidebar-content": "no-scrollbar gap-2 [--radius:var(--radius-xl)]",
-      "cn-sidebar-footer": "gap-2 p-2",
-      "cn-sidebar-gap": "transition-[width] duration-200 ease-linear",
-      "cn-sidebar-group": "p-2",
-      "cn-sidebar-group-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-xl p-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-group-content": "text-sm",
-      "cn-sidebar-group-label": "text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-xl px-3 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-header": "gap-2 p-2 [--radius:var(--radius-xl)]",
-      "cn-sidebar-inner": "bg-sidebar group-data-[variant=floating]:ring-sidebar-border group-data-[variant=floating]:rounded-2xl group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1",
-      "cn-sidebar-input": "bg-input/50 h-8 w-full shadow-none",
-      "cn-sidebar-inset": "bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-2xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
-      "cn-sidebar-menu": "gap-0.5",
-      "cn-sidebar-menu-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-xl p-0 peer-data-[size=default]/menu-button:top-2 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-menu-badge": "text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 rounded-xl px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1",
-      "cn-sidebar-menu-skeleton": "h-8 gap-2 rounded-xl px-2",
-      "cn-sidebar-menu-skeleton-icon": "size-4 rounded-xl",
-      "cn-sidebar-menu-skeleton-text": "h-4",
-      "cn-sidebar-menu-sub": "border-sidebar-border mx-3.5 translate-x-px gap-1 border-l px-2.5 py-0.5 group-data-[collapsible=icon]:hidden",
-      "cn-sidebar-menu-sub-button": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-xl px-3 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4",
-      "cn-sidebar-rail": "hover:after:bg-sidebar-border",
-      "cn-sidebar-separator": "bg-sidebar-border mx-2"
-    },
-    "lyra": {
-      "cn-sidebar-content": "no-scrollbar gap-0",
-      "cn-sidebar-footer": "gap-2 p-2",
-      "cn-sidebar-gap": "transition-[width] duration-200 ease-linear",
-      "cn-sidebar-group": "p-2",
-      "cn-sidebar-group-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-none p-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-group-content": "text-xs",
-      "cn-sidebar-group-label": "text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-none px-2 text-xs transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-header": "gap-2 p-2",
-      "cn-sidebar-inner": "bg-sidebar group-data-[variant=floating]:ring-sidebar-border group-data-[variant=floating]:rounded-none group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1",
-      "cn-sidebar-input": "bg-background h-8 w-full shadow-none",
-      "cn-sidebar-inset": "bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-none md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
-      "cn-sidebar-menu": "gap-0",
-      "cn-sidebar-menu-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-none p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-menu-badge": "text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 rounded-none px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1",
-      "cn-sidebar-menu-skeleton": "h-8 gap-2 rounded-none px-2",
-      "cn-sidebar-menu-skeleton-icon": "size-4 rounded-none",
-      "cn-sidebar-menu-skeleton-text": "h-4",
-      "cn-sidebar-menu-sub": "border-sidebar-border mx-3.5 translate-x-px gap-1 border-l px-2.5 py-0.5 group-data-[collapsible=icon]:hidden",
-      "cn-sidebar-menu-sub-button": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-none px-2 focus-visible:ring-2 data-[size=md]:text-xs data-[size=sm]:text-xs [&>svg]:size-4",
-      "cn-sidebar-rail": "hover:after:bg-sidebar-border",
-      "cn-sidebar-separator": "bg-sidebar-border mx-2"
-    },
-    "maia": {
-      "cn-sidebar-content": "no-scrollbar gap-2 [--radius:var(--radius-xl)]",
-      "cn-sidebar-footer": "gap-2 p-2",
-      "cn-sidebar-gap": "transition-[width] duration-200 ease-linear",
-      "cn-sidebar-group": "p-2",
-      "cn-sidebar-group-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-md p-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-group-content": "text-sm",
-      "cn-sidebar-group-label": "text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-md px-3 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-header": "gap-2 p-2 [--radius:var(--radius-xl)]",
-      "cn-sidebar-inner": "bg-sidebar group-data-[variant=floating]:ring-sidebar-border group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1",
-      "cn-sidebar-input": "bg-background h-8 w-full shadow-none",
-      "cn-sidebar-inset": "bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
-      "cn-sidebar-menu": "gap-1",
-      "cn-sidebar-menu-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-2 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-menu-badge": "text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 rounded-md px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1",
-      "cn-sidebar-menu-skeleton": "h-8 gap-2 rounded-md px-2",
-      "cn-sidebar-menu-skeleton-icon": "size-4 rounded-md",
-      "cn-sidebar-menu-skeleton-text": "h-4",
-      "cn-sidebar-menu-sub": "border-sidebar-border mx-3.5 translate-x-px gap-1 border-l px-2.5 py-0.5 group-data-[collapsible=icon]:hidden",
-      "cn-sidebar-menu-sub-button": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4",
-      "cn-sidebar-rail": "hover:after:bg-sidebar-border",
-      "cn-sidebar-separator": "bg-sidebar-border mx-2"
-    },
-    "mira": {
-      "cn-sidebar-content": "no-scrollbar gap-0",
-      "cn-sidebar-footer": "gap-2 p-2",
-      "cn-sidebar-gap": "transition-[width] duration-200 ease-linear",
-      "cn-sidebar-group": "px-2 py-1",
-      "cn-sidebar-group-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-md p-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-group-content": "text-xs",
-      "cn-sidebar-group-label": "text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-md px-2 text-xs transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-header": "gap-2 p-2",
-      "cn-sidebar-inner": "bg-sidebar group-data-[variant=floating]:ring-sidebar-border group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1",
-      "cn-sidebar-input": "bg-muted/20 dark:bg-muted/30 border-input h-8 w-full",
-      "cn-sidebar-inset": "bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
-      "cn-sidebar-menu": "gap-px",
-      "cn-sidebar-menu-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-[calc(var(--radius-sm)-2px)] p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-menu-badge": "text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 rounded-[calc(var(--radius-sm)-2px)] px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1",
-      "cn-sidebar-menu-skeleton": "h-8 gap-2 rounded-md px-2",
-      "cn-sidebar-menu-skeleton-icon": "size-4 rounded-md",
-      "cn-sidebar-menu-skeleton-text": "h-4",
-      "cn-sidebar-menu-sub": "border-sidebar-border mx-3.5 translate-x-px gap-1 border-l px-2.5 py-0.5 group-data-[collapsible=icon]:hidden",
-      "cn-sidebar-menu-sub-button": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-xs data-[size=sm]:text-xs [&>svg]:size-4",
-      "cn-sidebar-rail": "hover:after:bg-sidebar-border",
-      "cn-sidebar-separator": "bg-sidebar-border mx-2"
-    },
-    "nova": {
-      "cn-sidebar-content": "no-scrollbar gap-0",
-      "cn-sidebar-footer": "gap-2 p-2",
-      "cn-sidebar-gap": "transition-[width] duration-200 ease-linear",
-      "cn-sidebar-group": "p-2",
-      "cn-sidebar-group-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-md p-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-group-content": "text-sm",
-      "cn-sidebar-group-label": "text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-md px-2 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-header": "gap-2 p-2",
-      "cn-sidebar-inner": "bg-sidebar group-data-[variant=floating]:ring-sidebar-border group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1",
-      "cn-sidebar-input": "bg-background h-8 w-full shadow-none",
-      "cn-sidebar-inset": "bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
-      "cn-sidebar-menu": "gap-0",
-      "cn-sidebar-menu-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-menu-badge": "text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 rounded-md px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1",
-      "cn-sidebar-menu-skeleton": "h-8 gap-2 rounded-md px-2",
-      "cn-sidebar-menu-skeleton-icon": "size-4 rounded-md",
-      "cn-sidebar-menu-skeleton-text": "h-4",
-      "cn-sidebar-menu-sub": "border-sidebar-border mx-3.5 translate-x-px gap-1 border-l px-2.5 py-0.5 group-data-[collapsible=icon]:hidden",
-      "cn-sidebar-menu-sub-button": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4",
-      "cn-sidebar-rail": "hover:after:bg-sidebar-border",
-      "cn-sidebar-separator": "bg-sidebar-border mx-2"
-    },
-    "rhea": {
-      "cn-sidebar-content": "no-scrollbar gap-2 [--radius:var(--radius-xl)]",
-      "cn-sidebar-footer": "gap-2 p-2",
-      "cn-sidebar-gap": "transition-[width] duration-200 ease-linear",
-      "cn-sidebar-group": "p-2",
-      "cn-sidebar-group-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-xl p-0 focus-visible:ring-3 [&>svg]:size-4",
-      "cn-sidebar-group-content": "text-sm",
-      "cn-sidebar-group-label": "text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-xl px-3 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-3 [&>svg]:size-4",
-      "cn-sidebar-header": "gap-2 p-2 [--radius:var(--radius-xl)]",
-      "cn-sidebar-inner": "bg-sidebar group-data-[variant=floating]:ring-sidebar-border group-data-[variant=floating]:rounded-2xl group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1",
-      "cn-sidebar-input": "bg-input/50 h-8 w-full shadow-none",
-      "cn-sidebar-inset": "bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-2xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
-      "cn-sidebar-menu": "gap-0.5",
-      "cn-sidebar-menu-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-xl p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-3 [&>svg]:size-4",
-      "cn-sidebar-menu-badge": "text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 rounded-xl px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1",
-      "cn-sidebar-menu-skeleton": "h-8 gap-2 rounded-xl px-2",
-      "cn-sidebar-menu-skeleton-icon": "size-4 rounded-xl",
-      "cn-sidebar-menu-skeleton-text": "h-4",
-      "cn-sidebar-menu-sub": "border-sidebar-border mx-3.5 translate-x-px gap-1 border-l px-2.5 py-0.5 group-data-[collapsible=icon]:hidden",
-      "cn-sidebar-menu-sub-button": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-xl px-3 focus-visible:ring-3 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4",
-      "cn-sidebar-rail": "hover:after:bg-sidebar-border",
-      "cn-sidebar-separator": "bg-sidebar-border mx-2"
-    },
-    "sera": {
-      "cn-sidebar-content": "no-scrollbar gap-2 [--radius:0]",
-      "cn-sidebar-footer": "gap-2 p-2",
-      "cn-sidebar-gap": "transition-[width] duration-200 ease-linear",
-      "cn-sidebar-group": "p-2",
-      "cn-sidebar-group-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-none p-0 focus-visible:ring-2 [&>svg]:size-3.5",
-      "cn-sidebar-group-content": "text-sm",
-      "cn-sidebar-group-label": "text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-none px-3 text-xs font-semibold uppercase tracking-wider transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-3.5",
-      "cn-sidebar-header": "gap-2 p-2 [--radius:0]",
-      "cn-sidebar-inner": "bg-sidebar group-data-[variant=floating]:ring-sidebar-border group-data-[variant=floating]:rounded-none group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1",
-      "cn-sidebar-input": "bg-transparent border-input h-8 w-full shadow-none",
-      "cn-sidebar-inset": "bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-none md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
-      "cn-sidebar-menu": "gap-0.5",
-      "cn-sidebar-menu-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-none p-0 peer-data-[size=default]/menu-button:top-2 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-3.5",
-      "cn-sidebar-menu-badge": "text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 rounded-none px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1",
-      "cn-sidebar-menu-skeleton": "h-8 gap-2 rounded-none px-2",
-      "cn-sidebar-menu-skeleton-icon": "size-3.5 rounded-none",
-      "cn-sidebar-menu-skeleton-text": "h-4",
-      "cn-sidebar-menu-sub": "border-sidebar-border mx-3.5 translate-x-px gap-1 border-l px-2.5 py-0.5 group-data-[collapsible=icon]:hidden",
-      "cn-sidebar-menu-sub-button": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-none px-3 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-3.5",
-      "cn-sidebar-rail": "hover:after:bg-sidebar-border",
-      "cn-sidebar-separator": "bg-sidebar-border mx-2"
-    },
-    "vega": {
-      "cn-sidebar-content": "no-scrollbar gap-2",
-      "cn-sidebar-footer": "gap-2 p-2",
-      "cn-sidebar-gap": "transition-[width] duration-200 ease-linear",
-      "cn-sidebar-group": "p-2",
-      "cn-sidebar-group-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-md p-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-group-content": "text-sm",
-      "cn-sidebar-group-label": "text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-md px-2 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-header": "gap-2 p-2",
-      "cn-sidebar-inner": "bg-sidebar group-data-[variant=floating]:ring-sidebar-border group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1",
-      "cn-sidebar-input": "bg-background h-8 w-full shadow-none",
-      "cn-sidebar-inset": "bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
-      "cn-sidebar-menu": "gap-1",
-      "cn-sidebar-menu-action": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4",
-      "cn-sidebar-menu-badge": "text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 rounded-md px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1",
-      "cn-sidebar-menu-skeleton": "h-8 gap-2 rounded-md px-2",
-      "cn-sidebar-menu-skeleton-icon": "size-4 rounded-md",
-      "cn-sidebar-menu-skeleton-text": "h-4",
-      "cn-sidebar-menu-sub": "border-sidebar-border mx-3.5 translate-x-px gap-1 border-l px-2.5 py-0.5 group-data-[collapsible=icon]:hidden",
-      "cn-sidebar-menu-sub-button": "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4",
-      "cn-sidebar-rail": "hover:after:bg-sidebar-border",
-      "cn-sidebar-separator": "bg-sidebar-border mx-2"
-    }
+    "luma": "f324ff927542bb7bd09105ef5157c52db83bafbbc8f6aa050d33ae56f7035086",
+    "lyra": "277ec315beab1741fc6ef38feb4d86db9fd0d8c2dc77323b6b4782e7d6950cc9",
+    "maia": "7e4351c9470d6eaf8a42ba166e5ca693884ec83cdc6db5361858c2e889a2c8ab",
+    "mira": "9b9df31438c3623b07feb1878580c48f061d634ac6c7112e4c97656cc2f6334d",
+    "nova": "138c9eec1139275dca670d8bf079cc12f9930392fa8594801c422ca84d0eda54",
+    "rhea": "62a85b123ada76c9a9599f8b9fd3e1f3b9e7fc0249e1b10ebaed0d0cebf2e92d",
+    "sera": "5eca669dcb456e02419ab276fd1c68269c0616f00ea029a518e5ba135477c96d",
+    "vega": "42e3525e1338f74d8322412b9f963434aaa74553377b91a68c7ec12072b8dbee"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/sidebar.tsx",
-      "sha256": "c64077d7b51830fe7d4fc4697eb1396d4e1d16c62c1a0c857fa56dfc7d2928f3"
-    }
+    "shadcn/ui/sidebar.tsx": "c64077d7b51830fe7d4fc4697eb1396d4e1d16c62c1a0c857fa56dfc7d2928f3"
   },
-  "variants": {
-    "sidebarMenuButtonVariants": {
-      "base": "cn-sidebar-menu-button peer/menu-button group/menu-button flex w-full items-center overflow-hidden outline-hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-sidebar-menu-button-size-default",
-          "lg": "cn-sidebar-menu-button-size-lg",
-          "sm": "cn-sidebar-menu-button-size-sm"
-        },
-        "variant": {
-          "default": "cn-sidebar-menu-button-variant-default",
-          "outline": "cn-sidebar-menu-button-variant-outline"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/sidebarMenuButtonVariants/base",
+    "cva/sidebarMenuButtonVariants/default/size",
+    "cva/sidebarMenuButtonVariants/default/variant",
+    "cva/sidebarMenuButtonVariants/variant/size/default",
+    "cva/sidebarMenuButtonVariants/variant/size/lg",
+    "cva/sidebarMenuButtonVariants/variant/size/sm",
+    "cva/sidebarMenuButtonVariants/variant/variant/default",
+    "cva/sidebarMenuButtonVariants/variant/variant/outline",
+    "jsx/Sidebar/class/10",
+    "jsx/Sidebar/class/11",
+    "jsx/Sidebar/class/12",
+    "jsx/Sidebar/class/13",
+    "jsx/Sidebar/class/2",
+    "jsx/Sidebar/class/4",
+    "jsx/Sidebar/class/8",
+    "jsx/Sidebar/class/9",
+    "jsx/SidebarContent/class/0",
+    "jsx/SidebarFooter/class/0",
+    "jsx/SidebarGroup/class/0",
+    "jsx/SidebarGroupAction/class/0",
+    "jsx/SidebarGroupContent/class/0",
+    "jsx/SidebarGroupLabel/class/0",
+    "jsx/SidebarHeader/class/0",
+    "jsx/SidebarInput/class/0",
+    "jsx/SidebarInset/class/0",
+    "jsx/SidebarMenu/class/0",
+    "jsx/SidebarMenuAction/class/0",
+    "jsx/SidebarMenuAction/class/1",
+    "jsx/SidebarMenuBadge/class/0",
+    "jsx/SidebarMenuItem/class/0",
+    "jsx/SidebarMenuSkeleton/class/0",
+    "jsx/SidebarMenuSkeleton/class/1",
+    "jsx/SidebarMenuSkeleton/class/2",
+    "jsx/SidebarMenuSub/class/0",
+    "jsx/SidebarMenuSubButton/class/0",
+    "jsx/SidebarMenuSubItem/class/0",
+    "jsx/SidebarSeparator/class/0",
+    "jsx/SidebarTrigger/class/0",
+    "jsx/SidebarTrigger/class/1",
+    "port/class/0",
+    "port/class/1"
+  ]
 }

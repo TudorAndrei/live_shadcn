@@ -13,6 +13,21 @@ defmodule LiveAiElements.Components.Task do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/TaskContent/class/0" => "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+    "jsx/TaskContent/class/1" => "mt-4 space-y-2 border-muted border-l-2 pl-4",
+    "jsx/TaskTrigger/class/0" => "group",
+    "jsx/TaskTrigger/class/1" => "flex w-full cursor-pointer items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+    "jsx/TaskTrigger/class/2" => "size-4",
+    "jsx/TaskTrigger/class/3" => "text-sm",
+    "jsx/TaskTrigger/class/4" => "size-4 transition-transform group-data-[state=open]:rotate-180"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Disclosure
 
   @doc """
@@ -66,16 +81,16 @@ defmodule LiveAiElements.Components.Task do
         phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
         phx-mounted={Disclosure.owned_attributes(:trigger)}
         data-panel-open={flag(@open)}
-        class={["group", @trigger_class]}
+        class={[upstream_fact("jsx/TaskTrigger/class/0"), (@trigger_class || "")]}
       >
-        <div class="flex w-full cursor-pointer items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground">
-          <LiveShadcn.Icon.icon name="search" class="size-4" />
-          <p class="text-sm">
+        <div class={upstream_fact("jsx/TaskTrigger/class/1")}>
+          <LiveShadcn.Icon.icon name="search" class={upstream_fact("jsx/TaskTrigger/class/2")} />
+          <p class={upstream_fact("jsx/TaskTrigger/class/3")}>
             {@title}
           </p>
           <LiveShadcn.Icon.icon
             name="chevron-down"
-            class="size-4 transition-transform group-data-[state=open]:rotate-180"
+            class={upstream_fact("jsx/TaskTrigger/class/4")}
           />
         </div>
       </button>
@@ -92,11 +107,11 @@ defmodule LiveAiElements.Components.Task do
         data-open={flag(@open)}
         data-closed={flag(not @open)}
         class={[
-          "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
-          @content_class
+          upstream_fact("jsx/TaskContent/class/0"),
+          (@content_class || "")
         ]}
       >
-        <div class="mt-4 space-y-2 border-muted border-l-2 pl-4">
+        <div class={upstream_fact("jsx/TaskContent/class/1")}>
           {render_slot(@inner_block)}
         </div>
       </div>

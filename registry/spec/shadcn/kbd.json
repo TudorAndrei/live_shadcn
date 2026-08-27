@@ -1,117 +1,49 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Kbd/class/0",
+      "jsx/KbdGroup/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Kbd/class/0": "cn-kbd pointer-events-none inline-flex items-center justify-center select-none",
+    "jsx/KbdGroup/class/0": "cn-kbd-group inline-flex items-center"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/kbd.tsx": "9b4e670ffef7713a8861a268b8e633c7dcd9798bf6de5e01cf98a45c30825aa6"
+  },
+  "fingerprint": "89f195e84587f1b43b5b946f303c3c6815e9032ba9a19ebb625ef778758a33fe",
+  "ignored": {},
   "name": "kbd",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Kbd",
-      "name": "kbd",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-kbd pointer-events-none inline-flex items-center justify-center select-none",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "kbd",
-        "tag": "kbd",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "KbdGroup",
-      "name": "kbd_group",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-kbd-group inline-flex items-center",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "kbd-group",
-        "tag": "kbd",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
+  "port_body": "bc0bc6489ba5270a8dbde9c1c388b4f3c165aa3cbfa64e6386f2377b4b418284",
+  "schema_version": 2,
   "source": "shadcn",
+  "source_facts": {
+    "jsx/Kbd/class/0": "cn-kbd pointer-events-none inline-flex items-center justify-center select-none",
+    "jsx/KbdGroup/class/0": "cn-kbd-group inline-flex items-center"
+  },
+  "state_reads": [],
   "styles": {
-    "luma": {
-      "cn-kbd": "bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5.5 w-fit min-w-5.5 gap-1 rounded-lg px-1.5 font-sans text-xs font-medium [&_svg:not([class*='size-'])]:size-3 in-data-[slot=input-group]:bg-input",
-      "cn-kbd-group": "gap-1"
-    },
-    "lyra": {
-      "cn-kbd": "bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-none px-1 font-sans text-xs font-medium [&_svg:not([class*='size-'])]:size-3",
-      "cn-kbd-group": "gap-1"
-    },
-    "maia": {
-      "cn-kbd": "bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium [&_svg:not([class*='size-'])]:size-3",
-      "cn-kbd-group": "gap-1"
-    },
-    "mira": {
-      "cn-kbd": "bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-xs px-1 font-sans text-[0.625rem] font-medium [&_svg:not([class*='size-'])]:size-3",
-      "cn-kbd-group": "gap-1"
-    },
-    "nova": {
-      "cn-kbd": "bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium [&_svg:not([class*='size-'])]:size-3",
-      "cn-kbd-group": "gap-1"
-    },
-    "rhea": {
-      "cn-kbd": "bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-lg px-1 font-sans text-xs font-medium [&_svg:not([class*='size-'])]:size-3 in-data-[slot=input-group]:bg-input",
-      "cn-kbd-group": "gap-1"
-    },
-    "sera": {
-      "cn-kbd": "bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5.5 w-fit min-w-5.5 gap-1 rounded-none px-1.5 font-sans text-xs font-medium [&_svg:not([class*='size-'])]:size-3 in-data-[slot=input-group]:bg-input",
-      "cn-kbd-group": "gap-1"
-    },
-    "vega": {
-      "cn-kbd": "bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium [&_svg:not([class*='size-'])]:size-3",
-      "cn-kbd-group": "gap-1"
-    }
+    "luma": "4e44b56f8499b4c6f47e3db6d275bdf50f28a4d935a8c295535fba046249bf48",
+    "lyra": "76973a1418a96c6e83f73b276030d87b79c1fb140224b894d1ff002897dbf1ee",
+    "maia": "dbf049b6b43d54dc2843f46a13350533ee195222ce85d1b7276d3516fc34532c",
+    "mira": "8dc5275f6032da8644e2c40569e3cf374f1a3e60ae3649f3c32562f162757e29",
+    "nova": "dbf049b6b43d54dc2843f46a13350533ee195222ce85d1b7276d3516fc34532c",
+    "rhea": "42639cd6a4f15759eac1a12252ee897c7e02bba210b664afb5aacbc21ab17fcc",
+    "sera": "a8fddc62c55f47e27fdaa32690f50abbf7a9a74a0edfbdcd48b388496804b78c",
+    "vega": "dbf049b6b43d54dc2843f46a13350533ee195222ce85d1b7276d3516fc34532c"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/kbd.tsx",
-      "sha256": "297f142ed4e6d0e61362b2ce3a5cd3aa455ac008593006bbe4f06214801a9644"
-    }
+    "shadcn/ui/kbd.tsx": "297f142ed4e6d0e61362b2ce3a5cd3aa455ac008593006bbe4f06214801a9644"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Kbd/class/0",
+    "jsx/KbdGroup/class/0"
+  ]
 }

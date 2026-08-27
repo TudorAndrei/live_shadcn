@@ -22,6 +22,7 @@ defmodule LiveShadcn.UI.Dialog do
     "jsx/DialogTitle/class/0" => "cn-dialog-title cn-font-heading"
   }
   # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
 
   @doc """
   Groups all parts of the dialog.

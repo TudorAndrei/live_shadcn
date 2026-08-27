@@ -9,6 +9,17 @@ defmodule LiveShadcn.UI.Tooltip do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/TooltipContent/class/0" => "isolate z-50",
+    "jsx/TooltipContent/class/1" => "cn-tooltip-content cn-tooltip-content-logical z-50 w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background",
+    "jsx/TooltipContent/class/2" => "cn-tooltip-arrow cn-tooltip-arrow-logical z-50 bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Popover
 
   @doc """
@@ -86,7 +97,7 @@ defmodule LiveShadcn.UI.Tooltip do
           phx-mounted={Popover.owned_attributes(:positioner)}
           data-open={flag(@open)}
           data-closed={flag(not @open)}
-          class="isolate z-50"
+          class={upstream_fact("jsx/TooltipContent/class/0")}
         >
           <div
             data-slot="tooltip-content"
@@ -99,8 +110,8 @@ defmodule LiveShadcn.UI.Tooltip do
             data-open={flag(@open)}
             data-closed={flag(not @open)}
             class={[
-              "cn-tooltip-content cn-tooltip-content-logical z-50 w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background",
-              @class
+              upstream_fact("jsx/TooltipContent/class/1"),
+              (@class || "")
             ]}
             data-lb-style-target
             data-lb-measure
@@ -110,7 +121,7 @@ defmodule LiveShadcn.UI.Tooltip do
               data-lb-arrow
               data-open={flag(@open)}
               data-closed={flag(not @open)}
-              class="cn-tooltip-arrow cn-tooltip-arrow-logical z-50 bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
+              class={upstream_fact("jsx/TooltipContent/class/2")}
               data-lb-style-target
             />
           </div>

@@ -9,6 +9,45 @@ defmodule LiveShadcn.UI.InputGroup do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "cva/inputGroupAddonVariants/base" => "cn-input-group-addon flex cursor-text items-center justify-center select-none",
+    "cva/inputGroupAddonVariants/default/align" => "inline-start",
+    "cva/inputGroupAddonVariants/variant/align/block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/block-start" => "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end" => "cn-input-group-addon-align-inline-end order-last",
+    "cva/inputGroupAddonVariants/variant/align/inline-start" => "cn-input-group-addon-align-inline-start order-first",
+    "cva/inputGroupButtonVariants/base" => "cn-input-group-button flex items-center shadow-none",
+    "cva/inputGroupButtonVariants/default/size" => "xs",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm" => "cn-input-group-button-size-icon-sm",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs" => "cn-input-group-button-size-icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm" => "cn-input-group-button-size-sm",
+    "cva/inputGroupButtonVariants/variant/size/xs" => "cn-input-group-button-size-xs",
+    "jsx/InputGroup/class/0" => "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
+    "jsx/InputGroupInput/class/0" => "cn-input-group-input flex-1",
+    "jsx/InputGroupText/class/0" => "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
+    "jsx/InputGroupTextarea/class/0" => "cn-input-group-textarea flex-1 resize-none"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
+  @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
+                       [table, "variant", group, choice] <- [String.split(path, "/")],
+                       reduce: %{} do
+    variants ->
+      put_in(
+        variants,
+        [
+          Access.key(table, %{}),
+          Access.key(group, %{}),
+          Access.key(choice, nil)
+        ],
+        value
+      )
+  end)
+
   alias LiveBase.FormControl
 
   @doc "The `input-group` part."
@@ -23,7 +62,7 @@ defmodule LiveShadcn.UI.InputGroup do
       data-slot={@rest[:"data-slot"] || "input-group"}
       role="group"
       class={[
-        "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
+        upstream_fact("jsx/InputGroup/class/0"),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -35,8 +74,12 @@ defmodule LiveShadcn.UI.InputGroup do
 
   @doc "The `input-group-addon` part."
   attr(:align, :string,
-    default: "inline-start",
-    values: ["block-end", "block-start", "inline-end", "inline-start"]
+    default: @upstream_facts["cva/inputGroupAddonVariants/default/align"],
+    values:
+      @variant_classes
+      |> get_in(["inputGroupAddonVariants", "align"])
+      |> Map.keys()
+      |> Enum.sort()
   )
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -51,7 +94,7 @@ defmodule LiveShadcn.UI.InputGroup do
       data-align={@align}
       class={[
         variant_class("inputGroupAddonVariants", "align", @align),
-        "cn-input-group-addon flex cursor-text items-center justify-center select-none",
+        upstream_fact("cva/inputGroupAddonVariants/base"),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -62,7 +105,15 @@ defmodule LiveShadcn.UI.InputGroup do
   end
 
   @doc "The `input_group_button` part."
-  attr(:size, :string, default: "xs", values: ["icon-sm", "icon-xs", "sm", "xs"])
+  attr(:size, :string,
+    default: @upstream_facts["cva/inputGroupButtonVariants/default/size"],
+    values:
+      @variant_classes
+      |> get_in(["inputGroupButtonVariants", "size"])
+      |> Map.keys()
+      |> Enum.sort()
+  )
+
   attr(:type, :string, default: "button", values: ["button", "submit", "reset"])
   attr(:variant, :string, default: "ghost")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -77,7 +128,7 @@ defmodule LiveShadcn.UI.InputGroup do
       variant={@variant}
       class={[
         variant_class("inputGroupButtonVariants", "size", @size),
-        "cn-input-group-button flex items-center shadow-none",
+        upstream_fact("cva/inputGroupButtonVariants/base"),
         @class
       ]}
       {@rest}
@@ -96,7 +147,7 @@ defmodule LiveShadcn.UI.InputGroup do
   def input_group_text(assigns) do
     ~H"""
     <span
-      class={["cn-input-group-text flex items-center [&_svg]:pointer-events-none", @class]}
+      class={[upstream_fact("jsx/InputGroupText/class/0"), (@class || "")]}
       {@rest}
     >
       {render_slot(@inner_block)}
@@ -161,7 +212,7 @@ defmodule LiveShadcn.UI.InputGroup do
       disabled={@disabled}
       readonly={@readonly}
       required={@required}
-      class={["cn-input-group-input flex-1", @class]}
+      class={[upstream_fact("jsx/InputGroupInput/class/0"), @class]}
       {Map.drop(@rest, [:"data-slot"])}
     />
     """
@@ -218,7 +269,7 @@ defmodule LiveShadcn.UI.InputGroup do
       disabled={@disabled}
       readonly={@readonly}
       required={@required}
-      class={["cn-input-group-textarea flex-1 resize-none", @class]}
+      class={[upstream_fact("jsx/InputGroupTextarea/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -226,26 +277,6 @@ defmodule LiveShadcn.UI.InputGroup do
     """
   end
 
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "inputGroupAddonVariants" => %{
-      "align" => %{
-        "block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
-        "block-start" =>
-          "cn-input-group-addon-align-block-start order-first w-full justify-start",
-        "inline-end" => "cn-input-group-addon-align-inline-end order-last",
-        "inline-start" => "cn-input-group-addon-align-inline-start order-first"
-      }
-    },
-    "inputGroupButtonVariants" => %{
-      "size" => %{
-        "icon-sm" => "cn-input-group-button-size-icon-sm",
-        "icon-xs" => "cn-input-group-button-size-icon-xs",
-        "sm" => "cn-input-group-button-size-sm",
-        "xs" => "cn-input-group-button-size-xs"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
+  defp variant_class(table, group, value),
+    do: get_in(@variant_classes, [table, group, value])
 end

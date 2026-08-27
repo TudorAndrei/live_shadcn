@@ -21,13 +21,16 @@ defmodule LiveShadcnTools.Drift do
   it, while a class string that moved needs nothing at all.
   """
   def between(previous, current) do
-    [
-      {"attribute", &attributes/1},
-      {"part", &slots/1},
-      {"variant", &variants/1},
-      {"class string", &classes/1}
-    ]
-    |> Enum.flat_map(fn {kind, fun} -> compare(fun.(previous), fun.(current), kind) end)
+    changes =
+      [
+        {"attribute", &attributes/1},
+        {"part", &slots/1},
+        {"variant", &variants/1},
+        {"class string", &classes/1}
+      ]
+      |> Enum.flat_map(fn {kind, fun} -> compare(fun.(previous), fun.(current), kind) end)
+
+    structure_change(previous, current) ++ changes
   end
 
   defp compare(before, now, kind) do
@@ -42,6 +45,13 @@ defmodule LiveShadcnTools.Drift do
   end
 
   @doc "Every data or ARIA attribute the component's class strings read."
+  def attributes(%{"schema_version" => 2} = contract) do
+    contract
+    |> Map.get("state_reads", [])
+    |> Enum.map(&LiveShadcnTools.Spec.read_name/1)
+    |> MapSet.new()
+  end
+
   def attributes(spec),
     do:
       walk(spec, fn node ->
@@ -52,12 +62,35 @@ defmodule LiveShadcnTools.Drift do
       end)
 
   @doc "Every class string the component renders."
+  def classes(%{"schema_version" => 2} = contract) do
+    contract
+    |> Map.get("facts", %{})
+    |> Enum.reject(fn {key, _value} -> String.contains?(key, "/default/") end)
+    |> Enum.map(&elem(&1, 1))
+    |> Enum.reject(&(&1 in [nil, ""]))
+    |> MapSet.new()
+  end
+
   def classes(spec), do: walk(spec, &List.wrap(&1["class"]))
 
   @doc "Every `data-slot` the component renders, which is its anatomy."
+  def slots(%{"schema_version" => 2}), do: MapSet.new()
   def slots(spec), do: walk(spec, &List.wrap(&1["slot"]))
 
   @doc "Every variant the component accepts, as `group=value`."
+  def variants(%{"schema_version" => 2} = contract) do
+    contract
+    |> Map.get("source_facts", %{})
+    |> Map.keys()
+    |> Enum.flat_map(fn key ->
+      case String.split(key, "/") do
+        ["cva", _table, "variant", group, value] -> ["#{group}=#{value}"]
+        _other -> []
+      end
+    end)
+    |> MapSet.new()
+  end
+
   def variants(spec) do
     for {_binding, table} <- spec["variants"] || %{},
         {group, values} <- table["variants"] || %{},
@@ -65,6 +98,15 @@ defmodule LiveShadcnTools.Drift do
         into: MapSet.new(),
         do: "#{group}=#{value}"
   end
+
+  defp structure_change(
+         %{"schema_version" => 2, "fingerprint" => before},
+         %{"schema_version" => 2, "fingerprint" => now}
+       )
+       when before != now,
+       do: [{:added, "structure", ["upstream structure"]}]
+
+  defp structure_change(_previous, _current), do: []
 
   defp walk(spec, fun) do
     spec["parts"]

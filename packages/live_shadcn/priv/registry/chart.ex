@@ -5,6 +5,25 @@ defmodule LiveShadcn.UI.Chart do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/ChartContainer/class/0" => "cn-chart flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+    "jsx/ChartLegendContent/class/0" => "flex items-center justify-center gap-4",
+    "jsx/ChartLegendContent/class/1" => "pb-3",
+    "jsx/ChartLegendContent/class/2" => "pt-3",
+    "jsx/ChartLegendContent/class/3" => "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
+    "jsx/ChartTooltipContent/class/0" => "font-medium",
+    "jsx/ChartTooltipContent/class/10" => "grid gap-1.5",
+    "jsx/ChartTooltipContent/class/11" => "text-muted-foreground",
+    "jsx/ChartTooltipContent/class/12" => "font-mono font-medium text-foreground tabular-nums",
+    "jsx/ChartTooltipContent/class/2" => "cn-chart-tooltip grid min-w-32 items-start",
+    "port/class/0" => "flex items-center justify-between gap-2"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   attr(:id, :string, required: true)
   attr(:config, :map, default: %{})
   attr(:class, :any, default: nil)
@@ -19,8 +38,8 @@ defmodule LiveShadcn.UI.Chart do
       data-slot="chart"
       data-chart={"chart-" <> @id}
       class={[
-        "cn-chart flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
-        @class
+        upstream_fact("jsx/ChartContainer/class/0"),
+        (@class || "")
       ]}
       {@rest}
     >
@@ -43,11 +62,11 @@ defmodule LiveShadcn.UI.Chart do
 
   def chart_tooltip_content(assigns) do
     ~H"""
-    <div data-slot="chart-tooltip" class={["cn-chart-tooltip grid min-w-32 items-start", @class]}>
-      <p :if={@label} class="font-medium">{@label}</p>
-      <div class="grid gap-1.5">
-        <div :for={item <- @item} class="flex items-center justify-between gap-2">
-          <span class="text-muted-foreground">{item[:label]}</span><span class="font-mono font-medium text-foreground tabular-nums">{render_slot(
+    <div data-slot="chart-tooltip" class={[upstream_fact("jsx/ChartTooltipContent/class/2"), (@class || "")]}>
+      <p :if={@label} class={upstream_fact("jsx/ChartTooltipContent/class/0")}>{@label}</p>
+      <div class={upstream_fact("jsx/ChartTooltipContent/class/10")}>
+        <div :for={item <- @item} class={upstream_fact("port/class/0")}>
+          <span class={upstream_fact("jsx/ChartTooltipContent/class/11")}>{item[:label]}</span><span class={upstream_fact("jsx/ChartTooltipContent/class/12")}>{render_slot(
             item
           )}</span>
         </div>
@@ -65,14 +84,14 @@ defmodule LiveShadcn.UI.Chart do
     <div
       data-slot="chart-legend"
       class={[
-        "flex items-center justify-center gap-4",
-        if(@vertical_align == "top", do: "pb-3", else: "pt-3"),
-        @class
+        upstream_fact("jsx/ChartLegendContent/class/0"),
+        if(@vertical_align == "top", do: upstream_fact("jsx/ChartLegendContent/class/1"), else: upstream_fact("jsx/ChartLegendContent/class/2")),
+        (@class || "")
       ]}
     >
       <span
         :for={item <- @item}
-        class="flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
+        class={upstream_fact("jsx/ChartLegendContent/class/3")}
       ><span class="size-2 rounded-sm" style={"background: " <> (item[:color] || "currentColor")}></span>{render_slot(
         item
       )}</span>

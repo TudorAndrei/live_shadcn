@@ -1,327 +1,141 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/bubbleReactionsVariants/base",
+      "cva/bubbleReactionsVariants/default/align",
+      "cva/bubbleReactionsVariants/default/side",
+      "cva/bubbleReactionsVariants/variant/align/end",
+      "cva/bubbleReactionsVariants/variant/align/start",
+      "cva/bubbleReactionsVariants/variant/side/bottom",
+      "cva/bubbleReactionsVariants/variant/side/top",
+      "cva/bubbleVariants/base",
+      "cva/bubbleVariants/default/variant",
+      "cva/bubbleVariants/variant/variant/default",
+      "cva/bubbleVariants/variant/variant/destructive",
+      "cva/bubbleVariants/variant/variant/ghost",
+      "cva/bubbleVariants/variant/variant/muted",
+      "cva/bubbleVariants/variant/variant/outline",
+      "cva/bubbleVariants/variant/variant/secondary",
+      "cva/bubbleVariants/variant/variant/tinted",
+      "jsx/BubbleContent/class/0",
+      "jsx/BubbleGroup/class/0"
+    ],
+    "derived": {}
+  },
+  "css_vars": [
+    "--foreground",
+    "--muted",
+    "--primary",
+    "--secondary"
+  ],
+  "facts": {
+    "cva/bubbleReactionsVariants/base": "cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center",
+    "cva/bubbleReactionsVariants/default/align": "end",
+    "cva/bubbleReactionsVariants/default/side": "bottom",
+    "cva/bubbleReactionsVariants/variant/align/end": "cn-bubble-reactions-align-end",
+    "cva/bubbleReactionsVariants/variant/align/start": "cn-bubble-reactions-align-start",
+    "cva/bubbleReactionsVariants/variant/side/bottom": "cn-bubble-reactions-side-bottom",
+    "cva/bubbleReactionsVariants/variant/side/top": "cn-bubble-reactions-side-top",
+    "cva/bubbleVariants/base": "cn-bubble group/bubble relative flex w-fit min-w-0 flex-col",
+    "cva/bubbleVariants/default/variant": "default",
+    "cva/bubbleVariants/variant/variant/default": "cn-bubble-variant-default",
+    "cva/bubbleVariants/variant/variant/destructive": "cn-bubble-variant-destructive",
+    "cva/bubbleVariants/variant/variant/ghost": "cn-bubble-variant-ghost",
+    "cva/bubbleVariants/variant/variant/muted": "cn-bubble-variant-muted",
+    "cva/bubbleVariants/variant/variant/outline": "cn-bubble-variant-outline",
+    "cva/bubbleVariants/variant/variant/secondary": "cn-bubble-variant-secondary",
+    "cva/bubbleVariants/variant/variant/tinted": "cn-bubble-variant-tinted",
+    "jsx/BubbleContent/class/0": "cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors",
+    "jsx/BubbleGroup/class/0": "cn-bubble-group flex min-w-0 flex-col"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/bubble.tsx": "1ebc34f8f948ed48d1b8ae6a7d183fc67f6a189bed84051353ceb0ca3bd9794f"
+  },
+  "fingerprint": "6f8da8f93305cf66d1d8ba2a7149e8e53149076d68ff97bd186882458ed23bd6",
+  "ignored": {},
   "name": "bubble",
-  "parts": [
+  "port_body": "a21548f04327ad8f03aa71f5bbd3a22c5dec31ce0047d571e469c98ddb3b6de4",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "cva/bubbleReactionsVariants/base": "cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center",
+    "cva/bubbleReactionsVariants/default/align": "end",
+    "cva/bubbleReactionsVariants/default/side": "bottom",
+    "cva/bubbleReactionsVariants/variant/align/end": "cn-bubble-reactions-align-end",
+    "cva/bubbleReactionsVariants/variant/align/start": "cn-bubble-reactions-align-start",
+    "cva/bubbleReactionsVariants/variant/side/bottom": "cn-bubble-reactions-side-bottom",
+    "cva/bubbleReactionsVariants/variant/side/top": "cn-bubble-reactions-side-top",
+    "cva/bubbleVariants/base": "cn-bubble group/bubble relative flex w-fit min-w-0 flex-col",
+    "cva/bubbleVariants/default/variant": "default",
+    "cva/bubbleVariants/variant/variant/default": "cn-bubble-variant-default",
+    "cva/bubbleVariants/variant/variant/destructive": "cn-bubble-variant-destructive",
+    "cva/bubbleVariants/variant/variant/ghost": "cn-bubble-variant-ghost",
+    "cva/bubbleVariants/variant/variant/muted": "cn-bubble-variant-muted",
+    "cva/bubbleVariants/variant/variant/outline": "cn-bubble-variant-outline",
+    "cva/bubbleVariants/variant/variant/secondary": "cn-bubble-variant-secondary",
+    "cva/bubbleVariants/variant/variant/tinted": "cn-bubble-variant-tinted",
+    "jsx/BubbleContent/class/0": "cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors",
+    "jsx/BubbleGroup/class/0": "cn-bubble-group flex min-w-0 flex-col"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "BubbleGroup",
-      "name": "bubble_group",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-bubble-group flex min-w-0 flex-col",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "bubble-group",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-align",
+      "value": "end"
     },
     {
-      "contexts": [],
-      "export": "Bubble",
-      "name": "bubble",
-      "params": {
-        "align": "start",
-        "className": null,
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "align",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          },
-          {
-            "identifiers": [
-              "align"
-            ],
-            "kind": "code",
-            "name": "data-align",
-            "value": "align"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "message",
-              "name": "data-align",
-              "value": "end"
-            }
-          ],
-          "self": [
-            {
-              "name": "data-align",
-              "value": "end"
-            },
-            {
-              "name": "data-variant",
-              "value": "ghost"
-            },
-            {
-              "name": "data-slot",
-              "value": "bubble-content"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "bubble",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "variant"
-            ],
-            "table": "bubbleVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {
-        "align": {
-          "optional": true,
-          "values": [
-            "start",
-            "end"
-          ]
-        }
-      }
+      "name": "data-slot",
+      "value": "bubble-content"
     },
     {
-      "contexts": [],
-      "export": "BubbleContent",
-      "name": "bubble_content",
-      "params": {
-        "className": null,
-        "render": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "render"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "bubble",
-              "name": "data-align",
-              "value": "end"
-            }
-          ],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "bubble-content",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-variant",
+      "value": "ghost"
     },
     {
-      "contexts": [],
-      "export": "BubbleReactions",
-      "name": "bubble_reactions",
-      "params": {
-        "align": "end",
-        "className": null,
-        "side": "bottom"
-      },
-      "primitive": null,
-      "refs": [
-        "align",
-        "side",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "align"
-            ],
-            "kind": "code",
-            "name": "data-align",
-            "value": "align"
-          },
-          {
-            "identifiers": [
-              "side"
-            ],
-            "kind": "code",
-            "name": "data-side",
-            "value": "side"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "bubble-reactions",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "side",
-              "align"
-            ],
-            "table": "bubbleReactionsVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {
-        "align": {
-          "optional": true,
-          "values": [
-            "start",
-            "end"
-          ]
-        },
-        "side": {
-          "optional": true,
-          "values": [
-            "top",
-            "bottom"
-          ]
-        }
-      }
+      "group": "bubble",
+      "name": "data-align",
+      "value": "end"
+    },
+    {
+      "group": "message",
+      "name": "data-align",
+      "value": "end"
     }
   ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-bubble-content": "rounded-3xl border border-transparent px-3.5 py-2.5 text-sm leading-relaxed [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/30 group-data-[align=end]/bubble:self-end",
-      "cn-bubble-group": "gap-2"
-    },
-    "lyra": {
-      "cn-bubble-content": "rounded-none border border-transparent px-2.5 py-2 text-xs leading-relaxed [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-1 [button,a]:focus-visible:ring-ring/50 group-data-[align=end]/bubble:self-end",
-      "cn-bubble-group": "gap-2"
-    },
-    "maia": {
-      "cn-bubble-content": "rounded-3xl border border-transparent px-3.5 py-2.5 text-sm leading-relaxed [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-[3px] [button,a]:focus-visible:ring-ring/50 group-data-[align=end]/bubble:self-end",
-      "cn-bubble-group": "gap-2"
-    },
-    "mira": {
-      "cn-bubble-content": "rounded-lg border border-transparent px-2.5 py-1.5 text-xs/relaxed [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-2 [button,a]:focus-visible:ring-ring/30 group-data-[align=end]/bubble:self-end",
-      "cn-bubble-group": "gap-2"
-    },
-    "nova": {
-      "cn-bubble-content": "rounded-xl border border-transparent px-3 py-2 text-sm leading-relaxed [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/50 group-data-[align=end]/bubble:self-end",
-      "cn-bubble-group": "gap-2"
-    },
-    "rhea": {
-      "cn-bubble-content": "rounded-3xl border border-transparent px-3 py-2.5 text-sm leading-relaxed [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/30 group-data-[align=end]/bubble:self-end",
-      "cn-bubble-group": "gap-2"
-    },
-    "sera": {
-      "cn-bubble-content": "rounded-none border border-transparent px-4 py-3 text-sm leading-relaxed [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-2 [button,a]:focus-visible:ring-ring/30 group-data-[align=end]/bubble:self-end",
-      "cn-bubble-group": "gap-2"
-    },
-    "vega": {
-      "cn-bubble-content": "rounded-xl border border-transparent px-3 py-2 text-sm leading-relaxed [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/50 group-data-[align=end]/bubble:self-end",
-      "cn-bubble-group": "gap-2"
-    }
+    "luma": "a3aa2b98ef99413de506b9011e4435ecc8645d3680c8db54a1e780e517804f82",
+    "lyra": "ad5163ce450fbaadeb4ce3e90ac78ebd21184f167cafe9d7fbe74ea20c4eb382",
+    "maia": "0a74a7255a0cc5dd1b7a88e183194d8e969bdc40c4bc1139054e295c8a9b5bc9",
+    "mira": "dff83160b4969367321e4f562036b6867bb245d8386440c61a944cc3586e150a",
+    "nova": "1ed22c79d703092830fd5443e915bf8ad0acf73e1dea2fefc7b553aa8c4d31d0",
+    "rhea": "b303ae9d6715e2af6ed2f98632c61b549ae28277b1966782b6aa6671f6613b07",
+    "sera": "2c19b18283e1f14bcdd399f0040628fd07b7ea0ea89aef1a95267a84c4488152",
+    "vega": "1ed22c79d703092830fd5443e915bf8ad0acf73e1dea2fefc7b553aa8c4d31d0"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/bubble.tsx",
-      "sha256": "517a773cbfd441159439ee5019cb913b0b8aa0750a11ccbafba488cc5c5fac21"
-    }
+    "shadcn/ui/bubble.tsx": "517a773cbfd441159439ee5019cb913b0b8aa0750a11ccbafba488cc5c5fac21"
   },
-  "variants": {
-    "bubbleReactionsVariants": {
-      "base": "cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center",
-      "defaults": {
-        "align": "end",
-        "side": "bottom"
-      },
-      "variants": {
-        "align": {
-          "end": "cn-bubble-reactions-align-end",
-          "start": "cn-bubble-reactions-align-start"
-        },
-        "side": {
-          "bottom": "cn-bubble-reactions-side-bottom",
-          "top": "cn-bubble-reactions-side-top"
-        }
-      }
-    },
-    "bubbleVariants": {
-      "base": "cn-bubble group/bubble relative flex w-fit min-w-0 flex-col",
-      "defaults": {
-        "variant": "default"
-      },
-      "variants": {
-        "variant": {
-          "default": "cn-bubble-variant-default",
-          "destructive": "cn-bubble-variant-destructive",
-          "ghost": "cn-bubble-variant-ghost",
-          "muted": "cn-bubble-variant-muted",
-          "outline": "cn-bubble-variant-outline",
-          "secondary": "cn-bubble-variant-secondary",
-          "tinted": "cn-bubble-variant-tinted"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/bubbleReactionsVariants/base",
+    "cva/bubbleReactionsVariants/default/align",
+    "cva/bubbleReactionsVariants/default/side",
+    "cva/bubbleReactionsVariants/variant/align/end",
+    "cva/bubbleReactionsVariants/variant/align/start",
+    "cva/bubbleReactionsVariants/variant/side/bottom",
+    "cva/bubbleReactionsVariants/variant/side/top",
+    "cva/bubbleVariants/base",
+    "cva/bubbleVariants/default/variant",
+    "cva/bubbleVariants/variant/variant/default",
+    "cva/bubbleVariants/variant/variant/destructive",
+    "cva/bubbleVariants/variant/variant/ghost",
+    "cva/bubbleVariants/variant/variant/muted",
+    "cva/bubbleVariants/variant/variant/outline",
+    "cva/bubbleVariants/variant/variant/secondary",
+    "cva/bubbleVariants/variant/variant/tinted",
+    "jsx/BubbleContent/class/0",
+    "jsx/BubbleGroup/class/0"
+  ]
 }

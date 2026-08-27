@@ -9,6 +9,21 @@ defmodule LiveShadcn.UI.Combobox do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/ComboboxContent/class/0" => "isolate z-50",
+    "jsx/ComboboxContent/class/1" => "cn-combobox-content cn-combobox-content-logical cn-menu-target cn-menu-translucent group/combobox-content relative max-h-(--available-height) w-(--anchor-width) max-w-(--available-width) min-w-[calc(var(--anchor-width)+--spacing(7))] origin-(--transform-origin) data-[chips=true]:min-w-(--anchor-width)",
+    "jsx/ComboboxItem/class/0" => "cn-combobox-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/ComboboxItem/class/1" => "cn-combobox-item-indicator",
+    "jsx/ComboboxItem/class/2" => "cn-combobox-item-indicator-icon pointer-events-none",
+    "jsx/ComboboxTrigger/class/0" => "cn-combobox-trigger",
+    "jsx/ComboboxTrigger/class/1" => "cn-combobox-trigger-icon pointer-events-none"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.FormControl
   alias LiveBase.Listbox
   alias LiveBase.Popover
@@ -101,11 +116,11 @@ defmodule LiveShadcn.UI.Combobox do
         data-invalid={flag(@errors != [])}
         data-filled={flag(@value not in [nil, ""])}
         data-placeholder={flag(@value in [nil, ""])}
-        class={["cn-combobox-trigger", ["block w-full", @trigger_class]]}
+        class={[upstream_fact("jsx/ComboboxTrigger/class/0"), ["block w-full", @trigger_class]]}
       >
         {label(@option, @value) || @placeholder}<LiveShadcn.Icon.icon
           name="chevron-down"
-          class="cn-combobox-trigger-icon pointer-events-none"
+          class={upstream_fact("jsx/ComboboxTrigger/class/1")}
         />
       </button>
       <input
@@ -131,7 +146,7 @@ defmodule LiveShadcn.UI.Combobox do
           data-open={flag(@open)}
           data-closed={flag(not @open)}
           data-empty={flag(@option == [])}
-          class="isolate z-50"
+          class={upstream_fact("jsx/ComboboxContent/class/0")}
         >
           <div
             data-slot="combobox-content"
@@ -150,8 +165,8 @@ defmodule LiveShadcn.UI.Combobox do
             data-empty={flag(@option == [])}
             data-chips={@anchor not in [nil, false, ""]}
             class={[
-              "cn-combobox-content cn-combobox-content-logical cn-menu-target cn-menu-translucent group/combobox-content relative max-h-(--available-height) w-(--anchor-width) max-w-(--available-width) min-w-[calc(var(--anchor-width)+--spacing(7))] origin-(--transform-origin) data-[chips=true]:min-w-(--anchor-width)",
-              @class
+              upstream_fact("jsx/ComboboxContent/class/1"),
+              (@class || "")
             ]}
             data-lb-style-target
             data-lb-measure
@@ -172,16 +187,16 @@ defmodule LiveShadcn.UI.Combobox do
               phx-mounted={Listbox.owned_attributes(:option)}
               data-disabled={flag(option[:disabled] == true)}
               class={[
-                "cn-combobox-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-                @item_class
+                upstream_fact("jsx/ComboboxItem/class/0"),
+                (@item_class || "")
               ]}
               data-lb-style-target
             >
               {option[:label] || option[:value]}
-              <span class="cn-combobox-item-indicator">
+              <span class={upstream_fact("jsx/ComboboxItem/class/1")}>
                 <LiveShadcn.Icon.icon
                   name="check"
-                  class="cn-combobox-item-indicator-icon pointer-events-none"
+                  class={upstream_fact("jsx/ComboboxItem/class/2")}
                 />
               </span>
             </div>

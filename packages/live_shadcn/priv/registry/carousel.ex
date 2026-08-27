@@ -9,6 +9,30 @@ defmodule LiveShadcn.UI.Carousel do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/Carousel/class/0" => "relative",
+    "jsx/CarouselContent/class/0" => "overflow-hidden",
+    "jsx/CarouselContent/class/1" => "flex",
+    "jsx/CarouselContent/class/2" => "-ml-4",
+    "jsx/CarouselContent/class/3" => "-mt-4 flex-col",
+    "jsx/CarouselItem/class/1" => "pl-4",
+    "jsx/CarouselItem/class/2" => "pt-4",
+    "jsx/CarouselNext/class/0" => "cn-carousel-next absolute touch-manipulation",
+    "jsx/CarouselNext/class/1" => "inset-y-0 -right-12 my-auto",
+    "jsx/CarouselNext/class/2" => "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+    "jsx/CarouselNext/class/3" => "cn-rtl-flip",
+    "jsx/CarouselNext/class/4" => "sr-only",
+    "jsx/CarouselPrevious/class/0" => "cn-carousel-previous absolute touch-manipulation",
+    "jsx/CarouselPrevious/class/1" => "inset-y-0 -left-12 my-auto",
+    "jsx/CarouselPrevious/class/2" => "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+    "port/class/0" => "min-w-0 shrink-0 grow-0 basis-full snap-start"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Carousel
 
   @doc """
@@ -46,7 +70,7 @@ defmodule LiveShadcn.UI.Carousel do
       phx-hook={Carousel.hook()}
       data-orientation={@orientation}
       data-slot="carousel"
-      class={["relative", @class]}
+      class={[upstream_fact("jsx/Carousel/class/0"), @class]}
       role="region"
       aria-roledescription="carousel"
       {@rest}
@@ -71,7 +95,7 @@ defmodule LiveShadcn.UI.Carousel do
       data-lb-carousel-viewport
       data-slot="carousel-content"
       class={[
-        "overflow-hidden",
+        upstream_fact("jsx/CarouselContent/class/0"),
         if(@orientation == "horizontal",
           do: "snap-x snap-mandatory scroll-smooth",
           else: "snap-y snap-mandatory scroll-smooth"
@@ -80,7 +104,7 @@ defmodule LiveShadcn.UI.Carousel do
       ]}
       {@rest}
     >
-      <div class={["flex", if(@orientation == "horizontal", do: "-ml-4", else: "-mt-4 flex-col")]}>
+      <div class={[upstream_fact("jsx/CarouselContent/class/1"), if(@orientation == "horizontal", do: upstream_fact("jsx/CarouselContent/class/2"), else: upstream_fact("jsx/CarouselContent/class/3"))]}>
         {render_slot(@inner_block)}
       </div>
     </div>
@@ -99,8 +123,8 @@ defmodule LiveShadcn.UI.Carousel do
       aria-roledescription="slide"
       data-slot="carousel-item"
       class={[
-        "min-w-0 shrink-0 grow-0 basis-full snap-start",
-        if(@orientation == "horizontal", do: "pl-4", else: "pt-4"),
+        upstream_fact("port/class/0"),
+        if(@orientation == "horizontal", do: upstream_fact("jsx/CarouselItem/class/1"), else: upstream_fact("jsx/CarouselItem/class/2")),
         @class
       ]}
       {@rest}
@@ -124,17 +148,17 @@ defmodule LiveShadcn.UI.Carousel do
       data-slot="carousel-previous"
       phx-mounted={Carousel.owned_attributes()}
       class={[
-        "cn-carousel-previous absolute touch-manipulation",
+        upstream_fact("jsx/CarouselPrevious/class/0"),
         if(@orientation == "horizontal",
-          do: "inset-y-0 -left-12 my-auto",
-          else: "-top-12 left-1/2 -translate-x-1/2 rotate-90"
+          do: upstream_fact("jsx/CarouselPrevious/class/1"),
+          else: upstream_fact("jsx/CarouselPrevious/class/2")
         ),
         @class
       ]}
       {@rest}
     >
-      <LiveShadcn.Icon.icon name="chevron-left" class="cn-rtl-flip" />
-      <span class="sr-only">Previous slide</span>
+      <LiveShadcn.Icon.icon name="chevron-left" class={upstream_fact("jsx/CarouselNext/class/3")} />
+      <span class={upstream_fact("jsx/CarouselNext/class/4")}>Previous slide</span>
     </LiveShadcn.UI.Button.button>
     """
   end
@@ -153,17 +177,17 @@ defmodule LiveShadcn.UI.Carousel do
       data-slot="carousel-next"
       phx-mounted={Carousel.owned_attributes()}
       class={[
-        "cn-carousel-next absolute touch-manipulation",
+        upstream_fact("jsx/CarouselNext/class/0"),
         if(@orientation == "horizontal",
-          do: "inset-y-0 -right-12 my-auto",
-          else: "-bottom-12 left-1/2 -translate-x-1/2 rotate-90"
+          do: upstream_fact("jsx/CarouselNext/class/1"),
+          else: upstream_fact("jsx/CarouselNext/class/2")
         ),
         @class
       ]}
       {@rest}
     >
-      <LiveShadcn.Icon.icon name="chevron-right" class="cn-rtl-flip" />
-      <span class="sr-only">Next slide</span>
+      <LiveShadcn.Icon.icon name="chevron-right" class={upstream_fact("jsx/CarouselNext/class/3")} />
+      <span class={upstream_fact("jsx/CarouselNext/class/4")}>Next slide</span>
     </LiveShadcn.UI.Button.button>
     """
   end

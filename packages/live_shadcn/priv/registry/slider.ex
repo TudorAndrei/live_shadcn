@@ -9,6 +9,18 @@ defmodule LiveShadcn.UI.Slider do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/Slider/class/0" => "data-horizontal:w-full data-vertical:h-full",
+    "jsx/Slider/class/1" => "cn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col",
+    "jsx/Slider/class/2" => "cn-slider-track relative grow overflow-hidden select-none",
+    "jsx/Slider/class/4" => "cn-slider-thumb block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Slider
 
   @doc """
@@ -54,19 +66,19 @@ defmodule LiveShadcn.UI.Slider do
       phx-mounted={Slider.owned_attributes()}
       data-orientation={@orientation}
       data-disabled={flag(@disabled)}
-      class={["data-horizontal:w-full data-vertical:h-full", @class]}
+      class={[upstream_fact("jsx/Slider/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <div
         data-orientation={@orientation}
         data-disabled={flag(@disabled)}
-        class="cn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col"
+        class={upstream_fact("jsx/Slider/class/1")}
       >
         <div
           data-slot="slider-track"
           data-orientation={@orientation}
           data-disabled={flag(@disabled)}
-          class="cn-slider-track relative grow overflow-hidden select-none"
+          class={upstream_fact("jsx/Slider/class/2")}
         >
           <div
             data-slot="slider-range"
@@ -84,7 +96,7 @@ defmodule LiveShadcn.UI.Slider do
           style="position: absolute"
           data-orientation={@orientation}
           data-disabled={flag(@disabled)}
-          class="cn-slider-thumb block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50"
+          class={upstream_fact("jsx/Slider/class/4")}
         >
           <input
             type="range"

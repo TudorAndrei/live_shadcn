@@ -1,232 +1,90 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/buttonGroupVariants/base",
+      "cva/buttonGroupVariants/default/orientation",
+      "cva/buttonGroupVariants/variant/orientation/horizontal",
+      "cva/buttonGroupVariants/variant/orientation/vertical",
+      "jsx/ButtonGroupSeparator/class/0",
+      "jsx/ButtonGroupText/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "cva/buttonGroupVariants/base": "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+    "cva/buttonGroupVariants/default/orientation": "horizontal",
+    "cva/buttonGroupVariants/variant/orientation/horizontal": "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
+    "cva/buttonGroupVariants/variant/orientation/vertical": "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0",
+    "jsx/ButtonGroupSeparator/class/0": "cn-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto",
+    "jsx/ButtonGroupText/class/0": "cn-button-group-text flex items-center [&_svg]:pointer-events-none"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/button-group.tsx": "c80c98e8deae2d88238e913f999f0467c2f3ea0b1251df08b04ba23af8f64dcb"
+  },
+  "fingerprint": "1cc81c991a3737f778a293c86a50337618c29e7b9779abbc15ecdb33c6242e50",
+  "ignored": {},
   "name": "button-group",
-  "parts": [
+  "port_body": "4a2da9d20b3c002702e3025b37685dd6ed62e8904045effad6231964c1ea7105",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "cva/buttonGroupVariants/base": "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+    "cva/buttonGroupVariants/default/orientation": "horizontal",
+    "cva/buttonGroupVariants/variant/orientation/horizontal": "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
+    "cva/buttonGroupVariants/variant/orientation/vertical": "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0",
+    "jsx/ButtonGroupSeparator/class/0": "cn-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto",
+    "jsx/ButtonGroupText/class/0": "cn-button-group-text flex items-center [&_svg]:pointer-events-none"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "ButtonGroup",
-      "name": "button_group",
-      "params": {
-        "className": null,
-        "orientation": null
-      },
-      "primitive": null,
-      "refs": [
-        "orientation",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "role",
-            "value": "group"
-          },
-          {
-            "identifiers": [
-              "orientation"
-            ],
-            "kind": "code",
-            "name": "data-orientation",
-            "value": "orientation"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-slot",
-              "value": null
-            },
-            {
-              "name": "data-slot",
-              "value": "input-group"
-            },
-            {
-              "name": "data-slot",
-              "value": "select-trigger"
-            },
-            {
-              "name": "data-slot",
-              "value": "input"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "button-group",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "orientation"
-            ],
-            "table": "buttonGroupVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-horizontal",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "ButtonGroupSeparator",
-      "name": "button_group_separator",
-      "params": {
-        "className": null,
-        "orientation": "vertical"
-      },
-      "primitive": null,
-      "refs": [
-        "orientation",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "orientation"
-            ],
-            "kind": "code",
-            "name": "orientation",
-            "value": "orientation"
-          }
-        ],
-        "children": [],
-        "class": "cn-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto",
-        "class_when": [],
-        "component": "separator",
-        "function": "separator",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-horizontal",
-              "value": null
-            },
-            {
-              "name": "data-vertical",
-              "value": null
-            }
-          ]
-        },
-        "recipe": "separator",
-        "render_as": null,
-        "slot": "button-group-separator",
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-slot",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "ButtonGroupText",
-      "name": "button_group_text",
-      "params": {
-        "className": null,
-        "render": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "render"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "cn-button-group-text flex items-center [&_svg]:pointer-events-none",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "button-group-text",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-slot",
+      "value": "input"
+    },
+    {
+      "name": "data-slot",
+      "value": "input-group"
+    },
+    {
+      "name": "data-slot",
+      "value": "select-trigger"
+    },
+    {
+      "name": "data-vertical",
+      "value": null
     }
   ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-button-group-separator": "bg-input",
-      "cn-button-group-text": "bg-muted gap-2 rounded-4xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
-    },
-    "lyra": {
-      "cn-button-group-separator": "bg-input",
-      "cn-button-group-text": "bg-muted gap-2 rounded-none border px-2.5 text-xs font-medium [&_svg:not([class*='size-'])]:size-4"
-    },
-    "maia": {
-      "cn-button-group-separator": "bg-input",
-      "cn-button-group-text": "bg-muted gap-2 rounded-4xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
-    },
-    "mira": {
-      "cn-button-group-separator": "bg-input",
-      "cn-button-group-text": "bg-muted gap-2 rounded-md border px-2.5 text-xs/relaxed font-medium [&_svg:not([class*='size-'])]:size-4"
-    },
-    "nova": {
-      "cn-button-group-separator": "bg-input",
-      "cn-button-group-text": "bg-muted gap-2 rounded-lg border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
-    },
-    "rhea": {
-      "cn-button-group-separator": "bg-input",
-      "cn-button-group-text": "bg-muted gap-2 rounded-2xl border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4"
-    },
-    "sera": {
-      "cn-button-group-separator": "bg-input",
-      "cn-button-group-text": "gap-2 border border-transparent border-b-input bg-transparent px-2.5 text-xs font-semibold [&_svg:not([class*='size-'])]:size-3.5 group-has-[>[data-variant=outline]]/button-group:border-border uppercase"
-    },
-    "vega": {
-      "cn-button-group-separator": "bg-input",
-      "cn-button-group-text": "bg-muted gap-2 rounded-md border px-2.5 text-sm font-medium shadow-xs [&_svg:not([class*='size-'])]:size-4"
-    }
+    "luma": "208ab4583e6ab267b8ab322d935021126f28c8173b90a1ccbc091930bc20aed8",
+    "lyra": "81bebe77452f6baf8f7ffa56a2619b58dad11d3fb1bb246d2e4adf4f8fd62b9f",
+    "maia": "26f610b0a7adaf102100387377a76691aa6f91f5de9e2b55d1dfc48769eec95e",
+    "mira": "6023f8011b0314484754aa155d820504dbae517d3f8ef7d2bcdf35d2fb6f33eb",
+    "nova": "815ee2d3e9179f47e680285eefe01d6a7db088ca88cb133ff62619e24f0df112",
+    "rhea": "2ba7513503f1f3d7ca2e824521d5adac51bae7e2c4db7dcca336a1d02ba49243",
+    "sera": "41f479fd2e98fde78b75e85f85808f88aed36e8fd3e109bd52d227e479003098",
+    "vega": "74f9bd82a3dc7abcec7bbb710c54e0adb72097bb60d2338e3a3e5656b729d7d2"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/button-group.tsx",
-      "sha256": "477d5a41df71387495797b0a643adf77e678df6dc410e90d6b7446ade9566b92"
-    }
+    "shadcn/ui/button-group.tsx": "477d5a41df71387495797b0a643adf77e678df6dc410e90d6b7446ade9566b92"
   },
-  "variants": {
-    "buttonGroupVariants": {
-      "base": "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
-      "defaults": {
-        "orientation": "horizontal"
-      },
-      "variants": {
-        "orientation": {
-          "horizontal": "cn-button-group-orientation-horizontal *:data-slot:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0",
-          "vertical": "cn-button-group-orientation-vertical flex-col *:data-slot:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/buttonGroupVariants/base",
+    "cva/buttonGroupVariants/default/orientation",
+    "cva/buttonGroupVariants/variant/orientation/horizontal",
+    "cva/buttonGroupVariants/variant/orientation/vertical",
+    "jsx/ButtonGroupSeparator/class/0",
+    "jsx/ButtonGroupText/class/0"
+  ]
 }

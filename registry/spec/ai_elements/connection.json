@@ -1,159 +1,36 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "connection",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Connection",
-      "name": "connection",
-      "params": {
-        "fromX": null,
-        "fromY": null,
-        "toX": null,
-        "toY": null
-      },
-      "primitive": null,
-      "refs": [
-        "fromX",
-        "fromY",
-        "toX",
-        "toY"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "HALF",
-                  "fromX",
-                  "fromY",
-                  "toX",
-                  "toY"
-                ],
-                "kind": "code",
-                "name": "d",
-                "value": "`M${fromX},${fromY} C ${fromX + (toX - fromX) * 0.5},${fromY} ${fromX + (toX - fromX) * 0.5},${toY} ${toX},${toY}`"
-              },
-              {
-                "kind": "text",
-                "name": "fill",
-                "value": "none"
-              },
-              {
-                "kind": "text",
-                "name": "stroke",
-                "value": "var(--color-ring)"
-              },
-              {
-                "kind": "code",
-                "name": "stroke-width",
-                "value": "1"
-              }
-            ],
-            "children": [],
-            "class": "animated",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "path",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "toX"
-                ],
-                "kind": "code",
-                "name": "cx",
-                "value": "toX"
-              },
-              {
-                "identifiers": [
-                  "toY"
-                ],
-                "kind": "code",
-                "name": "cy",
-                "value": "toY"
-              },
-              {
-                "kind": "text",
-                "name": "fill",
-                "value": "#fff"
-              },
-              {
-                "kind": "code",
-                "name": "r",
-                "value": "3"
-              },
-              {
-                "kind": "text",
-                "name": "stroke",
-                "value": "var(--color-ring)"
-              },
-              {
-                "kind": "code",
-                "name": "stroke-width",
-                "value": "1"
-              }
-            ],
-            "children": [],
-            "class": "",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "circle",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "g",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/connection.tsx",
-      "sha256": "3da80a551da8a7eb4949a0b64b5329af463037dc15e6945e60ae66dcd903e71f"
-    }
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Connection/class/0"
+    ],
+    "derived": {}
   },
-  "variants": {}
+  "css_vars": [],
+  "facts": {
+    "jsx/Connection/class/0": "animated"
+  },
+  "file_fingerprints": {
+    "ai_elements/connection.tsx": "e8b777f606e2fedabc1d633843b3cddeebf8959e8892d3b3ea886694301d699f"
+  },
+  "fingerprint": "b6fe94ed5c83ea0a0394dcac5f2bb180de74e5a3734b8220f0a4cb0fce474a35",
+  "ignored": {},
+  "name": "connection",
+  "port_body": "0514da002d322a05bfebc25c092249bcfe6f407b6f28037ca0d7d9165ea3bc70",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/Connection/class/0": "animated"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/connection.tsx": "3da80a551da8a7eb4949a0b64b5329af463037dc15e6945e60ae66dcd903e71f"
+  },
+  "uses": [
+    "jsx/Connection/class/0"
+  ]
 }

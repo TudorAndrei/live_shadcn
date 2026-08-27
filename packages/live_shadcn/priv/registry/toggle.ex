@@ -9,6 +9,37 @@ defmodule LiveShadcn.UI.Toggle do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "cva/toggleVariants/base" => "cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/toggleVariants/default/size" => "default",
+    "cva/toggleVariants/default/variant" => "default",
+    "cva/toggleVariants/variant/size/default" => "cn-toggle-size-default",
+    "cva/toggleVariants/variant/size/lg" => "cn-toggle-size-lg",
+    "cva/toggleVariants/variant/size/sm" => "cn-toggle-size-sm",
+    "cva/toggleVariants/variant/variant/default" => "cn-toggle-variant-default",
+    "cva/toggleVariants/variant/variant/outline" => "cn-toggle-variant-outline"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
+  @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
+                       [table, "variant", group, choice] <- [String.split(path, "/")],
+                       reduce: %{} do
+    variants ->
+      put_in(
+        variants,
+        [
+          Access.key(table, %{}),
+          Access.key(group, %{}),
+          Access.key(choice, nil)
+        ],
+        value
+      )
+  end)
+
   alias LiveBase.FormControl
 
   @doc """
@@ -39,8 +70,17 @@ defmodule LiveShadcn.UI.Toggle do
   attr(:disabled, :boolean, default: false)
   attr(:readonly, :boolean, default: false)
   attr(:required, :boolean, default: false)
-  attr(:size, :string, default: "default", values: ["default", "lg", "sm"])
-  attr(:variant, :string, default: "default", values: ["default", "outline"])
+
+  attr(:size, :string,
+    default: @upstream_facts["cva/toggleVariants/default/size"],
+    values: @variant_classes |> get_in(["toggleVariants", "size"]) |> Map.keys() |> Enum.sort()
+  )
+
+  attr(:variant, :string,
+    default: @upstream_facts["cva/toggleVariants/default/variant"],
+    values: @variant_classes |> get_in(["toggleVariants", "variant"]) |> Map.keys() |> Enum.sort()
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
@@ -66,7 +106,7 @@ defmodule LiveShadcn.UI.Toggle do
       class={[
         variant_class("toggleVariants", "size", @size),
         variant_class("toggleVariants", "variant", @variant),
-        "cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        upstream_fact("cva/toggleVariants/base"),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -79,20 +119,6 @@ defmodule LiveShadcn.UI.Toggle do
   defp flag(true), do: ""
   defp flag(_state), do: nil
 
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "toggleVariants" => %{
-      "size" => %{
-        "default" => "cn-toggle-size-default",
-        "lg" => "cn-toggle-size-lg",
-        "sm" => "cn-toggle-size-sm"
-      },
-      "variant" => %{
-        "default" => "cn-toggle-variant-default",
-        "outline" => "cn-toggle-variant-outline"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
+  defp variant_class(table, group, value),
+    do: get_in(@variant_classes, [table, group, value])
 end

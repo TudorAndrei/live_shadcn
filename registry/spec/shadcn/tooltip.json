@@ -1,885 +1,98 @@
 {
-  "anatomy": [
-    {
-      "children": [
-        {
-          "children": [
-            {
-              "children": [],
-              "part": "Trigger"
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    {
-                      "children": [
-                        {
-                          "children": [],
-                          "part": "Arrow"
-                        },
-                        {
-                          "children": [],
-                          "part": "Viewport"
-                        }
-                      ],
-                      "part": "Popup"
-                    }
-                  ],
-                  "part": "Positioner"
-                }
-              ],
-              "part": "Portal"
-            }
-          ],
-          "part": "Root"
-        }
-      ],
-      "part": "Provider"
-    }
-  ],
+  "base_ui": {
+    "tooltip": "e33e991f81330587d1d9f168743e80049255eefc77c1aa7096203e3265009586"
+  },
+  "bindings": {
+    "copy": [
+      "jsx/TooltipContent/class/0",
+      "jsx/TooltipContent/class/1",
+      "jsx/TooltipContent/class/2"
+    ],
+    "derived": {}
+  },
   "css_vars": [
-    "--anchor-height",
-    "--anchor-width",
-    "--available-height",
-    "--available-width",
-    "--popup-height",
-    "--popup-width",
-    "--positioner-height",
-    "--positioner-width",
     "--transform-origin"
   ],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/TooltipContent/class/0": "isolate z-50",
+    "jsx/TooltipContent/class/1": "cn-tooltip-content cn-tooltip-content-logical z-50 w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background",
+    "jsx/TooltipContent/class/2": "cn-tooltip-arrow cn-tooltip-arrow-logical z-50 bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/tooltip.tsx": "ac9b55d7c253adad14872556e7b25b981ce37eb710c0068004f7b863bbd30008"
+  },
+  "fingerprint": "285bf097534ad8de30f031381b2c7778862012075ac3669dd84fdfccddb8ae37",
+  "ignored": {},
   "name": "tooltip",
-  "parts": [
+  "port_body": "92f36ee9b8ab3ffdd467f84f9e83037f42bd0012fde4ebfce3ffa3362c586984",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/TooltipContent/class/0": "isolate z-50",
+    "jsx/TooltipContent/class/1": "cn-tooltip-content cn-tooltip-content-logical z-50 w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background",
+    "jsx/TooltipContent/class/2": "cn-tooltip-arrow cn-tooltip-arrow-logical z-50 bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Tooltip",
-      "name": "tooltip",
-      "params": {},
-      "primitive": "Root",
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "renders no element",
-        "render_as": null,
-        "slot": "tooltip",
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-closed",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "TooltipTrigger",
-      "name": "tooltip_trigger",
-      "params": {},
-      "primitive": "Trigger",
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "module": "tooltip",
-        "part": "Trigger",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "tooltip-trigger",
-        "tag": "button",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-open",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "TooltipContent",
-      "name": "tooltip_content",
-      "params": {
-        "align": "center",
-        "alignOffset": "0",
-        "children": null,
-        "className": null,
-        "side": "top",
-        "sideOffset": "4"
-      },
-      "primitive": null,
-      "refs": [
-        "align",
-        "alignOffset",
-        "side",
-        "sideOffset",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "align"
-                ],
-                "kind": "code",
-                "name": "align",
-                "value": "align"
-              },
-              {
-                "identifiers": [
-                  "alignOffset"
-                ],
-                "kind": "code",
-                "name": "alignOffset",
-                "value": "alignOffset"
-              },
-              {
-                "identifiers": [
-                  "side"
-                ],
-                "kind": "code",
-                "name": "side",
-                "value": "side"
-              },
-              {
-                "identifiers": [
-                  "sideOffset"
-                ],
-                "kind": "code",
-                "name": "sideOffset",
-                "value": "sideOffset"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "type": "children"
-                  },
-                  {
-                    "attrs": [],
-                    "children": [],
-                    "class": "cn-tooltip-arrow cn-tooltip-arrow-logical z-50 bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5",
-                    "class_when": [],
-                    "merges_class": false,
-                    "module": "tooltip",
-                    "part": "Arrow",
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": [
-                        {
-                          "name": "data-side",
-                          "value": "bottom"
-                        },
-                        {
-                          "name": "data-side",
-                          "value": "left"
-                        },
-                        {
-                          "name": "data-side",
-                          "value": "right"
-                        },
-                        {
-                          "name": "data-side",
-                          "value": "top"
-                        },
-                        {
-                          "name": "data-side",
-                          "value": "inline-end"
-                        },
-                        {
-                          "name": "data-side",
-                          "value": "inline-start"
-                        }
-                      ]
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "tag": "div",
-                    "type": "primitive",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "class": "cn-tooltip-content cn-tooltip-content-logical z-50 w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background",
-                "class_when": [],
-                "merges_class": true,
-                "module": "tooltip",
-                "part": "Popup",
-                "props": true,
-                "reads": {
-                  "group": [],
-                  "self": [
-                    {
-                      "name": "data-open",
-                      "value": null
-                    },
-                    {
-                      "name": "data-state",
-                      "value": "delayed-open"
-                    },
-                    {
-                      "name": "data-closed",
-                      "value": null
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "bottom"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "left"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "right"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "top"
-                    },
-                    {
-                      "name": "data-slot",
-                      "value": "kbd"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "inline-start"
-                    },
-                    {
-                      "name": "data-side",
-                      "value": "inline-end"
-                    }
-                  ]
-                },
-                "render_as": null,
-                "slot": "tooltip-content",
-                "tag": "div",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": [
-                  "--transform-origin"
-                ]
-              }
-            ],
-            "class": "isolate z-50",
-            "class_when": [],
-            "merges_class": false,
-            "module": "tooltip",
-            "part": "Positioner",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "module": "tooltip",
-        "part": "Portal",
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-side",
+      "value": "bottom"
     },
     {
-      "contexts": [],
-      "export": "TooltipProvider",
-      "name": "tooltip_provider",
-      "params": {
-        "delay": "0"
-      },
-      "primitive": "Provider",
-      "refs": [
-        "delay",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "delay"
-            ],
-            "kind": "code",
-            "name": "delay",
-            "value": "delay"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "part": "Provider",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "renders no element",
-        "render_as": null,
-        "slot": "tooltip-provider",
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-side",
+      "value": "inline-end"
+    },
+    {
+      "name": "data-side",
+      "value": "inline-start"
+    },
+    {
+      "name": "data-side",
+      "value": "left"
+    },
+    {
+      "name": "data-side",
+      "value": "right"
+    },
+    {
+      "name": "data-side",
+      "value": "top"
+    },
+    {
+      "name": "data-slot",
+      "value": "kbd"
+    },
+    {
+      "name": "data-state",
+      "value": "delayed-open"
     }
   ],
-  "primitives": {
-    "tooltip.Arrow": {
-      "css_vars": [],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-uncentered",
-        "data-align",
-        "data-instant",
-        "data-side"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Tooltip.Arrow.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Tooltip.Arrow.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Tooltip.Arrow.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Displays an element positioned against the tooltip anchor."
-    },
-    "tooltip.Popup": {
-      "css_vars": [],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-align",
-        "data-instant",
-        "data-side",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Tooltip.Popup.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Tooltip.Popup.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Tooltip.Popup.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A container for the tooltip contents."
-    },
-    "tooltip.Portal": {
-      "css_vars": [],
-      "data": [],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "ShadowRoot \\",
-          "doc": "React.RefObject<HTMLElement \\",
-          "name": "container",
-          "type": "HTMLElement \\"
-        },
-        {
-          "default": "((state: Tooltip.Portal.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Tooltip.Portal.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to keep the portal mounted in the DOM while the popup is hidden.",
-          "name": "keepMounted",
-          "type": "boolean"
-        },
-        {
-          "default": "((props: HTMLProps, state: Tooltip.Portal.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A portal element that moves the popup to a different part of the DOM."
-    },
-    "tooltip.Positioner": {
-      "css_vars": [
-        "--anchor-height",
-        "--anchor-width",
-        "--available-height",
-        "--available-width",
-        "--positioner-height",
-        "--positioner-width",
-        "--transform-origin"
-      ],
-      "data": [
-        "data-open",
-        "data-closed",
-        "data-anchor-hidden",
-        "data-align",
-        "data-side"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether to disable the popup from tracking any layout shift of its positioning anchor.",
-          "name": "disableAnchorTracking",
-          "type": "boolean"
-        },
-        {
-          "default": "'center'",
-          "doc": "How to align the popup relative to the specified side.",
-          "name": "align",
-          "type": "Align"
-        },
-        {
-          "default": "OffsetFunction",
-          "doc": "0",
-          "name": "alignOffset",
-          "type": "number \\"
-        },
-        {
-          "default": "'top'",
-          "doc": "Which side of the anchor element to align the popup against. May automatically change to avoid collisions.",
-          "name": "side",
-          "type": "Side"
-        },
-        {
-          "default": "OffsetFunction",
-          "doc": "0",
-          "name": "sideOffset",
-          "type": "number \\"
-        },
-        {
-          "default": "5",
-          "doc": "Minimum distance to maintain between the arrow and the edges of the popup. Use it to prevent the arrow element from hanging out of the rounded corners of a popup.",
-          "name": "arrowPadding",
-          "type": "number"
-        },
-        {
-          "default": "VirtualElement \\",
-          "doc": "React.RefObject<Element \\",
-          "name": "anchor",
-          "type": "Element \\"
-        },
-        {
-          "default": null,
-          "doc": "Determines how to handle collisions when positioning the popup. `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`): `'flip'`: keep the requested side when it fits; otherwise try the opposite side (`top` and `bottom`, or `left` and `right`).`'shift'`: never change side; keep the requested side and move the popup within the clipping boundary so it stays visible.`'none'`: do not correct side-axis overflow. `align` controls overflow on the alignment axis (`start`/`center`/`end`): `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.`'shift'`: keep side and requested alignment, then nudge the popup along the alignment axis to fit.`'none'`: do not correct alignment-axis overflow. `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the preferred axis cannot fit: `'start'`: allow perpendicular fallback and try the logical start side first (`top` before `bottom`, or `left` before `right` in LTR).`'end'`: allow perpendicular fallback and try the logical end side first (`bottom` before `top`, or `right` before `left` in LTR).`'none'`: do not fallback to the perpendicular axis. When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`. If `align` is omitted, it defaults to `'flip'`.",
-          "name": "collisionAvoidance",
-          "type": "CollisionAvoidance"
-        },
-        {
-          "default": "'clipping-ancestors'",
-          "doc": "An element or a rectangle that delimits the area that the popup is confined to.",
-          "name": "collisionBoundary",
-          "type": "Boundary"
-        },
-        {
-          "default": "5",
-          "doc": "Additional space to maintain from the edge of the collision boundary.",
-          "name": "collisionPadding",
-          "type": "Padding"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to maintain the popup in the viewport after the anchor element was scrolled out of view.",
-          "name": "sticky",
-          "type": "boolean"
-        },
-        {
-          "default": "'fixed'",
-          "doc": "'absolute'",
-          "name": "positionMethod",
-          "type": "'absolute' \\"
-        },
-        {
-          "default": "((state: Tooltip.Positioner.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Tooltip.Positioner.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Tooltip.Positioner.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Positions the tooltip against the trigger."
-    },
-    "tooltip.Provider": {
-      "css_vars": [],
-      "data": [],
-      "element": null,
-      "hidden_input": false,
-      "props": [
-        {
-          "default": null,
-          "doc": "How long to wait before opening the tooltip on hover. Specified in milliseconds.",
-          "name": "delay",
-          "type": "number"
-        },
-        {
-          "default": null,
-          "doc": "How long to wait before closing a tooltip. Specified in milliseconds.",
-          "name": "closeDelay",
-          "type": "number"
-        },
-        {
-          "default": "400",
-          "doc": "Another tooltip will open instantly if the previous tooltip is closed within this timeout. Specified in milliseconds.",
-          "name": "timeout",
-          "type": "number"
-        },
-        {
-          "default": null,
-          "doc": "-",
-          "name": "children",
-          "type": "React.ReactNode"
-        }
-      ],
-      "renders": false,
-      "summary": "Provides a shared delay for multiple tooltips. The grouping logic ensures that"
-    },
-    "tooltip.Root": {
-      "css_vars": [],
-      "data": [],
-      "element": null,
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the tooltip is initially open. To render a controlled tooltip, use the `open` prop instead.",
-          "name": "defaultOpen",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the tooltip is currently open.",
-          "name": "open",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Event handler called when the tooltip is opened or closed.",
-          "name": "onOpenChange",
-          "type": "((open: boolean, eventDetails: Tooltip.Root.ChangeEventDetails) => void)"
-        },
-        {
-          "default": "null>",
-          "doc": "-",
-          "name": "actionsRef",
-          "type": "React.RefObject<Tooltip.Root.Actions \\"
-        },
-        {
-          "default": "null",
-          "doc": "-",
-          "name": "defaultTriggerId",
-          "type": "string \\"
-        },
-        {
-          "default": null,
-          "doc": "A handle to associate the tooltip with a trigger. If specified, allows external triggers to control the tooltip's open state. Can be created with the Tooltip.createHandle() method.",
-          "name": "handle",
-          "type": "Tooltip.Handle<Payload>"
-        },
-        {
-          "default": null,
-          "doc": "Event handler called after any animations complete when the tooltip is opened or closed.",
-          "name": "onOpenChangeComplete",
-          "type": "((open: boolean) => void)"
-        },
-        {
-          "default": "null",
-          "doc": "-",
-          "name": "triggerId",
-          "type": "string \\"
-        },
-        {
-          "default": "'x' \\",
-          "doc": "'y' \\",
-          "name": "trackCursorAxis",
-          "type": "'none' \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the tooltip is disabled.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the tooltip contents can be hovered without closing the tooltip.",
-          "name": "disableHoverablePopup",
-          "type": "boolean"
-        },
-        {
-          "default": "PayloadChildRenderFunction<Payload>",
-          "doc": "-",
-          "name": "children",
-          "type": "React.ReactNode \\"
-        }
-      ],
-      "renders": false,
-      "summary": "Groups all parts of the tooltip."
-    },
-    "tooltip.Trigger": {
-      "css_vars": [],
-      "data": [
-        "data-popup-open",
-        "data-trigger-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "true",
-          "doc": "Whether the tooltip should close when this trigger is clicked.",
-          "name": "closeOnClick",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "A handle to associate the trigger with a tooltip.",
-          "name": "handle",
-          "type": "Tooltip.Handle<Payload>"
-        },
-        {
-          "default": null,
-          "doc": "A payload to pass to the tooltip when it is opened.",
-          "name": "payload",
-          "type": "Payload"
-        },
-        {
-          "default": "false",
-          "doc": "If `true`, the tooltip will not open when interacting with this trigger. Note that this doesn't apply the `disabled` attribute to the trigger element. If you want to disable the trigger element itself, you can pass the `disabled` prop to the trigger element via the `render` prop.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "600",
-          "doc": "How long to wait before opening the tooltip on hover. Specified in milliseconds.",
-          "name": "delay",
-          "type": "number"
-        },
-        {
-          "default": "0",
-          "doc": "How long to wait before closing the tooltip. Specified in milliseconds.",
-          "name": "closeDelay",
-          "type": "number"
-        },
-        {
-          "default": "((state: Tooltip.Trigger.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Tooltip.Trigger.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Tooltip.Trigger.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "An element to attach the tooltip to."
-    },
-    "tooltip.Viewport": {
-      "css_vars": [
-        "--popup-height",
-        "--popup-width"
-      ],
-      "data": [
-        "data-activation-direction",
-        "data-current",
-        "data-instant",
-        "data-previous",
-        "data-transitioning"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": null,
-          "doc": "The content to render inside the transition container.",
-          "name": "children",
-          "type": "React.ReactNode"
-        },
-        {
-          "default": "((state: Tooltip.Viewport.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Tooltip.Viewport.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Tooltip.Viewport.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A viewport for displaying content transitions."
-    }
-  },
-  "recipe": "popover",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px] data-[side=left]:translate-x-[-1.5px] data-[side=right]:translate-x-[1.5px]",
-      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:translate-x-[1.5px] data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:translate-x-[-1.5px] data-[side=inline-start]:-translate-y-1/2",
-      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-lg",
-      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "lyra": {
-      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-none",
-      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2",
-      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-none px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-none",
-      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "maia": {
-      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px] data-[side=left]:translate-x-[-1.5px] data-[side=right]:translate-x-[1.5px]",
-      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:translate-x-[1.5px] data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:translate-x-[-1.5px] data-[side=inline-start]:-translate-y-1/2",
-      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-2xl px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-4xl",
-      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "mira": {
-      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px]",
-      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2",
-      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm",
-      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "nova": {
-      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px]",
-      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2",
-      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm",
-      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "rhea": {
-      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px] data-[side=left]:translate-x-[-1.5px] data-[side=right]:translate-x-[1.5px]",
-      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:translate-x-[1.5px] data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:translate-x-[-1.5px] data-[side=inline-start]:-translate-y-1/2",
-      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-lg",
-      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "sera": {
-      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-none",
-      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:translate-x-[1.5px] data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:translate-x-[-1.5px] data-[side=inline-start]:-translate-y-1/2",
-      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-none px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-none",
-      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    },
-    "vega": {
-      "cn-tooltip-arrow": "size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px]",
-      "cn-tooltip-arrow-logical": "data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2",
-      "cn-tooltip-content": "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm",
-      "cn-tooltip-content-logical": "data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2"
-    }
+    "luma": "51d4c223ec856e1c92445c223a185e17a65e0298f32592a8f19bb917fd10e16c",
+    "lyra": "06a26b4399a92265f7d38064f5229555d5362cb2f53197e1a7aff84440db1f86",
+    "maia": "70121a952cf27dc2d7c9aee89d9433cdb4318637d7737e7f1eec7f9ec6344ba9",
+    "mira": "79423901eb6544565dd47e43edd27e33a247093786d264f951e75e6e23cbc6c9",
+    "nova": "79423901eb6544565dd47e43edd27e33a247093786d264f951e75e6e23cbc6c9",
+    "rhea": "51d4c223ec856e1c92445c223a185e17a65e0298f32592a8f19bb917fd10e16c",
+    "sera": "d27661eaa06515301cd5bc189ec1905c4bcbf2ad038b21410f6e4eadeb042152",
+    "vega": "79423901eb6544565dd47e43edd27e33a247093786d264f951e75e6e23cbc6c9"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {
-      "tooltip": "1bc316cb8320bcfbd35b252fb4bd1f1cea3343ae7900d7432734b4f020793a80"
-    },
-    "shadcn": {
-      "file": "shadcn/ui/tooltip.tsx",
-      "sha256": "75e66453d7a6301281a0ecd7840d268a90a6972b252b018d2ac2bc34a979968b"
-    }
+    "shadcn/ui/tooltip.tsx": "75e66453d7a6301281a0ecd7840d268a90a6972b252b018d2ac2bc34a979968b"
   },
-  "variants": {}
+  "uses": [
+    "jsx/TooltipContent/class/0",
+    "jsx/TooltipContent/class/1",
+    "jsx/TooltipContent/class/2"
+  ]
 }

@@ -9,6 +9,60 @@ defmodule LiveAiElements.Components.MicSelector do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "cva/buttonVariants/base" => "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/buttonVariants/default/size" => "default",
+    "cva/buttonVariants/variant/size/default" => "cn-button-size-default",
+    "cva/buttonVariants/variant/size/icon" => "cn-button-size-icon",
+    "cva/buttonVariants/variant/size/icon-lg" => "cn-button-size-icon-lg",
+    "cva/buttonVariants/variant/size/icon-sm" => "cn-button-size-icon-sm",
+    "cva/buttonVariants/variant/size/icon-xs" => "cn-button-size-icon-xs",
+    "cva/buttonVariants/variant/size/lg" => "cn-button-size-lg",
+    "cva/buttonVariants/variant/size/sm" => "cn-button-size-sm",
+    "cva/buttonVariants/variant/size/xs" => "cn-button-size-xs",
+    "cva/buttonVariants/variant/variant/default" => "cn-button-variant-default",
+    "cva/buttonVariants/variant/variant/destructive" => "cn-button-variant-destructive",
+    "cva/buttonVariants/variant/variant/ghost" => "cn-button-variant-ghost",
+    "cva/buttonVariants/variant/variant/link" => "cn-button-variant-link",
+    "cva/buttonVariants/variant/variant/outline" => "cn-button-variant-outline",
+    "cva/buttonVariants/variant/variant/secondary" => "cn-button-variant-secondary",
+    "cva/inputGroupAddonVariants/variant/align/block-end" => "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/block-start" => "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end" => "cn-input-group-addon-align-inline-end order-last",
+    "cva/inputGroupAddonVariants/variant/align/inline-start" => "cn-input-group-addon-align-inline-start order-first",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm" => "cn-input-group-button-size-icon-sm",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs" => "cn-input-group-button-size-icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm" => "cn-input-group-button-size-sm",
+    "cva/inputGroupButtonVariants/variant/size/xs" => "cn-input-group-button-size-xs",
+    "jsx/Command/class/0" => "cn-command flex size-full flex-col overflow-hidden",
+    "jsx/CommandItem/class/0" => "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/CommandItem/class/1" => "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
+    "jsx/MicSelectorContent/class/0" => "p-0",
+    "jsx/MicSelectorTrigger/class/0" => "shrink-0 text-muted-foreground",
+    "jsx/PopoverContent/class/0" => "isolate z-50",
+    "jsx/PopoverContent/class/1" => "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
+  @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
+
   alias LiveBase.FormControl
   alias LiveBase.Listbox
   alias LiveBase.Popover
@@ -61,13 +115,13 @@ defmodule LiveAiElements.Components.MicSelector do
   attr(:side_offset, :string, default: "4")
 
   attr(:size, :string,
-    default: "default",
-    values: ["default", "icon", "icon-lg", "icon-sm", "icon-xs", "lg", "sm", "xs"]
+    default: @upstream_facts["cva/buttonVariants/default/size"],
+    values: @variant_classes |> get_in(["buttonVariants", "size"]) |> Map.keys() |> Enum.sort()
   )
 
   attr(:variant, :string,
     default: "outline",
-    values: ["default", "destructive", "ghost", "link", "outline", "secondary"]
+    values: @variant_classes |> get_in(["buttonVariants", "variant"]) |> Map.keys() |> Enum.sort()
   )
 
   attr(:width, :any, default: nil)
@@ -109,7 +163,7 @@ defmodule LiveAiElements.Components.MicSelector do
         class={[
           variant_class("buttonVariants", "size", @size),
           variant_class("buttonVariants", "variant", @variant),
-          "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+          upstream_fact("cva/buttonVariants/base"),
           @trigger_class
         ]}
       >
@@ -117,7 +171,7 @@ defmodule LiveAiElements.Components.MicSelector do
           name="chevrons-up-down"
           width="16"
           height="16"
-          class="shrink-0 text-muted-foreground"
+          class={upstream_fact("jsx/MicSelectorTrigger/class/0")}
         />
       </button>
       <input
@@ -129,7 +183,7 @@ defmodule LiveAiElements.Components.MicSelector do
         required={@required}
         phx-mounted={Listbox.owned_attributes(:input)}
       />
-      <div class={["p-0", @class]}>
+      <div class={[upstream_fact("jsx/MicSelectorContent/class/0"), (@class || "")]}>
         <div
           id={Popover.positioner_id(@id)}
           hidden={not @open}
@@ -142,7 +196,7 @@ defmodule LiveAiElements.Components.MicSelector do
           phx-mounted={Popover.owned_attributes(:positioner)}
           data-open={flag(@open)}
           data-closed={flag(not @open)}
-          class="isolate z-50"
+          class={upstream_fact("jsx/PopoverContent/class/0")}
         >
           <div
             data-slot="popover-content"
@@ -159,8 +213,8 @@ defmodule LiveAiElements.Components.MicSelector do
             data-open={flag(@open)}
             data-closed={flag(not @open)}
             class={[
-              "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
-              @class
+              upstream_fact("jsx/PopoverContent/class/1"),
+              (@class || "")
             ]}
             data-lb-style-target
             data-lb-measure
@@ -181,14 +235,14 @@ defmodule LiveAiElements.Components.MicSelector do
               phx-mounted={Listbox.owned_attributes(:option)}
               data-disabled={flag(option[:disabled] == true)}
               class={[
-                "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-                @item_class
+                upstream_fact("jsx/CommandItem/class/0"),
+                (@item_class || "")
               ]}
               data-lb-style-target
             >
               <LiveShadcn.Icon.icon
                 name="check"
-                class="cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100"
+                class={upstream_fact("jsx/CommandItem/class/1")}
               />{option[:label] || option[:value]}
             </div>
           </div>
@@ -196,7 +250,7 @@ defmodule LiveAiElements.Components.MicSelector do
         <div
           data-slot="command"
           value={@value}
-          class="cn-command flex size-full flex-col overflow-hidden"
+          class={upstream_fact("jsx/Command/class/0")}
         />
       </div>
     </div>
@@ -214,29 +268,6 @@ defmodule LiveAiElements.Components.MicSelector do
   defp flag(true), do: ""
   defp flag(_state), do: nil
 
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "buttonVariants" => %{
-      "size" => %{
-        "default" => "cn-button-size-default",
-        "icon" => "cn-button-size-icon",
-        "icon-lg" => "cn-button-size-icon-lg",
-        "icon-sm" => "cn-button-size-icon-sm",
-        "icon-xs" => "cn-button-size-icon-xs",
-        "lg" => "cn-button-size-lg",
-        "sm" => "cn-button-size-sm",
-        "xs" => "cn-button-size-xs"
-      },
-      "variant" => %{
-        "default" => "cn-button-variant-default",
-        "destructive" => "cn-button-variant-destructive",
-        "ghost" => "cn-button-variant-ghost",
-        "link" => "cn-button-variant-link",
-        "outline" => "cn-button-variant-outline",
-        "secondary" => "cn-button-variant-secondary"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
+  defp variant_class(table, group, value),
+    do: get_in(@variant_classes, [table, group, value])
 end

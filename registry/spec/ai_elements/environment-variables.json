@@ -1,1145 +1,139 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "folds": [
-    "shadcn/switch"
-  ],
-  "generated_by": "mix ui.spec",
-  "name": "environment-variables",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "EnvironmentVariables",
-      "name": "environment_variables",
-      "params": {
-        "children": null,
-        "className": null,
-        "defaultShowValues": "false",
-        "showValues": null
-      },
-      "primitive": null,
-      "refs": [
-        "defaultShowValues",
-        "showValues",
-        "show",
-        "onShowValuesChange",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "rounded-lg border bg-background",
-            "class_when": [],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "defaultShowValues": {
-          "optional": true,
-          "type": "boolean"
-        },
-        "showValues": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "EnvironmentVariablesHeader",
-      "name": "environment_variables_header",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "flex items-center justify-between border-b px-4 py-3",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "EnvironmentVariablesTitle",
-      "name": "environment_variables_title",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "default": [
-              {
-                "type": "text",
-                "value": "Environment Variables"
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "font-medium text-sm",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "h3",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "EnvironmentVariablesToggle",
-      "name": "environment_variables_toggle",
-      "params": {
-        "className": null,
-        "showValues": null,
-        "size": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "else": [
-                  {
-                    "attrs": [
-                      {
-                        "kind": "code",
-                        "name": "size",
-                        "value": "14"
-                      }
-                    ],
-                    "children": [],
-                    "class": "",
-                    "class_when": [],
-                    "icons": {
-                      "lucide": "EyeOff"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "identifiers": [
-                  "showValues"
-                ],
-                "then": [
-                  {
-                    "attrs": [
-                      {
-                        "kind": "code",
-                        "name": "size",
-                        "value": "14"
-                      }
-                    ],
-                    "children": [],
-                    "class": "",
-                    "class_when": [],
-                    "icons": {
-                      "lucide": "Eye"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "type": "choice",
-                "when": "showValues"
-              }
-            ],
-            "class": "text-muted-foreground text-xs",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "size"
-                ],
-                "kind": "code",
-                "name": "data-size",
-                "value": "size"
-              },
-              {
-                "kind": "text",
-                "name": "aria-label",
-                "value": "Toggle value visibility"
-              },
-              {
-                "identifiers": [
-                  "showValues"
-                ],
-                "kind": "code",
-                "name": "checked",
-                "value": "showValues"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "cn-switch-thumb pointer-events-none block ring-0 transition-transform",
-                "class_when": [],
-                "merges_class": false,
-                "module": "switch",
-                "part": "Thumb",
-                "props": false,
-                "reads": {
-                  "group": [
-                    {
-                      "group": "switch",
-                      "name": "data-size",
-                      "value": "default"
-                    },
-                    {
-                      "group": "switch",
-                      "name": "data-size",
-                      "value": "sm"
-                    }
-                  ],
-                  "self": [
-                    {
-                      "name": "data-unchecked",
-                      "value": null
-                    },
-                    {
-                      "name": "data-checked",
-                      "value": null
-                    }
-                  ]
-                },
-                "render_as": null,
-                "slot": "switch-thumb",
-                "tag": "span",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
-            "class_when": [],
-            "merges_class": false,
-            "module": "switch",
-            "part": "Root",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": [
-                {
-                  "name": "data-disabled",
-                  "value": null
-                },
-                {
-                  "name": "data-checked",
-                  "value": null
-                },
-                {
-                  "name": "data-unchecked",
-                  "value": null
-                },
-                {
-                  "name": "aria-invalid",
-                  "value": null
-                },
-                {
-                  "name": "data-size",
-                  "value": "default"
-                },
-                {
-                  "name": "data-size",
-                  "value": "sm"
-                }
-              ]
-            },
-            "render_as": null,
-            "slot": "switch",
-            "tag": "span",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "flex items-center gap-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "showValues": {
-          "optional": false,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "EnvironmentVariablesContent",
-      "name": "environment_variables_content",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "divide-y",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "EnvironmentVariableGroup",
-      "name": "environment_variable_group",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "flex items-center gap-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "EnvironmentVariableName",
-      "name": "environment_variable_name",
-      "params": {
-        "children": null,
-        "className": null,
-        "name": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "default": [
-              {
-                "code": "name",
-                "type": "value"
-              }
-            ],
-            "identifiers": [
-              "children",
-              "name"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "font-mono text-sm",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "EnvironmentVariableValue",
-      "name": "environment_variable_value",
-      "params": {
-        "children": null,
-        "className": null,
-        "displayValue": null,
-        "showValues": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "default": [
-              {
-                "code": "displayValue",
-                "type": "value"
-              }
-            ],
-            "identifiers": [
-              "children",
-              "displayValue"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "font-mono text-muted-foreground text-sm",
-        "class_when": [
-          {
-            "else": null,
-            "identifiers": [
-              "showValues"
-            ],
-            "then": "select-none",
-            "when": "!showValues"
-          }
-        ],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "showValues": {
-          "optional": false,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "EnvironmentVariable",
-      "name": "environment_variable",
-      "params": {
-        "children": null,
-        "className": null,
-        "name": null,
-        "value": null
-      },
-      "primitive": null,
-      "refs": [
-        "name",
-        "value",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "default": [
-                  {
-                    "attrs": [],
-                    "children": [
-                      {
-                        "attrs": [],
-                        "children": [
-                          {
-                            "attrs": [],
-                            "children": [],
-                            "class": "",
-                            "class_when": [],
-                            "merges_class": false,
-                            "part": "environment_variable_name",
-                            "props": false,
-                            "reads": {
-                              "group": [],
-                              "self": []
-                            },
-                            "render_as": null,
-                            "slot": null,
-                            "type": "part_ref",
-                            "variant_calls": [],
-                            "vars": []
-                          }
-                        ],
-                        "class": "flex items-center gap-2",
-                        "class_when": [],
-                        "merges_class": false,
-                        "props": false,
-                        "reads": {
-                          "group": [],
-                          "self": []
-                        },
-                        "render_as": null,
-                        "slot": null,
-                        "tag": "div",
-                        "type": "element",
-                        "variant_calls": [],
-                        "vars": []
-                      },
-                      {
-                        "attrs": [],
-                        "children": [],
-                        "class": "",
-                        "class_when": [],
-                        "merges_class": false,
-                        "part": "environment_variable_value",
-                        "props": false,
-                        "reads": {
-                          "group": [],
-                          "self": []
-                        },
-                        "render_as": null,
-                        "slot": null,
-                        "type": "part_ref",
-                        "variant_calls": [],
-                        "vars": []
-                      }
-                    ],
-                    "class": "",
-                    "class_when": [],
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "reason": "a fragment",
-                    "render_as": null,
-                    "slot": null,
-                    "type": "transparent",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "identifiers": [
-                  "children"
-                ],
-                "type": "children"
-              }
-            ],
-            "class": "flex items-center justify-between gap-4 px-4 py-3",
-            "class_when": [],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "EnvironmentVariableCopyButton",
-      "name": "environment_variable_copy_button",
-      "params": {
-        "children": null,
-        "className": null,
-        "copyFormat": "value",
-        "size": "icon",
-        "timeout": "2000",
-        "variant": "ghost"
-      },
-      "primitive": null,
-      "refs": [
-        "copyFormat",
-        "onCopy",
-        "onError",
-        "timeout",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          }
-        ],
-        "children": [
-          {
-            "default": [
-              {
-                "attrs": [
-                  {
-                    "kind": "code",
-                    "name": "size",
-                    "value": "12"
-                  }
-                ],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "else": [
-                  {
-                    "attrs": [],
-                    "children": [],
-                    "class": "",
-                    "class_when": [],
-                    "icons": {
-                      "lucide": "Copy"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "then": [
-                  {
-                    "attrs": [],
-                    "children": [],
-                    "class": "",
-                    "class_when": [],
-                    "icons": {
-                      "lucide": "Check"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "type": "choice",
-                "variant_calls": [],
-                "vars": [],
-                "when": "isCopied"
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "size-6 shrink-0",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "copyFormat": {
-          "optional": true,
-          "values": [
-            "name",
-            "value",
-            "export"
-          ]
-        },
-        "timeout": {
-          "optional": true,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "EnvironmentVariableRequired",
-      "name": "environment_variable_required",
-      "params": {
-        "children": null,
-        "className": null,
-        "variant": "secondary"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          }
-        ],
-        "children": [
-          {
-            "default": [
-              {
-                "type": "text",
-                "value": "Required"
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "text-xs",
-        "class_when": [],
-        "component": "badge",
-        "function": "badge",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "span",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "switch.Root": {
-      "css_vars": [],
-      "data": [
-        "data-checked",
-        "data-unchecked",
-        "data-disabled",
-        "data-readonly",
-        "data-required",
-        "data-valid",
-        "data-invalid",
-        "data-dirty",
-        "data-touched",
-        "data-filled",
-        "data-focused"
-      ],
-      "element": "span",
-      "hidden_input": true,
-      "props": [
-        {
-          "default": null,
-          "doc": "Identifies the field when a form is submitted.",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the switch is initially active. To render a controlled switch, use the `checked` prop instead.",
-          "name": "defaultChecked",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the switch is currently active. To render an uncontrolled switch, use the `defaultChecked` prop instead.",
-          "name": "checked",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Event handler called when the switch is activated or deactivated.",
-          "name": "onCheckedChange",
-          "type": "((checked: boolean, eventDetails: Switch.Root.ChangeEventDetails) => void)"
-        },
-        {
-          "default": null,
-          "doc": "The value submitted with the form when the switch is on. By default, switch submits the \"on\" value, matching native checkbox behavior.",
-          "name": "value",
-          "type": "string"
-        },
-        {
-          "default": null,
-          "doc": "Identifies the form that owns the hidden input. Useful when the switch is rendered outside the form.",
-          "name": "form",
-          "type": "string"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "The value submitted with the form when the switch is off. By default, unchecked switches do not submit any value, matching native checkbox behavior.",
-          "name": "uncheckedValue",
-          "type": "string"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component should ignore user interaction.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the user should be unable to activate or deactivate the switch.",
-          "name": "readOnly",
-          "type": "boolean"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the user must activate the switch before submitting a form.",
-          "name": "required",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "A ref to access the hidden `<input>` element.",
-          "name": "inputRef",
-          "type": "React.Ref<HTMLInputElement>"
-        },
-        {
-          "default": null,
-          "doc": "The id of the hidden input element. When `nativeButton` is `true`, the id is applied to the root element.",
-          "name": "id",
-          "type": "string"
-        },
-        {
-          "default": "((state: Switch.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Switch.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Switch.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Represents the switch itself."
-    },
-    "switch.Thumb": {
-      "css_vars": [],
-      "data": [
-        "data-checked",
-        "data-unchecked",
-        "data-disabled",
-        "data-readonly",
-        "data-required",
-        "data-valid",
-        "data-invalid",
-        "data-dirty",
-        "data-touched",
-        "data-filled",
-        "data-focused"
-      ],
-      "element": "span",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Switch.Thumb.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Switch.Thumb.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Switch.Thumb.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "The movable part of the switch that indicates whether the switch is on or off."
-    }
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/EnvironmentVariable/class/0",
+      "jsx/EnvironmentVariable/class/1",
+      "jsx/EnvironmentVariableCopyButton/class/0",
+      "jsx/EnvironmentVariableName/class/0",
+      "jsx/EnvironmentVariableRequired/class/0",
+      "jsx/EnvironmentVariableValue/class/0",
+      "jsx/EnvironmentVariableValue/class/1",
+      "jsx/EnvironmentVariables/class/0",
+      "jsx/EnvironmentVariablesContent/class/0",
+      "jsx/EnvironmentVariablesHeader/class/0",
+      "jsx/EnvironmentVariablesTitle/class/0",
+      "jsx/EnvironmentVariablesToggle/class/1",
+      "jsx/Switch/class/0",
+      "jsx/Switch/class/1"
+    ],
+    "derived": {}
   },
-  "recipe": "clipboard",
+  "css_vars": [],
+  "facts": {
+    "jsx/EnvironmentVariable/class/0": "flex items-center justify-between gap-4 px-4 py-3",
+    "jsx/EnvironmentVariable/class/1": "flex items-center gap-2",
+    "jsx/EnvironmentVariableCopyButton/class/0": "size-6 shrink-0",
+    "jsx/EnvironmentVariableName/class/0": "font-mono text-sm",
+    "jsx/EnvironmentVariableRequired/class/0": "text-xs",
+    "jsx/EnvironmentVariableValue/class/0": "font-mono text-muted-foreground text-sm",
+    "jsx/EnvironmentVariableValue/class/1": "select-none",
+    "jsx/EnvironmentVariables/class/0": "rounded-lg border bg-background",
+    "jsx/EnvironmentVariablesContent/class/0": "divide-y",
+    "jsx/EnvironmentVariablesHeader/class/0": "flex items-center justify-between border-b px-4 py-3",
+    "jsx/EnvironmentVariablesTitle/class/0": "font-medium text-sm",
+    "jsx/EnvironmentVariablesToggle/class/1": "text-muted-foreground text-xs",
+    "jsx/Switch/class/0": "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+    "jsx/Switch/class/1": "cn-switch-thumb pointer-events-none block ring-0 transition-transform"
+  },
+  "file_fingerprints": {
+    "ai_elements/environment-variables.tsx": "705dc9edf452101df86e3f028bf11c24fb3c2c2fed2f96b0d02dba9ff7f39ea2",
+    "shadcn/ui/switch.tsx": "2f0fa6850247966c015ce77864d6a70ae4abaecc597332c93a4346d36f7fc112"
+  },
+  "fingerprint": "4e4a162bf9a7b1cbd806b3df2bf72931aeb8b791194b92055b0a5c1d226d9ebd",
+  "ignored": {
+    "jsx/EnvironmentVariableGroup/class/0": "the generated port does not contain this source literal",
+    "jsx/EnvironmentVariablesToggle/class/0": "the generated port does not contain this source literal"
+  },
+  "name": "environment-variables",
+  "port_body": "63bb6aa26bf6701b7db03aec91c8c1cc992826f18141857c06e8a524bac01e6a",
+  "schema_version": 2,
   "source": "ai_elements",
-  "styles": {
-    "luma": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input/90 data-checked:border-primary border-2 data-unchecked:border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 shrink-0 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:data-unchecked:border-transparent group-has-[:focus-visible]/field-label:data-checked:border-primary data-[size=default]:h-5 data-[size=default]:w-11 data-[size=sm]:h-4 data-[size=sm]:w-7",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full shadow-sm group-data-[size=default]/switch:h-4 group-data-[size=default]/switch:w-6 group-data-[size=sm]/switch:h-3 group-data-[size=sm]/switch:w-4 data-checked:translate-x-[calc(100%-8px)] data-unchecked:translate-x-0 not-dark:bg-clip-padding"
+  "source_facts": {
+    "jsx/EnvironmentVariable/class/0": "flex items-center justify-between gap-4 px-4 py-3",
+    "jsx/EnvironmentVariable/class/1": "flex items-center gap-2",
+    "jsx/EnvironmentVariableCopyButton/class/0": "size-6 shrink-0",
+    "jsx/EnvironmentVariableGroup/class/0": "flex items-center gap-2",
+    "jsx/EnvironmentVariableName/class/0": "font-mono text-sm",
+    "jsx/EnvironmentVariableRequired/class/0": "text-xs",
+    "jsx/EnvironmentVariableValue/class/0": "font-mono text-muted-foreground text-sm",
+    "jsx/EnvironmentVariableValue/class/1": "select-none",
+    "jsx/EnvironmentVariables/class/0": "rounded-lg border bg-background",
+    "jsx/EnvironmentVariablesContent/class/0": "divide-y",
+    "jsx/EnvironmentVariablesHeader/class/0": "flex items-center justify-between border-b px-4 py-3",
+    "jsx/EnvironmentVariablesTitle/class/0": "font-medium text-sm",
+    "jsx/EnvironmentVariablesToggle/class/0": "flex items-center gap-2",
+    "jsx/EnvironmentVariablesToggle/class/1": "text-muted-foreground text-xs",
+    "jsx/Switch/class/0": "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+    "jsx/Switch/class/1": "cn-switch-thumb pointer-events-none block ring-0 transition-transform"
+  },
+  "state_reads": [
+    {
+      "name": "aria-invalid",
+      "value": null
     },
-    "lyra": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-1 aria-invalid:ring-1 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px]",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0"
+    {
+      "name": "data-checked",
+      "value": null
     },
-    "maia": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-[3px] aria-invalid:ring-[3px] group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px]",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0"
+    {
+      "name": "data-disabled",
+      "value": null
     },
-    "mira": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-2 aria-invalid:ring-2 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[16.6px] data-[size=default]:w-[28px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px]",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-3.5 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0"
+    {
+      "name": "data-size",
+      "value": "default"
     },
-    "nova": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px]",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0"
+    {
+      "name": "data-size",
+      "value": "sm"
     },
-    "rhea": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input/90 data-checked:border-primary border-2 data-unchecked:border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 shrink-0 rounded-2xl focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:data-unchecked:border-transparent group-has-[:focus-visible]/field-label:data-checked:border-primary data-[size=default]:h-5 data-[size=default]:w-8 data-[size=sm]:h-4 data-[size=sm]:w-6",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-2xl shadow-sm group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 data-checked:translate-x-[calc(100%-4px)] data-unchecked:translate-x-0 not-dark:bg-clip-padding"
+    {
+      "name": "data-unchecked",
+      "value": null
     },
-    "sera": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input data-checked:border-primary border data-unchecked:border-input/50 focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 shrink-0 rounded-none focus-visible:ring-2 aria-invalid:ring-2 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:data-unchecked:border-input/50 group-has-[:focus-visible]/field-label:data-checked:border-primary data-[size=default]:h-4.5 data-[size=default]:w-8.25 data-[size=sm]:h-3.5 data-[size=sm]:w-6.25",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground group-data-[size=default]/switch:size-3.5 group-data-[size=sm]/switch:size-2.5 data-checked:translate-x-[calc(100%+2px)] data-unchecked:translate-x-0.25"
+    {
+      "group": "switch",
+      "name": "data-size",
+      "value": "default"
     },
-    "vega": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent shadow-xs focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px]",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0"
+    {
+      "group": "switch",
+      "name": "data-size",
+      "value": "sm"
     }
+  ],
+  "styles": {
+    "luma": "08e0872893e8284ad21da9fb2bbefe10292fdc223d250d1c97646a38a4b19529",
+    "lyra": "37efb435f01f77c18b1371b29c4e466923fb0ef384a810b8826e2b98dd518b0c",
+    "maia": "36242110f6d3c5599456dde66af5725e1acb787c349deb5d0e090fb52b2c3786",
+    "mira": "11fc1ad7019d08c6c8a0f5a1a78258bd6d2a257d10249f415f7f17d58088ebb1",
+    "nova": "890af7034791367bc1c7a4c4a8a80957e1b8e846573d3800cb5a1a7f00c55d0d",
+    "rhea": "be2dff9efb91b349f3abdee33c9d9e0c7457ef2d7d900265788bd155f43db61b",
+    "sera": "9fd40ff0779011f90f476bcede4489e2c5fd95d0fa57c56aa33415e20ec5b347",
+    "vega": "6bfcca7d8745c7dabb01b9bb36108f729e74f8b2e6d9caa11c96ac65eceaedeb"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/environment-variables.tsx",
-      "sha256": "6b685aacb47e7bcb62e15b74b4e0b0bd7beffb892f3769ad7fc3580e00aae88b"
-    }
+    "ai_elements/environment-variables.tsx": "6b685aacb47e7bcb62e15b74b4e0b0bd7beffb892f3769ad7fc3580e00aae88b",
+    "shadcn/ui/switch.tsx": "5bc5e6917b328921a87ee0c25224ed7c19184f2158b1558679a259ab1d0ad938"
   },
-  "variants": {}
+  "uses": [
+    "jsx/EnvironmentVariable/class/0",
+    "jsx/EnvironmentVariable/class/1",
+    "jsx/EnvironmentVariableCopyButton/class/0",
+    "jsx/EnvironmentVariableName/class/0",
+    "jsx/EnvironmentVariableRequired/class/0",
+    "jsx/EnvironmentVariableValue/class/0",
+    "jsx/EnvironmentVariableValue/class/1",
+    "jsx/EnvironmentVariables/class/0",
+    "jsx/EnvironmentVariablesContent/class/0",
+    "jsx/EnvironmentVariablesHeader/class/0",
+    "jsx/EnvironmentVariablesTitle/class/0",
+    "jsx/EnvironmentVariablesToggle/class/1",
+    "jsx/Switch/class/0",
+    "jsx/Switch/class/1"
+  ]
 }

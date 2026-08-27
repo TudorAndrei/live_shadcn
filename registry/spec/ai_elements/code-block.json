@@ -1,950 +1,133 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "code-block",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "CodeBlockContainer",
-      "name": "code_block_container",
-      "params": {
-        "className": null,
-        "language": null,
-        "style": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "language",
-        "style",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/CodeBlockActions/class/0",
+      "jsx/CodeBlockContainer/class/0",
+      "jsx/CodeBlockContent/class/0",
+      "jsx/CodeBlockCopyButton/class/0",
+      "jsx/CodeBlockFilename/class/0",
+      "jsx/CodeBlockHeader/class/0",
+      "jsx/CodeBlockTitle/class/0",
+      "jsx/TokenSpan/class/0",
+      "jsx/anonymous/class/0",
+      "jsx/anonymous/class/10",
+      "jsx/anonymous/class/11",
+      "jsx/anonymous/class/12"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "identifiers": [
-              "language"
-            ],
-            "kind": "code",
-            "name": "data-language",
-            "value": "language"
+            "literal": "block"
           },
           {
-            "identifiers": [
-              "style"
-            ],
-            "kind": "style",
-            "name": "style",
-            "value": [
-              {
-                "kind": "spread",
-                "property": "style"
-              },
-              {
-                "kind": "text",
-                "property": "containIntrinsicSize",
-                "value": "auto 200px"
-              },
-              {
-                "kind": "text",
-                "property": "contentVisibility",
-                "value": "auto"
-              }
-            ]
-          }
-        ],
-        "children": [],
-        "class": "group relative w-full overflow-hidden rounded-md border bg-background text-foreground",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlockHeader",
-      "name": "code_block_header",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "flex items-center justify-between border-b bg-muted/80 px-3 py-2 text-muted-foreground text-xs",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlockTitle",
-      "name": "code_block_title",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "flex items-center gap-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlockFilename",
-      "name": "code_block_filename",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "font-mono",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlockActions",
-      "name": "code_block_actions",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "-my-1 -mr-1 flex items-center gap-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlockContent",
-      "name": "code_block_content",
-      "params": {
-        "className": null,
-        "code": null,
-        "keyedLine": null,
-        "keyedLines": null,
-        "language": null,
-        "preStyle": null,
-        "showLineNumbers": "false",
-        "token": null
-      },
-      "primitive": null,
-      "refs": [
-        "code",
-        "language",
-        "result",
-        "showLineNumbers"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "preStyle"
-                ],
-                "kind": "style",
-                "name": "style",
-                "value": []
-              }
-            ],
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "binding": "keyedLine",
-                    "children": [
-                      {
-                        "attrs": [],
-                        "children": [
-                          {
-                            "children": [],
-                            "else": [
-                              {
-                                "binding": "item",
-                                "children": [
-                                  {
-                                    "attrs": [
-                                      {
-                                        "identifiers": [
-                                          "CSSProperties",
-                                          "isBold",
-                                          "isItalic",
-                                          "isUnderline",
-                                          "token",
-                                          "undefined"
-                                        ],
-                                        "kind": "style",
-                                        "member_roots": [
-                                          "token"
-                                        ],
-                                        "name": "style",
-                                        "value": [
-                                          {
-                                            "kind": "code",
-                                            "property": "backgroundColor",
-                                            "value": "token.bgColor"
-                                          },
-                                          {
-                                            "kind": "code",
-                                            "property": "color",
-                                            "value": "token.color"
-                                          },
-                                          {
-                                            "kind": "code",
-                                            "property": "fontStyle",
-                                            "value": "(token.fontStyle && token.fontStyle & 1) ? \"italic\" : undefined"
-                                          },
-                                          {
-                                            "kind": "code",
-                                            "property": "fontWeight",
-                                            "value": "(token.fontStyle && token.fontStyle & 2) ? \"bold\" : undefined"
-                                          },
-                                          {
-                                            "kind": "code",
-                                            "property": "textDecoration",
-                                            "value": "(token.fontStyle && token.fontStyle & 4) ? \"underline\" : undefined"
-                                          }
-                                        ]
-                                      }
-                                    ],
-                                    "children": [
-                                      {
-                                        "children": [],
-                                        "code": "token.content",
-                                        "identifiers": [
-                                          "token"
-                                        ],
-                                        "member_roots": [
-                                          "token"
-                                        ],
-                                        "type": "value"
-                                      }
-                                    ],
-                                    "class": "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)]",
-                                    "class_when": [],
-                                    "merges_class": false,
-                                    "props": false,
-                                    "reads": {
-                                      "group": [],
-                                      "self": []
-                                    },
-                                    "render_as": null,
-                                    "slot": null,
-                                    "tag": "span",
-                                    "type": "element",
-                                    "variant_calls": [],
-                                    "vars": [
-                                      "--shiki-dark-bg",
-                                      "--shiki-dark"
-                                    ]
-                                  }
-                                ],
-                                "collection": "keyedLine.tokens",
-                                "counter": null,
-                                "fields": [
-                                  "token",
-                                  "key"
-                                ],
-                                "type": "repeat_over"
-                              }
-                            ],
-                            "identifiers": [
-                              "key",
-                              "keyedLine",
-                              "token"
-                            ],
-                            "member_roots": [
-                              "keyedLine"
-                            ],
-                            "then": [
-                              {
-                                "type": "text",
-                                "value": "\\n"
-                              }
-                            ],
-                            "type": "choice",
-                            "when": "keyedLine.tokens.length === 0"
-                          }
-                        ],
-                        "class": "",
-                        "class_when": [
-                          {
-                            "else": "block",
-                            "identifiers": [
-                              "showLineNumbers"
-                            ],
-                            "then": "block before:content-[counter(line)] before:inline-block before:[counter-increment:line] before:w-8 before:mr-4 before:text-right before:text-muted-foreground/50 before:font-mono before:select-none",
-                            "when": "showLineNumbers"
-                          }
-                        ],
-                        "merges_class": false,
-                        "props": false,
-                        "reads": {
-                          "group": [],
-                          "self": []
-                        },
-                        "render_as": null,
-                        "slot": null,
-                        "tag": "span",
-                        "type": "element",
-                        "variant_calls": [],
-                        "vars": []
-                      }
-                    ],
-                    "collection": "keyedLines",
-                    "counter": null,
-                    "fields": [],
-                    "identifiers": [
-                      "keyedLine",
-                      "keyedLines",
-                      "showLineNumbers"
-                    ],
-                    "member_roots": [
-                      "keyedLine",
-                      "keyedLines"
-                    ],
-                    "type": "repeat_over"
-                  }
-                ],
-                "class": "font-mono text-sm",
-                "class_when": [
-                  {
-                    "else": null,
-                    "identifiers": [
-                      "showLineNumbers"
-                    ],
-                    "then": "[counter-increment:line_0] [counter-reset:line]",
-                    "when": "showLineNumbers"
-                  }
-                ],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "code",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)] m-0 p-4 text-sm",
-            "class_when": [],
-            "merges_class": true,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "pre",
-            "type": "element",
-            "variant_calls": [],
-            "vars": [
-              "--shiki-dark-bg",
-              "--shiki-dark"
-            ]
-          }
-        ],
-        "class": "relative overflow-auto",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "showLineNumbers": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlock",
-      "name": "code_block",
-      "params": {
-        "children": null,
-        "className": null,
-        "code": null,
-        "language": null,
-        "showLineNumbers": "false"
-      },
-      "primitive": null,
-      "refs": [
-        "code",
-        "className",
-        "language",
-        "props",
-        "children",
-        "showLineNumbers"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "language"
-                ],
-                "kind": "code",
-                "name": "language",
-                "value": "language"
-              }
-            ],
-            "children": [
-              {
-                "type": "children"
-              },
-              {
-                "attrs": [
-                  {
-                    "identifiers": [
-                      "code"
-                    ],
-                    "kind": "code",
-                    "name": "code",
-                    "value": "code"
-                  },
-                  {
-                    "identifiers": [
-                      "language"
-                    ],
-                    "kind": "code",
-                    "name": "language",
-                    "value": "language"
-                  },
-                  {
-                    "identifiers": [
-                      "showLineNumbers"
-                    ],
-                    "kind": "code",
-                    "name": "showLineNumbers",
-                    "value": "showLineNumbers"
-                  }
-                ],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "merges_class": false,
-                "part": "code_block_content",
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "part_ref",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "",
-            "class_when": [],
-            "merges_class": true,
-            "part": "code_block_container",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "part_ref",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "showLineNumbers": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlockCopyButton",
-      "name": "code_block_copy_button",
-      "params": {
-        "children": null,
-        "className": null,
-        "size": "icon",
-        "timeout": "2000",
-        "variant": "ghost"
-      },
-      "primitive": null,
-      "refs": [
-        "onCopy",
-        "onError",
-        "timeout",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
+            "fact": "jsx/anonymous/class/1"
           },
           {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          }
-        ],
-        "children": [
+            "fact": "jsx/anonymous/class/2"
+          },
           {
-            "default": [
-              {
-                "attrs": [
-                  {
-                    "kind": "code",
-                    "name": "size",
-                    "value": "14"
-                  }
-                ],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "else": [
-                  {
-                    "attrs": [],
-                    "children": [],
-                    "class": "",
-                    "class_when": [],
-                    "icons": {
-                      "lucide": "Copy"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "then": [
-                  {
-                    "attrs": [],
-                    "children": [],
-                    "class": "",
-                    "class_when": [],
-                    "icons": {
-                      "lucide": "Check"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "type": "choice",
-                "variant_calls": [],
-                "vars": [],
-                "when": "isCopied"
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
+            "fact": "jsx/anonymous/class/3"
+          },
+          {
+            "fact": "jsx/anonymous/class/4"
+          },
+          {
+            "fact": "jsx/anonymous/class/5"
+          },
+          {
+            "fact": "jsx/anonymous/class/6"
+          },
+          {
+            "fact": "jsx/anonymous/class/7"
+          },
+          {
+            "fact": "jsx/anonymous/class/8"
+          },
+          {
+            "fact": "jsx/anonymous/class/9"
           }
         ],
-        "class": "shrink-0",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "timeout": {
-          "optional": true,
-          "type": "number"
-        }
+        "op": "join"
       }
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlockLanguageSelector",
-      "name": "code_block_language_selector",
-      "params": {},
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "select",
-        "function": "select",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "listbox",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlockLanguageSelectorTrigger",
-      "name": "code_block_language_selector_trigger",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "size",
-            "value": "sm"
-          }
-        ],
-        "children": [],
-        "class": "h-7 border-none bg-transparent px-2 text-xs shadow-none",
-        "class_when": [],
-        "component": "select",
-        "function": "select_trigger",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "listbox",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlockLanguageSelectorValue",
-      "name": "code_block_language_selector_value",
-      "params": {},
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "select",
-        "function": "select_value",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "listbox",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "span",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlockLanguageSelectorContent",
-      "name": "code_block_language_selector_content",
-      "params": {
-        "align": "end"
-      },
-      "primitive": null,
-      "refs": [
-        "align",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "align"
-            ],
-            "kind": "code",
-            "name": "align",
-            "value": "align"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "select",
-        "function": "select_content",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "listbox",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CodeBlockLanguageSelectorItem",
-      "name": "code_block_language_selector_item",
-      "params": {},
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "select",
-        "function": "select_item",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "listbox",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "clipboard",
-  "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/code-block.tsx",
-      "sha256": "5c7285171c5aa741749a1642a85f492a9b5e80dc4ccb704b5c3f58c45efebd04"
     }
   },
-  "variants": {}
+  "css_vars": [
+    "--shiki-dark",
+    "--shiki-dark-bg"
+  ],
+  "facts": {
+    "jsx/CodeBlockActions/class/0": "-my-1 -mr-1 flex items-center gap-2",
+    "jsx/CodeBlockContainer/class/0": "group relative w-full overflow-hidden rounded-md border bg-background text-foreground",
+    "jsx/CodeBlockContent/class/0": "relative overflow-auto",
+    "jsx/CodeBlockCopyButton/class/0": "shrink-0",
+    "jsx/CodeBlockFilename/class/0": "font-mono",
+    "jsx/CodeBlockHeader/class/0": "flex items-center justify-between border-b bg-muted/80 px-3 py-2 text-muted-foreground text-xs",
+    "jsx/CodeBlockTitle/class/0": "flex items-center gap-2",
+    "jsx/TokenSpan/class/0": "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)]",
+    "jsx/anonymous/class/0": "block",
+    "jsx/anonymous/class/10": "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)] m-0 p-4 text-sm",
+    "jsx/anonymous/class/11": "font-mono text-sm",
+    "jsx/anonymous/class/12": "[counter-increment:line_0] [counter-reset:line]",
+    "port/class/0": "block before:content-[counter(line)] before:inline-block before:[counter-increment:line] before:w-8 before:mr-4 before:text-right before:text-muted-foreground/50 before:font-mono before:select-none"
+  },
+  "file_fingerprints": {
+    "ai_elements/code-block.tsx": "0c49280b41a638076163ba961b7bc1f1e1fabae82ea776c55e4f4e182e6cda60"
+  },
+  "fingerprint": "5aa01f1d84cf949ae8b37e114e39a792973d1de4fe772a7e0b799b69029e1a6c",
+  "ignored": {
+    "jsx/CodeBlockLanguageSelectorTrigger/class/0": "the generated port does not contain this source literal"
+  },
+  "name": "code-block",
+  "port_body": "2a667ed920721469adc96cdaa66bf2ab0803fbf1298eda256a55bac9a7742728",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/CodeBlockActions/class/0": "-my-1 -mr-1 flex items-center gap-2",
+    "jsx/CodeBlockContainer/class/0": "group relative w-full overflow-hidden rounded-md border bg-background text-foreground",
+    "jsx/CodeBlockContent/class/0": "relative overflow-auto",
+    "jsx/CodeBlockCopyButton/class/0": "shrink-0",
+    "jsx/CodeBlockFilename/class/0": "font-mono",
+    "jsx/CodeBlockHeader/class/0": "flex items-center justify-between border-b bg-muted/80 px-3 py-2 text-muted-foreground text-xs",
+    "jsx/CodeBlockLanguageSelectorTrigger/class/0": "h-7 border-none bg-transparent px-2 text-xs shadow-none",
+    "jsx/CodeBlockTitle/class/0": "flex items-center gap-2",
+    "jsx/TokenSpan/class/0": "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)]",
+    "jsx/anonymous/class/0": "block",
+    "jsx/anonymous/class/1": "before:content-[counter(line)]",
+    "jsx/anonymous/class/10": "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)] m-0 p-4 text-sm",
+    "jsx/anonymous/class/11": "font-mono text-sm",
+    "jsx/anonymous/class/12": "[counter-increment:line_0] [counter-reset:line]",
+    "jsx/anonymous/class/2": "before:inline-block",
+    "jsx/anonymous/class/3": "before:[counter-increment:line]",
+    "jsx/anonymous/class/4": "before:w-8",
+    "jsx/anonymous/class/5": "before:mr-4",
+    "jsx/anonymous/class/6": "before:text-right",
+    "jsx/anonymous/class/7": "before:text-muted-foreground/50",
+    "jsx/anonymous/class/8": "before:font-mono",
+    "jsx/anonymous/class/9": "before:select-none"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/code-block.tsx": "5c7285171c5aa741749a1642a85f492a9b5e80dc4ccb704b5c3f58c45efebd04"
+  },
+  "uses": [
+    "jsx/CodeBlockActions/class/0",
+    "jsx/CodeBlockContainer/class/0",
+    "jsx/CodeBlockContent/class/0",
+    "jsx/CodeBlockCopyButton/class/0",
+    "jsx/CodeBlockFilename/class/0",
+    "jsx/CodeBlockHeader/class/0",
+    "jsx/CodeBlockTitle/class/0",
+    "jsx/TokenSpan/class/0",
+    "jsx/anonymous/class/0",
+    "jsx/anonymous/class/10",
+    "jsx/anonymous/class/11",
+    "jsx/anonymous/class/12",
+    "port/class/0"
+  ]
 }

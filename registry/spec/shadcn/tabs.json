@@ -1,563 +1,128 @@
 {
-  "anatomy": [
-    {
-      "children": [
-        {
-          "children": [
-            {
-              "children": [],
-              "part": "Tab"
-            },
-            {
-              "children": [],
-              "part": "Indicator"
-            }
-          ],
-          "part": "List"
-        },
-        {
-          "children": [],
-          "part": "Panel"
-        }
-      ],
-      "part": "Root"
-    }
-  ],
-  "css_vars": [
-    "--active-tab-bottom",
-    "--active-tab-height",
-    "--active-tab-left",
-    "--active-tab-right",
-    "--active-tab-top",
-    "--active-tab-width"
-  ],
-  "generated_by": "mix ui.spec",
-  "name": "tabs",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Tabs",
-      "name": "tabs",
-      "params": {
-        "className": null,
-        "orientation": "horizontal"
-      },
-      "primitive": "Root",
-      "refs": [
-        "orientation",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
+  "base_ui": {
+    "tabs": "6c544e1ef835270c23576e7cf5dd779365b9f8fa29d34879a5e01ad527aefe19"
+  },
+  "bindings": {
+    "copy": [
+      "cva/tabsListVariants/base",
+      "cva/tabsListVariants/default/variant",
+      "cva/tabsListVariants/variant/variant/default",
+      "cva/tabsListVariants/variant/variant/line",
+      "jsx/Tabs/class/0",
+      "jsx/TabsContent/class/0"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "identifiers": [
-              "orientation"
-            ],
-            "kind": "code",
-            "name": "data-orientation",
-            "value": "orientation"
+            "fact": "jsx/TabsTrigger/class/0"
+          },
+          {
+            "fact": "jsx/TabsTrigger/class/1"
+          },
+          {
+            "fact": "jsx/TabsTrigger/class/2"
+          },
+          {
+            "fact": "jsx/TabsTrigger/class/3"
           }
         ],
-        "children": [],
-        "class": "cn-tabs group/tabs flex data-horizontal:flex-col",
-        "class_when": [],
-        "merges_class": true,
-        "module": "tabs",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-horizontal",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "tabs",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "TabsList",
-      "name": "tabs_list",
-      "params": {
-        "className": null,
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "module": "tabs",
-        "part": "List",
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "tabs",
-              "name": "data-vertical",
-              "value": null
-            },
-            {
-              "group": "tabs",
-              "name": "data-horizontal",
-              "value": null
-            }
-          ],
-          "self": [
-            {
-              "name": "data-variant",
-              "value": "line"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "tabs-list",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [
-          {
-            "args": [
-              "variant"
-            ],
-            "table": "tabsListVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "TabsTrigger",
-      "name": "tabs_trigger",
-      "params": {
-        "className": null
-      },
-      "primitive": "Tab",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-tabs-trigger relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100",
-        "class_when": [],
-        "merges_class": true,
-        "module": "tabs",
-        "part": "Tab",
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "tabs",
-              "name": "data-vertical",
-              "value": null
-            },
-            {
-              "group": "tabs-list",
-              "name": "data-variant",
-              "value": "line"
-            },
-            {
-              "group": "tabs",
-              "name": "data-horizontal",
-              "value": null
-            },
-            {
-              "group": "tabs-list",
-              "name": "data-variant",
-              "value": "default"
-            }
-          ],
-          "self": [
-            {
-              "name": "aria-disabled",
-              "value": null
-            },
-            {
-              "name": "data-active",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "tabs-trigger",
-        "tag": "button",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "TabsContent",
-      "name": "tabs_content",
-      "params": {
-        "className": null
-      },
-      "primitive": "Panel",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-tabs-content flex-1 outline-none",
-        "class_when": [],
-        "merges_class": true,
-        "module": "tabs",
-        "part": "Panel",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "tabs-content",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "tabs.Indicator": {
-      "css_vars": [
-        "--active-tab-bottom",
-        "--active-tab-height",
-        "--active-tab-left",
-        "--active-tab-right",
-        "--active-tab-top",
-        "--active-tab-width"
-      ],
-      "data": [
-        "data-orientation",
-        "data-activation-direction"
-      ],
-      "element": "span",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether to render itself before React hydrates. This minimizes the time that the indicator isn't visible after server-side rendering.",
-          "name": "renderBeforeHydration",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Tabs.Indicator.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Tabs.Indicator.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Tabs.Indicator.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A visual indicator that can be styled to match the position of the currently active tab."
-    },
-    "tabs.List": {
-      "css_vars": [],
-      "data": [
-        "data-orientation",
-        "data-activation-direction"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether to automatically change the active tab on arrow key focus. Otherwise, tabs will be activated using Enter or Space key press.",
-          "name": "activateOnFocus",
-          "type": "boolean"
-        },
-        {
-          "default": "true",
-          "doc": "Whether to loop keyboard focus back to the first item when the end of the list is reached while using the arrow keys.",
-          "name": "loopFocus",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Tabs.List.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Tabs.List.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Tabs.List.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups the individual tab buttons."
-    },
-    "tabs.Panel": {
-      "css_vars": [],
-      "data": [
-        "data-orientation",
-        "data-activation-direction",
-        "data-hidden",
-        "data-index",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": null,
-          "doc": "The value of the TabPanel. It will be shown when the Tab with the corresponding value is active.",
-          "name": "value\\*",
-          "type": "Tabs.Tab.Value"
-        },
-        {
-          "default": "((state: Tabs.Panel.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Tabs.Panel.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to keep the HTML element in the DOM while the panel is hidden.",
-          "name": "keepMounted",
-          "type": "boolean"
-        },
-        {
-          "default": "((props: HTMLProps, state: Tabs.Panel.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A panel displayed when the corresponding tab is active."
-    },
-    "tabs.Root": {
-      "css_vars": [],
-      "data": [
-        "data-orientation",
-        "data-activation-direction"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "0",
-          "doc": "The default value. Use when the component is not controlled. When the value is `null`, no Tab will be active.",
-          "name": "defaultValue",
-          "type": "Tabs.Tab.Value"
-        },
-        {
-          "default": null,
-          "doc": "The value of the currently active `Tab`. Use when the component is controlled. When the value is `null`, no Tab will be active.",
-          "name": "value",
-          "type": "Tabs.Tab.Value"
-        },
-        {
-          "default": null,
-          "doc": "Callback invoked when new value is being set. The event `reason` is `'none'` for user-initiated changes, such as a click or keyboard navigation; `'initial'` for the first automatic selection or fallback in uncontrolled roots when `defaultValue` is omitted or `undefined`, including when the implicit initial value is disabled or missing; `'disabled'` for automatic fallback when the selected tab becomes disabled in uncontrolled roots; or `'missing'` for automatic fallback when the selected tab is removed, or when an explicit `defaultValue` never matches a mounted tab in uncontrolled roots. For automatic changes, the selected value can be `null` when no enabled Tab is available as a fallback. Automatic changes cannot be canceled; calling `eventDetails.cancel()` for `'initial'`, `'disabled'`, or `'missing'` has no effect.",
-          "name": "onValueChange",
-          "type": "((value: Tabs.Tab.Value, eventDetails: Tabs.Root.ChangeEventDetails) => void)"
-        },
-        {
-          "default": "'horizontal'",
-          "doc": "The component orientation (layout flow direction).",
-          "name": "orientation",
-          "type": "Tabs.Root.Orientation"
-        },
-        {
-          "default": "((state: Tabs.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Tabs.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Tabs.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups the tabs and the corresponding panels."
-    },
-    "tabs.Tab": {
-      "css_vars": [],
-      "data": [
-        "data-orientation",
-        "data-disabled",
-        "data-activation-direction",
-        "data-active"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": null,
-          "doc": "The value of the Tab.",
-          "name": "value\\*",
-          "type": "Tabs.Tab.Value"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the Tab is disabled. If a first Tab on a `<Tabs.List>` is disabled, it won't initially be selected. Instead, the next enabled Tab will be selected. However, it does not work like this during server-side rendering, as it is not known during pre-rendering which Tabs are disabled. To work around it, ensure that `defaultValue` or `value` on `<Tabs.Root>` is set to an enabled Tab's value.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Tabs.Tab.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Tabs.Tab.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Tabs.Tab.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "An individual interactive tab button that toggles the corresponding panel."
-    }
-  },
-  "recipe": "tabs",
-  "source": "shadcn",
-  "styles": {
-    "luma": {
-      "cn-tabs": "gap-2",
-      "cn-tabs-content": "text-sm",
-      "cn-tabs-trigger": "gap-2 rounded-full border border-transparent! px-3 py-1 text-sm font-medium group-data-vertical/tabs:px-3 group-data-vertical/tabs:py-1.5 group-data-vertical/tabs:rounded-2xl [&_svg:not([class*='size-'])]:size-4 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
-    },
-    "lyra": {
-      "cn-tabs": "gap-2",
-      "cn-tabs-content": "text-xs/relaxed",
-      "cn-tabs-trigger": "gap-1.5 rounded-none border border-transparent px-1.5 py-0.5 text-xs font-medium group-data-vertical/tabs:py-[calc(--spacing(1.25))] [&_svg:not([class*='size-'])]:size-4 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1"
-    },
-    "maia": {
-      "cn-tabs": "gap-2",
-      "cn-tabs-content": "text-sm",
-      "cn-tabs-trigger": "gap-1.5 rounded-xl border border-transparent px-2 py-1 text-sm font-medium group-data-vertical/tabs:px-2.5 group-data-vertical/tabs:py-1.5 [&_svg:not([class*='size-'])]:size-4 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5"
-    },
-    "mira": {
-      "cn-tabs": "gap-2",
-      "cn-tabs-content": "text-xs/relaxed",
-      "cn-tabs-trigger": "gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-xs font-medium group-data-vertical/tabs:py-[calc(--spacing(1.25))] [&_svg:not([class*='size-'])]:size-3.5 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1"
-    },
-    "nova": {
-      "cn-tabs": "gap-2",
-      "cn-tabs-content": "text-sm",
-      "cn-tabs-trigger": "gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg:not([class*='size-'])]:size-4 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1"
-    },
-    "rhea": {
-      "cn-tabs": "gap-2",
-      "cn-tabs-content": "text-sm",
-      "cn-tabs-trigger": "gap-1.5 rounded-2xl border border-transparent! px-1.5 py-0.5 text-sm font-medium group-data-vertical/tabs:px-3 group-data-vertical/tabs:py-0.5 [&_svg:not([class*='size-'])]:size-4"
-    },
-    "sera": {
-      "cn-tabs": "gap-2",
-      "cn-tabs-content": "text-sm",
-      "cn-tabs-trigger": "gap-2 border border-transparent px-4 py-1.5 text-xs font-semibold group-data-vertical/tabs:px-4 group-data-vertical/tabs:py-2 [&_svg:not([class*='size-'])]:size-3.5 has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5 uppercase tracking-wider"
-    },
-    "vega": {
-      "cn-tabs": "gap-2",
-      "cn-tabs-content": "text-sm",
-      "cn-tabs-trigger": "gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg:not([class*='size-'])]:size-4 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5"
-    }
-  },
-  "upstream": {
-    "base_ui": {
-      "tabs": "e8b6a6d4dda126619b989d90b9df597f56f7e64346a374a6a8ccaa5f1ea72fd5"
-    },
-    "shadcn": {
-      "file": "shadcn/ui/tabs.tsx",
-      "sha256": "4a8243afd661180ac9b0a2f60a4e10c54ae856443876f40070605453a98ba862"
-    }
-  },
-  "variants": {
-    "tabsListVariants": {
-      "base": "cn-tabs-list group/tabs-list inline-flex w-fit items-center justify-center text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
-      "defaults": {
-        "variant": "default"
-      },
-      "variants": {
-        "variant": {
-          "default": "cn-tabs-list-variant-default bg-muted",
-          "line": "cn-tabs-list-variant-line gap-1 bg-transparent"
-        }
+        "op": "join"
       }
     }
-  }
+  },
+  "css_vars": [],
+  "facts": {
+    "cva/tabsListVariants/base": "cn-tabs-list group/tabs-list inline-flex w-fit items-center justify-center text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
+    "cva/tabsListVariants/default/variant": "default",
+    "cva/tabsListVariants/variant/variant/default": "cn-tabs-list-variant-default bg-muted",
+    "cva/tabsListVariants/variant/variant/line": "cn-tabs-list-variant-line gap-1 bg-transparent",
+    "jsx/Tabs/class/0": "cn-tabs group/tabs flex data-horizontal:flex-col",
+    "jsx/TabsContent/class/0": "cn-tabs-content flex-1 outline-none",
+    "port/class/0": "cn-tabs-trigger relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/tabs.tsx": "068c4b811810f2f9ca2f1e0d195694cafaade458240410493814ab6fa8f3dfc0"
+  },
+  "fingerprint": "36e3189ec21dae3e73bed4601c8b04f8d38957bcf17bb5eecbe8f8fdfc8e29d3",
+  "ignored": {},
+  "name": "tabs",
+  "port_body": "67e915accd5317c44958c780876da49afbae95e0e15b08dfd366d71f51559a81",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "cva/tabsListVariants/base": "cn-tabs-list group/tabs-list inline-flex w-fit items-center justify-center text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
+    "cva/tabsListVariants/default/variant": "default",
+    "cva/tabsListVariants/variant/variant/default": "cn-tabs-list-variant-default bg-muted",
+    "cva/tabsListVariants/variant/variant/line": "cn-tabs-list-variant-line gap-1 bg-transparent",
+    "jsx/Tabs/class/0": "cn-tabs group/tabs flex data-horizontal:flex-col",
+    "jsx/TabsContent/class/0": "cn-tabs-content flex-1 outline-none",
+    "jsx/TabsTrigger/class/0": "cn-tabs-trigger relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/TabsTrigger/class/1": "group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent",
+    "jsx/TabsTrigger/class/2": "data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground",
+    "jsx/TabsTrigger/class/3": "after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100"
+  },
+  "state_reads": [
+    {
+      "name": "aria-disabled",
+      "value": null
+    },
+    {
+      "name": "data-active",
+      "value": null
+    },
+    {
+      "name": "data-horizontal",
+      "value": null
+    },
+    {
+      "name": "data-variant",
+      "value": "line"
+    },
+    {
+      "group": "tabs",
+      "name": "data-horizontal",
+      "value": null
+    },
+    {
+      "group": "tabs",
+      "name": "data-vertical",
+      "value": null
+    },
+    {
+      "group": "tabs-list",
+      "name": "data-variant",
+      "value": "default"
+    },
+    {
+      "group": "tabs-list",
+      "name": "data-variant",
+      "value": "line"
+    }
+  ],
+  "styles": {
+    "luma": "7c7859f65c77fa07f270538ab6d8f7b2d4fd4ccd00f7d245500bc545d9691a23",
+    "lyra": "ef295a757ad640d14a64bfd2a243c8823818bfee33843fa02b616fe32743b9b7",
+    "maia": "16fa9044399dfcddfb07432bf4ffb3b11a5460f0b92321cf8245b877d763ed90",
+    "mira": "dec89567c411c272ff412d030356b9cf8400b54462793c76565a76d870a65c13",
+    "nova": "58af951bd74b9127de00b2f983da2dddfe101fd729140db0fdb69706553d920f",
+    "rhea": "310610c9dda136b7435375c12ea737bf98513e68aca4eb716f0ba30ba1c5607b",
+    "sera": "f2367ebe16b1c84ecb835b57f842e5c97e189609c8b21812f9e46b5dbf46b16d",
+    "vega": "55ad8d7c5fd58e575f51a4b526e98cc29f31ba070a7d9af8c1aec9668eec4cc6"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "shadcn/ui/tabs.tsx": "4a8243afd661180ac9b0a2f60a4e10c54ae856443876f40070605453a98ba862"
+  },
+  "uses": [
+    "cva/tabsListVariants/base",
+    "cva/tabsListVariants/default/variant",
+    "cva/tabsListVariants/variant/variant/default",
+    "cva/tabsListVariants/variant/variant/line",
+    "jsx/Tabs/class/0",
+    "jsx/TabsContent/class/0",
+    "port/class/0"
+  ]
 }

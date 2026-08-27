@@ -1,581 +1,178 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "attachment",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Attachment",
-      "name": "attachment",
-      "params": {
-        "className": null,
-        "orientation": "horizontal",
-        "size": "default",
-        "state": "done"
-      },
-      "primitive": null,
-      "refs": [
-        "state",
-        "size",
-        "orientation",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/attachmentMediaVariants/base",
+      "cva/attachmentMediaVariants/default/variant",
+      "cva/attachmentMediaVariants/variant/variant/icon",
+      "cva/attachmentMediaVariants/variant/variant/image",
+      "cva/attachmentVariants/base",
+      "cva/attachmentVariants/variant/orientation/horizontal",
+      "cva/attachmentVariants/variant/orientation/vertical",
+      "cva/attachmentVariants/variant/size/default",
+      "cva/attachmentVariants/variant/size/sm",
+      "cva/attachmentVariants/variant/size/xs",
+      "jsx/AttachmentAction/class/0",
+      "jsx/AttachmentActions/class/0",
+      "jsx/AttachmentContent/class/0",
+      "jsx/AttachmentGroup/class/0",
+      "jsx/AttachmentTitle/class/0",
+      "jsx/AttachmentTrigger/class/0"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "identifiers": [
-              "state"
-            ],
-            "kind": "code",
-            "name": "data-state",
-            "value": "state"
+            "fact": "jsx/AttachmentDescription/class/0"
           },
           {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "data-size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "orientation"
-            ],
-            "kind": "code",
-            "name": "data-orientation",
-            "value": "orientation"
+            "fact": "jsx/AttachmentDescription/class/1"
           }
         ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-state",
-              "value": "error"
-            },
-            {
-              "name": "data-state",
-              "value": "idle"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "attachment",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "size",
-              "orientation"
-            ],
-            "table": "attachmentVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {
-        "state": {
-          "optional": true,
-          "values": [
-            "idle",
-            "uploading",
-            "processing",
-            "error",
-            "done"
-          ]
-        }
+        "op": "join"
       }
+    }
+  },
+  "css_vars": [],
+  "facts": {
+    "cva/attachmentMediaVariants/base": "cn-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive [&_svg]:pointer-events-none",
+    "cva/attachmentMediaVariants/default/variant": "icon",
+    "cva/attachmentMediaVariants/variant/variant/icon": "cn-attachment-media-variant-icon",
+    "cva/attachmentMediaVariants/variant/variant/image": "cn-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover",
+    "cva/attachmentVariants/base": "cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
+    "cva/attachmentVariants/variant/orientation/horizontal": "cn-attachment-orientation-horizontal items-center",
+    "cva/attachmentVariants/variant/orientation/vertical": "cn-attachment-orientation-vertical flex-col",
+    "cva/attachmentVariants/variant/size/default": "cn-attachment-size-default",
+    "cva/attachmentVariants/variant/size/sm": "cn-attachment-size-sm",
+    "cva/attachmentVariants/variant/size/xs": "cn-attachment-size-xs",
+    "jsx/AttachmentAction/class/0": "cn-attachment-action",
+    "jsx/AttachmentActions/class/0": "cn-attachment-actions flex shrink-0 items-center",
+    "jsx/AttachmentContent/class/0": "cn-attachment-content max-w-full min-w-0 flex-1",
+    "jsx/AttachmentGroup/class/0": "cn-attachment-group flex min-w-0 scroll-fade-x snap-x snap-mandatory scrollbar-none overflow-x-auto overscroll-x-contain *:data-[slot=attachment]:flex-none *:data-[slot=attachment]:snap-start",
+    "jsx/AttachmentTitle/class/0": "cn-attachment-title block max-w-full min-w-0 truncate group-data-[state=processing]/attachment:shimmer group-data-[state=uploading]/attachment:shimmer",
+    "jsx/AttachmentTrigger/class/0": "cn-attachment-trigger absolute inset-0 z-10 outline-none",
+    "port/class/0": "cn-attachment-description block min-w-0 truncate text-muted-foreground group-data-[state=error]/attachment:text-destructive/80 max-w-full"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/attachment.tsx": "c61c33093fc1eb88950ce374f492f476664970f8cb99753b425641ce19b9e95c"
+  },
+  "fingerprint": "541428498c53fca08b5970f085fc1c9cd7e963154c976c4ee2a44d11c63cb866",
+  "ignored": {},
+  "name": "attachment",
+  "port_body": "4a4211bedec8fab7b8376b88ae08a1f7a6776ebfadf2ee4a88d9ab7b84cc7c36",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "cva/attachmentMediaVariants/base": "cn-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive [&_svg]:pointer-events-none",
+    "cva/attachmentMediaVariants/default/variant": "icon",
+    "cva/attachmentMediaVariants/variant/variant/icon": "cn-attachment-media-variant-icon",
+    "cva/attachmentMediaVariants/variant/variant/image": "cn-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover",
+    "cva/attachmentVariants/base": "cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
+    "cva/attachmentVariants/variant/orientation/horizontal": "cn-attachment-orientation-horizontal items-center",
+    "cva/attachmentVariants/variant/orientation/vertical": "cn-attachment-orientation-vertical flex-col",
+    "cva/attachmentVariants/variant/size/default": "cn-attachment-size-default",
+    "cva/attachmentVariants/variant/size/sm": "cn-attachment-size-sm",
+    "cva/attachmentVariants/variant/size/xs": "cn-attachment-size-xs",
+    "jsx/AttachmentAction/class/0": "cn-attachment-action",
+    "jsx/AttachmentActions/class/0": "cn-attachment-actions flex shrink-0 items-center",
+    "jsx/AttachmentContent/class/0": "cn-attachment-content max-w-full min-w-0 flex-1",
+    "jsx/AttachmentDescription/class/0": "cn-attachment-description block min-w-0 truncate text-muted-foreground group-data-[state=error]/attachment:text-destructive/80",
+    "jsx/AttachmentDescription/class/1": "max-w-full",
+    "jsx/AttachmentGroup/class/0": "cn-attachment-group flex min-w-0 scroll-fade-x snap-x snap-mandatory scrollbar-none overflow-x-auto overscroll-x-contain *:data-[slot=attachment]:flex-none *:data-[slot=attachment]:snap-start",
+    "jsx/AttachmentTitle/class/0": "cn-attachment-title block max-w-full min-w-0 truncate group-data-[state=processing]/attachment:shimmer group-data-[state=uploading]/attachment:shimmer",
+    "jsx/AttachmentTrigger/class/0": "cn-attachment-trigger absolute inset-0 z-10 outline-none"
+  },
+  "state_reads": [
+    {
+      "name": "data-slot",
+      "value": "attachment"
     },
     {
-      "contexts": [],
-      "export": "AttachmentGroup",
-      "name": "attachment_group",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-attachment-group flex min-w-0 scroll-fade-x snap-x snap-mandatory scrollbar-none overflow-x-auto overscroll-x-contain *:data-[slot=attachment]:flex-none *:data-[slot=attachment]:snap-start",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-slot",
-              "value": "attachment"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "attachment-group",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-slot",
+      "value": "spinner"
     },
     {
-      "contexts": [],
-      "export": "AttachmentMedia",
-      "name": "attachment_media",
-      "params": {
-        "className": null,
-        "variant": "icon"
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "attachment",
-              "name": "data-state",
-              "value": "error"
-            },
-            {
-              "group": "attachment",
-              "name": "data-size",
-              "value": "sm"
-            },
-            {
-              "group": "attachment",
-              "name": "data-size",
-              "value": "xs"
-            },
-            {
-              "group": "attachment",
-              "name": "data-orientation",
-              "value": "vertical"
-            },
-            {
-              "group": "attachment",
-              "name": "data-state",
-              "value": "idle"
-            },
-            {
-              "group": "attachment",
-              "name": "data-state",
-              "value": "done"
-            }
-          ],
-          "self": [
-            {
-              "name": "data-slot",
-              "value": "spinner"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "attachment-media",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "variant"
-            ],
-            "table": "attachmentMediaVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-state",
+      "value": "error"
     },
     {
-      "contexts": [],
-      "export": "AttachmentContent",
-      "name": "attachment_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-attachment-content max-w-full min-w-0 flex-1",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "attachment",
-              "name": "data-orientation",
-              "value": "vertical"
-            }
-          ],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "attachment-content",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-state",
+      "value": "idle"
     },
     {
-      "contexts": [],
-      "export": "AttachmentTitle",
-      "name": "attachment_title",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-attachment-title block max-w-full min-w-0 truncate group-data-[state=processing]/attachment:shimmer group-data-[state=uploading]/attachment:shimmer",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "attachment",
-              "name": "data-state",
-              "value": "processing"
-            },
-            {
-              "group": "attachment",
-              "name": "data-state",
-              "value": "uploading"
-            }
-          ],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "attachment-title",
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "group": "attachment",
+      "name": "data-orientation",
+      "value": "vertical"
     },
     {
-      "contexts": [],
-      "export": "AttachmentDescription",
-      "name": "attachment_description",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-attachment-description block min-w-0 truncate text-muted-foreground group-data-[state=error]/attachment:text-destructive/80 max-w-full",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "attachment",
-              "name": "data-state",
-              "value": "error"
-            }
-          ],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "attachment-description",
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "group": "attachment",
+      "name": "data-size",
+      "value": "sm"
     },
     {
-      "contexts": [],
-      "export": "AttachmentActions",
-      "name": "attachment_actions",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-attachment-actions flex shrink-0 items-center",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "attachment",
-              "name": "data-orientation",
-              "value": "vertical"
-            }
-          ],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "attachment-actions",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "group": "attachment",
+      "name": "data-size",
+      "value": "xs"
     },
     {
-      "contexts": [],
-      "export": "AttachmentAction",
-      "name": "attachment_action",
-      "params": {
-        "className": null,
-        "size": "icon-xs",
-        "variant": null
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "size",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant ?? \"ghost\""
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          }
-        ],
-        "children": [],
-        "class": "cn-attachment-action",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": "attachment-action",
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "group": "attachment",
+      "name": "data-state",
+      "value": "done"
     },
     {
-      "contexts": [],
-      "export": "AttachmentTrigger",
-      "name": "attachment_trigger",
-      "params": {
-        "className": null,
-        "render": null,
-        "type": null
-      },
-      "primitive": null,
-      "refs": [
-        "render",
-        "type",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "cn-attachment-trigger absolute inset-0 z-10 outline-none",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "attachment-trigger",
-        "tag": "button",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "group": "attachment",
+      "name": "data-state",
+      "value": "error"
+    },
+    {
+      "group": "attachment",
+      "name": "data-state",
+      "value": "idle"
+    },
+    {
+      "group": "attachment",
+      "name": "data-state",
+      "value": "processing"
+    },
+    {
+      "group": "attachment",
+      "name": "data-state",
+      "value": "uploading"
     }
   ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-attachment-actions": "group-data-[orientation=vertical]/attachment:absolute group-data-[orientation=vertical]/attachment:top-3 group-data-[orientation=vertical]/attachment:right-3 relative z-20 group-data-[orientation=vertical]/attachment:gap-1",
-      "cn-attachment-content": "leading-tight group-data-[orientation=vertical]/attachment:px-1",
-      "cn-attachment-description": "mt-0.5 text-xs",
-      "cn-attachment-group": "gap-3 scroll-px-1 py-1",
-      "cn-attachment-title": "font-medium",
-      "cn-attachment-trigger": "absolute inset-0 z-10 outline-none"
-    },
-    "lyra": {
-      "cn-attachment-actions": "group-data-[orientation=vertical]/attachment:absolute group-data-[orientation=vertical]/attachment:top-3 group-data-[orientation=vertical]/attachment:right-3 relative z-20 group-data-[orientation=vertical]/attachment:gap-1",
-      "cn-attachment-content": "leading-tight group-data-[orientation=vertical]/attachment:px-1",
-      "cn-attachment-description": "mt-0.5 text-xs",
-      "cn-attachment-group": "gap-3 scroll-px-1 py-1",
-      "cn-attachment-title": "font-medium",
-      "cn-attachment-trigger": "absolute inset-0 z-10 outline-none"
-    },
-    "maia": {
-      "cn-attachment-actions": "group-data-[orientation=vertical]/attachment:absolute group-data-[orientation=vertical]/attachment:top-3 group-data-[orientation=vertical]/attachment:right-3 relative z-20 group-data-[orientation=vertical]/attachment:gap-1",
-      "cn-attachment-content": "leading-tight group-data-[orientation=vertical]/attachment:px-1",
-      "cn-attachment-description": "mt-0.5 text-xs",
-      "cn-attachment-group": "gap-3 scroll-px-1 py-1",
-      "cn-attachment-title": "font-medium",
-      "cn-attachment-trigger": "absolute inset-0 z-10 outline-none"
-    },
-    "mira": {
-      "cn-attachment-actions": "group-data-[orientation=vertical]/attachment:absolute group-data-[orientation=vertical]/attachment:top-3 group-data-[orientation=vertical]/attachment:right-3 relative z-20 group-data-[orientation=vertical]/attachment:gap-1",
-      "cn-attachment-content": "leading-tight group-data-[orientation=vertical]/attachment:px-1",
-      "cn-attachment-description": "mt-0.5 text-xs",
-      "cn-attachment-group": "gap-3 scroll-px-1 py-1",
-      "cn-attachment-title": "font-medium",
-      "cn-attachment-trigger": "absolute inset-0 z-10 outline-none"
-    },
-    "nova": {
-      "cn-attachment-actions": "group-data-[orientation=vertical]/attachment:absolute group-data-[orientation=vertical]/attachment:top-3 group-data-[orientation=vertical]/attachment:right-3 relative z-20 group-data-[orientation=vertical]/attachment:gap-1",
-      "cn-attachment-content": "leading-tight group-data-[orientation=vertical]/attachment:px-1",
-      "cn-attachment-description": "mt-0.5 text-xs",
-      "cn-attachment-group": "gap-3 scroll-px-1 py-1",
-      "cn-attachment-title": "font-medium",
-      "cn-attachment-trigger": "absolute inset-0 z-10 outline-none"
-    },
-    "rhea": {
-      "cn-attachment-actions": "group-data-[orientation=vertical]/attachment:absolute group-data-[orientation=vertical]/attachment:top-3 group-data-[orientation=vertical]/attachment:right-3 relative z-20 group-data-[orientation=vertical]/attachment:gap-1",
-      "cn-attachment-content": "leading-tight group-data-[orientation=vertical]/attachment:px-1",
-      "cn-attachment-description": "mt-0.5 text-xs",
-      "cn-attachment-group": "gap-3 scroll-px-1 py-1",
-      "cn-attachment-title": "font-medium",
-      "cn-attachment-trigger": "absolute inset-0 z-10 outline-none"
-    },
-    "sera": {
-      "cn-attachment-actions": "group-data-[orientation=vertical]/attachment:absolute group-data-[orientation=vertical]/attachment:top-3 group-data-[orientation=vertical]/attachment:right-3 relative z-20 group-data-[orientation=vertical]/attachment:gap-1",
-      "cn-attachment-content": "leading-tight group-data-[orientation=vertical]/attachment:px-1",
-      "cn-attachment-description": "mt-0.5 text-xs",
-      "cn-attachment-group": "gap-3 scroll-px-1 py-1",
-      "cn-attachment-title": "font-medium",
-      "cn-attachment-trigger": "absolute inset-0 z-10 outline-none"
-    },
-    "vega": {
-      "cn-attachment-actions": "group-data-[orientation=vertical]/attachment:absolute group-data-[orientation=vertical]/attachment:top-3 group-data-[orientation=vertical]/attachment:right-3 relative z-20 group-data-[orientation=vertical]/attachment:gap-1",
-      "cn-attachment-content": "leading-tight group-data-[orientation=vertical]/attachment:px-1",
-      "cn-attachment-description": "mt-0.5 text-xs",
-      "cn-attachment-group": "gap-3 scroll-px-1 py-1",
-      "cn-attachment-title": "font-medium",
-      "cn-attachment-trigger": "absolute inset-0 z-10 outline-none"
-    }
+    "luma": "0696b144eb052801ee76f3ea2d90807100afa2e7f9c494b8416d2eba5de4d4cb",
+    "lyra": "44c88c9af20b46da0393b7a0540c3a3c5735e5125740ddc087558e7ffafea594",
+    "maia": "0530b3027fd8a82053f2f9fb94c047a2c8523e0ebc31410987c0d9710ae495a8",
+    "mira": "58514fa304d4d316940af0e4a9c95da627a44e41e5417424b4e79d9d971d1f76",
+    "nova": "9e5b35eb928b9c57c37886a04e935528157939c5d66d1532ce00d1b872978616",
+    "rhea": "ccde7e893d7f016020d1ea245f5799547b34a80ecd906eb1a68001895e1e31e8",
+    "sera": "83d0043d2ffbe0a7a9da4e323057eed072241e8024ffe98027bda001951a234e",
+    "vega": "9e5b35eb928b9c57c37886a04e935528157939c5d66d1532ce00d1b872978616"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/attachment.tsx",
-      "sha256": "80ef939d186b330bb53282cab240f469c47ef19686d4396ce7470c1eaf3ef5e0"
-    }
+    "shadcn/ui/attachment.tsx": "80ef939d186b330bb53282cab240f469c47ef19686d4396ce7470c1eaf3ef5e0"
   },
-  "variants": {
-    "attachmentMediaVariants": {
-      "base": "cn-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive [&_svg]:pointer-events-none",
-      "defaults": {
-        "variant": "icon"
-      },
-      "variants": {
-        "variant": {
-          "icon": "cn-attachment-media-variant-icon",
-          "image": "cn-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover"
-        }
-      }
-    },
-    "attachmentVariants": {
-      "base": "cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
-      "defaults": {},
-      "variants": {
-        "orientation": {
-          "horizontal": "cn-attachment-orientation-horizontal items-center",
-          "vertical": "cn-attachment-orientation-vertical flex-col"
-        },
-        "size": {
-          "default": "cn-attachment-size-default",
-          "sm": "cn-attachment-size-sm",
-          "xs": "cn-attachment-size-xs"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/attachmentMediaVariants/base",
+    "cva/attachmentMediaVariants/default/variant",
+    "cva/attachmentMediaVariants/variant/variant/icon",
+    "cva/attachmentMediaVariants/variant/variant/image",
+    "cva/attachmentVariants/base",
+    "cva/attachmentVariants/variant/orientation/horizontal",
+    "cva/attachmentVariants/variant/orientation/vertical",
+    "cva/attachmentVariants/variant/size/default",
+    "cva/attachmentVariants/variant/size/sm",
+    "cva/attachmentVariants/variant/size/xs",
+    "jsx/AttachmentAction/class/0",
+    "jsx/AttachmentActions/class/0",
+    "jsx/AttachmentContent/class/0",
+    "jsx/AttachmentGroup/class/0",
+    "jsx/AttachmentTitle/class/0",
+    "jsx/AttachmentTrigger/class/0",
+    "port/class/0"
+  ]
 }

@@ -9,6 +9,15 @@ defmodule LiveShadcn.UI.Textarea do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/Textarea/class/0" => "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.FormControl
 
   @doc """
@@ -58,8 +67,8 @@ defmodule LiveShadcn.UI.Textarea do
       phx-no-format
       data-slot={@rest[:"data-slot"] || "textarea"}
       class={[
-        "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
-        @class
+        upstream_fact("jsx/Textarea/class/0"),
+        (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >{render_slot(@inner_block)}</textarea>

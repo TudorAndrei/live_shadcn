@@ -1,118 +1,47 @@
 {
-  "anatomy": [
-    {
-      "children": [],
-      "part": "Separator"
-    }
-  ],
+  "base_ui": {
+    "separator": "b4d9a87e1a1ec0d6ae259d8cc6e5c918d2076d831ce39ed7451930b22e8e1acf"
+  },
+  "bindings": {
+    "copy": [
+      "jsx/Separator/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Separator/class/0": "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/separator.tsx": "86da062bd5dc34697d9f0ac167ee709cf44a4b4f9bd19d18758dacef7dc77990"
+  },
+  "fingerprint": "7604c21c6f986ff34a6e0e02c005622da4565584a522a4bb91c718f39e50c0a3",
+  "ignored": {},
   "name": "separator",
-  "parts": [
+  "port_body": "a7b00b2aeb06ddb8e20b7f0fbab14c77521989c15ccaf5344af7e19f87bcc888",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/Separator/class/0": "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Separator",
-      "name": "separator",
-      "params": {
-        "className": null,
-        "orientation": "horizontal"
-      },
-      "primitive": null,
-      "refs": [
-        "orientation",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "orientation"
-            ],
-            "kind": "code",
-            "name": "orientation",
-            "value": "orientation"
-          }
-        ],
-        "children": [],
-        "class": "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
-        "class_when": [],
-        "merges_class": true,
-        "module": "separator",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-horizontal",
-              "value": null
-            },
-            {
-              "name": "data-vertical",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "separator",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-horizontal",
+      "value": null
+    },
+    {
+      "name": "data-vertical",
+      "value": null
     }
   ],
-  "primitives": {
-    "separator.Root": {
-      "css_vars": [],
-      "data": [
-        "data-orientation"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "'horizontal'",
-          "doc": "The orientation of the separator.",
-          "name": "orientation",
-          "type": "Orientation"
-        },
-        {
-          "default": "((state: Separator.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Separator.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Separator.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A separator element accessible to screen readers."
-    }
-  },
-  "recipe": "separator",
-  "source": "shadcn",
   "styles": {},
-  "upstream": {
-    "base_ui": {
-      "separator": "085ed595788bc62eeb4a0ee080cd854214aea3a4205ec4b9d6648bfa918b0fb7"
-    },
-    "shadcn": {
-      "file": "shadcn/ui/separator.tsx",
-      "sha256": "a434c0686f283f6c6abd38e33b9b636bf4ee70de211c006cf3fa1b4ab401d157"
-    }
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
-  "variants": {}
+  "upstream": {
+    "shadcn/ui/separator.tsx": "a434c0686f283f6c6abd38e33b9b636bf4ee70de211c006cf3fa1b4ab401d157"
+  },
+  "uses": [
+    "jsx/Separator/class/0"
+  ]
 }

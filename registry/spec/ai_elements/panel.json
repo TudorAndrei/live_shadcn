@@ -1,62 +1,36 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Panel/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Panel/class/0": "m-4 overflow-hidden rounded-md border bg-card p-1"
+  },
+  "file_fingerprints": {
+    "ai_elements/panel.tsx": "8a53ef3e59008b68e6d5da4a834f1ca81b1c6035e73de04b400bb376f91c8837"
+  },
+  "fingerprint": "5f02536d001a553be9e92d7892e98504e0184a388602c8c49be7127f630037c3",
+  "ignored": {},
   "name": "panel",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Panel",
-      "name": "panel",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "m-4 overflow-hidden rounded-md border bg-card p-1",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/@xyflow/react",
-        "part": "Panel",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "external/@xyflow/react.Panel": {
-      "props": [
-        {
-          "name": "position"
-        }
-      ]
-    }
-  },
-  "recipe": "presentational",
+  "port_body": "85bde304b5cba9fd5f389cb1f97ce85dc3e750db5a187005afbe0ce49fb4c6a3",
+  "schema_version": 2,
   "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/panel.tsx",
-      "sha256": "ed0a5e6bf2f11b5b9654c073a67391a8fbeacfd262ad0cb91f962970c9bc8028"
-    }
+  "source_facts": {
+    "jsx/Panel/class/0": "m-4 overflow-hidden rounded-md border bg-card p-1"
   },
-  "variants": {}
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/panel.tsx": "ed0a5e6bf2f11b5b9654c073a67391a8fbeacfd262ad0cb91f962970c9bc8028"
+  },
+  "uses": [
+    "jsx/Panel/class/0"
+  ]
 }

@@ -29,6 +29,7 @@ defmodule LiveShadcn.UI.Button do
     "cva/buttonVariants/variant/variant/secondary" => "cn-button-variant-secondary"
   }
   # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
 
   @size_values for {"cva/buttonVariants/variant/size/" <> value, _class} <- @upstream_facts,
                    do: value

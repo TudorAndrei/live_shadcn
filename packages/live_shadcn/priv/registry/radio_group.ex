@@ -9,6 +9,18 @@ defmodule LiveShadcn.UI.RadioGroup do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/RadioGroup/class/0" => "cn-radio-group w-full",
+    "jsx/RadioGroupItem/class/0" => "cn-radio-group-item group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
+    "jsx/RadioGroupItem/class/1" => "cn-radio-group-indicator",
+    "jsx/RadioGroupItem/class/2" => "cn-radio-group-indicator-icon"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.FormControl
 
   @doc "The `radio-group` part."
@@ -21,7 +33,7 @@ defmodule LiveShadcn.UI.RadioGroup do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "radio-group"}
-      class={["cn-radio-group w-full", @class]}
+      class={[upstream_fact("jsx/RadioGroup/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -91,13 +103,13 @@ defmodule LiveShadcn.UI.RadioGroup do
       data-invalid={flag(@errors != [])}
       data-filled={flag(@checked)}
       class={[
-        "cn-radio-group-item group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
-        @class
+        upstream_fact("jsx/RadioGroupItem/class/0"),
+        (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <span hidden={not @checked} data-slot="radio-group-indicator" class="cn-radio-group-indicator">
-        <span class="cn-radio-group-indicator-icon" />
+      <span hidden={not @checked} data-slot="radio-group-indicator" class={upstream_fact("jsx/RadioGroupItem/class/1")}>
+        <span class={upstream_fact("jsx/RadioGroupItem/class/2")} />
       </span>
       {render_slot(@inner_block)}
     </span>

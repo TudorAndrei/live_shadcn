@@ -1,389 +1,82 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Table/class/0",
+      "jsx/Table/class/1",
+      "jsx/TableBody/class/0",
+      "jsx/TableCaption/class/0",
+      "jsx/TableCell/class/0",
+      "jsx/TableFooter/class/0",
+      "jsx/TableHead/class/0",
+      "jsx/TableHeader/class/0",
+      "jsx/TableRow/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Table/class/0": "cn-table-container",
+    "jsx/Table/class/1": "cn-table",
+    "jsx/TableBody/class/0": "cn-table-body",
+    "jsx/TableCaption/class/0": "cn-table-caption",
+    "jsx/TableCell/class/0": "cn-table-cell",
+    "jsx/TableFooter/class/0": "cn-table-footer",
+    "jsx/TableHead/class/0": "cn-table-head",
+    "jsx/TableHeader/class/0": "cn-table-header",
+    "jsx/TableRow/class/0": "cn-table-row has-aria-expanded:bg-muted/50"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/table.tsx": "a1ecdafc8693a21e323dce5646cb63aafba42f38a327ce13c7ac01f1fec7fb7b"
+  },
+  "fingerprint": "389230feac3d28f493879adc299fad923204bb7f7615fb37765e0d66cd994940",
+  "ignored": {},
   "name": "table",
-  "parts": [
+  "port_body": "542be8cda54b5dbc58e07bd71e79646c80ecba828d0e52aa00d42dd3cd47e0f7",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/Table/class/0": "cn-table-container",
+    "jsx/Table/class/1": "cn-table",
+    "jsx/TableBody/class/0": "cn-table-body",
+    "jsx/TableCaption/class/0": "cn-table-caption",
+    "jsx/TableCell/class/0": "cn-table-cell",
+    "jsx/TableFooter/class/0": "cn-table-footer",
+    "jsx/TableHead/class/0": "cn-table-head",
+    "jsx/TableHeader/class/0": "cn-table-header",
+    "jsx/TableRow/class/0": "cn-table-row has-aria-expanded:bg-muted/50"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Table",
-      "name": "table",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [],
-            "class": "cn-table",
-            "class_when": [],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "table",
-            "tag": "table",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-table-container",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "table-container",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "TableHeader",
-      "name": "table_header",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-table-header",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "table-header",
-        "tag": "thead",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "TableBody",
-      "name": "table_body",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-table-body",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "table-body",
-        "tag": "tbody",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "TableFooter",
-      "name": "table_footer",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-table-footer",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "table-footer",
-        "tag": "tfoot",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "TableHead",
-      "name": "table_head",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-table-head",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "table-head",
-        "tag": "th",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "TableRow",
-      "name": "table_row",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-table-row has-aria-expanded:bg-muted/50",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-state",
-              "value": "selected"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "table-row",
-        "tag": "tr",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "TableCell",
-      "name": "table_cell",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-table-cell",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "table-cell",
-        "tag": "td",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "TableCaption",
-      "name": "table_caption",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-table-caption",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "table-caption",
-        "tag": "caption",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-state",
+      "value": "selected"
     }
   ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-table": "w-full caption-bottom text-sm",
-      "cn-table-body": "[&_tr:last-child]:border-0",
-      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
-      "cn-table-cell": "p-3 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-container": "relative w-full overflow-x-auto",
-      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
-      "cn-table-head": "text-foreground h-12 px-3 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-header": "[&_tr]:border-b",
-      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
-    },
-    "lyra": {
-      "cn-table": "w-full caption-bottom text-xs",
-      "cn-table-body": "[&_tr:last-child]:border-0",
-      "cn-table-caption": "text-muted-foreground mt-4 text-xs",
-      "cn-table-cell": "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-container": "relative w-full overflow-x-auto",
-      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
-      "cn-table-head": "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-header": "[&_tr]:border-b",
-      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
-    },
-    "maia": {
-      "cn-table": "w-full caption-bottom text-sm",
-      "cn-table-body": "[&_tr:last-child]:border-0",
-      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
-      "cn-table-cell": "p-3 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-container": "relative w-full overflow-x-auto",
-      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
-      "cn-table-head": "text-foreground h-12 px-3 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-header": "[&_tr]:border-b",
-      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
-    },
-    "mira": {
-      "cn-table": "w-full caption-bottom text-xs",
-      "cn-table-body": "[&_tr:last-child]:border-0",
-      "cn-table-caption": "text-muted-foreground mt-4 text-xs",
-      "cn-table-cell": "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-container": "relative w-full overflow-x-auto",
-      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
-      "cn-table-head": "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-header": "[&_tr]:border-b",
-      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
-    },
-    "nova": {
-      "cn-table": "w-full caption-bottom text-sm",
-      "cn-table-body": "[&_tr:last-child]:border-0",
-      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
-      "cn-table-cell": "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-container": "relative w-full overflow-x-auto",
-      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
-      "cn-table-head": "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-header": "[&_tr]:border-b",
-      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
-    },
-    "rhea": {
-      "cn-table": "w-full caption-bottom text-sm",
-      "cn-table-body": "[&_tr:last-child]:border-0",
-      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
-      "cn-table-cell": "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-container": "relative w-full overflow-x-auto",
-      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
-      "cn-table-head": "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-header": "[&_tr]:border-b",
-      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
-    },
-    "sera": {
-      "cn-table": "w-full caption-bottom text-sm",
-      "cn-table-body": "[&_tr:last-child]:border-0",
-      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
-      "cn-table-cell": "p-3 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-container": "relative w-full overflow-x-auto",
-      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
-      "cn-table-head": "text-muted-foreground h-12 px-3 text-left align-middle text-xs font-medium uppercase tracking-wider whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-header": "[&_tr]:border-b",
-      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
-    },
-    "vega": {
-      "cn-table": "w-full caption-bottom text-sm",
-      "cn-table-body": "[&_tr:last-child]:border-0",
-      "cn-table-caption": "text-muted-foreground mt-4 text-sm",
-      "cn-table-cell": "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-container": "relative w-full overflow-x-auto",
-      "cn-table-footer": "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
-      "cn-table-head": "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-      "cn-table-header": "[&_tr]:border-b",
-      "cn-table-row": "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
-    }
+    "luma": "727fcb92015c9938d34549114a251673b67aefc91ec0ae31e60beba34f146373",
+    "lyra": "c54326a6b2226b300e04b60505f34fd283476a1e0220a699b77a21a03f25923b",
+    "maia": "727fcb92015c9938d34549114a251673b67aefc91ec0ae31e60beba34f146373",
+    "mira": "c54326a6b2226b300e04b60505f34fd283476a1e0220a699b77a21a03f25923b",
+    "nova": "4f9b178e5edd77bf988ae962c482e936bc682d93406f99d6e3a42aa54625ebe1",
+    "rhea": "4f9b178e5edd77bf988ae962c482e936bc682d93406f99d6e3a42aa54625ebe1",
+    "sera": "71b82a85450e809816c0214a6d2ca3d84203608968b7bb2a747ed8c2c824efdb",
+    "vega": "4f9b178e5edd77bf988ae962c482e936bc682d93406f99d6e3a42aa54625ebe1"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/table.tsx",
-      "sha256": "4e90502c6dd7478e2baa19a4010e52718c2fd958ead136d31b18eacd5b3cd1fb"
-    }
+    "shadcn/ui/table.tsx": "4e90502c6dd7478e2baa19a4010e52718c2fd958ead136d31b18eacd5b3cd1fb"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Table/class/0",
+    "jsx/Table/class/1",
+    "jsx/TableBody/class/0",
+    "jsx/TableCaption/class/0",
+    "jsx/TableCell/class/0",
+    "jsx/TableFooter/class/0",
+    "jsx/TableHead/class/0",
+    "jsx/TableHeader/class/0",
+    "jsx/TableRow/class/0"
+  ]
 }

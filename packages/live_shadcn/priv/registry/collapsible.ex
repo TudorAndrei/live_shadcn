@@ -13,6 +13,13 @@ defmodule LiveShadcn.UI.Collapsible do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
   alias LiveBase.Disclosure
 
   @doc """

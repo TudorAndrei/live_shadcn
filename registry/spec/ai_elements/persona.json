@@ -1,104 +1,36 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "persona",
-  "parts": [
-    {
-      "contexts": [
-        "ready"
-      ],
-      "export": "Persona",
-      "name": "persona",
-      "params": {
-        "className": null,
-        "rive": null,
-        "source": null,
-        "state": "idle",
-        "variant": "obsidian"
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "onLoad",
-        "onLoadError",
-        "onPause",
-        "onPlay",
-        "onReady",
-        "onStop",
-        "loadedRive",
-        "err",
-        "event",
-        "state",
-        "className"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "rive"
-            ],
-            "kind": "code",
-            "name": "rive",
-            "value": "rive"
-          },
-          {
-            "identifiers": [
-              "source"
-            ],
-            "kind": "code",
-            "name": "source",
-            "value": "source"
-          }
-        ],
-        "children": [
-          {
-            "attrs": [],
-            "children": [],
-            "class": "size-16 shrink-0",
-            "class_when": [],
-            "merges_class": true,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "canvas",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a component that renders its children",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/persona.tsx",
-      "sha256": "5c649409c4c08408959eff5ec43a179ca6f585ec101ca7f8322348510b6b0375"
-    }
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/anonymous/class/0"
+    ],
+    "derived": {}
   },
-  "variants": {}
+  "css_vars": [],
+  "facts": {
+    "jsx/anonymous/class/0": "size-16 shrink-0"
+  },
+  "file_fingerprints": {
+    "ai_elements/persona.tsx": "bceff1bf55abcf8453a2eca91be767f90e8d8c300d3afe412d3e9fc83a42dec7"
+  },
+  "fingerprint": "ca1904da0736c3f03909d457fbef740078550a04335727cb78d01398cf041966",
+  "ignored": {},
+  "name": "persona",
+  "port_body": "c9580773cd0a55ab081a6d67edebf42e8781fa9c10645ec1d601bb9e556532fb",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/anonymous/class/0": "size-16 shrink-0"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/persona.tsx": "5c649409c4c08408959eff5ec43a179ca6f585ec101ca7f8322348510b6b0375"
+  },
+  "uses": [
+    "jsx/anonymous/class/0"
+  ]
 }

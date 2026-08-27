@@ -9,6 +9,23 @@ defmodule LiveShadcn.UI.NavigationMenu do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/NavigationMenu/class/0" => "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
+    "jsx/NavigationMenuContent/class/0" => "cn-navigation-menu-content data-ending-style:data-activation-direction=left:translate-x-[50%] data-ending-style:data-activation-direction=right:translate-x-[-50%] data-starting-style:data-activation-direction=left:translate-x-[-50%] data-starting-style:data-activation-direction=right:translate-x-[50%] h-full w-auto transition-[opacity,transform,translate] duration-[0.35s] data-ending-style:opacity-0 data-starting-style:opacity-0 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
+    "jsx/NavigationMenuItem/class/0" => "cn-navigation-menu-item relative",
+    "jsx/NavigationMenuList/class/0" => "cn-navigation-menu-list group flex flex-1 list-none items-center justify-center",
+    "jsx/NavigationMenuPositioner/class/0" => "cn-navigation-menu-positioner isolate z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-[0.35s] data-instant:transition-none",
+    "jsx/NavigationMenuPositioner/class/1" => "cn-navigation-menu-popup data-[ending-style]:easing-[ease] xs:w-(--popup-width) relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]",
+    "jsx/NavigationMenuPositioner/class/2" => "relative size-full overflow-hidden",
+    "jsx/NavigationMenuTrigger/class/1" => "cn-navigation-menu-trigger-icon",
+    "port/class/0" => "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none group"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Popover
 
   @doc """
@@ -56,20 +73,20 @@ defmodule LiveShadcn.UI.NavigationMenu do
       <nav
         data-slot="navigation-menu"
         class={[
-          "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
-          @class
+          upstream_fact("jsx/NavigationMenu/class/0"),
+          (@class || "")
         ]}
       >
         <ul
           data-slot="navigation-menu-list"
           class={[
-            "cn-navigation-menu-list group flex flex-1 list-none items-center justify-center",
-            @list_class
+            upstream_fact("jsx/NavigationMenuList/class/0"),
+            (@list_class || "")
           ]}
         >
           <li
             data-slot="navigation-menu-item"
-            class={["cn-navigation-menu-item relative", @item_class]}
+            class={[upstream_fact("jsx/NavigationMenuItem/class/0"), (@item_class || "")]}
           >
             <button
               data-slot="navigation-menu-trigger"
@@ -81,17 +98,17 @@ defmodule LiveShadcn.UI.NavigationMenu do
               phx-click={if(not @disabled, do: Popover.toggle(@id))}
               phx-mounted={Popover.owned_attributes(:trigger)}
               class={[
-                "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none group",
-                @trigger_class
+                upstream_fact("port/class/0"),
+                (@trigger_class || "")
               ]}
               data-lb-style-target
             >
               {render_slot(@trigger)}
-              <LiveShadcn.Icon.icon name="chevron-down" class="cn-navigation-menu-trigger-icon" />
+              <LiveShadcn.Icon.icon name="chevron-down" class={upstream_fact("jsx/NavigationMenuTrigger/class/1")} />
             </button>
           </li>
         </ul>
-        <div class={["contents", @positioner_class]}>
+        <div class={["contents", (@positioner_class || "")]}>
           <div
             id={Popover.positioner_id(@id)}
             hidden={not @open}
@@ -103,8 +120,8 @@ defmodule LiveShadcn.UI.NavigationMenu do
             data-lb-autofocus
             phx-mounted={Popover.owned_attributes(:positioner)}
             class={[
-              "cn-navigation-menu-positioner isolate z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-[0.35s] data-instant:transition-none",
-              @positioner_class
+              upstream_fact("jsx/NavigationMenuPositioner/class/0"),
+              (@positioner_class || "")
             ]}
             data-lb-measure
           >
@@ -113,17 +130,17 @@ defmodule LiveShadcn.UI.NavigationMenu do
               hidden={not @open}
               data-lb-popup
               phx-mounted={Popover.owned_attributes(:popup)}
-              class="cn-navigation-menu-popup data-[ending-style]:easing-[ease] xs:w-(--popup-width) relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]"
+              class={upstream_fact("jsx/NavigationMenuPositioner/class/1")}
               data-lb-style-target
               data-lb-measure
             >
-              <div class="relative size-full overflow-hidden">
+              <div class={upstream_fact("jsx/NavigationMenuPositioner/class/2")}>
                 <div
                   data-slot="navigation-menu-content"
                   hidden={not @open}
                   class={[
-                    "cn-navigation-menu-content data-ending-style:data-activation-direction=left:translate-x-[50%] data-ending-style:data-activation-direction=right:translate-x-[-50%] data-starting-style:data-activation-direction=left:translate-x-[-50%] data-starting-style:data-activation-direction=right:translate-x-[50%] h-full w-auto transition-[opacity,transform,translate] duration-[0.35s] data-ending-style:opacity-0 data-starting-style:opacity-0 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
-                    @content_class
+                    upstream_fact("jsx/NavigationMenuContent/class/0"),
+                    (@content_class || "")
                   ]}
                   data-lb-style-target
                 >

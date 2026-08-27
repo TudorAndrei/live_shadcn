@@ -1,768 +1,117 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Command/class/0",
+      "jsx/CommandEmpty/class/0",
+      "jsx/CommandGroup/class/0",
+      "jsx/CommandInput/class/0",
+      "jsx/CommandInput/class/1",
+      "jsx/CommandInput/class/2",
+      "jsx/CommandInput/class/3",
+      "jsx/CommandItem/class/0",
+      "jsx/CommandItem/class/1",
+      "jsx/CommandList/class/0",
+      "jsx/CommandSeparator/class/0",
+      "jsx/CommandShortcut/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Command/class/0": "cn-command flex size-full flex-col overflow-hidden",
+    "jsx/CommandEmpty/class/0": "cn-command-empty",
+    "jsx/CommandGroup/class/0": "cn-command-group",
+    "jsx/CommandInput/class/0": "cn-command-input-wrapper",
+    "jsx/CommandInput/class/1": "cn-command-input-group",
+    "jsx/CommandInput/class/2": "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+    "jsx/CommandInput/class/3": "cn-command-input-icon",
+    "jsx/CommandItem/class/0": "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/CommandItem/class/1": "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
+    "jsx/CommandList/class/0": "cn-command-list overflow-x-hidden overflow-y-auto",
+    "jsx/CommandSeparator/class/0": "cn-command-separator",
+    "jsx/CommandShortcut/class/0": "cn-command-shortcut"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/command.tsx": "4876d54d18bbd2e27a51f1e2a0b4b4e3cc73a783c81650dc81c342ad6740fa6a"
+  },
+  "fingerprint": "89ed874e2578ca5e2f1479701628e3e735c0a22264a3e348e7eec093191936be",
+  "ignored": {
+    "jsx/CommandDialog/class/0": "the generated port does not contain this source literal",
+    "jsx/CommandDialog/class/1": "the generated port does not contain this source literal"
+  },
   "name": "command",
-  "parts": [
+  "port_body": "e1cb4874edc70a0d21c5eb735ef0df0f1c0f637fd47ae35142ca3df2b255c891",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/Command/class/0": "cn-command flex size-full flex-col overflow-hidden",
+    "jsx/CommandDialog/class/0": "sr-only",
+    "jsx/CommandDialog/class/1": "cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0",
+    "jsx/CommandEmpty/class/0": "cn-command-empty",
+    "jsx/CommandGroup/class/0": "cn-command-group",
+    "jsx/CommandInput/class/0": "cn-command-input-wrapper",
+    "jsx/CommandInput/class/1": "cn-command-input-group",
+    "jsx/CommandInput/class/2": "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+    "jsx/CommandInput/class/3": "cn-command-input-icon",
+    "jsx/CommandItem/class/0": "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/CommandItem/class/1": "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
+    "jsx/CommandList/class/0": "cn-command-list overflow-x-hidden overflow-y-auto",
+    "jsx/CommandSeparator/class/0": "cn-command-separator",
+    "jsx/CommandShortcut/class/0": "cn-command-shortcut"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Command",
-      "name": "command",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-command flex size-full flex-col overflow-hidden",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/cmdk",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "command",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-disabled",
+      "value": "true"
     },
     {
-      "contexts": [],
-      "export": "CommandDialog",
-      "name": "command_dialog",
-      "params": {
-        "children": null,
-        "className": null,
-        "description": "Search for a command to run...",
-        "showCloseButton": "false",
-        "title": "Command Palette"
-      },
-      "primitive": null,
-      "refs": [
-        "props",
-        "title",
-        "description",
-        "className",
-        "showCloseButton",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "code": "title",
-                    "identifiers": [
-                      "title"
-                    ],
-                    "type": "value"
-                  }
-                ],
-                "class": "",
-                "class_when": [],
-                "component": "dialog",
-                "function": "dialog_title",
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "recipe": "dialog",
-                "render_as": null,
-                "slot": null,
-                "source": "shadcn",
-                "tag": "h2",
-                "type": "component_ref",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "code": "description",
-                    "identifiers": [
-                      "description"
-                    ],
-                    "type": "value"
-                  }
-                ],
-                "class": "",
-                "class_when": [],
-                "component": "dialog",
-                "function": "dialog_description",
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "recipe": "dialog",
-                "render_as": null,
-                "slot": null,
-                "source": "shadcn",
-                "tag": "p",
-                "type": "component_ref",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "sr-only",
-            "class_when": [],
-            "component": "dialog",
-            "function": "dialog_header",
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "recipe": "dialog",
-            "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "tag": "div",
-            "type": "component_ref",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "showCloseButton"
-                ],
-                "kind": "code",
-                "name": "showCloseButton",
-                "value": "showCloseButton"
-              }
-            ],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0",
-            "class_when": [],
-            "component": "dialog",
-            "function": "dialog_content",
-            "merges_class": true,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "recipe": "dialog",
-            "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "tag": null,
-            "type": "component_ref",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "component": "dialog",
-        "function": "dialog",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "dialog",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": null,
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "showCloseButton": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
+      "name": "data-selected",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "CommandInput",
-      "name": "command_input",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
-                "class_when": [],
-                "merges_class": true,
-                "module": "external/cmdk",
-                "part": "Input",
-                "props": true,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": "command-input",
-                "tag": "input",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "attrs": [
-                      {
-                        "kind": "text",
-                        "name": "lucide",
-                        "value": "SearchIcon"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "tabler",
-                        "value": "IconSearch"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "hugeicons",
-                        "value": "SearchIcon"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "phosphor",
-                        "value": "MagnifyingGlassIcon"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "remixicon",
-                        "value": "RiSearchLine"
-                      }
-                    ],
-                    "children": [],
-                    "class": "cn-command-input-icon",
-                    "class_when": [],
-                    "icons": {
-                      "hugeicons": "SearchIcon",
-                      "lucide": "Search",
-                      "phosphor": "MagnifyingGlassIcon",
-                      "remixicon": "RiSearchLine",
-                      "tabler": "IconSearch"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "class": "",
-                "class_when": [],
-                "component": "input-group",
-                "function": "input_group_addon",
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "recipe": "form-control",
-                "render_as": null,
-                "slot": null,
-                "source": "shadcn",
-                "tag": "div",
-                "type": "component_ref",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "cn-command-input-group",
-            "class_when": [],
-            "component": "input-group",
-            "function": "input_group",
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": [
-                {
-                  "name": "data-slot",
-                  "value": "input-group-addon"
-                }
-              ]
-            },
-            "recipe": "form-control",
-            "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "tag": "div",
-            "type": "component_ref",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-command-input-wrapper",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "command-input-wrapper",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-slot",
+      "value": "input-group-addon"
     },
     {
-      "contexts": [],
-      "export": "CommandList",
-      "name": "command_list",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-command-list overflow-x-hidden overflow-y-auto",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/cmdk",
-        "part": "List",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "command-list",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "group": "command-item",
+      "name": "data-checked",
+      "value": "true"
     },
     {
-      "contexts": [],
-      "export": "CommandEmpty",
-      "name": "command_empty",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-command-empty",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/cmdk",
-        "part": "Empty",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "command-empty",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CommandGroup",
-      "name": "command_group",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-command-group",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/cmdk",
-        "part": "Group",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "command-group",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CommandItem",
-      "name": "command_item",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "type": "children"
-          },
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "lucide",
-                "value": "CheckIcon"
-              },
-              {
-                "kind": "text",
-                "name": "tabler",
-                "value": "IconCheck"
-              },
-              {
-                "kind": "text",
-                "name": "hugeicons",
-                "value": "Tick02Icon"
-              },
-              {
-                "kind": "text",
-                "name": "phosphor",
-                "value": "CheckIcon"
-              },
-              {
-                "kind": "text",
-                "name": "remixicon",
-                "value": "RiCheckLine"
-              }
-            ],
-            "children": [],
-            "class": "cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100",
-            "class_when": [],
-            "icons": {
-              "hugeicons": "Tick02Icon",
-              "lucide": "Check",
-              "phosphor": "CheckIcon",
-              "remixicon": "RiCheckLine",
-              "tabler": "IconCheck"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [
-                {
-                  "group": "command-item",
-                  "name": "data-checked",
-                  "value": "true"
-                }
-              ],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/cmdk",
-        "part": "Item",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-disabled",
-              "value": "true"
-            },
-            {
-              "name": "data-selected",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "command-item",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CommandShortcut",
-      "name": "command_shortcut",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-command-shortcut",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "command-item",
-              "name": "data-selected",
-              "value": null
-            }
-          ],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "command-shortcut",
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "CommandSeparator",
-      "name": "command_separator",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-command-separator",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/cmdk",
-        "part": "Separator",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "command-separator",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "group": "command-item",
+      "name": "data-selected",
+      "value": null
     }
   ],
-  "primitives": {},
-  "recipe": "listbox",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-command": "bg-popover text-popover-foreground rounded-4xl p-1",
-      "cn-command-dialog": "rounded-4xl! p-0",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1.5 **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:py-2 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
-      "cn-command-input": "w-full text-sm",
-      "cn-command-input-group": "bg-input/50 h-9",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium outline-hidden select-none in-data-[slot=dialog-content]:rounded-3xl [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-command-separator": "bg-border/50 my-1.5 h-px",
-      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest"
-    },
-    "lyra": {
-      "cn-command": "bg-popover text-popover-foreground rounded-none",
-      "cn-command-dialog": "rounded-none",
-      "cn-command-empty": "py-6 text-center text-xs",
-      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs",
-      "cn-command-input": "w-full text-xs",
-      "cn-command-input-group": "bg-input/30 border-input/30 h-8 border-none shadow-none! *:data-[slot=input-group-addon]:pl-2!",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "border-b pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-none px-2 py-2 text-xs outline-hidden select-none in-data-[slot=dialog-content]:rounded-none! [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-0 outline-none",
-      "cn-command-separator": "bg-border -mx-1 h-px",
-      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest"
-    },
-    "maia": {
-      "cn-command": "bg-popover text-popover-foreground rounded-4xl p-1",
-      "cn-command-dialog": "rounded-4xl! p-0",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:py-2 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
-      "cn-command-input": "w-full text-sm",
-      "cn-command-input-group": "bg-input/30 h-9",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-lg px-3 py-2 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-2xl [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-command-separator": "bg-border/50 my-1 h-px",
-      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest"
-    },
-    "mira": {
-      "cn-command": "bg-popover text-popover-foreground rounded-xl p-1",
-      "cn-command-dialog": "rounded-xl! p-0",
-      "cn-command-empty": "py-6 text-center text-xs/relaxed",
-      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2.5 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
-      "cn-command-input": "w-full text-xs/relaxed",
-      "cn-command-input-group": "bg-input/20 dark:bg-input/30 h-8!",
-      "cn-command-input-icon": "size-3.5 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex min-h-7 cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 text-xs/relaxed outline-hidden select-none in-data-[slot=dialog-content]:rounded-md [&_svg:not([class*='size-'])]:size-3.5",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-command-separator": "bg-border/50 -mx-1 my-1 h-px",
-      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-[0.625rem] tracking-widest"
-    },
-    "nova": {
-      "cn-command": "bg-popover text-popover-foreground rounded-xl! p-1",
-      "cn-command-dialog": "rounded-xl!",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
-      "cn-command-input": "w-full text-sm",
-      "cn-command-input-group": "bg-input/30 border-input/30 h-8! rounded-lg! shadow-none! *:data-[slot=input-group-addon]:pl-2!",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-command-separator": "bg-border -mx-1 h-px",
-      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest"
-    },
-    "rhea": {
-      "cn-command": "bg-popover text-popover-foreground rounded-3xl p-1",
-      "cn-command-dialog": "rounded-3xl! p-0",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
-      "cn-command-input": "w-full text-sm",
-      "cn-command-input-group": "bg-input/50 h-8!",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 min-h-7 rounded-xl px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-2xl [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-command-separator": "bg-border/50 my-1 h-px",
-      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest"
-    },
-    "sera": {
-      "cn-command": "bg-popover text-popover-foreground",
-      "cn-command-dialog": "p-0",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1.5 **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:py-2 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-semibold **:[[cmdk-group-heading]]:uppercase **:[[cmdk-group-heading]]:tracking-wider",
-      "cn-command-input": "w-full text-sm px-2",
-      "cn-command-input-group": "bg-transparent border-transparent border-b-input px-3",
-      "cn-command-input-icon": "size-3.5 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-none px-3 py-2 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-none [&_svg:not([class*='size-'])]:size-3.5",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-command-separator": "bg-border/50 -mx-1.5 my-1.5 h-px",
-      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest"
-    },
-    "vega": {
-      "cn-command": "bg-popover text-popover-foreground rounded-xl! p-1",
-      "cn-command-dialog": "rounded-xl!",
-      "cn-command-empty": "py-6 text-center text-sm",
-      "cn-command-group": "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
-      "cn-command-input": "w-full text-sm",
-      "cn-command-input-group": "bg-input/30 border-input/30 h-8! rounded-lg! shadow-none! *:data-[slot=input-group-addon]:pl-2!",
-      "cn-command-input-icon": "size-4 shrink-0 opacity-50",
-      "cn-command-input-wrapper": "p-1 pb-0",
-      "cn-command-item": "data-selected:bg-muted data-selected:text-foreground data-selected:**:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_svg:not([class*='size-'])]:size-4",
-      "cn-command-list": "no-scrollbar max-h-72 scroll-py-1 outline-none",
-      "cn-command-separator": "bg-border -mx-1 h-px w-auto",
-      "cn-command-shortcut": "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest"
-    }
+    "luma": "3c6c4ed32775160f7cb6ec386bc587d22b75bcd393aa8c3264b7e263dbb1a945",
+    "lyra": "5b4b1454b359c1ca6942cebed874d05f8ea44726ba0f8256218df45cfb0b37d1",
+    "maia": "9a5dacd87f01bae74d3a075e5dc4484ffbceadb7d3c0b48d7b3d8cdd65b26756",
+    "mira": "605122757da3ece011aa733133f60fdd0a736cce0b2ae429042dcf2871fb0561",
+    "nova": "39f33c68c602db511b48bfeb4644068c54da9f8c0a348092a2de844446ef4c56",
+    "rhea": "110b5fa6fcd87057004572accef5b12208b405f7ba91fe785f2d3e5def70fe51",
+    "sera": "9a3d85af9b2f20b660979f167c17d54ab33cfe858d4a06a68ecc42132e14259a",
+    "vega": "92c430855807045d30e1e70e78095efd67e6e6a52ee67695e7fc5c394b47cbd3"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/command.tsx",
-      "sha256": "3ad88a370242987b0981342fc7e87a7aa7908f3e81282b5a6e69b0c9505abdf0"
-    }
+    "shadcn/ui/command.tsx": "3ad88a370242987b0981342fc7e87a7aa7908f3e81282b5a6e69b0c9505abdf0"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Command/class/0",
+    "jsx/CommandEmpty/class/0",
+    "jsx/CommandGroup/class/0",
+    "jsx/CommandInput/class/0",
+    "jsx/CommandInput/class/1",
+    "jsx/CommandInput/class/2",
+    "jsx/CommandInput/class/3",
+    "jsx/CommandItem/class/0",
+    "jsx/CommandItem/class/1",
+    "jsx/CommandList/class/0",
+    "jsx/CommandSeparator/class/0",
+    "jsx/CommandShortcut/class/0"
+  ]
 }

@@ -9,6 +9,36 @@ defmodule LiveShadcn.UI.Tabs do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "cva/tabsListVariants/base" => "cn-tabs-list group/tabs-list inline-flex w-fit items-center justify-center text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
+    "cva/tabsListVariants/default/variant" => "default",
+    "cva/tabsListVariants/variant/variant/default" => "cn-tabs-list-variant-default bg-muted",
+    "cva/tabsListVariants/variant/variant/line" => "cn-tabs-list-variant-line gap-1 bg-transparent",
+    "jsx/Tabs/class/0" => "cn-tabs group/tabs flex data-horizontal:flex-col",
+    "jsx/TabsContent/class/0" => "cn-tabs-content flex-1 outline-none",
+    "port/class/0" => "cn-tabs-trigger relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
+  @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
+                       [table, "variant", group, choice] <- [String.split(path, "/")],
+                       reduce: %{} do
+    variants ->
+      put_in(
+        variants,
+        [
+          Access.key(table, %{}),
+          Access.key(group, %{}),
+          Access.key(choice, nil)
+        ],
+        value
+      )
+  end)
+
   alias LiveBase.Tabs
 
   @doc """
@@ -29,7 +59,13 @@ defmodule LiveShadcn.UI.Tabs do
   attr(:list_class, :any, default: nil)
   attr(:content_class, :any, default: nil)
   attr(:trigger_class, :any, default: nil)
-  attr(:variant, :string, default: "default", values: ["default", "line"])
+
+  attr(:variant, :string,
+    default: @upstream_facts["cva/tabsListVariants/default/variant"],
+    values:
+      @variant_classes |> get_in(["tabsListVariants", "variant"]) |> Map.keys() |> Enum.sort()
+  )
+
   attr(:rest, :global)
 
   slot :tab, required: true, doc: "One tab and the panel it shows." do
@@ -47,7 +83,7 @@ defmodule LiveShadcn.UI.Tabs do
       id={@id}
       data-orientation={@orientation}
       data-horizontal={flag(@orientation == "horizontal")}
-      class={["cn-tabs group/tabs flex data-horizontal:flex-col", @class]}
+      class={[upstream_fact("jsx/Tabs/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <div
@@ -64,7 +100,7 @@ defmodule LiveShadcn.UI.Tabs do
         data-variant={@variant}
         class={[
           variant_class("tabsListVariants", "variant", @variant),
-          "cn-tabs-list group/tabs-list inline-flex w-fit items-center justify-center text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
+          upstream_fact("cva/tabsListVariants/base"),
           @list_class
         ]}
       >
@@ -84,8 +120,8 @@ defmodule LiveShadcn.UI.Tabs do
           data-active={flag(active?(tab, @active))}
           aria-disabled={to_string(tab[:disabled] == true)}
           class={[
-            "cn-tabs-trigger relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100",
-            @trigger_class
+            upstream_fact("port/class/0"),
+            (@trigger_class || "")
           ]}
         >
           {tab.label}
@@ -103,7 +139,7 @@ defmodule LiveShadcn.UI.Tabs do
         data-orientation={@orientation}
         data-hidden={flag(not active?(tab, @active))}
         data-index={index}
-        class={["cn-tabs-content flex-1 outline-none", @content_class]}
+        class={[upstream_fact("jsx/TabsContent/class/0"), (@content_class || "")]}
       >
         {render_slot(tab)}
       </div>
@@ -122,15 +158,6 @@ defmodule LiveShadcn.UI.Tabs do
   defp flag(true), do: ""
   defp flag(_state), do: nil
 
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "tabsListVariants" => %{
-      "variant" => %{
-        "default" => "cn-tabs-list-variant-default bg-muted",
-        "line" => "cn-tabs-list-variant-line gap-1 bg-transparent"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
+  defp variant_class(table, group, value),
+    do: get_in(@variant_classes, [table, group, value])
 end

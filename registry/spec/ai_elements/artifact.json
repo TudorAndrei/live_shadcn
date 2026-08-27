@@ -1,463 +1,75 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "artifact",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Artifact",
-      "name": "artifact",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ArtifactHeader",
-      "name": "artifact_header",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex items-center justify-between border-b bg-muted/50 px-4 py-3",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ArtifactClose",
-      "name": "artifact_close",
-      "params": {
-        "children": null,
-        "className": null,
-        "size": "sm",
-        "variant": "ghost"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "size",
-        "variant",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          }
-        ],
-        "children": [
-          {
-            "default": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "size-4",
-                "class_when": [],
-                "icons": {
-                  "lucide": "X"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "text",
-                "value": "Close"
-              }
-            ],
-            "class": "sr-only",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "size-8 p-0 text-muted-foreground hover:text-foreground",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ArtifactTitle",
-      "name": "artifact_title",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "font-medium text-foreground text-sm",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "p",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ArtifactDescription",
-      "name": "artifact_description",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "text-muted-foreground text-sm",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "p",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ArtifactActions",
-      "name": "artifact_actions",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex items-center gap-1",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ArtifactAction",
-      "name": "artifact_action",
-      "params": {
-        "button": null,
-        "children": null,
-        "className": null,
-        "icon": null,
-        "label": null,
-        "size": "sm",
-        "tooltip": null,
-        "variant": "ghost"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "size",
-        "variant",
-        "props",
-        "icon",
-        "children",
-        "label",
-        "tooltip"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          }
-        ],
-        "children": [
-          {
-            "else": [
-              {
-                "type": "children"
-              }
-            ],
-            "identifiers": [
-              "Icon",
-              "children"
-            ],
-            "then": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "size-4",
-                "class_when": [],
-                "merges_class": false,
-                "prop": "icon",
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "type": "choice",
-            "when": "icon"
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "code": "label || tooltip",
-                "identifiers": [
-                  "label",
-                  "tooltip"
-                ],
-                "type": "value"
-              }
-            ],
-            "class": "sr-only",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "size-8 p-0 text-muted-foreground hover:text-foreground",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "identifiers": [
-          "button"
-        ],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ArtifactContent",
-      "name": "artifact_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex-1 overflow-auto p-4",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/artifact.tsx",
-      "sha256": "6e5017f85105164b95861b1d10a78c956c312682c5ecd17e2619870ba5993aba"
-    }
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Artifact/class/0",
+      "jsx/ArtifactAction/class/0",
+      "jsx/ArtifactAction/class/1",
+      "jsx/ArtifactAction/class/2",
+      "jsx/ArtifactActions/class/0",
+      "jsx/ArtifactContent/class/0",
+      "jsx/ArtifactDescription/class/0",
+      "jsx/ArtifactHeader/class/0",
+      "jsx/ArtifactTitle/class/0"
+    ],
+    "derived": {}
   },
-  "variants": {}
+  "css_vars": [],
+  "facts": {
+    "jsx/Artifact/class/0": "flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm",
+    "jsx/ArtifactAction/class/0": "size-8 p-0 text-muted-foreground hover:text-foreground",
+    "jsx/ArtifactAction/class/1": "size-4",
+    "jsx/ArtifactAction/class/2": "sr-only",
+    "jsx/ArtifactActions/class/0": "flex items-center gap-1",
+    "jsx/ArtifactContent/class/0": "flex-1 overflow-auto p-4",
+    "jsx/ArtifactDescription/class/0": "text-muted-foreground text-sm",
+    "jsx/ArtifactHeader/class/0": "flex items-center justify-between border-b bg-muted/50 px-4 py-3",
+    "jsx/ArtifactTitle/class/0": "font-medium text-foreground text-sm"
+  },
+  "file_fingerprints": {
+    "ai_elements/artifact.tsx": "47ff5769388813c80b4861e10a66541472cb9a28210605c8b843ce12eba4c2c0"
+  },
+  "fingerprint": "94fd2049ab617658c72d944066eba1011a0eb9f1401b2d6ff7cee236bb5d644b",
+  "ignored": {
+    "jsx/ArtifactClose/class/0": "the generated port does not contain this source literal",
+    "jsx/ArtifactClose/class/1": "the generated port does not contain this source literal",
+    "jsx/ArtifactClose/class/2": "the generated port does not contain this source literal"
+  },
+  "name": "artifact",
+  "port_body": "149519e9325b1934b54e422df7c0cc395b73483f3ced1ab408bdd5b2d32b9bf0",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/Artifact/class/0": "flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm",
+    "jsx/ArtifactAction/class/0": "size-8 p-0 text-muted-foreground hover:text-foreground",
+    "jsx/ArtifactAction/class/1": "size-4",
+    "jsx/ArtifactAction/class/2": "sr-only",
+    "jsx/ArtifactActions/class/0": "flex items-center gap-1",
+    "jsx/ArtifactClose/class/0": "size-8 p-0 text-muted-foreground hover:text-foreground",
+    "jsx/ArtifactClose/class/1": "size-4",
+    "jsx/ArtifactClose/class/2": "sr-only",
+    "jsx/ArtifactContent/class/0": "flex-1 overflow-auto p-4",
+    "jsx/ArtifactDescription/class/0": "text-muted-foreground text-sm",
+    "jsx/ArtifactHeader/class/0": "flex items-center justify-between border-b bg-muted/50 px-4 py-3",
+    "jsx/ArtifactTitle/class/0": "font-medium text-foreground text-sm"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/artifact.tsx": "6e5017f85105164b95861b1d10a78c956c312682c5ecd17e2619870ba5993aba"
+  },
+  "uses": [
+    "jsx/Artifact/class/0",
+    "jsx/ArtifactAction/class/0",
+    "jsx/ArtifactAction/class/1",
+    "jsx/ArtifactAction/class/2",
+    "jsx/ArtifactActions/class/0",
+    "jsx/ArtifactContent/class/0",
+    "jsx/ArtifactDescription/class/0",
+    "jsx/ArtifactHeader/class/0",
+    "jsx/ArtifactTitle/class/0"
+  ]
 }

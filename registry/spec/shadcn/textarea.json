@@ -1,82 +1,50 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Textarea/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Textarea/class/0": "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/textarea.tsx": "c091a118245bbe7f4ae6cc2e9de306e42bbdc6577733f983f6e7fb4b540452a9"
+  },
+  "fingerprint": "9f00afd36d4fe0a06e9c788a0d53ac8bdbcd8848fca1942f3ea2466edc840a77",
+  "ignored": {},
   "name": "textarea",
-  "parts": [
+  "port_body": "a8620c3f1462e9d722b44151d3a145a0c547091bc9781c0011f27b9c8a874a35",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/Textarea/class/0": "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Textarea",
-      "name": "textarea",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "textarea",
-        "tag": "textarea",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-invalid",
+      "value": null
     }
   ],
-  "primitives": {},
-  "recipe": "form-control",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-textarea": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-2xl border px-3 py-3 text-base transition-[color,box-shadow,background-color] focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
-    },
-    "lyra": {
-      "cn-textarea": "border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 rounded-none border bg-transparent px-2.5 py-2 text-xs transition-colors focus-visible:ring-1 aria-invalid:ring-1 md:text-xs"
-    },
-    "maia": {
-      "cn-textarea": "border-input bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-xl border px-3 py-3 text-base transition-colors focus-visible:ring-[3px] aria-invalid:ring-[3px] md:text-sm"
-    },
-    "mira": {
-      "cn-textarea": "border-input bg-input/20 dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-md border px-2 py-2 text-sm transition-colors focus-visible:ring-2 aria-invalid:ring-2 md:text-xs/relaxed"
-    },
-    "nova": {
-      "cn-textarea": "border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 rounded-lg border bg-transparent px-2.5 py-2 text-base transition-colors focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
-    },
-    "rhea": {
-      "cn-textarea": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 resize-none rounded-2xl border px-2.5 py-2 text-base transition-[color,box-shadow] duration-200 focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
-    },
-    "sera": {
-      "cn-textarea": "border-transparent border-b-input bg-transparent focus-visible:border-b-ring aria-invalid:border-b-destructive dark:aria-invalid:border-b-destructive/50 resize-none rounded-none border px-0 py-3 text-base transition-[color,border-color] md:text-sm"
-    },
-    "vega": {
-      "cn-textarea": "border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-md border bg-transparent px-2.5 py-2 text-base shadow-xs transition-[color,box-shadow] focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
-    }
+    "luma": "374724d22754fe3dd2867175950d5f75ce71ba8038a13b7b7a7eb64c9735ae14",
+    "lyra": "a9718a209c76571673f02e5e352a6019cdd1b12b7e5f44a73e91f968b3847bd6",
+    "maia": "79f19ab8fd72e03fcbdb0caf8f181cc27d06bd91839bb8c75139aba773167a46",
+    "mira": "6f1bd12b15d66e4ade74ad5674f18156663026289b6644ebc9c5e90362d4b4d2",
+    "nova": "327b96139862ee77f7624da505211bec9db03261c9e49bbd3f28b3aa30984efc",
+    "rhea": "b54b1f777e00b99a170d2a83fcd93fd1f85f9698364539708c56cdb5b8327164",
+    "sera": "ea8885930ef827861689c5150b0f747752ed3a0e6f4be2eac771700030bc3fee",
+    "vega": "0a88039dc105542147c39f6e8b9c6c4aef9d047466bab66f48786d68b8a9f890"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/textarea.tsx",
-      "sha256": "b6948bf2916d1cf5487c24f3755cd3f90981680c06f51481545634276317c691"
-    }
+    "shadcn/ui/textarea.tsx": "b6948bf2916d1cf5487c24f3755cd3f90981680c06f51481545634276317c691"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Textarea/class/0"
+  ]
 }

@@ -1,76 +1,36 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "image",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Image",
-      "name": "image",
-      "params": {
-        "alt": null,
-        "base64": null,
-        "mediaType": null
-      },
-      "primitive": null,
-      "refs": [
-        "props",
-        "mediaType",
-        "base64"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "props"
-            ],
-            "kind": "code",
-            "member_roots": [
-              "props"
-            ],
-            "name": "alt",
-            "value": "props.alt"
-          },
-          {
-            "identifiers": [
-              "base64",
-              "mediaType"
-            ],
-            "kind": "code",
-            "name": "src",
-            "value": "`data:${mediaType};base64,${base64}`"
-          }
-        ],
-        "children": [],
-        "class": "h-auto max-w-full overflow-hidden rounded-md",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "img",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/image.tsx",
-      "sha256": "91e305eda8139c5ee8024bec75576e0608d7fbf471e1c00395a2bdfda4a65747"
-    }
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Image/class/0"
+    ],
+    "derived": {}
   },
-  "variants": {}
+  "css_vars": [],
+  "facts": {
+    "jsx/Image/class/0": "h-auto max-w-full overflow-hidden rounded-md"
+  },
+  "file_fingerprints": {
+    "ai_elements/image.tsx": "2b893dad50d4265f7f1bb3aade87f43f548186f020e3ffce1080d640d5e880bb"
+  },
+  "fingerprint": "d7f6682e1bf3bd4f99d6755394c348d28bbebfabd1045f3cea83363895d5dfb6",
+  "ignored": {},
+  "name": "image",
+  "port_body": "d5b7c0e5e8d019ecd1dc92bd3eb99395727a3ceace83adf615feeea7714d9b02",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/Image/class/0": "h-auto max-w-full overflow-hidden rounded-md"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/image.tsx": "91e305eda8139c5ee8024bec75576e0608d7fbf471e1c00395a2bdfda4a65747"
+  },
+  "uses": [
+    "jsx/Image/class/0"
+  ]
 }

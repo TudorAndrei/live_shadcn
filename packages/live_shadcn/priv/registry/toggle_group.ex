@@ -3,6 +3,16 @@ defmodule LiveShadcn.UI.ToggleGroup do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/ToggleGroup/class/0" => "cn-toggle-group group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch",
+    "jsx/ToggleGroupItem/class/0" => "cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   attr(:orientation, :string, default: "horizontal")
   attr(:size, :string, default: nil)
   attr(:spacing, :string, default: "2")
@@ -33,8 +43,8 @@ defmodule LiveShadcn.UI.ToggleGroup do
       data-orientation={@orientation}
       style={"--gap: #{@spacing}"}
       class={[
-        "cn-toggle-group group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch",
-        @class
+        upstream_fact("jsx/ToggleGroup/class/0"),
+        (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -54,7 +64,7 @@ defmodule LiveShadcn.UI.ToggleGroup do
         data-size={@size || item[:size] || "default"}
         data-spacing={@spacing}
         class={[
-          "cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
+          upstream_fact("jsx/ToggleGroupItem/class/0"),
           item[:class]
         ]}
       >

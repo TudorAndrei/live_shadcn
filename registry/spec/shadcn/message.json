@@ -1,318 +1,79 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Message/class/0",
+      "jsx/MessageAvatar/class/0",
+      "jsx/MessageContent/class/0",
+      "jsx/MessageFooter/class/0",
+      "jsx/MessageGroup/class/0",
+      "jsx/MessageHeader/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Message/class/0": "cn-message group/message relative flex w-full min-w-0 data-[align=end]:flex-row-reverse",
+    "jsx/MessageAvatar/class/0": "cn-message-avatar flex w-fit shrink-0 items-center justify-center self-end overflow-hidden rounded-full bg-muted",
+    "jsx/MessageContent/class/0": "cn-message-content flex w-full min-w-0 flex-col wrap-break-word",
+    "jsx/MessageFooter/class/0": "cn-message-footer flex max-w-full min-w-0 items-center group-data-[align=end]/message:justify-end",
+    "jsx/MessageGroup/class/0": "cn-message-group flex min-w-0 flex-col",
+    "jsx/MessageHeader/class/0": "cn-message-header flex max-w-full min-w-0 items-center"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/message.tsx": "b6da486a1bcb5e7696fa5e9c459f2b3c4d92d95ecd5f5c7313085bbb240e0733"
+  },
+  "fingerprint": "f57e9838ae011510d13e342ccce69f885c15ad28659df3042ba49a6a47106b95",
+  "ignored": {},
   "name": "message",
-  "parts": [
+  "port_body": "9b9dc9db9dcc8703627a18236e0bc4a5f4b067b5ddf1d76f682563c68e2d1606",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/Message/class/0": "cn-message group/message relative flex w-full min-w-0 data-[align=end]:flex-row-reverse",
+    "jsx/MessageAvatar/class/0": "cn-message-avatar flex w-fit shrink-0 items-center justify-center self-end overflow-hidden rounded-full bg-muted",
+    "jsx/MessageContent/class/0": "cn-message-content flex w-full min-w-0 flex-col wrap-break-word",
+    "jsx/MessageFooter/class/0": "cn-message-footer flex max-w-full min-w-0 items-center group-data-[align=end]/message:justify-end",
+    "jsx/MessageGroup/class/0": "cn-message-group flex min-w-0 flex-col",
+    "jsx/MessageHeader/class/0": "cn-message-header flex max-w-full min-w-0 items-center"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "MessageGroup",
-      "name": "message_group",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-message-group flex min-w-0 flex-col",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "message-group",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-align",
+      "value": "end"
     },
     {
-      "contexts": [],
-      "export": "Message",
-      "name": "message",
-      "params": {
-        "align": "start",
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "align",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "align"
-            ],
-            "kind": "code",
-            "name": "data-align",
-            "value": "align"
-          }
-        ],
-        "children": [],
-        "class": "cn-message group/message relative flex w-full min-w-0 data-[align=end]:flex-row-reverse",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-align",
-              "value": "end"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "message",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "align": {
-          "optional": true,
-          "values": [
-            "start",
-            "end"
-          ]
-        }
-      }
+      "name": "data-slot",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "MessageAvatar",
-      "name": "message_avatar",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-message-avatar flex w-fit shrink-0 items-center justify-center self-end overflow-hidden rounded-full bg-muted",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "message-avatar",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageContent",
-      "name": "message_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-message-content flex w-full min-w-0 flex-col wrap-break-word",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "message",
-              "name": "data-align",
-              "value": "end"
-            }
-          ],
-          "self": [
-            {
-              "name": "data-slot",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "message-content",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageFooter",
-      "name": "message_footer",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-message-footer flex max-w-full min-w-0 items-center group-data-[align=end]/message:justify-end",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "message",
-              "name": "data-align",
-              "value": "end"
-            }
-          ],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "message-footer",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "MessageHeader",
-      "name": "message_header",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-message-header flex max-w-full min-w-0 items-center",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "message-header",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "group": "message",
+      "name": "data-align",
+      "value": "end"
     }
   ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-message": "text-sm gap-2",
-      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
-      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
-      "cn-message-footer": "text-xs font-medium text-muted-foreground px-3.5 group-has-data-[variant=ghost]/message:px-0",
-      "cn-message-group": "gap-2",
-      "cn-message-header": "text-xs font-medium text-muted-foreground px-3.5 group-has-data-[variant=ghost]/message:px-0"
-    },
-    "lyra": {
-      "cn-message": "text-xs gap-1.5",
-      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
-      "cn-message-content": "gap-2 group-data-[align=end]/message:*:data-slot:self-end",
-      "cn-message-footer": "text-xs font-medium text-muted-foreground px-2.5 group-has-data-[variant=ghost]/message:px-0",
-      "cn-message-group": "gap-1.5",
-      "cn-message-header": "text-xs font-medium text-muted-foreground px-2.5 group-has-data-[variant=ghost]/message:px-0"
-    },
-    "maia": {
-      "cn-message": "text-sm gap-2",
-      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
-      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
-      "cn-message-footer": "text-xs font-medium text-muted-foreground px-3.5 group-has-data-[variant=ghost]/message:px-0",
-      "cn-message-group": "gap-2",
-      "cn-message-header": "text-xs font-medium text-muted-foreground px-3.5 group-has-data-[variant=ghost]/message:px-0"
-    },
-    "mira": {
-      "cn-message": "text-xs/relaxed gap-1.5",
-      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
-      "cn-message-content": "gap-2 group-data-[align=end]/message:*:data-slot:self-end",
-      "cn-message-footer": "text-[0.625rem] font-medium text-muted-foreground px-2.5 group-has-data-[variant=ghost]/message:px-0",
-      "cn-message-group": "gap-1.5",
-      "cn-message-header": "text-[0.625rem] font-medium text-muted-foreground px-2.5 group-has-data-[variant=ghost]/message:px-0"
-    },
-    "nova": {
-      "cn-message": "text-sm gap-2",
-      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
-      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
-      "cn-message-footer": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0",
-      "cn-message-group": "gap-2",
-      "cn-message-header": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0"
-    },
-    "rhea": {
-      "cn-message": "text-sm gap-2",
-      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
-      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
-      "cn-message-footer": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0",
-      "cn-message-group": "gap-2",
-      "cn-message-header": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0"
-    },
-    "sera": {
-      "cn-message": "text-sm gap-2",
-      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
-      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
-      "cn-message-footer": "text-xs font-medium text-muted-foreground px-4 group-has-data-[variant=ghost]/message:px-0 uppercase tracking-wide",
-      "cn-message-group": "gap-2",
-      "cn-message-header": "text-xs font-medium text-muted-foreground px-4 group-has-data-[variant=ghost]/message:px-0 uppercase tracking-wide"
-    },
-    "vega": {
-      "cn-message": "text-sm gap-2",
-      "cn-message-avatar": "min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8",
-      "cn-message-content": "gap-2.5 group-data-[align=end]/message:*:data-slot:self-end",
-      "cn-message-footer": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0",
-      "cn-message-group": "gap-2",
-      "cn-message-header": "text-xs font-medium text-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0"
-    }
+    "luma": "9556670829a1f80ba5f29676aa0c7583868dbc8ec375c899f96758b68bdcf89e",
+    "lyra": "aedaf12bbccbf0f7173dca1cc0b8971ec8e7aed60512754af677bcf45383291c",
+    "maia": "9556670829a1f80ba5f29676aa0c7583868dbc8ec375c899f96758b68bdcf89e",
+    "mira": "c787782bc1953af6923c4e410790d9f76cd8fd7ebfe7feb3a507499fb48462ff",
+    "nova": "48545ffdbc5f2db392ecc254bcfef35462ec4dc26b11702bc6003a22d4475ddd",
+    "rhea": "48545ffdbc5f2db392ecc254bcfef35462ec4dc26b11702bc6003a22d4475ddd",
+    "sera": "4c61bf4e00963bc251f047f76f5529d52c972c06367dc7b9c6f61e20755f06c7",
+    "vega": "48545ffdbc5f2db392ecc254bcfef35462ec4dc26b11702bc6003a22d4475ddd"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/message.tsx",
-      "sha256": "197803d433247e93f9b457f66e2c2e94c3bd30280e3079ff342753bba430edc8"
-    }
+    "shadcn/ui/message.tsx": "197803d433247e93f9b457f66e2c2e94c3bd30280e3079ff342753bba430edc8"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Message/class/0",
+    "jsx/MessageAvatar/class/0",
+    "jsx/MessageContent/class/0",
+    "jsx/MessageFooter/class/0",
+    "jsx/MessageGroup/class/0",
+    "jsx/MessageHeader/class/0"
+  ]
 }

@@ -1,401 +1,72 @@
 {
-  "anatomy": [],
+  "base_ui": {
+    "radio": "c43f25370be0438f224a77d64712322ec129c2f39e2821bdc0bd00f1c8bd9e63"
+  },
+  "bindings": {
+    "copy": [
+      "jsx/RadioGroup/class/0",
+      "jsx/RadioGroupItem/class/0",
+      "jsx/RadioGroupItem/class/1",
+      "jsx/RadioGroupItem/class/2"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/RadioGroup/class/0": "cn-radio-group w-full",
+    "jsx/RadioGroupItem/class/0": "cn-radio-group-item group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
+    "jsx/RadioGroupItem/class/1": "cn-radio-group-indicator",
+    "jsx/RadioGroupItem/class/2": "cn-radio-group-indicator-icon"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/radio-group.tsx": "35caeb2e44176510e25a5d1b7375cd922a4a455a8585b262786a907f5fb037ea"
+  },
+  "fingerprint": "2ec5d0f0557dcdf84f72cd92533eb0cb8287c4881c222843c6cc63ff768203c9",
+  "ignored": {},
   "name": "radio-group",
-  "parts": [
+  "port_body": "0a933c3cbb27d6d0d4fafd7a3a92cd8339ab9b3755002b113e2fb8b65e4ab379",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/RadioGroup/class/0": "cn-radio-group w-full",
+    "jsx/RadioGroupItem/class/0": "cn-radio-group-item group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
+    "jsx/RadioGroupItem/class/1": "cn-radio-group-indicator",
+    "jsx/RadioGroupItem/class/2": "cn-radio-group-indicator-icon"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "RadioGroup",
-      "name": "radio_group",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-radio-group w-full",
-        "class_when": [],
-        "merges_class": true,
-        "module": "radio",
-        "part": "RadioGroup",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "radio-group",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-checked",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "RadioGroupItem",
-      "name": "radio_group_item",
-      "params": {
-        "className": null
-      },
-      "primitive": "Root",
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "cn-radio-group-indicator-icon",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "span",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "cn-radio-group-indicator",
-            "class_when": [],
-            "merges_class": false,
-            "module": "radio",
-            "part": "Indicator",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "radio-group-indicator",
-            "tag": "span",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-radio-group-item group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
-        "class_when": [],
-        "merges_class": true,
-        "module": "radio",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-checked",
-              "value": null
-            },
-            {
-              "name": "aria-invalid",
-              "value": null
-            },
-            {
-              "name": "aria-checked",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "radio-group-item",
-        "tag": "span",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-invalid",
+      "value": null
+    },
+    {
+      "name": "data-checked",
+      "value": null
     }
   ],
-  "primitives": {
-    "radio.Indicator": {
-      "css_vars": [],
-      "data": [
-        "data-checked",
-        "data-unchecked",
-        "data-disabled",
-        "data-readonly",
-        "data-required",
-        "data-valid",
-        "data-invalid",
-        "data-dirty",
-        "data-touched",
-        "data-filled",
-        "data-focused",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "span",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Radio.Indicator.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Radio.Indicator.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to keep the HTML element in the DOM when the radio button is inactive.",
-          "name": "keepMounted",
-          "type": "boolean"
-        },
-        {
-          "default": "((props: HTMLProps, state: Radio.Indicator.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Indicates whether the radio button is selected."
-    },
-    "radio.RadioGroup": {
-      "css_vars": [],
-      "data": [
-        "data-disabled"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": null,
-          "doc": "Identifies the field when a form is submitted.",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "default": null,
-          "doc": "The uncontrolled value of the radio button that should be initially selected. To render a controlled radio group, use the `value` prop instead.",
-          "name": "defaultValue",
-          "type": "Value"
-        },
-        {
-          "default": null,
-          "doc": "The controlled value of the radio item that should be currently selected. To render an uncontrolled radio group, use the `defaultValue` prop instead.",
-          "name": "value",
-          "type": "Value"
-        },
-        {
-          "default": null,
-          "doc": "Callback fired when the value changes.",
-          "name": "onValueChange",
-          "type": "((value: Value, eventDetails: RadioGroup.ChangeEventDetails) => void)"
-        },
-        {
-          "default": null,
-          "doc": "Identifies the form that owns the radio inputs. Useful when the radio group is rendered outside the form.",
-          "name": "form",
-          "type": "string"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component should ignore user interaction.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the user should be unable to select a different radio button in the group.",
-          "name": "readOnly",
-          "type": "boolean"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the user must choose a value before submitting a form.",
-          "name": "required",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "A ref to access the hidden input element.",
-          "name": "inputRef",
-          "type": "React.Ref<HTMLInputElement>"
-        },
-        {
-          "default": "((state: RadioGroup.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: RadioGroup.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: RadioGroup.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Provides a shared state to a series of radio buttons."
-    },
-    "radio.Root": {
-      "css_vars": [],
-      "data": [
-        "data-checked",
-        "data-unchecked",
-        "data-disabled",
-        "data-readonly",
-        "data-required",
-        "data-valid",
-        "data-invalid",
-        "data-dirty",
-        "data-touched",
-        "data-filled",
-        "data-focused"
-      ],
-      "element": "span",
-      "hidden_input": true,
-      "props": [
-        {
-          "default": null,
-          "doc": "The unique identifying value of the radio in a group.",
-          "name": "value\\*",
-          "type": "Value"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the component should ignore user interaction.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the user should be unable to select the radio button.",
-          "name": "readOnly",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the user must choose a value before submitting a form.",
-          "name": "required",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "A ref to access the hidden input element.",
-          "name": "inputRef",
-          "type": "React.Ref<HTMLInputElement>"
-        },
-        {
-          "default": "((state: Radio.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Radio.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Radio.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Represents the radio button itself."
-    }
-  },
-  "recipe": "radio-group",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-radio-group": "grid gap-3",
-      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
-      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full dark:size-2.5",
-      "cn-radio-group-item": "bg-input/90 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary border-transparent aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full border focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent"
-    },
-    "lyra": {
-      "cn-radio-group": "grid gap-2",
-      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
-      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
-      "cn-radio-group-item": "border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-primary"
-    },
-    "maia": {
-      "cn-radio-group": "grid gap-3",
-      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
-      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
-      "cn-radio-group-item": "border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-primary"
-    },
-    "mira": {
-      "cn-radio-group": "grid gap-3",
-      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
-      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
-      "cn-radio-group-item": "border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-primary"
-    },
-    "nova": {
-      "cn-radio-group": "grid gap-2",
-      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
-      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
-      "cn-radio-group-item": "border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-primary"
-    },
-    "rhea": {
-      "cn-radio-group": "grid gap-3",
-      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
-      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full dark:size-2.5",
-      "cn-radio-group-item": "bg-input/90 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary border-transparent aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-2xl border focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent"
-    },
-    "sera": {
-      "cn-radio-group": "grid gap-3",
-      "cn-radio-group-indicator": "flex size-4.5 items-center justify-center",
-      "cn-radio-group-indicator-icon": "bg-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
-      "cn-radio-group-item": "border-input bg-transparent data-checked:border-foreground aria-invalid:aria-checked:border-foreground aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4.5 rounded-full border focus-visible:ring-2 aria-invalid:ring-2 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-foreground"
-    },
-    "vega": {
-      "cn-radio-group": "grid gap-3",
-      "cn-radio-group-indicator": "flex size-4 items-center justify-center",
-      "cn-radio-group-indicator-icon": "bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full",
-      "cn-radio-group-item": "border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input group-has-[:focus-visible]/field-label:data-checked:border-primary"
-    }
+    "luma": "9a6d108bd6d188f23649b79c9912a5c0f6219c8ef1f8bff3766969a7c4b2fbe7",
+    "lyra": "c17dd41a4b1baa8ed9c07d83f1c5211aabb980e41130593def1dc1ed9b8aaa4f",
+    "maia": "4e4645d4f12114b1b6232d6c348fb3d06899f86c069b9da1155dc30dc17cc0db",
+    "mira": "4e4645d4f12114b1b6232d6c348fb3d06899f86c069b9da1155dc30dc17cc0db",
+    "nova": "c17dd41a4b1baa8ed9c07d83f1c5211aabb980e41130593def1dc1ed9b8aaa4f",
+    "rhea": "91c895e48ba52bdae79d7f8617f59f072b01d8e5ce5e9698084b2a93c38b5df0",
+    "sera": "35cb17adb416dcb97057bb0a220d7ccd916466ce4cda9472e27e39c5b96a295a",
+    "vega": "4e4645d4f12114b1b6232d6c348fb3d06899f86c069b9da1155dc30dc17cc0db"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {
-      "radio": "abd2d336d02fa7c04608c5ae1d21a903a447350e35b362e9770ff02d01e70dfd"
-    },
-    "shadcn": {
-      "file": "shadcn/ui/radio-group.tsx",
-      "sha256": "0023e241c867f90fbd5ebe7e7c6aa9e5be3485557c3ccb396cba207a0ad7337a"
-    }
+    "shadcn/ui/radio-group.tsx": "0023e241c867f90fbd5ebe7e7c6aa9e5be3485557c3ccb396cba207a0ad7337a"
   },
-  "variants": {}
+  "uses": [
+    "jsx/RadioGroup/class/0",
+    "jsx/RadioGroupItem/class/0",
+    "jsx/RadioGroupItem/class/1",
+    "jsx/RadioGroupItem/class/2"
+  ]
 }

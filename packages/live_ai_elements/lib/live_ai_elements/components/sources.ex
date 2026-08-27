@@ -13,6 +13,19 @@ defmodule LiveAiElements.Components.Sources do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/Source/class/0" => "flex items-center gap-2",
+    "jsx/Source/class/1" => "h-4 w-4",
+    "jsx/Sources/class/0" => "not-prose mb-4 text-primary text-xs",
+    "jsx/SourcesTrigger/class/1" => "font-medium",
+    "port/class/0" => "mt-3 flex w-fit flex-col gap-2 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Disclosure
 
   @doc """
@@ -55,7 +68,7 @@ defmodule LiveAiElements.Components.Sources do
       id={@id}
       data-open={flag(@open)}
       data-closed={flag(not @open)}
-      class={["not-prose mb-4 text-primary text-xs", @class]}
+      class={[upstream_fact("jsx/Sources/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <button
@@ -67,13 +80,13 @@ defmodule LiveAiElements.Components.Sources do
         phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
         phx-mounted={Disclosure.owned_attributes(:trigger)}
         data-panel-open={flag(@open)}
-        class={["flex items-center gap-2", @trigger_class]}
+        class={[upstream_fact("jsx/Source/class/0"), (@trigger_class || "")]}
       >
         <%= if @title in [nil, ""] do %>
-          <p class="font-medium">
+          <p class={upstream_fact("jsx/SourcesTrigger/class/1")}>
             Used {@count} sources
           </p>
-          <LiveShadcn.Icon.icon name="chevron-down" class="h-4 w-4" />
+          <LiveShadcn.Icon.icon name="chevron-down" class={upstream_fact("jsx/Source/class/1")} />
         <% end %>
         {@title}
       </button>
@@ -90,8 +103,8 @@ defmodule LiveAiElements.Components.Sources do
         data-open={flag(@open)}
         data-closed={flag(not @open)}
         class={[
-          "mt-3 flex w-fit flex-col gap-2 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
-          @content_class
+          upstream_fact("port/class/0"),
+          (@content_class || "")
         ]}
       >
         {render_slot(@inner_block)}

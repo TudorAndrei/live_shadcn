@@ -1,98 +1,78 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/badgeVariants/base",
+      "cva/badgeVariants/default/variant",
+      "cva/badgeVariants/variant/variant/default",
+      "cva/badgeVariants/variant/variant/destructive",
+      "cva/badgeVariants/variant/variant/ghost",
+      "cva/badgeVariants/variant/variant/link",
+      "cva/badgeVariants/variant/variant/outline",
+      "cva/badgeVariants/variant/variant/secondary"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "cva/badgeVariants/base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
+    "cva/badgeVariants/default/variant": "default",
+    "cva/badgeVariants/variant/variant/default": "cn-badge-variant-default",
+    "cva/badgeVariants/variant/variant/destructive": "cn-badge-variant-destructive",
+    "cva/badgeVariants/variant/variant/ghost": "cn-badge-variant-ghost",
+    "cva/badgeVariants/variant/variant/link": "cn-badge-variant-link",
+    "cva/badgeVariants/variant/variant/outline": "cn-badge-variant-outline",
+    "cva/badgeVariants/variant/variant/secondary": "cn-badge-variant-secondary"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/badge.tsx": "e8f70a77dc9b37d8bc33c05c480eb7d20005ebbc56c474879cf26ae18f86e925"
+  },
+  "fingerprint": "6c4ca241e550ba0d6b9f87dc1bef6649866ed3a43da47856d2fcdc3f49cba677",
+  "ignored": {},
   "name": "badge",
-  "parts": [
+  "port_body": "ef812451f677c604bfafb1e8f6f0e3473a89470a73db55976a0dc6d6d1d20db7",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "cva/badgeVariants/base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
+    "cva/badgeVariants/default/variant": "default",
+    "cva/badgeVariants/variant/variant/default": "cn-badge-variant-default",
+    "cva/badgeVariants/variant/variant/destructive": "cn-badge-variant-destructive",
+    "cva/badgeVariants/variant/variant/ghost": "cn-badge-variant-ghost",
+    "cva/badgeVariants/variant/variant/link": "cn-badge-variant-link",
+    "cva/badgeVariants/variant/variant/outline": "cn-badge-variant-outline",
+    "cva/badgeVariants/variant/variant/secondary": "cn-badge-variant-secondary"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Badge",
-      "name": "badge",
-      "params": {
-        "className": null,
-        "render": null,
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "className",
-        "props",
-        "render"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "data-variant",
-            "value": "variant"
-          }
-        ],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "badge",
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "variant"
-            ],
-            "table": "badgeVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-invalid",
+      "value": null
     }
   ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "shadcn",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/badge.tsx",
-      "sha256": "ba9be2fcd4eac13c482f77663f4cca797553e53d2efb9c6dc52eb1e3af9a0d2f"
-    }
+  "styles": {
+    "luma": "6ab32aa6174b4a91d633c0548107c00f46a6f89f076f1ba3958c2c15aa5c6954",
+    "lyra": "74611280b720b24de89e40c87bb5030649e4e80b21a8a8fd1d4fa09e6fa224ab",
+    "maia": "12782ce4d187bfbee0a53fd1624ecf30fc42f2911c76642c23942b78906c89ad",
+    "mira": "1e8c1f85b5dc71ae4e27dcbe95947d51e3c0bd495cac50c4dff6ca017d507153",
+    "nova": "3521a79f3d4d70caf88a1c066ff503f0db2c654023ff6d2578fc75ae5260ca7a",
+    "rhea": "eddd672bcccc4bcb28068702238075edf436e3611b2ef7c726694ff2edf6f98a",
+    "sera": "36ab015bc6ec3ddfdb96f1109c2ba1ee47f6f3ca810127385761fa3f5f64487a",
+    "vega": "3521a79f3d4d70caf88a1c066ff503f0db2c654023ff6d2578fc75ae5260ca7a"
   },
-  "variants": {
-    "badgeVariants": {
-      "base": "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
-      "defaults": {
-        "variant": "default"
-      },
-      "variants": {
-        "variant": {
-          "default": "cn-badge-variant-default",
-          "destructive": "cn-badge-variant-destructive",
-          "ghost": "cn-badge-variant-ghost",
-          "link": "cn-badge-variant-link",
-          "outline": "cn-badge-variant-outline",
-          "secondary": "cn-badge-variant-secondary"
-        }
-      }
-    }
-  }
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "shadcn/ui/badge.tsx": "ba9be2fcd4eac13c482f77663f4cca797553e53d2efb9c6dc52eb1e3af9a0d2f"
+  },
+  "uses": [
+    "cva/badgeVariants/base",
+    "cva/badgeVariants/default/variant",
+    "cva/badgeVariants/variant/variant/default",
+    "cva/badgeVariants/variant/variant/destructive",
+    "cva/badgeVariants/variant/variant/ghost",
+    "cva/badgeVariants/variant/variant/link",
+    "cva/badgeVariants/variant/variant/outline",
+    "cva/badgeVariants/variant/variant/secondary"
+  ]
 }

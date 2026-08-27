@@ -13,6 +13,22 @@ defmodule LiveShadcn.UI.Accordion do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/Accordion/class/0" => "cn-accordion flex w-full flex-col",
+    "jsx/AccordionContent/class/0" => "cn-accordion-content overflow-hidden",
+    "jsx/AccordionContent/class/1" => "cn-accordion-content-inner h-(--accordion-panel-height) data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
+    "jsx/AccordionItem/class/0" => "cn-accordion-item",
+    "jsx/AccordionTrigger/class/0" => "flex",
+    "jsx/AccordionTrigger/class/1" => "cn-accordion-trigger group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50",
+    "jsx/AccordionTrigger/class/2" => "cn-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden",
+    "jsx/AccordionTrigger/class/3" => "cn-accordion-trigger-icon pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Disclosure
 
   @doc """
@@ -68,7 +84,7 @@ defmodule LiveShadcn.UI.Accordion do
       id={@id}
       data-orientation={@orientation}
       data-disabled={flag(@disabled)}
-      class={["cn-accordion flex w-full flex-col", @class]}
+      class={[upstream_fact("jsx/Accordion/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <div
@@ -79,7 +95,7 @@ defmodule LiveShadcn.UI.Accordion do
         data-open={flag(open?(item))}
         data-disabled={flag(disabled?(item))}
         data-index={index}
-        class={["cn-accordion-item", item[:class]]}
+        class={[upstream_fact("jsx/AccordionItem/class/0"), (item[:class] || "")]}
       >
         <h3
           id={Disclosure.header_id(item.id)}
@@ -87,7 +103,7 @@ defmodule LiveShadcn.UI.Accordion do
           data-open={flag(open?(item))}
           data-disabled={flag(disabled?(item))}
           data-index={index}
-          class={["flex", item[:trigger_class]]}
+          class={[upstream_fact("jsx/AccordionTrigger/class/0"), (item[:trigger_class] || "")]}
         >
           <button
             data-slot="accordion-trigger"
@@ -106,18 +122,18 @@ defmodule LiveShadcn.UI.Accordion do
             data-disabled={flag(disabled?(item))}
             aria-disabled={to_string(disabled?(item))}
             class={[
-              "cn-accordion-trigger group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50",
-              item[:trigger_class]
+              upstream_fact("jsx/AccordionTrigger/class/1"),
+              (item[:trigger_class] || "")
             ]}
           >
             {item.title}<LiveShadcn.Icon.icon
               name="chevron-down"
               data-slot="accordion-trigger-icon"
-              class="cn-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
+              class={upstream_fact("jsx/AccordionTrigger/class/2")}
             /><LiveShadcn.Icon.icon
               name="chevron-up"
               data-slot="accordion-trigger-icon"
-              class="cn-accordion-trigger-icon pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
+              class={upstream_fact("jsx/AccordionTrigger/class/3")}
             />
           </button>
         </h3>
@@ -136,12 +152,12 @@ defmodule LiveShadcn.UI.Accordion do
           data-disabled={flag(disabled?(item))}
           data-index={index}
           data-closed={flag(not open?(item))}
-          class="cn-accordion-content overflow-hidden"
+          class={upstream_fact("jsx/AccordionContent/class/0")}
         >
           <div
             class={[
-              "cn-accordion-content-inner h-(--accordion-panel-height) data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
-              item[:content_class]
+              upstream_fact("jsx/AccordionContent/class/1"),
+              (item[:content_class] || "")
             ]}
             data-lb-style-target
             data-lb-measure

@@ -1,582 +1,95 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Conversation/class/0",
+      "jsx/ConversationContent/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "folds": [
-    "shadcn/button"
-  ],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Conversation/class/0": "relative flex-1 overflow-y-hidden",
+    "jsx/ConversationContent/class/0": "flex flex-col gap-8 p-4"
+  },
+  "file_fingerprints": {
+    "ai_elements/conversation.tsx": "719d781ddf6cec60a7a76aec4e30b48bb238f59ce50821ca0c06b05159e92d1e",
+    "shadcn/ui/button.tsx": "0c911259d9cce5dfd13cf06dd8ead680b5a3b67761bc27486503ead411968509"
+  },
+  "fingerprint": "3ae13660489d4e35611c54e83cf22ac74b65a0bd1289d7d20edacdc940cb2df3",
+  "ignored": {
+    "cva/buttonVariants/base": "the generated port does not contain this source literal",
+    "cva/buttonVariants/default/size": "the generated port does not contain this source literal",
+    "cva/buttonVariants/default/variant": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/size/default": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/size/icon": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/size/icon-lg": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/size/icon-sm": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/size/icon-xs": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/size/lg": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/size/sm": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/size/xs": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/variant/default": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/variant/destructive": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/variant/ghost": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/variant/link": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/variant/outline": "the generated port does not contain this source literal",
+    "cva/buttonVariants/variant/variant/secondary": "the generated port does not contain this source literal",
+    "jsx/ConversationDownload/class/0": "the generated port does not contain this source literal",
+    "jsx/ConversationDownload/class/1": "the generated port does not contain this source literal",
+    "jsx/ConversationEmptyState/class/0": "the generated port does not contain this source literal",
+    "jsx/ConversationEmptyState/class/1": "the generated port does not contain this source literal",
+    "jsx/ConversationEmptyState/class/2": "the generated port does not contain this source literal",
+    "jsx/ConversationEmptyState/class/3": "the generated port does not contain this source literal",
+    "jsx/ConversationEmptyState/class/4": "the generated port does not contain this source literal",
+    "jsx/ConversationScrollButton/class/0": "the generated port does not contain this source literal",
+    "jsx/ConversationScrollButton/class/1": "the generated port does not contain this source literal"
+  },
   "name": "conversation",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Conversation",
-      "name": "conversation",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "initial",
-            "value": "smooth"
-          },
-          {
-            "kind": "text",
-            "name": "resize",
-            "value": "smooth"
-          },
-          {
-            "kind": "text",
-            "name": "role",
-            "value": "log"
-          }
-        ],
-        "children": [],
-        "class": "relative flex-1 overflow-y-hidden",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/use-stick-to-bottom",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ConversationContent",
-      "name": "conversation_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex flex-col gap-8 p-4",
-        "class_when": [],
-        "merges_class": true,
-        "module": "external/use-stick-to-bottom",
-        "part": "Viewport",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ConversationEmptyState",
-      "name": "conversation_empty_state",
-      "params": {
-        "children": null,
-        "className": null,
-        "description": "Start a conversation to see messages here",
-        "icon": null,
-        "title": "No messages yet"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children",
-        "icon",
-        "title",
-        "description"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "default": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "children": [
-                      {
-                        "attrs": [],
-                        "children": [
-                          {
-                            "code": "icon",
-                            "identifiers": [
-                              "icon"
-                            ],
-                            "type": "value"
-                          }
-                        ],
-                        "class": "text-muted-foreground",
-                        "class_when": [],
-                        "merges_class": false,
-                        "props": false,
-                        "reads": {
-                          "group": [],
-                          "self": []
-                        },
-                        "render_as": null,
-                        "slot": null,
-                        "tag": "div",
-                        "type": "element",
-                        "variant_calls": [],
-                        "vars": []
-                      }
-                    ],
-                    "identifiers": [
-                      "icon"
-                    ],
-                    "type": "optional",
-                    "when": "icon"
-                  },
-                  {
-                    "attrs": [],
-                    "children": [
-                      {
-                        "attrs": [],
-                        "children": [
-                          {
-                            "code": "title",
-                            "identifiers": [
-                              "title"
-                            ],
-                            "type": "value"
-                          }
-                        ],
-                        "class": "font-medium text-sm",
-                        "class_when": [],
-                        "merges_class": false,
-                        "props": false,
-                        "reads": {
-                          "group": [],
-                          "self": []
-                        },
-                        "render_as": null,
-                        "slot": null,
-                        "tag": "h3",
-                        "type": "element",
-                        "variant_calls": [],
-                        "vars": []
-                      },
-                      {
-                        "children": [
-                          {
-                            "attrs": [],
-                            "children": [
-                              {
-                                "code": "description",
-                                "identifiers": [
-                                  "description"
-                                ],
-                                "type": "value"
-                              }
-                            ],
-                            "class": "text-muted-foreground text-sm",
-                            "class_when": [],
-                            "merges_class": false,
-                            "props": false,
-                            "reads": {
-                              "group": [],
-                              "self": []
-                            },
-                            "render_as": null,
-                            "slot": null,
-                            "tag": "p",
-                            "type": "element",
-                            "variant_calls": [],
-                            "vars": []
-                          }
-                        ],
-                        "identifiers": [
-                          "description"
-                        ],
-                        "type": "optional",
-                        "when": "description"
-                      }
-                    ],
-                    "class": "space-y-1",
-                    "class_when": [],
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "tag": "div",
-                    "type": "element",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "class": "",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "reason": "a fragment",
-                "render_as": null,
-                "slot": null,
-                "type": "transparent",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "children",
-              "description",
-              "icon",
-              "title"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "flex size-full flex-col items-center justify-center gap-3 p-8 text-center",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ConversationScrollButton",
-      "name": "conversation_scroll_button",
-      "params": {
-        "className": null,
-        "isAtBottom": null,
-        "size": "icon",
-        "variant": "outline"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "children": [
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "type",
-                "value": "button"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "size-4",
-                "class_when": [],
-                "icons": {
-                  "lucide": "ArrowDown"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "absolute bottom-4 left-[50%] translate-x-[-50%] rounded-full dark:bg-background dark:hover:bg-muted",
-            "class_when": [],
-            "merges_class": true,
-            "module": "button",
-            "part": "Root",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": [
-                {
-                  "name": "aria-invalid",
-                  "value": null
-                },
-                {
-                  "name": "aria-expanded",
-                  "value": null
-                }
-              ]
-            },
-            "render_as": null,
-            "slot": "button",
-            "tag": "button",
-            "type": "primitive",
-            "variant_calls": [
-              {
-                "args": [
-                  "variant",
-                  "size",
-                  "className"
-                ],
-                "table": "buttonVariants"
-              }
-            ],
-            "vars": []
-          }
-        ],
-        "identifiers": [
-          "className",
-          "cn",
-          "handleScrollToBottom",
-          "isAtBottom",
-          "props"
-        ],
-        "type": "optional",
-        "when": "!isAtBottom"
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ConversationDownload",
-      "name": "conversation_download",
-      "params": {
-        "children": null,
-        "className": null,
-        "filename": "conversation.md",
-        "formatMessage": "defaultFormatMessage",
-        "messages": null,
-        "size": "icon",
-        "variant": "outline"
-      },
-      "primitive": null,
-      "refs": [
-        "messages",
-        "filename",
-        "formatMessage",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
-          }
-        ],
-        "children": [
-          {
-            "default": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "size-4",
-                "class_when": [],
-                "icons": {
-                  "lucide": "Download"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "absolute top-4 right-4 rounded-full dark:bg-background dark:hover:bg-muted",
-        "class_when": [],
-        "merges_class": true,
-        "module": "button",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            },
-            {
-              "name": "aria-expanded",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "button",
-        "tag": "button",
-        "type": "primitive",
-        "variant_calls": [
-          {
-            "args": [
-              "variant",
-              "size",
-              "className"
-            ],
-            "table": "buttonVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "button.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Whether the button should be focusable when disabled.",
-          "name": "focusableWhenDisabled",
-          "type": "boolean"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Button.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Button.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Button.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button component that can be used to trigger actions."
-    },
-    "external/use-stick-to-bottom.Root": {
-      "props": [
-        {
-          "name": "initial"
-        },
-        {
-          "name": "resize"
-        },
-        {
-          "name": "mass"
-        },
-        {
-          "name": "damping"
-        },
-        {
-          "name": "stiffness"
-        }
-      ]
-    },
-    "external/use-stick-to-bottom.Viewport": {
-      "props": [
-        {
-          "name": "scrollClassName"
-        }
-      ]
-    }
-  },
-  "recipe": "scroller",
+  "port_body": "9cdaf30def66bc51ac24860f8254de1f8b05b83fe93f33cb97823aba61d969f0",
+  "schema_version": 2,
   "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/conversation.tsx",
-      "sha256": "d7ac46f1e7bc8e46bc49f67c768fc93aebdf17d816397cb35a40deff7173e875"
-    }
+  "source_facts": {
+    "cva/buttonVariants/base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/buttonVariants/default/size": "default",
+    "cva/buttonVariants/default/variant": "default",
+    "cva/buttonVariants/variant/size/default": "cn-button-size-default",
+    "cva/buttonVariants/variant/size/icon": "cn-button-size-icon",
+    "cva/buttonVariants/variant/size/icon-lg": "cn-button-size-icon-lg",
+    "cva/buttonVariants/variant/size/icon-sm": "cn-button-size-icon-sm",
+    "cva/buttonVariants/variant/size/icon-xs": "cn-button-size-icon-xs",
+    "cva/buttonVariants/variant/size/lg": "cn-button-size-lg",
+    "cva/buttonVariants/variant/size/sm": "cn-button-size-sm",
+    "cva/buttonVariants/variant/size/xs": "cn-button-size-xs",
+    "cva/buttonVariants/variant/variant/default": "cn-button-variant-default",
+    "cva/buttonVariants/variant/variant/destructive": "cn-button-variant-destructive",
+    "cva/buttonVariants/variant/variant/ghost": "cn-button-variant-ghost",
+    "cva/buttonVariants/variant/variant/link": "cn-button-variant-link",
+    "cva/buttonVariants/variant/variant/outline": "cn-button-variant-outline",
+    "cva/buttonVariants/variant/variant/secondary": "cn-button-variant-secondary",
+    "jsx/Conversation/class/0": "relative flex-1 overflow-y-hidden",
+    "jsx/ConversationContent/class/0": "flex flex-col gap-8 p-4",
+    "jsx/ConversationDownload/class/0": "absolute top-4 right-4 rounded-full dark:bg-background dark:hover:bg-muted",
+    "jsx/ConversationDownload/class/1": "size-4",
+    "jsx/ConversationEmptyState/class/0": "flex size-full flex-col items-center justify-center gap-3 p-8 text-center",
+    "jsx/ConversationEmptyState/class/1": "text-muted-foreground",
+    "jsx/ConversationEmptyState/class/2": "space-y-1",
+    "jsx/ConversationEmptyState/class/3": "font-medium text-sm",
+    "jsx/ConversationEmptyState/class/4": "text-muted-foreground text-sm",
+    "jsx/ConversationScrollButton/class/0": "absolute bottom-4 left-[50%] translate-x-[-50%] rounded-full dark:bg-background dark:hover:bg-muted",
+    "jsx/ConversationScrollButton/class/1": "size-4"
   },
-  "variants": {
-    "buttonVariants": {
-      "base": "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-button-size-default",
-          "icon": "cn-button-size-icon",
-          "icon-lg": "cn-button-size-icon-lg",
-          "icon-sm": "cn-button-size-icon-sm",
-          "icon-xs": "cn-button-size-icon-xs",
-          "lg": "cn-button-size-lg",
-          "sm": "cn-button-size-sm",
-          "xs": "cn-button-size-xs"
-        },
-        "variant": {
-          "default": "cn-button-variant-default",
-          "destructive": "cn-button-variant-destructive",
-          "ghost": "cn-button-variant-ghost",
-          "link": "cn-button-variant-link",
-          "outline": "cn-button-variant-outline",
-          "secondary": "cn-button-variant-secondary"
-        }
-      }
-    }
-  }
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/conversation.tsx": "d7ac46f1e7bc8e46bc49f67c768fc93aebdf17d816397cb35a40deff7173e875",
+    "shadcn/ui/button.tsx": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12"
+  },
+  "uses": [
+    "jsx/Conversation/class/0",
+    "jsx/ConversationContent/class/0"
+  ]
 }

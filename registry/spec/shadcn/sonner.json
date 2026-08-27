@@ -1,152 +1,47 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Toaster/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Toaster/class/0": "toaster group"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/sonner.tsx": "3810332de8149167b056b2fa15609840f1b31616b7f3a2b050a05b15f9871f01"
+  },
+  "fingerprint": "71d14c8f98ba9c4991960db3cca2a331628541c2214005452874988075184d3f",
+  "ignored": {
+    "jsx/Toaster/class/1": "the generated port does not contain this source literal",
+    "jsx/Toaster/class/2": "the generated port does not contain this source literal",
+    "jsx/Toaster/class/3": "the generated port does not contain this source literal",
+    "jsx/Toaster/class/4": "the generated port does not contain this source literal",
+    "jsx/Toaster/class/5": "the generated port does not contain this source literal"
+  },
   "name": "sonner",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Toaster",
-      "name": "toaster",
-      "params": {
-        "theme": null
-      },
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "ToasterProps",
-              "theme"
-            ],
-            "kind": "code",
-            "name": "theme",
-            "value": "theme as ToasterProps[\"theme\"]"
-          },
-          {
-            "kind": "code",
-            "name": "icons",
-            "value": "{\n        success: (\n          <IconPlaceholder\n            lucide=\"CircleCheckIcon\"\n            tabler=\"IconCircleCheck\"\n            hugeicons=\"CheckmarkCircle02Icon\"\n            phosphor=\"CheckCircleIcon\"\n            remixicon=\"RiCheckboxCircleLine\"\n            className=\"size-4\"\n          />\n        ),\n        info: (\n          <IconPlaceholder\n            lucide=\"InfoIcon\"\n            tabler=\"IconInfoCircle\"\n            hugeicons=\"InformationCircleIcon\"\n            phosphor=\"InfoIcon\"\n            remixicon=\"RiInformationLine\"\n            className=\"size-4\"\n          />\n        ),\n        warning: (\n          <IconPlaceholder\n            lucide=\"TriangleAlertIcon\"\n            tabler=\"IconAlertTriangle\"\n            hugeicons=\"Alert02Icon\"\n            phosphor=\"WarningIcon\"\n            remixicon=\"RiErrorWarningLine\"\n            className=\"size-4\"\n          />\n        ),\n        error: (\n          <IconPlaceholder\n            lucide=\"OctagonXIcon\"\n            tabler=\"IconAlertOctagon\"\n            hugeicons=\"MultiplicationSignCircleIcon\"\n            phosphor=\"XCircleIcon\"\n            remixicon=\"RiCloseCircleLine\"\n            className=\"size-4\"\n          />\n        ),\n        loading: (\n          <IconPlaceholder\n            lucide=\"Loader2Icon\"\n            tabler=\"IconLoader\"\n            hugeicons=\"Loading03Icon\"\n            phosphor=\"SpinnerIcon\"\n            remixicon=\"RiLoaderLine\"\n            className=\"size-4 animate-spin\"\n          />\n        ),\n      }"
-          },
-          {
-            "identifiers": [
-              "CSSProperties",
-              "React"
-            ],
-            "kind": "style",
-            "name": "style",
-            "value": [
-              {
-                "kind": "text",
-                "property": "--border-radius",
-                "value": "var(--radius)"
-              },
-              {
-                "kind": "text",
-                "property": "--normal-bg",
-                "value": "var(--popover)"
-              },
-              {
-                "kind": "text",
-                "property": "--normal-border",
-                "value": "var(--border)"
-              },
-              {
-                "kind": "text",
-                "property": "--normal-text",
-                "value": "var(--popover-foreground)"
-              }
-            ]
-          },
-          {
-            "kind": "object",
-            "name": "toastOptions",
-            "value": {
-              "classNames": {
-                "toast": "cn-toast"
-              }
-            }
-          }
-        ],
-        "children": [],
-        "class": "toaster group",
-        "class_when": [],
-        "merges_class": false,
-        "module": "external/sonner",
-        "part": "Toaster",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "section",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "toast",
+  "port_body": "8236a0b409c6602ed3f52287048f114e0175e597ac101d1d3699860941f61b5d",
+  "schema_version": 2,
   "source": "shadcn",
+  "source_facts": {
+    "jsx/Toaster/class/0": "toaster group",
+    "jsx/Toaster/class/1": "size-4",
+    "jsx/Toaster/class/2": "size-4",
+    "jsx/Toaster/class/3": "size-4",
+    "jsx/Toaster/class/4": "size-4",
+    "jsx/Toaster/class/5": "size-4 animate-spin"
+  },
+  "state_reads": [],
   "styles": {},
-  "toast_stack": {
-    "container": {
-      "class": "toaster group",
-      "role": "region",
-      "style": [
-        {
-          "kind": "text",
-          "property": "--border-radius",
-          "value": "var(--radius)"
-        },
-        {
-          "kind": "text",
-          "property": "--normal-bg",
-          "value": "var(--popover)"
-        },
-        {
-          "kind": "text",
-          "property": "--normal-border",
-          "value": "var(--border)"
-        },
-        {
-          "kind": "text",
-          "property": "--normal-text",
-          "value": "var(--popover-foreground)"
-        }
-      ],
-      "tag": "section"
-    },
-    "geometry": {
-      "limit": true,
-      "variables": [
-        "--toast-index",
-        "--toast-height",
-        "--toast-offset-y"
-      ]
-    },
-    "item": {
-      "class": "cn-toast",
-      "live": "polite",
-      "order": "newest_first",
-      "role": "status",
-      "slot": "toast",
-      "tag": "article"
-    }
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/sonner.tsx",
-      "sha256": "d5178ce4c7834d3f46d261698395b498b8f45fef29975585df7e26cb43aa3cc7"
-    }
+    "shadcn/ui/sonner.tsx": "d5178ce4c7834d3f46d261698395b498b8f45fef29975585df7e26cb43aa3cc7"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Toaster/class/0"
+  ]
 }

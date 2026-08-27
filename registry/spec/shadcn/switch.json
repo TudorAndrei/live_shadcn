@@ -1,343 +1,86 @@
 {
-  "anatomy": [
-    {
-      "children": [
-        {
-          "children": [],
-          "part": "Thumb"
-        }
-      ],
-      "part": "Root"
-    }
-  ],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "switch",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Switch",
-      "name": "switch",
-      "params": {
-        "className": null,
-        "size": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "size",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "data-size",
-            "value": "size"
-          }
-        ],
-        "children": [
-          {
-            "attrs": [],
-            "children": [],
-            "class": "cn-switch-thumb pointer-events-none block ring-0 transition-transform",
-            "class_when": [],
-            "merges_class": false,
-            "module": "switch",
-            "part": "Thumb",
-            "props": false,
-            "reads": {
-              "group": [
-                {
-                  "group": "switch",
-                  "name": "data-size",
-                  "value": "default"
-                },
-                {
-                  "group": "switch",
-                  "name": "data-size",
-                  "value": "sm"
-                }
-              ],
-              "self": [
-                {
-                  "name": "data-unchecked",
-                  "value": null
-                },
-                {
-                  "name": "data-checked",
-                  "value": null
-                }
-              ]
-            },
-            "render_as": null,
-            "slot": "switch-thumb",
-            "tag": "span",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
-        "class_when": [],
-        "merges_class": true,
-        "module": "switch",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "data-disabled",
-              "value": null
-            },
-            {
-              "name": "data-checked",
-              "value": null
-            },
-            {
-              "name": "data-unchecked",
-              "value": null
-            },
-            {
-              "name": "aria-invalid",
-              "value": null
-            },
-            {
-              "name": "data-size",
-              "value": "default"
-            },
-            {
-              "name": "data-size",
-              "value": "sm"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "switch",
-        "tag": "span",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "size": {
-          "optional": true,
-          "values": [
-            "sm",
-            "default"
-          ]
-        }
-      }
-    }
-  ],
-  "primitives": {
-    "switch.Root": {
-      "css_vars": [],
-      "data": [
-        "data-checked",
-        "data-unchecked",
-        "data-disabled",
-        "data-readonly",
-        "data-required",
-        "data-valid",
-        "data-invalid",
-        "data-dirty",
-        "data-touched",
-        "data-filled",
-        "data-focused"
-      ],
-      "element": "span",
-      "hidden_input": true,
-      "props": [
-        {
-          "default": null,
-          "doc": "Identifies the field when a form is submitted.",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the switch is initially active. To render a controlled switch, use the `checked` prop instead.",
-          "name": "defaultChecked",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the switch is currently active. To render an uncontrolled switch, use the `defaultChecked` prop instead.",
-          "name": "checked",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Event handler called when the switch is activated or deactivated.",
-          "name": "onCheckedChange",
-          "type": "((checked: boolean, eventDetails: Switch.Root.ChangeEventDetails) => void)"
-        },
-        {
-          "default": null,
-          "doc": "The value submitted with the form when the switch is on. By default, switch submits the \"on\" value, matching native checkbox behavior.",
-          "name": "value",
-          "type": "string"
-        },
-        {
-          "default": null,
-          "doc": "Identifies the form that owns the hidden input. Useful when the switch is rendered outside the form.",
-          "name": "form",
-          "type": "string"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "The value submitted with the form when the switch is off. By default, unchecked switches do not submit any value, matching native checkbox behavior.",
-          "name": "uncheckedValue",
-          "type": "string"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component should ignore user interaction.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the user should be unable to activate or deactivate the switch.",
-          "name": "readOnly",
-          "type": "boolean"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the user must activate the switch before submitting a form.",
-          "name": "required",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "A ref to access the hidden `<input>` element.",
-          "name": "inputRef",
-          "type": "React.Ref<HTMLInputElement>"
-        },
-        {
-          "default": null,
-          "doc": "The id of the hidden input element. When `nativeButton` is `true`, the id is applied to the root element.",
-          "name": "id",
-          "type": "string"
-        },
-        {
-          "default": "((state: Switch.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Switch.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Switch.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Represents the switch itself."
-    },
-    "switch.Thumb": {
-      "css_vars": [],
-      "data": [
-        "data-checked",
-        "data-unchecked",
-        "data-disabled",
-        "data-readonly",
-        "data-required",
-        "data-valid",
-        "data-invalid",
-        "data-dirty",
-        "data-touched",
-        "data-filled",
-        "data-focused"
-      ],
-      "element": "span",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Switch.Thumb.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Switch.Thumb.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Switch.Thumb.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "The movable part of the switch that indicates whether the switch is on or off."
-    }
+  "base_ui": {
+    "switch": "7d0c37f60346a5a1473a42fae8fd1b0809f300507b4220ca770c2f6f066860ea"
   },
-  "recipe": "switch",
+  "bindings": {
+    "copy": [
+      "jsx/Switch/class/0",
+      "jsx/Switch/class/1"
+    ],
+    "derived": {}
+  },
+  "css_vars": [],
+  "facts": {
+    "jsx/Switch/class/0": "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+    "jsx/Switch/class/1": "cn-switch-thumb pointer-events-none block ring-0 transition-transform"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/switch.tsx": "2f0fa6850247966c015ce77864d6a70ae4abaecc597332c93a4346d36f7fc112"
+  },
+  "fingerprint": "0e62c9c24dc0619e46bf469941de654350c57976f940927eb1c1897a719561ae",
+  "ignored": {},
+  "name": "switch",
+  "port_body": "78149a6db9fd9a00fe8c75b843483cef04630fa221efbd17d631c7738cadcf3e",
+  "schema_version": 2,
   "source": "shadcn",
-  "styles": {
-    "luma": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input/90 data-checked:border-primary border-2 data-unchecked:border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 shrink-0 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:data-unchecked:border-transparent group-has-[:focus-visible]/field-label:data-checked:border-primary data-[size=default]:h-5 data-[size=default]:w-11 data-[size=sm]:h-4 data-[size=sm]:w-7",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full shadow-sm group-data-[size=default]/switch:h-4 group-data-[size=default]/switch:w-6 group-data-[size=sm]/switch:h-3 group-data-[size=sm]/switch:w-4 data-checked:translate-x-[calc(100%-8px)] data-unchecked:translate-x-0 not-dark:bg-clip-padding"
+  "source_facts": {
+    "jsx/Switch/class/0": "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+    "jsx/Switch/class/1": "cn-switch-thumb pointer-events-none block ring-0 transition-transform"
+  },
+  "state_reads": [
+    {
+      "name": "aria-invalid",
+      "value": null
     },
-    "lyra": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-1 aria-invalid:ring-1 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px]",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0"
+    {
+      "name": "data-checked",
+      "value": null
     },
-    "maia": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-[3px] aria-invalid:ring-[3px] group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px]",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0"
+    {
+      "name": "data-disabled",
+      "value": null
     },
-    "mira": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-2 aria-invalid:ring-2 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[16.6px] data-[size=default]:w-[28px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px]",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-3.5 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0"
+    {
+      "name": "data-size",
+      "value": "default"
     },
-    "nova": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px]",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0"
+    {
+      "name": "data-size",
+      "value": "sm"
     },
-    "rhea": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input/90 data-checked:border-primary border-2 data-unchecked:border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 shrink-0 rounded-2xl focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:data-unchecked:border-transparent group-has-[:focus-visible]/field-label:data-checked:border-primary data-[size=default]:h-5 data-[size=default]:w-8 data-[size=sm]:h-4 data-[size=sm]:w-6",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-2xl shadow-sm group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 data-checked:translate-x-[calc(100%-4px)] data-unchecked:translate-x-0 not-dark:bg-clip-padding"
+    {
+      "name": "data-unchecked",
+      "value": null
     },
-    "sera": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input data-checked:border-primary border data-unchecked:border-input/50 focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 shrink-0 rounded-none focus-visible:ring-2 aria-invalid:ring-2 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:data-unchecked:border-input/50 group-has-[:focus-visible]/field-label:data-checked:border-primary data-[size=default]:h-4.5 data-[size=default]:w-8.25 data-[size=sm]:h-3.5 data-[size=sm]:w-6.25",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground group-data-[size=default]/switch:size-3.5 group-data-[size=sm]/switch:size-2.5 data-checked:translate-x-[calc(100%+2px)] data-unchecked:translate-x-0.25"
+    {
+      "group": "switch",
+      "name": "data-size",
+      "value": "default"
     },
-    "vega": {
-      "cn-switch": "data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent shadow-xs focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px]",
-      "cn-switch-thumb": "bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0"
+    {
+      "group": "switch",
+      "name": "data-size",
+      "value": "sm"
     }
+  ],
+  "styles": {
+    "luma": "08e0872893e8284ad21da9fb2bbefe10292fdc223d250d1c97646a38a4b19529",
+    "lyra": "37efb435f01f77c18b1371b29c4e466923fb0ef384a810b8826e2b98dd518b0c",
+    "maia": "36242110f6d3c5599456dde66af5725e1acb787c349deb5d0e090fb52b2c3786",
+    "mira": "11fc1ad7019d08c6c8a0f5a1a78258bd6d2a257d10249f415f7f17d58088ebb1",
+    "nova": "890af7034791367bc1c7a4c4a8a80957e1b8e846573d3800cb5a1a7f00c55d0d",
+    "rhea": "be2dff9efb91b349f3abdee33c9d9e0c7457ef2d7d900265788bd155f43db61b",
+    "sera": "9fd40ff0779011f90f476bcede4489e2c5fd95d0fa57c56aa33415e20ec5b347",
+    "vega": "6bfcca7d8745c7dabb01b9bb36108f729e74f8b2e6d9caa11c96ac65eceaedeb"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {
-      "switch": "d91041247b3af008bffb070f95f307f1e7cb87982c835b04a4fcb8fcecf4397a"
-    },
-    "shadcn": {
-      "file": "shadcn/ui/switch.tsx",
-      "sha256": "5bc5e6917b328921a87ee0c25224ed7c19184f2158b1558679a259ab1d0ad938"
-    }
+    "shadcn/ui/switch.tsx": "5bc5e6917b328921a87ee0c25224ed7c19184f2158b1558679a259ab1d0ad938"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Switch/class/0",
+    "jsx/Switch/class/1"
+  ]
 }

@@ -31,6 +31,7 @@ defmodule LiveShadcn.UI.Calendar do
     "port/calendar/weekdays" => "flex rdp-weekdays"
   }
   # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
 
   @doc "A deterministic month grid. The server owns the dates and selection."
   attr(:month, Date, default: Date.utc_today())

@@ -9,6 +9,25 @@ defmodule LiveShadcn.UI.Select do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/SelectContent/class/0" => "isolate z-50",
+    "jsx/SelectContent/class/1" => "cn-select-content cn-select-content-logical cn-menu-target cn-menu-translucent relative isolate z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-[align-trigger=true]:animate-none",
+    "jsx/SelectItem/class/0" => "cn-select-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/SelectItem/class/1" => "cn-select-item-text shrink-0 whitespace-nowrap",
+    "jsx/SelectItem/class/2" => "cn-select-item-indicator",
+    "jsx/SelectItem/class/3" => "cn-select-item-indicator-icon pointer-events-none",
+    "jsx/SelectScrollDownButton/class/0" => "cn-select-scroll-down-button bottom-0 w-full",
+    "jsx/SelectScrollUpButton/class/0" => "cn-select-scroll-up-button top-0 w-full",
+    "jsx/SelectTrigger/class/0" => "cn-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/SelectTrigger/class/1" => "cn-select-trigger-icon pointer-events-none",
+    "jsx/SelectValue/class/0" => "cn-select-value"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.FormControl
   alias LiveBase.Listbox
   alias LiveBase.Popover
@@ -103,19 +122,19 @@ defmodule LiveShadcn.UI.Select do
         aria-invalid={to_string(@errors != [])}
         data-size={@size}
         class={[
-          "cn-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
-          @trigger_class
+          upstream_fact("jsx/SelectTrigger/class/0"),
+          (@trigger_class || "")
         ]}
       >
         <span
           data-slot="select-value"
           id={Listbox.value_id(@id)}
           data-placeholder={flag(@value in [nil, ""])}
-          class={["cn-select-value", @value_class]}
+          class={[upstream_fact("jsx/SelectValue/class/0"), (@value_class || "")]}
         >
           {label(@option, @value) || @placeholder}
         </span>
-        <LiveShadcn.Icon.icon name="chevron-down" class="cn-select-trigger-icon pointer-events-none" />
+        <LiveShadcn.Icon.icon name="chevron-down" class={upstream_fact("jsx/SelectTrigger/class/1")} />
       </button>
       <input
         type="hidden"
@@ -139,7 +158,7 @@ defmodule LiveShadcn.UI.Select do
           phx-mounted={Popover.owned_attributes(:positioner)}
           data-open={flag(@open)}
           data-closed={flag(not @open)}
-          class="isolate z-50"
+          class={upstream_fact("jsx/SelectContent/class/0")}
         >
           <div
             data-slot="select-content"
@@ -157,15 +176,15 @@ defmodule LiveShadcn.UI.Select do
             data-closed={flag(not @open)}
             data-align-trigger={to_string(@align_item_with_trigger)}
             class={[
-              "cn-select-content cn-select-content-logical cn-menu-target cn-menu-translucent relative isolate z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-[align-trigger=true]:animate-none",
-              @class
+              upstream_fact("jsx/SelectContent/class/1"),
+              (@class || "")
             ]}
             data-lb-style-target
             data-lb-measure
           >
             <div
               data-slot="select-scroll-up-button"
-              class={["cn-select-scroll-up-button top-0 w-full", @class]}
+              class={[upstream_fact("jsx/SelectScrollUpButton/class/0"), (@class || "")]}
             >
               <LiveShadcn.Icon.icon name="chevron-up" />
             </div>
@@ -186,24 +205,24 @@ defmodule LiveShadcn.UI.Select do
                 phx-mounted={Listbox.owned_attributes(:option)}
                 data-disabled={flag(option[:disabled] == true)}
                 class={[
-                  "cn-select-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-                  @item_class
+                  upstream_fact("jsx/SelectItem/class/0"),
+                  (@item_class || "")
                 ]}
               >
-                <div class="cn-select-item-text shrink-0 whitespace-nowrap">
+                <div class={upstream_fact("jsx/SelectItem/class/1")}>
                   {option[:label] || option[:value]}
                 </div>
-                <span class="cn-select-item-indicator">
+                <span class={upstream_fact("jsx/SelectItem/class/2")}>
                   <LiveShadcn.Icon.icon
                     name="check"
-                    class="cn-select-item-indicator-icon pointer-events-none"
+                    class={upstream_fact("jsx/SelectItem/class/3")}
                   />
                 </span>
               </div>
             </div>
             <div
               data-slot="select-scroll-down-button"
-              class={["cn-select-scroll-down-button bottom-0 w-full", @class]}
+              class={[upstream_fact("jsx/SelectScrollDownButton/class/0"), (@class || "")]}
             >
               <LiveShadcn.Icon.icon name="chevron-down" />
             </div>

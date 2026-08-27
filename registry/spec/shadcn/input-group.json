@@ -1,400 +1,122 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/inputGroupAddonVariants/base",
+      "cva/inputGroupAddonVariants/default/align",
+      "cva/inputGroupAddonVariants/variant/align/block-end",
+      "cva/inputGroupAddonVariants/variant/align/block-start",
+      "cva/inputGroupAddonVariants/variant/align/inline-end",
+      "cva/inputGroupAddonVariants/variant/align/inline-start",
+      "cva/inputGroupButtonVariants/base",
+      "cva/inputGroupButtonVariants/default/size",
+      "cva/inputGroupButtonVariants/variant/size/icon-sm",
+      "cva/inputGroupButtonVariants/variant/size/icon-xs",
+      "cva/inputGroupButtonVariants/variant/size/sm",
+      "cva/inputGroupButtonVariants/variant/size/xs",
+      "jsx/InputGroup/class/0",
+      "jsx/InputGroupInput/class/0",
+      "jsx/InputGroupText/class/0",
+      "jsx/InputGroupTextarea/class/0"
+    ],
+    "derived": {}
+  },
+  "css_vars": [
+    "--radius",
+    "--radius-sm"
+  ],
+  "facts": {
+    "cva/inputGroupAddonVariants/base": "cn-input-group-addon flex cursor-text items-center justify-center select-none",
+    "cva/inputGroupAddonVariants/default/align": "inline-start",
+    "cva/inputGroupAddonVariants/variant/align/block-end": "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/block-start": "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end": "cn-input-group-addon-align-inline-end order-last",
+    "cva/inputGroupAddonVariants/variant/align/inline-start": "cn-input-group-addon-align-inline-start order-first",
+    "cva/inputGroupButtonVariants/base": "cn-input-group-button flex items-center shadow-none",
+    "cva/inputGroupButtonVariants/default/size": "xs",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm": "cn-input-group-button-size-icon-sm",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs": "cn-input-group-button-size-icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm": "cn-input-group-button-size-sm",
+    "cva/inputGroupButtonVariants/variant/size/xs": "cn-input-group-button-size-xs",
+    "jsx/InputGroup/class/0": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
+    "jsx/InputGroupInput/class/0": "cn-input-group-input flex-1",
+    "jsx/InputGroupText/class/0": "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
+    "jsx/InputGroupTextarea/class/0": "cn-input-group-textarea flex-1 resize-none"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/input-group.tsx": "628473a39058fc34aea9622204e5f6a34dc9ee82dffa82e16fa19f6813be6900"
+  },
+  "fingerprint": "a3453ef05e285c29dd89c3267c12e2eec6b8b4d6b986a64b97a9d3f5f8e802db",
+  "ignored": {},
   "name": "input-group",
-  "parts": [
+  "port_body": "1ff67a191f5a72877df4d708f0c1cd4dcb0dc04d4bb9401154329a4f993752ed",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "cva/inputGroupAddonVariants/base": "cn-input-group-addon flex cursor-text items-center justify-center select-none",
+    "cva/inputGroupAddonVariants/default/align": "inline-start",
+    "cva/inputGroupAddonVariants/variant/align/block-end": "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/block-start": "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end": "cn-input-group-addon-align-inline-end order-last",
+    "cva/inputGroupAddonVariants/variant/align/inline-start": "cn-input-group-addon-align-inline-start order-first",
+    "cva/inputGroupButtonVariants/base": "cn-input-group-button flex items-center shadow-none",
+    "cva/inputGroupButtonVariants/default/size": "xs",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm": "cn-input-group-button-size-icon-sm",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs": "cn-input-group-button-size-icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm": "cn-input-group-button-size-sm",
+    "cva/inputGroupButtonVariants/variant/size/xs": "cn-input-group-button-size-xs",
+    "jsx/InputGroup/class/0": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
+    "jsx/InputGroupInput/class/0": "cn-input-group-input flex-1",
+    "jsx/InputGroupText/class/0": "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
+    "jsx/InputGroupTextarea/class/0": "cn-input-group-textarea flex-1 resize-none"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "InputGroup",
-      "name": "input_group",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "role",
-            "value": "group"
-          }
-        ],
-        "children": [],
-        "class": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "input-group",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-invalid",
+      "value": null
     },
     {
-      "contexts": [],
-      "export": "InputGroupAddon",
-      "name": "input_group_addon",
-      "params": {
-        "align": "inline-start",
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "align",
-        "className",
-        "e",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "role",
-            "value": "group"
-          },
-          {
-            "identifiers": [
-              "align"
-            ],
-            "kind": "code",
-            "name": "data-align",
-            "value": "align"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "input-group",
-              "name": "data-disabled",
-              "value": "true"
-            }
-          ],
-          "self": [
-            {
-              "name": "data-slot",
-              "value": "kbd"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "input-group-addon",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "align"
-            ],
-            "table": "inputGroupAddonVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
+      "name": "data-slot",
+      "value": "kbd"
     },
     {
-      "contexts": [],
-      "export": "InputGroupButton",
-      "name": "input_group_button",
-      "params": {
-        "className": null,
-        "size": "xs",
-        "type": "button",
-        "variant": "ghost"
-      },
-      "primitive": null,
-      "refs": [
-        "type",
-        "size",
-        "variant",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "type"
-            ],
-            "kind": "code",
-            "name": "type",
-            "value": "type"
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "data-size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [
-          {
-            "args": [
-              "size"
-            ],
-            "table": "inputGroupButtonVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {
-        "type": {
-          "optional": true,
-          "values": [
-            "button",
-            "submit",
-            "reset"
-          ]
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "InputGroupText",
-      "name": "input_group_text",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "InputGroupInput",
-      "name": "input_group_input",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-input-group-input flex-1",
-        "class_when": [],
-        "component": "input",
-        "function": "input",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            }
-          ]
-        },
-        "recipe": "form-control",
-        "render_as": null,
-        "slot": "input-group-control",
-        "source": "shadcn",
-        "tag": "input",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "InputGroupTextarea",
-      "name": "input_group_textarea",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-input-group-textarea flex-1 resize-none",
-        "class_when": [],
-        "component": "textarea",
-        "function": "textarea",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            }
-          ]
-        },
-        "recipe": "form-control",
-        "render_as": null,
-        "slot": "input-group-control",
-        "source": "shadcn",
-        "tag": "textarea",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
+      "group": "input-group",
+      "name": "data-disabled",
+      "value": "true"
     }
   ],
-  "primitives": {},
-  "recipe": "form-control",
-  "source": "shadcn",
   "styles": {
-    "luma": {
-      "cn-input-group": "bg-input/50 border-transparent has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-[color,box-shadow,background-color] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-3xl has-data-[align=block-start]:rounded-3xl has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[textarea]:rounded-2xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4",
-      "cn-input-group-textarea": "rounded-none border-0 bg-transparent py-2.5 shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent"
-    },
-    "lyra": {
-      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 h-8 rounded-none border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-1 has-[[data-slot][aria-invalid=true]]:ring-1 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-xs [&_svg:not([class*='size-'])]:size-4",
-      "cn-input-group-textarea": "rounded-none border-0 bg-transparent py-2 shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent"
-    },
-    "maia": {
-      "cn-input-group": "border-input bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-2xl has-data-[align=block-start]:rounded-2xl has-[[data-slot=input-group-control]:focus-visible]:ring-[3px] has-[[data-slot][aria-invalid=true]]:ring-[3px] has-[textarea]:rounded-xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4",
-      "cn-input-group-textarea": "rounded-none border-0 bg-transparent py-2 shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent"
-    },
-    "mira": {
-      "cn-input-group": "border-input bg-input/20 dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-7 rounded-md border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-md has-data-[align=block-start]:rounded-md has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot][aria-invalid=true]]:ring-2 has-[textarea]:rounded-md has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-xs/relaxed [&_svg:not([class*='size-'])]:size-4",
-      "cn-input-group-textarea": "rounded-none border-0 bg-transparent py-2 shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent"
-    },
-    "nova": {
-      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 h-8 rounded-lg border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4",
-      "cn-input-group-textarea": "rounded-none border-0 bg-transparent py-2 shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent"
-    },
-    "rhea": {
-      "cn-input-group": "bg-input/50 border-transparent has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-8 rounded-2xl border transition-[color,box-shadow] duration-200 in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4",
-      "cn-input-group-textarea": "rounded-none border-0 bg-transparent py-2 shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent"
-    },
-    "sera": {
-      "cn-input-group": "border-transparent border-b-input bg-transparent has-[[data-slot=input-group-control]:focus-visible]:border-b-ring has-[[data-slot][aria-invalid=true]]:border-b-destructive dark:has-[[data-slot][aria-invalid=true]]:border-b-destructive/50 h-10 rounded-none border transition-[color,border-color] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-none has-data-[align=block-start]:rounded-none has-[textarea]:rounded-none has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3",
-      "cn-input-group-input": "border-0 bg-transparent ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent group-has-[>[data-align=inline-start]]/input-group:pl-2 group-has-[>[data-align=inline-end]]/input-group:pr-2",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-3.5",
-      "cn-input-group-textarea": "border-0 bg-transparent py-2.5 ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent"
-    },
-    "vega": {
-      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-md border shadow-xs transition-[color,box-shadow] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4",
-      "cn-input-group-textarea": "rounded-none border-0 bg-transparent py-2 shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent"
-    }
+    "luma": "3071cf17a57afe20445920ddc5d18e1ae9aa193d245cdf256d91e4269bdb552d",
+    "lyra": "a81459450ae31e5ff0655d107e7b11ed00f293d8feb6b93bdf0120dafb7aafa7",
+    "maia": "175b0cba348829ff3da428e32b25ecc057f8e56ec55b14ecdd1540f16cc5303e",
+    "mira": "fade902f0b85c1c5b544f703f0c6c2ec377394d9b43bd7bf902928552d0e290e",
+    "nova": "27a8834bb63c2b728c30ac82e1e18e04c3e1291b73971e532433d5f3a452dbf2",
+    "rhea": "f2ab81dde6cb904a81c85eb1cd3e58ab9eb459af74659d0f5ffb78584e9cdb32",
+    "sera": "23f8c53b2dd05e63a31cab014e5b47e84cd8e104d7508c9d8ba27f7bc4dc0914",
+    "vega": "26f41ae38cf05536ec071386a596c9f66191fd23e2d6f473e4ec5b8e4f02ddc1"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "shadcn/ui/input-group.tsx",
-      "sha256": "2ee53fb8792b8022ab433ed6d455dc790ed8a5be59fb99d923303665ce3a6dbb"
-    }
+    "shadcn/ui/input-group.tsx": "2ee53fb8792b8022ab433ed6d455dc790ed8a5be59fb99d923303665ce3a6dbb"
   },
-  "variants": {
-    "inputGroupAddonVariants": {
-      "base": "cn-input-group-addon flex cursor-text items-center justify-center select-none",
-      "defaults": {
-        "align": "inline-start"
-      },
-      "variants": {
-        "align": {
-          "block-end": "cn-input-group-addon-align-block-end order-last w-full justify-start",
-          "block-start": "cn-input-group-addon-align-block-start order-first w-full justify-start",
-          "inline-end": "cn-input-group-addon-align-inline-end order-last",
-          "inline-start": "cn-input-group-addon-align-inline-start order-first"
-        }
-      }
-    },
-    "inputGroupButtonVariants": {
-      "base": "cn-input-group-button flex items-center shadow-none",
-      "defaults": {
-        "size": "xs"
-      },
-      "variants": {
-        "size": {
-          "icon-sm": "cn-input-group-button-size-icon-sm",
-          "icon-xs": "cn-input-group-button-size-icon-xs",
-          "sm": "cn-input-group-button-size-sm",
-          "xs": "cn-input-group-button-size-xs"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/inputGroupAddonVariants/base",
+    "cva/inputGroupAddonVariants/default/align",
+    "cva/inputGroupAddonVariants/variant/align/block-end",
+    "cva/inputGroupAddonVariants/variant/align/block-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end",
+    "cva/inputGroupAddonVariants/variant/align/inline-start",
+    "cva/inputGroupButtonVariants/base",
+    "cva/inputGroupButtonVariants/default/size",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm",
+    "cva/inputGroupButtonVariants/variant/size/xs",
+    "jsx/InputGroup/class/0",
+    "jsx/InputGroupInput/class/0",
+    "jsx/InputGroupText/class/0",
+    "jsx/InputGroupTextarea/class/0"
+  ]
 }

@@ -1,16 +1,116 @@
 {
-  "anatomy": [],
-  "classes": {
-    "container": "cn-chart flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
-    "tooltip": "cn-chart-tooltip grid min-w-32 items-start"
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/ChartContainer/class/0",
+      "jsx/ChartLegendContent/class/0",
+      "jsx/ChartLegendContent/class/1",
+      "jsx/ChartLegendContent/class/2",
+      "jsx/ChartLegendContent/class/3",
+      "jsx/ChartTooltipContent/class/0",
+      "jsx/ChartTooltipContent/class/10",
+      "jsx/ChartTooltipContent/class/11",
+      "jsx/ChartTooltipContent/class/12",
+      "jsx/ChartTooltipContent/class/2"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
+          {
+            "literal": "flex"
+          },
+          {
+            "fact": "jsx/ChartTooltipContent/class/5"
+          },
+          {
+            "literal": "justify-between gap-2"
+          }
+        ],
+        "op": "join"
+      }
+    }
   },
   "css_vars": [],
-  "generated_by": "chart recipe",
+  "facts": {
+    "jsx/ChartContainer/class/0": "cn-chart flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+    "jsx/ChartLegendContent/class/0": "flex items-center justify-center gap-4",
+    "jsx/ChartLegendContent/class/1": "pb-3",
+    "jsx/ChartLegendContent/class/2": "pt-3",
+    "jsx/ChartLegendContent/class/3": "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
+    "jsx/ChartTooltipContent/class/0": "font-medium",
+    "jsx/ChartTooltipContent/class/10": "grid gap-1.5",
+    "jsx/ChartTooltipContent/class/11": "text-muted-foreground",
+    "jsx/ChartTooltipContent/class/12": "font-mono font-medium text-foreground tabular-nums",
+    "jsx/ChartTooltipContent/class/2": "cn-chart-tooltip grid min-w-32 items-start",
+    "port/class/0": "flex items-center justify-between gap-2"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/chart.tsx": "497365ec47e2f1559baafb54d1d6ed5ff33aab2054acec15cf5b6f393d99b62b"
+  },
+  "fingerprint": "f2083e83253ef0d1a28c07b6dfa1c7dbaf8d5e0cbc2f7653777f886ce47582e3",
+  "ignored": {
+    "jsx/ChartLegendContent/class/4": "the generated port does not contain this source literal",
+    "jsx/ChartTooltipContent/class/1": "the generated port does not contain this source literal",
+    "jsx/ChartTooltipContent/class/3": "the generated port does not contain this source literal",
+    "jsx/ChartTooltipContent/class/4": "the generated port does not contain this source literal",
+    "jsx/ChartTooltipContent/class/6": "the generated port does not contain this source literal",
+    "jsx/ChartTooltipContent/class/7": "the generated port does not contain this source literal",
+    "jsx/ChartTooltipContent/class/8": "the generated port does not contain this source literal",
+    "jsx/ChartTooltipContent/class/9": "the generated port does not contain this source literal"
+  },
   "name": "chart",
-  "parts": [],
-  "primitives": {},
-  "recipe": "chart",
+  "port_body": "306a6c596d65d16ef0fbec96e14f66f0fa2971c447d9497f9f7226eb5e9b0022",
+  "schema_version": 2,
   "source": "shadcn",
-  "styles": {},
-  "upstream": "registry/upstream/shadcn/ui/chart.tsx"
+  "source_facts": {
+    "jsx/ChartContainer/class/0": "cn-chart flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+    "jsx/ChartLegendContent/class/0": "flex items-center justify-center gap-4",
+    "jsx/ChartLegendContent/class/1": "pb-3",
+    "jsx/ChartLegendContent/class/2": "pt-3",
+    "jsx/ChartLegendContent/class/3": "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
+    "jsx/ChartLegendContent/class/4": "h-2 w-2 shrink-0 rounded-[2px]",
+    "jsx/ChartTooltipContent/class/0": "font-medium",
+    "jsx/ChartTooltipContent/class/1": "font-medium",
+    "jsx/ChartTooltipContent/class/10": "grid gap-1.5",
+    "jsx/ChartTooltipContent/class/11": "text-muted-foreground",
+    "jsx/ChartTooltipContent/class/12": "font-mono font-medium text-foreground tabular-nums",
+    "jsx/ChartTooltipContent/class/2": "cn-chart-tooltip grid min-w-32 items-start",
+    "jsx/ChartTooltipContent/class/3": "grid gap-1.5",
+    "jsx/ChartTooltipContent/class/4": "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
+    "jsx/ChartTooltipContent/class/5": "items-center",
+    "jsx/ChartTooltipContent/class/6": "shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)",
+    "jsx/ChartTooltipContent/class/7": "flex flex-1 justify-between leading-none",
+    "jsx/ChartTooltipContent/class/8": "items-end",
+    "jsx/ChartTooltipContent/class/9": "items-center"
+  },
+  "state_reads": [],
+  "styles": {
+    "luma": "7a17c76af2f26f2c886ec55834e1012eea05c45a56a3ac00af4c0523c9fad599",
+    "lyra": "043f05120a06b7c38a429a2da3ee06b9efb8ef37559fd4e80128888a541053d9",
+    "maia": "ec741b9e54b1a16895c8bc193ab00c6e469b42cf5fabfae66e83c2bd28c5407e",
+    "mira": "02b7dc837bbcd50a499af5aba2a111108db0142fba4daca15877e9bb9abacf2d",
+    "nova": "ec741b9e54b1a16895c8bc193ab00c6e469b42cf5fabfae66e83c2bd28c5407e",
+    "rhea": "7a17c76af2f26f2c886ec55834e1012eea05c45a56a3ac00af4c0523c9fad599",
+    "sera": "837e021ddc0c6af239ae6fd0a6e80f701aec7dd9a0280c7e00a281f859fbb69a",
+    "vega": "ec741b9e54b1a16895c8bc193ab00c6e469b42cf5fabfae66e83c2bd28c5407e"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "shadcn/ui/chart.tsx": "f0ffc739a4fbb40af1a9e7cfc08d0d8d27e1b79b2c6697506655fd5deb07bd52"
+  },
+  "uses": [
+    "jsx/ChartContainer/class/0",
+    "jsx/ChartLegendContent/class/0",
+    "jsx/ChartLegendContent/class/1",
+    "jsx/ChartLegendContent/class/2",
+    "jsx/ChartLegendContent/class/3",
+    "jsx/ChartTooltipContent/class/0",
+    "jsx/ChartTooltipContent/class/10",
+    "jsx/ChartTooltipContent/class/11",
+    "jsx/ChartTooltipContent/class/12",
+    "jsx/ChartTooltipContent/class/2",
+    "port/class/0"
+  ]
 }

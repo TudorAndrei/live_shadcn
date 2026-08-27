@@ -1,963 +1,176 @@
 {
-  "anatomy": [],
-  "css_vars": [
-    "--accordion-panel-height",
-    "--accordion-panel-width"
-  ],
-  "folds": [
-    "shadcn/accordion"
-  ],
-  "generated_by": "mix ui.spec",
-  "name": "agent",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Agent",
-      "name": "agent",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "not-prose w-full rounded-md border",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AgentHeader",
-      "name": "agent_header",
-      "params": {
-        "className": null,
-        "model": null,
-        "name": null,
-        "variant": "secondary"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "name",
-        "model"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "file/ai_elements/agent.tsx/jsx/anonymous/class/0",
+      "file/ai_elements/agent.tsx/jsx/anonymous/class/1",
+      "file/ai_elements/agent.tsx/jsx/anonymous/class/10",
+      "file/ai_elements/agent.tsx/jsx/anonymous/class/11",
+      "file/ai_elements/agent.tsx/jsx/anonymous/class/2",
+      "file/ai_elements/agent.tsx/jsx/anonymous/class/3",
+      "file/ai_elements/agent.tsx/jsx/anonymous/class/4",
+      "file/ai_elements/agent.tsx/jsx/anonymous/class/5",
+      "file/ai_elements/agent.tsx/jsx/anonymous/class/6",
+      "file/ai_elements/agent.tsx/jsx/anonymous/class/9",
+      "jsx/anonymous/class/16"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "size-4 text-muted-foreground",
-                "class_when": [],
-                "icons": {
-                  "lucide": "Bot"
-                },
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "type": "icon",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "code": "name",
-                    "identifiers": [
-                      "name"
-                    ],
-                    "type": "value"
-                  }
-                ],
-                "class": "font-medium text-sm",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "span",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              },
-              {
-                "children": [
-                  {
-                    "attrs": [
-                      {
-                        "identifiers": [
-                          "variant"
-                        ],
-                        "kind": "code",
-                        "name": "variant",
-                        "value": "variant"
-                      }
-                    ],
-                    "children": [
-                      {
-                        "code": "model",
-                        "identifiers": [
-                          "model"
-                        ],
-                        "type": "value"
-                      }
-                    ],
-                    "class": "font-mono text-xs",
-                    "class_when": [],
-                    "component": "badge",
-                    "function": "badge",
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "recipe": "presentational",
-                    "render_as": null,
-                    "slot": null,
-                    "source": "shadcn",
-                    "tag": "span",
-                    "type": "component_ref",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "identifiers": [
-                  "model"
-                ],
-                "type": "optional",
-                "when": "model"
-              }
-            ],
-            "class": "flex items-center gap-2",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "flex w-full items-center justify-between gap-4 p-3",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AgentContent",
-      "name": "agent_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "space-y-4 p-4 pt-0",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AgentInstructions",
-      "name": "agent_instructions",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "text",
-                "value": "Instructions"
-              }
-            ],
-            "class": "font-medium text-muted-foreground text-sm",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
+            "fact": "jsx/Accordion/class/0"
           },
           {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "type": "children"
-                  }
-                ],
-                "class": "",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "p",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "rounded-md bg-muted/50 p-3 text-muted-foreground text-sm",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
+            "fact": "file/ai_elements/agent.tsx/jsx/anonymous/class/12"
           }
         ],
-        "class": "space-y-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AgentTools",
-      "name": "agent_tools",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "text",
-                "value": "Tools"
-              }
-            ],
-            "class": "font-medium text-muted-foreground text-sm",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [],
-            "class": "cn-accordion flex w-full flex-col rounded-md border",
-            "class_when": [],
-            "merges_class": false,
-            "module": "accordion",
-            "part": "Root",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "accordion",
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "space-y-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AgentTool",
-      "name": "agent_tool",
-      "params": {
-        "className": null,
-        "schema": null,
-        "tool": null,
-        "value": null
-      },
-      "primitive": null,
-      "refs": [
-        "tool",
-        "className",
-        "value",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "value"
-            ],
-            "kind": "code",
-            "name": "value",
-            "value": "value"
-          }
-        ],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "code": "tool.description ?? \"No description\"",
-                "identifiers": [
-                  "tool"
-                ],
-                "member_roots": [
-                  "tool"
-                ],
-                "type": "value"
-              }
-            ],
-            "class": "px-3 py-2 text-sm hover:no-underline",
-            "class_when": [],
-            "component": "accordion",
-            "function": "accordion_trigger",
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "recipe": "disclosure",
-            "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "tag": "h3",
-            "type": "component_ref",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "attrs": [
-                      {
-                        "identifiers": [
-                          "JSON",
-                          "schema"
-                        ],
-                        "kind": "code",
-                        "member_roots": [
-                          "JSON"
-                        ],
-                        "name": "code",
-                        "value": "JSON.stringify(schema, null, 2)"
-                      },
-                      {
-                        "kind": "text",
-                        "name": "language",
-                        "value": "json"
-                      }
-                    ],
-                    "children": [],
-                    "class": "",
-                    "class_when": [],
-                    "component": "code-block",
-                    "function": "code_block",
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "recipe": "clipboard",
-                    "render_as": null,
-                    "slot": null,
-                    "source": "ai_elements",
-                    "tag": null,
-                    "type": "component_ref",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "class": "rounded-md bg-muted/50",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "div",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "px-3 pb-3",
-            "class_when": [],
-            "component": "accordion",
-            "function": "accordion_content",
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "recipe": "disclosure",
-            "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "tag": "div",
-            "type": "component_ref",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "border-b last:border-b-0",
-        "class_when": [],
-        "component": "accordion",
-        "function": "accordion_item",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "disclosure",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "AgentOutput",
-      "name": "agent_output",
-      "params": {
-        "className": null,
-        "schema": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "schema"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "text",
-                "value": "Output Schema"
-              }
-            ],
-            "class": "font-medium text-muted-foreground text-sm",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [
-                  {
-                    "identifiers": [
-                      "schema"
-                    ],
-                    "kind": "code",
-                    "name": "code",
-                    "value": "schema"
-                  },
-                  {
-                    "kind": "text",
-                    "name": "language",
-                    "value": "typescript"
-                  }
-                ],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "component": "code-block",
-                "function": "code_block",
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "recipe": "clipboard",
-                "render_as": null,
-                "slot": null,
-                "source": "ai_elements",
-                "tag": null,
-                "type": "component_ref",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "rounded-md bg-muted/50",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "space-y-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "accordion.Header": {
-      "css_vars": [],
-      "data": [
-        "data-open",
-        "data-disabled",
-        "data-index"
-      ],
-      "element": "h3",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: Accordion.Header.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Accordion.Header.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Accordion.Header.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A heading that labels the corresponding panel."
-    },
-    "accordion.Item": {
-      "css_vars": [],
-      "data": [
-        "data-open",
-        "data-disabled",
-        "data-index"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": null,
-          "doc": "A unique value that identifies this accordion item. If no value is provided, a unique ID will be generated automatically. Use when controlling the accordion programmatically, or to set an initial open state.",
-          "name": "value",
-          "type": "any"
-        },
-        {
-          "default": null,
-          "doc": "Event handler called when the panel is opened or closed.",
-          "name": "onOpenChange",
-          "type": "((open: boolean, eventDetails: Accordion.Item.ChangeEventDetails) => void)"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component should ignore user interaction.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Accordion.Item.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Accordion.Item.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Accordion.Item.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups an accordion header with the corresponding panel."
-    },
-    "accordion.Panel": {
-      "css_vars": [
-        "--accordion-panel-height",
-        "--accordion-panel-width"
-      ],
-      "data": [
-        "data-open",
-        "data-orientation",
-        "data-disabled",
-        "data-index",
-        "data-starting-style",
-        "data-ending-style"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "false",
-          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
-          "name": "hiddenUntilFound",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Accordion.Panel.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Accordion.Panel.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to keep the element in the DOM while the panel is closed. This prop is ignored when `hiddenUntilFound` is used.",
-          "name": "keepMounted",
-          "type": "boolean"
-        },
-        {
-          "default": "((props: HTMLProps, state: Accordion.Panel.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A collapsible panel with the accordion item contents."
-    },
-    "accordion.Root": {
-      "css_vars": [],
-      "data": [
-        "data-orientation",
-        "data-disabled"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": null,
-          "doc": "The uncontrolled value of the item(s) that should be initially expanded. To render a controlled accordion, use the `value` prop instead.",
-          "name": "defaultValue",
-          "type": "Value[]"
-        },
-        {
-          "default": null,
-          "doc": "The controlled value of the item(s) that should be expanded. To render an uncontrolled accordion, use the `defaultValue` prop instead.",
-          "name": "value",
-          "type": "Value[]"
-        },
-        {
-          "default": null,
-          "doc": "Event handler called when an accordion item is expanded or collapsed. Provides the new value as an argument.",
-          "name": "onValueChange",
-          "type": "((value: Value[], eventDetails: Accordion.Root.ChangeEventDetails) => void)"
-        },
-        {
-          "default": "false",
-          "doc": "Allows the browser's built-in page search to find and expand the panel contents. Overrides the `keepMounted` prop and uses `hidden=\"until-found\"` to hide the element without removing it from the DOM.",
-          "name": "hiddenUntilFound",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Deprecated following the [APG guidance update](https://github.com/w3c/aria-practices/pull/3434) to remove roving focus. This prop no longer affects keyboard focus behavior.",
-          "name": "loopFocus",
-          "type": "boolean"
-        },
-        {
-          "default": "false",
-          "doc": "Whether multiple items can be open at the same time.",
-          "name": "multiple",
-          "type": "boolean"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component should ignore user interaction.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "'vertical'",
-          "doc": "Deprecated following the [APG guidance update](https://github.com/w3c/aria-practices/pull/3434) to remove roving focus. This prop no longer affects keyboard focus behavior.",
-          "name": "orientation",
-          "type": "Orientation"
-        },
-        {
-          "default": "((state: Accordion.Root.State<Value>) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Accordion.Root.State<Value>) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to keep the element in the DOM while the panel is closed. This prop is ignored when `hiddenUntilFound` is used.",
-          "name": "keepMounted",
-          "type": "boolean"
-        },
-        {
-          "default": "((props: HTMLProps, state: Accordion.Root.State<Value>) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups all parts of the accordion."
-    },
-    "accordion.Trigger": {
-      "css_vars": [],
-      "data": [
-        "data-panel-open",
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Accordion.Trigger.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Accordion.Trigger.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Accordion.Trigger.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A button that opens and closes the corresponding panel."
+        "op": "join"
+      }
     }
   },
-  "recipe": "presentational",
+  "css_vars": [],
+  "facts": {
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/0": "not-prose w-full rounded-md border",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/1": "flex w-full items-center justify-between gap-4 p-3",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/10": "space-y-2",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/11": "font-medium text-muted-foreground text-sm",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/2": "flex items-center gap-2",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/3": "size-4 text-muted-foreground",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/4": "font-medium text-sm",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/5": "font-mono text-xs",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/6": "space-y-4 p-4 pt-0",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/9": "rounded-md bg-muted/50 p-3 text-muted-foreground text-sm",
+    "jsx/anonymous/class/16": "rounded-md bg-muted/50",
+    "port/class/0": "cn-accordion flex w-full flex-col rounded-md border"
+  },
+  "file_fingerprints": {
+    "ai_elements/agent.tsx": "edd5782724dae399f2de73dc3c5120da9be6a8e27a9268c352d96e8df28068f5",
+    "ai_elements/code-block.tsx": "0c49280b41a638076163ba961b7bc1f1e1fabae82ea776c55e4f4e182e6cda60",
+    "shadcn/ui/accordion.tsx": "12770ce66705e077ece1cd561b5e05b9eb97ee5a924066469d7a1cc7a665a1f9"
+  },
+  "fingerprint": "a7e78cf3e826f8bf624d3fb49259ba62417e05f67eeac87315563720951e66b8",
+  "ignored": {
+    "jsx/CodeBlockHeader/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/4": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/13": "the generated port does not contain this source literal",
+    "jsx/CodeBlockTitle/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/12": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/14": "the generated port does not contain this source literal",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/7": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/17": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/15": "the generated port does not contain this source literal",
+    "jsx/CodeBlockContent/class/0": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/19": "the generated port does not contain this source literal",
+    "jsx/AccordionTrigger/class/0": "the generated port does not contain this source literal",
+    "jsx/CodeBlockActions/class/0": "the generated port does not contain this source literal",
+    "jsx/CodeBlockCopyButton/class/0": "the generated port does not contain this source literal",
+    "jsx/TokenSpan/class/0": "the generated port does not contain this source literal",
+    "jsx/AccordionContent/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/7": "the generated port does not contain this source literal",
+    "jsx/CodeBlockFilename/class/0": "the generated port does not contain this source literal",
+    "jsx/CodeBlockLanguageSelectorTrigger/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/9": "the generated port does not contain this source literal",
+    "jsx/CodeBlockContainer/class/0": "the generated port does not contain this source literal",
+    "jsx/AccordionContent/class/1": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/10": "the generated port does not contain this source literal",
+    "jsx/AccordionTrigger/class/3": "the generated port does not contain this source literal",
+    "jsx/AccordionTrigger/class/1": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/6": "the generated port does not contain this source literal",
+    "jsx/AccordionItem/class/0": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/11": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/1": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/2": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/8": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/5": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/0": "the generated port does not contain this source literal",
+    "jsx/anonymous/class/18": "the generated port does not contain this source literal",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/8": "the generated port does not contain this source literal",
+    "jsx/AccordionTrigger/class/2": "the generated port does not contain this source literal",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/3": "the generated port does not contain this source literal"
+  },
+  "name": "agent",
+  "port_body": "5233d242656186c973c9163e0f9baa7d23227c992d33511bf61b51285cbac024",
+  "schema_version": 2,
   "source": "ai_elements",
+  "source_facts": {
+    "jsx/Accordion/class/0": "cn-accordion flex w-full flex-col",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/2": "flex items-center gap-2",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/1": "flex w-full items-center justify-between gap-4 p-3",
+    "jsx/CodeBlockHeader/class/0": "flex items-center justify-between border-b bg-muted/80 px-3 py-2 text-muted-foreground text-xs",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/4": "before:w-8",
+    "jsx/anonymous/class/13": "border-b last:border-b-0",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/4": "font-medium text-sm",
+    "jsx/CodeBlockTitle/class/0": "flex items-center gap-2",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/12": "[counter-increment:line_0] [counter-reset:line]",
+    "jsx/anonymous/class/14": "px-3 py-2 text-sm hover:no-underline",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/7": "space-y-2",
+    "jsx/anonymous/class/17": "space-y-2",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/10": "space-y-2",
+    "jsx/anonymous/class/15": "px-3 pb-3",
+    "jsx/CodeBlockContent/class/0": "relative overflow-auto",
+    "jsx/anonymous/class/19": "rounded-md bg-muted/50",
+    "jsx/AccordionTrigger/class/0": "flex",
+    "jsx/CodeBlockActions/class/0": "-my-1 -mr-1 flex items-center gap-2",
+    "jsx/CodeBlockCopyButton/class/0": "shrink-0",
+    "jsx/TokenSpan/class/0": "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)]",
+    "jsx/AccordionContent/class/0": "cn-accordion-content overflow-hidden",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/7": "before:text-muted-foreground/50",
+    "jsx/CodeBlockFilename/class/0": "font-mono",
+    "jsx/CodeBlockLanguageSelectorTrigger/class/0": "h-7 border-none bg-transparent px-2 text-xs shadow-none",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/9": "before:select-none",
+    "jsx/CodeBlockContainer/class/0": "group relative w-full overflow-hidden rounded-md border bg-background text-foreground",
+    "jsx/AccordionContent/class/1": "cn-accordion-content-inner h-(--accordion-panel-height) data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/10": "dark:!bg-[var(--shiki-dark-bg)] dark:!text-[var(--shiki-dark)] m-0 p-4 text-sm",
+    "jsx/AccordionTrigger/class/3": "cn-accordion-trigger-icon pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline",
+    "jsx/AccordionTrigger/class/1": "cn-accordion-trigger group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/12": "rounded-md border",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/6": "before:text-right",
+    "jsx/AccordionItem/class/0": "cn-accordion-item",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/3": "size-4 text-muted-foreground",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/11": "font-mono text-sm",
+    "jsx/anonymous/class/16": "rounded-md bg-muted/50",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/5": "font-mono text-xs",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/0": "not-prose w-full rounded-md border",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/1": "before:content-[counter(line)]",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/6": "space-y-4 p-4 pt-0",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/2": "before:inline-block",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/8": "before:font-mono",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/5": "before:mr-4",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/0": "block",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/11": "font-medium text-muted-foreground text-sm",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/9": "rounded-md bg-muted/50 p-3 text-muted-foreground text-sm",
+    "jsx/anonymous/class/18": "font-medium text-muted-foreground text-sm",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/8": "font-medium text-muted-foreground text-sm",
+    "jsx/AccordionTrigger/class/2": "cn-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden",
+    "file/ai_elements/code-block.tsx/jsx/anonymous/class/3": "before:[counter-increment:line]"
+  },
+  "state_reads": [],
   "styles": {
-    "luma": {
-      "cn-accordion": "overflow-hidden rounded-2xl border"
-    },
-    "maia": {
-      "cn-accordion": "overflow-hidden rounded-2xl border"
-    },
-    "mira": {
-      "cn-accordion": "overflow-hidden rounded-md border"
-    },
-    "rhea": {
-      "cn-accordion": "overflow-hidden rounded-2xl border"
-    }
+    "luma": "5e191462b0929d6f14dd9ff51a922cfd2e6a87c150ec3db556d8bfcf325c8d25",
+    "maia": "5e191462b0929d6f14dd9ff51a922cfd2e6a87c150ec3db556d8bfcf325c8d25",
+    "mira": "236bc8bb6dfd6bed14fb9b62b943c9d789b7837a0861bd79ec81d143bfe3082b",
+    "rhea": "5e191462b0929d6f14dd9ff51a922cfd2e6a87c150ec3db556d8bfcf325c8d25"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/agent.tsx",
-      "sha256": "7d96005ace889eaa790b293ae75883d62546b6c7983aec3e7e6784c0392e30c7"
-    }
+    "ai_elements/agent.tsx": "7d96005ace889eaa790b293ae75883d62546b6c7983aec3e7e6784c0392e30c7",
+    "ai_elements/code-block.tsx": "5c7285171c5aa741749a1642a85f492a9b5e80dc4ccb704b5c3f58c45efebd04",
+    "shadcn/ui/accordion.tsx": "3fbd0fd128f90598e5387f55646f66fff0775ba95bc152a7252ddb24a601be5c"
   },
-  "variants": {}
+  "uses": [
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/0",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/1",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/10",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/11",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/2",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/3",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/4",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/5",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/6",
+    "file/ai_elements/agent.tsx/jsx/anonymous/class/9",
+    "jsx/anonymous/class/16",
+    "port/class/0"
+  ]
 }

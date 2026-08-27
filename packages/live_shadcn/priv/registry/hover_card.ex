@@ -9,6 +9,16 @@ defmodule LiveShadcn.UI.HoverCard do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/HoverCardContent/class/0" => "isolate z-50",
+    "jsx/HoverCardContent/class/1" => "cn-hover-card-content cn-hover-card-content-logical z-50 origin-(--transform-origin) outline-hidden"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Popover
 
   @doc """
@@ -81,7 +91,7 @@ defmodule LiveShadcn.UI.HoverCard do
           phx-mounted={Popover.owned_attributes(:positioner)}
           data-open={flag(@open)}
           data-closed={flag(not @open)}
-          class="isolate z-50"
+          class={upstream_fact("jsx/HoverCardContent/class/0")}
         >
           <div
             data-slot="hover-card-content"
@@ -94,8 +104,8 @@ defmodule LiveShadcn.UI.HoverCard do
             data-open={flag(@open)}
             data-closed={flag(not @open)}
             class={[
-              "cn-hover-card-content cn-hover-card-content-logical z-50 origin-(--transform-origin) outline-hidden",
-              @class
+              upstream_fact("jsx/HoverCardContent/class/1"),
+              (@class || "")
             ]}
             data-lb-style-target
             data-lb-measure

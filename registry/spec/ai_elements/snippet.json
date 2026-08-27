@@ -1,550 +1,165 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "folds": [
-    "shadcn/input",
-    "shadcn/input-group"
-  ],
-  "generated_by": "mix ui.spec",
-  "name": "snippet",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Snippet",
-      "name": "snippet",
-      "params": {
-        "children": null,
-        "className": null,
-        "code": null
-      },
-      "primitive": null,
-      "refs": [
-        "code",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/inputGroupAddonVariants/base",
+      "cva/inputGroupAddonVariants/default/align",
+      "cva/inputGroupAddonVariants/variant/align/block-end",
+      "cva/inputGroupAddonVariants/variant/align/block-start",
+      "cva/inputGroupAddonVariants/variant/align/inline-end",
+      "cva/inputGroupAddonVariants/variant/align/inline-start",
+      "cva/inputGroupButtonVariants/base",
+      "cva/inputGroupButtonVariants/variant/size/icon-sm",
+      "cva/inputGroupButtonVariants/variant/size/icon-xs",
+      "cva/inputGroupButtonVariants/variant/size/sm",
+      "cva/inputGroupButtonVariants/variant/size/xs",
+      "jsx/SnippetCopyButton/class/0"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "role",
-                "value": "group"
-              }
-            ],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto font-mono",
-            "class_when": [],
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "input-group",
-            "tag": "div",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SnippetAddon",
-      "name": "snippet_addon",
-      "params": {
-        "align": "inline-start",
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "role",
-            "value": "group"
+            "fact": "jsx/Input/class/0"
           },
           {
-            "identifiers": [
-              "align"
-            ],
-            "kind": "code",
-            "name": "data-align",
-            "value": "align"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [
-            {
-              "group": "input-group",
-              "name": "data-disabled",
-              "value": "true"
-            }
-          ],
-          "self": [
-            {
-              "name": "data-slot",
-              "value": "kbd"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "input-group-addon",
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [
-          {
-            "args": [
-              "align"
-            ],
-            "table": "inputGroupAddonVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SnippetText",
-      "name": "snippet_text",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "cn-input-group-text flex items-center [&_svg]:pointer-events-none pl-2 font-normal text-muted-foreground",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SnippetInput",
-      "name": "snippet_input",
-      "params": {
-        "className": null,
-        "code": null,
-        "type": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "type"
-            ],
-            "kind": "code",
-            "name": "type",
-            "value": "type"
+            "fact": "jsx/InputGroupInput/class/0"
           },
           {
-            "kind": "flag",
-            "name": "readonly",
-            "value": null
-          },
-          {
-            "identifiers": [
-              "code"
-            ],
-            "kind": "code",
-            "name": "value",
-            "value": "code"
+            "fact": "jsx/SnippetInput/class/0"
           }
         ],
-        "children": [],
-        "class": "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 cn-input-group-input flex-1 text-foreground",
-        "class_when": [],
-        "merges_class": true,
-        "module": "input",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "input-group-control",
-        "tag": "input",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
+        "op": "join"
       },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "SnippetCopyButton",
-      "name": "snippet_copy_button",
-      "params": {
-        "children": null,
-        "className": null,
-        "size": "icon-sm",
-        "timeout": "2000",
-        "type": "button",
-        "variant": "ghost"
+      "port/class/1": {
+        "items": [
+          {
+            "fact": "jsx/InputGroupText/class/0"
+          },
+          {
+            "fact": "jsx/SnippetText/class/0"
+          }
+        ],
+        "op": "join"
       },
-      "primitive": null,
-      "refs": [
-        "onCopy",
-        "onError",
-        "timeout",
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
+      "port/class/2": {
+        "items": [
           {
-            "identifiers": [
-              "type"
-            ],
-            "kind": "code",
-            "name": "type",
-            "value": "type"
+            "fact": "jsx/InputGroup/class/0"
           },
           {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "data-size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          },
-          {
-            "kind": "text",
-            "name": "aria-label",
-            "value": "Copy"
-          },
-          {
-            "kind": "text",
-            "name": "title",
-            "value": "Copy"
+            "fact": "jsx/Snippet/class/0"
           }
         ],
-        "children": [
-          {
-            "default": [
-              {
-                "attrs": [
-                  {
-                    "kind": "code",
-                    "name": "size",
-                    "value": "14"
-                  }
-                ],
-                "children": [],
-                "class": "size-3.5",
-                "class_when": [],
-                "else": [
-                  {
-                    "attrs": [],
-                    "children": [],
-                    "class": "",
-                    "class_when": [],
-                    "icons": {
-                      "lucide": "Copy"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "then": [
-                  {
-                    "attrs": [],
-                    "children": [],
-                    "class": "",
-                    "class_when": [],
-                    "icons": {
-                      "lucide": "Check"
-                    },
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "type": "icon",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "type": "choice",
-                "variant_calls": [],
-                "vars": [],
-                "when": "isCopied"
-              }
-            ],
-            "identifiers": [
-              "children"
-            ],
-            "type": "children"
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [
-          {
-            "args": [
-              "size"
-            ],
-            "table": "inputGroupButtonVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {
-        "timeout": {
-          "optional": true,
-          "type": "number"
-        }
+        "op": "join"
       }
     }
-  ],
-  "primitives": {
-    "input.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled",
-        "data-valid",
-        "data-invalid",
-        "data-dirty",
-        "data-touched",
-        "data-filled",
-        "data-focused"
-      ],
-      "element": "input",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "number \\",
-          "doc": "string[]",
-          "name": "defaultValue",
-          "type": "string \\"
-        },
-        {
-          "default": "string[] \\",
-          "doc": "number",
-          "name": "value",
-          "type": "string \\"
-        },
-        {
-          "default": null,
-          "doc": "Callback fired when the `value` changes. Use when controlled.",
-          "name": "onValueChange",
-          "type": "((value: string, eventDetails: Input.ChangeEventDetails) => void)"
-        },
-        {
-          "default": "((state: Input.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Input.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Input.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A native input element that automatically works with [Field](https://base-ui.com/react/components/field)."
-    }
   },
-  "recipe": "clipboard",
+  "css_vars": [
+    "--radius",
+    "--radius-sm"
+  ],
+  "facts": {
+    "cva/inputGroupAddonVariants/base": "cn-input-group-addon flex cursor-text items-center justify-center select-none",
+    "cva/inputGroupAddonVariants/default/align": "inline-start",
+    "cva/inputGroupAddonVariants/variant/align/block-end": "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/block-start": "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end": "cn-input-group-addon-align-inline-end order-last",
+    "cva/inputGroupAddonVariants/variant/align/inline-start": "cn-input-group-addon-align-inline-start order-first",
+    "cva/inputGroupButtonVariants/base": "cn-input-group-button flex items-center shadow-none",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm": "cn-input-group-button-size-icon-sm",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs": "cn-input-group-button-size-icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm": "cn-input-group-button-size-sm",
+    "cva/inputGroupButtonVariants/variant/size/xs": "cn-input-group-button-size-xs",
+    "jsx/SnippetCopyButton/class/0": "size-3.5",
+    "port/class/0": "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 cn-input-group-input flex-1 text-foreground",
+    "port/class/1": "cn-input-group-text flex items-center [&_svg]:pointer-events-none pl-2 font-normal text-muted-foreground",
+    "port/class/2": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto font-mono"
+  },
+  "file_fingerprints": {
+    "ai_elements/snippet.tsx": "dc0d776cd7c96abd8257b2b5d8a15894c17e983d0ade41d315ded5e706bc6e4c",
+    "shadcn/ui/input-group.tsx": "628473a39058fc34aea9622204e5f6a34dc9ee82dffa82e16fa19f6813be6900",
+    "shadcn/ui/input.tsx": "d9c1e31c39953bd4ed9715dfc0a0522ef4573419445aa5f173d93c0aedb5720f"
+  },
+  "fingerprint": "0ebd1350bcd1635ef338a597ad7a0531699ea2c163aa626ea13ee627fb96f227",
+  "ignored": {
+    "cva/inputGroupButtonVariants/default/size": "the generated port does not contain this source literal",
+    "jsx/InputGroupTextarea/class/0": "the generated port does not contain this source literal"
+  },
+  "name": "snippet",
+  "port_body": "b1c0c487f41679e702638096a59988acb1ce627d7e4cefb74e4d7c403923924b",
+  "schema_version": 2,
   "source": "ai_elements",
-  "styles": {
-    "luma": {
-      "cn-input": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-3xl border px-3 py-1 text-base transition-[color,box-shadow,background-color] file:h-7 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
-      "cn-input-group": "bg-input/50 border-transparent has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-[color,box-shadow,background-color] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-3xl has-data-[align=block-start]:rounded-3xl has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[textarea]:rounded-2xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4"
+  "source_facts": {
+    "cva/inputGroupAddonVariants/base": "cn-input-group-addon flex cursor-text items-center justify-center select-none",
+    "cva/inputGroupAddonVariants/default/align": "inline-start",
+    "cva/inputGroupAddonVariants/variant/align/block-end": "cn-input-group-addon-align-block-end order-last w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/block-start": "cn-input-group-addon-align-block-start order-first w-full justify-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end": "cn-input-group-addon-align-inline-end order-last",
+    "cva/inputGroupAddonVariants/variant/align/inline-start": "cn-input-group-addon-align-inline-start order-first",
+    "cva/inputGroupButtonVariants/base": "cn-input-group-button flex items-center shadow-none",
+    "cva/inputGroupButtonVariants/default/size": "xs",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm": "cn-input-group-button-size-icon-sm",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs": "cn-input-group-button-size-icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm": "cn-input-group-button-size-sm",
+    "cva/inputGroupButtonVariants/variant/size/xs": "cn-input-group-button-size-xs",
+    "jsx/Input/class/0": "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+    "jsx/InputGroup/class/0": "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
+    "jsx/InputGroupInput/class/0": "cn-input-group-input flex-1",
+    "jsx/InputGroupText/class/0": "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
+    "jsx/InputGroupTextarea/class/0": "cn-input-group-textarea flex-1 resize-none",
+    "jsx/Snippet/class/0": "font-mono",
+    "jsx/SnippetCopyButton/class/0": "size-3.5",
+    "jsx/SnippetInput/class/0": "text-foreground",
+    "jsx/SnippetText/class/0": "pl-2 font-normal text-muted-foreground"
+  },
+  "state_reads": [
+    {
+      "name": "aria-invalid",
+      "value": null
     },
-    "lyra": {
-      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-none border bg-transparent px-2.5 py-1 text-xs transition-colors file:h-6 file:text-xs file:font-medium focus-visible:ring-1 aria-invalid:ring-1 md:text-xs",
-      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 h-8 rounded-none border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-1 has-[[data-slot][aria-invalid=true]]:ring-1 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-xs [&_svg:not([class*='size-'])]:size-4"
+    {
+      "name": "data-slot",
+      "value": "kbd"
     },
-    "maia": {
-      "cn-input": "bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-4xl border px-3 py-1 text-base transition-colors file:h-7 file:text-sm file:font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] md:text-sm",
-      "cn-input-group": "border-input bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-2xl has-data-[align=block-start]:rounded-2xl has-[[data-slot=input-group-control]:focus-visible]:ring-[3px] has-[[data-slot][aria-invalid=true]]:ring-[3px] has-[textarea]:rounded-xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4"
-    },
-    "mira": {
-      "cn-input": "bg-input/20 dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-7 rounded-md border px-2 py-0.5 text-sm transition-colors file:h-6 file:text-xs/relaxed file:font-medium focus-visible:ring-2 aria-invalid:ring-2 md:text-xs/relaxed",
-      "cn-input-group": "border-input bg-input/20 dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-7 rounded-md border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-md has-data-[align=block-start]:rounded-md has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot][aria-invalid=true]]:ring-2 has-[textarea]:rounded-md has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-xs/relaxed [&_svg:not([class*='size-'])]:size-4"
-    },
-    "nova": {
-      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-lg border bg-transparent px-2.5 py-1 text-base transition-colors file:h-6 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
-      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 h-8 rounded-lg border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4"
-    },
-    "rhea": {
-      "cn-input": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 rounded-2xl border px-2.5 py-1 text-base transition-[color,box-shadow] duration-200 file:h-6 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
-      "cn-input-group": "bg-input/50 border-transparent has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-8 rounded-2xl border transition-[color,box-shadow] duration-200 in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4"
-    },
-    "sera": {
-      "cn-input": "border-transparent border-b-input bg-transparent focus-visible:border-b-ring aria-invalid:border-b-destructive dark:aria-invalid:border-b-destructive/50 h-10 border px-0 py-1 text-base transition-[color,border-color] file:h-7 file:text-sm file:font-medium md:text-sm",
-      "cn-input-group": "border-transparent border-b-input bg-transparent has-[[data-slot=input-group-control]:focus-visible]:border-b-ring has-[[data-slot][aria-invalid=true]]:border-b-destructive dark:has-[[data-slot][aria-invalid=true]]:border-b-destructive/50 h-10 rounded-none border transition-[color,border-color] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-none has-data-[align=block-start]:rounded-none has-[textarea]:rounded-none has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3",
-      "cn-input-group-input": "border-0 bg-transparent ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent group-has-[>[data-align=inline-start]]/input-group:pl-2 group-has-[>[data-align=inline-end]]/input-group:pr-2",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-3.5"
-    },
-    "vega": {
-      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-md border bg-transparent px-2.5 py-1 text-base shadow-xs transition-[color,box-shadow] file:h-7 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm",
-      "cn-input-group": "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-md border shadow-xs transition-[color,box-shadow] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-      "cn-input-group-input": "rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent",
-      "cn-input-group-text": "text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4"
+    {
+      "group": "input-group",
+      "name": "data-disabled",
+      "value": "true"
     }
+  ],
+  "styles": {
+    "luma": "175a76ab40d13b4e36f0bf2bb1cac97e558bb18026a9aeaff5060cf25f2dcbc1",
+    "lyra": "d725569d1e262f5c3b181bb03b5687d0ebbe69354b9100f771fb00678b779918",
+    "maia": "1b090c1d9c52be8a9c5ae68bc6dc425b935abf5be2cc5d79955af3ac666852a7",
+    "mira": "7a13465b5b7fd029f65c2c3358014167c7b681f0ec659dd4c4efe7e2a8e4256c",
+    "nova": "690a790154021d285ad6eee0d5554dbbaf06d000e814b5457f17629eda431c2e",
+    "rhea": "37414a73f7d9a0a00e6fbea6319e0b5c2f4af44eedcf23021171bf1c60a9aacb",
+    "sera": "a99ade78150b64c7598068e0df1ec74aa465469c1dca54cb64ba3d7da4897d4e",
+    "vega": "c22d646b9cd17d06fb7fbfdc78ca4dfd3afe9d45aa4bd54a19a6ce4807a28783"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/snippet.tsx",
-      "sha256": "2b4f1b9ebc82eb2e188d8f71246540446dd89ef9a89bd9e3946cfc6a018a6849"
-    }
+    "ai_elements/snippet.tsx": "2b4f1b9ebc82eb2e188d8f71246540446dd89ef9a89bd9e3946cfc6a018a6849",
+    "shadcn/ui/input-group.tsx": "2ee53fb8792b8022ab433ed6d455dc790ed8a5be59fb99d923303665ce3a6dbb",
+    "shadcn/ui/input.tsx": "8e6368337d35d3f2dcf54696d37ece8375d3065f9dc1ee80dc9e33fb1164f95f"
   },
-  "variants": {
-    "inputGroupAddonVariants": {
-      "base": "cn-input-group-addon flex cursor-text items-center justify-center select-none",
-      "defaults": {
-        "align": "inline-start"
-      },
-      "variants": {
-        "align": {
-          "block-end": "cn-input-group-addon-align-block-end order-last w-full justify-start",
-          "block-start": "cn-input-group-addon-align-block-start order-first w-full justify-start",
-          "inline-end": "cn-input-group-addon-align-inline-end order-last",
-          "inline-start": "cn-input-group-addon-align-inline-start order-first"
-        }
-      }
-    },
-    "inputGroupButtonVariants": {
-      "base": "cn-input-group-button flex items-center shadow-none",
-      "defaults": {
-        "size": "xs"
-      },
-      "variants": {
-        "size": {
-          "icon-sm": "cn-input-group-button-size-icon-sm",
-          "icon-xs": "cn-input-group-button-size-icon-xs",
-          "sm": "cn-input-group-button-size-sm",
-          "xs": "cn-input-group-button-size-xs"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/inputGroupAddonVariants/base",
+    "cva/inputGroupAddonVariants/default/align",
+    "cva/inputGroupAddonVariants/variant/align/block-end",
+    "cva/inputGroupAddonVariants/variant/align/block-start",
+    "cva/inputGroupAddonVariants/variant/align/inline-end",
+    "cva/inputGroupAddonVariants/variant/align/inline-start",
+    "cva/inputGroupButtonVariants/base",
+    "cva/inputGroupButtonVariants/variant/size/icon-sm",
+    "cva/inputGroupButtonVariants/variant/size/icon-xs",
+    "cva/inputGroupButtonVariants/variant/size/sm",
+    "cva/inputGroupButtonVariants/variant/size/xs",
+    "jsx/SnippetCopyButton/class/0",
+    "port/class/0",
+    "port/class/1",
+    "port/class/2"
+  ]
 }

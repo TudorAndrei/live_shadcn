@@ -9,6 +9,18 @@ defmodule LiveShadcn.UI.Popover do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/PopoverContent/class/0" => "isolate z-50",
+    "jsx/PopoverContent/class/1" => "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
+    "jsx/PopoverDescription/class/0" => "cn-popover-description",
+    "jsx/PopoverTitle/class/0" => "cn-popover-title"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Popover
 
   @doc """
@@ -90,7 +102,7 @@ defmodule LiveShadcn.UI.Popover do
           phx-mounted={Popover.owned_attributes(:positioner)}
           data-open={flag(@open)}
           data-closed={flag(not @open)}
-          class="isolate z-50"
+          class={upstream_fact("jsx/PopoverContent/class/0")}
         >
           <div
             data-slot="popover-content"
@@ -103,8 +115,8 @@ defmodule LiveShadcn.UI.Popover do
             data-open={flag(@open)}
             data-closed={flag(not @open)}
             class={[
-              "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
-              @class
+              upstream_fact("jsx/PopoverContent/class/1"),
+              (@class || "")
             ]}
             data-lb-style-target
             data-lb-measure
@@ -112,14 +124,14 @@ defmodule LiveShadcn.UI.Popover do
             <h2
               data-slot="popover-title"
               id={@id <> "-title"}
-              class={["cn-popover-title", @title_class]}
+              class={[upstream_fact("jsx/PopoverTitle/class/0"), (@title_class || "")]}
             >
               {render_slot(@title)}
             </h2>
             <p
               data-slot="popover-description"
               id={@id <> "-description"}
-              class={["cn-popover-description", @description_class]}
+              class={[upstream_fact("jsx/PopoverDescription/class/0"), (@description_class || "")]}
             >
               {render_slot(@description)}
             </p>

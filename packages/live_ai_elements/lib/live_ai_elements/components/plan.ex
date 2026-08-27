@@ -13,6 +13,48 @@ defmodule LiveAiElements.Components.Plan do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "cva/buttonVariants/variant/size/default" => "cn-button-size-default",
+    "cva/buttonVariants/variant/size/icon" => "cn-button-size-icon",
+    "cva/buttonVariants/variant/size/icon-lg" => "cn-button-size-icon-lg",
+    "cva/buttonVariants/variant/size/icon-sm" => "cn-button-size-icon-sm",
+    "cva/buttonVariants/variant/size/icon-xs" => "cn-button-size-icon-xs",
+    "cva/buttonVariants/variant/size/lg" => "cn-button-size-lg",
+    "cva/buttonVariants/variant/size/sm" => "cn-button-size-sm",
+    "cva/buttonVariants/variant/size/xs" => "cn-button-size-xs",
+    "cva/buttonVariants/variant/variant/default" => "cn-button-variant-default",
+    "cva/buttonVariants/variant/variant/destructive" => "cn-button-variant-destructive",
+    "cva/buttonVariants/variant/variant/ghost" => "cn-button-variant-ghost",
+    "cva/buttonVariants/variant/variant/link" => "cn-button-variant-link",
+    "cva/buttonVariants/variant/variant/outline" => "cn-button-variant-outline",
+    "cva/buttonVariants/variant/variant/secondary" => "cn-button-variant-secondary",
+    "jsx/CardContent/class/0" => "cn-card-content",
+    "jsx/PlanTrigger/class/1" => "size-4",
+    "jsx/PlanTrigger/class/2" => "sr-only",
+    "port/class/0" => "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-8",
+    "port/class/1" => "cn-card group/card flex flex-col shadow-none"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
+  @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
+
   alias LiveBase.Disclosure
 
   @doc """
@@ -57,7 +99,7 @@ defmodule LiveAiElements.Components.Plan do
       data-open={flag(@open)}
       data-closed={flag(not @open)}
       data-size={@size}
-      class={["cn-card group/card flex flex-col shadow-none", @class]}
+      class={[upstream_fact("port/class/1"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <button
@@ -72,11 +114,11 @@ defmodule LiveAiElements.Components.Plan do
         class={[
           variant_class("buttonVariants", "size", @size),
           variant_class("buttonVariants", "variant", @variant),
-          "cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 size-8",
+          upstream_fact("port/class/0"),
           @trigger_class
         ]}
       >
-        <LiveShadcn.Icon.icon name="chevrons-up-down" class="size-4" /><span class="sr-only">Toggle plan</span>{@title}
+        <LiveShadcn.Icon.icon name="chevrons-up-down" class={upstream_fact("jsx/PlanTrigger/class/1")} /><span class={upstream_fact("jsx/PlanTrigger/class/2")}>Toggle plan</span>{@title}
       </button>
       <div
         data-slot="plan-content"
@@ -90,7 +132,7 @@ defmodule LiveAiElements.Components.Plan do
         data-lb-width-var="--collapsible-panel-width"
         data-open={flag(@open)}
         data-closed={flag(not @open)}
-        class={["cn-card-content", @content_class]}
+        class={[upstream_fact("jsx/CardContent/class/0"), (@content_class || "")]}
       >
         {render_slot(@inner_block)}
       </div>
@@ -110,29 +152,6 @@ defmodule LiveAiElements.Components.Plan do
   defp flag(true), do: ""
   defp flag(_state), do: nil
 
-  # The variant tables, from the `cva` calls upstream writes them in.
-  @variants %{
-    "buttonVariants" => %{
-      "size" => %{
-        "default" => "cn-button-size-default",
-        "icon" => "cn-button-size-icon",
-        "icon-lg" => "cn-button-size-icon-lg",
-        "icon-sm" => "cn-button-size-icon-sm",
-        "icon-xs" => "cn-button-size-icon-xs",
-        "lg" => "cn-button-size-lg",
-        "sm" => "cn-button-size-sm",
-        "xs" => "cn-button-size-xs"
-      },
-      "variant" => %{
-        "default" => "cn-button-variant-default",
-        "destructive" => "cn-button-variant-destructive",
-        "ghost" => "cn-button-variant-ghost",
-        "link" => "cn-button-variant-link",
-        "outline" => "cn-button-variant-outline",
-        "secondary" => "cn-button-variant-secondary"
-      }
-    }
-  }
-
-  defp variant_class(table, group, value), do: get_in(@variants, [table, group, value])
+  defp variant_class(table, group, value),
+    do: get_in(@variant_classes, [table, group, value])
 end

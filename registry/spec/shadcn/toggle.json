@@ -1,174 +1,90 @@
 {
-  "anatomy": [
-    {
-      "children": [],
-      "part": "Toggle"
-    }
+  "base_ui": {
+    "toggle": "cd2fe3031caaa4f122aa731038e2aedce7d13e629297cd64a2b5f264bb19c4c7"
+  },
+  "bindings": {
+    "copy": [
+      "cva/toggleVariants/base",
+      "cva/toggleVariants/default/size",
+      "cva/toggleVariants/default/variant",
+      "cva/toggleVariants/variant/size/default",
+      "cva/toggleVariants/variant/size/lg",
+      "cva/toggleVariants/variant/size/sm",
+      "cva/toggleVariants/variant/variant/default",
+      "cva/toggleVariants/variant/variant/outline"
+    ],
+    "derived": {}
+  },
+  "css_vars": [
+    "--radius-md"
   ],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "cva/toggleVariants/base": "cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/toggleVariants/default/size": "default",
+    "cva/toggleVariants/default/variant": "default",
+    "cva/toggleVariants/variant/size/default": "cn-toggle-size-default",
+    "cva/toggleVariants/variant/size/lg": "cn-toggle-size-lg",
+    "cva/toggleVariants/variant/size/sm": "cn-toggle-size-sm",
+    "cva/toggleVariants/variant/variant/default": "cn-toggle-variant-default",
+    "cva/toggleVariants/variant/variant/outline": "cn-toggle-variant-outline"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/toggle.tsx": "8a442351139a463566ad1b97da05768f5843be83811083ece2190410cb4173cb"
+  },
+  "fingerprint": "8951bd48e500bf9259062a9ad14530322d3bfa08a2eeda683f166917255bbe0b",
+  "ignored": {},
   "name": "toggle",
-  "parts": [
+  "port_body": "a206ed8b84cdacbf29f651365bd4242f4a1057292aa7bb5a08db2de715f391e3",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "cva/toggleVariants/base": "cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "cva/toggleVariants/default/size": "default",
+    "cva/toggleVariants/default/variant": "default",
+    "cva/toggleVariants/variant/size/default": "cn-toggle-size-default",
+    "cva/toggleVariants/variant/size/lg": "cn-toggle-size-lg",
+    "cva/toggleVariants/variant/size/sm": "cn-toggle-size-sm",
+    "cva/toggleVariants/variant/variant/default": "cn-toggle-variant-default",
+    "cva/toggleVariants/variant/variant/outline": "cn-toggle-variant-outline"
+  },
+  "state_reads": [
     {
-      "contexts": [],
-      "export": "Toggle",
-      "name": "toggle",
-      "params": {
-        "className": null,
-        "size": "default",
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "variant",
-        "size",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "merges_class": true,
-        "module": "toggle",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-pressed",
-              "value": null
-            },
-            {
-              "name": "aria-invalid",
-              "value": null
-            },
-            {
-              "name": "data-state",
-              "value": "on"
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "toggle",
-        "tag": "button",
-        "type": "primitive",
-        "variant_calls": [
-          {
-            "args": [
-              "variant",
-              "size",
-              "className"
-            ],
-            "table": "toggleVariants"
-          }
-        ],
-        "vars": []
-      },
-      "types": {}
+      "name": "aria-invalid",
+      "value": null
+    },
+    {
+      "name": "aria-pressed",
+      "value": null
+    },
+    {
+      "name": "data-state",
+      "value": "on"
     }
   ],
-  "primitives": {
-    "toggle.Root": {
-      "css_vars": [],
-      "data": [
-        "data-pressed",
-        "data-disabled"
-      ],
-      "element": "button",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": null,
-          "doc": "A unique string that identifies the toggle when used inside a toggle group.",
-          "name": "value",
-          "type": "string"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the toggle button is currently pressed. This is the uncontrolled counterpart of `pressed`.",
-          "name": "defaultPressed",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Whether the toggle button is currently pressed. This is the controlled counterpart of `defaultPressed`.",
-          "name": "pressed",
-          "type": "boolean"
-        },
-        {
-          "default": null,
-          "doc": "Callback fired when the pressed state is changed.",
-          "name": "onPressedChange",
-          "type": "((pressed: boolean, eventDetails: Toggle.ChangeEventDetails) => void)"
-        },
-        {
-          "default": "true",
-          "doc": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
-          "name": "nativeButton",
-          "type": "boolean"
-        },
-        {
-          "default": "false",
-          "doc": "Whether the component should ignore user interaction.",
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "default": "((state: Toggle.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Toggle.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Toggle.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A two-state button that can be on or off."
-    }
+  "styles": {
+    "luma": "7234c41828edc085bed62523259701bc7d5b301dc3a57d63c86daf5cf547e09d",
+    "lyra": "4a015977e285232372bda67daf090acb12e603455ba2a0c023c764d572b452ad",
+    "maia": "e887436b27be542c20e6f99f976578e1f41a417df7e7923fc4af67adba12470a",
+    "mira": "eac93f63531fed30de7f2003f309dadb95ab4e5f8cbaaf03787f83aaee5ad43b",
+    "nova": "67d8e76e10c557f7d6204cc03af09213c6dd09e5c1c24e5f77bf64292c700d0a",
+    "rhea": "5dc0d7088f1ea27637f98ba1dcc73ed79bd45f92123f3b3e738cba7e0e220054",
+    "sera": "502c5110eb442007cac5a3fee8e0eb1528d321831154188fc31d35eb5141e241",
+    "vega": "fcfc5647dc24eccdfc983f321dd63198f9832333562ab64925812d48a82ec684"
   },
-  "recipe": "form-control",
-  "source": "shadcn",
-  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
   "upstream": {
-    "base_ui": {
-      "toggle": "a95df4178538ac35f3d51b5586ed7cccb980d2a15de01b6a9e6d37db9894ad7e"
-    },
-    "shadcn": {
-      "file": "shadcn/ui/toggle.tsx",
-      "sha256": "3ebc898aff16f6c119158abaae18fd749789ccded65c678fdc15994fd403b006"
-    }
+    "shadcn/ui/toggle.tsx": "3ebc898aff16f6c119158abaae18fd749789ccded65c678fdc15994fd403b006"
   },
-  "variants": {
-    "toggleVariants": {
-      "base": "cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-      "defaults": {
-        "size": "default",
-        "variant": "default"
-      },
-      "variants": {
-        "size": {
-          "default": "cn-toggle-size-default",
-          "lg": "cn-toggle-size-lg",
-          "sm": "cn-toggle-size-sm"
-        },
-        "variant": {
-          "default": "cn-toggle-variant-default",
-          "outline": "cn-toggle-variant-outline"
-        }
-      }
-    }
-  }
+  "uses": [
+    "cva/toggleVariants/base",
+    "cva/toggleVariants/default/size",
+    "cva/toggleVariants/default/variant",
+    "cva/toggleVariants/variant/size/default",
+    "cva/toggleVariants/variant/size/lg",
+    "cva/toggleVariants/variant/size/sm",
+    "cva/toggleVariants/variant/variant/default",
+    "cva/toggleVariants/variant/variant/outline"
+  ]
 }

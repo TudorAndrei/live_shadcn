@@ -1,157 +1,52 @@
 {
-  "anatomy": [
-    {
-      "children": [],
-      "part": "Input"
-    }
-  ],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "input",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Input",
-      "name": "input",
-      "params": {
-        "className": null,
-        "type": null
-      },
-      "primitive": null,
-      "refs": [
-        "type",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "type"
-            ],
-            "kind": "code",
-            "name": "type",
-            "value": "type"
-          }
-        ],
-        "children": [],
-        "class": "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-        "class_when": [],
-        "merges_class": true,
-        "module": "input",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": [
-            {
-              "name": "aria-invalid",
-              "value": null
-            }
-          ]
-        },
-        "render_as": null,
-        "slot": "input",
-        "tag": "input",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "input.Root": {
-      "css_vars": [],
-      "data": [
-        "data-disabled",
-        "data-valid",
-        "data-invalid",
-        "data-dirty",
-        "data-touched",
-        "data-filled",
-        "data-focused"
-      ],
-      "element": "input",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "number \\",
-          "doc": "string[]",
-          "name": "defaultValue",
-          "type": "string \\"
-        },
-        {
-          "default": "string[] \\",
-          "doc": "number",
-          "name": "value",
-          "type": "string \\"
-        },
-        {
-          "default": null,
-          "doc": "Callback fired when the `value` changes. Use when controlled.",
-          "name": "onValueChange",
-          "type": "((value: string, eventDetails: Input.ChangeEventDetails) => void)"
-        },
-        {
-          "default": "((state: Input.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: Input.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: Input.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A native input element that automatically works with [Field](https://base-ui.com/react/components/field)."
-    }
+  "base_ui": {
+    "input": "f1ffe2dc37b36614d5f62aa9513b32d6a15453c81e4795bce5fd2c2212dec713"
   },
-  "recipe": "form-control",
+  "bindings": {
+    "copy": [
+      "jsx/Input/class/0"
+    ],
+    "derived": {}
+  },
+  "css_vars": [],
+  "facts": {
+    "jsx/Input/class/0": "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/input.tsx": "d9c1e31c39953bd4ed9715dfc0a0522ef4573419445aa5f173d93c0aedb5720f"
+  },
+  "fingerprint": "7b1a8f088892b39f30d77767ce5bbc05d30473404bc6d0163dc775e86297228c",
+  "ignored": {},
+  "name": "input",
+  "port_body": "fcda900925cf02fb0f852eb0b6dbb7570a32564ceee329a904c1c515d9ed689d",
+  "schema_version": 2,
   "source": "shadcn",
-  "styles": {
-    "luma": {
-      "cn-input": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-3xl border px-3 py-1 text-base transition-[color,box-shadow,background-color] file:h-7 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
-    },
-    "lyra": {
-      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-none border bg-transparent px-2.5 py-1 text-xs transition-colors file:h-6 file:text-xs file:font-medium focus-visible:ring-1 aria-invalid:ring-1 md:text-xs"
-    },
-    "maia": {
-      "cn-input": "bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-4xl border px-3 py-1 text-base transition-colors file:h-7 file:text-sm file:font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] md:text-sm"
-    },
-    "mira": {
-      "cn-input": "bg-input/20 dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-7 rounded-md border px-2 py-0.5 text-sm transition-colors file:h-6 file:text-xs/relaxed file:font-medium focus-visible:ring-2 aria-invalid:ring-2 md:text-xs/relaxed"
-    },
-    "nova": {
-      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-lg border bg-transparent px-2.5 py-1 text-base transition-colors file:h-6 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
-    },
-    "rhea": {
-      "cn-input": "bg-input/50 border-transparent focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 rounded-2xl border px-2.5 py-1 text-base transition-[color,box-shadow] duration-200 file:h-6 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
-    },
-    "sera": {
-      "cn-input": "border-transparent border-b-input bg-transparent focus-visible:border-b-ring aria-invalid:border-b-destructive dark:aria-invalid:border-b-destructive/50 h-10 border px-0 py-1 text-base transition-[color,border-color] file:h-7 file:text-sm file:font-medium md:text-sm"
-    },
-    "vega": {
-      "cn-input": "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-md border bg-transparent px-2.5 py-1 text-base shadow-xs transition-[color,box-shadow] file:h-7 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm"
+  "source_facts": {
+    "jsx/Input/class/0": "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+  },
+  "state_reads": [
+    {
+      "name": "aria-invalid",
+      "value": null
     }
+  ],
+  "styles": {
+    "luma": "44427da24c207e3d5615016b862e807611f717ccb678685bbd59e8969965b9a0",
+    "lyra": "4d7cb2b3f59c6c9a8685c4116a7c47d88b118a9ad6fe3d036c04ad98eb9ab456",
+    "maia": "bf308c4e5adfd417694542ba1f4ed07e492016aefaf9e35ddde372b79ec9b2e0",
+    "mira": "66d9b7cbd4fa1b190262dfd5d19afc9653bbbb0cfe6d139a846c822d549cfda7",
+    "nova": "137d3a4d0a0569a89be9846877a6ee8d8b1047e988665692a2b35d1d6a001d06",
+    "rhea": "05f6ee0125bc75aa20ec086df505d8edd765d121174dfb6af5a7505269b72831",
+    "sera": "4506ed9be1a0a96324591e62f1644e0559dfd6df6ad9cd2b183f1c25a061855b",
+    "vega": "1fdaabcd5601401b99119bf6421541cb63154f69a109ec4c319b7102f6b3e077"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {
-      "input": "d8c987f1f235eca97efc665d002b5ba2e1a6dd645eff427902aa2694bdc5985e"
-    },
-    "shadcn": {
-      "file": "shadcn/ui/input.tsx",
-      "sha256": "8e6368337d35d3f2dcf54696d37ece8375d3065f9dc1ee80dc9e33fb1164f95f"
-    }
+    "shadcn/ui/input.tsx": "8e6368337d35d3f2dcf54696d37ece8375d3065f9dc1ee80dc9e33fb1164f95f"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Input/class/0"
+  ]
 }

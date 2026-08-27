@@ -9,6 +9,18 @@ defmodule LiveShadcn.UI.ScrollArea do
 
   use Phoenix.Component
 
+  # live-shadcn: upstream facts start
+  @upstream_facts %{
+    "jsx/ScrollArea/class/0" => "cn-scroll-area relative",
+    "jsx/ScrollArea/class/1" => "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
+    "jsx/ScrollBar/class/0" => "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
+    "jsx/ScrollBar/class/1" => "cn-scroll-area-thumb relative flex-1 bg-border"
+  }
+  # live-shadcn: upstream facts end
+  Module.get_attribute(__MODULE__, :upstream_facts)
+
+  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+
   alias LiveBase.Scroller
 
   @doc """
@@ -43,7 +55,7 @@ defmodule LiveShadcn.UI.ScrollArea do
       id={@id}
       phx-hook={Scroller.hook()}
       phx-mounted={Scroller.owned_attributes()}
-      class={["cn-scroll-area relative", @class]}
+      class={[upstream_fact("jsx/ScrollArea/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <div
@@ -51,7 +63,7 @@ defmodule LiveShadcn.UI.ScrollArea do
         data-lb-scroller
         tabindex="0"
         style="overflow: scroll; scrollbar-width: none"
-        class="cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1"
+        class={upstream_fact("jsx/ScrollArea/class/1")}
       >
         {render_slot(@inner_block)}
       </div>
@@ -64,7 +76,7 @@ defmodule LiveShadcn.UI.ScrollArea do
             else: "position: absolute; inset-block: 0; inset-inline-end: 0"
           )
         }
-        class="cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none"
+        class={upstream_fact("jsx/ScrollBar/class/0")}
       >
         <div
           data-slot="scroll-area-thumb"
@@ -76,7 +88,7 @@ defmodule LiveShadcn.UI.ScrollArea do
               else: "flex: none; width: 100%; height: var(--scroll-area-thumb-height)"
             )
           }
-          class="cn-scroll-area-thumb relative flex-1 bg-border"
+          class={upstream_fact("jsx/ScrollBar/class/1")}
         />
       </div>
       <div />

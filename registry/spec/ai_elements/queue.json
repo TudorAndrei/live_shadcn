@@ -1,1182 +1,163 @@
 {
-  "anatomy": [],
-  "css_vars": [
-    "--scroll-area-corner-height",
-    "--scroll-area-corner-width",
-    "--scroll-area-overflow-x-end",
-    "--scroll-area-overflow-x-start",
-    "--scroll-area-overflow-y-end",
-    "--scroll-area-overflow-y-start",
-    "--scroll-area-thumb-height",
-    "--scroll-area-thumb-width"
-  ],
-  "folds": [
-    "shadcn/scroll-area"
-  ],
-  "generated_by": "mix ui.spec",
-  "name": "queue",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "QueueItem",
-      "name": "queue_item",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "group flex flex-col gap-1 rounded-md px-3 py-1 text-sm transition-colors hover:bg-muted",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "li",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QueueItemIndicator",
-      "name": "queue_item_indicator",
-      "params": {
-        "className": null,
-        "completed": "false"
-      },
-      "primitive": null,
-      "refs": [
-        "completed",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "mt-0.5 inline-block size-2.5 rounded-full border",
-        "class_when": [
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Queue/class/0",
+      "jsx/QueueItem/class/0",
+      "jsx/QueueItemAction/class/0",
+      "jsx/QueueItemActions/class/0",
+      "jsx/QueueItemAttachment/class/0",
+      "jsx/QueueItemContent/class/0",
+      "jsx/QueueItemContent/class/1",
+      "jsx/QueueItemContent/class/2",
+      "jsx/QueueItemDescription/class/0",
+      "jsx/QueueItemDescription/class/1",
+      "jsx/QueueItemFile/class/0",
+      "jsx/QueueItemFile/class/1",
+      "jsx/QueueItemImage/class/0",
+      "jsx/QueueItemIndicator/class/0",
+      "jsx/QueueItemIndicator/class/1",
+      "jsx/QueueItemIndicator/class/2",
+      "jsx/QueueList/class/1",
+      "jsx/QueueSectionLabel/class/0",
+      "jsx/QueueSectionLabel/class/1",
+      "jsx/QueueSectionTrigger/class/0",
+      "jsx/ScrollArea/class/1",
+      "jsx/ScrollBar/class/0",
+      "jsx/ScrollBar/class/1"
+    ],
+    "derived": {
+      "port/class/0": {
+        "items": [
           {
-            "else": "border-muted-foreground/50",
-            "identifiers": [
-              "completed"
-            ],
-            "then": "border-muted-foreground/20 bg-muted-foreground/10",
-            "when": "completed"
+            "fact": "jsx/ScrollArea/class/0"
+          },
+          {
+            "fact": "jsx/QueueList/class/0"
           }
         ],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "completed": {
-          "optional": true,
-          "type": "boolean"
-        }
+        "op": "join"
       }
-    },
-    {
-      "contexts": [],
-      "export": "QueueItemContent",
-      "name": "queue_item_content",
-      "params": {
-        "className": null,
-        "completed": "false"
-      },
-      "primitive": null,
-      "refs": [
-        "completed",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "line-clamp-1 grow break-words",
-        "class_when": [
-          {
-            "else": "text-muted-foreground",
-            "identifiers": [
-              "completed"
-            ],
-            "then": "text-muted-foreground/50 line-through",
-            "when": "completed"
-          }
-        ],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "completed": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "QueueItemDescription",
-      "name": "queue_item_description",
-      "params": {
-        "className": null,
-        "completed": "false"
-      },
-      "primitive": null,
-      "refs": [
-        "completed",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "ml-6 text-xs",
-        "class_when": [
-          {
-            "else": "text-muted-foreground",
-            "identifiers": [
-              "completed"
-            ],
-            "then": "text-muted-foreground/40 line-through",
-            "when": "completed"
-          }
-        ],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "completed": {
-          "optional": true,
-          "type": "boolean"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "QueueItemActions",
-      "name": "queue_item_actions",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex gap-1",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QueueItemAction",
-      "name": "queue_item_action",
-      "params": {
-        "className": null,
-        "size": "icon",
-        "variant": "ghost"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          }
-        ],
-        "children": [],
-        "class": "size-auto rounded p-1 text-muted-foreground opacity-0 transition-opacity hover:bg-muted-foreground/10 hover:text-foreground group-hover:opacity-100",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QueueItemAttachment",
-      "name": "queue_item_attachment",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "mt-1 flex flex-wrap gap-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QueueItemImage",
-      "name": "queue_item_image",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "alt",
-            "value": ""
-          },
-          {
-            "kind": "code",
-            "name": "height",
-            "value": "32"
-          },
-          {
-            "kind": "code",
-            "name": "width",
-            "value": "32"
-          }
-        ],
-        "children": [],
-        "class": "h-8 w-8 rounded border object-cover",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "img",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QueueItemFile",
-      "name": "queue_item_file",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "kind": "code",
-                "name": "size",
-                "value": "12"
-              }
-            ],
-            "children": [],
-            "class": "",
-            "class_when": [],
-            "icons": {
-              "lucide": "Paperclip"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "type": "children"
-              }
-            ],
-            "class": "max-w-[100px] truncate",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "flex items-center gap-1 rounded border bg-muted px-2 py-1 text-xs",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QueueList",
-      "name": "queue_list",
-      "params": {
-        "children": null,
-        "className": null,
-        "orientation": "vertical"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [
-              {
-                "attrs": [],
-                "children": [
-                  {
-                    "attrs": [],
-                    "children": [
-                      {
-                        "type": "children"
-                      }
-                    ],
-                    "class": "",
-                    "class_when": [],
-                    "merges_class": false,
-                    "props": false,
-                    "reads": {
-                      "group": [],
-                      "self": []
-                    },
-                    "render_as": null,
-                    "slot": null,
-                    "tag": "ul",
-                    "type": "element",
-                    "variant_calls": [],
-                    "vars": []
-                  }
-                ],
-                "class": "max-h-40 pr-4",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "div",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
-            "class_when": [],
-            "merges_class": false,
-            "module": "scroll-area",
-            "part": "Viewport",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": "scroll-area-viewport",
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "orientation"
-                ],
-                "kind": "code",
-                "name": "data-orientation",
-                "value": "orientation"
-              },
-              {
-                "identifiers": [
-                  "orientation"
-                ],
-                "kind": "code",
-                "name": "orientation",
-                "value": "orientation"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [],
-                "children": [],
-                "class": "cn-scroll-area-thumb relative flex-1 bg-border",
-                "class_when": [],
-                "merges_class": false,
-                "module": "scroll-area",
-                "part": "Thumb",
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": "scroll-area-thumb",
-                "tag": "div",
-                "type": "primitive",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
-            "class_when": [],
-            "merges_class": true,
-            "module": "scroll-area",
-            "part": "Scrollbar",
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": [
-                {
-                  "name": "data-horizontal",
-                  "value": null
-                },
-                {
-                  "name": "data-vertical",
-                  "value": null
-                }
-              ]
-            },
-            "render_as": null,
-            "slot": "scroll-area-scrollbar",
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [],
-            "children": [],
-            "class": "",
-            "class_when": [],
-            "merges_class": false,
-            "module": "scroll-area",
-            "part": "Corner",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "div",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "cn-scroll-area relative mt-2 -mb-1",
-        "class_when": [],
-        "merges_class": true,
-        "module": "scroll-area",
-        "part": "Root",
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": "scroll-area",
-        "tag": "div",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QueueSection",
-      "name": "queue_section",
-      "params": {
-        "className": null,
-        "defaultOpen": "true"
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "defaultOpen",
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "identifiers": [
-              "defaultOpen"
-            ],
-            "kind": "code",
-            "name": "defaultOpen",
-            "value": "defaultOpen"
-          }
-        ],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "collapsible",
-        "function": "collapsible",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "disclosure",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QueueSectionTrigger",
-      "name": "queue_section_trigger",
-      "params": {
-        "children": null,
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "children"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
-          }
-        ],
-        "children": [
-          {
-            "type": "children"
-          }
-        ],
-        "class": "group flex w-full items-center justify-between rounded-md bg-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted",
-        "class_when": [],
-        "drew": true,
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "button",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "QueueSectionLabel",
-      "name": "queue_section_label",
-      "params": {
-        "className": null,
-        "count": null,
-        "icon": null,
-        "label": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props",
-        "icon",
-        "count",
-        "label"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [],
-            "children": [],
-            "class": "size-4 transition-transform group-data-[state=closed]:-rotate-90",
-            "class_when": [],
-            "icons": {
-              "lucide": "ChevronDown"
-            },
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "type": "icon",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "code": "icon",
-            "identifiers": [
-              "icon"
-            ],
-            "type": "value"
-          },
-          {
-            "attrs": [],
-            "children": [
-              {
-                "code": "count",
-                "identifiers": [
-                  "count"
-                ],
-                "type": "value"
-              },
-              {
-                "code": "label",
-                "identifiers": [
-                  "label"
-                ],
-                "type": "value"
-              }
-            ],
-            "class": "",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "span",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "flex items-center gap-2",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "span",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {
-        "count": {
-          "optional": true,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "contexts": [],
-      "export": "QueueSectionContent",
-      "name": "queue_section_content",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "",
-        "class_when": [],
-        "component": "collapsible",
-        "function": "collapsible_content",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "disclosure",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "Queue",
-      "name": "queue",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex flex-col gap-2 rounded-xl border border-border bg-background px-3 pt-2 pb-2 shadow-xs",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "scroll-area.Content": {
-      "css_vars": [],
-      "data": [
-        "data-has-overflow-x",
-        "data-has-overflow-y",
-        "data-overflow-x-end",
-        "data-overflow-x-start",
-        "data-overflow-y-end",
-        "data-overflow-y-start",
-        "data-scrolling"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: ScrollArea.Content.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Content.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Content.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A container for the content of the scroll area."
-    },
-    "scroll-area.Corner": {
-      "css_vars": [],
-      "data": [],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: ScrollArea.Corner.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Corner.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Corner.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A small rectangular area that appears at the intersection of horizontal and vertical scrollbars."
-    },
-    "scroll-area.Root": {
-      "css_vars": [
-        "--scroll-area-corner-height",
-        "--scroll-area-corner-width"
-      ],
-      "data": [
-        "data-has-overflow-x",
-        "data-has-overflow-y",
-        "data-overflow-x-end",
-        "data-overflow-x-start",
-        "data-overflow-y-end",
-        "data-overflow-y-start",
-        "data-scrolling"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "Partial<{ xStart: number; xEnd: number; yStart: number; yEnd: number }>",
-          "doc": "0",
-          "name": "overflowEdgeThreshold",
-          "type": "number \\"
-        },
-        {
-          "default": "((state: ScrollArea.Root.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Root.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Root.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "Groups all parts of the scroll area."
-    },
-    "scroll-area.Scrollbar": {
-      "css_vars": [
-        "--scroll-area-thumb-height",
-        "--scroll-area-thumb-width"
-      ],
-      "data": [
-        "data-orientation",
-        "data-has-overflow-x",
-        "data-has-overflow-y",
-        "data-hovering",
-        "data-overflow-x-end",
-        "data-overflow-x-start",
-        "data-overflow-y-end",
-        "data-overflow-y-start",
-        "data-scrolling"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "'horizontal'",
-          "doc": "'vertical'",
-          "name": "orientation",
-          "type": "'vertical' \\"
-        },
-        {
-          "default": "((state: ScrollArea.Scrollbar.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Scrollbar.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "false",
-          "doc": "Whether to keep the HTML element in the DOM when the viewport isn't scrollable.",
-          "name": "keepMounted",
-          "type": "boolean"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Scrollbar.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "A vertical or horizontal scrollbar for the scroll area."
-    },
-    "scroll-area.Thumb": {
-      "css_vars": [],
-      "data": [
-        "data-orientation",
-        "data-scrolling"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: ScrollArea.Thumb.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Thumb.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Thumb.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "The draggable part of the scrollbar that indicates the current scroll position."
-    },
-    "scroll-area.Viewport": {
-      "css_vars": [
-        "--scroll-area-overflow-x-end",
-        "--scroll-area-overflow-x-start",
-        "--scroll-area-overflow-y-end",
-        "--scroll-area-overflow-y-start"
-      ],
-      "data": [
-        "data-has-overflow-x",
-        "data-has-overflow-y",
-        "data-overflow-x-end",
-        "data-overflow-x-start",
-        "data-overflow-y-end",
-        "data-overflow-y-start",
-        "data-scrolling"
-      ],
-      "element": "div",
-      "hidden_input": false,
-      "props": [
-        {
-          "default": "((state: ScrollArea.Viewport.State) => string \\",
-          "doc": "undefined)",
-          "name": "className",
-          "type": "string \\"
-        },
-        {
-          "default": "((state: ScrollArea.Viewport.State) => React.CSSProperties \\",
-          "doc": "undefined)",
-          "name": "style",
-          "type": "React.CSSProperties \\"
-        },
-        {
-          "default": "((props: HTMLProps, state: ScrollArea.Viewport.State) => ReactElement)",
-          "doc": "-",
-          "name": "render",
-          "type": "ReactElement \\"
-        }
-      ],
-      "renders": true,
-      "summary": "The actual scrollable container of the scroll area."
     }
   },
-  "recipe": "presentational",
+  "css_vars": [],
+  "facts": {
+    "jsx/Queue/class/0": "flex flex-col gap-2 rounded-xl border border-border bg-background px-3 pt-2 pb-2 shadow-xs",
+    "jsx/QueueItem/class/0": "group flex flex-col gap-1 rounded-md px-3 py-1 text-sm transition-colors hover:bg-muted",
+    "jsx/QueueItemAction/class/0": "size-auto rounded p-1 text-muted-foreground opacity-0 transition-opacity hover:bg-muted-foreground/10 hover:text-foreground group-hover:opacity-100",
+    "jsx/QueueItemActions/class/0": "flex gap-1",
+    "jsx/QueueItemAttachment/class/0": "mt-1 flex flex-wrap gap-2",
+    "jsx/QueueItemContent/class/0": "line-clamp-1 grow break-words",
+    "jsx/QueueItemContent/class/1": "text-muted-foreground/50 line-through",
+    "jsx/QueueItemContent/class/2": "text-muted-foreground",
+    "jsx/QueueItemDescription/class/0": "ml-6 text-xs",
+    "jsx/QueueItemDescription/class/1": "text-muted-foreground/40 line-through",
+    "jsx/QueueItemFile/class/0": "flex items-center gap-1 rounded border bg-muted px-2 py-1 text-xs",
+    "jsx/QueueItemFile/class/1": "max-w-[100px] truncate",
+    "jsx/QueueItemImage/class/0": "h-8 w-8 rounded border object-cover",
+    "jsx/QueueItemIndicator/class/0": "mt-0.5 inline-block size-2.5 rounded-full border",
+    "jsx/QueueItemIndicator/class/1": "border-muted-foreground/20 bg-muted-foreground/10",
+    "jsx/QueueItemIndicator/class/2": "border-muted-foreground/50",
+    "jsx/QueueList/class/1": "max-h-40 pr-4",
+    "jsx/QueueSectionLabel/class/0": "flex items-center gap-2",
+    "jsx/QueueSectionLabel/class/1": "size-4 transition-transform group-data-[state=closed]:-rotate-90",
+    "jsx/QueueSectionTrigger/class/0": "group flex w-full items-center justify-between rounded-md bg-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted",
+    "jsx/ScrollArea/class/1": "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
+    "jsx/ScrollBar/class/0": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
+    "jsx/ScrollBar/class/1": "cn-scroll-area-thumb relative flex-1 bg-border",
+    "port/class/0": "cn-scroll-area relative mt-2 -mb-1"
+  },
+  "file_fingerprints": {
+    "ai_elements/queue.tsx": "06d2fbf2726b02d61d4b477d6f3c1b25590a24cb1e962dee096a8d64a9b13eda",
+    "shadcn/ui/scroll-area.tsx": "c53af2913150706d117d65ea81bdea4931e4fdfc44aef9e7f389af7a048e1162"
+  },
+  "fingerprint": "6eed14925420f69fc02fc8bf8094cf4a148ff078d55c4b537c3b31f5ed16c3a1",
+  "ignored": {
+    "jsx/QueueItemDescription/class/2": "the generated port does not contain this source literal"
+  },
+  "name": "queue",
+  "port_body": "ccfbe1483bed2ee99d143b06171c453b63dde833ba9ce312817ad98c294f0359",
+  "schema_version": 2,
   "source": "ai_elements",
-  "styles": {
-    "luma": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
+  "source_facts": {
+    "jsx/Queue/class/0": "flex flex-col gap-2 rounded-xl border border-border bg-background px-3 pt-2 pb-2 shadow-xs",
+    "jsx/QueueItem/class/0": "group flex flex-col gap-1 rounded-md px-3 py-1 text-sm transition-colors hover:bg-muted",
+    "jsx/QueueItemAction/class/0": "size-auto rounded p-1 text-muted-foreground opacity-0 transition-opacity hover:bg-muted-foreground/10 hover:text-foreground group-hover:opacity-100",
+    "jsx/QueueItemActions/class/0": "flex gap-1",
+    "jsx/QueueItemAttachment/class/0": "mt-1 flex flex-wrap gap-2",
+    "jsx/QueueItemContent/class/0": "line-clamp-1 grow break-words",
+    "jsx/QueueItemContent/class/1": "text-muted-foreground/50 line-through",
+    "jsx/QueueItemContent/class/2": "text-muted-foreground",
+    "jsx/QueueItemDescription/class/0": "ml-6 text-xs",
+    "jsx/QueueItemDescription/class/1": "text-muted-foreground/40 line-through",
+    "jsx/QueueItemDescription/class/2": "text-muted-foreground",
+    "jsx/QueueItemFile/class/0": "flex items-center gap-1 rounded border bg-muted px-2 py-1 text-xs",
+    "jsx/QueueItemFile/class/1": "max-w-[100px] truncate",
+    "jsx/QueueItemImage/class/0": "h-8 w-8 rounded border object-cover",
+    "jsx/QueueItemIndicator/class/0": "mt-0.5 inline-block size-2.5 rounded-full border",
+    "jsx/QueueItemIndicator/class/1": "border-muted-foreground/20 bg-muted-foreground/10",
+    "jsx/QueueItemIndicator/class/2": "border-muted-foreground/50",
+    "jsx/QueueList/class/0": "mt-2 -mb-1",
+    "jsx/QueueList/class/1": "max-h-40 pr-4",
+    "jsx/QueueSectionLabel/class/0": "flex items-center gap-2",
+    "jsx/QueueSectionLabel/class/1": "size-4 transition-transform group-data-[state=closed]:-rotate-90",
+    "jsx/QueueSectionTrigger/class/0": "group flex w-full items-center justify-between rounded-md bg-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted",
+    "jsx/ScrollArea/class/0": "cn-scroll-area relative",
+    "jsx/ScrollArea/class/1": "cn-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1",
+    "jsx/ScrollBar/class/0": "cn-scroll-area-scrollbar flex touch-none p-px transition-colors select-none",
+    "jsx/ScrollBar/class/1": "cn-scroll-area-thumb relative flex-1 bg-border"
+  },
+  "state_reads": [
+    {
+      "name": "data-horizontal",
+      "value": null
     },
-    "lyra": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-none"
-    },
-    "maia": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
-    },
-    "mira": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
-    },
-    "nova": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
-    },
-    "rhea": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
-    },
-    "sera": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-none"
-    },
-    "vega": {
-      "cn-scroll-area-scrollbar": "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-      "cn-scroll-area-thumb": "rounded-full"
+    {
+      "name": "data-vertical",
+      "value": null
     }
+  ],
+  "styles": {
+    "luma": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b",
+    "lyra": "e21f691072d29c7d3458fb1119449104f97e4b0b030b92164906944bb571a016",
+    "maia": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b",
+    "mira": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b",
+    "nova": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b",
+    "rhea": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b",
+    "sera": "e21f691072d29c7d3458fb1119449104f97e4b0b030b92164906944bb571a016",
+    "vega": "616d6ca7816bae3923409dbd2825f5cd36e7cbc3292c28900432e1c3d9fb708b"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/queue.tsx",
-      "sha256": "c823f565e0430749ba0b09db33e76eeb675eea4838bed10245bca392bffd6cfa"
-    }
+    "ai_elements/queue.tsx": "c823f565e0430749ba0b09db33e76eeb675eea4838bed10245bca392bffd6cfa",
+    "shadcn/ui/scroll-area.tsx": "6fb66a11b278222b7f59b3674b1931daecdefbe5df78e41953c7e7a800fb3e49"
   },
-  "variants": {}
+  "uses": [
+    "jsx/Queue/class/0",
+    "jsx/QueueItem/class/0",
+    "jsx/QueueItemAction/class/0",
+    "jsx/QueueItemActions/class/0",
+    "jsx/QueueItemAttachment/class/0",
+    "jsx/QueueItemContent/class/0",
+    "jsx/QueueItemContent/class/1",
+    "jsx/QueueItemContent/class/2",
+    "jsx/QueueItemDescription/class/0",
+    "jsx/QueueItemDescription/class/1",
+    "jsx/QueueItemFile/class/0",
+    "jsx/QueueItemFile/class/1",
+    "jsx/QueueItemImage/class/0",
+    "jsx/QueueItemIndicator/class/0",
+    "jsx/QueueItemIndicator/class/1",
+    "jsx/QueueItemIndicator/class/2",
+    "jsx/QueueList/class/1",
+    "jsx/QueueSectionLabel/class/0",
+    "jsx/QueueSectionLabel/class/1",
+    "jsx/QueueSectionTrigger/class/0",
+    "jsx/ScrollArea/class/1",
+    "jsx/ScrollBar/class/0",
+    "jsx/ScrollBar/class/1",
+    "port/class/0"
+  ]
 }

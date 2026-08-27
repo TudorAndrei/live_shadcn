@@ -1,285 +1,36 @@
 {
-  "anatomy": [],
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Temporary/class/0"
+    ],
+    "derived": {}
+  },
   "css_vars": [],
-  "generated_by": "mix ui.spec",
+  "facts": {
+    "jsx/Temporary/class/0": "stroke-1 stroke-ring"
+  },
+  "file_fingerprints": {
+    "ai_elements/edge.tsx": "ec6c526463103422bdc5e723289e14a63f595d1fb7d71a1098b10dcdeaf9e9d9"
+  },
+  "fingerprint": "a0fa78ca7ed14a6f01d6e3152b248da3822f747f0b3964e313f664c128a57034",
+  "ignored": {},
   "name": "edge",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Animated",
-      "name": "edge_animated",
-      "params": {
-        "edgePath": null,
-        "id": null,
-        "markerEnd": null,
-        "source": null,
-        "sourceNode": null,
-        "style": null,
-        "target": null,
-        "targetNode": null
-      },
-      "primitive": null,
-      "refs": [
-        "source",
-        "target",
-        "id",
-        "markerEnd",
-        "style"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "fill",
-                "value": "none"
-              },
-              {
-                "identifiers": [
-                  "id"
-                ],
-                "kind": "code",
-                "name": "id",
-                "value": "id"
-              },
-              {
-                "identifiers": [
-                  "markerEnd"
-                ],
-                "kind": "code",
-                "name": "marker-end",
-                "value": "markerEnd"
-              },
-              {
-                "identifiers": [
-                  "edgePath"
-                ],
-                "kind": "code",
-                "name": "d",
-                "value": "edgePath"
-              },
-              {
-                "identifiers": [
-                  "style"
-                ],
-                "kind": "style",
-                "name": "style",
-                "value": []
-              }
-            ],
-            "children": [],
-            "class": "",
-            "class_when": [],
-            "merges_class": false,
-            "module": "external/@xyflow/react",
-            "part": "Edge",
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "path",
-            "type": "primitive",
-            "variant_calls": [],
-            "vars": []
-          },
-          {
-            "attrs": [
-              {
-                "kind": "text",
-                "name": "fill",
-                "value": "var(--primary)"
-              },
-              {
-                "kind": "text",
-                "name": "r",
-                "value": "4"
-              }
-            ],
-            "children": [
-              {
-                "attrs": [
-                  {
-                    "kind": "text",
-                    "name": "dur",
-                    "value": "2s"
-                  },
-                  {
-                    "identifiers": [
-                      "edgePath"
-                    ],
-                    "kind": "code",
-                    "name": "path",
-                    "value": "edgePath"
-                  },
-                  {
-                    "kind": "text",
-                    "name": "repeatCount",
-                    "value": "indefinite"
-                  }
-                ],
-                "children": [],
-                "class": "",
-                "class_when": [],
-                "merges_class": false,
-                "props": false,
-                "reads": {
-                  "group": [],
-                  "self": []
-                },
-                "render_as": null,
-                "slot": null,
-                "tag": "animateMotion",
-                "type": "element",
-                "variant_calls": [],
-                "vars": []
-              }
-            ],
-            "class": "",
-            "class_when": [],
-            "merges_class": false,
-            "props": false,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "render_as": null,
-            "slot": null,
-            "tag": "circle",
-            "type": "element",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a fragment",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {},
-      "when": "(sourceNode && targetNode)"
-    },
-    {
-      "contexts": [],
-      "export": "Temporary",
-      "name": "edge_temporary",
-      "params": {
-        "edgePath": null,
-        "id": null,
-        "sourcePosition": null,
-        "sourceX": null,
-        "sourceY": null,
-        "targetPosition": null,
-        "targetX": null,
-        "targetY": null
-      },
-      "primitive": null,
-      "refs": [
-        "sourcePosition",
-        "sourceX",
-        "sourceY",
-        "targetPosition",
-        "targetX",
-        "targetY",
-        "id"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "fill",
-            "value": "none"
-          },
-          {
-            "identifiers": [
-              "id"
-            ],
-            "kind": "code",
-            "name": "id",
-            "value": "id"
-          },
-          {
-            "identifiers": [
-              "edgePath"
-            ],
-            "kind": "code",
-            "name": "d",
-            "value": "edgePath"
-          },
-          {
-            "kind": "style",
-            "name": "style",
-            "value": [
-              {
-                "kind": "text",
-                "property": "strokeDasharray",
-                "value": "5, 5"
-              }
-            ]
-          }
-        ],
-        "children": [],
-        "class": "stroke-1 stroke-ring",
-        "class_when": [],
-        "merges_class": false,
-        "module": "external/@xyflow/react",
-        "part": "Edge",
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "path",
-        "type": "primitive",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {
-    "external/@xyflow/react.Edge": {
-      "props": [
-        {
-          "name": "interactionWidth"
-        },
-        {
-          "name": "label"
-        },
-        {
-          "name": "labelX"
-        },
-        {
-          "name": "labelY"
-        }
-      ]
-    }
-  },
-  "recipe": "presentational",
+  "port_body": "9eea8ec16fbd219c8c7e35ab3cfee32c74a2e7bc259306bcd84572ccbc5bc6d3",
+  "schema_version": 2,
   "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/edge.tsx",
-      "sha256": "f7929c87f5f2828d9e5cf65b9dffd73dec0a0fc8c8c0dce8f7ef55e33b610049"
-    }
+  "source_facts": {
+    "jsx/Temporary/class/0": "stroke-1 stroke-ring"
   },
-  "variants": {}
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/edge.tsx": "f7929c87f5f2828d9e5cf65b9dffd73dec0a0fc8c8c0dce8f7ef55e33b610049"
+  },
+  "uses": [
+    "jsx/Temporary/class/0"
+  ]
 }

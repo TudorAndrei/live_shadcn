@@ -1,218 +1,48 @@
 {
-  "anatomy": [],
-  "css_vars": [],
-  "generated_by": "mix ui.spec",
-  "name": "confirmation",
-  "parts": [
-    {
-      "contexts": [],
-      "export": "Confirmation",
-      "name": "confirmation",
-      "params": {
-        "approval": null,
-        "className": null,
-        "state": null,
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "approval",
-        "state",
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [
-          {
-            "attrs": [
-              {
-                "identifiers": [
-                  "variant"
-                ],
-                "kind": "code",
-                "name": "variant",
-                "value": "variant"
-              }
-            ],
-            "children": [],
-            "class": "flex flex-col gap-2",
-            "class_when": [],
-            "component": "alert",
-            "function": "alert",
-            "merges_class": true,
-            "props": true,
-            "reads": {
-              "group": [],
-              "self": []
-            },
-            "recipe": "presentational",
-            "render_as": null,
-            "slot": null,
-            "source": "shadcn",
-            "tag": "div",
-            "type": "component_ref",
-            "variant_calls": [],
-            "vars": []
-          }
-        ],
-        "class": "",
-        "class_when": [],
-        "merges_class": false,
-        "props": false,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "reason": "a React context",
-        "render_as": null,
-        "slot": null,
-        "type": "transparent",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {},
-      "when": "approval || state === \"input-streaming\" || state === \"input-available\""
-    },
-    {
-      "contexts": [],
-      "export": "ConfirmationTitle",
-      "name": "confirmation_title",
-      "params": {
-        "className": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "inline",
-        "class_when": [],
-        "component": "alert",
-        "function": "alert_description",
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "div",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    },
-    {
-      "contexts": [],
-      "export": "ConfirmationActions",
-      "name": "confirmation_actions",
-      "params": {
-        "className": null,
-        "state": null
-      },
-      "primitive": null,
-      "refs": [
-        "className",
-        "props"
-      ],
-      "tree": {
-        "attrs": [],
-        "children": [],
-        "class": "flex items-center justify-end gap-2 self-end",
-        "class_when": [],
-        "merges_class": true,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "render_as": null,
-        "slot": null,
-        "tag": "div",
-        "type": "element",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {},
-      "when": "!(state !== \"approval-requested\")"
-    },
-    {
-      "contexts": [],
-      "export": "ConfirmationAction",
-      "name": "confirmation_action",
-      "params": {
-        "size": "default",
-        "variant": "default"
-      },
-      "primitive": null,
-      "refs": [
-        "props"
-      ],
-      "tree": {
-        "attrs": [
-          {
-            "kind": "text",
-            "name": "type",
-            "value": "button"
-          },
-          {
-            "identifiers": [
-              "size"
-            ],
-            "kind": "code",
-            "name": "size",
-            "value": "size"
-          },
-          {
-            "identifiers": [
-              "variant"
-            ],
-            "kind": "code",
-            "name": "variant",
-            "value": "variant"
-          }
-        ],
-        "children": [],
-        "class": "h-8 px-3 text-sm",
-        "class_when": [],
-        "component": "button",
-        "function": "button",
-        "merges_class": false,
-        "props": true,
-        "reads": {
-          "group": [],
-          "self": []
-        },
-        "recipe": "presentational",
-        "render_as": null,
-        "slot": null,
-        "source": "shadcn",
-        "tag": "button",
-        "type": "component_ref",
-        "variant_calls": [],
-        "vars": []
-      },
-      "types": {}
-    }
-  ],
-  "primitives": {},
-  "recipe": "presentational",
-  "source": "ai_elements",
-  "styles": {},
-  "upstream": {
-    "base_ui": {},
-    "shadcn": {
-      "file": "ai_elements/confirmation.tsx",
-      "sha256": "7cc0befed99499ed9010643e7a90ec619180a3f6e79cba5668cfc84126b96a10"
-    }
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Confirmation/class/0",
+      "jsx/ConfirmationAction/class/0",
+      "jsx/ConfirmationActions/class/0",
+      "jsx/ConfirmationTitle/class/0"
+    ],
+    "derived": {}
   },
-  "variants": {}
+  "css_vars": [],
+  "facts": {
+    "jsx/Confirmation/class/0": "flex flex-col gap-2",
+    "jsx/ConfirmationAction/class/0": "h-8 px-3 text-sm",
+    "jsx/ConfirmationActions/class/0": "flex items-center justify-end gap-2 self-end",
+    "jsx/ConfirmationTitle/class/0": "inline"
+  },
+  "file_fingerprints": {
+    "ai_elements/confirmation.tsx": "f24019868473013e7362fe3cfb85f1140c78862c9ddc540c9608e68fee66bd77"
+  },
+  "fingerprint": "fd1cdd8578e263f2a866f1c649e6f4e4683bf65de811f520a11db9bb84ca3d0c",
+  "ignored": {},
+  "name": "confirmation",
+  "port_body": "93c23707c5a334358514e3aac3cf6fd720004d18f617e08671c49bf3de6a2452",
+  "schema_version": 2,
+  "source": "ai_elements",
+  "source_facts": {
+    "jsx/Confirmation/class/0": "flex flex-col gap-2",
+    "jsx/ConfirmationAction/class/0": "h-8 px-3 text-sm",
+    "jsx/ConfirmationActions/class/0": "flex items-center justify-end gap-2 self-end",
+    "jsx/ConfirmationTitle/class/0": "inline"
+  },
+  "state_reads": [],
+  "styles": {},
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "ai_elements/confirmation.tsx": "7cc0befed99499ed9010643e7a90ec619180a3f6e79cba5668cfc84126b96a10"
+  },
+  "uses": [
+    "jsx/Confirmation/class/0",
+    "jsx/ConfirmationAction/class/0",
+    "jsx/ConfirmationActions/class/0",
+    "jsx/ConfirmationTitle/class/0"
+  ]
 }
