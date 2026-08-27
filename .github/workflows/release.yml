@@ -35,6 +35,16 @@ jobs:
           elixir-version: "1.20"
           otp-version: "29"
 
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        if: matrix.package == 'tools'
+        with:
+          node-version: "22"
+          package-manager-cache: false
+
+      - run: npm ci
+        if: matrix.package == 'tools'
+        working-directory: tools
+
       - run: mix deps.get
         working-directory: ${{ matrix.package }}
 
