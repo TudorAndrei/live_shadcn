@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 
 import { collect, compare, describeRow, outline, PROPERTIES } from "./measure.mjs";
-import { gated } from "./registries.mjs";
+import { gated, source } from "./registries.mjs";
 
 // Enough of a tree to find a difference in, and not so much that the report
 // becomes the thing nobody reads.
@@ -25,6 +25,7 @@ const OUTLINE_ROWS = 400;
 
 const here = dirname(fileURLToPath(import.meta.url));
 const only = process.env.PREVIEW_COMPONENT;
+const onlySource = process.env.PREVIEW_SOURCE;
 
 // Written by `mix snapshot`. Read rather than fetched, because Playwright
 // collects tests before it starts a server.
@@ -53,6 +54,7 @@ const subject = (difference) => difference.slice(0, difference.indexOf(":"));
 // compared.
 const pages = Object.entries(previews)
   .filter(([component]) => gated(component))
+  .filter(([component]) => !onlySource || source(component) === onlySource)
   .filter(([component]) => !only || component === only)
   .flatMap(([component, examples]) => examples.map((example) => ({ component, example })));
 

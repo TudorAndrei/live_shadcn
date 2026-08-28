@@ -51,7 +51,7 @@ export default defineConfig({
       { find: "@/registry/bases/base/ui", replacement: resolve(upstream, "shadcn/ui") },
       {
         find: "@repo/shadcn-ui/components/ui",
-        replacement: resolve(upstream, "ai_shadcn/ui"),
+        replacement: resolve(upstream, "ai_shadcn/components/ui"),
       },
       { find: "@repo/elements", replacement: resolve(upstream, "ai_elements") },
       { find: "@/registry/bases/base", replacement: resolve(upstream, "shadcn") },

@@ -20,7 +20,7 @@ import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 import { PNG } from "pngjs";
 
-import { gated } from "./registries.mjs";
+import { gated, source } from "./registries.mjs";
 
 import {
   MINIMUM_HEIGHT,
@@ -35,6 +35,7 @@ import {
 
 const here = dirname(fileURLToPath(import.meta.url));
 const only = process.env.PREVIEW_COMPONENT;
+const onlySource = process.env.PREVIEW_SOURCE;
 
 const previews = JSON.parse(readFileSync(join(here, "../../../registry/snapshot/index.json")));
 const budget = JSON.parse(readFileSync(join(here, "pixel-budget.json")));
@@ -48,6 +49,7 @@ const ported = new Set(
 // Every example. `registries.mjs` says which of them this gates. Both
 // registries use the same DOM, style, pixel, behavior, and accessibility rules.
 const pages = Object.entries(previews)
+  .filter(([component]) => !onlySource || source(component) === onlySource)
   .filter(([component]) => !only || component === only)
   .flatMap(([component, examples]) => examples.map((example) => ({ component, example })));
 

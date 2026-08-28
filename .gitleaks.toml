@@ -4,12 +4,13 @@
 useDefault = true
 
 [[allowlists]]
-description = "vendored and build artifacts (deps/, _build/, node_modules/, tools/pkg/)"
+description = "vendored, checkout, and build artifacts"
 paths = [
   '''(^|/)deps/''',
   '''(^|/)_build/''',
   '''(^|/)node_modules/''',
   '''^tools/pkg/''',
+  '''^parity/\.upstream/''',
 ]
 
 # `registry/snapshot/` is markup `mix snapshot` renders from the components in

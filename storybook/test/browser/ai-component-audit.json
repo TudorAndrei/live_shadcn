@@ -45,7 +45,10 @@
   },
   "connection": {
     "upstream": "connection",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "context": {
     "upstream": "context",
@@ -53,7 +56,10 @@
   },
   "controls": {
     "upstream": "controls",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "conversation": {
     "upstream": "conversation",
@@ -63,7 +69,11 @@
   "edge": {
     "upstream": "edge",
     "contract": "interactive",
-    "spec": "edge.spec.mjs"
+    "spec": "edge.spec.mjs",
+    "component_examples": [
+      "default",
+      "animated"
+    ]
   },
   "environment-variables": {
     "upstream": "environment-variables",
@@ -82,7 +92,10 @@
   "inline-citation": {
     "upstream": "inline-citation",
     "contract": "interactive",
-    "spec": "inline-citation.spec.mjs"
+    "spec": "inline-citation.spec.mjs",
+    "component_examples": [
+      "carousel"
+    ]
   },
   "jsx-preview": {
     "upstream": "jsx-preview",
@@ -99,7 +112,10 @@
   },
   "node": {
     "upstream": "node",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "open-in-chat": {
     "upstream": "open-in-chat",
@@ -112,7 +128,10 @@
   },
   "panel": {
     "upstream": "panel",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "persona": {
     "upstream": "persona",
@@ -201,7 +220,10 @@
   },
   "toolbar": {
     "upstream": "toolbar",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "transcription": {
     "upstream": "transcription",

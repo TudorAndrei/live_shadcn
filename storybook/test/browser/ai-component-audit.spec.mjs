@@ -8,6 +8,9 @@ import { source } from "./registries.mjs";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "../../..");
 const audit = JSON.parse(readFileSync(join(here, "ai-component-audit.json"), "utf8"));
+const officialExamples = JSON.parse(
+  readFileSync(join(root, "parity/official-examples.json"), "utf8"),
+);
 const previews = JSON.parse(
   readFileSync(join(root, "registry/snapshot/index.json"), "utf8"),
 );
@@ -32,10 +35,22 @@ test("every AI Elements story has pinned upstream and independent checks", () =>
     ).toBe(true);
 
     for (const example of previews[component]) {
-      expect(
-        existsSync(join(root, "parity/src/examples", `${component}.${example}.tsx`)),
-        `${component}/${example} has no React reference`,
-      ).toBe(true);
+      const name = component + "." + example;
+      const fixture = join(root, "parity/src/examples", name + ".tsx");
+
+      expect(existsSync(fixture), name + " has no React reference").toBe(true);
+
+      if (officialExamples[name]) {
+        const official = officialExamples[name].replace(/\.tsx$/, "");
+        expect(readFileSync(fixture, "utf8")).toBe(
+          'export { default } from "@upstream/ai_examples/' + official + '";\n',
+        );
+      } else {
+        expect(
+          contract.component_examples || [],
+          name + " has neither an official example nor an explicit component fixture",
+        ).toContain(example);
+      }
     }
 
     if (contract.contract === "interactive") {
