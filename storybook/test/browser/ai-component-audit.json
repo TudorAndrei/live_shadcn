@@ -1,0 +1,220 @@
+{
+  "agent": {
+    "upstream": "agent",
+    "contract": "rendered or caller-owned"
+  },
+  "ai_elements-message": {
+    "upstream": "message",
+    "contract": "rendered or caller-owned"
+  },
+  "artifact": {
+    "upstream": "artifact",
+    "contract": "rendered or caller-owned"
+  },
+  "attachments": {
+    "upstream": "attachments",
+    "contract": "rendered or caller-owned"
+  },
+  "audio-player": {
+    "upstream": "audio-player",
+    "contract": "interactive",
+    "spec": "audio-player.spec.mjs"
+  },
+  "chain-of-thought": {
+    "upstream": "chain-of-thought",
+    "contract": "interactive",
+    "spec": "chain-of-thought.spec.mjs"
+  },
+  "checkpoint": {
+    "upstream": "checkpoint",
+    "contract": "rendered or caller-owned"
+  },
+  "code-block": {
+    "upstream": "code-block",
+    "contract": "interactive",
+    "spec": "code-block.spec.mjs"
+  },
+  "commit": {
+    "upstream": "commit",
+    "contract": "interactive",
+    "spec": "commit.spec.mjs"
+  },
+  "confirmation": {
+    "upstream": "confirmation",
+    "contract": "rendered or caller-owned"
+  },
+  "connection": {
+    "upstream": "connection",
+    "contract": "rendered or caller-owned"
+  },
+  "context": {
+    "upstream": "context",
+    "contract": "rendered or caller-owned"
+  },
+  "controls": {
+    "upstream": "controls",
+    "contract": "rendered or caller-owned"
+  },
+  "conversation": {
+    "upstream": "conversation",
+    "contract": "interactive",
+    "spec": "conversation.spec.mjs"
+  },
+  "edge": {
+    "upstream": "edge",
+    "contract": "interactive",
+    "spec": "edge.spec.mjs"
+  },
+  "environment-variables": {
+    "upstream": "environment-variables",
+    "contract": "interactive",
+    "spec": "environment-variables.spec.mjs"
+  },
+  "file-tree": {
+    "upstream": "file-tree",
+    "contract": "interactive",
+    "spec": "file-tree.spec.mjs"
+  },
+  "image": {
+    "upstream": "image",
+    "contract": "rendered or caller-owned"
+  },
+  "inline-citation": {
+    "upstream": "inline-citation",
+    "contract": "interactive",
+    "spec": "inline-citation.spec.mjs"
+  },
+  "jsx-preview": {
+    "upstream": "jsx-preview",
+    "contract": "rendered or caller-owned"
+  },
+  "mic-selector": {
+    "upstream": "mic-selector",
+    "contract": "interactive",
+    "spec": "mic-selector.spec.mjs"
+  },
+  "model-selector": {
+    "upstream": "model-selector",
+    "contract": "rendered or caller-owned"
+  },
+  "node": {
+    "upstream": "node",
+    "contract": "rendered or caller-owned"
+  },
+  "open-in-chat": {
+    "upstream": "open-in-chat",
+    "contract": "interactive",
+    "spec": "open-in-chat.spec.mjs"
+  },
+  "package-info": {
+    "upstream": "package-info",
+    "contract": "rendered or caller-owned"
+  },
+  "panel": {
+    "upstream": "panel",
+    "contract": "rendered or caller-owned"
+  },
+  "persona": {
+    "upstream": "persona",
+    "contract": "interactive",
+    "spec": "persona.spec.mjs"
+  },
+  "plan": {
+    "upstream": "plan",
+    "contract": "interactive",
+    "spec": "plan.spec.mjs"
+  },
+  "prompt-input": {
+    "upstream": "prompt-input",
+    "contract": "interactive",
+    "spec": "prompt-input.spec.mjs"
+  },
+  "question": {
+    "upstream": "question",
+    "contract": "interactive",
+    "spec": "question.spec.mjs"
+  },
+  "queue": {
+    "upstream": "queue",
+    "contract": "rendered or caller-owned"
+  },
+  "reasoning": {
+    "upstream": "reasoning",
+    "contract": "interactive",
+    "spec": "reasoning.spec.mjs"
+  },
+  "sandbox": {
+    "upstream": "sandbox",
+    "contract": "rendered or caller-owned"
+  },
+  "schema-display": {
+    "upstream": "schema-display",
+    "contract": "rendered or caller-owned"
+  },
+  "shimmer": {
+    "upstream": "shimmer",
+    "contract": "interactive",
+    "spec": "shimmer.spec.mjs"
+  },
+  "snippet": {
+    "upstream": "snippet",
+    "contract": "interactive",
+    "spec": "snippet.spec.mjs"
+  },
+  "sources": {
+    "upstream": "sources",
+    "contract": "interactive",
+    "spec": "sources.spec.mjs"
+  },
+  "speech-input": {
+    "upstream": "speech-input",
+    "contract": "interactive",
+    "spec": "speech-input.spec.mjs"
+  },
+  "stack-trace": {
+    "upstream": "stack-trace",
+    "contract": "interactive",
+    "spec": "stack-trace.spec.mjs"
+  },
+  "suggestion": {
+    "upstream": "suggestion",
+    "contract": "rendered or caller-owned"
+  },
+  "task": {
+    "upstream": "task",
+    "contract": "interactive",
+    "spec": "task.spec.mjs"
+  },
+  "terminal": {
+    "upstream": "terminal",
+    "contract": "interactive",
+    "spec": "terminal.spec.mjs"
+  },
+  "test-results": {
+    "upstream": "test-results",
+    "contract": "rendered or caller-owned"
+  },
+  "tool": {
+    "upstream": "tool",
+    "contract": "interactive",
+    "spec": "tool.spec.mjs"
+  },
+  "toolbar": {
+    "upstream": "toolbar",
+    "contract": "rendered or caller-owned"
+  },
+  "transcription": {
+    "upstream": "transcription",
+    "contract": "interactive",
+    "spec": "transcription.spec.mjs"
+  },
+  "voice-selector": {
+    "upstream": "voice-selector",
+    "contract": "rendered or caller-owned"
+  },
+  "web-preview": {
+    "upstream": "web-preview",
+    "contract": "interactive",
+    "spec": "web-preview.spec.mjs"
+  }
+}

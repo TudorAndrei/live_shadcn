@@ -38,8 +38,10 @@ test.describe("environment variables", () => {
     await open(page);
 
     await expect(toggle(page)).toHaveAttribute("aria-checked", "false");
-    await expect(toggle(page)).toHaveAttribute("tabindex", "0");
-    await expect(toggle(page)).toHaveAttribute("data-unchecked", "");
+    await expect(toggle(page)).toBeEnabled();
+    await toggle(page).focus();
+    await expect(toggle(page)).toBeFocused();
+    await expect(toggle(page)).toHaveAttribute("data-state", "unchecked");
   });
 
   // The contract, not tidiness: the page is given the value when it asks for

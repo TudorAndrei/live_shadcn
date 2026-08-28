@@ -51,6 +51,10 @@ export async function settle(page, selector) {
       transition: none !important;
       caret-color: transparent !important;
       scroll-behavior: auto !important;
+    }
+
+    [class~="text-transparent"] {
+      background-position: 0% center !important;
     }`,
   });
 
@@ -58,11 +62,34 @@ export async function settle(page, selector) {
     // A CSS override cannot stop a Web Animations API animation, and Sonner and
     // the chart library both use one.
     for (const animation of document.getAnimations({ subtree: true })) {
-      try {
-        animation.finish();
-      } catch {
-        animation.cancel();
+      const endTime = animation.effect?.getComputedTiming().endTime;
+
+      if (endTime === Number.POSITIVE_INFINITY) {
+        animation.currentTime = 0;
+        animation.pause();
+      } else {
+        try {
+          animation.finish();
+        } catch {
+          animation.cancel();
+        }
       }
+    }
+
+    // Motion drives simple gradients with requestAnimationFrame instead of
+    // exposing a Web Animation. Put each shimmer at its final keyframe on both
+    // pages so the photograph compares the gradient, not two clock readings.
+    for (const element of document.querySelectorAll(".text-transparent")) {
+      if (getComputedStyle(element).backgroundImage !== "none") {
+        element.style.backgroundPosition = "0% center";
+      }
+    }
+
+    // SMIL animations do not appear in document.getAnimations(). Pause each
+    // SVG at the same instant so an animated marker cannot move between shots.
+    for (const svg of document.querySelectorAll("svg")) {
+      svg.pauseAnimations?.();
+      svg.setCurrentTime?.(0);
     }
 
     // No stray focus ring left over from navigating here.
@@ -81,14 +108,28 @@ export async function settle(page, selector) {
       const root = document.querySelector(css);
       if (!root) return false;
 
-      const now = root.getBoundingClientRect().height;
-      const settled = window.__settledHeight === now;
-      window.__settledHeight = now;
+      const height = root.getBoundingClientRect().height;
+      const scroll = [root, ...root.querySelectorAll("*")]
+        .map((element) => `${element.scrollTop}:${element.scrollLeft}`)
+        .join("|");
+      const now = `${height}|${scroll}`;
+      const settled = window.__settledPaint === now;
+      window.__settledPaint = now;
       return settled;
     },
     selector,
     { polling: 100 },
   );
+
+  // Motion can write one more requestAnimationFrame value while the layout is
+  // stable. Apply the shared final shimmer keyframe immediately before capture.
+  await page.evaluate(() => {
+    for (const element of document.querySelectorAll(".text-transparent")) {
+      if (getComputedStyle(element).backgroundImage !== "none") {
+        element.style.backgroundPosition = "0% center";
+      }
+    }
+  });
 }
 
 /** The document's full height, so one viewport can hold the whole component. */

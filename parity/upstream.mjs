@@ -21,7 +21,7 @@ const to = join(here, "src/upstream");
 await rm(to, { force: true, recursive: true });
 await mkdir(to, { recursive: true });
 
-for (const directory of ["shadcn", "ai_elements"]) {
+for (const directory of ["shadcn", "ai_elements", "ai_examples", "ai_shadcn"]) {
   await cp(join(from, directory), join(to, directory), {
     recursive: true,
     // The style sheets are the storybook's business, and copying 600 KB of CSS

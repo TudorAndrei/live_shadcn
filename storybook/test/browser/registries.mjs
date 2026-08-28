@@ -1,10 +1,8 @@
 // Which registry a storybook example belongs to.
 //
-// `parity.spec.mjs` and `pixel.spec.mjs` gate `shadcn` only. AI Elements
-// composes with `asChild`, and this repository pins shadcn's Base UI base,
-// where that prop is dropped without a warning and without reaching the DOM —
-// Base UI draws its own `<button>` around the element that was to become the
-// trigger. The 49 AI Elements references stay on disk; nothing compares them.
+// Both registries must pass the checks that render upstream. A reference that
+// needs a documented normalization must make that rule in the comparison. It
+// must not turn off checks for its complete registry.
 
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -33,4 +31,4 @@ export function source(component) {
 }
 
 /** Whether the two upstream-comparing checks gate this component. */
-export const gated = (component) => source(component) === "shadcn";
+export const gated = (component) => source(component) !== null;

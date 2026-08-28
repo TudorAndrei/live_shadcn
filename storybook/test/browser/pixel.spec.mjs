@@ -45,11 +45,8 @@ const ported = new Set(
     .map((name) => name.replace(/\.tsx$/, "")),
 );
 
-// Every example. `registries.mjs` says which of them this gates: an AI Elements
-// page is photographed and its difference is printed, and no number here is a
-// verdict on it. That census is the only thing that looks at what those pages
-// draw — an empty `<media-controller>` and a full one are both valid markup,
-// and the checks that read the spec cannot tell them apart.
+// Every example. `registries.mjs` says which of them this gates. Both
+// registries use the same DOM, style, pixel, behavior, and accessibility rules.
 const pages = Object.entries(previews)
   .filter(([component]) => !only || component === only)
   .flatMap(([component, examples]) => examples.map((example) => ({ component, example })));

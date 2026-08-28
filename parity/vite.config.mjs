@@ -29,7 +29,8 @@ export default defineConfig({
       // the viewport width. Both are reimplemented in `src/shim`, and both are
       // small enough that reimplementing them is not a guess.
       { find: "@/registry/bases/base/lib/utils", replacement: resolve(here, "src/shim/utils.ts") },
-      { find: "@repo/shadcn-ui/lib/utils", replacement: resolve(here, "src/shim/utils.ts") },
+      { find: "@repo/shadcn-ui/lib", replacement: resolve(upstream, "ai_shadcn/lib") },
+      { find: "@repo/shadcn-ui/hooks", replacement: resolve(upstream, "ai_shadcn/hooks") },
       {
         find: "@/registry/bases/base/hooks/use-mobile",
         replacement: resolve(here, "src/shim/use-mobile.ts"),
@@ -48,7 +49,11 @@ export default defineConfig({
       { find: /^@streamdown\/.*/, replacement: resolve(here, "src/shim/streamdown-plugin.ts") },
       { find: "streamdown", replacement: resolve(here, "src/shim/streamdown.tsx") },
       { find: "@/registry/bases/base/ui", replacement: resolve(upstream, "shadcn/ui") },
-      { find: "@repo/shadcn-ui/components/ui", replacement: resolve(upstream, "shadcn/ui") },
+      {
+        find: "@repo/shadcn-ui/components/ui",
+        replacement: resolve(upstream, "ai_shadcn/ui"),
+      },
+      { find: "@repo/elements", replacement: resolve(upstream, "ai_elements") },
       { find: "@/registry/bases/base", replacement: resolve(upstream, "shadcn") },
       // What the examples in this application import. The three above are the
       // prefixes upstream writes for itself; this one says out loud that an

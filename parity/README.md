@@ -80,21 +80,9 @@ comparison is `parity` in `registry/VERIFY.json`.
 
 ## Which registry it gates
 
-`shadcn`. The AI Elements references are here and nothing compares them.
-
-AI Elements composes with `asChild`. This repository pins shadcn's Base UI base,
-where that prop does not merge, does not warn, and does not reach the DOM: Base
-UI draws its own `<button>` around the element that was to become the trigger.
-The reader reads `asChild` as one element — which is what both Radix's `asChild`
-and Base UI's `render` do — so the reference is the only side drawing two.
-
-**Editing a reference to agree with a port is the one thing this application
-must never do.** It would prove that the port agrees with the porter.
-
-The gate is one line in `storybook/test/browser/registries.mjs`. What holds
-`live_ai_elements` uses the historical `generated` key for its contract check,
-plus `snapshot` and `browser`+axe. Its markup
-is a composition of the shadcn components this application does gate.
+Both `shadcn` and AI Elements. A complete registry cannot skip the checks that
+render its upstream source. A known composition difference belongs in a small,
+named normalization rule. It is not a reason to turn off checks for 48 ports.
 
 ## What is compared
 
