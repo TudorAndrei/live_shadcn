@@ -296,22 +296,60 @@ defmodule StorybookWeb.Docs do
     result = @verification["#{source}/#{name}"]
 
     cond do
-      verified?(result, spec) -> :verified
+      verified?(result, spec, source, name) -> :verified
       is_map(result) and result["pass"] == false -> :failed
       true -> :unverified
     end
   end
 
-  defp verified?(result, spec) when is_map(result) do
+  defp verified?(result, spec, source, name) when is_map(result) do
     File.exists?(spec) and
       result["pass"] == true and
       result["spec"] == digest(File.read!(spec)) and
+      result["evidence"] == verification_evidence_digest(source, name) and
       Enum.all?(result["checks"] || %{}, fn {_name, check} ->
         check["pass"] == true and check["gated"] != false
       end)
   end
 
-  defp verified?(_result, _spec), do: false
+  defp verified?(_result, _spec, _source, _name), do: false
+
+  defp verification_evidence_digest(source, name) do
+    root = Path.expand("../../..", __DIR__)
+    previews = Path.join(root, "registry/snapshot/index.json") |> File.read!() |> Jason.decode!()
+
+    key =
+      cond do
+        Map.has_key?(previews, "#{source}-#{name}") -> "#{source}-#{name}"
+        Map.has_key?(previews, name) -> name
+        true -> name
+      end
+
+    fixtures =
+      root
+      |> Path.join("parity/src/examples/#{key}.*.tsx")
+      |> Path.wildcard()
+      |> Enum.sort()
+      |> Enum.map(&{Path.basename(&1), File.read!(&1)})
+
+    official_path = Path.join(root, "parity/official-examples.json")
+
+    official =
+      if File.exists?(official_path) do
+        official_path
+        |> File.read!()
+        |> Jason.decode!()
+        |> Enum.filter(fn {example, _path} -> String.starts_with?(example, key <> ".") end)
+        |> Enum.sort()
+      else
+        []
+      end
+
+    manifest = @upstream_path |> File.read!() |> Jason.decode!()
+    upstream_ref = get_in(manifest, ["sources", source, "ref"])
+
+    digest(:erlang.term_to_binary({upstream_ref, fixtures, official}))
+  end
 
   defp digest(binary), do: :crypto.hash(:sha256, binary) |> Base.encode16(case: :lower)
 

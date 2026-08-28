@@ -219,6 +219,43 @@ defmodule LiveShadcnTools do
   """
   def assign(name), do: name |> Macro.underscore() |> String.trim_leading("_")
 
+  @doc "Digest of the pinned upstream commit and the React references used for verification."
+  def verification_evidence_digest(source, name) do
+    root = repo_root()
+    previews = registry_path(["snapshot", "index.json"]) |> read_json!() |> Map.keys()
+
+    key =
+      cond do
+        "#{source}-#{name}" in previews -> "#{source}-#{name}"
+        name in previews -> name
+        true -> name
+      end
+
+    fixtures =
+      root
+      |> Path.join("parity/src/examples/#{key}.*.tsx")
+      |> Path.wildcard()
+      |> Enum.sort()
+      |> Enum.map(&{Path.basename(&1), File.read!(&1)})
+
+    official_path = Path.join(root, "parity/official-examples.json")
+
+    official =
+      if File.exists?(official_path) do
+        official_path
+        |> read_json!()
+        |> Enum.filter(fn {example, _path} -> String.starts_with?(example, key <> ".") end)
+        |> Enum.sort()
+      else
+        []
+      end
+
+    manifest = read_json!(registry_path("UPSTREAM.json"))
+    upstream_ref = get_in(manifest, ["sources", source, "ref"])
+
+    digest(:erlang.term_to_binary({upstream_ref, fixtures, official}))
+  end
+
   @doc "SHA-256 of a binary, hex encoded. Used to detect upstream drift."
   def digest(binary), do: :crypto.hash(:sha256, binary) |> Base.encode16(case: :lower)
 

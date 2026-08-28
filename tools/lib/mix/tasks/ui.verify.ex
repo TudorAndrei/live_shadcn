@@ -138,6 +138,7 @@ defmodule Mix.Tasks.Ui.Verify do
     %{
       "pass" => Enum.all?(checks, fn {_name, check} -> check["pass"] end),
       "spec" => spec_digest(source, name),
+      "evidence" => verification_evidence_digest(source, name),
       "checks" => Map.new(checks)
     }
   end

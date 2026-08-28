@@ -22,12 +22,12 @@ defmodule StorybookWeb.ExamplesTest do
   end
 
   describe "a component's documentation page" do
-    test "shows the component verification status", %{conn: conn} do
+    test "does not accept verification without current reference evidence", %{conn: conn} do
       {:ok, _view, shadcn} = live(conn, "/docs/badge")
       {:ok, _view, ai_elements} = live(conn, "/docs/audio-player")
 
-      assert shadcn =~ ~s(data-component-status="verified")
-      assert ai_elements =~ ~s(data-component-status="verified")
+      assert shadcn =~ ~s(data-component-status="unverified")
+      assert ai_elements =~ ~s(data-component-status="unverified")
     end
 
     test "shows the markup each example is written with", %{conn: conn} do
