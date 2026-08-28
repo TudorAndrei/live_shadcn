@@ -14,6 +14,8 @@ defmodule LiveAiElements.Components.SchemaDisplay do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/SchemaDisplay/class/0" => "overflow-hidden rounded-lg border bg-background",
@@ -63,9 +65,11 @@ defmodule LiveAiElements.Components.SchemaDisplay do
 
   def schema_display_method(assigns) do
     ~H"""
-    <LiveShadcn.UI.Badge.badge
-      variant={@variant}
+    <span
+      data-slot={@rest[:"data-slot"] || "badge"}
       class={[
+        Shadcn.badge_class(nil),
+        "border-transparent [a&]:hover:bg-secondary/90",
         upstream_fact("jsx/SchemaDisplayMethod/class/0"),
         if(@method == "DELETE",
           do: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
@@ -89,13 +93,13 @@ defmodule LiveAiElements.Components.SchemaDisplay do
         ),
         @class
       ]}
-      {@rest}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         {@method}
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Badge.badge>
+    </span>
     """
   end
 

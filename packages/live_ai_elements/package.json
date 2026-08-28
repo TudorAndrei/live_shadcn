@@ -1,13 +1,16 @@
 {
   "name": "live_ai_elements",
   "version": "0.1.0",
-  "description": "Client hooks for live_ai_elements: streaming a token into the DOM without a render.",
+  "description": "Client hooks for interactive live_ai_elements components.",
   "license": "Apache-2.0",
   "type": "module",
   "main": "assets/js/live_ai_elements.js",
   "module": "assets/js/live_ai_elements.js",
   "exports": {
     ".": "./assets/js/live_ai_elements.js"
+  },
+  "dependencies": {
+    "@rive-app/webgl2": "2.34.1"
   },
   "files": [
     "assets/js"

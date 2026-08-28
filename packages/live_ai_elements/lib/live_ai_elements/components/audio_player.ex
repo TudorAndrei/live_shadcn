@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.AudioPlayer do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "cva/buttonGroupVariants/default/orientation" => "horizontal",
@@ -40,8 +42,6 @@ defmodule LiveAiElements.Components.AudioPlayer do
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)
-
-  defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
                         [table, "variant", group, choice] <- [String.split(path, "/")],
@@ -115,9 +115,14 @@ defmodule LiveAiElements.Components.AudioPlayer do
       phx-no-format
       data-slot={@rest[:"data-slot"] || "audio-player-control-bar"}
       {Map.drop(@rest, [:"data-slot"])}
-    ><LiveShadcn.UI.ButtonGroup.button_group orientation={@orientation}>
+    ><div
+      role="group"
+      data-slot="button-group"
+      data-orientation={@orientation}
+      class={[Shadcn.button_group_class(@orientation), @class]}
+    >
     {render_slot(@inner_block)}
-    </LiveShadcn.UI.ButtonGroup.button_group></media-control-bar>
+    </div></media-control-bar>
     """
   end
 
@@ -142,9 +147,8 @@ defmodule LiveAiElements.Components.AudioPlayer do
       phx-no-format
       data-slot={@rest[:"data-slot"] || "audio-player-play-button"}
       class={[
-        variant_class("buttonVariants", "size", @size),
-        variant_class("buttonVariants", "variant", @variant),
-        upstream_fact("port/class/0"),
+        Shadcn.button_class(@size, @variant),
+        "bg-transparent",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -176,9 +180,7 @@ defmodule LiveAiElements.Components.AudioPlayer do
       data-slot={@rest[:"data-slot"] || "audio-player-seek-backward-button"}
       seekOffset={@seek_offset}
       class={[
-        variant_class("buttonVariants", "size", @size),
-        variant_class("buttonVariants", "variant", @variant),
-        upstream_fact("cva/buttonVariants/base")
+        Shadcn.button_class(@size, @variant)
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >{render_slot(@inner_block)}</media-seek-backward-button>
@@ -209,9 +211,7 @@ defmodule LiveAiElements.Components.AudioPlayer do
       data-slot={@rest[:"data-slot"] || "audio-player-seek-forward-button"}
       seekOffset={@seek_offset}
       class={[
-        variant_class("buttonVariants", "size", @size),
-        variant_class("buttonVariants", "variant", @variant),
-        upstream_fact("cva/buttonVariants/base")
+        Shadcn.button_class(@size, @variant)
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >{render_slot(@inner_block)}</media-seek-forward-button>
@@ -230,7 +230,8 @@ defmodule LiveAiElements.Components.AudioPlayer do
       phx-no-format
       data-slot={@rest[:"data-slot"] || "audio-player-time-display"}
       class={[
-        upstream_fact("port/class/2"),
+        Shadcn.button_group_text_class(),
+        "bg-transparent tabular-nums",
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -250,7 +251,8 @@ defmodule LiveAiElements.Components.AudioPlayer do
       phx-no-format
       data-slot={@rest[:"data-slot"] || "audio-player-time-range"}
       class={[
-        upstream_fact("port/class/1"),
+        Shadcn.button_group_text_class(),
+        "bg-transparent",
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -270,7 +272,8 @@ defmodule LiveAiElements.Components.AudioPlayer do
       phx-no-format
       data-slot={@rest[:"data-slot"] || "audio-player-duration-display"}
       class={[
-        upstream_fact("port/class/2"),
+        Shadcn.button_group_text_class(),
+        "bg-transparent tabular-nums",
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -290,7 +293,8 @@ defmodule LiveAiElements.Components.AudioPlayer do
       phx-no-format
       data-slot={@rest[:"data-slot"] || "audio-player-mute-button"}
       class={[
-        upstream_fact("port/class/1"),
+        Shadcn.button_group_text_class(),
+        "bg-transparent",
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -310,14 +314,12 @@ defmodule LiveAiElements.Components.AudioPlayer do
       phx-no-format
       data-slot={@rest[:"data-slot"] || "audio-player-volume-range"}
       class={[
-        upstream_fact("port/class/1"),
+        Shadcn.button_group_text_class(),
+        "bg-transparent",
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >{render_slot(@inner_block)}</media-volume-range>
     """
   end
-
-  defp variant_class(table, group, value),
-    do: get_in(@variant_classes, [table, group, value])
 end

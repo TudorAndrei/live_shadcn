@@ -2,6 +2,8 @@ import {
   OpenIn,
   OpenInChatGPT,
   OpenInClaude,
+  OpenInContent,
+  OpenInTrigger,
 } from "@upstream/ai_elements/open-in-chat";
 
 // Ported from `StorybookWeb.Examples.open_in_chat_default/1`.
@@ -17,11 +19,12 @@ import {
 // it — which is what upstream's own menu is.
 export default function OpenInChatDefault() {
   return (
-    <div className="w-fit">
-      <OpenIn query="How does the fold work?">
+    <OpenIn query="How does the fold work?">
+      <OpenInTrigger />
+      <OpenInContent>
         <OpenInChatGPT />
         <OpenInClaude />
-      </OpenIn>
-    </div>
+      </OpenInContent>
+    </OpenIn>
   );
 }

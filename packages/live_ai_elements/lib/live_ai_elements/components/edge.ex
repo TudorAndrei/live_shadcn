@@ -38,7 +38,9 @@ defmodule LiveAiElements.Components.Edge do
       id={@id}
       marker-end={@marker_end}
       d={@edge_path}
-      style=""
+      style={@style}
+      class={@class}
+      {@rest}
     />
     <circle :if={@source_node && @target_node} fill="var(--primary)" r="4">
       <animateMotion dur="2s" path={@edge_path} repeatCount="indefinite" />

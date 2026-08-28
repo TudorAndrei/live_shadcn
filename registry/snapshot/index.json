@@ -264,7 +264,8 @@
     "default"
   ],
   "edge": [
-    "default"
+    "default",
+    "animated"
   ],
   "agent": [
     "default"
@@ -304,7 +305,8 @@
     "default"
   ],
   "inline-citation": [
-    "default"
+    "default",
+    "carousel"
   ],
   "label": [
     "default"

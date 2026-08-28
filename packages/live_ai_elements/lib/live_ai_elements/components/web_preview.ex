@@ -14,6 +14,8 @@ defmodule LiveAiElements.Components.WebPreview do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/WebPreview/class/0" => "flex size-full flex-col rounded-lg border bg-card",
@@ -29,6 +31,7 @@ defmodule LiveAiElements.Components.WebPreview do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @doc "The `web_preview` part."
+  attr(:id, :string, required: true)
   attr(:default_url, :string, default: "")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
@@ -36,7 +39,13 @@ defmodule LiveAiElements.Components.WebPreview do
 
   def web_preview(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/WebPreview/class/0"), (@class || "")]} {@rest}>
+    <div
+      id={@id}
+      data-default-url={@default_url}
+      phx-hook="LiveAiElements.WebPreview"
+      class={[upstream_fact("jsx/WebPreview/class/0"), @class || ""]}
+      {@rest}
+    >
       {render_slot(@inner_block)}
     </div>
     """
@@ -50,7 +59,7 @@ defmodule LiveAiElements.Components.WebPreview do
 
   def web_preview_navigation(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/WebPreviewNavigation/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/WebPreviewNavigation/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -88,12 +97,14 @@ defmodule LiveAiElements.Components.WebPreview do
     ~H"""
     <input
       data-slot={@rest[:"data-slot"] || "input"}
+      data-web-preview-url
       type={@type}
       placeholder="Enter URL..."
       value={@value || @input_value}
       class={[
-        upstream_fact("port/class/0"),
-        (@class || "")
+        Shadcn.input_class(),
+        "!h-8 flex-1 text-sm",
+        @class || ""
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     />
@@ -112,10 +123,11 @@ defmodule LiveAiElements.Components.WebPreview do
     ~H"""
     <div class={upstream_fact("jsx/WebPreviewBody/class/0")}>
       <iframe
+        data-web-preview-body
         sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"
         src={@src || @url || nil}
         title="Preview"
-        class={[upstream_fact("jsx/WebPreviewBody/class/1"), (@class || "")]}
+        class={[upstream_fact("jsx/WebPreviewBody/class/1"), @class || ""]}
         {@rest}
       >
         {render_slot(@inner_block)}

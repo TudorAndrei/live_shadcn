@@ -68,27 +68,41 @@ defmodule LiveShadcn.Icon do
   # inside one would be written out as a single attribute called `rest`.
   defp lucide(assigns) do
     if Code.ensure_loaded?(Lucideicons) do
-      assigns
-      |> Map.get(:rest, %{})
-      |> Map.new(fn {name, value} -> {attribute(name), value} end)
-      |> Map.merge(%{
-        :"aria-hidden" => "true",
-        :name => assigns.name,
-        # A function component is called with change tracking, and Lucideicons
-        # is one, so its assigns have to carry the same marker.
-        :__changed__ => assigns[:__changed__]
-      })
-      |> put_class(assigns[:class])
-      # `apply/3` on purpose, and the arity being known is not the point.
-      # `lucide_icons` is optional — the icon set is configuration, not a
-      # dependency — so naming `Lucideicons.render/1` directly would warn at
-      # compile time in every application that chose another set. The
-      # `Code.ensure_loaded?/1` above is what decides whether this line runs.
-      # credo:disable-for-next-line Credo.Check.Refactor.Apply
-      |> then(&apply(Lucideicons, :render, [&1]))
+      rendered =
+        assigns
+        |> Map.get(:rest, %{})
+        |> Map.reject(fn {_name, value} -> is_nil(value) or value == false end)
+        |> Map.new(fn {name, value} -> {attribute(name), value} end)
+        |> Map.merge(%{
+          :"aria-hidden" => "true",
+          :name => assigns.name,
+          # A function component is called with change tracking, and Lucideicons
+          # is one, so its assigns have to carry the same marker.
+          :__changed__ => assigns[:__changed__]
+        })
+        |> put_class(assigns[:class])
+        # `apply/3` on purpose, and the arity being known is not the point.
+        # `lucide_icons` is optional — the icon set is configuration, not a
+        # dependency — so naming `Lucideicons.render/1` directly would warn at
+        # compile time in every application that chose another set. The
+        # `Code.ensure_loaded?/1` above is what decides whether this line runs.
+        # credo:disable-for-next-line Credo.Check.Refactor.Apply
+        |> then(&apply(Lucideicons, :render, [&1]))
+        |> trim_rendered()
+
+      assigns = assign(assigns, :rendered, rendered)
+      ~H"{@rendered}"
     else
       placeholder(assigns)
     end
+  end
+
+  defp trim_rendered(rendered) do
+    rendered
+    |> Phoenix.HTML.Safe.to_iodata()
+    |> IO.iodata_to_binary()
+    |> String.trim()
+    |> Phoenix.HTML.raw()
   end
 
   # Lucideicons keys its attributes by atom. The names come from generated

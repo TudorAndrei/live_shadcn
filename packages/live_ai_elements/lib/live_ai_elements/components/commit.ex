@@ -14,6 +14,8 @@ defmodule LiveAiElements.Components.Commit do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/CommitActions/class/0" => "flex items-center gap-1",
@@ -67,19 +69,18 @@ defmodule LiveAiElements.Components.Commit do
 
   @doc "The `commit_hash` part."
 
+  attr(:hash, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def commit_hash(assigns) do
     ~H"""
-    <span class={[upstream_fact("jsx/CommitHash/class/0"), (@class || "")]} {@rest}>
-      <LiveShadcn.Icon.icon name="git-commit-horizontal" class={upstream_fact("jsx/CommitHash/class/1")} />{render_slot(
-        @inner_block
-      )}
-    </span>
+    <span phx-no-format class={[upstream_fact("jsx/CommitHash/class/0"), (@class || "")]} {@rest}><LiveShadcn.Icon.icon name="git-commit-horizontal" class={commit_hash_icon_class()} /><span :if={@hash}>{@hash}</span>{render_slot(@inner_block)}</span>
     """
   end
+
+  defp commit_hash_icon_class, do: upstream_fact("jsx/CommitHash/class/1")
 
   @doc "The `commit_message` part."
 
@@ -163,12 +164,26 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_author_avatar(assigns) do
     ~H"""
-    <LiveShadcn.UI.Avatar.avatar size={@size} class={[upstream_fact("jsx/CommitAuthorAvatar/class/0"), @class]} {@rest}>
-      <LiveShadcn.UI.Avatar.avatar_fallback class={upstream_fact("jsx/CommitAuthorAvatar/class/1")}>
+    <span
+      data-slot={@rest[:"data-slot"] || "avatar"}
+      class={[
+        "relative flex size-8 shrink-0 overflow-hidden rounded-full",
+        upstream_fact("jsx/CommitAuthorAvatar/class/0"),
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
+    >
+      <span
+        data-slot="avatar-fallback"
+        class={[
+          "bg-muted flex size-full items-center justify-center rounded-full",
+          upstream_fact("jsx/CommitAuthorAvatar/class/1")
+        ]}
+      >
         {@initials}
-      </LiveShadcn.UI.Avatar.avatar_fallback>
+      </span>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Avatar.avatar>
+    </span>
     """
   end
 
@@ -216,23 +231,27 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_copy_button(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@hash}
       data-lb-timeout={@timeout}
-      size={@size}
-      variant={@variant}
-      class={[upstream_fact("jsx/CommitCopyButton/class/0"), @class]}
-      {@rest}
+      class={[
+        Shadcn.button_class(@size, @variant),
+        upstream_fact("jsx/CommitCopyButton/class/0"),
+        "!size-7",
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" width="14" height="14" />
         <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" width="14" height="14" />
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 

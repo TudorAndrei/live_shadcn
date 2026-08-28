@@ -51,12 +51,20 @@ defmodule LiveAiElements.Components.Conversation do
       id={@id}
       phx-hook={Scroller.hook()}
       phx-mounted={Scroller.owned_attributes()}
+      data-lb-stick-to-bottom
+      data-lb-bottom-offset="1"
       role="log"
       class={[upstream_fact("jsx/Conversation/class/0"), (@class || "")]}
       {@rest}
     >
-      <div data-lb-scroller tabindex="0" style="overflow: auto" class={upstream_fact("jsx/ConversationContent/class/0")}>
-        {render_slot(@inner_block)}
+      <div
+        data-lb-scroller
+        tabindex="0"
+        style="height: 100%; width: 100%; scrollbar-gutter: stable both-edges; overflow: auto"
+      >
+        <div class={upstream_fact("jsx/ConversationContent/class/0")}>
+          {render_slot(@inner_block)}
+        </div>
       </div>
     </div>
     """

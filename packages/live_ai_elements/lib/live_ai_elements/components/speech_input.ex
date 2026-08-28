@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.SpeechInput do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/SpeechInput/class/0" => "relative inline-flex items-center justify-center",
@@ -26,10 +28,12 @@ defmodule LiveAiElements.Components.SpeechInput do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @doc "The `speech_input` part."
+  attr(:id, :string, required: true)
   attr(:is_disabled, :string, default: nil)
   attr(:is_listening, :boolean, default: false)
   attr(:is_processing, :boolean, default: false)
   attr(:lang, :string, default: "en-US")
+  attr(:transcription_event, :string, default: nil)
   attr(:size, :string, default: "default")
   attr(:variant, :string, default: "default")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -38,33 +42,52 @@ defmodule LiveAiElements.Components.SpeechInput do
 
   def speech_input(assigns) do
     ~H"""
-    <div class={upstream_fact("jsx/SpeechInput/class/0")}>
+    <div
+      id={@id}
+      data-lang={@lang}
+      data-listening={to_string(@is_listening)}
+      data-transcription-event={@transcription_event}
+      phx-hook="LiveAiElements.SpeechInput"
+      class={upstream_fact("jsx/SpeechInput/class/0")}
+    >
       <div
         :for={index <- [0, 1, 2]}
-        :if={@is_listening}
+        data-speech-pulse
+        hidden={!@is_listening}
         style={"animation-delay: #{"#{index * 0.3}s"}; animation-duration: 2s"}
         class={upstream_fact("jsx/SpeechInput/class/1")}
       />
-      <LiveShadcn.UI.Button.button
+      <button
+        data-slot={@rest[:"data-slot"] || "button"}
         disabled={@is_disabled}
-        size={@size}
-        variant={@variant}
+        aria-pressed={to_string(@is_listening)}
         class={[
+          Shadcn.button_class(@size, @variant),
           upstream_fact("jsx/SpeechInput/class/2"),
+          "!rounded-full",
           if(@is_listening,
             do: upstream_fact("jsx/SpeechInput/class/3"),
-            else:
-              upstream_fact("jsx/SpeechInput/class/4")
+            else: upstream_fact("jsx/SpeechInput/class/4")
           ),
           @class
         ]}
-        {@rest}
+        {Map.drop(@rest, [:"data-slot"])}
       >
         <LiveShadcn.UI.Spinner.spinner :if={@is_processing} />
-        <LiveShadcn.Icon.icon :if={!@is_processing && @is_listening} name="square" class={upstream_fact("jsx/SpeechInput/class/5")} />
-        <LiveShadcn.Icon.icon :if={!(@is_processing || @is_listening)} name="mic" class={upstream_fact("jsx/SpeechInput/class/5")} />
+        <LiveShadcn.Icon.icon
+          :if={!@is_processing && @is_listening}
+          name="square"
+          class={upstream_fact("jsx/SpeechInput/class/5")}
+          data-speech-stop
+        />
+        <LiveShadcn.Icon.icon
+          :if={!@is_processing && !@is_listening}
+          name="mic"
+          class={upstream_fact("jsx/SpeechInput/class/5")}
+          data-speech-mic
+        />
         {render_slot(@inner_block)}
-      </LiveShadcn.UI.Button.button>
+      </button>
     </div>
     """
   end

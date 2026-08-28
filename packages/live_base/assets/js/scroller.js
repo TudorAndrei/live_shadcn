@@ -83,7 +83,11 @@ export const Scroller = {
   },
 
   toBottom() {
-    this.viewport.scrollTop = this.viewport.scrollHeight;
+    const offset = Number(this.el.getAttribute("data-lb-bottom-offset")) || 0;
+    this.viewport.scrollTop = Math.max(
+      0,
+      this.viewport.scrollHeight - this.viewport.clientHeight - offset,
+    );
   },
 
   destroyed() {

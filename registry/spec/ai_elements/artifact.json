@@ -36,7 +36,7 @@
     "jsx/ArtifactClose/class/2": "the generated port does not contain this source literal"
   },
   "name": "artifact",
-  "port_body": "149519e9325b1934b54e422df7c0cc395b73483f3ced1ab408bdd5b2d32b9bf0",
+  "port_body": "a52cb6bc1458a987650a621ea741d167f667b3f1ff1eaf9604083d20b8bd70dc",
   "schema_version": 2,
   "source": "ai_elements",
   "source_facts": {

@@ -35,7 +35,7 @@ defmodule LiveAiElements.Components.OpenInChat do
   def open_in_chat_gpt(assigns) do
     ~H"""
     <a
-      href={"https://chatgpt.com/?#{URI.encode_query(%{"hints" => "search", "query" => @query})}"}
+      href={"https://chatgpt.com/?#{URI.encode_query(%{"hints" => "search", "prompt" => @query})}"}
       rel="noopener"
       target="_blank"
       class={upstream_fact("jsx/OpenInChatGPT/class/0")}
@@ -67,7 +67,7 @@ defmodule LiveAiElements.Components.OpenInChat do
   def open_in_claude(assigns) do
     ~H"""
     <a
-      href={"https://claude.ai/new?#{URI.encode_query(%{"query" => @query})}"}
+      href={"https://claude.ai/new?#{URI.encode_query(%{"q" => @query})}"}
       rel="noopener"
       target="_blank"
       class={upstream_fact("jsx/OpenInChatGPT/class/0")}
@@ -103,7 +103,7 @@ defmodule LiveAiElements.Components.OpenInChat do
   def open_in_t3(assigns) do
     ~H"""
     <a
-      href={"https://t3.chat/new?#{URI.encode_query(%{"query" => @query})}"}
+      href={"https://t3.chat/new?#{URI.encode_query(%{"q" => @query})}"}
       rel="noopener"
       target="_blank"
       class={upstream_fact("jsx/OpenInChatGPT/class/0")}
@@ -126,7 +126,7 @@ defmodule LiveAiElements.Components.OpenInChat do
   def open_in_scira(assigns) do
     ~H"""
     <a
-      href={"https://scira.ai/?#{URI.encode_query(%{"query" => @query})}"}
+      href={"https://scira.ai/?#{URI.encode_query(%{"q" => @query})}"}
       rel="noopener"
       target="_blank"
       class={upstream_fact("jsx/OpenInChatGPT/class/0")}
@@ -210,7 +210,7 @@ defmodule LiveAiElements.Components.OpenInChat do
   def open_inv0(assigns) do
     ~H"""
     <a
-      href={"https://v0.app?#{URI.encode_query(%{"query" => @query})}"}
+      href={"https://v0.app?#{URI.encode_query(%{"q" => @query})}"}
       rel="noopener"
       target="_blank"
       class={upstream_fact("jsx/OpenInChatGPT/class/0")}
@@ -243,7 +243,7 @@ defmodule LiveAiElements.Components.OpenInChat do
   def open_in_cursor(assigns) do
     ~H"""
     <a
-      href={"https://cursor.com/link/prompt?#{URI.encode_query(%{"query" => @query})}"}
+      href={"https://cursor.com/link/prompt?#{URI.encode_query(%{"text" => @query})}"}
       rel="noopener"
       target="_blank"
       class={upstream_fact("jsx/OpenInChatGPT/class/0")}

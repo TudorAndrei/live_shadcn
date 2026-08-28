@@ -118,7 +118,7 @@
     "jsx/PromptInputSubmit/class/2": "the generated port does not contain this source literal"
   },
   "name": "prompt-input",
-  "port_body": "57ef790186d5fc05e7b5300687a6c4676d84ffd071b974a8a78a12fcc0164dfd",
+  "port_body": "cb19e6dce221323d38b272122b74fd24dd3f8e8cefb9a0966828080c5bd5e3f8",
   "schema_version": 2,
   "source": "ai_elements",
   "source_facts": {

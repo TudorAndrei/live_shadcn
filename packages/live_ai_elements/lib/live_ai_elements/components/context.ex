@@ -112,13 +112,7 @@ defmodule LiveAiElements.Components.Context do
       <span class={upstream_fact("jsx/ContextCacheUsage/class/1")}>
         Input
       </span>
-      <span>
-        {if(is_nil(@input_tokens), do: "—", else: compact_number(@input_tokens))}
-        <span :if={@input_cost_text} class={upstream_fact("jsx/TokensWithCost/class/0")}>
-          • {@input_cost_text}
-        </span>
-        {nil}
-      </span>
+      <.tokens_with_cost tokens={@input_tokens} cost_text={@input_cost_text} />
       {render_slot(@inner_block)}
     </div>
     """
@@ -138,13 +132,7 @@ defmodule LiveAiElements.Components.Context do
       <span class={upstream_fact("jsx/ContextCacheUsage/class/1")}>
         Output
       </span>
-      <span>
-        {if(is_nil(@output_tokens), do: "—", else: compact_number(@output_tokens))}
-        <span :if={@output_cost_text} class={upstream_fact("jsx/TokensWithCost/class/0")}>
-          • {@output_cost_text}
-        </span>
-        {nil}
-      </span>
+      <.tokens_with_cost tokens={@output_tokens} cost_text={@output_cost_text} />
       {render_slot(@inner_block)}
     </div>
     """
@@ -164,13 +152,7 @@ defmodule LiveAiElements.Components.Context do
       <span class={upstream_fact("jsx/ContextCacheUsage/class/1")}>
         Reasoning
       </span>
-      <span>
-        {if(is_nil(@reasoning_tokens), do: "—", else: compact_number(@reasoning_tokens))}
-        <span :if={@reasoning_cost_text} class={upstream_fact("jsx/TokensWithCost/class/0")}>
-          • {@reasoning_cost_text}
-        </span>
-        {nil}
-      </span>
+      <.tokens_with_cost tokens={@reasoning_tokens} cost_text={@reasoning_cost_text} />
       {render_slot(@inner_block)}
     </div>
     """
@@ -190,15 +172,21 @@ defmodule LiveAiElements.Components.Context do
       <span class={upstream_fact("jsx/ContextCacheUsage/class/1")}>
         Cache
       </span>
-      <span>
-        {if(is_nil(@cache_tokens), do: "—", else: compact_number(@cache_tokens))}
-        <span :if={@cache_cost_text} class={upstream_fact("jsx/TokensWithCost/class/0")}>
-          • {@cache_cost_text}
-        </span>
-        {nil}
-      </span>
+      <.tokens_with_cost tokens={@cache_tokens} cost_text={@cache_cost_text} />
       {render_slot(@inner_block)}
     </div>
+    """
+  end
+
+  attr(:tokens, :any, default: nil)
+  attr(:cost_text, :string, default: nil)
+
+  defp tokens_with_cost(assigns) do
+    ~H"""
+    <span>{if(is_nil(@tokens), do: "—", else: compact_number(@tokens))}<span
+        :if={@cost_text}
+        class={upstream_fact("jsx/TokensWithCost/class/0")}
+      >• {@cost_text}</span></span>
     """
   end
 

@@ -104,6 +104,33 @@ defmodule StorybookWeb.Examples do
     %{id: "drift", type: "warning", title: "Upstream moved", description: "Two digests changed."}
   ]
 
+  @transcription_segments [
+    %{start_second: 0.119, end_second: 0.219, text: "You"},
+    %{start_second: 0.259, end_second: 0.439, text: "can"},
+    %{start_second: 0.459, end_second: 0.699, text: "build"},
+    %{start_second: 0.72, end_second: 0.799, text: "and"},
+    %{start_second: 0.879, end_second: 1.339, text: "host"},
+    %{start_second: 1.36, end_second: 1.539, text: "many"},
+    %{start_second: 1.6, end_second: 1.86, text: "different"},
+    %{start_second: 1.899, end_second: 2.099, text: "types"},
+    %{start_second: 2.119, end_second: 2.2, text: "of"},
+    %{start_second: 2.259, end_second: 2.96, text: "applications"},
+    %{start_second: 3.48, end_second: 3.699, text: "from"},
+    %{start_second: 3.779, end_second: 4.099, text: "static"},
+    %{start_second: 4.179, end_second: 4.519, text: "sites"},
+    %{start_second: 4.539, end_second: 4.759, text: "with"},
+    %{start_second: 4.799, end_second: 4.939, text: "your"},
+    %{start_second: 4.96, end_second: 5.219, text: "favorite"},
+    %{start_second: 5.319, end_second: 5.939, text: "framework,"},
+    %{start_second: 5.96, end_second: 6.519, text: "multi-tenant"},
+    %{start_second: 6.559, end_second: 7.259, text: "applications"},
+    %{start_second: 7.699, end_second: 7.759, text: "or"},
+    %{start_second: 7.859, end_second: 8.739, text: "micro-frontends"},
+    %{start_second: 8.78, end_second: 8.96, text: "to"},
+    %{start_second: 9.099, end_second: 9.779, text: "AI-powered"},
+    %{start_second: 9.82, end_second: 10.439, text: "agents."}
+  ]
+
   @doc """
   The toasts a page starts with.
 
@@ -660,6 +687,12 @@ defmodule StorybookWeb.Examples do
           "so it is an attribute here — the same answer `code-block` gives " <>
           "about its tokens.",
         &edge_default/1
+      ),
+      one(
+        "animated",
+        "An animated connection",
+        "The caller can style the path while a marker moves along it.",
+        &edge_animated/1
       )
     ]
   end
@@ -874,6 +907,12 @@ defmodule StorybookWeb.Examples do
           "card draws it and this example shows the citation and the source " <>
           "side by side instead.",
         &inline_citation_default/1
+      ),
+      one(
+        "carousel",
+        "More than one source",
+        "The same carousel controls and index as the official example.",
+        &inline_citation_carousel/1
       )
     ]
   end
@@ -1811,10 +1850,7 @@ defmodule StorybookWeb.Examples do
   defp commit_default(assigns) do
     ~H"""
     <LiveAiElements.Components.Commit.commit_info class="max-w-md">
-      <%!-- HEEx renders the whitespace a caller writes, and this value sits
-            beside an inline icon, so a line of its own would be a space.
-            `phx-no-format` keeps the formatter from putting one there. --%>
-      <LiveAiElements.Components.Commit.commit_hash phx-no-format>a99f1b7</LiveAiElements.Components.Commit.commit_hash>
+      <LiveAiElements.Components.Commit.commit_hash hash="a99f1b7" />
       <LiveAiElements.Components.Commit.commit_message>
         the recipe three components are built on
       </LiveAiElements.Components.Commit.commit_message>
@@ -1874,22 +1910,62 @@ defmodule StorybookWeb.Examples do
 
   defp speech_input_default(assigns) do
     ~H"""
-    <LiveAiElements.Components.SpeechInput.speech_input aria-label="Start dictation" />
+    <div data-speech-example class="flex size-full flex-col items-center justify-center gap-4">
+      <div class="flex gap-2">
+        <LiveAiElements.Components.SpeechInput.speech_input
+          id="dictation"
+          aria-label="Start dictation"
+          size="icon"
+          variant="outline"
+        />
+        <button
+          data-speech-clear
+          hidden
+          class="text-muted-foreground text-sm underline hover:text-foreground"
+          type="button"
+        >
+          Clear
+        </button>
+      </div>
+      <div data-speech-transcript-card hidden class="max-w-md rounded-lg border bg-card p-4 text-sm">
+        <p class="text-muted-foreground"><strong>Transcript:</strong></p>
+        <p data-speech-transcript class="mt-2"></p>
+      </div>
+      <p data-speech-empty class="text-muted-foreground text-sm">
+        Click the microphone to start speaking
+      </p>
+    </div>
     """
   end
 
   defp transcription_default(assigns) do
+    assigns = assign(assigns, :segments, @transcription_segments)
+
     ~H"""
-    <LiveAiElements.Components.Transcription.transcription class="max-w-md">
-      <LiveAiElements.Components.Transcription.transcription_segment
-        index={0}
-        segment={%{text: "It is eighteen degrees"}}
-      />
-      <LiveAiElements.Components.Transcription.transcription_segment
-        index={1}
-        segment={%{text: "and clear in Cluj."}}
-      />
-    </LiveAiElements.Components.Transcription.transcription>
+    <div class="space-y-6 p-6">
+      <audio
+        id="transcription-audio"
+        aria-describedby="transcription-copy"
+        controls
+        preload="metadata"
+      >
+        <source
+          src="https://ejiidnob33g9ap1r.public.blob.vercel-storage.com/ElevenLabs_2025-11-10T22_10_24_Hayden_pvc_sp110_s50_sb75_se0_b_m2.mp3"
+          type="audio/mpeg"
+        />
+      </audio>
+      <LiveAiElements.Components.Transcription.transcription
+        id="transcription-copy"
+        media_id="transcription-audio"
+      >
+        <LiveAiElements.Components.Transcription.transcription_segment
+          :for={{segment, index} <- Enum.with_index(@segments)}
+          class="text-lg"
+          index={index}
+          segment={segment}
+        />
+      </LiveAiElements.Components.Transcription.transcription>
+    </div>
     """
   end
 
@@ -1939,11 +2015,32 @@ defmodule StorybookWeb.Examples do
   end
 
   defp open_in_chat_default(assigns) do
+    query = "How does the fold work?"
+
+    assigns =
+      assign(assigns,
+        chatgpt:
+          "https://chatgpt.com/?" <>
+            URI.encode_query(%{"hints" => "search", "prompt" => query}),
+        claude: "https://claude.ai/new?" <> URI.encode_query(%{"q" => query})
+      )
+
     ~H"""
-    <div class="w-fit">
-      <LiveAiElements.Components.OpenInChat.open_in_chat_gpt query="How does the fold work?" />
-      <LiveAiElements.Components.OpenInChat.open_in_claude query="How does the fold work?" />
-    </div>
+    <.dropdown_menu
+      id="open-in-chat"
+      class="w-[240px]"
+      trigger_class={LiveAiElements.Shadcn.button_class("default", "outline")}
+    >
+      <:trigger>
+        Open in chat <LiveShadcn.Icon.icon name="chevron-down" class="size-4" />
+      </:trigger>
+      <:item value="chatgpt" href={@chatgpt} target="_blank" rel="noopener">
+        Open in ChatGPT <LiveShadcn.Icon.icon name="external-link" class="ml-auto size-4 shrink-0" />
+      </:item>
+      <:item value="claude" href={@claude} target="_blank" rel="noopener">
+        Open in Claude <LiveShadcn.Icon.icon name="external-link" class="ml-auto size-4 shrink-0" />
+      </:item>
+    </.dropdown_menu>
     """
   end
 
@@ -1958,8 +2055,11 @@ defmodule StorybookWeb.Examples do
   defp controls_default(assigns) do
     ~H"""
     <LiveAiElements.Components.Controls.controls class="w-fit">
-      <button type="button" class="p-1" aria-label="Zoom in">+</button>
-      <button type="button" class="p-1" aria-label="Zoom out">-</button>
+      <button type="button" class="p-1" aria-label="Zoom in">+</button><button
+        type="button"
+        class="p-1"
+        aria-label="Zoom out"
+      >-</button>
     </LiveAiElements.Components.Controls.controls>
     """
   end
@@ -1970,6 +2070,20 @@ defmodule StorybookWeb.Examples do
       <LiveAiElements.Components.Edge.edge_temporary
         id="wire"
         edge_path="M8,16 C 114,16 114,80 220,80"
+      />
+    </svg>
+    """
+  end
+
+  defp edge_animated(assigns) do
+    ~H"""
+    <svg class="h-24 w-64" viewBox="0 0 240 96">
+      <LiveAiElements.Components.Edge.edge_animated
+        id="animated-wire"
+        edge_path="M8,16 C 114,16 114,80 220,80"
+        source_node="reader"
+        target_node="writer"
+        style="stroke: rgb(37, 99, 235)"
       />
     </svg>
     """
@@ -2008,7 +2122,7 @@ defmodule StorybookWeb.Examples do
 
   defp persona_default(assigns) do
     ~H"""
-    <LiveAiElements.Components.Persona.persona />
+    <LiveAiElements.Components.Persona.persona id="persona" />
     """
   end
 
@@ -2040,22 +2154,24 @@ defmodule StorybookWeb.Examples do
          upgrades it, and re-renders its buttons from them. `phx-update="ignore"`
          is what hands the subtree over, and every LiveView that renders a
          custom element needs it. --%>
-    <LiveAiElements.Components.AudioPlayer.audio_player
-      id="player"
-      phx-update="ignore"
-      class="max-w-md"
-    >
-      <LiveAiElements.Components.AudioPlayer.audio_player_element
-        src="https://ejiidnob33g9ap1r.public.blob.vercel-storage.com/ElevenLabs_2025-11-10T22_07_46_Hayden_pvc_sp108_s50_sb75_se0_b_m2.mp3"
-        preload="metadata"
-      />
-      <LiveAiElements.Components.AudioPlayer.audio_player_control_bar>
-        <LiveAiElements.Components.AudioPlayer.audio_player_play_button />
-        <LiveAiElements.Components.AudioPlayer.audio_player_time_display />
-        <LiveAiElements.Components.AudioPlayer.audio_player_time_range />
-        <LiveAiElements.Components.AudioPlayer.audio_player_mute_button />
-      </LiveAiElements.Components.AudioPlayer.audio_player_control_bar>
-    </LiveAiElements.Components.AudioPlayer.audio_player>
+    <div class="flex size-full items-center justify-center">
+      <LiveAiElements.Components.AudioPlayer.audio_player id="player" phx-update="ignore">
+        <LiveAiElements.Components.AudioPlayer.audio_player_element
+          src="https://ejiidnob33g9ap1r.public.blob.vercel-storage.com/ElevenLabs_2025-11-10T22_07_46_Hayden_pvc_sp108_s50_sb75_se0_b_m2.mp3"
+          preload="metadata"
+        />
+        <LiveAiElements.Components.AudioPlayer.audio_player_control_bar>
+          <LiveAiElements.Components.AudioPlayer.audio_player_play_button />
+          <LiveAiElements.Components.AudioPlayer.audio_player_seek_backward_button />
+          <LiveAiElements.Components.AudioPlayer.audio_player_seek_forward_button />
+          <LiveAiElements.Components.AudioPlayer.audio_player_time_display />
+          <LiveAiElements.Components.AudioPlayer.audio_player_time_range />
+          <LiveAiElements.Components.AudioPlayer.audio_player_duration_display />
+          <LiveAiElements.Components.AudioPlayer.audio_player_mute_button />
+          <LiveAiElements.Components.AudioPlayer.audio_player_volume_range />
+        </LiveAiElements.Components.AudioPlayer.audio_player_control_bar>
+      </LiveAiElements.Components.AudioPlayer.audio_player>
+    </div>
     """
   end
 
@@ -2089,7 +2205,10 @@ defmodule StorybookWeb.Examples do
          `display: contents` does not change. Wrapped, the group keeps its
          one-line height and squeezes the textarea to nothing. --%>
     <LiveAiElements.Components.PromptInput.prompt_input class="max-w-md">
-      <LiveAiElements.Components.PromptInput.prompt_input_textarea placeholder="What would you like to know?" />
+      <LiveAiElements.Components.PromptInput.prompt_input_textarea
+        id="prompt-textarea"
+        placeholder="What would you like to know?"
+      />
       <LiveAiElements.Components.PromptInput.prompt_input_footer>
         <LiveAiElements.Components.PromptInput.prompt_input_tools />
         <LiveAiElements.Components.PromptInput.prompt_input_submit />
@@ -2108,12 +2227,30 @@ defmodule StorybookWeb.Examples do
 
   defp file_tree_default(assigns) do
     ~H"""
-    <LiveAiElements.Components.FileTree.file_tree class="max-w-xs">
-      <LiveAiElements.Components.FileTree.file_tree_folder name="registry" is_expanded="true">
-        <LiveAiElements.Components.FileTree.file_tree_file name="INVENTORY.json" />
-        <LiveAiElements.Components.FileTree.file_tree_file name="UPSTREAM.json" />
+    <LiveAiElements.Components.FileTree.file_tree>
+      <LiveAiElements.Components.FileTree.file_tree_folder
+        id="src-folder"
+        name="src"
+        path="src"
+        is_expanded="true"
+      >
+        <LiveAiElements.Components.FileTree.file_tree_folder
+          id="components-folder"
+          name="components"
+          path="src/components"
+          is_expanded="true"
+        >
+          <LiveAiElements.Components.FileTree.file_tree_file
+            name="button.tsx"
+            path="src/components/button.tsx"
+          />
+          <LiveAiElements.Components.FileTree.file_tree_file
+            name="input.tsx"
+            path="src/components/input.tsx"
+          />
+        </LiveAiElements.Components.FileTree.file_tree_folder>
+        <LiveAiElements.Components.FileTree.file_tree_file name="index.ts" path="src/index.ts" />
       </LiveAiElements.Components.FileTree.file_tree_folder>
-      <LiveAiElements.Components.FileTree.file_tree_file name="ROADMAP.md" />
     </LiveAiElements.Components.FileTree.file_tree>
     """
   end
@@ -2169,7 +2306,7 @@ defmodule StorybookWeb.Examples do
 
   defp shimmer_default(assigns) do
     ~H"""
-    <LiveAiElements.Components.Shimmer.shimmer id="thinking" dynamic_spread="30">
+    <LiveAiElements.Components.Shimmer.shimmer id="thinking" dynamic_spread="58">
       Reading every registry source
     </LiveAiElements.Components.Shimmer.shimmer>
     """
@@ -2192,6 +2329,50 @@ defmodule StorybookWeb.Examples do
         url="https://base-ui.com/react/components/popover"
         description="The root is a state container and draws nothing of its own."
       />
+    </div>
+    """
+  end
+
+  defp inline_citation_carousel(assigns) do
+    sources = [
+      %{
+        title: "Advances in Natural Language Processing",
+        url: "https://example.com/nlp-advances",
+        description: "A study of recent natural language processing systems."
+      },
+      %{
+        title: "Breakthroughs in Machine Learning",
+        url: "https://mlnews.org/breakthroughs",
+        description: "A review of important machine learning results."
+      }
+    ]
+
+    assigns = assign(assigns, :sources, sources)
+
+    ~H"""
+    <div class="w-80">
+      <h3 class="sr-only">Sources</h3>
+      <LiveAiElements.Components.InlineCitation.inline_citation_carousel
+        id="citation-carousel"
+        aria-label="Citation sources"
+      >
+        <LiveAiElements.Components.InlineCitation.inline_citation_carousel_header>
+          <LiveAiElements.Components.InlineCitation.inline_citation_carousel_prev />
+          <LiveAiElements.Components.InlineCitation.inline_citation_carousel_next />
+          <LiveAiElements.Components.InlineCitation.inline_citation_carousel_index />
+        </LiveAiElements.Components.InlineCitation.inline_citation_carousel_header>
+        <LiveAiElements.Components.InlineCitation.inline_citation_carousel_content>
+          <LiveAiElements.Components.InlineCitation.inline_citation_carousel_item :for={
+            source <- @sources
+          }>
+            <LiveAiElements.Components.InlineCitation.inline_citation_source
+              title={source.title}
+              url={source.url}
+              description={source.description}
+            />
+          </LiveAiElements.Components.InlineCitation.inline_citation_carousel_item>
+        </LiveAiElements.Components.InlineCitation.inline_citation_carousel_content>
+      </LiveAiElements.Components.InlineCitation.inline_citation_carousel>
     </div>
     """
   end
@@ -2311,7 +2492,7 @@ defmodule StorybookWeb.Examples do
 
   defp web_preview_default(assigns) do
     ~H"""
-    <LiveAiElements.Components.WebPreview.web_preview class="h-64 max-w-md">
+    <LiveAiElements.Components.WebPreview.web_preview id="web-preview" class="h-64 max-w-md">
       <LiveAiElements.Components.WebPreview.web_preview_navigation>
         <LiveAiElements.Components.WebPreview.web_preview_url value="https://example.com" />
       </LiveAiElements.Components.WebPreview.web_preview_navigation>
@@ -2691,32 +2872,20 @@ defmodule StorybookWeb.Examples do
 
   defp question_default(assigns) do
     ~H"""
-    <.question class="max-w-md">
-      <.question_prompt>Which recipe should read this component?</.question_prompt>
-      <.question_description>
-        Pick one. The box below takes anything the list does not cover.
-      </.question_description>
-      <.question_options selection_mode="single">
-        <.question_option value="disclosure" role="radio" is_selected="true" variant="default">
-          Disclosure
-        </.question_option>
-        <.question_option value="popover" role="radio" is_selected="false" variant="outline">
-          Popover
-        </.question_option>
-        <.question_option value="listbox" role="radio" is_selected="false" variant="outline">
-          Listbox
+    <.question id="framework-question" class="w-full max-w-2xl">
+      <div class="space-y-1">
+        <.question_prompt>Which framework should we use?</.question_prompt>
+        <.question_description>Select one option.</.question_description>
+      </div>
+      <.question_options selection_mode="single" aria-label="Framework">
+        <.question_option value="Next.js" role="radio" is_selected="false">Next.js</.question_option>
+        <.question_option value="Nuxt" role="radio" is_selected="false">Nuxt</.question_option>
+        <.question_option value="SvelteKit" role="radio" is_selected="false">
+          SvelteKit
         </.question_option>
       </.question_options>
-      <.question_input
-        name="other"
-        placeholder="Something else"
-        aria-label="Something else"
-        text=""
-      />
       <.question_actions>
-        <.question_submit variant="default" size="sm" has_response="true">
-          Answer
-        </.question_submit>
+        <.question_submit has_response="false">Continue</.question_submit>
       </.question_actions>
     </.question>
     """

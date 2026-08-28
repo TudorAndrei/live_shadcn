@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.Suggestion do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/ScrollArea/class/1" =>
@@ -41,31 +43,17 @@ defmodule LiveAiElements.Components.Suggestion do
     >
       <div
         data-slot="scroll-area-viewport"
-        class={upstream_fact("jsx/ScrollArea/class/1")}
+        class="focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1"
+        style="overflow: scroll;"
       >
-        <div class={[upstream_fact("jsx/Suggestions/class/1"), @class]}>
-          {render_slot(@inner_block)}
-        </div>
         <div
-          data-slot={@rest[:"data-slot"] || "scroll-area-scrollbar"}
-          data-orientation={@orientation}
-          orientation={@orientation}
-          class={upstream_fact("port/class/1")}
-          {Map.drop(@rest, [:"data-slot"])}
+          style="min-width: 100%; display: table;"
         >
-          <div data-slot="scroll-area-thumb" class={upstream_fact("jsx/ScrollBar/class/1")} />
+          <div class={[upstream_fact("jsx/Suggestions/class/1"), @class]}>
+            {render_slot(@inner_block)}
+          </div>
         </div>
       </div>
-      <div
-        data-slot={@rest[:"data-slot"] || "scroll-area-scrollbar"}
-        data-orientation={@orientation}
-        orientation={@orientation}
-        class={[upstream_fact("jsx/ScrollBar/class/0"), @class]}
-        {Map.drop(@rest, [:"data-slot"])}
-      >
-        <div data-slot="scroll-area-thumb" class={upstream_fact("jsx/ScrollBar/class/1")} />
-      </div>
-      <div />
     </div>
     """
   end
@@ -80,18 +68,22 @@ defmodule LiveAiElements.Components.Suggestion do
 
   def suggestion(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
       type="button"
-      size={@size}
-      variant={@variant}
-      class={[upstream_fact("jsx/Suggestion/class/0"), @class]}
-      {@rest}
+      class={[
+        Shadcn.button_class(@size, @variant),
+        upstream_fact("jsx/Suggestion/class/0"),
+        "!gap-1.5 !rounded-full",
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         {@suggestion}
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 end

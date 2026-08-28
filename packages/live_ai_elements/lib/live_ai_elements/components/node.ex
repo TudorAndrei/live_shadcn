@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.Node do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Node/class/0" => "node-container relative size-full h-auto w-sm gap-0 rounded-md p-0",
@@ -29,15 +31,20 @@ defmodule LiveAiElements.Components.Node do
 
   def node(assigns) do
     ~H"""
-    <LiveShadcn.UI.Card.card
-      size={@size}
-      class={[upstream_fact("jsx/Node/class/0"), @class]}
-      {@rest}
+    <div
+      data-slot={@rest[:"data-slot"] || "card"}
+      class={[
+        Shadcn.card_class(:card),
+        upstream_fact("jsx/Node/class/0"),
+        "!gap-0 !rounded-md !p-0",
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <div :if={@handles.target} />
       <div :if={@handles.source} />
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Card.card>
+    </div>
     """
   end
 
@@ -49,12 +56,18 @@ defmodule LiveAiElements.Components.Node do
 
   def node_header(assigns) do
     ~H"""
-    <LiveShadcn.UI.Card.card_header
-      class={[upstream_fact("jsx/NodeHeader/class/0"), @class]}
-      {@rest}
+    <div
+      data-slot={@rest[:"data-slot"] || "card-header"}
+      class={[
+        Shadcn.card_class(:header),
+        upstream_fact("jsx/NodeHeader/class/0"),
+        "!gap-0.5",
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Card.card_header>
+    </div>
     """
   end
 
@@ -66,9 +79,13 @@ defmodule LiveAiElements.Components.Node do
 
   def node_title(assigns) do
     ~H"""
-    <LiveShadcn.UI.Card.card_title {@rest}>
+    <div
+      data-slot={@rest[:"data-slot"] || "card-title"}
+      class={Shadcn.card_class(:title)}
+      {Map.drop(@rest, [:"data-slot"])}
+    >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Card.card_title>
+    </div>
     """
   end
 
@@ -80,9 +97,13 @@ defmodule LiveAiElements.Components.Node do
 
   def node_description(assigns) do
     ~H"""
-    <LiveShadcn.UI.Card.card_description {@rest}>
+    <div
+      data-slot={@rest[:"data-slot"] || "card-description"}
+      class={Shadcn.card_class(:description)}
+      {Map.drop(@rest, [:"data-slot"])}
+    >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Card.card_description>
+    </div>
     """
   end
 
@@ -94,9 +115,13 @@ defmodule LiveAiElements.Components.Node do
 
   def node_action(assigns) do
     ~H"""
-    <LiveShadcn.UI.Card.card_action {@rest}>
+    <div
+      data-slot={@rest[:"data-slot"] || "card-action"}
+      class={Shadcn.card_class(:action)}
+      {Map.drop(@rest, [:"data-slot"])}
+    >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Card.card_action>
+    </div>
     """
   end
 
@@ -108,9 +133,13 @@ defmodule LiveAiElements.Components.Node do
 
   def node_content(assigns) do
     ~H"""
-    <LiveShadcn.UI.Card.card_content class={[upstream_fact("jsx/NodeContent/class/0"), @class]} {@rest}>
+    <div
+      data-slot={@rest[:"data-slot"] || "card-content"}
+      class={[Shadcn.card_class(:content), upstream_fact("jsx/NodeContent/class/0"), "!p-3", @class]}
+      {Map.drop(@rest, [:"data-slot"])}
+    >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Card.card_content>
+    </div>
     """
   end
 
@@ -122,12 +151,18 @@ defmodule LiveAiElements.Components.Node do
 
   def node_footer(assigns) do
     ~H"""
-    <LiveShadcn.UI.Card.card_footer
-      class={[upstream_fact("jsx/NodeFooter/class/0"), @class]}
-      {@rest}
+    <div
+      data-slot={@rest[:"data-slot"] || "card-footer"}
+      class={[
+        Shadcn.card_class(:footer),
+        upstream_fact("jsx/NodeFooter/class/0"),
+        "!p-3",
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Card.card_footer>
+    </div>
     """
   end
 end

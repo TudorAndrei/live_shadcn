@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.PromptInput do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "cva/inputGroupAddonVariants/variant/align/block-end" =>
@@ -108,7 +110,7 @@ defmodule LiveAiElements.Components.PromptInput do
       <div
         data-slot={@rest[:"data-slot"] || "input-group"}
         role="group"
-        class={upstream_fact("port/class/3")}
+        class={[Shadcn.input_group_class(), "overflow-hidden"]}
         {Map.drop(@rest, [:"data-slot"])}
       >
         {render_slot(@inner_block)}
@@ -134,7 +136,7 @@ defmodule LiveAiElements.Components.PromptInput do
   @doc """
   The `input-group-control` part.
 
-      <.prompt_input_textarea field={@form[:email]} />
+      <.prompt_input_textarea id="prompt" field={@form[:email]} />
 
   A `:field` fills in the id, the name, the value, and the errors. Errors
   show only once the form has been used: an untouched form is not a form
@@ -145,7 +147,7 @@ defmodule LiveAiElements.Components.PromptInput do
     doc: "A form field. Fills in id, name, value and errors."
   )
 
-  attr(:id, :string, default: nil)
+  attr(:id, :string, required: true, doc: "The browser hook needs a stable id.")
   attr(:name, :string, default: nil)
   attr(:value, :any, default: nil, doc: "The field's value.")
   attr(:errors, :list, default: [])
@@ -179,10 +181,13 @@ defmodule LiveAiElements.Components.PromptInput do
     ~H"""
     <textarea
       phx-no-format
+      id={@id}
+      phx-hook="LiveAiElements.PromptInput"
       data-slot={@rest[:"data-slot"] || "input-group-control"}
       placeholder={@placeholder}
       class={[
-        upstream_fact("port/class/2"),
+        Shadcn.textarea_class(),
+        "flex-1 resize-none !rounded-none !border-0 bg-transparent !py-3 !shadow-none focus-visible:!ring-0 dark:bg-transparent field-sizing-content max-h-48 min-h-16",
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -211,8 +216,8 @@ defmodule LiveAiElements.Components.PromptInput do
       role="group"
       data-align={@align}
       class={[
-        variant_class("inputGroupAddonVariants", "align", @align),
-        upstream_fact("port/class/1"),
+        Shadcn.input_group_addon_class(@align),
+        "order-first flex-wrap !gap-1",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -243,8 +248,8 @@ defmodule LiveAiElements.Components.PromptInput do
       role="group"
       data-align={@align}
       class={[
-        variant_class("inputGroupAddonVariants", "align", @align),
-        upstream_fact("port/class/0"),
+        Shadcn.input_group_addon_class(@align),
+        "!justify-between !gap-1",
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -282,7 +287,7 @@ defmodule LiveAiElements.Components.PromptInput do
   )
 
   attr(:status, :string, default: nil)
-  attr(:type, :string, default: "button")
+  attr(:type, :string, default: "submit")
   attr(:variant, :string, default: "default")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
@@ -290,23 +295,23 @@ defmodule LiveAiElements.Components.PromptInput do
 
   def prompt_input_submit(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
       type={@type}
       data-size={@size}
-      variant={@variant}
       aria-label={if(@is_generating, do: "Stop", else: "Submit")}
       class={[
-        variant_class("inputGroupButtonVariants", "size", @size),
-        upstream_fact("cva/inputGroupButtonVariants/base"),
+        Shadcn.button_class(@size, @variant),
+        "text-sm !shadow-none flex min-w-0 gap-2 items-center !size-8 !p-0 has-[>svg]:p-0",
         @class
       ]}
-      {@rest}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon name="corner-down-left" class={upstream_fact("jsx/PromptInputActionMenuTrigger/class/0")} />
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 
@@ -379,7 +384,4 @@ defmodule LiveAiElements.Components.PromptInput do
     </div>
     """
   end
-
-  defp variant_class(table, group, value),
-    do: get_in(@variant_classes, [table, group, value])
 end

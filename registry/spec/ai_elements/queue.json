@@ -76,7 +76,7 @@
     "jsx/QueueItemDescription/class/2": "the generated port does not contain this source literal"
   },
   "name": "queue",
-  "port_body": "ccfbe1483bed2ee99d143b06171c453b63dde833ba9ce312817ad98c294f0359",
+  "port_body": "62bd69c1de2bf2cf263ac7127eb245750d07254eea6e864a6706c556bb2b6944",
   "schema_version": 2,
   "source": "ai_elements",
   "source_facts": {

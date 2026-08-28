@@ -14,6 +14,8 @@ defmodule LiveAiElements.Components.TestResults do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Test/class/0" => "flex items-center gap-2 px-4 py-2 text-sm",
@@ -96,26 +98,38 @@ defmodule LiveAiElements.Components.TestResults do
     ~H"""
     <div :if={@summary} class={[upstream_fact("jsx/TestResultsSummary/class/0"), (@class || "")]} {@rest}>
       <%= if @inner_block == [] do %>
-        <LiveShadcn.UI.Badge.badge
-          variant={@variant}
-          class={upstream_fact("jsx/TestResultsSummary/class/1")}
+        <span
+          data-slot="badge"
+          class={[
+            Shadcn.badge_class(@variant),
+            upstream_fact("jsx/TestResultsSummary/class/1"),
+            "!bg-green-100 !text-green-700 dark:!bg-green-900/30 dark:!text-green-400"
+          ]}
         >
           <LiveShadcn.Icon.icon name="circle-check" class={upstream_fact("jsx/TestResultsSummary/class/2")} />{@summary.passed} passed
-        </LiveShadcn.UI.Badge.badge>
-        <LiveShadcn.UI.Badge.badge
+        </span>
+        <span
           :if={@summary.failed > 0}
-          variant={@variant}
-          class={upstream_fact("jsx/TestResultsSummary/class/3")}
+          data-slot="badge"
+          class={[
+            Shadcn.badge_class(@variant),
+            upstream_fact("jsx/TestResultsSummary/class/3"),
+            "!bg-red-100 !text-red-700 dark:!bg-red-900/30 dark:!text-red-400"
+          ]}
         >
           <LiveShadcn.Icon.icon name="circle-x" class={upstream_fact("jsx/TestResultsSummary/class/2")} />{@summary.failed} failed
-        </LiveShadcn.UI.Badge.badge>
-        <LiveShadcn.UI.Badge.badge
+        </span>
+        <span
           :if={@summary.skipped > 0}
-          variant={@variant}
-          class={upstream_fact("jsx/TestResultsSummary/class/5")}
+          data-slot="badge"
+          class={[
+            Shadcn.badge_class(@variant),
+            upstream_fact("jsx/TestResultsSummary/class/5"),
+            "!bg-yellow-100 !text-yellow-700 dark:!bg-yellow-900/30 dark:!text-yellow-400"
+          ]}
         >
           <LiveShadcn.Icon.icon name="circle" class={upstream_fact("jsx/TestResultsSummary/class/2")} />{@summary.skipped} skipped
-        </LiveShadcn.UI.Badge.badge>
+        </span>
       <% end %>
       {render_slot(@inner_block)}
     </div>

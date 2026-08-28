@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.Snippet do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "cva/inputGroupAddonVariants/base" =>
@@ -66,7 +68,8 @@ defmodule LiveAiElements.Components.Snippet do
       data-slot={@rest[:"data-slot"] || "input-group"}
       role="group"
       class={[
-        upstream_fact("port/class/2"),
+        Shadcn.input_group_class(),
+        "font-mono",
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -96,11 +99,7 @@ defmodule LiveAiElements.Components.Snippet do
       data-slot={@rest[:"data-slot"] || "input-group-addon"}
       role="group"
       data-align={@align}
-      class={[
-        variant_class("inputGroupAddonVariants", "align", @align),
-        upstream_fact("cva/inputGroupAddonVariants/base"),
-        @class
-      ]}
+      class={[Shadcn.input_group_addon_class(@align), @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -117,10 +116,7 @@ defmodule LiveAiElements.Components.Snippet do
   def snippet_text(assigns) do
     ~H"""
     <span
-      class={[
-        upstream_fact("port/class/1"),
-        (@class || "")
-      ]}
+      class={[Shadcn.input_group_text_class(), "pl-2 font-normal text-muted-foreground", (@class || "")]}
       {@rest}
     >
       {render_slot(@inner_block)}
@@ -163,7 +159,8 @@ defmodule LiveAiElements.Components.Snippet do
       readonly
       value={@code}
       class={[
-        upstream_fact("port/class/0"),
+        Shadcn.input_group_input_class(),
+        "flex-1 text-foreground",
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -192,7 +189,8 @@ defmodule LiveAiElements.Components.Snippet do
 
   def snippet_copy_button(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
@@ -200,15 +198,10 @@ defmodule LiveAiElements.Components.Snippet do
       data-lb-timeout={@timeout}
       type={@type}
       data-size={@size}
-      variant={@variant}
       aria-label="Copy"
       title="Copy"
-      class={[
-        variant_class("inputGroupButtonVariants", "size", @size),
-        upstream_fact("cva/inputGroupButtonVariants/base"),
-        @class
-      ]}
-      {@rest}
+      class={[Shadcn.input_group_button_class(@size, @variant), @class]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon
@@ -228,10 +221,7 @@ defmodule LiveAiElements.Components.Snippet do
         />
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
-
-  defp variant_class(table, group, value),
-    do: get_in(@variant_classes, [table, group, value])
 end

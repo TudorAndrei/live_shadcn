@@ -12,6 +12,8 @@ defmodule LiveAiElements.Components.Tool do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "cva/badgeVariants/variant/variant/default" => "cn-badge-variant-default",
@@ -43,21 +45,6 @@ defmodule LiveAiElements.Components.Tool do
   Module.get_attribute(__MODULE__, :upstream_facts)
 
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
-
-  @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                        [table, "variant", group, choice] <- [String.split(path, "/")],
-                        reduce: %{} do
-                      variants ->
-                        put_in(
-                          variants,
-                          [
-                            Access.key(table, %{}),
-                            Access.key(group, %{}),
-                            Access.key(choice, nil)
-                          ],
-                          value
-                        )
-                    end)
 
   alias LiveBase.Disclosure
 
@@ -126,8 +113,8 @@ defmodule LiveAiElements.Components.Tool do
             data-slot="badge"
             data-variant={@variant}
             class={[
-              variant_class("badgeVariants", "variant", @variant),
-              upstream_fact("port/class/0")
+              Shadcn.badge_class(@variant),
+              "gap-1.5 rounded-full text-xs"
             ]}
           >
             <LiveShadcn.Icon.icon
@@ -177,7 +164,10 @@ defmodule LiveAiElements.Components.Tool do
         </div>
         <LiveShadcn.Icon.icon
           name="chevron-down"
-          class={upstream_fact("jsx/ToolHeader/class/4")}
+          class={[
+            upstream_fact("jsx/ToolHeader/class/4"),
+            if(@open, do: "rotate-180", else: nil)
+          ]}
         />
       </button>
       <div
@@ -214,7 +204,4 @@ defmodule LiveAiElements.Components.Tool do
   # two states a shadcn class string distinguishes.
   defp flag(true), do: ""
   defp flag(_state), do: nil
-
-  defp variant_class(table, group, value),
-    do: get_in(@variant_classes, [table, group, value])
 end

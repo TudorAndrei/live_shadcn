@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/EnvironmentVariable/class/0" => "flex items-center justify-between gap-4 px-4 py-3",
@@ -100,29 +102,25 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
         <LiveShadcn.Icon.icon :if={@show_values} name="eye" width="14" height="14" />
         <LiveShadcn.Icon.icon :if={!@show_values} name="eye-off" width="14" height="14" />
       </span>
-      <span
+      <button
         role="switch"
-        tabindex="0"
+        type="button"
         aria-checked={to_string(@show_values == true)}
         phx-click={@on_toggle}
-        phx-keydown={@on_toggle}
-        phx-key=" "
-        data-checked={if(@show_values == true, do: "")}
-        data-unchecked={if(@show_values != true, do: "")}
+        data-state={if(@show_values == true, do: "checked", else: "unchecked")}
         data-slot={@rest[:"data-slot"] || "switch"}
         data-size={@size}
         aria-label="Toggle value visibility"
-        class={upstream_fact("jsx/Switch/class/0")}
+        class={Shadcn.switch_class()}
         {Map.drop(@rest, [:"data-slot"])}
       >
         <span
-          data-checked={if(@show_values == true, do: "")}
-          data-unchecked={if(@show_values != true, do: "")}
+          data-state={if(@show_values == true, do: "checked", else: "unchecked")}
           data-slot="switch-thumb"
-          class={upstream_fact("jsx/Switch/class/1")}
+          class={Shadcn.switch_thumb_class()}
         />
         {render_slot(@inner_block)}
-      </span>
+      </button>
     </div>
     """
   end
@@ -232,7 +230,8 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
 
   def environment_variable_copy_button(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
@@ -240,17 +239,20 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
         Map.get(%{"name" => @name, "export" => "export #{@name}=\"#{@value}\""}, @copy_format, @value)
       }
       data-lb-timeout={@timeout}
-      size={@size}
-      variant={@variant}
-      class={[upstream_fact("jsx/EnvironmentVariableCopyButton/class/0"), @class]}
-      {@rest}
+      class={[
+        Shadcn.button_class(@size, @variant),
+        upstream_fact("jsx/EnvironmentVariableCopyButton/class/0"),
+        "!size-6",
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" width="12" height="12" />
         <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" width="12" height="12" />
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 
@@ -262,12 +264,20 @@ defmodule LiveAiElements.Components.EnvironmentVariables do
 
   def environment_variable_required(assigns) do
     ~H"""
-    <LiveShadcn.UI.Badge.badge variant={@variant} class={[upstream_fact("jsx/EnvironmentVariableRequired/class/0"), @class]} {@rest}>
+    <span
+      data-slot={@rest[:"data-slot"] || "badge"}
+      class={[
+        Shadcn.badge_class(@variant),
+        upstream_fact("jsx/EnvironmentVariableRequired/class/0"),
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
+    >
       <%= if @inner_block == [] do %>
         Required
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Badge.badge>
+    </span>
     """
   end
 end

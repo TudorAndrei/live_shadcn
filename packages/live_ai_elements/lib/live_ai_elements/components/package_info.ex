@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.PackageInfo do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/PackageInfo/class/0" => "rounded-lg border bg-background p-4",
@@ -78,10 +80,12 @@ defmodule LiveAiElements.Components.PackageInfo do
 
   def package_info_change_type(assigns) do
     ~H"""
-    <LiveShadcn.UI.Badge.badge
+    <span
       :if={@change_type}
-      variant={@variant}
+      data-slot={@rest[:"data-slot"] || "badge"}
       class={[
+        Shadcn.badge_class(nil),
+        "border-transparent [a&]:hover:bg-secondary/90",
         upstream_fact("jsx/PackageInfoChangeType/class/0"),
         if(@change_type == "added",
           do: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
@@ -105,7 +109,7 @@ defmodule LiveAiElements.Components.PackageInfo do
         ),
         @class
       ]}
-      {@rest}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <LiveShadcn.Icon.icon :if={@change_type == "added"} name="plus" class={upstream_fact("jsx/PackageInfoVersion/class/1")} />
       <LiveShadcn.Icon.icon :if={@change_type == "major"} name="arrow-right" class={upstream_fact("jsx/PackageInfoVersion/class/1")} />
@@ -116,7 +120,7 @@ defmodule LiveAiElements.Components.PackageInfo do
         {@change_type}
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Badge.badge>
+    </span>
     """
   end
 

@@ -14,6 +14,8 @@ defmodule LiveAiElements.Components.Attachments do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Attachment/class/0" => "group relative",
@@ -160,12 +162,13 @@ defmodule LiveAiElements.Components.Attachments do
 
   def attachment_remove(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
       aria-label={@label}
       type="button"
-      size={@size}
-      variant="ghost"
       class={[
+        Shadcn.button_class(if(@variant == "list", do: "icon-sm", else: @size), "ghost"),
+        if(@variant == "list", do: "!rounded !px-3", else: nil),
         if(@variant == "grid",
           do:
             upstream_fact("port/class/0"),
@@ -179,7 +182,7 @@ defmodule LiveAiElements.Components.Attachments do
         if(@variant == "list", do: upstream_fact("port/class/4"), else: nil),
         @class
       ]}
-      {@rest}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon name="x" />
@@ -188,7 +191,7 @@ defmodule LiveAiElements.Components.Attachments do
       <span class={upstream_fact("jsx/AttachmentRemove/class/10")}>
         {@label}
       </span>
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 

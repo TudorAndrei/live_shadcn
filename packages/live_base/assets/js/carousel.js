@@ -5,6 +5,7 @@ export const Carousel = {
     this.viewport = this.el.querySelector("[data-lb-carousel-viewport]");
     this.previous = this.el.querySelector("[data-lb-carousel-previous]");
     this.next = this.el.querySelector("[data-lb-carousel-next]");
+    this.index = this.el.querySelector("[data-lb-carousel-index]");
     this.horizontal = this.el.dataset.orientation !== "vertical";
 
     this.onScroll = () => this.measure();
@@ -55,9 +56,14 @@ export const Carousel = {
     if (!this.viewport) return;
     const offset = this.horizontal ? this.viewport.scrollLeft : this.viewport.scrollTop;
     const visible = this.horizontal ? this.viewport.clientWidth : this.viewport.clientHeight;
-    const total = this.horizontal ? this.viewport.scrollWidth : this.viewport.scrollHeight;
-    this.set(this.previous, offset <= 1);
-    this.set(this.next, offset + visible >= total - 1);
+    const count = this.viewport.querySelectorAll("[data-slot='carousel-item']").length;
+    const current = count === 0 || visible === 0
+      ? 0
+      : Math.min(count, Math.max(1, Math.round(offset / visible) + 1));
+
+    this.set(this.previous, current <= 1);
+    this.set(this.next, current >= count);
+    if (this.index) this.index.textContent = `${current}/${count}`;
   },
 
   set(button, disabled) {

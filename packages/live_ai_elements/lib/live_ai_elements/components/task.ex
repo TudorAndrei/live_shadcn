@@ -73,28 +73,33 @@ defmodule LiveAiElements.Components.Task do
       class={[@class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <button
+      <div
         data-slot="collapsible-trigger"
         id={Disclosure.trigger_id(@id)}
-        type="button"
+        role="button"
+        tabindex={if(@disabled, do: "-1", else: "0")}
         aria-expanded={to_string(@open)}
         aria-controls={Disclosure.panel_id(@id)}
         phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
+        phx-keydown={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
+        phx-key="Enter"
         phx-mounted={Disclosure.owned_attributes(:trigger)}
         data-panel-open={flag(@open)}
-        class={[upstream_fact("jsx/TaskTrigger/class/0"), (@trigger_class || "")]}
+        class={[
+          upstream_fact("jsx/TaskTrigger/class/0"),
+          upstream_fact("jsx/TaskTrigger/class/1"),
+          @trigger_class || ""
+        ]}
       >
-        <div class={upstream_fact("jsx/TaskTrigger/class/1")}>
-          <LiveShadcn.Icon.icon name="search" class={upstream_fact("jsx/TaskTrigger/class/2")} />
-          <p class={upstream_fact("jsx/TaskTrigger/class/3")}>
-            {@title}
-          </p>
-          <LiveShadcn.Icon.icon
-            name="chevron-down"
-            class={upstream_fact("jsx/TaskTrigger/class/4")}
-          />
-        </div>
-      </button>
+        <LiveShadcn.Icon.icon name="search" class={upstream_fact("jsx/TaskTrigger/class/2")} />
+        <p class={upstream_fact("jsx/TaskTrigger/class/3")}>
+          {@title}
+        </p>
+        <LiveShadcn.Icon.icon
+          name="chevron-down"
+          class={upstream_fact("jsx/TaskTrigger/class/4")}
+        />
+      </div>
       <div
         data-slot="collapsible-content"
         id={Disclosure.panel_id(@id)}

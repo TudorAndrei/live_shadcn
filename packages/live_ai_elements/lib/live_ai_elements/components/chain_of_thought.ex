@@ -66,58 +66,52 @@ defmodule LiveAiElements.Components.ChainOfThought do
   def chain_of_thought(assigns) do
     ~H"""
     <div
-      data-slot={@rest[:"data-slot"] || "collapsible"}
       id={@id}
-      data-open={flag(@open)}
-      data-closed={flag(not @open)}
-      open={@open}
-      class={[@class]}
+      class={["not-prose w-full space-y-4", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <button
-        data-slot="collapsible-trigger"
-        id={Disclosure.trigger_id(@id)}
-        type="button"
-        aria-expanded={to_string(@open)}
-        aria-controls={Disclosure.panel_id(@id)}
-        phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
-        phx-mounted={Disclosure.owned_attributes(:trigger)}
-        data-panel-open={flag(@open)}
-        class={[
-          upstream_fact("jsx/anonymous/class/1"),
-          (@header_class || "")
-        ]}
-      >
-        <LiveShadcn.Icon.icon name="brain" class={upstream_fact("jsx/anonymous/class/10")} />
-        <span class={upstream_fact("jsx/anonymous/class/3")}>
-          <%= if @title in [nil, ""] do %>
-            Chain of Thought
-          <% end %>
-          {@title}
-        </span>
-        <LiveShadcn.Icon.icon
-          name="chevron-down"
-          class={[upstream_fact("jsx/anonymous/class/4"), if(@open, do: upstream_fact("jsx/anonymous/class/5"), else: upstream_fact("jsx/anonymous/class/6"))]}
-        />
-      </button>
-      <div
-        data-slot="collapsible-content"
-        id={Disclosure.panel_id(@id)}
-        role="region"
-        aria-labelledby={Disclosure.trigger_id(@id)}
-        hidden={not @open}
-        phx-hook={Disclosure.hook()}
-        phx-mounted={Disclosure.owned_attributes(:panel)}
-        data-lb-height-var="--collapsible-panel-height"
-        data-lb-width-var="--collapsible-panel-width"
-        data-open={flag(@open)}
-        data-closed={flag(not @open)}
-        class={[
-          upstream_fact("port/class/0"),
-          (@content_class || "")
-        ]}
-      >
-        {render_slot(@inner_block)}
+      <div data-slot="collapsible" data-open={flag(@open)} data-closed={flag(not @open)}>
+        <button
+          data-slot="collapsible-trigger"
+          id={Disclosure.trigger_id(@id)}
+          type="button"
+          aria-expanded={to_string(@open)}
+          aria-controls={Disclosure.panel_id(@id)}
+          phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
+          phx-mounted={Disclosure.owned_attributes(:trigger)}
+          data-panel-open={flag(@open)}
+          class={[upstream_fact("jsx/anonymous/class/1"), @header_class || ""]}
+        >
+          <LiveShadcn.Icon.icon name="brain" class={upstream_fact("jsx/anonymous/class/10")} />
+          <span class={upstream_fact("jsx/anonymous/class/3")}>
+            <%= if @title in [nil, ""] do %>
+              Chain of Thought
+            <% end %>
+            {@title}
+          </span>
+          <LiveShadcn.Icon.icon
+            name="chevron-down"
+            class={[upstream_fact("jsx/anonymous/class/4"), if(@open, do: upstream_fact("jsx/anonymous/class/5"), else: upstream_fact("jsx/anonymous/class/6"))]}
+          />
+        </button>
+      </div>
+      <div data-slot="collapsible" data-open={flag(@open)} data-closed={flag(not @open)}>
+        <div
+          data-slot="collapsible-content"
+          id={Disclosure.panel_id(@id)}
+          role="region"
+          aria-labelledby={Disclosure.trigger_id(@id)}
+          hidden={not @open}
+          phx-hook={Disclosure.hook()}
+          phx-mounted={Disclosure.owned_attributes(:panel)}
+          data-lb-height-var="--collapsible-panel-height"
+          data-lb-width-var="--collapsible-panel-width"
+          data-open={flag(@open)}
+          data-closed={flag(not @open)}
+          class={[upstream_fact("port/class/0"), @content_class || ""]}
+        >
+          {render_slot(@inner_block)}
+        </div>
       </div>
     </div>
     """

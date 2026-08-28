@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.Artifact do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Artifact/class/0" =>
@@ -67,12 +69,16 @@ defmodule LiveAiElements.Components.Artifact do
 
   def artifact_close(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
       type="button"
-      size={@size}
-      variant={@variant}
-      class={[upstream_fact("jsx/ArtifactAction/class/0"), @class]}
-      {@rest}
+      class={[
+        Shadcn.button_class(@size, @variant),
+        upstream_fact("jsx/ArtifactAction/class/0"),
+        "!gap-1.5",
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon name="x" class={upstream_fact("jsx/ArtifactAction/class/1")} />
@@ -81,7 +87,7 @@ defmodule LiveAiElements.Components.Artifact do
       <span class={upstream_fact("jsx/ArtifactAction/class/2")}>
         Close
       </span>
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 
@@ -140,19 +146,23 @@ defmodule LiveAiElements.Components.Artifact do
 
   def artifact_action(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
       type="button"
-      size={@size}
-      variant={@variant}
-      class={[upstream_fact("jsx/ArtifactAction/class/0"), @class]}
-      {@rest}
+      class={[
+        Shadcn.button_class(@size, @variant),
+        upstream_fact("jsx/ArtifactAction/class/0"),
+        "!gap-1.5",
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <LiveShadcn.Icon.icon :if={@icon} name={@icon} class={upstream_fact("jsx/ArtifactAction/class/1")} />
       {render_slot(@inner_block)}
       <span class={upstream_fact("jsx/ArtifactAction/class/2")}>
         {@label || @tooltip}
       </span>
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 

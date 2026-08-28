@@ -68,6 +68,8 @@ defmodule LiveShadcn.UI.DropdownMenu do
     attr(:navigate, :string)
     attr(:patch, :string)
     attr(:href, :string)
+    attr(:target, :string)
+    attr(:rel, :string)
   end
 
   slot(:inner_block, doc: "Anything the items do not cover.")
@@ -135,14 +137,37 @@ defmodule LiveShadcn.UI.DropdownMenu do
             data-lb-style-target
             data-lb-measure
           >
+            <a
+              :for={item <- @item}
+              :if={item[:href]}
+              id={Menu.item_id(@id, item[:value])}
+              role="menuitem"
+              tabindex="-1"
+              href={item[:href]}
+              target={item[:target]}
+              rel={item[:rel]}
+              phx-click={if(item[:disabled] != true, do: Menu.choose(@id, item[:"phx-click"]))}
+              phx-mounted={Menu.owned_attributes(:item)}
+              data-slot={@item_slot}
+              data-disabled={flag(item[:disabled] == true)}
+              data-variant={@variant}
+              data-inset={flag(@inset)}
+              class={[
+                upstream_fact("jsx/DropdownMenuItem/class/0"),
+                (@item_class || "")
+              ]}
+            >
+              {render_slot(item)}
+            </a>
             <div
               :for={item <- @item}
+              :if={!item[:href]}
               id={Menu.item_id(@id, item[:value])}
               role="menuitem"
               tabindex="-1"
               phx-click={if(item[:disabled] != true, do: Menu.choose(@id, item[:"phx-click"]))}
               phx-mounted={Menu.owned_attributes(:item)}
-              {Map.take(item, [:"phx-value-value", :navigate, :patch, :href])}
+              {Map.take(item, [:"phx-value-value", :navigate, :patch])}
               data-slot={@item_slot}
               data-disabled={flag(item[:disabled] == true)}
               data-variant={@variant}

@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.Terminal do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Terminal/class/0" =>
@@ -105,23 +107,23 @@ defmodule LiveAiElements.Components.Terminal do
 
   def terminal_copy_button(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
+      type="button"
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@output}
       data-lb-timeout={@timeout}
-      size={@size}
-      variant={@variant}
-      class={[upstream_fact("jsx/TerminalClearButton/class/0"), @class]}
-      {@rest}
+      class={[Shadcn.button_class(@size, @variant), upstream_fact("jsx/TerminalClearButton/class/0"), "!size-7", @class]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" width="14" height="14" />
         <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" width="14" height="14" />
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 
@@ -134,17 +136,17 @@ defmodule LiveAiElements.Components.Terminal do
 
   def terminal_clear_button(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
-      size={@size}
-      variant={@variant}
-      class={[upstream_fact("jsx/TerminalClearButton/class/0"), @class]}
-      {@rest}
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
+      type="button"
+      class={[Shadcn.button_class(@size, @variant), upstream_fact("jsx/TerminalClearButton/class/0"), "!size-7", @class]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon name="trash-2" width="14" height="14" />
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 

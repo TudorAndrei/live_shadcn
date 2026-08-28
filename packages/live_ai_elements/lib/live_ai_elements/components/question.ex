@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.Question do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Question/class/0" => "space-y-4 rounded-lg border bg-background p-4",
@@ -25,10 +27,12 @@ defmodule LiveAiElements.Components.Question do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @doc "The `question` part."
+  attr(:id, :string, required: true)
   attr(:default_value, :string, default: "EMPTY_VALUE")
   attr(:disabled, :boolean, default: false)
   attr(:selection_mode, :string, default: "single")
   attr(:value, :string, default: nil)
+  attr(:selected_name, :string, default: "selected_values[]")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
   attr(:rest, :global,
@@ -39,7 +43,14 @@ defmodule LiveAiElements.Components.Question do
 
   def question(assigns) do
     ~H"""
-    <form class={[upstream_fact("jsx/Question/class/0"), (@class || "")]} {@rest}>
+    <form
+      id={@id}
+      data-selection-mode={@selection_mode}
+      data-selected-name={@selected_name}
+      phx-hook="LiveAiElements.Question"
+      class={[upstream_fact("jsx/Question/class/0"), @class || ""]}
+      {@rest}
+    >
       {render_slot(@inner_block)}
     </form>
     """
@@ -53,7 +64,7 @@ defmodule LiveAiElements.Components.Question do
 
   def question_prompt(assigns) do
     ~H"""
-    <p class={[upstream_fact("jsx/QuestionPrompt/class/0"), (@class || "")]} {@rest}>
+    <p class={[upstream_fact("jsx/QuestionPrompt/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </p>
     """
@@ -67,7 +78,7 @@ defmodule LiveAiElements.Components.Question do
 
   def question_description(assigns) do
     ~H"""
-    <p class={[upstream_fact("jsx/QuestionDescription/class/0"), (@class || "")]} {@rest}>
+    <p class={[upstream_fact("jsx/QuestionDescription/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </p>
     """
@@ -83,7 +94,7 @@ defmodule LiveAiElements.Components.Question do
     ~H"""
     <div
       role={if(@selection_mode == "single", do: "radiogroup", else: "group")}
-      class={[upstream_fact("jsx/QuestionOptions/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/QuestionOptions/class/0"), @class || ""]}
       {@rest}
     >
       {render_slot(@inner_block)}
@@ -99,28 +110,35 @@ defmodule LiveAiElements.Components.Question do
   attr(:selection_mode, :string, default: nil)
   attr(:size, :string, default: "default")
   attr(:value, :string, default: nil)
-  attr(:variant, :string, default: "default")
+  attr(:variant, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def question_option(assigns) do
+    assigns = assign(assigns, :selected?, assigns.is_selected in [true, "true"])
+
     ~H"""
-    <LiveShadcn.UI.Button.button
-      aria-checked={@is_selected}
+    <button
+      aria-checked={to_string(@selected?)}
+      data-slot={@rest[:"data-slot"] || "button"}
+      data-question-option
+      data-question-value={@value}
       disabled={@disabled}
       role={@role}
       type="button"
-      size={@size}
-      variant={@variant || if(@is_selected, do: "default", else: "outline")}
-      class={[upstream_fact("jsx/QuestionOption/class/0"), @class]}
-      {@rest}
+      class={[
+        Shadcn.button_class(@size, @variant || if(@selected?, do: "default", else: "outline")),
+        upstream_fact("jsx/QuestionOption/class/0"),
+        @class
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         {@value}
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 
@@ -148,12 +166,14 @@ defmodule LiveAiElements.Components.Question do
   def question_input(assigns) do
     ~H"""
     <textarea
+      data-question-input
       phx-no-format
       data-slot={@rest[:"data-slot"] || "textarea"}
       disabled={@disabled}
       class={[
-        upstream_fact("port/class/0"),
-        (@class || "")
+        Shadcn.textarea_class(),
+        "min-h-20",
+        @class || ""
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >{@text}{render_slot(@inner_block)}</textarea>
@@ -168,7 +188,7 @@ defmodule LiveAiElements.Components.Question do
 
   def question_actions(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/QuestionActions/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/QuestionActions/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -187,15 +207,16 @@ defmodule LiveAiElements.Components.Question do
 
   def question_submit(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
+      data-question-submit
       disabled={@disabled || !@has_response}
       type="submit"
-      size={@size}
-      variant={@variant}
-      {@rest}
+      class={[Shadcn.button_class(@size, @variant), @class]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 end

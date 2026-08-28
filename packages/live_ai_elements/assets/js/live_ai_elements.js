@@ -13,10 +13,26 @@
 // markup cannot collide with a hook of your own.
 
 import { Delta, DELTA_EVENT } from "./delta.js";
+import { FileTree } from "./file_tree.js";
+import { MicSelector } from "./mic_selector.js";
+import { Persona } from "./persona.js";
+import { PromptInput } from "./prompt_input.js";
+import { Question } from "./question.js";
+import { SpeechInput } from "./speech_input.js";
+import { Transcription } from "./transcription.js";
+import { WebPreview } from "./web_preview.js";
 
 export const hooks = {
   "LiveAiElements.Delta": Delta,
+  "LiveAiElements.FileTree": FileTree,
+  "LiveAiElements.MicSelector": MicSelector,
+  "LiveAiElements.Persona": Persona,
+  "LiveAiElements.PromptInput": PromptInput,
+  "LiveAiElements.Question": Question,
+  "LiveAiElements.SpeechInput": SpeechInput,
+  "LiveAiElements.Transcription": Transcription,
+  "LiveAiElements.WebPreview": WebPreview,
 };
 
-export { Delta, DELTA_EVENT };
+export { Delta, DELTA_EVENT, FileTree, MicSelector, Persona, PromptInput, Question, SpeechInput, Transcription, WebPreview };
 export default hooks;

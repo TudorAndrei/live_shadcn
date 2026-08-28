@@ -17,10 +17,10 @@
           </path>
         </svg>
       </span>
-      <span data-slot="switch" role="switch" aria-checked="false" aria-label="Toggle value visibility" data-size="default" data-unchecked="" phx-click="toggle_values" phx-key=" " phx-keydown="toggle_values" tabindex="0" class="cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50">
-        <span data-slot="switch-thumb" data-unchecked="" class="cn-switch-thumb pointer-events-none block ring-0 transition-transform">
+      <button data-slot="switch" role="switch" type="button" aria-checked="false" aria-label="Toggle value visibility" data-size="default" data-state="unchecked" phx-click="toggle_values" class="peer data-[state=checked]:bg-primary data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50 dark:data-[state=unchecked]:bg-input/80 inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50">
+        <span data-slot="switch-thumb" data-state="unchecked" class="bg-background dark:data-[state=unchecked]:bg-foreground dark:data-[state=checked]:bg-primary-foreground pointer-events-none block size-4 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0">
         </span>
-      </span>
+      </button>
     </div>
   </div>
   <div class="divide-y ">
@@ -29,7 +29,7 @@
         <span class="font-mono text-sm ">
           MIX_ENV
         </span>
-        <span data-slot="badge" data-variant="secondary" class="cn-badge-variant-secondary cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&amp;&gt;svg]:pointer-events-none text-xs">
+        <span data-slot="badge" class="inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:size-3 gap-1 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-secondary text-secondary-foreground [a&amp;]:hover:bg-secondary/90 text-xs">
           Required
         </span>
       </div>
@@ -37,7 +37,7 @@
         <span class="font-mono text-muted-foreground text-sm select-none">
           ••••
         </span>
-        <button data-slot="button" id="copy-mix-env" aria-label="Copy MIX_ENV" data-lb-clipboard="prod" data-lb-timeout="2000" phx-hook="LiveBase.Clipboard" phx-mounted="[[&quot;ignore_attrs&quot;,{&quot;attrs&quot;:[&quot;data-lb-ready&quot;]}],[&quot;ignore_attrs&quot;,{&quot;to&quot;:{&quot;inner&quot;:&quot;[data-lb-state]&quot;},&quot;attrs&quot;:[&quot;hidden&quot;]}]]" class="cn-button-size-icon cn-button-variant-ghost cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 size-6 shrink-0">
+        <button data-slot="button" id="copy-mix-env" aria-label="Copy MIX_ENV" data-lb-clipboard="prod" data-lb-timeout="2000" phx-hook="LiveBase.Clipboard" phx-mounted="[[&quot;ignore_attrs&quot;,{&quot;attrs&quot;:[&quot;data-lb-ready&quot;]}],[&quot;ignore_attrs&quot;,{&quot;to&quot;:{&quot;inner&quot;:&quot;[data-lb-state]&quot;},&quot;attrs&quot;:[&quot;hidden&quot;]}]]" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#39;size-&#39;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 size-9 size-6 shrink-0 !size-6">
           <svg aria-hidden="true" data-lb-state="copied" fill="none" height="12" hidden="true" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg" class="lucide lucide-check">
             <path d="M20 6 9 17l-5-5">
             </path>
@@ -61,7 +61,7 @@
         <span class="font-mono text-muted-foreground text-sm select-none">
           •••••••••••
         </span>
-        <button data-slot="button" id="copy-secret-key-base" aria-label="Copy SECRET_KEY_BASE" data-lb-clipboard="" data-lb-timeout="2000" phx-hook="LiveBase.Clipboard" phx-mounted="[[&quot;ignore_attrs&quot;,{&quot;attrs&quot;:[&quot;data-lb-ready&quot;]}],[&quot;ignore_attrs&quot;,{&quot;to&quot;:{&quot;inner&quot;:&quot;[data-lb-state]&quot;},&quot;attrs&quot;:[&quot;hidden&quot;]}]]" class="cn-button-size-icon cn-button-variant-ghost cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 size-6 shrink-0">
+        <button data-slot="button" id="copy-secret-key-base" aria-label="Copy SECRET_KEY_BASE" data-lb-clipboard="" data-lb-timeout="2000" phx-hook="LiveBase.Clipboard" phx-mounted="[[&quot;ignore_attrs&quot;,{&quot;attrs&quot;:[&quot;data-lb-ready&quot;]}],[&quot;ignore_attrs&quot;,{&quot;to&quot;:{&quot;inner&quot;:&quot;[data-lb-state]&quot;},&quot;attrs&quot;:[&quot;hidden&quot;]}]]" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#39;size-&#39;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 size-9 size-6 shrink-0 !size-6">
           <svg aria-hidden="true" data-lb-state="copied" fill="none" height="12" hidden="true" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg" class="lucide lucide-check">
             <path d="M20 6 9 17l-5-5">
             </path>

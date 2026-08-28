@@ -7,13 +7,14 @@ import "media-chrome";
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 import { hooks as liveBase } from "live_base";
+import { hooks as liveAiElements } from "live_ai_elements";
 import { Nav } from "./nav";
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
 const liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
-  hooks: { ...liveBase, Nav },
+  hooks: { ...liveBase, ...liveAiElements, Nav },
 });
 
 liveSocket.connect();

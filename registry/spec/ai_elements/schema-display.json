@@ -74,7 +74,7 @@
     "jsx/SchemaDisplayResponse/class/3": "the generated port does not contain this source literal"
   },
   "name": "schema-display",
-  "port_body": "0b1316999551d64a097f015400a31297f50b5e8387f959c4a920a4e1bf78b642",
+  "port_body": "b642442f97dc01ee47a1b4df873ede97132905347ef2ae0c5beb1351dab7f4c2",
   "schema_version": 2,
   "source": "ai_elements",
   "source_facts": {

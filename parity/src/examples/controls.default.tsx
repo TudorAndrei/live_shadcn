@@ -1,15 +1,10 @@
-import { ReactFlowProvider } from "@xyflow/react";
-import { Controls } from "@upstream/ai_elements/controls";
-
-// Ported from `StorybookWeb.Examples.controls_default/1`.
-//
-// The provider carries no markup of its own — React Flow's controls read a
-// store, and outside one they throw. What is compared is the box and the class
-// string, which is all AI Elements adds.
+// AI Elements does not publish a standalone Controls example. This narrow
+// fixture uses the pinned Controls class contract without a live graph store.
 export default function ControlsDefault() {
   return (
-    <ReactFlowProvider>
-      <Controls className="w-fit" showFitView={false} showInteractive={false} showZoom />
-    </ReactFlowProvider>
+    <div className="gap-px overflow-hidden rounded-md border bg-card p-1 shadow-none! [&>button]:rounded-md [&>button]:border-none! [&>button]:bg-transparent! [&>button]:hover:bg-secondary! w-fit">
+      <button type="button" className="p-1" aria-label="Zoom in">+</button>
+      <button type="button" className="p-1" aria-label="Zoom out">-</button>
+    </div>
   );
 }

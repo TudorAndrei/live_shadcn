@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.Confirmation do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Confirmation/class/0" => "flex flex-col gap-2",
@@ -30,14 +32,20 @@ defmodule LiveAiElements.Components.Confirmation do
 
   def confirmation(assigns) do
     ~H"""
-    <LiveShadcn.UI.Alert.alert
+    <div
       :if={@approval || @state == "input-streaming" || @state == "input-available"}
-      variant={@variant}
-      class={[upstream_fact("jsx/Confirmation/class/0"), (@class || "")]}
-      {@rest}
+      data-slot={@rest[:"data-slot"] || "alert"}
+      role="alert"
+      class={[
+        Shadcn.alert_class(@variant),
+        upstream_fact("jsx/Confirmation/class/0"),
+        "!flex !gap-2",
+        (@class || "")
+      ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Alert.alert>
+    </div>
     """
   end
 
@@ -82,15 +90,14 @@ defmodule LiveAiElements.Components.Confirmation do
 
   def confirmation_action(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
       type="button"
-      size={@size}
-      variant={@variant}
-      class={upstream_fact("jsx/ConfirmationAction/class/0")}
-      {@rest}
+      class={[Shadcn.button_class(@size, @variant), upstream_fact("jsx/ConfirmationAction/class/0"), @class]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 end

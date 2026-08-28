@@ -14,6 +14,8 @@ defmodule LiveAiElements.Components.StackTrace do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/anonymous/class/0" =>
@@ -74,14 +76,18 @@ defmodule LiveAiElements.Components.StackTrace do
 
   def stack_trace_header(assigns) do
     ~H"""
-    <div
-      class={[
-        upstream_fact("jsx/anonymous/class/1"),
-        (@class || "")
-      ]}
-      {@rest}
-    >
-      {render_slot(@inner_block)}
+    <div data-slot="collapsible" data-state="open">
+      <div
+        data-slot="collapsible-trigger"
+        data-state="open"
+        class={[
+          upstream_fact("jsx/anonymous/class/1"),
+          (@class || "")
+        ]}
+        {@rest}
+      >
+        {render_slot(@inner_block)}
+      </div>
     </div>
     """
   end
@@ -162,23 +168,23 @@ defmodule LiveAiElements.Components.StackTrace do
 
   def stack_trace_copy_button(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
+      type="button"
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@raw}
       data-lb-timeout={@timeout}
-      size={@size}
-      variant={@variant}
-      class={[upstream_fact("jsx/anonymous/class/7"), @class]}
-      {@rest}
+      class={[Shadcn.button_class(@size, @variant), upstream_fact("jsx/anonymous/class/7"), "!size-7", @class]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" width="14" height="14" />
         <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" width="14" height="14" />
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 

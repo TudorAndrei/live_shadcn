@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.Checkpoint do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Checkpoint/class/0" => "flex items-center gap-0.5 overflow-hidden text-muted-foreground",
@@ -71,8 +73,7 @@ defmodule LiveAiElements.Components.Checkpoint do
       :if={@tooltip}
       data-slot={@rest[:"data-slot"] || "tooltip-trigger"}
       type="button"
-      size={@size}
-      variant={@variant}
+      class={[Shadcn.button_class(@size, @variant), "!gap-1.5", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -98,9 +99,15 @@ defmodule LiveAiElements.Components.Checkpoint do
         </div>
       </div>
     </div>
-    <LiveShadcn.UI.Button.button :if={!@tooltip} type="button" size={@size} variant={@variant} {@rest}>
+    <button
+      :if={!@tooltip}
+      data-slot={@rest[:"data-slot"] || "button"}
+      type="button"
+      class={[Shadcn.button_class(@size, @variant), "!gap-1.5", @class]}
+      {Map.drop(@rest, [:"data-slot"])}
+    >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 end

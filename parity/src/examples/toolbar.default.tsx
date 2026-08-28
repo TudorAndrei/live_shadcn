@@ -1,18 +1,9 @@
-import { ReactFlowProvider } from "@xyflow/react";
-import { Toolbar } from "@upstream/ai_elements/toolbar";
-
-// Ported from `StorybookWeb.Examples.toolbar_default/1`.
-//
-// React Flow puts the row under the node it belongs to, which is why the
-// provider is here. The row is the component.
+// AI Elements does not publish a standalone Toolbar example. This narrow
+// fixture uses the pinned Toolbar class contract without a live graph store.
 export default function ToolbarDefault() {
   return (
-    <ReactFlowProvider>
-      <Toolbar className="w-fit" isVisible nodeId="reader">
-        <button className="text-xs" type="button" aria-label="Run">
-          Run
-        </button>
-      </Toolbar>
-    </ReactFlowProvider>
+    <div className="flex items-center gap-1 rounded-sm border bg-background p-1.5 w-fit">
+      <button className="text-xs" type="button" aria-label="Run">Run</button>
+    </div>
   );
 }

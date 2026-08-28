@@ -12,6 +12,8 @@ defmodule LiveAiElements.Components.Plan do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "cva/buttonVariants/variant/size/default" => "cn-button-size-default",
@@ -39,21 +41,6 @@ defmodule LiveAiElements.Components.Plan do
   Module.get_attribute(__MODULE__, :upstream_facts)
 
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
-
-  @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                        [table, "variant", group, choice] <- [String.split(path, "/")],
-                        reduce: %{} do
-                      variants ->
-                        put_in(
-                          variants,
-                          [
-                            Access.key(table, %{}),
-                            Access.key(group, %{}),
-                            Access.key(choice, nil)
-                          ],
-                          value
-                        )
-                    end)
 
   alias LiveBase.Disclosure
 
@@ -99,7 +86,7 @@ defmodule LiveAiElements.Components.Plan do
       data-open={flag(@open)}
       data-closed={flag(not @open)}
       data-size={@size}
-      class={[upstream_fact("port/class/1"), (@class || "")]}
+      class={[Shadcn.card_class(:card), "!shadow-none", @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <button
@@ -112,9 +99,8 @@ defmodule LiveAiElements.Components.Plan do
         phx-mounted={Disclosure.owned_attributes(:trigger)}
         data-panel-open={flag(@open)}
         class={[
-          variant_class("buttonVariants", "size", @size),
-          variant_class("buttonVariants", "variant", @variant),
-          upstream_fact("port/class/0"),
+          Shadcn.button_class("icon", "ghost"),
+          "!size-8",
           @trigger_class
         ]}
       >
@@ -132,7 +118,7 @@ defmodule LiveAiElements.Components.Plan do
         data-lb-width-var="--collapsible-panel-width"
         data-open={flag(@open)}
         data-closed={flag(not @open)}
-        class={[upstream_fact("jsx/CardContent/class/0"), (@content_class || "")]}
+        class={[Shadcn.card_class(:content), @content_class || ""]}
       >
         {render_slot(@inner_block)}
       </div>
@@ -151,7 +137,4 @@ defmodule LiveAiElements.Components.Plan do
   # two states a shadcn class string distinguishes.
   defp flag(true), do: ""
   defp flag(_state), do: nil
-
-  defp variant_class(table, group, value),
-    do: get_in(@variant_classes, [table, group, value])
 end

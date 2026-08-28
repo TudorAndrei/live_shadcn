@@ -14,6 +14,8 @@ defmodule LiveAiElements.Components.CodeBlock do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/CodeBlockActions/class/0" => "-my-1 -mr-1 flex items-center gap-2",
@@ -188,23 +190,23 @@ defmodule LiveAiElements.Components.CodeBlock do
 
   def code_block_copy_button(assigns) do
     ~H"""
-    <LiveShadcn.UI.Button.button
+    <button
+      data-slot={@rest[:"data-slot"] || "button"}
+      type="button"
       id={@id}
       phx-hook={LiveBase.Clipboard.hook()}
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@code}
       data-lb-timeout={@timeout}
-      size={@size}
-      variant={@variant}
-      class={[upstream_fact("jsx/CodeBlockCopyButton/class/0"), @class]}
-      {@rest}
+      class={[Shadcn.button_class(@size, @variant), upstream_fact("jsx/CodeBlockCopyButton/class/0"), @class]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon data-lb-state="copied" hidden name="check" width="14" height="14" />
         <LiveShadcn.Icon.icon data-lb-state="idle" name="copy" width="14" height="14" />
       <% end %>
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Button.button>
+    </button>
     """
   end
 end

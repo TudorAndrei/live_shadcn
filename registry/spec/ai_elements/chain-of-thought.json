@@ -63,7 +63,7 @@
     "jsx/anonymous/class/9": "the generated port does not contain this source literal"
   },
   "name": "chain-of-thought",
-  "port_body": "39468d6fa7c92ac6c446d8e63e39969064b0afd1a7a732248c4486df58f575de",
+  "port_body": "9b0b3cebec13ba2c8aa0ce1eaddb6fe3fb786c234110bce7f71b4bd3271ab057",
   "schema_version": 2,
   "source": "ai_elements",
   "source_facts": {

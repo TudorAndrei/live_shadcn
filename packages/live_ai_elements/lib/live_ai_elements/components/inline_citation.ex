@@ -14,6 +14,8 @@ defmodule LiveAiElements.Components.InlineCitation do
 
   use Phoenix.Component
 
+  alias LiveBase.Carousel
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Carousel/class/0" => "relative",
@@ -75,17 +77,22 @@ defmodule LiveAiElements.Components.InlineCitation do
 
   @doc "The `inline_citation_carousel` part."
 
+  attr(:id, :string, required: true, doc: "The carousel hook needs a stable id.")
+  attr(:orientation, :string, default: "horizontal", values: ["horizontal", "vertical"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+  attr(:rest, :global, include: ["aria-label", "data-slot"])
   slot(:inner_block)
 
   def inline_citation_carousel(assigns) do
     ~H"""
     <div
+      id={@id}
+      phx-hook={Carousel.hook()}
+      data-orientation={@orientation}
       data-slot={@rest[:"data-slot"] || "carousel"}
       role="region"
       aria-roledescription="carousel"
-      class={[upstream_fact("jsx/Carousel/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/Carousel/class/0"), "w-full", (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -94,7 +101,7 @@ defmodule LiveAiElements.Components.InlineCitation do
   end
 
   @doc "The `carousel-content` part."
-  attr(:orientation, :string, default: nil)
+  attr(:orientation, :string, default: "horizontal", values: ["horizontal", "vertical"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -102,21 +109,33 @@ defmodule LiveAiElements.Components.InlineCitation do
   def inline_citation_carousel_content(assigns) do
     ~H"""
     <div
+      data-lb-carousel-viewport
       data-slot={@rest[:"data-slot"] || "carousel-content"}
-      class={[upstream_fact("jsx/CarouselContent/class/0"), (@class || "")]}
+      class={[
+        upstream_fact("jsx/CarouselContent/class/0"),
+        if(@orientation == "horizontal",
+          do: "snap-x snap-mandatory scroll-smooth",
+          else: "snap-y snap-mandatory scroll-smooth"
+        ),
+        (@class || "")
+      ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <div
-        class={[upstream_fact("jsx/CarouselContent/class/1"), if(@orientation == "horizontal", do: upstream_fact("jsx/CarouselContent/class/2"), else: upstream_fact("jsx/CarouselContent/class/3")), (@class || "")]}
-        {@rest}
-      />
-      {render_slot(@inner_block)}
+      <div class={[
+        upstream_fact("jsx/CarouselContent/class/1"),
+        if(@orientation == "horizontal",
+          do: upstream_fact("jsx/CarouselContent/class/2"),
+          else: upstream_fact("jsx/CarouselContent/class/3")
+        )
+      ]}>
+        {render_slot(@inner_block)}
+      </div>
     </div>
     """
   end
 
   @doc "The `carousel-item` part."
-  attr(:orientation, :string, default: nil)
+  attr(:orientation, :string, default: "horizontal", values: ["horizontal", "vertical"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -129,6 +148,7 @@ defmodule LiveAiElements.Components.InlineCitation do
       aria-roledescription="slide"
       class={[
         upstream_fact("port/class/0"),
+        "snap-start",
         if(@orientation == "horizontal", do: upstream_fact("jsx/CarouselItem/class/1"), else: upstream_fact("jsx/CarouselItem/class/2")),
         (@class || "")
       ]}
@@ -166,6 +186,7 @@ defmodule LiveAiElements.Components.InlineCitation do
   def inline_citation_carousel_index(assigns) do
     ~H"""
     <div
+      data-lb-carousel-index={if(@inner_block == [], do: "")}
       class={[upstream_fact("jsx/InlineCitationCarouselIndex/class/0"), (@class || "")]}
       {@rest}
     >
@@ -185,7 +206,14 @@ defmodule LiveAiElements.Components.InlineCitation do
 
   def inline_citation_carousel_prev(assigns) do
     ~H"""
-    <button aria-label="Previous" type="button" class={[upstream_fact("jsx/InlineCitationCarouselNext/class/0"), (@class || "")]} {@rest}>
+    <button
+      aria-label="Previous"
+      type="button"
+      data-lb-carousel-previous
+      phx-mounted={Carousel.owned_attributes()}
+      class={[upstream_fact("jsx/InlineCitationCarouselNext/class/0"), (@class || "")]}
+      {@rest}
+    >
       <LiveShadcn.Icon.icon name="arrow-left" class={upstream_fact("jsx/InlineCitationCarouselNext/class/1")} />{render_slot(
         @inner_block
       )}
@@ -201,7 +229,14 @@ defmodule LiveAiElements.Components.InlineCitation do
 
   def inline_citation_carousel_next(assigns) do
     ~H"""
-    <button aria-label="Next" type="button" class={[upstream_fact("jsx/InlineCitationCarouselNext/class/0"), (@class || "")]} {@rest}>
+    <button
+      aria-label="Next"
+      type="button"
+      data-lb-carousel-next
+      phx-mounted={Carousel.owned_attributes()}
+      class={[upstream_fact("jsx/InlineCitationCarouselNext/class/0"), (@class || "")]}
+      {@rest}
+    >
       <LiveShadcn.Icon.icon name="arrow-right" class={upstream_fact("jsx/InlineCitationCarouselNext/class/1")} />{render_slot(
         @inner_block
       )}

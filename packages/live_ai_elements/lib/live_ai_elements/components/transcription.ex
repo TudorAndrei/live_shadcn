@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.Transcription do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Transcription, as: TranscriptionHook
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Transcription/class/0" => "flex flex-wrap gap-1 text-sm leading-relaxed",
@@ -24,6 +26,8 @@ defmodule LiveAiElements.Components.Transcription do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @doc "The `transcription` part."
+  attr(:id, :string, default: nil, doc: "Required when `media_id` enables the client hook.")
+  attr(:media_id, :string, default: nil, doc: "The id of the audio or video element to follow.")
   attr(:current_time, :any, default: nil)
   attr(:segments, :any, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -34,7 +38,10 @@ defmodule LiveAiElements.Components.Transcription do
   def transcription(assigns) do
     ~H"""
     <div
+      id={@id}
       data-slot={@rest[:"data-slot"] || "transcription"}
+      data-media-id={@media_id}
+      phx-hook={if @media_id, do: TranscriptionHook.hook()}
       class={[upstream_fact("jsx/Transcription/class/0"), @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -59,6 +66,8 @@ defmodule LiveAiElements.Components.Transcription do
       data-slot={@rest[:"data-slot"] || "transcription-segment"}
       data-active={@is_active}
       data-index={@index}
+      data-start-second={segment_value(@segment, :start_second)}
+      data-end-second={segment_value(@segment, :end_second)}
       type="button"
       class={[
         upstream_fact("jsx/TranscriptionSegment/class/0"),
@@ -73,5 +82,12 @@ defmodule LiveAiElements.Components.Transcription do
       {@segment.text}{render_slot(@inner_block)}
     </button>
     """
+  end
+
+  defp segment_value(nil, _key), do: nil
+
+  defp segment_value(segment, key) do
+    camel_key = if key == :start_second, do: "startSecond", else: "endSecond"
+    Map.get(segment, key) || Map.get(segment, Atom.to_string(key)) || Map.get(segment, camel_key)
   end
 end

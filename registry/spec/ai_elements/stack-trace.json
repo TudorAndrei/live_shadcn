@@ -59,7 +59,7 @@
     "jsx/anonymous/class/22": "the generated port does not contain this source literal"
   },
   "name": "stack-trace",
-  "port_body": "dce03fd5f12239cdee9294739abf2a4a00a61382653578c079546c2d39026240",
+  "port_body": "71e592ef25a911ff4be373bf8851f047ad24abd704458c2fc2d7f6b0995deea4",
   "schema_version": 2,
   "source": "ai_elements",
   "source_facts": {

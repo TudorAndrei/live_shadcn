@@ -46,7 +46,7 @@ defmodule LiveAiElements.Components.FileTree do
 
   def file_tree(assigns) do
     ~H"""
-    <div role="tree" class={[upstream_fact("jsx/FileTree/class/0"), (@class || "")]} {@rest}>
+    <div role="tree" class={[upstream_fact("jsx/FileTree/class/0"), @class || ""]} {@rest}>
       <div role="group" class={upstream_fact("jsx/FileTree/class/1")}>
         {render_slot(@inner_block)}
       </div>
@@ -62,7 +62,7 @@ defmodule LiveAiElements.Components.FileTree do
 
   def file_tree_icon(assigns) do
     ~H"""
-    <span class={[upstream_fact("jsx/FileTreeIcon/class/0"), (@class || "")]} {@rest}>
+    <span class={[upstream_fact("jsx/FileTreeIcon/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </span>
     """
@@ -76,13 +76,14 @@ defmodule LiveAiElements.Components.FileTree do
 
   def file_tree_name(assigns) do
     ~H"""
-    <span class={[upstream_fact("jsx/FileTreeName/class/0"), (@class || "")]} {@rest}>
+    <span class={[upstream_fact("jsx/FileTreeName/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </span>
     """
   end
 
   @doc "The `file_tree_folder` part."
+  attr(:id, :string, required: true)
   attr(:is_expanded, :string, default: nil)
   attr(:is_selected, :string, default: nil)
   attr(:name, :string, default: nil)
@@ -92,19 +93,30 @@ defmodule LiveAiElements.Components.FileTree do
   slot(:inner_block)
 
   def file_tree_folder(assigns) do
+    assigns = assign(assigns, :expanded?, assigns.is_expanded in [true, "true"])
+
     ~H"""
     <div
+      id={@id}
       role="none"
+      phx-hook="LiveAiElements.FileTree"
       data-slot={@rest[:"data-slot"] || "collapsible"}
-      open={@is_expanded}
+      open={@expanded?}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <div role="treeitem" tabindex={0} aria-expanded={@is_expanded} class={[@class]} {@rest}>
+      <div
+        role="treeitem"
+        tabindex={0}
+        aria-expanded={to_string(@expanded?)}
+        class={[@class]}
+        {@rest}
+      >
         <div class={[
           upstream_fact("jsx/FileTreeFolder/class/1"),
-          (if(@is_selected, do: upstream_fact("jsx/FileTreeFile/class/1"), else: nil) || "")
+          if(@is_selected, do: upstream_fact("jsx/FileTreeFile/class/1"), else: nil) || ""
         ]}>
           <button
+            data-file-tree-toggle
             aria-hidden="true"
             tabindex="-1"
             data-slot={@rest[:"data-slot"] || "collapsible-trigger"}
@@ -116,21 +128,29 @@ defmodule LiveAiElements.Components.FileTree do
               name="chevron-right"
               class={[
                 upstream_fact("jsx/FileTreeFolder/class/4"),
-                (if(@is_expanded, do: upstream_fact("jsx/FileTreeFolder/class/5"), else: nil) || "")
+                if(@expanded?, do: upstream_fact("jsx/FileTreeFolder/class/5"), else: nil) || ""
               ]}
+              data-file-tree-chevron
             />
           </button>
           <button
+            data-file-tree-toggle
             type="button"
             class={upstream_fact("jsx/FileTreeFolder/class/6")}
           >
             <.file_tree_icon>
               <LiveShadcn.Icon.icon
-                :if={@is_expanded}
                 name="folder-open"
                 class={upstream_fact("jsx/FileTreeFolder/class/7")}
+                data-file-tree-open-icon
+                hidden={!@expanded?}
               />
-              <LiveShadcn.Icon.icon :if={!@is_expanded} name="folder" class={upstream_fact("jsx/FileTreeFolder/class/7")} />
+              <LiveShadcn.Icon.icon
+                name="folder"
+                class={upstream_fact("jsx/FileTreeFolder/class/7")}
+                data-file-tree-closed-icon
+                hidden={@expanded?}
+              />
             </.file_tree_icon>
             <.file_tree_name>
               {@name}
@@ -138,7 +158,9 @@ defmodule LiveAiElements.Components.FileTree do
           </button>
         </div>
         <div
+          data-file-tree-content
           data-slot={@rest[:"data-slot"] || "collapsible-content"}
+          hidden={!@expanded?}
           {Map.drop(@rest, [:"data-slot"])}
         >
           <div role="group" class={upstream_fact("jsx/FileTreeFolder/class/9")}>
@@ -167,7 +189,7 @@ defmodule LiveAiElements.Components.FileTree do
       class={[
         upstream_fact("jsx/FileTreeFile/class/0"),
         if(@is_selected, do: upstream_fact("jsx/FileTreeFile/class/1"), else: nil),
-        (@class || "")
+        @class || ""
       ]}
       {@rest}
     >
@@ -196,7 +218,7 @@ defmodule LiveAiElements.Components.FileTree do
 
   def file_tree_actions(assigns) do
     ~H"""
-    <div role="group" class={[upstream_fact("jsx/FileTreeActions/class/0"), (@class || "")]} {@rest}>
+    <div role="group" class={[upstream_fact("jsx/FileTreeActions/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """

@@ -8,6 +8,8 @@ defmodule LiveAiElements.Components.MicSelector do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "cva/buttonVariants/base" =>
@@ -148,6 +150,8 @@ defmodule LiveAiElements.Components.MicSelector do
     ~H"""
     <div
       id={@id}
+      phx-hook="LiveAiElements.MicSelector"
+      class="contents"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
       phx-click-away={Popover.dismiss(@id)}
@@ -168,13 +172,19 @@ defmodule LiveAiElements.Components.MicSelector do
         data-pressed={flag(@open)}
         aria-invalid={to_string(@errors != [])}
         class={[
-          variant_class("buttonVariants", "size", @size),
-          variant_class("buttonVariants", "variant", @variant),
-          upstream_fact("cva/buttonVariants/base"),
+          Shadcn.button_class(@size, @variant),
+          "w-full justify-between",
           @trigger_class
         ]}
       >
-        {label(@option, @value) || @placeholder}<LiveShadcn.Icon.icon
+        <span
+          id={Listbox.value_id(@id)}
+          data-lb-mic-value
+          phx-mounted={Listbox.owned_attributes(:value)}
+        >
+          {label(@option, @value) || @placeholder}
+        </span>
+        <LiveShadcn.Icon.icon
           name="chevrons-up-down"
           width="16"
           height="16"
@@ -190,7 +200,7 @@ defmodule LiveAiElements.Components.MicSelector do
         required={@required}
         phx-mounted={Listbox.owned_attributes(:input)}
       />
-      <div class={[upstream_fact("jsx/MicSelectorContent/class/0"), (@class || "")]}>
+      <div class="contents">
         <div
           id={Popover.positioner_id(@id)}
           hidden={not @open}
@@ -221,6 +231,7 @@ defmodule LiveAiElements.Components.MicSelector do
             data-closed={flag(not @open)}
             class={[
               upstream_fact("jsx/PopoverContent/class/1"),
+              upstream_fact("jsx/MicSelectorContent/class/0"),
               (@class || "")
             ]}
             data-lb-style-target
@@ -254,11 +265,7 @@ defmodule LiveAiElements.Components.MicSelector do
             </div>
           </div>
         </div>
-        <div
-          data-slot="command"
-          value={@value}
-          class={upstream_fact("jsx/Command/class/0")}
-        />
+
       </div>
     </div>
     """
@@ -274,7 +281,4 @@ defmodule LiveAiElements.Components.MicSelector do
 
   defp flag(true), do: ""
   defp flag(_state), do: nil
-
-  defp variant_class(table, group, value),
-    do: get_in(@variant_classes, [table, group, value])
 end

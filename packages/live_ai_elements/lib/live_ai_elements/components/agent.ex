@@ -14,6 +14,8 @@ defmodule LiveAiElements.Components.Agent do
 
   use Phoenix.Component
 
+  alias LiveAiElements.Shadcn
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "file/ai_elements/agent.tsx/jsx/anonymous/class/0" => "not-prose w-full rounded-md border",
@@ -67,9 +69,13 @@ defmodule LiveAiElements.Components.Agent do
         <span class={upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/4")}>
           {@name}
         </span>
-        <LiveShadcn.UI.Badge.badge :if={@model} variant={@variant} class={upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/5")}>
+        <span
+          :if={@model}
+          data-slot="badge"
+          class={[Shadcn.badge_class(@variant), upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/5")]}
+        >
           {@model}
-        </LiveShadcn.UI.Badge.badge>
+        </span>
       </div>
       {render_slot(@inner_block)}
     </div>
