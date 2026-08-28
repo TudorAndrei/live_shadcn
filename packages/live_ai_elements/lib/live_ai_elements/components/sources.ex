@@ -16,7 +16,9 @@ defmodule LiveAiElements.Components.Sources do
   @upstream_facts %{
     "jsx/Source/class/0" => "flex items-center gap-2",
     "jsx/Source/class/1" => "h-4 w-4",
+    "jsx/Source/class/2" => "block font-medium",
     "jsx/Sources/class/0" => "not-prose mb-4 text-primary text-xs",
+    "jsx/SourcesTrigger/class/0" => "flex items-center gap-2",
     "jsx/SourcesTrigger/class/1" => "font-medium",
     "port/class/0" =>
       "mt-3 flex w-fit flex-col gap-2 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in"
@@ -80,7 +82,7 @@ defmodule LiveAiElements.Components.Sources do
         phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
         phx-mounted={Disclosure.owned_attributes(:trigger)}
         data-panel-open={flag(@open)}
-        class={[upstream_fact("jsx/Source/class/0"), (@trigger_class || "")]}
+        class={[upstream_fact("jsx/SourcesTrigger/class/0"), (@trigger_class || "")]}
       >
         <%= if @title in [nil, ""] do %>
           <p class={upstream_fact("jsx/SourcesTrigger/class/1")}>
@@ -113,7 +115,32 @@ defmodule LiveAiElements.Components.Sources do
     """
   end
 
-  # A disabled disclosure ignores interaction. `aria-disabled` and
+  attr(:href, :string, required: true)
+  attr(:title, :string, required: true)
+  attr(:class, :any, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block)
+
+  def source(assigns) do
+    ~H"""
+    <a
+      class={[upstream_fact("jsx/Source/class/0"), (@class || "")]}
+      href={@href}
+      rel="noreferrer"
+      target="_blank"
+      {@rest}
+    >
+      <%= if @inner_block == [] do %>
+        <LiveShadcn.Icon.icon name="book" class={upstream_fact("jsx/Source/class/1")} />
+        <span class={upstream_fact("jsx/Source/class/2")}>{@title}</span>
+      <% else %>
+        {render_slot(@inner_block)}
+      <% end %>
+    </a>
+    """
+  end
+
+  # A disabled disclosure ignores interaction. aria-disabled and
   # `pointer-events-none` say so to a reader and to a mouse, but a keypress
   # on a focused trigger reaches neither, so the command itself is withheld.
   defp interactive(false, command), do: command

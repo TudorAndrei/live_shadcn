@@ -1804,11 +1804,16 @@ defmodule StorybookWeb.Examples do
 
   defp sources_default(assigns) do
     ~H"""
-    <.sources id="citations" title="3 sources" class="max-w-80">
-      <a href="https://base-ui.com" class="block underline">base-ui.com</a>
-      <a href="https://ui.shadcn.com" class="block underline">ui.shadcn.com</a>
-      <a href="https://hexdocs.pm/phoenix_live_view" class="block underline">Phoenix LiveView</a>
-    </.sources>
+    <div style="height: 110px;">
+      <.sources id="citations" title={nil} count={3}>
+        <.source href="https://stripe.com/docs/api" title="Stripe API Documentation" />
+        <.source href="https://docs.github.com/en/rest" title="GitHub REST API" />
+        <.source
+          href="https://docs.aws.amazon.com/sdk-for-javascript/"
+          title="AWS SDK for JavaScript"
+        />
+      </.sources>
+    </div>
     """
   end
 
