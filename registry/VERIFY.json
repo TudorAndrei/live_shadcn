@@ -29,13 +29,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -43,7 +39,7 @@
       }
     },
     "pass": true,
-    "spec": "4a150c4500c7f2bb910196e79051063bf38ad433c1e2f0fb9f2c5d9c21bda4b3"
+    "spec": "6c4b13dba144eb10873223b44aea672748d99ce2887642c70010505197189f9e"
   },
   "shadcn/alert-dialog": {
     "checks": {
@@ -96,13 +92,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -142,13 +134,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -156,7 +144,7 @@
       }
     },
     "pass": true,
-    "spec": "ca86b8b05f2f66d3f441c9b94ec247c3783fc04ab2c9acfd0f3571fcf602a830"
+    "spec": "7775c41f2b25b4c667b940fc3359ef8d6526742b0b4f22daccd1265df3847c3d"
   },
   "shadcn/context-menu": {
     "checks": {
@@ -188,13 +176,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -202,7 +186,7 @@
       }
     },
     "pass": true,
-    "spec": "4e0cc488da219d4cbd4c2cb856da8ca896e9ec8be7ca3b81492daa82ad099363"
+    "spec": "6df928c8b53e701ec3fb30aca4453da627c148e819ce3e2caf733eb4f26639d1"
   },
   "shadcn/hover-card": {
     "checks": {
@@ -255,13 +239,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -269,7 +249,7 @@
       }
     },
     "pass": true,
-    "spec": "8391ed15d7554093f975c55f51032cc360be741d55335bf0f2902289f6207379"
+    "spec": "e90c3d60686cdd6b0e1c1f81655ac91741cbf6d9fd698f677b86c5c37ab96e3f"
   },
   "ai_elements/package-info": {
     "checks": {
@@ -280,13 +260,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -294,7 +270,7 @@
       }
     },
     "pass": true,
-    "spec": "15a8e8afc0c65a4aeea89c9a26167ca7d8907ad22c881780e70c5e8f9f175d0d"
+    "spec": "252723568429ac119ec178f144d765af16ad7dc18297a9e1bb01d95509f7b436"
   },
   "shadcn/pagination": {
     "checks": {
@@ -389,13 +365,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -403,7 +375,7 @@
       }
     },
     "pass": true,
-    "spec": "79eab072972169b4b5df86ad1adc2e30463012bb426ed05467f2d8b89ff7a4b3"
+    "spec": "d19a0595580c6d926ab5e0caab8001419470b8122a4232c80a65e67bc0ff3e22"
   },
   "shadcn/bubble": {
     "checks": {
@@ -435,13 +407,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -449,7 +417,7 @@
       }
     },
     "pass": true,
-    "spec": "73372fafababd293186baaef3a6d18e7d8311a5a3afbd2cdc05672f32cfc5995"
+    "spec": "bd677dac72f60054a2f66063b071814862ef1aa6307ae63338eb6cde70a27cba"
   },
   "shadcn/sheet": {
     "checks": {
@@ -502,13 +470,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -516,7 +480,7 @@
       }
     },
     "pass": true,
-    "spec": "b583a1a9e1f2e9a1ff8a139c4e86ef84aac8a63f85779b6b8cb67d8811014bb3"
+    "spec": "f79a679680ffb664ba65de0da5d15b9d7763e4dcc8da801bc87423e8f2a8209e"
   },
   "ai_elements/image": {
     "checks": {
@@ -527,13 +491,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -657,13 +617,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -671,7 +627,7 @@
       }
     },
     "pass": true,
-    "spec": "98978fb04c018a58c999da154d5280213c4447be65002d8581e5bf2cc4f6bc60"
+    "spec": "4d55a9d56da39a95e4ee22ffa2811b4aa6b0fa0529288ee3eddc7b5310eb122b"
   },
   "shadcn/input": {
     "checks": {
@@ -724,13 +680,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -749,13 +701,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -763,7 +711,7 @@
       }
     },
     "pass": true,
-    "spec": "37d9b1bf46ef69bf694468877c8774fd09d1ea17567e0219aefcde29b86f8ce2"
+    "spec": "f2dc03edd08d8cc9cd487c42e68c20775ae8dc832f1383102f50ea05969efa8d"
   },
   "ai_elements/confirmation": {
     "checks": {
@@ -774,13 +722,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -788,7 +732,7 @@
       }
     },
     "pass": true,
-    "spec": "91f27f0f98dc138ee9a70e999571a9a67f47fe4610c30c7d1415b9526d906222"
+    "spec": "cffa18d889789b3ab12294aba56600e78d903bec3028787b1b92d5eae5dae4a7"
   },
   "shadcn/skeleton": {
     "checks": {
@@ -862,13 +806,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -876,7 +816,7 @@
       }
     },
     "pass": true,
-    "spec": "f18b0ccfd438d450af863cce303ea5091cc6c180d26161c65e46872ed46eecea"
+    "spec": "6c3125fab503a88297a22d6ebbfba81db4400ca0ef00b038bddf5230d71de2af"
   },
   "shadcn/input-group": {
     "checks": {
@@ -993,13 +933,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1039,13 +975,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1053,7 +985,7 @@
       }
     },
     "pass": true,
-    "spec": "53a7fcf4eebe4fa99994d0e3d70a189d8a56e56b6619a5066ccc687e6acf452d"
+    "spec": "a6726e4b2615182c0dfd6ab431463a53868291ff3ca39947c689ae2f7b1283b5"
   },
   "shadcn/sonner": {
     "checks": {
@@ -1085,13 +1017,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1099,7 +1027,7 @@
       }
     },
     "pass": true,
-    "spec": "e91c3db0afb07c8625389d1170f4b7f0bd0d6e4182496f665b880634622d7d16"
+    "spec": "650ecdbb4c07e226b33cdea89c1a25e82c795225d6afa7dde7c656511cbd3775"
   },
   "ai_elements/artifact": {
     "checks": {
@@ -1110,13 +1038,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1124,7 +1048,7 @@
       }
     },
     "pass": true,
-    "spec": "6214dcacdab0a158769cfd52f2ca68a98aa55a7a4fef591ea9cba62f870b10fc"
+    "spec": "185e6b1a120e855d2277a31f578c57befee5b7310e9625fe1f685f59fa0cbd9e"
   },
   "shadcn/dropdown-menu": {
     "checks": {
@@ -1198,13 +1122,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1244,13 +1164,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1258,7 +1174,7 @@
       }
     },
     "pass": true,
-    "spec": "119ee8b9952fc9e07a21cf98f379f9623926b0b9fd687bcbd8718ba1d2ecb968"
+    "spec": "6aafbfad2aac36c2b9444383a63148f067e6350c9919141c27c75f6d8860c477"
   },
   "ai_elements/tool": {
     "checks": {
@@ -1269,13 +1185,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1283,7 +1195,7 @@
       }
     },
     "pass": true,
-    "spec": "a0719039840e2171741cb256851b091dd2830bb5aa5d081c77bd3b9d759b8c34"
+    "spec": "bb559d9c8a92dc9ff01faa9bb59eafd6a4f6c169f9e619d08abb643de86d9fa2"
   },
   "ai_elements/controls": {
     "checks": {
@@ -1294,13 +1206,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1340,13 +1248,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1354,7 +1258,7 @@
       }
     },
     "pass": true,
-    "spec": "4ab5181e550325341b2deca06f536ec28581290410bcd388368d819a8e2506cc"
+    "spec": "0c48ff9ae240a184885b841cc56dbfc77935095829de441275e72da644e2a6a3"
   },
   "ai_elements/schema-display": {
     "checks": {
@@ -1365,13 +1269,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1379,7 +1279,7 @@
       }
     },
     "pass": true,
-    "spec": "5a1180a929960415923d4fa8f2d367e2120d123f8de369d31890b41511c4fc69"
+    "spec": "9219de97af7caa860d95ccb8cd90b5fa697447d28ef638ad71b282d6b20bb224"
   },
   "ai_elements/toolbar": {
     "checks": {
@@ -1390,13 +1290,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1478,13 +1374,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1492,7 +1384,7 @@
       }
     },
     "pass": true,
-    "spec": "44096bfc4d0b4871e8df8c3b434ff63ffbf6dbd43cda166d339a6e2307b20418"
+    "spec": "f1a8d85b9263d82cb097965f8694bb6109103e58b74aaf79eb04f39a629d6635"
   },
   "shadcn/toast": {
     "checks": {
@@ -1524,13 +1416,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1549,13 +1437,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1563,7 +1447,7 @@
       }
     },
     "pass": true,
-    "spec": "86bdd367bf758cf96718f48b1228faeabf0439bb30c0af79dee0632200fc6e59"
+    "spec": "8319536b0b9835761ed8b36dd9722ad7a32fe9da6339c6ba6f1217ff92e82029"
   },
   "ai_elements/speech-input": {
     "checks": {
@@ -1574,13 +1458,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1588,7 +1468,7 @@
       }
     },
     "pass": true,
-    "spec": "ac1fc53bff02555ce7f76f9ae4c9b891af07726a9e5d9ae51e2915b13402fb40"
+    "spec": "6043cf166c14cfdee8833110e0cbc8d9bc0ef364e1339e9d65db51240ed0f806"
   },
   "ai_elements/environment-variables": {
     "checks": {
@@ -1599,13 +1479,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1613,7 +1489,7 @@
       }
     },
     "pass": true,
-    "spec": "ec405bb8a20b3c4a58765964b2aaccd10ccf89739dc65a3566547e1c372a3666"
+    "spec": "7ea9ff7d1085b11cc96955374e10fd62f9f2c8cd9c9744bf148d96d9b85d4057"
   },
   "shadcn/switch": {
     "checks": {
@@ -1645,13 +1521,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1670,13 +1542,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1684,7 +1552,7 @@
       }
     },
     "pass": true,
-    "spec": "884d9bb1dc5c4154950ff636f104603acec4c4bdd689a789042d9ad699777c70"
+    "spec": "c2984a207618dc0f00d702f9b8ccb3bde6fea6c053394ad7d52b69d8ace71ae5"
   },
   "shadcn/label": {
     "checks": {
@@ -1737,13 +1605,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1888,13 +1752,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1913,13 +1773,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1927,7 +1783,7 @@
       }
     },
     "pass": true,
-    "spec": "319ce790b3b0f75319b546df08bdcc8a3077febecf0aa4a76b48461aec413d3e"
+    "spec": "959ca2094df99a36de396416c469d56f20e5b4c173197623e53d5f077072ac93"
   },
   "ai_elements/model-selector": {
     "checks": {
@@ -1938,13 +1794,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1963,13 +1815,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -1977,7 +1825,7 @@
       }
     },
     "pass": true,
-    "spec": "911c1b72879eda3376d00739cfe6a963ae48f86dda0aab902422d92fa36e2ec9"
+    "spec": "4ff6c542c04b6d6901831bfe11ec5f71827d19aef58cc60dc81f0dc715c04f76"
   },
   "ai_elements/audio-player": {
     "checks": {
@@ -1988,13 +1836,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -2002,7 +1846,7 @@
       }
     },
     "pass": true,
-    "spec": "4a781c4099ba0e39f8083fb6e7c7aa85557f369de5871ee0690a2ecb4f7af59b"
+    "spec": "40c2c3865a9ffe0f53b8973c08f0a89e783880799d5a98299dc7c0936858dee2"
   },
   "ai_elements/suggestion": {
     "checks": {
@@ -2013,13 +1857,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -2027,7 +1867,7 @@
       }
     },
     "pass": true,
-    "spec": "630d1b3b23f93ed8a1b1b14aa765f182de26a568144a27284e578a2e807fffa5"
+    "spec": "cb0da9ff1b63157cfb9c6617c1039288e66caeca685d936c48c32314cb046823"
   },
   "ai_elements/conversation": {
     "checks": {
@@ -2038,13 +1878,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -2052,7 +1888,7 @@
       }
     },
     "pass": true,
-    "spec": "b7693402c43320b228cc5166df60efc6044d04b8630b02b8f6f756d3c0b23d50"
+    "spec": "e3c33b61aedc11afa6deba578341796ea51b755d2d1d135390723537b9e45dee"
   },
   "ai_elements/question": {
     "checks": {
@@ -2063,13 +1899,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -2077,7 +1909,7 @@
       }
     },
     "pass": true,
-    "spec": "19dd29e34aecad5b990dcd752f75c7d943415e1b25075f348242d38580eecdcd"
+    "spec": "d29f1351a0f8b753fb11a5c28be15c4c768d81e4c2a54b8f426252d7d8d721d6"
   },
   "ai_elements/transcription": {
     "checks": {
@@ -2088,13 +1920,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -2102,7 +1930,7 @@
       }
     },
     "pass": true,
-    "spec": "3f1e33526892711aad8296b86f76f752a829fe883d3b89ffe72be66eaa9548d9"
+    "spec": "cee7792f7801c040cba3b02c2bc4d5fd924366f90429ec356eecc04c5c194820"
   },
   "shadcn/separator": {
     "checks": {
@@ -2155,13 +1983,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -2169,7 +1993,7 @@
       }
     },
     "pass": true,
-    "spec": "0c654d4e92dfeda7d01fc1852759b35d46299b85da859351797b13acf88a6562"
+    "spec": "b9e2e2a453e5e052361c94cf69a4a70563e3bbf27b08a8ae3641620170a510b8"
   },
   "shadcn/navigation-menu": {
     "checks": {
@@ -2222,13 +2046,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -2236,7 +2056,7 @@
       }
     },
     "pass": true,
-    "spec": "61a8c98b0477bb2a6c152174fa73b362022e3d56246f34497790ef85f997bf6c"
+    "spec": "54f3345958b54c8fc3beb4eaf636d4a22b03f3a51369dc6b7a647e1e0ddcaaba"
   },
   "ai_elements/agent": {
     "checks": {
@@ -2247,13 +2067,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -2261,7 +2077,7 @@
       }
     },
     "pass": true,
-    "spec": "13492b8d37e40f7bc10ecdf06832aba6e06f8825d74ad65b600ab08dc5b13cf0"
+    "spec": "f2a56bb555f144b1beb9517cb6a111262c6b06ac083e694e1483045d20fb5180"
   },
   "shadcn/collapsible": {
     "checks": {
@@ -2335,13 +2151,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {
@@ -2349,7 +2161,7 @@
       }
     },
     "pass": true,
-    "spec": "9d169f2e6b9eea8b199de65b03f819b9b7e0c4bb466518e2462ada2f7d05ffb0"
+    "spec": "0be4bc1c4230dad2af48058c2958f544aac2c278e078e87502b52789bb86f71c"
   },
   "shadcn/drawer": {
     "checks": {
@@ -2381,13 +2193,9 @@
         "pass": true
       },
       "parity": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "pixel": {
-        "detail": "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. See PLAN.md phase 14 and storybook/test/browser/registries.mjs.",
-        "gated": false,
         "pass": true
       },
       "snapshot": {

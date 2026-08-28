@@ -43,6 +43,13 @@ defmodule StorybookWeb.Docs do
   @upstream_path Path.expand("../../../registry/UPSTREAM.json", __DIR__)
   @external_resource @upstream_path
 
+  @verify_path Path.expand("../../../registry/VERIFY.json", __DIR__)
+  @external_resource @verify_path
+
+  @spec_root Path.expand("../../../registry/spec", __DIR__)
+
+  @verification @verify_path |> File.read!() |> Jason.decode!()
+
   # The sections the AI Elements documentation groups its components under, in
   # the order it lists them. `mix ui.fetch` reads them from upstream's own
   # `meta.json` and the directory each page sits in; this module only reads the
@@ -267,12 +274,8 @@ defmodule StorybookWeb.Docs do
   open, for a library it did not say.
   """
   def library(component) do
+    {source, name} = identity(component)
     namespace = to_string(module(component))
-
-    source =
-      if String.starts_with?(namespace, "Elixir.LiveAiElements"),
-        do: "ai_elements",
-        else: "shadcn"
 
     package =
       Enum.find_value(@packages, fn
@@ -283,9 +286,45 @@ defmodule StorybookWeb.Docs do
           nil
       end)
 
-    name = String.replace(component, ["shadcn-", "ai_elements-"], "")
-
     %{package: package, spec: "registry/spec/#{source}/#{name}.json"}
+  end
+
+  @doc "The highest pipeline stage that has current evidence for a documented component."
+  def status(component) do
+    {source, name} = identity(component)
+    spec = Path.join([@spec_root, source, "#{name}.json"])
+    result = @verification["#{source}/#{name}"]
+
+    cond do
+      verified?(result, spec) -> :verified
+      is_map(result) and result["pass"] == false -> :failed
+      true -> :unverified
+    end
+  end
+
+  defp verified?(result, spec) when is_map(result) do
+    File.exists?(spec) and
+      result["pass"] == true and
+      result["spec"] == digest(File.read!(spec)) and
+      Enum.all?(result["checks"] || %{}, fn {_name, check} ->
+        check["pass"] == true and check["gated"] != false
+      end)
+  end
+
+  defp verified?(_result, _spec), do: false
+
+  defp digest(binary), do: :crypto.hash(:sha256, binary) |> Base.encode16(case: :lower)
+
+  defp identity(component) do
+    namespace = to_string(module(component))
+
+    source =
+      if String.starts_with?(namespace, "Elixir.LiveAiElements"),
+        do: "ai_elements",
+        else: "shadcn"
+
+    name = String.replace(component, ["shadcn-", "ai_elements-"], "")
+    {source, name}
   end
 
   defp components_in(nil), do: []

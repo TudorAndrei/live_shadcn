@@ -39,6 +39,20 @@ defmodule StorybookWeb.DocsLive do
         <%!-- Where the page comes from. The spec is the whole answer, so it is
               a badge beside the package rather than a sentence about it. --%>
         <.badge variant="outline"><code>{@library.spec}</code></.badge>
+        <.badge
+          data-component-status={@status}
+          variant={if(@status == :verified, do: "default", else: "secondary")}
+          class={[
+            "capitalize",
+            @status == :verified &&
+              "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300",
+            @status == :unverified &&
+              "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
+            @status == :failed && "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-300"
+          ]}
+        >
+          {@status}
+        </.badge>
       </div>
     </header>
 
@@ -56,16 +70,6 @@ defmodule StorybookWeb.DocsLive do
           <pre class="overflow-x-auto rounded-md border bg-muted p-4 text-xs"><code>{example.source}</code></pre>
         </:tab>
       </.tabs>
-
-      <p class="mt-2 text-xs text-muted-foreground">
-        <.link
-          navigate={~p"/preview/#{@component}/#{example.id}"}
-          class="underline underline-offset-4"
-        >
-          Open on its own
-        </.link>
-        — the page `mix ui.verify` drives.
-      </p>
     </section>
 
     <section class="mt-14">
@@ -141,6 +145,7 @@ defmodule StorybookWeb.DocsLive do
        examples: examples,
        api: Docs.api(component),
        library: Docs.library(component),
+       status: Docs.status(component),
        install: Docs.install(component),
        page_title: Docs.title(component)
      )

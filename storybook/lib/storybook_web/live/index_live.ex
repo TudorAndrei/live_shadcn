@@ -79,13 +79,27 @@ defmodule StorybookWeb.IndexLive do
         </span>
       </h2>
       <ul class="mt-4 grid grid-cols-2 gap-x-6 gap-y-1 sm:grid-cols-3">
-        <li :for={component <- group.components}>
+        <li :for={component <- group.components} class="flex items-center gap-2">
           <.link
             navigate={~p"/docs/#{component}"}
             class="text-sm underline-offset-4 hover:underline"
           >
             {Docs.title(component)}
           </.link>
+          <span
+            data-component-status={Docs.status(component)}
+            class={[
+              "rounded-full px-1.5 py-0.5 text-[10px] font-medium capitalize",
+              Docs.status(component) == :verified &&
+                "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300",
+              Docs.status(component) == :unverified &&
+                "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
+              Docs.status(component) == :failed &&
+                "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-300"
+            ]}
+          >
+            {Docs.status(component)}
+          </span>
         </li>
       </ul>
     </section>

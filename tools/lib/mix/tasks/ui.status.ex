@@ -150,7 +150,10 @@ defmodule Mix.Tasks.Ui.Status do
 
     with true <- File.exists?(verify) and File.exists?(spec),
          result when is_map(result) <- get_in(read_json!(verify), [ref(source, name)]) do
-      result["pass"] == true and result["spec"] == digest(File.read!(spec))
+      result["pass"] == true and result["spec"] == digest(File.read!(spec)) and
+        Enum.all?(result["checks"] || %{}, fn {_name, check} ->
+          check["pass"] == true and check["gated"] != false
+        end)
     else
       _ -> false
     end

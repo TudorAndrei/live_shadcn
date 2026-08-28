@@ -12,26 +12,24 @@ defmodule StorybookWeb.ExamplesTest do
       end
     end
 
-    # Two hops now rather than one. The index used to render every example on a
-    # single page; it lists the components, and a component's own page lists its
-    # examples. The contract is the same one: nothing is documented that a
-    # reader cannot get to.
-    test "is reachable from the index", %{conn: conn} do
+    test "component documentation is reachable from the index", %{conn: conn} do
       {:ok, _view, index} = live(conn, "/")
 
       for component <- Examples.components() do
         assert index =~ "/docs/#{component}"
-
-        {:ok, _view, page} = live(conn, "/docs/#{component}")
-
-        for example <- Examples.all(component) do
-          assert page =~ "/preview/#{component}/#{example.id}"
-        end
       end
     end
   end
 
   describe "a component's documentation page" do
+    test "shows the component verification status", %{conn: conn} do
+      {:ok, _view, shadcn} = live(conn, "/docs/badge")
+      {:ok, _view, ai_elements} = live(conn, "/docs/audio-player")
+
+      assert shadcn =~ ~s(data-component-status="verified")
+      assert ai_elements =~ ~s(data-component-status="verified")
+    end
+
     test "shows the markup each example is written with", %{conn: conn} do
       {:ok, _view, html} = live(conn, "/docs/badge")
 

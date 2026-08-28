@@ -24,9 +24,6 @@ defmodule Mix.Tasks.Ui.Verify do
   because opening a panel is a client behaviour and so is layout: no amount of
   server-side rendering can tell you whether either works.
 
-  The last two gate `shadcn`. An AI Element records them as *not gated*: AI
-  Elements composes with `asChild`, which shadcn's Base UI base drops.
-
   The first three all read the same spec, so none of them can catch a spec that
   read upstream wrongly — a class string the reader dropped is missing from the
   module, from the snapshot, and from the expectation. The last two read upstream
@@ -55,9 +52,14 @@ defmodule Mix.Tasks.Ui.Verify do
       Mix.raise("nothing to verify: no reviewed component port exists.")
     end
 
+    shared_checks =
+      if browser? and length(components) > 1 do
+        batch_browser_checks()
+      end
+
     results =
       Map.new(components, fn {source, name} ->
-        {ref(source, name), verify(source, name, browser?)}
+        {ref(source, name), verify(source, name, browser?, shared_checks)}
       end)
 
     write_json!(registry_path("VERIFY.json"), merge(results))
@@ -118,7 +120,7 @@ defmodule Mix.Tasks.Ui.Verify do
     |> Enum.sort()
   end
 
-  defp verify(source, name, browser?) do
+  defp verify(source, name, browser?, shared_checks) do
     reference = ref(source, name)
     key = example_key(source, name)
 
@@ -128,7 +130,9 @@ defmodule Mix.Tasks.Ui.Verify do
         {"snapshot", snapshot_check(key)}
       ] ++
         if browser?,
-          do: [{"browser", browser_check(name, key)}] ++ upstream_checks(source, key),
+          do:
+            [{"browser", browser_result(name, key, shared_checks)}] ++
+              upstream_results(source, key, shared_checks),
           else: []
 
     %{
@@ -138,24 +142,62 @@ defmodule Mix.Tasks.Ui.Verify do
     }
   end
 
-  # The two checks that read upstream by rendering it. They gate `shadcn`: AI
-  # Elements composes with `asChild`, which shadcn's Base UI base drops without
-  # a warning, so the reference draws two elements where the reader draws one.
-  #
-  # An AI Element records them as not gated rather than as a pass, because
-  # `registry/VERIFY.json` is read by `mix ui.status` and a check that did not
-  # run must not read like one that did.
-  defp upstream_checks("ai_elements", _key) do
-    detail =
-      "not gated: AI Elements composes with `asChild`, and this shadcn base is Base UI. " <>
-        "See PLAN.md phase 14 and storybook/test/browser/registries.mjs."
+  defp browser_result(name, key, nil), do: browser_check(name, key)
+  defp browser_result(_name, nil, _shared_checks), do: no_example()
+  defp browser_result(_name, _key, shared_checks), do: shared_checks["browser"]
 
-    for check <- ["parity", "pixel"],
-        do: {check, %{"pass" => true, "gated" => false, "detail" => detail}}
+  defp upstream_results(_source, key, nil),
+    do: [{"parity", parity_check(key)}, {"pixel", pixel_check(key)}]
+
+  defp upstream_results(_source, key, shared_checks) do
+    parity =
+      if key && ported?(key),
+        do: shared_checks["parity"],
+        else: parity_check(key)
+
+    pixel =
+      cond do
+        is_nil(key) or not ported?(key) -> pixel_check(key)
+        skipped_pixels(key) -> pixel_check(key)
+        pending_pixels(key) -> pixel_check(key)
+        true -> shared_checks["pixel"]
+      end
+
+    [{"parity", parity}, {"pixel", pixel}]
   end
 
-  defp upstream_checks(_source, key),
-    do: [{"parity", parity_check(key)}, {"pixel", pixel_check(key)}]
+  # A bulk run starts each browser suite once. Every selected component gets the
+  # result of the same complete suite. This is conservative: one browser fault
+  # keeps all badges unverified until the shared suite is clean.
+  defp batch_browser_checks do
+    %{
+      "browser" =>
+        run_in(
+          browser_dir(),
+          "npx",
+          [
+            "playwright",
+            "test",
+            "--project",
+            "chromium",
+            "--grep-invert",
+            "draws what React draws"
+          ]
+        ),
+      "parity" =>
+        run_in(
+          browser_dir(),
+          "npx",
+          ["playwright", "test", "parity.spec.mjs", "--project", "chromium"]
+        ),
+      "pixel" =>
+        run_in(
+          browser_dir(),
+          "npx",
+          ["playwright", "test", "--project", "pixel"]
+        )
+    }
+  end
 
   # The spec digest is recorded with the result, so a passing entry cannot
   # outlive the spec it was true of.
