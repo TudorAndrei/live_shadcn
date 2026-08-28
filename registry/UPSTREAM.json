@@ -1,5 +1,15 @@
 {
   "files": {
+    "ai_examples/schema-display-nested.tsx": {
+      "bytes": 460,
+      "sha256": "ab98dc7164806ef482200ac84e860e1655f7047acc9888cf61924358de5bf29f",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/schema-display-nested.tsx"
+    },
+    "ai_examples/mic-selector.tsx": {
+      "bytes": 1226,
+      "sha256": "24a735ec0aedbc4282c40ee18df33a13cdbf3a9f73059e8c852f0215d9040eb0",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/mic-selector.tsx"
+    },
     "shadcn/styles/vega.css": {
       "bytes": 74972,
       "sha256": "7b0dc3a9d2245ab6ce3d17653fa74a07f0ce2541e480bef36d2600fe38f1281b",
@@ -9,6 +19,11 @@
       "bytes": 1406,
       "sha256": "ba9be2fcd4eac13c482f77663f4cca797553e53d2efb9c6dc52eb1e3af9a0d2f",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/badge.tsx"
+    },
+    "ai_shadcn/ui/button-group.tsx": {
+      "bytes": 2256,
+      "sha256": "1b0147f3d6ee8770524363f9bc9a57db83de8d2a0733c6e635e51034219e4c1e",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/button-group.tsx"
     },
     "ai_elements/reasoning.tsx": {
       "bytes": 6285,
@@ -20,15 +35,45 @@
       "sha256": "0cf9e45fc178dcae7d6ef5f60804534d4abbfa73711d8455e44b62782729b533",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/message-scroller.tsx"
     },
+    "ai_shadcn/ui/collapsible.tsx": {
+      "bytes": 795,
+      "sha256": "c6598e5584f4258b5d9fefadbc5ad6a66888ad58729f4b634a0bb2d9c513188b",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/collapsible.tsx"
+    },
+    "ai_shadcn/ui/toggle.tsx": {
+      "bytes": 1579,
+      "sha256": "bcf23205f7759d7811603a09ddc199606bc06fdf50270f23ca24b51ddf5ac68a",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/toggle.tsx"
+    },
     "base_ui/checkbox.md": {
       "bytes": 22953,
       "sha256": "9ccd915abaf8916cbf26e55e88b0782e5eb290322cd0a3d01b5533aef3fbf4dc",
       "url": "https://base-ui.com/react/components/checkbox.md"
     },
+    "ai_examples/inline-citation.tsx": {
+      "bytes": 3305,
+      "sha256": "f4149920c5f869f5f88917f56b68169b02e2043bfc11538a9d27cbddbb740ae8",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/inline-citation.tsx"
+    },
+    "ai_shadcn/ui/aspect-ratio.tsx": {
+      "bytes": 274,
+      "sha256": "b1c157886236782cb92d8fbcd4749532aaf6d8aabefd6e157ca40358f902f407",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/aspect-ratio.tsx"
+    },
     "shadcn/ui/kbd.tsx": {
       "bytes": 585,
       "sha256": "297f142ed4e6d0e61362b2ce3a5cd3aa455ac008593006bbe4f06214801a9644",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/kbd.tsx"
+    },
+    "ai_examples/persona-glint.tsx": {
+      "bytes": 2559,
+      "sha256": "fce7062b40a8da49e8834e36d608a236f1a2448e16fb374d0dbec3b13b0f9f8b",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/persona-glint.tsx"
+    },
+    "ai_examples/attachments-inline.tsx": {
+      "bytes": 3588,
+      "sha256": "892f79d47dc5db7e8c35033d93e4f4ff5440d995bb4dc3d2461ed6034e2862de",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/attachments-inline.tsx"
     },
     "shadcn/ui/toggle-group.tsx": {
       "bytes": 2676,
@@ -45,20 +90,60 @@
       "sha256": "67c30837d32aefcc1fc012f779a58465de86e2df8dd287f28da9a678d90ada61",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/node.tsx"
     },
+    "ai_examples/chatbot.tsx": {
+      "bytes": 21927,
+      "sha256": "e15ac7fdf358ec5c8ac798aae7d533d7d7cb8db70002730bb05cbb6211ef0854",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/chatbot.tsx"
+    },
     "shadcn/ui/switch.tsx": {
       "bytes": 840,
       "sha256": "5bc5e6917b328921a87ee0c25224ed7c19184f2158b1558679a259ab1d0ad938",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/switch.tsx"
+    },
+    "ai_examples/prompt-input.tsx": {
+      "bytes": 7509,
+      "sha256": "7da6e1a5dc272cdd139630b21dd197da04c73d04c8cc1481c1a7bcff7ab4ae13",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/prompt-input.tsx"
+    },
+    "ai_shadcn/ui/slider.tsx": {
+      "bytes": 2005,
+      "sha256": "84548a51102c4a12b2a4c43955d9c4d8975aca90bcedff3c383cdb0fed91464c",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/slider.tsx"
+    },
+    "ai_examples/suggestion.tsx": {
+      "bytes": 792,
+      "sha256": "758313fdbe2fed04e5edf1cb4d954c1906f148be2226b11131f57f75c0d6d31c",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/suggestion.tsx"
+    },
+    "ai_shadcn/ui/sonner.tsx": {
+      "bytes": 1034,
+      "sha256": "13ccc9b0fe4248e622f83a1d3b2f0566b72b5e04162d7d0c8db8945ecc71b55f",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/sonner.tsx"
     },
     "base_ui/select.md": {
       "bytes": 169258,
       "sha256": "95484f6becede76811b671909b3656451fe7c70f1ddba01635af9240ff273ebb",
       "url": "https://base-ui.com/react/components/select.md"
     },
+    "ai_examples/persona-mana.tsx": {
+      "bytes": 2558,
+      "sha256": "05cad80a758f078d44af856416a6ca1e2d3223201082cbfff5bc4b1778fc83f6",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/persona-mana.tsx"
+    },
+    "ai_examples/audio-player-remote.tsx": {
+      "bytes": 1054,
+      "sha256": "7b5becbdbef7163d14a6e8cd8deb753a1d83ec5ea6e4917a24f534a3a6b57d94",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/audio-player-remote.tsx"
+    },
     "ai_elements/web-preview.tsx": {
       "bytes": 7152,
       "sha256": "7ae44586766db67c5341b36a30340b202e6f45c205457ad98f0817968d162d2c",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/web-preview.tsx"
+    },
+    "ai_shadcn/ui/separator.tsx": {
+      "bytes": 708,
+      "sha256": "47885bfbdf6468a740999cf934b5cb563ecddb709502c2c501cea524f78d5ce3",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/separator.tsx"
     },
     "ai_elements/conversation.tsx": {
       "bytes": 4441,
@@ -90,10 +175,25 @@
       "sha256": "0703d777b4153ae20e93514acb9e8327eb03dd2ed2fd0230e03cf22271c7a249",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/suggestion.tsx"
     },
+    "ai_examples/code-block-dark.tsx": {
+      "bytes": 1029,
+      "sha256": "38f75e37cb35f4e0326855c9777639e5891fad137abc92d86dbf734019439ef8",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/code-block-dark.tsx"
+    },
     "shadcn/ui/sheet.tsx": {
       "bytes": 3951,
       "sha256": "ce6edeeee08e0002be607f0014013063290fca2ccddace9c6457c5a8fec8c0eb",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/sheet.tsx"
+    },
+    "ai_shadcn/ui/scroll-area.tsx": {
+      "bytes": 1653,
+      "sha256": "e7d38bb90960e5cd95069bb0ced0177d4284a7d029a65171ac5772b6ab42ff46",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/scroll-area.tsx"
+    },
+    "ai_examples/web-preview.tsx": {
+      "bytes": 2849,
+      "sha256": "238ec266c2ce0a1c81e0c2fe2dfb2df2d9f28eeed7cb24ec2bb5cb7e028ed12d",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/web-preview.tsx"
     },
     "shadcn/ui/alert-dialog.tsx": {
       "bytes": 4061,
@@ -105,10 +205,20 @@
       "sha256": "4843f408ba65889f1085b18348400472d5c27fbc491506bb29076d0809a1d22b",
       "url": "https://base-ui.com/react/components/avatar.md"
     },
+    "ai_shadcn/ui/badge.tsx": {
+      "bytes": 1666,
+      "sha256": "145cf69448e20e027dd99e8e013507279aaa0922c30f63dabb54b75ab15222aa",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/badge.tsx"
+    },
     "shadcn/ui/sonner.tsx": {
       "bytes": 2282,
       "sha256": "d5178ce4c7834d3f46d261698395b498b8f45fef29975585df7e26cb43aa3cc7",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/sonner.tsx"
+    },
+    "ai_shadcn/ui/sheet.tsx": {
+      "bytes": 4099,
+      "sha256": "4af432ffb07cd4540349c0ff1d7323dd9caef4cff060d45a843d552a87157f79",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/sheet.tsx"
     },
     "shadcn/ui/table.tsx": {
       "bytes": 1995,
@@ -119,6 +229,11 @@
       "bytes": 171135,
       "sha256": "cd3f2f1d3d6adcd6be24602e1eecd26e18a2bffd1b72577e5983c6064f663ced",
       "url": "https://base-ui.com/react/components/dialog.md"
+    },
+    "ai_shadcn/ui/input-otp.tsx": {
+      "bytes": 2268,
+      "sha256": "45b89b919cac2ce9abe8b40cc4fdf233b30bd15dd734103a6446000850716d74",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/input-otp.tsx"
     },
     "base_ui/combobox.md": {
       "bytes": 340747,
@@ -134,6 +249,16 @@
       "bytes": 11417,
       "sha256": "91c42be9a592fe8ff2468352b8636f6bc364567779618ac3a075f1080b378fad",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/attachments.tsx"
+    },
+    "ai_examples/queue.tsx": {
+      "bytes": 8175,
+      "sha256": "ac23149f9f5540a7571b8d4cac11fc46e782253841f4e19e824a402a5ebce457",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/queue.tsx"
+    },
+    "ai_examples/code-block.tsx": {
+      "bytes": 3010,
+      "sha256": "c14bdb4976e77c494c14e481c7554466fa232e9caa58386fa7c3bbe9ab413ca0",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/code-block.tsx"
     },
     "shadcn/ui/progress.tsx": {
       "bytes": 1721,
@@ -165,10 +290,20 @@
       "sha256": "6fb66a11b278222b7f59b3674b1931daecdefbe5df78e41953c7e7a800fb3e49",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/scroll-area.tsx"
     },
+    "ai_shadcn/ui/item.tsx": {
+      "bytes": 4541,
+      "sha256": "031243e672a804261e4771b71b271b8e1d44b3c34959548c9694f2fed188ddce",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/item.tsx"
+    },
     "shadcn/ui/accordion.tsx": {
       "bytes": 2772,
       "sha256": "3fbd0fd128f90598e5387f55646f66fff0775ba95bc152a7252ddb24a601be5c",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/accordion.tsx"
+    },
+    "ai_shadcn/ui/select.tsx": {
+      "bytes": 6304,
+      "sha256": "a0eefd67e05688a6318a3a86080a6951723c6b5d323e1fa92b9d1b7fee777995",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/select.tsx"
     },
     "shadcn/ui/spinner.tsx": {
       "bytes": 559,
@@ -180,10 +315,45 @@
       "sha256": "5c649409c4c08408959eff5ec43a179ca6f585ec101ca7f8322348510b6b0375",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/persona.tsx"
     },
+    "ai_examples/model-selector.tsx": {
+      "bytes": 8686,
+      "sha256": "aad3ca8e0b6e1ad8710c890c88bace8109d958f6329ffcafeaa76416a1a1dd64",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/model-selector.tsx"
+    },
+    "ai_shadcn/ui/form.tsx": {
+      "bytes": 3790,
+      "sha256": "008e2097552774e022042c7915f553df0bda2535fb7e080cff1d494c9725c86d",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/form.tsx"
+    },
     "base_ui/field.md": {
       "bytes": 37088,
       "sha256": "592fd96a5b4a4175823e90ae6a8d4c0960d47b4516d6b411e8908ea8fcae5688",
       "url": "https://base-ui.com/react/components/field.md"
+    },
+    "ai_examples/tool-output-error.tsx": {
+      "bytes": 1075,
+      "sha256": "b33fcd89665e52996a9f03fb867d7f94966cc495016e25ac0269f7057c806e1f",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/tool-output-error.tsx"
+    },
+    "ai_shadcn/ui/alert-dialog.tsx": {
+      "bytes": 3886,
+      "sha256": "7382513ba2cb7d6c60ec6f29f57046f0765da022367acaee80ea13f21c4581b0",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/alert-dialog.tsx"
+    },
+    "ai_shadcn/ui/table.tsx": {
+      "bytes": 2462,
+      "sha256": "c726b981619c32048a898092a0ed12096c84fb589f779991a7c6fd88c74232df",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/table.tsx"
+    },
+    "ai_examples/schema-display.tsx": {
+      "bytes": 2754,
+      "sha256": "862cc48de88321269452ca9d61b67d43bc61daad79e555632ad4a12ef0dfe863",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/schema-display.tsx"
+    },
+    "ai_examples/agent.tsx": {
+      "bytes": 1616,
+      "sha256": "a78da23f3b740ce3223f5b8487f20a6589d5eac97ae01375493182fdfcd213c0",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/agent.tsx"
     },
     "shadcn/ui/navigation-menu.tsx": {
       "bytes": 5419,
@@ -194,6 +364,16 @@
       "bytes": 13845,
       "sha256": "5c7285171c5aa741749a1642a85f492a9b5e80dc4ccb704b5c3f58c45efebd04",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/code-block.tsx"
+    },
+    "ai_shadcn/hooks/use-toast.ts": {
+      "bytes": 3962,
+      "sha256": "788cfaa5b82249c051db38aabae3d6118d78bedd08ecc9c718129227a3a7c7db",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/hooks/use-toast.ts"
+    },
+    "ai_examples/demo-workflow.tsx": {
+      "bytes": 4052,
+      "sha256": "7d8a04464f2f3cbfb4e5b7456d5432d662168ab90468d9683fe9f5a54406aa18",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/demo-workflow.tsx"
     },
     "ai_elements/test-results.tsx": {
       "bytes": 11478,
@@ -220,6 +400,11 @@
       "sha256": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/button.tsx"
     },
+    "ai_examples/question.tsx": {
+      "bytes": 1682,
+      "sha256": "4772ac707bc235078412fbc6bf6b93a6949dcd3f12df389f6a5ca6d631136e07",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/question.tsx"
+    },
     "shadcn/ui/button-group.tsx": {
       "bytes": 2297,
       "sha256": "477d5a41df71387495797b0a643adf77e678df6dc410e90d6b7446ade9566b92",
@@ -235,6 +420,11 @@
       "sha256": "b159c0a5b7e9ba8a2462c6dddd11c6ab63bd44925203486551eae93250e474bb",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/avatar.tsx"
     },
+    "ai_examples/workflow.tsx": {
+      "bytes": 3197,
+      "sha256": "e59b1e2d184f457d3e2af958e1693572f3bb1d6f9e3c2c852e6bff3db1863226",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/workflow.tsx"
+    },
     "shadcn/ui/tabs.tsx": {
       "bytes": 3225,
       "sha256": "4a8243afd661180ac9b0a2f60a4e10c54ae856443876f40070605453a98ba862",
@@ -249,6 +439,11 @@
       "bytes": 5886,
       "sha256": "78c2d54e8c52f0b2b7d59a9fc8872d6f871849a97c6ddaddd36146dacafe83db",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles.tsx"
+    },
+    "ai_shadcn/ui/resizable.tsx": {
+      "bytes": 2042,
+      "sha256": "eb05dfbd5816d9914219e73f9a179930ebba0c66d87af6674c114838cc08fd9f",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/resizable.tsx"
     },
     "shadcn/ui/context-menu.tsx": {
       "bytes": 7388,
@@ -300,6 +495,11 @@
       "sha256": "119837757a89a71d8e0ed68ce021591f32cd1484fb02a73e8ca8170fa2b65d62",
       "url": "https://base-ui.com/react/components/menu.md"
     },
+    "ai_examples/confirmation-rejected.tsx": {
+      "bytes": 1165,
+      "sha256": "4af1c2479981915028b4a8f55206b322d63d798d7dfdb18ba3bb5cc05ba61f13",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/confirmation-rejected.tsx"
+    },
     "shadcn/ui/skeleton.tsx": {
       "bytes": 287,
       "sha256": "f813fbd2ec0eab4eee518fff9847943929ab3ef2de0aa1330913647311bfb095",
@@ -310,10 +510,25 @@
       "sha256": "c777aa17525ea3664880f52e762dc1f49d4e9b32f0b815cc839677bff406aa3d",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/voice-selector.tsx"
     },
+    "ai_examples/confirmation-request.tsx": {
+      "bytes": 1708,
+      "sha256": "9ede633fa22ee68dd58c6f282e36e1e4beabf5283fb321adc940c2e32ff18258",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/confirmation-request.tsx"
+    },
+    "ai_shadcn/ui/accordion.tsx": {
+      "bytes": 2062,
+      "sha256": "5868c50faad843d18f8805b9173ce7a90e15eb4da711d2ee47b36edc5b307fe8",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/accordion.tsx"
+    },
     "shadcn/styles/rhea.css": {
       "bytes": 75351,
       "sha256": "bcb242a7845316f93b0562345dd5c32a46a2988b506a8e8d7df1c836a1637b49",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles/style-rhea.css"
+    },
+    "ai_examples/package-info.tsx": {
+      "bytes": 1335,
+      "sha256": "55aa2ca6c325f6fc3000127ca8ba0191f84ecd533aa53db7db4522b1aa6f6990",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/package-info.tsx"
     },
     "ai_elements/canvas.tsx": {
       "bytes": 618,
@@ -330,20 +545,90 @@
       "sha256": "91e305eda8139c5ee8024bec75576e0608d7fbf471e1c00395a2bdfda4a65747",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/image.tsx"
     },
+    "ai_examples/question-multi-select.tsx": {
+      "bytes": 1493,
+      "sha256": "f6d46e4ec7b3225ef772308ac06e1e158ab4628d44a245fdb2f403fcda3ac094",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/question-multi-select.tsx"
+    },
+    "ai_shadcn/ui/command.tsx": {
+      "bytes": 4846,
+      "sha256": "53be7fe88f0ddbb2f6d97c64c07c1b4816050494880a582c92c0c3c62117b03c",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/command.tsx"
+    },
     "base_ui/navigation-menu.md": {
       "bytes": 156253,
       "sha256": "d07f63f71374cdf7d33eb493d98967fb78357d63d9a28b1be6c2d4c5c4c1e656",
       "url": "https://base-ui.com/react/components/navigation-menu.md"
+    },
+    "ai_shadcn/ui/drawer.tsx": {
+      "bytes": 4269,
+      "sha256": "da265dc6b9d1228a01dd61b8dd1d921012a9efe843eabcc16e3b7218ca1a4e30",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/drawer.tsx"
+    },
+    "ai_shadcn/ui/skeleton.tsx": {
+      "bytes": 290,
+      "sha256": "2e483ab9425d31f3c5336a5e27323acd244c986f6899e3593e81c9db3cec38e0",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/skeleton.tsx"
+    },
+    "ai_examples/persona-halo.tsx": {
+      "bytes": 2558,
+      "sha256": "e28b90a1a9c8437e00b59fd634598a975ee477b2835ec198eb9d7f0e0147e079",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/persona-halo.tsx"
+    },
+    "ai_examples/task.tsx": {
+      "bytes": 1497,
+      "sha256": "0916b33312034b0884c5a16e086ab326993383035ebbdce8134f3d8d80096e91",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/task.tsx"
+    },
+    "ai_examples/transcription.tsx": {
+      "bytes": 4969,
+      "sha256": "7443f0f252f3425e587b1782944c7a819e0e46ceace82f696bf8c29d0df82342",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/transcription.tsx"
+    },
+    "ai_examples/tool-input-streaming.tsx": {
+      "bytes": 673,
+      "sha256": "6e2f595a7115e4bd808599f6a3009249c43cdbad4ed1fac809d8b71feac912d5",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/tool-input-streaming.tsx"
     },
     "shadcn/ui/popover.tsx": {
       "bytes": 2123,
       "sha256": "27b854b12d7c7c0d531d2ee928b0d2b882bbb2081938c510d237c22cb819d25f",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/popover.tsx"
     },
+    "ai_examples/audio-player.tsx": {
+      "bytes": 1848,
+      "sha256": "9586b99d5117033115082fae79a58008f1383e1c7b391cdfb2353203bd349faf",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/audio-player.tsx"
+    },
     "base_ui/dropdown-menu.md": {
       "bytes": 244841,
       "sha256": "119837757a89a71d8e0ed68ce021591f32cd1484fb02a73e8ca8170fa2b65d62",
       "url": "https://base-ui.com/react/components/menu.md"
+    },
+    "ai_examples/terminal.tsx": {
+      "bytes": 2375,
+      "sha256": "1d43e6741db70e615593af52330773b2323f08122aba5c481a3f9f075ff08f26",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/terminal.tsx"
+    },
+    "ai_examples/file-tree-expanded.tsx": {
+      "bytes": 599,
+      "sha256": "f4cc7cafbf8f139253a58cd20d6e059f8105462ea1f4119b9a57a2be71a1a033",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/file-tree-expanded.tsx"
+    },
+    "ai_examples/reasoning.tsx": {
+      "bytes": 2254,
+      "sha256": "4329259f9e70840e3b09046804ccd4ea432f1c68c11421e5e00b957d1f81e3e2",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/reasoning.tsx"
+    },
+    "ai_examples/test-results-suites.tsx": {
+      "bytes": 891,
+      "sha256": "f239d85a58f6d0f82e4984ad5b1c49bb4d0fd462e0e8ee9931bb89f75ca9bd1b",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/test-results-suites.tsx"
+    },
+    "ai_examples/sandbox.tsx": {
+      "bytes": 5488,
+      "sha256": "8eeaa1e88227a202577d3a9a2eb6bb37e8008d1f9fffbf8f09a96c747568bfda",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/sandbox.tsx"
     },
     "shadcn/ui/marker.tsx": {
       "bytes": 1503,
@@ -375,6 +660,16 @@
       "sha256": "8e6368337d35d3f2dcf54696d37ece8375d3065f9dc1ee80dc9e33fb1164f95f",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/input.tsx"
     },
+    "ai_shadcn/ui/popover.tsx": {
+      "bytes": 1644,
+      "sha256": "381c7e91747142d14b87efaf6211707c348aa090ba3c843001f4c99ede32e27b",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/popover.tsx"
+    },
+    "ai_shadcn/ui/textarea.tsx": {
+      "bytes": 773,
+      "sha256": "0b7fc00f5a0fa6ace377c5f61ef14a30b3d190bc2761c2728ec6886809a1a0c8",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/textarea.tsx"
+    },
     "shadcn/ui/chart.tsx": {
       "bytes": 10434,
       "sha256": "f0ffc739a4fbb40af1a9e7cfc08d0d8d27e1b79b2c6697506655fd5deb07bd52",
@@ -395,6 +690,16 @@
       "sha256": "8b3ba229472f266d3c2e49e0feff6c59fb1842282d0842aae470675b0e926665",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/card.tsx"
     },
+    "ai_examples/speech-input.tsx": {
+      "bytes": 2332,
+      "sha256": "aa5457acc4487c798eef71e488b9133e2cae3fd89caf7fa9adb5421634bfedd2",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/speech-input.tsx"
+    },
+    "ai_examples/tool-input-available.tsx": {
+      "bytes": 728,
+      "sha256": "7d4d8d2cc51e008d5fd7b14c2b676371b827b708f29ae01019cc88e26dec1350",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/tool-input-available.tsx"
+    },
     "base_ui/preview-card.md": {
       "bytes": 119560,
       "sha256": "595774b5012ff987542e1e26dd35bf6efeca42593dd74e4c89c7d4a4c870ca71",
@@ -405,10 +710,20 @@
       "sha256": "25747138c9c41cca6f96caf69faa9ff6e39910dabac534c84eba41cbd9ba54d3",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/speech-input.tsx"
     },
+    "ai_shadcn/ui/toaster.tsx": {
+      "bytes": 814,
+      "sha256": "57a1a1f2a5fb9646c9c2d8386970f626b882ec2b6571db4f4608085a470f471d",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/toaster.tsx"
+    },
     "ai_elements/transcription.tsx": {
       "bytes": 3298,
       "sha256": "c9edab6a677ec9fdd09fdd5657bf56fcc674457e52ab7c6f686107c6ba787e29",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/transcription.tsx"
+    },
+    "ai_examples/voice-selector.tsx": {
+      "bytes": 7243,
+      "sha256": "63a1cf2cf17c3aabea84bec40d6be317e7d4ba9536a2795e5acc9781906f3c8e",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/voice-selector.tsx"
     },
     "shadcn/ui/field.tsx": {
       "bytes": 5367,
@@ -420,6 +735,16 @@
       "sha256": "2e9c7159b275f0fc4906147b155a48640a072b84c32980c63fd4e7a1c3213ed0",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/checkbox.tsx"
     },
+    "ai_shadcn/ui/dropdown-menu.tsx": {
+      "bytes": 8432,
+      "sha256": "9384b044d08c59be883888a3dd66c3816156316f8debbcf107ef90b1e383d022",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/dropdown-menu.tsx"
+    },
+    "ai_examples/image.tsx": {
+      "bytes": 139741,
+      "sha256": "0aca0be5a0b9352a2f42bf7ff2791f4ce5bbfc06495adffbb7d3f1d12f452838",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/image.tsx"
+    },
     "shadcn/ui/calendar.tsx": {
       "bytes": 9115,
       "sha256": "c88319b932b378349d643ef2c452f6095d5681998acc0c1e3c2a1682500c5bc9",
@@ -430,15 +755,35 @@
       "sha256": "80ef939d186b330bb53282cab240f469c47ef19686d4396ce7470c1eaf3ef5e0",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/attachment.tsx"
     },
+    "ai_examples/schema-display-params.tsx": {
+      "bytes": 364,
+      "sha256": "b85e36c3ee7ee722401b59bde4e5cce7af7d96bb3b3447233756f0ac6311608d",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/schema-display-params.tsx"
+    },
     "ai_elements/confirmation.tsx": {
       "bytes": 3844,
       "sha256": "7cc0befed99499ed9010643e7a90ec619180a3f6e79cba5668cfc84126b96a10",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/confirmation.tsx"
     },
+    "ai_shadcn/ui/pagination.tsx": {
+      "bytes": 2740,
+      "sha256": "7ee391415e5bc7b9cc76ca38d5ba0eaa00df9f05cfc1b2af217f0d328cfa0c90",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/pagination.tsx"
+    },
+    "ai_examples/commit.tsx": {
+      "bytes": 2161,
+      "sha256": "b49d3f136c0c15883157d3e0e2077b9053c32757f342100879b9829916d2cbd9",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/commit.tsx"
+    },
     "shadcn/ui/resizable.tsx": {
       "bytes": 1732,
       "sha256": "ce02b1176c769c44b21e267492fae1cba081a7917ee9f9d5b6c1749a90e4be0d",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/resizable.tsx"
+    },
+    "ai_shadcn/ui/field.tsx": {
+      "bytes": 6201,
+      "sha256": "ad1b582f1b0a62637b69b633f0d7b4f052b6179eef0ceef0c74460b962b939c8",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/field.tsx"
     },
     "shadcn/ui/bubble.tsx": {
       "bytes": 2793,
@@ -450,15 +795,50 @@
       "sha256": "bfa20e90199fa40e5f714be131798406dc07b23051f8c48c590e91c65ade99d8",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/plan.tsx"
     },
+    "ai_shadcn/ui/kbd.tsx": {
+      "bytes": 876,
+      "sha256": "f208fca46811d3cf15283247f7086b81f73d3ec8c9a7ed86627ae4dbca7c3a98",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/kbd.tsx"
+    },
     "shadcn/ui/label.tsx": {
       "bytes": 445,
       "sha256": "80581ffa241ed57c9b976ebca5bc44c7e98d287c629717fda2dd3135c96ebbc1",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/label.tsx"
     },
+    "ai_shadcn/ui/checkbox.tsx": {
+      "bytes": 1228,
+      "sha256": "76b40d13e47a38d3fdf4bd3cd490dc21ffe26fe95622222bacc8fb02b799bbe0",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/checkbox.tsx"
+    },
+    "ai_examples/chain-of-thought.tsx": {
+      "bytes": 141864,
+      "sha256": "ddac306c24fff0bccaf24b1dfb84cbbabd07fafd9becbbae6e81369ac2096987",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/chain-of-thought.tsx"
+    },
+    "ai_examples/queue-prompt-input.tsx": {
+      "bytes": 10683,
+      "sha256": "b0d8202e553cf59c34b8baf7a9a21ba0f9aece6eebd498c3b0771a425edf9834",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/queue-prompt-input.tsx"
+    },
+    "ai_shadcn/lib/utils.ts": {
+      "bytes": 166,
+      "sha256": "7c8c3dfc0cdd370d44932828eb067ef771c8fe7996693221d5d4b90af6d54f2d",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/lib/utils.ts"
+    },
     "ai_elements/panel.tsx": {
       "bytes": 415,
       "sha256": "ed0a5e6bf2f11b5b9654c073a67391a8fbeacfd262ad0cb91f962970c9bc8028",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/panel.tsx"
+    },
+    "ai_examples/snippet.tsx": {
+      "bytes": 579,
+      "sha256": "0ce97416e61415021f5bbe3bcf5428faa9d9f23e3b78d8d886f7ead16eb6e3e3",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/snippet.tsx"
+    },
+    "ai_examples/shimmer-duration.tsx": {
+      "bytes": 924,
+      "sha256": "6c85e468632a86cb3ba041c4987b30e910f65c00a9b5b00b9a206e4b6d0135af",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/shimmer-duration.tsx"
     },
     "shadcn/ui/radio-group.tsx": {
       "bytes": 1159,
@@ -470,6 +850,16 @@
       "sha256": "1454af3ac2c58766a155a881d119d1f9321632a4922d3f74581ba37f52b4707a",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/sources.tsx"
     },
+    "ai_examples/file-tree-selection.tsx": {
+      "bytes": 609,
+      "sha256": "2b0b2f93e1219e4829458a63fcc40480e1bf87fe652507927a655af2220d0c2c",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/file-tree-selection.tsx"
+    },
+    "ai_shadcn/ui/alert.tsx": {
+      "bytes": 1628,
+      "sha256": "3d1ebed4f4685ee7689db9f05c48389df00ec54b28061b7cea2795cf5189199f",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/alert.tsx"
+    },
     "base_ui/separator.md": {
       "bytes": 8005,
       "sha256": "085ed595788bc62eeb4a0ee080cd854214aea3a4205ec4b9d6648bfa918b0fb7",
@@ -480,10 +870,45 @@
       "sha256": "75e66453d7a6301281a0ecd7840d268a90a6972b252b018d2ac2bc34a979968b",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/tooltip.tsx"
     },
+    "ai_shadcn/ui/progress.tsx": {
+      "bytes": 749,
+      "sha256": "fc7e2a5570f711d99ac0b5df15b0d1e65b4f18cf6fe4b5ea016f1b781f2db284",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/progress.tsx"
+    },
+    "ai_examples/shimmer.tsx": {
+      "bytes": 433,
+      "sha256": "11849871cad2dc04b6f518e4889787d7a793830c3a17b18bf624a1e37594aebe",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/shimmer.tsx"
+    },
+    "ai_examples/file-tree.tsx": {
+      "bytes": 1517,
+      "sha256": "793a5f201c2f603740a0b49978d8f3ba5bca218e0c3bdaf892b3096a2130e730",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/file-tree.tsx"
+    },
     "base_ui/menubar.md": {
       "bytes": 34166,
       "sha256": "61d6e837a6a615e5c378a8a31bc281e6d383e7761d12649ec1c50a680f4ec2a5",
       "url": "https://base-ui.com/react/components/menubar.md"
+    },
+    "ai_examples/stack-trace.tsx": {
+      "bytes": 1981,
+      "sha256": "d671ee72d47a38110f8e6a57a660f5940add1ede373c7af6ffb3dce458168cf3",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/stack-trace.tsx"
+    },
+    "ai_examples/terminal-streaming.tsx": {
+      "bytes": 997,
+      "sha256": "c0051aa1442d11fef881abf80308e547eb25a0d8cfe7de24367ddb78e65ac8f0",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/terminal-streaming.tsx"
+    },
+    "ai_examples/sources-custom.tsx": {
+      "bytes": 1025,
+      "sha256": "0c061017c0957f65764d1069ab4abe86e7f021601b83c62b005b2ac5d2eaa500",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/sources-custom.tsx"
+    },
+    "ai_examples/persona-obsidian.tsx": {
+      "bytes": 2562,
+      "sha256": "e1ff7fe1db79a24300628f65b5f4aa1caced206c07648d595788030ac8f02392",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/persona-obsidian.tsx"
     },
     "ai_elements/checkpoint.tsx": {
       "bytes": 1683,
@@ -510,6 +935,11 @@
       "sha256": "4a19b1f1ed82381e3ca03ef4745875e2bfe59f6e84de52e20376f777c9cecf31",
       "url": "https://base-ui.com/react/components/toggle-group.md"
     },
+    "ai_examples/attachments-list.tsx": {
+      "bytes": 2271,
+      "sha256": "c516bf105f257e5184d336097125a22a70de15517ed3fea0b8050d7b21c5f67d",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/attachments-list.tsx"
+    },
     "base_ui/direction.md": {
       "bytes": 5470,
       "sha256": "7e3190c679a28f50b82684f9766a16722b6147f6934766ef85acd11303e73577",
@@ -525,6 +955,36 @@
       "sha256": "661042b77be2291f0447f70c008cb2e21206562ac4ca11427f409ae37806fe73",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/apps/docs/content/components/meta.json"
     },
+    "ai_examples/demo-claude.tsx": {
+      "bytes": 26108,
+      "sha256": "c9860c22c0d5ef01e3b4321648b7bdbb6b0db0cd509cce579779951f73156495",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/demo-claude.tsx"
+    },
+    "ai_examples/tool-output-available.tsx": {
+      "bytes": 1768,
+      "sha256": "cc8d80063e91a2e66316da4f3e53f05647b42ff1adb74b8a6db379d060e86b06",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/tool-output-available.tsx"
+    },
+    "ai_examples/test-results.tsx": {
+      "bytes": 2708,
+      "sha256": "ec94a5ec65269169db9a9d2bb98673dc48f54ddea9cb6eb09d617476956cb1ba",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/test-results.tsx"
+    },
+    "ai_examples/terminal-clear.tsx": {
+      "bytes": 513,
+      "sha256": "cc65c6c158c41022b7ff01b71f122dd13aa7f065da1b3a27e452b312baae8457",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/terminal-clear.tsx"
+    },
+    "ai_examples/jsx-preview.tsx": {
+      "bytes": 3329,
+      "sha256": "4207bdd8ceb832363d6144f9ca3def8527877be8ca1a5251bcc53808dd4f6185",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/jsx-preview.tsx"
+    },
+    "ai_examples/stack-trace-no-internal.tsx": {
+      "bytes": 1221,
+      "sha256": "95784168bb7864c8c43893356a12668522b2ea26e9a535bf877ec5d1e6742851",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/stack-trace-no-internal.tsx"
+    },
     "lucide/lucide-react.d.ts": {
       "bytes": 2284943,
       "sha256": "6f9f7b58c3fbc2d64d1f9bddc44c450eeaa46347cbe07bbfcb9494c9d4f67ef3",
@@ -535,10 +995,25 @@
       "sha256": "3da80a551da8a7eb4949a0b64b5329af463037dc15e6945e60ae66dcd903e71f",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/connection.tsx"
     },
+    "ai_shadcn/ui/calendar.tsx": {
+      "bytes": 7809,
+      "sha256": "1ce5e6b5118043191f0e7635a037f0b03bfa0c3f73a56029c6a9799ba26b5421",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/calendar.tsx"
+    },
+    "ai_examples/sources.tsx": {
+      "bytes": 742,
+      "sha256": "90ddc26137247b1195df230dbdff3fdae3c99ead6069198a2eb6a0a8cf6ceb0b",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/sources.tsx"
+    },
     "shadcn/ui/menubar.tsx": {
       "bytes": 6696,
       "sha256": "a407a77ebee8636f3dccf62a0cd95899a61f84d172517fa2191cd8374698cef3",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/menubar.tsx"
+    },
+    "ai_shadcn/ui/navigation-menu.tsx": {
+      "bytes": 6672,
+      "sha256": "577b67b9a42bb5b306c430a9fc8c4b75b1af3861ea0ae2a8cbb68d245b706120",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/navigation-menu.tsx"
     },
     "base_ui/input.md": {
       "bytes": 8437,
@@ -555,6 +1030,11 @@
       "sha256": "abd2d336d02fa7c04608c5ae1d21a903a447350e35b362e9770ff02d01e70dfd",
       "url": "https://base-ui.com/react/components/radio.md"
     },
+    "ai_shadcn/ui/avatar.tsx": {
+      "bytes": 1106,
+      "sha256": "de3d562080b8f4770ea7d33bc6c5dd2d9b7cf0d1a2f37725f4f6079c6ad036b7",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/avatar.tsx"
+    },
     "shadcn/ui/message.tsx": {
       "bytes": 2023,
       "sha256": "197803d433247e93f9b457f66e2c2e94c3bd30280e3079ff342753bba430edc8",
@@ -570,6 +1050,11 @@
       "sha256": "65e000e7b46d4b5a5c27f28d2468b763482dc8d1a1ae2ce5566ca5e82c65c8f6",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/input-otp.tsx"
     },
+    "ai_shadcn/ui/toggle-group.tsx": {
+      "bytes": 2336,
+      "sha256": "bff2b7f05c648ca85417abe6fae3df88daf432ec65e5c40082d80bb59f19dda6",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/toggle-group.tsx"
+    },
     "ai_elements/queue.tsx": {
       "bytes": 6294,
       "sha256": "c823f565e0430749ba0b09db33e76eeb675eea4838bed10245bca392bffd6cfa",
@@ -580,45 +1065,125 @@
       "sha256": "cbae6d633c38be59fc036d1e5cf60203ae7619ea6af9b4cdd8d632a211ccffa9",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/app/globals.css"
     },
+    "ai_examples/shimmer-elements.tsx": {
+      "bytes": 1150,
+      "sha256": "68f139d2df32ce10b1bcc36340e921ca2785a9c99296e95283684d10262c8d81",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/shimmer-elements.tsx"
+    },
+    "ai_examples/message.tsx": {
+      "bytes": 10277,
+      "sha256": "a37eeec241613a666a2a3e4feea1455d587c348f085b02c9350133bcb72cd77a",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/message.tsx"
+    },
+    "ai_shadcn/ui/radio-group.tsx": {
+      "bytes": 1474,
+      "sha256": "23f7a08bc4ff1dfe542190c8087c3b42aefcea987b64b5f8def05263b3309642",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/radio-group.tsx"
+    },
     "shadcn/ui/direction.tsx": {
       "bytes": 103,
       "sha256": "661ff5b9c0dc26edde1226bfedc0ab50976d84f8bae42ca83a38dc3b478fd4d4",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/direction.tsx"
+    },
+    "ai_examples/persona-opal.tsx": {
+      "bytes": 2596,
+      "sha256": "f42d0042dd32e75bb8c93c6d7b35836dadb513c0fcd30dc820c530fd2f38d79f",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/persona-opal.tsx"
     },
     "ai_elements/shimmer.tsx": {
       "bytes": 2135,
       "sha256": "89d2284ee165aa57fec960e17c6c71078d22ad3fb3798ca683d7e3d850919a46",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/shimmer.tsx"
     },
+    "ai_examples/context.tsx": {
+      "bytes": 995,
+      "sha256": "964f98966da9c3062e3f4f28d9a4e552f95a968c1bfd74a91f3f3f49163270d5",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/context.tsx"
+    },
+    "ai_examples/stack-trace-collapsed.tsx": {
+      "bytes": 1087,
+      "sha256": "d971d3b436c96c782b22d2e23c5e9cbd975ced900a3eff638c2224383221056d",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/stack-trace-collapsed.tsx"
+    },
     "shadcn/styles/sera.css": {
       "bytes": 75728,
       "sha256": "eda71a39ba86625eb81b25f2e5824579952ced0cf0451be16be3f4dd70bf9876",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles/style-sera.css"
+    },
+    "ai_shadcn/ui/menubar.tsx": {
+      "bytes": 8403,
+      "sha256": "686721c57c65ba1211b813eb5dcdde6ca6281ede160cd92436799b760d3a4b8a",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/menubar.tsx"
+    },
+    "ai_examples/test-results-basic.tsx": {
+      "bytes": 454,
+      "sha256": "2286b9c7bd72f63d3a8b07ffc5b2b49338b21e72b90891554230d3ae39a9f7fe",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/test-results-basic.tsx"
     },
     "ai_elements/model-selector.tsx": {
       "bytes": 5092,
       "sha256": "a4d51f76ddf5197cb86b7f70ba62bd62327468a9acae1351a0b1adcb3710ec0a",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/model-selector.tsx"
     },
+    "ai_shadcn/ui/chart.tsx": {
+      "bytes": 10083,
+      "sha256": "d642ed70c321f0ecb24df0a375cbb73c37074c904aea027aeac6686ba398c65c",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/chart.tsx"
+    },
+    "ai_examples/schema-display-body.tsx": {
+      "bytes": 477,
+      "sha256": "2a60c85ee3d76151df1395b87d24ffa37a85600fa2bcd117f6b46c6b56a3da36",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/schema-display-body.tsx"
+    },
+    "ai_examples/persona-command.tsx": {
+      "bytes": 2561,
+      "sha256": "925cc19671ad5d6dfecd320901f956b0d9b9653e2b83750e34dcf87028e6061f",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/persona-command.tsx"
+    },
+    "ai_examples/question-freeform.tsx": {
+      "bytes": 1204,
+      "sha256": "94b0f5d7b98c145a7cdc06b1f48d36d190764215e11bc70b5b538d46052a7a96",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/question-freeform.tsx"
+    },
     "base_ui/scroll-area.md": {
       "bytes": 44386,
       "sha256": "17944002e0af2c13b36bfb279249ecbde08dcd11ab5f6a3ab7f5e29f3351dc38",
       "url": "https://base-ui.com/react/components/scroll-area.md"
+    },
+    "ai_examples/prompt-input-cursor.tsx": {
+      "bytes": 15412,
+      "sha256": "19e58ff46f85f29872e038212330a1d3b51481cdd85fa48ade6d2b9a6ec63de9",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/prompt-input-cursor.tsx"
     },
     "shadcn/ui/aspect-ratio.tsx": {
       "bytes": 423,
       "sha256": "6037c112b43482d06a7f102f715c8af03833073f0db69399a21df92050fcdae6",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/aspect-ratio.tsx"
     },
+    "ai_shadcn/ui/tooltip.tsx": {
+      "bytes": 1901,
+      "sha256": "f459111a16d346aaa64d1bb6557cca986f7332b150ad3a29001e8fef3aea973a",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/tooltip.tsx"
+    },
     "ai_elements/environment-variables.tsx": {
       "bytes": 7978,
       "sha256": "6b685aacb47e7bcb62e15b74b4e0b0bd7beffb892f3769ad7fc3580e00aae88b",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/environment-variables.tsx"
     },
+    "ai_examples/question-single-select.tsx": {
+      "bytes": 1400,
+      "sha256": "bc119cff92ff5cef4577114a19354ffb895987cade08e30576e2690cf440c110",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/question-single-select.tsx"
+    },
     "base_ui/tooltip.md": {
       "bytes": 135404,
       "sha256": "1bc316cb8320bcfbd35b252fb4bd1f1cea3343ae7900d7432734b4f020793a80",
       "url": "https://base-ui.com/react/components/tooltip.md"
+    },
+    "ai_examples/confirmation.tsx": {
+      "bytes": 1697,
+      "sha256": "722ddb15e7f64bae6d7b1f48683fdb53fd01cc74d525cb9ca72d7cf8ad1d5353",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/confirmation.tsx"
     },
     "shadcn/ui/native-select.tsx": {
       "bytes": 1746,
@@ -630,10 +1195,30 @@
       "sha256": "cf43baf5baa444b4ae06d250643b3fb2efd329c85f9b31a43e3aaf481dd27305",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/prompt-input.tsx"
     },
+    "ai_shadcn/ui/empty.tsx": {
+      "bytes": 2410,
+      "sha256": "873ce626c2d695c1d22c140959659a5a9f7714723e97b1bfb3c5ad86a29d9dcd",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/empty.tsx"
+    },
+    "ai_examples/schema-display-basic.tsx": {
+      "bytes": 211,
+      "sha256": "56c27a20ad0171aeaa9f30cb59befecd7bb7355f6d7ce8cdbf5175ecde175aed",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/schema-display-basic.tsx"
+    },
     "shadcn/ui/collapsible.tsx": {
       "bytes": 658,
       "sha256": "ead4349ff7b01d696ef89294a81d18ee1d3f732321398896462c834ab9b9e065",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/collapsible.tsx"
+    },
+    "ai_examples/suggestion-input.tsx": {
+      "bytes": 4492,
+      "sha256": "7ac46a4f30e923e610eb7b25ae54680ebbb07c868456a11b2ac6b416d38a8958",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/suggestion-input.tsx"
+    },
+    "ai_shadcn/ui/card.tsx": {
+      "bytes": 2001,
+      "sha256": "1c0537a8fa6adb76a9a275b8c569a744b92fa70fd1edbdca05d3b7234923be1a",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/card.tsx"
     },
     "ai_elements/chain-of-thought.tsx": {
       "bytes": 6267,
@@ -645,6 +1230,16 @@
       "sha256": "fe7869fe6776fd4e2e4663139b7bc5bced33764e66fe0736b72deb70787793b4",
       "url": "https://base-ui.com/react/components/context-menu.md"
     },
+    "ai_examples/test-results-errors.tsx": {
+      "bytes": 1296,
+      "sha256": "24755e1bd81f9c1cf30f50dfc5a45d8845563d87a8fe65d66cc06c2d813b475d",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/test-results-errors.tsx"
+    },
+    "ai_examples/artifact.tsx": {
+      "bytes": 2948,
+      "sha256": "d3cb3800ed7a7b11faa545f97469a6f25035327684f3e0aa7986feafe95336f0",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/artifact.tsx"
+    },
     "shadcn/ui/item.tsx": {
       "bytes": 4450,
       "sha256": "901a5260fa629bdb88bb2b56b7addd3188ca24220c78028c97f6364e8272bd58",
@@ -654,6 +1249,11 @@
       "bytes": 75304,
       "sha256": "025f54a060adeb60489d17eb3eb935e1118ee091ba5c618d5463eb27f2b1d003",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles/style-mira.css"
+    },
+    "ai_examples/snippet-plain.tsx": {
+      "bytes": 352,
+      "sha256": "851655f6823a07e5608f964d51ff617ea203150386803246eadf1b789f0b0105",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/snippet-plain.tsx"
     },
     "ai_elements/snippet.tsx": {
       "bytes": 3253,
@@ -665,10 +1265,40 @@
       "sha256": "2ee53fb8792b8022ab433ed6d455dc790ed8a5be59fb99d923303665ce3a6dbb",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/input-group.tsx"
     },
+    "ai_examples/demo-cursor.tsx": {
+      "bytes": 20499,
+      "sha256": "edf79e7071501350a5fcb613e03b08cd31f5e885cfd6b769797b44ae5bdb8046",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/demo-cursor.tsx"
+    },
     "ai_elements/tool.tsx": {
       "bytes": 5076,
       "sha256": "5b520e0c33792cba0ceb04e1cb18c69b212cffacdb52d7297e292c7af568dda4",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/tool.tsx"
+    },
+    "ai_examples/tool.tsx": {
+      "bytes": 6844,
+      "sha256": "8a70e06730d92d99ed6d40848437a9eb5fae574a51f72e67323a16d813bf1717",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/tool.tsx"
+    },
+    "ai_examples/conversation.tsx": {
+      "bytes": 4224,
+      "sha256": "b17c5c57c1932eb597614e43b71e35799d81f498fd80734d15aee43a8cd8090f",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/conversation.tsx"
+    },
+    "ai_shadcn/ui/hover-card.tsx": {
+      "bytes": 1540,
+      "sha256": "cf19544ba82d332ce2f882f9ae64d9e848c475f13e79fa0353492f2ce7afe1ef",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/hover-card.tsx"
+    },
+    "ai_shadcn/ui/sidebar.tsx": {
+      "bytes": 21825,
+      "sha256": "bb4a96e7cf2a3fbf1c0514bbc55c388b8009f07444da8b90f55ba7fddb2e6f75",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/sidebar.tsx"
+    },
+    "ai_shadcn/ui/input.tsx": {
+      "bytes": 976,
+      "sha256": "96207e020d2624fba7241b91a1f2e5a971510003b9c0becc9d0c02a535b15067",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/input.tsx"
     },
     "shadcn/ui/empty.tsx": {
       "bytes": 2306,
@@ -680,35 +1310,110 @@
       "sha256": "fd2efd788d005d5213095c84eda251174e28301e87bcce2477c27bfb6088dd72",
       "url": "https://base-ui.com/react/components/form.md"
     },
+    "ai_shadcn/ui/carousel.tsx": {
+      "bytes": 5584,
+      "sha256": "200433be223d6fa69378ff6f0babb69e52fa04595394aadf0d3f4004938ec45b",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/carousel.tsx"
+    },
     "ai_elements/mic-selector.tsx": {
       "bytes": 9417,
       "sha256": "3b69b527315f81114fb99518f5078a183092f16ad4cf4105ef94861da1724dce",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/mic-selector.tsx"
+    },
+    "ai_shadcn/hooks/use-mobile.ts": {
+      "bytes": 565,
+      "sha256": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/hooks/use-mobile.ts"
+    },
+    "ai_shadcn/ui/tabs.tsx": {
+      "bytes": 1978,
+      "sha256": "bfb5cbe5c5b7809031844145f6744661882b9f32c7bf4c6b483d3d3d2b5d0f55",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/tabs.tsx"
     },
     "ai_elements/terminal.tsx": {
       "bytes": 6166,
       "sha256": "04b9b534925054cfe67fdc3bc212eb7261b4912e6e970c4844a195907d3a9a93",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/terminal.tsx"
     },
+    "ai_shadcn/ui/dialog.tsx": {
+      "bytes": 3991,
+      "sha256": "c7d128632214c9c78706a91a0616659ecf3be5119492b2ca66607bd83901b802",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/dialog.tsx"
+    },
+    "ai_examples/v0-clone.tsx": {
+      "bytes": 7517,
+      "sha256": "e03d6f104593d4f8148f4112636ae2517293528ced653e3e921aac009babe2ec",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/v0-clone.tsx"
+    },
+    "ai_examples/confirmation-accepted.tsx": {
+      "bytes": 1169,
+      "sha256": "c13cb31f1df89a32aa5672ddc068437f321ae701f46876ae77d0ba5234b73310",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/confirmation-accepted.tsx"
+    },
+    "ai_examples/file-tree-basic.tsx": {
+      "bytes": 370,
+      "sha256": "52c7fdf5ad9f659860ecd898b495faa6a830fdd1ea7f4c138589d486e4bf1799",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/file-tree-basic.tsx"
+    },
+    "ai_examples/checkpoint.tsx": {
+      "bytes": 2860,
+      "sha256": "a8cc3a0b67b0771d312d76e759d23e20d3892774704fab116bd6f5b3f0eb58ba",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/checkpoint.tsx"
+    },
     "shadcn/ui/questionnaire.tsx": {
       "bytes": 9511,
       "sha256": "248cea65a49d2aa108ea945b1bd2e8a180053ce47aa264db66570d657d6acfc1",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/questionnaire.tsx"
+    },
+    "ai_shadcn/ui/button.tsx": {
+      "bytes": 2175,
+      "sha256": "208d8cf515ccd73c1ca0030a11de1ba460a9fcd6c83faafeadc000833790d22e",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/button.tsx"
     },
     "base_ui/toggle.md": {
       "bytes": 12845,
       "sha256": "a95df4178538ac35f3d51b5586ed7cccb980d2a15de01b6a9e6d37db9894ad7e",
       "url": "https://base-ui.com/react/components/toggle.md"
     },
+    "ai_examples/plan.tsx": {
+      "bytes": 1992,
+      "sha256": "0946dabdb9963eea7f9a18573bdc146d06d6031569ec69f9f8c8dde962d09a66",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/plan.tsx"
+    },
+    "ai_examples/demo-grok.tsx": {
+      "bytes": 26931,
+      "sha256": "319e5b582b865ce8a0e06551637814a8b908dde0545827ff3166ed7ab7757a6e",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/demo-grok.tsx"
+    },
     "shadcn/ui/dialog.tsx": {
       "bytes": 3730,
       "sha256": "85f9a33d1a8c495b0faecd066dae1581b8feb5d27f912ecf65f814386f6da3a9",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/dialog.tsx"
     },
+    "ai_examples/attachments.tsx": {
+      "bytes": 2025,
+      "sha256": "2747cce1f54c2f7754e6d4d36e1adde5ade519d8ea62aa5272521ba4d70d4f56",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/attachments.tsx"
+    },
+    "ai_shadcn/ui/spinner.tsx": {
+      "bytes": 345,
+      "sha256": "acf4f2aeb7fc29bd8aa22a6501b85dd4462d196e831dc5424be93ffdb49e21b4",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/spinner.tsx"
+    },
     "ai_elements/jsx-preview.tsx": {
       "bytes": 7456,
       "sha256": "0701c0610bd651fbe1d8f2cf35ec3598571381d2641b5da6daac9c677eac5d8d",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/jsx-preview.tsx"
+    },
+    "ai_shadcn/ui/input-group.tsx": {
+      "bytes": 5129,
+      "sha256": "d347e89600f0750a438f31559c85bb91833eeef51a56e70c2af5ef5d8d2acdd2",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/input-group.tsx"
+    },
+    "ai_examples/demo-chatgpt.tsx": {
+      "bytes": 24401,
+      "sha256": "921603ab23ed3f45ec2f15c0f021b677297806a5b59e5a37f9d8e265a6ea7cd1",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/demo-chatgpt.tsx"
     },
     "ai_elements/task.tsx": {
       "bytes": 2373,
@@ -725,10 +1430,40 @@
       "sha256": "3ad88a370242987b0981342fc7e87a7aa7908f3e81282b5a6e69b0c9505abdf0",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/command.tsx"
     },
+    "ai_examples/prompt-input-tooltip.tsx": {
+      "bytes": 1098,
+      "sha256": "52b57d886ddc4948d046770b7a033713c3a6c43c9ca1499131f082307e1c257e",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/prompt-input-tooltip.tsx"
+    },
+    "ai_shadcn/ui/breadcrumb.tsx": {
+      "bytes": 2390,
+      "sha256": "98340c6c3b5e70277a4cf40b5631f0b4637f7fdb56640971f0a73a285c603fa1",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/breadcrumb.tsx"
+    },
+    "ai_shadcn/ui/toast.tsx": {
+      "bytes": 4868,
+      "sha256": "5939ade93851ed839f9f9aeea84964df1bd0b17eabd89b694af53a43a1074d1a",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/toast.tsx"
+    },
     "base_ui/alert-dialog.md": {
       "bytes": 85432,
       "sha256": "d6443a767b07bacf553340fc8f199aef3161f08f12709663bc74ff119d776c38",
       "url": "https://base-ui.com/react/components/alert-dialog.md"
+    },
+    "ai_examples/environment-variables.tsx": {
+      "bytes": 1725,
+      "sha256": "7afa286ac6b489fdd4cc1fb0debd242e083f266822b2de8e729cbeb9267b599e",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/environment-variables.tsx"
+    },
+    "ai_examples/terminal-basic.tsx": {
+      "bytes": 159,
+      "sha256": "c63bf0c1f703999758a7a616e0cd13d2da9553564bf57475931b63d816d0a652",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/terminal-basic.tsx"
+    },
+    "ai_shadcn/ui/context-menu.tsx": {
+      "bytes": 8282,
+      "sha256": "0d7f980270dce060c1ab32b4116f15c247a8238f2adafcb661980e4a9d6e95a1",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/context-menu.tsx"
     },
     "shadcn/theme/legacy-themes.css": {
       "bytes": 21457,
@@ -765,6 +1500,11 @@
       "sha256": "e511015bd0d58d4dcc179d672fe2de980ff923654a53541d4396f209bf02c243",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/context.tsx"
     },
+    "ai_shadcn/ui/label.tsx": {
+      "bytes": 620,
+      "sha256": "84b0ed95e279045b1743b5c7df6506206d18fdafb4c342416ff3bac27c855571",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/label.tsx"
+    },
     "ai_elements/controls.tsx": {
       "bytes": 587,
       "sha256": "3f851a1906a1a8e017899983507c4537b300849b098dc38c51a4a36dbf52d085",
@@ -779,6 +1519,16 @@
       "bytes": 10232,
       "sha256": "c3b8efa83260e1622d88b216bb794dbe46b803ced695040e7750f172d91bec79",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/drawer.tsx"
+    },
+    "ai_shadcn/ui/switch.tsx": {
+      "bytes": 1186,
+      "sha256": "120f1ec71d5e55e73d88bbc3cbb1423ffc00761026c010c49e05a83a2cb369ab",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/switch.tsx"
+    },
+    "ai_examples/open-in-chat.tsx": {
+      "bytes": 694,
+      "sha256": "2d14cf8afaea276279bde17855ecda462476769ac131017d380e2d65ac07cc4c",
+      "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/open-in-chat.tsx"
     },
     "ai_elements/edge.tsx": {
       "bytes": 3223,
@@ -868,8 +1618,10 @@
   "sources": {
     "ai_elements": {
       "dir": "packages/elements/src",
+      "examples_dir": "packages/examples/src",
       "ref": "6a9d5b1822ffb10bba4bd97175f01edd7d8651cd",
-      "repo": "vercel/ai-elements"
+      "repo": "vercel/ai-elements",
+      "shadcn_dir": "packages/shadcn-ui"
     },
     "base_ui": {
       "origin": "https://base-ui.com/react/components"

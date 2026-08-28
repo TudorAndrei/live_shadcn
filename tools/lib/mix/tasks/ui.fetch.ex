@@ -18,6 +18,7 @@ defmodule Mix.Tasks.Ui.Fetch do
       mix ui.fetch                 # everything
       mix ui.fetch --only accordion
       mix ui.fetch --ref a1b2c3d   # pin shadcn to an explicit commit
+      mix ui.fetch --ai-ref a1b2c3d # pin AI Elements to an explicit commit
       mix ui.fetch --styles        # the style sheets alone, at the pinned commit
 
   `--styles` is what a build of this repository runs: the reviewed ports
@@ -43,6 +44,8 @@ defmodule Mix.Tasks.Ui.Fetch do
   # style sheet fails to compile, so they are part of the styling contract.
   @shadcn_theme ["apps/v4/app/globals.css", "apps/v4/app/legacy-themes.css"]
   @ai_elements_dir "packages/elements/src"
+  @ai_examples_dir "packages/examples/src"
+  @ai_shadcn_dir "packages/shadcn-ui"
 
   # The sections the AI Elements documentation files its components under —
   # Chatbot, Code, Voice, Workflow, Utilities — which the storybook navigation
@@ -75,7 +78,9 @@ defmodule Mix.Tasks.Ui.Fetch do
     Mix.Task.run("app.start")
 
     {opts, _, _} =
-      OptionParser.parse(argv, strict: [only: :string, ref: :string, styles: :boolean])
+      OptionParser.parse(argv,
+        strict: [only: :string, ref: :string, ai_ref: :string, styles: :boolean]
+      )
 
     if opts[:styles], do: styling_layer(opts[:ref]), else: everything(opts)
   end
@@ -105,7 +110,7 @@ defmodule Mix.Tasks.Ui.Fetch do
     only = opts[:only]
 
     shadcn_ref = opts[:ref] || resolve_ref(@shadcn_repo)
-    ai_ref = resolve_ref(@ai_elements_repo)
+    ai_ref = opts[:ai_ref] || resolve_ref(@ai_elements_repo)
 
     Mix.shell().info("shadcn-ui/ui      @ #{shadcn_ref}")
     Mix.shell().info("vercel/ai-elements @ #{ai_ref}")
@@ -129,7 +134,9 @@ defmodule Mix.Tasks.Ui.Fetch do
         "ai_elements" => %{
           "repo" => @ai_elements_repo,
           "ref" => ai_ref,
-          "dir" => @ai_elements_dir
+          "dir" => @ai_elements_dir,
+          "examples_dir" => @ai_examples_dir,
+          "shadcn_dir" => @ai_shadcn_dir
         },
         "lucide" => %{"package" => "lucide-react", "version" => @lucide_version}
       },
@@ -305,8 +312,50 @@ defmodule Mix.Tasks.Ui.Fetch do
         end
       end)
 
+    examples =
+      fetch_tree_files(
+        tree["tree"],
+        ref,
+        @ai_examples_dir <> "/",
+        "ai_examples",
+        &(Path.extname(&1) == ".tsx")
+      )
+
+    shadcn =
+      fetch_tree_files(
+        tree["tree"],
+        ref,
+        @ai_shadcn_dir <> "/",
+        "ai_shadcn",
+        &(Path.extname(&1) in [".ts", ".tsx"] and
+            (String.starts_with?(&1, "components/ui/") or
+               String.starts_with?(&1, "hooks/") or
+               String.starts_with?(&1, "lib/"))),
+        fn path -> String.replace_prefix(path, "components/", "") end
+      )
+
     {index, sections} = fetch_ai_sections(tree["tree"], ref)
-    {sources ++ index, sections}
+    {sources ++ examples ++ shadcn ++ index, sections}
+  end
+
+  defp fetch_tree_files(tree, ref, source_prefix, target_prefix, keep?, rename \\ & &1) do
+    nodes =
+      Enum.filter(tree, fn node ->
+        node["type"] == "blob" and String.starts_with?(node["path"], source_prefix) and
+          keep?.(String.replace_prefix(node["path"], source_prefix, ""))
+      end)
+
+    Mix.shell().info("fetching #{length(nodes)} #{target_prefix} files")
+
+    Enum.flat_map(nodes, fn node ->
+      url = raw_url(@ai_elements_repo, ref, node["path"])
+      relative = node["path"] |> String.replace_prefix(source_prefix, "") |> rename.()
+
+      case get(url) do
+        {:ok, body} -> [store("#{target_prefix}/#{relative}", body, url)]
+        {:error, status} -> warn(relative, target_prefix, status)
+      end
+    end)
   end
 
   # The documentation index, and the sections it puts the components in.

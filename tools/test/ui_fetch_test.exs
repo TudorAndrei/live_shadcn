@@ -49,6 +49,30 @@ defmodule Mix.Tasks.Ui.FetchTest do
   # The storybook navigation is built from these, so a component upstream files
   # under no heading is a component the sidebar would not show.
   describe "the documentation sections" do
+    test "pins the official AI Elements examples" do
+      manifest = @manifest |> File.read!() |> Jason.decode!()
+
+      examples =
+        for {"ai_examples/" <> file, _entry} <- manifest["files"],
+            Path.extname(file) == ".tsx",
+            do: file
+
+      assert length(examples) >= 80
+      assert "audio-player.tsx" in examples
+      assert "file-tree.tsx" in examples
+      assert "question.tsx" in examples
+      assert "web-preview.tsx" in examples
+    end
+
+    test "pins the shadcn source AI Elements uses" do
+      manifest = @manifest |> File.read!() |> Jason.decode!()
+      files = Map.keys(manifest["files"])
+
+      assert "ai_shadcn/ui/button.tsx" in files
+      assert "ai_shadcn/ui/button-group.tsx" in files
+      assert "ai_shadcn/lib/utils.ts" in files
+    end
+
     test "file every AI Elements component under exactly one heading" do
       manifest = @manifest |> File.read!() |> Jason.decode!()
       sections = get_in(manifest, ["groups", "ai_elements"])
