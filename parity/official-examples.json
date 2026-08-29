@@ -11,6 +11,7 @@
   "confirmation.default": "confirmation.tsx",
   "context.default": "context.tsx",
   "conversation.default": "conversation.tsx",
+  "dropdown-menu.default": "shadcn/examples/dropdown-menu-example.tsx#DropdownMenuBasic",
   "environment-variables.default": "environment-variables.tsx",
   "file-tree.default": "file-tree.tsx",
   "image.default": "image.tsx",

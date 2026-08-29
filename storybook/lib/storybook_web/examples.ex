@@ -1165,8 +1165,8 @@ defmodule StorybookWeb.Examples do
     [
       one(
         "default",
-        "A list of actions",
-        "Arrow keys move a highlight, not the focus.",
+        "Basic",
+        "The pinned official basic dropdown menu example.",
         &dropdown_menu_default/1
       )
     ]
@@ -3034,12 +3034,16 @@ defmodule StorybookWeb.Examples do
 
   defp dropdown_menu_default(assigns) do
     ~H"""
-    <.dropdown_menu id="actions">
-      <:trigger>Actions</:trigger>
-      <:item value="fetch">Fetch upstream</:item>
-      <:item value="synchronize">Synchronize</:item>
-      <:item value="verify">Verify</:item>
-      <:item value="publish" disabled>Publish</:item>
+    <.dropdown_menu id="actions" trigger_variant="outline" trigger_class="w-fit">
+      <:trigger>Open</:trigger>
+      <:entry kind="label">My Account</:entry>
+      <:entry kind="item" value="profile">Profile</:entry>
+      <:entry kind="item" value="billing">Billing</:entry>
+      <:entry kind="item" value="settings">Settings</:entry>
+      <:entry kind="separator" />
+      <:entry kind="item" value="github">GitHub</:entry>
+      <:entry kind="item" value="support">Support</:entry>
+      <:entry kind="item" value="api" disabled>API</:entry>
     </.dropdown_menu>
     """
   end

@@ -7,7 +7,9 @@
     "copy": [
       "jsx/DropdownMenuContent/class/0",
       "jsx/DropdownMenuContent/class/1",
-      "jsx/DropdownMenuItem/class/0"
+      "jsx/DropdownMenuItem/class/0",
+      "jsx/DropdownMenuLabel/class/0",
+      "jsx/DropdownMenuSeparator/class/0"
     ],
     "derived": {}
   },
@@ -19,7 +21,9 @@
   "facts": {
     "jsx/DropdownMenuContent/class/0": "isolate z-50 outline-none",
     "jsx/DropdownMenuContent/class/1": "cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
-    "jsx/DropdownMenuItem/class/0": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+    "jsx/DropdownMenuItem/class/0": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/DropdownMenuLabel/class/0": "cn-dropdown-menu-label",
+    "jsx/DropdownMenuSeparator/class/0": "cn-dropdown-menu-separator"
   },
   "file_fingerprints": {
     "shadcn/ui/dropdown-menu.tsx": "546f8649071d27697dcda2da09f9eafba280b1dd976d6c27d2e8b62763155498"
@@ -28,17 +32,15 @@
   "ignored": {
     "jsx/DropdownMenuCheckboxItem/class/0": "the generated port does not contain this source literal",
     "jsx/DropdownMenuCheckboxItem/class/1": "the generated port does not contain this source literal",
-    "jsx/DropdownMenuLabel/class/0": "the generated port does not contain this source literal",
     "jsx/DropdownMenuRadioItem/class/0": "the generated port does not contain this source literal",
     "jsx/DropdownMenuRadioItem/class/1": "the generated port does not contain this source literal",
-    "jsx/DropdownMenuSeparator/class/0": "the generated port does not contain this source literal",
     "jsx/DropdownMenuShortcut/class/0": "the generated port does not contain this source literal",
     "jsx/DropdownMenuSubContent/class/0": "the generated port does not contain this source literal",
     "jsx/DropdownMenuSubTrigger/class/0": "the generated port does not contain this source literal",
     "jsx/DropdownMenuSubTrigger/class/1": "the generated port does not contain this source literal"
   },
   "name": "dropdown-menu",
-  "port_body": "3665cf7d88ec9c4ad6576f1a467d7abb1b57dd9115d539c3d009b46c4772aadc",
+  "port_body": "3a9725eb0d8b778c9afca13f3617f2bf341970a8e0f7eda84537a906386f9088",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -123,14 +125,14 @@
     }
   ],
   "styles": {
-    "luma": "88ef46e7c93a5f1ed2865f30b6fcb064c1c062297db8becc7cd5726e7819cdff",
-    "lyra": "a03143e8583d64ff067eaacb78162185beb8d088a581770c2a86485cd16b47be",
-    "maia": "c397fed702eccce6de4ec5b267301d4917bc8dc7c54e5b538823dcdaeef0074c",
-    "mira": "b241017d65ef09fe0bbdd1543d07130d0e5f685c1ba205fc1cd768b088115bfe",
-    "nova": "aa9cb44498669675ed1e1983b6292c40757bd81b7bdc26aa912d0514913484ad",
-    "rhea": "09594aa564bb112db69c1572a013bfca9280b5c2f825039f4b964c9150885b25",
-    "sera": "73dc1e3515bc44644d9c1935557d7e48598c2962362568b1e2cb3722c9f53764",
-    "vega": "5c2fa08f3833b7f198c97f3050da3c8aed131e235c3eaaa03bca55317ad783c6"
+    "luma": "fcccf2eee22e9c8e06519b513df7698331e22bd542273d583d96f9029b327d8e",
+    "lyra": "66459aeb7565746215c6e298868baea1150bb817a7773c87e0b005066ad23cce",
+    "maia": "12d095e833ec1e8685c5a2e00a0920eb6c2ddedef8ef9a920179942886ac9b2a",
+    "mira": "cafb46b729009c9212984913740ad8505b29278e7ed9cf6131133f264d273e43",
+    "nova": "e5e42a1161f8746bda5c4fe8e723e55c294c96c3ebfcc9c5af419cf718ec6f42",
+    "rhea": "3bbe916a115d09c6fb86f8f044929dd2174530917662694d410b7f2dc16b96e0",
+    "sera": "9b7b645b69ead01432e1b5588f988129e9a6f57b0b233153b8a15f75a5420d8c",
+    "vega": "e7cc36867c5e78098216698d89e9e9914857b397bdb44cc2b477a6a50b099b89"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"
@@ -141,6 +143,8 @@
   "uses": [
     "jsx/DropdownMenuContent/class/0",
     "jsx/DropdownMenuContent/class/1",
-    "jsx/DropdownMenuItem/class/0"
+    "jsx/DropdownMenuItem/class/0",
+    "jsx/DropdownMenuLabel/class/0",
+    "jsx/DropdownMenuSeparator/class/0"
   ]
 }

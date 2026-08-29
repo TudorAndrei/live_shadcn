@@ -14,7 +14,9 @@ defmodule LiveShadcn.UI.DropdownMenu do
     "jsx/DropdownMenuContent/class/1" =>
       "cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
     "jsx/DropdownMenuItem/class/0" =>
-      "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+      "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/DropdownMenuLabel/class/0" => "cn-dropdown-menu-label",
+    "jsx/DropdownMenuSeparator/class/0" => "cn-dropdown-menu-separator"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)
@@ -23,6 +25,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
 
   alias LiveBase.Menu
   alias LiveBase.Popover
+  alias LiveShadcn.UI.Button
 
   @doc """
   Groups all parts of the menu.
@@ -53,6 +56,17 @@ defmodule LiveShadcn.UI.DropdownMenu do
   attr(:portal_class, :any, default: nil)
   attr(:separator_class, :any, default: nil)
   attr(:trigger_class, :any, default: nil)
+
+  attr(:trigger_variant, :string,
+    default: nil,
+    values: [nil, "default", "destructive", "outline", "secondary", "ghost", "link"]
+  )
+
+  attr(:trigger_size, :string,
+    default: "default",
+    values: ["default", "xs", "sm", "lg", "icon", "icon-xs", "icon-sm", "icon-lg"]
+  )
+
   attr(:align_offset, :string, default: "0")
   attr(:side_offset, :string, default: "4")
   attr(:variant, :string, default: "default", values: ["default", "destructive"])
@@ -70,6 +84,21 @@ defmodule LiveShadcn.UI.DropdownMenu do
     attr(:href, :string)
     attr(:target, :string)
     attr(:rel, :string)
+  end
+
+  slot :entry, doc: "A label, item, or separator, in source order." do
+    attr(:kind, :string, required: true, values: ["label", "item", "separator"])
+    attr(:value, :string)
+    attr(:disabled, :boolean)
+    attr(:inset, :boolean)
+    attr(:variant, :string, values: ["default", "destructive"])
+    attr(:class, :any)
+    attr(:href, :string)
+    attr(:target, :string)
+    attr(:rel, :string)
+    attr(:"phx-click", :any)
+    attr(:navigate, :string)
+    attr(:patch, :string)
   end
 
   slot(:inner_block, doc: "Anything the items do not cover.")
@@ -95,7 +124,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
         data-slot={@trigger_slot}
         data-popup-open={flag(@open)}
         data-pressed={flag(@open)}
-        class={[@trigger_class]}
+        class={[trigger_classes(@trigger_variant, @trigger_size), @trigger_class]}
       >
         {render_slot(@trigger)}
       </button>
@@ -137,6 +166,73 @@ defmodule LiveShadcn.UI.DropdownMenu do
             data-lb-style-target
             data-lb-measure
           >
+            <%= for entry <- @entry do %>
+              <div
+                :if={entry[:kind] == "label"}
+                data-slot="dropdown-menu-label"
+                data-inset={flag(entry[:inset] == true)}
+                class={[
+                  upstream_fact("jsx/DropdownMenuLabel/class/0"),
+                  entry[:class]
+                ]}
+              >
+                {render_slot(entry)}
+              </div>
+              <div
+                :if={entry[:kind] == "separator"}
+                role="separator"
+                data-slot="dropdown-menu-separator"
+                class={[
+                  upstream_fact("jsx/DropdownMenuSeparator/class/0"),
+                  entry[:class]
+                ]}
+              >
+              </div>
+              <a
+                :if={entry[:kind] == "item" and entry[:href]}
+                id={Menu.item_id(@id, entry[:value])}
+                role="menuitem"
+                tabindex="-1"
+                href={entry[:href]}
+                target={entry[:target]}
+                rel={entry[:rel]}
+                phx-click={
+                  if(entry[:disabled] != true, do: Menu.choose(@id, entry[:"phx-click"]))
+                }
+                phx-mounted={Menu.owned_attributes(:item)}
+                data-slot="dropdown-menu-item"
+                data-disabled={flag(entry[:disabled] == true)}
+                data-variant={entry[:variant] || "default"}
+                data-inset={flag(entry[:inset] == true)}
+                class={[
+                  upstream_fact("jsx/DropdownMenuItem/class/0"),
+                  entry[:class]
+                ]}
+              >
+                {render_slot(entry)}
+              </a>
+              <div
+                :if={entry[:kind] == "item" and !entry[:href]}
+                id={Menu.item_id(@id, entry[:value])}
+                role="menuitem"
+                tabindex="-1"
+                phx-click={
+                  if(entry[:disabled] != true, do: Menu.choose(@id, entry[:"phx-click"]))
+                }
+                phx-mounted={Menu.owned_attributes(:item)}
+                {Map.take(entry, [:navigate, :patch])}
+                data-slot="dropdown-menu-item"
+                data-disabled={flag(entry[:disabled] == true)}
+                data-variant={entry[:variant] || "default"}
+                data-inset={flag(entry[:inset] == true)}
+                class={[
+                  upstream_fact("jsx/DropdownMenuItem/class/0"),
+                  entry[:class]
+                ]}
+              >
+                {render_slot(entry)}
+              </div>
+            <% end %>
             <a
               :for={item <- @item}
               :if={item[:href]}
@@ -188,4 +284,14 @@ defmodule LiveShadcn.UI.DropdownMenu do
 
   defp flag(true), do: ""
   defp flag(_state), do: nil
+
+  defp trigger_classes(nil, _size), do: []
+
+  defp trigger_classes(variant, size) do
+    [
+      Button.variant_class("buttonVariants", "size", size),
+      Button.variant_class("buttonVariants", "variant", variant),
+      Button.part_class("button")
+    ]
+  end
 end

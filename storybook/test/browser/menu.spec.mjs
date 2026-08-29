@@ -35,7 +35,7 @@ test.describe("a dropdown menu", () => {
 
     await expect(popup).toBeVisible();
     await expect(popup).toHaveRole("menu");
-    await expect(item("fetch")).toHaveRole("menuitem");
+    await expect(item("profile")).toHaveRole("menuitem");
   });
 
   test("the focus goes to the menu itself, not to an item", async ({ page }) => {
@@ -54,10 +54,10 @@ test.describe("a dropdown menu", () => {
     await expect(popup).toBeVisible();
 
     await page.keyboard.press("ArrowDown");
-    await expect(menu(page).item("fetch")).toBeFocused();
+    await expect(menu(page).item("profile")).toBeFocused();
 
     await page.keyboard.press("ArrowDown");
-    await expect(menu(page).item("synchronize")).toBeFocused();
+    await expect(menu(page).item("billing")).toBeFocused();
   });
 
   test("a disabled item is skipped, not merely unclickable", async ({ page }) => {
@@ -65,12 +65,12 @@ test.describe("a dropdown menu", () => {
 
     await trigger.click();
     await expect(popup).toBeVisible();
-    await expect(item("publish")).toHaveAttribute("data-disabled", "");
+    await expect(item("api")).toHaveAttribute("data-disabled", "");
 
     await page.keyboard.press("End");
 
     // `publish` is last and disabled, so End lands on the one before it.
-    await expect(item("verify")).toBeFocused();
+    await expect(item("support")).toBeFocused();
   });
 
   test("choosing an item closes the menu", async ({ page }) => {
@@ -79,7 +79,7 @@ test.describe("a dropdown menu", () => {
     await trigger.click();
     await expect(popup).toBeVisible();
 
-    await item("synchronize").click();
+    await item("billing").click();
     await expect(popup).toBeHidden();
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
   });

@@ -1105,6 +1105,10 @@
       "browser": {
         "pass": true
       },
+      "coverage": {
+        "detail": "official source facts are not implemented: jsx/DropdownMenuCheckboxItem/class/0, jsx/DropdownMenuCheckboxItem/class/1, jsx/DropdownMenuRadioItem/class/0, jsx/DropdownMenuRadioItem/class/1, jsx/DropdownMenuShortcut/class/0, jsx/DropdownMenuSubContent/class/0, jsx/DropdownMenuSubTrigger/class/0, jsx/DropdownMenuSubTrigger/class/1",
+        "pass": false
+      },
       "generated": {
         "pass": true
       },
@@ -1118,9 +1122,9 @@
         "pass": true
       }
     },
-    "evidence": "303095a22661b4e283f318dfd2297f69b4b0ba89f97864570b43c425185e1e8b",
-    "pass": true,
-    "spec": "f9f87725836da01383d0a056647cd3d8f43cb6e5d7b9404542d71a05aa5d54d6"
+    "evidence": "070fbae1a4eaad9ae48702f9c73fc86726d07e108e99a84d89f6aea82bf8c2ae",
+    "pass": false,
+    "spec": "7f7fe0c6e88faadbd96d9eb32bc83d260d92890209357772ae1a7a79ef3f6c8b"
   },
   "shadcn/dialog": {
     "checks": {

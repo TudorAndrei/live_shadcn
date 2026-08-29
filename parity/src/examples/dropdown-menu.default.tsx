@@ -1,20 +1,32 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@upstream/shadcn/ui/dropdown-menu";
+import { Button } from "@upstream/shadcn/ui/button";
 
-// Ported from `StorybookWeb.Examples.dropdown_menu_default/1`.
+// `DropdownMenuBasic` in the pinned official dropdown-menu example.
 export default function DropdownMenuDefault() {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
+      <DropdownMenuTrigger render={<Button variant="outline" className="w-fit" />}>
+        Open
+      </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>Fetch upstream</DropdownMenuItem>
-        <DropdownMenuItem>Regenerate</DropdownMenuItem>
-        <DropdownMenuItem>Verify</DropdownMenuItem>
-        <DropdownMenuItem disabled>Publish</DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>Billing</DropdownMenuItem>
+          <DropdownMenuItem>Settings</DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>GitHub</DropdownMenuItem>
+        <DropdownMenuItem>Support</DropdownMenuItem>
+        <DropdownMenuItem disabled>API</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
