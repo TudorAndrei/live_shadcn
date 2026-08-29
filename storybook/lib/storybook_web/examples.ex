@@ -1007,9 +1007,7 @@ defmodule StorybookWeb.Examples do
       one(
         "default",
         "What was attached",
-        "The hover card is composed rather than generated: it is the " <>
-          "application's own `<.hover_card>`, because a dependency cannot name " <>
-          "a module `mix ui.add` renames on the way in.",
+        nil,
         &attachments_default/1
       )
     ]

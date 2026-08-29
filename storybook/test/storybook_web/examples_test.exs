@@ -30,6 +30,13 @@ defmodule StorybookWeb.ExamplesTest do
       assert ai_elements =~ ~s(data-component-status="unverified")
     end
 
+    test "omits internal implementation notes from the attachments page", %{conn: conn} do
+      {:ok, _view, html} = live(conn, "/docs/attachments")
+
+      assert html =~ ~s(data-component-status="unverified")
+      refute html =~ "The hover card is composed rather than generated"
+    end
+
     test "shows the markup each example is written with", %{conn: conn} do
       {:ok, _view, html} = live(conn, "/docs/badge")
 

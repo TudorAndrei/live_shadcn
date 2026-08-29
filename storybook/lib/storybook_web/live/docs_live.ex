@@ -30,15 +30,8 @@ defmodule StorybookWeb.DocsLive do
   def render(assigns) do
     ~H"""
     <header>
-      <div class="flex items-baseline gap-3">
+      <div class="flex flex-wrap items-center gap-2">
         <h1 class="text-3xl font-semibold tracking-tight">{Docs.title(@component)}</h1>
-        <%!-- Which of the three libraries this one is. Two components are called
-              `Message` and they are not the same component; without this the
-              page gives a reader no way to tell which one they are reading. --%>
-        <.badge variant="secondary"><code>{@library.package}</code></.badge>
-        <%!-- Where the page comes from. The spec is the whole answer, so it is
-              a badge beside the package rather than a sentence about it. --%>
-        <.badge variant="outline"><code>{@library.spec}</code></.badge>
         <.badge
           data-component-status={@status}
           variant={if(@status == :verified, do: "default", else: "secondary")}
@@ -53,12 +46,21 @@ defmodule StorybookWeb.DocsLive do
         >
           {@status}
         </.badge>
+        <%!-- Which of the three libraries this one is. Two components are called
+              `Message` and they are not the same component; without this the
+              page gives a reader no way to tell which one they are reading. --%>
+        <.badge variant="secondary"><code>{@library.package}</code></.badge>
+        <%!-- Where the page comes from. The spec is the whole answer, so it is
+              a badge beside the package rather than a sentence about it. --%>
+        <.badge variant="outline"><code>{@library.spec}</code></.badge>
       </div>
     </header>
 
     <section :for={example <- @examples} class="mt-10">
       <h2 class="text-lg font-medium">{example.title}</h2>
-      <p class="mt-1 text-sm text-muted-foreground">{example.description}</p>
+      <p :if={example.description} class="mt-1 text-sm text-muted-foreground">
+        {example.description}
+      </p>
 
       <.tabs id={"example-#{example.id}"} value="preview" class="mt-4">
         <:tab value="preview" label="Preview">
