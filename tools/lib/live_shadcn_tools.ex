@@ -219,6 +219,20 @@ defmodule LiveShadcnTools do
   """
   def assign(name), do: name |> Macro.underscore() |> String.trim_leading("_")
 
+  @unresolved_reason "the generated port does not contain this source literal"
+
+  @doc "Official source facts that the reviewed port still does not implement."
+  def unresolved_facts(contract) when is_map(contract) do
+    contract
+    |> Map.get("ignored", %{})
+    |> Enum.filter(fn {_fact, reason} -> reason == @unresolved_reason end)
+    |> Enum.map(&elem(&1, 0))
+    |> Enum.sort()
+  end
+
+  @doc "Whether a contract accounts for all official source facts."
+  def reviewed_contract?(contract), do: unresolved_facts(contract) == []
+
   @doc "Digest of the pinned upstream commit and the React references used for verification."
   def verification_evidence_digest(source, name) do
     root = repo_root()

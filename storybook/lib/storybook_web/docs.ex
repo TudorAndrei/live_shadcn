@@ -113,11 +113,22 @@ defmodule StorybookWeb.Docs do
                                check["pass"] == true and check["gated"] != false
                              end)
 
+                           contract =
+                             if File.exists?(spec), do: spec |> File.read!() |> Jason.decode!()
+
+                           review_complete =
+                             contract != nil and
+                               Enum.all?(contract["ignored"] || %{}, fn {_fact, reason} ->
+                                 reason !=
+                                   "the generated port does not contain this source literal"
+                               end)
+
                            status =
                              cond do
                                File.exists?(spec) and result["pass"] == true and
                                  result["spec"] == digest.(File.read!(spec)) and
-                                 result["evidence"] == evidence and checks_pass ->
+                                 result["evidence"] == evidence and checks_pass and
+                                   review_complete ->
                                  :verified
 
                                result["pass"] == false ->

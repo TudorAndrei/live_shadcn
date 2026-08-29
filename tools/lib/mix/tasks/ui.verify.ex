@@ -128,6 +128,7 @@ defmodule Mix.Tasks.Ui.Verify do
 
     checks =
       [
+        {"coverage", coverage_check(source, name)},
         {"generated", generated_check(reference)},
         {"snapshot", snapshot_check(key)}
       ] ++
@@ -276,6 +277,19 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp generated_check(reference),
     do: run_in(tools_dir(), "mix", ["ui.spec", "--check", "--offline", reference])
+
+  defp coverage_check(source, name) do
+    unresolved = source |> spec_path(name) |> read_json!() |> unresolved_facts()
+
+    if unresolved == [] do
+      %{"pass" => true}
+    else
+      %{
+        "pass" => false,
+        "detail" => "official source facts are not implemented: #{Enum.join(unresolved, ", ")}"
+      }
+    end
+  end
 
   defp snapshot_check(nil), do: no_example()
 

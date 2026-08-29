@@ -149,7 +149,8 @@ defmodule Mix.Tasks.Ui.Status do
     spec = spec_path(source, name)
 
     with true <- File.exists?(verify) and File.exists?(spec),
-         result when is_map(result) <- get_in(read_json!(verify), [ref(source, name)]) do
+         result when is_map(result) <- get_in(read_json!(verify), [ref(source, name)]),
+         true <- spec |> read_json!() |> reviewed_contract?() do
       result["pass"] == true and result["spec"] == digest(File.read!(spec)) and
         result["evidence"] == verification_evidence_digest(source, name) and
         Enum.all?(result["checks"] || %{}, fn {_name, check} ->

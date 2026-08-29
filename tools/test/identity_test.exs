@@ -60,4 +60,27 @@ defmodule LiveShadcnTools.IdentityTest do
       assert LiveShadcnTools.resolve("shadcn/message") == {"shadcn", "message"}
     end
   end
+
+  describe "a reviewed contract" do
+    test "is incomplete while an official fact has no port" do
+      contract = %{
+        "ignored" => %{
+          "jsx/DropdownMenuLabel/class/0" =>
+            "the generated port does not contain this source literal"
+        }
+      }
+
+      refute LiveShadcnTools.reviewed_contract?(contract)
+
+      assert LiveShadcnTools.unresolved_facts(contract) == [
+               "jsx/DropdownMenuLabel/class/0"
+             ]
+    end
+
+    test "permits a reviewed exception with a specific reason" do
+      contract = %{"ignored" => %{"jsx/Utility/class/0" => "the utility does not render UI"}}
+
+      assert LiveShadcnTools.reviewed_contract?(contract)
+    end
+  end
 end
