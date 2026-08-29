@@ -4,7 +4,9 @@
     "copy": [
       "jsx/Source/class/0",
       "jsx/Source/class/1",
+      "jsx/Source/class/2",
       "jsx/Sources/class/0",
+      "jsx/SourcesTrigger/class/0",
       "jsx/SourcesTrigger/class/1"
     ],
     "derived": {
@@ -25,7 +27,9 @@
   "facts": {
     "jsx/Source/class/0": "flex items-center gap-2",
     "jsx/Source/class/1": "h-4 w-4",
+    "jsx/Source/class/2": "block font-medium",
     "jsx/Sources/class/0": "not-prose mb-4 text-primary text-xs",
+    "jsx/SourcesTrigger/class/0": "flex items-center gap-2",
     "jsx/SourcesTrigger/class/1": "font-medium",
     "port/class/0": "mt-3 flex w-fit flex-col gap-2 data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in"
   },
@@ -35,12 +39,10 @@
   },
   "fingerprint": "b490771c904efa25f8ffb968b3beebaab04d7c32588f447217ad559cb55e417a",
   "ignored": {
-    "jsx/Source/class/2": "the generated port does not contain this source literal",
-    "jsx/SourcesTrigger/class/0": "the generated port does not contain this source literal",
     "jsx/SourcesTrigger/class/2": "the generated port does not contain this source literal"
   },
   "name": "sources",
-  "port_body": "9492defe66a4134b418275aca4575ba0becb78937e0f3e8438b21df17ea02cc5",
+  "port_body": "157209a64939f9d3d7f0c0635da3f820636c5d49d66fe43d2526f6e3c594ac07",
   "schema_version": 2,
   "source": "ai_elements",
   "source_facts": {
@@ -75,7 +77,9 @@
   "uses": [
     "jsx/Source/class/0",
     "jsx/Source/class/1",
+    "jsx/Source/class/2",
     "jsx/Sources/class/0",
+    "jsx/SourcesTrigger/class/0",
     "jsx/SourcesTrigger/class/1",
     "port/class/0"
   ]

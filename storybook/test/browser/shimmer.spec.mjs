@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 import { visit } from "./live.mjs";
 
 const read = (page) =>
-  page.locator("[data-preview=shimmer] p").evaluate((element) => {
+  page.locator("[data-preview=shimmer] p").first().evaluate((element) => {
     const animation = element.getAnimations()[0];
     return {
       backgroundPosition: getComputedStyle(element).backgroundPosition,

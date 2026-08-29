@@ -85,9 +85,7 @@ defmodule LiveAiElements.Components.Sources do
         class={[upstream_fact("jsx/SourcesTrigger/class/0"), (@trigger_class || "")]}
       >
         <%= if @title in [nil, ""] do %>
-          <p class={upstream_fact("jsx/SourcesTrigger/class/1")}>
-            Used {@count} sources
-          </p>
+          <p class={upstream_fact("jsx/SourcesTrigger/class/1")}>Used <span>{@count}</span> sources</p>
           <LiveShadcn.Icon.icon name="chevron-down" class={upstream_fact("jsx/Source/class/1")} />
         <% end %>
         {@title}

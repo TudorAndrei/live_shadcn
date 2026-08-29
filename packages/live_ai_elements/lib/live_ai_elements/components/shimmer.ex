@@ -21,7 +21,6 @@ defmodule LiveAiElements.Components.Shimmer do
   @doc "The `shimmer` part."
   attr(:as, :string, default: "p")
   attr(:duration, :any, default: 2)
-  attr(:dynamic_spread, :string, default: nil)
   attr(:spread, :any, default: 2)
   attr(:id, :string, required: true, doc: "The hook needs one to be found by.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -30,19 +29,21 @@ defmodule LiveAiElements.Components.Shimmer do
 
   def shimmer(assigns) do
     ~H"""
-    <p
+    <.dynamic_tag
+      tag_name={@as}
       id={@id}
       phx-hook={LiveBase.Shimmer.hook()}
       data-lb-shimmer="100% center,0% center"
       data-lb-duration={trunc(@duration * 1000)}
-      style={"--spread: #{"#{@dynamic_spread}px"}; background-image: var(--bg), linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))"}
+      data-lb-spread={@spread}
+      style="background-image: var(--bg), linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))"
       class={[
         upstream_fact("port/class/0"),
         (@class || "")
       ]}
     >
       {render_slot(@inner_block)}
-    </p>
+    </.dynamic_tag>
     """
   end
 end

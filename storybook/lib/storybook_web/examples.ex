@@ -2309,9 +2309,17 @@ defmodule StorybookWeb.Examples do
 
   defp shimmer_default(assigns) do
     ~H"""
-    <LiveAiElements.Components.Shimmer.shimmer id="thinking" dynamic_spread="58">
-      Reading every registry source
-    </LiveAiElements.Components.Shimmer.shimmer>
+    <div class="flex flex-col items-center justify-center gap-4 p-8">
+      <LiveAiElements.Components.Shimmer.shimmer id="thinking">
+        This text has a shimmer effect
+      </LiveAiElements.Components.Shimmer.shimmer>
+      <LiveAiElements.Components.Shimmer.shimmer id="heading" as="h1" class="font-bold text-4xl">
+        Large Heading
+      </LiveAiElements.Components.Shimmer.shimmer>
+      <LiveAiElements.Components.Shimmer.shimmer id="slower" duration={3} spread={3}>
+        Slower shimmer with wider spread
+      </LiveAiElements.Components.Shimmer.shimmer>
+    </div>
     """
   end
 

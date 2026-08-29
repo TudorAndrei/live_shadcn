@@ -19,6 +19,7 @@ defmodule LiveBase.Shimmer do
   |---|---|
   | `data-lb-shimmer` | the two background positions, `from,to` |
   | `data-lb-duration` | how long one pass takes, in milliseconds |
+  | `data-lb-spread` | pixels of gradient spread per character |
 
   ## Nothing is pushed to the server
 

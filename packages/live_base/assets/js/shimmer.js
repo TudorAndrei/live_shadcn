@@ -11,6 +11,7 @@
 //
 //   data-lb-shimmer     the two background positions, `from,to`
 //   data-lb-duration    how long one pass takes, in milliseconds
+//   data-lb-spread      pixels of gradient spread per character
 //
 // Nothing is pushed and nothing is asked for. Whether a shimmer is moving is
 // not a fact the server has any use for.
@@ -21,10 +22,13 @@ const DURATION = 2000;
 
 export const Shimmer = {
   mounted() {
+    this.setSpread();
     this.start();
   },
 
   updated() {
+    this.setSpread();
+
     // The text can change while the animation runs — that is the whole point of
     // a shimmer — and the element is the same one, so the animation is left
     // alone. It is restarted only when the keyframes themselves moved.
@@ -62,5 +66,10 @@ export const Shimmer = {
 
   duration() {
     return Number(this.el.getAttribute("data-lb-duration")) || DURATION;
+  },
+
+  setSpread() {
+    const spread = Number(this.el.getAttribute("data-lb-spread")) || 2;
+    this.el.style.setProperty("--spread", `${this.el.textContent.trim().length * spread}px`);
   },
 };
