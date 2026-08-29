@@ -38,6 +38,8 @@ defmodule Mix.Tasks.Ui.Verify do
   """
   use Mix.Task
 
+  alias LiveShadcnTools.PlaywrightReport
+
   import LiveShadcnTools
 
   @impl Mix.Task
@@ -53,7 +55,7 @@ defmodule Mix.Tasks.Ui.Verify do
     end
 
     shared_checks =
-      if browser? and length(components) > 1 do
+      if browser? and match?([_, _ | _], components) do
         batch_browser_checks()
       end
 
@@ -145,7 +147,9 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp browser_result(name, key, nil), do: browser_check(name, key)
   defp browser_result(_name, nil, _shared_checks), do: no_example()
-  defp browser_result(_name, _key, shared_checks), do: shared_checks["browser"]
+
+  defp browser_result(_name, key, shared_checks),
+    do: shared_check(shared_checks, "browser", key)
 
   defp upstream_results(_source, key, nil),
     do: [{"parity", parity_check(key)}, {"pixel", pixel_check(key)}]
@@ -153,7 +157,7 @@ defmodule Mix.Tasks.Ui.Verify do
   defp upstream_results(_source, key, shared_checks) do
     parity =
       if key && ported?(key),
-        do: shared_checks["parity"],
+        do: shared_check(shared_checks, "parity", key),
         else: parity_check(key)
 
     pixel =
@@ -161,43 +165,106 @@ defmodule Mix.Tasks.Ui.Verify do
         is_nil(key) or not ported?(key) -> pixel_check(key)
         skipped_pixels(key) -> pixel_check(key)
         pending_pixels(key) -> pixel_check(key)
-        true -> shared_checks["pixel"]
+        true -> shared_check(shared_checks, "pixel", key)
       end
 
     [{"parity", parity}, {"pixel", pixel}]
   end
 
-  # A bulk run starts each browser suite once. Every selected component gets the
-  # result of the same complete suite. This is conservative: one browser fault
-  # keeps all badges unverified until the shared suite is clean.
+  defp shared_check(checks, kind, key) do
+    get_in(checks, [kind, key]) ||
+      %{"pass" => false, "detail" => "#{kind} report has no result for #{key}"}
+  end
+
+  # A full run starts each browser suite once. The JSON report keeps each test
+  # attached to its component, so one real fault changes one component record.
+  # An unmatched failure stops the run because it cannot produce a safe status.
   defp batch_browser_checks do
-    %{
+    checks = %{
       "browser" =>
-        run_in(
-          browser_dir(),
-          "npx",
-          [
-            "playwright",
-            "test",
-            "--project",
-            "chromium",
-            "--grep-invert",
-            "draws what React draws"
-          ]
-        ),
+        batch_browser_check("browser", [
+          "playwright",
+          "test",
+          "--project",
+          "chromium",
+          "--grep-invert",
+          "draws what React draws"
+        ]),
       "parity" =>
-        run_in(
-          browser_dir(),
-          "npx",
-          ["playwright", "test", "parity.spec.mjs", "--project", "chromium"]
-        ),
-      "pixel" =>
-        run_in(
-          browser_dir(),
-          "npx",
-          ["playwright", "test", "--project", "pixel"]
-        )
+        batch_browser_check("parity", [
+          "playwright",
+          "test",
+          "parity.spec.mjs",
+          "--project",
+          "chromium",
+          "--grep",
+          "draws what React draws"
+        ]),
+      "pixel" => batch_browser_check("pixel", ["playwright", "test", "--project", "pixel"])
     }
+
+    global_failures =
+      for {kind, result} <- checks,
+          failure <- result.global_failures,
+          do: "#{kind}: #{failure}"
+
+    if global_failures != [] do
+      Mix.raise("browser suite has unmapped failures:\n#{Enum.join(global_failures, "\n")}")
+    end
+
+    Map.new(checks, fn {kind, result} -> {kind, result.components} end)
+  end
+
+  defp batch_browser_check(kind, args) do
+    report =
+      Path.join(
+        System.tmp_dir!(),
+        "live-shadcn-#{kind}-#{System.unique_integer([:positive])}.json"
+      )
+
+    try do
+      {output, status} =
+        System.cmd(
+          "npx",
+          args ++ ["--reporter", "json"],
+          cd: browser_dir(),
+          stderr_to_stdout: true,
+          env: %{"PLAYWRIGHT_JSON_OUTPUT_FILE" => report}
+        )
+
+      case File.read(report) do
+        {:ok, json} ->
+          result =
+            json
+            |> Jason.decode!()
+            |> PlaywrightReport.results(previewed())
+
+          assigned_failure? =
+            Enum.any?(result.components, fn {_component, check} -> not check["pass"] end)
+
+          if status != 0 and result.global_failures == [] and not assigned_failure? do
+            %{result | global_failures: ["suite exited #{status}\n#{tail(output)}"]}
+          else
+            result
+          end
+
+        {:error, reason} ->
+          %{
+            components: %{},
+            global_failures: [
+              "report is not available: #{:file.format_error(reason)}\n#{tail(output)}"
+            ]
+          }
+      end
+    rescue
+      error ->
+        %{
+          components: %{},
+          global_failures: ["cannot run Playwright: #{Exception.message(error)}"]
+        }
+    after
+      File.rm(report)
+    end
   end
 
   # The spec digest is recorded with the result, so a passing entry cannot

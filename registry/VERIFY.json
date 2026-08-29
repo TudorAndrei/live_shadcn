@@ -17,6 +17,7 @@
         "pass": true
       }
     },
+    "evidence": "ed79e6c71752e875d9e8fef8a737bbcd86215b0e1e38ae9482b72f53c63eb27c",
     "pass": true,
     "spec": "31b21e520451729c21bdf130c449d3bc0db3270279cb9f284e010a15481581a3"
   },
@@ -38,6 +39,7 @@
         "pass": true
       }
     },
+    "evidence": "96904879b052f53d2b9ac0da83a519409cfc8b73e55e739b3e907ce46cae866b",
     "pass": true,
     "spec": "6c4b13dba144eb10873223b44aea672748d99ce2887642c70010505197189f9e"
   },
@@ -59,6 +61,7 @@
         "pass": true
       }
     },
+    "evidence": "d44ea68a4599e2e8c82a6c96984e771d89871ff941b71ab4812fead40ce42625",
     "pass": true,
     "spec": "6834d75939830c452d313acc98d0bb4dc79945d7896dd385ea50e617465c98c2"
   },
@@ -80,28 +83,33 @@
         "pass": true
       }
     },
+    "evidence": "01ccb7a4e941e03d056cc2ef35296716d35b2aed5c43fab05ccbb73d4d09f806",
     "pass": true,
     "spec": "50a7ec2a3bf55498d4b6be12c62e99565fd8643a7e238c3ed71c64a36f3f3d97"
   },
   "ai_elements/shimmer": {
     "checks": {
       "browser": {
-        "pass": true
+        "detail": "Shimmer uses the same gradient motion as React\nError: locator.evaluate: Error: strict mode violation: locator('[data-preview=shimmer] p') resolved to 2 elements:\n    1) <p class=\"relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent [--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]\">This text has a shimmer effect</p> aka getByText('This text has a shimmer effect')\n    2) <p class=\"relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent [--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]\">Slower shimmer with wider spread</p> aka getByText('Slower shimmer with wider')\n\nCall log:\n\u001B[2m  - waiting for locator('[data-preview=shimmer] p')\u001B[22m\n\n\n  4 |\n  5 | const read = (page) =>\n> 6 |   page.locator(\"[data-preview=shimmer] p\").evaluate((element) => {\n    |                                            ^\n  7 |     const animation = element.getAnimations()[0];\n  8 |     return {\n  9 |       backgroundPosition: getComputedStyle(element).backgroundPosition,\n    at read (/Users/tudor/cave/live_shadcn/storybook/test/browser/shimmer.spec.mjs:6:44)\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/shimmer.spec.mjs:20:23",
+        "pass": false
       },
       "generated": {
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "shimmer / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x184\n  Phoenix div 720x24\n  ← height 184 → 24\n\n  React     div 720x184 flex flex-col items-center justify-center gap-4 p-8\n  Phoenix <nothing>\n\n  React       p 218.44x24 \"This text has a shimmer effect\" relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent [--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]\n  Phoenix <nothing>\n\n  React       h1 243.17x40 \"Large Heading\" relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent [--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box] font-bold text-4xl\n  Phoenix <nothing>\n\n  React       p 248.3x24 \"Slower shimmer with wider spread\" relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent [--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]\n  Phoenix <nothing>\n\n  React   <nothing>\n  Phoenix   p 215.63x24 \"Reading every registry source\" relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent [--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box] \n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 3\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 184, Phoenix 24\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "shimmer / default paints what React paints\nError: 13770 px differ (0.46%) — hottest: outside any slot (13770 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m13770\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "ad6d6d1b04bed80156a1316cbb7ecb0a33d4e0ef96373873ced6f4c2aa04f42f",
+    "pass": false,
     "spec": "225911d373eedf57e27451b1616c2c8c1d6d2f2776bda7569e30e93aa0221502"
   },
   "shadcn/checkbox": {
@@ -122,6 +130,7 @@
         "pass": true
       }
     },
+    "evidence": "b38866a1f68a2371817eadd1d067bf17d7dab3a4f22cee2e6367af9264a81b43",
     "pass": true,
     "spec": "c02c6281ec11fabf3d7f5bb8ef052d7d633762283d6fc2a4c1c2d0d774ad7c0a"
   },
@@ -134,16 +143,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "chain-of-thought / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x438\n  Phoenix div 720x20\n  ← height 438 → 20\n\n  React     div 720x438 not-prose w-full space-y-4\n  Phoenix   div 320x20 not-prose w-full space-y-4 max-w-80\n  ← width 720 → 320, height 438 → 20, class\n\n  React       div 720x20 [collapsible]\n  Phoenix     div 320x20 [collapsible]\n  ← width 720 → 320\n\n  React         button 720x20 [collapsible-trigger] flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground\n  Phoenix       button 320x20 [collapsible-trigger] flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground \n  ← width 720 → 320, class\n\n  React           span 672x20 \"Chain of Thought\" flex-1 text-left\n  Phoenix         span 272x20 \"Thought for 4 seconds\" flex-1 text-left\n  ← width 672 → 272, text \"Chain of Thought\" → \"Thought for 4 seconds\"\n\n  React           svg 16x16 lucide lucide-chevron-down size-4 transition-transform rotate-180\n  Phoenix         svg 16x16 lucide lucide-chevron-down size-4 transition-transform rotate-0\n  ← class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 13\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 438, Phoenix 20\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #4: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #5: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible: width — React 720, Phoenix 320\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: width — React 720, Phoenix 320\",\u001B[39m\n\u001B[31m+   \"collapsible #2: width — React 720, Phoenix 320\",\u001B[39m\n\u001B[31m+   \"collapsible #2: height — React 402, Phoenix 0\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "chain-of-thought / default paints what React paints\nError: 102850 px differ (3.44%) — hottest: outside any slot (101677 px), collapsible (1173 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m102850\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "41fc3c003603cda578d755d0988290f4fe9d2f1e55520b38c335170ff9f5afd4",
+    "pass": false,
     "spec": "7775c41f2b25b4c667b940fc3359ef8d6526742b0b4f22daccd1265df3847c3d"
   },
   "shadcn/context-menu": {
@@ -164,6 +176,7 @@
         "pass": true
       }
     },
+    "evidence": "5ce75ac882018c1d76bf45d918cd2fcc8bac476690bc850594e094ad43374ff9",
     "pass": true,
     "spec": "a7cbbc9c30e310c72f3c3951d2c9d7f9e9d9a2219045d42ef47bd50a8f46b5f9"
   },
@@ -185,6 +198,7 @@
         "pass": true
       }
     },
+    "evidence": "b69c1a4b129c0b270302f70b52868bad4117352f689f0cddf630a807ac1a51b0",
     "pass": true,
     "spec": "6df928c8b53e701ec3fb30aca4453da627c148e819ce3e2caf733eb4f26639d1"
   },
@@ -206,6 +220,7 @@
         "pass": true
       }
     },
+    "evidence": "80f914ee775864d866adf0209c0f04a9d0353874f486dfa56dab66c8af2a870d",
     "pass": true,
     "spec": "455507a99fae1082b2e34f007183d342b2ab7f294309b68b39c6644c039cd088"
   },
@@ -227,6 +242,7 @@
         "pass": true
       }
     },
+    "evidence": "bdd5122004bf0bbfa0460fa7b65a2f2f05f22c9e7e0236bcf7160fd6c855e0d7",
     "pass": true,
     "spec": "93d6a189d46dee63ea44e77cf7be80be8d20a10213046890b94e6eb177dd8281"
   },
@@ -239,16 +255,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "stack-trace / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x275\n  Phoenix div 720x154\n  ← height 275 → 154\n\n  React     div 720x275 not-prose w-full overflow-hidden rounded-lg border bg-background font-mono text-sm\n  Phoenix   div 448x154 not-prose w-full overflow-hidden rounded-lg border bg-background font-mono text-sm max-w-md\n  ← width 720 → 448, height 275 → 154, class\n\n  React       div 718x52 [collapsible]\n  Phoenix     div 446x52 [collapsible]\n  ← width 718 → 446\n\n  React         div 718x52 [collapsible-trigger] flex w-full cursor-pointer items-center gap-3 p-3 text-left transition-colors hover:bg-muted/50\n  Phoenix       div 446x52 [collapsible-trigger] flex w-full cursor-pointer items-center gap-3 p-3 text-left transition-colors hover:bg-muted/50 \n  ← width 718 → 446, class\n\n  React           div 622x20 flex flex-1 items-center gap-2 overflow-hidden\n  Phoenix         div 350x20 flex flex-1 items-center gap-2 overflow-hidden \n  ← width 622 → 350, class\n\n  React             span 67x20 \"TypeError\" shrink-0 font-semibold text-destructive\n  Phoenix           span 67x20 \"TypeError\" shrink-0 font-semibold text-destructive \n  ← class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 8\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 275, Phoenix 154\",\u001B[39m\n\u001B[31m+   \"collapsible #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible: width — React 718, Phoenix 446\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: width — React 718, Phoenix 446\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > button: x — React 647, Phoenix 375\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "stack-trace / default paints what React paints\nError: 39675 px differ (1.33%) — hottest: outside any slot (38971 px), collapsible (386 px), collapsible > collapsible-trigger > button (318 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m392\u001B[39m\nReceived:    \u001B[31m39675\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "87d2c4661a326aed26f5d6fc82e908eab3f0358a6102eff30136ee31e19bc519",
+    "pass": false,
     "spec": "e90c3d60686cdd6b0e1c1f81655ac91741cbf6d9fd698f677b86c5c37ab96e3f"
   },
   "ai_elements/package-info": {
@@ -260,16 +279,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "package-info / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x377\n  Phoenix div 720x109\n  ← height 377 → 109\n\n  React     div 720x377 flex flex-col gap-4\n  Phoenix   div 384x109 rounded-lg border bg-background p-4 max-w-sm\n  ← width 720 → 384, height 377 → 109, class\n\n  React       div 720x205 rounded-lg border bg-background p-4\n  Phoenix     div 350x22 flex items-center justify-between gap-2 \n  ← width 720 → 350, height 205 → 22, class\n\n  React         div 686x22 flex items-center justify-between gap-2\n  Phoenix       div 145.05x20 flex items-center gap-2 \n  ← width 686 → 145.05, height 22 → 20, class\n\n  React           div 58.08x20 flex items-center gap-2\n  Phoenix <nothing>\n\n  React             svg 16x16 lucide lucide-package size-4 text-muted-foreground\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 8\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 377, Phoenix 109\",\u001B[39m\n\u001B[31m+   \"badge #2: only in React\",\u001B[39m\n\u001B[31m+   \"badge #3: only in React\",\u001B[39m\n\u001B[31m+   \"badge: x — React 636.5, Phoenix 300.1\",\u001B[39m\n\u001B[31m+   \"badge: background-color — React oklch(0.936 0.032 17.717), Phoenix oklch(0.973 0.071 103.193)\",\u001B[39m\n\u001B[31m+   \"badge: color — React oklch(0.505 0.213 27.518), Phoenix oklch(0.554 0.135 66.442)\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "package-info / default paints what React paints\nError: 8979 px differ (0.30%) — hottest: outside any slot (8715 px), badge (264 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m8979\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "c8716221a9d50f45e1db85f5648185fb6514c9fa760e55d546bc70f79941807e",
+    "pass": false,
     "spec": "252723568429ac119ec178f144d765af16ad7dc18297a9e1bb01d95509f7b436"
   },
   "shadcn/pagination": {
@@ -290,6 +312,7 @@
         "pass": true
       }
     },
+    "evidence": "96ac7d580516e021fe88eaaad8af2b7fa8d444cddca3271422b2ef10d0d153b4",
     "pass": true,
     "spec": "33e8635f9abdc7e2be660f01e5e2a227584aeadb6ca759839ec04700b8c32e70"
   },
@@ -311,6 +334,7 @@
         "pass": true
       }
     },
+    "evidence": "b1e97194ddaa065a99ea89c012ea5bde384c41d1a19083a1e98054b316dc988d",
     "pass": true,
     "spec": "b36b647608fb4980bc422b1bf752769b144f332bbd2a8c728eef9b4b04a37140"
   },
@@ -332,6 +356,7 @@
         "pass": true
       }
     },
+    "evidence": "581d90974cc77534548441c7c89c83ce081e15c43e2f71da86c2b388c94104f7",
     "pass": true,
     "spec": "e9aad46efb563f9db734da94e2101cf70d4fd0b20463a0d423f2b11aaafe8fde"
   },
@@ -353,6 +378,7 @@
         "pass": true
       }
     },
+    "evidence": "953715109854099351acb6af17cf040732e45bd05f48ee4f408aff07ab5a515e",
     "pass": true,
     "spec": "29af8031af68bb8609ca54895b78403b7a58382e7ce11bc2541bb294559a79d3"
   },
@@ -365,16 +391,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "task / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x200\n  Phoenix div 720x20\n  ← height 200 → 20\n\n  React     div 720x200\n  Phoenix <nothing>\n\n  React       div 720x172 [collapsible] w-full\n  Phoenix <nothing>\n\n  React         div 720x20 [collapsible-trigger] group flex w-full cursor-pointer items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground\n  Phoenix <nothing>\n\n  React           svg 16x16 lucide lucide-search size-4\n  Phoenix <nothing>\n\n  React             path 2.89x2.89\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 7\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 200, Phoenix 20\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible: width — React 720, Phoenix 320\",\u001B[39m\n\u001B[31m+   \"collapsible: height — React 172, Phoenix 20\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: width — React 720, Phoenix 320\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "task / default paints what React paints\nError: 5677 px differ (0.19%) — hottest: outside any slot (4611 px), collapsible (1066 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m5677\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "1a236c18cb81ebfe209ec5f3db51d4c08c0556a5c97ff59d55f8bf119bc01a9c",
+    "pass": false,
     "spec": "d19a0595580c6d926ab5e0caab8001419470b8122a4232c80a65e67bc0ff3e22"
   },
   "shadcn/bubble": {
@@ -395,6 +424,7 @@
         "pass": true
       }
     },
+    "evidence": "2367aa7450014d8385eb1a17373cc0587f62261aa60446857dda95a1eee1f75e",
     "pass": true,
     "spec": "cd730a7882bfc1df87e9515b052dd33d69647bcf8643f1cc85cc0d3782ca43cb"
   },
@@ -407,16 +437,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "queue / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x426\n  Phoenix div 720x142\n  ← height 426 → 142\n\n  React     div 720x426 flex flex-col gap-2 rounded-xl border border-border bg-background px-3 pt-2 pb-2 shadow-xs\n  Phoenix   div 448x142 flex flex-col gap-2 rounded-xl border border-border bg-background px-3 pt-2 pb-2 shadow-xs max-w-md\n  ← width 720 → 448, height 426 → 142, class\n\n  React       div 694x200 [collapsible]\n  Phoenix <nothing>\n\n  React         button 694x36 [collapsible-trigger] group flex w-full items-center justify-between rounded-md bg-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted\n  Phoenix <nothing>\n\n  React           span 87.44x20 flex items-center gap-2\n  Phoenix <nothing>\n\n  React             svg 16x16 lucide lucide-chevron-down size-4 transition-transform group-data-[state=closed]:-rotate-90\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 34\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 426, Phoenix 142\",\u001B[39m\n\u001B[31m+   \"collapsible: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #4: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #5: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #6: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #7: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #8: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #9: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #10: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #11: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #12: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #13: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #14: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #15: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #16: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #17: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #18: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > scroll-area > scroll-area-viewport > button #19: only in React\",\u001B[39m\n\u001B[31m+   \"scroll-area: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"scroll-area > scroll-area-viewport: only in Phoenix\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "queue / default paints what React paints\nError: 15986 px differ (0.54%) — hottest: outside any slot (9155 px), scroll-area (6831 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m15986\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "c374568db42d729fc2246768ead2e062e856b85ef16c84aa58697ea2aa890c2b",
+    "pass": false,
     "spec": "bd677dac72f60054a2f66063b071814862ef1aa6307ae63338eb6cde70a27cba"
   },
   "shadcn/sheet": {
@@ -437,6 +470,7 @@
         "pass": true
       }
     },
+    "evidence": "71210b951431473d1789c240aa39afc1b09aa028346a44670a517a8d5315457c",
     "pass": true,
     "spec": "636e1362332ba6d8710639567ba46c11c292531d0a29e587fe08a4647c47c284"
   },
@@ -458,6 +492,7 @@
         "pass": true
       }
     },
+    "evidence": "e787f5226634312724561dcecba967a8f274d2dd2b51947bda37901f1c8f725d",
     "pass": true,
     "spec": "d9707e50bf9663903e1b6d5545afc772fb007396a1b7bf51d92cd54e284f7735"
   },
@@ -470,16 +505,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "attachments / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x160\n  Phoenix div 720x156\n  ← height 160 → 156\n\n  React     div 720x160 flex items-center justify-center p-8\n  Phoenix   div 448x156 flex items-start flex-col gap-2 max-w-md\n  ← width 720 → 448, height 160 → 156, class\n\n  React       div 408x96 flex items-start flex-wrap gap-2 ml-auto w-fit\n  Phoenix     div 0x0 contents\n  ← width 408 → 0, height 96 → 0, class\n\n  React         div 96x96 group relative size-24 overflow-hidden rounded-lg\n  Phoenix <nothing>\n\n  React           div 96x96 flex shrink-0 items-center justify-center overflow-hidden size-full bg-muted\n  Phoenix <nothing>\n\n  React             img 96x96 size-full object-cover\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 18\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 160, Phoenix 156\",\u001B[39m\n\u001B[31m+   \"button #2: only in React\",\u001B[39m\n\u001B[31m+   \"button #3: only in React\",\u001B[39m\n\u001B[31m+   \"button #4: only in React\",\u001B[39m\n\u001B[31m+   \"hover-card-trigger: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"button: x — React 344, Phoenix 403\",\u001B[39m\n\u001B[31m+   \"button: y — React 40, Phoenix 103\",\u001B[39m\n\u001B[31m+   \"button: width — React 24, Phoenix 32\",\u001B[39m\n\u001B[31m+   \"button: height — React 24, Phoenix 32\",\u001B[39m\n\u001B[31m+   \"button: position — React absolute, Phoenix static\",\u001B[39m\n\u001B[31m+   \"button: border-top-left-radius — React 3.35544e+07px, Phoenix 4px\",\u001B[39m\n\u001B[31m+   \"button: border-top-right-radius — React 3.35544e+07px, Phoenix 4px\",\u001B[39m\n\u001B[31m+   \"button: border-bottom-right-radius — React 3.35544e+07px, Phoenix 4px\",\u001B[39m\n\u001B[31m+   \"button: border-bottom-left-radius — React 3.35544e+07px, Phoenix 4px\",\u001B[39m\n\u001B[31m+   \"button: background-color — React oklab(1 0 0 / 0.8), Phoenix rgba(0, 0, 0, 0)\",\u001B[39m\n\u001B[31m+   \"button: opacity — React 0, Phoenix 1\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "attachments / default paints what React paints\nError: 68177 px differ (2.28%) — hottest: outside any slot (63998 px), button (2774 px), hover-card-trigger (1405 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m68177\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "97a81a441fcdb8eb71e072e08943b5d05c5017c5ea39e80eb9814cc335112b2c",
+    "pass": false,
     "spec": "f79a679680ffb664ba65de0da5d15b9d7763e4dcc8da801bc87423e8f2a8209e"
   },
   "ai_elements/image": {
@@ -491,16 +529,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "image / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x150\n  Phoenix div 720x96\n  ← height 150 → 96\n\n  React     img 150x150 max-w-full overflow-hidden rounded-md aspect-square h-[150px] border\n  Phoenix   img 96x96 h-auto max-w-full overflow-hidden rounded-md size-24\n  ← width 150 → 96, height 150 → 96, class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 3\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 150, Phoenix 96\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "image / default paints what React paints\nError: 86848 px differ (13.34%) — hottest: outside any slot (86848 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m86848\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "ab60f4db52ff6a5ef31f5d1681b2c793d1c476d24a0d3f1fefbcc6fb14ae6aec",
+    "pass": false,
     "spec": "178c82a09c652bc2d523bcb31b08b2d76e6f3ce71539ab91544cd97dab181441"
   },
   "shadcn/field": {
@@ -521,6 +562,7 @@
         "pass": true
       }
     },
+    "evidence": "75c0b8b0a8839aa6d381df1b2b2323f37c136b5419e1619668217a2b1906d1b8",
     "pass": true,
     "spec": "a11ebf81274705257e257375aebf55c0e2a729b57351424e472b97d40269c851"
   },
@@ -542,6 +584,7 @@
         "pass": true
       }
     },
+    "evidence": "05c61312563ec357edb19513d833867a6100a78fac2ef1ee85a681906098ed1a",
     "pass": true,
     "spec": "262ab52b2d0bce960914cf14c0bd2043df9b37f53d9c0586478c5ffa0cf3f67f"
   },
@@ -563,6 +606,7 @@
         "pass": true
       }
     },
+    "evidence": "74c108be7a1887fe3404c12b8dbc39fdfc9337134b6aae624cd0945fd4563aaa",
     "pass": true,
     "spec": "50364c8542b1472f7f2349628921f05caaf0c1c241c4bf423c668ece33b7bec0"
   },
@@ -584,6 +628,7 @@
         "pass": true
       }
     },
+    "evidence": "ee9c9c234869f480865de6364957664b4ef955408a6f48de36392553e3c2b5b7",
     "pass": true,
     "spec": "3f91bf40ab218250abfa1e363f24003397dd916fc1eb4ecfa2a07cc9a0eda22d"
   },
@@ -605,6 +650,7 @@
         "pass": true
       }
     },
+    "evidence": "4358178f484305a662f026c13eae35bf95bc927875d541c68c01f07421e2d745",
     "pass": true,
     "spec": "ab9492e2644cbfc9970cfe439f6cbb7cc8b712c0dfd7051776b6a9d531e08bd4"
   },
@@ -617,16 +663,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "context / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x100\n  Phoenix div 720x16\n  ← height 100 → 16\n\n  React     div 720x100 flex items-center justify-center p-8\n  Phoenix   div 320x16 max-w-xs space-y-1\n  ← width 720 → 320, height 100 → 16, class\n\n  React       button 89.03x36 [hover-card-trigger] inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 h-9 px-4 py-2 has-[>svg]:px-3\n  Phoenix <nothing>\n\n  React   <nothing>\n  Phoenix     div 320x16 flex items-center justify-between text-xs \n\n  React         span 41.03x20 \"31.3%\" font-medium text-muted-foreground\n  Phoenix       span 28.91x16 \"Input\" text-muted-foreground\n  ← width 41.03 → 28.91, height 20 → 16, text \"31.3%\" → \"Input\", class\n\n  React         svg 16x16\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 100, Phoenix 16\",\u001B[39m\n\u001B[31m+   \"hover-card-trigger: only in React\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "context / default paints what React paints\nError: 794 px differ (0.03%) — hottest: outside any slot (794 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m794\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "f4f44afa69f3e9634a8f1d79640e5e035d133d3d7b4756a46af3f2bc04a8828e",
+    "pass": false,
     "spec": "4d55a9d56da39a95e4ee22ffa2811b4aa6b0fa0529288ee3eddc7b5310eb122b"
   },
   "shadcn/input": {
@@ -647,6 +696,7 @@
         "pass": true
       }
     },
+    "evidence": "4a975e5f9450f18b0aaa5df7b705f846eea754305d9c0d4283bbcdfd52a67dbe",
     "pass": true,
     "spec": "7d9ad8e45a367345e7f35d6a24e5102d238ccce79ba913a508794086ba95b71b"
   },
@@ -668,6 +718,7 @@
         "pass": true
       }
     },
+    "evidence": "b6f85d55dfb5f0bf14ab2994ca7b8e83e5528b80da16255459804f21ea1a16c9",
     "pass": true,
     "spec": "fd03bb484d7b656ee346af154ac2bbd58108fedac8de743e6208a02604df4926"
   },
@@ -680,16 +731,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "sandbox / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x528\n  Phoenix div 720x18\n  ← height 528 → 18\n\n  React     div 720x528 space-y-4\n  Phoenix   div 448x18 flex w-full items-center border-border border-t border-b max-w-md\n  ← width 720 → 448, height 528 → 18, class\n\n  React       div 720x32 flex flex-wrap gap-2\n  Phoenix <nothing>\n\n  React         button 132.02x32 [button] \"input-streaming\" inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5\n  Phoenix <nothing>\n\n  React         button 123.61x32 [button] \"input-available\" inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5\n  Phoenix <nothing>\n\n  React         button 131.55x32 [button] \"output-available\" inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 17\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 528, Phoenix 18\",\u001B[39m\n\u001B[31m+   \"button: only in React\",\u001B[39m\n\u001B[31m+   \"button #2: only in React\",\u001B[39m\n\u001B[31m+   \"button #3: only in React\",\u001B[39m\n\u001B[31m+   \"button #4: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > badge: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > tabs: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > tabs > tabs-list: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > tabs > tabs-list > tabs-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > tabs > tabs-list > tabs-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > tabs > tabs-content: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > tabs > tabs-content > button: only in React\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "sandbox / default paints what React paints\nError: 37464 px differ (1.25%) — hottest: outside any slot (37464 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m37464\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "9306ac83acc1ebe84f78604f627a478bfb562d605d980255e7e64592e10b5013",
+    "pass": false,
     "spec": "5807320c4918cb7a3e7d1b1482ca546afbe007cd050ffcee53b72ccca0b8fff1"
   },
   "ai_elements/plan": {
@@ -701,16 +755,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "plan / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x198\n  Phoenix div 720x82\n  ← height 198 → 82\n\n  React     div 720x198 [plan] bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-none\n  Phoenix   div 448x82 [plan] bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm !shadow-none max-w-md\n  ← width 720 → 448, height 198 → 82, class\n\n  React       div 718x92 [plan-header] @container/card-header auto-rows-min grid-rows-[auto_auto] gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6 flex items-start justify-between\n  Phoenix <nothing>\n\n  React         div 630x92\n  Phoenix <nothing>\n\n  React           div 630x16 mb-4 flex items-center gap-2\n  Phoenix <nothing>\n\n  React             svg 16x16 lucide lucide-file-text size-4\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 13\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 198, Phoenix 82\",\u001B[39m\n\u001B[31m+   \"plan > plan-header: only in React\",\u001B[39m\n\u001B[31m+   \"plan > plan-header > plan-title: only in React\",\u001B[39m\n\u001B[31m+   \"plan > plan-header > plan-description: only in React\",\u001B[39m\n\u001B[31m+   \"plan > plan-header > plan-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"plan > plan-footer: only in React\",\u001B[39m\n\u001B[31m+   \"plan > plan-footer > plan-action: only in React\",\u001B[39m\n\u001B[31m+   \"plan > plan-footer > plan-action > button: only in React\",\u001B[39m\n\u001B[31m+   \"plan > plan-trigger: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"plan: width — React 720, Phoenix 448\",\u001B[39m\n\u001B[31m+   \"plan: height — React 198, Phoenix 82\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "plan / default paints what React paints\nError: 21895 px differ (0.73%) — hottest: outside any slot (16319 px), plan (5396 px), plan > plan-trigger (180 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m21895\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "82c0669995a0e458cc09fbc0aaa34ac652c91bb719e4373ceb4e138cbd04d7eb",
+    "pass": false,
     "spec": "f2dc03edd08d8cc9cd487c42e68c20775ae8dc832f1383102f50ea05969efa8d"
   },
   "ai_elements/confirmation": {
@@ -722,16 +779,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "confirmation / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x86\n  Phoenix div 720x46\n  ← height 86 → 46\n\n  React     div 672x86 w-full max-w-2xl\n  Phoenix <nothing>\n\n  React       div 672x86 [alert] relative w-full rounded-lg border px-4 py-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current bg-card text-card-foreground flex flex-col gap-2\n  Phoenix <nothing>\n\n  React         div 543.63x20 [alert-description] text-muted-foreground col-start-2 justify-items-start gap-1 text-sm [&_p]:leading-relaxed inline\n  Phoenix <nothing>\n\n  React           code 146.86x20 \"/tmp/example.txt\" inline rounded bg-muted px-1.5 py-0.5 text-sm\n  Phoenix <nothing>\n\n  React         div 154.77x32 flex items-center justify-end gap-2 self-end\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 8\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 86, Phoenix 46\",\u001B[39m\n\u001B[31m+   \"alert > alert-description: only in React\",\u001B[39m\n\u001B[31m+   \"alert > button: only in React\",\u001B[39m\n\u001B[31m+   \"alert > button #2: only in React\",\u001B[39m\n\u001B[31m+   \"alert: width — React 672, Phoenix 448\",\u001B[39m\n\u001B[31m+   \"alert: height — React 86, Phoenix 46\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "confirmation / default paints what React paints\nError: 12746 px differ (0.46%) — hottest: outside any slot (9724 px), alert (3022 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m12746\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "da13c814233c2a5dab015fec7eaf3cbedd3e921bb06d4a8db3d96f9accb770dc",
+    "pass": false,
     "spec": "cffa18d889789b3ab12294aba56600e78d903bec3028787b1b92d5eae5dae4a7"
   },
   "shadcn/skeleton": {
@@ -752,6 +812,7 @@
         "pass": true
       }
     },
+    "evidence": "94c2d41055eaea220e5f8d331c894794068471b369ebdac13a8fe488b2b9b88e",
     "pass": true,
     "spec": "0c607317ccb650d68306b70db29c4ed6e04482613c0416b70d44edf6c042d1df"
   },
@@ -773,6 +834,7 @@
         "pass": true
       }
     },
+    "evidence": "28b67228c280bce902d86df45e0fd3cf8080a86c19833009c1cfcb956ae681f7",
     "pass": true,
     "spec": "df0e99ecfc9bf0a40802ad5224f2bc4426434af4461bf9d779aabfd88c2ad02e"
   },
@@ -794,6 +856,7 @@
         "pass": true
       }
     },
+    "evidence": "b1a9370a0988bd212e38258826267f24751575b41e576b6f6853c33e5a9fdfde",
     "pass": true,
     "spec": "b46ffdcb6169cae97fc86108073cfe236e86eba4c340297ddaf575eb42db5821"
   },
@@ -806,16 +869,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "checkpoint / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x338\n  Phoenix div 720x32\n  ← height 338 → 32\n\n  React     div 720x338 flex size-full flex-col rounded-lg border p-6\n  Phoenix   div 448x32 flex items-center gap-0.5 overflow-hidden text-muted-foreground max-w-md\n  ← width 720 → 448, height 338 → 32, class\n\n  React       div 670x288 relative flex-1 overflow-y-hidden\n  Phoenix <nothing>\n\n  React         div 670x288\n  Phoenix <nothing>\n\n  React           div 670x288 flex flex-col gap-8 p-4\n  Phoenix <nothing>\n\n  React             div 606.09x44 group flex w-full max-w-[95%] flex-col gap-2 is-user ml-auto justify-end\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 8\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 338, Phoenix 32\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"button: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"separator: x — React 212.9, Phoenix 281.7\",\u001B[39m\n\u001B[31m+   \"separator: y — React 204.5, Phoenix 15.5\",\u001B[39m\n\u001B[31m+   \"separator: width — React 638, Phoenix 448\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "checkpoint / default paints what React paints\nError: 10235 px differ (0.29%) — hottest: outside any slot (8292 px), button (1943 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m10235\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "0aac71591fe82dfbff10785d47f5a552537563d2bb87ea12f678b08a30bb2502",
+    "pass": false,
     "spec": "6c3125fab503a88297a22d6ebbfba81db4400ca0ef00b038bddf5230d71de2af"
   },
   "shadcn/input-group": {
@@ -836,6 +902,7 @@
         "pass": true
       }
     },
+    "evidence": "b5d7401bedb95f8d7703f795dc9539bfc03774500b3357e1338b4a4924b7a481",
     "pass": true,
     "spec": "b16de3082d625b02265597ff9b6079d1c83947819365e13dbf61b5a7e095479d"
   },
@@ -857,6 +924,7 @@
         "pass": true
       }
     },
+    "evidence": "2dcf3d6959c33334e7e7ca3cc51d0c872d5d387e4f33736800de97f57758f9a2",
     "pass": true,
     "spec": "52b00e19fb1ff40198c3c79eabde875420768214cec47579716933f4987073da"
   },
@@ -878,6 +946,7 @@
         "pass": true
       }
     },
+    "evidence": "2b45679e72b2255e43f7f44c615b9fc32287e29abbdb4014fc0b8e141f67e5d9",
     "pass": true,
     "spec": "4f98fc747133a378a36e617ea04d8b58fd97e24b0cb12606e2201f937cdd0430"
   },
@@ -900,6 +969,7 @@
         "pass": true
       }
     },
+    "evidence": "2378a29858da078dafe1098410b9c60f35ef19964297aa7446d28836dc85631f",
     "pass": true,
     "spec": "617464bbb307fa5aab79fa78eacc82c02345a521b937a02bc8215e42ae03d5e9"
   },
@@ -921,6 +991,7 @@
         "pass": true
       }
     },
+    "evidence": "6daa648126b6ab08365c9d14d73854324305a6a2ff2663eb0ab69a53366a15ca",
     "pass": true,
     "spec": "15b7fb446c11c0b118252ad77a20885c63c6a76be0aac2f9cb79994402f8a43e"
   },
@@ -930,19 +1001,25 @@
         "pass": true
       },
       "generated": {
-        "pass": true
+        "detail": "** (Mix) ai_elements/sources: the port fact block does not match its contract",
+        "exit": 1,
+        "pass": false
       },
       "parity": {
         "pass": true
       },
       "pixel": {
-        "pass": true
+        "detail": "sources / default paints what React paints\nError: 2 px differ (0.00%) — hottest: collapsible > collapsible-trigger (2 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m2\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
-        "pass": true
+        "detail": "** (Mix) these snapshots no longer match what the components render:\n  sources-default\nRun `mix snapshot` and review the diff. A diff here is a change a reader\nwould see.",
+        "exit": 1,
+        "pass": false
       }
     },
-    "pass": true,
+    "evidence": "bf2c0386c32e38ee84e8bd82f83a5295e9fcb54778076b36e6dfbfb254ccf04b",
+    "pass": false,
     "spec": "d8a3c0cd753169314a0a949d05438e491cae260c00f27022a177fd2140f62eff"
   },
   "shadcn/calendar": {
@@ -963,6 +1040,7 @@
         "pass": true
       }
     },
+    "evidence": "ff9151748973ae5a62fef24044d19a0a3513b0175b342d35f7c1596084bd53cc",
     "pass": true,
     "spec": "d88db39831ab4ac073842c8b76172de14f114fa743d02263c11133c24065d3f6"
   },
@@ -975,16 +1053,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "test-results / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x586\n  Phoenix div 720x113\n  ← height 586 → 113\n\n  React     div 720x586 rounded-lg border bg-background\n  Phoenix   div 448x113 rounded-lg border bg-background max-w-md\n  ← width 720 → 448, height 586 → 113, class\n\n  React       div 718x47 flex items-center justify-between border-b px-4 py-3\n  Phoenix     div 446x47 flex items-center justify-between border-b px-4 py-3 \n  ← width 718 → 446, class\n\n  React         div 281.42x22 flex items-center gap-3\n  Phoenix       div 175.27x22 flex items-center gap-3 \n  ← width 281.42 → 175.27, class\n\n  React           span 91.98x22 [badge] inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent [a&]:hover:bg-secondary/90 gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400\n  Phoenix         span 86.64x22 [badge] inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90 gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 !bg-green-100 !text-green-700 dark:!bg-green-900/30 dark:!text-green-400\n  ← width 91.98 → 86.64, class\n\n  React           span 76.63x22 [badge] inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent [a&]:hover:bg-secondary/90 gap-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400\n  Phoenix         span 76.63x22 [badge] inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90 gap-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 !bg-red-100 !text-red-700 dark:!bg-red-900/30 dark:!text-red-400\n  ← class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 14\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 586, Phoenix 113\",\u001B[39m\n\u001B[31m+   \"badge #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger #3: only in React\",\u001B[39m\n\u001B[31m+   \"badge: width — React 92, Phoenix 86.6\",\u001B[39m\n\u001B[31m+   \"badge #2: x — React 121, Phoenix 115.6\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "test-results / default paints what React paints\nError: 38584 px differ (1.29%) — hottest: outside any slot (37395 px), badge #2 (649 px), badge (540 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m9\u001B[39m\nReceived:    \u001B[31m38584\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "49dd1eb3b90083f5e549bc95fee35ff6f4772658eb87a6664d711454a6f1d928",
+    "pass": false,
     "spec": "a6726e4b2615182c0dfd6ab431463a53868291ff3ca39947c689ae2f7b1283b5"
   },
   "shadcn/sonner": {
@@ -1005,6 +1086,7 @@
         "pass": true
       }
     },
+    "evidence": "78fa80c541574963e6894682fd5aeaa0bdea46f0ad0f7e61153407573a4885f5",
     "pass": true,
     "spec": "910d701a9137426331d93a0939e653e535fd30b0a040f615a47374203367cb48"
   },
@@ -1017,16 +1099,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "web-preview / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x400\n  Phoenix div 720x256\n  ← height 400 → 256\n\n  React     div 720x400 flex size-full flex-col rounded-lg border bg-card\n  Phoenix   div 448x256 flex size-full flex-col rounded-lg border bg-card h-64 max-w-md\n  ← width 720 → 448, height 400 → 256, class\n\n  React       div 718x49 flex items-center gap-1 border-b p-2\n  Phoenix     div 446x49 flex items-center gap-1 border-b p-2 \n  ← width 718 → 446, class\n\n  React         button 32x32 [tooltip-trigger] inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 rounded-md gap-1.5 has-[>svg]:px-2.5 h-8 w-8 p-0 hover:text-foreground\n  Phoenix <nothing>\n\n  React           svg 16x16 lucide lucide-arrow-left size-4\n  Phoenix <nothing>\n\n  React             path 4.67x9.33\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 13\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 400, Phoenix 256\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #3: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #4: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #5: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #6: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"input: x — React 117, Phoenix 9\",\u001B[39m\n\u001B[31m+   \"input: width — React 486, Phoenix 430\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "web-preview / default paints what React paints\nError: 1828 px differ (0.06%) — hottest: input (978 px), outside any slot (850 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m1828\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "bf7f0c0c939e06a847799dc05536606ea0ce7f89d662ac6f3b528122ded010f5",
+    "pass": false,
     "spec": "650ecdbb4c07e226b33cdea89c1a25e82c795225d6afa7dde7c656511cbd3775"
   },
   "ai_elements/artifact": {
@@ -1038,16 +1123,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "artifact / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x739\n  Phoenix div 720x147\n  ← height 739 → 147\n\n  React     div 720x739 flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm\n  Phoenix   div 448x147 flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm max-w-md\n  ← width 720 → 448, height 739 → 147, class\n\n  React       div 718x65 flex items-center justify-between border-b bg-muted/50 px-4 py-3\n  Phoenix     div 446x65 flex items-center justify-between border-b bg-muted/50 px-4 py-3 \n  ← width 718 → 446, class\n\n  React         div 236.7x40\n  Phoenix       div 339.03x40\n  ← width 236.7 → 339.03\n\n  React           p 236.7x20 \"Dijkstra's Algorithm Implementation\" font-medium text-foreground text-sm\n  Phoenix         p 339.03x20 \"accordion.ex\" font-medium text-foreground text-sm \n  ← width 236.7 → 339.03, text \"Dijkstra's Algorithm Implementation\" → \"accordion.ex\", class\n\n  React           p 236.7x20 \"Updated 1 minute ago\" text-muted-foreground text-sm\n  Phoenix         p 339.03x20 \"Generated from registry/spec/shadcn/acco\" text-muted-foreground text-sm \n  ← width 236.7 → 339.03, text \"Updated 1 minute ago\" → \"Generated from registry/spec/shadcn/acco\", class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 9\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 739, Phoenix 147\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #3: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #4: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #5: only in React\",\u001B[39m\n\u001B[31m+   \"button: only in Phoenix\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "artifact / default paints what React paints\nError: 41783 px differ (1.40%) — hottest: outside any slot (41683 px), button (100 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m41783\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "8b24176233b8080db5fbee9419b0b750e26cc96ce20b8fda78143fdef60448b7",
+    "pass": false,
     "spec": "185e6b1a120e855d2277a31f578c57befee5b7310e9625fe1f685f59fa0cbd9e"
   },
   "shadcn/dropdown-menu": {
@@ -1068,8 +1156,9 @@
         "pass": true
       }
     },
+    "evidence": "303095a22661b4e283f318dfd2297f69b4b0ba89f97864570b43c425185e1e8b",
     "pass": true,
-    "spec": "0499b14d35a596dc4c16c80e39dc8feed1fb4df850bf61010e4388f10d5aaf97"
+    "spec": "f9f87725836da01383d0a056647cd3d8f43cb6e5d7b9404542d71a05aa5d54d6"
   },
   "shadcn/dialog": {
     "checks": {
@@ -1089,6 +1178,7 @@
         "pass": true
       }
     },
+    "evidence": "ceaf201dddb2a88fb424571cca0d32d3cba7e3d95cd058d69983058ecb2ece33",
     "pass": true,
     "spec": "f810437a91fe893e34dfa18d5d39482fd1cd3dc84fb72f784ad904a90098a9e4"
   },
@@ -1110,6 +1200,7 @@
         "pass": true
       }
     },
+    "evidence": "4a551fc0828d28abcbee2001b2cb9886c7ea9c53e225727ae38e919546b4486f",
     "pass": true,
     "spec": "1d0ba5e27d5066974bbec28bb02e88c0a9ac098af878e5bfe8d219f8769eda89"
   },
@@ -1122,16 +1213,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "reasoning / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x300\n  Phoenix div 720x20\n  ← height 300 → 20\n\n  React     div 720x300 w-full p-4\n  Phoenix <nothing>\n\n  React       div 688x56 [collapsible] not-prose mb-4 w-full\n  Phoenix <nothing>\n\n  React         button 688x20 [collapsible-trigger] flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground\n  Phoenix <nothing>\n\n  React           svg 16x16 lucide lucide-brain size-4\n  Phoenix <nothing>\n\n  React             path 0x8.67\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 11\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 300, Phoenix 20\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible: x — React 16, Phoenix 0\",\u001B[39m\n\u001B[31m+   \"collapsible: y — React 16, Phoenix 0\",\u001B[39m\n\u001B[31m+   \"collapsible: width — React 688, Phoenix 320\",\u001B[39m\n\u001B[31m+   \"collapsible: height — React 56, Phoenix 20\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: x — React 16, Phoenix 0\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: y — React 16, Phoenix 0\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: width — React 688, Phoenix 320\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "reasoning / default paints what React paints\nError: 2121 px differ (0.07%) — hottest: outside any slot (1243 px), collapsible (878 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m2121\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "8341bcdc7dd6cd235ae88faca7484093baf815fe30c65587584631b8c8bd0b19",
+    "pass": false,
     "spec": "addb883b31f25e4126562babc0f027245965814d1f247b92bb5b85bb14785df2"
   },
   "shadcn/tabs": {
@@ -1152,6 +1246,7 @@
         "pass": true
       }
     },
+    "evidence": "24e77cffdb76da1a3a18feb561c7a685db65897032402fe170a962e4d0e1aee5",
     "pass": true,
     "spec": "8713d52216b68373aeb8c7e285996c8b019031b9dcd3f068beab2f18f3015df9"
   },
@@ -1164,16 +1259,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "persona / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x176\n  Phoenix div 720x64\n  ← height 176 → 64\n\n  React     div 720x176 flex size-full flex-col items-center justify-center gap-4\n  Phoenix   div 64x64 size-16 shrink-0 \n  ← width 720 → 64, height 176 → 64, class\n\n  React       div 128x128 shrink-0 size-32\n  Phoenix <nothing>\n\n  React         canvas 0x0\n  Phoenix <nothing>\n\n  React       div 160x32 [button-group] flex w-fit items-stretch [&>*]:focus-visible:z-10 [&>*]:focus-visible:relative [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md has-[>[data-slot=button-group]]:gap-2 [&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none\n  Phoenix <nothing>\n\n  React         button 32x32 [tooltip-trigger] inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 size-8\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 9\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 176, Phoenix 64\",\u001B[39m\n\u001B[31m+   \"button-group: only in React\",\u001B[39m\n\u001B[31m+   \"button-group > tooltip-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"button-group > tooltip-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"button-group > tooltip-trigger #3: only in React\",\u001B[39m\n\u001B[31m+   \"button-group > tooltip-trigger #4: only in React\",\u001B[39m\n\u001B[31m+   \"button-group > tooltip-trigger #5: only in React\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "persona / default paints what React paints\nError: 4635 px differ (0.16%) — hottest: outside any slot (4635 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m4635\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "d85a7890a0a23877dcbdbb328db34895c47cc36aac95f91d29d111c99ac09578",
+    "pass": false,
     "spec": "6aafbfad2aac36c2b9444383a63148f067e6350c9919141c27c75f6d8860c477"
   },
   "ai_elements/tool": {
@@ -1185,16 +1283,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "tool / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x1400\n  Phoenix div 720x104\n  ← height 1400 → 104\n\n  React     div 720x1400 space-y-4\n  Phoenix <nothing>\n\n  React       div 720x158 [collapsible] group not-prose mb-4 w-full rounded-md border\n  Phoenix <nothing>\n\n  React         button 718x46 [collapsible-trigger] flex w-full items-center justify-between gap-4 p-3\n  Phoenix <nothing>\n\n  React           div 221.59x22 flex items-center gap-2\n  Phoenix <nothing>\n\n  React             svg 16x16 lucide lucide-wrench size-4 text-muted-foreground\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 28\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 1400, Phoenix 104\",\u001B[39m\n\u001B[31m+   \"collapsible #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > badge #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > badge #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible #4: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger #4: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > badge #4: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible #5: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger #5: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > badge #5: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible #6: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger #6: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > badge #6: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible #7: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger #7: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > badge #7: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible: width — React 720, Phoenix 448\",\u001B[39m\n\u001B[31m+   \"collapsible: height — React 158, Phoenix 104\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: width — React 718, Phoenix 446\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > badge: x — React 151.6, Phoenix 114.4\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > badge: width — React 83, Phoenix 99.2\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content: width — React 718, Phoenix 446\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content: height — React 110, Phoenix 56\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "tool / default paints what React paints\nError: 13440 px differ (0.45%) — hottest: outside any slot (9183 px), collapsible > collapsible-content (2755 px), collapsible > collapsible-trigger > badge (836 px), collapsible > collapsible-trigger (666 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m13440\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "e5867ae1136b0ba1d2465477858586689e7c7236ec85bd11f9e2a944afa88e0d",
+    "pass": false,
     "spec": "bb559d9c8a92dc9ff01faa9bb59eafd6a4f6c169f9e619d08abb643de86d9fa2"
   },
   "ai_elements/controls": {
@@ -1215,6 +1316,7 @@
         "pass": true
       }
     },
+    "evidence": "5350ae865592314201078ae53c37e2f35c3633cc2efab81fa73a9693cf7d8282",
     "pass": true,
     "spec": "674800e01f15d38488a98e93a50781802dee86af16a9d4d57e6c3b56402197d9"
   },
@@ -1236,6 +1338,7 @@
         "pass": true
       }
     },
+    "evidence": "7a8791dc006954e4e745a69eeda3b104d0bd9508926f75152a814646a4188c15",
     "pass": true,
     "spec": "bb2d65d2a2e4b032e6b8ffdec1da017cf404465e0a20ffb4ae61ce0c850e8548"
   },
@@ -1257,6 +1360,7 @@
         "pass": true
       }
     },
+    "evidence": "320f0379d011a9815da6b77bc30e8d515b446003a16d03fd9d57a4f5135f4071",
     "pass": true,
     "spec": "0c48ff9ae240a184885b841cc56dbfc77935095829de441275e72da644e2a6a3"
   },
@@ -1269,16 +1373,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "schema-display / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x1270\n  Phoenix div 720x94\n  ← height 1270 → 94\n\n  React     div 720x1270 overflow-hidden rounded-lg border bg-background\n  Phoenix   div 448x94 max-w-md space-y-2\n  ← width 720 → 448, height 1270 → 94, class\n\n  React       div 718x47 flex items-center gap-3 border-b px-4 py-3\n  Phoenix     div 448x94 overflow-hidden rounded-lg border bg-background \n  ← width 718 → 448, height 47 → 94, class\n\n  React         div 219.89x22 flex items-center gap-3\n  Phoenix       div 446x47 flex items-center gap-3 border-b px-4 py-3 \n  ← width 219.89 → 446, height 22 → 47, class\n\n  React           span 50.61x22 [badge] \"POST\" inline-flex items-center justify-center rounded-full border px-2 py-0.5 font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent [a&]:hover:bg-secondary/90 font-mono text-xs bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400\n  Phoenix         span 41.98x22 [badge] \"GET\" inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent [a&]:hover:bg-secondary/90 font-mono text-xs bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400\n  ← width 50.61 → 41.98, text \"POST\" → \"GET\", class\n\n  React           span 157.28x20 font-mono text-sm\n  Phoenix         span 134.33x20 font-mono text-sm \n  ← width 157.28 → 134.33, class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 54\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 1270, Phoenix 94\",\u001B[39m\n\u001B[31m+   \"collapsible: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > badge: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #4: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #5: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #6: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #7: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #8: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #9: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-trigger > badge: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content > badge: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-trigger > badge #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content > badge #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content > badge #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #10: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #11: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #12: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #13: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #14: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #15: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #16: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > badge #17: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-trigger #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-trigger > badge #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-trigger > badge #4: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content > badge #4: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content > badge #5: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content > badge #6: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content > badge #7: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content > badge #8: only in React\",\u001B[39m\n\u001B[31m+   \"badge: width — React 50.6, Phoenix 42\",\u001B[39m\n\u001B[31m+   \"badge: background-color — React oklch(0.932 0.032 255.585), Phoenix oklch(0.962 0.044 156.743)\",\u001B[39m\n\u001B[31m+   \"badge: color — React oklch(0.488 0.243 264.376), Phoenix oklch(0.527 0.154 150.069)\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "schema-display / default paints what React paints\nError: 26332 px differ (0.88%) — hottest: outside any slot (21679 px), badge (265 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m26332\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "841671705b73d5096c5fbe7d9fd4436f928ed995a6fe8d6214f2ec0ac4350c7a",
+    "pass": false,
     "spec": "9219de97af7caa860d95ccb8cd90b5fa697447d28ef638ad71b282d6b20bb224"
   },
   "ai_elements/toolbar": {
@@ -1299,6 +1406,7 @@
         "pass": true
       }
     },
+    "evidence": "85decb88766be5d97cd15abd8cf7b6cd96d84ee8fcd869ca7245945efbb5ebae",
     "pass": true,
     "spec": "aac966ea8054e7548ef5ed1b51a88f9e399a237217b9c7e13c049058917ab586"
   },
@@ -1320,6 +1428,7 @@
         "pass": true
       }
     },
+    "evidence": "21c8afd73008e5486ba9e8666ab01ba0d672ac807a5520a450f7816f146bd8ef",
     "pass": true,
     "spec": "effebfdc957a1623133ec56c4736a12d59309f5c8b1fbac1e59d0f1bfd0d1907"
   },
@@ -1341,6 +1450,7 @@
         "pass": true
       }
     },
+    "evidence": "76a01e7386766b998f0846fb30045ea74967ca36d83b4e9e5ded433812406a8a",
     "pass": true,
     "spec": "90ee2e10760ddff3a004cad2c88eaf300c813e4b33849ae3582554e6db0db999"
   },
@@ -1362,6 +1472,7 @@
         "pass": true
       }
     },
+    "evidence": "a8352c5333dfc9b7b1729bc25e868ea72f5cf4f3307ec6ac28b66830b18d10ba",
     "pass": true,
     "spec": "9aefc916ba70c3ab50b4fefc3268c496b0619ca14b98ba0ece6b4d22128b4f53"
   },
@@ -1374,16 +1485,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "terminal / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x238.25\n  Phoenix div 720x101.75\n  ← height 238.25 → 101.75\n\n  React     div 720x238.25 flex flex-col overflow-hidden rounded-lg border bg-zinc-950 text-zinc-100\n  Phoenix   div 448x101.75 flex flex-col overflow-hidden rounded-lg border bg-zinc-950 text-zinc-100 max-w-md\n  ← width 720 → 448, height 238.25 → 101.75, class\n\n  React       div 718x45 flex items-center justify-between border-zinc-800 border-b px-4 py-2\n  Phoenix     div 446x45 flex items-center justify-between border-zinc-800 border-b px-4 py-2 \n  ← width 718 → 446, class\n\n  React         div 104.97x20 flex items-center gap-2 text-sm text-zinc-400\n  Phoenix       div 78.86x20 flex items-center gap-2 text-sm text-zinc-400 \n  ← width 104.97 → 78.86, class\n\n  React         div 64x28 flex items-center gap-1\n  Phoenix       div 60x28 flex items-center gap-1\n  ← width 64 → 60\n\n  React           div 0x0 flex items-center gap-2 text-xs text-zinc-400\n  Phoenix         div 60x28 flex items-center gap-1 \n  ← width 0 → 60, height 0 → 28, class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 5\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 238.3, Phoenix 101.8\",\u001B[39m\n\u001B[31m+   \"button: x — React 643, Phoenix 371\",\u001B[39m\n\u001B[31m+   \"button #2: x — React 675, Phoenix 403\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "terminal / default paints what React paints\nError: 997299 px differ (33.40%) — hottest: outside any slot (996853 px), button #2 (227 px), button (219 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m997299\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "d62c868cada71cd8b3915d5883039826010bf26ae328c5906d57d710ae3445bd",
+    "pass": false,
     "spec": "f1a8d85b9263d82cb097965f8694bb6109103e58b74aaf79eb04f39a629d6635"
   },
   "shadcn/toast": {
@@ -1404,6 +1518,7 @@
         "pass": true
       }
     },
+    "evidence": "c8b520ba210086e6c21d4495044d20b8fdf2fd60c50db48a4f58b4716ba40f5f",
     "pass": true,
     "spec": "87adeaf2791bbf3a17f6e974c01eb49838b55e0292b00e444bf9efc522240d9c"
   },
@@ -1416,16 +1531,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "ai_elements-message / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x460\n  Phoenix div 720x20\n  ← height 460 → 20\n\n  React     div 720x460 flex flex-col gap-4\n  Phoenix   div 448x20 group flex w-full max-w-[95%] flex-col gap-2 is-assistant max-w-md\n  ← width 720 → 448, height 460 → 20, class\n\n  React       div 684x148 group flex w-full max-w-[95%] flex-col gap-2 is-user ml-auto justify-end\n  Phoenix     div 234.64x20 is-user:dark flex w-fit min-w-0 max-w-full flex-col gap-2 overflow-hidden text-sm group-[.is-user]:ml-auto group-[.is-user]:rounded-lg group-[.is-user]:bg-secondary group-[.is-user]:px-4 group-[.is-user]:py-3 group-[.is-user]:text-foreground group-[.is-assistant]:text-foreground \n  ← width 684 → 234.64, height 148 → 20, class\n\n  React         div 684x148\n  Phoenix       div 234.64x20 \"It is **18 degrees** and clear in Cluj.\" size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0\n  ← width 684 → 234.64, height 148 → 20, text \"\" → \"It is **18 degrees** and clear in Cluj.\", class\n\n  React           div 200x96 flex items-start flex-wrap gap-2 ml-auto w-fit mb-2\n  Phoenix <nothing>\n\n  React             div 96x96 group relative size-24 overflow-hidden rounded-lg\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 10\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 460, Phoenix 20\",\u001B[39m\n\u001B[31m+   \"button-group: only in React\",\u001B[39m\n\u001B[31m+   \"button-group > button: only in React\",\u001B[39m\n\u001B[31m+   \"button-group > button #2: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #3: only in React\",\u001B[39m\n\u001B[31m+   \"tooltip-trigger #4: only in React\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "ai_elements-message / default paints what React paints\nError: 81215 px differ (2.72%) — hottest: outside any slot (81215 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m81215\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "fe6346cbf1e1f33ba2a6274e1a3dbc8c168e20abee8f4d6cba90b5d0fe7891b9",
+    "pass": false,
     "spec": "7d5b1e486656c02600b91947f8dfae615f45cd71cea2c386b45cfcbb86bfb58a"
   },
   "ai_elements/snippet": {
@@ -1437,16 +1555,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "snippet / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x68\n  Phoenix div 720x36\n  ← height 68 → 36\n\n  React     div 720x68 flex size-full items-center justify-center p-4\n  Phoenix <nothing>\n\n  React       div 384x36 [input-group] group/input-group border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none h-9 min-w-0 has-[>textarea]:h-auto has-[>[data-align=inline-start]]:[&>input]:pl-2 has-[>[data-align=inline-end]]:[&>input]:pr-2 has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot=input-group-control]:focus-visible]:ring-[3px] has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 font-mono max-w-sm\n  Phoenix <nothing>\n\n  React         div 20.67x32 [input-group-addon] text-muted-foreground flex h-auto cursor-text items-center justify-center gap-2 py-1.5 text-sm font-medium select-none [&>svg:not([class*='size-'])]:size-4 [&>kbd]:rounded-[calc(var(--radius)-5px)] group-data-[disabled=true]/input-group:opacity-50 order-first has-[>button]:ml-[-0.45rem] has-[>kbd]:ml-[-0.35rem] pl-1\n  Phoenix <nothing>\n\n  React           span 16.67x20 \"$\" flex items-center gap-2 text-sm [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 pl-2 font-normal text-muted-foreground\n  Phoenix <nothing>\n\n  React         input 328.52x36 [input-group-control] file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground border-input h-9 w-full min-w-0 px-3 py-1 text-base transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent text-foreground\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 19\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 68, Phoenix 36\",\u001B[39m\n\u001B[31m+   \"input-group: x — React 168, Phoenix 0\",\u001B[39m\n\u001B[31m+   \"input-group: y — React 16, Phoenix 0\",\u001B[39m\n\u001B[31m+   \"input-group: width — React 384, Phoenix 448\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon: x — React 169, Phoenix 1\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon: y — React 18, Phoenix 2\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon: width — React 20.7, Phoenix 28.7\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon: padding-left — React 4px, Phoenix 12px\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-control: x — React 189.7, Phoenix 29.7\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-control: y — React 16, Phoenix 0\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-control: width — React 328.5, Phoenix 380.5\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon #2: x — React 518.2, Phoenix 410.2\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon #2: y — React 12, Phoenix -4\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon #2: width — React 40, Phoenix 44\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon #2: padding-right — React 8px, Phoenix 12px\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button: x — React 518.2, Phoenix 410.2\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button: y — React 18, Phoenix 2\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "snippet / default paints what React paints\nError: 2446 px differ (0.08%) — hottest: input-group > input-group-control (1312 px), outside any slot (951 px), input-group > input-group-addon > button (101 px), input-group > input-group-addon (70 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m2446\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "5cc8b18fa177006047565adfe35fa34e7cf5214c1c841f2e2cf63a262e1dcec5",
+    "pass": false,
     "spec": "8319536b0b9835761ed8b36dd9722ad7a32fe9da6339c6ba6f1217ff92e82029"
   },
   "ai_elements/speech-input": {
@@ -1467,6 +1588,7 @@
         "pass": true
       }
     },
+    "evidence": "cd3f7c722a8010f0bc893b302a5760c5edaa01054ec8f5b77fb9bcff16680a20",
     "pass": true,
     "spec": "6043cf166c14cfdee8833110e0cbc8d9bc0ef364e1339e9d65db51240ed0f806"
   },
@@ -1479,16 +1601,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "environment-variables / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x242\n  Phoenix div 720x144\n  ← height 242 → 144\n\n  React     div 720x242 rounded-lg border bg-background\n  Phoenix   div 448x144 rounded-lg border bg-background max-w-md\n  ← width 720 → 448, height 242 → 144, class\n\n  React       div 718x45 flex items-center justify-between border-b px-4 py-3\n  Phoenix     div 446x45 flex items-center justify-between border-b px-4 py-3 \n  ← width 718 → 446, class\n\n  React         h3 147.27x20 \"Environment Variables\" font-medium text-sm\n  Phoenix       h3 147.27x20 \"Environment Variables\" font-medium text-sm \n  ← class\n\n  React         div 54x18.39 flex items-center gap-2\n  Phoenix       div 54x18.39 flex items-center gap-2 \n  ← class\n\n  React       div 718x195 divide-y\n  Phoenix     div 446x97 divide-y \n  ← width 718 → 446, height 195 → 97, class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 11\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 242, Phoenix 144\",\u001B[39m\n\u001B[31m+   \"badge #2: only in React\",\u001B[39m\n\u001B[31m+   \"button #3: only in React\",\u001B[39m\n\u001B[31m+   \"button #4: only in React\",\u001B[39m\n\u001B[31m+   \"switch: x — React 671, Phoenix 399\",\u001B[39m\n\u001B[31m+   \"switch > switch-thumb: x — React 672, Phoenix 400\",\u001B[39m\n\u001B[31m+   \"badge: x — React 129.2, Phoenix 85.8\",\u001B[39m\n\u001B[31m+   \"button: x — React 679, Phoenix 407\",\u001B[39m\n\u001B[31m+   \"button #2: x — React 679, Phoenix 407\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "environment-variables / default paints what React paints\nError: 5834 px differ (0.20%) — hottest: outside any slot (4906 px), badge (490 px), button (219 px), button #2 (219 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m5834\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "cef9f4b3cc50a8f0431c5d250dfe53b137ba6472802d6adfb06c49f56db18f1a",
+    "pass": false,
     "spec": "7ea9ff7d1085b11cc96955374e10fd62f9f2c8cd9c9744bf148d96d9b85d4057"
   },
   "shadcn/switch": {
@@ -1509,6 +1634,7 @@
         "pass": true
       }
     },
+    "evidence": "41fef6188cd399ca1e70aa61a99aa2db9039ce426aca611c95a5b1a8e099abcd",
     "pass": true,
     "spec": "fa9bd4ff8977fc22d4230c4a68d19a9dc4f9c65e7646a1637a22aa06fbfb0e6b"
   },
@@ -1521,16 +1647,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "jsx-preview / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x299\n  Phoenix div 720x20\n  ← height 299 → 20\n\n  React     div 720x299 space-y-4\n  Phoenix   div 448x20 relative max-w-md\n  ← width 720 → 448, height 299 → 20, class\n\n  React       button 154.75x32 [button] \"Simulate Streaming\" inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5\n  Phoenix <nothing>\n\n  React       div 720x251 relative min-h-[200px]\n  Phoenix     div 448x20 jsx-preview-content \n  ← width 720 → 448, height 251 → 20, class\n\n  React         div 720x251 jsx-preview-content\n  Phoenix <nothing>\n\n  React           div 720x251 rounded-lg border bg-card p-6 shadow-sm\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 299, Phoenix 20\",\u001B[39m\n\u001B[31m+   \"button: only in React\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "jsx-preview / default paints what React paints\nError: 26872 px differ (0.90%) — hottest: outside any slot (26872 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m26872\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "dd460e5d04447ae9f6bbff8910439cf1112914b4ad44696b88bee77b9dc0e6a9",
+    "pass": false,
     "spec": "a4f50a2b7095e635535b2e4f254666f404804ff0b6df72c988cef4321b80a935"
   },
   "ai_elements/mic-selector": {
@@ -1542,16 +1671,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "mic-selector / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x36\n  Phoenix div 720x58\n  ← height 36 → 58\n\n  React     div 720x36 flex size-full flex-col items-center justify-center gap-4\n  Phoenix   div 384x58 flex max-w-sm flex-col gap-2\n  ← width 720 → 384, height 36 → 58, class\n\n  React       button 384x36 [popover-trigger] inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3 w-full max-w-sm\n  Phoenix <nothing>\n\n  React         span 334x20 \"Select microphone...\" flex-1 text-left\n  Phoenix <nothing>\n\n  React         svg 16x16 lucide lucide-chevrons-up-down shrink-0 text-muted-foreground\n  Phoenix <nothing>\n\n  React           path 6.67x3.33\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 6\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 36, Phoenix 58\",\u001B[39m\n\u001B[31m+   \"label: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"popover-trigger: x — React 168, Phoenix 0\",\u001B[39m\n\u001B[31m+   \"popover-trigger: y — React 0, Phoenix 22\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "mic-selector / default paints what React paints\nError: 2715 px differ (0.09%) — hottest: popover-trigger (1295 px), outside any slot (756 px), label (664 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m2715\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "f7bb9c79e9a1e7243fd43346d15c10e6464de13eb9bb595383038fdc336f8dbc",
+    "pass": false,
     "spec": "c2984a207618dc0f00d702f9b8ccb3bde6fea6c053394ad7d52b69d8ace71ae5"
   },
   "shadcn/label": {
@@ -1572,6 +1704,7 @@
         "pass": true
       }
     },
+    "evidence": "a9d3b8982b329ea79919f2b3170a8afebadbeb5169ceef1aae3531a4d567f93f",
     "pass": true,
     "spec": "8baff03dc307ab2a4613095cdde1e72c004cab17db0ad581b950d5bfb2619145"
   },
@@ -1593,6 +1726,7 @@
         "pass": true
       }
     },
+    "evidence": "b94870cf4a3bacb205019883080d765dbf76335c69d4cfefa5232b74bc417bac",
     "pass": true,
     "spec": "a5f0307cbffbac581fc1b82ed45b914b93043c04524d924881c5802ffec1470d"
   },
@@ -1605,16 +1739,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "voice-selector / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x36\n  Phoenix div 720x64\n  ← height 36 → 64\n\n  React     div 720x36 flex size-full flex-col items-center justify-center\n  Phoenix   div 384x64 flex max-w-sm flex-col gap-1\n  ← width 720 → 384, height 36 → 64, class\n\n  React       button 320x36 [dialog-trigger] inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3 w-full max-w-xs\n  Phoenix <nothing>\n\n  React   <nothing>\n  Phoenix     span 384x24 \"Vega\" flex-1 truncate text-left font-medium \n\n  React   <nothing>\n  Phoenix     span 384x16 \"Warm, unhurried, and a little dry.\" text-muted-foreground text-xs \n\n  React   <nothing>\n  Phoenix     div 384x16 flex items-center text-xs \n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 36, Phoenix 64\",\u001B[39m\n\u001B[31m+   \"dialog-trigger: only in React\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "voice-selector / default paints what React paints\nError: 2160 px differ (0.07%) — hottest: outside any slot (2160 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m2160\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "c75c8d17c2a0990fb389207f890c3774a82be73f1f4047fc04be0005335063e3",
+    "pass": false,
     "spec": "02c46fc3d90b9e1a9765ce94a0eb19e3e6db71abe86731ee9e5a2ab2fa924ecb"
   },
   "shadcn/item": {
@@ -1635,6 +1772,7 @@
         "pass": true
       }
     },
+    "evidence": "92dc2fe673e5356041083f00a76b700a869da9cf827aa0294ded061ed7340bd2",
     "pass": true,
     "spec": "62fd99c542214d63cabfa49d41b35b7a46dfd8b862212e04a4d084c2da86bd82"
   },
@@ -1656,6 +1794,7 @@
         "pass": true
       }
     },
+    "evidence": "e2da4fc93f3615f4de8a870f5b0c9d9157365a3ffe45babde50b38130bdf61b1",
     "pass": true,
     "spec": "3ed10e08b47a04972b620a1e533dbe1ace00a627508b6c71e21d8b2299e4e7d8"
   },
@@ -1677,6 +1816,7 @@
         "pass": true
       }
     },
+    "evidence": "a14674297b71a81a7a9dd91b557f9b04ef00d03cfe4cf78578b2783bca67246d",
     "pass": true,
     "spec": "9d00b77323cba3f2a630eb06caa6acc1cbaed82cec32e824830e147284919daa"
   },
@@ -1698,6 +1838,7 @@
         "pass": true
       }
     },
+    "evidence": "56b61d175f569607ba48dc14dccc7c24364a83d07e159b549c2177f24afa4f80",
     "pass": true,
     "spec": "7bd6a999fd52bdc149d438d7c4d3ebcde1fb36cd2fb60e77cf755ec6821ea617"
   },
@@ -1719,6 +1860,7 @@
         "pass": true
       }
     },
+    "evidence": "e50a6e515511b425049cb0263b7b5e6b08bcf4cd96244eba11f25ad03af1686a",
     "pass": true,
     "spec": "b93cf32ce0ea6c2795791e4d4b4d4ad3ac7763ab7fcc51640ec744638a3bd4e1"
   },
@@ -1740,6 +1882,7 @@
         "pass": true
       }
     },
+    "evidence": "7eed2c3e44edefa0843cf17f58973a6f9f20854f59067621a280c9bf0acf3923",
     "pass": true,
     "spec": "4acb07e2e729e68d728646bf090b77f178187db459654fb9f63f9875d9cd8317"
   },
@@ -1761,6 +1904,7 @@
         "pass": true
       }
     },
+    "evidence": "ef709007ab987cd182bdaa77f6e5541a40708d279a1fc3c804215998e1deabab",
     "pass": true,
     "spec": "f1b461df5acb13667317a95951d220526e7fa4e712cc9b728e0b1ade0ed38887"
   },
@@ -1773,16 +1917,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "inline-citation / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x68.5\n  Phoenix div 720x88.25\n  ← height 68.5 → 88.25\n\n  React     p 720x68.5 text-sm leading-relaxed\n  Phoenix <nothing>\n\n  React   <nothing>\n  Phoenix   div 448x88.25 max-w-md space-y-3\n\n  React       span 692.86x39.75 group inline items-center gap-1\n  Phoenix     span 350.88x18 group inline items-center gap-1 \n  ← width 692.86 → 350.88, height 39.75 → 18, class\n\n  React         span 614.09x17 \"The technology continues to evolve rapid\" transition-colors group-hover:bg-accent\n  Phoenix       span 350.88x18 \"Base UI renders no element for a popover\" transition-colors group-hover:bg-accent \n  ← width 614.09 → 350.88, height 17 → 18, text \"The technology continues to evolve rapid\" → \"Base UI renders no element for a popover\", class\n\n  React         span 113.19x22 [hover-card-trigger] \"example.com +5\" inline-flex items-center justify-center border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90 ml-1 rounded-full\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 68.5, Phoenix 88.3\",\u001B[39m\n\u001B[31m+   \"hover-card-trigger: only in React\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "inline-citation / default paints what React paints\nError: 13274 px differ (0.44%) — hottest: outside any slot (13274 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m13274\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "f2c7be7c90cac80a26f84aac863d3ae42b9ae50252217e430323b7eb09e0afef",
+    "pass": false,
     "spec": "959ca2094df99a36de396416c469d56f20e5b4c173197623e53d5f077072ac93"
   },
   "ai_elements/model-selector": {
@@ -1794,37 +1941,44 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "model-selector / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x100\n  Phoenix div 720x24\n  ← height 100 → 24\n\n  React     div 720x100 flex size-full items-center justify-center p-8\n  Phoenix   div 384x24 flex max-w-sm items-center gap-2\n  ← width 720 → 384, height 100 → 24, class\n\n  React       button 200x36 [dialog-trigger] inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3 w-[200px] justify-between\n  Phoenix <nothing>\n\n  React         img 12x12 size-3 dark:invert\n  Phoenix <nothing>\n\n  React         span 146x20 \"GPT-4o\" flex-1 truncate text-left\n  Phoenix <nothing>\n\n  React   <nothing>\n  Phoenix     div 0x0 flex shrink-0 items-center -space-x-1 [&>img]:rounded-full [&>img]:bg-background [&>img]:p-px [&>img]:ring-1 dark:[&>img]:bg-foreground \n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 100, Phoenix 24\",\u001B[39m\n\u001B[31m+   \"dialog-trigger: only in React\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "model-selector / default paints what React paints\nError: 1388 px differ (0.05%) — hottest: outside any slot (1388 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m1388\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "e1d127f9197db6c91fc0573a676034e260b8195cb2b97bc80c150a862efbc2d8",
+    "pass": false,
     "spec": "08363bc139bb1bbea0ad8cedddeda5c62bfb105f09d76bba31972d12ba9525f3"
   },
   "ai_elements/commit": {
     "checks": {
       "browser": {
-        "pass": true
+        "detail": "commit unslotted text has React geometry\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 9\u001B[39m\n\u001B[31m+ Received  + 9\u001B[39m\n\n\u001B[2m  Object {\u001B[22m\n\u001B[2m    \"box\": Object {\u001B[22m\n\u001B[2m      \"height\": 16,\u001B[22m\n\u001B[32m-     \"width\": 63.890625,\u001B[39m\n\u001B[32m-     \"x\": 341,\u001B[39m\n\u001B[32m-     \"y\": 81,\u001B[39m\n\u001B[31m+     \"width\": 448,\u001B[39m\n\u001B[31m+     \"x\": 280,\u001B[39m\n\u001B[31m+     \"y\": 48,\u001B[39m\n\u001B[2m    },\u001B[22m\n\u001B[2m    \"child\": Object {\u001B[22m\n\u001B[2m      \"height\": 12,\u001B[22m\n\u001B[2m      \"width\": 12,\u001B[22m\n\u001B[32m-     \"x\": 341,\u001B[39m\n\u001B[32m-     \"y\": 83.84375,\u001B[39m\n\u001B[31m+     \"x\": 280,\u001B[39m\n\u001B[31m+     \"y\": 50.84375,\u001B[39m\n\u001B[2m    },\u001B[22m\n\u001B[2m    \"text\": Object {\u001B[22m\n\u001B[2m      \"height\": 15,\u001B[22m\n\u001B[32m-     \"width\": 47.890625,\u001B[39m\n\u001B[32m-     \"x\": 357,\u001B[39m\n\u001B[32m-     \"y\": 81,\u001B[39m\n\u001B[31m+     \"width\": 45.671875,\u001B[39m\n\u001B[31m+     \"x\": 296,\u001B[39m\n\u001B[31m+     \"y\": 48,\u001B[39m\n\u001B[2m    },\u001B[22m\n\u001B[32m-   \"value\": \"a1b2c3d\",\u001B[39m\n\u001B[31m+   \"value\": \"a99f1b7\",\u001B[39m\n\u001B[2m  }\u001B[22m\n\n  31 |     const phoenix = await textMetrics(page, `[data-preview=${component}] ${selector}`);\n  32 |\n> 33 |     expect(phoenix).toEqual(react);\n     |                     ^\n  34 |   });\n  35 | }\n  36 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/unslotted-parity.spec.mjs:33:21",
+        "pass": false
       },
       "generated": {
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "commit / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x62\n  Phoenix div 720x96\n  ← height 62 → 96\n\n  React     div 720x62 [collapsible] rounded-lg border bg-background\n  Phoenix <nothing>\n\n  React       div 718x60 [collapsible-trigger] group flex cursor-pointer items-center justify-between gap-4 p-3 text-left transition-colors hover:opacity-80\n  Phoenix <nothing>\n\n  React   <nothing>\n  Phoenix   div 448x96 flex flex-1 flex-col max-w-md\n\n  React   <nothing>\n  Phoenix     span 448x16 font-mono text-xs \n\n  React   <nothing>\n  Phoenix       svg 12x12 lucide lucide-git-commit-horizontal mr-1 inline-block size-3\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 11\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 62, Phoenix 96\",\u001B[39m\n\u001B[31m+   \"collapsible: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > avatar: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > avatar > avatar-fallback: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-trigger > button: only in React\",\u001B[39m\n\u001B[31m+   \"avatar: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"avatar > avatar-fallback: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"button: only in Phoenix\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "commit / default paints what React paints\nError: 4233 px differ (0.14%) — hottest: outside any slot (3944 px), button (219 px), avatar (70 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m4233\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "8c874536f8073cc57c65e63a1f98dd1ac43aabb393df17abd1b0fa93cba19484",
+    "pass": false,
     "spec": "4ff6c542c04b6d6901831bfe11ec5f71827d19aef58cc60dc81f0dc715c04f76"
   },
   "ai_elements/audio-player": {
@@ -1836,16 +1990,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "audio-player / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x24\n  Phoenix div 720x32\n  ← height 24 → 32\n\n  React     div 720x24 \"Loading...\"\n  Phoenix   div 720x32 flex size-full items-center justify-center\n  ← height 24 → 32, text \"Loading...\" → \"\", class\n\n  React   <nothing>\n  Phoenix     media-controller 465.5x32 [audio-player]\n\n  React   <nothing>\n  Phoenix       audio 0x0 [audio-player-element]\n\n  React   <nothing>\n  Phoenix       media-control-bar 465.5x32 [audio-player-control-bar]\n\n  React   <nothing>\n  Phoenix         div 465.5x32 [button-group] flex w-fit items-stretch [&>*]:focus-visible:z-10 [&>*]:focus-visible:relative [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md has-[>[data-slot=button-group]]:gap-2 [&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 15\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 24, Phoenix 32\",\u001B[39m\n\u001B[31m+   \"audio-player: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"audio-player > audio-player-element: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"audio-player > audio-player-control-bar: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"audio-player > audio-player-control-bar > button-group: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"audio-player > audio-player-control-bar > button-group > audio-player-play-button: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"audio-player > audio-player-control-bar > button-group > audio-player-seek-backward-button: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"audio-player > audio-player-control-bar > button-group > audio-player-seek-forward-button: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"audio-player > audio-player-control-bar > button-group > audio-player-time-display: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"audio-player > audio-player-control-bar > button-group > audio-player-time-range: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"audio-player > audio-player-control-bar > button-group > audio-player-duration-display: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"audio-player > audio-player-control-bar > button-group > audio-player-mute-button: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"audio-player > audio-player-control-bar > button-group > audio-player-volume-range: only in Phoenix\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "audio-player / default paints what React paints\nError: 3464 px differ (0.12%) — hottest: audio-player > audio-player-control-bar > button-group > audio-player-volume-range (1006 px), outside any slot (476 px), audio-player > audio-player-control-bar > button-group > audio-player-time-display (397 px), audio-player > audio-player-control-bar > button-group > audio-player-duration-display (395 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m3464\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "8273678d219eb21026b92aee7e5fa5c6ced307c28a8e61bc9b0682f0f716d1b1",
+    "pass": false,
     "spec": "40c2c3865a9ffe0f53b8973c08f0a89e783880799d5a98299dc7c0936858dee2"
   },
   "ai_elements/suggestion": {
@@ -1857,37 +2014,44 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "suggestion / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React     div 720x32 [scroll-area] relative w-full overflow-x-auto whitespace-nowrap\n  Phoenix   div 720x32 [scroll-area] cn-scroll-area relative w-full overflow-x-auto whitespace-nowrap\n  ← class\n\n  React       style 0x0 \"[data-radix-scroll-area-viewport]{scroll\"\n  Phoenix <nothing>\n\n  React         div 2178.41x32\n  Phoenix       div 720x32\n  ← width 2178.41 → 720\n\n  React           div 2178.41x32 flex w-max flex-nowrap items-center gap-2\n  Phoenix         div 448x32 flex w-max flex-nowrap items-center gap-2 max-w-md\n  ← width 2178.41 → 448, class\n\n  React             button 245.14x32 [button] \"What are the latest trends in AI?\" inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 gap-1.5 has-[>svg]:px-2.5 cursor-pointer rounded-full px-4\n  Phoenix           button 223.55x32 [button] \"What does mix ui.spec read?\" inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5 cursor-pointer rounded-full px-4 !gap-1.5 !rounded-full\n  ← width 245.14 → 223.55, text \"What are the latest trends in AI?\" → \"What does mix ui.spec read?\", class\n\n  React             button 259.03x32 [button] \"How does machine learning work?\" inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 gap-1.5 has-[>svg]:px-2.5 cursor-pointer rounded-full px-4\n  Phoenix           button 144.31x32 [button] \"Why four hooks?\" inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5 cursor-pointer rounded-full px-4 !gap-1.5 !rounded-full\n  ← width 259.03 → 144.31, text \"How does machine learning work?\" → \"Why four hooks?\", class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 12\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"scroll-area > scroll-area-viewport > button #4: only in React\",\u001B[39m\n\u001B[31m+   \"scroll-area > scroll-area-viewport > button #5: only in React\",\u001B[39m\n\u001B[31m+   \"scroll-area > scroll-area-viewport > button #6: only in React\",\u001B[39m\n\u001B[31m+   \"scroll-area > scroll-area-viewport > button #7: only in React\",\u001B[39m\n\u001B[31m+   \"scroll-area > scroll-area-viewport > button #8: only in React\",\u001B[39m\n\u001B[31m+   \"scroll-area > scroll-area-viewport > button: width — React 245.1, Phoenix 223.5\",\u001B[39m\n\u001B[31m+   \"scroll-area > scroll-area-viewport > button #2: x — React 253.1, Phoenix 231.5\",\u001B[39m\n\u001B[31m+   \"scroll-area > scroll-area-viewport > button #2: width — React 259, Phoenix 144.3\",\u001B[39m\n\u001B[31m+   \"scroll-area > scroll-area-viewport > button #3: x — React 520.2, Phoenix 383.9\",\u001B[39m\n\u001B[31m+   \"scroll-area > scroll-area-viewport > button #3: width — React 217.8, Phoenix 188.5\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "suggestion / default paints what React paints\nError: 5239 px differ (0.13%) — hottest: scroll-area > scroll-area-viewport > button #3 (1614 px), scroll-area > scroll-area-viewport > button (1418 px), scroll-area (1232 px), scroll-area > scroll-area-viewport > button #2 (975 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m5239\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "367975ecf072c73d77096f41583a6bf3c47b239ea404eb00327a00834c597fec",
+    "pass": false,
     "spec": "cb0da9ff1b63157cfb9c6617c1039288e66caeca685d936c48c32314cb046823"
   },
   "ai_elements/conversation": {
     "checks": {
       "browser": {
-        "pass": true
+        "detail": "uses the same final scroll geometry as React\nError: locator.evaluate: TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at eval (eval at evaluate (:311:30), <anonymous>:2:47)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at eval (eval at evaluate (:311:30), <anonymous>:2:47)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at measure (/Users/tudor/cave/live_shadcn/storybook/test/browser/conversation.spec.mjs:27:30)\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/conversation.spec.mjs:40:25",
+        "pass": false
       },
       "generated": {
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "conversation / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x176\n  Phoenix div 720x160\n  ← height 176 → 160\n\n  React     div 720x176 flex-1 overflow-y-hidden relative size-full\n  Phoenix   div 448x160 relative flex-1 overflow-y-hidden h-40 max-w-md border\n  ← width 720 → 448, height 176 → 160, class\n\n  React       div 720x176\n  Phoenix     div 446x158\n  ← width 720 → 446, height 176 → 158\n\n  React         div 720x176 flex flex-col gap-8 p-4\n  Phoenix       div 446x312 flex flex-col gap-8 p-4\n  ← width 720 → 446, height 176 → 312\n\n  React           div 688x144 flex size-full flex-col items-center justify-center gap-3 p-8 text-center\n  Phoenix <nothing>\n\n  React             div 24x24 text-muted-foreground\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 176, Phoenix 160\",\u001B[39m\n\u001B[31m+   \"button: only in React\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "conversation / default paints what React paints\nError: 5074 px differ (0.17%) — hottest: outside any slot (5074 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m5074\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "6b88cee65ee213e123ef3ca2465080467ae8d22931e7ed18ea0a21323d14d05c",
+    "pass": false,
     "spec": "e3c33b61aedc11afa6deba578341796ea51b755d2d1d135390723537b9e45dee"
   },
   "ai_elements/question": {
@@ -1899,16 +2063,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "question / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x280\n  Phoenix div 720x184\n  ← height 280 → 184\n\n  React     form 672x280 space-y-4 rounded-lg border bg-background p-4 w-full max-w-2xl\n  Phoenix   form 672x184 space-y-4 rounded-lg border bg-background p-4 w-full max-w-2xl\n  ← height 280 → 184\n\n  React         p 638x20 \"What should the project include?\" font-medium text-sm\n  Phoenix       p 638x20 \"Which framework should we use?\" font-medium text-sm \n  ← text \"What should the project include?\" → \"Which framework should we use?\", class\n\n  React         p 638x20 \"Choose any features and add details if n\" text-muted-foreground text-sm\n  Phoenix       p 638x20 \"Select one option.\" text-muted-foreground text-sm \n  ← text \"Choose any features and add details if n\" → \"Select one option.\", class\n\n  React       div 638x38 flex flex-wrap gap-2\n  Phoenix     div 638x38 flex flex-wrap gap-2 \n  ← class\n\n  React         button 130.45x38 [button] \"Authentication\" inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 px-4 py-2 has-[>svg]:px-3 h-auto whitespace-normal\n  Phoenix       button 79.8x38 [button] \"Next.js\" inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3 h-auto whitespace-normal cn-button-variant-outline\n  ← width 130.45 → 79.8, text \"Authentication\" → \"Next.js\", class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 12\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 280, Phoenix 184\",\u001B[39m\n\u001B[31m+   \"textarea: only in React\",\u001B[39m\n\u001B[31m+   \"button: width — React 130.5, Phoenix 79.8\",\u001B[39m\n\u001B[31m+   \"button #2: x — React 155.5, Phoenix 104.8\",\u001B[39m\n\u001B[31m+   \"button #2: width — React 96.5, Phoenix 65.2\",\u001B[39m\n\u001B[31m+   \"button #3: x — React 260, Phoenix 178\",\u001B[39m\n\u001B[31m+   \"button #3: width — React 98.8, Phoenix 92.9\",\u001B[39m\n\u001B[31m+   \"button #4: x — React 573.9, Phoenix 563.4\",\u001B[39m\n\u001B[31m+   \"button #4: y — React 227, Phoenix 131\",\u001B[39m\n\u001B[31m+   \"button #4: width — React 81.1, Phoenix 91.6\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "question / default paints what React paints\nError: 29496 px differ (1.06%) — hottest: outside any slot (16135 px), button #4 (11839 px), button #3 (599 px), button (546 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m29496\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "ce64988c6a12ec1112fdab2fbbcd2a6b6d3b5d9f8276a27d260a21992abdb202",
+    "pass": false,
     "spec": "d29f1351a0f8b753fb11a5c28be15c4c768d81e4c2a54b8f426252d7d8d721d6"
   },
   "ai_elements/transcription": {
@@ -1929,6 +2096,7 @@
         "pass": true
       }
     },
+    "evidence": "08ac032e966f1c4fa35b6316537ea8a6c4bd633aeeb62a1818883d36af5a8bcc",
     "pass": true,
     "spec": "cee7792f7801c040cba3b02c2bc4d5fd924366f90429ec356eecc04c5c194820"
   },
@@ -1950,6 +2118,7 @@
         "pass": true
       }
     },
+    "evidence": "1de6abf76b98138b2a941ad6d361d90d60c76ca09ff21f15253f05aa17514b35",
     "pass": true,
     "spec": "324f06fc7b11de79ee9f0b055f3341d0e2fa21ae2ddf06e4752d694fc4574fb3"
   },
@@ -1971,6 +2140,7 @@
         "pass": true
       }
     },
+    "evidence": "1074e7c9a8c28e4e244307e30e2266467a2b8659a7c148cfe025eb195f529fe4",
     "pass": true,
     "spec": "41e2a898ff40b33dc3fd6ab715ba88820ae1293354b5d4bb2eaec5424b06d762"
   },
@@ -1983,16 +2153,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "prompt-input / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React     div 720x116 size-full\n  Phoenix <nothing>\n\n  React       input 0x0 hidden\n  Phoenix <nothing>\n\n  React       form 720x116 w-full\n  Phoenix <nothing>\n\n  React         div 720x116 [input-group] group/input-group border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none h-9 min-w-0 has-[>textarea]:h-auto has-[>[data-align=inline-start]]:[&>input]:pl-2 has-[>[data-align=inline-end]]:[&>input]:pr-2 has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot=input-group-control]:focus-visible]:ring-[3px] has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 overflow-hidden\n  Phoenix <nothing>\n\n  React   <nothing>\n  Phoenix   input 0x0 hidden\n\n  React   <nothing>\n  Phoenix   form 448x116 w-full max-w-md\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 17\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > dropdown-menu-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > dialog-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button #2: only in React\",\u001B[39m\n\u001B[31m+   \"input-group: width — React 720, Phoenix 448\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-control: width — React 718, Phoenix 446\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon: width — React 718, Phoenix 446\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button: x — React 49, Phoenix 403\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button: width — React 88, Phoenix 32\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button: padding-top — React 8px, Phoenix 0px\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button: padding-right — React 10px, Phoenix 0px\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button: padding-bottom — React 8px, Phoenix 0px\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button: padding-left — React 10px, Phoenix 0px\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button: background-color — React rgba(0, 0, 0, 0), Phoenix oklch(0 0 0)\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button: color — React oklch(0.556 0 0), Phoenix oklch(0.985 0 0)\",\u001B[39m\n\u001B[31m+   \"input-group > input-group-addon > button: gap — React 6px, Phoenix 8px\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "prompt-input / default paints what React paints\nError: 8449 px differ (0.28%) — hottest: input-group > input-group-addon > button (3605 px), outside any slot (3605 px), input-group > input-group-addon (1239 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m8449\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "c73c66351196db973dfbba0e6229e80c89771541f455684965eb367abc4d48a7",
+    "pass": false,
     "spec": "b9e2e2a453e5e052361c94cf69a4a70563e3bbf27b08a8ae3641620170a510b8"
   },
   "shadcn/navigation-menu": {
@@ -2013,6 +2186,7 @@
         "pass": true
       }
     },
+    "evidence": "1287c166f9a95dfa3f318c8e801041aab377bac3b79c356ecef4488351b901dd",
     "pass": true,
     "spec": "98feb0c5fa66b890cd2ffd3adc7a67c29b8023e06cf07daee16329c1cab9de2c"
   },
@@ -2034,6 +2208,7 @@
         "pass": true
       }
     },
+    "evidence": "977988f38d7d6ddb2ddb72c2f0bfb7a8063ca3242ecaecbc07c6f1fe6891d437",
     "pass": true,
     "spec": "3d5d1303b90d75ed52f858350525981a5d6b3a12211d15686e24e699e6c9aa49"
   },
@@ -2046,16 +2221,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "code-block / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x179\n  Phoenix div 720x47\n  ← height 179 → 47\n\n  React     div 720x179 group relative w-full overflow-hidden rounded-md border bg-background text-foreground\n  Phoenix   div 448x47 group relative w-full overflow-hidden rounded-md border bg-background text-foreground max-w-md\n  ← width 720 → 448, height 179 → 47, class\n\n  React       div 718x45 flex items-center justify-between border-b bg-muted/80 px-3 py-2 text-muted-foreground text-xs\n  Phoenix     div 446x45 flex items-center justify-between border-b bg-muted/80 px-3 py-2 text-muted-foreground text-xs \n  ← width 718 → 446, class\n\n  React         div 65.64x16 flex items-center gap-2\n  Phoenix <nothing>\n\n  React           svg 14x14 lucide lucide-file\n  Phoenix <nothing>\n\n  React             path 9.33x11.67\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 6\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 179, Phoenix 47\",\u001B[39m\n\u001B[31m+   \"select-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"select-trigger > select-value: only in React\",\u001B[39m\n\u001B[31m+   \"button: x — React 675, Phoenix 403\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "code-block / default paints what React paints\nError: 5222 px differ (0.17%) — hottest: outside any slot (5003 px), button (219 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m5222\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "6eff76436689627766e0c493cdbbb33c357ddd1d89a4e4db0d5b417641a89acc",
+    "pass": false,
     "spec": "54f3345958b54c8fc3beb4eaf636d4a22b03f3a51369dc6b7a647e1e0ddcaaba"
   },
   "ai_elements/agent": {
@@ -2067,16 +2245,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "agent / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x478\n  Phoenix div 720x132\n  ← height 478 → 132\n\n  React     div 720x478 not-prose w-full rounded-md border\n  Phoenix   div 448x132 not-prose w-full rounded-md border max-w-md\n  ← width 720 → 448, height 478 → 132, class\n\n  React       div 718x46 flex w-full items-center justify-between gap-4 p-3\n  Phoenix     div 446x46 flex w-full items-center justify-between gap-4 p-3 \n  ← width 718 → 446, class\n\n  React         div 286.91x22 flex items-center gap-2\n  Phoenix       div 193.52x22 flex items-center gap-2\n  ← width 286.91 → 193.52\n\n  React           span 126.23x20 \"Research Assistant\" font-medium text-sm\n  Phoenix         span 46.75x20 \"Reader\" font-medium text-sm\n  ← width 126.23 → 46.75, text \"Research Assistant\" → \"Reader\"\n\n  React           span 128.67x22 [badge] \"openai/gpt-5.2-pro\" inline-flex items-center justify-center rounded-full border px-2 py-0.5 font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90 font-mono text-xs\n  Phoenix         span 114.77x22 [badge] \"claude-opus-4.5\" inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90 font-mono text-xs\n  ← width 128.67 → 114.77, text \"openai/gpt-5.2-pro\" → \"claude-opus-4.5\", class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 12\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 478, Phoenix 132\",\u001B[39m\n\u001B[31m+   \"accordion: only in React\",\u001B[39m\n\u001B[31m+   \"accordion > accordion-item: only in React\",\u001B[39m\n\u001B[31m+   \"accordion > accordion-item > accordion-trigger: only in React\",\u001B[39m\n\u001B[31m+   \"accordion > accordion-item #2: only in React\",\u001B[39m\n\u001B[31m+   \"accordion > accordion-item > accordion-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"accordion > accordion-item #3: only in React\",\u001B[39m\n\u001B[31m+   \"accordion > accordion-item > accordion-trigger #3: only in React\",\u001B[39m\n\u001B[31m+   \"badge: x — React 171.2, Phoenix 91.8\",\u001B[39m\n\u001B[31m+   \"badge: width — React 128.7, Phoenix 114.8\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "agent / default paints what React paints\nError: 18829 px differ (0.63%) — hottest: outside any slot (17848 px), badge (981 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m18829\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "d16f2759af1ab4dfd84b13368b361b5b1314f88db2492edcdc35c613329b19eb",
+    "pass": false,
     "spec": "f2a56bb555f144b1beb9517cb6a111262c6b06ac083e694e1483045d20fb5180"
   },
   "shadcn/collapsible": {
@@ -2097,6 +2278,7 @@
         "pass": true
       }
     },
+    "evidence": "70fe4d381b89b1f39f9e4a83e93e552d4a3ee1d171da35a73c57418119a0a53a",
     "pass": true,
     "spec": "a45b34fc413ceee4fe0933be6991e27288ab65c10757faf64f25ddfca67154d9"
   },
@@ -2118,6 +2300,7 @@
         "pass": true
       }
     },
+    "evidence": "a1297e599d96c52161a6f07200aed9d5c806994e5b4b82a6e62a752b140f6fb0",
     "pass": true,
     "spec": "f3f70d8ea1b6174f6e3f5730745937d82482e7dec64c28410d0b92685fcb75b0"
   },
@@ -2139,6 +2322,7 @@
         "pass": true
       }
     },
+    "evidence": "3bb7e3ceb799d88a38d1656ef2c7c10e949ccbdbd8b63362fbf85bc8f086b64b",
     "pass": true,
     "spec": "b9e789e44abcb75e70142b52a76f5a5cb3fab190d5f32276ebb72684e5d97f55"
   },
@@ -2151,16 +2335,19 @@
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "file-tree / default draws what React draws\nError: where the two trees differ (full trees attached):\n  React   div 720x354\n  Phoenix div 720x158\n  ← height 354 → 158\n\n  React     div 720x354 rounded-lg border bg-background font-mono text-sm\n  Phoenix   div 720x158 rounded-lg border bg-background font-mono text-sm \n  ← height 354 → 158, class\n\n  React       div 718x352 p-2\n  Phoenix     div 718x156 p-2\n  ← height 352 → 156\n\n  React         div 702x252 [collapsible]\n  Phoenix       div 702x140 [collapsible]\n  ← height 252 → 140\n\n  React           div 702x252\n  Phoenix         div 702x140\n  ← height 252 → 140\n\n  React             div 702x28 flex w-full items-center gap-1 rounded px-2 py-1 text-left transition-colors hover:bg-muted/50\n  Phoenix           div 702x28 flex w-full items-center gap-1 rounded px-2 py-1 text-left transition-colors hover:bg-muted/50 \n  ← class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 11\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"(the whole): height — React 354, Phoenix 158\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-trigger #2: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-trigger #3: only in React\",\u001B[39m\n\u001B[31m+   \"collapsible: height — React 252, Phoenix 140\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content: height — React 224, Phoenix 112\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible: height — React 112, Phoenix 84\",\u001B[39m\n\u001B[31m+   \"collapsible > collapsible-content > collapsible > collapsible-content: height — React 84, Phoenix 56\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  117 |     }\n  118 |\n> 119 |     expect(differences, where).toEqual([]);\n      |                                ^\n  120 |\n  121 |     // A decision that has stopped costing anything is a decision to delete.\n  122 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:119:32",
+        "pass": false
       },
       "pixel": {
-        "pass": true
+        "detail": "file-tree / default paints what React paints\nError: 4831 px differ (0.16%) — hottest: outside any slot (3886 px), collapsible > collapsible-content (945 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m4831\u001B[39m\n\n  188 |     }\n  189 |\n> 190 |     expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                               ^\n  191 |   });\n  192 | }\n  193 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:190:31",
+        "pass": false
       },
       "snapshot": {
         "pass": true
       }
     },
-    "pass": true,
+    "evidence": "a75ed3e871bc87de3558e460cc985f867bbfb43f725c2b08cc0a52361f06e20e",
+    "pass": false,
     "spec": "0be4bc1c4230dad2af48058c2958f544aac2c278e078e87502b52789bb86f71c"
   },
   "shadcn/drawer": {
@@ -2181,6 +2368,7 @@
         "pass": true
       }
     },
+    "evidence": "263dc926cd87446396cb8b85eb8ebb3b4072ef9b8e49a9139c9d5b5b8966a654",
     "pass": true,
     "spec": "08bcd2cc17b46ae746f1dbb3d7801044793e7700ddb865202e61f9115ec2e05c"
   },
@@ -2202,6 +2390,7 @@
         "pass": true
       }
     },
+    "evidence": "6e28b80401bbedcf09c01027c3a1c918a33d81ead9d887016bd388cd2c63e806",
     "pass": true,
     "spec": "e2a0fb7e7c68d4294af152e9d5a6d1c0fcdd49fd1ecc95a45df94b20fddf53b2"
   },
@@ -2223,6 +2412,7 @@
         "pass": true
       }
     },
+    "evidence": "d1f8a52ddf8e11b5fe1512b0ed2b017109fbf611e624c969e0bf83959946a28a",
     "pass": true,
     "spec": "717c7482dbf6bda944ad070a3ec44e44f81fb5617f57114415ac99ba1b70b450"
   },
@@ -2244,6 +2434,7 @@
         "pass": true
       }
     },
+    "evidence": "57e2dd3a330cdcb763e0f7ca083cf86e94c469f1b3986a7d0ac02441c537b51a",
     "pass": true,
     "spec": "65c02de8af455227c7563c97feadc0e34d7626ff6fe063378e732761288d9615"
   },
@@ -2265,6 +2456,7 @@
         "pass": true
       }
     },
+    "evidence": "b0e707b35977d10b2adf11fdb0af96a841d7221d97d3b04e56c2470ce5d1a18d",
     "pass": true,
     "spec": "c0dc7450063e96c48067e8f564a1dc07f949ca8311d5ab3359f7a81ff1ec6594"
   },
@@ -2286,6 +2478,7 @@
         "pass": true
       }
     },
+    "evidence": "7e50b87ef5215644c4d96caa60cf7286f6ef90af7a91c22336c2a3614f5c929c",
     "pass": true,
     "spec": "d188b420cc67540f0fce244176969f0fdf455883837b51e0d898dc10ee673676"
   }

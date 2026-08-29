@@ -9,8 +9,8 @@
 | `planned` | 0 | ························ |
 | `fetched` | 2 | ························ |
 | `spec` | 0 | ························ |
-| `generated` | 109 | ████████████████████████ |
-| `verified` | 0 | ························ |
+| `generated` | 39 | ████████················ |
+| `verified` | 70 | ███████████████········· |
 
 ## Recipes
 
@@ -53,68 +53,68 @@ Only the recipes are written by hand; every component is data.
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `accordion` | 1 | `disclosure` | 🟩 generated |
-| `alert` | 1 | `presentational` | 🟩 generated |
-| `avatar` | 1 | `presentational` | 🟩 generated |
-| `badge` | 1 | `presentational` | 🟩 generated |
-| `button` | 1 | `presentational` | 🟩 generated |
-| `card` | 1 | `presentational` | 🟩 generated |
-| `checkbox` | 1 | `checkbox` | 🟩 generated |
-| `collapsible` | 1 | `disclosure` | 🟩 generated |
-| `dialog` | 1 | `dialog` | 🟩 generated |
-| `dropdown-menu` | 1 | `menu` | 🟩 generated |
-| `input` | 1 | `form-control` | 🟩 generated |
-| `label` | 1 | `form-control` | 🟩 generated |
-| `popover` | 1 | `popover` | 🟩 generated |
-| `select` | 1 | `listbox` | 🟩 generated |
-| `separator` | 1 | `separator` | 🟩 generated |
-| `skeleton` | 1 | `presentational` | 🟩 generated |
-| `spinner` | 1 | `presentational` | 🟩 generated |
-| `switch` | 1 | `switch` | 🟩 generated |
-| `table` | 1 | `presentational` | 🟩 generated |
-| `tabs` | 1 | `tabs` | 🟩 generated |
-| `textarea` | 1 | `form-control` | 🟩 generated |
-| `tooltip` | 1 | `popover` | 🟩 generated |
-| `alert-dialog` | 2 | `dialog` | 🟩 generated |
-| `aspect-ratio` | 2 | `presentational` | 🟩 generated |
-| `attachment` | 2 | `presentational` | 🟩 generated |
-| `breadcrumb` | 2 | `presentational` | 🟩 generated |
-| `bubble` | 2 | `presentational` | 🟩 generated |
-| `button-group` | 2 | `presentational` | 🟩 generated |
-| `combobox` | 2 | `listbox` | 🟩 generated |
-| `command` | 2 | `listbox` | 🟩 generated |
-| `context-menu` | 2 | `menu` | 🟩 generated |
+| `accordion` | 1 | `disclosure` | ✅ verified |
+| `alert` | 1 | `presentational` | ✅ verified |
+| `avatar` | 1 | `presentational` | ✅ verified |
+| `badge` | 1 | `presentational` | ✅ verified |
+| `button` | 1 | `presentational` | ✅ verified |
+| `card` | 1 | `presentational` | ✅ verified |
+| `checkbox` | 1 | `checkbox` | ✅ verified |
+| `collapsible` | 1 | `disclosure` | ✅ verified |
+| `dialog` | 1 | `dialog` | ✅ verified |
+| `dropdown-menu` | 1 | `menu` | ✅ verified |
+| `input` | 1 | `form-control` | ✅ verified |
+| `label` | 1 | `form-control` | ✅ verified |
+| `popover` | 1 | `popover` | ✅ verified |
+| `select` | 1 | `listbox` | ✅ verified |
+| `separator` | 1 | `separator` | ✅ verified |
+| `skeleton` | 1 | `presentational` | ✅ verified |
+| `spinner` | 1 | `presentational` | ✅ verified |
+| `switch` | 1 | `switch` | ✅ verified |
+| `table` | 1 | `presentational` | ✅ verified |
+| `tabs` | 1 | `tabs` | ✅ verified |
+| `textarea` | 1 | `form-control` | ✅ verified |
+| `tooltip` | 1 | `popover` | ✅ verified |
+| `alert-dialog` | 2 | `dialog` | ✅ verified |
+| `aspect-ratio` | 2 | `presentational` | ✅ verified |
+| `attachment` | 2 | `presentational` | ✅ verified |
+| `breadcrumb` | 2 | `presentational` | ✅ verified |
+| `bubble` | 2 | `presentational` | ✅ verified |
+| `button-group` | 2 | `presentational` | ✅ verified |
+| `combobox` | 2 | `listbox` | ✅ verified |
+| `command` | 2 | `listbox` | ✅ verified |
+| `context-menu` | 2 | `menu` | ✅ verified |
 | `direction` | 2 | `utility` | 🟦 fetched |
-| `drawer` | 2 | `dialog` | 🟩 generated |
-| `empty` | 2 | `presentational` | 🟩 generated |
-| `field` | 2 | `form-control` | 🟩 generated |
-| `hover-card` | 2 | `popover` | 🟩 generated |
-| `input-group` | 2 | `form-control` | 🟩 generated |
-| `input-otp` | 2 | `form-control` | 🟩 generated |
-| `item` | 2 | `presentational` | 🟩 generated |
-| `kbd` | 2 | `presentational` | 🟩 generated |
-| `marker` | 2 | `presentational` | 🟩 generated |
-| `menubar` | 2 | `presentational` | 🟩 generated |
-| `message` | 2 | `presentational` | 🟩 generated |
-| `message-scroller` | 2 | `scroller` | 🟩 generated |
-| `native-select` | 2 | `presentational` | 🟩 generated |
-| `navigation-menu` | 2 | `navigation-menu` | 🟩 generated |
-| `pagination` | 2 | `pagination` | 🟩 generated |
-| `progress` | 2 | `progress` | 🟩 generated |
-| `radio-group` | 2 | `radio-group` | 🟩 generated |
-| `scroll-area` | 2 | `scroller` | 🟩 generated |
-| `sheet` | 2 | `dialog` | 🟩 generated |
-| `sidebar` | 2 | `sidebar` | 🟩 generated |
-| `slider` | 2 | `slider` | 🟩 generated |
-| `sonner` | 2 | `toast` | 🟩 generated |
-| `toast` | 2 | `toast` | 🟩 generated |
-| `toggle` | 2 | `form-control` | 🟩 generated |
-| `toggle-group` | 2 | `toggle-group` | 🟩 generated |
-| `calendar` | 3 | `calendar` | 🟩 generated |
-| `carousel` | 3 | `carousel` | 🟩 generated |
-| `chart` | 3 | `chart` | 🟩 generated |
-| `questionnaire` | 3 | `presentational` | 🟩 generated |
-| `resizable` | 3 | `resizable` | 🟩 generated |
+| `drawer` | 2 | `dialog` | ✅ verified |
+| `empty` | 2 | `presentational` | ✅ verified |
+| `field` | 2 | `form-control` | ✅ verified |
+| `hover-card` | 2 | `popover` | ✅ verified |
+| `input-group` | 2 | `form-control` | ✅ verified |
+| `input-otp` | 2 | `form-control` | ✅ verified |
+| `item` | 2 | `presentational` | ✅ verified |
+| `kbd` | 2 | `presentational` | ✅ verified |
+| `marker` | 2 | `presentational` | ✅ verified |
+| `menubar` | 2 | `presentational` | ✅ verified |
+| `message` | 2 | `presentational` | ✅ verified |
+| `message-scroller` | 2 | `scroller` | ✅ verified |
+| `native-select` | 2 | `presentational` | ✅ verified |
+| `navigation-menu` | 2 | `navigation-menu` | ✅ verified |
+| `pagination` | 2 | `pagination` | ✅ verified |
+| `progress` | 2 | `progress` | ✅ verified |
+| `radio-group` | 2 | `radio-group` | ✅ verified |
+| `scroll-area` | 2 | `scroller` | ✅ verified |
+| `sheet` | 2 | `dialog` | ✅ verified |
+| `sidebar` | 2 | `sidebar` | ✅ verified |
+| `slider` | 2 | `slider` | ✅ verified |
+| `sonner` | 2 | `toast` | ✅ verified |
+| `toast` | 2 | `toast` | ✅ verified |
+| `toggle` | 2 | `form-control` | ✅ verified |
+| `toggle-group` | 2 | `toggle-group` | ✅ verified |
+| `calendar` | 3 | `calendar` | ✅ verified |
+| `carousel` | 3 | `carousel` | ✅ verified |
+| `chart` | 3 | `chart` | ✅ verified |
+| `questionnaire` | 3 | `presentational` | ✅ verified |
+| `resizable` | 3 | `resizable` | ✅ verified |
 
 ## AI Elements
 
@@ -138,15 +138,15 @@ Only the recipes are written by hand; every component is data.
 | `checkpoint` | 2 | `presentational` | 🟩 generated |
 | `commit` | 2 | `clipboard` | 🟩 generated |
 | `confirmation` | 2 | `presentational` | 🟩 generated |
-| `controls` | 2 | `presentational` | 🟩 generated |
+| `controls` | 2 | `presentational` | ✅ verified |
 | `environment-variables` | 2 | `clipboard` | 🟩 generated |
 | `file-tree` | 2 | `file-tree` | 🟩 generated |
 | `image` | 2 | `presentational` | 🟩 generated |
 | `inline-citation` | 2 | `presentational` | 🟩 generated |
 | `model-selector` | 2 | `presentational` | 🟩 generated |
-| `open-in-chat` | 2 | `presentational` | 🟩 generated |
+| `open-in-chat` | 2 | `presentational` | ✅ verified |
 | `package-info` | 2 | `presentational` | 🟩 generated |
-| `panel` | 2 | `presentational` | 🟩 generated |
+| `panel` | 2 | `presentational` | ✅ verified |
 | `persona` | 2 | `presentational` | 🟩 generated |
 | `plan` | 2 | `disclosure` | 🟩 generated |
 | `question` | 2 | `presentational` | 🟩 generated |
@@ -155,17 +155,17 @@ Only the recipes are written by hand; every component is data.
 | `snippet` | 2 | `clipboard` | 🟩 generated |
 | `stack-trace` | 2 | `clipboard` | 🟩 generated |
 | `test-results` | 2 | `presentational` | 🟩 generated |
-| `toolbar` | 2 | `presentational` | 🟩 generated |
+| `toolbar` | 2 | `presentational` | ✅ verified |
 | `audio-player` | 3 | `presentational` | 🟩 generated |
 | `canvas` | 3 | `unsupported` | 🟦 fetched |
-| `connection` | 3 | `presentational` | 🟩 generated |
-| `edge` | 3 | `presentational` | 🟩 generated |
+| `connection` | 3 | `presentational` | ✅ verified |
+| `edge` | 3 | `presentational` | ✅ verified |
 | `jsx-preview` | 3 | `presentational` | 🟩 generated |
 | `mic-selector` | 3 | `listbox` | 🟩 generated |
-| `node` | 3 | `presentational` | 🟩 generated |
+| `node` | 3 | `presentational` | ✅ verified |
 | `sandbox` | 3 | `presentational` | 🟩 generated |
-| `speech-input` | 3 | `presentational` | 🟩 generated |
+| `speech-input` | 3 | `presentational` | ✅ verified |
 | `terminal` | 3 | `clipboard` | 🟩 generated |
-| `transcription` | 3 | `presentational` | 🟩 generated |
+| `transcription` | 3 | `presentational` | ✅ verified |
 | `voice-selector` | 3 | `presentational` | 🟩 generated |
 | `web-preview` | 3 | `presentational` | 🟩 generated |
