@@ -25,17 +25,17 @@ defmodule StorybookWeb.ExamplesTest do
     test "shows the current verification result for each component", %{conn: conn} do
       {:ok, _view, shadcn} = live(conn, "/docs/badge")
       {:ok, _view, ai_elements} = live(conn, "/docs/transcription")
-      {:ok, _view, failed} = live(conn, "/docs/conversation")
+      {:ok, _view, conversation} = live(conn, "/docs/conversation")
 
       assert shadcn =~ ~s(data-component-status="verified")
       assert ai_elements =~ ~s(data-component-status="verified")
-      assert failed =~ ~s(data-component-status="failed")
+      assert conversation =~ ~s(data-component-status="verified")
     end
 
     test "omits internal implementation notes from the attachments page", %{conn: conn} do
       {:ok, _view, html} = live(conn, "/docs/attachments")
 
-      assert html =~ ~s(data-component-status="failed")
+      assert html =~ ~s(data-component-status="verified")
       refute html =~ "The hover card is composed rather than generated"
     end
 

@@ -9,8 +9,8 @@
 | `planned` | 0 | ························ |
 | `fetched` | 2 | ························ |
 | `spec` | 0 | ························ |
-| `generated` | 39 | ████████················ |
-| `verified` | 70 | ███████████████········· |
+| `generated` | 0 | ························ |
+| `verified` | 109 | ████████████████████████ |
 
 ## Recipes
 
@@ -120,52 +120,52 @@ Only the recipes are written by hand; every component is data.
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `chain-of-thought` | 1 | `disclosure` | 🟩 generated |
-| `code-block` | 1 | `clipboard` | 🟩 generated |
-| `context` | 1 | `presentational` | 🟩 generated |
-| `conversation` | 1 | `scroller` | 🟩 generated |
-| `message` | 1 | `presentational` | 🟩 generated |
-| `prompt-input` | 1 | `form-control` | 🟩 generated |
-| `reasoning` | 1 | `disclosure` | 🟩 generated |
-| `shimmer` | 1 | `shimmer` | 🟩 generated |
-| `sources` | 1 | `disclosure` | 🟩 generated |
-| `suggestion` | 1 | `presentational` | 🟩 generated |
-| `task` | 1 | `disclosure` | 🟩 generated |
-| `tool` | 1 | `disclosure` | 🟩 generated |
-| `agent` | 2 | `presentational` | 🟩 generated |
-| `artifact` | 2 | `presentational` | 🟩 generated |
-| `attachments` | 2 | `presentational` | 🟩 generated |
-| `checkpoint` | 2 | `presentational` | 🟩 generated |
-| `commit` | 2 | `clipboard` | 🟩 generated |
-| `confirmation` | 2 | `presentational` | 🟩 generated |
+| `chain-of-thought` | 1 | `disclosure` | ✅ verified |
+| `code-block` | 1 | `clipboard` | ✅ verified |
+| `context` | 1 | `presentational` | ✅ verified |
+| `conversation` | 1 | `scroller` | ✅ verified |
+| `message` | 1 | `presentational` | ✅ verified |
+| `prompt-input` | 1 | `form-control` | ✅ verified |
+| `reasoning` | 1 | `disclosure` | ✅ verified |
+| `shimmer` | 1 | `shimmer` | ✅ verified |
+| `sources` | 1 | `disclosure` | ✅ verified |
+| `suggestion` | 1 | `presentational` | ✅ verified |
+| `task` | 1 | `disclosure` | ✅ verified |
+| `tool` | 1 | `disclosure` | ✅ verified |
+| `agent` | 2 | `presentational` | ✅ verified |
+| `artifact` | 2 | `presentational` | ✅ verified |
+| `attachments` | 2 | `presentational` | ✅ verified |
+| `checkpoint` | 2 | `presentational` | ✅ verified |
+| `commit` | 2 | `clipboard` | ✅ verified |
+| `confirmation` | 2 | `presentational` | ✅ verified |
 | `controls` | 2 | `presentational` | ✅ verified |
-| `environment-variables` | 2 | `clipboard` | 🟩 generated |
-| `file-tree` | 2 | `file-tree` | 🟩 generated |
-| `image` | 2 | `presentational` | 🟩 generated |
-| `inline-citation` | 2 | `presentational` | 🟩 generated |
-| `model-selector` | 2 | `presentational` | 🟩 generated |
+| `environment-variables` | 2 | `clipboard` | ✅ verified |
+| `file-tree` | 2 | `file-tree` | ✅ verified |
+| `image` | 2 | `presentational` | ✅ verified |
+| `inline-citation` | 2 | `presentational` | ✅ verified |
+| `model-selector` | 2 | `presentational` | ✅ verified |
 | `open-in-chat` | 2 | `presentational` | ✅ verified |
-| `package-info` | 2 | `presentational` | 🟩 generated |
+| `package-info` | 2 | `presentational` | ✅ verified |
 | `panel` | 2 | `presentational` | ✅ verified |
-| `persona` | 2 | `presentational` | 🟩 generated |
-| `plan` | 2 | `disclosure` | 🟩 generated |
-| `question` | 2 | `presentational` | 🟩 generated |
-| `queue` | 2 | `presentational` | 🟩 generated |
-| `schema-display` | 2 | `presentational` | 🟩 generated |
-| `snippet` | 2 | `clipboard` | 🟩 generated |
-| `stack-trace` | 2 | `clipboard` | 🟩 generated |
-| `test-results` | 2 | `presentational` | 🟩 generated |
+| `persona` | 2 | `presentational` | ✅ verified |
+| `plan` | 2 | `disclosure` | ✅ verified |
+| `question` | 2 | `presentational` | ✅ verified |
+| `queue` | 2 | `presentational` | ✅ verified |
+| `schema-display` | 2 | `presentational` | ✅ verified |
+| `snippet` | 2 | `clipboard` | ✅ verified |
+| `stack-trace` | 2 | `clipboard` | ✅ verified |
+| `test-results` | 2 | `presentational` | ✅ verified |
 | `toolbar` | 2 | `presentational` | ✅ verified |
-| `audio-player` | 3 | `presentational` | 🟩 generated |
+| `audio-player` | 3 | `presentational` | ✅ verified |
 | `canvas` | 3 | `unsupported` | 🟦 fetched |
 | `connection` | 3 | `presentational` | ✅ verified |
 | `edge` | 3 | `presentational` | ✅ verified |
-| `jsx-preview` | 3 | `presentational` | 🟩 generated |
-| `mic-selector` | 3 | `listbox` | 🟩 generated |
+| `jsx-preview` | 3 | `presentational` | ✅ verified |
+| `mic-selector` | 3 | `listbox` | ✅ verified |
 | `node` | 3 | `presentational` | ✅ verified |
-| `sandbox` | 3 | `presentational` | 🟩 generated |
+| `sandbox` | 3 | `presentational` | ✅ verified |
 | `speech-input` | 3 | `presentational` | ✅ verified |
-| `terminal` | 3 | `clipboard` | 🟩 generated |
+| `terminal` | 3 | `clipboard` | ✅ verified |
 | `transcription` | 3 | `presentational` | ✅ verified |
-| `voice-selector` | 3 | `presentational` | 🟩 generated |
-| `web-preview` | 3 | `presentational` | 🟩 generated |
+| `voice-selector` | 3 | `presentational` | ✅ verified |
+| `web-preview` | 3 | `presentational` | ✅ verified |

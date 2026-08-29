@@ -371,6 +371,7 @@ defmodule StorybookWeb.Docs do
   end
 
   @doc "The highest pipeline stage that has current evidence for a documented component."
+  @spec status(String.t()) :: :verified | :failed | :unverified
   def status(component) do
     {source, name} = identity(component)
     Map.get(@status_by_identity, "#{source}/#{name}", :unverified)

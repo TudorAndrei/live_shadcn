@@ -12,6 +12,12 @@ defmodule StorybookWeb.IndexLive do
 
   alias StorybookWeb.Docs
 
+  @status_classes %{
+    verified: "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300",
+    unverified: "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
+    failed: "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-300"
+  }
+
   @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
@@ -90,12 +96,7 @@ defmodule StorybookWeb.IndexLive do
             data-component-status={Docs.status(component)}
             class={[
               "rounded-full px-1.5 py-0.5 text-[10px] font-medium capitalize",
-              Docs.status(component) == :verified &&
-                "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300",
-              Docs.status(component) == :unverified &&
-                "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
-              Docs.status(component) == :failed &&
-                "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-300"
+              status_class(Docs.status(component))
             ]}
           >
             {Docs.status(component)}
@@ -115,4 +116,6 @@ defmodule StorybookWeb.IndexLive do
        page_title: "live_shadcn"
      )}
   end
+
+  defp status_class(status), do: Map.fetch!(@status_classes, status)
 end
