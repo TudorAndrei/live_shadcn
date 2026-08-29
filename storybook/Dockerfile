@@ -36,6 +36,8 @@ WORKDIR /build
 COPY mix.exs* ./
 COPY packages ./packages
 COPY registry ./registry
+COPY parity/official-examples.json ./parity/official-examples.json
+COPY parity/src/examples ./parity/src/examples
 COPY tools ./tools
 COPY storybook ./storybook
 
