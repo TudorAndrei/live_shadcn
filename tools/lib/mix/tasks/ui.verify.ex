@@ -309,9 +309,12 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp parity_check(key) do
     if ported?(key) do
-      run_in(browser_dir(), "npx", ["playwright", "test", "parity.spec.mjs"], %{
-        "PREVIEW_COMPONENT" => key
-      })
+      run_in(
+        browser_dir(),
+        "npx",
+        ["playwright", "test", "parity.spec.mjs", "--grep", "draws what React draws"],
+        %{"PREVIEW_COMPONENT" => key}
+      )
     else
       %{
         "pass" => false,

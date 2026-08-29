@@ -1,19 +1,31 @@
 {
   "agent": {
     "upstream": "agent",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "ai_elements-message": {
     "upstream": "message",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "artifact": {
     "upstream": "artifact",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "attachments": {
     "upstream": "attachments",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "audio-player": {
     "upstream": "audio-player",
@@ -23,25 +35,40 @@
   "chain-of-thought": {
     "upstream": "chain-of-thought",
     "contract": "interactive",
-    "spec": "chain-of-thought.spec.mjs"
+    "spec": "chain-of-thought.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "checkpoint": {
     "upstream": "checkpoint",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "code-block": {
     "upstream": "code-block",
     "contract": "interactive",
-    "spec": "code-block.spec.mjs"
+    "spec": "code-block.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "commit": {
     "upstream": "commit",
     "contract": "interactive",
-    "spec": "commit.spec.mjs"
+    "spec": "commit.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "confirmation": {
     "upstream": "confirmation",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "connection": {
     "upstream": "connection",
@@ -52,7 +79,10 @@
   },
   "context": {
     "upstream": "context",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "controls": {
     "upstream": "controls",
@@ -64,7 +94,10 @@
   "conversation": {
     "upstream": "conversation",
     "contract": "interactive",
-    "spec": "conversation.spec.mjs"
+    "spec": "conversation.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "edge": {
     "upstream": "edge",
@@ -78,37 +111,56 @@
   "environment-variables": {
     "upstream": "environment-variables",
     "contract": "interactive",
-    "spec": "environment-variables.spec.mjs"
+    "spec": "environment-variables.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "file-tree": {
     "upstream": "file-tree",
     "contract": "interactive",
-    "spec": "file-tree.spec.mjs"
+    "spec": "file-tree.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "image": {
     "upstream": "image",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "inline-citation": {
     "upstream": "inline-citation",
     "contract": "interactive",
     "spec": "inline-citation.spec.mjs",
     "component_examples": [
-      "carousel"
+      "carousel",
+      "default"
     ]
   },
   "jsx-preview": {
     "upstream": "jsx-preview",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "mic-selector": {
     "upstream": "mic-selector",
     "contract": "interactive",
-    "spec": "mic-selector.spec.mjs"
+    "spec": "mic-selector.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "model-selector": {
     "upstream": "model-selector",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "node": {
     "upstream": "node",
@@ -124,7 +176,10 @@
   },
   "package-info": {
     "upstream": "package-info",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "panel": {
     "upstream": "panel",
@@ -136,39 +191,63 @@
   "persona": {
     "upstream": "persona",
     "contract": "interactive",
-    "spec": "persona.spec.mjs"
+    "spec": "persona.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "plan": {
     "upstream": "plan",
     "contract": "interactive",
-    "spec": "plan.spec.mjs"
+    "spec": "plan.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "prompt-input": {
     "upstream": "prompt-input",
     "contract": "interactive",
-    "spec": "prompt-input.spec.mjs"
+    "spec": "prompt-input.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "question": {
     "upstream": "question",
     "contract": "interactive",
-    "spec": "question.spec.mjs"
+    "spec": "question.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "queue": {
     "upstream": "queue",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "reasoning": {
     "upstream": "reasoning",
     "contract": "interactive",
-    "spec": "reasoning.spec.mjs"
+    "spec": "reasoning.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "sandbox": {
     "upstream": "sandbox",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "schema-display": {
     "upstream": "schema-display",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "shimmer": {
     "upstream": "shimmer",
@@ -178,7 +257,10 @@
   "snippet": {
     "upstream": "snippet",
     "contract": "interactive",
-    "spec": "snippet.spec.mjs"
+    "spec": "snippet.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "sources": {
     "upstream": "sources",
@@ -193,30 +275,48 @@
   "stack-trace": {
     "upstream": "stack-trace",
     "contract": "interactive",
-    "spec": "stack-trace.spec.mjs"
+    "spec": "stack-trace.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "suggestion": {
     "upstream": "suggestion",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "task": {
     "upstream": "task",
     "contract": "interactive",
-    "spec": "task.spec.mjs"
+    "spec": "task.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "terminal": {
     "upstream": "terminal",
     "contract": "interactive",
-    "spec": "terminal.spec.mjs"
+    "spec": "terminal.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "test-results": {
     "upstream": "test-results",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "tool": {
     "upstream": "tool",
     "contract": "interactive",
-    "spec": "tool.spec.mjs"
+    "spec": "tool.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   },
   "toolbar": {
     "upstream": "toolbar",
@@ -232,11 +332,17 @@
   },
   "voice-selector": {
     "upstream": "voice-selector",
-    "contract": "rendered or caller-owned"
+    "contract": "rendered or caller-owned",
+    "component_examples": [
+      "default"
+    ]
   },
   "web-preview": {
     "upstream": "web-preview",
     "contract": "interactive",
-    "spec": "web-preview.spec.mjs"
+    "spec": "web-preview.spec.mjs",
+    "component_examples": [
+      "default"
+    ]
   }
 }

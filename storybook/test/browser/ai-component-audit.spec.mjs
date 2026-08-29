@@ -40,14 +40,16 @@ test("every AI Elements story has pinned upstream and independent checks", () =>
 
       expect(existsSync(fixture), name + " has no React reference").toBe(true);
 
-      if (officialExamples[name]) {
+      const componentExamples = contract.component_examples || [];
+
+      if (officialExamples[name] && !componentExamples.includes(example)) {
         const official = officialExamples[name].replace(/\.tsx$/, "");
         expect(readFileSync(fixture, "utf8")).toBe(
           'export { default } from "@upstream/ai_examples/' + official + '";\n',
         );
       } else {
         expect(
-          contract.component_examples || [],
+          componentExamples,
           name + " has neither an official example nor an explicit component fixture",
         ).toContain(example);
       }

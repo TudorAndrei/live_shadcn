@@ -3,7 +3,7 @@
   "ai_elements-message.default": "message.tsx",
   "artifact.default": "artifact.tsx",
   "attachments.default": "attachments.tsx",
-  "audio-player.default": "audio-player.tsx",
+  "audio-player.default": "audio-player-remote.tsx",
   "chain-of-thought.default": "chain-of-thought.tsx",
   "checkpoint.default": "checkpoint.tsx",
   "code-block.default": "code-block.tsx",
