@@ -57,7 +57,7 @@ defmodule Mix.Tasks.Ui.FetchTest do
             Path.extname(file) == ".tsx",
             do: file
 
-      assert length(examples) >= 80
+      assert Enum.count_until(examples, 80) == 80
       assert "audio-player.tsx" in examples
       assert "file-tree.tsx" in examples
       assert "question.tsx" in examples
