@@ -23,6 +23,7 @@ export default {
   resolve: {
     alias: {
       "@floating-ui/dom": require.resolve("@floating-ui/dom"),
+      "@rive-app/webgl2": require.resolve("@rive-app/webgl2"),
     },
   },
   output: {
