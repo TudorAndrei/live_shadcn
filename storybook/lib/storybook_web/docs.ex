@@ -47,8 +47,89 @@ defmodule StorybookWeb.Docs do
   @external_resource @verify_path
 
   @spec_root Path.expand("../../../registry/spec", __DIR__)
+  @official_examples_path Path.expand("../../../parity/official-examples.json", __DIR__)
+  @spec_paths Path.wildcard(Path.join(@spec_root, "*/*.json"))
+  @parity_example_paths Path.expand("../../../parity/src/examples/*.tsx", __DIR__)
+                        |> Path.wildcard()
+
+  @external_resource @official_examples_path
+
+  for path <- @spec_paths ++ @parity_example_paths do
+    @external_resource path
+  end
 
   @verification @verify_path |> File.read!() |> Jason.decode!()
+
+  # A release does not keep the repository beside its BEAM files. Resolve each
+  # result while the repository is present, during compilation, so production
+  # uses the same evidence check as local development without run-time file IO.
+  @status_by_identity (fn ->
+                         digest = fn binary ->
+                           :crypto.hash(:sha256, binary) |> Base.encode16(case: :lower)
+                         end
+
+                         previews =
+                           @spec_root
+                           |> Path.join("../snapshot/index.json")
+                           |> File.read!()
+                           |> Jason.decode!()
+
+                         official = @official_examples_path |> File.read!() |> Jason.decode!()
+                         manifest = @upstream_path |> File.read!() |> Jason.decode!()
+
+                         Map.new(@verification, fn {identity, result} ->
+                           [source, name] = String.split(identity, "/", parts: 2)
+                           spec = Path.join([@spec_root, source, "#{name}.json"])
+
+                           key =
+                             cond do
+                               Map.has_key?(previews, "#{source}-#{name}") -> "#{source}-#{name}"
+                               Map.has_key?(previews, name) -> name
+                               true -> name
+                             end
+
+                           fixtures =
+                             @parity_example_paths
+                             |> Enum.filter(&String.starts_with?(Path.basename(&1), key <> "."))
+                             |> Enum.sort()
+                             |> Enum.map(&{Path.basename(&1), File.read!(&1)})
+
+                           official_for_component =
+                             official
+                             |> Enum.filter(fn {example, _path} ->
+                               String.starts_with?(example, key <> ".")
+                             end)
+                             |> Enum.sort()
+
+                           upstream_ref = get_in(manifest, ["sources", source, "ref"])
+
+                           evidence =
+                             {upstream_ref, fixtures, official_for_component}
+                             |> :erlang.term_to_binary()
+                             |> digest.()
+
+                           checks_pass =
+                             Enum.all?(result["checks"] || %{}, fn {_name, check} ->
+                               check["pass"] == true and check["gated"] != false
+                             end)
+
+                           status =
+                             cond do
+                               File.exists?(spec) and result["pass"] == true and
+                                 result["spec"] == digest.(File.read!(spec)) and
+                                 result["evidence"] == evidence and checks_pass ->
+                                 :verified
+
+                               result["pass"] == false ->
+                                 :failed
+
+                               true ->
+                                 :unverified
+                             end
+
+                           {identity, status}
+                         end)
+                       end).()
 
   # The sections the AI Elements documentation groups its components under, in
   # the order it lists them. `mix ui.fetch` reads them from upstream's own
@@ -292,66 +373,8 @@ defmodule StorybookWeb.Docs do
   @doc "The highest pipeline stage that has current evidence for a documented component."
   def status(component) do
     {source, name} = identity(component)
-    spec = Path.join([@spec_root, source, "#{name}.json"])
-    result = @verification["#{source}/#{name}"]
-
-    cond do
-      verified?(result, spec, source, name) -> :verified
-      is_map(result) and result["pass"] == false -> :failed
-      true -> :unverified
-    end
+    Map.get(@status_by_identity, "#{source}/#{name}", :unverified)
   end
-
-  defp verified?(result, spec, source, name) when is_map(result) do
-    File.exists?(spec) and
-      result["pass"] == true and
-      result["spec"] == digest(File.read!(spec)) and
-      result["evidence"] == verification_evidence_digest(source, name) and
-      Enum.all?(result["checks"] || %{}, fn {_name, check} ->
-        check["pass"] == true and check["gated"] != false
-      end)
-  end
-
-  defp verified?(_result, _spec, _source, _name), do: false
-
-  defp verification_evidence_digest(source, name) do
-    root = Path.expand("../../..", __DIR__)
-    previews = Path.join(root, "registry/snapshot/index.json") |> File.read!() |> Jason.decode!()
-
-    key =
-      cond do
-        Map.has_key?(previews, "#{source}-#{name}") -> "#{source}-#{name}"
-        Map.has_key?(previews, name) -> name
-        true -> name
-      end
-
-    fixtures =
-      root
-      |> Path.join("parity/src/examples/#{key}.*.tsx")
-      |> Path.wildcard()
-      |> Enum.sort()
-      |> Enum.map(&{Path.basename(&1), File.read!(&1)})
-
-    official_path = Path.join(root, "parity/official-examples.json")
-
-    official =
-      if File.exists?(official_path) do
-        official_path
-        |> File.read!()
-        |> Jason.decode!()
-        |> Enum.filter(fn {example, _path} -> String.starts_with?(example, key <> ".") end)
-        |> Enum.sort()
-      else
-        []
-      end
-
-    manifest = @upstream_path |> File.read!() |> Jason.decode!()
-    upstream_ref = get_in(manifest, ["sources", source, "ref"])
-
-    digest(:erlang.term_to_binary({upstream_ref, fixtures, official}))
-  end
-
-  defp digest(binary), do: :crypto.hash(:sha256, binary) |> Base.encode16(case: :lower)
 
   defp identity(component) do
     namespace = to_string(module(component))
