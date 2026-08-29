@@ -1,11 +1,11 @@
 name: Deploy storybook
 
-# The storybook is a demo, so it deploys when somebody asks rather than on
-# every push. Fly's remote builder builds the linux/amd64 image from the
-# repository root. The root is the required build context because the
-# storybook uses the local packages and registry.
+# Test and deploy the exact main commit. Fly's remote builder needs the
+# repository root because the storybook uses the local packages and registry.
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -28,6 +28,18 @@ jobs:
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
           cache: false
+
+      - run: mix deps.get
+        working-directory: storybook
+
+      - run: mix test
+        working-directory: storybook
+
+      - run: npm ci
+        working-directory: storybook/assets
+
+      - run: npm run build:js -- --minify
+        working-directory: storybook/assets
 
       - name: Deploy
         run: flyctl deploy --remote-only -c storybook/fly.toml .
