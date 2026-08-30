@@ -38,6 +38,36 @@ test.describe("a dropdown menu", () => {
     await expect(item("profile")).toHaveRole("menuitem");
   });
 
+  test("matches the pinned official demo", async ({ page }) => {
+    const { trigger, popup, item } = menu(page);
+
+    await trigger.click();
+
+    await expect(popup.getByText("My Account", { exact: true })).toBeVisible();
+
+    for (const [value, label, shortcut] of [
+      ["profile", "Profile", "⇧⌘P"],
+      ["billing", "Billing", "⌘B"],
+      ["settings", "Settings", "⌘S"],
+      ["team", "Team"],
+      ["new-team", "New Team", "⌘+T"],
+      ["github", "GitHub"],
+      ["support", "Support"],
+      ["api", "API"],
+      ["log-out", "Log out", "⇧⌘Q"],
+    ]) {
+      await expect(item(value)).toContainText(label);
+
+      if (shortcut) {
+        await expect(item(value).locator("[data-slot='dropdown-menu-shortcut']")).toHaveText(
+          shortcut,
+        );
+      }
+    }
+
+    await expect(page.locator("#actions-invite-users-trigger")).toContainText("Invite users");
+  });
+
   test("the focus goes to the menu itself, not to an item", async ({ page }) => {
     const { trigger, popup } = menu(page);
 
@@ -67,10 +97,63 @@ test.describe("a dropdown menu", () => {
     await expect(popup).toBeVisible();
     await expect(item("api")).toHaveAttribute("data-disabled", "");
 
-    await page.keyboard.press("End");
+    await item("support").focus();
+    await page.keyboard.press("ArrowDown");
 
-    // `publish` is last and disabled, so End lands on the one before it.
-    await expect(item("support")).toBeFocused();
+    await expect(item("log-out")).toBeFocused();
+  });
+
+  test("opens and closes the submenu with the arrow keys", async ({ page }) => {
+    const { trigger } = menu(page);
+    const subtrigger = page.locator("#actions-invite-users-trigger");
+    const subpopup = page.locator("#actions-invite-users-popup");
+
+    await trigger.click();
+    await subtrigger.focus();
+    await page.keyboard.press("ArrowRight");
+
+    await expect(subpopup).toBeVisible();
+    await expect(subpopup.getByText("Email", { exact: true })).toBeVisible();
+    await expect(subpopup.getByText("Message", { exact: true })).toBeVisible();
+    await expect(subpopup.getByText("More...", { exact: true })).toBeVisible();
+
+    await page.keyboard.press("ArrowLeft");
+    await expect(subpopup).toBeHidden();
+    await expect(subtrigger).toBeFocused();
+  });
+
+  test("opens the submenu after the pointer rests on it", async ({ page }) => {
+    const { trigger, popup, item } = menu(page);
+    const subtrigger = page.locator("#actions-invite-users-trigger");
+    const subpopup = page.locator("#actions-invite-users-popup");
+
+    await trigger.click();
+    await subtrigger.hover();
+    await expect(subpopup).toBeVisible();
+    await expect(popup).toBeFocused();
+
+    await item("team").hover();
+    await expect(subpopup).toBeHidden();
+  });
+
+  test("closing the parent also resets its submenu", async ({ page }) => {
+    const { trigger, popup } = menu(page);
+    const subtrigger = page.locator("#actions-invite-users-trigger");
+    const subpopup = page.locator("#actions-invite-users-popup");
+
+    await trigger.click();
+    await subtrigger.click();
+    await expect(subpopup).toBeVisible();
+
+    await page.keyboard.press("Escape");
+    await expect(popup).toBeHidden();
+    await expect(subpopup).toBeHidden();
+    await expect(subtrigger).toHaveAttribute("aria-expanded", "false");
+
+    await trigger.click();
+    await expect(popup).toBeVisible();
+    await expect(subpopup).toBeHidden();
+    await expect(subtrigger).toHaveAttribute("aria-expanded", "false");
   });
 
   test("choosing an item closes the menu", async ({ page }) => {

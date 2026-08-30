@@ -9,7 +9,11 @@
       "jsx/DropdownMenuContent/class/1",
       "jsx/DropdownMenuItem/class/0",
       "jsx/DropdownMenuLabel/class/0",
-      "jsx/DropdownMenuSeparator/class/0"
+      "jsx/DropdownMenuSeparator/class/0",
+      "jsx/DropdownMenuShortcut/class/0",
+      "jsx/DropdownMenuSubContent/class/0",
+      "jsx/DropdownMenuSubTrigger/class/0",
+      "jsx/DropdownMenuSubTrigger/class/1"
     ],
     "derived": {}
   },
@@ -23,7 +27,11 @@
     "jsx/DropdownMenuContent/class/1": "cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
     "jsx/DropdownMenuItem/class/0": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/DropdownMenuLabel/class/0": "cn-dropdown-menu-label",
-    "jsx/DropdownMenuSeparator/class/0": "cn-dropdown-menu-separator"
+    "jsx/DropdownMenuSeparator/class/0": "cn-dropdown-menu-separator",
+    "jsx/DropdownMenuShortcut/class/0": "cn-dropdown-menu-shortcut",
+    "jsx/DropdownMenuSubContent/class/0": "cn-dropdown-menu-sub-content cn-menu-target cn-menu-translucent w-auto",
+    "jsx/DropdownMenuSubTrigger/class/0": "cn-dropdown-menu-sub-trigger flex cursor-default items-center outline-hidden select-none data-popup-open:bg-accent data-popup-open:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/DropdownMenuSubTrigger/class/1": "cn-rtl-flip ml-auto"
   },
   "file_fingerprints": {
     "shadcn/ui/dropdown-menu.tsx": "546f8649071d27697dcda2da09f9eafba280b1dd976d6c27d2e8b62763155498"
@@ -33,14 +41,10 @@
     "jsx/DropdownMenuCheckboxItem/class/0": "the generated port does not contain this source literal",
     "jsx/DropdownMenuCheckboxItem/class/1": "the generated port does not contain this source literal",
     "jsx/DropdownMenuRadioItem/class/0": "the generated port does not contain this source literal",
-    "jsx/DropdownMenuRadioItem/class/1": "the generated port does not contain this source literal",
-    "jsx/DropdownMenuShortcut/class/0": "the generated port does not contain this source literal",
-    "jsx/DropdownMenuSubContent/class/0": "the generated port does not contain this source literal",
-    "jsx/DropdownMenuSubTrigger/class/0": "the generated port does not contain this source literal",
-    "jsx/DropdownMenuSubTrigger/class/1": "the generated port does not contain this source literal"
+    "jsx/DropdownMenuRadioItem/class/1": "the generated port does not contain this source literal"
   },
   "name": "dropdown-menu",
-  "port_body": "3a9725eb0d8b778c9afca13f3617f2bf341970a8e0f7eda84537a906386f9088",
+  "port_body": "5438bb864f0b89dfd2d51deff1c75bc80b4c8ab4f52049cde6d13edaf8266dd8",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -81,6 +85,10 @@
     },
     {
       "name": "data-open",
+      "value": null
+    },
+    {
+      "name": "data-popup-open",
       "value": null
     },
     {
@@ -125,14 +133,14 @@
     }
   ],
   "styles": {
-    "luma": "fcccf2eee22e9c8e06519b513df7698331e22bd542273d583d96f9029b327d8e",
-    "lyra": "66459aeb7565746215c6e298868baea1150bb817a7773c87e0b005066ad23cce",
-    "maia": "12d095e833ec1e8685c5a2e00a0920eb6c2ddedef8ef9a920179942886ac9b2a",
-    "mira": "cafb46b729009c9212984913740ad8505b29278e7ed9cf6131133f264d273e43",
-    "nova": "e5e42a1161f8746bda5c4fe8e723e55c294c96c3ebfcc9c5af419cf718ec6f42",
-    "rhea": "3bbe916a115d09c6fb86f8f044929dd2174530917662694d410b7f2dc16b96e0",
-    "sera": "9b7b645b69ead01432e1b5588f988129e9a6f57b0b233153b8a15f75a5420d8c",
-    "vega": "e7cc36867c5e78098216698d89e9e9914857b397bdb44cc2b477a6a50b099b89"
+    "luma": "260c0ca86a6afdb61a64258cfe04ebe16097390e9021cca43e19ab2a7ef96ec6",
+    "lyra": "0d5adbfab168f52e1e95957b10994576c1bc7875403bc11564215c5476b185d4",
+    "maia": "aa1dc3a1acae8264b37f284e47d0a4dd0304490d240fbc689a5f93a5990339d5",
+    "mira": "5d066ede08ab8febb51b296e906631cb7647800d8b04b145e521f18441a0f0de",
+    "nova": "e9442d2c415f84b9d5e9d45390c4c2f620a551344b744143709369df01074f92",
+    "rhea": "360fd30ddd5f4c9257c968b540247c534766a23af293891b8e869a6023b289e3",
+    "sera": "50606be21013b5b6d2ed5c972d812c2f94757402d2ea47e38edf21d3ad841b3d",
+    "vega": "9d8df57174ecef0f0be1e8d55d1e576232d0b8d97baf6bc99097d4b5bc8b8cb6"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"
@@ -145,6 +153,10 @@
     "jsx/DropdownMenuContent/class/1",
     "jsx/DropdownMenuItem/class/0",
     "jsx/DropdownMenuLabel/class/0",
-    "jsx/DropdownMenuSeparator/class/0"
+    "jsx/DropdownMenuSeparator/class/0",
+    "jsx/DropdownMenuShortcut/class/0",
+    "jsx/DropdownMenuSubContent/class/0",
+    "jsx/DropdownMenuSubTrigger/class/0",
+    "jsx/DropdownMenuSubTrigger/class/1"
   ]
 }

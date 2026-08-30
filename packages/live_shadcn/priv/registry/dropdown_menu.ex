@@ -16,7 +16,13 @@ defmodule LiveShadcn.UI.DropdownMenu do
     "jsx/DropdownMenuItem/class/0" =>
       "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/DropdownMenuLabel/class/0" => "cn-dropdown-menu-label",
-    "jsx/DropdownMenuSeparator/class/0" => "cn-dropdown-menu-separator"
+    "jsx/DropdownMenuSeparator/class/0" => "cn-dropdown-menu-separator",
+    "jsx/DropdownMenuShortcut/class/0" => "cn-dropdown-menu-shortcut",
+    "jsx/DropdownMenuSubContent/class/0" =>
+      "cn-dropdown-menu-sub-content cn-menu-target cn-menu-translucent w-auto",
+    "jsx/DropdownMenuSubTrigger/class/0" =>
+      "cn-dropdown-menu-sub-trigger flex cursor-default items-center outline-hidden select-none data-popup-open:bg-accent data-popup-open:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/DropdownMenuSubTrigger/class/1" => "cn-rtl-flip ml-auto"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)
@@ -86,13 +92,19 @@ defmodule LiveShadcn.UI.DropdownMenu do
     attr(:rel, :string)
   end
 
-  slot :entry, doc: "A label, item, or separator, in source order." do
-    attr(:kind, :string, required: true, values: ["label", "item", "separator"])
+  slot :entry, doc: "A label, item, separator, or submenu, in source order." do
+    attr(:kind, :string,
+      required: true,
+      values: ["label", "item", "separator", "submenu"]
+    )
+
     attr(:value, :string)
     attr(:disabled, :boolean)
     attr(:inset, :boolean)
     attr(:variant, :string, values: ["default", "destructive"])
     attr(:class, :any)
+    attr(:shortcut, :string)
+    attr(:items, :list, doc: "The ordered item maps inside a submenu.")
     attr(:href, :string)
     attr(:target, :string)
     attr(:rel, :string)
@@ -108,9 +120,9 @@ defmodule LiveShadcn.UI.DropdownMenu do
     <div
       id={@id}
       class="contents"
-      phx-window-keydown={Popover.close(@id)}
+      phx-window-keydown={close_menu(@id, @entry)}
       phx-key="Escape"
-      phx-click-away={Popover.dismiss(@id)}
+      phx-click-away={close_menu(@id, @entry)}
       {@rest}
     >
       <button
@@ -188,6 +200,109 @@ defmodule LiveShadcn.UI.DropdownMenu do
                 ]}
               >
               </div>
+              <div :if={entry[:kind] == "submenu"} data-slot="dropdown-menu-sub">
+                <div
+                  id={Popover.trigger_id(submenu_id(@id, entry[:value]))}
+                  role="menuitem"
+                  tabindex="-1"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls={Popover.popup_id(submenu_id(@id, entry[:value]))}
+                  phx-click={Popover.toggle(submenu_id(@id, entry[:value]))}
+                  phx-mounted={Popover.owned_attributes(:trigger)}
+                  data-slot="dropdown-menu-sub-trigger"
+                  data-popup-open={flag(false)}
+                  data-pressed={flag(false)}
+                  data-inset={flag(entry[:inset] == true)}
+                  class={[
+                    upstream_fact("jsx/DropdownMenuSubTrigger/class/0"),
+                    entry[:class]
+                  ]}
+                >
+                  {render_slot(entry)}
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    class={upstream_fact("jsx/DropdownMenuSubTrigger/class/1")}
+                  >
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
+                <div
+                  id={Popover.positioner_id(submenu_id(@id, entry[:value]))}
+                  hidden
+                  phx-hook={Popover.hook()}
+                  data-lb-anchor={Popover.trigger_id(submenu_id(@id, entry[:value]))}
+                  data-lb-side="right"
+                  data-lb-align="start"
+                  data-lb-offset="0"
+                  data-lb-align-offset="-3"
+                  phx-mounted={Popover.owned_attributes(:positioner)}
+                  data-closed=""
+                  class={upstream_fact("jsx/DropdownMenuContent/class/0")}
+                >
+                  <div
+                    id={Popover.popup_id(submenu_id(@id, entry[:value]))}
+                    role="menu"
+                    tabindex="-1"
+                    hidden
+                    data-lb-popup
+                    data-lb-submenu
+                    data-lb-parent-trigger={Popover.trigger_id(submenu_id(@id, entry[:value]))}
+                    phx-hook={Menu.hook()}
+                    data-lb-roving="menuitem"
+                    data-lb-orientation="vertical"
+                    data-lb-loop
+                    data-lb-highlight="data-highlighted"
+                    phx-mounted={Popover.owned_attributes(:popup)}
+                    data-slot="dropdown-menu-sub-content"
+                    data-closed=""
+                    class={upstream_fact("jsx/DropdownMenuSubContent/class/0")}
+                    data-lb-style-target
+                    data-lb-measure
+                  >
+                    <%= for subentry <- entry[:items] || [] do %>
+                      <div
+                        :if={subentry[:kind] == "separator"}
+                        role="separator"
+                        data-slot="dropdown-menu-separator"
+                        class={upstream_fact("jsx/DropdownMenuSeparator/class/0")}
+                      >
+                      </div>
+                      <div
+                        :if={subentry[:kind] != "separator"}
+                        id={Menu.item_id(submenu_id(@id, entry[:value]), subentry[:value])}
+                        role="menuitem"
+                        tabindex="-1"
+                        phx-click={
+                          if(subentry[:disabled] != true,
+                            do: choose(@id, @entry, subentry[:"phx-click"])
+                          )
+                        }
+                        phx-mounted={Menu.owned_attributes(:item)}
+                        data-slot="dropdown-menu-item"
+                        data-disabled={flag(subentry[:disabled] == true)}
+                        data-variant={subentry[:variant] || "default"}
+                        class={upstream_fact("jsx/DropdownMenuItem/class/0")}
+                      >
+                        {subentry[:label]}
+                        <span
+                          :if={subentry[:shortcut]}
+                          data-slot="dropdown-menu-shortcut"
+                          class={upstream_fact("jsx/DropdownMenuShortcut/class/0")}
+                        >
+                          {subentry[:shortcut]}
+                        </span>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
               <a
                 :if={entry[:kind] == "item" and entry[:href]}
                 id={Menu.item_id(@id, entry[:value])}
@@ -197,7 +312,9 @@ defmodule LiveShadcn.UI.DropdownMenu do
                 target={entry[:target]}
                 rel={entry[:rel]}
                 phx-click={
-                  if(entry[:disabled] != true, do: Menu.choose(@id, entry[:"phx-click"]))
+                  if(entry[:disabled] != true,
+                    do: choose(@id, @entry, entry[:"phx-click"])
+                  )
                 }
                 phx-mounted={Menu.owned_attributes(:item)}
                 data-slot="dropdown-menu-item"
@@ -210,6 +327,13 @@ defmodule LiveShadcn.UI.DropdownMenu do
                 ]}
               >
                 {render_slot(entry)}
+                <span
+                  :if={entry[:shortcut]}
+                  data-slot="dropdown-menu-shortcut"
+                  class={upstream_fact("jsx/DropdownMenuShortcut/class/0")}
+                >
+                  {entry[:shortcut]}
+                </span>
               </a>
               <div
                 :if={entry[:kind] == "item" and !entry[:href]}
@@ -217,7 +341,9 @@ defmodule LiveShadcn.UI.DropdownMenu do
                 role="menuitem"
                 tabindex="-1"
                 phx-click={
-                  if(entry[:disabled] != true, do: Menu.choose(@id, entry[:"phx-click"]))
+                  if(entry[:disabled] != true,
+                    do: choose(@id, @entry, entry[:"phx-click"])
+                  )
                 }
                 phx-mounted={Menu.owned_attributes(:item)}
                 {Map.take(entry, [:navigate, :patch])}
@@ -231,6 +357,13 @@ defmodule LiveShadcn.UI.DropdownMenu do
                 ]}
               >
                 {render_slot(entry)}
+                <span
+                  :if={entry[:shortcut]}
+                  data-slot="dropdown-menu-shortcut"
+                  class={upstream_fact("jsx/DropdownMenuShortcut/class/0")}
+                >
+                  {entry[:shortcut]}
+                </span>
               </div>
             <% end %>
             <a
@@ -242,7 +375,9 @@ defmodule LiveShadcn.UI.DropdownMenu do
               href={item[:href]}
               target={item[:target]}
               rel={item[:rel]}
-              phx-click={if(item[:disabled] != true, do: Menu.choose(@id, item[:"phx-click"]))}
+              phx-click={
+                if(item[:disabled] != true, do: choose(@id, @entry, item[:"phx-click"]))
+              }
               phx-mounted={Menu.owned_attributes(:item)}
               data-slot={@item_slot}
               data-disabled={flag(item[:disabled] == true)}
@@ -261,7 +396,9 @@ defmodule LiveShadcn.UI.DropdownMenu do
               id={Menu.item_id(@id, item[:value])}
               role="menuitem"
               tabindex="-1"
-              phx-click={if(item[:disabled] != true, do: Menu.choose(@id, item[:"phx-click"]))}
+              phx-click={
+                if(item[:disabled] != true, do: choose(@id, @entry, item[:"phx-click"]))
+              }
               phx-mounted={Menu.owned_attributes(:item)}
               {Map.take(item, [:"phx-value-value", :navigate, :patch])}
               data-slot={@item_slot}
@@ -284,6 +421,24 @@ defmodule LiveShadcn.UI.DropdownMenu do
 
   defp flag(true), do: ""
   defp flag(_state), do: nil
+
+  defp submenu_id(menu, value), do: "#{menu}-#{value}"
+
+  defp close_menu(menu, entries) do
+    close_submenus(Popover.close(menu), menu, entries)
+  end
+
+  defp choose(menu, entries, command) do
+    close_submenus(Menu.choose(menu, command), menu, entries)
+  end
+
+  defp close_submenus(js, menu, entries) do
+    entries
+    |> Enum.filter(&(&1[:kind] == "submenu"))
+    |> Enum.reduce(js, fn entry, commands ->
+      Popover.close(commands, submenu_id(menu, entry[:value]))
+    end)
+  end
 
   defp trigger_classes(nil, _size), do: []
 

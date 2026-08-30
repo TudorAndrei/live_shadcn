@@ -1106,7 +1106,7 @@
         "pass": true
       },
       "coverage": {
-        "detail": "official source facts are not implemented: jsx/DropdownMenuCheckboxItem/class/0, jsx/DropdownMenuCheckboxItem/class/1, jsx/DropdownMenuRadioItem/class/0, jsx/DropdownMenuRadioItem/class/1, jsx/DropdownMenuShortcut/class/0, jsx/DropdownMenuSubContent/class/0, jsx/DropdownMenuSubTrigger/class/0, jsx/DropdownMenuSubTrigger/class/1",
+        "detail": "official source facts are not implemented: jsx/DropdownMenuCheckboxItem/class/0, jsx/DropdownMenuCheckboxItem/class/1, jsx/DropdownMenuRadioItem/class/0, jsx/DropdownMenuRadioItem/class/1",
         "pass": false
       },
       "generated": {
@@ -1122,9 +1122,9 @@
         "pass": true
       }
     },
-    "evidence": "070fbae1a4eaad9ae48702f9c73fc86726d07e108e99a84d89f6aea82bf8c2ae",
+    "evidence": "0d64c3751ec5c7b1a0bacf5cb233e8c007ff18f537100bafa000071aa8f03e45",
     "pass": false,
-    "spec": "7f7fe0c6e88faadbd96d9eb32bc83d260d92890209357772ae1a7a79ef3f6c8b"
+    "spec": "3759246aa7c75d41c75e265ddeea1ba4b9079a535591d30b4e667c037bcad5e7"
   },
   "shadcn/dialog": {
     "checks": {
