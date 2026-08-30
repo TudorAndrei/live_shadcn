@@ -219,7 +219,8 @@
   "dropdown-menu": [
     "default",
     "checkboxes",
-    "radio-group"
+    "radio-group",
+    "complex"
   ],
   "attachments": [
     "default"

@@ -10,14 +10,14 @@ import { expect, test } from "@playwright/test";
 import { visit } from "./live.mjs";
 
 const menu = (page) => ({
-  trigger: page.locator("#actions-trigger"),
-  popup: page.locator("#actions-popup"),
-  item: (value) => page.locator(`#actions-item-${value}`),
+  trigger: page.locator("#complex-actions-trigger"),
+  popup: page.locator("#complex-actions-popup"),
+  item: (value) => page.locator(`#complex-actions-item-${value}`),
 });
 
 test.describe("a dropdown menu", () => {
   test.beforeEach(async ({ page }) => {
-    await visit(page, "/preview/dropdown-menu/default", "#actions-trigger");
+    await visit(page, "/preview/dropdown-menu/complex", "#complex-actions-trigger");
   });
 
   test("says it opens a menu, and starts closed", async ({ page }) => {
@@ -38,7 +38,7 @@ test.describe("a dropdown menu", () => {
     await expect(item("profile")).toHaveRole("menuitem");
   });
 
-  test("matches the pinned official demo", async ({ page }) => {
+  test("draws the complex menu fixture", async ({ page }) => {
     const { trigger, popup, item } = menu(page);
 
     await trigger.click();
@@ -65,7 +65,9 @@ test.describe("a dropdown menu", () => {
       }
     }
 
-    await expect(page.locator("#actions-invite-users-trigger")).toContainText("Invite users");
+    await expect(page.locator("#complex-actions-invite-users-trigger")).toContainText(
+      "Invite users",
+    );
   });
 
   test("the focus goes to the menu itself, not to an item", async ({ page }) => {
@@ -105,8 +107,8 @@ test.describe("a dropdown menu", () => {
 
   test("opens and closes the submenu with the arrow keys", async ({ page }) => {
     const { trigger } = menu(page);
-    const subtrigger = page.locator("#actions-invite-users-trigger");
-    const subpopup = page.locator("#actions-invite-users-popup");
+    const subtrigger = page.locator("#complex-actions-invite-users-trigger");
+    const subpopup = page.locator("#complex-actions-invite-users-popup");
 
     await trigger.click();
     await subtrigger.focus();
@@ -124,8 +126,8 @@ test.describe("a dropdown menu", () => {
 
   test("opens the submenu after the pointer rests on it", async ({ page }) => {
     const { trigger, popup, item } = menu(page);
-    const subtrigger = page.locator("#actions-invite-users-trigger");
-    const subpopup = page.locator("#actions-invite-users-popup");
+    const subtrigger = page.locator("#complex-actions-invite-users-trigger");
+    const subpopup = page.locator("#complex-actions-invite-users-popup");
 
     await trigger.click();
     await subtrigger.hover();
@@ -138,8 +140,8 @@ test.describe("a dropdown menu", () => {
 
   test("closing the parent also resets its submenu", async ({ page }) => {
     const { trigger, popup } = menu(page);
-    const subtrigger = page.locator("#actions-invite-users-trigger");
-    const subpopup = page.locator("#actions-invite-users-popup");
+    const subtrigger = page.locator("#complex-actions-invite-users-trigger");
+    const subpopup = page.locator("#complex-actions-invite-users-popup");
 
     await trigger.click();
     await subtrigger.click();
@@ -194,7 +196,7 @@ test.describe("a dropdown menu", () => {
     await trigger.click();
     await expect(popup).toBeVisible();
 
-    const positioner = page.locator("#actions-positioner");
+    const positioner = page.locator("#complex-actions-positioner");
     await expect(positioner).toHaveAttribute("data-side", /top|right|bottom|left/);
 
     const anchor = await trigger.boundingBox();

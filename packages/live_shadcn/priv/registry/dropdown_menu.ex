@@ -60,6 +60,12 @@ defmodule LiveShadcn.UI.DropdownMenu do
   attr(:align, :string, default: "start", values: ["start", "center", "end"])
   attr(:offset, :integer, default: 4)
   attr(:class, :any, default: nil, doc: "Appended to the menu's class string.")
+
+  attr(:grouped, :boolean,
+    default: false,
+    doc: "Whether all entries belong to one upstream menu group."
+  )
+
   attr(:inset, :boolean, default: false, doc: "Line the text up with items that have an icon.")
   attr(:trigger_slot, :string, default: "dropdown-menu-trigger")
   attr(:popup_slot, :string, default: "dropdown-menu-content")
@@ -188,7 +194,9 @@ defmodule LiveShadcn.UI.DropdownMenu do
             data-lb-style-target
             data-lb-measure
           >
-            <%= for entry <- @entry do %>
+            <%= for {grouped, entries} <- entry_groups(@entry, @grouped) do %>
+              <.entry_group grouped={grouped}>
+                <%= for entry <- entries do %>
               <div
                 :if={entry[:kind] == "label"}
                 data-slot="dropdown-menu-label"
@@ -210,7 +218,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
                 ]}
               >
               </div>
-              <div :if={entry[:kind] == "submenu"} data-slot="dropdown-menu-sub">
+              <div :if={entry[:kind] == "submenu"}>
                 <div
                   id={Popover.trigger_id(submenu_id(@id, entry[:value]))}
                   role="menuitem"
@@ -341,13 +349,12 @@ defmodule LiveShadcn.UI.DropdownMenu do
                 ]}
               >
                 <span
-                  hidden={entry[:checked] != true}
                   data-slot="dropdown-menu-checkbox-item-indicator"
                   data-checked={flag(entry[:checked] == true)}
                   data-unchecked={flag(entry[:checked] != true)}
                   class={upstream_fact("jsx/DropdownMenuCheckboxItem/class/1")}
                 >
-                  <LiveShadcn.Icon.icon name="check" />
+                  <LiveShadcn.Icon.icon name="check" hidden={entry[:checked] != true} />
                 </span>
                 {render_slot(entry)}
                 <span
@@ -393,13 +400,15 @@ defmodule LiveShadcn.UI.DropdownMenu do
                   ]}
                 >
                   <span
-                    hidden={entry[:value] != radio[:value]}
                     data-slot="dropdown-menu-radio-item-indicator"
                     data-checked={flag(entry[:value] == radio[:value])}
                     data-unchecked={flag(entry[:value] != radio[:value])}
                     class={upstream_fact("jsx/DropdownMenuRadioItem/class/1")}
                   >
-                    <LiveShadcn.Icon.icon name="check" />
+                    <LiveShadcn.Icon.icon
+                      name="check"
+                      hidden={entry[:value] != radio[:value]}
+                    />
                   </span>
                   {radio[:label]}
                   <span
@@ -473,6 +482,8 @@ defmodule LiveShadcn.UI.DropdownMenu do
                   {entry[:shortcut]}
                 </span>
               </div>
+                <% end %>
+              </.entry_group>
             <% end %>
             <a
               :for={item <- @item}
@@ -530,18 +541,40 @@ defmodule LiveShadcn.UI.DropdownMenu do
   defp flag(true), do: ""
   defp flag(_state), do: nil
 
+  defp entry_groups(entries, false), do: [{false, entries}]
+
+  defp entry_groups(entries, true) do
+    {group, rest} = Enum.split_while(entries, &(&1[:kind] != "separator"))
+
+    [{true, group}, {false, rest}]
+    |> Enum.reject(fn {_grouped, group_entries} -> group_entries == [] end)
+  end
+
+  defp entry_group(assigns) do
+    ~H"""
+    <%= if @grouped do %>
+      <div data-slot="dropdown-menu-group">
+        {render_slot(@inner_block)}
+      </div>
+    <% else %>
+      {render_slot(@inner_block)}
+    <% end %>
+    """
+  end
+
   defp submenu_id(menu, value), do: "#{menu}-#{value}"
   defp radio_group_id(menu, group), do: "#{menu}-#{group || "radio"}-group"
 
   defp toggle_checkbox(item, command) do
     control = "##{item}"
     indicator = "#{control} [data-slot='dropdown-menu-checkbox-item-indicator']"
+    icon = "#{indicator} > svg"
 
     %JS{}
     |> JS.toggle_attribute({"aria-checked", "true", "false"}, to: control)
     |> JS.toggle_attribute({"data-checked", ""}, to: control)
     |> JS.toggle_attribute({"data-unchecked", ""}, to: control)
-    |> JS.toggle_attribute({"hidden", ""}, to: indicator)
+    |> JS.toggle_attribute({"hidden", ""}, to: icon)
     |> JS.toggle_attribute({"data-checked", ""}, to: indicator)
     |> JS.toggle_attribute({"data-unchecked", ""}, to: indicator)
     |> append_command(command)
@@ -552,18 +585,20 @@ defmodule LiveShadcn.UI.DropdownMenu do
     others = "##{group} [role='menuitemradio']:not(#{control})"
     control_indicator = "#{control} [data-slot='dropdown-menu-radio-item-indicator']"
     other_indicators = "#{others} [data-slot='dropdown-menu-radio-item-indicator']"
+    control_icon = "#{control_indicator} > svg"
+    other_icons = "#{other_indicators} > svg"
 
     %JS{}
     |> JS.set_attribute({"aria-checked", "false"}, to: others)
     |> JS.remove_attribute("data-checked", to: others)
     |> JS.set_attribute({"data-unchecked", ""}, to: others)
-    |> JS.set_attribute({"hidden", ""}, to: other_indicators)
+    |> JS.set_attribute({"hidden", ""}, to: other_icons)
     |> JS.remove_attribute("data-checked", to: other_indicators)
     |> JS.set_attribute({"data-unchecked", ""}, to: other_indicators)
     |> JS.set_attribute({"aria-checked", "true"}, to: control)
     |> JS.set_attribute({"data-checked", ""}, to: control)
     |> JS.remove_attribute("data-unchecked", to: control)
-    |> JS.remove_attribute("hidden", to: control_indicator)
+    |> JS.remove_attribute("hidden", to: control_icon)
     |> JS.set_attribute({"data-checked", ""}, to: control_indicator)
     |> JS.remove_attribute("data-unchecked", to: control_indicator)
     |> append_command(command)

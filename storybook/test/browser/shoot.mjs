@@ -25,6 +25,7 @@ import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
 
 import { collect, PROPERTIES } from "./measure.mjs";
+import { enterExampleState } from "./example-state.mjs";
 
 // How different two pixels must be before they count. pixelmatch measures in
 // YIQ colour distance and detects anti-aliasing on its own, so this absorbs
@@ -235,7 +236,7 @@ export function union(a, b, viewport) {
  * pixelmatch refuses images of different dimensions. One rectangle computed
  * across both sides keeps the framing tight *and* the dimensions equal.
  */
-export async function shoot(page, url, selector, height, clip) {
+export async function shoot(page, url, selector, height, clip, name) {
   await page.setViewportSize({ width: WIDTH, height });
   await page.goto(url);
 
@@ -247,6 +248,7 @@ export async function shoot(page, url, selector, height, clip) {
     throw new Error(`no React reference is mounted at ${url}`);
   }
 
+  await enterExampleState(page, name);
   await settle(page, selector);
 
   const measured = await page.evaluate(collect, { selector, properties: PROPERTIES });

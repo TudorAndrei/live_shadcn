@@ -1180,6 +1180,12 @@ defmodule StorybookWeb.Examples do
         "Radio group",
         "The pinned official radio group example.",
         &dropdown_menu_radio_group/1
+      ),
+      one(
+        "complex",
+        "Complex",
+        "Submenus, shortcuts, disabled items, and grouped actions.",
+        &dropdown_menu_complex/1
       )
     ]
   end
@@ -3046,7 +3052,59 @@ defmodule StorybookWeb.Examples do
 
   defp dropdown_menu_default(assigns) do
     ~H"""
-    <.dropdown_menu id="actions" trigger_variant="outline" class="w-40">
+    <.dropdown_menu id="actions" trigger_variant="outline" grouped>
+      <:trigger>Open</:trigger>
+      <:entry kind="label">My Account</:entry>
+      <:entry kind="item" value="profile">Profile</:entry>
+      <:entry kind="item" value="billing">Billing</:entry>
+      <:entry kind="item" value="settings">Settings</:entry>
+      <:entry kind="separator" />
+      <:entry kind="item" value="github">GitHub</:entry>
+      <:entry kind="item" value="support">Support</:entry>
+      <:entry kind="item" value="api" disabled>API</:entry>
+    </.dropdown_menu>
+    """
+  end
+
+  defp dropdown_menu_checkboxes(assigns) do
+    ~H"""
+    <.dropdown_menu id="appearance" trigger_variant="outline" class="w-40" grouped>
+      <:trigger>Open</:trigger>
+      <:entry kind="label">Appearance</:entry>
+      <:entry kind="checkbox" value="status-bar" checked>Status Bar</:entry>
+      <:entry kind="checkbox" value="activity-bar" disabled>Activity Bar</:entry>
+      <:entry kind="checkbox" value="panel">Panel</:entry>
+    </.dropdown_menu>
+    """
+  end
+
+  defp dropdown_menu_radio_group(assigns) do
+    ~H"""
+    <.dropdown_menu
+      id="panel-position"
+      trigger_variant="outline"
+      class="w-32"
+      grouped
+    >
+      <:trigger>Open</:trigger>
+      <:entry kind="label">Panel Position</:entry>
+      <:entry
+        kind="radio-group"
+        group="position"
+        value="bottom"
+        items={[
+          %{value: "top", label: "Top"},
+          %{value: "bottom", label: "Bottom"},
+          %{value: "right", label: "Right"}
+        ]}
+      />
+    </.dropdown_menu>
+    """
+  end
+
+  defp dropdown_menu_complex(assigns) do
+    ~H"""
+    <.dropdown_menu id="complex-actions" trigger_variant="outline" class="min-w-40" grouped>
       <:trigger>Open</:trigger>
       <:entry kind="label">My Account</:entry>
       <:entry kind="item" value="profile" shortcut="⇧⌘P">Profile</:entry>
@@ -3073,39 +3131,6 @@ defmodule StorybookWeb.Examples do
       <:entry kind="item" value="api" disabled>API</:entry>
       <:entry kind="separator" />
       <:entry kind="item" value="log-out" shortcut="⇧⌘Q">Log out</:entry>
-    </.dropdown_menu>
-    """
-  end
-
-  defp dropdown_menu_checkboxes(assigns) do
-    ~H"""
-    <.dropdown_menu id="appearance" trigger_variant="outline" class="w-56">
-      <:trigger>Open</:trigger>
-      <:entry kind="label">Appearance</:entry>
-      <:entry kind="separator" />
-      <:entry kind="checkbox" value="status-bar" checked>Status Bar</:entry>
-      <:entry kind="checkbox" value="activity-bar" disabled>Activity Bar</:entry>
-      <:entry kind="checkbox" value="panel">Panel</:entry>
-    </.dropdown_menu>
-    """
-  end
-
-  defp dropdown_menu_radio_group(assigns) do
-    ~H"""
-    <.dropdown_menu id="panel-position" trigger_variant="outline" class="w-56">
-      <:trigger>Open</:trigger>
-      <:entry kind="label">Panel Position</:entry>
-      <:entry kind="separator" />
-      <:entry
-        kind="radio-group"
-        group="position"
-        value="bottom"
-        items={[
-          %{value: "top", label: "Top"},
-          %{value: "bottom", label: "Bottom"},
-          %{value: "right", label: "Right"}
-        ]}
-      />
     </.dropdown_menu>
     """
   end

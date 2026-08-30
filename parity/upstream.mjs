@@ -56,6 +56,10 @@ const shadcn = await checkout("shadcn-ui", manifest.sources.shadcn);
 const directories = {
   // Keep the base/ui layout that the official examples import.
   shadcn: dirname(join(shadcn, manifest.sources.shadcn.dir)),
+  // The component documentation renders these examples. Keep them separate
+  // from the registry examples above because they are the public reference
+  // for the states that the Storybook copies.
+  shadcn_examples: join(shadcn, "apps/v4/examples/base"),
   ai_elements: join(ai, manifest.sources.ai_elements.dir),
   ai_examples: join(ai, manifest.sources.ai_elements.examples_dir),
   ai_shadcn: join(ai, manifest.sources.ai_elements.shadcn_dir),

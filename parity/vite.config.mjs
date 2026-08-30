@@ -49,6 +49,7 @@ export default defineConfig({
       { find: /^@streamdown\/.*/, replacement: resolve(here, "src/shim/streamdown-plugin.ts") },
       { find: "streamdown", replacement: resolve(here, "src/shim/streamdown.tsx") },
       { find: "@/registry/bases/base/ui", replacement: resolve(upstream, "shadcn/ui") },
+      { find: "@/styles/base-nova/ui", replacement: resolve(upstream, "shadcn/ui") },
       {
         find: "@repo/shadcn-ui/components/ui",
         replacement: resolve(upstream, "ai_shadcn/components/ui"),

@@ -21,6 +21,7 @@ import { expect, test } from "@playwright/test";
 import { PNG } from "pngjs";
 
 import { gated, source } from "./registries.mjs";
+import { enterExampleState } from "./example-state.mjs";
 
 import {
   MINIMUM_HEIGHT,
@@ -124,17 +125,19 @@ for (const { component, example } of pages) {
     await page.setViewportSize(viewport);
 
     await page.goto(reactURL);
+    await enterExampleState(page, name);
     await settle(page, selector);
     const reactPaint = await paintedBox(page, selector);
 
     await page.goto(phoenixURL);
+    await enterExampleState(page, name);
     await settle(page, selector);
     const phoenixPaint = await paintedBox(page, selector);
 
     const clip = union(reactPaint, phoenixPaint, viewport);
 
-    const react = await shoot(page, reactURL, selector, height, clip);
-    const phoenix = await shoot(page, phoenixURL, selector, height, clip);
+    const react = await shoot(page, reactURL, selector, height, clip, name);
+    const phoenix = await shoot(page, phoenixURL, selector, height, clip, name);
 
     const { differing, diff, width } = compare(react.image, phoenix.image);
 

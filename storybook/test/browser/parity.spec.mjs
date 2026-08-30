@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 
 import { collect, compare, describeRow, outline, PROPERTIES } from "./measure.mjs";
+import { enterExampleState } from "./example-state.mjs";
 import { gated, source } from "./registries.mjs";
 
 // Enough of a tree to find a difference in, and not so much that the report
@@ -88,10 +89,12 @@ for (const { component, example } of pages) {
     const parity = testInfo.project.use.parityURL;
 
     await page.goto(`${parity}/preview/${component}/${example}`);
+    await enterExampleState(page, `${component}.${example}`);
     const react = await measured(page, selector);
     const reactTree = await page.evaluate(outline, { selector, limit: OUTLINE_ROWS });
 
     await page.goto(`/preview/${component}/${example}`);
+    await enterExampleState(page, `${component}.${example}`);
     const phoenix = await measured(page, selector);
     const phoenixTree = await page.evaluate(outline, { selector, limit: OUTLINE_ROWS });
 
