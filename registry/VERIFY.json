@@ -1106,8 +1106,7 @@
         "pass": true
       },
       "coverage": {
-        "detail": "official source facts are not implemented: jsx/DropdownMenuCheckboxItem/class/0, jsx/DropdownMenuCheckboxItem/class/1, jsx/DropdownMenuRadioItem/class/0, jsx/DropdownMenuRadioItem/class/1",
-        "pass": false
+        "pass": true
       },
       "generated": {
         "pass": true
@@ -1122,9 +1121,9 @@
         "pass": true
       }
     },
-    "evidence": "0d64c3751ec5c7b1a0bacf5cb233e8c007ff18f537100bafa000071aa8f03e45",
-    "pass": false,
-    "spec": "3759246aa7c75d41c75e265ddeea1ba4b9079a535591d30b4e667c037bcad5e7"
+    "evidence": "815de6d14327b4cf25a2f9be5455d0cd000c72c561cbca0f259cafc8634bee11",
+    "pass": true,
+    "spec": "a18808a7b4edc04422cdb550ef813779ed048b9f5ff8e664b5c68796e35226d8"
   },
   "shadcn/dialog": {
     "checks": {

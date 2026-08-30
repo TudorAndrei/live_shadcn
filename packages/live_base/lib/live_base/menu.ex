@@ -16,8 +16,9 @@ defmodule LiveBase.Menu do
   Moving is not choosing. Arriving at an item marks it; choosing it is a
   separate keypress or click, and only that closes the menu.
 
-  **Choosing closes.** Every item closes the menu when it is chosen, because a
-  menu that stayed open would need a second gesture to dismiss.
+  **Action items close.** A plain item closes the menu when it is chosen.
+  Checkbox and radio items stay open, so a reader can change more than one
+  setting before dismissal. This is the Base UI default for checkable items.
 
   ## The attribute contract
 

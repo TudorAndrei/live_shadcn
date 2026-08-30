@@ -217,7 +217,9 @@
     "default"
   ],
   "dropdown-menu": [
-    "default"
+    "default",
+    "checkboxes",
+    "radio-group"
   ],
   "attachments": [
     "default"

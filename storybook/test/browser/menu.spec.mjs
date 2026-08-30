@@ -167,6 +167,17 @@ test.describe("a dropdown menu", () => {
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
   });
 
+  test("Enter chooses the focused item", async ({ page }) => {
+    const { trigger, popup, item } = menu(page);
+
+    await trigger.click();
+    await item("billing").focus();
+    await page.keyboard.press("Enter");
+
+    await expect(popup).toBeHidden();
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+  });
+
   test("Escape closes it without choosing anything", async ({ page }) => {
     const { trigger, popup } = menu(page);
 
@@ -189,5 +200,99 @@ test.describe("a dropdown menu", () => {
     const anchor = await trigger.boundingBox();
     const box = await positioner.boundingBox();
     expect(Math.abs(box.x - anchor.x)).toBeLessThan(40);
+  });
+});
+
+test.describe("dropdown menu checkbox items", () => {
+  test("toggle state and keep the menu open", async ({ page }) => {
+    await visit(page, "/preview/dropdown-menu/checkboxes", "#appearance-trigger");
+
+    const trigger = page.locator("#appearance-trigger");
+    const popup = page.locator("#appearance-popup");
+    const status = page.locator("#appearance-item-status-bar");
+    const activity = page.locator("#appearance-item-activity-bar");
+    const panel = page.locator("#appearance-item-panel");
+
+    await trigger.click();
+
+    await expect(status).toHaveRole("menuitemcheckbox");
+    await expect(status).toHaveAttribute("aria-checked", "true");
+    await expect(activity).toHaveAttribute("aria-disabled", "true");
+    await expect(panel).toHaveAttribute("aria-checked", "false");
+
+    await panel.click();
+
+    await expect(popup).toBeVisible();
+    await expect(panel).toHaveAttribute("aria-checked", "true");
+    await expect(
+      panel.locator("[data-slot='dropdown-menu-checkbox-item-indicator']"),
+    ).toBeVisible();
+  });
+
+  test("support arrow keys and Space", async ({ page }) => {
+    await visit(page, "/preview/dropdown-menu/checkboxes", "#appearance-trigger");
+
+    const trigger = page.locator("#appearance-trigger");
+    const popup = page.locator("#appearance-popup");
+    const status = page.locator("#appearance-item-status-bar");
+    const panel = page.locator("#appearance-item-panel");
+
+    await trigger.click();
+    await expect(popup).toBeFocused();
+
+    await page.keyboard.press("ArrowDown");
+    await expect(status).toBeFocused();
+
+    await page.keyboard.press("ArrowDown");
+    await expect(panel).toBeFocused();
+
+    await page.keyboard.press("Space");
+    await expect(panel).toHaveAttribute("aria-checked", "true");
+    await expect(popup).toBeVisible();
+  });
+});
+
+test.describe("dropdown menu radio items", () => {
+  test("select one value and keep the menu open", async ({ page }) => {
+    await visit(page, "/preview/dropdown-menu/radio-group", "#panel-position-trigger");
+
+    const trigger = page.locator("#panel-position-trigger");
+    const popup = page.locator("#panel-position-popup");
+    const top = page.locator("#panel-position-item-top");
+    const bottom = page.locator("#panel-position-item-bottom");
+
+    await trigger.click();
+
+    await expect(top).toHaveRole("menuitemradio");
+    await expect(top).toHaveAttribute("aria-checked", "false");
+    await expect(bottom).toHaveAttribute("aria-checked", "true");
+
+    await top.click();
+
+    await expect(popup).toBeVisible();
+    await expect(top).toHaveAttribute("aria-checked", "true");
+    await expect(bottom).toHaveAttribute("aria-checked", "false");
+    await expect(
+      top.locator("[data-slot='dropdown-menu-radio-item-indicator']"),
+    ).toBeVisible();
+    await expect(
+      bottom.locator("[data-slot='dropdown-menu-radio-item-indicator']"),
+    ).toBeHidden();
+  });
+
+  test("support arrow keys and Enter", async ({ page }) => {
+    await visit(page, "/preview/dropdown-menu/radio-group", "#panel-position-trigger");
+
+    const trigger = page.locator("#panel-position-trigger");
+    const popup = page.locator("#panel-position-popup");
+    const top = page.locator("#panel-position-item-top");
+
+    await trigger.click();
+    await page.keyboard.press("ArrowDown");
+    await expect(top).toBeFocused();
+
+    await page.keyboard.press("Enter");
+    await expect(top).toHaveAttribute("aria-checked", "true");
+    await expect(popup).toBeVisible();
   });
 });

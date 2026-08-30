@@ -9,8 +9,8 @@
 | `planned` | 0 | ························ |
 | `fetched` | 2 | ························ |
 | `spec` | 0 | ························ |
-| `generated` | 54 | ████████████············ |
-| `verified` | 55 | ████████████············ |
+| `generated` | 53 | ███████████············· |
+| `verified` | 56 | ████████████············ |
 
 ## Recipes
 
@@ -62,7 +62,7 @@ Only the recipes are written by hand; every component is data.
 | `checkbox` | 1 | `checkbox` | ✅ verified |
 | `collapsible` | 1 | `disclosure` | ✅ verified |
 | `dialog` | 1 | `dialog` | ✅ verified |
-| `dropdown-menu` | 1 | `menu` | 🟩 generated |
+| `dropdown-menu` | 1 | `menu` | ✅ verified |
 | `input` | 1 | `form-control` | ✅ verified |
 | `label` | 1 | `form-control` | ✅ verified |
 | `popover` | 1 | `popover` | 🟩 generated |

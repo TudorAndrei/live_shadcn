@@ -36,8 +36,7 @@ export const Roving = {
   },
 
   items() {
-    const role = this.el.getAttribute("data-lb-roving") || "tab";
-    return [...this.el.querySelectorAll(`[role='${role}']`)].filter(
+    return [...this.el.querySelectorAll(this.itemSelector())].filter(
       (item) =>
         item.closest("[data-lb-roving]") === this.el &&
         !item.hasAttribute("data-disabled") &&
@@ -45,9 +44,13 @@ export const Roving = {
     );
   },
 
-  pointermove(event) {
+  itemSelector() {
     const role = this.el.getAttribute("data-lb-roving") || "tab";
-    const item = event.target.closest(`[role='${role}']`);
+    return role === "menuitem" ? "[role^='menuitem']" : `[role='${role}']`;
+  },
+
+  pointermove(event) {
+    const item = event.target.closest(this.itemSelector());
 
     if (!item || item.closest("[data-lb-roving]") !== this.el) return;
 
@@ -85,6 +88,12 @@ export const Roving = {
   keydown(event) {
     this.cancelSubmenuOpen();
     const active = document.activeElement;
+
+    if ((event.key === "Enter" || event.key === " ") && this.items().includes(active)) {
+      event.preventDefault();
+      active.click();
+      return;
+    }
 
     if (event.key === "ArrowRight" && active?.getAttribute("aria-haspopup") === "menu") {
       event.preventDefault();

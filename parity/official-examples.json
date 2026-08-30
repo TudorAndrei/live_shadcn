@@ -12,6 +12,8 @@
   "context.default": "context.tsx",
   "conversation.default": "conversation.tsx",
   "dropdown-menu.default": "shadcn/examples/dropdown-menu-demo.tsx#DropdownMenuDemo",
+  "dropdown-menu.checkboxes": "shadcn/examples/dropdown-menu-checkboxes.tsx#DropdownMenuCheckboxes",
+  "dropdown-menu.radio-group": "shadcn/examples/dropdown-menu-radio-group.tsx#DropdownMenuRadioGroupDemo",
   "environment-variables.default": "environment-variables.tsx",
   "file-tree.default": "file-tree.tsx",
   "image.default": "image.tsx",

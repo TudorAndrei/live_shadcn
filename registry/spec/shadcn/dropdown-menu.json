@@ -5,10 +5,14 @@
   },
   "bindings": {
     "copy": [
+      "jsx/DropdownMenuCheckboxItem/class/0",
+      "jsx/DropdownMenuCheckboxItem/class/1",
       "jsx/DropdownMenuContent/class/0",
       "jsx/DropdownMenuContent/class/1",
       "jsx/DropdownMenuItem/class/0",
       "jsx/DropdownMenuLabel/class/0",
+      "jsx/DropdownMenuRadioItem/class/0",
+      "jsx/DropdownMenuRadioItem/class/1",
       "jsx/DropdownMenuSeparator/class/0",
       "jsx/DropdownMenuShortcut/class/0",
       "jsx/DropdownMenuSubContent/class/0",
@@ -23,10 +27,14 @@
     "--transform-origin"
   ],
   "facts": {
+    "jsx/DropdownMenuCheckboxItem/class/0": "cn-dropdown-menu-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/DropdownMenuCheckboxItem/class/1": "cn-dropdown-menu-item-indicator pointer-events-none",
     "jsx/DropdownMenuContent/class/0": "isolate z-50 outline-none",
     "jsx/DropdownMenuContent/class/1": "cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
     "jsx/DropdownMenuItem/class/0": "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/DropdownMenuLabel/class/0": "cn-dropdown-menu-label",
+    "jsx/DropdownMenuRadioItem/class/0": "cn-dropdown-menu-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/DropdownMenuRadioItem/class/1": "cn-dropdown-menu-item-indicator pointer-events-none",
     "jsx/DropdownMenuSeparator/class/0": "cn-dropdown-menu-separator",
     "jsx/DropdownMenuShortcut/class/0": "cn-dropdown-menu-shortcut",
     "jsx/DropdownMenuSubContent/class/0": "cn-dropdown-menu-sub-content cn-menu-target cn-menu-translucent w-auto",
@@ -37,14 +45,9 @@
     "shadcn/ui/dropdown-menu.tsx": "546f8649071d27697dcda2da09f9eafba280b1dd976d6c27d2e8b62763155498"
   },
   "fingerprint": "1e97113b4a83f5afd175208e4d7ce6c716dfb6cfc5803d413411c5867d75e0d8",
-  "ignored": {
-    "jsx/DropdownMenuCheckboxItem/class/0": "the generated port does not contain this source literal",
-    "jsx/DropdownMenuCheckboxItem/class/1": "the generated port does not contain this source literal",
-    "jsx/DropdownMenuRadioItem/class/0": "the generated port does not contain this source literal",
-    "jsx/DropdownMenuRadioItem/class/1": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "dropdown-menu",
-  "port_body": "5438bb864f0b89dfd2d51deff1c75bc80b4c8ab4f52049cde6d13edaf8266dd8",
+  "port_body": "f108eb0e298a6c195342f0158e05c19dd55560d9e92ecfc4f64dfdc544aa4490",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -133,14 +136,14 @@
     }
   ],
   "styles": {
-    "luma": "260c0ca86a6afdb61a64258cfe04ebe16097390e9021cca43e19ab2a7ef96ec6",
-    "lyra": "0d5adbfab168f52e1e95957b10994576c1bc7875403bc11564215c5476b185d4",
-    "maia": "aa1dc3a1acae8264b37f284e47d0a4dd0304490d240fbc689a5f93a5990339d5",
-    "mira": "5d066ede08ab8febb51b296e906631cb7647800d8b04b145e521f18441a0f0de",
-    "nova": "e9442d2c415f84b9d5e9d45390c4c2f620a551344b744143709369df01074f92",
-    "rhea": "360fd30ddd5f4c9257c968b540247c534766a23af293891b8e869a6023b289e3",
-    "sera": "50606be21013b5b6d2ed5c972d812c2f94757402d2ea47e38edf21d3ad841b3d",
-    "vega": "9d8df57174ecef0f0be1e8d55d1e576232d0b8d97baf6bc99097d4b5bc8b8cb6"
+    "luma": "2576b9431f941157373bdd843ee301309890ae18c7d29f525b9476fb5b931fa5",
+    "lyra": "73d2ac15b9fbc1ac7c020789cf27652694e83d03178077b22fe56e2aeadcbb0b",
+    "maia": "8d329a7385b995811f90951dc544336617e9709823e2aa9bea9aeefca85d0cd4",
+    "mira": "10e7136020f8cbbc53d78ac6d49b864afb0982324138b07abe44be31ff74dd97",
+    "nova": "03c776fb72b4b76d99f3966224b75ddbe13fc90c5f2dd4fd76f1be52736f12e3",
+    "rhea": "579395374b5b8f3305691116439372e0cb65e0db3e534d3bada509a603d3a744",
+    "sera": "709b80ed1f1f377811d44a17d22e0a0a8e6aa89be50545062526bbc64835dd4d",
+    "vega": "55d9d790e29f91f2f1dbc9036cd975c23f5585ad193256f76f6bc648461444f1"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"
