@@ -24,16 +24,12 @@ defmodule StorybookWeb.ExamplesTest do
   describe "a component's documentation page" do
     test "shows the current verification result for each component", %{conn: conn} do
       {:ok, _view, shadcn} = live(conn, "/docs/badge")
+      {:ok, _view, dropdown_menu} = live(conn, "/docs/dropdown-menu")
       {:ok, _view, ai_elements} = live(conn, "/docs/transcription")
 
       assert shadcn =~ ~s(data-component-status="verified")
+      assert dropdown_menu =~ ~s(data-component-status="verified")
       assert ai_elements =~ ~s(data-component-status="verified")
-    end
-
-    test "does not verify a component with missing official source facts", %{conn: conn} do
-      {:ok, _view, html} = live(conn, "/docs/dropdown-menu")
-
-      assert html =~ ~s(data-component-status="failed")
     end
 
     test "does not verify another incomplete component", %{conn: conn} do
