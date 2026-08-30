@@ -28,12 +28,14 @@ defmodule LiveShadcn.UI.Separator do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "separator"}
+      role={@rest[:role] || "separator"}
+      aria-orientation={if(@rest[:role] in [nil, "separator"], do: @orientation)}
       data-orientation={@orientation}
       class={[
         upstream_fact("jsx/Separator/class/0"),
         (@class || "")
       ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      {Map.drop(@rest, [:"data-slot", :role])}
     >
       {render_slot(@inner_block)}
     </div>

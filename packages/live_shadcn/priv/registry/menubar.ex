@@ -41,6 +41,8 @@ defmodule LiveShadcn.UI.Menubar do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "menubar"}
+      role="menubar"
+      aria-orientation="horizontal"
       class={[upstream_fact("jsx/Menubar/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >

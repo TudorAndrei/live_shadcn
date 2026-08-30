@@ -60,7 +60,6 @@ defmodule LiveAiElements.Components.SpeechInput do
       <button
         data-slot={@rest[:"data-slot"] || "button"}
         disabled={@is_disabled}
-        aria-pressed={to_string(@is_listening)}
         class={[
           Shadcn.button_class(@size, @variant),
           upstream_fact("jsx/SpeechInput/class/2"),

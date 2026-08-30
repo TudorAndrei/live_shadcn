@@ -35,7 +35,7 @@ defmodule LiveAiElements.Components.Checkpoint do
     ~H"""
     <div class={[upstream_fact("jsx/Checkpoint/class/0"), (@class || "")]} {@rest}>
       {render_slot(@inner_block)}
-      <LiveShadcn.UI.Separator.separator />
+      <LiveShadcn.UI.Separator.separator role="none" />
     </div>
     """
   end

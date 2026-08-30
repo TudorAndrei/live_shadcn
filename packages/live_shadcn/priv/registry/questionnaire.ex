@@ -334,6 +334,8 @@ defmodule LiveShadcn.UI.Questionnaire do
 
   @doc "The `questionnaire-progress` part."
 
+  attr(:current, :integer, default: nil, doc: "The current question number.")
+  attr(:total, :integer, default: nil, doc: "The total question count.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -342,6 +344,13 @@ defmodule LiveShadcn.UI.Questionnaire do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "questionnaire-progress"}
+      role="progressbar"
+      aria-label="Questionnaire progress"
+      aria-live="polite"
+      aria-valuemin={if(@total, do: "1")}
+      aria-valuemax={@total}
+      aria-valuenow={@current}
+      aria-valuetext={if(@current && @total, do: "Question #{@current} of #{@total}")}
       class={[
         upstream_fact("jsx/QuestionnaireProgress/class/0"),
         (@class || "")

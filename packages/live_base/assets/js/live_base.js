@@ -16,6 +16,7 @@ import { Carousel } from "./carousel.js";
 import { Calendar } from "./calendar.js";
 import { Clipboard } from "./clipboard.js";
 import { Floating } from "./floating.js";
+import { InteractionTrigger } from "./interaction_trigger.js";
 import { Overlay } from "./overlay.js";
 import { Roving } from "./roving.js";
 import { Resizable } from "./resizable.js";
@@ -30,6 +31,7 @@ export const hooks = {
   "LiveBase.Clipboard": Clipboard,
   "LiveBase.Disclosure": Disclosure,
   "LiveBase.Floating": Floating,
+  "LiveBase.InteractionTrigger": InteractionTrigger,
   "LiveBase.Overlay": Overlay,
   "LiveBase.Roving": Roving,
   "LiveBase.Resizable": Resizable,
@@ -45,6 +47,7 @@ export {
   Clipboard,
   Disclosure,
   Floating,
+  InteractionTrigger,
   Overlay,
   Resizable,
   Roving,

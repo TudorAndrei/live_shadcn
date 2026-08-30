@@ -48,15 +48,34 @@ defmodule StorybookWeb.Docs do
 
   @spec_root Path.expand("../../../registry/spec", __DIR__)
   @official_examples_path Path.expand("../../../parity/official-examples.json", __DIR__)
+  @repo_root Path.expand("../../..", __DIR__)
   @spec_paths Path.wildcard(Path.join(@spec_root, "*/*.json"))
   @parity_example_paths Path.expand("../../../parity/src/examples/*.tsx", __DIR__)
                         |> Path.wildcard()
 
+  @verification_rule_paths [
+                             "storybook/test/browser/*.mjs",
+                             "storybook/test/browser/parity-divergence.json",
+                             "storybook/test/browser/pixel-budget.json",
+                             "storybook/test/browser/package-lock.json",
+                             "parity/package-lock.json",
+                             "parity/upstream.mjs",
+                             "parity/vite.config.mjs"
+                           ]
+                           |> Enum.flat_map(&Path.wildcard(Path.join(@repo_root, &1)))
+                           |> Enum.uniq()
+                           |> Enum.sort()
+
   @external_resource @official_examples_path
 
-  for path <- @spec_paths ++ @parity_example_paths do
+  for path <- @spec_paths ++ @parity_example_paths ++ @verification_rule_paths do
     @external_resource path
   end
+
+  @verification_rules Enum.map(
+                        @verification_rule_paths,
+                        &{Path.relative_to(&1, @repo_root), File.read!(&1)}
+                      )
 
   @verification @verify_path |> File.read!() |> Jason.decode!()
 
@@ -104,7 +123,7 @@ defmodule StorybookWeb.Docs do
                            upstream_ref = get_in(manifest, ["sources", source, "ref"])
 
                            evidence =
-                             {upstream_ref, fixtures, official_for_component}
+                             {upstream_ref, fixtures, official_for_component, @verification_rules}
                              |> :erlang.term_to_binary()
                              |> digest.()
 
@@ -130,6 +149,9 @@ defmodule StorybookWeb.Docs do
                                  result["evidence"] == evidence and checks_pass and
                                    review_complete ->
                                  :verified
+
+                               not review_complete ->
+                                 :unverified
 
                                result["pass"] == false ->
                                  :failed

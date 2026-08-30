@@ -76,7 +76,6 @@ defmodule LiveAiElements.Components.Task do
       <div
         data-slot="collapsible-trigger"
         id={Disclosure.trigger_id(@id)}
-        role="button"
         tabindex={if(@disabled, do: "-1", else: "0")}
         aria-expanded={to_string(@open)}
         aria-controls={Disclosure.panel_id(@id)}
@@ -97,13 +96,15 @@ defmodule LiveAiElements.Components.Task do
         </p>
         <LiveShadcn.Icon.icon
           name="chevron-down"
-          class={upstream_fact("jsx/TaskTrigger/class/4")}
+          class={[
+            upstream_fact("jsx/TaskTrigger/class/4"),
+            "group-data-panel-open:rotate-180"
+          ]}
         />
       </div>
       <div
         data-slot="collapsible-content"
         id={Disclosure.panel_id(@id)}
-        role="region"
         aria-labelledby={Disclosure.trigger_id(@id)}
         hidden={not @open}
         phx-hook={Disclosure.hook()}

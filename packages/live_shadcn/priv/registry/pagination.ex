@@ -110,6 +110,7 @@ defmodule LiveShadcn.UI.Pagination do
     ~H"""
     <a
       data-slot={@rest[:"data-slot"] || "pagination-link"}
+      role="button"
       aria-current={if(@is_active, do: "page", else: nil)}
       data-active={@is_active}
       class={[

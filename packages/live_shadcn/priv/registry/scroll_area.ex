@@ -53,6 +53,7 @@ defmodule LiveShadcn.UI.ScrollArea do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "scroll-area"}
+      role="presentation"
       id={@id}
       phx-hook={Scroller.hook()}
       phx-mounted={Scroller.owned_attributes()}
@@ -61,6 +62,7 @@ defmodule LiveShadcn.UI.ScrollArea do
     >
       <div
         data-slot="scroll-area-viewport"
+        role="presentation"
         data-lb-scroller
         tabindex="0"
         style="overflow: scroll; scrollbar-width: none"

@@ -144,7 +144,6 @@ export const SpeechInput = {
   draw(listening) {
     this.listening = listening;
     this.el.dataset.listening = String(listening);
-    this.button?.setAttribute("aria-pressed", String(listening));
     for (const pulse of this.pulses) pulse.hidden = !listening;
     if (this.mic) this.mic.hidden = listening;
     if (this.stopIcon) this.stopIcon.hidden = !listening;

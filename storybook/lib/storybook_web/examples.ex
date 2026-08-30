@@ -1313,7 +1313,8 @@ defmodule StorybookWeb.Examples do
         <.button variant="ghost" phx-click={LiveBase.Dialog.close("publish")}>Not yet</.button>
         <.button phx-click={LiveBase.Dialog.close("publish")}>Publish</.button>
       </:footer>
-      Every check has to have passed first: `mix ui.verify` on every component.
+      Every check has to have passed first: <code>mix ui.verify</code>
+      on every component.
     </.alert_dialog>
     """
   end
@@ -1507,8 +1508,12 @@ defmodule StorybookWeb.Examples do
   defp command_default(assigns) do
     ~H"""
     <.command class="max-w-md border">
-      <.command_input placeholder="Search commands" aria-label="Search commands" />
-      <.command_list>
+      <.command_input
+        placeholder="Search commands"
+        aria-label="Search commands"
+        controls="commands-list"
+      />
+      <.command_list id="commands-list">
         <.command_group>
           <.command_item data-selected="true">New file</.command_item>
           <.command_item>Open project</.command_item>
@@ -2036,31 +2041,60 @@ defmodule StorybookWeb.Examples do
   end
 
   defp open_in_chat_default(assigns) do
-    query = "How does the fold work?"
-
-    assigns =
-      assign(assigns,
-        chatgpt:
-          "https://chatgpt.com/?" <>
-            URI.encode_query(%{"hints" => "search", "prompt" => query}),
-        claude: "https://claude.ai/new?" <> URI.encode_query(%{"q" => query})
-      )
+    assigns = assign(assigns, :query, "How can I implement authentication in Next.js?")
 
     ~H"""
     <.dropdown_menu
       id="open-in-chat"
-      class="w-[240px]"
+      class="static! w-[240px] border bg-popover! p-1 shadow-md ring-0! before:hidden!"
+      align="start"
       trigger_class={LiveAiElements.Shadcn.button_class("default", "outline")}
     >
       <:trigger>
         Open in chat <LiveShadcn.Icon.icon name="chevron-down" class="size-4" />
       </:trigger>
-      <:item value="chatgpt" href={@chatgpt} target="_blank" rel="noopener">
-        Open in ChatGPT <LiveShadcn.Icon.icon name="external-link" class="ml-auto size-4 shrink-0" />
-      </:item>
-      <:item value="claude" href={@claude} target="_blank" rel="noopener">
-        Open in Claude <LiveShadcn.Icon.icon name="external-link" class="ml-auto size-4 shrink-0" />
-      </:item>
+      <LiveAiElements.Components.OpenInChat.open_in_chat_gpt
+        query={@query}
+        data-slot="dropdown-menu-item"
+        role="menuitem"
+        tabindex="-1"
+        class={LiveShadcn.UI.DropdownMenu.item_class()}
+      />
+      <LiveAiElements.Components.OpenInChat.open_in_claude
+        query={@query}
+        data-slot="dropdown-menu-item"
+        role="menuitem"
+        tabindex="-1"
+        class={LiveShadcn.UI.DropdownMenu.item_class()}
+      />
+      <LiveAiElements.Components.OpenInChat.open_in_cursor
+        query={@query}
+        data-slot="dropdown-menu-item"
+        role="menuitem"
+        tabindex="-1"
+        class={LiveShadcn.UI.DropdownMenu.item_class()}
+      />
+      <LiveAiElements.Components.OpenInChat.open_in_t3
+        query={@query}
+        data-slot="dropdown-menu-item"
+        role="menuitem"
+        tabindex="-1"
+        class={LiveShadcn.UI.DropdownMenu.item_class()}
+      />
+      <LiveAiElements.Components.OpenInChat.open_in_scira
+        query={@query}
+        data-slot="dropdown-menu-item"
+        role="menuitem"
+        tabindex="-1"
+        class={LiveShadcn.UI.DropdownMenu.item_class()}
+      />
+      <LiveAiElements.Components.OpenInChat.open_inv0
+        query={@query}
+        data-slot="dropdown-menu-item"
+        role="menuitem"
+        tabindex="-1"
+        class={LiveShadcn.UI.DropdownMenu.item_class()}
+      />
     </.dropdown_menu>
     """
   end
@@ -2556,13 +2590,12 @@ defmodule StorybookWeb.Examples do
   # nothing without one. A server has no such list, so the options are given.
   defp mic_selector_default(assigns) do
     ~H"""
-    <div class="flex max-w-sm flex-col gap-2">
-      <.label id="mic-label">Microphone</.label>
+    <div class="flex size-full flex-col items-center justify-center gap-4">
       <LiveAiElements.Components.MicSelector.mic_selector
         id="mic"
         name="mic"
-        labelledby="mic-label"
-        placeholder="Select a microphone"
+        placeholder="Select microphone..."
+        trigger_class="w-full max-w-sm"
       >
         <:option value="built-in" label="Built-in microphone" />
         <:option value="usb" label="USB microphone" />
@@ -2589,7 +2622,12 @@ defmodule StorybookWeb.Examples do
   defp attachments_default(assigns) do
     ~H"""
     <AiAttachments.attachments variant="list" class="max-w-md">
-      <.hover_card id="spec-preview" align="start">
+      <.hover_card
+        id="spec-preview"
+        align="start"
+        align_offset="0"
+        class="w-auto! rounded-md! border p-2! text-base! leading-6! shadow-md! ring-0!"
+      >
         <:trigger>
           <AiAttachments.attachment variant="list">
             <AiAttachments.attachment_preview variant="list">
@@ -2923,7 +2961,7 @@ defmodule StorybookWeb.Examples do
   defp questionnaire_default(assigns) do
     ~H"""
     <.questionnaire>
-      <.questionnaire_progress>1 of 2</.questionnaire_progress>
+      <.questionnaire_progress current={1} total={2}>1 of 2</.questionnaire_progress>
       <.questionnaire_item>
         <.questionnaire_title>How should the server filter commands?</.questionnaire_title>
         <.questionnaire_description>
@@ -3040,7 +3078,8 @@ defmodule StorybookWeb.Examples do
       <:trigger>Delete the accordion</:trigger>
       <:title>Are you sure?</:title>
       <:description>This removes the component and its spec.</:description>
-      The upstream sources stay where they are. `mix ui.spec` restores safe
+      The upstream sources stay where they are. <code>mix ui.spec</code>
+      restores safe
       upstream facts after the port is reviewed.
       <:footer>
         <.button variant="ghost" phx-click={LiveBase.Dialog.close("confirm")}>Cancel</.button>
@@ -3180,7 +3219,7 @@ defmodule StorybookWeb.Examples do
 
   defp progress_default(assigns) do
     ~H"""
-    <.progress value="62" class="max-w-sm">
+    <.progress value="62" label="Generating" class="max-w-sm">
       <.progress_label>Generating</.progress_label>
       <.progress_value>62%</.progress_value>
       <.progress_track>

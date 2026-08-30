@@ -173,7 +173,6 @@ defmodule LiveAiElements.Components.Tool do
       <div
         data-slot="collapsible-content"
         id={Disclosure.panel_id(@id)}
-        role="region"
         aria-labelledby={Disclosure.trigger_id(@id)}
         hidden={not @open}
         phx-hook={Disclosure.hook()}

@@ -12,6 +12,7 @@ import { visit } from "./live.mjs";
 const select = (page) => ({
   trigger: page.locator("#style-select-trigger"),
   popup: page.locator("#style-select-popup"),
+  listbox: page.locator("#style-select-popup [role='listbox']"),
   input: page.locator("#style-select-input"),
   option: (value) => page.locator(`#style-select-option-${value}`),
 });
@@ -36,12 +37,13 @@ test.describe("a select", () => {
   });
 
   test("opens a listbox of options", async ({ page }) => {
-    const { trigger, popup, option } = select(page);
+    const { trigger, popup, listbox, option } = select(page);
 
     await trigger.click();
 
     await expect(popup).toBeVisible();
-    await expect(popup).toHaveRole("listbox");
+    await expect(popup).toHaveAttribute("role", "presentation");
+    await expect(listbox).toHaveRole("listbox");
     await expect(option("vega")).toHaveRole("option");
     await expect(option("vega")).toHaveAttribute("aria-selected", "false");
   });
@@ -82,10 +84,11 @@ test.describe("a select", () => {
 
     await trigger.click();
     await expect(popup).toBeVisible();
+    await expect(select(page).option("vega")).toBeFocused();
 
     await page.keyboard.press("ArrowDown");
-    await expect(select(page).option("vega")).toBeFocused();
-    await expect(select(page).option("vega")).toHaveAttribute("data-highlighted", "");
+    await expect(select(page).option("nova")).toBeFocused();
+    await expect(select(page).option("nova")).toHaveAttribute("data-highlighted", "");
 
     // Walked to, not chosen: nothing has been submitted yet.
     await expect(input).toHaveValue("");

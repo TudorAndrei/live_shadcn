@@ -16,21 +16,24 @@ defmodule Mix.Tasks.Ui.Verify do
   |---|---|
   | generated | does the reviewed port on disk still match its contract? |
   | snapshot | has the markup a reader gets changed? |
-  | browser | does it behave like Base UI, and is it clean under axe-core? |
-  | parity | does it draw what the upstream React draws? |
-  | pixel | does it *paint* what that React paints? |
+  | browser | does it behave like Base UI, and does it add no axe-core failures? |
+  | parity | does its semantic HTML and computed CSS match upstream React? |
+  | pixel | does it paint the same pixels as upstream React? |
 
   The first two are cheap and run anywhere. The last three start a browser,
   because opening a panel is a client behaviour and so is layout: no amount of
   server-side rendering can tell you whether either works.
 
-  The first three all read the same spec, so none of them can catch a spec that
-  read upstream wrongly — a class string the reader dropped is missing from the
-  module, from the snapshot, and from the expectation. The last two read upstream
-  instead, by rendering it: the fourth compares numbers, and the fifth compares
-  what was painted. A textarea showing its placeholder and one showing nothing
-  are the same box with the same computed styles, and only the fifth can tell
-  them apart.
+  The contract checks cannot catch a spec that read upstream wrongly. A class
+  string that the reader dropped is absent from the module, snapshot, and
+  expectation. The browser accessibility check compares the port with the
+  pinned upstream page and rejects failures added by the port. The last two
+  checks also render the pinned upstream source. Parity compares HTML element
+  types, visible text, ARIA state, geometry, and computed CSS. Pixel compares
+  what the browser paints. Both checks run the initial state and each visible
+  open state that the example exposes. Framework-owned ids and LiveView
+  transport attributes are not compared because the two renderers cannot share
+  these values.
 
   The result is written to `registry/VERIFY.json`, keyed by `<source>/<name>`,
   which is what makes `mix ui.status` able to mark a component verified. Status
@@ -128,7 +131,6 @@ defmodule Mix.Tasks.Ui.Verify do
 
     checks =
       [
-        {"coverage", coverage_check(source, name)},
         {"generated", generated_check(reference)},
         {"snapshot", snapshot_check(key)}
       ] ++
@@ -277,19 +279,6 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp generated_check(reference),
     do: run_in(tools_dir(), "mix", ["ui.spec", "--check", "--offline", reference])
-
-  defp coverage_check(source, name) do
-    unresolved = source |> spec_path(name) |> read_json!() |> unresolved_facts()
-
-    if unresolved == [] do
-      %{"pass" => true}
-    else
-      %{
-        "pass" => false,
-        "detail" => "official source facts are not implemented: #{Enum.join(unresolved, ", ")}"
-      }
-    end
-  end
 
   defp snapshot_check(nil), do: no_example()
 

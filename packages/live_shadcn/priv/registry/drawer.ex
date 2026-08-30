@@ -91,6 +91,8 @@ defmodule LiveShadcn.UI.Drawer do
     <div
       data-slot="drawer-overlay"
       id={Dialog.backdrop_id(@id)}
+      role="presentation"
+      aria-hidden="true"
       hidden={not @open}
       phx-click={if(@dismissable, do: Dialog.close(@id))}
       phx-mounted={Dialog.owned_attributes(:backdrop)}
@@ -108,7 +110,6 @@ defmodule LiveShadcn.UI.Drawer do
       data-slot="drawer-popup"
       id={Dialog.popup_id(@id)}
       role={if(@alert, do: "alertdialog", else: "dialog")}
-      aria-modal="true"
       aria-labelledby={Dialog.title_id(@id)}
       aria-describedby={Dialog.description_id(@id)}
       tabindex="-1"
@@ -122,6 +123,7 @@ defmodule LiveShadcn.UI.Drawer do
       data-open={flag(@open)}
       data-closed={flag(not @open)}
       data-swipe-axis={if(@swipe_direction in ["down", "up"], do: "y", else: "x")}
+      data-swipe-direction={@swipe_direction}
       data-snap-points={flag(@snap_points != [])}
       class={[
         upstream_fact("port/class/0"),

@@ -41,13 +41,13 @@ test.describe("a dialog", () => {
     await expect(trigger).toHaveAttribute("data-popup-open", "");
   });
 
-  test("is a modal dialog named by its own title", async ({ page }) => {
+  test("is a dialog named by its own title", async ({ page }) => {
     const { trigger, popup } = dialog(page, "confirm");
 
     await trigger.click();
 
     await expect(popup).toHaveRole("dialog");
-    await expect(popup).toHaveAttribute("aria-modal", "true");
+    await expect(popup).not.toHaveAttribute("aria-modal", /.*/);
     await expect(popup).toHaveAttribute("aria-labelledby", "confirm-title");
     await expect(page.locator("#confirm-title")).toHaveText("Are you sure?");
   });

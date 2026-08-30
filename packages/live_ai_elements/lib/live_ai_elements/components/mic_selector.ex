@@ -161,19 +161,17 @@ defmodule LiveAiElements.Components.MicSelector do
         data-slot="popover-trigger"
         id={Popover.trigger_id(@id)}
         type="button"
-        role="combobox"
         aria-labelledby={@labelledby}
-        aria-haspopup="listbox"
+        aria-haspopup="dialog"
         aria-expanded={to_string(@open)}
         aria-controls={Popover.popup_id(@id)}
         phx-click={if(not @disabled, do: Popover.toggle(@id))}
         phx-mounted={Popover.owned_attributes(:trigger)}
         data-popup-open={flag(@open)}
         data-pressed={flag(@open)}
-        aria-invalid={to_string(@errors != [])}
+        aria-invalid={if(@errors != [], do: "true")}
         class={[
           Shadcn.button_class(@size, @variant),
-          "w-full justify-between",
           @trigger_class
         ]}
       >
@@ -181,6 +179,7 @@ defmodule LiveAiElements.Components.MicSelector do
           id={Listbox.value_id(@id)}
           data-lb-mic-value
           phx-mounted={Listbox.owned_attributes(:value)}
+          class="flex-1 text-left"
         >
           {label(@option, @value) || @placeholder}
         </span>
@@ -208,7 +207,8 @@ defmodule LiveAiElements.Components.MicSelector do
           data-lb-anchor={Popover.trigger_id(@id)}
           data-lb-side={@side}
           data-lb-align={@align}
-          data-lb-offset={to_string(@offset)}
+          data-lb-offset={@side_offset}
+          data-lb-align-offset={@align_offset}
           data-lb-autofocus
           phx-mounted={Popover.owned_attributes(:positioner)}
           data-open={flag(@open)}
@@ -218,50 +218,76 @@ defmodule LiveAiElements.Components.MicSelector do
           <div
             data-slot="popover-content"
             id={Popover.popup_id(@id)}
-            role="listbox"
+            role="dialog"
             tabindex="-1"
             hidden={not @open}
             data-lb-popup
-            phx-hook="LiveBase.Roving"
-            data-lb-roving="option"
-            data-lb-orientation="vertical"
-            data-lb-highlight="data-highlighted"
             phx-mounted={Popover.owned_attributes(:popup)}
             data-open={flag(@open)}
             data-closed={flag(not @open)}
             class={[
               upstream_fact("jsx/PopoverContent/class/1"),
               upstream_fact("jsx/MicSelectorContent/class/0"),
+              "static! block! flex-row! [gap:normal]! border bg-popover! p-0! text-base! leading-6! ring-0! before:hidden!",
               (@class || "")
             ]}
             data-lb-style-target
             data-lb-measure
+            style="width: var(--anchor-width)"
           >
             <div
-              :for={option <- @option}
-              data-slot="command-item"
-              id={Listbox.option_id(@id, option[:value])}
-              role="option"
-              tabindex="-1"
-              aria-selected={to_string(option[:value] == @value)}
-              data-selected={flag(option[:value] == @value)}
-              phx-click={
-                if(option[:disabled] != true,
-                  do: Listbox.choose(listbox: @id, value: option[:value], label: option[:label])
-                )
-              }
-              phx-mounted={Listbox.owned_attributes(:option)}
-              data-disabled={flag(option[:disabled] == true)}
-              class={[
-                upstream_fact("jsx/CommandItem/class/0"),
-                (@item_class || "")
-              ]}
-              data-lb-style-target
+              data-slot="command"
+              class="bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md"
             >
-              <LiveShadcn.Icon.icon
-                name="check"
-                class={upstream_fact("jsx/CommandItem/class/1")}
-              />{option[:label] || option[:value]}
+              <div
+                data-slot="command-input-wrapper"
+                class="flex h-9 items-center gap-2 border-b px-3"
+              >
+                <LiveShadcn.Icon.icon name="search" class="size-4 shrink-0 opacity-50" />
+                <input
+                  data-slot="command-input"
+                  role="combobox"
+                  aria-expanded="true"
+                  aria-label="Search microphones"
+                  placeholder="Search microphones..."
+                  class="placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
+                />
+              </div>
+              <div
+                data-slot="command-list"
+                role="listbox"
+                class="max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto"
+              >
+                <div
+                  :for={{option, index} <- Enum.with_index(@option)}
+                  id={Listbox.option_id(@id, option[:value])}
+                  data-slot="command-item"
+                  role="option"
+                  aria-disabled={to_string(option[:disabled] == true)}
+                  aria-selected={to_string(index == 0)}
+                  tabindex="-1"
+                  data-selected={to_string(index == 0)}
+                  phx-click={
+                    if(option[:disabled] != true,
+                      do:
+                        Listbox.choose(
+                          listbox: @id,
+                          value: option[:value],
+                          label: option[:label]
+                        )
+                    )
+                  }
+                  phx-mounted={Listbox.owned_attributes(:option)}
+                  data-disabled={to_string(option[:disabled] == true)}
+                  class={[
+                    "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+                    @item_class
+                  ]}
+                  data-lb-style-target
+                >
+                  {option[:label] || option[:value]}
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -122,6 +122,7 @@ defmodule LiveShadcn.UI.Popover do
             data-lb-measure
           >
             <h2
+              :if={@title != []}
               data-slot="popover-title"
               id={@id <> "-title"}
               class={[upstream_fact("jsx/PopoverTitle/class/0"), (@title_class || "")]}
@@ -129,6 +130,7 @@ defmodule LiveShadcn.UI.Popover do
               {render_slot(@title)}
             </h2>
             <p
+              :if={@description != []}
               data-slot="popover-description"
               id={@id <> "-description"}
               class={[upstream_fact("jsx/PopoverDescription/class/0"), (@description_class || "")]}

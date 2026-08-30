@@ -39,8 +39,8 @@ test.describe("a toaster", () => {
     await expect(viewport(page)).toHaveAttribute("aria-label", "Notifications");
   });
 
-  test("each toast announces itself politely", async ({ page }) => {
-    await expect(toasts(page).first()).toHaveAttribute("role", "status");
+  test("each toast uses the upstream live dialog contract", async ({ page }) => {
+    await expect(toasts(page).first()).toHaveAttribute("role", "dialog");
     await expect(toasts(page).first()).toHaveAttribute("aria-live", "polite");
   });
 

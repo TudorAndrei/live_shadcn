@@ -233,7 +233,7 @@ defmodule LiveShadcnTools do
   @doc "Whether a contract accounts for all official source facts."
   def reviewed_contract?(contract), do: unresolved_facts(contract) == []
 
-  @doc "Digest of the pinned upstream commit and the React references used for verification."
+  @doc "Digest of the pinned upstream source, React references, and verification rules."
   def verification_evidence_digest(source, name) do
     root = repo_root()
     previews = registry_path(["snapshot", "index.json"]) |> read_json!() |> Map.keys()
@@ -267,7 +267,22 @@ defmodule LiveShadcnTools do
     manifest = read_json!(registry_path("UPSTREAM.json"))
     upstream_ref = get_in(manifest, ["sources", source, "ref"])
 
-    digest(:erlang.term_to_binary({upstream_ref, fixtures, official}))
+    verification_rules =
+      [
+        "storybook/test/browser/*.mjs",
+        "storybook/test/browser/parity-divergence.json",
+        "storybook/test/browser/pixel-budget.json",
+        "storybook/test/browser/package-lock.json",
+        "parity/package-lock.json",
+        "parity/upstream.mjs",
+        "parity/vite.config.mjs"
+      ]
+      |> Enum.flat_map(fn pattern -> Path.wildcard(Path.join(root, pattern)) end)
+      |> Enum.uniq()
+      |> Enum.sort()
+      |> Enum.map(&{Path.relative_to(&1, root), File.read!(&1)})
+
+    digest(:erlang.term_to_binary({upstream_ref, fixtures, official, verification_rules}))
   end
 
   @doc "SHA-256 of a binary, hex encoded. Used to detect upstream drift."

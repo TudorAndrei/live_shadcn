@@ -144,6 +144,9 @@ defmodule LiveShadcn.UI.DropdownMenu do
       <button
         id={Popover.trigger_id(@id)}
         type="button"
+        disabled={@disabled}
+        role={if(@trigger_slot == "menubar-trigger", do: "menuitem")}
+        aria-disabled={if(@trigger_slot == "menubar-trigger", do: to_string(@disabled))}
         aria-haspopup="menu"
         aria-expanded={to_string(@open)}
         aria-controls={Popover.popup_id(@id)}
@@ -151,7 +154,6 @@ defmodule LiveShadcn.UI.DropdownMenu do
         phx-mounted={Popover.owned_attributes(:trigger)}
         data-slot={@trigger_slot}
         data-popup-open={flag(@open)}
-        data-pressed={flag(@open)}
         class={[trigger_classes(@trigger_variant, @trigger_size), @trigger_class]}
       >
         {render_slot(@trigger)}
@@ -164,7 +166,8 @@ defmodule LiveShadcn.UI.DropdownMenu do
           data-lb-anchor={Popover.trigger_id(@id)}
           data-lb-side={@side}
           data-lb-align={@align}
-          data-lb-offset={to_string(@offset)}
+          data-lb-offset={@side_offset}
+          data-lb-align-offset={@align_offset}
           data-lb-autofocus
           phx-mounted={Popover.owned_attributes(:positioner)}
           data-open={flag(@open)}
@@ -174,6 +177,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
           <div
             id={Popover.popup_id(@id)}
             role="menu"
+            aria-orientation="vertical"
             tabindex="-1"
             hidden={not @open}
             data-lb-popup
@@ -199,6 +203,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
                 <%= for entry <- entries do %>
               <div
                 :if={entry[:kind] == "label"}
+                role="presentation"
                 data-slot="dropdown-menu-label"
                 data-inset={flag(entry[:inset] == true)}
                 class={[
@@ -211,6 +216,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
               <div
                 :if={entry[:kind] == "separator"}
                 role="separator"
+                aria-orientation="horizontal"
                 data-slot="dropdown-menu-separator"
                 class={[
                   upstream_fact("jsx/DropdownMenuSeparator/class/0"),
@@ -288,6 +294,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
                       <div
                         :if={subentry[:kind] == "separator"}
                         role="separator"
+                        aria-orientation="horizontal"
                         data-slot="dropdown-menu-separator"
                         class={upstream_fact("jsx/DropdownMenuSeparator/class/0")}
                       >
@@ -296,6 +303,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
                         :if={subentry[:kind] != "separator"}
                         id={Menu.item_id(submenu_id(@id, entry[:value]), subentry[:value])}
                         role="menuitem"
+                        aria-disabled={if(subentry[:disabled] == true, do: "true")}
                         tabindex="-1"
                         phx-click={
                           if(subentry[:disabled] != true,
@@ -327,7 +335,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
                 role="menuitemcheckbox"
                 tabindex="-1"
                 aria-checked={to_string(entry[:checked] == true)}
-                aria-disabled={to_string(entry[:disabled] == true)}
+                aria-disabled={if(entry[:disabled] == true, do: "true")}
                 phx-click={
                   if(entry[:disabled] != true,
                     do:
@@ -377,7 +385,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
                   role="menuitemradio"
                   tabindex="-1"
                   aria-checked={to_string(entry[:value] == radio[:value])}
-                  aria-disabled={to_string(radio[:disabled] == true)}
+                  aria-disabled={if(radio[:disabled] == true, do: "true")}
                   phx-click={
                     if(radio[:disabled] != true,
                       do:
@@ -424,6 +432,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
                 :if={entry[:kind] == "item" and entry[:href]}
                 id={Menu.item_id(@id, entry[:value])}
                 role="menuitem"
+                aria-disabled={if(entry[:disabled] == true, do: "true")}
                 tabindex="-1"
                 href={entry[:href]}
                 target={entry[:target]}
@@ -456,6 +465,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
                 :if={entry[:kind] == "item" and !entry[:href]}
                 id={Menu.item_id(@id, entry[:value])}
                 role="menuitem"
+                aria-disabled={if(entry[:disabled] == true, do: "true")}
                 tabindex="-1"
                 phx-click={
                   if(entry[:disabled] != true,
@@ -490,6 +500,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
               :if={item[:href]}
               id={Menu.item_id(@id, item[:value])}
               role="menuitem"
+              aria-disabled={if(item[:disabled] == true, do: "true")}
               tabindex="-1"
               href={item[:href]}
               target={item[:target]}
@@ -514,6 +525,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
               :if={!item[:href]}
               id={Menu.item_id(@id, item[:value])}
               role="menuitem"
+              aria-disabled={if(item[:disabled] == true, do: "true")}
               tabindex="-1"
               phx-click={
                 if(item[:disabled] != true, do: choose(@id, @entry, item[:"phx-click"]))
@@ -531,6 +543,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
             >
               {render_slot(item)}
             </div>
+            {render_slot(@inner_block)}
           </div>
         </div>
       </div>
@@ -553,7 +566,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
   defp entry_group(assigns) do
     ~H"""
     <%= if @grouped do %>
-      <div data-slot="dropdown-menu-group">
+      <div data-slot="dropdown-menu-group" role="group">
         {render_slot(@inner_block)}
       </div>
     <% else %>
@@ -633,4 +646,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
       Button.part_class("button")
     ]
   end
+
+  @doc false
+  def item_class, do: upstream_fact("jsx/DropdownMenuItem/class/0")
 end

@@ -27,19 +27,19 @@ defmodule LiveShadcn.UI.Tabs do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                       [table, "variant", group, choice] <- [String.split(path, "/")],
-                       reduce: %{} do
-    variants ->
-      put_in(
-        variants,
-        [
-          Access.key(table, %{}),
-          Access.key(group, %{}),
-          Access.key(choice, nil)
-        ],
-        value
-      )
-  end)
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
 
   alias LiveBase.Tabs
 
@@ -92,7 +92,7 @@ defmodule LiveShadcn.UI.Tabs do
         data-slot="tabs-list"
         id={@id <> "-list"}
         role="tablist"
-        aria-orientation={@orientation}
+        aria-orientation={if(@orientation == "vertical", do: "vertical")}
         phx-hook={Tabs.hook()}
         data-lb-roving="tab"
         data-lb-orientation={@orientation}

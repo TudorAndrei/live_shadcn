@@ -85,6 +85,8 @@ defmodule LiveShadcn.UI.Dialog do
     <div
       data-slot="dialog-overlay"
       id={Dialog.backdrop_id(@id)}
+      role="presentation"
+      aria-hidden="true"
       hidden={not @open}
       phx-click={if(@dismissable, do: Dialog.close(@id))}
       phx-mounted={Dialog.owned_attributes(:backdrop)}
@@ -96,7 +98,6 @@ defmodule LiveShadcn.UI.Dialog do
       data-slot="dialog-content"
       id={Dialog.popup_id(@id)}
       role={if(@alert, do: "alertdialog", else: "dialog")}
-      aria-modal="true"
       aria-labelledby={Dialog.title_id(@id)}
       aria-describedby={Dialog.description_id(@id)}
       tabindex="-1"

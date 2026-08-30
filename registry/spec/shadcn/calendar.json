@@ -296,7 +296,7 @@
     "jsx/Calendar/class/35": "the reviewed month grid does not render it"
   },
   "name": "calendar",
-  "port_body": "eb33986f517b385de232972deff1346ee59050b0fe61d26ce01057e15d07c45d",
+  "port_body": "7e689f5d574432f3baf0f74b3799251e0a0f3fd127c3cbd1d3e571f7ca80a98a",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

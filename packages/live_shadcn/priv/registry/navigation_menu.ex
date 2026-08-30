@@ -97,7 +97,7 @@ defmodule LiveShadcn.UI.NavigationMenu do
               data-slot="navigation-menu-trigger"
               id={Popover.trigger_id(@id)}
               type="button"
-              aria-haspopup="menu"
+              aria-disabled={to_string(@disabled)}
               aria-expanded={to_string(@open)}
               aria-controls={Popover.popup_id(@id)}
               phx-click={if(not @disabled, do: Popover.toggle(@id))}
@@ -142,7 +142,6 @@ defmodule LiveShadcn.UI.NavigationMenu do
               <div class={upstream_fact("jsx/NavigationMenuPositioner/class/2")}>
                 <div
                   data-slot="navigation-menu-content"
-                  hidden={not @open}
                   class={[
                     upstream_fact("jsx/NavigationMenuContent/class/0"),
                     (@content_class || "")

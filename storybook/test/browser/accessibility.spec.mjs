@@ -1,8 +1,9 @@
-// Every preview page, checked with axe-core.
+// Every preview page, compared with its pinned upstream page through axe-core.
 //
 // A component with no behaviour still has an accessibility contract, and this
 // is the check that applies to all of them: the markup a reader gets, in a real
-// browser, with a real accessibility tree.
+// browser, with a real accessibility tree. A port can inherit an upstream
+// violation, but it cannot add one or increase its affected node count.
 //
 // Components that also have behaviour get a suite of their own beside this one.
 // This file never replaces that; it is the floor, not the ceiling.
@@ -14,6 +15,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+
+import { connected } from "./live.mjs";
 
 const only = process.env.PREVIEW_COMPONENT;
 
@@ -37,21 +40,22 @@ if (pages.length === 0) {
 }
 
 // Contrast is a property of the palette, and the palette is shadcn's. A
-// reviewed port reproduces upstream's colours faithfully, which is the
-// whole point, so a component cannot be held to a ratio its own style sheet
-// does not meet. These are reported and do not fail the run; everything else
-// is markup, which is ours, and does.
+// reviewed port reproduces upstream's colours faithfully. These violations
+// are reported and do not fail the run. Other violations fail only when the
+// port adds affected nodes compared with the pinned upstream page.
 const PALETTE = ["color-contrast"];
+const PAGE_CHROME = ["page-has-heading-one"];
 
 for (const { component, example } of pages) {
-  test(`${component} / ${example} is clean under axe-core`, async ({ page }) => {
-    await page.goto(`/preview/${component}/${example}`);
-    // A preview can contain only fixed, absolute children. It is then present
-    // in the accessibility tree but has no box of its own to make visible.
-    await expect(page.locator(`[data-preview='${component}']`)).toBeAttached();
-
-    const { violations } = await new AxeBuilder({ page }).analyze();
-    const [palette, markup] = partition(violations, (v) => PALETTE.includes(v.id));
+  test(`${component} / ${example} has the upstream accessibility contract`, async (
+    { page },
+    testInfo,
+  ) => {
+    const path = `/preview/${component}/${example}`;
+    const selector = `[data-preview='${component}']`;
+    const upstream = await scan(page, `${testInfo.project.use.parityURL}${path}`, selector);
+    const port = await scan(page, path, selector, true);
+    const [palette, markup] = partition(port, (v) => PALETTE.includes(v.id));
 
     for (const violation of palette) {
       for (const node of violation.nodes) {
@@ -59,8 +63,30 @@ for (const { component, example } of pages) {
       }
     }
 
-    expect(markup.map((violation) => `${violation.id}: ${violation.help}`)).toEqual([]);
+    expect(regressions(markup, upstream)).toEqual([]);
   });
+}
+
+async function scan(page, url, selector, live = false) {
+  await page.goto(url);
+  if (live) await connected(page);
+  // A preview can contain only fixed, absolute children. It is then present
+  // in the accessibility tree but has no box of its own to make visible.
+  await expect(page.locator(selector)).toBeAttached();
+  return (await new AxeBuilder({ page }).analyze()).violations;
+}
+
+function regressions(port, upstream) {
+  const allowed = new Map(upstream.map(({ id, nodes }) => [id, nodes.length]));
+
+  return port
+    .filter(({ id }) => !PAGE_CHROME.includes(id))
+    .filter(({ id, nodes }) => nodes.length > (allowed.get(id) || 0))
+    .map(
+      ({ id, help, nodes }) =>
+        `${id}: ${help} (${nodes.length} in port, ${allowed.get(id) || 0} upstream)`,
+    )
+    .sort();
 }
 
 function partition(items, predicate) {

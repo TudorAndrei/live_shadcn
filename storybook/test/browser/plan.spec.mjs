@@ -59,12 +59,12 @@ test.describe("a plan", () => {
     await expect(page.locator("#rollout button")).toHaveCount(1);
   });
 
-  test("the trigger names the panel it controls", async ({ page }) => {
+  test("the trigger identifies the panel it controls", async ({ page }) => {
     await visit(page, "/preview/plan/default", "#rollout");
 
     await expect(trigger(page)).toHaveAttribute("aria-controls", "rollout-panel");
     await expect(panel(page)).toHaveAttribute("aria-labelledby", "rollout-trigger");
-    await expect(panel(page)).toHaveAttribute("role", "region");
+    await expect(panel(page)).not.toHaveAttribute("role", /.*/);
   });
 
   test("is clean under axe, open and closed", async ({ page }) => {

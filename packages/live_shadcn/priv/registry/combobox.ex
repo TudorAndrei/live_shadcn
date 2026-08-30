@@ -64,7 +64,7 @@ defmodule LiveShadcn.UI.Combobox do
   attr(:required, :boolean, default: false)
   attr(:side, :string, default: "bottom", values: ["top", "right", "bottom", "left"])
   attr(:align, :string, default: "start", values: ["start", "center", "end"])
-  attr(:offset, :integer, default: 4)
+  attr(:offset, :integer, default: 6)
   attr(:class, :any, default: nil, doc: "Appended to the list's class string.")
   attr(:label_class, :any, default: nil)
   attr(:list_class, :any, default: nil)
@@ -102,7 +102,7 @@ defmodule LiveShadcn.UI.Combobox do
         type="button"
         role="combobox"
         aria-labelledby={@labelledby}
-        aria-haspopup="listbox"
+        aria-haspopup="dialog"
         aria-expanded={to_string(@open)}
         aria-controls={Popover.popup_id(@id)}
         phx-click={if(not @disabled, do: Popover.toggle(@id))}
@@ -152,7 +152,7 @@ defmodule LiveShadcn.UI.Combobox do
           <div
             data-slot="combobox-content"
             id={Popover.popup_id(@id)}
-            role="listbox"
+            role="dialog"
             tabindex="-1"
             hidden={not @open}
             data-lb-popup
@@ -194,7 +194,10 @@ defmodule LiveShadcn.UI.Combobox do
               data-lb-style-target
             >
               {option[:label] || option[:value]}
-              <span class={upstream_fact("jsx/ComboboxItem/class/1")}>
+              <span
+                :if={option[:value] == @value}
+                class={upstream_fact("jsx/ComboboxItem/class/1")}
+              >
                 <LiveShadcn.Icon.icon
                   name="check"
                   class={upstream_fact("jsx/ComboboxItem/class/2")}

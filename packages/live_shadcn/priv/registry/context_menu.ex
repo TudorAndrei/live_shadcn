@@ -83,13 +83,11 @@ defmodule LiveShadcn.UI.ContextMenu do
       {@rest}
     >
       <div
-        role="button"
-        tabindex="0"
         id={Popover.trigger_id(@id)}
-        type="button"
-        aria-haspopup="menu"
-        aria-expanded={to_string(@open)}
         aria-controls={Popover.popup_id(@id)}
+        phx-hook="LiveBase.InteractionTrigger"
+        data-lb-open-on-context
+        data-lb-positioner={Popover.positioner_id(@id)}
         phx-click={if(not @disabled, do: Popover.toggle(@id))}
         phx-mounted={Popover.owned_attributes(:trigger)}
         data-slot={@trigger_slot}
@@ -117,6 +115,7 @@ defmodule LiveShadcn.UI.ContextMenu do
           <div
             id={Popover.popup_id(@id)}
             role="menu"
+            aria-orientation="vertical"
             tabindex="-1"
             hidden={not @open}
             data-lb-popup

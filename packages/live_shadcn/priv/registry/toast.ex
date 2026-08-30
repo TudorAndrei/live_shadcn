@@ -109,7 +109,10 @@ defmodule LiveShadcn.UI.Toast do
           data-slot="toast"
           id={Toast.toast_id(@id, toast[:id])}
           data-type={toast[:type]}
-          role="status"
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby={if(toast[:title], do: "#{Toast.toast_id(@id, toast[:id])}-title")}
+          aria-label={if(!toast[:title], do: "Notification")}
           aria-live="polite"
           class={upstream_fact("port/class/0")}
           data-lb-style-target
@@ -131,6 +134,7 @@ defmodule LiveShadcn.UI.Toast do
               <h2
                 :if={toast[:title]}
                 data-slot="toast-title"
+                id={"#{Toast.toast_id(@id, toast[:id])}-title"}
                 data-type={toast[:type]}
                 class={upstream_fact("jsx/ToastTitle/class/0")}
               >
@@ -147,6 +151,7 @@ defmodule LiveShadcn.UI.Toast do
 
             <LiveShadcn.UI.Button.button
               data-slot="toast-close"
+              aria-hidden="true"
               variant="ghost"
               size="icon-sm"
               aria-label="Close toast"

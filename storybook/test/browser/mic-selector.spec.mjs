@@ -5,11 +5,12 @@ import { visit } from "./live.mjs";
 test("the microphone selector opens, chooses a value, and closes", async ({ page }) => {
   await visit(page, "/preview/mic-selector/default", "#mic");
 
-  const trigger = page.getByRole("combobox", { name: "Microphone" });
+  const trigger = page.locator("#mic-trigger");
   const input = page.locator("#mic-input");
 
   await expect(trigger).toHaveAttribute("aria-expanded", "false");
-  await expect(trigger).toHaveText(/Select a microphone/);
+  await expect(trigger).toHaveRole("button");
+  await expect(trigger).toHaveText(/Select microphone/);
   await expect(input).toHaveValue("");
 
   await trigger.click();

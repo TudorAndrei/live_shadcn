@@ -41,7 +41,7 @@
     "jsx/CommandDialog/class/1": "the generated port does not contain this source literal"
   },
   "name": "command",
-  "port_body": "e1cb4874edc70a0d21c5eb735ef0df0f1c0f637fd47ae35142ca3df2b255c891",
+  "port_body": "983d38c000d8b21050e088f9db42710dfb4ae8966c0960e9e99fb3abd8bf00ee",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

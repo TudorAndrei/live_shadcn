@@ -25,9 +25,9 @@ test("the microphone starts and stops speech recognition", async ({ page }) => {
 
   await button.click();
   await expect(input).toHaveAttribute("data-listening", "true");
-  await expect(button).toHaveAttribute("aria-pressed", "true");
+  await expect(button).not.toHaveAttribute("aria-pressed", /.*/);
 
   await button.click();
   await expect(input).toHaveAttribute("data-listening", "false");
-  await expect(button).toHaveAttribute("aria-pressed", "false");
+  await expect(button).not.toHaveAttribute("aria-pressed", /.*/);
 });

@@ -48,7 +48,7 @@ defmodule LiveShadcn.UI.Tooltip do
   attr(:offset, :integer, default: 4, doc: "The gap between the trigger and the popup.")
 
   attr(:autofocus, :boolean,
-    default: true,
+    default: false,
     doc: "Whether opening moves the focus into the popup. False for a tooltip."
   )
 
@@ -75,9 +75,9 @@ defmodule LiveShadcn.UI.Tooltip do
         data-slot="tooltip-trigger"
         id={Popover.trigger_id(@id)}
         type="button"
-        aria-haspopup="dialog"
-        aria-expanded={to_string(@open)}
         aria-controls={Popover.popup_id(@id)}
+        phx-hook="LiveBase.InteractionTrigger"
+        data-lb-open-on-hover
         phx-click={if(not @disabled, do: Popover.toggle(@id))}
         phx-mounted={Popover.owned_attributes(:trigger)}
         data-popup-open={flag(@open)}
@@ -103,7 +103,6 @@ defmodule LiveShadcn.UI.Tooltip do
           <div
             data-slot="tooltip-content"
             id={Popover.popup_id(@id)}
-            role="dialog"
             tabindex="-1"
             hidden={not @open}
             data-lb-popup

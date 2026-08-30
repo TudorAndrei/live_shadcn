@@ -34,6 +34,10 @@ export const PROPERTIES = [
   "border-bottom-right-radius",
   "border-bottom-left-radius",
   "border-top-color",
+  "outline-style",
+  "outline-width",
+  "outline-color",
+  "box-shadow",
   "background-color",
   "color",
   "font-family",
@@ -53,18 +57,39 @@ export const PROPERTIES = [
   "overflow-y",
 ];
 
+// State and meaning that the browser exposes from the rendered HTML. Id-based
+// references are not compared by value because React and LiveView own different
+// id namespaces. Axe checks that those references resolve.
+export const SEMANTIC_ATTRIBUTES = [
+  "aria-checked",
+  "aria-disabled",
+  "aria-expanded",
+  "aria-haspopup",
+  "aria-hidden",
+  "aria-invalid",
+  "aria-modal",
+  "aria-multiselectable",
+  "aria-orientation",
+  "aria-pressed",
+  "aria-readonly",
+  "aria-required",
+  "aria-selected",
+  "disabled",
+];
+
 // Runs in the page. Everything it needs is passed in as one argument, because a
 // browser context shares nothing with the file that wrote the function and
 // `page.evaluate` hands over exactly one.
-export function collect({ selector, properties }) {
+export function collect({ selector, properties, attributes }) {
   const root = document.querySelector(selector);
   if (!root) return null;
 
   const origin = root.getBoundingClientRect();
   const seen = new Map();
   const found = [];
+  const portaledParts = new Set(["menubar-content", "navigation-menu-content"]);
 
-  const round = (n) => Math.round(n * 10) / 10;
+  const round = (n) => Math.round(n * 100) / 100;
 
   const record = (child, path) => {
     // Hidden nodes have no visual or accessibility presence. LiveView keeps
@@ -73,14 +98,18 @@ export function collect({ selector, properties }) {
     if (child.hidden) return;
 
     const slot = child.getAttribute("data-slot");
-    const here = slot ? [...path, slot] : path;
-    const portal = slot?.endsWith("-portal");
+    const transport = slot?.endsWith("-portal") || slot === "drawer-viewport";
+    const here = slot && !transport
+      ? portaledParts.has(slot)
+        ? [slot]
+        : [...path, slot]
+      : path;
 
     // A portal is a transport wrapper, not a visible component part. React
     // mounts it beside the preview root, while LiveView keeps it in the root,
-    // so its host box is different by design. Its children still use the
-    // portal in their path and are compared normally.
-    if (slot && !portal) {
+    // so its host box is different by design. Its children are compared as
+    // component parts, without this renderer-specific wrapper in their path.
+    if (slot && !transport) {
       // A component draws three badges and each is `badge`. The path says
       // where in the anatomy an element sits; the count says which of the
       // ones sitting there it is.
@@ -100,6 +129,14 @@ export function collect({ selector, properties }) {
           height: round(box.height),
         },
         style: Object.fromEntries(properties.map((p) => [p, style.getPropertyValue(p)])),
+        semantic: {
+          tag: child.tagName.toLowerCase(),
+          role: child.getAttribute("role") || "",
+          text: ownSlotText(child),
+          states: Object.fromEntries(
+            attributes.map((attribute) => [attribute, child.getAttribute(attribute) || ""]),
+          ),
+        },
       });
     }
 
@@ -130,6 +167,69 @@ export function collect({ selector, properties }) {
     whole: { width: round(box.width), height: round(box.height) },
     slots: found,
   };
+
+  function ownSlotText(element) {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const parts = [];
+
+    while (walker.nextNode()) {
+      // A native select can expose its platform arrow as a text node in one
+      // browser implementation. It is browser chrome, not component output.
+      if (walker.currentNode.parentElement?.closest("select")) continue;
+
+      const owner = walker.currentNode.parentElement?.closest("[data-slot]");
+      if (owner === element && visibleText(walker.currentNode, element)) {
+        const range = document.createRange();
+        range.selectNodeContents(walker.currentNode);
+        parts.push({
+          text: walker.currentNode.textContent || "",
+          box: range.getBoundingClientRect(),
+        });
+      }
+    }
+
+    return parts
+      .reduce((text, part, index) => {
+        if (index === 0) return part.text;
+
+        const previous = parts[index - 1];
+        const sourceSpace = /\s$/.test(previous.text) || /^\s/.test(part.text);
+        const differentLine = Math.abs(previous.box.top - part.box.top) > 1;
+        const visibleGap = part.box.left - previous.box.right > 1;
+        return `${text}${sourceSpace || differentLine || visibleGap ? " " : ""}${part.text}`;
+      }, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function visibleText(textNode, boundary) {
+    const range = document.createRange();
+    range.selectNodeContents(textNode);
+    const textBox = range.getBoundingClientRect();
+    if (textBox.width <= 1 || textBox.height <= 1) return false;
+
+    const start = textNode.parentElement;
+    for (let node = start; node && boundary.contains(node); node = node.parentElement) {
+      if (node.hidden) return false;
+      if (node.getAttribute("role") === "presentation") return false;
+
+      const box = node.getBoundingClientRect();
+      const style = getComputedStyle(node);
+      if (style.display === "none" || style.visibility === "hidden") return false;
+      if (
+        box.width <= 1 &&
+        box.height <= 1 &&
+        style.position === "absolute" &&
+        (style.clipPath === "inset(50%)" || style.clip === "rect(0px, 0px, 0px, 0px)")
+      ) {
+        return false;
+      }
+
+      if (node === boundary) break;
+    }
+
+    return true;
+  }
 }
 
 // Every element, not only the ones wearing a `data-slot`.
@@ -249,11 +349,82 @@ export function compare(react, phoenix) {
     }
 
     for (const [what, value] of Object.entries(a.style)) {
-      if (value !== b.style[what]) {
-        differences.push({ slot, property: what, react: value, phoenix: b.style[what] });
+      // Browsers keep a default width and colour for an outline whose style is
+      // `none`. Those dormant values do not paint. Compare the active outline
+      // contract, but do not fail because two engines keep different unused
+      // defaults behind it.
+      if (
+        ["outline-width", "outline-color"].includes(what) &&
+        a.style["outline-style"] === "none" &&
+        b.style["outline-style"] === "none"
+      ) {
+        continue;
+      }
+
+      const next = b.style[what];
+      if (normaliseStyle(what, value) !== normaliseStyle(what, next)) {
+        differences.push({ slot, property: what, react: value, phoenix: next });
+      }
+    }
+
+    for (const what of ["tag", "role", "text"]) {
+      const value = a.semantic?.[what] ?? "";
+      const next = b.semantic?.[what] ?? "";
+
+      if (value !== next) {
+        differences.push({ slot, property: what, react: value, phoenix: next });
+      }
+    }
+
+    const stateNames = new Set([
+      ...Object.keys(a.semantic?.states ?? {}),
+      ...Object.keys(b.semantic?.states ?? {}),
+    ]);
+
+    for (const what of stateNames) {
+      const value = a.semantic?.states?.[what] ?? "";
+      const next = b.semantic?.states?.[what] ?? "";
+
+      if (value !== next) {
+        differences.push({ slot, property: what, react: value, phoenix: next });
       }
     }
   }
 
   return differences;
+}
+
+function normaliseStyle(property, value) {
+  if (property !== "box-shadow" || value === "none") return value;
+
+  return splitCssList(value)
+    .filter((shadow) => {
+      const withoutColours = shadow.replace(/\([^)]*\)/g, "");
+      const lengths = [...withoutColours.matchAll(/-?(?:\d+\.?\d*|\.\d+)px/g)].map(
+        ([length]) => Number.parseFloat(length),
+      );
+
+      // A zero-offset, zero-blur, zero-spread shadow paints no pixels. Tailwind
+      // keeps these dormant layers in computed CSS when a ring is set to zero.
+      return lengths.length === 0 || lengths.some((length) => length !== 0);
+    })
+    .join(", ");
+}
+
+function splitCssList(value) {
+  const parts = [];
+  let depth = 0;
+  let start = 0;
+
+  for (let index = 0; index < value.length; index += 1) {
+    if (value[index] === "(") depth += 1;
+    if (value[index] === ")") depth -= 1;
+    if (value[index] === "," && depth === 0) {
+      parts.push(value.slice(start, index).trim());
+      start = index + 1;
+    }
+  }
+
+  parts.push(value.slice(start).trim());
+  return parts;
 }

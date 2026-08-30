@@ -66,6 +66,7 @@ defmodule LiveShadcn.UI.Collapsible do
         id={Disclosure.trigger_id(@id)}
         type="button"
         aria-expanded={to_string(@open)}
+        aria-disabled={to_string(@disabled)}
         aria-controls={Disclosure.panel_id(@id)}
         phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
         phx-mounted={Disclosure.owned_attributes(:trigger)}
@@ -76,7 +77,6 @@ defmodule LiveShadcn.UI.Collapsible do
       <div
         data-slot="collapsible-content"
         id={Disclosure.panel_id(@id)}
-        role="region"
         aria-labelledby={Disclosure.trigger_id(@id)}
         hidden={not @open}
         phx-hook={Disclosure.hook()}

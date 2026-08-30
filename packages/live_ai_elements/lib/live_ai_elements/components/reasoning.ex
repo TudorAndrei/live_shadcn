@@ -86,6 +86,7 @@ defmodule LiveAiElements.Components.Reasoning do
         phx-mounted={Disclosure.owned_attributes(:trigger)}
         data-panel-open={flag(@open)}
         class={[
+          "group",
           upstream_fact("jsx/anonymous/class/1"),
           (@trigger_class || "")
         ]}
@@ -93,7 +94,14 @@ defmodule LiveAiElements.Components.Reasoning do
         <%= if @title in [nil, ""] do %>
           <LiveShadcn.Icon.icon name="brain" class={upstream_fact("jsx/anonymous/class/2")} />{render_slot(@get_thinking_message)}<LiveShadcn.Icon.icon
             name="chevron-down"
-            class={[upstream_fact("jsx/anonymous/class/3"), if(@open, do: upstream_fact("jsx/anonymous/class/4"), else: upstream_fact("jsx/anonymous/class/5"))]}
+            class={[
+              upstream_fact("jsx/anonymous/class/3"),
+              "group-data-panel-open:rotate-180",
+              if(@open,
+                do: upstream_fact("jsx/anonymous/class/4"),
+                else: upstream_fact("jsx/anonymous/class/5")
+              )
+            ]}
           />
         <% end %>
         {@title}
@@ -101,7 +109,6 @@ defmodule LiveAiElements.Components.Reasoning do
       <div
         data-slot="collapsible-content"
         id={Disclosure.panel_id(@id)}
-        role="region"
         aria-labelledby={Disclosure.trigger_id(@id)}
         hidden={not @open}
         phx-hook={Disclosure.hook()}

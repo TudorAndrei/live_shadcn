@@ -62,6 +62,7 @@ defmodule LiveShadcn.UI.Slider do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "slider"}
+      role="group"
       id={@id}
       phx-hook={Slider.hook()}
       phx-mounted={Slider.owned_attributes()}

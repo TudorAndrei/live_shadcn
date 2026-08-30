@@ -16,9 +16,17 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 
-import { collect, compare, describeRow, outline, PROPERTIES } from "./measure.mjs";
-import { enterExampleState } from "./example-state.mjs";
+import {
+  collect,
+  compare,
+  describeRow,
+  outline,
+  PROPERTIES,
+  SEMANTIC_ATTRIBUTES,
+} from "./measure.mjs";
 import { gated, source } from "./registries.mjs";
+import { enterVisualState, installBrowserFixtures, visualStates } from "./visual-states.mjs";
+import { connected } from "./live.mjs";
 
 // Enough of a tree to find a difference in, and not so much that the report
 // becomes the thing nobody reads.
@@ -85,38 +93,56 @@ for (const { component, example } of pages) {
   if (!ported.has(`${component}.${example}`)) continue;
 
   test(`${component} / ${example} draws what React draws`, async ({ page }, testInfo) => {
+    await installBrowserFixtures(page);
     const selector = `[data-preview='${component}']`;
     const parity = testInfo.project.use.parityURL;
-
-    await page.goto(`${parity}/preview/${component}/${example}`);
-    await enterExampleState(page, `${component}.${example}`);
-    const react = await measured(page, selector);
-    const reactTree = await page.evaluate(outline, { selector, limit: OUTLINE_ROWS });
-
-    await page.goto(`/preview/${component}/${example}`);
-    await enterExampleState(page, `${component}.${example}`);
-    const phoenix = await measured(page, selector);
-    const phoenixTree = await page.evaluate(outline, { selector, limit: OUTLINE_ROWS });
-
+    const reactURL = `${parity}/preview/${component}/${example}`;
+    const phoenixURL = `/preview/${component}/${example}`;
     const name = `${component}.${example}`;
+
+    const reactStates = await statesAt(page, reactURL, selector);
+    const phoenixStates = await statesAt(page, phoenixURL, selector);
+
+    expect(
+      phoenixStates.map(({ name }) => name),
+      `${name}: React and Phoenix must expose the same render states`,
+    ).toEqual(reactStates.map(({ name }) => name));
+
     const recorded = divergences[name]?.slots ?? [];
-    const all = described(compare(react, phoenix));
-    const differences = all.filter((difference) => !recorded.includes(subject(difference)));
+    const all = [];
+    const differences = [];
     let where;
 
-    // Only on a failure. A passing example has nothing to explain, and 66 of
-    // these attached to every green run is a way of hiding the six that are not.
-    if (differences.length > 0) {
-      where = divergence(reactTree, phoenixTree);
+    for (const state of reactStates) {
+      const react = await renderState(page, reactURL, selector, state);
+      const phoenix = await renderState(page, phoenixURL, selector, state);
+      if (process.env.PARITY_DEBUG === name) {
+        console.log(JSON.stringify({ state: state.name, react: react.measured, phoenix: phoenix.measured }, null, 2));
+      }
+      const stateDifferences = described(compare(react.measured, phoenix.measured));
 
-      await testInfo.attach("outline-react.txt", {
-        body: reactTree.map(describeRow).join("\n"),
-        contentType: "text/plain",
-      });
-      await testInfo.attach("outline-phoenix.txt", {
-        body: phoenixTree.map(describeRow).join("\n"),
-        contentType: "text/plain",
-      });
+      all.push(...stateDifferences);
+
+      const unexpected = stateDifferences.filter(
+        (difference) => !recorded.includes(subject(difference)),
+      );
+
+      differences.push(...unexpected.map((difference) => `${state.name} / ${difference}`));
+
+      // Only on a failure. A passing example has nothing to explain, and 66 of
+      // these attached to every green run is a way of hiding the six that are not.
+      if (unexpected.length > 0 && !where) {
+        where = `${state.name}: ${divergence(react.tree, phoenix.tree)}`;
+
+        await testInfo.attach(`outline-react-${safeName(state.name)}.txt`, {
+          body: react.tree.map(describeRow).join("\n"),
+          contentType: "text/plain",
+        });
+        await testInfo.attach(`outline-phoenix-${safeName(state.name)}.txt`, {
+          body: phoenix.tree.map(describeRow).join("\n"),
+          contentType: "text/plain",
+        });
+      }
     }
 
     expect(differences, where).toEqual([]);
@@ -131,6 +157,25 @@ for (const { component, example } of pages) {
     );
   });
 }
+
+async function statesAt(page, url, selector) {
+  await page.goto(url);
+  if (url.startsWith("/")) await connected(page);
+  return visualStates(page, selector);
+}
+
+async function renderState(page, url, selector, state) {
+  await page.goto(url);
+  if (url.startsWith("/")) await connected(page);
+  await enterVisualState(page, selector, state);
+
+  return {
+    measured: await measured(page, selector),
+    tree: await page.evaluate(outline, { selector, limit: OUTLINE_ROWS }),
+  };
+}
+
+const safeName = (name) => name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "");
 
 // The rows where the two trees stop agreeing.
 //
@@ -241,7 +286,11 @@ async function measured(page, selector) {
     { polling: 100 }
   );
 
-  return page.evaluate(collect, { selector, properties: PROPERTIES });
+  return page.evaluate(collect, {
+    selector,
+    properties: PROPERTIES,
+    attributes: SEMANTIC_ATTRIBUTES,
+  });
 }
 
 // A difference read as a sentence. `padding-left: React 0.5rem, Phoenix 8px` is

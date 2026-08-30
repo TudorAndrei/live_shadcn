@@ -24,8 +24,9 @@
 import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
 
-import { collect, PROPERTIES } from "./measure.mjs";
-import { enterExampleState } from "./example-state.mjs";
+import { collect, PROPERTIES, SEMANTIC_ATTRIBUTES } from "./measure.mjs";
+import { enterVisualState } from "./visual-states.mjs";
+import { connected } from "./live.mjs";
 
 // How different two pixels must be before they count. pixelmatch measures in
 // YIQ colour distance and detects anti-aliasing on its own, so this absorbs
@@ -93,8 +94,6 @@ export async function settle(page, selector) {
       svg.setCurrentTime?.(0);
     }
 
-    // No stray focus ring left over from navigating here.
-    document.activeElement?.blur?.();
   });
 
   // A no-op while the styling layer uses system fonts, and the thing that stops
@@ -163,6 +162,7 @@ export async function paintedBox(page, selector) {
     const root = document.querySelector(css);
     if (!root) return null;
 
+    const origin = root.getBoundingClientRect();
     const boxes = [];
 
     // What the component paints, not the column it sits in. The preview root is
@@ -211,18 +211,27 @@ export async function paintedBox(page, selector) {
     const right = Math.max(...boxes.map((b) => b.right));
     const bottom = Math.max(...boxes.map((b) => b.bottom));
 
-    return { left, top, right, bottom };
+    // The React and LiveView preview pages can place the preview root on
+    // different device pixels. Page chrome is not component output. Keep the
+    // frame in component coordinates so an equal component is not shifted in
+    // the image by an unrelated page-shell difference.
+    return {
+      left: left - origin.left,
+      top: top - origin.top,
+      right: right - origin.left,
+      bottom: bottom - origin.top,
+    };
   }, selector);
 }
 
-/** One rectangle covering what either side paints, in whole pixels. */
-export function union(a, b, viewport) {
+/** One component-relative rectangle covering what either side paints. */
+export function union(a, b) {
   const margin = 4;
 
-  const left = Math.max(0, Math.floor(Math.min(a.left, b.left)) - margin);
-  const top = Math.max(0, Math.floor(Math.min(a.top, b.top)) - margin);
-  const right = Math.min(viewport.width, Math.ceil(Math.max(a.right, b.right)) + margin);
-  const bottom = Math.min(viewport.height, Math.ceil(Math.max(a.bottom, b.bottom)) + margin);
+  const left = Math.floor(Math.min(a.left, b.left)) - margin;
+  const top = Math.floor(Math.min(a.top, b.top)) - margin;
+  const right = Math.ceil(Math.max(a.right, b.right)) + margin;
+  const bottom = Math.ceil(Math.max(a.bottom, b.bottom)) + margin;
 
   return { x: left, y: top, width: Math.max(1, right - left), height: Math.max(1, bottom - top) };
 }
@@ -236,9 +245,10 @@ export function union(a, b, viewport) {
  * pixelmatch refuses images of different dimensions. One rectangle computed
  * across both sides keeps the framing tight *and* the dimensions equal.
  */
-export async function shoot(page, url, selector, height, clip, name) {
+export async function shoot(page, url, selector, height, clip, state) {
   await page.setViewportSize({ width: WIDTH, height });
   await page.goto(url);
+  if (url.startsWith("/")) await connected(page);
 
   // A reference that does not exist must fail loudly. `parity/src/main.tsx`
   // renders a `data-missing` marker rather than a blank page precisely so this
@@ -248,10 +258,14 @@ export async function shoot(page, url, selector, height, clip, name) {
     throw new Error(`no React reference is mounted at ${url}`);
   }
 
-  await enterExampleState(page, name);
+  await enterVisualState(page, selector, state);
   await settle(page, selector);
 
-  const measured = await page.evaluate(collect, { selector, properties: PROPERTIES });
+  const measured = await page.evaluate(collect, {
+    selector,
+    properties: PROPERTIES,
+    attributes: SEMANTIC_ATTRIBUTES,
+  });
 
   // Where the root sits on the page. `collect` reports every slot relative to
   // it, and the image is clipped somewhere else entirely, so this is what lets
@@ -261,9 +275,17 @@ export async function shoot(page, url, selector, height, clip, name) {
     return { x, y };
   }, selector);
 
-  const image = PNG.sync.read(await page.screenshot(clip ? { clip } : {}));
+  const pageClip = clip
+    ? {
+        x: clip.x + origin.x,
+        y: clip.y + origin.y,
+        width: clip.width,
+        height: clip.height,
+      }
+    : null;
+  const image = PNG.sync.read(await page.screenshot(pageClip ? { clip: pageClip } : {}));
 
-  return { image, measured, origin, clip };
+  return { image, measured, origin, clip: pageClip };
 }
 
 /**

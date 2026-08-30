@@ -56,7 +56,7 @@ defmodule LiveShadcn.UI.Calendar do
     assigns = assign(assigns, :weeks, month_weeks(assigns.month, assigns.week_starts_on))
 
     ~H"""
-    <section
+    <div
       id={@id}
       phx-hook={if @locale == "browser", do: CalendarHook.hook()}
       data-lb-calendar-locale={@locale}
@@ -167,7 +167,7 @@ defmodule LiveShadcn.UI.Calendar do
           </table>
         </div>
       </div>
-    </section>
+    </div>
     """
   end
 

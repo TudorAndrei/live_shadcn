@@ -28,7 +28,7 @@
     "jsx/PopoverHeader/class/0": "the generated port does not contain this source literal"
   },
   "name": "popover",
-  "port_body": "421c0054f8423b3fb08cc38f5489be503d868be6e300867bf07dc8d18a62afcf",
+  "port_body": "b06696ed21a54b536d937daa726df182e2e35f85e4f71ef6e3c714f576ab5e6a",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

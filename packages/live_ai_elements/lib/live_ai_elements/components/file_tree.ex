@@ -98,7 +98,6 @@ defmodule LiveAiElements.Components.FileTree do
     ~H"""
     <div
       id={@id}
-      role="none"
       phx-hook="LiveAiElements.FileTree"
       data-slot={@rest[:"data-slot"] || "collapsible"}
       open={@expanded?}
@@ -117,7 +116,7 @@ defmodule LiveAiElements.Components.FileTree do
         ]}>
           <button
             data-file-tree-toggle
-            aria-hidden="true"
+            aria-expanded={to_string(@expanded?)}
             tabindex="-1"
             data-slot={@rest[:"data-slot"] || "collapsible-trigger"}
             type="button"

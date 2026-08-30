@@ -109,7 +109,6 @@ defmodule LiveAiElements.Components.Plan do
       <div
         data-slot="plan-content"
         id={Disclosure.panel_id(@id)}
-        role="region"
         aria-labelledby={Disclosure.trigger_id(@id)}
         hidden={not @open}
         phx-hook={Disclosure.hook()}

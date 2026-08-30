@@ -21,7 +21,8 @@ import { expect, test } from "@playwright/test";
 import { PNG } from "pngjs";
 
 import { gated, source } from "./registries.mjs";
-import { enterExampleState } from "./example-state.mjs";
+import { enterVisualState, installBrowserFixtures, visualStates } from "./visual-states.mjs";
+import { connected } from "./live.mjs";
 
 import {
   MINIMUM_HEIGHT,
@@ -103,79 +104,107 @@ for (const { component, example } of pages) {
     // the run with nothing in the output to say so, and a check that cannot
     // tell "did not run" from "passed" is worse than no check.
     test.skip(!ported.has(name), `no React reference: add parity/src/examples/${name}.tsx`);
+    await installBrowserFixtures(page);
 
     const selector = `[data-preview='${component}']`;
     const parity = testInfo.project.use.parityURL;
 
     const reactURL = `${parity}/preview/${component}/${example}`;
     const phoenixURL = `/preview/${component}/${example}`;
+    const reactStates = await statesAt(page, reactURL, selector);
+    const phoenixStates = await statesAt(page, phoenixURL, selector);
 
-    // One viewport for both sides, tall enough for either document, then one
-    // clip rectangle covering what either side paints. Equal dimensions are a
-    // hard requirement of the diff; tight framing is what makes a percentage
-    // mean anything.
-    await page.setViewportSize({ width: 1280, height: MINIMUM_HEIGHT });
-    await page.goto(reactURL);
-    const reactHeight = await documentHeight(page);
-    await page.goto(phoenixURL);
-    const phoenixHeight = await documentHeight(page);
-    const height = Math.max(MINIMUM_HEIGHT, reactHeight, phoenixHeight);
+    expect(
+      phoenixStates.map(({ name }) => name),
+      `${name}: React and Phoenix must expose the same render states`,
+    ).toEqual(reactStates.map(({ name }) => name));
 
-    const viewport = { width: 1280, height };
-    await page.setViewportSize(viewport);
+    const observations = [];
 
-    await page.goto(reactURL);
-    await enterExampleState(page, name);
-    await settle(page, selector);
-    const reactPaint = await paintedBox(page, selector);
+    for (const state of reactStates) {
+      // One viewport for both sides, tall enough for either document in this
+      // state, then one clip rectangle covering what either side paints.
+      await page.setViewportSize({ width: 1280, height: MINIMUM_HEIGHT });
+      await page.goto(reactURL);
+      await enterVisualState(page, selector, state);
+      const reactHeight = await documentHeight(page);
+      await page.goto(phoenixURL);
+      await connected(page);
+      await enterVisualState(page, selector, state);
+      const phoenixHeight = await documentHeight(page);
+      const height = Math.max(MINIMUM_HEIGHT, reactHeight, phoenixHeight);
 
-    await page.goto(phoenixURL);
-    await enterExampleState(page, name);
-    await settle(page, selector);
-    const phoenixPaint = await paintedBox(page, selector);
+      const viewport = { width: 1280, height };
+      await page.setViewportSize(viewport);
 
-    const clip = union(reactPaint, phoenixPaint, viewport);
+      await page.goto(reactURL);
+      await enterVisualState(page, selector, state);
+      await settle(page, selector);
+      const reactPaint = await paintedBox(page, selector);
 
-    const react = await shoot(page, reactURL, selector, height, clip, name);
-    const phoenix = await shoot(page, phoenixURL, selector, height, clip, name);
+      await page.goto(phoenixURL);
+      await connected(page);
+      await enterVisualState(page, selector, state);
+      await settle(page, selector);
+      const phoenixPaint = await paintedBox(page, selector);
 
-    const { differing, diff, width } = compare(react.image, phoenix.image);
+      const clip = union(reactPaint, phoenixPaint);
 
-    await testInfo.attach("react.png", { body: PNG.sync.write(react.image), contentType: "image/png" });
-    await testInfo.attach("phoenix.png", { body: PNG.sync.write(phoenix.image), contentType: "image/png" });
-    await testInfo.attach("diff.png", { body: PNG.sync.write(diff), contentType: "image/png" });
+      const react = await shoot(page, reactURL, selector, height, clip, state);
+      const phoenix = await shoot(page, phoenixURL, selector, height, clip, state);
 
-    const scale = width / clip.width;
+      const { differing, diff, width } = compare(react.image, phoenix.image);
+      const suffix = safeName(state.name);
 
-    const hottest = localise(diff.data, width, height, phoenix.measured?.slots, {
-      origin: phoenix.origin,
-      clip,
-      scale,
-    })
-      .slice(0, 4)
-      .map(({ slot, count }) => `${slot} (${count} px)`)
-      .join(", ");
+      await testInfo.attach(`react-${suffix}.png`, {
+        body: PNG.sync.write(react.image),
+        contentType: "image/png",
+      });
+      await testInfo.attach(`phoenix-${suffix}.png`, {
+        body: PNG.sync.write(phoenix.image),
+        contentType: "image/png",
+      });
+      await testInfo.attach(`diff-${suffix}.png`, {
+        body: PNG.sync.write(diff),
+        contentType: "image/png",
+      });
 
-    // A percentage of the component now, not of a mostly-blank page. That was
-    // the point of clipping: `calendar` differs by about 5% of itself, and a
-    // viewport shot reported the same difference as 0.019%.
-    const share = ((differing / (width * height)) * 100).toFixed(2);
-    const report = `${differing} px differ (${share}%) — hottest: ${hottest || "nothing"}`;
+      const scale = width / clip.width;
+      const hottest = localise(diff.data, width, height, phoenix.measured?.slots, {
+        origin: phoenix.origin,
+        clip: phoenix.clip,
+        scale,
+      })
+        .slice(0, 4)
+        .map(({ slot, count }) => `${slot} (${count} px)`)
+        .join(", ");
+
+      // A percentage of the component, not of a mostly-blank page.
+      const share = ((differing / (width * height)) * 100).toFixed(2);
+      const report = `${state.name}: ${differing} px differ (${share}%) — hottest: ${hottest || "nothing"}`;
+
+      observations.push({ differing, report });
+    }
+
+    const largest = Math.max(...observations.map(({ differing }) => differing));
 
     if (budget.skips[name]) {
-      // A skip that would now pass is a skip to delete.
-      expect(differing, `${name} passes at zero now — remove the skip`).toBeGreaterThan(0);
+      // A skip that would now pass in every state is a skip to delete.
+      expect(largest, `${name} passes at zero now — remove the skip`).toBeGreaterThan(0);
       test.info().annotations.push({ type: "skipped", description: budget.skips[name] });
       return;
     }
 
     if (!gated(component) || budget.pending.includes(name)) {
-      test.info().annotations.push({ type: "pending", description: report });
+      test.info().annotations.push({
+        type: "pending",
+        description: observations.map(({ report }) => report).join("; "),
+      });
       // Printed, not only annotated. A census whose numbers live in an HTML
       // report is a census nobody reads, and these numbers are the whole point
       // of the pending state: they are what turns an estimated budget into a
       // measured one.
-      process.stdout.write(`PENDING ${name} ${differing}\n`);
+      process.stdout.write(`PENDING ${name} ${largest}\n`);
       return;
     }
 
@@ -183,13 +212,23 @@ for (const { component, example } of pages) {
 
     // A budget far above what the example actually differs by is a blanket
     // rather than a measurement. Lower it.
-    if (allowed > 0 && differing * 10 < allowed) {
+    if (allowed > 0 && largest * 10 < allowed) {
       throw new Error(
-        `${name}: budget ${allowed} is more than ten times the ${differing} px observed. ` +
+        `${name}: budget ${allowed} is more than ten times the ${largest} px observed. ` +
           "Lower it — a slack budget hides the next regression.",
       );
     }
 
-    expect(differing, report).toBeLessThanOrEqual(allowed);
+    for (const { differing, report } of observations) {
+      expect(differing, report).toBeLessThanOrEqual(allowed);
+    }
   });
 }
+
+async function statesAt(page, url, selector) {
+  await page.goto(url);
+  if (url.startsWith("/")) await connected(page);
+  return visualStates(page, selector);
+}
+
+const safeName = (name) => name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "");

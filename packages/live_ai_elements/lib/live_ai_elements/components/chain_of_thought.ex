@@ -80,7 +80,7 @@ defmodule LiveAiElements.Components.ChainOfThought do
           phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
           phx-mounted={Disclosure.owned_attributes(:trigger)}
           data-panel-open={flag(@open)}
-          class={[upstream_fact("jsx/anonymous/class/1"), @header_class || ""]}
+          class={["group", upstream_fact("jsx/anonymous/class/1"), @header_class || ""]}
         >
           <LiveShadcn.Icon.icon name="brain" class={upstream_fact("jsx/anonymous/class/10")} />
           <span class={upstream_fact("jsx/anonymous/class/3")}>
@@ -91,7 +91,14 @@ defmodule LiveAiElements.Components.ChainOfThought do
           </span>
           <LiveShadcn.Icon.icon
             name="chevron-down"
-            class={[upstream_fact("jsx/anonymous/class/4"), if(@open, do: upstream_fact("jsx/anonymous/class/5"), else: upstream_fact("jsx/anonymous/class/6"))]}
+            class={[
+              upstream_fact("jsx/anonymous/class/4"),
+              "group-data-panel-open:rotate-180",
+              if(@open,
+                do: upstream_fact("jsx/anonymous/class/5"),
+                else: upstream_fact("jsx/anonymous/class/6")
+              )
+            ]}
           />
         </button>
       </div>
@@ -99,7 +106,6 @@ defmodule LiveAiElements.Components.ChainOfThought do
         <div
           data-slot="collapsible-content"
           id={Disclosure.panel_id(@id)}
-          role="region"
           aria-labelledby={Disclosure.trigger_id(@id)}
           hidden={not @open}
           phx-hook={Disclosure.hook()}

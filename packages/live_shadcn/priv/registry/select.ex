@@ -68,7 +68,7 @@ defmodule LiveShadcn.UI.Select do
   attr(:readonly, :boolean, default: false)
   attr(:required, :boolean, default: false)
   attr(:side, :string, default: "bottom", values: ["top", "right", "bottom", "left"])
-  attr(:align, :string, default: "start", values: ["start", "center", "end"])
+  attr(:align, :string, default: "center", values: ["start", "center", "end"])
   attr(:offset, :integer, default: 4)
   attr(:class, :any, default: nil, doc: "Appended to the list's class string.")
   attr(:label_class, :any, default: nil)
@@ -121,7 +121,7 @@ defmodule LiveShadcn.UI.Select do
         data-invalid={flag(@errors != [])}
         data-filled={flag(@value not in [nil, ""])}
         data-placeholder={flag(@value in [nil, ""])}
-        aria-invalid={to_string(@errors != [])}
+        aria-invalid={if(@errors != [], do: "true")}
         data-size={@size}
         class={[
           upstream_fact("jsx/SelectTrigger/class/0"),
@@ -156,6 +156,7 @@ defmodule LiveShadcn.UI.Select do
           data-lb-side={@side}
           data-lb-align={@align}
           data-lb-offset={to_string(@offset)}
+          data-lb-align-item={flag(@align_item_with_trigger)}
           data-lb-autofocus
           phx-mounted={Popover.owned_attributes(:positioner)}
           data-open={flag(@open)}
@@ -165,7 +166,7 @@ defmodule LiveShadcn.UI.Select do
           <div
             data-slot="select-content"
             id={Popover.popup_id(@id)}
-            role="listbox"
+            role="presentation"
             tabindex="-1"
             hidden={not @open}
             data-lb-popup
@@ -173,6 +174,7 @@ defmodule LiveShadcn.UI.Select do
             data-lb-roving="option"
             data-lb-orientation="vertical"
             data-lb-highlight="data-highlighted"
+            data-lb-initial-highlight
             phx-mounted={Popover.owned_attributes(:popup)}
             data-open={flag(@open)}
             data-closed={flag(not @open)}
@@ -186,11 +188,12 @@ defmodule LiveShadcn.UI.Select do
           >
             <div
               data-slot="select-scroll-up-button"
+              hidden
               class={[upstream_fact("jsx/SelectScrollUpButton/class/0"), (@class || "")]}
             >
               <LiveShadcn.Icon.icon name="chevron-up" />
             </div>
-            <div>
+            <div role="listbox">
               <div
                 :for={option <- @option}
                 data-slot="select-item"
@@ -214,7 +217,10 @@ defmodule LiveShadcn.UI.Select do
                 <div class={upstream_fact("jsx/SelectItem/class/1")}>
                   {option[:label] || option[:value]}
                 </div>
-                <span class={upstream_fact("jsx/SelectItem/class/2")}>
+                <span
+                  :if={option[:value] == @value}
+                  class={upstream_fact("jsx/SelectItem/class/2")}
+                >
                   <LiveShadcn.Icon.icon
                     name="check"
                     class={upstream_fact("jsx/SelectItem/class/3")}
@@ -224,6 +230,7 @@ defmodule LiveShadcn.UI.Select do
             </div>
             <div
               data-slot="select-scroll-down-button"
+              hidden
               class={[upstream_fact("jsx/SelectScrollDownButton/class/0"), (@class || "")]}
             >
               <LiveShadcn.Icon.icon name="chevron-down" />

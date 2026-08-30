@@ -50,6 +50,10 @@ export const Floating = {
     this.arrow = this.el.querySelector("[data-lb-arrow]");
     this.open = this.el.hasAttribute("data-open");
     this.popup = this.el.querySelector("[data-lb-popup]") || this.el;
+    this.requestedSide = this.el.getAttribute("data-lb-side") || "bottom";
+    this.requestedAlign = this.el.getAttribute("data-lb-align") || "center";
+    this.reposition = () => this.place();
+    this.el.addEventListener("live-base:reposition", this.reposition);
 
     if (this.open) {
       show(this.layers(), false);
@@ -64,6 +68,7 @@ export const Floating = {
     this.detach();
     clearTimeout(this.timer);
     this.observer?.disconnect();
+    this.el.removeEventListener("live-base:reposition", this.reposition);
   },
 
   // The positioner is moved and the popup is animated, so both are shown and
@@ -95,7 +100,12 @@ export const Floating = {
   takeFocus() {
     if (!this.el.hasAttribute("data-lb-autofocus")) return;
     this.returnTo = document.activeElement;
-    (this.popup.querySelector("[autofocus]") || this.popup).focus();
+    const highlighted = this.popup.hasAttribute("data-lb-initial-highlight")
+      ? this.popup.querySelector("[role='option']:not([data-disabled])")
+      : null;
+
+    if (highlighted) highlighted.setAttribute("data-highlighted", "");
+    (highlighted || this.popup.querySelector("[autofocus]") || this.popup).focus();
   },
 
   returnFocus() {
@@ -107,7 +117,7 @@ export const Floating = {
   // window can resize, and the anchor can move under it.
   attach() {
     if (!this.anchor || this.cleanup) return;
-    this.cleanup = autoUpdate(this.anchor, this.el, () => this.place());
+    this.cleanup = autoUpdate(this.reference(), this.el, () => this.place());
   },
 
   detach() {
@@ -121,10 +131,10 @@ export const Floating = {
         mainAxis: Number(this.el.getAttribute("data-lb-offset")) || 0,
         crossAxis: Number(this.el.getAttribute("data-lb-align-offset")) || 0,
       }),
-      flip(),
-      shift({ padding: 8 }),
+      flip({ padding: this.flipPadding() }),
+      shift({ padding: 5 }),
       size({
-        padding: 8,
+        padding: 5,
         apply: ({ availableWidth, availableHeight, rects }) => {
           this.el.style.setProperty("--anchor-width", `${rects.reference.width}px`);
           this.el.style.setProperty("--anchor-height", `${rects.reference.height}px`);
@@ -136,13 +146,22 @@ export const Floating = {
 
     if (this.arrow) middleware.push(arrow({ element: this.arrow, padding: 4 }));
 
-    const { x, y, placement, middlewareData } = await computePosition(this.anchor, this.el, {
+    const { x, y, placement, middlewareData } = await computePosition(this.reference(), this.el, {
       placement: this.placement(),
       strategy: "fixed",
       middleware,
     });
 
-    Object.assign(this.el.style, { position: "fixed", left: `${x}px`, top: `${y}px` });
+    const aligned = this.itemAlignedPosition(x, y);
+
+    Object.assign(this.el.style, {
+      position: "fixed",
+      left: "0px",
+      top: "0px",
+      transform: `translate(${roundByDPR(this.el, aligned.x)}px, ${roundByDPR(this.el, aligned.y)}px)`,
+    });
+
+    this.syncScrollArrows();
 
     const [side, align = "center"] = placement.split("-");
     this.el.setAttribute("data-side", side);
@@ -161,17 +180,84 @@ export const Floating = {
       position: "absolute",
       left: x == null ? "" : `${x}px`,
       top: y == null ? "" : `${y}px`,
-      [ORIGIN[side]]: "0",
+      right: "",
+      bottom: "",
     });
 
     this.arrow.setAttribute("data-side", side);
   },
 
+  itemAlignedPosition(x, y) {
+    if (!this.el.hasAttribute("data-lb-align-item")) return { x, y };
+
+    const item = this.popup.querySelector("[role='option']:not([data-disabled])");
+    if (!item) return { x, y };
+
+    const anchor = this.anchor.getBoundingClientRect();
+    const option = item.getBoundingClientRect();
+
+    return {
+      x: anchor.left + 3,
+      y: anchor.top + (anchor.height - option.height) / 2,
+    };
+  },
+
+  syncScrollArrows() {
+    const arrows = this.popup.querySelectorAll(
+      "[data-slot='select-scroll-up-button'], [data-slot='select-scroll-down-button']",
+    );
+    if (arrows.length === 0) return;
+
+    const scrollable = this.popup.scrollHeight > this.popup.clientHeight;
+    for (const arrow of arrows) arrow.hidden = !scrollable;
+  },
+
   // What was asked for. Where it ends up is what `flip` decides, and that is
   // what `data-side` reports.
   placement() {
-    const side = this.el.getAttribute("data-lb-side") || "bottom";
-    const align = this.el.getAttribute("data-lb-align") || "center";
+    const side = this.requestedSide;
+    const align = this.requestedAlign;
     return align === "center" ? side : `${side}-${align}`;
   },
+
+  // Base UI uses five pixels of collision padding and adds a one-pixel bias
+  // toward the requested side. This prevents an exact edge fit from changing
+  // the requested side after a later layout update.
+  flipPadding() {
+    const padding = { top: 6, right: 6, bottom: 6, left: 6 };
+    padding[ORIGIN[this.requestedSide]] += 1;
+    return padding;
+  },
+
+  reference() {
+    const pointX = this.el.getAttribute("data-lb-point-x");
+    const pointY = this.el.getAttribute("data-lb-point-y");
+    if (pointX == null || pointY == null) return this.anchor;
+
+    const x = Number(pointX);
+    const y = Number(pointY);
+    if (!Number.isFinite(x) || !Number.isFinite(y)) return this.anchor;
+
+    return {
+      contextElement: this.anchor,
+      getBoundingClientRect: () => ({
+        x,
+        y,
+        top: y,
+        right: x,
+        bottom: y,
+        left: x,
+        width: 0,
+        height: 0,
+      }),
+    };
+  },
 };
+
+// Floating UI's React adapter rounds computed coordinates to the current
+// device-pixel grid before it writes them. Do the same here. A fractional CSS
+// position can rasterise identical text on different device pixels.
+function roundByDPR(element, value) {
+  const dpr = element.ownerDocument.defaultView?.devicePixelRatio || 1;
+  return Math.round(value * dpr) / dpr;
+}

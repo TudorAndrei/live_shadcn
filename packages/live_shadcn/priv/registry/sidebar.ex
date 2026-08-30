@@ -75,19 +75,19 @@ defmodule LiveShadcn.UI.Sidebar do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                       [table, "variant", group, choice] <- [String.split(path, "/")],
-                       reduce: %{} do
-    variants ->
-      put_in(
-        variants,
-        [
-          Access.key(table, %{}),
-          Access.key(group, %{}),
-          Access.key(choice, nil)
-        ],
-        value
-      )
-  end)
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
 
   alias LiveBase.Sidebar
 
@@ -649,7 +649,6 @@ defmodule LiveShadcn.UI.Sidebar do
     ~H"""
     <button
       data-lb-sidebar={@for}
-      aria-expanded={to_string(@open)}
       phx-click={Sidebar.toggle(sidebar: @for, collapsible: @collapsible)}
       phx-mounted={Sidebar.owned_attributes(:trigger)}
       data-slot={@rest[:"data-slot"] || "sidebar-rail"}

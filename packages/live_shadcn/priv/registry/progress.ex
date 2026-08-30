@@ -24,6 +24,7 @@ defmodule LiveShadcn.UI.Progress do
 
   @doc "Groups all parts of the progress bar and provides the task completion status to screen readers."
   attr(:value, :string, default: nil)
+  attr(:label, :string, default: "Progress", doc: "The accessible name of the progress bar.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -32,6 +33,11 @@ defmodule LiveShadcn.UI.Progress do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "progress"}
+      role="progressbar"
+      aria-label={@label}
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow={@value}
       style={"--progress-value: #{@value}"}
       class={[upstream_fact("jsx/Progress/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -91,6 +97,7 @@ defmodule LiveShadcn.UI.Progress do
     ~H"""
     <span
       data-slot={@rest[:"data-slot"] || "progress-label"}
+      role="presentation"
       class={[upstream_fact("jsx/ProgressLabel/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -109,6 +116,7 @@ defmodule LiveShadcn.UI.Progress do
     ~H"""
     <span
       data-slot={@rest[:"data-slot"] || "progress-value"}
+      aria-hidden="true"
       class={[upstream_fact("jsx/ProgressValue/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >

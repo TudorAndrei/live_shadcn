@@ -80,6 +80,7 @@ defmodule LiveAiElements.Components.StackTrace do
       <div
         data-slot="collapsible-trigger"
         data-state="open"
+        aria-expanded="true"
         class={[
           upstream_fact("jsx/anonymous/class/1"),
           (@class || "")

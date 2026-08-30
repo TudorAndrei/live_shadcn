@@ -146,7 +146,7 @@
     "jsx/SidebarTrigger/class/2": "the generated port does not contain this source literal"
   },
   "name": "sidebar",
-  "port_body": "3a8390658708a182871619084c1848ab82c255d07039b89a13896baed2d0d5f9",
+  "port_body": "139b83d85f6ab8e280dbdfdd6a547d91a42bb533bd37f7ca0684d3fc013b28a7",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

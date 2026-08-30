@@ -39,6 +39,7 @@ defmodule LiveShadcn.UI.ToggleGroup do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "toggle-group"}
+      role="group"
       data-variant={@variant}
       data-size={@size}
       data-spacing={@spacing}
@@ -57,6 +58,7 @@ defmodule LiveShadcn.UI.ToggleGroup do
         value={item[:value] || "true"}
         checked={item[:checked]}
         disabled={item[:disabled] || false}
+        aria-disabled={to_string(item[:disabled] || false)}
         readonly={item[:readonly] || false}
         variant={@variant || item[:variant] || "default"}
         size={@size || item[:size] || "default"}

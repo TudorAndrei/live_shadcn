@@ -72,6 +72,9 @@ defmodule LiveShadcn.UI.HoverCard do
       <a
         data-slot="hover-card-trigger"
         id={Popover.trigger_id(@id)}
+        aria-controls={Popover.popup_id(@id)}
+        phx-hook="LiveBase.InteractionTrigger"
+        data-lb-open-on-hover
         phx-click={if(not @disabled, do: Popover.toggle(@id))}
         phx-mounted={Popover.owned_attributes(:trigger)}
         data-popup-open={flag(@open)}
@@ -87,6 +90,7 @@ defmodule LiveShadcn.UI.HoverCard do
           data-lb-side={@side}
           data-lb-align={@align}
           data-lb-offset={to_string(@offset)}
+          data-lb-align-offset={@align_offset}
           data-lb-autofocus={flag(@autofocus)}
           phx-mounted={Popover.owned_attributes(:positioner)}
           data-open={flag(@open)}
@@ -96,7 +100,6 @@ defmodule LiveShadcn.UI.HoverCard do
           <div
             data-slot="hover-card-content"
             id={Popover.popup_id(@id)}
-            role="dialog"
             tabindex="-1"
             hidden={not @open}
             data-lb-popup

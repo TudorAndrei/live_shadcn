@@ -13,11 +13,11 @@ test("Open in Chat uses the provider query contracts", async ({ page }) => {
   await expect(claude).toBeVisible();
   await expect(chatgpt).toHaveAttribute(
     "href",
-    "https://chatgpt.com/?hints=search&prompt=How+does+the+fold+work%3F",
+    "https://chatgpt.com/?hints=search&prompt=How+can+I+implement+authentication+in+Next.js%3F",
   );
   await expect(claude).toHaveAttribute(
     "href",
-    "https://claude.ai/new?q=How+does+the+fold+work%3F",
+    "https://claude.ai/new?q=How+can+I+implement+authentication+in+Next.js%3F",
   );
   await expect(chatgpt).toHaveAttribute("target", "_blank");
   await expect(chatgpt).toHaveAttribute("rel", "noopener");

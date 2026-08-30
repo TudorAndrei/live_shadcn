@@ -71,6 +71,7 @@ defmodule LiveShadcn.UI.MessageScroller do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "message-scroller-viewport"}
+      role="region"
       id={@id}
       data-lb-scroller
       data-lb-stick-to-bottom
@@ -98,6 +99,7 @@ defmodule LiveShadcn.UI.MessageScroller do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "message-scroller-content"}
+      role="log"
       class={[upstream_fact("jsx/MessageScrollerContent/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >

@@ -26,19 +26,19 @@ defmodule LiveShadcn.UI.Toggle do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                       [table, "variant", group, choice] <- [String.split(path, "/")],
-                       reduce: %{} do
-    variants ->
-      put_in(
-        variants,
-        [
-          Access.key(table, %{}),
-          Access.key(group, %{}),
-          Access.key(choice, nil)
-        ],
-        value
-      )
-  end)
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
 
   alias LiveBase.FormControl
 
@@ -93,7 +93,7 @@ defmodule LiveShadcn.UI.Toggle do
       data-slot={@rest[:"data-slot"] || "toggle"}
       id={@id}
       aria-pressed={to_string(@checked)}
-      aria-disabled={to_string(@disabled)}
+      aria-disabled={if(@disabled, do: "true")}
       phx-click={
         if(@disabled or @readonly,
           do: nil,

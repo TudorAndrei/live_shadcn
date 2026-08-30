@@ -26,6 +26,8 @@ defmodule LiveAiElements.Components.OpenInChat do
 
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
+  defp icon_colour_class, do: "[&_svg:not([class*='text-'])]:text-muted-foreground"
+
   @doc "The `open_in_chat_gpt` part."
   attr(:query, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -38,7 +40,11 @@ defmodule LiveAiElements.Components.OpenInChat do
       href={"https://chatgpt.com/?#{URI.encode_query(%{"hints" => "search", "prompt" => @query})}"}
       rel="noopener"
       target="_blank"
-      class={upstream_fact("jsx/OpenInChatGPT/class/0")}
+      class={[
+        upstream_fact("jsx/OpenInChatGPT/class/0"),
+        icon_colour_class(),
+        @class
+      ]}
       {@rest}
     >
       <span class={upstream_fact("jsx/OpenInChatGPT/class/1")}>
@@ -70,7 +76,11 @@ defmodule LiveAiElements.Components.OpenInChat do
       href={"https://claude.ai/new?#{URI.encode_query(%{"q" => @query})}"}
       rel="noopener"
       target="_blank"
-      class={upstream_fact("jsx/OpenInChatGPT/class/0")}
+      class={[
+        upstream_fact("jsx/OpenInChatGPT/class/0"),
+        icon_colour_class(),
+        @class
+      ]}
       {@rest}
     >
       <span class={upstream_fact("jsx/OpenInChatGPT/class/1")}>
@@ -106,7 +116,11 @@ defmodule LiveAiElements.Components.OpenInChat do
       href={"https://t3.chat/new?#{URI.encode_query(%{"q" => @query})}"}
       rel="noopener"
       target="_blank"
-      class={upstream_fact("jsx/OpenInChatGPT/class/0")}
+      class={[
+        upstream_fact("jsx/OpenInChatGPT/class/0"),
+        icon_colour_class(),
+        @class
+      ]}
       {@rest}
     >
       <span class={upstream_fact("jsx/OpenInChatGPT/class/1")}><LiveShadcn.Icon.icon name="message-circle" /></span><span class={upstream_fact("jsx/OpenInChatGPT/class/2")}>Open in T3 Chat</span><LiveShadcn.Icon.icon
@@ -129,7 +143,11 @@ defmodule LiveAiElements.Components.OpenInChat do
       href={"https://scira.ai/?#{URI.encode_query(%{"q" => @query})}"}
       rel="noopener"
       target="_blank"
-      class={upstream_fact("jsx/OpenInChatGPT/class/0")}
+      class={[
+        upstream_fact("jsx/OpenInChatGPT/class/0"),
+        icon_colour_class(),
+        @class
+      ]}
       {@rest}
     >
       <span class={upstream_fact("jsx/OpenInChatGPT/class/1")}>
@@ -213,7 +231,11 @@ defmodule LiveAiElements.Components.OpenInChat do
       href={"https://v0.app?#{URI.encode_query(%{"q" => @query})}"}
       rel="noopener"
       target="_blank"
-      class={upstream_fact("jsx/OpenInChatGPT/class/0")}
+      class={[
+        upstream_fact("jsx/OpenInChatGPT/class/0"),
+        icon_colour_class(),
+        @class
+      ]}
       {@rest}
     >
       <span class={upstream_fact("jsx/OpenInChatGPT/class/1")}>
@@ -246,7 +268,11 @@ defmodule LiveAiElements.Components.OpenInChat do
       href={"https://cursor.com/link/prompt?#{URI.encode_query(%{"text" => @query})}"}
       rel="noopener"
       target="_blank"
-      class={upstream_fact("jsx/OpenInChatGPT/class/0")}
+      class={[
+        upstream_fact("jsx/OpenInChatGPT/class/0"),
+        icon_colour_class(),
+        @class
+      ]}
       {@rest}
     >
       <span class={upstream_fact("jsx/OpenInChatGPT/class/1")}>

@@ -58,6 +58,7 @@ defmodule LiveShadcn.UI.Command do
   @doc "The `command-input-wrapper` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:controls, :string, default: nil, doc: "The id of the command list this input controls.")
 
   attr(:rest, :global,
     include: [
@@ -89,6 +90,9 @@ defmodule LiveShadcn.UI.Command do
       <LiveShadcn.UI.InputGroup.input_group class={upstream_fact("jsx/CommandInput/class/1")}>
         <input
           data-slot={@rest[:"data-slot"] || "command-input"}
+          role="combobox"
+          aria-expanded="true"
+          aria-controls={@controls}
           class={[
             upstream_fact("jsx/CommandInput/class/2"),
             (@class || "")
@@ -107,6 +111,7 @@ defmodule LiveShadcn.UI.Command do
   @doc "The `command-list` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:label, :string, default: "Suggestions", doc: "The accessible name of the command list.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
@@ -114,6 +119,8 @@ defmodule LiveShadcn.UI.Command do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "command-list"}
+      role="listbox"
+      aria-label={@label}
       class={[upstream_fact("jsx/CommandList/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -150,6 +157,7 @@ defmodule LiveShadcn.UI.Command do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "command-group"}
+      role="presentation"
       class={[upstream_fact("jsx/CommandGroup/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -168,6 +176,9 @@ defmodule LiveShadcn.UI.Command do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "command-item"}
+      role="option"
+      aria-disabled="false"
+      aria-selected={to_string(@rest[:"data-selected"] == "true")}
       class={[
         upstream_fact("jsx/CommandItem/class/0"),
         (@class || "")
@@ -210,6 +221,7 @@ defmodule LiveShadcn.UI.Command do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "command-separator"}
+      role="separator"
       class={[upstream_fact("jsx/CommandSeparator/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
