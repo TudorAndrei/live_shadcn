@@ -23,6 +23,7 @@
 //   data-lb-side       the side asked for, before the room available says otherwise
 //   data-lb-align      the alignment asked for
 //   data-lb-offset     the gap between anchor and popup, in pixels
+//   data-lb-align-offset  the cross-axis adjustment, in pixels
 //   data-lb-popup      on the element inside it that is styled and animated
 //   data-lb-autofocus  present when opening should move the focus into the
 //                      popup — true of a popover and a menu, false of a tooltip,
@@ -116,7 +117,10 @@ export const Floating = {
 
   async place() {
     const middleware = [
-      offset(Number(this.el.getAttribute("data-lb-offset")) || 0),
+      offset({
+        mainAxis: Number(this.el.getAttribute("data-lb-offset")) || 0,
+        crossAxis: Number(this.el.getAttribute("data-lb-align-offset")) || 0,
+      }),
       flip(),
       shift({ padding: 8 }),
       size({

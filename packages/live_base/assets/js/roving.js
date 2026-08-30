@@ -22,20 +22,90 @@
 
 const NEXT = { horizontal: "ArrowRight", vertical: "ArrowDown" };
 const PREVIOUS = { horizontal: "ArrowLeft", vertical: "ArrowUp" };
+const SUBMENU_POINTER_DELAY = 100;
 
 export const Roving = {
   mounted() {
     this.el.addEventListener("keydown", (event) => this.keydown(event));
+    this.el.addEventListener("pointermove", (event) => this.pointermove(event));
+    this.el.addEventListener("pointerleave", () => this.cancelSubmenuOpen());
+  },
+
+  destroyed() {
+    this.cancelSubmenuOpen();
   },
 
   items() {
     const role = this.el.getAttribute("data-lb-roving") || "tab";
     return [...this.el.querySelectorAll(`[role='${role}']`)].filter(
-      (item) => !item.hasAttribute("data-disabled") && item.offsetParent,
+      (item) =>
+        item.closest("[data-lb-roving]") === this.el &&
+        !item.hasAttribute("data-disabled") &&
+        item.offsetParent,
     );
   },
 
+  pointermove(event) {
+    const role = this.el.getAttribute("data-lb-roving") || "tab";
+    const item = event.target.closest(`[role='${role}']`);
+
+    if (!item || item.closest("[data-lb-roving]") !== this.el) return;
+
+    this.closeOpenSubmenus(item);
+
+    if (item.getAttribute("aria-haspopup") !== "menu") return;
+    if (item.getAttribute("aria-expanded") === "true") return;
+
+    this.cancelSubmenuOpen();
+    this.submenuTimer = setTimeout(() => {
+      if (
+        item.matches(":hover") &&
+        item.offsetParent &&
+        item.getAttribute("aria-expanded") !== "true"
+      )
+        item.click();
+    }, SUBMENU_POINTER_DELAY);
+  },
+
+  cancelSubmenuOpen() {
+    clearTimeout(this.submenuTimer);
+    this.submenuTimer = null;
+  },
+
+  closeOpenSubmenus(except) {
+    for (const trigger of this.items().filter(
+      (item) =>
+        item !== except &&
+        item.getAttribute("aria-haspopup") === "menu" &&
+        item.getAttribute("aria-expanded") === "true",
+    ))
+      trigger.click();
+  },
+
   keydown(event) {
+    this.cancelSubmenuOpen();
+    const active = document.activeElement;
+
+    if (event.key === "ArrowRight" && active?.getAttribute("aria-haspopup") === "menu") {
+      event.preventDefault();
+      const popup = document.getElementById(active.getAttribute("aria-controls"));
+      active.click();
+      requestAnimationFrame(() => popup?.focus());
+      return;
+    }
+
+    if (event.key === "ArrowLeft" && this.el.hasAttribute("data-lb-submenu")) {
+      const trigger = document.getElementById(this.el.getAttribute("data-lb-parent-trigger"));
+
+      if (trigger) {
+        event.preventDefault();
+        trigger.click();
+        trigger.focus();
+      }
+
+      return;
+    }
+
     const orientation = this.el.getAttribute("data-lb-orientation") || "horizontal";
     const items = this.items();
     const from = items.indexOf(document.activeElement);
@@ -54,6 +124,8 @@ export const Roving = {
   // command already on the tab does the rest.
   move(items, to) {
     const highlight = this.el.getAttribute("data-lb-highlight");
+
+    this.closeOpenSubmenus(items[to]);
 
     if (highlight) {
       for (const item of items) item.removeAttribute(highlight);
