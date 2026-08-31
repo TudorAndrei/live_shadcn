@@ -11,6 +11,7 @@ test("popover / default exposes its closed and expanded render states", async ({
 
   expect(states.map(({ name }) => name)).toEqual(["default", "expanded:What is a recipe?"]);
 
+  await page.goto("/preview/popover/default");
   await enterVisualState(page, selector, states[1]);
 
   await expect(page.getByRole("dialog")).toBeVisible();
@@ -44,4 +45,27 @@ test("context menu exposes its right-click state", async ({ page }) => {
 
   await enterVisualState(page, selector, states[1]);
   await expect(page.locator("[data-slot='context-menu-content']")).toBeVisible();
+});
+
+test("dropdown menu exposes its nested menu state", async ({ page }, testInfo) => {
+  const selector = "[data-preview='dropdown-menu']";
+  const paths = [
+    "/preview/dropdown-menu/default",
+    `${testInfo.project.use.parityURL}/preview/dropdown-menu/default`,
+  ];
+
+  for (const path of paths) {
+    await page.goto(path);
+    const states = await visualStates(page, selector);
+
+    expect(states.map(({ name }) => name)).toEqual([
+      "default",
+      "expanded:Open",
+      "expanded:Open > Invite users",
+    ]);
+
+    await page.goto(path);
+    await enterVisualState(page, selector, states[2]);
+    await expect(page.locator("[data-slot='dropdown-menu-sub-content']")).toBeVisible();
+  }
 });

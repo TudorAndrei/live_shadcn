@@ -13,12 +13,12 @@
     "shadcn/styles/vega.css": {
       "bytes": 74972,
       "sha256": "7b0dc3a9d2245ab6ce3d17653fa74a07f0ce2541e480bef36d2600fe38f1281b",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles/style-vega.css"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/styles/style-vega.css"
     },
     "shadcn/ui/badge.tsx": {
       "bytes": 1406,
       "sha256": "ba9be2fcd4eac13c482f77663f4cca797553e53d2efb9c6dc52eb1e3af9a0d2f",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/badge.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/badge.tsx"
     },
     "ai_shadcn/ui/button-group.tsx": {
       "bytes": 2256,
@@ -33,7 +33,7 @@
     "shadcn/ui/message-scroller.tsx": {
       "bytes": 4459,
       "sha256": "0cf9e45fc178dcae7d6ef5f60804534d4abbfa73711d8455e44b62782729b533",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/message-scroller.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/message-scroller.tsx"
     },
     "ai_shadcn/ui/collapsible.tsx": {
       "bytes": 795,
@@ -63,7 +63,7 @@
     "shadcn/ui/kbd.tsx": {
       "bytes": 585,
       "sha256": "297f142ed4e6d0e61362b2ce3a5cd3aa455ac008593006bbe4f06214801a9644",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/kbd.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/kbd.tsx"
     },
     "ai_examples/persona-glint.tsx": {
       "bytes": 2559,
@@ -78,12 +78,12 @@
     "shadcn/ui/toggle-group.tsx": {
       "bytes": 2676,
       "sha256": "806a823d1ec998652e6db0d1a6498016276825ae0edbc8c59cd20164815123f0",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/toggle-group.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/toggle-group.tsx"
     },
     "shadcn/ui/slider.tsx": {
       "bytes": 1607,
       "sha256": "144f4992fbc25de172fc3089101af955e971529f06a5c02ea8a53c5a6479d541",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/slider.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/slider.tsx"
     },
     "ai_elements/node.tsx": {
       "bytes": 2004,
@@ -98,7 +98,7 @@
     "shadcn/ui/switch.tsx": {
       "bytes": 840,
       "sha256": "5bc5e6917b328921a87ee0c25224ed7c19184f2158b1558679a259ab1d0ad938",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/switch.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/switch.tsx"
     },
     "ai_examples/prompt-input.tsx": {
       "bytes": 7509,
@@ -153,12 +153,12 @@
     "shadcn/ui/dropdown-menu.tsx": {
       "bytes": 7490,
       "sha256": "dce5089f19f0bcdbb8bd137ccc8167eb51197f9c4f626e3b3c1ec9d31cb0d686",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/dropdown-menu.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/dropdown-menu.tsx"
     },
     "shadcn/ui/combobox.tsx": {
       "bytes": 8206,
       "sha256": "a3c833eb2216ca31f2ae306396d2d9a724adaa0047009d202867fafe453b1d9c",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/combobox.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/combobox.tsx"
     },
     "ai_elements/commit.tsx": {
       "bytes": 9822,
@@ -183,7 +183,7 @@
     "shadcn/ui/sheet.tsx": {
       "bytes": 3951,
       "sha256": "ce6edeeee08e0002be607f0014013063290fca2ccddace9c6457c5a8fec8c0eb",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/sheet.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/sheet.tsx"
     },
     "ai_shadcn/ui/scroll-area.tsx": {
       "bytes": 1653,
@@ -198,7 +198,7 @@
     "shadcn/ui/alert-dialog.tsx": {
       "bytes": 4061,
       "sha256": "48e4538e028be8b5aa1fe040de0f7ea7a6491e4f31bade2a9622a74500d2b1b3",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/alert-dialog.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/alert-dialog.tsx"
     },
     "base_ui/avatar.md": {
       "bytes": 11659,
@@ -213,7 +213,7 @@
     "shadcn/ui/sonner.tsx": {
       "bytes": 2282,
       "sha256": "d5178ce4c7834d3f46d261698395b498b8f45fef29975585df7e26cb43aa3cc7",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/sonner.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/sonner.tsx"
     },
     "ai_shadcn/ui/sheet.tsx": {
       "bytes": 4099,
@@ -223,7 +223,7 @@
     "shadcn/ui/table.tsx": {
       "bytes": 1995,
       "sha256": "4e90502c6dd7478e2baa19a4010e52718c2fd958ead136d31b18eacd5b3cd1fb",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/table.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/table.tsx"
     },
     "base_ui/sheet.md": {
       "bytes": 171135,
@@ -243,7 +243,7 @@
     "shadcn/styles/nova.css": {
       "bytes": 75461,
       "sha256": "5d5751579c015b61e77cf0822862a43ac79f3e6fed236a17624be8e6d1ebea1d",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles/style-nova.css"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/styles/style-nova.css"
     },
     "ai_elements/attachments.tsx": {
       "bytes": 11417,
@@ -263,12 +263,12 @@
     "shadcn/ui/progress.tsx": {
       "bytes": 1721,
       "sha256": "01ce565018075d8aca92cbf6bc768b9dbc43b5e9ec1159a5491abe3f0cda0470",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/progress.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/progress.tsx"
     },
     "shadcn/ui/carousel.tsx": {
       "bytes": 6088,
       "sha256": "f96cbdfe39d65ccb9052507598b421eba6625c0677cc25d771b7953e2f3e9385",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/carousel.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/carousel.tsx"
     },
     "base_ui/drawer.md": {
       "bytes": 241333,
@@ -278,7 +278,7 @@
     "shadcn/ui/toggle.tsx": {
       "bytes": 1165,
       "sha256": "3ebc898aff16f6c119158abaae18fd749789ccded65c678fdc15994fd403b006",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/toggle.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/toggle.tsx"
     },
     "base_ui/slider.md": {
       "bytes": 68060,
@@ -288,7 +288,7 @@
     "shadcn/ui/scroll-area.tsx": {
       "bytes": 1508,
       "sha256": "6fb66a11b278222b7f59b3674b1931daecdefbe5df78e41953c7e7a800fb3e49",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/scroll-area.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/scroll-area.tsx"
     },
     "ai_shadcn/ui/item.tsx": {
       "bytes": 4541,
@@ -298,7 +298,7 @@
     "shadcn/ui/accordion.tsx": {
       "bytes": 2772,
       "sha256": "3fbd0fd128f90598e5387f55646f66fff0775ba95bc152a7252ddb24a601be5c",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/accordion.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/accordion.tsx"
     },
     "ai_shadcn/ui/select.tsx": {
       "bytes": 6304,
@@ -308,7 +308,7 @@
     "shadcn/ui/spinner.tsx": {
       "bytes": 559,
       "sha256": "2200e06760fe9f9eb78bcc57f38ed1d4fdf7eb9e8228b33ec0abaf5e55170742",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/spinner.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/spinner.tsx"
     },
     "ai_elements/persona.tsx": {
       "bytes": 8208,
@@ -358,7 +358,7 @@
     "shadcn/ui/navigation-menu.tsx": {
       "bytes": 5419,
       "sha256": "40629a60998e13c173c141a604dd47ee3766f1fee580cceb92c4ba0f5af3a6f5",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/navigation-menu.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/navigation-menu.tsx"
     },
     "ai_elements/code-block.tsx": {
       "bytes": 13845,
@@ -388,17 +388,17 @@
     "shadcn/ui/toast.tsx": {
       "bytes": 8518,
       "sha256": "96ed24154a44297366cbb42104c1dcb18aa2f48d49e6c3829682e23436dce0e9",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/toast.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/toast.tsx"
     },
     "shadcn/ui/alert.tsx": {
       "bytes": 1578,
       "sha256": "b28974495ba119b6c5bbbdff1bdec6e998537be20fc70f45d899814e4680c408",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/alert.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/alert.tsx"
     },
     "shadcn/ui/button.tsx": {
       "bytes": 1538,
       "sha256": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/button.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/button.tsx"
     },
     "ai_examples/question.tsx": {
       "bytes": 1682,
@@ -408,7 +408,7 @@
     "shadcn/ui/button-group.tsx": {
       "bytes": 2297,
       "sha256": "477d5a41df71387495797b0a643adf77e678df6dc410e90d6b7446ade9566b92",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/button-group.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/button-group.tsx"
     },
     "base_ui/collapsible.md": {
       "bytes": 18546,
@@ -418,7 +418,7 @@
     "shadcn/ui/avatar.tsx": {
       "bytes": 2706,
       "sha256": "b159c0a5b7e9ba8a2462c6dddd11c6ab63bd44925203486551eae93250e474bb",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/avatar.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/avatar.tsx"
     },
     "ai_examples/workflow.tsx": {
       "bytes": 3197,
@@ -428,7 +428,7 @@
     "shadcn/ui/tabs.tsx": {
       "bytes": 3225,
       "sha256": "4a8243afd661180ac9b0a2f60a4e10c54ae856443876f40070605453a98ba862",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/tabs.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/tabs.tsx"
     },
     "ai_elements/agent.tsx": {
       "bytes": 4008,
@@ -438,7 +438,7 @@
     "shadcn/styles.tsx": {
       "bytes": 5886,
       "sha256": "78c2d54e8c52f0b2b7d59a9fc8872d6f871849a97c6ddaddd36146dacafe83db",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/styles.tsx"
     },
     "ai_shadcn/ui/resizable.tsx": {
       "bytes": 2042,
@@ -448,12 +448,12 @@
     "shadcn/ui/context-menu.tsx": {
       "bytes": 7388,
       "sha256": "4acff009fe0663979cdab0cc44ef20215347d54f505642afe3f60ac7d38b8204",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/context-menu.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/context-menu.tsx"
     },
     "shadcn/ui/hover-card.tsx": {
       "bytes": 1433,
       "sha256": "9f7cdb887a627a38ea84023410ae7af83cb911552bd8f9b9680fb1bb825ccf7f",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/hover-card.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/hover-card.tsx"
     },
     "ai_elements/stack-trace.tsx": {
       "bytes": 13829,
@@ -468,7 +468,7 @@
     "shadcn/styles/luma.css": {
       "bytes": 75176,
       "sha256": "a698210162ca2d3385142a47334f22985831b1e91716c2d3175828d928a59707",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles/style-luma.css"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/styles/style-luma.css"
     },
     "ai_elements/artifact.tsx": {
       "bytes": 3404,
@@ -503,7 +503,7 @@
     "shadcn/ui/skeleton.tsx": {
       "bytes": 287,
       "sha256": "f813fbd2ec0eab4eee518fff9847943929ab3ef2de0aa1330913647311bfb095",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/skeleton.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/skeleton.tsx"
     },
     "ai_elements/voice-selector.tsx": {
       "bytes": 11165,
@@ -523,7 +523,7 @@
     "shadcn/styles/rhea.css": {
       "bytes": 75351,
       "sha256": "bcb242a7845316f93b0562345dd5c32a46a2988b506a8e8d7df1c836a1637b49",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles/style-rhea.css"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/styles/style-rhea.css"
     },
     "ai_examples/package-info.tsx": {
       "bytes": 1335,
@@ -538,7 +538,7 @@
     "shadcn/ui/textarea.tsx": {
       "bytes": 476,
       "sha256": "b6948bf2916d1cf5487c24f3755cd3f90981680c06f51481545634276317c691",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/textarea.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/textarea.tsx"
     },
     "ai_elements/image.tsx": {
       "bytes": 507,
@@ -593,7 +593,7 @@
     "shadcn/ui/popover.tsx": {
       "bytes": 2123,
       "sha256": "27b854b12d7c7c0d531d2ee928b0d2b882bbb2081938c510d237c22cb819d25f",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/popover.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/popover.tsx"
     },
     "ai_examples/audio-player.tsx": {
       "bytes": 1848,
@@ -633,7 +633,7 @@
     "shadcn/ui/marker.tsx": {
       "bytes": 1503,
       "sha256": "5d39ae04df6ae4d3ea694eac782c66375f38d9968e398ad67020b7ab1a9ce5c2",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/marker.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/marker.tsx"
     },
     "ai_elements/schema-display.tsx": {
       "bytes": 12764,
@@ -653,12 +653,12 @@
     "shadcn/ui/separator.tsx": {
       "bytes": 565,
       "sha256": "a434c0686f283f6c6abd38e33b9b636bf4ee70de211c006cf3fa1b4ab401d157",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/separator.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/separator.tsx"
     },
     "shadcn/ui/input.tsx": {
       "bytes": 628,
       "sha256": "8e6368337d35d3f2dcf54696d37ece8375d3065f9dc1ee80dc9e33fb1164f95f",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/input.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/input.tsx"
     },
     "ai_shadcn/ui/popover.tsx": {
       "bytes": 1644,
@@ -673,7 +673,7 @@
     "shadcn/ui/chart.tsx": {
       "bytes": 10434,
       "sha256": "f0ffc739a4fbb40af1a9e7cfc08d0d8d27e1b79b2c6697506655fd5deb07bd52",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/chart.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/chart.tsx"
     },
     "ai_elements/message.tsx": {
       "bytes": 8610,
@@ -683,12 +683,12 @@
     "shadcn/ui/breadcrumb.tsx": {
       "bytes": 3002,
       "sha256": "06ee78c43f8e36fa32cb470c5e8bef969981c27aa25e9e4e4f7ec571b7fe0d6b",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/breadcrumb.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/breadcrumb.tsx"
     },
     "shadcn/ui/card.tsx": {
       "bytes": 2061,
       "sha256": "8b3ba229472f266d3c2e49e0feff6c59fb1842282d0842aae470675b0e926665",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/card.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/card.tsx"
     },
     "ai_examples/speech-input.tsx": {
       "bytes": 2332,
@@ -728,12 +728,12 @@
     "shadcn/ui/field.tsx": {
       "bytes": 5367,
       "sha256": "b965ae608453b047c11c71154df817764dbe5c5e38b5c6bb1a2c6a07c38edd68",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/field.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/field.tsx"
     },
     "shadcn/ui/checkbox.tsx": {
       "bytes": 1051,
       "sha256": "2e9c7159b275f0fc4906147b155a48640a072b84c32980c63fd4e7a1c3213ed0",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/checkbox.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/checkbox.tsx"
     },
     "ai_shadcn/ui/dropdown-menu.tsx": {
       "bytes": 8432,
@@ -748,12 +748,12 @@
     "shadcn/ui/calendar.tsx": {
       "bytes": 9115,
       "sha256": "c88319b932b378349d643ef2c452f6095d5681998acc0c1e3c2a1682500c5bc9",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/calendar.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/calendar.tsx"
     },
     "shadcn/ui/attachment.tsx": {
       "bytes": 5105,
       "sha256": "80ef939d186b330bb53282cab240f469c47ef19686d4396ce7470c1eaf3ef5e0",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/attachment.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/attachment.tsx"
     },
     "ai_examples/schema-display-params.tsx": {
       "bytes": 364,
@@ -778,7 +778,7 @@
     "shadcn/ui/resizable.tsx": {
       "bytes": 1732,
       "sha256": "ce02b1176c769c44b21e267492fae1cba081a7917ee9f9d5b6c1749a90e4be0d",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/resizable.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/resizable.tsx"
     },
     "ai_shadcn/ui/field.tsx": {
       "bytes": 6201,
@@ -788,7 +788,7 @@
     "shadcn/ui/bubble.tsx": {
       "bytes": 2793,
       "sha256": "517a773cbfd441159439ee5019cb913b0b8aa0750a11ccbafba488cc5c5fac21",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/bubble.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/bubble.tsx"
     },
     "ai_elements/plan.tsx": {
       "bytes": 3600,
@@ -803,7 +803,7 @@
     "shadcn/ui/label.tsx": {
       "bytes": 445,
       "sha256": "80581ffa241ed57c9b976ebca5bc44c7e98d287c629717fda2dd3135c96ebbc1",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/label.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/label.tsx"
     },
     "ai_shadcn/ui/checkbox.tsx": {
       "bytes": 1228,
@@ -843,7 +843,7 @@
     "shadcn/ui/radio-group.tsx": {
       "bytes": 1159,
       "sha256": "0023e241c867f90fbd5ebe7e7c6aa9e5be3485557c3ccb396cba207a0ad7337a",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/radio-group.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/radio-group.tsx"
     },
     "ai_elements/sources.tsx": {
       "bytes": 1886,
@@ -868,7 +868,7 @@
     "shadcn/ui/tooltip.tsx": {
       "bytes": 1989,
       "sha256": "75e66453d7a6301281a0ecd7840d268a90a6972b252b018d2ac2bc34a979968b",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/tooltip.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/tooltip.tsx"
     },
     "ai_shadcn/ui/progress.tsx": {
       "bytes": 749,
@@ -918,7 +918,7 @@
     "shadcn/styles/maia.css": {
       "bytes": 73982,
       "sha256": "0a1e5a658ea601ee7a9427b91ea567c6fc915a385d7466bea19f42ec726added",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles/style-maia.css"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/styles/style-maia.css"
     },
     "base_ui/switch.md": {
       "bytes": 18859,
@@ -1008,7 +1008,7 @@
     "shadcn/ui/menubar.tsx": {
       "bytes": 6696,
       "sha256": "a407a77ebee8636f3dccf62a0cd95899a61f84d172517fa2191cd8374698cef3",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/menubar.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/menubar.tsx"
     },
     "ai_shadcn/ui/navigation-menu.tsx": {
       "bytes": 6672,
@@ -1023,7 +1023,7 @@
     "shadcn/ui/sidebar.tsx": {
       "bytes": 19493,
       "sha256": "c64077d7b51830fe7d4fc4697eb1396d4e1d16c62c1a0c857fa56dfc7d2928f3",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/sidebar.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/sidebar.tsx"
     },
     "base_ui/radio.md": {
       "bytes": 27375,
@@ -1038,17 +1038,17 @@
     "shadcn/ui/message.tsx": {
       "bytes": 2023,
       "sha256": "197803d433247e93f9b457f66e2c2e94c3bd30280e3079ff342753bba430edc8",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/message.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/message.tsx"
     },
     "shadcn/ui/pagination.tsx": {
       "bytes": 3642,
       "sha256": "7c1c3be5f743e8651300fa4f3d18201d298dde3ab5e28a3aebd688f2d48b86d3",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/pagination.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/pagination.tsx"
     },
     "shadcn/ui/input-otp.tsx": {
       "bytes": 2215,
       "sha256": "65e000e7b46d4b5a5c27f28d2468b763482dc8d1a1ae2ce5566ca5e82c65c8f6",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/input-otp.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/input-otp.tsx"
     },
     "ai_shadcn/ui/toggle-group.tsx": {
       "bytes": 2336,
@@ -1063,7 +1063,7 @@
     "shadcn/theme/globals.css": {
       "bytes": 13739,
       "sha256": "cbae6d633c38be59fc036d1e5cf60203ae7619ea6af9b4cdd8d632a211ccffa9",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/app/globals.css"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/app/globals.css"
     },
     "ai_examples/shimmer-elements.tsx": {
       "bytes": 1150,
@@ -1083,7 +1083,7 @@
     "shadcn/ui/direction.tsx": {
       "bytes": 103,
       "sha256": "661ff5b9c0dc26edde1226bfedc0ab50976d84f8bae42ca83a38dc3b478fd4d4",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/direction.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/direction.tsx"
     },
     "ai_examples/persona-opal.tsx": {
       "bytes": 2596,
@@ -1108,7 +1108,7 @@
     "shadcn/styles/sera.css": {
       "bytes": 75728,
       "sha256": "eda71a39ba86625eb81b25f2e5824579952ced0cf0451be16be3f4dd70bf9876",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles/style-sera.css"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/styles/style-sera.css"
     },
     "ai_shadcn/ui/menubar.tsx": {
       "bytes": 8403,
@@ -1158,7 +1158,7 @@
     "shadcn/ui/aspect-ratio.tsx": {
       "bytes": 423,
       "sha256": "6037c112b43482d06a7f102f715c8af03833073f0db69399a21df92050fcdae6",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/aspect-ratio.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/aspect-ratio.tsx"
     },
     "ai_shadcn/ui/tooltip.tsx": {
       "bytes": 1901,
@@ -1188,7 +1188,7 @@
     "shadcn/ui/native-select.tsx": {
       "bytes": 1746,
       "sha256": "6150b0918261c617cfe2c6186bcf7fff3954b0225187b46bdc0204cfa164347a",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/native-select.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/native-select.tsx"
     },
     "ai_elements/prompt-input.tsx": {
       "bytes": 39046,
@@ -1208,7 +1208,7 @@
     "shadcn/ui/collapsible.tsx": {
       "bytes": 658,
       "sha256": "ead4349ff7b01d696ef89294a81d18ee1d3f732321398896462c834ab9b9e065",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/collapsible.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/collapsible.tsx"
     },
     "ai_examples/suggestion-input.tsx": {
       "bytes": 4492,
@@ -1243,12 +1243,12 @@
     "shadcn/ui/item.tsx": {
       "bytes": 4450,
       "sha256": "901a5260fa629bdb88bb2b56b7addd3188ca24220c78028c97f6364e8272bd58",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/item.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/item.tsx"
     },
     "shadcn/styles/mira.css": {
       "bytes": 75304,
       "sha256": "025f54a060adeb60489d17eb3eb935e1118ee091ba5c618d5463eb27f2b1d003",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles/style-mira.css"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/styles/style-mira.css"
     },
     "ai_examples/snippet-plain.tsx": {
       "bytes": 352,
@@ -1263,7 +1263,7 @@
     "shadcn/ui/input-group.tsx": {
       "bytes": 3582,
       "sha256": "2ee53fb8792b8022ab433ed6d455dc790ed8a5be59fb99d923303665ce3a6dbb",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/input-group.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/input-group.tsx"
     },
     "ai_examples/demo-cursor.tsx": {
       "bytes": 20499,
@@ -1303,7 +1303,7 @@
     "shadcn/ui/empty.tsx": {
       "bytes": 2306,
       "sha256": "f022b2014448c212e3545d12e09a0fbe038ceebdb4dca848e9c3c9b1e1c640aa",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/empty.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/empty.tsx"
     },
     "base_ui/form.md": {
       "bytes": 31909,
@@ -1363,7 +1363,7 @@
     "shadcn/ui/questionnaire.tsx": {
       "bytes": 9511,
       "sha256": "248cea65a49d2aa108ea945b1bd2e8a180053ce47aa264db66570d657d6acfc1",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/questionnaire.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/questionnaire.tsx"
     },
     "ai_shadcn/ui/button.tsx": {
       "bytes": 2175,
@@ -1388,7 +1388,7 @@
     "shadcn/ui/dialog.tsx": {
       "bytes": 3730,
       "sha256": "85f9a33d1a8c495b0faecd066dae1581b8feb5d27f912ecf65f814386f6da3a9",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/dialog.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/dialog.tsx"
     },
     "ai_examples/attachments.tsx": {
       "bytes": 2025,
@@ -1428,7 +1428,7 @@
     "shadcn/ui/command.tsx": {
       "bytes": 4738,
       "sha256": "3ad88a370242987b0981342fc7e87a7aa7908f3e81282b5a6e69b0c9505abdf0",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/command.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/command.tsx"
     },
     "ai_examples/prompt-input-tooltip.tsx": {
       "bytes": 1098,
@@ -1468,7 +1468,7 @@
     "shadcn/theme/legacy-themes.css": {
       "bytes": 21457,
       "sha256": "b53f086328b730f0330d1d0eee6301564811511fa38cdbd3832db55ee3e32f85",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/app/legacy-themes.css"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/app/legacy-themes.css"
     },
     "ai_elements/audio-player.tsx": {
       "bytes": 6231,
@@ -1488,12 +1488,12 @@
     "shadcn/ui/select.tsx": {
       "bytes": 5933,
       "sha256": "2dadd3212c5d3c83d083c81dbca4184d45640086381c7ec4899b8e3996a7716f",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/select.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/select.tsx"
     },
     "shadcn/styles/lyra.css": {
       "bytes": 74205,
       "sha256": "7d75035683a22e61f5dace0b115e97f9e9b643500c1f4bfe2b31ad4dcdaa0c4a",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/styles/style-lyra.css"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/styles/style-lyra.css"
     },
     "ai_elements/context.tsx": {
       "bytes": 9945,
@@ -1518,7 +1518,7 @@
     "shadcn/ui/drawer.tsx": {
       "bytes": 10232,
       "sha256": "c3b8efa83260e1622d88b216bb794dbe46b803ced695040e7750f172d91bec79",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/683a5a9b370acdb7785a0529434e6a3b8c7e0441/apps/v4/registry/bases/base/ui/drawer.tsx"
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/b4a618b97e35f5dadf3a00d51f410c84a2567d4d/apps/v4/registry/bases/base/ui/drawer.tsx"
     },
     "ai_shadcn/ui/switch.tsx": {
       "bytes": 1186,
@@ -1632,7 +1632,7 @@
     },
     "shadcn": {
       "dir": "apps/v4/registry/bases/base/ui",
-      "ref": "683a5a9b370acdb7785a0529434e6a3b8c7e0441",
+      "ref": "b4a618b97e35f5dadf3a00d51f410c84a2567d4d",
       "repo": "shadcn-ui/ui"
     }
   },

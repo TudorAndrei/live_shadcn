@@ -87,7 +87,11 @@ export function collect({ selector, properties, attributes }) {
   const origin = root.getBoundingClientRect();
   const seen = new Map();
   const found = [];
-  const portaledParts = new Set(["menubar-content", "navigation-menu-content"]);
+  const portaledParts = new Set([
+    "dropdown-menu-sub-content",
+    "menubar-content",
+    "navigation-menu-content",
+  ]);
 
   const round = (n) => Math.round(n * 100) / 100;
 

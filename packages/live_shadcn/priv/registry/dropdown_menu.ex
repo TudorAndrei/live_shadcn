@@ -63,7 +63,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
 
   attr(:grouped, :boolean,
     default: false,
-    doc: "Whether all entries belong to one upstream menu group."
+    doc: "Whether each section between separators is an upstream menu group."
   )
 
   attr(:inset, :boolean, default: false, doc: "Line the text up with items that have an icon.")
@@ -273,6 +273,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
                   <div
                     id={Popover.popup_id(submenu_id(@id, entry[:value]))}
                     role="menu"
+                    aria-orientation="vertical"
                     tabindex="-1"
                     hidden
                     data-lb-popup
@@ -286,7 +287,10 @@ defmodule LiveShadcn.UI.DropdownMenu do
                     phx-mounted={Popover.owned_attributes(:popup)}
                     data-slot="dropdown-menu-sub-content"
                     data-closed=""
-                    class={upstream_fact("jsx/DropdownMenuSubContent/class/0")}
+                    class={[
+                      upstream_fact("jsx/DropdownMenuContent/class/1"),
+                      upstream_fact("jsx/DropdownMenuSubContent/class/0")
+                    ]}
                     data-lb-style-target
                     data-lb-measure
                   >
@@ -557,10 +561,11 @@ defmodule LiveShadcn.UI.DropdownMenu do
   defp entry_groups(entries, false), do: [{false, entries}]
 
   defp entry_groups(entries, true) do
-    {group, rest} = Enum.split_while(entries, &(&1[:kind] != "separator"))
-
-    [{true, group}, {false, rest}]
-    |> Enum.reject(fn {_grouped, group_entries} -> group_entries == [] end)
+    entries
+    |> Enum.chunk_by(&(&1[:kind] == "separator"))
+    |> Enum.map(fn entries ->
+      {hd(entries)[:kind] != "separator", entries}
+    end)
   end
 
   defp entry_group(assigns) do

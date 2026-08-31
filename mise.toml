@@ -26,5 +26,10 @@ zizmor = "latest"
 [env]
 HK_MISE = 1
 
+# Keep the verification servers away from ports that local container tools
+# commonly reserve.
+STORYBOOK_PORT = "14101"
+PARITY_PORT = "14102"
+
 [hooks]
 postinstall = "hk install --mise"

@@ -11,7 +11,7 @@
   "confirmation.default": "confirmation.tsx",
   "context.default": "context.tsx",
   "conversation.default": "conversation.tsx",
-  "dropdown-menu.default": "shadcn_examples/dropdown-menu-basic.tsx#DropdownMenuBasic",
+  "dropdown-menu.default": "shadcn_examples/dropdown-menu-demo.tsx#DropdownMenuDemo",
   "dropdown-menu.checkboxes": "shadcn_examples/dropdown-menu-checkboxes.tsx#DropdownMenuCheckboxes",
   "dropdown-menu.radio-group": "shadcn_examples/dropdown-menu-radio-group.tsx#DropdownMenuRadioGroupDemo",
   "environment-variables.default": "environment-variables.tsx",
