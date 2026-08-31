@@ -20,7 +20,7 @@ defmodule LiveShadcn.UI.MessageScroller do
     "jsx/MessageScrollerItem/class/0" =>
       "cn-message-scroller-item min-w-0 shrink-0 [contain-intrinsic-size:auto_10rem] [content-visibility:auto]",
     "jsx/MessageScrollerViewport/class/0" =>
-      "cn-message-scroller-viewport size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent"
+      "cn-message-scroller-viewport size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent data-pending-scroll:invisible"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)
@@ -49,6 +49,8 @@ defmodule LiveShadcn.UI.MessageScroller do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "message-scroller"}
+      data-pending-scroll
+      phx-mounted={LiveBase.Scroller.pending_attributes()}
       class={[
         upstream_fact("jsx/MessageScroller/class/0"),
         (@class || "")
@@ -75,9 +77,10 @@ defmodule LiveShadcn.UI.MessageScroller do
       id={@id}
       data-lb-scroller
       data-lb-stick-to-bottom
+      data-pending-scroll
       tabindex="0"
       phx-hook={LiveBase.Scroller.hook()}
-      phx-mounted={LiveBase.Scroller.owned_attributes()}
+      phx-mounted={LiveBase.Scroller.owned_attributes() |> LiveBase.Scroller.pending_attributes()}
       class={[
         upstream_fact("jsx/MessageScrollerViewport/class/0"),
         (@class || "")

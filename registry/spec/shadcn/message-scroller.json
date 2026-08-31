@@ -18,7 +18,7 @@
     "jsx/MessageScrollerButton/class/1": "sr-only",
     "jsx/MessageScrollerContent/class/0": "cn-message-scroller-content flex h-max min-h-full flex-col",
     "jsx/MessageScrollerItem/class/0": "cn-message-scroller-item min-w-0 shrink-0 [contain-intrinsic-size:auto_10rem] [content-visibility:auto]",
-    "jsx/MessageScrollerViewport/class/0": "cn-message-scroller-viewport size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent"
+    "jsx/MessageScrollerViewport/class/0": "cn-message-scroller-viewport size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent data-pending-scroll:invisible"
   },
   "file_fingerprints": {
     "shadcn/ui/message-scroller.tsx": "53cab00f3ad48b082082b72a6c76f917e53ad8d1c4688a38747c58d7dc39fa4f"
@@ -26,7 +26,7 @@
   "fingerprint": "695d9553d48db8f328b8593e821818966ca713fbcfab1db6a9bad845d24b68fc",
   "ignored": {},
   "name": "message-scroller",
-  "port_body": "82c047dc55721f4ee629341e9a64a6544b353b3ba855af069c17ec0fcfe65a27",
+  "port_body": "ed95a2beca603d77494e95cdfc8510cd6a199a4cde1c7d0ac89e8077144d5bd0",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -35,7 +35,7 @@
     "jsx/MessageScrollerButton/class/1": "sr-only",
     "jsx/MessageScrollerContent/class/0": "cn-message-scroller-content flex h-max min-h-full flex-col",
     "jsx/MessageScrollerItem/class/0": "cn-message-scroller-item min-w-0 shrink-0 [contain-intrinsic-size:auto_10rem] [content-visibility:auto]",
-    "jsx/MessageScrollerViewport/class/0": "cn-message-scroller-viewport size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent"
+    "jsx/MessageScrollerViewport/class/0": "cn-message-scroller-viewport size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent data-pending-scroll:invisible"
   },
   "state_reads": [
     {
@@ -57,6 +57,10 @@
     {
       "name": "data-direction",
       "value": "start"
+    },
+    {
+      "name": "data-pending-scroll",
+      "value": null
     }
   ],
   "styles": {
@@ -73,7 +77,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/message-scroller.tsx": "0cf9e45fc178dcae7d6ef5f60804534d4abbfa73711d8455e44b62782729b533"
+    "shadcn/ui/message-scroller.tsx": "105a91b64c906722926e2d6e4538b245d95a71dcd4f4ca91e575b85b3205a0e3"
   },
   "uses": [
     "jsx/MessageScroller/class/0",

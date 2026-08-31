@@ -25,6 +25,7 @@ defmodule LiveBase.Scroller do
   | `data-overflow-y-start` | the same, above |
   | `data-overflow-y-end` | the same, below |
   | `data-scrolling` | while the reader is scrolling, and briefly after |
+  | `data-pending-scroll` | before a message list reaches its opening position |
 
   And six CSS variables: `--scroll-area-thumb-height` and `-width` for the size
   of the thumb, and `--scroll-area-overflow-{x,y}-{start,end}` for how far along
@@ -59,5 +60,10 @@ defmodule LiveBase.Scroller do
          data-overflow-y-start data-overflow-y-end data-scrolling style),
       []
     )
+  end
+
+  @doc "Keeps a server patch from restoring the completed opening-scroll hold."
+  def pending_attributes(js \\ %JS{}) do
+    JS.ignore_attributes(js, ["data-pending-scroll"], [])
   end
 end

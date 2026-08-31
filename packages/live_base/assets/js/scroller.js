@@ -42,6 +42,10 @@ const MINIMUM_THUMB = 20;
 export const Scroller = {
   mounted() {
     this.viewport = this.el.querySelector("[data-lb-scroller]") || this.el;
+    this.pendingTargets = [
+      this.viewport,
+      this.viewport.closest("[data-slot='message-scroller']"),
+    ].filter((target) => target?.hasAttribute("data-pending-scroll"));
 
     this.onScroll = () => this.scrolled();
     this.viewport.addEventListener("scroll", this.onScroll, { passive: true });
@@ -56,6 +60,7 @@ export const Scroller = {
     this.observer = new ResizeObserver(() => {
       this.measure();
       if (this.sticky && this.stuck) this.toBottom();
+      this.finishPendingScroll();
     });
     this.observer.observe(this.viewport);
     for (const child of this.viewport.children) this.observer.observe(child);
@@ -73,6 +78,12 @@ export const Scroller = {
 
     this.measure();
     if (this.sticky) this.toBottom();
+    if (this.pendingTargets.length > 0) {
+      this.pendingFrame = requestAnimationFrame(() => {
+        if (this.sticky && this.stuck) this.toBottom();
+        this.finishPendingScroll();
+      });
+    }
   },
 
   updated() {
@@ -93,7 +104,16 @@ export const Scroller = {
   destroyed() {
     this.viewport.removeEventListener("scroll", this.onScroll);
     this.observer?.disconnect();
+    cancelAnimationFrame(this.pendingFrame);
     clearTimeout(this.timer);
+  },
+
+  // The server hides a message viewport until its opening position is ready.
+  // Clear the hold only after the first measured move to the newest message.
+  finishPendingScroll() {
+    for (const target of this.pendingTargets) target.removeAttribute("data-pending-scroll");
+    cancelAnimationFrame(this.pendingFrame);
+    this.pendingFrame = null;
   },
 
   // Everything the style sheet reads, from one read of the layout.
