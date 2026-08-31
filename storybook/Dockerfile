@@ -36,8 +36,9 @@ WORKDIR /build
 COPY mix.exs* ./
 COPY packages ./packages
 COPY registry ./registry
-COPY parity/official-examples.json ./parity/official-examples.json
-COPY parity/src/examples ./parity/src/examples
+# The production badge hashes the examples, lockfile, upstream loader and Vite
+# configuration. Copy the complete directory so its digest matches local CI.
+COPY parity ./parity
 COPY tools ./tools
 COPY storybook ./storybook
 
