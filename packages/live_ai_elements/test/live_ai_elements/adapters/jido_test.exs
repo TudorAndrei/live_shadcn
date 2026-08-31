@@ -190,11 +190,13 @@ defmodule LiveAiElements.Adapters.JidoTest do
   test "converts no atom a recording did not already name" do
     # A stream is input. Reading a kind off it with String.to_atom/1 would let a
     # provider — or anything that can reach the socket — grow the atom table.
-    before = :erlang.system_info(:atom_count)
+    kind = "a_kind_that_was_never_compiled"
 
-    {state, []} = Stream.reduce(new(), %{"kind" => "a_kind_that_was_never_compiled", "seq" => 1})
+    assert_raise ArgumentError, fn -> String.to_existing_atom(kind) end
+
+    {state, []} = Stream.reduce(new(), %{"kind" => kind, "seq" => 1})
 
     assert state == new()
-    assert :erlang.system_info(:atom_count) == before
+    assert_raise ArgumentError, fn -> String.to_existing_atom(kind) end
   end
 end
