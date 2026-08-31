@@ -190,6 +190,17 @@ test.describe("a dropdown menu", () => {
     await expect(popup).toBeHidden();
   });
 
+  test("a click outside closes it", async ({ page }) => {
+    const { trigger, popup } = menu(page);
+
+    await trigger.click();
+    await expect(popup).toBeVisible();
+
+    await page.locator("h1").click({ force: true });
+    await expect(popup).toBeHidden();
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+  });
+
   test("it is positioned against its trigger", async ({ page }) => {
     const { trigger, popup } = menu(page);
 

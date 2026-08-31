@@ -26,10 +26,11 @@ defmodule LiveBase.Popover do
 
   ## Dismissal
 
-  A popover closes on Escape and on a click outside it. Neither needs a hook:
-  `phx-window-keydown` with `phx-key` is the first, and `phx-click-away` is the
-  second. What they must not do is close a popover the click *opened*, which is
-  why the trigger is excluded from the away-click.
+  A popover closes on Escape and on a click outside it. `phx-window-keydown`
+  with `phx-key` handles Escape. `phx-click-away` holds the close command. The
+  floating hook also runs that command when the owner uses `display: contents`,
+  because Phoenix does not run click-away commands on an element without a
+  visible rectangle. The trigger and popup are excluded from the away-click.
   """
 
   alias Phoenix.LiveView.JS

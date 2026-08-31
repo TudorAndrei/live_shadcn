@@ -48,6 +48,8 @@ export const Floating = {
   mounted() {
     this.anchor = document.getElementById(this.el.getAttribute("data-lb-anchor"));
     this.arrow = this.el.querySelector("[data-lb-arrow]");
+    this.dismissOwner = this.findDismissOwner();
+    this.dismissOutside = (event) => this.onDismissOutside(event);
     this.open = this.el.hasAttribute("data-open");
     this.popup = this.el.querySelector("[data-lb-popup]") || this.el;
     this.requestedSide = this.el.getAttribute("data-lb-side") || "bottom";
@@ -118,11 +120,30 @@ export const Floating = {
   attach() {
     if (!this.anchor || this.cleanup) return;
     this.cleanup = autoUpdate(this.reference(), this.el, () => this.place());
+    if (this.dismissOwner) document.addEventListener("click", this.dismissOutside);
   },
 
   detach() {
+    document.removeEventListener("click", this.dismissOutside);
     this.cleanup?.();
     this.cleanup = null;
+  },
+
+  // Phoenix ignores phx-click-away on a display: contents owner because that
+  // owner has no visible rectangle. Run the same command from the visible
+  // floating layer, while the trigger and popup remain inside the boundary.
+  findDismissOwner() {
+    const owner = this.el.closest("[phx-click-away]");
+    if (!owner || this.el.getAttribute("data-lb-anchor") !== `${owner.id}-trigger`) return null;
+    return owner;
+  },
+
+  onDismissOutside(event) {
+    if (!this.el.hasAttribute("data-open")) return;
+    if (this.anchor?.contains(event.target) || this.el.contains(event.target)) return;
+
+    const command = this.dismissOwner?.getAttribute("phx-click-away");
+    if (command) this.liveSocket.execJS(this.dismissOwner, command, "click");
   },
 
   async place() {
