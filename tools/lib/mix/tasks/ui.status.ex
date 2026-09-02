@@ -13,6 +13,9 @@ defmodule Mix.Tasks.Ui.Status do
   | `fetched` | a digest in `registry/UPSTREAM.json` |
   | `spec` | `registry/spec/<source>/<name>.json` |
   | `generated` | a module in the owning package |
+  | `failed` | a current verification record that did not prove Verified |
+  | `local_only` | an explicit policy; upstream comparison does not apply |
+  | `no_dom` | an explicit policy; the component renders no DOM |
   | `verified` | a passing entry in `registry/VERIFY.json`, for this spec |
 
   Every one of those is looked up by source *and* name. A name is not an
@@ -35,7 +38,9 @@ defmodule Mix.Tasks.Ui.Status do
 
   import LiveShadcnTools
 
-  @statuses [:planned, :fetched, :spec, :generated, :verified]
+  alias LiveShadcnTools.VerificationPolicy
+
+  @statuses [:planned, :fetched, :spec, :generated, :failed, :local_only, :no_dom, :verified]
 
   @impl Mix.Task
   def run(argv) do
@@ -122,7 +127,9 @@ defmodule Mix.Tasks.Ui.Status do
 
   defp status_of(%{"name" => name, "source" => source}) do
     cond do
+      policy = VerificationPolicy.status(source, name) -> policy
       verified?(source, name) -> :verified
+      failed?(source, name) -> :failed
       generated?(source, name) -> :generated
       File.exists?(spec_path(source, name)) -> :spec
       fetched?(source, name) -> :fetched
@@ -150,12 +157,24 @@ defmodule Mix.Tasks.Ui.Status do
 
     with true <- File.exists?(verify) and File.exists?(spec),
          result when is_map(result) <- get_in(read_json!(verify), [ref(source, name)]),
-         true <- spec |> read_json!() |> reviewed_contract?() do
+         true <- spec |> read_json!() |> reviewed_contract?(),
+         policy = VerificationPolicy.get(source, name) do
       result["pass"] == true and result["spec"] == digest(File.read!(spec)) and
         result["evidence"] == verification_evidence_digest(source, name) and
-        Enum.all?(result["checks"] || %{}, fn {_name, check} ->
-          check["pass"] == true and check["gated"] != false
-        end)
+        verified_checks?(source, policy, result["checks"])
+    else
+      _ -> false
+    end
+  end
+
+  defp failed?(source, name) do
+    verify = registry_path("VERIFY.json")
+
+    with true <- File.exists?(verify),
+         result when is_map(result) <- get_in(read_json!(verify), [ref(source, name)]) do
+      result["pass"] == false or
+        (result["pass"] == true and
+           not verified_checks?(source, VerificationPolicy.get(source, name), result["checks"]))
     else
       _ -> false
     end
@@ -245,6 +264,9 @@ defmodule Mix.Tasks.Ui.Status do
   end
 
   defp mark(:verified), do: "✅"
+  defp mark(:failed), do: "🟥"
+  defp mark(:local_only), do: "⬛"
+  defp mark(:no_dom), do: "⬛"
   defp mark(:generated), do: "🟩"
   defp mark(:spec), do: "🟨"
   defp mark(:fetched), do: "🟦"

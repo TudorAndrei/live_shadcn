@@ -233,6 +233,37 @@ defmodule LiveShadcnTools do
   @doc "Whether a contract accounts for all official source facts."
   def reviewed_contract?(contract), do: unresolved_facts(contract) == []
 
+  @standard_verification_checks ~w(
+    generated snapshot examples browser behavior accessibility parity pixel
+  )
+
+  @doc "The checks a current verification record must contain for this policy."
+  def required_verification_checks(_source, %{kind: :standard}),
+    do: @standard_verification_checks
+
+  # Exceptional policies describe components that cannot earn the normal
+  # parity evidence. They have a status of their own and never mean Verified.
+  def required_verification_checks(_source, _policy), do: []
+
+  @doc "Whether the current check schema proves a standard component verified."
+  def verified_checks?(source, policy, checks) when is_map(checks) do
+    case required_verification_checks(source, policy) do
+      [] ->
+        false
+
+      required ->
+        Enum.all?(required, fn name ->
+          case Map.get(checks, name) do
+            %{"pass" => true, "gated" => gated} when gated != false -> true
+            %{"pass" => true} -> true
+            _ -> false
+          end
+        end)
+    end
+  end
+
+  def verified_checks?(_source, _policy, _checks), do: false
+
   @doc "Digest of the pinned upstream source, React references, and verification rules."
   def verification_evidence_digest(source, name) do
     root = repo_root()
@@ -245,6 +276,11 @@ defmodule LiveShadcnTools do
         true -> name
       end
 
+    local_examples =
+      registry_path(["snapshot", "index.json"])
+      |> read_json!()
+      |> Map.get(key, [])
+
     fixtures =
       root
       |> Path.join("parity/src/examples/#{key}.*.tsx")
@@ -252,28 +288,47 @@ defmodule LiveShadcnTools do
       |> Enum.sort()
       |> Enum.map(&{Path.basename(&1), File.read!(&1)})
 
-    official_path = Path.join(root, "parity/official-examples.json")
-
-    official =
-      if File.exists?(official_path) do
-        official_path
-        |> read_json!()
-        |> Enum.filter(fn {example, _path} -> String.starts_with?(example, key <> ".") end)
-        |> Enum.sort()
-      else
-        []
-      end
-
     manifest = read_json!(registry_path("UPSTREAM.json"))
+    documented = get_in(manifest, ["examples", source, name]) || []
     upstream_ref = get_in(manifest, ["sources", source, "ref"])
+
+    evidence_inputs =
+      case source do
+        "ai_elements" ->
+          {local_examples, manifest, pinned_ai_sources(root)}
+
+        _other ->
+          official_path = Path.join(root, "parity/official-examples.json")
+
+          official =
+            if File.exists?(official_path) do
+              official_path
+              |> read_json!()
+              |> Enum.filter(fn {example, _path} -> String.starts_with?(example, key <> ".") end)
+              |> Enum.sort()
+            else
+              []
+            end
+
+          official
+      end
 
     verification_rules =
       [
+        "tools/lib/mix/tasks/ui.verify.ex",
+        "tools/lib/live_shadcn_tools/ai_elements_examples.ex",
+        "tools/lib/live_shadcn_tools/shadcn_examples.ex",
+        "tools/lib/live_shadcn_tools/verification_policy.ex",
+        "registry/VERIFICATION_POLICY.json",
         "storybook/test/browser/*.mjs",
+        "storybook/test/browser/ai-component-audit.json",
         "storybook/test/browser/parity-divergence.json",
         "storybook/test/browser/pixel-budget.json",
         "storybook/test/browser/package-lock.json",
         "parity/package-lock.json",
+        "parity/src/main.tsx",
+        "parity/src/official-ai-elements.mjs",
+        "parity/src/official-shadcn.mjs",
         "parity/upstream.mjs",
         "parity/vite.config.mjs"
       ]
@@ -282,7 +337,18 @@ defmodule LiveShadcnTools do
       |> Enum.sort()
       |> Enum.map(&{Path.relative_to(&1, root), File.read!(&1)})
 
-    digest(:erlang.term_to_binary({upstream_ref, fixtures, official, verification_rules}))
+    digest(
+      :erlang.term_to_binary(
+        {upstream_ref, documented, fixtures, evidence_inputs, verification_rules}
+      )
+    )
+  end
+
+  defp pinned_ai_sources(root) do
+    ["registry/upstream/ai_elements/*.tsx", "registry/upstream/ai_examples/*.tsx"]
+    |> Enum.flat_map(&Path.wildcard(Path.join(root, &1)))
+    |> Enum.sort()
+    |> Enum.map(&{Path.relative_to(&1, root), File.read!(&1)})
   end
 
   @doc "SHA-256 of a binary, hex encoded. Used to detect upstream drift."

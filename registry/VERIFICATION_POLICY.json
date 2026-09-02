@@ -1,0 +1,10 @@
+{
+  "shadcn/sonner": {
+    "kind": "local_only",
+    "reason": "the pinned upstream documentation publishes no official Sonner examples"
+  },
+  "shadcn/direction": {
+    "kind": "no_dom",
+    "reason": "the component only provides direction context and renders no DOM"
+  }
+}

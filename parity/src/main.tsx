@@ -1,6 +1,9 @@
 import { StrictMode, type ComponentType } from "react";
 import { createRoot } from "react-dom/client";
 
+import officialExamples, { officialComponents } from "./upstream/shadcn_examples/official";
+import { Toaster as ToastToaster } from "./upstream/shadcn/ui/toast";
+
 // The storybook's style sheet, not one of this application's own. Tailwind
 // emits only the utilities it finds, so two builds over two source trees would
 // emit two sets of rules, and every difference `parity.spec.mjs` reported would
@@ -26,16 +29,34 @@ const examples = Object.fromEntries(
 // The same two path segments the storybook serves, so one Playwright run can
 // ask both sides for the same page.
 const [, , component, id] = window.location.pathname.split("/");
-const Example = examples[`${component}.${id}`];
+// A shadcn reference is valid only when the prepared pinned checkout generated
+// it. A local fixture is useful for AI Elements, but it must never stand in for
+// an official shadcn example that is missing from that checkout.
+const exampleId = `${component}.${id}`;
+const Example = officialComponents.has(component) ? officialExamples[exampleId] : examples[exampleId];
 
 const root = createRoot(document.getElementById("root")!);
 
 if (Example) {
+  const example = <Example />;
+
   root.render(
     <StrictMode>
-      <div id={`preview-${component}-${id}`} data-preview={component}>
-        <Example />
-      </div>
+      <>
+        <h1 className="sr-only">{component}</h1>
+        <h2 className="sr-only">{id}</h2>
+        <div
+          id={`preview-${component}-${id}`}
+          data-preview={component}
+          data-visual-settle-ms={component === "progress" && id === "default" ? "600" : undefined}
+          data-visual-actions={component === "toast" ? "" : undefined}
+          data-visual-action-settle-ms={
+            component === "toast" && id === "promise" ? "2200" : undefined
+          }
+        >
+          {component === "toast" ? <ToastToaster>{example}</ToastToaster> : example}
+        </div>
+      </>
     </StrictMode>
   );
 } else {

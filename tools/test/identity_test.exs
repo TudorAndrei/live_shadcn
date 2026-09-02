@@ -83,4 +83,33 @@ defmodule LiveShadcnTools.IdentityTest do
       assert LiveShadcnTools.reviewed_contract?(contract)
     end
   end
+
+  describe "a verification record" do
+    test "requires every current standard check" do
+      policy = %{kind: :standard}
+
+      incomplete = %{
+        "generated" => %{"pass" => true},
+        "snapshot" => %{"pass" => true},
+        "examples" => %{"pass" => true},
+        "browser" => %{"pass" => true},
+        "parity" => %{"pass" => true},
+        "pixel" => %{"pass" => true}
+      }
+
+      refute LiveShadcnTools.verified_checks?("ai_elements", policy, incomplete)
+
+      complete =
+        Map.merge(incomplete, %{
+          "behavior" => %{"pass" => true},
+          "accessibility" => %{"pass" => true}
+        })
+
+      assert LiveShadcnTools.verified_checks?("ai_elements", policy, complete)
+    end
+
+    test "does not verify an exceptional policy" do
+      refute LiveShadcnTools.verified_checks?("shadcn", %{kind: :local_only}, %{})
+    end
+  end
 end

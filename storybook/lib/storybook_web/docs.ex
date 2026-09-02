@@ -46,19 +46,36 @@ defmodule StorybookWeb.Docs do
   @verify_path Path.expand("../../../registry/VERIFY.json", __DIR__)
   @external_resource @verify_path
 
+  @policy_path Path.expand("../../../registry/VERIFICATION_POLICY.json", __DIR__)
+  @external_resource @policy_path
+
   @spec_root Path.expand("../../../registry/spec", __DIR__)
   @official_examples_path Path.expand("../../../parity/official-examples.json", __DIR__)
   @repo_root Path.expand("../../..", __DIR__)
   @spec_paths Path.wildcard(Path.join(@spec_root, "*/*.json"))
   @parity_example_paths Path.expand("../../../parity/src/examples/*.tsx", __DIR__)
                         |> Path.wildcard()
+  @ai_source_paths ["ai_elements", "ai_examples"]
+                   |> Enum.flat_map(fn directory ->
+                     Path.expand("../../../registry/upstream/#{directory}/*.tsx", __DIR__)
+                     |> Path.wildcard()
+                   end)
 
   @verification_rule_paths [
+                             "tools/lib/mix/tasks/ui.verify.ex",
+                             "tools/lib/live_shadcn_tools/ai_elements_examples.ex",
+                             "tools/lib/live_shadcn_tools/shadcn_examples.ex",
+                             "tools/lib/live_shadcn_tools/verification_policy.ex",
+                             "registry/VERIFICATION_POLICY.json",
                              "storybook/test/browser/*.mjs",
+                             "storybook/test/browser/ai-component-audit.json",
                              "storybook/test/browser/parity-divergence.json",
                              "storybook/test/browser/pixel-budget.json",
                              "storybook/test/browser/package-lock.json",
                              "parity/package-lock.json",
+                             "parity/src/main.tsx",
+                             "parity/src/official-ai-elements.mjs",
+                             "parity/src/official-shadcn.mjs",
                              "parity/upstream.mjs",
                              "parity/vite.config.mjs"
                            ]
@@ -68,7 +85,9 @@ defmodule StorybookWeb.Docs do
 
   @external_resource @official_examples_path
 
-  for path <- @spec_paths ++ @parity_example_paths ++ @verification_rule_paths do
+  for path <-
+        @spec_paths ++
+          @parity_example_paths ++ @ai_source_paths ++ @verification_rule_paths do
     @external_resource path
   end
 
@@ -78,6 +97,18 @@ defmodule StorybookWeb.Docs do
                       )
 
   @verification @verify_path |> File.read!() |> Jason.decode!()
+  @policy_status_by_identity @policy_path
+                             |> File.read!()
+                             |> Jason.decode!()
+                             |> Map.new(fn {identity, %{"kind" => kind}} ->
+                               status =
+                                 case kind do
+                                   "local_only" -> :local_only
+                                   "no_dom" -> :no_dom
+                                 end
+
+                               {identity, status}
+                             end)
 
   # A release does not keep the repository beside its BEAM files. Resolve each
   # result while the repository is present, during compilation, so production
@@ -96,72 +127,106 @@ defmodule StorybookWeb.Docs do
                          official = @official_examples_path |> File.read!() |> Jason.decode!()
                          manifest = @upstream_path |> File.read!() |> Jason.decode!()
 
-                         Map.new(@verification, fn {identity, result} ->
-                           [source, name] = String.split(identity, "/", parts: 2)
-                           spec = Path.join([@spec_root, source, "#{name}.json"])
+                         verification_statuses =
+                           Map.new(@verification, fn {identity, result} ->
+                             [source, name] = String.split(identity, "/", parts: 2)
+                             spec = Path.join([@spec_root, source, "#{name}.json"])
 
-                           key =
-                             cond do
-                               Map.has_key?(previews, "#{source}-#{name}") -> "#{source}-#{name}"
-                               Map.has_key?(previews, name) -> name
-                               true -> name
-                             end
+                             key =
+                               cond do
+                                 Map.has_key?(previews, "#{source}-#{name}") ->
+                                   "#{source}-#{name}"
 
-                           fixtures =
-                             @parity_example_paths
-                             |> Enum.filter(&String.starts_with?(Path.basename(&1), key <> "."))
-                             |> Enum.sort()
-                             |> Enum.map(&{Path.basename(&1), File.read!(&1)})
+                                 Map.has_key?(previews, name) ->
+                                   name
 
-                           official_for_component =
-                             official
-                             |> Enum.filter(fn {example, _path} ->
-                               String.starts_with?(example, key <> ".")
-                             end)
-                             |> Enum.sort()
+                                 true ->
+                                   name
+                               end
 
-                           upstream_ref = get_in(manifest, ["sources", source, "ref"])
+                             fixtures =
+                               @parity_example_paths
+                               |> Enum.filter(&String.starts_with?(Path.basename(&1), key <> "."))
+                               |> Enum.sort()
+                               |> Enum.map(&{Path.basename(&1), File.read!(&1)})
 
-                           evidence =
-                             {upstream_ref, fixtures, official_for_component, @verification_rules}
-                             |> :erlang.term_to_binary()
-                             |> digest.()
+                             local_examples = Map.get(previews, key, [])
 
-                           checks_pass =
-                             Enum.all?(result["checks"] || %{}, fn {_name, check} ->
-                               check["pass"] == true and check["gated"] != false
-                             end)
+                             upstream_ref = get_in(manifest, ["sources", source, "ref"])
+                             documented = get_in(manifest, ["examples", source, name]) || []
 
-                           contract =
-                             if File.exists?(spec), do: spec |> File.read!() |> Jason.decode!()
+                             evidence =
+                               if source == "ai_elements" do
+                                 ai_sources =
+                                   @ai_source_paths
+                                   |> Enum.sort()
+                                   |> Enum.map(
+                                     &{Path.relative_to(&1, @repo_root), File.read!(&1)}
+                                   )
 
-                           review_complete =
-                             contract != nil and
-                               Enum.all?(contract["ignored"] || %{}, fn {_fact, reason} ->
-                                 reason !=
-                                   "the generated port does not contain this source literal"
+                                 {upstream_ref, documented, fixtures,
+                                  {local_examples, manifest, ai_sources}, @verification_rules}
+                               else
+                                 official_for_component =
+                                   official
+                                   |> Enum.filter(fn {example, _path} ->
+                                     String.starts_with?(example, key <> ".")
+                                   end)
+                                   |> Enum.sort()
+
+                                 {upstream_ref, documented, fixtures, official_for_component,
+                                  @verification_rules}
+                               end
+
+                             evidence = evidence |> :erlang.term_to_binary() |> digest.()
+
+                             required_checks = ~w(
+                             generated snapshot examples browser behavior accessibility parity pixel
+                           )
+
+                             checks_pass =
+                               Enum.all?(required_checks, fn name ->
+                                 case get_in(result, ["checks", name]) do
+                                   %{"pass" => true, "gated" => gated} when gated != false -> true
+                                   %{"pass" => true} -> true
+                                   _ -> false
+                                 end
                                end)
 
-                           status =
-                             cond do
-                               File.exists?(spec) and result["pass"] == true and
-                                 result["spec"] == digest.(File.read!(spec)) and
-                                 result["evidence"] == evidence and checks_pass and
-                                   review_complete ->
-                                 :verified
+                             contract =
+                               if File.exists?(spec), do: spec |> File.read!() |> Jason.decode!()
 
-                               not review_complete ->
-                                 :unverified
+                             review_complete =
+                               contract != nil and
+                                 Enum.all?(contract["ignored"] || %{}, fn {_fact, reason} ->
+                                   reason !=
+                                     "the generated port does not contain this source literal"
+                                 end)
 
-                               result["pass"] == false ->
-                                 :failed
+                             status =
+                               cond do
+                                 File.exists?(spec) and result["pass"] == true and
+                                   result["spec"] == digest.(File.read!(spec)) and
+                                   result["evidence"] == evidence and checks_pass and
+                                     review_complete ->
+                                   :verified
 
-                               true ->
-                                 :unverified
-                             end
+                                 result["pass"] == false or not checks_pass ->
+                                   :failed
 
-                           {identity, status}
-                         end)
+                                 not review_complete ->
+                                   :unverified
+
+                                 true ->
+                                   :unverified
+                               end
+
+                             {identity, status}
+                           end)
+
+                         # These policies are explicit exceptions. They never
+                         # inherit a passed React parity or pixel result.
+                         Map.merge(verification_statuses, @policy_status_by_identity)
                        end).()
 
   # The sections the AI Elements documentation groups its components under, in
@@ -404,7 +469,7 @@ defmodule StorybookWeb.Docs do
   end
 
   @doc "The highest pipeline stage that has current evidence for a documented component."
-  @spec status(String.t()) :: :verified | :failed | :unverified
+  @spec status(String.t()) :: :verified | :failed | :unverified | :local_only | :no_dom
   def status(component) do
     {source, name} = identity(component)
     Map.get(@status_by_identity, "#{source}/#{name}", :unverified)
