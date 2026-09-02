@@ -25,6 +25,7 @@ import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
 
 import { collect, PROPERTIES, SEMANTIC_ATTRIBUTES } from "./measure.mjs";
+import { waitForMessageScrollerFinalLayout } from "./message-scroller-readiness.mjs";
 import { enterVisualState } from "./visual-states.mjs";
 import { connected } from "./live.mjs";
 
@@ -120,6 +121,8 @@ export async function settle(page, selector) {
     selector,
     { polling: 100 },
   );
+
+  await waitForMessageScrollerFinalLayout(page, selector);
 
   // Motion can write one more requestAnimationFrame value while the layout is
   // stable. Apply the shared final shimmer keyframe immediately before capture.

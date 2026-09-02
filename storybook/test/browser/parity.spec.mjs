@@ -27,6 +27,7 @@ import {
 import { gated, source } from "./registries.mjs";
 import { enterVisualState, installBrowserFixtures, visualStates } from "./visual-states.mjs";
 import { connected } from "./live.mjs";
+import { waitForMessageScrollerFinalLayout } from "./message-scroller-readiness.mjs";
 
 // Enough of a tree to find a difference in, and not so much that the report
 // becomes the thing nobody reads.
@@ -285,6 +286,8 @@ async function measured(page, selector) {
     selector,
     { polling: 100 }
   );
+
+  await waitForMessageScrollerFinalLayout(page, selector);
 
   return page.evaluate(collect, {
     selector,
