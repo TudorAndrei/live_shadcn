@@ -4,10 +4,18 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { gated, source } from "./registries.mjs";
+import { gated, source, verificationSpecFiles } from "./registries.mjs";
 import { hasOfficialReactReference } from "./react-references.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
+
+test("verification collects shadcn component and shared check suites", () => {
+  for (const name of ["button", "message", "data-table", "typography", "accessibility", "parity", "pixel"]) {
+    assert.ok(verificationSpecFiles.includes(`**/${name}.spec.mjs`), name);
+  }
+  assert.equal(gated("button"), true);
+  assert.equal(gated("ai_elements-message"), false);
+});
 
 test("documented shadcn Typography has the upstream comparison gate", () => {
   assert.equal(source("typography"), "shadcn");

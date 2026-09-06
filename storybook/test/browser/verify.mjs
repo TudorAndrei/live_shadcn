@@ -1,9 +1,9 @@
 import { spawn } from "node:child_process";
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, rmSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
 
-import { acquireSourceLease, releaseSourceLease } from "../../../parity/source-lease.mjs";
+import { acquireSourceLease, releaseSourceLease, useSourceLease } from "../../../parity/source-lease.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "../../..");
@@ -26,9 +26,9 @@ function executeLocalPlaywright({ arguments: arguments_, environment, cwd = here
 export function embedVerificationReport(
   reportPath =
     process.env.PLAYWRIGHT_JSON_OUTPUT_FILE ??
-    join(dirname(fileURLToPath(import.meta.url)), "results.json"),
+    join(here, "results.json"),
+  envelope = process.env.LIVE_SHADCN_VERIFY_ENVELOPE,
 ) {
-  const envelope = process.env.LIVE_SHADCN_VERIFY_ENVELOPE;
 
   if (!envelope || !existsSync(reportPath)) {
     return;
@@ -47,20 +47,37 @@ export async function runVerification({
   release = releaseSourceLease,
   execute = executeLocalPlaywright,
 } = {}) {
-  const lease = await acquire(leasePath);
+  if (environment.PREVIEW_SOURCE && environment.PREVIEW_SOURCE !== "shadcn") {
+    throw new Error("verification supports only source shadcn");
+  }
 
-  try {
+  const run = async (token) => {
+    const reportPath = resolve(here, environment.PLAYWRIGHT_JSON_OUTPUT_FILE || "results.json");
+    // A failed child must never leave an earlier report available for import.
+    rmSync(reportPath, { force: true });
     const outcome = await execute({
       arguments: arguments_,
       environment: {
         ...environment,
-        PARITY_SOURCE_LEASE_TOKEN: lease.token,
+        PREVIEW_SOURCE: "shadcn",
+        PLAYWRIGHT_JSON_OUTPUT_FILE: reportPath,
+        PARITY_SOURCE_LEASE_TOKEN: token,
         LIVE_SHADCN_BROWSER_VERIFY_WRAPPER: "1",
       },
     });
 
-    embedVerificationReport();
+    embedVerificationReport(reportPath, environment.LIVE_SHADCN_VERIFY_ENVELOPE);
     return outcome;
+  };
+
+  const parentToken = environment.PARITY_SOURCE_LEASE_TOKEN;
+  if (parentToken) {
+    return useSourceLease(leasePath, parentToken, () => run(parentToken));
+  }
+
+  const lease = await acquire(leasePath);
+  try {
+    return await run(lease.token);
   } finally {
     await release(leasePath, lease);
   }

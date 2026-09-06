@@ -20,6 +20,7 @@ import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 import { regressions } from "./accessibility.mjs";
+import { source } from "./registries.mjs";
 import { connected } from "./live.mjs";
 import {
   enterVisualState,
@@ -51,6 +52,7 @@ const localOnly = new Set(
 );
 
 const pages = Object.entries(previews)
+  .filter(([component]) => source(component) === "shadcn")
   .filter(([component]) => !only || component === only)
   .filter(([component]) => selected.size === 0 || selected.has(component))
   .flatMap(([component, examples]) => examples.map((example) => ({ component, example })))

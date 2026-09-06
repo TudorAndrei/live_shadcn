@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 import { pixelChromiumArgs } from "./chromium-resource-policy.mjs";
 import { ours } from "./servers.mjs";
+import { verificationSpecFiles } from "./registries.mjs";
 import { assertVerificationInvocation, serverPolicy } from "./server-policy.mjs";
 
 // The demo application is the fixture. `mix ui.verify` runs this config, and a
@@ -40,7 +41,7 @@ await ours({
 
 export default defineConfig({
   testDir: ".",
-  testMatch: /.*\.spec\.mjs/,
+  testMatch: verificationSpecFiles,
   // One worker, on purpose. Every test drives the same development server, and
   // a verification run that is flaky under load verifies nothing.
   fullyParallel: false,

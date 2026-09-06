@@ -1,10 +1,84 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
 import { embedVerificationReport, runVerification } from "./verify.mjs";
+import { acquireSourceLease, releaseSourceLease } from "../../../parity/source-lease.mjs";
+
+test("a browser batch uses and returns its live parent lease", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "verify-parent-"));
+  const leasePath = join(directory, "lease");
+  const parent = await acquireSourceLease(leasePath);
+  const ownerPath = join(leasePath, "owner.json");
+  const before = readFileSync(ownerPath, "utf8");
+  try {
+    const outcome = await runVerification({
+      leasePath,
+      environment: { PARITY_SOURCE_LEASE_TOKEN: parent.token, LIVE_SHADCN_MANAGED_SERVERS: "1" },
+      acquire: (path) => acquireSourceLease(path, { waitMs: 100 }),
+      execute: async ({ environment }) => {
+        const owner = JSON.parse(readFileSync(ownerPath, "utf8"));
+        assert.equal(owner.token, parent.token);
+        assert.equal(environment.PARITY_SOURCE_LEASE_TOKEN, parent.token);
+        return { code: 0, signal: null };
+      },
+    });
+    assert.equal(outcome.code, 0);
+    assert.equal(readFileSync(ownerPath, "utf8"), before);
+  } finally {
+    await releaseSourceLease(leasePath, parent);
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("a child failure cannot publish a previous run as current evidence", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "verify-old-report-"));
+  const reportPath = join(directory, "results.json");
+  writeFileSync(reportPath, JSON.stringify({ suites: [{ title: "old passing result" }] }));
+  try {
+    const result = await runVerification({
+      environment: {
+        PLAYWRIGHT_JSON_OUTPUT_FILE: reportPath,
+        LIVE_SHADCN_VERIFY_ENVELOPE: JSON.stringify({ identity: "current", completed: true }),
+      },
+      acquire: async () => ({ token: "test" }),
+      release: async () => {},
+      execute: async () => ({ code: 1, signal: null }),
+    });
+    assert.equal(result.code, 1);
+    assert.equal(existsSync(reportPath), false);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("a fresh failure report keeps the current run identity and results", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "verify-fresh-report-"));
+  const reportPath = join(directory, "results.json");
+  const envelope = { identity: "current", completed: true };
+  const suites = [{ title: "current test failure" }];
+  try {
+    await runVerification({
+      environment: {
+        PLAYWRIGHT_JSON_OUTPUT_FILE: reportPath,
+        LIVE_SHADCN_VERIFY_ENVELOPE: JSON.stringify(envelope),
+      },
+      acquire: async () => ({ token: "test" }),
+      release: async () => {},
+      execute: async ({ environment }) => {
+        writeFileSync(environment.PLAYWRIGHT_JSON_OUTPUT_FILE, JSON.stringify({ suites, errors: [] }));
+        return { code: 1, signal: null };
+      },
+    });
+    assert.deepEqual(JSON.parse(readFileSync(reportPath, "utf8")), {
+      suites, errors: [], _live_shadcn_verification: envelope,
+    });
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
 
 test("the verification wrapper forwards all arguments and the source lease environment", async () => {
   const calls = [];

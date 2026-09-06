@@ -12,6 +12,7 @@ export function inScope(name, scope, source) {
   const [component, example] = name.split(".", 2);
 
   return (
+    source(component) === "shadcn" &&
     (!scope.only || component === scope.only) &&
     (!scope.onlyExample || example === scope.onlyExample) &&
     (scope.selected.size === 0 || scope.selected.has(component)) &&

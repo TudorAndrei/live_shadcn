@@ -2,7 +2,10 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { PNG } from "pngjs";
 
-import { compare, localise, paintedBoxInDocument } from "./shoot.mjs";
+import { compare, localise, paintedBoxInDocument as browserPaintedBox } from "./shoot.mjs";
+
+// Playwright serializes the function without its module scope.
+const paintedBoxInDocument = new Function(`return (${browserPaintedBox.toString()});`)();
 
 function image(red, green, blue) {
   const png = new PNG({ width: 3, height: 3 });

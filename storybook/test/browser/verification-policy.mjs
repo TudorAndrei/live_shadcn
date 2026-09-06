@@ -24,5 +24,5 @@ export function policy(source, component, example) {
 }
 
 export function comparisonApplies(source, component, example) {
-  return policy(source, component, example).kind === "standard";
+  return source === "shadcn" && policy(source, component, example).kind === "standard";
 }

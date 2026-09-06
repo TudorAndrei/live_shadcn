@@ -227,81 +227,81 @@ export function paintedBoxInDocument(css) {
     right: right - origin.left,
     bottom: bottom - origin.top,
   };
-}
 
-function visibleInDocument(element) {
-  if (element.hidden) return false;
-  if (element.getAttribute("aria-hidden") === "true") return false;
+  function visibleInDocument(element) {
+    if (element.hidden) return false;
+    if (element.getAttribute("aria-hidden") === "true") return false;
 
-  if (typeof element.checkVisibility === "function") {
-    return element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true });
+    if (typeof element.checkVisibility === "function") {
+      return element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true });
+    }
+
+    const style = getComputedStyle(element);
+    return (
+      style.display !== "none" &&
+      style.visibility !== "hidden" &&
+      Number.parseFloat(style.opacity || "1") > 0
+    );
   }
 
-  const style = getComputedStyle(element);
-  return (
-    style.display !== "none" &&
-    style.visibility !== "hidden" &&
-    Number.parseFloat(style.opacity || "1") > 0
-  );
-}
+  function clippedByAncestor(element, root) {
+    const box = element.getBoundingClientRect();
+    let node = element.parentElement;
 
-function clippedByAncestor(element, root) {
-  const box = element.getBoundingClientRect();
-  let node = element.parentElement;
+    while (node && node !== root && root.contains(node)) {
+      const style = getComputedStyle(node);
 
-  while (node && node !== root && root.contains(node)) {
-    const style = getComputedStyle(node);
+      if (overflowClips(style)) {
+        const clip = node.getBoundingClientRect();
 
-    if (overflowClips(style)) {
-      const clip = node.getBoundingClientRect();
-
-      if (
-        box.left < clip.left - 0.5 ||
-        box.top < clip.top - 0.5 ||
-        box.right > clip.right + 0.5 ||
-        box.bottom > clip.bottom + 0.5
-      ) {
-        return true;
+        if (
+          box.left < clip.left - 0.5 ||
+          box.top < clip.top - 0.5 ||
+          box.right > clip.right + 0.5 ||
+          box.bottom > clip.bottom + 0.5
+        ) {
+          return true;
+        }
       }
+
+      node = node.parentElement;
     }
 
-    node = node.parentElement;
+    return false;
   }
 
-  return false;
-}
+  function overflowClips(style) {
+    return (
+      ["hidden", "clip"].includes(style.overflow) ||
+      ["hidden", "clip"].includes(style.overflowX) ||
+      ["hidden", "clip"].includes(style.overflowY)
+    );
+  }
 
-function overflowClips(style) {
-  return (
-    ["hidden", "clip"].includes(style.overflow) ||
-    ["hidden", "clip"].includes(style.overflowX) ||
-    ["hidden", "clip"].includes(style.overflowY)
-  );
-}
+  function offscreenLazyDescendant(element, root) {
+    let scrollViewport = null;
+    let node = element;
 
-function offscreenLazyDescendant(element, root) {
-  let scrollViewport = null;
-  let node = element;
+    while (node && node !== root) {
+      const style = getComputedStyle(node);
 
-  while (node && node !== root) {
-    const style = getComputedStyle(node);
+      if (["auto", "scroll"].includes(style.overflowY)) {
+        scrollViewport = node;
+      }
 
-    if (["auto", "scroll"].includes(style.overflowY)) {
-      scrollViewport = node;
+      node = node.parentElement;
     }
 
-    node = node.parentElement;
+    if (!scrollViewport) return false;
+
+    const style = getComputedStyle(element);
+    if (style.contentVisibility !== "auto") return false;
+
+    const lazyBox = element.getBoundingClientRect();
+    const viewportBox = scrollViewport.getBoundingClientRect();
+
+    return lazyBox.bottom <= viewportBox.top || lazyBox.top >= viewportBox.bottom;
   }
-
-  if (!scrollViewport) return false;
-
-  const style = getComputedStyle(element);
-  if (style.contentVisibility !== "auto") return false;
-
-  const lazyBox = element.getBoundingClientRect();
-  const viewportBox = scrollViewport.getBoundingClientRect();
-
-  return lazyBox.bottom <= viewportBox.top || lazyBox.top >= viewportBox.bottom;
 }
 
 /** One component-relative rectangle covering what either side paints. */

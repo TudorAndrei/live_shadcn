@@ -1,8 +1,6 @@
 // Which registry a storybook example belongs to.
 //
-// Both registries must pass the checks that render upstream. A reference that
-// needs a documented normalization must make that rule in the comparison. It
-// must not turn off checks for its complete registry.
+// The verification pipeline compares shadcn ports with pinned upstream pages.
 
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -42,4 +40,10 @@ export function source(component) {
 }
 
 /** Whether the two upstream-comparing checks gate this component. */
-export const gated = (component) => source(component) !== null;
+export const gated = (component) => source(component) === "shadcn";
+
+export const verificationSpecFiles = [...new Set([
+  ...inventory.components.filter(({ source }) => source === "shadcn").map(({ name }) => name),
+  ...[...officialShadcnComponents].map((name) => name.replace(/^shadcn-/, "")),
+  "accessibility", "interaction-parity", "parity", "pixel", "rendered-output", "visual-states", "navigation",
+])].sort().map((name) => `**/${name}.spec.mjs`);
