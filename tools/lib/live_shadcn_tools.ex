@@ -274,12 +274,15 @@ defmodule LiveShadcnTools do
 
   @doc false
   def verification_targets(source \\ nil, root \\ repo_root()) do
+    if source not in [nil, "shadcn"], do: Mix.raise("verification supports only source shadcn")
+
     primitives =
-      Path.join([root, "registry/spec/*/*.json"])
+      Path.join([root, "registry/spec/shadcn/*.json"])
       |> Path.wildcard()
       |> Enum.map(&{Path.basename(Path.dirname(&1)), Path.basename(&1, ".json")})
       |> Enum.filter(fn {component_source, name} ->
-        File.exists?(Path.join(root, module_path(component_source, name)))
+        relative = Path.relative_to(module_path(component_source, name), repo_root())
+        File.regular?(Path.join(root, relative))
       end)
 
     docs_only =
@@ -320,8 +323,8 @@ defmodule LiveShadcnTools do
 
   @doc false
   def verification_requirement_gaps(source \\ nil, root \\ repo_root()) do
-    root
-    |> verification_targets(source)
+    source
+    |> verification_targets(root)
     |> Enum.map(&ref(elem(&1, 0), elem(&1, 1)))
     |> Enum.reject(&verification_requirement_met?(&1, root))
   end

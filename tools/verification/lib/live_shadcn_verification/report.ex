@@ -39,11 +39,10 @@ defmodule LiveShadcnVerification.Report do
     else
       messages =
         errors
-        |> Enum.map(fn
+        |> Enum.map_join("\n", fn
           %{"message" => message} when is_binary(message) -> message
           other -> inspect(other)
         end)
-        |> Enum.join("\n")
 
       {:error, "Playwright report has top-level errors:\n#{messages}"}
     end
@@ -92,11 +91,8 @@ defmodule LiveShadcnVerification.Report do
              &(&1 == expected.identity),
              "verification identity"
            ),
-         :ok <- validate_states(meta, expected),
-         :ok <- require_completed(meta) do
-      :ok
-    else
-      {:error, reason} -> {:error, reason}
+         :ok <- validate_states(meta, expected) do
+      require_completed(meta)
     end
   end
 

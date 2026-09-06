@@ -1,7 +1,7 @@
 defmodule LiveShadcnVerification do
   @moduledoc false
 
-  @identity_version 2
+  @identity_version 3
 
   @docs_only_required_checks ~w(snapshot examples browser behavior accessibility parity pixel)
 
@@ -29,8 +29,10 @@ defmodule LiveShadcnVerification do
     "parity/package.json",
     "parity/package-lock.json",
     "storybook/assets/**/*.{css,js,mjs,json}",
-    "storybook/lib/**/*.ex",
-    "storybook/test/browser/*.{mjs,json}",
+    "storybook/lib/**/*.{ex,heex}",
+    "storybook/test/browser/*.mjs",
+    "storybook/test/browser/package.json",
+    "storybook/test/browser/package-lock.json",
     "tools/lib/live_shadcn_tools/**/*.ex",
     "tools/lib/mix/tasks/ui.verify.ex",
     "tools/verification/lib/**/*.ex",
@@ -140,23 +142,15 @@ defmodule LiveShadcnVerification do
 
   def policy_status(source, name) do
     case policy_entry(source, name).kind do
-      :local_only -> :local_only
-      :no_dom -> :no_dom
-      _ -> nil
+      :standard -> nil
+      kind -> kind
     end
   end
 
   def policy_status_overrides do
     @policies
-    |> Enum.flat_map(fn
-      {reference, %{kind: kind}} when kind in [:local_only, :no_dom] ->
-        status = if kind == :local_only, do: :local_only, else: :no_dom
-        [{reference, status}]
-
-      _ ->
-        []
-    end)
-    |> Map.new()
+    |> Enum.reject(fn {_reference, %{kind: kind}} -> kind == :standard end)
+    |> Map.new(fn {reference, %{kind: kind}} -> {reference, kind} end)
   end
 
   def status_label(:verified), do: "Verified"
@@ -165,6 +159,7 @@ defmodule LiveShadcnVerification do
   def status_label(:not_verified), do: "Not verified"
   def status_label(:no_dom), do: "No DOM"
   def status_label(:local_only), do: "Local only"
+  def status_label(:excluded), do: "Outside verification"
 
   def status_label(status) when is_atom(status),
     do: status |> to_string() |> String.replace("_", " ") |> String.capitalize()
@@ -207,7 +202,7 @@ defmodule LiveShadcnVerification do
 
   def verification_failed?(_result, _current?), do: false
 
-  def verified_checks?(source, policy, checks) when is_map(checks) do
+  def verified_checks?("shadcn" = source, policy, checks) when is_map(checks) do
     policy.kind in [:standard, :docs_only] and policy_checks_complete?(source, policy, checks)
   end
 
@@ -441,6 +436,15 @@ defmodule LiveShadcnVerification do
     evaluate(result, source, name, root, spec_path).status
   end
 
+  def evaluate(_result, "ai_elements", _name, _root, _spec_path) do
+    %{
+      status: :excluded,
+      label: status_label(:excluded),
+      reason: "AI Elements is outside the shadcn verification pipeline.",
+      checks: []
+    }
+  end
+
   def evaluate(result, source, name, root, spec_path) do
     case policy_status(source, name) do
       status when status in [:local_only, :no_dom] ->
@@ -557,7 +561,7 @@ defmodule LiveShadcnVerification do
     }
   end
 
-  defp record_present?(result), do: is_map(result) and map_size(result) > 0
+  defp record_present?(result), do: map_size(result) > 0
 
   defp stale_reason(result, source, name, root, spec_path) do
     policy = effective_policy(source, name, root)
@@ -603,18 +607,23 @@ defmodule LiveShadcnVerification do
   defp check_reason(name, check, outcome) do
     detail = if is_map(check), do: Map.get(check, "detail")
 
-    case {outcome, detail} do
-      {:passed, detail} when is_binary(detail) and detail != "" -> detail
-      {:passed, _} -> "#{human_check(name)} check passed"
-      {:failed, detail} when is_binary(detail) and detail != "" -> detail
-      {:failed, _} -> "#{human_check(name)} check failed"
-      {:skipped, detail} when is_binary(detail) and detail != "" -> detail
-      {:skipped, _} -> "#{human_check(name)} check was skipped"
-      {:incomplete, detail} when is_binary(detail) and detail != "" -> detail
-      {:incomplete, _} -> "#{human_check(name)} check did not run"
-      {:not_run, _} -> "#{human_check(name)} check has no record"
-      {_, detail} when is_binary(detail) and detail != "" -> detail
-      _ -> "#{human_check(name)} check is incomplete"
+    if is_binary(detail) and detail != "" and outcome != :not_run do
+      detail
+    else
+      suffix =
+        Map.get(
+          %{
+            passed: "passed",
+            failed: "failed",
+            skipped: "was skipped",
+            incomplete: "did not run",
+            not_run: "has no record"
+          },
+          outcome,
+          "is incomplete"
+        )
+
+      "#{human_check(name)} check #{suffix}"
     end
   end
 

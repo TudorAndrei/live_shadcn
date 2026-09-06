@@ -8,7 +8,12 @@ defmodule LiveShadcnVerification.MixProject do
       elixir: "~> 1.17",
       start_permanent: false,
       deps: deps(),
-      aliases: aliases()
+      aliases: aliases(),
+      dialyzer: [
+        plt_local_path: "priv/plts",
+        plt_core_path: "priv/plts",
+        plt_add_apps: [:mix, :ex_unit]
+      ]
     ]
   end
 
@@ -16,7 +21,10 @@ defmodule LiveShadcnVerification.MixProject do
     [
       check: [
         "format --check-formatted",
-        "compile --warnings-as-errors"
+        "compile --warnings-as-errors",
+        "credo --config-file ../../.credo.exs",
+        "deps.audit",
+        "dialyzer"
       ]
     ]
   end
@@ -24,6 +32,13 @@ defmodule LiveShadcnVerification.MixProject do
   def application, do: [extra_applications: [:logger, :crypto]]
 
   defp deps do
-    [{:jason, "~> 1.4"}]
+    [
+      {:jason, "~> 1.4"},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:credo_naming, "~> 2.1", only: [:dev, :test], runtime: false},
+      {:ex_slop, "~> 0.4", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false}
+    ]
   end
 end

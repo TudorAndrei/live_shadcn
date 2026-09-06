@@ -64,8 +64,31 @@ defmodule LiveShadcnVerificationTest do
       bootstrap_identity(root, "button")
 
       first = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+      write(root, "storybook/test/browser/results.json", ~s({"suites":[],"errors":[]}))
+      write(root, "storybook/test/browser/custom-report.json", ~s({"suites":[]}))
       second = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
       assert first == second
+    end
+
+    test "changes when a rendered HEEx layout changes" do
+      root = fixture_root("identity-layout")
+      bootstrap_identity(root, "button")
+
+      write(
+        root,
+        "storybook/lib/storybook_web/layouts/root.html.heex",
+        "<main>{@inner_content}</main>"
+      )
+
+      original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      write(
+        root,
+        "storybook/lib/storybook_web/layouts/root.html.heex",
+        "<body>{@inner_content}</body>"
+      )
+
+      refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root)
     end
 
     test "changes when a new shared input file is added" do
@@ -109,6 +132,21 @@ defmodule LiveShadcnVerificationTest do
   end
 
   describe "badge evaluation" do
+    test "AI Elements has an explicit status outside verification" do
+      evaluation =
+        LiveShadcnVerification.evaluate(
+          %{"pass" => true},
+          "ai_elements",
+          "message",
+          @repo_root,
+          nil
+        )
+
+      assert evaluation.status == :excluded
+      assert evaluation.label == "Outside verification"
+      assert evaluation.reason == "AI Elements is outside the shadcn verification pipeline."
+    end
+
     test "reports verified for a current primitive record" do
       root = fixture_root("badge-primitive")
       record = verified_record(root, "button", :standard)

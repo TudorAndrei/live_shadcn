@@ -210,7 +210,7 @@ defmodule Mix.Tasks.Ui.VerifyTest do
     commands =
       Verify.behavior_batch_arguments("shadcn", "message-scroller", "message-scroller.spec.mjs")
 
-    assert length(commands) == 11
+    assert Enum.count(commands) == 11
 
     assert Enum.all?(commands, fn command ->
              assert [

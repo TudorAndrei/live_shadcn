@@ -49,6 +49,7 @@ defmodule Mix.Tasks.Ui.Status do
     :stale,
     :local_only,
     :no_dom,
+    :excluded,
     :verified
   ]
 
@@ -67,9 +68,7 @@ defmodule Mix.Tasks.Ui.Status do
     source = source!(Keyword.get(opts, :source))
     require_verified? = Keyword.get(opts, :require_verified, false)
 
-    if require_verified? and not check? do
-      Mix.raise("`--require-verified` is valid only with `--check`.")
-    end
+    valid_requirement_options!(require_verified?, check?, source)
 
     inventory = read_json!(registry_path("INVENTORY.json"))
     {components, added} = merge_upstream(inventory["components"])
@@ -126,6 +125,14 @@ defmodule Mix.Tasks.Ui.Status do
     end
   end
 
+  defp valid_requirement_options!(true, false, _source),
+    do: Mix.raise("`--require-verified` is valid only with `--check`.")
+
+  defp valid_requirement_options!(true, _check, "ai_elements"),
+    do: Mix.raise("verification supports only source shadcn")
+
+  defp valid_requirement_options!(_required, _check, _source), do: :ok
+
   # A component upstream that nobody has triaged yet must still be visible.
   defp merge_upstream(components) do
     known = MapSet.new(components, &{&1["source"], &1["name"]})
@@ -177,27 +184,25 @@ defmodule Mix.Tasks.Ui.Status do
   end
 
   defp status_of(%{"name" => name, "source" => source}) do
-    cond do
-      policy = VerificationPolicy.status(source, name) ->
-        policy
+    if policy = VerificationPolicy.status(source, name) do
+      policy
+    else
+      evaluation =
+        LiveShadcnVerification.evaluate(
+          verification_result(source, name),
+          source,
+          name,
+          repo_root(),
+          spec_path(source, name)
+        )
 
-      true ->
-        evaluation =
-          LiveShadcnVerification.evaluate(
-            verification_result(source, name),
-            source,
-            name,
-            repo_root(),
-            spec_path(source, name)
-          )
-
-        case evaluation.status do
-          :verified -> :verified
-          :failed -> :failed
-          :stale -> :stale
-          :not_verified -> pipeline_stage(source, name)
-          status -> status
-        end
+      case evaluation.status do
+        :verified -> :verified
+        :failed -> :failed
+        :stale -> :stale
+        :not_verified -> pipeline_stage(source, name)
+        status -> status
+      end
     end
   end
 

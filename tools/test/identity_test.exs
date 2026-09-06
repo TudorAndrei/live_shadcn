@@ -234,7 +234,7 @@ defmodule LiveShadcnTools.IdentityTest do
         "pixel" => %{"pass" => true}
       }
 
-      refute LiveShadcnTools.verified_checks?("ai_elements", policy, incomplete)
+      refute LiveShadcnTools.verified_checks?("shadcn", policy, incomplete)
 
       complete =
         Map.merge(incomplete, %{
@@ -242,7 +242,7 @@ defmodule LiveShadcnTools.IdentityTest do
           "accessibility" => %{"pass" => true}
         })
 
-      assert LiveShadcnTools.verified_checks?("ai_elements", policy, complete)
+      assert LiveShadcnTools.verified_checks?("shadcn", policy, complete)
     end
 
     test "does not verify an exceptional policy" do
@@ -324,6 +324,39 @@ defmodule LiveShadcnTools.IdentityTest do
 
       assert Enum.all?(targets, fn {source, _name} -> source == "shadcn" end)
       assert {"shadcn", "typography"} in targets
+      assert {"shadcn", "button"} in targets
+      assert {"shadcn", "message-scroller"} in targets
+    end
+
+    test "verification requirements use the supplied repository root" do
+      root =
+        Path.join(System.tmp_dir!(), "verification-targets-#{System.unique_integer([:positive])}")
+
+      on_exit(fn -> File.rm_rf!(root) end)
+
+      write(
+        root,
+        "registry/UPSTREAM.json",
+        ~s({"files":{},"examples":{"shadcn":{"typography":["demo"]}}})
+      )
+
+      write(root, "registry/spec/shadcn/button.json", ~s({"ignored":{}}))
+      write(root, "packages/live_shadcn/priv/registry/button.ex", "defmodule Button do end")
+
+      assert LiveShadcnTools.verification_targets("shadcn", root) == [
+               {"shadcn", "button"},
+               {"shadcn", "typography"}
+             ]
+
+      assert LiveShadcnTools.verification_requirement_gaps("shadcn", root) == [
+               "shadcn/button",
+               "shadcn/typography"
+             ]
+
+      assert LiveShadcnTools.verification_requirement_gaps(nil, root) == [
+               "shadcn/button",
+               "shadcn/typography"
+             ]
     end
 
     test "require-verified rejects incomplete evidence even when a record says pass" do

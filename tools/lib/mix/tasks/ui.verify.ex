@@ -112,6 +112,18 @@ defmodule Mix.Tasks.Ui.Verify do
       Mix.raise("nothing to verify: no reviewed component port exists.")
     end
 
+    VerifierLock.with_lock(repo_root(), fn token ->
+      Process.put(:live_shadcn_source_lease_token, token)
+
+      try do
+        verify_locked(components, browser?)
+      after
+        Process.delete(:live_shadcn_source_lease_token)
+      end
+    end)
+  end
+
+  defp verify_locked(components, browser?) do
     shadcn_identities =
       Map.new(components, fn
         {"shadcn", name} ->
@@ -161,25 +173,17 @@ defmodule Mix.Tasks.Ui.Verify do
     results =
       if browser? and browser_components != [] do
         try do
-          VerifierLock.with_lock(repo_root(), fn token ->
-            Process.put(:live_shadcn_source_lease_token, token)
+          ensure_browser_ports_free!()
+          LiveShadcnVerification.verify_pinned_upstream_files!(repo_root())
+          prepare_browser!()
 
-            try do
-              ensure_browser_ports_free!()
-              LiveShadcnVerification.verify_pinned_upstream_files!(repo_root())
-              prepare_browser!()
+          with_managed_browser_servers(fn ->
+            shared_checks =
+              if match?([_, _ | _], browser_components) do
+                batch_browser_checks(browser_components)
+              end
 
-              with_managed_browser_servers(fn ->
-                shared_checks =
-                  if match?([_, _ | _], browser_components) do
-                    batch_browser_checks(browser_components)
-                  end
-
-                verify_components.(shared_checks)
-              end)
-            after
-              Process.delete(:live_shadcn_source_lease_token)
-            end
+            verify_components.(shared_checks)
           end)
         rescue
           error ->
@@ -204,7 +208,7 @@ defmodule Mix.Tasks.Ui.Verify do
       )
     end)
 
-    write_json!(registry_path("VERIFY.json"), merge(results))
+    write_json_atomic!(registry_path("VERIFY.json"), merge(results))
     report(results)
   end
 
@@ -303,6 +307,7 @@ defmodule Mix.Tasks.Ui.Verify do
   defp parse_record!(_records),
     do: Mix.raise("import one completed Playwright report at a time")
 
+  @spec invalid_record!() :: no_return()
   defp invalid_record! do
     Mix.raise(
       "--record must be LAYER=PLAYWRIGHT_JSON, where LAYER is #{Enum.join(IncrementalVerification.layers(), ", ")}"
@@ -420,11 +425,10 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   defp verification_target?(reference) do
-    generated?(reference) or
-      case parse_ref(reference) do
-        {"shadcn", name} -> name in docs_only_shadcn_families()
-        _ -> false
-      end
+    case parse_ref(reference) do
+      {"shadcn", name} -> generated?(reference) or name in docs_only_shadcn_families()
+      _ -> false
+    end
   end
 
   # `registry/` knows a component by source and name. `storybook/` knows it by
@@ -455,12 +459,12 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp components_for_verify(names, source) do
     components =
-      if names == [], do: generated(), else: Enum.map(names, &resolve/1)
+      if names == [], do: only_source(generated(), source), else: Enum.map(names, &resolve/1)
 
     components
     |> Enum.uniq()
     |> Enum.map(fn {component_source, name} = component ->
-      if source != nil and source != component_source do
+      if source != component_source do
         Mix.raise("#{ref(component_source, name)} does not belong to source #{source}.")
       end
 
@@ -469,15 +473,14 @@ defmodule Mix.Tasks.Ui.Verify do
     |> only_source(source)
   end
 
-  defp only_source(components, nil), do: components
   defp only_source(components, source), do: Enum.filter(components, fn {s, _} -> s == source end)
 
-  defp source!(nil), do: nil
+  defp source!(nil), do: "shadcn"
 
-  defp source!(source) when source in ["shadcn", "ai_elements"], do: source
+  defp source!("shadcn"), do: "shadcn"
 
   defp source!(source),
-    do: Mix.raise("invalid source #{source}; expected shadcn or ai_elements")
+    do: Mix.raise("verification supports only source shadcn; received #{source}")
 
   defp verify(
          source,
@@ -858,6 +861,12 @@ defmodule Mix.Tasks.Ui.Verify do
         managed? \\ Process.get(:live_shadcn_managed_browser_servers)
       )
       when is_map(env) do
+    env =
+      case Process.get(:live_shadcn_source_lease_token) do
+        nil -> env
+        token -> Map.put(env, "PARITY_SOURCE_LEASE_TOKEN", token)
+      end
+
     if managed? do
       Map.put(env, @managed_browser_servers_env, "1")
     else
@@ -1382,7 +1391,7 @@ defmodule Mix.Tasks.Ui.Verify do
   defp browser_asset_inputs do
     [
       Path.join([storybook_dir(), "assets", "**", "*.{css,js,mjs,json}"]),
-      Path.join([storybook_dir(), "lib", "**", "*.ex"]),
+      Path.join([storybook_dir(), "lib", "**", "*.{ex,heex}"]),
       Path.join([repo_root(), "packages", "*", "assets", "**", "*.js"]),
       Path.join([repo_root(), "packages", "*", "priv", "registry", "*.ex"]),
       Path.join([repo_root(), "registry", "upstream", "shadcn", "styles", "*.css"])
