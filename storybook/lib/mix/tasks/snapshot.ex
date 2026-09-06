@@ -38,9 +38,15 @@ defmodule Mix.Tasks.Snapshot do
   @impl Mix.Task
   def run(argv) do
     Mix.Task.run("app.start")
-    {opts, names, _} = OptionParser.parse(argv, strict: [check: :boolean])
+    {opts, names, invalid} = OptionParser.parse(argv, strict: [check: :boolean, source: :string])
+    if invalid != [], do: Mix.raise("invalid snapshot options: #{inspect(invalid)}")
     check? = Keyword.get(opts, :check, false)
-    components = if names == [], do: Examples.components(), else: names
+    source = Keyword.get(opts, :source)
+
+    components =
+      scoped_components(if(names == [], do: Examples.components(), else: names), source)
+
+    if components == [], do: Mix.raise("no snapshot components match this source")
 
     results =
       for component <- components,
@@ -54,7 +60,7 @@ defmodule Mix.Tasks.Snapshot do
 
     unexpected =
       if check? and names == [] do
-        unexpected_snapshot_names(snapshot_dir(), expected)
+        unexpected_snapshot_names(snapshot_dir(), expected, if(source, do: components))
       else
         []
       end
@@ -81,6 +87,22 @@ defmodule Mix.Tasks.Snapshot do
         Mix.shell().info("wrote #{length(results)} snapshot(s)")
     end
   end
+
+  @doc false
+  def scoped_components(components, nil), do: components
+
+  def scoped_components(components, "shadcn") do
+    root = Path.expand("../../../..", __DIR__)
+    docs_only = LiveShadcnVerification.docs_only_shadcn_families(root)
+
+    Enum.filter(components, fn component ->
+      component in docs_only or
+        String.starts_with?(to_string(StorybookWeb.Docs.module(component)), "Elixir.LiveShadcn.")
+    end)
+  end
+
+  def scoped_components(_components, source),
+    do: Mix.raise("snapshot source filter supports only shadcn; received #{source}")
 
   # Which preview pages exist. The browser suite reads this at collection time,
   # before any server is running, so it cannot ask the application.
@@ -206,7 +228,7 @@ defmodule Mix.Tasks.Snapshot do
   end
 
   @doc false
-  def unexpected_snapshot_names(directory, expected) do
+  def unexpected_snapshot_names(directory, expected, components \\ nil) do
     actual =
       directory
       |> Path.join("*.html")
@@ -214,6 +236,9 @@ defmodule Mix.Tasks.Snapshot do
       |> Enum.map(&Path.basename(&1, ".html"))
 
     actual
+    |> Enum.filter(fn name ->
+      is_nil(components) or Enum.any?(components, &String.starts_with?(name, &1 <> "-"))
+    end)
     |> Kernel.--(expected)
     |> Enum.sort()
   end

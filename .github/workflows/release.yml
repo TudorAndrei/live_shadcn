@@ -66,7 +66,7 @@ jobs:
         working-directory: tools
 
       # This check needs only the committed contracts and reviewed ports.
-      - run: mix ui.spec --check --offline
+      - run: mix ui.spec --check --offline --source shadcn
         working-directory: tools
 
       - run: mix ui.status --check

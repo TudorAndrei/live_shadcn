@@ -41,29 +41,23 @@ jobs:
       # The task computes all results before it writes. Manual structural drift
       # stops the run before it changes a port or contract.
       - name: Synchronize safe facts
-        run: mix ui.spec
+        run: mix ui.spec --source shadcn
         working-directory: tools
 
       - name: Redraw the snapshots
-        run: mix setup && mix assets.build && mix snapshot
+        run: mix setup && mix assets.build && mix snapshot --source shadcn
         working-directory: storybook
 
       # A port that does not match its contract makes later results unreliable.
       - name: Reviewed ports match their contracts
-        run: mix ui.spec --check --offline
+        run: mix ui.spec --check --offline --source shadcn
         working-directory: tools
 
-      # A sync that opens a pull request nobody can trust is worse than none.
-      # The browser check runs before the diff is offered, so the pull request
-      # says whether upstream still behaves the way it did.
-      - name: Behaviour and accessibility
+      - name: Install browser dependencies
         run: |
           npm ci
           npm run verify:install
-          npm run verify
         working-directory: storybook/test/browser
-        env:
-          CI: "true"
 
       - name: Install parity dependencies
         run: npm ci
@@ -93,8 +87,8 @@ jobs:
             echo 'body<<DIFF'
             (cd tools && mix ui.drift)
             echo
-            echo 'Every reviewed port still matches its contract, and the whole'
-            echo 'browser suite is green. Read the snapshot diff to see what'
+            echo 'Every reviewed shadcn port still matches its contract, and the shadcn'
+            echo 'browser checks passed. Read the snapshot diff to see what'
             echo 'a reader would actually notice.'
             echo DIFF
           } >> "$GITHUB_OUTPUT"

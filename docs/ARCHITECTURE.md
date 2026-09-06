@@ -170,6 +170,13 @@ its contract digest, official example list, React references, and verification
 rules are unchanged. `--no-browser` is a diagnostic mode. It cannot produce a
 Verified status.
 
+The verification pipeline covers shadcn ports and documentation families.
+AI Elements is outside this pipeline and keeps its package tests. The source
+filter, browser suite selection, and documentation status use this scope.
+The verification identity includes HEEx layouts and excludes generated browser
+reports. A browser batch uses the parent source lease. The verifier holds the
+lease until it publishes the result file with an atomic rename.
+
 | Check | Question |
 |---|---|
 | generated | does the reviewed port match its contract? |
@@ -194,7 +201,8 @@ A new upstream component has no safe automatic translation. A maintainer must:
    first version-2 contract, then review the returned port and contract;
 6. add Storybook examples, snapshots, browser behavior tests, and upstream
    parity where it applies;
-7. run `mix ui.spec --check` and `mix ui.verify <source>/<name>`.
+7. run `mix ui.spec --check`. For shadcn, run `mix ui.verify shadcn/<name>`.
+   For AI Elements, run its package tests.
 
 After this first review, normal updates use `mix ui.spec`.
 

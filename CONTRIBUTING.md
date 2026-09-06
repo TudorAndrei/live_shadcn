@@ -85,7 +85,8 @@ behavior.
 8. Run `mix ui.spec --check <source>/<name>`.
 9. Add a Storybook example, a snapshot, browser behavior tests, and React parity
    where it applies.
-10. Run `mix ui.verify <source>/<name>`.
+10. For shadcn, run `mix ui.verify shadcn/<name>`. For AI Elements, run its
+    package tests.
 
 The converter accepts an empty fact block for the initial `contract: nil` call.
 It returns the canonical fact block. Later runs require the block, contract, and
@@ -112,6 +113,11 @@ mix ui.status --check
 Verification checks contract agreement, snapshots, browser behavior,
 accessibility, upstream geometry, and pixels. Every component also needs an
 example in `storybook/lib/storybook_web/examples.ex`.
+
+This verification pipeline covers shadcn only. AI Elements uses different
+upstream components and icons. Its package tests run separately. Both
+`mix ui.verify` and `npm run verify` select only shadcn checks. Use
+`mix snapshot --check --source shadcn` for the corresponding snapshot check.
 
 If a local port is in use, select isolated browser ports:
 

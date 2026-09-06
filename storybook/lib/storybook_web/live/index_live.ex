@@ -18,6 +18,7 @@ defmodule StorybookWeb.IndexLive do
     stale: "bg-orange-100 text-orange-900 dark:bg-orange-950 dark:text-orange-300",
     not_verified: "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
     local_only: "bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-300",
+    excluded: "bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-300",
     no_dom: "bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-300"
   }
 

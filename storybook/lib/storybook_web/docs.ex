@@ -385,10 +385,12 @@ defmodule StorybookWeb.Docs do
 
   @doc "The highest pipeline stage that has current evidence for a documented component."
   @spec status(String.t()) ::
-          :verified | :failed | :stale | :not_verified | :local_only | :no_dom
+          :verified | :failed | :stale | :not_verified | :local_only | :no_dom | :excluded
   def status(component) do
-    {source, name} = identity(component)
-    Map.get(@status_by_identity, "#{source}/#{name}", :not_verified)
+    case identity(component) do
+      {"ai_elements", _name} -> :excluded
+      {source, name} -> Map.get(@status_by_identity, "#{source}/#{name}", :not_verified)
+    end
   end
 
   @doc "Human-readable verification label for a documented component."
@@ -397,7 +399,12 @@ defmodule StorybookWeb.Docs do
   @doc "Verification evaluation with per-check reasons for a documented component."
   def evaluation(component) do
     {source, name} = identity(component)
-    Map.get(@evaluation_by_identity, "#{source}/#{name}", default_evaluation())
+
+    if source == "ai_elements" do
+      LiveShadcnVerification.evaluate(%{}, source, name, @repo_root, nil)
+    else
+      Map.get(@evaluation_by_identity, "#{source}/#{name}", default_evaluation())
+    end
   end
 
   defp default_evaluation do
@@ -417,6 +424,7 @@ defmodule StorybookWeb.Docs do
         stale: "bg-orange-100 text-orange-900 dark:bg-orange-950 dark:text-orange-300",
         not_verified: "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
         local_only: "bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-300",
+        excluded: "bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-300",
         no_dom: "bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-300"
       },
       status

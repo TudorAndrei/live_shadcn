@@ -6,8 +6,7 @@ The repository keeps upstream class and CVA facts current without translating
 React into Elixir. Oxc extracts safe facts and structural fingerprints. A
 maintainer owns the HEEx API and behavior of each port.
 
-The current inventory has 109 verified ports. See
-[docs/INVENTORY.md](docs/INVENTORY.md) for the status derived from disk.
+See [docs/INVENTORY.md](docs/INVENTORY.md) for the component status derived from disk.
 
 ## Why another component library
 
@@ -96,6 +95,9 @@ mix ui.fetch  ->  mix ui.spec  ->  mix ui.verify
 
 `mix ui.fetch` stores fetched files in the ignored `registry/upstream/`
 directory. `registry/UPSTREAM.json` commits their SHA-256 digests.
+
+`mix ui.verify` checks shadcn only. AI Elements is outside this verification
+pipeline. Its normal package tests still run in CI.
 
 `mix ui.spec` uses Oxc to extract class literals, CVA values, state reads, and
 a structural fingerprint. It can update only safe facts in the marked block of
