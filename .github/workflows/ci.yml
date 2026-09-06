@@ -216,9 +216,32 @@ jobs:
       - run: mix ui.spec --check --source ai_elements
         working-directory: tools
 
+  # These tests read the pinned catalog and the browser models without starting
+  # Playwright. They make sure a docs-only family cannot lose an official
+  # example, its React reference, or a declared visual state between browser
+  # verification runs.
+  static-browser-contracts:
+    name: static browser contracts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+
+      - run: node --test ./*.test.mjs
+        working-directory: storybook/test/browser
+
+      - run: npm ci
+        working-directory: parity
+
+      - run: npm test
+        working-directory: parity
+
   deploy:
     name: deploy the tested Storybook
-    needs: [test, inventory, reader]
+    needs: [test, inventory, reader, static-browser-contracts]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: storybook
