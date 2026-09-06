@@ -11,6 +11,7 @@
       "jsx/PaginationNext/class/1",
       "jsx/PaginationNext/class/2",
       "jsx/PaginationPrevious/class/0",
+      "jsx/PaginationPrevious/class/1",
       "jsx/PaginationPrevious/class/2"
     ],
     "derived": {}
@@ -26,17 +27,16 @@
     "jsx/PaginationNext/class/1": "cn-pagination-next-text hidden sm:block",
     "jsx/PaginationNext/class/2": "cn-rtl-flip",
     "jsx/PaginationPrevious/class/0": "cn-pagination-previous",
+    "jsx/PaginationPrevious/class/1": "cn-rtl-flip",
     "jsx/PaginationPrevious/class/2": "cn-pagination-previous-text hidden sm:block"
   },
   "file_fingerprints": {
     "shadcn/ui/pagination.tsx": "63e16d96aa129ed61053946ebe552a0134579841edf7800344f0ecf8837c3392"
   },
   "fingerprint": "1101939661e7f086c6e299f104ac69d87f8ab14eca0c0d73c4ef309e4fb0fc9f",
-  "ignored": {
-    "jsx/PaginationPrevious/class/1": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "pagination",
-  "port_body": "e788a9a75ef0ea09c2945edc9711d3e3873e4e86781c8671fe063007c0f54f01",
+  "port_body": "ca1e2d1e599bb6a1fcbd9a60fd01ef4037937f966bc7e3f9f3e831f0bc0ef5d5",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -79,6 +79,7 @@
     "jsx/PaginationNext/class/1",
     "jsx/PaginationNext/class/2",
     "jsx/PaginationPrevious/class/0",
+    "jsx/PaginationPrevious/class/1",
     "jsx/PaginationPrevious/class/2"
   ]
 }

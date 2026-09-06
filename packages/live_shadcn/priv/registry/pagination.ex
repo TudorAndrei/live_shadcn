@@ -19,6 +19,7 @@ defmodule LiveShadcn.UI.Pagination do
     "jsx/PaginationNext/class/1" => "cn-pagination-next-text hidden sm:block",
     "jsx/PaginationNext/class/2" => "cn-rtl-flip",
     "jsx/PaginationPrevious/class/0" => "cn-pagination-previous",
+    "jsx/PaginationPrevious/class/1" => "cn-rtl-flip",
     "jsx/PaginationPrevious/class/2" => "cn-pagination-previous-text hidden sm:block"
   }
   # live-shadcn: upstream facts end
@@ -167,7 +168,7 @@ defmodule LiveShadcn.UI.Pagination do
       class={[upstream_fact("jsx/PaginationPrevious/class/0"), @class]}
       {@rest}
     >
-      <LiveShadcn.Icon.icon name="chevron-left" class={upstream_fact("jsx/PaginationNext/class/2")} /><span class={upstream_fact("jsx/PaginationPrevious/class/2")}>{@text}</span>{render_slot(
+      <LiveShadcn.Icon.icon name="chevron-left" class={upstream_fact("jsx/PaginationPrevious/class/1")} /><span class={upstream_fact("jsx/PaginationPrevious/class/2")}>{@text}</span>{render_slot(
         @inner_block
       )}
     </.pagination_link>
