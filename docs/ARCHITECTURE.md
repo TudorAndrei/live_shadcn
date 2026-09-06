@@ -166,12 +166,15 @@ mix ui.spec --check --source ai_elements
 ### `mix ui.verify`
 
 Verification writes `registry/VERIFY.json`. A result remains valid only while
-its contract digest is unchanged.
+its contract digest, official example list, React references, and verification
+rules are unchanged. `--no-browser` is a diagnostic mode. It cannot produce a
+Verified status.
 
 | Check | Question |
 |---|---|
 | generated | does the reviewed port match its contract? |
 | snapshot | did rendered markup change? |
+| examples | does every documented shadcn example have HEEx and the exact official React reference? |
 | browser | does behavior work, and is the result clean under axe-core? |
 | parity | does the port draw the same measurable result as upstream React? |
 | pixel | does the port paint the same result as upstream React? |

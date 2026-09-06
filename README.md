@@ -90,7 +90,8 @@ what happens.
 ```text
 mix ui.fetch  ->  mix ui.spec  ->  mix ui.verify
  pinned source    facts + contract    snapshots, browser,
-                  reviewed port       accessibility, parity
+                  reviewed port       all official examples,
+                                      accessibility, parity
 ```
 
 `mix ui.fetch` stores fetched files in the ignored `registry/upstream/`
