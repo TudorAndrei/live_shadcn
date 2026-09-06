@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import test from "node:test";
 
-import { runVerification } from "./verify.mjs";
+import { embedVerificationReport, runVerification } from "./verify.mjs";
 
 test("the verification wrapper forwards all arguments and the source lease environment", async () => {
   const calls = [];
@@ -49,4 +52,49 @@ test("the verification wrapper releases the source lease when Playwright fails",
   );
 
   assert.deepEqual(released, [["/tmp/source-lease", lease]]);
+});
+
+test("embedVerificationReport writes verification metadata into the Playwright JSON report", () => {
+  const directory = mkdtempSync(join(tmpdir(), "live-shadcn-verify-"));
+  const reportPath = join(directory, "results.json");
+  const envelope = {
+    version: 1,
+    source: "shadcn",
+    name: "button",
+    layer: "parity",
+    preview_key: "button",
+    examples: ["default"],
+    states: [],
+    identity: "digest-1",
+    completed: true,
+  };
+
+  writeFileSync(reportPath, `${JSON.stringify({ suites: [], errors: [] })}\n`);
+
+  const previous = process.env.LIVE_SHADCN_VERIFY_ENVELOPE;
+  const previousOutput = process.env.PLAYWRIGHT_JSON_OUTPUT_FILE;
+
+  process.env.LIVE_SHADCN_VERIFY_ENVELOPE = JSON.stringify(envelope);
+  process.env.PLAYWRIGHT_JSON_OUTPUT_FILE = reportPath;
+
+  try {
+    embedVerificationReport(reportPath);
+
+    const report = JSON.parse(readFileSync(reportPath, "utf8"));
+    assert.deepEqual(report._live_shadcn_verification, envelope);
+  } finally {
+    if (previous === undefined) {
+      delete process.env.LIVE_SHADCN_VERIFY_ENVELOPE;
+    } else {
+      process.env.LIVE_SHADCN_VERIFY_ENVELOPE = previous;
+    }
+
+    if (previousOutput === undefined) {
+      delete process.env.PLAYWRIGHT_JSON_OUTPUT_FILE;
+    } else {
+      process.env.PLAYWRIGHT_JSON_OUTPUT_FILE = previousOutput;
+    }
+
+    rmSync(directory, { recursive: true, force: true });
+  }
 });

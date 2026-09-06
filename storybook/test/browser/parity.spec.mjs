@@ -32,6 +32,7 @@ import {
   visualStates,
   waitForTimedExample,
 } from "./visual-states.mjs";
+import { rejectEvidenceStateFilter } from "./evidence-run.mjs";
 import { parityTimeoutMs } from "./parity-timeout.mjs";
 import { connected } from "./live.mjs";
 import { waitForMessageScrollerFinalLayout } from "./message-scroller-readiness.mjs";
@@ -152,6 +153,8 @@ for (const { component, example } of pages) {
     const selectedStates = process.env.PARITY_DEBUG_STATE
       ? reactStates.filter(({ name: stateName }) => stateName === process.env.PARITY_DEBUG_STATE)
       : reactStates;
+
+    rejectEvidenceStateFilter();
 
     if (selectedStates.length === 0) {
       throw new Error(

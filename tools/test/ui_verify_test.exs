@@ -2,6 +2,7 @@ defmodule Mix.Tasks.Ui.VerifyTest do
   use ExUnit.Case, async: false
 
   alias LiveShadcnTools.VerificationPolicy
+  alias LiveShadcnVerification
   alias Mix.Tasks.Ui.Verify
 
   test "browser preparation updates pinned parity sources once" do
@@ -470,6 +471,26 @@ defmodule Mix.Tasks.Ui.VerifyTest do
       {_output, 0},
       System.cmd("kill", ["-0", Integer.to_string(pid)], stderr_to_stdout: true)
     )
+  end
+
+  test "browser report envelopes bind the current shadcn identity and scope" do
+    envelope =
+      Verify.browser_report_envelope("shadcn", "button", "parity", "button", ["default", "rtl"])
+
+    assert envelope["source"] == "shadcn"
+    assert envelope["name"] == "button"
+    assert envelope["layer"] == "parity"
+    assert envelope["preview_key"] == "button"
+    assert envelope["examples"] == ["default", "rtl"]
+    assert is_binary(envelope["identity"])
+    assert envelope["completed"]
+
+    assert envelope["identity"] ==
+             LiveShadcnVerification.evidence_digest(
+               "shadcn",
+               "button",
+               LiveShadcnTools.repo_root()
+             )
   end
 
   defp eventually(fun, attempts \\ 50)

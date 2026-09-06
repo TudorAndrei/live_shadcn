@@ -1,6 +1,6 @@
 # TODO: shadcn parity and verification badges
 
-Follow [PLAN.md](PLAN.md). Phase 2 complete. Complete each phase,
+Follow [PLAN.md](PLAN.md). Phase 3 complete. Complete each phase,
 run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 1: share shadcn evidence evaluation
@@ -29,23 +29,23 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Test reload after evidence changes and added/deleted inputs.
 - [x] Check builder inputs and compiled results in a clean temporary build.
 - [x] Run shared-project, tools, and Storybook focused tests.
-- [ ] Commit: `fix(verification): bind shadcn badges to current pipeline evidence`
+- [x] Commit: `fix(verification): bind shadcn badges to current pipeline evidence`
 
 ## Phase 3: validate reports and reject partial verification
 
-- [ ] Produce reports with test-time identity, scope, layer, states, and completion.
-- [ ] Use one identity implementation for direct and managed execution.
-- [ ] Validate identity, ownership, layer, examples, states, and global errors.
-- [ ] Reject old raw reports with a rerun reason.
-- [ ] Reject diagnostic filters in evidence runs and reject partial imports.
-- [ ] Preserve complete-example batches and require all required batches.
-- [ ] Keep validation, merge, and publication under the verifier lock.
-- [ ] Test source changes, wrong ownership/layer, top-level errors,
+- [x] Produce reports with test-time identity, scope, layer, states, and completion.
+- [x] Use one identity implementation for direct and managed execution.
+- [x] Validate identity, ownership, layer, examples, states, and global errors.
+- [x] Reject old raw reports with a rerun reason.
+- [x] Reject diagnostic filters in evidence runs and reject partial imports.
+- [x] Preserve complete-example batches and require all required batches.
+- [x] Keep validation, merge, and publication under the verifier lock.
+- [x] Test source changes, wrong ownership/layer, top-level errors,
   and missing states.
-- [ ] Test valid multi-batch completion and safe rejection of invalid imports.
-- [ ] Run tools report/import tests and all browser helper tests.
-- [ ] Run a complete shadcn batch through direct and managed execution.
-- [ ] Commit: `fix(verification): reject stale and partial browser reports`
+- [x] Test valid multi-batch completion and safe rejection of invalid imports.
+- [x] Run tools report/import tests and all browser helper tests.
+- [x] Run a complete shadcn batch through direct and managed execution.
+- [x] Commit: `fix(verification): reject stale and partial browser reports`
 
 ## Phase 4: capture overflow and preserve pixel diagnostics
 

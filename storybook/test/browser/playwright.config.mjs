@@ -47,7 +47,10 @@ export default defineConfig({
   workers: 1,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  reporter: process.env.CI ? [["list"], ["json", { outputFile: "results.json" }]] : "list",
+  reporter:
+    process.env.LIVE_SHADCN_VERIFY_ENVELOPE || process.env.CI
+      ? [["list"], ["json", { outputFile: "results.json" }]]
+      : "list",
   use: {
     baseURL: `http://127.0.0.1:${PORT}`,
     parityURL: `http://127.0.0.1:${PARITY_PORT}`,

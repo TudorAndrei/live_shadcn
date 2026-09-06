@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
 
@@ -22,6 +23,22 @@ function executeLocalPlaywright({ arguments: arguments_, environment, cwd = here
   });
 }
 
+export function embedVerificationReport(
+  reportPath =
+    process.env.PLAYWRIGHT_JSON_OUTPUT_FILE ??
+    join(dirname(fileURLToPath(import.meta.url)), "results.json"),
+) {
+  const envelope = process.env.LIVE_SHADCN_VERIFY_ENVELOPE;
+
+  if (!envelope || !existsSync(reportPath)) {
+    return;
+  }
+
+  const report = JSON.parse(readFileSync(reportPath, "utf8"));
+  report._live_shadcn_verification = JSON.parse(envelope);
+  writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`);
+}
+
 export async function runVerification({
   arguments: arguments_ = process.argv.slice(2),
   environment = process.env,
@@ -33,7 +50,7 @@ export async function runVerification({
   const lease = await acquire(leasePath);
 
   try {
-    return await execute({
+    const outcome = await execute({
       arguments: arguments_,
       environment: {
         ...environment,
@@ -41,6 +58,9 @@ export async function runVerification({
         LIVE_SHADCN_BROWSER_VERIFY_WRAPPER: "1",
       },
     });
+
+    embedVerificationReport();
+    return outcome;
   } finally {
     await release(leasePath, lease);
   }

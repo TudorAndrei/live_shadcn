@@ -173,6 +173,14 @@ defmodule LiveShadcnTools.PlaywrightReportTest do
     assert result.components["calendar.rtl"] == %{"pass" => true}
   end
 
+  test "require_example_coverage! rejects reports that omit scoped examples" do
+    result = %{components: %{"button.default" => %{"pass" => true}}, global_failures: []}
+
+    assert_raise ArgumentError, ~r/missing scoped results for button\.basic/, fn ->
+      PlaywrightReport.require_example_coverage!(result, ["button.default", "button.basic"])
+    end
+  end
+
   defp suite(file, specs) do
     %{"file" => file, "specs" => specs, "suites" => [], "title" => file}
   end

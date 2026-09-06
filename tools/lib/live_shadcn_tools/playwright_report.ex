@@ -126,6 +126,19 @@ defmodule LiveShadcnTools.PlaywrightReport do
     raise ArgumentError, "unknown incremental verification layer: #{layer}"
   end
 
+  @doc false
+  @spec require_example_coverage!(result(), [String.t()]) :: :ok
+  def require_example_coverage!(%{components: components}, names) do
+    missing = Enum.reject(names, &Map.has_key?(components, &1))
+
+    if missing == [] do
+      :ok
+    else
+      raise ArgumentError,
+            "Playwright report is missing scoped results for #{Enum.join(missing, ", ")}"
+    end
+  end
+
   defp specs(suites, parents) do
     Enum.flat_map(suites, fn suite ->
       path = parents ++ [suite["title"]]

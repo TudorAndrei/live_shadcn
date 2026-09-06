@@ -219,8 +219,9 @@ defmodule Mix.Tasks.Ui.Verify do
       Mix.raise("incremental browser evidence is not available for #{ref(source, name)}")
     end
 
+    identity_digest = verification_evidence_digest(source, name)
     identity = incremental_identity(source, name, key)
-    results = import_report!(report_path, layer, key, examples)
+    results = import_report!(report_path, source, name, layer, key, examples)
 
     VerifierLock.with_lock(repo_root(), fn _token ->
       path = registry_path("VERIFY.json")
@@ -256,6 +257,13 @@ defmodule Mix.Tasks.Ui.Verify do
         "checks" => checks,
         "incremental" => incremental
       }
+
+      LiveShadcnVerification.assert_identity_unchanged!(
+        repo_root(),
+        source,
+        name,
+        identity_digest
+      )
 
       current
       |> Map.filter(fn {existing, _record} -> verification_target?(existing) end)
@@ -323,11 +331,23 @@ defmodule Mix.Tasks.Ui.Verify do
     }
   end
 
-  defp import_report!(report_path, layer, key, examples) do
+  defp import_report!(report_path, source, name, layer, key, examples) do
     report = report_path |> File.read!() |> Jason.decode!()
+
+    expected = %{
+      source: source,
+      name: name,
+      layer: layer,
+      preview_key: key,
+      examples: examples,
+      identity: verification_evidence_digest(source, name)
+    }
+
+    LiveShadcnVerification.Report.validate!(report, expected)
     names = Enum.map(examples, &"#{key}.#{&1}")
 
     result = PlaywrightReport.incremental_example_results(report, layer, names)
+    PlaywrightReport.require_example_coverage!(result, names)
 
     Enum.into(examples, %{}, fn example ->
       name = "#{key}.#{example}"
@@ -549,13 +569,13 @@ defmodule Mix.Tasks.Ui.Verify do
          policy: policy
        }) do
     browser_results(source, name, key, shared_checks, policy) ++
-      upstream_checks(official_comparison?, source, key, shared_checks, policy)
+      upstream_checks(official_comparison?, source, name, key, shared_checks, policy)
   end
 
-  defp upstream_checks(true, source, key, shared_checks, _policy),
-    do: upstream_results(source, key, shared_checks)
+  defp upstream_checks(true, source, name, key, shared_checks, _policy),
+    do: upstream_results(source, name, key, shared_checks)
 
-  defp upstream_checks(false, _source, _key, _shared_checks, policy),
+  defp upstream_checks(false, _source, _name, _key, _shared_checks, policy),
     do: not_applicable_upstream_checks(policy)
 
   defp browser_results(source, name, key, nil, policy),
@@ -577,20 +597,20 @@ defmodule Mix.Tasks.Ui.Verify do
     ]
   end
 
-  defp upstream_results(_source, key, nil),
-    do: [{"parity", parity_check(key)}, {"pixel", pixel_check(key)}]
+  defp upstream_results(source, name, key, nil),
+    do: [{"parity", parity_check(source, name, key)}, {"pixel", pixel_check(source, name, key)}]
 
-  defp upstream_results(_source, key, shared_checks) do
+  defp upstream_results(source, name, key, shared_checks) do
     parity =
       if key && ported?(key),
         do: shared_check(shared_checks, "parity", key),
-        else: parity_check(key)
+        else: parity_check(source, name, key)
 
     pixel =
       cond do
-        is_nil(key) or not ported?(key) -> pixel_check(key)
-        skipped_pixels(key) -> pixel_check(key)
-        pending_pixels(key) -> pixel_check(key)
+        is_nil(key) or not ported?(key) -> pixel_check(source, name, key)
+        skipped_pixels(key) -> pixel_check(source, name, key)
+        pending_pixels(key) -> pixel_check(source, name, key)
         true -> shared_check(shared_checks, "pixel", key)
       end
 
@@ -673,12 +693,12 @@ defmodule Mix.Tasks.Ui.Verify do
         checks =
           checks
           |> put_in(["behavior", key], behavior_check(source, name, key, policy))
-          |> put_in(["accessibility", key], accessibility_check(key))
+          |> put_in(["accessibility", key], accessibility_check(source, name, key))
 
         if upstream_comparison_policy?(policy) do
           checks
-          |> put_in(["parity", key], parity_check(key))
-          |> put_in(["pixel", key], pixel_check(key))
+          |> put_in(["parity", key], parity_check(source, name, key))
+          |> put_in(["pixel", key], pixel_check(source, name, key))
         else
           checks
         end
@@ -686,18 +706,28 @@ defmodule Mix.Tasks.Ui.Verify do
     )
   end
 
-  defp batch_browser_check(kind, args, env, parser) do
+  defp batch_browser_check(source, name, key, kind, args, env, parser, examples) do
     report =
       Path.join(
         System.tmp_dir!(),
         "live-shadcn-#{kind}-#{System.unique_integer([:positive])}.json"
       )
 
+    envelope = browser_report_envelope(source, name, kind, key, examples) |> Jason.encode!()
+
+    playwright_arguments =
+      case args do
+        ["playwright", "test" | rest] -> rest
+        rest -> rest
+      end
+
+    verify_script = Path.join(browser_dir(), "verify.mjs")
+
     try do
       {output, status} =
         System.cmd(
-          "npx",
-          args ++ ["--reporter", "json"],
+          "node",
+          [verify_script | playwright_arguments],
           cd: browser_dir(),
           stderr_to_stdout: true,
           env:
@@ -705,14 +735,26 @@ defmodule Mix.Tasks.Ui.Verify do
             |> managed_browser_environment()
             |> Map.put("PARITY_PREPARED", "1")
             |> Map.put("PLAYWRIGHT_JSON_OUTPUT_FILE", report)
+            |> Map.put("LIVE_SHADCN_VERIFY_ENVELOPE", envelope)
         )
 
       case File.read(report) do
         {:ok, json} ->
-          result =
-            json
-            |> Jason.decode!()
-            |> parser.()
+          decoded = Jason.decode!(json)
+
+          LiveShadcnVerification.Report.validate!(decoded, %{
+            source: source,
+            name: name,
+            layer: kind,
+            preview_key: key,
+            examples: examples,
+            identity: verification_evidence_digest(source, name),
+            states: []
+          })
+
+          result = parser.(decoded)
+          names = Enum.map(examples, &"#{key}.#{&1}")
+          PlaywrightReport.require_example_coverage!(result, names)
 
           assigned_failure? =
             Enum.any?(result.components, fn {_component, check} -> not check["pass"] end)
@@ -740,6 +782,19 @@ defmodule Mix.Tasks.Ui.Verify do
     after
       File.rm(report)
     end
+  end
+
+  @doc false
+  def browser_report_envelope(source, name, layer, preview_key, examples, opts \\ []) do
+    LiveShadcnVerification.Report.envelope(
+      source,
+      name,
+      layer,
+      preview_key,
+      examples,
+      verification_evidence_digest(source, name),
+      opts
+    )
   end
 
   # `mix ui.verify` owns this pair. Each Playwright command receives an
@@ -1454,7 +1509,7 @@ defmodule Mix.Tasks.Ui.Verify do
   # suite, because a static page can have a clean accessibility tree.
   defp browser_checks_for_component(source, name, key, policy) do
     behavior = behavior_check(source, name, key, policy)
-    accessibility = accessibility_check(key)
+    accessibility = accessibility_check(source, name, key)
 
     [
       {"browser", BrowserVerification.merge_checks([behavior, accessibility])},
@@ -1647,10 +1702,10 @@ defmodule Mix.Tasks.Ui.Verify do
     |> Enum.sort()
   end
 
-  defp accessibility_check(nil), do: no_example()
+  defp accessibility_check(_source, _name, nil), do: no_example()
 
-  defp accessibility_check(key) do
-    batched_example_check(key, "accessibility", [
+  defp accessibility_check(source, name, key) do
+    batched_example_check(source, name, key, "accessibility", [
       "playwright",
       "test",
       "accessibility.spec.mjs"
@@ -1664,11 +1719,11 @@ defmodule Mix.Tasks.Ui.Verify do
   # behaviour matches Base UI's contract. None of them can catch a spec that
   # read upstream wrongly, because every one of them reads that same spec. This
   # one reads upstream instead.
-  defp parity_check(nil), do: no_example()
+  defp parity_check(_source, _name, nil), do: no_example()
 
-  defp parity_check(key) do
+  defp parity_check(source, name, key) do
     if ported?(key) do
-      batched_example_check(key, "parity", parity_batch_arguments())
+      batched_example_check(source, name, key, "parity", parity_batch_arguments())
     else
       %{
         "pass" => false,
@@ -1699,11 +1754,11 @@ defmodule Mix.Tasks.Ui.Verify do
   # recipe is written in — `padding-left: React 0.5rem, Phoenix 8px`. `pixel`
   # catches what that cannot see, and names only a region. Each is the other's
   # triage tool.
-  defp pixel_check(nil), do: no_example()
+  defp pixel_check(_source, _name, nil), do: no_example()
 
-  defp pixel_check(key) do
+  defp pixel_check(source, name, key) do
     if ported?(key) do
-      batched_pixel_check(key)
+      batched_pixel_check(source, name, key)
     else
       previews()
       |> BrowserVerification.examples(key)
@@ -1719,19 +1774,24 @@ defmodule Mix.Tasks.Ui.Verify do
     end
   end
 
-  defp batched_example_check(key, kind, args) do
-    {report, expected} = batched_example_reports(key, kind, args)
+  defp batched_example_check(source, name, key, kind, args) do
+    {report, expected} = batched_example_reports(source, name, key, kind, args)
 
     report_example_checks(report, expected, kind)
   end
 
-  defp batched_pixel_check(key) do
-    batched_pixel_result(key).components[key]
+  defp batched_pixel_check(source, name, key) do
+    batched_pixel_result(source, name, key).components[key]
   end
 
-  defp batched_pixel_result(key) do
+  defp batched_pixel_result(source, name, key) do
     {report, _expected} =
-      batched_example_reports(key, "pixel", ["playwright", "test", "--project", "pixel"])
+      batched_example_reports(source, name, key, "pixel", [
+        "playwright",
+        "test",
+        "--project",
+        "pixel"
+      ])
 
     %{
       components: %{
@@ -1741,7 +1801,7 @@ defmodule Mix.Tasks.Ui.Verify do
     }
   end
 
-  defp batched_example_reports(key, kind, args) do
+  defp batched_example_reports(source, name, key, kind, args) do
     expected = expected_examples(key)
 
     reports =
@@ -1751,13 +1811,17 @@ defmodule Mix.Tasks.Ui.Verify do
         names = Enum.map(batch, &"#{key}.#{&1}")
 
         batch_browser_check(
+          source,
+          name,
+          key,
           kind,
           args,
           %{
             "PREVIEW_COMPONENT" => key,
             "PREVIEW_EXAMPLES" => Enum.join(batch, ",")
           },
-          fn json -> PlaywrightReport.example_results(json, names) end
+          fn json -> PlaywrightReport.example_results(json, names) end,
+          batch
         )
       end)
 

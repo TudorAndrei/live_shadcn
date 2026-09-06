@@ -101,6 +101,17 @@ defmodule LiveShadcnTools.IncrementalVerificationTest do
     assert IncrementalVerification.aggregate(record, identity)["pass"]
   end
 
+  test "rejects out-of-scope examples during merge" do
+    identity = identity(["default"])
+
+    assert_raise ArgumentError, ~r/out-of-scope examples: basic/, fn ->
+      IncrementalVerification.merge(%{}, identity, "interaction", %{
+        "default" => pass(),
+        "basic" => pass()
+      })
+    end
+  end
+
   defp identity(examples, evidence \\ "current") do
     %{"evidence" => evidence, "examples" => examples}
   end

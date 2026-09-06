@@ -22,6 +22,13 @@ defmodule LiveShadcnTools.IncrementalVerification do
 
     examples = examples(identity)
 
+    unknown = Map.keys(results) -- examples
+
+    if unknown != [] do
+      raise ArgumentError,
+            "incremental #{layer} evidence includes out-of-scope examples: #{Enum.join(unknown, ", ")}"
+    end
+
     record
     |> current_record(identity)
     |> Map.update("examples", %{}, fn stored -> Map.take(stored, examples) end)
