@@ -9,6 +9,7 @@ defmodule LiveShadcn.UI.Dialog do
   use Phoenix.Component
 
   alias LiveBase.Dialog
+  alias LiveShadcn.UI.Button
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
@@ -51,37 +52,77 @@ defmodule LiveShadcn.UI.Dialog do
     doc: "Whether the popup draws its own close button."
   )
 
+  attr(:show_trigger, :boolean,
+    default: true,
+    doc: "Whether this call renders the trigger."
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the dialog's own class string.")
   attr(:overlay_class, :any, default: nil)
   attr(:close_class, :any, default: nil)
   attr(:description_class, :any, default: nil)
+  attr(:footer_class, :any, default: nil)
+  attr(:header_class, :any, default: nil)
+
+  attr(:header_outside_content, :boolean,
+    default: false,
+    doc: "Whether the title and description are siblings of the popup."
+  )
+
   attr(:portal_class, :any, default: nil)
   attr(:title_class, :any, default: nil)
   attr(:trigger_class, :any, default: nil)
+  attr(:trigger_label, :string, default: nil)
+  attr(:trigger_slot, :string, default: "dialog-trigger")
+
+  attr(:trigger_variant, :string,
+    default: nil,
+    values: [nil, "default", "destructive", "outline", "secondary", "ghost", "link"]
+  )
+
+  attr(:trigger_size, :string,
+    default: "default",
+    values: ["default", "xs", "sm", "lg", "icon", "icon-xs", "icon-sm", "icon-lg"]
+  )
+
   attr(:rest, :global)
 
-  slot(:trigger, required: true, doc: "What opens it.")
+  slot(:trigger, doc: "What opens it.")
   slot(:title, doc: "What names it. Required for a dialog to be announced.")
   slot(:description, doc: "What describes it, beyond the title.")
   slot(:footer, doc: "Actions, along the bottom.")
-  slot(:inner_block, required: true, doc: "The dialog's body.")
+  slot(:inner_block, doc: "The dialog's body.")
 
   def dialog(assigns) do
     ~H"""
     <button
-      data-slot="dialog-trigger"
+      :if={@show_trigger}
+      data-slot={@trigger_slot}
       id={Dialog.trigger_id(@id)}
       type="button"
+      disabled={@disabled}
+      aria-label={@trigger_label}
       aria-haspopup="dialog"
       aria-expanded={to_string(@open)}
       aria-controls={Dialog.popup_id(@id)}
-      phx-click={Dialog.open(@id)}
+      phx-click={if(not @disabled, do: Dialog.open(@id))}
       phx-mounted={Dialog.owned_attributes(:trigger)}
       data-popup-open={flag(@open)}
       data-disabled={flag(@disabled)}
+      class={trigger_classes(@trigger_variant, @trigger_size, @trigger_class)}
     >
       {render_slot(@trigger)}
     </button>
+    <.dialog_header
+      :if={@header_outside_content && has_header?(@title, @description)}
+      id={@id}
+      title_class={@title_class}
+      description_class={@description_class}
+      header_class={@header_class}
+    >
+      <:title>{render_slot(@title)}</:title>
+      <:description>{render_slot(@description)}</:description>
+    </.dialog_header>
     <div
       data-slot="dialog-overlay"
       id={Dialog.backdrop_id(@id)}
@@ -98,8 +139,8 @@ defmodule LiveShadcn.UI.Dialog do
       data-slot="dialog-content"
       id={Dialog.popup_id(@id)}
       role={if(@alert, do: "alertdialog", else: "dialog")}
-      aria-labelledby={Dialog.title_id(@id)}
-      aria-describedby={Dialog.description_id(@id)}
+      aria-labelledby={if(@title != [], do: Dialog.title_id(@id))}
+      aria-describedby={if(@description != [], do: Dialog.description_id(@id))}
       tabindex="-1"
       hidden={not @open}
       phx-window-keydown={if(@dismissable, do: Dialog.close(@id))}
@@ -114,28 +155,23 @@ defmodule LiveShadcn.UI.Dialog do
         upstream_fact("jsx/DialogContent/class/0"),
         @class || ""
       ]}
+      {@rest}
     >
-      <div data-slot="dialog-header" class={upstream_fact("jsx/DialogHeader/class/0")}>
-        <h2
-          data-slot="dialog-title"
-          id={Dialog.title_id(@id)}
-          class={[upstream_fact("jsx/DialogTitle/class/0"), @title_class || ""]}
-        >
-          {render_slot(@title)}
-        </h2>
-        <p
-          data-slot="dialog-description"
-          id={Dialog.description_id(@id)}
-          class={[upstream_fact("jsx/DialogDescription/class/0"), @description_class || ""]}
-        >
-          {render_slot(@description)}
-        </p>
-      </div>
+      <.dialog_header
+        :if={not @header_outside_content && has_header?(@title, @description)}
+        id={@id}
+        title_class={@title_class}
+        description_class={@description_class}
+        header_class={@header_class}
+      >
+        <:title>{render_slot(@title)}</:title>
+        <:description>{render_slot(@description)}</:description>
+      </.dialog_header>
       {render_slot(@inner_block)}
       <div
         :if={@footer != []}
         data-slot="dialog-footer"
-        class={upstream_fact("jsx/DialogFooter/class/0")}
+        class={[upstream_fact("jsx/DialogFooter/class/0"), @footer_class]}
       >
         {render_slot(@footer)}
       </div>
@@ -156,7 +192,52 @@ defmodule LiveShadcn.UI.Dialog do
     """
   end
 
+  attr(:id, :string, required: true)
+  attr(:title_class, :any, default: nil)
+  attr(:description_class, :any, default: nil)
+  attr(:header_class, :any, default: nil)
+  slot(:title)
+  slot(:description)
+
+  defp dialog_header(assigns) do
+    ~H"""
+    <div
+      data-slot="dialog-header"
+      class={[upstream_fact("jsx/DialogHeader/class/0"), @header_class]}
+    >
+      <h2
+        data-slot="dialog-title"
+        id={Dialog.title_id(@id)}
+        class={[upstream_fact("jsx/DialogTitle/class/0"), @title_class]}
+      >
+        {render_slot(@title)}
+      </h2>
+      <p
+        data-slot="dialog-description"
+        id={Dialog.description_id(@id)}
+        class={[upstream_fact("jsx/DialogDescription/class/0"), @description_class]}
+      >
+        {render_slot(@description)}
+      </p>
+    </div>
+    """
+  end
+
   defp flag(true), do: ""
   defp flag(_state), do: nil
+
+  defp has_header?(title, description), do: title != [] or description != []
+
+  defp trigger_classes(nil, _size, class), do: class
+
+  defp trigger_classes(variant, size, class) do
+    LiveShadcn.Cn.merge([
+      Button.part_class("button"),
+      Button.variant_class("buttonVariants", "variant", variant),
+      Button.variant_class("buttonVariants", "size", size),
+      class
+    ])
+  end
+
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 end

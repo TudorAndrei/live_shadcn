@@ -66,7 +66,7 @@ defmodule StorybookWeb.Search do
       <:title>Search components</:title>
       <:description>Type part of a component's name.</:description>
 
-      <.command>
+      <.command id={"#{@id}-command"}>
         <form id={"#{@id}-form"} phx-change="search" phx-submit="search">
           <.command_input
             name="query"

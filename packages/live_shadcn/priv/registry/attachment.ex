@@ -42,19 +42,19 @@ defmodule LiveShadcn.UI.Attachment do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                       [table, "variant", group, choice] <- [String.split(path, "/")],
-                       reduce: %{} do
-    variants ->
-      put_in(
-        variants,
-        [
-          Access.key(table, %{}),
-          Access.key(group, %{}),
-          Access.key(choice, nil)
-        ],
-        value
-      )
-  end)
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
 
   @doc "The `attachment` part."
   attr(:orientation, :string,
@@ -254,15 +254,31 @@ defmodule LiveShadcn.UI.Attachment do
 
   @doc "The `attachment-trigger` part."
   attr(:type, :string, default: nil)
+  attr(:href, :string, default: nil)
+  attr(:target, :string, default: nil)
+  attr(:rel, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
   def attachment_trigger(assigns) do
     ~H"""
-    <button
+    <a
+      :if={@href}
       data-slot={@rest[:"data-slot"] || "attachment-trigger"}
-      class={[upstream_fact("jsx/AttachmentTrigger/class/0"), (@class || "")]}
+      href={@href}
+      target={@target}
+      rel={@rel}
+      class={[upstream_fact("jsx/AttachmentTrigger/class/0"), @class || ""]}
+      {Map.drop(@rest, [:"data-slot"])}
+    >
+      {render_slot(@inner_block)}
+    </a>
+    <button
+      :if={is_nil(@href)}
+      data-slot={@rest[:"data-slot"] || "attachment-trigger"}
+      type={@type || "button"}
+      class={[upstream_fact("jsx/AttachmentTrigger/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

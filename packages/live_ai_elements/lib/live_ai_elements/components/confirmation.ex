@@ -10,6 +10,18 @@ defmodule LiveAiElements.Components.Confirmation do
 
   alias LiveAiElements.Shadcn
 
+  @states ~w(
+    input-streaming
+    input-available
+    approval-requested
+    approval-responded
+    output-available
+    output-denied
+    output-error
+  )
+  @response_states ~w(approval-responded output-denied output-available)
+  @alert_description_class "text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed"
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
     "jsx/Confirmation/class/0" => "flex flex-col gap-2",
@@ -23,9 +35,14 @@ defmodule LiveAiElements.Components.Confirmation do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @doc "The `confirmation` part."
-  attr(:approval, :string, default: nil)
-  attr(:state, :string, default: nil)
-  attr(:variant, :string, default: "default")
+  attr(:approval, :map,
+    default: nil,
+    doc: "The approval map, with an `id` and an optional boolean `approved` value."
+  )
+
+  attr(:state, :string, required: true, values: @states)
+
+  attr(:variant, :string, default: "default", values: ~w(default destructive))
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -33,7 +50,7 @@ defmodule LiveAiElements.Components.Confirmation do
   def confirmation(assigns) do
     ~H"""
     <div
-      :if={@approval || @state == "input-streaming" || @state == "input-available"}
+      :if={show_confirmation?(@approval, @state)}
       data-slot={@rest[:"data-slot"] || "alert"}
       role="alert"
       class={[
@@ -57,14 +74,70 @@ defmodule LiveAiElements.Components.Confirmation do
 
   def confirmation_title(assigns) do
     ~H"""
-    <LiveShadcn.UI.Alert.alert_description class={[upstream_fact("jsx/ConfirmationTitle/class/0"), (@class || "")]} {@rest}>
+    <div
+      data-slot={@rest[:"data-slot"] || "alert-description"}
+      class={
+        LiveShadcn.Cn.merge([
+          alert_description_class(),
+          upstream_fact("jsx/ConfirmationTitle/class/0"),
+          @class
+        ])
+      }
+      {Map.drop(@rest, [:"data-slot"])}
+    >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Alert.alert_description>
+    </div>
+    """
+  end
+
+  @doc "The `confirmation_request` part."
+  attr(:state, :string, required: true, values: @states)
+  slot(:inner_block)
+
+  def confirmation_request(assigns) do
+    ~H"""
+    <%= if @state == "approval-requested" do %>
+      {render_slot(@inner_block)}
+    <% end %>
+    """
+  end
+
+  @doc "The `confirmation_accepted` part."
+  attr(:approval, :map,
+    default: nil,
+    doc: "The approval map, with an `id` and an optional boolean `approved` value."
+  )
+
+  attr(:state, :string, required: true, values: @states)
+  slot(:inner_block)
+
+  def confirmation_accepted(assigns) do
+    ~H"""
+    <%= if approved?(@approval) and response_state?(@state) do %>
+      {render_slot(@inner_block)}
+    <% end %>
+    """
+  end
+
+  @doc "The `confirmation_rejected` part."
+  attr(:approval, :map,
+    default: nil,
+    doc: "The approval map, with an `id` and an optional boolean `approved` value."
+  )
+
+  attr(:state, :string, required: true, values: @states)
+  slot(:inner_block)
+
+  def confirmation_rejected(assigns) do
+    ~H"""
+    <%= if rejected?(@approval) and response_state?(@state) do %>
+      {render_slot(@inner_block)}
+    <% end %>
     """
   end
 
   @doc "The `confirmation_actions` part."
-  attr(:state, :string, default: nil)
+  attr(:state, :string, required: true, values: @states)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -82,8 +155,13 @@ defmodule LiveAiElements.Components.Confirmation do
   end
 
   @doc "The `confirmation_action` part."
-  attr(:size, :string, default: "default")
-  attr(:variant, :string, default: "default")
+  attr(:size, :string, default: "default", values: ~w(default sm lg icon icon-sm icon-lg))
+
+  attr(:variant, :string,
+    default: "default",
+    values: ~w(default destructive outline secondary ghost link)
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
@@ -93,11 +171,30 @@ defmodule LiveAiElements.Components.Confirmation do
     <button
       data-slot={@rest[:"data-slot"] || "button"}
       type="button"
-      class={[Shadcn.button_class(@size, @variant), upstream_fact("jsx/ConfirmationAction/class/0"), @class]}
+      class={
+        LiveShadcn.Cn.merge([
+          Shadcn.button_class(@size, @variant),
+          @class || upstream_fact("jsx/ConfirmationAction/class/0")
+        ])
+      }
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
     </button>
     """
   end
+
+  defp approved?(%{approved: true}), do: true
+  defp approved?(%{"approved" => true}), do: true
+  defp approved?(_approval), do: false
+
+  defp rejected?(%{approved: false}), do: true
+  defp rejected?(%{"approved" => false}), do: true
+  defp rejected?(_approval), do: false
+
+  defp show_confirmation?(approval, state),
+    do: not is_nil(approval) and state not in ["input-streaming", "input-available"]
+
+  defp response_state?(state), do: state in @response_states
+  defp alert_description_class, do: @alert_description_class
 end

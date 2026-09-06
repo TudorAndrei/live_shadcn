@@ -39,10 +39,9 @@ defmodule LiveShadcn.UI.ScrollArea do
 
   attr(:id, :string, required: true, doc: "The hook needs one to be found by.")
 
-  attr(:orientation, :string,
-    default: "vertical",
-    values: ["vertical", "horizontal"],
-    doc: "Which way the scrollbar runs."
+  attr(:horizontal, :boolean,
+    default: false,
+    doc: "Whether to add the horizontal scrollbar after the default vertical scrollbar."
   )
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -66,31 +65,36 @@ defmodule LiveShadcn.UI.ScrollArea do
         data-lb-scroller
         tabindex="0"
         style="overflow: scroll; scrollbar-width: none"
-        class={upstream_fact("jsx/ScrollArea/class/1")}
+        class={[upstream_fact("jsx/ScrollArea/class/1"), "base-ui-disable-scrollbar"]}
       >
         {render_slot(@inner_block)}
+        <div
+          :if={@horizontal}
+          data-slot="scroll-area-scrollbar"
+          data-orientation="horizontal"
+          style="position: absolute; inset-inline: 0; inset-block-end: 0"
+          class={upstream_fact("jsx/ScrollBar/class/0")}
+        >
+          <div
+            data-slot="scroll-area-thumb"
+            data-lb-thumb
+            data-orientation="horizontal"
+            style="flex: none; width: var(--scroll-area-thumb-width); height: 100%"
+            class={upstream_fact("jsx/ScrollBar/class/1")}
+          />
+        </div>
       </div>
       <div
         data-slot="scroll-area-scrollbar"
-        data-orientation={@orientation}
-        style={
-          if(@orientation == "horizontal",
-            do: "position: absolute; inset-inline: 0; inset-block-end: 0",
-            else: "position: absolute; inset-block: 0; inset-inline-end: 0"
-          )
-        }
+        data-orientation="vertical"
+        style="position: absolute; inset-block: 0; inset-inline-end: 0"
         class={upstream_fact("jsx/ScrollBar/class/0")}
       >
         <div
           data-slot="scroll-area-thumb"
           data-lb-thumb
-          data-orientation={@orientation}
-          style={
-            if(@orientation == "horizontal",
-              do: "flex: none; width: var(--scroll-area-thumb-width); height: 100%",
-              else: "flex: none; width: 100%; height: var(--scroll-area-thumb-height)"
-            )
-          }
+          data-orientation="vertical"
+          style="flex: none; width: 100%; height: var(--scroll-area-thumb-height)"
           class={upstream_fact("jsx/ScrollBar/class/1")}
         />
       </div>

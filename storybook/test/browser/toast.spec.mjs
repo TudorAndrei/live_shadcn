@@ -1,9 +1,3 @@
-// Behaviour parity for the toast.
-//
-// The list belongs to the server, so almost nothing here is about what the
-// toasts say. What is tested is the boundary: the hook measures and stacks, the
-// server adds and removes, and neither does the other's job.
-
 import { expect, test } from "@playwright/test";
 
 import { visit } from "./live.mjs";
@@ -12,86 +6,105 @@ const viewport = (page) => page.locator("[data-lb-toasts]");
 const toasts = (page) => page.locator("[data-slot='toast']");
 
 const variable = (locator, name) =>
-  locator.evaluate((el, property) => el.style.getPropertyValue(property), name);
+  locator.evaluate((element, property) => element.style.getPropertyValue(property), name);
 
-// The hook stacks on mount, which is when the LiveView connects. Until then
-// every toast sits at index nothing and height nothing, one on top of another.
 const stacked = async (page) =>
   page.waitForFunction(
-    () => document.querySelector("[data-slot='toast']")?.style.getPropertyValue("--toast-height"),
+    () => document.querySelector("[data-slot='toast']")?.style.getPropertyValue("--toast-height")
   );
 
-test.describe("a toaster", () => {
-  test.beforeEach(async ({ page }) => {
+async function showDefault(page) {
+  await page.getByRole("button", { name: "Show Toast" }).click();
+  await expect(toasts(page)).toHaveCount(1);
+  await stacked(page);
+}
+
+async function showTypes(page, names) {
+  for (const name of names) {
+    await page.getByRole("button", { name, exact: true }).click();
+  }
+
+  await expect(toasts(page)).toHaveCount(names.length);
+  await stacked(page);
+}
+
+test.describe("the official toast examples", () => {
+  test("starts with the official trigger and no toast", async ({ page }) => {
     await visit(page, "/preview/toast/default");
-    // The viewport is a fixed positioning context. Its toast children are
-    // absolute, so the viewport itself has no box to make visible.
+
     await expect(viewport(page)).toBeAttached();
-    await stacked(page);
+    await expect(page.getByRole("button", { name: "Show Toast" })).toBeVisible();
+    await expect(toasts(page)).toHaveCount(0);
   });
 
-  test("draws one toast per entry the server holds", async ({ page }) => {
-    await expect(toasts(page)).toHaveCount(3);
+  test("adds the official event toast and its action", async ({ page }) => {
+    await visit(page, "/preview/toast/default");
+    await showDefault(page);
+
+    await expect(toasts(page)).toContainText("Event created");
+    await expect(toasts(page)).toContainText("Sunday, December 3 at 9:00 AM");
+    await expect(toasts(page).locator("[data-slot='toast-icon']")).toHaveCount(0);
+    await expect(toasts(page).locator("[data-slot='toast-action']")).toHaveText("Undo");
+
+    await toasts(page).locator("[data-slot='toast-action']").click();
+    await expect(toasts(page)).toHaveCount(0);
   });
 
-  test("names the region, so a screen reader can reach it", async ({ page }) => {
+  test("names the region and uses the live dialog contract", async ({ page }) => {
+    await visit(page, "/preview/toast/default");
+    await showDefault(page);
+
     await expect(viewport(page)).toHaveAttribute("role", "region");
     await expect(viewport(page)).toHaveAttribute("aria-label", "Notifications");
+    await expect(toasts(page)).toHaveAttribute("role", "dialog");
+    await expect(toasts(page)).toHaveAttribute("aria-live", "polite");
   });
 
-  test("each toast uses the upstream live dialog contract", async ({ page }) => {
-    await expect(toasts(page).first()).toHaveAttribute("role", "dialog");
-    await expect(toasts(page).first()).toHaveAttribute("aria-live", "polite");
-  });
+  test("measures, orders, limits, and expands a toast stack", async ({ page }) => {
+    await visit(page, "/preview/toast/types");
+    await showTypes(page, ["Default", "Success", "Info", "Warning"]);
 
-  // The newest is at the front. The server writes them in the order it holds
-  // them, so the last one in the list is the one that just arrived.
-  test("the newest sits at the front and the rest fall behind it", async ({ page }) => {
-    expect(await variable(toasts(page).nth(0), "--toast-index")).toBe("0");
-    expect(await variable(toasts(page).nth(1), "--toast-index")).toBe("1");
-    expect(await variable(toasts(page).nth(2), "--toast-index")).toBe("2");
-  });
-
-  test("every toast is measured, because its height is a class string away", async ({ page }) => {
-    for (const index of [0, 1, 2]) {
+    for (const index of [0, 1, 2, 3]) {
       expect(await variable(toasts(page).nth(index), "--toast-height")).toMatch(/^\d+px$/);
+      expect(await variable(toasts(page).nth(index), "--toast-index")).toBe(String(index));
     }
-  });
 
-  test("only the one at the front is read", async ({ page }) => {
     await expect(toasts(page).first()).not.toHaveAttribute("data-behind", /.*/);
     await expect(toasts(page).nth(1)).toHaveAttribute("data-behind", "");
-  });
+    await expect(toasts(page).nth(2)).not.toHaveAttribute("data-limited", /.*/);
+    await expect(toasts(page).nth(3)).toHaveAttribute("data-limited", "");
 
-  test("marks toasts beyond the visible limit", async ({ page }) => {
-    await expect(toasts(page).nth(2)).toHaveAttribute("data-limited", "");
-    await expect(toasts(page).nth(1)).not.toHaveAttribute("data-limited", /.*/);
-  });
-
-  // The frame stops overlapping its neighbours and the content inside it comes
-  // back to full opacity. Two elements, one attribute, and the hook writes it
-  // to both because the port marks both.
-  test("a pointer over the stack fans it apart", async ({ page }) => {
     await toasts(page).first().hover();
-
     await expect(toasts(page).first()).toHaveAttribute("data-expanded", "");
     await expect(toasts(page).first().locator("[data-slot='toast-content']")).toHaveAttribute(
       "data-expanded",
-      "",
+      ""
     );
   });
 
-  test("closing one is an event, and the server is what removes it", async ({ page }) => {
-    await toasts(page).first().locator("[data-slot='toast-close']").click();
+  test("closes a toast on the server and renumbers the remaining stack", async ({ page }) => {
+    await visit(page, "/preview/toast/types");
+    await showTypes(page, ["Default", "Success", "Info"]);
 
+    await toasts(page).first().locator("[data-slot='toast-close']").click();
     await expect(toasts(page)).toHaveCount(2);
-    await expect(page.locator("#notices-drift")).toHaveCount(0);
+    await expect.poll(() => variable(toasts(page).first(), "--toast-index")).toBe("0");
   });
 
-  test("the stack is renumbered once the server has answered", async ({ page }) => {
-    await toasts(page).first().locator("[data-slot='toast-close']").click();
-    await expect(toasts(page)).toHaveCount(2);
+  test("moves the Promise toast from loading to success", async ({ page }) => {
+    await visit(page, "/preview/toast/promise");
+    await page.getByRole("button", { name: "Create Event" }).click();
 
-    await expect.poll(() => variable(toasts(page).first(), "--toast-index")).toBe("0");
+    await expect(toasts(page).locator("[data-slot='toast-description']")).toHaveText(
+      "Creating event…"
+    );
+    await expect(toasts(page)).toHaveAttribute("data-type", "loading");
+    await expect(toasts(page).locator("[data-slot='toast-icon'] svg")).toHaveClass(/animate-spin/);
+
+    await expect(toasts(page).locator("[data-slot='toast-description']")).toHaveText(
+      "Event created.",
+      { timeout: 3_000 }
+    );
+    await expect(toasts(page)).toHaveAttribute("data-type", "success");
   });
 });

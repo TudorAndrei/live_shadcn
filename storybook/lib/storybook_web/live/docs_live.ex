@@ -41,7 +41,11 @@ defmodule StorybookWeb.DocsLive do
               "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300",
             @status == :unverified &&
               "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
-            @status == :failed && "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-300"
+            @status == :failed && "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-300",
+            @status == :local_only &&
+              "bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-300",
+            @status == :no_dom &&
+              "bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-300"
           ]}
         >
           {@status}
@@ -126,6 +130,50 @@ defmodule StorybookWeb.DocsLive do
         </ul>
       </div>
     </section>
+
+    <LiveShadcn.UI.Sonner.toaster
+      :if={@component == "bubble"}
+      id="bubble-toasts"
+      dismiss="dismiss_bubble_toast"
+      duration={0}
+    >
+      <:toast
+        :for={notice <- @bubble_toasts}
+        id={notice.id}
+        type={notice[:type]}
+        title={notice.title}
+      >
+        {notice.description}
+      </:toast>
+    </LiveShadcn.UI.Sonner.toaster>
+    <LiveShadcn.UI.Sonner.toaster
+      :if={@component == "questionnaire"}
+      id="questionnaire-card-toasts"
+      dismiss="dismiss_toast"
+      duration={0}
+    >
+      <:toast
+        :for={notice <- @toast_examples["questionnaire-card"]}
+        id={notice.id}
+        title={notice.title}
+      >
+        {notice.description}
+      </:toast>
+    </LiveShadcn.UI.Sonner.toaster>
+    <LiveShadcn.UI.Sonner.toaster
+      :if={@component == "questionnaire"}
+      id="questionnaire-dialog-toasts"
+      dismiss="dismiss_toast"
+      duration={0}
+    >
+      <:toast
+        :for={notice <- @toast_examples["questionnaire-dialog"]}
+        id={notice.id}
+        title={notice.title}
+      >
+        {notice.description}
+      </:toast>
+    </LiveShadcn.UI.Sonner.toaster>
     """
   end
 
@@ -133,6 +181,10 @@ defmodule StorybookWeb.DocsLive do
   def mount(%{"component" => component}, _session, socket) do
     if component not in Examples.components() do
       raise NotFound, message: "no component called #{component}"
+    end
+
+    if component == "progress" do
+      Process.send_after(self(), :complete_progress_demo, 500)
     end
 
     examples =
@@ -156,17 +208,386 @@ defmodule StorybookWeb.DocsLive do
 
   @impl Phoenix.LiveView
   def handle_event("dismiss_toast", %{"id" => id}, socket) do
-    {:noreply, assign(socket, toasts: Examples.dismiss(socket.assigns.toasts, "notices", id))}
+    {:noreply,
+     assign(socket, toast_examples: Examples.dismiss_toast(socket.assigns.toast_examples, id))}
+  end
+
+  def handle_event("toast_add", %{"example" => example} = params, socket) do
+    sequence = socket.assigns.toast_sequence + 1
+    toast = Examples.toast_notice(example, params["type"], "toast-#{sequence}")
+
+    {:noreply,
+     socket
+     |> assign(toast_sequence: sequence)
+     |> assign(toast_examples: Examples.add_toast(socket.assigns.toast_examples, example, toast))}
+  end
+
+  def handle_event("sonner_add", %{"example" => example}, socket) do
+    sequence = socket.assigns.sonner_sequence + 1
+    toast = Examples.sonner_notice(example, "sonner-#{sequence}")
+
+    {:noreply,
+     socket
+     |> assign(sonner_sequence: sequence)
+     |> assign(
+       sonner_examples: Examples.add_sonner_toast(socket.assigns.sonner_examples, example, toast)
+     )}
+  end
+
+  def handle_event("dismiss_sonner_toast", %{"id" => id}, socket) do
+    {:noreply,
+     assign(
+       socket,
+       sonner_examples: Examples.dismiss_sonner_toast(socket.assigns.sonner_examples, id)
+     )}
+  end
+
+  def handle_event("bubble_toast", %{"message" => message}, socket) do
+    sequence = socket.assigns.bubble_sequence + 1
+    toast = Examples.bubble_notice(message, "bubble-#{sequence}")
+
+    {:noreply,
+     socket
+     |> assign(bubble_sequence: sequence)
+     |> assign(bubble_toasts: Examples.add_bubble_notice(socket.assigns.bubble_toasts, toast))}
+  end
+
+  def handle_event("dismiss_bubble_toast", %{"id" => id}, socket) do
+    {:noreply,
+     assign(
+       socket,
+       bubble_toasts: Examples.dismiss_bubble_notice(socket.assigns.bubble_toasts, id)
+     )}
+  end
+
+  def handle_event("toast_promise", _params, socket) do
+    sequence = socket.assigns.toast_sequence + 1
+    id = "toast-#{sequence}"
+    toast = Examples.toast_promise_loading(id)
+    Process.send_after(self(), {:complete_toast_promise, id}, 2000)
+
+    {:noreply,
+     socket
+     |> assign(toast_sequence: sequence)
+     |> assign(
+       toast_examples: Examples.add_toast(socket.assigns.toast_examples, "promise", toast)
+     )}
+  end
+
+  def handle_event("questionnaire_card_submit", params, socket) do
+    questionnaire_toast(socket, "card", params)
+  end
+
+  def handle_event("questionnaire_dialog_submit", params, socket) do
+    questionnaire_toast(socket, "dialog", params)
   end
 
   def handle_event("toggle_values", _params, socket) do
     {:noreply, assign(socket, show_values: not socket.assigns.show_values)}
   end
 
+  def handle_event("card_spacing", %{"spacing" => spacing}, socket) do
+    {:noreply, assign(socket, card_spacing: spacing)}
+  end
+
+  def handle_event("chart_demo_select", %{"series" => series}, socket) do
+    if Examples.chart_demo_series?(series) do
+      {:noreply, assign(socket, chart_demo_series: series)}
+    else
+      {:noreply, socket}
+    end
+  end
+
+  def handle_event(event, %{"selected" => selected}, socket)
+      when event in ~w(date_picker_default_select date_picker_basic_select date_picker_range_select date_picker_dob_select date_picker_input_select date_picker_time_select date_picker_natural_language_select date_picker_rtl_select) do
+    example =
+      event
+      |> String.replace_prefix("date_picker_", "")
+      |> String.replace_suffix("_select", "")
+      |> String.replace("_", "-")
+
+    date_picker = Examples.date_picker_select(socket.assigns.date_picker, example, selected)
+
+    {:noreply,
+     socket
+     |> assign(date_picker: date_picker)
+     |> assign(
+       date_picker_values:
+         Examples.date_picker_selection_values(
+           socket.assigns.date_picker_values,
+           date_picker,
+           example
+         )
+     )
+     |> assign(
+       date_picker_selection_versions:
+         Examples.date_picker_selection_versions(
+           socket.assigns.date_picker_selection_versions,
+           example
+         )
+     )}
+  end
+
+  def handle_event("date_picker_input", %{"example" => example, "value" => value}, socket) do
+    {date_picker, date_picker_values} =
+      Examples.date_picker_input_change(
+        socket.assigns.date_picker,
+        socket.assigns.date_picker_values,
+        example,
+        value
+      )
+
+    {:noreply,
+     socket |> assign(date_picker: date_picker) |> assign(date_picker_values: date_picker_values)}
+  end
+
+  def handle_event("progress_value", %{"value" => value}, socket) do
+    {:noreply, assign(socket, progress_value: String.to_integer(value))}
+  end
+
+  def handle_event("field_slider_value", %{"values" => values}, socket) do
+    {:noreply, assign(socket, field_slider_values: Enum.map(values, &String.to_integer/1))}
+  end
+
+  def handle_event("slider_controlled_value", %{"values" => values}, socket) do
+    parsed = Enum.map(values, fn value -> value |> Float.parse() |> elem(0) end)
+    {:noreply, assign(socket, slider_controlled_values: parsed)}
+  end
+
+  def handle_event("field_switch_toggle", _params, socket) do
+    {:noreply, assign(socket, field_switch_checked: not socket.assigns.field_switch_checked)}
+  end
+
+  def handle_event("select_align_item", _params, socket) do
+    {:noreply, assign(socket, select_align_item: not socket.assigns.select_align_item)}
+  end
+
+  def handle_event("sidebar_team_select", %{"team" => team}, socket) do
+    if Examples.sidebar_team?(team) do
+      {:noreply, assign(socket, sidebar_active_team: team)}
+    else
+      {:noreply, socket}
+    end
+  end
+
+  def handle_event("calendar_preset", %{"days" => days}, socket) do
+    case Integer.parse(days) do
+      {offset, ""} ->
+        date = Date.add(Date.utc_today(), offset)
+
+        {:noreply,
+         socket
+         |> assign(calendar_presets_date: date)
+         |> assign(calendar_presets_month: calendar_month_start(date))}
+
+      _ ->
+        {:noreply, socket}
+    end
+  end
+
+  def handle_event("calendar_presets_select", %{"selected" => ""}, socket) do
+    {:noreply, assign(socket, calendar_presets_date: nil)}
+  end
+
+  def handle_event("calendar_presets_select", %{"selected" => selected}, socket) do
+    case Date.from_iso8601(selected) do
+      {:ok, date} -> {:noreply, assign(socket, calendar_presets_date: date)}
+      {:error, _reason} -> {:noreply, socket}
+    end
+  end
+
+  def handle_event("calendar_presets_month_change", %{"month" => month}, socket) do
+    case Date.from_iso8601(month) do
+      {:ok, date} ->
+        {:noreply, assign(socket, calendar_presets_month: calendar_month_start(date))}
+
+      {:error, _reason} ->
+        {:noreply, socket}
+    end
+  end
+
+  def handle_event("remove_attachment", %{"example" => example, "id" => id}, socket) do
+    {:noreply,
+     assign(
+       socket,
+       attachment_examples:
+         Examples.remove_attachment(socket.assigns.attachment_examples, example, id)
+     )}
+  end
+
+  def handle_event("message_scroller_send", %{"example" => example}, socket) do
+    socket =
+      update(socket, :message_scroller, &Examples.message_scroller_event(&1, "send", example))
+
+    if example == "streaming" and socket.assigns.message_scroller.streaming_busy do
+      Process.send_after(self(), :message_scroller_stream_reply, 1000)
+    end
+
+    if example == "animation" and socket.assigns.message_scroller.animation_busy do
+      Process.send_after(self(), :message_scroller_animation_reply, 1000)
+    end
+
+    if example == "previous-context" and socket.assigns.message_scroller.previous_context_busy do
+      Process.send_after(self(), :message_scroller_previous_context_reply, 1000)
+    end
+
+    {:noreply, socket}
+  end
+
+  def handle_event("message_scroller_reset", %{"example" => example}, socket) do
+    {:noreply,
+     update(socket, :message_scroller, &Examples.message_scroller_event(&1, "reset", example))}
+  end
+
+  def handle_event("message_scroller_group_next", _params, socket) do
+    {:noreply,
+     update(
+       socket,
+       :message_scroller,
+       &Examples.message_scroller_event(&1, "group-next", "group-chat")
+     )}
+  end
+
+  def handle_event("message_scroller_load_history", _params, socket) do
+    can_load_history = socket.assigns.message_scroller.load_history < 10
+
+    socket =
+      update(
+        socket,
+        :message_scroller,
+        &Examples.message_scroller_event(&1, "load-history", "load-history")
+      )
+
+    socket =
+      if can_load_history do
+        sequence = socket.assigns.toast_sequence + 1
+        toast = Examples.message_scroller_history_notice("message-scroller-history-#{sequence}")
+
+        socket
+        |> assign(toast_sequence: sequence)
+        |> assign(
+          toast_examples:
+            Examples.add_toast(
+              socket.assigns.toast_examples,
+              "message-scroller-load-history",
+              toast
+            )
+        )
+      else
+        socket
+      end
+
+    {:noreply, socket}
+  end
+
+  def handle_event("message_scroller_anchor_role", %{"role" => role}, socket) do
+    {:noreply,
+     update(socket, :message_scroller, &Examples.message_scroller_event(&1, "anchor-role", role))}
+  end
+
+  def handle_event("message_scroller_peek", %{"value" => value}, socket) do
+    case Integer.parse(value) do
+      {peek, ""} ->
+        {:noreply,
+         update(
+           socket,
+           :message_scroller,
+           &Examples.message_scroller_event(&1, "previous-context-peek", peek)
+         )}
+
+      _ ->
+        {:noreply, socket}
+    end
+  end
+
+  def handle_event("message_scroller_opening_position", %{"position" => position}, socket) do
+    {:noreply,
+     update(
+       socket,
+       :message_scroller,
+       &Examples.message_scroller_event(&1, "opening-position", position)
+     )}
+  end
+
+  def handle_event("message_scroller_animation_preset", %{"preset" => preset}, socket) do
+    {:noreply,
+     update(
+       socket,
+       :message_scroller,
+       &Examples.message_scroller_event(&1, "animation-preset", preset)
+     )}
+  end
+
   # Everything else belongs to the shell — the ⌘K palette's `search`. Defining
   # any clause here replaces the one `docs_live_view` installed, so the rest has
   # to be handed back explicitly rather than silently disappearing.
   def handle_event(event, params, socket), do: super(event, params, socket)
+
+  @impl Phoenix.LiveView
+  def handle_info(:message_scroller_stream_reply, socket) do
+    {:noreply,
+     update(
+       socket,
+       :message_scroller,
+       &Examples.message_scroller_event(&1, "stream-reply", "streaming")
+     )}
+  end
+
+  def handle_info(:message_scroller_animation_reply, socket) do
+    {:noreply,
+     update(
+       socket,
+       :message_scroller,
+       &Examples.message_scroller_event(&1, "animation-reply", "animation")
+     )}
+  end
+
+  def handle_info(:message_scroller_previous_context_reply, socket) do
+    {:noreply,
+     update(
+       socket,
+       :message_scroller,
+       &Examples.message_scroller_event(&1, "previous-context-reply", "previous-context")
+     )}
+  end
+
+  def handle_info({:complete_toast_promise, id}, socket) do
+    toast = Examples.toast_promise_complete(id)
+
+    {:noreply,
+     assign(
+       socket,
+       toast_examples: Examples.replace_toast(socket.assigns.toast_examples, "promise", id, toast)
+     )}
+  end
+
+  def handle_info(:complete_progress_demo, socket) do
+    {:noreply, assign(socket, progress_demo_value: 66)}
+  end
+
+  defp questionnaire_toast(socket, example, params) do
+    sequence = socket.assigns.toast_sequence + 1
+    toast = Examples.questionnaire_notice(example, params, "questionnaire-#{sequence}")
+
+    socket =
+      socket
+      |> assign(toast_sequence: sequence)
+      |> assign(
+        toast_examples:
+          Examples.add_toast(socket.assigns.toast_examples, "questionnaire-#{example}", toast)
+      )
+
+    socket =
+      if example == "dialog" do
+        push_event(socket, "questionnaire:submitted", %{id: "questionnaire-dialog"})
+      else
+        socket
+      end
+
+    {:noreply, socket}
+  end
+
+  defp calendar_month_start(date), do: Date.new!(date.year, date.month, 1)
 
   # A declared attribute always has a default, even when that default is `nil`.
   defp default(attr) do

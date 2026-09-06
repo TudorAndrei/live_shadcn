@@ -20,6 +20,7 @@ defmodule LiveShadcn.UI.Field do
       "cn-field-orientation-vertical flex-col *:w-full [&>.sr-only]:w-auto",
     "jsx/FieldContent/class/0" =>
       "cn-field-content group/field-content flex flex-1 flex-col leading-snug",
+    "jsx/FieldError/class/0" => "ml-4 flex list-disc flex-col gap-1",
     "jsx/FieldError/class/1" => "cn-field-error font-normal",
     "jsx/FieldGroup/class/0" =>
       "cn-field-group group/field-group @container/field-group flex w-full flex-col",
@@ -41,19 +42,19 @@ defmodule LiveShadcn.UI.Field do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                       [table, "variant", group, choice] <- [String.split(path, "/")],
-                       reduce: %{} do
-    variants ->
-      put_in(
-        variants,
-        [
-          Access.key(table, %{}),
-          Access.key(group, %{}),
-          Access.key(choice, nil)
-        ],
-        value
-      )
-  end)
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
 
   @doc "The `field` part."
   attr(:orientation, :string,
@@ -72,11 +73,13 @@ defmodule LiveShadcn.UI.Field do
       data-slot={@rest[:"data-slot"] || "field"}
       role="group"
       data-orientation={@orientation}
-      class={[
-        variant_class("fieldVariants", "orientation", @orientation),
-        upstream_fact("cva/fieldVariants/base"),
-        (@class || "")
-      ]}
+      class={
+        LiveShadcn.Cn.merge([
+          upstream_fact("cva/fieldVariants/base"),
+          variant_class("fieldVariants", "orientation", @orientation),
+          @class
+        ])
+      }
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -94,10 +97,7 @@ defmodule LiveShadcn.UI.Field do
     ~H"""
     <LiveShadcn.UI.Label.label
       data-slot={@rest[:"data-slot"] || "field-label"}
-      class={[
-        upstream_fact("port/class/1"),
-        @class
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("port/class/1"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -128,24 +128,50 @@ defmodule LiveShadcn.UI.Field do
 
   @doc "The `field-error` part."
   attr(:content, :string, default: nil)
-  attr(:errors, :string, default: nil)
+  attr(:errors, :list, default: [])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def field_error(assigns) do
+    messages =
+      assigns.errors
+      |> Enum.map(&error_message/1)
+      |> Enum.reject(&is_nil/1)
+      |> Enum.uniq()
+
+    assigns =
+      assigns
+      |> assign(:messages, messages)
+      |> assign(:render?, assigns.inner_block != [] or assigns.content != nil or messages != [])
+
     ~H"""
     <div
-      :if={@content}
+      :if={@render?}
       data-slot={@rest[:"data-slot"] || "field-error"}
       role="alert"
       class={[upstream_fact("jsx/FieldError/class/1"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      {@content}{render_slot(@inner_block)}
+      <%= if @inner_block != [] do %>
+        {render_slot(@inner_block)}
+      <% else %>
+        <%= if @content || length(@messages) == 1 do %>
+          {@content || List.first(@messages)}
+        <% else %>
+          <ul class={upstream_fact("jsx/FieldError/class/0")}>
+            <li :for={message <- @messages}>{message}</li>
+          </ul>
+        <% end %>
+      <% end %>
     </div>
     """
   end
+
+  defp error_message(%{message: message}) when is_binary(message), do: message
+  defp error_message(%{"message" => message}) when is_binary(message), do: message
+  defp error_message(message) when is_binary(message), do: message
+  defp error_message(_error), do: nil
 
   @doc "The `field-group` part."
 
@@ -157,7 +183,7 @@ defmodule LiveShadcn.UI.Field do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "field-group"}
-      class={[upstream_fact("jsx/FieldGroup/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/FieldGroup/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -194,13 +220,13 @@ defmodule LiveShadcn.UI.Field do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "field-separator"}
-      data-content={@children not in [nil, false, ""]}
+      data-content={@inner_block != []}
       class={[upstream_fact("jsx/FieldSeparator/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <LiveShadcn.UI.Separator.separator class={upstream_fact("jsx/FieldSeparator/class/1")} />
       <span
-        :if={@children}
+        :if={@inner_block != []}
         data-slot="field-separator-content"
         class={upstream_fact("jsx/FieldSeparator/class/2")}
       >

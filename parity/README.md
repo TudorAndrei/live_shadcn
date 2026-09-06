@@ -58,18 +58,22 @@ Run `npm run build:css` in `storybook/assets` before comparing.
 
 ## An example
 
-One file per example, named `<component>.<example>.tsx`, exporting a component
-by default. The filename is the only record of what has been ported:
-`storybook/test/browser/parity.spec.mjs` reads this directory and compares it
-against the storybook's own list, so a component nobody ported is named rather
-than quietly skipped.
+For shadcn, `mix ui.fetch` reads all `ComponentPreview` entries from the pinned
+official component pages. The parity app loads the exact official React file
+from the pinned checkout. `mix ui.verify` requires each entry in that list to
+have a Storybook HEEx preview.
 
-Each one is a port of the matching `StorybookWeb.Examples` function, not a
-second design. **The two examples have to ask for the same thing.** Where a Base
-UI default differs from what the reviewed port does — Base UI unmounts a
-closed accordion panel and the disclosure recipe hides it, so a hook can measure
-it — the example says so out loud and passes `keepMounted`. A difference the
-examples introduce is a difference the report blames on the components.
+AI Elements uses one local reference file per example, named
+`<component>.<example>.tsx`, because its public examples do not have the same
+one-file-per-documentation-preview contract.
+
+An example that exists only in the official shadcn documentation is a parity
+gap. It cannot produce a Verified status.
+
+Each Storybook example is a port of the official example, not a second design.
+**The two examples have to ask for the same thing.** The React side uses the
+official file without a local rewrite. A difference introduced by the HEEx port
+is therefore a difference that the report assigns to the port.
 
 ## Running it
 

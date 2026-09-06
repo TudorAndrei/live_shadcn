@@ -9,6 +9,7 @@ defmodule LiveAiElements.Components.Question do
   use Phoenix.Component
 
   alias LiveAiElements.Shadcn
+  alias LiveShadcn.Cn
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
@@ -25,11 +26,13 @@ defmodule LiveAiElements.Components.Question do
   Module.get_attribute(__MODULE__, :upstream_facts)
 
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+  defp merged_class(classes), do: Cn.merge(classes)
 
   @doc "The `question` part."
   attr(:id, :string, required: true)
   attr(:default_value, :string, default: "EMPTY_VALUE")
   attr(:disabled, :boolean, default: false)
+  attr(:on_submit, :string, default: nil, doc: "The LiveView event sent after a valid response.")
   attr(:selection_mode, :string, default: "single")
   attr(:value, :string, default: nil)
   attr(:selected_name, :string, default: "selected_values[]")
@@ -47,8 +50,9 @@ defmodule LiveAiElements.Components.Question do
       id={@id}
       data-selection-mode={@selection_mode}
       data-selected-name={@selected_name}
+      data-question-submit-event={@on_submit}
       phx-hook="LiveAiElements.Question"
-      class={[upstream_fact("jsx/Question/class/0"), @class || ""]}
+      class={merged_class([upstream_fact("jsx/Question/class/0"), @class])}
       {@rest}
     >
       {render_slot(@inner_block)}
@@ -64,7 +68,7 @@ defmodule LiveAiElements.Components.Question do
 
   def question_prompt(assigns) do
     ~H"""
-    <p class={[upstream_fact("jsx/QuestionPrompt/class/0"), @class || ""]} {@rest}>
+    <p class={merged_class([upstream_fact("jsx/QuestionPrompt/class/0"), @class])} {@rest}>
       {render_slot(@inner_block)}
     </p>
     """
@@ -78,7 +82,7 @@ defmodule LiveAiElements.Components.Question do
 
   def question_description(assigns) do
     ~H"""
-    <p class={[upstream_fact("jsx/QuestionDescription/class/0"), @class || ""]} {@rest}>
+    <p class={merged_class([upstream_fact("jsx/QuestionDescription/class/0"), @class])} {@rest}>
       {render_slot(@inner_block)}
     </p>
     """
@@ -94,7 +98,7 @@ defmodule LiveAiElements.Components.Question do
     ~H"""
     <div
       role={if(@selection_mode == "single", do: "radiogroup", else: "group")}
-      class={[upstream_fact("jsx/QuestionOptions/class/0"), @class || ""]}
+      class={merged_class([upstream_fact("jsx/QuestionOptions/class/0"), @class])}
       {@rest}
     >
       {render_slot(@inner_block)}
@@ -127,11 +131,11 @@ defmodule LiveAiElements.Components.Question do
       disabled={@disabled}
       role={@role}
       type="button"
-      class={[
+      class={merged_class([
         Shadcn.button_class(@size, @variant || if(@selected?, do: "default", else: "outline")),
         upstream_fact("jsx/QuestionOption/class/0"),
         @class
-      ]}
+      ])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
@@ -170,11 +174,11 @@ defmodule LiveAiElements.Components.Question do
       phx-no-format
       data-slot={@rest[:"data-slot"] || "textarea"}
       disabled={@disabled}
-      class={[
+      class={merged_class([
         Shadcn.textarea_class(),
         "min-h-20",
-        @class || ""
-      ]}
+        @class
+      ])}
       {Map.drop(@rest, [:"data-slot"])}
     >{@text}{render_slot(@inner_block)}</textarea>
     """
@@ -188,7 +192,7 @@ defmodule LiveAiElements.Components.Question do
 
   def question_actions(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/QuestionActions/class/0"), @class || ""]} {@rest}>
+    <div class={merged_class([upstream_fact("jsx/QuestionActions/class/0"), @class])} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -212,7 +216,7 @@ defmodule LiveAiElements.Components.Question do
       data-question-submit
       disabled={@disabled || !@has_response}
       type="submit"
-      class={[Shadcn.button_class(@size, @variant), @class]}
+      class={merged_class([Shadcn.button_class(@size, @variant), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

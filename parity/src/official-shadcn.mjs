@@ -13,26 +13,34 @@ const sourceOwners = new Map([[
 export function entries(component, sources) {
   const used = new Set();
 
-  return sources.filter((source) => owns(component, source)).map((source) => {
-    const candidate =
-      source === `${component}-demo`
-        ? "default"
-        : source.startsWith(`${component}-`)
-          ? source.slice(component.length + 1)
-          : source;
+  return sources
+    .map(entry)
+    .filter(({ source }) => owns(component, source))
+    .map(({ id: explicitId, reference, source }) => {
+      const candidate =
+        explicitId ??
+        (source === `${component}-demo`
+          ? "default"
+          : source.startsWith(`${component}-`)
+            ? source.slice(component.length + 1)
+            : source);
 
-    const options = [candidate, source];
-    let suffix = 2;
-    let id;
+      const options = [candidate, source];
+      let suffix = 2;
+      let id;
 
-    while (!id) {
-      const option = options.shift() ?? `${source}-${suffix++}`;
-      if (!used.has(option)) id = option;
-    }
+      while (!id) {
+        const option = options.shift() ?? `${source}-${suffix++}`;
+        if (!used.has(option)) id = option;
+      }
 
-    used.add(id);
-    return { id, source };
-  });
+      used.add(id);
+      return reference ? { id, source, reference } : { id, source };
+    });
+}
+
+function entry(source) {
+  return typeof source === "string" ? { source } : source;
 }
 
 function owns(component, source) {

@@ -9,8 +9,8 @@ import { expect, test } from "@playwright/test";
 
 import { visit } from "./live.mjs";
 
-const tab = (page, value) => page.locator(`#stages-tab-${value}`);
-const panel = (page, value) => page.locator(`#stages-panel-${value}`);
+const tab = (page, value, root = "tabs-default") => page.locator(`#${root}-tab-${value}`);
+const panel = (page, value, root = "tabs-default") => page.locator(`#${root}-panel-${value}`);
 
 test.describe("a set of tabs", () => {
   // Focused before the key, not merely clicked.
@@ -26,76 +26,101 @@ test.describe("a set of tabs", () => {
   };
 
   test.beforeEach(async ({ page }) => {
-    await visit(page, "/preview/tabs/default", "#stages");
+    await visit(page, "/preview/tabs/default", "#tabs-default");
   });
 
   test("shows the tab the caller named, and only that one", async ({ page }) => {
-    await expect(panel(page, "spec")).toBeVisible();
-    await expect(panel(page, "fetch")).toBeHidden();
-    await expect(panel(page, "gen")).toBeHidden();
+    await expect(panel(page, "overview")).toBeVisible();
+    await expect(panel(page, "analytics")).toBeHidden();
+    await expect(panel(page, "reports")).toBeHidden();
+    await expect(panel(page, "settings")).toBeHidden();
 
-    await expect(tab(page, "spec")).toHaveAttribute("aria-selected", "true");
-    await expect(tab(page, "fetch")).toHaveAttribute("aria-selected", "false");
+    await expect(tab(page, "overview")).toHaveAttribute("aria-selected", "true");
+    await expect(tab(page, "analytics")).toHaveAttribute("aria-selected", "false");
   });
 
   test("is a tab list of tabs, named for a screen reader", async ({ page }) => {
-    await expect(page.locator("#stages-list")).toHaveRole("tablist");
-    await expect(tab(page, "spec")).toHaveRole("tab");
-    await expect(panel(page, "spec")).toHaveRole("tabpanel");
-    await expect(panel(page, "spec")).toHaveAttribute("aria-labelledby", "stages-tab-spec");
+    await expect(page.locator("#tabs-default-list")).toHaveRole("tablist");
+    await expect(tab(page, "overview")).toHaveRole("tab");
+    await expect(panel(page, "overview")).toHaveRole("tabpanel");
+    await expect(panel(page, "overview")).toHaveAttribute(
+      "aria-labelledby",
+      "tabs-default-tab-overview",
+    );
   });
 
   test("choosing one unchooses the rest", async ({ page }) => {
-    await tab(page, "gen").click();
+    await tab(page, "reports").click();
 
-    await expect(panel(page, "gen")).toBeVisible();
-    await expect(panel(page, "spec")).toBeHidden();
-    await expect(tab(page, "gen")).toHaveAttribute("data-active", "");
-    await expect(tab(page, "spec")).not.toHaveAttribute("data-active", "");
+    await expect(panel(page, "reports")).toBeVisible();
+    await expect(panel(page, "overview")).toBeHidden();
+    await expect(tab(page, "reports")).toHaveAttribute("data-active", "");
+    await expect(tab(page, "overview")).not.toHaveAttribute("data-active", "");
   });
 
   test("only the chosen tab is in the page's tab order", async ({ page }) => {
-    await expect(tab(page, "spec")).toHaveAttribute("tabindex", "0");
-    await expect(tab(page, "fetch")).toHaveAttribute("tabindex", "-1");
+    await expect(tab(page, "overview")).toHaveAttribute("tabindex", "0");
+    await expect(tab(page, "analytics")).toHaveAttribute("tabindex", "-1");
 
-    await tab(page, "fetch").click();
+    await tab(page, "analytics").click();
 
-    await expect(tab(page, "fetch")).toHaveAttribute("tabindex", "0");
-    await expect(tab(page, "spec")).toHaveAttribute("tabindex", "-1");
+    await expect(tab(page, "analytics")).toHaveAttribute("tabindex", "0");
+    await expect(tab(page, "overview")).toHaveAttribute("tabindex", "-1");
   });
 
   test("the right arrow walks along the row", async ({ page }) => {
-    await chose(page, "fetch");
+    await chose(page, "overview");
     await page.keyboard.press("ArrowRight");
 
-    await expect(tab(page, "spec")).toBeFocused();
-    await expect(panel(page, "spec")).toBeVisible();
+    await expect(tab(page, "analytics")).toBeFocused();
+    await expect(panel(page, "analytics")).toBeVisible();
   });
 
   test("the left arrow walks back", async ({ page }) => {
-    await chose(page, "gen");
+    await chose(page, "reports");
     await page.keyboard.press("ArrowLeft");
 
-    await expect(tab(page, "spec")).toBeFocused();
-    await expect(panel(page, "spec")).toBeVisible();
+    await expect(tab(page, "analytics")).toBeFocused();
+    await expect(panel(page, "analytics")).toBeVisible();
   });
 
   test("the row wraps at its ends", async ({ page }) => {
-    await chose(page, "gen");
+    await chose(page, "settings");
     await page.keyboard.press("ArrowRight");
 
-    await expect(tab(page, "fetch")).toBeFocused();
-    await expect(panel(page, "fetch")).toBeVisible();
+    await expect(tab(page, "overview")).toBeFocused();
+    await expect(panel(page, "overview")).toBeVisible();
   });
 
   test("Home and End go to the ends", async ({ page }) => {
-    await chose(page, "spec");
+    await chose(page, "analytics");
 
     await page.keyboard.press("End");
-    await expect(tab(page, "gen")).toBeFocused();
+    await expect(tab(page, "settings")).toBeFocused();
 
     await page.keyboard.press("Home");
-    await expect(tab(page, "fetch")).toBeFocused();
-    await expect(panel(page, "fetch")).toBeVisible();
+    await expect(tab(page, "overview")).toBeFocused();
+    await expect(panel(page, "overview")).toBeVisible();
   });
+});
+
+test("a disabled official tab does not activate", async ({ page }) => {
+  await visit(page, "/preview/tabs/disabled", "#tabs-disabled");
+  const disabled = tab(page, "settings", "tabs-disabled");
+
+  await expect(disabled).toHaveAttribute("aria-disabled", "true");
+  await disabled.click({ force: true });
+  await expect(disabled).toHaveAttribute("aria-selected", "false");
+  await expect(tab(page, "home", "tabs-disabled")).toHaveAttribute("aria-selected", "true");
+});
+
+test("vertical tabs use the down arrow", async ({ page }) => {
+  await visit(page, "/preview/tabs/vertical", "#tabs-vertical");
+  const account = tab(page, "account", "tabs-vertical");
+  const password = tab(page, "password", "tabs-vertical");
+
+  await account.click();
+  await page.keyboard.press("ArrowDown");
+  await expect(password).toBeFocused();
+  await expect(password).toHaveAttribute("aria-selected", "true");
 });

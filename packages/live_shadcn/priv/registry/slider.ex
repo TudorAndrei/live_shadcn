@@ -39,16 +39,17 @@ defmodule LiveShadcn.UI.Slider do
   attr(:id, :string, required: true, doc: "The hook needs one, and each input derives its own.")
   attr(:name, :string, default: nil, doc: "What the form submits every value under.")
 
-  attr(:value, :list,
+  attr(:value, :any,
     default: [50],
-    doc: "One value per thumb. Two make a range; the list's length is the number of thumbs."
+    doc: "A scalar makes one thumb. A list supplies one value per thumb."
   )
 
-  attr(:min, :integer, default: 0)
-  attr(:max, :integer, default: 100)
-  attr(:step, :integer, default: 1)
+  attr(:min, :any, default: 0)
+  attr(:max, :any, default: 100)
+  attr(:step, :any, default: 1)
   attr(:disabled, :boolean, default: false)
   attr(:label, :string, default: nil, doc: "Names each thumb to a screen reader.")
+  attr(:on_change, :string, default: nil, doc: "A LiveView change event for each range input.")
 
   attr(:orientation, :string,
     default: "horizontal",
@@ -59,6 +60,14 @@ defmodule LiveShadcn.UI.Slider do
   attr(:rest, :global)
 
   def slider(assigns) do
+    scalar? = not is_list(assigns.value)
+    values = if scalar?, do: [assigns.value], else: assigns.value
+
+    assigns =
+      assigns
+      |> assign(:scalar?, scalar?)
+      |> assign(:values, values)
+
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "slider"}
@@ -66,9 +75,11 @@ defmodule LiveShadcn.UI.Slider do
       id={@id}
       phx-hook={Slider.hook()}
       phx-mounted={Slider.owned_attributes()}
+      data-lb-slider-scalar={flag(@scalar?)}
+      data-lb-change-event={@on_change}
       data-orientation={@orientation}
       data-disabled={flag(@disabled)}
-      class={[upstream_fact("jsx/Slider/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Slider/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <div
@@ -87,11 +98,11 @@ defmodule LiveShadcn.UI.Slider do
             data-lb-slider-range
             data-orientation={@orientation}
             data-disabled={flag(@disabled)}
-            class="cn-slider-range relative select-none data-horizontal:h-full data-vertical:w-full"
+            class="cn-slider-range select-none data-horizontal:h-full data-vertical:w-full"
           />
         </div>
         <div
-          :for={index <- 0..(length(@value) - 1)//1}
+          :for={index <- 0..(length(@values) - 1)//1}
           data-slot="slider-thumb"
           data-index={index}
           data-lb-slider-thumb
@@ -104,7 +115,7 @@ defmodule LiveShadcn.UI.Slider do
             type="range"
             id={Slider.input_id(@id, index)}
             name={@name}
-            value={Enum.at(@value, index)}
+            value={Enum.at(@values, index)}
             min={@min}
             max={@max}
             step={@step}

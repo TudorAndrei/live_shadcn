@@ -26,19 +26,19 @@ defmodule LiveShadcn.UI.Alert do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                       [table, "variant", group, choice] <- [String.split(path, "/")],
-                       reduce: %{} do
-    variants ->
-      put_in(
-        variants,
-        [
-          Access.key(table, %{}),
-          Access.key(group, %{}),
-          Access.key(choice, nil)
-        ],
-        value
-      )
-  end)
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
 
   @doc "The `alert` part."
   attr(:variant, :string,
@@ -55,11 +55,13 @@ defmodule LiveShadcn.UI.Alert do
     <div
       data-slot={@rest[:"data-slot"] || "alert"}
       role="alert"
-      class={[
-        variant_class("alertVariants", "variant", @variant),
-        upstream_fact("cva/alertVariants/base"),
-        @class
-      ]}
+      class={
+        LiveShadcn.Cn.merge([
+          upstream_fact("cva/alertVariants/base"),
+          variant_class("alertVariants", "variant", @variant),
+          @class
+        ])
+      }
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -77,10 +79,7 @@ defmodule LiveShadcn.UI.Alert do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "alert-title"}
-      class={[
-        upstream_fact("jsx/AlertTitle/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/AlertTitle/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -98,10 +97,7 @@ defmodule LiveShadcn.UI.Alert do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "alert-description"}
-      class={[
-        upstream_fact("jsx/AlertDescription/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/AlertDescription/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -119,7 +115,7 @@ defmodule LiveShadcn.UI.Alert do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "alert-action"}
-      class={[upstream_fact("jsx/AlertAction/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/AlertAction/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

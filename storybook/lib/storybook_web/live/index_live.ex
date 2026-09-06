@@ -15,7 +15,9 @@ defmodule StorybookWeb.IndexLive do
   @status_classes %{
     verified: "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300",
     unverified: "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
-    failed: "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-300"
+    failed: "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-300",
+    local_only: "bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-300",
+    no_dom: "bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-300"
   }
 
   @impl Phoenix.LiveView

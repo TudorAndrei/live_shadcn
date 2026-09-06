@@ -64,7 +64,7 @@ defmodule LiveShadcn.UI.Toggle do
 
   attr(:id, :string, default: nil)
   attr(:name, :string, default: nil)
-  attr(:value, :string, default: "true", doc: "What the form submits when the control is on.")
+  attr(:value, :string, default: nil, doc: "An optional native button value.")
   attr(:checked, :boolean, default: nil)
   attr(:errors, :list, default: [])
   attr(:disabled, :boolean, default: false)
@@ -82,6 +82,7 @@ defmodule LiveShadcn.UI.Toggle do
   )
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:on_click, :any, default: nil, doc: "An optional click command for controlled state.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
 
@@ -92,13 +93,17 @@ defmodule LiveShadcn.UI.Toggle do
     <button
       data-slot={@rest[:"data-slot"] || "toggle"}
       id={@id}
+      type="button"
+      value={@value}
+      disabled={@disabled}
       aria-pressed={to_string(@checked)}
-      aria-disabled={if(@disabled, do: "true")}
+      aria-disabled={if(@readonly, do: "true")}
       phx-click={
-        if(@disabled or @readonly,
-          do: nil,
-          else: FormControl.toggle(control: @id, state: :pressed, input: false)
-        )
+        cond do
+          @disabled or @readonly -> nil
+          @on_click -> @on_click
+          true -> FormControl.toggle(control: @id, state: :pressed, input: false)
+        end
       }
       phx-mounted={FormControl.owned_attributes()}
       data-pressed={flag(@checked)}

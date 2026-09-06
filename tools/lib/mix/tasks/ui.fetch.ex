@@ -30,12 +30,15 @@ defmodule Mix.Tasks.Ui.Fetch do
 
   import LiveShadcnTools
 
+  alias LiveShadcnTools.ShadcnExamples
   alias LiveShadcnTools.Style
 
   @shadcn_repo "shadcn-ui/ui"
   @ai_elements_repo "vercel/ai-elements"
   @shadcn_index "https://ui.shadcn.com/r/index.json"
   @shadcn_ui_dir "apps/v4/registry/bases/base/ui"
+  @shadcn_docs_dir "apps/v4/content/docs/components/base"
+  @shadcn_examples_dir "apps/v4/examples/base"
   @shadcn_styles_dir "apps/v4/registry/styles"
   @shadcn_styles_index "apps/v4/registry/styles.tsx"
 
@@ -59,6 +62,31 @@ defmodule Mix.Tasks.Ui.Fetch do
   # components live at `/react/components/`, but `direction-provider` lives at
   # `/react/utils/`. What makes a link a Base UI contract is the host.
   @base_ui_host "https://base-ui.com/"
+
+  # Most public examples are listed by ComponentPreview in a component MDX
+  # page. Sonner has no such page at this pin, but its registry contains the
+  # public examples that the pinned source renders. This small declarative list
+  # makes that source part of normal example evidence. It also gives a future
+  # component the same route without treating every registry test fixture as a
+  # public example.
+  @shadcn_example_supplements %{
+    "sonner" => %{
+      "path" => "apps/v4/registry/bases/base/examples/sonner-example.tsx",
+      "target" => "shadcn/examples/sonner-example.tsx",
+      "examples" => [
+        %{
+          "id" => "basic",
+          "source" => "shadcn/examples/sonner-example.tsx#SonnerBasic",
+          "reference" => "shadcn/sonner#SonnerBasic"
+        },
+        %{
+          "id" => "with-description",
+          "source" => "shadcn/examples/sonner-example.tsx#SonnerWithDescription",
+          "reference" => "shadcn/sonner#SonnerWithDescription"
+        }
+      ]
+    }
+  }
 
   # Every registry source names its icons by their `lucide-react` export, and
   # some of those exports are aliases lucide has since renamed: `CheckCircleIcon`
@@ -121,6 +149,7 @@ defmodule Mix.Tasks.Ui.Fetch do
     Mix.shell().info("fetching #{length(components)} shadcn components")
 
     shadcn_files = Enum.flat_map(components, &fetch_component(&1, shadcn_ref))
+    {shadcn_doc_files, shadcn_examples} = fetch_shadcn_examples(components, shadcn_ref, only)
     {style_files, styles} = fetch_styles(shadcn_ref)
     {ai_files, ai_sections} = if only, do: {[], []}, else: fetch_ai_elements(ai_ref)
     lucide_files = if only, do: [], else: fetch_lucide()
@@ -129,7 +158,13 @@ defmodule Mix.Tasks.Ui.Fetch do
       "generated_by" => "mix ui.fetch",
       "styles" => styles,
       "sources" => %{
-        "shadcn" => %{"repo" => @shadcn_repo, "ref" => shadcn_ref, "dir" => @shadcn_ui_dir},
+        "shadcn" => %{
+          "repo" => @shadcn_repo,
+          "ref" => shadcn_ref,
+          "dir" => @shadcn_ui_dir,
+          "docs_dir" => @shadcn_docs_dir,
+          "examples_dir" => @shadcn_examples_dir
+        },
         "base_ui" => %{"origin" => "https://base-ui.com/react/components"},
         "ai_elements" => %{
           "repo" => @ai_elements_repo,
@@ -140,8 +175,10 @@ defmodule Mix.Tasks.Ui.Fetch do
         },
         "lucide" => %{"package" => "lucide-react", "version" => @lucide_version}
       },
+      "examples" => %{"shadcn" => shadcn_examples},
       "groups" => %{"ai_elements" => ai_sections},
-      "files" => Map.new(shadcn_files ++ style_files ++ ai_files ++ lucide_files)
+      "files" =>
+        Map.new(shadcn_files ++ shadcn_doc_files ++ style_files ++ ai_files ++ lucide_files)
     }
 
     manifest =
@@ -152,6 +189,10 @@ defmodule Mix.Tasks.Ui.Fetch do
 
         manifest
         |> put_in(["files"], Map.merge(previous["files"] || %{}, manifest["files"]))
+        |> put_in(
+          ["examples", "shadcn"],
+          Map.merge(get_in(previous, ["examples", "shadcn"]) || %{}, shadcn_examples)
+        )
         |> put_in(["groups"], previous["groups"] || %{})
       else
         manifest
@@ -193,6 +234,102 @@ defmodule Mix.Tasks.Ui.Fetch do
 
     tsx ++
       fetch_base_ui(name, link) ++ Enum.flat_map(modules, &fetch_base_ui(&1, page_url(&1)))
+  end
+
+  # Component pages name most public examples. A small reviewed supplement
+  # covers public registry examples where the pinned component has no page.
+  # Keep each source digest beside the resulting list. A source change then
+  # invalidates verification.
+  defp fetch_shadcn_examples(components, ref, only) do
+    {pages, index_files} = shadcn_doc_pages(components, ref, only)
+
+    Mix.shell().info("fetching #{length(pages)} shadcn component pages")
+
+    pages
+    |> Enum.map(fn name ->
+      url = raw_url(@shadcn_repo, ref, "#{@shadcn_docs_dir}/#{name}.mdx")
+
+      {files, sources} =
+        case get(url) do
+          {:ok, body} ->
+            file = store("shadcn/docs/#{name}.mdx", body, url)
+
+            sources =
+              name
+              |> ShadcnExamples.parse(body)
+              |> Enum.map(& &1["source"])
+
+            example_files = fetch_shadcn_example_sources(sources, ref)
+
+            {[file | example_files], sources}
+
+          {:error, status} ->
+            Mix.shell().error("  no Base component page for #{name}: HTTP #{status}")
+            {[], []}
+        end
+
+      {supplemental_files, supplemental_sources} = fetch_shadcn_example_supplement(name, ref)
+      {files ++ supplemental_files, {name, sources ++ supplemental_sources}}
+    end)
+    |> Enum.unzip()
+    |> then(fn {files, examples} ->
+      {index_files ++ List.flatten(files), Map.new(examples)}
+    end)
+  end
+
+  # The registry index lists installable primitives. The Base documentation
+  # also publishes composite guides, such as Data Table and Date Picker, that
+  # have official ComponentPreview examples but no registry source file. The
+  # pinned documentation index is the complete page catalog, so use it for a
+  # full fetch. A targeted fetch reads only the requested page.
+  defp shadcn_doc_pages(_components, _ref, only) when is_binary(only), do: {[only], []}
+
+  defp shadcn_doc_pages(components, ref, nil) do
+    url = raw_url(@shadcn_repo, ref, "#{@shadcn_docs_dir}/meta.json")
+
+    registry_pages = Enum.map(components, & &1["name"])
+
+    case get(url) do
+      {:ok, body} ->
+        file = store("shadcn/docs-meta.json", body, url)
+        docs_pages = body |> Jason.decode!() |> Map.get("pages", [])
+        {ShadcnExamples.doc_pages(registry_pages, docs_pages, nil), [file]}
+
+      {:error, status} ->
+        Mix.shell().error("  no Base documentation index: HTTP #{status}")
+        {ShadcnExamples.doc_pages(registry_pages, [], nil), []}
+    end
+  end
+
+  # A documentation page records the example name, but the rendered contract
+  # is the named TSX file. Store both digests. This catches an example change
+  # even when the MDX page still refers to the same name.
+  defp fetch_shadcn_example_sources(sources, ref) do
+    sources
+    |> Enum.uniq()
+    |> Enum.flat_map(fn source ->
+      url = raw_url(@shadcn_repo, ref, "#{@shadcn_examples_dir}/#{source}.tsx")
+
+      case get(url) do
+        {:ok, body} -> [store("shadcn/examples/#{source}.tsx", body, url)]
+        {:error, status} -> warn(source, "official example source", status)
+      end
+    end)
+  end
+
+  defp fetch_shadcn_example_supplement(name, ref) do
+    case Map.get(@shadcn_example_supplements, name) do
+      nil ->
+        {[], []}
+
+      %{"path" => path, "target" => target, "examples" => examples} ->
+        url = raw_url(@shadcn_repo, ref, path)
+
+        case get(url) do
+          {:ok, body} -> {[store(target, body, url)], examples}
+          {:error, status} -> {warn(name, "supplemental example source", status), []}
+        end
+    end
   end
 
   defp page_url(module), do: "#{@base_ui_docs}/#{module}.md"

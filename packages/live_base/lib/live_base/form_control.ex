@@ -111,20 +111,28 @@ defmodule LiveBase.FormControl do
     * `:control` — required, the id of the control element
     * `:state` — `:checked` for a checkbox or switch, `:pressed` for a toggle.
       Defaults to `:checked`.
-    * `:input` — whether there is a hidden input beside the control. Base UI
+    * `:input` — whether there is a hidden input beside the control. A string
+      gives its id when it does not use the default derived id. Base UI
       documents which controls have one, and a toggle does not.
     * `:change` — whether to tell the form. Defaults to `true`, which is what
       makes `phx-change` fire and the server learn the new value.
   """
   def toggle(js \\ %JS{}, opts) do
     control = Keyword.fetch!(opts, :control)
-    input = "##{input_id(control)}"
-    to = "##{control}"
+
+    input =
+      case Keyword.get(opts, :input, true) do
+        true -> by_id(input_id(control))
+        false -> nil
+        id when is_binary(id) -> by_id(id)
+      end
+
+    to = by_id(control)
 
     js
     |> state(to, Keyword.get(opts, :state, :checked))
     |> JS.toggle_attribute({"data-filled", ""}, to: to)
-    |> then(&if Keyword.get(opts, :input, true), do: submit(&1, input, opts), else: &1)
+    |> then(&if input, do: submit(&1, input, opts), else: &1)
     # Whatever the reader does to a control, they have touched it and changed
     # it.
     |> JS.set_attribute({"data-dirty", ""}, to: to)
@@ -149,8 +157,10 @@ defmodule LiveBase.FormControl do
   def select(js \\ %JS{}, opts) do
     control = Keyword.fetch!(opts, :control)
     group = Keyword.fetch!(opts, :group)
-    to = "##{control}"
-    others = "##{group} [role='radio']:not(#{to})"
+    input = Keyword.get(opts, :input, input_id(control))
+    to = by_id(control)
+    group = by_id(group)
+    others = "#{group} [role='radio']:not(#{to})"
 
     js
     |> JS.set_attribute({"aria-checked", "false"}, to: others)
@@ -159,13 +169,13 @@ defmodule LiveBase.FormControl do
     |> JS.remove_attribute("data-checked", to: others)
     |> JS.remove_attribute("data-filled", to: others)
     |> JS.set_attribute({"data-unchecked", ""}, to: others)
-    |> JS.remove_attribute("checked", to: "##{group} input[type='radio']")
+    |> JS.remove_attribute("checked", to: "#{group} input[type='radio']")
     |> JS.set_attribute({"aria-checked", "true"}, to: to)
     |> JS.set_attribute({"data-checked", ""}, to: to)
     |> JS.set_attribute({"data-filled", ""}, to: to)
     |> JS.remove_attribute("data-unchecked", to: to)
-    |> JS.set_attribute({"checked", ""}, to: "##{input_id(control)}")
-    |> notify("##{input_id(control)}")
+    |> JS.set_attribute({"checked", ""}, to: by_id(input))
+    |> notify(by_id(input))
     |> JS.set_attribute({"data-dirty", ""}, to: to)
     |> JS.set_attribute({"data-touched", ""}, to: to)
   end
@@ -186,6 +196,8 @@ defmodule LiveBase.FormControl do
     |> JS.toggle_attribute({"aria-checked", "true", "false"}, to: to)
     |> JS.toggle_attribute({"data-checked", ""}, to: to)
     |> JS.toggle_attribute({"data-unchecked", ""}, to: to)
+    |> JS.toggle_attribute({"data-checked", ""}, to: thumb(to))
+    |> JS.toggle_attribute({"data-unchecked", ""}, to: thumb(to))
     |> JS.toggle_attribute({"hidden", ""}, to: indicator(to))
   end
 
@@ -195,6 +207,8 @@ defmodule LiveBase.FormControl do
     |> JS.toggle_attribute({"data-pressed", ""}, to: to)
   end
 
+  defp thumb(control), do: "#{control} [data-slot$='-thumb']"
+
   # The reader never touches the hidden input, so its `checked` property still
   # follows its attribute. The `change` event is what makes `phx-change` fire.
   defp submit(js, input, opts) do
@@ -203,6 +217,11 @@ defmodule LiveBase.FormControl do
   end
 
   defp notify(js, input), do: JS.dispatch(js, "change", to: input, bubbles: true)
+
+  defp by_id(id) do
+    escaped = id |> String.replace("\\", "\\\\") |> String.replace("\"", "\\\"")
+    ~s([id="#{escaped}"])
+  end
 
   @doc """
   Marks the attributes the client owns so a server render does not undo a click.

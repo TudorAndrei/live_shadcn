@@ -22,11 +22,12 @@ defmodule LiveShadcn.UI.Resizable do
   alias LiveBase.Resizable
 
   @doc "The `resizable-handle` part."
-  attr(:with_handle, :string, default: nil)
+  attr(:with_handle, :boolean, default: false)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
   attr(:orientation, :string, default: "vertical", values: ["horizontal", "vertical"])
+  attr(:value_now, :integer, default: 50)
 
   def resizable_handle(assigns) do
     ~H"""
@@ -38,7 +39,8 @@ defmodule LiveShadcn.UI.Resizable do
       aria-orientation={@orientation}
       aria-valuemin="0"
       aria-valuemax="100"
-      aria-valuenow="50"
+      aria-valuenow={to_string(@value_now)}
+      style="flex: 0 0 auto; touch-action: none;"
       class={[
         upstream_fact("jsx/ResizableHandle/class/0"),
         (@class || "")
@@ -55,16 +57,20 @@ defmodule LiveShadcn.UI.Resizable do
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
+  attr(:default_size, :string, default: nil)
+  attr(:orientation, :string, default: "horizontal", values: ["horizontal", "vertical"])
 
   def resizable_panel(assigns) do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "resizable-panel"}
-      class={["flex flex-1", (@class || "")]}
-      style="border-color: currentColor"
+      class={@class}
+      style={panel_style(@default_size)}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      {render_slot(@inner_block)}
+      <div style={panel_content_style(@orientation)}>
+        {render_slot(@inner_block)}
+      </div>
     </div>
     """
   end
@@ -82,9 +88,11 @@ defmodule LiveShadcn.UI.Resizable do
       data-slot={@rest[:"data-slot"] || "resizable-panel-group"}
       id={@id}
       phx-hook={Resizable.hook()}
-      data-orientation={@orientation}
+      data-lb-orientation={@orientation}
+      style={group_style(@orientation)}
       class={[
-        "cn-resizable-panel-group flex h-full w-full overflow-hidden aria-[orientation=vertical]:flex-col",
+        "cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col",
+        @orientation == "vertical" && "flex-col",
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -93,4 +101,28 @@ defmodule LiveShadcn.UI.Resizable do
     </div>
     """
   end
+
+  defp panel_style(nil), do: nil
+
+  defp panel_style(size) do
+    number = String.trim_trailing(size, "%")
+
+    "min-height: 0px; max-height: 100%; height: auto; min-width: 0px; " <>
+      "max-width: 100%; width: auto; border: 0px; padding: 0px; margin: 0px; " <>
+      "display: flex; flex: #{number} 1 0px; overflow: visible;"
+  end
+
+  defp panel_content_style("vertical"),
+    do: "max-height: 100%; max-width: 100%; flex-grow: 1; overflow: auto; touch-action: pan-x;"
+
+  defp panel_content_style(_orientation),
+    do: "max-height: 100%; max-width: 100%; flex-grow: 1; overflow: auto; touch-action: pan-y;"
+
+  defp group_style("vertical"),
+    do:
+      "height: 100%; width: 100%; overflow: hidden; display: flex; flex-flow: column; touch-action: pan-x;"
+
+  defp group_style(_orientation),
+    do:
+      "height: 100%; width: 100%; overflow: hidden; display: flex; flex-flow: row; touch-action: pan-y;"
 end

@@ -1,6 +1,8 @@
 defmodule LiveShadcnTools.IdentityTest do
   use ExUnit.Case, async: true
 
+  alias Mix.Tasks.Ui.Status
+
   # A component is identified by its source and its name, never by its name
   # alone. Upstream has a `message` in the shadcn registry and a different
   # `message` in AI Elements, and every stage that looked one up by name alone
@@ -59,6 +61,140 @@ defmodule LiveShadcnTools.IdentityTest do
       assert LiveShadcnTools.resolve("ai_elements/message") == {"ai_elements", "message"}
       assert LiveShadcnTools.resolve("shadcn/message") == {"shadcn", "message"}
     end
+
+    test "resolves an official docs-only family" do
+      assert LiveShadcnTools.resolve("typography") == {"shadcn", "typography"}
+    end
+  end
+
+  describe "official docs-only families" do
+    test "derives families with examples and without a primitive" do
+      root =
+        Path.join(
+          System.tmp_dir!(),
+          "live-shadcn-docs-only-#{System.unique_integer([:positive])}"
+        )
+
+      on_exit(fn -> File.rm_rf!(root) end)
+
+      write(
+        root,
+        "registry/UPSTREAM.json",
+        ~s({"files":{"shadcn/ui/button.tsx":{}},"examples":{"shadcn":{"button":["default"],"data-table":["default"],"empty":[]}}})
+      )
+
+      assert LiveShadcnTools.docs_only_shadcn_families(root) == ["data-table"]
+    end
+
+    test "requires the full browser evidence set" do
+      root =
+        Path.join(
+          System.tmp_dir!(),
+          "live-shadcn-docs-policy-#{System.unique_integer([:positive])}"
+        )
+
+      on_exit(fn -> File.rm_rf!(root) end)
+
+      write(
+        root,
+        "registry/UPSTREAM.json",
+        ~s({"files":{},"examples":{"shadcn":{"typography":["default"]}}})
+      )
+
+      policy = LiveShadcnTools.verification_policy("shadcn", "typography", root)
+
+      assert policy.kind == :docs_only
+
+      assert policy.required_checks ==
+               ~w(snapshot examples browser behavior accessibility parity pixel)
+
+      checks = Map.new(policy.required_checks, &{&1, %{"pass" => true}})
+      assert LiveShadcnTools.verified_checks?("shadcn", policy, checks)
+
+      refute LiveShadcnTools.verified_checks?("shadcn", policy, Map.delete(checks, "pixel"))
+    end
+
+    test "current docs-only families require every snapshot and browser evidence check" do
+      assert LiveShadcnTools.docs_only_shadcn_families() == ~w(data-table date-picker typography)
+
+      for name <- ~w(data-table date-picker typography) do
+        policy = LiveShadcnTools.verification_policy("shadcn", name)
+
+        assert policy.kind == :docs_only
+
+        assert policy.required_checks ==
+                 ~w(snapshot examples browser behavior accessibility parity pixel)
+
+        complete = Map.new(policy.required_checks, &{&1, %{"pass" => true}})
+
+        assert LiveShadcnTools.verified_checks?("shadcn", policy, complete)
+
+        for check <- policy.required_checks do
+          refute LiveShadcnTools.verified_checks?("shadcn", policy, Map.delete(complete, check))
+        end
+
+        gated = put_in(complete, ["pixel", "gated"], false)
+        refute LiveShadcnTools.verified_checks?("shadcn", policy, gated)
+      end
+
+      primitive = LiveShadcnTools.verification_policy("shadcn", "button")
+      assert primitive.kind == :standard
+
+      assert primitive.required_checks ==
+               ~w(generated snapshot examples browser behavior accessibility parity pixel)
+    end
+
+    test "the status gate accepts only current complete docs-only verification" do
+      root =
+        Path.join(
+          System.tmp_dir!(),
+          "live-shadcn-docs-status-#{System.unique_integer([:positive])}"
+        )
+
+      on_exit(fn -> File.rm_rf!(root) end)
+
+      write(
+        root,
+        "registry/UPSTREAM.json",
+        ~s({"files":{},"sources":{"shadcn":{"ref":"test"}},"examples":{"shadcn":{"data-table":["data-table-demo"]}}})
+      )
+
+      write(root, "registry/snapshot/index.json", ~s({"data-table":["default"]}))
+      write(root, "registry/snapshot/data-table-default.html", "<main>Data table</main>\n")
+      write(root, "parity/official-examples.json", ~s({"data-table.default":"example.tsx#Demo"}))
+      write(root, "storybook/lib/storybook_web/examples.ex", "example renderer\n")
+      write(root, "storybook/lib/mix/tasks/snapshot.ex", "snapshot renderer\n")
+      write(root, "storybook/lib/storybook_web/live/preview_live.ex", "preview renderer\n")
+
+      evidence = LiveShadcnTools.verification_evidence_digest("shadcn", "data-table", root)
+      policy = LiveShadcnTools.verification_policy("shadcn", "data-table", root)
+      checks = Map.new(policy.required_checks, &{&1, %{"pass" => true}})
+
+      record = %{
+        "pass" => true,
+        "spec" => nil,
+        "evidence" => evidence,
+        "checks" => checks
+      }
+
+      write(root, "registry/VERIFY.json", Jason.encode!(%{"shadcn/data-table" => record}))
+      assert Status.docs_only_verification_gaps(root) == []
+
+      write(root, "registry/VERIFY.json", "{}")
+      assert Status.docs_only_verification_gaps(root) == ["shadcn/data-table"]
+
+      stale = %{record | "evidence" => "stale"}
+      write(root, "registry/VERIFY.json", Jason.encode!(%{"shadcn/data-table" => stale}))
+      assert Status.docs_only_verification_gaps(root) == ["shadcn/data-table"]
+
+      failed = %{record | "pass" => false}
+      write(root, "registry/VERIFY.json", Jason.encode!(%{"shadcn/data-table" => failed}))
+      assert Status.docs_only_verification_gaps(root) == ["shadcn/data-table"]
+
+      incomplete = %{record | "checks" => Map.delete(checks, "pixel")}
+      write(root, "registry/VERIFY.json", Jason.encode!(%{"shadcn/data-table" => incomplete}))
+      assert Status.docs_only_verification_gaps(root) == ["shadcn/data-table"]
+    end
   end
 
   describe "a reviewed contract" do
@@ -111,5 +247,79 @@ defmodule LiveShadcnTools.IdentityTest do
     test "does not verify an exceptional policy" do
       refute LiveShadcnTools.verified_checks?("shadcn", %{kind: :local_only}, %{})
     end
+
+    test "records a complete local-only policy without calling it verified" do
+      policy = %{
+        kind: :local_only,
+        required_checks: ~w(generated snapshot examples browser behavior accessibility)
+      }
+
+      checks = Map.new(policy.required_checks, &{&1, %{"pass" => true}})
+
+      assert LiveShadcnTools.policy_checks_complete?("shadcn", policy, checks)
+      refute LiveShadcnTools.verified_checks?("shadcn", policy, checks)
+    end
+
+    test "treats missing or stale checks as unverified, not failed" do
+      incomplete = %{"pass" => true, "checks" => %{"generated" => %{"pass" => true}}}
+      failed_check = put_in(incomplete, ["checks", "behavior"], %{"pass" => false})
+
+      refute LiveShadcnTools.verification_failed?(incomplete, true)
+      refute LiveShadcnTools.verification_failed?(failed_check, false)
+      assert LiveShadcnTools.verification_failed?(failed_check, true)
+      assert LiveShadcnTools.verification_failed?(%{"pass" => false}, false)
+    end
+  end
+
+  describe "verification evidence" do
+    test "changes when the selected snapshot or Storybook renderer changes" do
+      root =
+        Path.join(System.tmp_dir!(), "live-shadcn-evidence-#{System.unique_integer([:positive])}")
+
+      on_exit(fn -> File.rm_rf!(root) end)
+
+      write(root, "registry/snapshot/index.json", ~s({"button":["default"]}))
+
+      write(
+        root,
+        "registry/UPSTREAM.json",
+        ~s({"sources":{"shadcn":{"ref":"test"}},"examples":{"shadcn":{"button":[]}}})
+      )
+
+      write(root, "registry/snapshot/button-default.html", "<button>Before</button>\n")
+      write(root, "storybook/lib/storybook_web/examples.ex", "example renderer before\n")
+      write(root, "storybook/lib/mix/tasks/snapshot.ex", "snapshot renderer before\n")
+      write(root, "storybook/lib/storybook_web/live/preview_live.ex", "preview renderer before\n")
+
+      original = LiveShadcnTools.verification_evidence_digest("shadcn", "button", root)
+
+      write(root, "registry/snapshot/button-default.html", "<button>After</button>\n")
+      changed_snapshot = LiveShadcnTools.verification_evidence_digest("shadcn", "button", root)
+      refute original == changed_snapshot
+
+      write(root, "storybook/lib/storybook_web/examples.ex", "example renderer after\n")
+      changed_example = LiveShadcnTools.verification_evidence_digest("shadcn", "button", root)
+      refute changed_snapshot == changed_example
+
+      write(root, "storybook/lib/mix/tasks/snapshot.ex", "snapshot renderer after\n")
+
+      changed_snapshot_renderer =
+        LiveShadcnTools.verification_evidence_digest("shadcn", "button", root)
+
+      refute changed_example == changed_snapshot_renderer
+
+      write(root, "storybook/lib/storybook_web/live/preview_live.ex", "preview renderer after\n")
+
+      changed_preview_renderer =
+        LiveShadcnTools.verification_evidence_digest("shadcn", "button", root)
+
+      refute changed_snapshot_renderer == changed_preview_renderer
+    end
+  end
+
+  defp write(root, path, content) do
+    path = Path.join(root, path)
+    File.mkdir_p!(Path.dirname(path))
+    File.write!(path, content)
   end
 end

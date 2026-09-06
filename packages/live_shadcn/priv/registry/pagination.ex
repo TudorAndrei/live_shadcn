@@ -38,7 +38,7 @@ defmodule LiveShadcn.UI.Pagination do
       data-slot={@rest[:"data-slot"] || "pagination"}
       role="navigation"
       aria-label="pagination"
-      class={[upstream_fact("jsx/Pagination/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Pagination/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -74,7 +74,7 @@ defmodule LiveShadcn.UI.Pagination do
     ~H"""
     <span
       data-slot={@rest[:"data-slot"] || "pagination-ellipsis"}
-      aria-hidden
+      aria-hidden="true"
       class={[upstream_fact("jsx/PaginationEllipsis/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     >

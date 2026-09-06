@@ -29,7 +29,8 @@ defmodule LiveShadcn.UI.Spinner do
       name="loader-circle"
       data-slot={@rest[:"data-slot"] || "spinner"}
       role="status"
-      class={[upstream_fact("jsx/Spinner/class/0"), (@class || "")]}
+      aria-label="Loading"
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Spinner/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     />
     """

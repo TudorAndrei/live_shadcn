@@ -1,69 +1,87 @@
-// CSS scroll-snap supplies the movement. This hook only measures which way can
-// still move, then gives the existing button styles `data-disabled` to read.
+import EmblaCarousel from "embla-carousel";
+import Autoplay from "embla-carousel-autoplay";
+
 export const Carousel = {
   mounted() {
     this.viewport = this.el.querySelector("[data-lb-carousel-viewport]");
     this.previous = this.el.querySelector("[data-lb-carousel-previous]");
     this.next = this.el.querySelector("[data-lb-carousel-next]");
     this.index = this.el.querySelector("[data-lb-carousel-index]");
-    this.horizontal = this.el.dataset.orientation !== "vertical";
+    this.status = this.el.ownerDocument.querySelector(
+      `[data-lb-carousel-status="${CSS.escape(this.el.id)}"]`,
+    );
+    this.options = {
+      align: this.el.dataset.carouselAlign || "center",
+      axis: this.el.dataset.orientation === "vertical" ? "y" : "x",
+      direction: this.el.dataset.carouselDirection || this.el.dir || "ltr",
+    };
 
-    this.onScroll = () => this.measure();
-    this.onPrevious = () => this.move(-1);
-    this.onNext = () => this.move(1);
+    const autoplayDelay = Number(this.el.dataset.carouselAutoplay || 0);
+    this.autoplay = autoplayDelay > 0
+      ? Autoplay({ delay: autoplayDelay, stopOnInteraction: true })
+      : null;
+
+    this.onSelect = () => this.measure();
+    this.onPrevious = () => this.api?.scrollPrev();
+    this.onNext = () => this.api?.scrollNext();
     this.onKeyDown = (event) => this.keyDown(event);
+    this.onMouseEnter = () => this.autoplay?.stop();
+    this.onMouseLeave = () => this.autoplay?.reset();
 
-    this.viewport?.addEventListener("scroll", this.onScroll, { passive: true });
     this.previous?.addEventListener("click", this.onPrevious);
     this.next?.addEventListener("click", this.onNext);
     this.el.addEventListener("keydown", this.onKeyDown);
-    this.observer = new ResizeObserver(() => this.measure());
-    if (this.viewport) this.observer.observe(this.viewport);
-    this.measure();
+
+    if (this.autoplay) {
+      this.el.addEventListener("mouseenter", this.onMouseEnter);
+      this.el.addEventListener("mouseleave", this.onMouseLeave);
+    }
+
+    if (this.viewport) {
+      this.api = EmblaCarousel(
+        this.viewport,
+        this.options,
+        this.autoplay ? [this.autoplay] : [],
+      );
+      this.api.on("select", this.onSelect);
+      this.api.on("reInit", this.onSelect);
+      this.measure();
+    }
   },
 
   updated() {
-    this.measure();
+    this.api?.reInit(this.options, this.autoplay ? [this.autoplay] : []);
   },
 
   destroyed() {
-    this.viewport?.removeEventListener("scroll", this.onScroll);
     this.previous?.removeEventListener("click", this.onPrevious);
     this.next?.removeEventListener("click", this.onNext);
     this.el.removeEventListener("keydown", this.onKeyDown);
-    this.observer?.disconnect();
-  },
-
-  move(direction) {
-    if (!this.viewport) return;
-    const distance = this.horizontal ? this.viewport.clientWidth : this.viewport.clientHeight;
-    this.viewport.scrollBy({ [this.horizontal ? "left" : "top"]: direction * distance, behavior: "smooth" });
+    this.el.removeEventListener("mouseenter", this.onMouseEnter);
+    this.el.removeEventListener("mouseleave", this.onMouseLeave);
+    this.api?.destroy();
   },
 
   keyDown(event) {
-    const previousKey = this.horizontal ? "ArrowLeft" : "ArrowUp";
-    const nextKey = this.horizontal ? "ArrowRight" : "ArrowDown";
-    if (event.key === previousKey) {
+    if (event.key === "ArrowLeft") {
       event.preventDefault();
-      this.move(-1);
-    } else if (event.key === nextKey) {
+      this.api?.scrollPrev();
+    } else if (event.key === "ArrowRight") {
       event.preventDefault();
-      this.move(1);
+      this.api?.scrollNext();
     }
   },
 
   measure() {
-    if (!this.viewport) return;
-    const offset = this.horizontal ? this.viewport.scrollLeft : this.viewport.scrollTop;
-    const visible = this.horizontal ? this.viewport.clientWidth : this.viewport.clientHeight;
-    const count = this.viewport.querySelectorAll("[data-slot='carousel-item']").length;
-    const current = count === 0 || visible === 0
-      ? 0
-      : Math.min(count, Math.max(1, Math.round(offset / visible) + 1));
+    if (!this.api) return;
 
-    this.set(this.previous, current <= 1);
-    this.set(this.next, current >= count);
+    const count = this.api.scrollSnapList().length;
+    const current = count === 0 ? 0 : this.api.selectedScrollSnap() + 1;
+
+    this.set(this.previous, !this.api.canScrollPrev());
+    this.set(this.next, !this.api.canScrollNext());
     if (this.index) this.index.textContent = `${current}/${count}`;
+    if (this.status) this.status.textContent = `Slide ${current} of ${count}`;
   },
 
   set(button, disabled) {

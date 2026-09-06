@@ -66,4 +66,36 @@ defmodule LiveBase.Scroller do
   def pending_attributes(js \\ %JS{}) do
     JS.ignore_attributes(js, ["data-pending-scroll"], [])
   end
+
+  @doc "Keeps Message Scroller client state through a LiveView patch."
+  def message_attributes(js \\ %JS{}, part)
+
+  def message_attributes(js, part) when part in [:root, :viewport] do
+    JS.ignore_attributes(
+      js,
+      ["data-scrollable", "data-autoscrolling", "data-current-anchor-id"],
+      []
+    )
+  end
+
+  def message_attributes(js, :button) do
+    JS.ignore_attributes(js, ["data-active", "inert", "tabindex"], [])
+  end
+
+  @doc "Scrolls a Message Scroller item into view through its controller root."
+  def scroll_to_message(controller_id, message_id, opts \\ []) when is_list(opts) do
+    scroll_to_message(%JS{}, controller_id, message_id, opts)
+  end
+
+  def scroll_to_message(%JS{} = js, controller_id, message_id, opts) when is_list(opts) do
+    JS.dispatch(js, "message-scroller:scroll-to",
+      to: "##{controller_id}",
+      detail: %{
+        id: message_id,
+        align: Keyword.get(opts, :align, "start"),
+        behavior: Keyword.get(opts, :behavior, "auto"),
+        scrollMargin: Keyword.get(opts, :scroll_margin)
+      }
+    )
+  end
 end

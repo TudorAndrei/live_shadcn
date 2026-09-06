@@ -6,34 +6,85 @@
 // translates the browser gesture into that command.
 export const InteractionTrigger = {
   mounted() {
-    this.popup = document.getElementById(this.el.getAttribute("aria-controls"));
+    this.popupId = this.el.getAttribute("aria-controls");
     this.positioner = document.getElementById(this.el.dataset.lbPositioner);
-
-    this.blockTrustedClick = (event) => {
-      if (event.isTrusted) event.stopImmediatePropagation();
-    };
-    this.el.addEventListener("click", this.blockTrustedClick, true);
+    this.syncTrustedClickBlocker();
 
     if (this.el.hasAttribute("data-lb-open-on-hover")) this.mountHover();
     if (this.el.hasAttribute("data-lb-open-on-context")) this.mountContextMenu();
   },
 
+  updated() {
+    this.syncTrustedClickBlocker();
+  },
+
   destroyed() {
+    clearTimeout(this.openTimer);
     clearTimeout(this.closeTimer);
+    if (this.blockTrustedClick) {
+      this.el.removeEventListener("click", this.blockTrustedClick, true);
+      this.blockTrustedClick = null;
+    }
     for (const [element, event, listener, options] of this.listeners || []) {
       element.removeEventListener(event, listener, options);
     }
   },
 
-  mountHover() {
-    this.on(this.el, "pointerenter", () => this.open());
-    this.on(this.el, "pointerleave", () => this.scheduleClose());
-    this.on(this.el, "focusin", () => this.open());
-    this.on(this.el, "focusout", () => this.scheduleClose());
-    if (this.popup) {
-      this.on(this.popup, "pointerenter", () => clearTimeout(this.closeTimer));
-      this.on(this.popup, "pointerleave", () => this.scheduleClose());
+  syncTrustedClickBlocker() {
+    const callerOwnsClick = this.el.hasAttribute("data-lb-caller-click");
+
+    if (!callerOwnsClick && !this.blockTrustedClick) {
+      this.blockTrustedClick = (event) => {
+        if (event.isTrusted) event.stopImmediatePropagation();
+      };
+      this.el.addEventListener("click", this.blockTrustedClick, true);
     }
+
+    if (callerOwnsClick && this.blockTrustedClick) {
+      this.el.removeEventListener("click", this.blockTrustedClick, true);
+      this.blockTrustedClick = null;
+    }
+  },
+
+  mountHover() {
+    // A pointer click also creates pointer enter and focus events before the
+    // browser dispatches click. Do not patch the LiveView in either event.
+    // A patch at that point can replace the trigger and lose a caller-owned
+    // `phx-click` command. The zero-delay task still opens a hovered or
+    // focused tooltip in the same browser turn after the click can run.
+    this.pointerPressed = false;
+    this.on(this.el, "pointerenter", () => this.schedulePointerOpen());
+    this.on(this.el, "pointerdown", () => this.markPointerPressed());
+    this.on(this.el, "pointerleave", () => this.leavePointer());
+    this.on(this.el, "focusin", () => this.scheduleFocusOpen());
+    this.on(this.el, "focusout", () => this.scheduleClose());
+    this.on(document, "pointermove", (event) => {
+      const popup = this.popupElement();
+      const inside = this.el.contains(event.target) || popup?.contains(event.target);
+
+      if (inside) clearTimeout(this.closeTimer);
+      else if (this.el.hasAttribute("data-popup-open")) this.scheduleClose();
+    });
+  },
+
+  schedulePointerOpen() {
+    if (!this.pointerPressed) this.scheduleOpen();
+  },
+
+  markPointerPressed() {
+    this.pointerPressed = true;
+    clearTimeout(this.openTimer);
+  },
+
+  leavePointer() {
+    this.pointerPressed = false;
+    this.scheduleClose();
+  },
+
+  scheduleFocusOpen() {
+    // Base UI opens a tooltip for keyboard focus. It does not turn the focus
+    // caused by a pointer click into a tooltip open request.
+    if (!this.pointerPressed) this.scheduleOpen();
   },
 
   mountContextMenu() {
@@ -45,24 +96,69 @@ export const InteractionTrigger = {
       if (this.el.hasAttribute("data-popup-open")) {
         this.positioner?.dispatchEvent(new CustomEvent("live-base:reposition"));
       } else {
-        this.open();
+        this.openClick();
       }
     });
   },
 
-  open() {
+  openHover() {
+    clearTimeout(this.openTimer);
     clearTimeout(this.closeTimer);
-    if (!this.el.hasAttribute("data-popup-open")) this.el.click();
+    if (!this.el.hasAttribute("data-popup-open")) this.executeHoverCommand();
+    this.clearHoverExpanded();
+  },
+
+  openClick() {
+    clearTimeout(this.openTimer);
+    clearTimeout(this.closeTimer);
+    if (!this.el.hasAttribute("data-popup-open")) this.executeClickCommand();
     this.el.removeAttribute("aria-expanded");
   },
 
   scheduleClose() {
+    clearTimeout(this.openTimer);
     clearTimeout(this.closeTimer);
     this.closeTimer = setTimeout(() => {
-      if (this.el.matches(":hover, :focus-within") || this.popup?.matches(":hover")) return;
-      if (this.el.hasAttribute("data-popup-open")) this.el.click();
-      this.el.removeAttribute("aria-expanded");
-    }, 80);
+      if (
+        this.el.matches(":hover, :focus-within") ||
+        this.popupElement()?.matches(":hover, :focus-within")
+      )
+        return;
+      if (this.el.hasAttribute("data-popup-open")) this.executeHoverCommand();
+      this.clearHoverExpanded();
+    }, this.delay("lbCloseDelay", 80));
+  },
+
+  scheduleOpen() {
+    clearTimeout(this.openTimer);
+    clearTimeout(this.closeTimer);
+    const delay = this.delay("lbOpenDelay", 0);
+
+    this.openTimer = setTimeout(() => this.openHover(), delay);
+  },
+
+  delay(name, fallback) {
+    const value = Number(this.el.dataset[name]);
+    return Number.isFinite(value) && value >= 0 ? value : fallback;
+  },
+
+  popupElement() {
+    return this.popupId ? document.getElementById(this.popupId) : null;
+  },
+
+  executeClickCommand() {
+    const command = this.el.getAttribute("phx-click");
+    if (command) this.liveSocket.execJS(this.el, command);
+  },
+
+  executeHoverCommand() {
+    const command =
+      this.el.getAttribute("data-lb-hover-command") || this.el.getAttribute("phx-click");
+    if (command) this.liveSocket.execJS(this.el, command);
+  },
+
+  clearHoverExpanded() {
+    requestAnimationFrame(() => this.el.removeAttribute("aria-expanded"));
   },
 
   on(element, event, listener, options) {

@@ -23,19 +23,19 @@ defmodule LiveShadcn.UI.Marker do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                       [table, "variant", group, choice] <- [String.split(path, "/")],
-                       reduce: %{} do
-    variants ->
-      put_in(
-        variants,
-        [
-          Access.key(table, %{}),
-          Access.key(group, %{}),
-          Access.key(choice, nil)
-        ],
-        value
-      )
-  end)
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
 
   @doc "The `marker` part."
   attr(:variant, :string,
@@ -43,24 +43,33 @@ defmodule LiveShadcn.UI.Marker do
     values: @variant_classes |> get_in(["markerVariants", "variant"]) |> Map.keys() |> Enum.sort()
   )
 
+  attr(:comp, :string,
+    default: "div",
+    values: ["div", "a", "button"],
+    doc: "The native element used for the marker root."
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+  attr(:rest, :global, include: ["data-slot", "href", "type"])
   slot(:inner_block)
 
   def marker(assigns) do
     ~H"""
-    <div
+    <.dynamic_tag
+      tag_name={@comp}
       data-slot={@rest[:"data-slot"] || "marker"}
       data-variant={@variant}
-      class={[
-        variant_class("markerVariants", "variant", @variant),
-        upstream_fact("cva/markerVariants/base"),
-        @class
-      ]}
+      class={
+        LiveShadcn.Cn.merge([
+          variant_class("markerVariants", "variant", @variant),
+          upstream_fact("cva/markerVariants/base"),
+          @class
+        ])
+      }
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </div>
+    </.dynamic_tag>
     """
   end
 
@@ -75,7 +84,7 @@ defmodule LiveShadcn.UI.Marker do
     <span
       data-slot={@rest[:"data-slot"] || "marker-icon"}
       aria-hidden="true"
-      class={[upstream_fact("jsx/MarkerIcon/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/MarkerIcon/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -93,7 +102,7 @@ defmodule LiveShadcn.UI.Marker do
     ~H"""
     <span
       data-slot={@rest[:"data-slot"] || "marker-content"}
-      class={[upstream_fact("jsx/MarkerContent/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/MarkerContent/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

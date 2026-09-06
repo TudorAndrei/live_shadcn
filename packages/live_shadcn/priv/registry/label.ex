@@ -25,17 +25,21 @@ defmodule LiveShadcn.UI.Label do
   slot(:inner_block)
 
   def label(assigns) do
+    assigns =
+      assign(assigns, :label_id, assigns.rest[:id] || label_id(assigns.rest[:for]))
+
     ~H"""
     <label
+      id={@label_id}
       data-slot={@rest[:"data-slot"] || "label"}
-      class={[
-        upstream_fact("jsx/Label/class/0"),
-        (@class || "")
-      ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Label/class/0"), @class])}
+      {Map.drop(@rest, [:"data-slot", :id])}
     >
       {render_slot(@inner_block)}
     </label>
     """
   end
+
+  defp label_id(nil), do: nil
+  defp label_id(for_id), do: "#{for_id}-label"
 end

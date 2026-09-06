@@ -26,19 +26,19 @@ defmodule LiveShadcn.UI.Badge do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                       [table, "variant", group, choice] <- [String.split(path, "/")],
-                       reduce: %{} do
-    variants ->
-      put_in(
-        variants,
-        [
-          Access.key(table, %{}),
-          Access.key(group, %{}),
-          Access.key(choice, nil)
-        ],
-        value
-      )
-  end)
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
 
   @doc "The `badge` part."
   attr(:variant, :string,
@@ -47,19 +47,34 @@ defmodule LiveShadcn.UI.Badge do
   )
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:href, :string, default: nil, doc: "Renders the badge as a link when set.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def badge(assigns) do
+    assigns =
+      assign(assigns, :classes, [
+        variant_class("badgeVariants", "variant", assigns.variant),
+        upstream_fact("cva/badgeVariants/base"),
+        assigns.class
+      ])
+
     ~H"""
-    <span
+    <a
+      :if={@href}
+      href={@href}
       data-slot={@rest[:"data-slot"] || "badge"}
       data-variant={@variant}
-      class={[
-        variant_class("badgeVariants", "variant", @variant),
-        upstream_fact("cva/badgeVariants/base"),
-        @class
-      ]}
+      class={@classes}
+      {Map.drop(@rest, [:"data-slot"])}
+    >
+      {render_slot(@inner_block)}
+    </a>
+    <span
+      :if={!@href}
+      data-slot={@rest[:"data-slot"] || "badge"}
+      data-variant={@variant}
+      class={@classes}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

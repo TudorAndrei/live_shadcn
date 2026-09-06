@@ -4,10 +4,13 @@
   },
   "bindings": {
     "copy": [
+      "jsx/AlertDialogAction/class/0",
+      "jsx/AlertDialogCancel/class/0",
       "jsx/AlertDialogContent/class/0",
       "jsx/AlertDialogDescription/class/0",
       "jsx/AlertDialogFooter/class/0",
       "jsx/AlertDialogHeader/class/0",
+      "jsx/AlertDialogMedia/class/0",
       "jsx/AlertDialogOverlay/class/0",
       "jsx/AlertDialogTitle/class/0"
     ],
@@ -17,10 +20,13 @@
     "--radius-4xl"
   ],
   "facts": {
+    "jsx/AlertDialogAction/class/0": "cn-alert-dialog-action",
+    "jsx/AlertDialogCancel/class/0": "cn-alert-dialog-cancel",
     "jsx/AlertDialogContent/class/0": "cn-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 outline-none",
     "jsx/AlertDialogDescription/class/0": "cn-alert-dialog-description",
     "jsx/AlertDialogFooter/class/0": "cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
     "jsx/AlertDialogHeader/class/0": "cn-alert-dialog-header",
+    "jsx/AlertDialogMedia/class/0": "cn-alert-dialog-media",
     "jsx/AlertDialogOverlay/class/0": "cn-alert-dialog-overlay fixed inset-0 isolate z-50",
     "jsx/AlertDialogTitle/class/0": "cn-alert-dialog-title cn-font-heading"
   },
@@ -28,13 +34,9 @@
     "shadcn/ui/alert-dialog.tsx": "9c0bf81d1efbcd70dea66a3c5187069f951b689e52023519dc7699435ee3a039"
   },
   "fingerprint": "5732607c7eb3fd052d4e6dcd71cfc697187e6f3108926198554a9b1ed049511b",
-  "ignored": {
-    "jsx/AlertDialogAction/class/0": "the generated port does not contain this source literal",
-    "jsx/AlertDialogCancel/class/0": "the generated port does not contain this source literal",
-    "jsx/AlertDialogMedia/class/0": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "alert-dialog",
-  "port_body": "28bf1321436536a0f8b9a5f3d0c42625d7a15a723d872f2d8e95dc7835ae0dc3",
+  "port_body": "1cf76cab4133f47277680c1698a64254701e6c20a381cd94af01fad969a3dd13",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -77,14 +79,14 @@
     }
   ],
   "styles": {
-    "luma": "0e869b2eb8fe1358d617773a3240138a9cd83ebf4a9a52ac6f93aae3c1923e2e",
-    "lyra": "56f76154390a4a5d3d45d8f6782d51f0c623e586b0cc838e8a64d237c8b55c13",
-    "maia": "e01c81376de44892079a570ac8963e321940e4c395ad5e20f9d2c7c98525477e",
-    "mira": "1d4f92749a79fc533e9cccd66207ece1c971daa517072258abd63c3b0c1f1a98",
-    "nova": "771f88bc5fa22ef07be11127fb5493d2f1cecca3b236b0376a3e6fbe7d91d24e",
-    "rhea": "bff133efbc675803349e4b5b03bd60a782c8643f6b2c77e370c4ab338ebb85ca",
-    "sera": "c5b52a52554969e5d2b28933b49c1b847ea45635e3c551e38052782439489883",
-    "vega": "5d737459f80be2697e5e5e4f18b1a77e1417de02a846d292be53dafcea955b3a"
+    "luma": "4a433892a84d9f95dbc4f181b72988f8b5ada7522b565f6ac249e1d4345235da",
+    "lyra": "6a7b43851b36621752b34e1040b0ea4bedbca67e27a8aa8251f8b1a5bc91c8b2",
+    "maia": "0fa243ac5d896afb876e293632136cd685c2f46f691de8d1524c565cb45aef55",
+    "mira": "5bfbd0b3305fd4bbdee90c8af9f7d506e540b4de344aefd66b31184126cd69e5",
+    "nova": "47fadf73e3b0c81a7e3f293f9e4b8f0053959a72b6b01a8ca987c096c706ef50",
+    "rhea": "17bc8b6116f6c4a88d0a8f0dd71b0ee300b2ef66ce4f869b8cea32d7e6b8e6fa",
+    "sera": "12c76dfe8b14cee6d4e342a43768e4345149a4a3aa51e1a542222d3eb6e9653f",
+    "vega": "91755cbb2dfd9fe420c02c06fc28bcf3e103a50dc51c086f2de80242b4be4472"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"
@@ -93,10 +95,13 @@
     "shadcn/ui/alert-dialog.tsx": "48e4538e028be8b5aa1fe040de0f7ea7a6491e4f31bade2a9622a74500d2b1b3"
   },
   "uses": [
+    "jsx/AlertDialogAction/class/0",
+    "jsx/AlertDialogCancel/class/0",
     "jsx/AlertDialogContent/class/0",
     "jsx/AlertDialogDescription/class/0",
     "jsx/AlertDialogFooter/class/0",
     "jsx/AlertDialogHeader/class/0",
+    "jsx/AlertDialogMedia/class/0",
     "jsx/AlertDialogOverlay/class/0",
     "jsx/AlertDialogTitle/class/0"
   ]

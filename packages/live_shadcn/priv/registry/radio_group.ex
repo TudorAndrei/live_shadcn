@@ -25,6 +25,7 @@ defmodule LiveShadcn.UI.RadioGroup do
 
   @doc "The `radio-group` part."
 
+  attr(:id, :string, required: true)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -32,8 +33,11 @@ defmodule LiveShadcn.UI.RadioGroup do
   def radio_group(assigns) do
     ~H"""
     <div
+      id={@id}
       data-slot={@rest[:"data-slot"] || "radio-group"}
-      class={[upstream_fact("jsx/RadioGroup/class/0"), (@class || "")]}
+      role="radiogroup"
+      phx-hook="LiveBase.RadioGroup"
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/RadioGroup/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -77,21 +81,29 @@ defmodule LiveShadcn.UI.RadioGroup do
 
   def radio_group_item(assigns) do
     assigns = FormControl.from_checkable(assigns)
+    assigns = assign(assigns, :control_id, "#{assigns.id}-control")
 
     ~H"""
     <span
       data-slot={@rest[:"data-slot"] || "radio-group-item"}
       role="radio"
       tabindex="0"
-      id={@id}
+      id={@control_id}
       aria-checked={to_string(@checked)}
+      aria-labelledby={@rest[:"aria-labelledby"] || "#{@id}-label"}
       aria-disabled={if(@disabled, do: "true")}
       phx-click={
-        if(@disabled or @readonly, do: nil, else: FormControl.select(control: @id, group: @group))
+        if(@disabled or @readonly,
+          do: nil,
+          else: FormControl.select(control: @control_id, group: @group, input: @id)
+        )
       }
       phx-mounted={FormControl.owned_attributes()}
       phx-keydown={
-        if(@disabled or @readonly, do: nil, else: FormControl.select(control: @id, group: @group))
+        if(@disabled or @readonly,
+          do: nil,
+          else: FormControl.select(control: @control_id, group: @group, input: @id)
+        )
       }
       phx-key=" "
       data-checked={flag(@checked)}
@@ -106,7 +118,7 @@ defmodule LiveShadcn.UI.RadioGroup do
         upstream_fact("jsx/RadioGroupItem/class/0"),
         (@class || "")
       ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      {Map.drop(@rest, [:"data-slot", :"aria-labelledby"])}
     >
       <span hidden={not @checked} data-slot="radio-group-indicator" class={upstream_fact("jsx/RadioGroupItem/class/1")}>
         <span class={upstream_fact("jsx/RadioGroupItem/class/2")} />
@@ -115,15 +127,15 @@ defmodule LiveShadcn.UI.RadioGroup do
     </span>
     <input
       type="radio"
-      id={FormControl.input_id(@id)}
-      name={@name}
+      id={@id}
+      name={@name || @group}
       value={@value}
       checked={@checked}
       disabled={@disabled}
       required={@required}
       tabindex="-1"
       aria-hidden="true"
-      class="sr-only"
+      style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0; padding: 0; width: 1px; height: 1px; margin: -1px; position: absolute;"
     />
     """
   end

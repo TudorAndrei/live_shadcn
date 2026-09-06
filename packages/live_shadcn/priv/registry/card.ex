@@ -36,7 +36,7 @@ defmodule LiveShadcn.UI.Card do
     <div
       data-slot={@rest[:"data-slot"] || "card"}
       data-size={@size}
-      class={[upstream_fact("jsx/Card/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Card/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -54,10 +54,7 @@ defmodule LiveShadcn.UI.Card do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "card-header"}
-      class={[
-        upstream_fact("jsx/CardHeader/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/CardHeader/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -75,7 +72,7 @@ defmodule LiveShadcn.UI.Card do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "card-footer"}
-      class={[upstream_fact("jsx/CardFooter/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/CardFooter/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -93,7 +90,7 @@ defmodule LiveShadcn.UI.Card do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "card-title"}
-      class={[upstream_fact("jsx/CardTitle/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/CardTitle/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -111,7 +108,7 @@ defmodule LiveShadcn.UI.Card do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "card-action"}
-      class={[upstream_fact("jsx/CardAction/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/CardAction/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -129,7 +126,7 @@ defmodule LiveShadcn.UI.Card do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "card-description"}
-      class={[upstream_fact("jsx/CardDescription/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/CardDescription/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -147,7 +144,7 @@ defmodule LiveShadcn.UI.Card do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "card-content"}
-      class={[upstream_fact("jsx/CardContent/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/CardContent/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

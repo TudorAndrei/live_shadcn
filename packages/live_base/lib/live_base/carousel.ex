@@ -1,10 +1,9 @@
 defmodule LiveBase.Carousel do
   @moduledoc """
-  The browser behavior behind a CSS scroll-snap carousel.
+  The browser behavior behind a carousel.
 
-  The viewport scrolls with the platform. The hook only determines whether a
-  previous or next control can move it, so a server patch never guesses a
-  measurement it cannot know.
+  Embla owns movement and measurement in the browser. The hook also keeps the
+  previous and next controls in sync with the current slide.
   """
 
   alias Phoenix.LiveView.JS
@@ -16,5 +15,5 @@ defmodule LiveBase.Carousel do
 
   @doc "Preserves a control state the hook measures across LiveView patches."
   def owned_attributes(js \\ %JS{}),
-    do: JS.ignore_attributes(js, ~w(data-disabled), [])
+    do: JS.ignore_attributes(js, ~w(data-disabled disabled), [])
 end

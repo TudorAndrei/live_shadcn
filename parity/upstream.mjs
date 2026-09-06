@@ -1,7 +1,8 @@
 import { execFile } from "node:child_process";
+import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
 import { cp, mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
-import { dirname, join, resolve } from "node:path";
+import { basename, dirname, join, resolve } from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 
@@ -14,6 +15,7 @@ import {
   useSourceLease,
 } from "./source-lease.mjs";
 import { entries } from "./src/official-shadcn.mjs";
+import { pinnedSourceDirectories } from "./upstream-directories.mjs";
 
 const run = promisify(execFile);
 const here = dirname(fileURLToPath(import.meta.url));
@@ -29,9 +31,24 @@ const checkoutRoot = resolve(
 );
 const sourceDirectory = join(here, "src");
 const to = join(sourceDirectory, "upstream");
+const officialExamplesPath = join(here, "official-examples.json");
 
 async function git(args, signal) {
   return run("git", args, { maxBuffer: 10 * 1024 * 1024, signal });
+}
+
+async function writeJsonAtomically(path, value) {
+  const temporary = join(
+    dirname(path),
+    `.${basename(path)}.${randomUUID()}.tmp`,
+  );
+
+  try {
+    await writeFile(temporary, `${JSON.stringify(value, null, 2)}\n`);
+    await rename(temporary, path);
+  } finally {
+    await rm(temporary, { force: true });
+  }
 }
 
 async function checkout(name, source, { assertLease, signal }) {
@@ -85,22 +102,7 @@ await useSourceLease(sourceLeasePath(here), process.env.PARITY_SOURCE_LEASE_TOKE
     const ai = await checkout("ai-elements", manifest.sources.ai_elements, lease);
     const shadcn = await checkout("shadcn-ui", manifest.sources.shadcn, lease);
 
-    const directories = {
-  // Keep the base/ui layout that the official examples import.
-  shadcn: dirname(join(shadcn, manifest.sources.shadcn.dir)),
-  // The component documentation renders these examples. Keep them separate
-  // from the registry examples above because they are the public reference
-  // for the states that the Storybook copies.
-  shadcn_examples: join(shadcn, "apps/v4/examples/base"),
-  shadcn_app_components: join(shadcn, "apps/v4/components"),
-  shadcn_app_hooks: join(shadcn, "apps/v4/hooks"),
-  shadcn_app_lib: join(shadcn, "apps/v4/lib"),
-  shadcn_icons: join(shadcn, "apps/v4/registry/icons"),
-  shadcn_helpers: join(shadcn, "packages/helpers/src"),
-  ai_elements: join(ai, manifest.sources.ai_elements.dir),
-  ai_examples: join(ai, manifest.sources.ai_elements.examples_dir),
-  ai_shadcn: join(ai, manifest.sources.ai_elements.shadcn_dir),
-    };
+    const directories = pinnedSourceDirectories({ ai, shadcn, manifest });
 
     await assertLease();
     await rm(staging, { force: true, recursive: true });
@@ -127,48 +129,87 @@ await useSourceLease(sourceLeasePath(here), process.env.PARITY_SOURCE_LEASE_TOKE
 
     const imports = [];
     const exports = [];
+    const officialExamples = {};
+    const sonnerToastExamples = [];
+    // A docs page can publish a complete composite example without a matching
+    // registry primitive. Data Table, Date Picker, and Typography are such
+    // pages. Their keys are manifest evidence too, and must select the pinned
+    // React source in `main.tsx` just like a registry component does.
+    const sourceComponents = Object.keys(manifest.files)
+      .filter((path) => path.startsWith("shadcn/ui/") && path.endsWith(".tsx"))
+      .map((path) => path.slice("shadcn/ui/".length, -".tsx".length));
     const officialComponents = new Set(
-      Object.keys(manifest.files)
-        .filter((path) => path.startsWith("shadcn/ui/") && path.endsWith(".tsx"))
-        .map((path) => path.slice("shadcn/ui/".length, -".tsx".length))
+      [...sourceComponents, ...Object.keys(manifest.examples.shadcn)]
         .map((name) => previews[name] ? name : previews[`shadcn-${name}`] ? `shadcn-${name}` : null)
         .filter(Boolean),
     );
     let index = 0;
 
     for (const [component, sources] of Object.entries(manifest.examples.shadcn)) {
-  const storybook = previews[component]
-    ? component
-    : previews[`shadcn-${component}`]
-      ? `shadcn-${component}`
-      : null;
-  if (!storybook) continue;
+      const componentEntries = entries(component, sources);
 
-  const local = new Set(previews[storybook]);
+      if (componentEntries.length === 0) continue;
 
-  for (const { id, source } of entries(component, sources)) {
-    if (!local.has(id)) continue;
+      const storybook = previews[component]
+        ? component
+        : previews[`shadcn-${component}`]
+          ? `shadcn-${component}`
+          : null;
 
-    const body = await readFile(join(staging, `shadcn_examples/${source}.tsx`), "utf8");
-    const named = body.match(/export\s+function\s+([A-Za-z_$][A-Za-z0-9_$]*)/);
-    const symbol = `OfficialExample${index++}`;
+      if (!storybook) {
+        throw new Error(`${component} has no Storybook page`);
+      }
 
-    if (/export\s+default\s+function/.test(body)) {
-      imports.push(`import ${symbol} from "./${source}";`);
-    } else if (named) {
-      imports.push(`import { ${named[1]} as ${symbol} } from "./${source}";`);
-    } else {
-      throw new Error(`${source}.tsx has no exported example function`);
-    }
+      const local = new Set(previews[storybook]);
 
-    exports.push(`  ${JSON.stringify(`${storybook}.${id}`)}: ${symbol},`);
-  }
+      for (const { id, source, reference } of componentEntries) {
+        if (!local.has(id)) {
+          throw new Error(`${storybook}.${id} has no Storybook example`);
+        }
+
+        const symbol = `OfficialExample${index++}`;
+        const key = `${storybook}.${id}`;
+        const sourcePath = source.split("#", 1)[0];
+        const body = await readFile(
+          join(staging, sourcePath.startsWith("shadcn/") ? sourcePath : `shadcn_examples/${source}.tsx`),
+          "utf8",
+        );
+
+        if (reference) {
+          const [module, exported] = reference.split("#");
+
+          if (!module || !exported) {
+            throw new Error(`${source} has an invalid supplemental reference`);
+          }
+
+          imports.push(`import { ${exported} as ${symbol} } from "../../reference/${module}";`);
+          officialExamples[key] = source;
+        } else {
+          const named = body.match(/export\s+function\s+([A-Za-z_$][A-Za-z0-9_$]*)/);
+
+          if (/export\s+default\s+function/.test(body)) {
+            imports.push(`import ${symbol} from "./${source}";`);
+            officialExamples[key] = `shadcn_examples/${source}.tsx#default`;
+          } else if (named) {
+            imports.push(`import { ${named[1]} as ${symbol} } from "./${source}";`);
+            officialExamples[key] = `shadcn_examples/${source}.tsx#${named[1]}`;
+          } else {
+            throw new Error(`${source}.tsx has no exported example function`);
+          }
+        }
+
+        if (/\btoast\s*\(/.test(body) && /from\s+["']sonner["']/.test(body)) {
+          sonnerToastExamples.push(key);
+        }
+
+        exports.push(`  ${JSON.stringify(key)}: ${symbol},`);
+      }
     }
 
     await assertLease();
     await writeFile(
       join(staging, "shadcn_examples/official.tsx"),
-      `${imports.join("\n")}\n\nexport const officialComponents = new Set(${JSON.stringify([...officialComponents].sort())});\n\nexport default {\n${exports.join("\n")}\n};\n`,
+      `${imports.join("\n")}\n\nexport const officialComponents = new Set(${JSON.stringify([...officialComponents].sort())});\nexport const sonnerToastExamples = new Set(${JSON.stringify(sonnerToastExamples.sort())});\n\nexport default {\n${exports.join("\n")}\n};\n`,
     );
 
     await assertLease();
@@ -176,6 +217,10 @@ await useSourceLease(sourceLeasePath(here), process.env.PARITY_SOURCE_LEASE_TOKE
     await assertLease();
     await publishRelease(release, to);
     published = true;
+
+    await assertLease();
+    await writeJsonAtomically(officialExamplesPath, officialExamples);
+    await assertLease();
 
     console.log("copied pinned official checkouts to " + to);
   } finally {

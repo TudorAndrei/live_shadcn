@@ -40,19 +40,19 @@ defmodule LiveShadcn.UI.InputGroup do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                       [table, "variant", group, choice] <- [String.split(path, "/")],
-                       reduce: %{} do
-    variants ->
-      put_in(
-        variants,
-        [
-          Access.key(table, %{}),
-          Access.key(group, %{}),
-          Access.key(choice, nil)
-        ],
-        value
-      )
-  end)
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
 
   alias LiveBase.FormControl
 
@@ -97,12 +97,15 @@ defmodule LiveShadcn.UI.InputGroup do
     <div
       data-slot={@rest[:"data-slot"] || "input-group-addon"}
       role="group"
+      data-lb-input-group-addon
       data-align={@align}
-      class={[
-        variant_class("inputGroupAddonVariants", "align", @align),
-        upstream_fact("cva/inputGroupAddonVariants/base"),
-        @class
-      ]}
+      class={
+        LiveShadcn.Cn.merge([
+          upstream_fact("cva/inputGroupAddonVariants/base"),
+          variant_class("inputGroupAddonVariants", "align", @align),
+          @class
+        ])
+      }
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -132,11 +135,13 @@ defmodule LiveShadcn.UI.InputGroup do
       type={@type}
       data-size={@size}
       variant={@variant}
-      class={[
-        variant_class("inputGroupButtonVariants", "size", @size),
-        upstream_fact("cva/inputGroupButtonVariants/base"),
-        @class
-      ]}
+      class={
+        LiveShadcn.Cn.merge([
+          upstream_fact("cva/inputGroupButtonVariants/base"),
+          variant_class("inputGroupButtonVariants", "size", @size),
+          @class
+        ])
+      }
       {@rest}
     >
       {render_slot(@inner_block)}
@@ -245,6 +250,7 @@ defmodule LiveShadcn.UI.InputGroup do
   attr(:disabled, :boolean, default: false)
   attr(:readonly, :boolean, default: false)
   attr(:required, :boolean, default: false)
+  attr(:autosize, :boolean, default: false, doc: "Grows with its text when true.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
   attr(:rest, :global,
@@ -271,15 +277,14 @@ defmodule LiveShadcn.UI.InputGroup do
       data-slot={@rest[:"data-slot"] || "input-group-control"}
       id={@id}
       name={@name}
-      value={@value}
+      value={@value || render_slot(@inner_block)}
       disabled={@disabled}
       readonly={@readonly}
       required={@required}
-      class={[upstream_fact("jsx/InputGroupTextarea/class/0"), (@class || "")]}
+      data-lb-autosize={if(@autosize, do: "")}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/InputGroupTextarea/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
-    >
-      {render_slot(@inner_block)}
-    </LiveShadcn.UI.Textarea.textarea>
+    />
     """
   end
 

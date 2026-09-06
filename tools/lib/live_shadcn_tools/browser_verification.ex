@@ -42,6 +42,11 @@ defmodule LiveShadcnTools.BrowserVerification do
 
   def finalize_pixel(result, _name, :compared), do: result
 
+  # Elixir treats `0` as true. A zero entry in pixel-budget.json therefore
+  # reaches this function as a budgeted result, but it is the strict comparison
+  # mode, not an allowed divergence.
+  def finalize_pixel(result, _name, {:budgeted, 0}), do: result
+
   def finalize_pixel(result, name, {:budgeted, pixels}) when is_integer(pixels) and pixels > 0 do
     merge_checks([
       result,

@@ -64,36 +64,40 @@ defmodule LiveShadcn.UI.Item do
   )
 
   attr(:variant, :string,
-    default: @upstream_facts["cva/itemMediaVariants/default/variant"],
+    default: @upstream_facts["cva/itemVariants/default/variant"],
     values: @variant_classes |> get_in(["itemVariants", "variant"]) |> Map.keys() |> Enum.sort()
   )
 
+  attr(:as, :string, default: "div", values: ["a", "div"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+  attr(:rest, :global, include: ["data-slot", "href", "rel", "target"])
   slot(:inner_block)
 
   def item(assigns) do
     ~H"""
-    <div
+    <.dynamic_tag
+      tag_name={@as}
       data-slot={@rest[:"data-slot"] || "item"}
       data-size={@size}
       data-variant={@variant}
-      class={[
-        variant_class("itemVariants", "size", @size),
-        variant_class("itemVariants", "variant", @variant),
-        upstream_fact("cva/itemVariants/base"),
-        @class
-      ]}
+      class={
+        LiveShadcn.Cn.merge([
+          upstream_fact("cva/itemVariants/base"),
+          variant_class("itemVariants", "variant", @variant),
+          variant_class("itemVariants", "size", @size),
+          @class
+        ])
+      }
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </div>
+    </.dynamic_tag>
     """
   end
 
   @doc "The `item-media` part."
   attr(:variant, :string,
-    default: @upstream_facts["cva/itemVariants/default/variant"],
+    default: @upstream_facts["cva/itemMediaVariants/default/variant"],
     values:
       @variant_classes |> get_in(["itemMediaVariants", "variant"]) |> Map.keys() |> Enum.sort()
   )
@@ -107,11 +111,13 @@ defmodule LiveShadcn.UI.Item do
     <div
       data-slot={@rest[:"data-slot"] || "item-media"}
       data-variant={@variant}
-      class={[
-        variant_class("itemMediaVariants", "variant", @variant),
-        upstream_fact("cva/itemMediaVariants/base"),
-        @class
-      ]}
+      class={
+        LiveShadcn.Cn.merge([
+          upstream_fact("cva/itemMediaVariants/base"),
+          variant_class("itemMediaVariants", "variant", @variant),
+          @class
+        ])
+      }
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -129,7 +135,7 @@ defmodule LiveShadcn.UI.Item do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "item-content"}
-      class={[upstream_fact("jsx/ItemContent/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/ItemContent/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -203,7 +209,7 @@ defmodule LiveShadcn.UI.Item do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "item-title"}
-      class={[upstream_fact("jsx/ItemTitle/class/0"), (@class || "")]}
+      class={item_title_class(@class)}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -270,4 +276,9 @@ defmodule LiveShadcn.UI.Item do
 
   defp variant_class(table, group, value),
     do: get_in(@variant_classes, [table, group, value])
+
+  defp item_title_class(nil), do: upstream_fact("jsx/ItemTitle/class/0")
+
+  defp item_title_class(class),
+    do: LiveShadcn.Cn.merge([upstream_fact("jsx/ItemTitle/class/0"), class])
 end

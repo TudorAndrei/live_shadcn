@@ -6,9 +6,23 @@
     "copy": [
       "jsx/ComboboxContent/class/0",
       "jsx/ComboboxContent/class/1",
+      "jsx/ComboboxChip/class/0",
+      "jsx/ComboboxChip/class/1",
+      "jsx/ComboboxChip/class/2",
+      "jsx/ComboboxChips/class/0",
+      "jsx/ComboboxChipsInput/class/0",
+      "jsx/ComboboxClear/class/0",
+      "jsx/ComboboxClear/class/1",
+      "jsx/ComboboxEmpty/class/0",
+      "jsx/ComboboxGroup/class/0",
+      "jsx/ComboboxInput/class/0",
+      "jsx/ComboboxInput/class/1",
       "jsx/ComboboxItem/class/0",
       "jsx/ComboboxItem/class/1",
       "jsx/ComboboxItem/class/2",
+      "jsx/ComboboxLabel/class/0",
+      "jsx/ComboboxList/class/0",
+      "jsx/ComboboxSeparator/class/0",
       "jsx/ComboboxTrigger/class/0",
       "jsx/ComboboxTrigger/class/1"
     ],
@@ -18,14 +32,29 @@
     "--anchor-width",
     "--available-height",
     "--available-width",
+    "--radius-sm",
     "--transform-origin"
   ],
   "facts": {
+    "jsx/ComboboxChip/class/0": "cn-combobox-chip has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50",
+    "jsx/ComboboxChip/class/1": "cn-combobox-chip-remove",
+    "jsx/ComboboxChip/class/2": "cn-combobox-chip-indicator-icon pointer-events-none",
+    "jsx/ComboboxChips/class/0": "cn-combobox-chips",
+    "jsx/ComboboxChipsInput/class/0": "cn-combobox-chip-input min-w-16 flex-1 outline-none",
+    "jsx/ComboboxClear/class/0": "cn-combobox-clear",
+    "jsx/ComboboxClear/class/1": "cn-combobox-clear-icon pointer-events-none",
     "jsx/ComboboxContent/class/0": "isolate z-50",
     "jsx/ComboboxContent/class/1": "cn-combobox-content cn-combobox-content-logical cn-menu-target cn-menu-translucent group/combobox-content relative max-h-(--available-height) w-(--anchor-width) max-w-(--available-width) min-w-[calc(var(--anchor-width)+--spacing(7))] origin-(--transform-origin) data-[chips=true]:min-w-(--anchor-width)",
+    "jsx/ComboboxEmpty/class/0": "cn-combobox-empty",
+    "jsx/ComboboxGroup/class/0": "cn-combobox-group",
+    "jsx/ComboboxInput/class/0": "cn-combobox-input w-auto",
+    "jsx/ComboboxInput/class/1": "group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent",
     "jsx/ComboboxItem/class/0": "cn-combobox-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/ComboboxItem/class/1": "cn-combobox-item-indicator",
     "jsx/ComboboxItem/class/2": "cn-combobox-item-indicator-icon pointer-events-none",
+    "jsx/ComboboxLabel/class/0": "cn-combobox-label",
+    "jsx/ComboboxList/class/0": "cn-combobox-list overflow-y-auto overscroll-contain",
+    "jsx/ComboboxSeparator/class/0": "cn-combobox-separator",
     "jsx/ComboboxTrigger/class/0": "cn-combobox-trigger",
     "jsx/ComboboxTrigger/class/1": "cn-combobox-trigger-icon pointer-events-none"
   },
@@ -33,24 +62,9 @@
     "shadcn/ui/combobox.tsx": "c63e9e398176996f6ee57baf9c83680a5868b8b307e28788955727f4c148601e"
   },
   "fingerprint": "1f85c997e5ed91139d6d1b69cefb66ffd045200fc3842c50344b29d897fc8c51",
-  "ignored": {
-    "jsx/ComboboxChip/class/0": "the generated port does not contain this source literal",
-    "jsx/ComboboxChip/class/1": "the generated port does not contain this source literal",
-    "jsx/ComboboxChip/class/2": "the generated port does not contain this source literal",
-    "jsx/ComboboxChips/class/0": "the generated port does not contain this source literal",
-    "jsx/ComboboxChipsInput/class/0": "the generated port does not contain this source literal",
-    "jsx/ComboboxClear/class/0": "the generated port does not contain this source literal",
-    "jsx/ComboboxClear/class/1": "the generated port does not contain this source literal",
-    "jsx/ComboboxEmpty/class/0": "the generated port does not contain this source literal",
-    "jsx/ComboboxGroup/class/0": "the generated port does not contain this source literal",
-    "jsx/ComboboxInput/class/0": "the generated port does not contain this source literal",
-    "jsx/ComboboxInput/class/1": "the generated port does not contain this source literal",
-    "jsx/ComboboxLabel/class/0": "the generated port does not contain this source literal",
-    "jsx/ComboboxList/class/0": "the generated port does not contain this source literal",
-    "jsx/ComboboxSeparator/class/0": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "combobox",
-  "port_body": "50d70a2f7c1b4dff4d9fbf9093ede161e8c5bce02173fc9a3ab9254ff15b6dee",
+  "port_body": "ee40a28c0e976956f0e8962d9b63a00ef8b3af2f4a749b70170b9d36daabf1e0",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -78,6 +92,10 @@
   },
   "state_reads": [
     {
+      "name": "aria-disabled",
+      "value": null
+    },
+    {
       "name": "aria-expanded",
       "value": null
     },
@@ -94,11 +112,19 @@
       "value": null
     },
     {
+      "name": "data-empty",
+      "value": null
+    },
+    {
       "name": "data-highlighted",
       "value": null
     },
     {
       "name": "data-open",
+      "value": null
+    },
+    {
+      "name": "data-pressed",
       "value": null
     },
     {
@@ -144,17 +170,22 @@
     {
       "name": "data-variant",
       "value": "destructive"
+    },
+    {
+      "group": "combobox-content",
+      "name": "data-empty",
+      "value": null
     }
   ],
   "styles": {
-    "luma": "f5466587fb0303b8d0fa218b5a47fc48c20105d3ed1541335e4f0de5e43edb09",
-    "lyra": "a3abb45cc5378d3d360d6aad29006918c86532cc44f7bb757d871c538be57ab2",
-    "maia": "3017f44fda77431725b11061b250ed6f52fd3cfb791b5848df63f5e5daaf255a",
-    "mira": "cb04b2da113c274b777821d0a6e5da0df0a0eb0b644815ab7869f53415834eaa",
-    "nova": "ca9d7590eb5a3d8f2ca473fee284f2fa15b3c1283c661c05ff081dd9eb836a06",
-    "rhea": "f200b2671bf29e0cff875edd9c8266bf8438bbe0377fad7f3b7246017a1d342a",
-    "sera": "89df6588cce3e80d6d2ef54fbf0a36d6c67e116886014ef3d718a3fd357e92b0",
-    "vega": "22c1ce243c3f80181cf6f09ba3335d65f818c2d5f765c48fc020a5f4872ba06d"
+    "luma": "8a678d184b9f0309667ec5734c26191a51da9eea39bbc2c929c925f4ba34572e",
+    "lyra": "47f63b0de100f3429977c5af078728a62d9780a44ca640037dee89fcd6ea5c3e",
+    "maia": "af16da9a001e485ed84c533c6a97f4051926d220b1f68c2d3640f23266eb40f3",
+    "mira": "a93b313aaab885e29b38f2b74e15a9bc3bbed45cb8bb2798a24acff5e003efa4",
+    "nova": "e85ac162fd0f7d6b9fdb52b211070f26ac9d3f8dffc577a713574519523307c7",
+    "rhea": "90b378339db1a6bffd18e6064c3282a911a8e93c02b3c85b48e9989b80d0e848",
+    "sera": "e6033b53a201878e37624db47ea52cf52c9c5621e603acd059db3f92ca16bf0a",
+    "vega": "9acd5f64002450cf6c2b8516b3cdd944498aaf60bb3ec464a653b23716fc79c9"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"

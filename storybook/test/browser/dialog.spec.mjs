@@ -18,11 +18,11 @@ const dialog = (page, id) => ({
 
 test.describe("a dialog", () => {
   test.beforeEach(async ({ page }) => {
-    await visit(page, "/preview/dialog/default", "#confirm-trigger");
+    await visit(page, "/preview/dialog/default", "#dialog-default-trigger");
   });
 
   test("starts closed, and says so", async ({ page }) => {
-    const { trigger, popup, backdrop } = dialog(page, "confirm");
+    const { trigger, popup, backdrop } = dialog(page, "dialog-default");
 
     await expect(popup).toBeHidden();
     await expect(backdrop).toBeHidden();
@@ -30,7 +30,7 @@ test.describe("a dialog", () => {
   });
 
   test("opens, and marks both layers as Base UI documents", async ({ page }) => {
-    const { trigger, popup, backdrop } = dialog(page, "confirm");
+    const { trigger, popup, backdrop } = dialog(page, "dialog-default");
 
     await trigger.click();
 
@@ -42,18 +42,18 @@ test.describe("a dialog", () => {
   });
 
   test("is a dialog named by its own title", async ({ page }) => {
-    const { trigger, popup } = dialog(page, "confirm");
+    const { trigger, popup } = dialog(page, "dialog-default");
 
     await trigger.click();
 
     await expect(popup).toHaveRole("dialog");
     await expect(popup).not.toHaveAttribute("aria-modal", /.*/);
-    await expect(popup).toHaveAttribute("aria-labelledby", "confirm-title");
-    await expect(page.locator("#confirm-title")).toHaveText("Are you sure?");
+    await expect(popup).toHaveAttribute("aria-labelledby", "dialog-default-title");
+    await expect(page.locator("#dialog-default-title")).toHaveText("Edit profile");
   });
 
   test("the focus moves into it, so a keyboard reader is where the dialog is", async ({ page }) => {
-    const { trigger, popup } = dialog(page, "confirm");
+    const { trigger, popup } = dialog(page, "dialog-default");
 
     await trigger.click();
     await expect(popup).toBeVisible();
@@ -63,7 +63,7 @@ test.describe("a dialog", () => {
   });
 
   test("the focus comes back to the trigger when it closes", async ({ page }) => {
-    const { trigger, popup } = dialog(page, "confirm");
+    const { trigger, popup } = dialog(page, "dialog-default");
 
     await trigger.click();
     await expect(popup).toBeVisible();
@@ -74,7 +74,7 @@ test.describe("a dialog", () => {
   });
 
   test("Escape closes it", async ({ page }) => {
-    const { trigger, popup } = dialog(page, "confirm");
+    const { trigger, popup } = dialog(page, "dialog-default");
 
     await trigger.click();
     // Open before Escape, or the key arrives at a page with nothing to close.
@@ -91,7 +91,7 @@ test.describe("a dialog", () => {
   });
 
   test("clicking the layer behind closes it", async ({ page }) => {
-    const { trigger, popup, backdrop } = dialog(page, "confirm");
+    const { trigger, popup, backdrop } = dialog(page, "dialog-default");
 
     await trigger.click();
     // Open before clicking the layer behind it. `click()` auto-waits for its
@@ -106,18 +106,18 @@ test.describe("a dialog", () => {
   });
 
   test("the close button closes it", async ({ page }) => {
-    const { trigger, popup } = dialog(page, "confirm");
+    const { trigger, popup } = dialog(page, "dialog-default");
 
     await trigger.click();
     await expect(popup).toBeVisible();
 
-    await page.locator("[data-slot='dialog-close']").click();
+    await popup.locator(".cn-dialog-close").click();
 
     await expect(popup).toBeHidden();
   });
 
   test("Tab stays inside while it is open", async ({ page }) => {
-    const { trigger, popup } = dialog(page, "confirm");
+    const { trigger, popup } = dialog(page, "dialog-default");
 
     await trigger.click();
     await expect(popup).toBeVisible();
@@ -131,7 +131,7 @@ test.describe("a dialog", () => {
   });
 
   test("Shift+Tab stays inside too", async ({ page }) => {
-    const { trigger, popup } = dialog(page, "confirm");
+    const { trigger, popup } = dialog(page, "dialog-default");
 
     await trigger.click();
     await expect(popup).toBeVisible();
@@ -144,7 +144,7 @@ test.describe("a dialog", () => {
   });
 
   test("the page behind does not scroll while it is open", async ({ page }) => {
-    const { trigger, popup } = dialog(page, "confirm");
+    const { trigger, popup } = dialog(page, "dialog-default");
 
     await trigger.click();
     await expect(popup).toBeVisible();
@@ -156,4 +156,57 @@ test.describe("a dialog", () => {
 
     expect(await page.evaluate(() => getComputedStyle(document.body).overflow)).not.toBe("hidden");
   });
+});
+
+test("the footer close button closes the share dialog", async ({ page }) => {
+  await visit(page, "/preview/dialog/close-button", "#dialog-close-button-trigger");
+  const { trigger, popup } = dialog(page, "dialog-close-button");
+
+  await trigger.click();
+  await expect(popup).toBeVisible();
+  await expect(page.locator("#link")).toHaveValue("https://ui.shadcn.com/docs/installation");
+  await expect(page.locator("#link")).toHaveAttribute("readonly", "");
+
+  await popup.locator("[data-slot='dialog-footer'] [data-slot='dialog-close']").click();
+  await expect(popup).toBeHidden();
+});
+
+test("the no-close-button example omits the top close control", async ({ page }) => {
+  await visit(page, "/preview/dialog/no-close-button", "#dialog-no-close-button-trigger");
+  const { trigger, popup } = dialog(page, "dialog-no-close-button");
+
+  await trigger.click();
+  await expect(popup).toBeVisible();
+  await expect(popup.locator("[data-slot='dialog-close']")).toHaveCount(0);
+});
+
+test("the sticky footer stays fixed while its content scrolls", async ({ page }) => {
+  await visit(page, "/preview/dialog/sticky-footer", "#dialog-sticky-footer-trigger");
+  const { trigger, popup } = dialog(page, "dialog-sticky-footer");
+
+  await trigger.click();
+  await expect(popup).toBeVisible();
+
+  const scroller = popup.locator(".overflow-y-auto");
+  const footer = popup.locator("[data-slot='dialog-footer']");
+  await popup.evaluate(async (element) => {
+    await Promise.all(element.getAnimations({ subtree: true }).map((animation) => animation.finished));
+  });
+  const before = await footer.boundingBox();
+  await scroller.evaluate((element) => (element.scrollTop = element.scrollHeight));
+  const after = await footer.boundingBox();
+
+  expect(await scroller.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+  expect(after.y).toBe(before.y);
+});
+
+test("the RTL dialog keeps the Arabic content direction", async ({ page }) => {
+  await visit(page, "/preview/dialog/rtl", "#dialog-rtl-trigger");
+  const { trigger, popup } = dialog(page, "dialog-rtl");
+
+  await trigger.click();
+
+  await expect(popup).toHaveAttribute("dir", "rtl");
+  await expect(popup).toHaveAttribute("data-lang", "ar");
+  await expect(popup.locator("#dialog-rtl-title")).toHaveText("تعديل الملف الشخصي");
 });

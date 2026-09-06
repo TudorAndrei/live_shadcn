@@ -63,6 +63,19 @@ defmodule LiveShadcn.UI.ButtonTest do
       assert "w-full" in classes
     end
 
+    test "the public class helper styles another element from the same table" do
+      classes = Button.button_class(variant: "secondary", size: "sm") |> String.split()
+
+      assert "cn-button" in classes
+      assert "cn-button-variant-secondary" in classes
+      assert "cn-button-size-sm" in classes
+    end
+
+    test "can omit the base shrink token for a pinned style variant" do
+      refute "shrink-0" in (Button.button_class(shrink: false) |> String.split())
+      assert "shrink-0" in (Button.button_class() |> String.split())
+    end
+
     test "holds its content" do
       assert button() =~ "Save"
     end

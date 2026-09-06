@@ -4,6 +4,7 @@
   },
   "bindings": {
     "copy": [
+      "jsx/DrawerContent/class/0",
       "jsx/DrawerContent/class/13",
       "jsx/DrawerDescription/class/0",
       "jsx/DrawerFooter/class/0",
@@ -78,6 +79,7 @@
     "--stack-step"
   ],
   "facts": {
+    "jsx/DrawerContent/class/0": "pointer-events-none fixed inset-0 z-50 select-none data-[modal=true]:pointer-events-auto",
     "jsx/DrawerContent/class/13": "cn-drawer-content-base flex min-h-0 flex-1 flex-col overflow-hidden overscroll-contain rounded-[inherit] transition-opacity duration-300 ease-[cubic-bezier(0.45,1.005,0,1.005)] select-text group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 group-data-swiping/drawer-popup:select-none",
     "jsx/DrawerDescription/class/0": "cn-drawer-description text-balance",
     "jsx/DrawerFooter/class/0": "cn-drawer-footer-base mt-auto flex shrink-0 flex-col",
@@ -91,11 +93,9 @@
     "shadcn/ui/drawer.tsx": "410db53c732cf337b0bc75cbe501bb807061484f6f5859019043603ca2d735e1"
   },
   "fingerprint": "4d4f368b712d89bc8abfb6465086132cd5f0e54b514c0bd93d1dd63c6546c370",
-  "ignored": {
-    "jsx/DrawerContent/class/0": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "drawer",
-  "port_body": "576a4a04a07b03a01d98aafe4b6c44be626306ec82b8fd2ad99dffc1bb126640",
+  "port_body": "732ea1cc8438adbb3528ec27759534a63ba32d2eddbb20bd3b5b8b7ac6e8ffc3",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -124,6 +124,10 @@
     {
       "name": "data-ending-style",
       "value": null
+    },
+    {
+      "name": "data-modal",
+      "value": "true"
     },
     {
       "name": "data-nested-drawer-open",
@@ -232,6 +236,7 @@
     "shadcn/ui/drawer.tsx": "c3b8efa83260e1622d88b216bb794dbe46b803ced695040e7750f172d91bec79"
   },
   "uses": [
+    "jsx/DrawerContent/class/0",
     "jsx/DrawerContent/class/13",
     "jsx/DrawerDescription/class/0",
     "jsx/DrawerFooter/class/0",

@@ -42,6 +42,7 @@ defmodule LiveShadcn.UI.Tabs do
                     end)
 
   alias LiveBase.Tabs
+  alias LiveShadcn.Cn
 
   @doc """
   Groups the tabs and the corresponding panels.
@@ -73,6 +74,8 @@ defmodule LiveShadcn.UI.Tabs do
   slot :tab, required: true, doc: "One tab and the panel it shows." do
     attr(:value, :string, required: true, doc: "Unique. Both ids derive from it.")
     attr(:label, :any, required: true, doc: "What the tab reads.")
+    attr(:icon, :string, doc: "A Lucide icon shown before the label.")
+    attr(:panel, :boolean, doc: "Whether this tab has a content panel. Defaults to true.")
     attr(:disabled, :boolean, doc: "Whether the tab refuses interaction.")
   end
 
@@ -92,7 +95,6 @@ defmodule LiveShadcn.UI.Tabs do
         data-slot="tabs-list"
         id={@id <> "-list"}
         role="tablist"
-        aria-orientation={if(@orientation == "vertical", do: "vertical")}
         phx-hook={Tabs.hook()}
         data-lb-roving="tab"
         data-lb-orientation={@orientation}
@@ -100,11 +102,13 @@ defmodule LiveShadcn.UI.Tabs do
         data-lb-activate
         data-orientation={@orientation}
         data-variant={@variant}
-        class={[
-          variant_class("tabsListVariants", "variant", @variant),
-          upstream_fact("cva/tabsListVariants/base"),
-          @list_class
-        ]}
+        class={
+          Cn.merge([
+            variant_class("tabsListVariants", "variant", @variant),
+            upstream_fact("cva/tabsListVariants/base"),
+            @list_class
+          ])
+        }
       >
         <button
           :for={{tab, index} <- Enum.with_index(@tab)}
@@ -113,9 +117,9 @@ defmodule LiveShadcn.UI.Tabs do
           type="button"
           role="tab"
           aria-selected={to_string(active?(tab, @active))}
-          aria-controls={Tabs.panel_id(@id, tab[:value])}
+          aria-controls={if(tab[:panel] == false, do: nil, else: Tabs.panel_id(@id, tab[:value]))}
           tabindex={if(active?(tab, @active), do: "0", else: "-1")}
-          phx-click={Tabs.activate(tabs: @id, value: tab[:value])}
+          phx-click={if(tab[:disabled], do: nil, else: Tabs.activate(tabs: @id, value: tab[:value]))}
           phx-mounted={Tabs.owned_attributes(:tab)}
           data-orientation={@orientation}
           data-disabled={flag(tab[:disabled])}
@@ -126,11 +130,12 @@ defmodule LiveShadcn.UI.Tabs do
             (@trigger_class || "")
           ]}
         >
-          {tab.label}
+          <LiveShadcn.Icon.icon :if={tab[:icon]} name={tab[:icon]} />{tab.label}
         </button>
       </div>
       <div
         :for={{tab, index} <- Enum.with_index(@tab)}
+        :if={tab[:panel] != false}
         data-slot="tabs-content"
         id={Tabs.panel_id(@id, tab[:value])}
         role="tabpanel"

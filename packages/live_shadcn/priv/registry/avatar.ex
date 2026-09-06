@@ -18,6 +18,7 @@ defmodule LiveShadcn.UI.Avatar do
       "cn-avatar-group group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background",
     "jsx/AvatarGroupCount/class/0" =>
       "cn-avatar-group-count relative flex shrink-0 items-center justify-center ring-2 ring-background",
+    "jsx/AvatarGroupCount/class/1" => "",
     "jsx/AvatarImage/class/0" => "cn-avatar-image aspect-square size-full object-cover",
     "port/class/0" =>
       "cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2"
@@ -71,6 +72,7 @@ defmodule LiveShadcn.UI.Avatar do
     ~H"""
     <img
       data-slot={@rest[:"data-slot"] || "avatar-image"}
+      hidden
       class={[upstream_fact("jsx/AvatarImage/class/0"), (@class || "")]}
       {Map.drop(@rest, [:"data-slot"])}
     />
@@ -130,7 +132,8 @@ defmodule LiveShadcn.UI.Avatar do
     <div
       data-slot={@rest[:"data-slot"] || "avatar-group-count"}
       class={[
-        upstream_fact("jsx/AvatarGroupCount/class/0"),
+        upstream_fact("jsx/AvatarGroupCount/class/0") <>
+          upstream_fact("jsx/AvatarGroupCount/class/1"),
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}

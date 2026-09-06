@@ -1,6 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+import { pixelChromiumArgs } from "./chromium-resource-policy.mjs";
 import { ours } from "./servers.mjs";
+import { assertVerificationInvocation, serverPolicy } from "./server-policy.mjs";
 
 // The demo application is the fixture. `mix ui.verify` runs this config, and a
 // developer can run `npm run verify` here directly against the same pages.
@@ -8,8 +10,16 @@ const PORT = process.env.STORYBOOK_PORT || "4101";
 
 // The React reference `parity.spec.mjs` compares against. It renders the same
 // upstream sources the specs were read from, so a difference between the two
-// pages is a difference between the reviewed port and upstream.
+// pages is a difference between the reviewed port and upstream. `mix ui.verify`
+// prepares those sources once before it starts these servers.
 const PARITY_PORT = process.env.PARITY_PORT || "4102";
+
+// This is private to `mix ui.verify`. It starts both servers after it prepares
+// the exact upstream source tree, then each short Playwright batch may use that
+// pair. A direct Playwright invocation starts and owns a new pair instead.
+const SERVER_POLICY = serverPolicy();
+
+assertVerificationInvocation();
 
 // Refuse a server that is not ours before a single test runs.
 //
@@ -41,6 +51,10 @@ export default defineConfig({
   use: {
     baseURL: `http://127.0.0.1:${PORT}`,
     parityURL: `http://127.0.0.1:${PARITY_PORT}`,
+    // Date Picker sources use `new Date()` while the LiveView uses
+    // `Date.utc_today()`. Keep both pages on the same calendar date at the
+    // local midnight boundary.
+    timezoneId: "UTC",
     trace: "retain-on-failure",
   },
   projects: [
@@ -63,16 +77,12 @@ export default defineConfig({
         timezoneId: "UTC",
         locale: "en-US",
         reducedMotion: "reduce",
+        // Pixel failures already attach both renders and the exact diff. A
+        // Playwright trace records more screenshots and DOM snapshots for the
+        // same work, which adds memory, CPU, and disk use without new evidence.
+        trace: "off",
         launchOptions: {
-          args: [
-            "--force-color-profile=srgb",
-            // Subpixel text antialiasing is the single largest source of
-            // pixel noise between two otherwise identical renders.
-            "--disable-lcd-text",
-            "--disable-font-subpixel-positioning",
-            // Software rasterisation, so a retry and a different machine agree.
-            "--disable-gpu",
-          ],
+          args: pixelChromiumArgs,
         },
       },
     },
@@ -83,16 +93,18 @@ export default defineConfig({
       cwd: "../..",
       url: `http://127.0.0.1:${PORT}`,
       env: { PORT, MIX_ENV: "dev" },
-      reuseExistingServer: !process.env.CI,
+      reuseExistingServer: SERVER_POLICY.reuseExistingServer,
       stdout: "pipe",
       stderr: "pipe",
       timeout: 120_000,
     },
     {
-      command: "npm run dev",
+      command: SERVER_POLICY.parityCommand,
       cwd: "../../../parity",
       url: `http://127.0.0.1:${PARITY_PORT}`,
-      reuseExistingServer: !process.env.CI,
+      // A managed verifier starts Vite only after it prepares the pinned
+      // sources. No other process may be reused: it could serve an old tree.
+      reuseExistingServer: SERVER_POLICY.reuseExistingServer,
       stdout: "pipe",
       stderr: "pipe",
       timeout: 120_000,

@@ -3,6 +3,8 @@
   "bindings": {
     "copy": [
       "jsx/Command/class/0",
+      "jsx/CommandDialog/class/0",
+      "jsx/CommandDialog/class/1",
       "jsx/CommandEmpty/class/0",
       "jsx/CommandGroup/class/0",
       "jsx/CommandInput/class/0",
@@ -20,6 +22,8 @@
   "css_vars": [],
   "facts": {
     "jsx/Command/class/0": "cn-command flex size-full flex-col overflow-hidden",
+    "jsx/CommandDialog/class/0": "sr-only",
+    "jsx/CommandDialog/class/1": "cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0",
     "jsx/CommandEmpty/class/0": "cn-command-empty",
     "jsx/CommandGroup/class/0": "cn-command-group",
     "jsx/CommandInput/class/0": "cn-command-input-wrapper",
@@ -36,12 +40,9 @@
     "shadcn/ui/command.tsx": "4876d54d18bbd2e27a51f1e2a0b4b4e3cc73a783c81650dc81c342ad6740fa6a"
   },
   "fingerprint": "89ed874e2578ca5e2f1479701628e3e735c0a22264a3e348e7eec093191936be",
-  "ignored": {
-    "jsx/CommandDialog/class/0": "the generated port does not contain this source literal",
-    "jsx/CommandDialog/class/1": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "command",
-  "port_body": "983d38c000d8b21050e088f9db42710dfb4ae8966c0960e9e99fb3abd8bf00ee",
+  "port_body": "32ba1c6d99abef3d43ba2589f61c3c0d489e414fa428a6fb5e0bdfd9bf41c2a8",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -85,14 +86,14 @@
     }
   ],
   "styles": {
-    "luma": "3c6c4ed32775160f7cb6ec386bc587d22b75bcd393aa8c3264b7e263dbb1a945",
-    "lyra": "5b4b1454b359c1ca6942cebed874d05f8ea44726ba0f8256218df45cfb0b37d1",
-    "maia": "9a5dacd87f01bae74d3a075e5dc4484ffbceadb7d3c0b48d7b3d8cdd65b26756",
-    "mira": "605122757da3ece011aa733133f60fdd0a736cce0b2ae429042dcf2871fb0561",
-    "nova": "39f33c68c602db511b48bfeb4644068c54da9f8c0a348092a2de844446ef4c56",
-    "rhea": "110b5fa6fcd87057004572accef5b12208b405f7ba91fe785f2d3e5def70fe51",
-    "sera": "9a3d85af9b2f20b660979f167c17d54ab33cfe858d4a06a68ecc42132e14259a",
-    "vega": "92c430855807045d30e1e70e78095efd67e6e6a52ee67695e7fc5c394b47cbd3"
+    "luma": "3939b9e15e8bce46582f66129feee268ee150efa1421c44af38384fe5a8c2976",
+    "lyra": "ce550b364fea773eb417e7f5b4368d5d10dcf193564091835aa69583f189399f",
+    "maia": "7df8b1b6435068d98993b4b8e12ab092fe3b69390a414596a4563159e20d328a",
+    "mira": "50e479dfaeda3ca4ac4a2c0c9e8caedef760a6e9d6bde5c6379e7a44720071ea",
+    "nova": "7bb1c806d0fbc357d3b059b512e829dd5216dbc7e06dbaf854f08a85c854e7cf",
+    "rhea": "79f690fe1495017b3b0635c7d92da5cc66f68037c08056c94d18c40b0b1cf418",
+    "sera": "b85d1f63924ffbdf6b14806937b72c93916e62af473216db2305f634cf638489",
+    "vega": "884ff6993bd110f2759f5792d8e3c1d392633082c7d0356562d55c847a2adc61"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"
@@ -102,6 +103,8 @@
   },
   "uses": [
     "jsx/Command/class/0",
+    "jsx/CommandDialog/class/0",
+    "jsx/CommandDialog/class/1",
     "jsx/CommandEmpty/class/0",
     "jsx/CommandGroup/class/0",
     "jsx/CommandInput/class/0",

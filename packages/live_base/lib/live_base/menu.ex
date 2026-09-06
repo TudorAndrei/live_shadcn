@@ -10,8 +10,8 @@ defmodule LiveBase.Menu do
 
   **A roving tab stop.** The arrow keys move through the items, and the item
   arrived at takes both the focus and `data-highlighted` — the APG's roving
-  tabindex, and what Base UI's own menu does. The focus starts on the menu, so
-  a screen reader announces the menu before its first item.
+  tabindex, and what Base UI's own menu does. A keyboard open starts on the
+  first enabled item. A pointer open starts on the menu itself.
 
   Moving is not choosing. Arriving at an item marks it; choosing it is a
   separate keypress or click, and only that closes the menu.

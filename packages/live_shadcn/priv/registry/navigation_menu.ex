@@ -62,17 +62,35 @@ defmodule LiveShadcn.UI.NavigationMenu do
   attr(:content_class, :any, default: nil)
   attr(:rest, :global)
 
-  slot(:trigger, required: true, doc: "What opens the navigation content.")
-  slot(:inner_block, required: true, doc: "The navigation content.")
+  slot(:trigger, doc: "What opens the navigation content in the one-item form.")
+  slot(:inner_block, doc: "The navigation content in the one-item form.")
+
+  slot :item, doc: "One trigger and its navigation content." do
+    attr(:id, :string, required: true)
+    attr(:trigger, :string, required: true)
+    attr(:open, :boolean)
+    attr(:disabled, :boolean)
+    attr(:class, :any)
+    attr(:trigger_class, :any)
+    attr(:content_class, :any)
+    attr(:content_attrs, :map)
+  end
+
+  slot :link, doc: "One navigation link that does not open content." do
+    attr(:href, :string, required: true)
+    attr(:class, :any)
+    attr(:attrs, :map)
+  end
 
   def navigation_menu(assigns) do
+    assigns = assign(assigns, :entries, navigation_entries(assigns))
+
     ~H"""
     <div
       id={@id}
       class="contents"
-      phx-window-keydown={Popover.close(@id)}
+      phx-window-keydown={close_all(@entries)}
       phx-key="Escape"
-      phx-click-away={Popover.dismiss(@id)}
       {@rest}
     >
       <nav
@@ -90,39 +108,68 @@ defmodule LiveShadcn.UI.NavigationMenu do
           ]}
         >
           <li
+            :for={entry <- @entries}
             data-slot="navigation-menu-item"
-            class={[upstream_fact("jsx/NavigationMenuItem/class/0"), (@item_class || "")]}
+            class={[
+              upstream_fact("jsx/NavigationMenuItem/class/0"),
+              (@item_class || ""),
+              (entry[:class] || "")
+            ]}
           >
             <button
               data-slot="navigation-menu-trigger"
-              id={Popover.trigger_id(@id)}
+              id={Popover.trigger_id(entry.id)}
               type="button"
-              aria-disabled={to_string(@disabled)}
-              aria-expanded={to_string(@open)}
-              aria-controls={Popover.popup_id(@id)}
-              phx-click={if(not @disabled, do: Popover.toggle(@id))}
+              aria-disabled={to_string(entry.disabled)}
+              aria-expanded={to_string(entry.open)}
+              aria-controls={Popover.popup_id(entry.id)}
+              phx-click={if(not entry.disabled, do: toggle_entry(@entries, entry.id))}
               phx-mounted={Popover.owned_attributes(:trigger)}
               class={[
                 upstream_fact("port/class/0"),
-                (@trigger_class || "")
+                (@trigger_class || ""),
+                (entry[:trigger_class] || "")
               ]}
               data-lb-style-target
             >
-              {render_slot(@trigger)}
+              <%= if entry.legacy do %>
+                {render_slot(@trigger)}
+              <% else %>
+                {entry.trigger}
+              <% end %>
               <LiveShadcn.Icon.icon name="chevron-down" class={upstream_fact("jsx/NavigationMenuTrigger/class/1")} />
             </button>
           </li>
+          <li
+            :for={link <- @link}
+            data-slot="navigation-menu-item"
+            class={[upstream_fact("jsx/NavigationMenuItem/class/0"), (@item_class || "")]}
+          >
+            <.navigation_menu_link
+              href={link.href}
+              class={[
+                upstream_fact("port/class/0"),
+                (link[:class] || "")
+              ]}
+              {link[:attrs] || %{}}
+            >
+              {render_slot(link)}
+            </.navigation_menu_link>
+          </li>
         </ul>
-        <div class={["contents", (@positioner_class || "")]}>
+        <div :for={entry <- @entries} class="contents">
           <div
-            id={Popover.positioner_id(@id)}
-            hidden={not @open}
+            id={Popover.positioner_id(entry.id)}
+            dir="ltr"
+            hidden={not entry.open}
             phx-hook={Popover.hook()}
-            data-lb-anchor={Popover.trigger_id(@id)}
+            data-lb-anchor={Popover.trigger_id(entry.id)}
             data-lb-side={@side}
             data-lb-align={@align}
             data-lb-offset={to_string(@offset)}
+            data-lb-fractional
             data-lb-autofocus
+            phx-click-away={Popover.dismiss(entry.id)}
             phx-mounted={Popover.owned_attributes(:positioner)}
             class={[
               upstream_fact("jsx/NavigationMenuPositioner/class/0"),
@@ -131,24 +178,30 @@ defmodule LiveShadcn.UI.NavigationMenu do
             data-lb-measure
           >
             <nav
-              id={Popover.popup_id(@id)}
-              hidden={not @open}
+              id={Popover.popup_id(entry.id)}
+              hidden={not entry.open}
               data-lb-popup
               phx-mounted={Popover.owned_attributes(:popup)}
-              class={upstream_fact("jsx/NavigationMenuPositioner/class/1")}
+              class={[upstream_fact("jsx/NavigationMenuPositioner/class/1"), (@popup_class || "")]}
               data-lb-style-target
               data-lb-measure
             >
-              <div class={upstream_fact("jsx/NavigationMenuPositioner/class/2")}>
+              <div class={[upstream_fact("jsx/NavigationMenuPositioner/class/2"), (@viewport_class || "")]}>
                 <div
                   data-slot="navigation-menu-content"
                   class={[
                     upstream_fact("jsx/NavigationMenuContent/class/0"),
-                    (@content_class || "")
+                    (@content_class || ""),
+                    (entry[:content_class] || "")
                   ]}
                   data-lb-style-target
+                  {entry[:content_attrs] || %{}}
                 >
-                  {render_slot(@inner_block)}
+                  <%= if entry.legacy do %>
+                    {render_slot(@inner_block)}
+                  <% else %>
+                    {render_slot(entry)}
+                  <% end %>
                 </div>
               </div>
             </nav>
@@ -157,5 +210,58 @@ defmodule LiveShadcn.UI.NavigationMenu do
       </nav>
     </div>
     """
+  end
+
+  attr(:href, :string, required: true)
+  attr(:class, :any, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
+
+  @doc "A link in navigation menu content."
+  def navigation_menu_link(assigns) do
+    ~H"""
+    <a
+      data-slot="navigation-menu-link"
+      href={@href}
+      class={["cn-navigation-menu-link", (@class || "")]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </a>
+    """
+  end
+
+  defp navigation_entries(%{item: [_ | _] = items}) do
+    Enum.map(items, fn item ->
+      item
+      |> Map.put(:open, item[:open] || false)
+      |> Map.put(:disabled, item[:disabled] || false)
+      |> Map.put(:trigger, item.trigger)
+      |> Map.put(:legacy, false)
+    end)
+  end
+
+  defp navigation_entries(assigns) do
+    [
+      %{
+        id: assigns.id,
+        open: assigns.open,
+        disabled: assigns.disabled,
+        legacy: true
+      }
+    ]
+  end
+
+  defp close_all(entries) do
+    Enum.reduce(entries, %Phoenix.LiveView.JS{}, fn entry, js ->
+      Popover.close(js, entry.id)
+    end)
+  end
+
+  defp toggle_entry(entries, id) do
+    entries
+    |> Enum.reject(&(&1.id == id))
+    |> Enum.reduce(%Phoenix.LiveView.JS{}, fn entry, js -> Popover.close(js, entry.id) end)
+    |> Popover.toggle(id)
   end
 end

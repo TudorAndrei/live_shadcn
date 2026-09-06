@@ -1,7 +1,17 @@
 {
   "shadcn/message-scroller": {
     "checks": {
+      "accessibility": {
+        "pass": true
+      },
+      "behavior": {
+        "pass": true
+      },
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "11 of 11 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -13,13 +23,17 @@
       "pixel": {
         "pass": true
       },
+      "policy": {
+        "detail": "required checks for standard policy",
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "evidence": "a087923a90bf6c7b989f95ca43079085f92c28c9419591fc38d8906d0a069208",
+    "evidence": "3a2f5bbfd9be942fba932ca1541890dda6f9a172ab3186d6a417d19332d0d341",
     "pass": true,
-    "spec": "cfba3a552f6a99d586605259071ca2d86b4f5c430f93c795e50964c046aa69f3"
+    "spec": "bd136812bebb47f1c7d76448d7815a8d63e8416e9181b2eda83bfa0c9f34f1e4"
   },
   "ai_elements/open-in-chat": {
     "checks": {
@@ -39,7 +53,7 @@
         "pass": true
       }
     },
-    "evidence": "f680d26a558a863560e15455c21dca4fab1176b76d5943495393758d1ba47047",
+    "evidence": "9eac17d795f673a7e85954f40fbbe40a38f582576dcaa1ec723ad2a358600c1c",
     "pass": true,
     "spec": "a825302b77ec3729569be28b8420b90087d80edfd7449de40d720a88eb0132ba"
   },
@@ -48,6 +62,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -61,15 +79,19 @@
         "pass": true
       }
     },
-    "evidence": "072d9c40a56613cf7f74538835a0143de64dcc56246ca2774cd0bf44397c96bd",
+    "evidence": "f2e6b6158589fc29ec1536a6fe18e248351ef5d104a156cfee8f294922161d99",
     "pass": true,
-    "spec": "a4934ab82493c6295ccdf62b3c4097af090de78574d0db9ff78abcf6d558ebf6"
+    "spec": "a1978a625a5e36794479e7403c09834c3b9cecdbcd36a45843e682beb369b605"
   },
   "shadcn/scroll-area": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "3 of 3 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -83,9 +105,9 @@
         "pass": true
       }
     },
-    "evidence": "905eac5fa12bf4a0d77938e9246e5cef80684eac447d958fd9ba1440d41f0147",
+    "evidence": "5c7ea24ee35488688ebca16376aed64965e9df53cca8cf2e2f56e735816215a9",
     "pass": true,
-    "spec": "64c5721a117562518f946ede75d935056dd7db767c58caa3bbc6f730e37ee9c0"
+    "spec": "109d4fa3135e70ece189d6e81bb8cabfb3e08f9baee64dc2945b977154d86def"
   },
   "ai_elements/shimmer": {
     "checks": {
@@ -105,13 +127,17 @@
         "pass": true
       }
     },
-    "evidence": "ba73de7460003681f5705a18acf80022723659106c0b0a3ebe40b03b5d17845d",
+    "evidence": "8d0b1f3f360b33cd754aed781459ea412ee9c7c7cf1962a38c12b28c1cf219eb",
     "pass": true,
     "spec": "a454b18cb117c2f5ace4a45ff1f0018ec8237c37a437713f903af7b1a34c940c"
   },
   "shadcn/checkbox": {
     "checks": {
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "8 of 8 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -127,9 +153,9 @@
         "pass": true
       }
     },
-    "evidence": "a93c670dcd1a87fb0f500ce8006f89939bae06a0cff7409f1a5e3d129896d1bf",
+    "evidence": "66d5d099795b1bbcb04126179b8fda92598fd3fefa5bb2296464a037a40153d2",
     "pass": true,
-    "spec": "42dafde6aff29493946f5469d3a417ffe00f97bcb56f7e2dbc5abab8d30b379e"
+    "spec": "2f7d2d0aff6ed8696f063f886846028a3ca4f706c8ef435ae586d48d72d44887"
   },
   "ai_elements/chain-of-thought": {
     "checks": {
@@ -149,13 +175,17 @@
         "pass": true
       }
     },
-    "evidence": "96cbc873ecaca7af2baaad7d7acff93845aaf98a05ab9837d5609cb1e622f483",
+    "evidence": "ba85291b25c0a3e18af68a65aeff4addbdbe5f5fcca1dec5957d48738ecd6ab8",
     "pass": true,
     "spec": "df5d242d9997cf965f5cae392a8f75057e4904c997ce85f1e4f58a9322ebe203"
   },
   "shadcn/context-menu": {
     "checks": {
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "11 of 11 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -171,9 +201,9 @@
         "pass": true
       }
     },
-    "evidence": "4dda00d2165b95d7aa2b742e758eb35176b0458772f6537fb9451d735cf721fe",
+    "evidence": "a8d07b4b06f4b6ca863a9eb9eb655958594bee78bb93c6e79458faacfdd4279d",
     "pass": true,
-    "spec": "9251b847147d1473b661a2443a57440f2208001d358af787bba7a5ffcb6f57d0"
+    "spec": "760212b7f0479f6a197b33b6e4e74d73a9c2a2fa6b2f58843a15216ce6c760d4"
   },
   "ai_elements/edge": {
     "checks": {
@@ -193,7 +223,7 @@
         "pass": true
       }
     },
-    "evidence": "dc6293731a851243798a69ad3425766fd96b6b57e097bc4bcc5e78521016a9db",
+    "evidence": "63ffae27bb29352920849e1db2fb762d1f54e0578fe149814066568c34e65200",
     "pass": true,
     "spec": "6df928c8b53e701ec3fb30aca4453da627c148e819ce3e2caf733eb4f26639d1"
   },
@@ -202,6 +232,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "3 of 3 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -215,15 +249,19 @@
         "pass": true
       }
     },
-    "evidence": "0a235e68b14cdfd1837cdcd75546ee40f96c4acf5149ede21f6c2beb43705841",
+    "evidence": "83cdeeb72a1b45f9ca7e5353ea2f79ac1e94ff5c966aab222d33c36c20c85983",
     "pass": true,
-    "spec": "580c2783fe41983eb93fc8af80130a88d3c4b1760f0618fdee7fe0cb64e1b3bd"
+    "spec": "98f700f6ebc6e48b105d1649d13d18707cbfe7bb24d9ea282f92d5fba68b94d5"
   },
   "shadcn/resizable": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "4 of 4 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -237,9 +275,9 @@
         "pass": true
       }
     },
-    "evidence": "e7b36efb04574ea4e7750a7fac44f82dcfff2047fb9ae86cb478a2eb78e01b07",
+    "evidence": "93f6a5ea8ef8d54733c5512ec36d41cbf0e18843be06f9bfb349227a96f5cff9",
     "pass": true,
-    "spec": "93d6a189d46dee63ea44e77cf7be80be8d20a10213046890b94e6eb177dd8281"
+    "spec": "5c77f0ee288e7d2457940115a194e14cc64b06c0af8cf1612fd598d0fcfeed1f"
   },
   "ai_elements/stack-trace": {
     "checks": {
@@ -259,7 +297,7 @@
         "pass": true
       }
     },
-    "evidence": "42f19a1f668ce16e3ae776dee4e3be01c878c21f684b0fc9f2d1f5340ec95fe0",
+    "evidence": "b1fc1aaaaef3dacfbf919c6c5574c187d6ef7c1e8e4b5c1af77515d738e800b7",
     "pass": true,
     "spec": "e5e78c68fa21f05dd412fd3d98bc4c7643e37dc056aee4f5ae53e63f81945afe"
   },
@@ -281,7 +319,7 @@
         "pass": true
       }
     },
-    "evidence": "61ec617957d80e664781a67ade9cea6b6bd1fbc41b206a42452fb3cab99ecb67",
+    "evidence": "2397823349a3d61428c978317f7d422a44cb28c84184dc779a15189a4ce81b29",
     "pass": true,
     "spec": "252723568429ac119ec178f144d765af16ad7dc18297a9e1bb01d95509f7b436"
   },
@@ -290,6 +328,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "4 of 4 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -303,15 +345,19 @@
         "pass": true
       }
     },
-    "evidence": "1f58c3187baa941a97847115a791f8eec9d08e82a925f084526ac04e5b41788f",
+    "evidence": "be982de6b537f669c4517c55a9f131ca6daa39c9e47a70495fe297d495247c23",
     "pass": true,
-    "spec": "a739032f398ec9c8aaaafcfbeda54147547821615c2d875e1ccf9ecba73da2b4"
+    "spec": "eeed458b021680f9b0352aae5b04c378b8037f0d477c97a2e25be8e72d699e10"
   },
   "shadcn/radio-group": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -325,15 +371,19 @@
         "pass": true
       }
     },
-    "evidence": "035e2e620d1f8672dd99097c9d2964943e45e7ed03b4acd72af2ad475d938ba0",
+    "evidence": "6455764ca9abf0bf7bafd719be974e8c8c53e53ed93042c797027aa018e7aaa6",
     "pass": true,
-    "spec": "98a0b6ebd8c01b652e348084e9925061dd727203376377396bbb3564073ad57a"
+    "spec": "cfa001280a0085f13e9621ef3a8cc8c59f0d1eacbfb60b123d2c850b9fe21c6b"
   },
   "shadcn/attachment": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -347,15 +397,19 @@
         "pass": true
       }
     },
-    "evidence": "9eb3cc69c505bf874f42785e951311c83e3fb53a8c4456b0085dd03a54b69fae",
+    "evidence": "bdf30fb99cce08de05a1c96e56dc0abb29ef654a6397bdfc95af6721e82e9a92",
     "pass": true,
-    "spec": "e9aad46efb563f9db734da94e2101cf70d4fd0b20463a0d423f2b11aaafe8fde"
+    "spec": "a53972ea9e8c48f2e5c9eff5d2a4f5a9ce62cf746fa437538dffe2a41910b009"
   },
   "shadcn/sidebar": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -369,9 +423,42 @@
         "pass": true
       }
     },
-    "evidence": "dbd6ec37599c7e0b74c8dadc32961c9fbdbe7af74df6cb7d347351fb722e5623",
+    "evidence": "0abee8ef6e78d578659f497271372d186d2f47a4a376258380c0002f8bb2b201",
     "pass": true,
-    "spec": "446d111592a5e383a68830610fdbf4965f53dfe9a86d8ba3727c4a818b9f4571"
+    "spec": "2da4a7a37eb2079f32d2c25305d7febf87119c0a0dae40ebd4d52c0f772ed93d"
+  },
+  "shadcn/typography": {
+    "checks": {
+      "accessibility": {
+        "pass": true
+      },
+      "behavior": {
+        "pass": true
+      },
+      "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "15 of 15 official examples have HEEx previews",
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "policy": {
+        "detail": "required checks for docs_only policy",
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "evidence": "4a2d6be49c96d375d5b7ef7d020f1394be3e229882992727da558700c1888391",
+    "pass": true,
+    "spec": null
   },
   "ai_elements/task": {
     "checks": {
@@ -391,13 +478,17 @@
         "pass": true
       }
     },
-    "evidence": "f6a3d5e67607019168907f5d5077d5c3ccd565a5ddc4a06a6e8a6031d4e58f2d",
+    "evidence": "ca5d7e620cdcba0ce40dac87c36e57c3dec1616b579996bfa7b677cad9db5878",
     "pass": true,
     "spec": "f9cf45f267fd7547934c616d479f69e3b03fe70e4ec9806804399b13e2d0eacf"
   },
   "shadcn/bubble": {
     "checks": {
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "9 of 9 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -413,9 +504,9 @@
         "pass": true
       }
     },
-    "evidence": "bd6c485f9f205912804aa862d3118e7b56a637a11c37fa895c617437874523e2",
+    "evidence": "cb057ad32e29e79736cde86929d4becea953c9e25733e720a86866ac2eebf130",
     "pass": true,
-    "spec": "cd730a7882bfc1df87e9515b052dd33d69647bcf8643f1cc85cc0d3782ca43cb"
+    "spec": "d991e5eaddddce8fe708b8a9debe718df8adfcb4b46b5be4b4da2a5186a0e202"
   },
   "ai_elements/queue": {
     "checks": {
@@ -435,7 +526,7 @@
         "pass": true
       }
     },
-    "evidence": "728936ba0c1ccc48d375122b6a7662efac4932c6634a54afc49d1f4075a2f414",
+    "evidence": "05bfc60a1b574fad9fca44ea634f4ecc95574ef14b80965837ce00bbee622535",
     "pass": true,
     "spec": "bd677dac72f60054a2f66063b071814862ef1aa6307ae63338eb6cde70a27cba"
   },
@@ -444,6 +535,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "4 of 4 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -457,15 +552,19 @@
         "pass": true
       }
     },
-    "evidence": "2570c27a849ca44ea04b0d61a1e830cbd122beccaa6f5c500f67d1afd5fc4030",
+    "evidence": "e7cc8604ec6bbccc07546222ec4b9d15acff6d1d0621a6a5d66d0e2f220f857b",
     "pass": true,
-    "spec": "5ff01e2e35bb919f177fb55ed41aff472ccb7b9427a49f66a6f6aa9207ebf02a"
+    "spec": "98ab00824780b355dc0cb080dcbd6c971bbd663d33f688fc1285aee069cf5b52"
   },
   "shadcn/popover": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "5 of 5 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -479,15 +578,20 @@
         "pass": true
       }
     },
-    "evidence": "789adbe11d311487028ab02c90c18351ad775100e11edb2a4fd7a8946907e4d4",
+    "evidence": "bdf9ef125d0ad7dcf3ea6ad8b193b725ea8027329280ea5a1d240adf09f5d68d",
     "pass": true,
-    "spec": "721310df34f360496a16c54c3091324a1320d1e73f0c5231e471bcdcfbb4c736"
+    "spec": "4877604adee478d0aaa72917ebd7333a467e2e1bedb3780988e4c0ade50642d8"
   },
   "ai_elements/attachments": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "3 of 3 official examples have HEEx previews",
+        "official_comparison": true,
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -501,9 +605,9 @@
         "pass": true
       }
     },
-    "evidence": "b0a1cefd4de3be14a6aa51ff088a2c8e0417d0fc31048f5fe050f18f8e121df5",
+    "evidence": "624ad9df6a7f37619f37a531eff543266f4629565868878bd562aad04ffdc9c2",
     "pass": true,
-    "spec": "f79a679680ffb664ba65de0da5d15b9d7763e4dcc8da801bc87423e8f2a8209e"
+    "spec": "0116866b16b1b30a12c4f4e47f330654eb9c9e7b7e6f4c10c39137ade5f263c4"
   },
   "ai_elements/image": {
     "checks": {
@@ -523,7 +627,7 @@
         "pass": true
       }
     },
-    "evidence": "083592d3c0bec513a5f83279eda1ce2c16f6dfedde0aa44a94d440bf532ecfe4",
+    "evidence": "0b248cf8cbe6a1c3ecc481e9b1fae47966ee7539167968de0622d7c6dc29c58e",
     "pass": true,
     "spec": "178c82a09c652bc2d523bcb31b08b2d76e6f3ce71539ab91544cd97dab181441"
   },
@@ -532,6 +636,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "13 of 13 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -545,15 +653,19 @@
         "pass": true
       }
     },
-    "evidence": "06de5006af2ed59c66b235e7d36fa2785d8ed182fbe0c84d94add43d1792adf9",
+    "evidence": "85d105ced1b90c225a684dbf78429fbe4a234b10bfa0e85cbf0df98b92b17fff",
     "pass": true,
-    "spec": "a11ebf81274705257e257375aebf55c0e2a729b57351424e472b97d40269c851"
+    "spec": "6508a96c49ff66c99d385882a57a2275f64734af0ad4640952da592234121983"
   },
   "shadcn/menubar": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -567,15 +679,19 @@
         "pass": true
       }
     },
-    "evidence": "4f2b5e4bd149a0547cce640474b25fcbae78b033e82047b9ee8a742507c22724",
+    "evidence": "d0cb97f4b4b911db70fdc02734984a0ee4ce7ee2b7a354f349b38f9437c0d639",
     "pass": true,
-    "spec": "21fef8730a093c7b0ab1df7a7ad84bfae9e83388ca146b4430a611c8f4eb71a8"
+    "spec": "869593e9320b02b26094903784fb9a6c515f222d36fc0e3673df1a8ba047b284"
   },
   "shadcn/input-otp": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "10 of 10 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -589,15 +705,19 @@
         "pass": true
       }
     },
-    "evidence": "40926ee538735608766afae2214719167e850ffc385ba7c3d557ed244551fca9",
+    "evidence": "2cb33e407fffc8980bf4d247f428fac377050a010ee871e02e54062e8f429af1",
     "pass": true,
-    "spec": "50364c8542b1472f7f2349628921f05caaf0c1c241c4bf423c668ece33b7bec0"
+    "spec": "89ea827923e93b19eeb55a41fb1433a1db461c7eebc1dc5cba2bd568b2eb8c51"
   },
   "shadcn/native-select": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "5 of 5 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -611,13 +731,23 @@
         "pass": true
       }
     },
-    "evidence": "d12cd04ab3361a47065561ac574e4f5289d4477228bcc92f056594502a32d477",
+    "evidence": "578fb2cc0c873170597c50bf022a51b1328c6f0ee263b84697f0e070e2b1e4e3",
     "pass": true,
-    "spec": "3f91bf40ab218250abfa1e363f24003397dd916fc1eb4ecfa2a07cc9a0eda22d"
+    "spec": "4510b7e3815ee0bddb254ab863625a74bac5892142e34fd8c6ed0f7623740749"
   },
   "shadcn/toggle": {
     "checks": {
+      "accessibility": {
+        "pass": true
+      },
+      "behavior": {
+        "pass": true
+      },
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -629,13 +759,17 @@
       "pixel": {
         "pass": true
       },
+      "policy": {
+        "detail": "required checks for standard policy",
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "evidence": "0bd961a8908d47d9a34962f09ea14464faed1768851eb677c114e3c8bdf3aa71",
+    "evidence": "e04a540a047aca583b61f22a9d469e1586d7136246656600b761dcfa9768aa73",
     "pass": true,
-    "spec": "7b72f8872e78956a554f627c5f946a453b91aa7e3ccab06622f5644ba094b9df"
+    "spec": "8618c873bbbe620ef61c9f0cba7331835cdf4fa080a191a60757c2ed99e4ed38"
   },
   "ai_elements/context": {
     "checks": {
@@ -655,7 +789,7 @@
         "pass": true
       }
     },
-    "evidence": "410f0f4ed6f75e26518cab43577e39b887e39836aaf8a6022396b0371a85efbe",
+    "evidence": "02a75c57255cbd9a4fcd95d8e03dee9fa5490817138868562251ca50102a5001",
     "pass": true,
     "spec": "4d55a9d56da39a95e4ee22ffa2811b4aa6b0fa0529288ee3eddc7b5310eb122b"
   },
@@ -664,6 +798,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "15 of 15 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -677,7 +815,7 @@
         "pass": true
       }
     },
-    "evidence": "4662aa0716d109b0c4977323b2fdb2f73712784ce6f0ac8e0cb8315c3d799fad",
+    "evidence": "a0b59e40d06623d6d24a539c0b6bf7a439adf5fa9fe9e4998ce12465c74d42fd",
     "pass": true,
     "spec": "7d9ad8e45a367345e7f35d6a24e5102d238ccce79ba913a508794086ba95b71b"
   },
@@ -686,6 +824,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "8 of 8 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -699,9 +841,9 @@
         "pass": true
       }
     },
-    "evidence": "bad1f9647fcc70374f272e7f16840b8247fca7541bc33a83a1b70e91f130ff60",
+    "evidence": "2f09cd7147f07347096d923b0af8220012f11d3911292bc10d32ac1d201b8711",
     "pass": true,
-    "spec": "fd03bb484d7b656ee346af154ac2bbd58108fedac8de743e6208a02604df4926"
+    "spec": "9f5d1231244698f859772731e357fd6a4478793f7c15d2ca7433dc69470cc0b7"
   },
   "ai_elements/sandbox": {
     "checks": {
@@ -721,7 +863,7 @@
         "pass": true
       }
     },
-    "evidence": "558e337b319cd72bea72743679139f0973d091cdd62ad2ea5cb0499f577eef1e",
+    "evidence": "a844e6b46c621ac17327b9849f2334951aafabcefaf0a893bcb74d66e8460061",
     "pass": true,
     "spec": "5807320c4918cb7a3e7d1b1482ca546afbe007cd050ffcee53b72ccca0b8fff1"
   },
@@ -743,7 +885,7 @@
         "pass": true
       }
     },
-    "evidence": "e47c0f2378a74c9ea8783546ca4f1b43333ec41c8f1cc9aedb8f125d4e6129f1",
+    "evidence": "8d265a96253d219b5056901e5b9b744fb5e3d71d371dec5ac39614bcbbbcae4f",
     "pass": true,
     "spec": "8f4a17d6b8413eef64493e1ebfe023dee70d7e62dfe1d2c5b3594b8d510ce5ba"
   },
@@ -765,7 +907,7 @@
         "pass": true
       }
     },
-    "evidence": "e61fc01e598877891ad81245bca27c37d9345c0daa3538df98b5e4efadb16c66",
+    "evidence": "ed8ff1c094414aa521a7d611d5de9ba2768f18ec0f72154721edfc2d2997ba0f",
     "pass": true,
     "spec": "cffa18d889789b3ab12294aba56600e78d903bec3028787b1b92d5eae5dae4a7"
   },
@@ -774,6 +916,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -787,7 +933,7 @@
         "pass": true
       }
     },
-    "evidence": "0dc980e626383b430efd5ff16d550c727ba6e19d19201fc336822b75ad51b8df",
+    "evidence": "ee88c4a9e67f4d026ba9359242115f4d5e24a1211cb7ae76937ff7c996725026",
     "pass": true,
     "spec": "0c607317ccb650d68306b70db29c4ed6e04482613c0416b70d44edf6c042d1df"
   },
@@ -796,6 +942,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "8 of 8 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -809,15 +959,19 @@
         "pass": true
       }
     },
-    "evidence": "a6548ce9a9140a22507ca9be9a337221c7dc130b8e731f205adbe3969ef52ea0",
+    "evidence": "ee7b1e9790f1a8720a3b97dff26c2aab180718330f6d656f18c1c3cbe1895cd2",
     "pass": true,
-    "spec": "0397390001fcc926c9498ae2f3a7aca8afcc1dd586218f2ac67199c57c89210f"
+    "spec": "a29b938b9640d54c6e8b1029716375c596a48af7f6201a09966f5a44360bec18"
   },
   "shadcn/button-group": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "12 of 12 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -831,9 +985,9 @@
         "pass": true
       }
     },
-    "evidence": "d29067bb5da8da2c7864172453c3089a033bf6883dab08dac77de86dadb71796",
+    "evidence": "2091f9d79874934e6550ffd428bd6f00689deb6fc0263f87cb6ee8953cdde464",
     "pass": true,
-    "spec": "b46ffdcb6169cae97fc86108073cfe236e86eba4c340297ddaf575eb42db5821"
+    "spec": "726ef8993ca556bf0ca1331b71b4d113eae9423911750d912a40c3a1b286352e"
   },
   "ai_elements/checkpoint": {
     "checks": {
@@ -853,7 +1007,7 @@
         "pass": true
       }
     },
-    "evidence": "05f04e857b91f135715e1fa087eac43dfdbb8a0f0a5d51fef5b224bc2d8b8ed6",
+    "evidence": "a9413c23c8befbb193e1528d9a7e7b5e827ffeb7315407cb4163c83caee296ad",
     "pass": true,
     "spec": "9f38d173742fde133ae46070e89d1e4ebf62464c0f22796e7882a8a59802685c"
   },
@@ -862,6 +1016,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "14 of 14 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -875,15 +1033,52 @@
         "pass": true
       }
     },
-    "evidence": "43e7a547b77209519631c306772b17c27681e9506c9b55114ae19ff7be0bd14b",
+    "evidence": "0d9fd7993ed64ca02f62dfd56cdc8c637336dcc6b70ce5e732a5dc46eb1b3a2f",
     "pass": true,
-    "spec": "b16de3082d625b02265597ff9b6079d1c83947819365e13dbf61b5a7e095479d"
+    "spec": "2c0f1052c7686a053d03cc717730cef24b0e40232eec7f893cc6acaa244f180b"
+  },
+  "shadcn/data-table": {
+    "checks": {
+      "accessibility": {
+        "pass": true
+      },
+      "behavior": {
+        "pass": true
+      },
+      "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "2 of 2 official examples have HEEx previews",
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "policy": {
+        "detail": "required checks for docs_only policy",
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "evidence": "cc9411dbf1ae8875dd2ef0cfbfc29505ab7632341576f8cdc1a01d897d7064e1",
+    "pass": true,
+    "spec": null
   },
   "shadcn/message": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -897,7 +1092,7 @@
         "pass": true
       }
     },
-    "evidence": "dd7712133616cc6f0a6991dacdfaae9524d954f2921ada4a0ecccd135b68597d",
+    "evidence": "1ec453d7c4c23ab6bbdb3cd6ff5487bbe40306816f4069979e783ccf49f5f79c",
     "pass": true,
     "spec": "52b00e19fb1ff40198c3c79eabde875420768214cec47579716933f4987073da"
   },
@@ -906,6 +1101,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -919,15 +1118,19 @@
         "pass": true
       }
     },
-    "evidence": "2cd6c96df8bbb4014b2a50d9832a87a34889c6731931e23062e331689db6c8a8",
+    "evidence": "b2c01cc6596593b70cf84f21e3db39c39fbb7b8dfecbdabbddf8d833f4751cff",
     "pass": true,
-    "spec": "4f98fc747133a378a36e617ea04d8b58fd97e24b0cb12606e2201f937cdd0430"
+    "spec": "1313c0fced5c124b15675dcf6b65321afa74dc08524a563814d616ad4aa31c8e"
   },
   "shadcn/chart": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -935,22 +1138,25 @@
         "pass": true
       },
       "pixel": {
-        "detail": "chart.default is not compared: Only one side can draw. `ChartContainer` puts the caller's children inside recharts' <ResponsiveContainer>, which sizes an inner wrapper to 0x0 for anything that is not a recharts element — so the reference renders the chrome and no plot, whatever the example passes it. A reference that drew a recharts <LineChart> instead would be a second design rather than a port, which parity/README.md forbids, and it was also the only example whose pixel count moved between runs. The chrome is still compared: parity.spec.mjs measures every data-slot box and 37 computed properties on both sides. This example passed at zero for as long as neither side drew: chart_style/2 returned \"\" and the <style> emitted its own source text.",
         "pass": true
       },
       "snapshot": {
         "pass": true
       }
     },
-    "evidence": "445959bc78868118f5e8766793084ec429552ed1010975e9a92ef208294628fa",
+    "evidence": "325bf23e8ce692c2fa976cad620abeb31d9289025e1e155476d70d42c5bce2f5",
     "pass": true,
-    "spec": "617464bbb307fa5aab79fa78eacc82c02345a521b937a02bc8215e42ae03d5e9"
+    "spec": "2b203e5458b6ab4fef4ff2e16b877f07100659c6fda5b29a5a929375a798298e"
   },
   "shadcn/command": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -964,9 +1170,9 @@
         "pass": true
       }
     },
-    "evidence": "94d63dc5519b0740d61348cede0da6a45da72502d91ca2809924c383c7525b4e",
+    "evidence": "4484364e98b4b0c3d01b1cae270589f27990ad761a75ce78a84fc7134484c951",
     "pass": true,
-    "spec": "8f5cd653a098fe1237fd1f1d93bfa146ed8ac629247e947cbcce5c1007340ba3"
+    "spec": "c167356ada9c0dd540de06055911391093885018bacd915ba236dc00ffb3f4ed"
   },
   "ai_elements/sources": {
     "checks": {
@@ -986,13 +1192,17 @@
         "pass": true
       }
     },
-    "evidence": "49835b5068120982373cd2a4d227ed516e7d8422bb509222426dcc56e96728ba",
+    "evidence": "4e373022670bf7a95709e7f3e4e1719688a5ac9b35329d400ace4a2804ada4d7",
     "pass": true,
     "spec": "1a32bd77b8536acf7626f74c195aacac10ea2e8f0190fff9218f784a4a6bf395"
   },
   "shadcn/calendar": {
     "checks": {
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "11 of 11 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -1008,9 +1218,9 @@
         "pass": true
       }
     },
-    "evidence": "9af8b36eb6dd96cc23e502615fc5347e484b3445455b720c84e56d1fa38ad04a",
+    "evidence": "823f81b8322be120fefc17b985b5270baa7ce3ad90b2f5ebd136d79f16d73e3c",
     "pass": true,
-    "spec": "4837907215cf22f25c49ee01e34f1cd9958153f03a50622360fb85055b6cc689"
+    "spec": "62c5ca00dd35aa7af82a423d6cc794f878a9bbfd92774ea01b1edfd598bab683"
   },
   "ai_elements/test-results": {
     "checks": {
@@ -1030,13 +1240,23 @@
         "pass": true
       }
     },
-    "evidence": "f41f222dd01493538daf7af207cf49ed5398337a880d453272d3223c34775f81",
+    "evidence": "63e6072d921bef2a98d8047f4fbadd0a0788b1b26931521f8bd813edbb035b02",
     "pass": true,
     "spec": "a6726e4b2615182c0dfd6ab431463a53868291ff3ca39947c689ae2f7b1283b5"
   },
   "shadcn/sonner": {
     "checks": {
+      "accessibility": {
+        "pass": true
+      },
+      "behavior": {
+        "pass": true
+      },
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "2 of 2 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -1048,13 +1268,17 @@
       "pixel": {
         "pass": true
       },
+      "policy": {
+        "detail": "required checks for standard policy",
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "evidence": "cd72c73b6a75b0ad36608bf4799b0108d7ee2d5aea9bf005aafa82ca8f9663bd",
+    "evidence": "4dc8186cea9b9a3c9e9b8bd18c38034f62a736b837a9c74688c3af6127ecc270",
     "pass": true,
-    "spec": "910d701a9137426331d93a0939e653e535fd30b0a040f615a47374203367cb48"
+    "spec": "874788f207563dc1a36edbfd00676ee6e5d2d1c8b124b9afa595268edb70eabc"
   },
   "ai_elements/web-preview": {
     "checks": {
@@ -1074,7 +1298,7 @@
         "pass": true
       }
     },
-    "evidence": "f4243d6f67a7eece6c7ae0ac07bee3232022d207c8b095b45c8d8374f533c906",
+    "evidence": "ffb85267be86728c6316e146ef13a72b7a3df9bda165804b77a93bce72e78b2d",
     "pass": true,
     "spec": "650ecdbb4c07e226b33cdea89c1a25e82c795225d6afa7dde7c656511cbd3775"
   },
@@ -1096,7 +1320,7 @@
         "pass": true
       }
     },
-    "evidence": "4105666042a7b71e2949581223252090367d28746658a7f3af72ea1c08092f6e",
+    "evidence": "752a00760d8a97af010aee65ca1952936af74579acadcd8e6645e63c44545ee5",
     "pass": true,
     "spec": "185e6b1a120e855d2277a31f578c57befee5b7310e9625fe1f685f59fa0cbd9e"
   },
@@ -1105,6 +1329,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "13 of 13 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1118,15 +1346,19 @@
         "pass": true
       }
     },
-    "evidence": "59a8718d8fac6e294ef200c9154e905e02bd8b22cb0062f5879192009ae026d7",
+    "evidence": "3b166a916130110fccb136f6e557ea1d02008fd0104a81789f201402e399ebe5",
     "pass": true,
-    "spec": "34f96473e9d8f69b4c4966863a239d7c3c865d08cead9db4ec11f7fe3246081d"
+    "spec": "a9955f6f66ae531c738aa05e6dae0c755b27df5a9a37ca8b870f9de6ccd1645d"
   },
   "shadcn/dialog": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1140,15 +1372,19 @@
         "pass": true
       }
     },
-    "evidence": "d65fc0b37716fad628c9f157e976c8b54b32840a1265feeb9e039b5967581415",
+    "evidence": "f6d0ffd42829ea75c5a50f3b296dfd67f03ddca15effd158efc29a958ecad645",
     "pass": true,
-    "spec": "edab1f6158c67f6f7ff21d6010a79ef13eba0a75556a84f631f178ffc9801f5f"
+    "spec": "9a1af2d2fbd01f3eb228a5d9f82abaab34239ae3d4119c13dbf59c35418381f0"
   },
   "shadcn/accordion": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1162,7 +1398,7 @@
         "pass": true
       }
     },
-    "evidence": "4f072a9cf348a7e33e890dc0b76cc84f1903a5f4904b9fd3edeac6421990870d",
+    "evidence": "b8841ad00b11c6f737a2370338d7fda7dc7816eb18efbea8bec999ca8e4b4a12",
     "pass": true,
     "spec": "1d0ba5e27d5066974bbec28bb02e88c0a9ac098af878e5bfe8d219f8769eda89"
   },
@@ -1184,13 +1420,50 @@
         "pass": true
       }
     },
-    "evidence": "08b3045920504d952061d96ffeae450fc6ab2eb180318812bebec5c5315d6e63",
+    "evidence": "46c0fb28220f71ba34daeeccb08d20d0512e72dddc7bd5963c3b5019a1ddeaba",
     "pass": true,
     "spec": "973339159c030c3826669c0bb2587b06f712c99ce155dd283e0a436fdb828c1d"
+  },
+  "shadcn/date-picker": {
+    "checks": {
+      "accessibility": {
+        "pass": true
+      },
+      "behavior": {
+        "pass": true
+      },
+      "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "8 of 8 official examples have HEEx previews",
+        "pass": true
+      },
+      "parity": {
+        "pass": true
+      },
+      "pixel": {
+        "pass": true
+      },
+      "policy": {
+        "detail": "required checks for docs_only policy",
+        "pass": true
+      },
+      "snapshot": {
+        "pass": true
+      }
+    },
+    "evidence": "27ed7c1da12a635136fa6959f01e60c0094a6f50b0598a2725a3d1c6750efda7",
+    "pass": true,
+    "spec": null
   },
   "shadcn/tabs": {
     "checks": {
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -1206,9 +1479,9 @@
         "pass": true
       }
     },
-    "evidence": "0bc4ccb0e088ff4785a5558f4fac140280b447687e8ab0ac4a751e0927d9e4a6",
+    "evidence": "b2341e3971e8571a78ee37dc7fb0bc957bc95277478e0fdad5d4a890f6d8ba68",
     "pass": true,
-    "spec": "6ae3a50b6809dca12ab965f1ee8083f179f2366c4e55d5e59a9bfe74a8977489"
+    "spec": "92bc5a27d54686a1f441b1d382e790e72d49161ed4141e809ac6e304d19f9a15"
   },
   "ai_elements/persona": {
     "checks": {
@@ -1228,7 +1501,7 @@
         "pass": true
       }
     },
-    "evidence": "cf10481b8d5da7a61f43a7fd05075536d7f21079f73000aeab793dbc8a7d46cb",
+    "evidence": "e7eaa8557b71de1b1e4fcf8748639f830d76da7a4b8abdcd31bae919156a4551",
     "pass": true,
     "spec": "6aafbfad2aac36c2b9444383a63148f067e6350c9919141c27c75f6d8860c477"
   },
@@ -1250,7 +1523,7 @@
         "pass": true
       }
     },
-    "evidence": "3526cc45f672a3d196e9b314d237a1d71d489f7a4dfef57fc89bf3800617cedb",
+    "evidence": "e886e8d63ddcd56495deb9b451bede0937d06ce873258bd151f05b3d5786bf78",
     "pass": true,
     "spec": "001d97afed4ce672052c76acedecc4e3e178e0677ce59454e33cd9f8bf7a1b14"
   },
@@ -1272,13 +1545,17 @@
         "pass": true
       }
     },
-    "evidence": "837d1d98943ecda56119fb42f5778af2b70303d2eba6db9b902fbeecd572391b",
+    "evidence": "60187ad538e7e39881a43107550aaf7b08bcc5b9b4425fa0d7a1ef6894106fdb",
     "pass": true,
     "spec": "674800e01f15d38488a98e93a50781802dee86af16a9d4d57e6c3b56402197d9"
   },
   "shadcn/tooltip": {
     "checks": {
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "5 of 5 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -1294,9 +1571,9 @@
         "pass": true
       }
     },
-    "evidence": "6b8dcf9df716da16215cea24ab462c65158c51de7104eb66b75a96ad70cdaa95",
+    "evidence": "d895055f70b0d8f9635ba0f3442e403bfb10a585e53fa283626f5131f58b53b8",
     "pass": true,
-    "spec": "66849f48231c4f1e20c32076842dcc518d580ddda0986bf1615eb52908ec159a"
+    "spec": "d439c20050d2fdf05657ad038d211ca402ba90ccf3fb489f94c2191e18720142"
   },
   "ai_elements/node": {
     "checks": {
@@ -1316,7 +1593,7 @@
         "pass": true
       }
     },
-    "evidence": "70d360495abdd7b8ba5842151bfd61e239c0621c8b3bbe9c705db170ed39407a",
+    "evidence": "1d6f8c97edcce02c6164319c62574ca688975a32914cde2faab5200fa9ed9e15",
     "pass": true,
     "spec": "0c48ff9ae240a184885b841cc56dbfc77935095829de441275e72da644e2a6a3"
   },
@@ -1338,7 +1615,7 @@
         "pass": true
       }
     },
-    "evidence": "48ab32cbc14232532ae61f76662415adc8c487ba67730abe5cba7efba310917e",
+    "evidence": "dba97ffeb227ef4a9db6a01134759e6b47ee9d090459f8655c0c0d4aebabc363",
     "pass": true,
     "spec": "9219de97af7caa860d95ccb8cd90b5fa697447d28ef638ad71b282d6b20bb224"
   },
@@ -1360,7 +1637,7 @@
         "pass": true
       }
     },
-    "evidence": "4f5eb3992c8dc61e6bf074be45d4e4e698d09d0cac08373fcc99310eb247b061",
+    "evidence": "957fc00427b9068e5e4cf0c28d67c9a720d50f67e7640e4fc328e981561470f0",
     "pass": true,
     "spec": "aac966ea8054e7548ef5ed1b51a88f9e399a237217b9c7e13c049058917ab586"
   },
@@ -1369,6 +1646,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "8 of 8 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1382,15 +1663,19 @@
         "pass": true
       }
     },
-    "evidence": "3cad2cd7c7bb6ffd74cc099885bf76e35d7e5c0c37e052c0bdf399008c0f6375",
+    "evidence": "cfe4737862ac2291b56417d0324332b8943ad068b246d70e2a5167795f34cb04",
     "pass": true,
-    "spec": "06783a73fdf6117933d64b68b5f22a688f24d9e636aeb9320e908c17da20d160"
+    "spec": "0c958d1a3714f90e76771b22b2e31dacef8762aec7329e51107382bbedc00aa7"
   },
   "shadcn/aspect-ratio": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "4 of 4 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1404,7 +1689,7 @@
         "pass": true
       }
     },
-    "evidence": "8414cc0d8996d7f19e05a28f5eaa0202f4f41552594f9ee32ccc9443594ce80b",
+    "evidence": "f151de54ce7dc269dbb46075d1933435430d5ff18471aa86bda11a8fe673f2ce",
     "pass": true,
     "spec": "90ee2e10760ddff3a004cad2c88eaf300c813e4b33849ae3582554e6db0db999"
   },
@@ -1413,6 +1698,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1426,9 +1715,9 @@
         "pass": true
       }
     },
-    "evidence": "c57c1aefbc7557fbaffacc07c10605da715fa53e99f84c7dd2f30e0b60721733",
+    "evidence": "d8007b2ea17e6945dde113f0494f29f1818cb770da367f379eda5a433bdeb841",
     "pass": true,
-    "spec": "9aefc916ba70c3ab50b4fefc3268c496b0619ca14b98ba0ece6b4d22128b4f53"
+    "spec": "346963c5e3546d6b1c96e9a3b35bb0a06c216f206ebed696ffe5232c251bf062"
   },
   "ai_elements/terminal": {
     "checks": {
@@ -1448,13 +1737,17 @@
         "pass": true
       }
     },
-    "evidence": "57adaf91f478d23cc8c1b975262bbd524742ca050bf6175efd8f8eb7fca4c788",
+    "evidence": "060fa252199c17f48004bfbd9ca2d629435cacd22856d8a908e30e16675d26a3",
     "pass": true,
     "spec": "f1a8d85b9263d82cb097965f8694bb6109103e58b74aaf79eb04f39a629d6635"
   },
   "shadcn/toast": {
     "checks": {
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "3 of 3 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -1470,9 +1763,9 @@
         "pass": true
       }
     },
-    "evidence": "c69ead0e2dee2e22fbc5475906b126bad96c5ebb4eb18c3fecfd433020283d38",
+    "evidence": "d5a968169bed8fde94da68329f634d06b99edee023104762c46e84b91b1dbb70",
     "pass": true,
-    "spec": "3fe8560459d770c3fcf5d4741c0beb537c54822d92f136b855c6ff7127736183"
+    "spec": "1158c03e3ee87dde97f28de35e4f466d23ddcf06f40b50a9ca82f87022ba1512"
   },
   "ai_elements/message": {
     "checks": {
@@ -1492,7 +1785,7 @@
         "pass": true
       }
     },
-    "evidence": "d483396c4e7c952d190ca15ed08aaf91a38a44b5ea2db4fd74c9f0e5f1bc5618",
+    "evidence": "015486e29f48672ff7614b93f3f3a2492a8c38795ef1197b12c036dbaf354c3e",
     "pass": true,
     "spec": "7d5b1e486656c02600b91947f8dfae615f45cd71cea2c386b45cfcbb86bfb58a"
   },
@@ -1514,7 +1807,7 @@
         "pass": true
       }
     },
-    "evidence": "fb85990b0b69aad491e9417a9b2352d4723f71bda0d8fb93d9c8a20c5567734c",
+    "evidence": "e26277d5bc751fdf944e241beae9e7156868b845607cbb362bed0ba0dcd6615d",
     "pass": true,
     "spec": "8319536b0b9835761ed8b36dd9722ad7a32fe9da6339c6ba6f1217ff92e82029"
   },
@@ -1536,7 +1829,7 @@
         "pass": true
       }
     },
-    "evidence": "8688d37c1785165661d9d470b2530822045683bde35285f94029f80963bec6bd",
+    "evidence": "d2a062c86fc0142e334b78d9bb198db47287fa11d27134606ab93beb52802ee3",
     "pass": true,
     "spec": "71be6b22fb3647ef8e4700af806d930789475033142a2a995c06cf78c1603ddd"
   },
@@ -1558,13 +1851,17 @@
         "pass": true
       }
     },
-    "evidence": "9c3b4e304f8c7d219a825a126e37d6996311d5cc8736db94c89a1925b4b7d948",
+    "evidence": "967dd7015211da4c1d2aceecd19cf7b50f5ee9452a223e5e10ec64af84860432",
     "pass": true,
     "spec": "7ea9ff7d1085b11cc96955374e10fd62f9f2c8cd9c9744bf148d96d9b85d4057"
   },
   "shadcn/switch": {
     "checks": {
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -1580,9 +1877,9 @@
         "pass": true
       }
     },
-    "evidence": "8e52df9ad81d6234e8aa70a60562729f29dd14f3d9e67b2ceeb458e3b92fc0a7",
+    "evidence": "a22cc5d66b5bd629bb43bd826444a71e3e55e50090db307075d966feea84c858",
     "pass": true,
-    "spec": "fb4c2b3448813613265e30b44109fac08ed9dea9360b346ad589065a784e9407"
+    "spec": "dc51ae50851b1b24452e8aedbf890bca8d7cbbf78f7f555aecbca360898fcf46"
   },
   "ai_elements/jsx-preview": {
     "checks": {
@@ -1602,7 +1899,7 @@
         "pass": true
       }
     },
-    "evidence": "2cde0113a1fc5cc7d04a2438d47190f4b8e7ff1c653e61bd52b4427e391e4b20",
+    "evidence": "2bafaf62c0145cf2b3eb9ae349b049970f039d19890d2f8f82e6154228d3c7bc",
     "pass": true,
     "spec": "a4f50a2b7095e635535b2e4f254666f404804ff0b6df72c988cef4321b80a935"
   },
@@ -1624,7 +1921,7 @@
         "pass": true
       }
     },
-    "evidence": "af61ae4dbfaa8d1f9f412d4637979e339fa51e150fd498f42e18af22b164104d",
+    "evidence": "c1249c738bb51930a956b1ceaa5f6ff6582cbb0261ef5b5e384ef04ac615f2aa",
     "pass": true,
     "spec": "786878d977921bacc9d6b4f57b94c2b536f9ca5ce5c18c6f17530eb95a67ccdc"
   },
@@ -1633,6 +1930,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "3 of 3 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1646,15 +1947,19 @@
         "pass": true
       }
     },
-    "evidence": "3d44170039903152dba9756445b8cdd5f39065e00b393324057add907dd8169d",
+    "evidence": "a719ef70fc7e93c53a450de21fa1d5ada1c085f71dce2d99aaef3d1486bf678a",
     "pass": true,
-    "spec": "8baff03dc307ab2a4613095cdde1e72c004cab17db0ad581b950d5bfb2619145"
+    "spec": "f7335dd3cb91cab27b38ef14b1165793fa1d1bf1bbc882408af41f41187af1ba"
   },
   "shadcn/alert": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1668,9 +1973,9 @@
         "pass": true
       }
     },
-    "evidence": "c3554123e1beca7dda68768f63dba7e6d0b84ccd4923c517fb17ea22113cd6a3",
+    "evidence": "78c9107325949ba0cfd8a11fb03737ada33634829ea3962eee17565f64e8e25f",
     "pass": true,
-    "spec": "a5f0307cbffbac581fc1b82ed45b914b93043c04524d924881c5802ffec1470d"
+    "spec": "da4df87623d96a4bef151f523f4582eb4bff1bfcdadbec4d6fc982ca1a9e5b7d"
   },
   "ai_elements/voice-selector": {
     "checks": {
@@ -1690,7 +1995,7 @@
         "pass": true
       }
     },
-    "evidence": "513645ecc27e55dc6bb6838d8faa3859cf9700a7bbc02db05b67c160a00f0fba",
+    "evidence": "0fc465861a7ef0f343f27755a1dd54d333b590fbb7d2b987aff5077aa559fe30",
     "pass": true,
     "spec": "02c46fc3d90b9e1a9765ce94a0eb19e3e6db71abe86731ee9e5a2ab2fa924ecb"
   },
@@ -1699,6 +2004,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "11 of 11 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1712,15 +2021,19 @@
         "pass": true
       }
     },
-    "evidence": "a2ae0361c210e8284154535c51f41f26b065077c1578975ec47f8f19f1b49ecf",
+    "evidence": "128c84f5dc0bd05d954edc784afd06e0ecf55a7763ef1aa07d7ebeff26d0de20",
     "pass": true,
-    "spec": "62fd99c542214d63cabfa49d41b35b7a46dfd8b862212e04a4d084c2da86bd82"
+    "spec": "5470f5b738d3e9de4ccbcf499aba1dc39aebaaf3310d07a5a7d5099a3b0147da"
   },
   "shadcn/breadcrumb": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1734,7 +2047,7 @@
         "pass": true
       }
     },
-    "evidence": "ec3065f499ff6132756e941cdb35236cc043e13c9795de7da5a3aaa3d115cd9c",
+    "evidence": "41cc8e87870040d07d6ca6fc02fa7174f842e153832b827c1a9f0b8846570402",
     "pass": true,
     "spec": "3ed10e08b47a04972b620a1e533dbe1ace00a627508b6c71e21d8b2299e4e7d8"
   },
@@ -1743,6 +2056,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "10 of 10 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1756,13 +2073,23 @@
         "pass": true
       }
     },
-    "evidence": "f25470c12c2fea1c68fba6a6634eafa6760d1713cdcf6a2ee0a2c382c030b9fc",
+    "evidence": "69878feb0ac9c9f29b790ffc8ee458011fad2bdd0937c8bb57af38b16bce8bd7",
     "pass": true,
-    "spec": "9d00b77323cba3f2a630eb06caa6acc1cbaed82cec32e824830e147284919daa"
+    "spec": "ff5c2fabbac3beedc423b0f91b295a3ccf5abb8ef49974a159c4cb98f6940288"
   },
   "shadcn/select": {
     "checks": {
+      "accessibility": {
+        "pass": true
+      },
+      "behavior": {
+        "pass": true
+      },
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -1774,19 +2101,27 @@
       "pixel": {
         "pass": true
       },
+      "policy": {
+        "detail": "required checks for standard policy",
+        "pass": true
+      },
       "snapshot": {
         "pass": true
       }
     },
-    "evidence": "324f4224b965a10c55fe6b7ce23aa75dcd0e82395d2fec042c3183e2ab578d17",
+    "evidence": "fddad9f9c1426cc4e114daa37b2eccfb33c8dd809062ac5f5f02f20cd9729f87",
     "pass": true,
-    "spec": "6089cc04344b98e35acc26ef3a78e6b64f214bc80f8a914ca9036844c6fe97b6"
+    "spec": "ccb5b6049806ee220325386e740305cbb00626a769bd2ab1ca9df03891b90f0d"
   },
   "shadcn/carousel": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1800,15 +2135,19 @@
         "pass": true
       }
     },
-    "evidence": "89982751a2cd4d7e750579b0dbdd93e63d946e0ff21fc769ef826dc1e414a1c6",
+    "evidence": "92f783584e5393f5d629b318d9f56d9734f76c9d3e07867ed784773a6bfa1970",
     "pass": true,
-    "spec": "b93cf32ce0ea6c2795791e4d4b4d4ad3ac7763ab7fcc51640ec744638a3bd4e1"
+    "spec": "5668fad72504649b3ba362fff8ebe174dfa9e6cb8d953753a37562067b5c7936"
   },
   "shadcn/card": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -1822,9 +2161,9 @@
         "pass": true
       }
     },
-    "evidence": "ee0cddd1e98cfaf149302c1180829ab8233ee9b97b24894735c4c45a8c47277c",
+    "evidence": "10612b3f674adafe2efc204096e795fa0c38c72c8df01354e3692deabb48b7f9",
     "pass": true,
-    "spec": "4acb07e2e729e68d728646bf090b77f178187db459654fb9f63f9875d9cd8317"
+    "spec": "5ed5dc0bd2d345168a570e4817612ce9028ff2a7c479acc7996c877a2af934d3"
   },
   "ai_elements/panel": {
     "checks": {
@@ -1844,7 +2183,7 @@
         "pass": true
       }
     },
-    "evidence": "b86030fbdabbb7a8bef758a62ebffbb55d02c85686ae1232e44ed733be0233b5",
+    "evidence": "d462cc4d17591842c358035118dc0a5bef77260f3d6fb63a59e7a1295ab2cfaa",
     "pass": true,
     "spec": "f1b461df5acb13667317a95951d220526e7fa4e712cc9b728e0b1ade0ed38887"
   },
@@ -1866,7 +2205,7 @@
         "pass": true
       }
     },
-    "evidence": "f8830c8a6d6473665f7a06903c7bd8cb3780e0078cc5e00b70244e2bf7887566",
+    "evidence": "6c712fe34ee9241300a53e6f0f6e8ede4db7cad2afe6235d4538f54936ebd7a1",
     "pass": true,
     "spec": "959ca2094df99a36de396416c469d56f20e5b4c173197623e53d5f077072ac93"
   },
@@ -1888,7 +2227,7 @@
         "pass": true
       }
     },
-    "evidence": "e648946b2cd0682145cc30ce79a0412c398c3449a98c2cb1c7ea3cb7e4b04920",
+    "evidence": "82a59a514aa09495fb3e178c5980365a61c36ad0847de64fd7fe7a9bf0cbbb3d",
     "pass": true,
     "spec": "08363bc139bb1bbea0ad8cedddeda5c62bfb105f09d76bba31972d12ba9525f3"
   },
@@ -1910,7 +2249,7 @@
         "pass": true
       }
     },
-    "evidence": "7a495121c016e4c30f9c8a118a5598a8be4a95247b79f85942ef4e5ec802fb08",
+    "evidence": "3de86f427760584c6775d6476b5ab8b1d8a45d3db28fd8721af440ed07baeffb",
     "pass": true,
     "spec": "4ff6c542c04b6d6901831bfe11ec5f71827d19aef58cc60dc81f0dc715c04f76"
   },
@@ -1932,7 +2271,7 @@
         "pass": true
       }
     },
-    "evidence": "2c8873f0a9cd58016890394d0c27e2983d3e0d521587973f3e4a7931b471c4b5",
+    "evidence": "f48457f45973764ba5f598d907b3869671fc2fb2487813c646136a4a59c1549d",
     "pass": true,
     "spec": "40c2c3865a9ffe0f53b8973c08f0a89e783880799d5a98299dc7c0936858dee2"
   },
@@ -1954,7 +2293,7 @@
         "pass": true
       }
     },
-    "evidence": "174648e1e6607f6021200a5daf1e4bdac5bb2f0431a9b5256e41b0c98c142efd",
+    "evidence": "745bc2262adfa7d7bfdfb686fbd80d48497fe9facb28d878ea1f376f334c9a19",
     "pass": true,
     "spec": "cb0da9ff1b63157cfb9c6617c1039288e66caeca685d936c48c32314cb046823"
   },
@@ -1976,13 +2315,18 @@
         "pass": true
       }
     },
-    "evidence": "5b9dacb213f599465e97a784623c010fe817b043229acd0501ae120dd55c55fe",
+    "evidence": "b9946bba83bca9a90042dde84742280d9b1a3a1898cacf8c4bcee04413928f25",
     "pass": true,
     "spec": "e3c33b61aedc11afa6deba578341796ea51b755d2d1d135390723537b9e45dee"
   },
   "ai_elements/question": {
     "checks": {
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "4 of 4 official examples have HEEx previews",
+        "official_comparison": true,
         "pass": true
       },
       "generated": {
@@ -1998,9 +2342,9 @@
         "pass": true
       }
     },
-    "evidence": "26f27576b522ff8764850dede2794471c7b1ef570ed52dfa47ecd7d14e625f11",
+    "evidence": "96009544a3dd2f6e9c14c006c89c6cbad5af1fb53f8f5957f43c07671bc0aa6d",
     "pass": true,
-    "spec": "d29f1351a0f8b753fb11a5c28be15c4c768d81e4c2a54b8f426252d7d8d721d6"
+    "spec": "263ce748cccfb17e84c92f97099d18c3075954210c1787400b526c13ec0f1ad6"
   },
   "ai_elements/transcription": {
     "checks": {
@@ -2020,7 +2364,7 @@
         "pass": true
       }
     },
-    "evidence": "f44e41c4396465ba79dd71b94b44a796db8724e63213463cbcf86b3662cdd017",
+    "evidence": "6b80981e06da11372275c3fe1d17917cddf07e6775c8a9d7d3fdce517ba23c50",
     "pass": true,
     "spec": "cee7792f7801c040cba3b02c2bc4d5fd924366f90429ec356eecc04c5c194820"
   },
@@ -2029,6 +2373,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "5 of 5 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -2042,7 +2390,7 @@
         "pass": true
       }
     },
-    "evidence": "dd491eec72ecab5f7c79f37bf9b3b2868c509d4e80ea8e90b136bcd755e3d1c7",
+    "evidence": "7b4c6eed3a03c7b56a08b65da1f893b2cefe57dda4e00def0ba224b47295790d",
     "pass": true,
     "spec": "ca02e5d617771f3cae3ab59f7c6a8d877e5540fac3fed5b513e91e1fa6c66302"
   },
@@ -2051,6 +2399,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -2064,9 +2416,9 @@
         "pass": true
       }
     },
-    "evidence": "58cb6c55f55865f63b87b31fd10abb7165d7b0bfc7a3a175ad248c5bbfe28fc2",
+    "evidence": "f13afc93d9799c423406d6a6b42023cb27c5b179586d138bfa308e312cfd85c1",
     "pass": true,
-    "spec": "41e2a898ff40b33dc3fd6ab715ba88820ae1293354b5d4bb2eaec5424b06d762"
+    "spec": "30b3f91ad49b08b37512d2c7ee8156ba28c19003b7fd90b53c3b40a17c048aa4"
   },
   "ai_elements/prompt-input": {
     "checks": {
@@ -2086,7 +2438,7 @@
         "pass": true
       }
     },
-    "evidence": "1c2cb013c8ad7d19eacda555bdc6bac9344f03270718a817f8c082e5dbb8a13b",
+    "evidence": "a806df9b15fbb99053eadf2eaa98ee58a8b08141de4f873323418c38d0d6b2ee",
     "pass": true,
     "spec": "b9e2e2a453e5e052361c94cf69a4a70563e3bbf27b08a8ae3641620170a510b8"
   },
@@ -2095,6 +2447,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "2 of 2 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -2108,15 +2464,19 @@
         "pass": true
       }
     },
-    "evidence": "6db71891980e76c914f0129f41fde79e89bdd3d90fe8ef943430613145cc8d65",
+    "evidence": "5036180bddb664cfbd1e23950a7baa8b8d59d030903296b3770b71a6c25e3bd1",
     "pass": true,
-    "spec": "bff45a1afe0aadf87b29f03ca32bd6998c521e5342405e7bc7343ba5ea39eb91"
+    "spec": "4a6ce393ae2a5370a75c276f933d846d402149d2e6c3012b26be734c4827ca3a"
   },
   "shadcn/progress": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "4 of 4 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -2130,9 +2490,9 @@
         "pass": true
       }
     },
-    "evidence": "c4e05c6a3783bce0e28173eaef04ef0a901f383f5af0aaab52e3441e1e13ec6a",
+    "evidence": "0658a0e1f0962442f19112d874a32be1c8f6a7bea963f1091ccd5c213747489c",
     "pass": true,
-    "spec": "c24ac09f7add0362e1d68e699ec6dd0abc24482f32a63219b68c770e5759dd99"
+    "spec": "c2421b48ff5165ad061a295f1dded89545d729c7714b620b41423994fe0ce809"
   },
   "ai_elements/code-block": {
     "checks": {
@@ -2152,7 +2512,7 @@
         "pass": true
       }
     },
-    "evidence": "57d8724a7471a744cd57a4e9883cfdb1f90a75df64ab239a727bed08a0f3446f",
+    "evidence": "96e8be34ecb452fdad39597c45cfec8a3d82e3d6204c0bcd99c043266b22b5eb",
     "pass": true,
     "spec": "54f3345958b54c8fc3beb4eaf636d4a22b03f3a51369dc6b7a647e1e0ddcaaba"
   },
@@ -2174,7 +2534,7 @@
         "pass": true
       }
     },
-    "evidence": "b33ce79731ec8ddbea0639a552413568a629bef3728b3978c0f493a3fb95851f",
+    "evidence": "4405dcf8bbea2873eb1714755682e2f0dab609fac685ddf5edfc09799334f558",
     "pass": true,
     "spec": "f2a56bb555f144b1beb9517cb6a111262c6b06ac083e694e1483045d20fb5180"
   },
@@ -2183,6 +2543,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "5 of 5 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -2196,15 +2560,19 @@
         "pass": true
       }
     },
-    "evidence": "985b08720a231dd19c434915b3919415aa437c1e4511d907215ef3f9436c37b6",
+    "evidence": "4e0417a646f6009366f58d9279903ee082cc1fabf2668daf22e21088b1b019f8",
     "pass": true,
-    "spec": "609facabecc5c9fcd7f65871bfb73d5f68b7d452cfac71b38f8a37b6900a03cd"
+    "spec": "483030ed3528277fcaeb9f71560743ed078b4d298231eb339530c60c672eecdd"
   },
   "shadcn/questionnaire": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "14 of 14 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -2218,15 +2586,19 @@
         "pass": true
       }
     },
-    "evidence": "7639261aa6e73b2d92e2d32168b974972aaec6204cb7fc41ab503286eba6d110",
+    "evidence": "3ebd9703b809ddbf0e0015ea159d9ed23cd9f49b4fd32d72a84bc64a055cf260",
     "pass": true,
-    "spec": "a30590158c460137c74e8ca37fe6265b485ba13e38ff9afc1acb2c33afa634d5"
+    "spec": "8f2c1c4d64a90f52488985c6732003e0863ddbf541f4a74bac985e7e14f3c75a"
   },
   "shadcn/slider": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -2240,9 +2612,9 @@
         "pass": true
       }
     },
-    "evidence": "8a6dd09ed0d8efc82b7ae7feca8b34cfcf699131785bbdea73859f70c4055002",
+    "evidence": "2dcf2fed899b02167672f4370108975bfd3159e822c3f49cc718e1906ec53187",
     "pass": true,
-    "spec": "0495c0bab855be7a8c3697ed9c3045be1fbef70a332012724bccf6dc6e8c9cb2"
+    "spec": "5018c1d6a3de9e623e09f5d38a3272c913d6e6d771b576e2e06282e8b0936931"
   },
   "ai_elements/file-tree": {
     "checks": {
@@ -2262,13 +2634,17 @@
         "pass": true
       }
     },
-    "evidence": "5a6e043e1658e7980f6e1a9a1d0a5c338d91aea0e27c1cbf6fb4906f30bc4166",
+    "evidence": "447d53cce984943f6bcc332d76ce6d209af27a34a024f455754e1c25ca9444ce",
     "pass": true,
     "spec": "f16e485db01c941c5fb30a5b0beecb44ec24a0f3cc1302f65ccc7f83c6f9285b"
   },
   "shadcn/drawer": {
     "checks": {
       "browser": {
+        "pass": true
+      },
+      "examples": {
+        "detail": "7 of 7 official examples have HEEx previews",
         "pass": true
       },
       "generated": {
@@ -2284,9 +2660,9 @@
         "pass": true
       }
     },
-    "evidence": "09341d71db18dc11a6d3ecaaa71e5300a2318dce02ee80f03e9ead891e245f0b",
+    "evidence": "298bd38a3c2344bc2b535ffc0c3f5b8aff90c243d380e1c85a635b7b361489c0",
     "pass": true,
-    "spec": "d70210489a871b64c97e360a5b682b292f1f9948372766a5de6b056fd9b42d36"
+    "spec": "55d4b72dc22d9d6659e3f66db2849e0d50ca27e7e194ae3b7f037bbc1105834e"
   },
   "ai_elements/connection": {
     "checks": {
@@ -2306,7 +2682,7 @@
         "pass": true
       }
     },
-    "evidence": "39c7cda7550b919d143d31a799a0005a977f4b2d62634a7318f09d83b52f1507",
+    "evidence": "4fc835609c58ab730e67c6cfd3dd0d3e05b20fe9ba05a3cc6c805b0642b67274",
     "pass": true,
     "spec": "e2a0fb7e7c68d4294af152e9d5a6d1c0fcdd49fd1ecc95a45df94b20fddf53b2"
   },
@@ -2315,6 +2691,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "15 of 15 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -2328,15 +2708,19 @@
         "pass": true
       }
     },
-    "evidence": "34718535ba44ddd2b18a0372d3e43a787cebcf6524bdc5d713d2cf863abf13ab",
+    "evidence": "e39be867a4dfb472491732e5dc0baca65897632881c564c2bb261618eafcb3fe",
     "pass": true,
-    "spec": "717c7482dbf6bda944ad070a3ec44e44f81fb5617f57114415ac99ba1b70b450"
+    "spec": "bc4e7d5446efd6ff1dc05adc01ebe2f88f677c875b73f54af0b3260a86005289"
   },
   "shadcn/kbd": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -2350,15 +2734,19 @@
         "pass": true
       }
     },
-    "evidence": "37a42ed079c66c16b85e141c66f6b78812bfa54355a2471151ec99e55e0e7c59",
+    "evidence": "a7973fc60b6890c169179d0ea22a10219c3f5d96f4189483ee35bcdd91574a25",
     "pass": true,
-    "spec": "65c02de8af455227c7563c97feadc0e34d7626ff6fe063378e732761288d9615"
+    "spec": "6406a9025a436eda3e8da53c7dbede98e14dfc18a5ddf86371cdc63c31eb6b63"
   },
   "shadcn/table": {
     "checks": {
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "4 of 4 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -2372,7 +2760,7 @@
         "pass": true
       }
     },
-    "evidence": "442e979494e997af15294d1057232df5761ed030e151f9e89c6d6dd8cfc43701",
+    "evidence": "4669077f5d569552fe53648c638ef2723e0c4d5824c1450008b7dfad325c8462",
     "pass": true,
     "spec": "c0dc7450063e96c48067e8f564a1dc07f949ca8311d5ab3359f7a81ff1ec6594"
   },
@@ -2381,6 +2769,10 @@
       "browser": {
         "pass": true
       },
+      "examples": {
+        "detail": "12 of 12 official examples have HEEx previews",
+        "pass": true
+      },
       "generated": {
         "pass": true
       },
@@ -2394,8 +2786,8 @@
         "pass": true
       }
     },
-    "evidence": "9f1b18a1e8d27c6501939c5e0f563ca9487319f17d40537c0ef820b30780035e",
+    "evidence": "d159ee9644c56b2f53d78c30d22a955ef5a4997c26b3cc742088f71fdf3f731c",
     "pass": true,
-    "spec": "8aec9001d7a56a9f62173afc882239c21fe0bdeef86ed5a058181c710889f705"
+    "spec": "262889b9a84a00ef8042bd211814bfdc506c8d495d42dbec0bd57bc7208985c9"
   }
 }

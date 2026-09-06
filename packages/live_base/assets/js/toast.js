@@ -53,7 +53,7 @@ export const Toast = {
   },
 
   toasts() {
-    return [...this.el.querySelectorAll("[data-slot='toast']")];
+    return [...this.el.querySelectorAll("[data-slot='toast'], [data-sonner-toast]")];
   },
 
   // Newest at the front. The server writes them in the order it holds them, so

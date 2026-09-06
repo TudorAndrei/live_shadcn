@@ -51,9 +51,10 @@ defmodule LiveShadcn.Icon do
   @doc """
   Renders an icon through the configured icon component.
 
-  An icon inside a control is decorative: the control is already labelled, and
-  a second announcement of the same thing is noise. So every path here hides it
-  from assistive technology, and a replacement is expected to do the same.
+  The icon is decorative unless the caller gives it an ARIA attribute, a role,
+  or a title. This follows Lucide's accessibility rule. An icon inside a
+  labelled control stays hidden, while a standalone status icon can carry its
+  own label.
   """
   def icon(assigns) do
     case Application.get_env(:live_shadcn, :icon, :lucide) do
@@ -68,13 +69,16 @@ defmodule LiveShadcn.Icon do
   # inside one would be written out as a single attribute called `rest`.
   defp lucide(assigns) do
     if Code.ensure_loaded?(Lucideicons) do
-      rendered =
+      attrs =
         assigns
         |> Map.get(:rest, %{})
         |> Map.reject(fn {_name, value} -> is_nil(value) or value == false end)
         |> Map.new(fn {name, value} -> {attribute(name), value} end)
+        |> maybe_hide()
+
+      rendered =
+        attrs
         |> Map.merge(%{
-          :"aria-hidden" => "true",
           :name => assigns.name,
           # A function component is called with change tracking, and Lucideicons
           # is one, so its assigns have to carry the same marker.
@@ -114,9 +118,25 @@ defmodule LiveShadcn.Icon do
   defp put_class(attrs, nil), do: attrs
   defp put_class(attrs, class), do: Map.put(attrs, :class, class)
 
+  defp maybe_hide(attrs) do
+    if Enum.any?(Map.keys(attrs), &a11y_attribute?/1) do
+      attrs
+    else
+      Map.put(attrs, :"aria-hidden", "true")
+    end
+  end
+
+  defp a11y_attribute?(name) do
+    name = to_string(name)
+    name in ["role", "title"] or String.starts_with?(name, "aria-")
+  end
+
   defp placeholder(assigns) do
+    assigns =
+      assign(assigns, :decorative, not Enum.any?(Map.keys(assigns.rest), &a11y_attribute?/1))
+
     ~H"""
-    <span class={@class} data-icon={@name} aria-hidden="true" {@rest}></span>
+    <span class={@class} data-icon={@name} aria-hidden={@decorative && "true"} {@rest}></span>
     """
   end
 end

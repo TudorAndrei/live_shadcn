@@ -37,19 +37,19 @@ defmodule LiveShadcn.UI.Bubble do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                       [table, "variant", group, choice] <- [String.split(path, "/")],
-                       reduce: %{} do
-    variants ->
-      put_in(
-        variants,
-        [
-          Access.key(table, %{}),
-          Access.key(group, %{}),
-          Access.key(choice, nil)
-        ],
-        value
-      )
-  end)
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
 
   @doc "The `bubble-group` part."
 
@@ -88,8 +88,8 @@ defmodule LiveShadcn.UI.Bubble do
       data-variant={@variant}
       data-align={@align}
       class={[
-        variant_class("bubbleVariants", "variant", @variant),
         upstream_fact("cva/bubbleVariants/base"),
+        variant_class("bubbleVariants", "variant", @variant),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -101,13 +101,15 @@ defmodule LiveShadcn.UI.Bubble do
 
   @doc "The `bubble-content` part."
 
+  attr(:as, :string, default: "div", values: ["div", "button", "a"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+  attr(:rest, :global, include: ["data-slot", "type"])
   slot(:inner_block)
 
   def bubble_content(assigns) do
     ~H"""
-    <div
+    <.dynamic_tag
+      tag_name={@as}
       data-slot={@rest[:"data-slot"] || "bubble-content"}
       class={[
         upstream_fact("jsx/BubbleContent/class/0"),
@@ -116,7 +118,7 @@ defmodule LiveShadcn.UI.Bubble do
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </div>
+    </.dynamic_tag>
     """
   end
 

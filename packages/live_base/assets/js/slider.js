@@ -24,10 +24,17 @@ export const Slider = {
     this.thumbs = [...this.el.querySelectorAll("[data-lb-slider-thumb]")];
     this.range = this.el.querySelector("[data-lb-slider-range]");
 
-    this.onInput = () => this.place();
+    this.onInput = (event) => {
+      this.place();
+      this.reportValue(event.target);
+    };
 
     for (const input of this.inputs) {
       input.addEventListener("input", this.onInput);
+      // Browsers normally emit both `input` and `change` for keyboard range
+      // changes. `input` is the live update; `change` is the compatibility
+      // path for a platform that only commits the final keyboard value.
+      input.addEventListener("change", this.onInput);
       // `data-dragging` is what the style sheet fades a ring in on, and the
       // platform has no event for "the reader is holding the thumb".
       input.addEventListener("pointerdown", () => this.dragging(true));
@@ -45,7 +52,26 @@ export const Slider = {
   },
 
   destroyed() {
-    for (const input of this.inputs) input.removeEventListener("input", this.onInput);
+    for (const input of this.inputs) {
+      input.removeEventListener("input", this.onInput);
+      input.removeEventListener("change", this.onInput);
+    }
+  },
+
+  reportValue(input) {
+    const change = this.el.getAttribute("data-lb-change-event");
+    if (!change) return;
+
+    // Do not send the same native value twice when a browser emits its normal
+    // `input` followed by `change` pair.
+    const value = input.value;
+    if (input.dataset.lbReportedValue === value) return;
+
+    input.dataset.lbReportedValue = value;
+    this.pushEvent(change, {
+      value,
+      values: this.inputs.map((nestedInput) => nestedInput.value),
+    });
   },
 
   vertical() {
@@ -56,7 +82,9 @@ export const Slider = {
   // percentages of the whole, so neither needs to know how long the track is.
   place() {
     const fractions = this.inputs.map((input) => fraction(input)).sort((a, b) => a - b);
-    const from = this.inputs.length > 1 ? Math.min(...fractions) : 0;
+    const scalar = this.el.hasAttribute("data-lb-slider-scalar");
+    const range = this.inputs.length > 1 && !scalar;
+    const from = range ? Math.min(...fractions) : 0;
     const to = Math.max(...fractions, 0);
     const vertical = this.vertical();
     const length = vertical ? this.el.clientHeight : this.el.clientWidth;
@@ -83,15 +111,23 @@ export const Slider = {
 
     if (!this.range) return;
 
-    const rangeLength = this.inputs.length > 1 ? usable : length;
-    const rangeEdge = this.inputs.length > 1 ? edge : 0;
-    const size = `${(to - from) * rangeLength}px`;
-    const start = `${rangeEdge + from * rangeLength}px`;
+    const size = range ? `${(to - from) * usable}px` : `${edge + to * usable}px`;
+    const start = range ? `${edge + from * usable}px` : "0px";
 
     if (vertical) {
-      Object.assign(this.range.style, { bottom: start, height: size, width: "100%" });
+      Object.assign(this.range.style, {
+        position: "absolute",
+        bottom: start,
+        height: size,
+        width: "100%",
+      });
     } else {
-      Object.assign(this.range.style, { insetInlineStart: start, width: size, height: "100%" });
+      Object.assign(this.range.style, {
+        position: "relative",
+        insetInlineStart: start,
+        width: size,
+        height: "100%",
+      });
     }
   },
 

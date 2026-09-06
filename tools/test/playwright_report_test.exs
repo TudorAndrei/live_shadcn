@@ -97,6 +97,82 @@ defmodule LiveShadcnTools.PlaywrightReportTest do
     assert result.global_failures == ["keeps its place\nnavigation failed"]
   end
 
+  test "keeps each selected example result when a browser batch has a failure" do
+    report = %{
+      "suites" => [
+        suite("parity.spec.mjs", [
+          spec(
+            "input-otp / default draws what React draws",
+            "parity.spec.mjs",
+            "expected"
+          ),
+          spec(
+            "input-otp / invalid draws what React draws",
+            "parity.spec.mjs",
+            "unexpected",
+            "slot differs"
+          )
+        ])
+      ]
+    }
+
+    result =
+      PlaywrightReport.example_results(report, ["input-otp.default", "input-otp.invalid"])
+
+    assert result.components["input-otp.default"] == %{"pass" => true}
+
+    assert result.components["input-otp.invalid"] == %{
+             "detail" => "input-otp / invalid draws what React draws\nslot differs",
+             "pass" => false
+           }
+
+    assert result.global_failures == []
+  end
+
+  test "maps generic interaction evidence to each selected example" do
+    report = %{
+      "suites" => [
+        suite("interaction-parity.spec.mjs", [
+          spec(
+            "calendar / rtl keeps inferred interaction semantics",
+            "interaction-parity.spec.mjs",
+            "expected"
+          ),
+          spec(
+            "calendar / time keeps inferred interaction semantics",
+            "interaction-parity.spec.mjs",
+            "unexpected",
+            "select value differs"
+          )
+        ])
+      ]
+    }
+
+    result =
+      PlaywrightReport.incremental_example_results(report, "interaction", [
+        "calendar.rtl",
+        "calendar.time"
+      ])
+
+    assert result.components["calendar.rtl"] == %{"pass" => true}
+    refute result.components["calendar.time"]["pass"]
+    assert result.components["calendar.time"]["detail"] =~ "select value differs"
+  end
+
+  test "records a named behavior report against its explicit single example" do
+    report = %{
+      "suites" => [
+        suite("calendar.spec.mjs", [
+          spec("RTL retains its caption contract", "calendar.spec.mjs", "expected")
+        ])
+      ]
+    }
+
+    result = PlaywrightReport.incremental_example_results(report, "behavior", ["calendar.rtl"])
+
+    assert result.components["calendar.rtl"] == %{"pass" => true}
+  end
+
   defp suite(file, specs) do
     %{"file" => file, "specs" => specs, "suites" => [], "title" => file}
   end

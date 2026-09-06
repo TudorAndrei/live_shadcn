@@ -51,6 +51,7 @@ defmodule LiveBase.Listbox do
   """
   def choose(js \\ %JS{}, opts) do
     listbox = Keyword.fetch!(opts, :listbox)
+    trigger_id = Keyword.get(opts, :trigger_id, Popover.trigger_id(listbox))
     value = Keyword.fetch!(opts, :value)
     option = "##{option_id(listbox, value)}"
     others = "##{Popover.popup_id(listbox)} [role='option']:not(#{option})"
@@ -61,10 +62,10 @@ defmodule LiveBase.Listbox do
     |> JS.set_attribute({"data-selected", ""}, to: option)
     |> JS.set_attribute({"aria-selected", "true"}, to: option)
     |> JS.set_attribute({"value", value}, to: "##{input_id(listbox)}")
-    |> JS.set_attribute({"data-value", value}, to: "##{Popover.trigger_id(listbox)}")
+    |> JS.set_attribute({"data-value", value}, to: "##{trigger_id}")
     |> label(listbox, Keyword.get(opts, :label, value))
     |> JS.dispatch("change", to: "##{input_id(listbox)}", bubbles: true)
-    |> Popover.close(listbox)
+    |> Popover.close(listbox, trigger_id: trigger_id)
   end
 
   # The trigger has to read the chosen label, and there is no attribute for

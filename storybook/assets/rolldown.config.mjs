@@ -24,6 +24,8 @@ export default {
     alias: {
       "@floating-ui/dom": require.resolve("@floating-ui/dom"),
       "@rive-app/webgl2": require.resolve("@rive-app/webgl2"),
+      "embla-carousel": require.resolve("embla-carousel"),
+      "embla-carousel-autoplay": require.resolve("embla-carousel-autoplay"),
     },
   },
   output: {

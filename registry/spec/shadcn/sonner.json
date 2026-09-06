@@ -2,27 +2,31 @@
   "base_ui": {},
   "bindings": {
     "copy": [
-      "jsx/Toaster/class/0"
+      "jsx/Toaster/class/0",
+      "jsx/Toaster/class/1",
+      "jsx/Toaster/class/2",
+      "jsx/Toaster/class/3",
+      "jsx/Toaster/class/4",
+      "jsx/Toaster/class/5"
     ],
     "derived": {}
   },
   "css_vars": [],
   "facts": {
-    "jsx/Toaster/class/0": "toaster group"
+    "jsx/Toaster/class/0": "toaster group",
+    "jsx/Toaster/class/1": "size-4",
+    "jsx/Toaster/class/2": "size-4",
+    "jsx/Toaster/class/3": "size-4",
+    "jsx/Toaster/class/4": "size-4",
+    "jsx/Toaster/class/5": "size-4 animate-spin"
   },
   "file_fingerprints": {
     "shadcn/ui/sonner.tsx": "3810332de8149167b056b2fa15609840f1b31616b7f3a2b050a05b15f9871f01"
   },
   "fingerprint": "71d14c8f98ba9c4991960db3cca2a331628541c2214005452874988075184d3f",
-  "ignored": {
-    "jsx/Toaster/class/1": "the generated port does not contain this source literal",
-    "jsx/Toaster/class/2": "the generated port does not contain this source literal",
-    "jsx/Toaster/class/3": "the generated port does not contain this source literal",
-    "jsx/Toaster/class/4": "the generated port does not contain this source literal",
-    "jsx/Toaster/class/5": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "sonner",
-  "port_body": "d7664e77c9f07af44490253f109c68d12512b17207c14ddd5c9a2d844c877b5c",
+  "port_body": "07f65528bb5da013deb2eb914b03a3b93ca6200d07b67c58b3a770d7e0e528d6",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -42,6 +46,11 @@
     "shadcn/ui/sonner.tsx": "d5178ce4c7834d3f46d261698395b498b8f45fef29975585df7e26cb43aa3cc7"
   },
   "uses": [
-    "jsx/Toaster/class/0"
+    "jsx/Toaster/class/0",
+    "jsx/Toaster/class/1",
+    "jsx/Toaster/class/2",
+    "jsx/Toaster/class/3",
+    "jsx/Toaster/class/4",
+    "jsx/Toaster/class/5"
   ]
 }

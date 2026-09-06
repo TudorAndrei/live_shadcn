@@ -9,6 +9,7 @@
       "jsx/QuestionnaireChoice/class/4",
       "jsx/QuestionnaireChoice/class/5",
       "jsx/QuestionnaireChoice/class/6",
+      "jsx/QuestionnaireChoice/class/7",
       "jsx/QuestionnaireChoiceDescription/class/0",
       "jsx/QuestionnaireChoices/class/0",
       "jsx/QuestionnaireDescription/class/0",
@@ -56,6 +57,7 @@
     "jsx/QuestionnaireChoice/class/4": "cn-questionnaire-choice-indicator-dot hidden rounded-full group-data-[type=checkbox]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block",
     "jsx/QuestionnaireChoice/class/5": "cn-questionnaire-choice-indicator-check hidden group-data-[type=radio]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block",
     "jsx/QuestionnaireChoice/class/6": "cn-questionnaire-choice-label cn-questionnaire-choice-content flex min-w-0 flex-1 flex-col leading-snug",
+    "jsx/QuestionnaireChoice/class/7": "cn-questionnaire-choice-shortcut cn-questionnaire-shortcut pointer-events-none ms-auto hidden shrink-0 group-data-[shortcut]/questionnaire-choice:inline-flex",
     "jsx/QuestionnaireChoiceDescription/class/0": "cn-questionnaire-choice-description",
     "jsx/QuestionnaireChoices/class/0": "cn-questionnaire-choices group/questionnaire-choices grid min-w-0",
     "jsx/QuestionnaireDescription/class/0": "cn-questionnaire-description text-pretty text-muted-foreground",
@@ -75,11 +77,9 @@
     "shadcn/ui/questionnaire.tsx": "1e0073eacfde9de16090e3a78f4e742a96d5034e804480a9cc219be36f1a14ef"
   },
   "fingerprint": "f6e6198e88a641cde0133e8e1b2621f01454dfc1d02fbb8873bd082970aa25d8",
-  "ignored": {
-    "jsx/QuestionnaireChoice/class/7": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "questionnaire",
-  "port_body": "5dacf42253f49d85354161b51b11878243bed79bc1ed069c2c7c967bb99ee857",
+  "port_body": "3d30418eed907c73a99c64ea749fe7ad082b0e7a77fcdeb15baaef081a26ef4c",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -132,6 +132,11 @@
     },
     {
       "group": "questionnaire-choice",
+      "name": "data-shortcut",
+      "value": null
+    },
+    {
+      "group": "questionnaire-choice",
       "name": "data-type",
       "value": "checkbox"
     },
@@ -142,14 +147,14 @@
     }
   ],
   "styles": {
-    "luma": "d1134d6fc240d630b60e097252572d3257d6a72906240f64e88703caf76f9018",
-    "lyra": "957a6a8dde385334363309ab5c249857d75291cb56d9a00103fd3dcf6cf5a219",
-    "maia": "ce8acf2039307cb885065b6e27dbbd12a78cd5dbea73f3ee29cdd20dec0a5802",
-    "mira": "236630184640b282b4d3e9a138e8709745c3c10408fd4a95481d69f34295baf8",
-    "nova": "c24d6625c25312505d2c3f9c4a02989a6b6fc000e2c55da1a516803892ea5628",
-    "rhea": "7262783440372def22600b0f1969ad9264af1b887d0e2c09bed86faa5f1aab07",
-    "sera": "61a7234661a82516dce033d68a3c8c9e16c4239ebd68759928474916b937935c",
-    "vega": "b9a37877ddd745e4f91a881d798b7902917eeb35c93accb7af2d52d769348d54"
+    "luma": "bb8dba23ff7aee51880de3240e7071ad5e52a6c96ad9b0f885f7f25129c3c096",
+    "lyra": "c4f59a538ba974d6d3493cdecedc2e96a942ecf836b40179175edc856b29bc39",
+    "maia": "ca0f18ad91a8ab279c77525037242e409e310bbc98e2d0bcf7546ac983667d87",
+    "mira": "09be3bbea1555baa8e02c1a35213a57b95c25805a6ff3619c6893b96693a68d9",
+    "nova": "bae20b500126412ad3690fb21089aeffa2c0fa8a6762dfcdc21aca0126a2614e",
+    "rhea": "43238b465cb097656312779b7f2f077712775233d0c5f1b0155b7b585d3a5f96",
+    "sera": "97443bebc6191fa13851118d1a710a814cd58f7eaab8589da59671844c896fd6",
+    "vega": "99e64d7680a91d4c8bd8ca0080064f01e0cc302b8b2601c91bf21814b6588c0d"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"
@@ -165,6 +170,7 @@
     "jsx/QuestionnaireChoice/class/4",
     "jsx/QuestionnaireChoice/class/5",
     "jsx/QuestionnaireChoice/class/6",
+    "jsx/QuestionnaireChoice/class/7",
     "jsx/QuestionnaireChoiceDescription/class/0",
     "jsx/QuestionnaireChoices/class/0",
     "jsx/QuestionnaireDescription/class/0",

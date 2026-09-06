@@ -15,10 +15,17 @@ defmodule LiveShadcn.UI.ToggleGroup do
 
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
+  alias Phoenix.LiveView.JS
+
+  attr(:id, :string, required: true)
   attr(:orientation, :string, default: "horizontal")
   attr(:size, :string, default: nil)
-  attr(:spacing, :string, default: "2")
+  attr(:spacing, :integer, default: 2)
   attr(:variant, :string, default: nil)
+  attr(:multiple, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:output, :string, default: nil, doc: "A selector whose text receives the selected value.")
+  attr(:output_prefix, :string, default: "")
   attr(:class, :any, default: nil)
   attr(:rest, :global, include: ["data-slot"])
 
@@ -29,39 +36,53 @@ defmodule LiveShadcn.UI.ToggleGroup do
     attr(:disabled, :boolean)
     attr(:readonly, :boolean)
     attr(:value, :string)
+    attr(:native_value, :string)
     attr(:class, :any)
     attr(:variant, :string)
     attr(:size, :string)
+    attr(:on_click, :any)
     attr(:"aria-label", :string)
   end
 
   def toggle_group(assigns) do
     ~H"""
     <div
+      id={@id}
       data-slot={@rest[:"data-slot"] || "toggle-group"}
       role="group"
+      phx-hook="LiveBase.ToggleGroup"
       data-variant={@variant}
       data-size={@size}
       data-spacing={@spacing}
       data-orientation={@orientation}
+      data-horizontal={flag(@orientation == "horizontal")}
+      data-vertical={flag(@orientation == "vertical")}
+      data-multiple={flag(@multiple)}
+      data-disabled={flag(@disabled)}
+      data-lb-output={@output}
+      data-lb-output-prefix={@output_prefix}
       style={"--gap: #{@spacing}"}
-      class={[
-        upstream_fact("jsx/ToggleGroup/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/ToggleGroup/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <LiveShadcn.UI.Toggle.toggle
         :for={item <- @item}
-        id={item[:id]}
+        id={item[:id] || "#{@id}-#{item[:value]}"}
         name={item[:name]}
-        value={item[:value] || "true"}
+        value={item[:native_value] || item[:value] || "true"}
         checked={item[:checked]}
-        disabled={item[:disabled] || false}
-        aria-disabled={to_string(item[:disabled] || false)}
+        disabled={@disabled || item[:disabled] || false}
+        aria-disabled={to_string(@disabled || item[:disabled] || false)}
         readonly={item[:readonly] || false}
         variant={@variant || item[:variant] || "default"}
         size={@size || item[:size] || "default"}
+        on_click={
+          item[:on_click] ||
+            JS.dispatch("live-base:toggle-group",
+              to: "##{@id}",
+              detail: %{item: item[:id] || "#{@id}-#{item[:value]}"}
+            )
+        }
         aria-label={item[:"aria-label"]}
         data-slot="toggle-group-item"
         data-variant={@variant || item[:variant] || "default"}
@@ -77,4 +98,7 @@ defmodule LiveShadcn.UI.ToggleGroup do
     </div>
     """
   end
+
+  defp flag(true), do: ""
+  defp flag(_value), do: nil
 end

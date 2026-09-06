@@ -36,7 +36,7 @@
     "jsx/MenubarTrigger/class/0": "the generated port does not contain this source literal"
   },
   "name": "menubar",
-  "port_body": "88b6f8b4d6aef9ed443d80be542618b53b199eca95eafb5db53ff39b8877242d",
+  "port_body": "49fae526293d51fca145b70f2b7ff61bf70a173bc3f54746830e7767dea58655",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

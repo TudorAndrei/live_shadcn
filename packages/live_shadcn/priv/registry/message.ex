@@ -36,7 +36,7 @@ defmodule LiveShadcn.UI.Message do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "message-group"}
-      class={[upstream_fact("jsx/MessageGroup/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/MessageGroup/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -55,10 +55,7 @@ defmodule LiveShadcn.UI.Message do
     <div
       data-slot={@rest[:"data-slot"] || "message"}
       data-align={@align}
-      class={[
-        upstream_fact("jsx/Message/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Message/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -76,10 +73,7 @@ defmodule LiveShadcn.UI.Message do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "message-avatar"}
-      class={[
-        upstream_fact("jsx/MessageAvatar/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/MessageAvatar/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -97,7 +91,7 @@ defmodule LiveShadcn.UI.Message do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "message-content"}
-      class={[upstream_fact("jsx/MessageContent/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/MessageContent/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -115,10 +109,7 @@ defmodule LiveShadcn.UI.Message do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "message-footer"}
-      class={[
-        upstream_fact("jsx/MessageFooter/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/MessageFooter/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -136,7 +127,7 @@ defmodule LiveShadcn.UI.Message do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "message-header"}
-      class={[upstream_fact("jsx/MessageHeader/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/MessageHeader/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

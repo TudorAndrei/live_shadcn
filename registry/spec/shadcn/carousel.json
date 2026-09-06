@@ -7,6 +7,7 @@
       "jsx/CarouselContent/class/1",
       "jsx/CarouselContent/class/2",
       "jsx/CarouselContent/class/3",
+      "jsx/CarouselItem/class/0",
       "jsx/CarouselItem/class/1",
       "jsx/CarouselItem/class/2",
       "jsx/CarouselNext/class/0",
@@ -18,19 +19,7 @@
       "jsx/CarouselPrevious/class/1",
       "jsx/CarouselPrevious/class/2"
     ],
-    "derived": {
-      "port/class/0": {
-        "items": [
-          {
-            "fact": "jsx/CarouselItem/class/0"
-          },
-          {
-            "literal": "snap-start"
-          }
-        ],
-        "op": "join"
-      }
-    }
+    "derived": {}
   },
   "css_vars": [],
   "facts": {
@@ -39,6 +28,7 @@
     "jsx/CarouselContent/class/1": "flex",
     "jsx/CarouselContent/class/2": "-ml-4",
     "jsx/CarouselContent/class/3": "-mt-4 flex-col",
+    "jsx/CarouselItem/class/0": "min-w-0 shrink-0 grow-0 basis-full",
     "jsx/CarouselItem/class/1": "pl-4",
     "jsx/CarouselItem/class/2": "pt-4",
     "jsx/CarouselNext/class/0": "cn-carousel-next absolute touch-manipulation",
@@ -48,8 +38,7 @@
     "jsx/CarouselNext/class/4": "sr-only",
     "jsx/CarouselPrevious/class/0": "cn-carousel-previous absolute touch-manipulation",
     "jsx/CarouselPrevious/class/1": "inset-y-0 -left-12 my-auto",
-    "jsx/CarouselPrevious/class/2": "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-    "port/class/0": "min-w-0 shrink-0 grow-0 basis-full snap-start"
+    "jsx/CarouselPrevious/class/2": "-top-12 left-1/2 -translate-x-1/2 rotate-90"
   },
   "file_fingerprints": {
     "shadcn/ui/carousel.tsx": "257d21bc55d6708994de767c5c5602e3ba9a6fb7e7ace4e823e8ee926fa364aa"
@@ -60,7 +49,7 @@
     "jsx/CarouselPrevious/class/4": "the generated port does not contain this source literal"
   },
   "name": "carousel",
-  "port_body": "06f8b5d79b3b6bbd468d13ff556a130b15e9d53ee6846c4cd275623f0ff89fac",
+  "port_body": "e0c8bfaee646922f0d32cccac210fb1d8f11c68a035c0b0ef957a0aeae86d89e",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

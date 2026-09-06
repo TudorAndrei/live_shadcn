@@ -54,10 +54,7 @@ defmodule LiveShadcn.UI.Empty do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "empty"}
-      class={[
-        upstream_fact("jsx/Empty/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Empty/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -75,7 +72,7 @@ defmodule LiveShadcn.UI.Empty do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "empty-header"}
-      class={[upstream_fact("jsx/EmptyHeader/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/EmptyHeader/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -93,7 +90,7 @@ defmodule LiveShadcn.UI.Empty do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "empty-title"}
-      class={[upstream_fact("jsx/EmptyTitle/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/EmptyTitle/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -111,10 +108,7 @@ defmodule LiveShadcn.UI.Empty do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "empty-description"}
-      class={[
-        upstream_fact("jsx/EmptyDescription/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/EmptyDescription/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -132,10 +126,7 @@ defmodule LiveShadcn.UI.Empty do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "empty-content"}
-      class={[
-        upstream_fact("jsx/EmptyContent/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/EmptyContent/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -159,11 +150,13 @@ defmodule LiveShadcn.UI.Empty do
     <div
       data-slot={@rest[:"data-slot"] || "empty-icon"}
       data-variant={@variant}
-      class={[
-        variant_class("emptyMediaVariants", "variant", @variant),
-        upstream_fact("cva/emptyMediaVariants/base"),
-        @class
-      ]}
+      class={
+        LiveShadcn.Cn.merge([
+          upstream_fact("cva/emptyMediaVariants/base"),
+          variant_class("emptyMediaVariants", "variant", @variant),
+          @class
+        ])
+      }
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

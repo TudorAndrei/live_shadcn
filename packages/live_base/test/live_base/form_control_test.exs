@@ -15,6 +15,8 @@ defmodule LiveBase.FormControlTest do
                "aria-checked",
                "data-checked",
                "data-unchecked",
+               "data-checked",
+               "data-unchecked",
                "hidden",
                "data-filled",
                "checked"
@@ -33,14 +35,51 @@ defmodule LiveBase.FormControlTest do
     test "shows the indicator, which is where the tick is" do
       js = FormControl.toggle(control: "subscribe")
 
-      assert [["toggle_attr", %{to: "#subscribe [data-slot$='-indicator']"}]] =
+      assert [["toggle_attr", %{to: ~s([id="subscribe"] [data-slot$='-indicator'])}]] =
                Enum.filter(ops(js), &match?(["toggle_attr", %{attr: ["hidden" | _]}], &1))
+    end
+
+    test "moves a thumb with the checked state" do
+      js = FormControl.toggle(control: "subscribe")
+
+      assert Enum.any?(
+               ops(js),
+               &match?(
+                 [
+                   "toggle_attr",
+                   %{
+                     attr: ["data-checked", ""],
+                     to: ~s([id="subscribe"] [data-slot$='-thumb'])
+                   }
+                 ],
+                 &1
+               )
+             )
     end
 
     test "tells the form, so phx-change fires" do
       js = FormControl.toggle(control: "subscribe")
 
-      assert [["dispatch", %{event: "change", to: "#subscribe-input"}]] =
+      assert [["dispatch", %{event: "change", to: ~s([id="subscribe-input"])}]] =
+               Enum.filter(ops(js), &(hd(&1) == "dispatch"))
+    end
+
+    test "can use the public input id when the control has an internal id" do
+      js = FormControl.toggle(control: "subscribe-control", input: "subscribe")
+
+      assert [["dispatch", %{event: "change", to: ~s([id="subscribe"])}]] =
+               Enum.filter(ops(js), &(hd(&1) == "dispatch"))
+    end
+
+    test "uses valid selectors when an id starts with a digit" do
+      js = FormControl.toggle(control: "2fa-control", input: "2fa")
+
+      assert Enum.all?(ops(js), fn
+               [_kind, %{to: to}] -> not String.contains?(to, "#2fa")
+               _operation -> true
+             end)
+
+      assert [["dispatch", %{event: "change", to: ~s([id="2fa"])}]] =
                Enum.filter(ops(js), &(hd(&1) == "dispatch"))
     end
 
@@ -70,7 +109,7 @@ defmodule LiveBase.FormControlTest do
     test "unchooses the others by role, not by a list of ids" do
       js = FormControl.select(control: "style-nova", group: "style")
 
-      others = "#style [role='radio']:not(#style-nova)"
+      others = ~s|[id="style"] [role='radio']:not([id="style-nova"])|
 
       assert Enum.any?(
                ops(js),
@@ -89,7 +128,22 @@ defmodule LiveBase.FormControlTest do
 
       assert Enum.any?(
                ops(js),
-               &match?(["set_attr", %{attr: ["checked", ""], to: "#style-nova-input"}], &1)
+               &match?(
+                 ["set_attr", %{attr: ["checked", ""], to: ~s([id="style-nova-input"])}],
+                 &1
+               )
+             )
+    end
+
+    test "can use a public input id separate from the control id" do
+      js = FormControl.select(control: "style-nova-control", group: "style", input: "style-nova")
+
+      assert Enum.any?(
+               ops(js),
+               &match?(
+                 ["set_attr", %{attr: ["checked", ""], to: ~s([id="style-nova"])}],
+                 &1
+               )
              )
     end
   end

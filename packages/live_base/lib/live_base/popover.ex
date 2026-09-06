@@ -57,10 +57,12 @@ defmodule LiveBase.Popover do
   would be a tooltip nobody could type past.
   """
   def open(js \\ %JS{}, popover, opts \\ []) do
+    trigger_id = Keyword.get(opts, :trigger_id, trigger_id(popover))
+
     js
-    |> JS.set_attribute({"data-popup-open", ""}, to: "##{trigger_id(popover)}")
-    |> JS.set_attribute({"data-pressed", ""}, to: "##{trigger_id(popover)}")
-    |> JS.set_attribute({"aria-expanded", "true"}, to: "##{trigger_id(popover)}")
+    |> JS.set_attribute({"data-popup-open", ""}, to: "##{trigger_id}")
+    |> JS.set_attribute({"data-pressed", ""}, to: "##{trigger_id}")
+    |> JS.set_attribute({"aria-expanded", "true"}, to: "##{trigger_id}")
     |> JS.remove_attribute("hidden", to: layers(popover))
     |> JS.set_attribute({"data-open", ""}, to: layers(popover))
     |> JS.remove_attribute("data-closed", to: layers(popover))
@@ -73,11 +75,13 @@ defmodule LiveBase.Popover do
   defp focus(js, popover), do: JS.focus(js, to: "##{popup_id(popover)}")
 
   @doc "Closes a popover."
-  def close(js \\ %JS{}, popover) do
+  def close(js \\ %JS{}, popover, opts \\ []) do
+    trigger_id = Keyword.get(opts, :trigger_id, trigger_id(popover))
+
     js
-    |> JS.remove_attribute("data-popup-open", to: "##{trigger_id(popover)}")
-    |> JS.remove_attribute("data-pressed", to: "##{trigger_id(popover)}")
-    |> JS.set_attribute({"aria-expanded", "false"}, to: "##{trigger_id(popover)}")
+    |> JS.remove_attribute("data-popup-open", to: "##{trigger_id}")
+    |> JS.remove_attribute("data-pressed", to: "##{trigger_id}")
+    |> JS.set_attribute({"aria-expanded", "false"}, to: "##{trigger_id}")
     |> JS.remove_attribute("data-open", to: layers(popover))
     |> JS.set_attribute({"data-closed", ""}, to: layers(popover))
   end
@@ -88,14 +92,39 @@ defmodule LiveBase.Popover do
   The flip reads the trigger's own state, so the server never has to know which
   way round it is.
   """
-  def toggle(js \\ %JS{}, popover) do
+  def toggle(js \\ %JS{}, popover, opts \\ []) do
+    trigger_id = Keyword.get(opts, :trigger_id, trigger_id(popover))
+
     js
-    |> JS.toggle_attribute({"data-popup-open", ""}, to: "##{trigger_id(popover)}")
-    |> JS.toggle_attribute({"data-pressed", ""}, to: "##{trigger_id(popover)}")
-    |> JS.toggle_attribute({"aria-expanded", "true", "false"}, to: "##{trigger_id(popover)}")
+    |> JS.toggle_attribute({"data-popup-open", ""}, to: "##{trigger_id}")
+    |> JS.toggle_attribute({"data-pressed", ""}, to: "##{trigger_id}")
+    |> JS.toggle_attribute({"aria-expanded", "true", "false"}, to: "##{trigger_id}")
     |> JS.remove_attribute("hidden", to: layers(popover))
     |> JS.toggle_attribute({"data-open", ""}, to: layers(popover))
     |> JS.toggle_attribute({"data-closed", ""}, to: layers(popover))
+  end
+
+  @doc "Opens a tooltip without giving its trigger disclosure semantics."
+  def tooltip_toggle(js \\ %JS{}, popover, opts \\ []) do
+    trigger_id = Keyword.get(opts, :trigger_id, trigger_id(popover))
+
+    js
+    |> JS.toggle_attribute({"data-popup-open", ""}, to: "##{trigger_id}")
+    |> JS.toggle_attribute({"data-pressed", ""}, to: "##{trigger_id}")
+    |> JS.remove_attribute("hidden", to: layers(popover))
+    |> JS.toggle_attribute({"data-open", ""}, to: layers(popover))
+    |> JS.toggle_attribute({"data-closed", ""}, to: layers(popover))
+  end
+
+  @doc "Closes a tooltip without leaving disclosure state on its trigger."
+  def tooltip_close(js \\ %JS{}, popover, opts \\ []) do
+    trigger_id = Keyword.get(opts, :trigger_id, trigger_id(popover))
+
+    js
+    |> JS.remove_attribute("data-popup-open", to: "##{trigger_id}")
+    |> JS.remove_attribute("data-pressed", to: "##{trigger_id}")
+    |> JS.remove_attribute("data-open", to: layers(popover))
+    |> JS.set_attribute({"data-closed", ""}, to: layers(popover))
   end
 
   @doc """
@@ -105,13 +134,18 @@ defmodule LiveBase.Popover do
   away-click: it toggles, and closing here as well would undo it in the same
   gesture.
   """
-  def dismiss(js \\ %JS{}, popover), do: close(js, popover)
+  def dismiss(js \\ %JS{}, popover, opts \\ []), do: close(js, popover, opts)
 
   @doc "Marks the attributes the client owns so a server render does not close it."
   def owned_attributes(js \\ %JS{}, part)
 
   def owned_attributes(js, :trigger),
-    do: JS.ignore_attributes(js, ["aria-expanded", "data-popup-open", "data-pressed"], [])
+    do:
+      JS.ignore_attributes(
+        js,
+        ["aria-controls", "aria-expanded", "data-popup-open", "data-pressed"],
+        []
+      )
 
   def owned_attributes(js, part) when part in [:positioner, :popup] do
     JS.ignore_attributes(

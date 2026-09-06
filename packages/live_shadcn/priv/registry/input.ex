@@ -86,7 +86,7 @@ defmodule LiveShadcn.UI.Input do
       type={@type}
       class={[
         upstream_fact("jsx/Input/class/0"),
-        (@class || "")
+        @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     />

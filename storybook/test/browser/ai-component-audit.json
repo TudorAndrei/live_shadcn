@@ -22,9 +22,12 @@
   },
   "attachments": {
     "upstream": "attachments",
-    "contract": "rendered or caller-owned",
+    "contract": "interactive",
+    "spec": "attachments.spec.mjs",
     "component_examples": [
-      "default"
+      "default",
+      "list",
+      "inline"
     ]
   },
   "audio-player": {
@@ -65,9 +68,13 @@
   },
   "confirmation": {
     "upstream": "confirmation",
-    "contract": "rendered or caller-owned",
+    "contract": "interactive",
+    "spec": "confirmation.spec.mjs",
     "component_examples": [
-      "default"
+      "default",
+      "request",
+      "accepted",
+      "rejected"
     ]
   },
   "connection": {
@@ -75,7 +82,8 @@
     "contract": "rendered or caller-owned",
     "component_examples": [
       "default"
-    ]
+    ],
+    "local_only_examples": ["default"]
   },
   "context": {
     "upstream": "context",
@@ -89,7 +97,8 @@
     "contract": "rendered or caller-owned",
     "component_examples": [
       "default"
-    ]
+    ],
+    "local_only_examples": ["default"]
   },
   "conversation": {
     "upstream": "conversation",
@@ -106,7 +115,8 @@
     "component_examples": [
       "default",
       "animated"
-    ]
+    ],
+    "local_only_examples": ["default", "animated"]
   },
   "environment-variables": {
     "upstream": "environment-variables",
@@ -138,7 +148,8 @@
     "component_examples": [
       "carousel",
       "default"
-    ]
+    ],
+    "local_only_examples": ["carousel"]
   },
   "jsx-preview": {
     "upstream": "jsx-preview",
@@ -167,7 +178,8 @@
     "contract": "rendered or caller-owned",
     "component_examples": [
       "default"
-    ]
+    ],
+    "local_only_examples": ["default"]
   },
   "open-in-chat": {
     "upstream": "open-in-chat",
@@ -186,7 +198,8 @@
     "contract": "rendered or caller-owned",
     "component_examples": [
       "default"
-    ]
+    ],
+    "local_only_examples": ["default"]
   },
   "persona": {
     "upstream": "persona",
@@ -194,7 +207,8 @@
     "spec": "persona.spec.mjs",
     "component_examples": [
       "default"
-    ]
+    ],
+    "local_only_examples": ["default"]
   },
   "plan": {
     "upstream": "plan",
@@ -217,7 +231,10 @@
     "contract": "interactive",
     "spec": "question.spec.mjs",
     "component_examples": [
-      "default"
+      "default",
+      "freeform",
+      "multi-select",
+      "single-select"
     ]
   },
   "queue": {
@@ -323,7 +340,8 @@
     "contract": "rendered or caller-owned",
     "component_examples": [
       "default"
-    ]
+    ],
+    "local_only_examples": ["default"]
   },
   "transcription": {
     "upstream": "transcription",

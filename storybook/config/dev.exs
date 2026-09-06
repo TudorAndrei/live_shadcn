@@ -4,7 +4,10 @@ import Config
 # serves no data and holds no session worth protecting, so the key below is a
 # fixed development value rather than a secret.
 config :storybook, StorybookWeb.Endpoint,
-  http: [ip: {127, 0, 0, 1}, port: String.to_integer(System.get_env("PORT") || "4100")],
+  http: [
+    ip: {127, 0, 0, 1},
+    port: String.to_integer(System.get_env("STORYBOOK_PORT") || System.get_env("PORT") || "4100")
+  ],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,

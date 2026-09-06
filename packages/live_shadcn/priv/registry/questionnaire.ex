@@ -23,6 +23,8 @@ defmodule LiveShadcn.UI.Questionnaire do
       "cn-questionnaire-choice-indicator-check hidden group-data-[type=radio]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block",
     "jsx/QuestionnaireChoice/class/6" =>
       "cn-questionnaire-choice-label cn-questionnaire-choice-content flex min-w-0 flex-1 flex-col leading-snug",
+    "jsx/QuestionnaireChoice/class/7" =>
+      "cn-questionnaire-choice-shortcut cn-questionnaire-shortcut pointer-events-none ms-auto hidden shrink-0 group-data-[shortcut]/questionnaire-choice:inline-flex",
     "jsx/QuestionnaireChoiceDescription/class/0" => "cn-questionnaire-choice-description",
     "jsx/QuestionnaireChoices/class/0" =>
       "cn-questionnaire-choices group/questionnaire-choices grid min-w-0",
@@ -53,12 +55,59 @@ defmodule LiveShadcn.UI.Questionnaire do
 
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
+  defp initial_item(default_item, nil), do: default_item
+
+  defp initial_item(default_item, items) do
+    enabled_items =
+      Enum.reject(items, fn item ->
+        Map.get(item, :disabled, Map.get(item, "disabled", false))
+      end)
+
+    names = Enum.map(enabled_items, &(Map.get(&1, :name) || Map.get(&1, "name")))
+
+    if default_item in names do
+      default_item
+    else
+      List.first(names)
+    end
+  end
+
+  defp items_json(nil), do: nil
+  defp items_json(items), do: Jason.encode!(items)
+
+  defp merged_class(parts), do: LiveShadcn.Cn.merge(parts)
+
+  defp action_class(fact, variant, size, class) do
+    merged_class([
+      LiveShadcn.UI.Button.button_class(variant: variant, size: size),
+      upstream_fact(fact),
+      class
+    ])
+  end
+
   @doc "The `questionnaire` part."
 
+  attr(:id, :string, required: true, doc: "The stable DOM id required by the LiveView hook.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:default_item, :string, default: nil)
+  attr(:item, :string, default: nil)
+  attr(:items, :list, default: nil, doc: "The declared item names and their choice definitions.")
+  attr(:shortcuts, :string, default: nil)
+  attr(:on_item_change, :string, default: nil, doc: "A LiveView event emitted when the active item changes.")
+  attr(:on_submit, :string, default: nil, doc: "A LiveView submit event.")
+  attr(:on_reset, :string, default: nil, doc: "A LiveView reset event.")
 
   attr(:rest, :global,
-    include: ["data-slot", "action", "method", "enctype", "novalidate", "target"]
+    include: [
+      "data-slot",
+      "action",
+      "method",
+      "enctype",
+      "novalidate",
+      "target",
+      "data-lb-close-dialog-on-submit",
+      "data-lb-reset-on-dialog-close"
+    ]
   )
 
   slot(:inner_block)
@@ -66,8 +115,19 @@ defmodule LiveShadcn.UI.Questionnaire do
   def questionnaire(assigns) do
     ~H"""
     <form
+      id={@id}
       data-slot={@rest[:"data-slot"] || "questionnaire"}
-      class={[upstream_fact("jsx/Questionnaire/class/0"), (@class || "")]}
+      data-lb-questionnaire
+      data-default-item={initial_item(@default_item, @items)}
+      data-item={@item}
+      data-lb-items={items_json(@items)}
+      data-controlled={if(is_nil(@item), do: nil, else: "")}
+      data-shortcuts={@shortcuts}
+      data-lb-item-change-event={@on_item_change}
+      phx-hook={LiveBase.Questionnaire.hook()}
+      phx-submit={@on_submit}
+      phx-reset={@on_reset}
+      class={merged_class([upstream_fact("jsx/Questionnaire/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -85,10 +145,7 @@ defmodule LiveShadcn.UI.Questionnaire do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "questionnaire-actions"}
-      class={[
-        upstream_fact("jsx/QuestionnaireActions/class/0"),
-        (@class || "")
-      ]}
+      class={merged_class([upstream_fact("jsx/QuestionnaireActions/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -99,22 +156,33 @@ defmodule LiveShadcn.UI.Questionnaire do
   @doc "The `questionnaire-choice` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "for"])
+  attr(:value, :string, required: true)
+  attr(:checked, :boolean, default: nil)
+  attr(:default_checked, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:type, :string, default: "radio")
+  attr(:on_change, :string, default: nil, doc: "A LiveView change event for this choice.")
+  attr(:rest, :global, include: ["data-slot", "for", "name", "required", "aria-describedby"])
   slot(:inner_block)
 
   def questionnaire_choice(assigns) do
     ~H"""
     <label
       data-slot={@rest[:"data-slot"] || "questionnaire-choice"}
-      class={[
-        upstream_fact("port/class/0"),
-        (@class || "")
-      ]}
+      data-type={@type}
+      data-disabled={if(@disabled, do: "")}
+      class={merged_class([upstream_fact("port/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <input
         data-slot="questionnaire-choice-input"
-        type="radio"
+        type={@type}
+        value={@value}
+        name={@rest[:name]}
+        required={@rest[:required]}
+        checked={if(is_nil(@checked), do: @default_checked, else: @checked)}
+        disabled={@disabled}
+        phx-change={@on_change}
         class={upstream_fact("jsx/QuestionnaireChoice/class/2")}
       />
       <span
@@ -137,6 +205,12 @@ defmodule LiveShadcn.UI.Questionnaire do
       >
         {render_slot(@inner_block)}
       </span>
+      <span
+        data-slot="questionnaire-choice-shortcut"
+        aria-hidden="true"
+        hidden
+        class={upstream_fact("jsx/QuestionnaireChoice/class/7")}
+      />
     </label>
     """
   end
@@ -144,15 +218,15 @@ defmodule LiveShadcn.UI.Questionnaire do
   @doc "The `questionnaire-choice-description` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+  attr(:rest, :global, include: ["data-slot", "id"])
   slot(:inner_block)
 
   def questionnaire_choice_description(assigns) do
     ~H"""
     <span
       data-slot={@rest[:"data-slot"] || "questionnaire-choice-description"}
-      class={[upstream_fact("jsx/QuestionnaireChoiceDescription/class/0"), (@class || "")]}
-      {Map.drop(@rest, [:"data-slot"])}
+      class={merged_class([upstream_fact("jsx/QuestionnaireChoiceDescription/class/0"), @class])}
+      {Map.drop(@rest, [:"data-slot", :name, :required])}
     >
       {render_slot(@inner_block)}
     </span>
@@ -169,8 +243,8 @@ defmodule LiveShadcn.UI.Questionnaire do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "questionnaire-choices"}
-      class={[upstream_fact("jsx/QuestionnaireChoices/class/0"), (@class || "")]}
-      {Map.drop(@rest, [:"data-slot"])}
+      class={merged_class([upstream_fact("jsx/QuestionnaireChoices/class/0"), @class])}
+      {Map.drop(@rest, [:"data-slot", :type])}
     >
       {render_slot(@inner_block)}
     </div>
@@ -187,8 +261,8 @@ defmodule LiveShadcn.UI.Questionnaire do
     ~H"""
     <p
       data-slot={@rest[:"data-slot"] || "questionnaire-description"}
-      class={[upstream_fact("jsx/QuestionnaireDescription/class/0"), (@class || "")]}
-      {Map.drop(@rest, [:"data-slot"])}
+      class={merged_class([upstream_fact("jsx/QuestionnaireDescription/class/0"), @class])}
+      {Map.drop(@rest, [:"data-slot", :type])}
     >
       {render_slot(@inner_block)}
     </p>
@@ -205,7 +279,8 @@ defmodule LiveShadcn.UI.Questionnaire do
     ~H"""
     <p
       data-slot={@rest[:"data-slot"] || "questionnaire-error"}
-      class={[upstream_fact("jsx/QuestionnaireError/class/0"), (@class || "")]}
+      hidden
+      class={merged_class([upstream_fact("jsx/QuestionnaireError/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -249,10 +324,7 @@ defmodule LiveShadcn.UI.Questionnaire do
     >
       <input
         data-slot={@rest[:"data-slot"] || "questionnaire-input"}
-        class={[
-          upstream_fact("port/class/1"),
-          (@class || "")
-        ]}
+        class={merged_class([upstream_fact("port/class/1"), @class])}
         {Map.drop(@rest, [:"data-slot"])}
       />
       {render_slot(@inner_block)}
@@ -263,15 +335,29 @@ defmodule LiveShadcn.UI.Questionnaire do
   @doc "The `questionnaire-item` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+  attr(:name, :string, required: true)
+  attr(:multiple, :boolean, default: false)
+  attr(:required, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:invalid, :boolean, default: false)
+  attr(:on_status_change, :string, default: nil, doc: "A LiveView event emitted when this item status changes.")
+  attr(:rest, :global, include: ["data-slot", "aria-describedby", "aria-keyshortcuts", "aria-labelledby"])
   slot(:inner_block)
 
   def questionnaire_item(assigns) do
     ~H"""
     <fieldset
       data-slot={@rest[:"data-slot"] || "questionnaire-item"}
-      class={[upstream_fact("jsx/QuestionnaireItem/class/0"), (@class || "")]}
-      {Map.drop(@rest, [:"data-slot"])}
+      data-questionnaire-name={@name}
+      data-required={if(@required, do: "")}
+      data-multiple={if(@multiple, do: "")}
+      data-disabled={if(@disabled, do: "")}
+      data-invalid={if(@invalid, do: "")}
+      data-lb-status-change-event={@on_status_change}
+      aria-invalid={if(@invalid, do: "true")}
+      disabled={@disabled}
+      class={merged_class([upstream_fact("jsx/QuestionnaireItem/class/0"), @class])}
+      {Map.drop(@rest, [:"data-slot", :type])}
     >
       {render_slot(@inner_block)}
     </fieldset>
@@ -289,13 +375,12 @@ defmodule LiveShadcn.UI.Questionnaire do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "questionnaire-next"}
+      data-questionnaire-action="next"
+      type={@rest[:type] || "button"}
       data-size={@size}
       data-variant={@variant}
-      class={[
-        upstream_fact("jsx/QuestionnaireNext/class/0"),
-        (@class || "")
-      ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      class={action_class("jsx/QuestionnaireNext/class/0", @variant, @size, @class)}
+      {Map.drop(@rest, [:"data-slot", :type])}
     >
       <%= if @inner_block == [] do %>
         Next
@@ -316,13 +401,12 @@ defmodule LiveShadcn.UI.Questionnaire do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "questionnaire-previous"}
+      data-questionnaire-action="previous"
+      type={@rest[:type] || "button"}
       data-size={@size}
       data-variant={@variant}
-      class={[
-        upstream_fact("jsx/QuestionnairePrevious/class/0"),
-        (@class || "")
-      ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      class={action_class("jsx/QuestionnairePrevious/class/0", @variant, @size, @class)}
+      {Map.drop(@rest, [:"data-slot", :type])}
     >
       <%= if @inner_block == [] do %>
         Previous
@@ -336,6 +420,7 @@ defmodule LiveShadcn.UI.Questionnaire do
 
   attr(:current, :integer, default: nil, doc: "The current question number.")
   attr(:total, :integer, default: nil, doc: "The total question count.")
+  attr(:format, :string, default: "question", values: ["question", "fraction", "checkpoint"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -347,17 +432,29 @@ defmodule LiveShadcn.UI.Questionnaire do
       role="progressbar"
       aria-label="Questionnaire progress"
       aria-live="polite"
-      aria-valuemin={if(@total, do: "1")}
+      aria-valuemin="1"
       aria-valuemax={@total}
       aria-valuenow={@current}
       aria-valuetext={if(@current && @total, do: "Question #{@current} of #{@total}")}
-      class={[
-        upstream_fact("jsx/QuestionnaireProgress/class/0"),
-        (@class || "")
-      ]}
+      data-lb-progress-format={if(@format == "question", do: nil, else: @format)}
+      class={merged_class([upstream_fact("jsx/QuestionnaireProgress/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      {render_slot(@inner_block)}
+      <%= case @format do %>
+        <% "fraction" -> %>
+          {@current || 1} / {@total || 1}
+        <% "checkpoint" -> %>
+          <div class="mb-2 flex gap-1.5" aria-hidden="true">
+            <span
+              :for={index <- 1..(@total || 1)}
+              data-lb-progress-segment
+              class={if(index <= (@current || 1), do: "h-1.5 flex-1 rounded-full bg-primary", else: "h-1.5 flex-1 rounded-full bg-muted")}
+            />
+          </div>
+          <span data-lb-progress-label>Checkpoint {@current || 1} of {@total || 1}</span>
+        <% "question" -> %>
+          {render_slot(@inner_block)}
+      <% end %>
     </div>
     """
   end
@@ -373,13 +470,12 @@ defmodule LiveShadcn.UI.Questionnaire do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "questionnaire-skip"}
+      data-questionnaire-action="skip"
+      type={@rest[:type] || "button"}
       data-size={@size}
       data-variant={@variant}
-      class={[
-        upstream_fact("jsx/QuestionnaireSkip/class/0"),
-        (@class || "")
-      ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      class={action_class("jsx/QuestionnaireSkip/class/0", @variant, @size, @class)}
+      {Map.drop(@rest, [:"data-slot", :type])}
     >
       <%= if @inner_block == [] do %>
         Skip
@@ -400,13 +496,12 @@ defmodule LiveShadcn.UI.Questionnaire do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "questionnaire-submit"}
+      data-questionnaire-action="submit"
+      type={@rest[:type] || "submit"}
       data-size={@size}
       data-variant={@variant}
-      class={[
-        upstream_fact("jsx/QuestionnaireSubmit/class/0"),
-        (@class || "")
-      ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      class={action_class("jsx/QuestionnaireSubmit/class/0", @variant, @size, @class)}
+      {Map.drop(@rest, [:"data-slot", :type])}
     >
       <%= if @inner_block == [] do %>
         Submit
@@ -426,7 +521,7 @@ defmodule LiveShadcn.UI.Questionnaire do
     ~H"""
     <legend
       data-slot={@rest[:"data-slot"] || "questionnaire-title"}
-      class={[upstream_fact("jsx/QuestionnaireTitle/class/0"), (@class || "")]}
+      class={merged_class([upstream_fact("jsx/QuestionnaireTitle/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

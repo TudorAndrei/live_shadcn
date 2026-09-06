@@ -35,5 +35,9 @@ export async function visit(page, path, selector) {
 
 /** Wait until this page's LiveView has connected. */
 export async function connected(page) {
-  await page.waitForFunction(() => window.liveSocket?.isConnected());
+  await page.waitForFunction(
+    () =>
+      window.liveSocket?.isConnected() &&
+        document.querySelector("[data-phx-main].phx-connected") !== null,
+  );
 }

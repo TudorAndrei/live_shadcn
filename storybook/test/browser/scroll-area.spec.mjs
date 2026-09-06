@@ -9,20 +9,35 @@ import { expect, test } from "@playwright/test";
 
 import { visit } from "./live.mjs";
 
-const root = (page) => page.locator("#stages");
+const root = (page) => page.locator("#tags");
 const viewport = (page) => page.locator("[data-lb-scroller]");
 const thumb = (page) => page.locator("[data-lb-thumb]");
+const area = (page, id) => page.locator(`#${id}`);
+const areaViewport = (page, id) => area(page, id).locator("[data-lb-scroller]");
+const areaThumb = (page, id, orientation) =>
+  area(page, id).locator(`[data-lb-thumb][data-orientation='${orientation}']`);
 
 // The hook measures when the LiveView connects, which is after the
 // server-rendered HTML is on the page.
 const measured = async (page) =>
   page.waitForFunction(() => {
-    const value = getComputedStyle(document.querySelector("#stages")).getPropertyValue(
+    const value = getComputedStyle(document.querySelector("#tags")).getPropertyValue(
       "--scroll-area-thumb-height",
     );
 
     return value !== "" && value !== "0px";
   });
+
+const measuredAxis = async (page, id, axis) =>
+  page.waitForFunction(
+    ({ id, axis }) => {
+      const value = getComputedStyle(document.getElementById(id)).getPropertyValue(
+        `--scroll-area-thumb-${axis === "x" ? "width" : "height"}`,
+      );
+      return value !== "" && value !== "0px";
+    },
+    { id, axis },
+  );
 
 test.describe("a scroll area", () => {
   test.beforeEach(async ({ page }) => {
@@ -42,7 +57,7 @@ test.describe("a scroll area", () => {
     await measured(page);
 
     const { thumb: height, track } = await page.evaluate(() => {
-      const el = document.querySelector("#stages");
+      const el = document.querySelector("#tags");
 
       return {
         thumb: parseFloat(getComputedStyle(el).getPropertyValue("--scroll-area-thumb-height")),
@@ -86,4 +101,40 @@ test.describe("a scroll area", () => {
 
     expect(events.filter((frame) => frame.includes("event"))).toEqual([]);
   });
+});
+
+test("the horizontal artwork example scrolls on the x axis and moves its thumb", async ({ page }) => {
+  await visit(page, "/preview/scroll-area/horizontal-demo", "#artwork");
+  await measuredAxis(page, "artwork", "x");
+
+  const horizontal = area(page, "artwork");
+  const scroller = areaViewport(page, "artwork");
+  const horizontalThumb = areaThumb(page, "artwork", "horizontal");
+  const before = await horizontalThumb.evaluate((element) => element.style.transform);
+
+  await expect(horizontal).toHaveAttribute("data-has-overflow-x", "");
+  await expect(horizontal).toHaveAttribute("data-overflow-x-end", "");
+  await scroller.evaluate((element) => element.scrollTo({ left: element.scrollWidth, behavior: "auto" }));
+
+  await expect.poll(() => scroller.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+  await expect(horizontal).toHaveAttribute("data-overflow-x-start", "");
+  await expect(horizontal).not.toHaveAttribute("data-overflow-x-end", "");
+  await expect
+    .poll(() => horizontalThumb.evaluate((element) => element.style.transform))
+    .not.toBe(before);
+});
+
+test("the RTL tag example keeps direction while the user scrolls to the end", async ({ page }) => {
+  await visit(page, "/preview/scroll-area/rtl", "#tags-rtl");
+  await measuredAxis(page, "tags-rtl", "y");
+
+  const rtl = area(page, "tags-rtl");
+  const scroller = areaViewport(page, "tags-rtl");
+  await expect(rtl).toHaveAttribute("dir", "rtl");
+  await expect(rtl).toHaveAttribute("data-has-overflow-y", "");
+
+  await scroller.evaluate((element) => element.scrollTo({ top: element.scrollHeight, behavior: "auto" }));
+  await expect.poll(() => scroller.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+  await expect(rtl).toHaveAttribute("data-overflow-y-start", "");
+  await expect(rtl).not.toHaveAttribute("data-overflow-y-end", "");
 });

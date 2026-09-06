@@ -14,15 +14,24 @@
 // There are no committed baselines. See `shoot.mjs` for why that is the
 // decision everything else follows from.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 import { PNG } from "pngjs";
 
 import { gated, source } from "./registries.mjs";
-import { enterVisualState, installBrowserFixtures, visualStates } from "./visual-states.mjs";
+import {
+  enterVisualState,
+  installBrowserFixtures,
+  visualStateIdentity,
+  visualStates,
+} from "./visual-states.mjs";
 import { connected } from "./live.mjs";
+import { inScope, noScopedPagesMessage, scopeFromEnvironment } from "./preview-scope.mjs";
+import { pixelTimeoutMs } from "./pixel-timeout.mjs";
+import { hasOfficialReactReference } from "./react-references.mjs";
+import { comparisonApplies } from "./verification-policy.mjs";
 
 import {
   MINIMUM_HEIGHT,
@@ -32,48 +41,66 @@ import {
   paintedBox,
   settle,
   shoot,
+  shootCurrent,
   union,
 } from "./shoot.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const only = process.env.PREVIEW_COMPONENT;
-const onlySource = process.env.PREVIEW_SOURCE;
+const scope = scopeFromEnvironment();
 
 const previews = JSON.parse(readFileSync(join(here, "../../../registry/snapshot/index.json")));
 const budget = JSON.parse(readFileSync(join(here, "pixel-budget.json")));
 
-const ported = new Set(
-  readdirSync(join(here, "../../../parity/src/examples"))
-    .filter((name) => name.endsWith(".tsx"))
-    .map((name) => name.replace(/\.tsx$/, "")),
-);
-
 // Every example. `registries.mjs` says which of them this gates. Both
 // registries use the same DOM, style, pixel, behavior, and accessibility rules.
 const pages = Object.entries(previews)
-  .filter(([component]) => !onlySource || source(component) === onlySource)
-  .filter(([component]) => !only || component === only)
-  .flatMap(([component, examples]) => examples.map((example) => ({ component, example })));
+  .filter(([component]) => gated(component))
+  .flatMap(([component, examples]) => examples.map((example) => ({ component, example })))
+  .filter(({ component, example }) => comparisonApplies(source(component), component, example))
+  .filter(({ component, example }) => inScope(`${component}.${example}`, scope, source));
 
 const named = (component, example) => `${component}.${example}`;
+const hasOfficialReference = (component, example) =>
+  hasOfficialReactReference(source(component), named(component, example));
+
+if (pages.length === 0) {
+  test("there is an example to compare", () => {
+    throw new Error(
+      noScopedPagesMessage("pixel", scope),
+    );
+  });
+}
 
 // A budget or a skip for an example this check does not photograph is a check
 // that quietly stopped running — whether the example was deleted or the
 // registry it belongs to stopped being gated. Say so rather than carry it.
 test("every budget and skip names an example this check compares", () => {
   const all = new Set(
-    Object.entries(previews)
-      .filter(([component]) => gated(component))
-      .flatMap(([c, es]) => es.map((e) => named(c, e))),
+    pages
+      .filter(({ component, example }) => hasOfficialReference(component, example))
+      .map(({ component, example }) => named(component, example)),
   );
 
   const stale = [
     ...Object.keys(budget.budgets),
     ...budget.pending,
     ...Object.keys(budget.skips),
-  ].filter((name) => !all.has(name));
+  ]
+    .filter((name) => inScope(name, scope, source))
+    .filter((name) => !all.has(name));
 
   expect(stale, "remove these from pixel-budget.json").toEqual([]);
+});
+
+test("every gated snapshot example has a React reference", () => {
+  const missing = pages
+    .map(({ component, example }) => named(component, example))
+    .filter((name) => {
+      const [component, ...id] = name.split(".");
+      return !hasOfficialReference(component, id.join("."));
+    });
+
+  expect(missing, "add parity/src/examples/<name>.tsx for each").toEqual([]);
 });
 
 // One test for the whole gap, the same shape `parity.spec.mjs` uses for its
@@ -88,8 +115,7 @@ test("every example has a budget or is pending", () => {
   ]);
 
   const undecided = pages
-    .filter(({ component }) => gated(component))
-    .filter(({ component, example }) => ported.has(named(component, example)))
+    .filter(({ component, example }) => hasOfficialReference(component, example))
     .map(({ component, example }) => named(component, example))
     .filter((name) => !decided.has(name));
 
@@ -103,7 +129,7 @@ for (const { component, example } of pages) {
     // Named rather than passed over. A `continue` here left an example out of
     // the run with nothing in the output to say so, and a check that cannot
     // tell "did not run" from "passed" is worse than no check.
-    test.skip(!ported.has(name), `no React reference: add parity/src/examples/${name}.tsx`);
+    test.skip(!hasOfficialReference(component, example), `no official React reference for ${name}`);
     await installBrowserFixtures(page);
 
     const selector = `[data-preview='${component}']`;
@@ -111,13 +137,16 @@ for (const { component, example } of pages) {
 
     const reactURL = `${parity}/preview/${component}/${example}`;
     const phoenixURL = `/preview/${component}/${example}`;
+
     const reactStates = await statesAt(page, reactURL, selector);
     const phoenixStates = await statesAt(page, phoenixURL, selector);
 
     expect(
-      phoenixStates.map(({ name }) => name),
+      phoenixStates.map(visualStateIdentity),
       `${name}: React and Phoenix must expose the same render states`,
-    ).toEqual(reactStates.map(({ name }) => name));
+    ).toEqual(reactStates.map(visualStateIdentity));
+
+    test.setTimeout(pixelTimeoutMs(reactStates.length));
 
     const observations = [];
 
@@ -150,34 +179,43 @@ for (const { component, example } of pages) {
 
       const clip = union(reactPaint, phoenixPaint);
 
+      // `page` already contains this exact settled Phoenix state. Capture it
+      // now rather than reload it only to obtain the same pixels.
+      const phoenix = await shootCurrent(page, selector, clip);
       const react = await shoot(page, reactURL, selector, height, clip, state);
-      const phoenix = await shoot(page, phoenixURL, selector, height, clip, state);
 
       const { differing, diff, width } = compare(react.image, phoenix.image);
       const suffix = safeName(state.name);
 
-      await testInfo.attach(`react-${suffix}.png`, {
-        body: PNG.sync.write(react.image),
-        contentType: "image/png",
-      });
-      await testInfo.attach(`phoenix-${suffix}.png`, {
-        body: PNG.sync.write(phoenix.image),
-        contentType: "image/png",
-      });
-      await testInfo.attach(`diff-${suffix}.png`, {
-        body: PNG.sync.write(diff),
-        contentType: "image/png",
-      });
+      // Attach images only when they explain an actual difference. Encoding
+      // three large PNGs for every zero-pixel state drives Node CPU and keeps
+      // report artifacts alive without adding verification evidence.
+      if (differing > 0) {
+        await testInfo.attach(`react-${suffix}.png`, {
+          body: PNG.sync.write(react.image),
+          contentType: "image/png",
+        });
+        await testInfo.attach(`phoenix-${suffix}.png`, {
+          body: PNG.sync.write(phoenix.image),
+          contentType: "image/png",
+        });
+        await testInfo.attach(`diff-${suffix}.png`, {
+          body: PNG.sync.write(diff),
+          contentType: "image/png",
+        });
+      }
 
-      const scale = width / clip.width;
-      const hottest = localise(diff.data, width, height, phoenix.measured?.slots, {
-        origin: phoenix.origin,
-        clip: phoenix.clip,
-        scale,
-      })
-        .slice(0, 4)
-        .map(({ slot, count }) => `${slot} (${count} px)`)
-        .join(", ");
+      const hottest =
+        differing === 0
+          ? ""
+          : localise(diff.data, width, height, phoenix.measured?.slots, {
+              origin: phoenix.origin,
+              clip: phoenix.clip,
+              scale: width / clip.width,
+            })
+              .slice(0, 4)
+              .map(({ slot, count }) => `${slot} (${count} px)`)
+              .join(", ");
 
       // A percentage of the component, not of a mostly-blank page.
       const share = ((differing / (width * height)) * 100).toFixed(2);

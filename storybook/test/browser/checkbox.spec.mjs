@@ -12,32 +12,32 @@ import { expect, test } from "@playwright/test";
 
 import { visit } from "./live.mjs";
 
-const control = (page, id) => ({
-  control: page.locator(`#${id}`),
-  input: page.locator(`#${id}-input`),
+const checkboxControl = (page, id) => ({
+  control: page.locator(`#${id}-control`),
+  input: page.locator(`#${id}`),
 });
 
 test.describe("a checkbox", () => {
   test.beforeEach(async ({ page }) => {
-    await visit(page, "/preview/checkbox/default", "#subscribe");
+    await visit(page, "/preview/checkbox/default", "#terms-checkbox-control");
   });
 
   test("says what it is to a screen reader", async ({ page }) => {
-    const { control: box } = control(page, "subscribe");
+    const { control: box } = checkboxControl(page, "terms-checkbox-2");
 
     await expect(box).toHaveRole("checkbox");
     await expect(box).toHaveAttribute("aria-checked", "true");
   });
 
   test("an unchecked control marks itself unchecked, not merely not checked", async ({ page }) => {
-    const { control: box } = control(page, "beta");
+    const { control: box } = checkboxControl(page, "terms-checkbox");
 
     await expect(box).toHaveAttribute("data-unchecked", "");
     await expect(box).not.toHaveAttribute("data-checked", "");
   });
 
   test("a click flips both the control and the input a form submits", async ({ page }) => {
-    const { control: box, input } = control(page, "beta");
+    const { control: box, input } = checkboxControl(page, "terms-checkbox");
 
     await expect(input).not.toBeChecked();
 
@@ -49,7 +49,7 @@ test.describe("a checkbox", () => {
   });
 
   test("a second click flips it back", async ({ page }) => {
-    const { control: box, input } = control(page, "subscribe");
+    const { control: box, input } = checkboxControl(page, "terms-checkbox-2");
 
     await box.click();
 
@@ -59,7 +59,7 @@ test.describe("a checkbox", () => {
   });
 
   test("interacting with it marks it touched, which the server never sees", async ({ page }) => {
-    const { control: box } = control(page, "beta");
+    const { control: box } = checkboxControl(page, "terms-checkbox");
 
     await expect(box).not.toHaveAttribute("data-touched", "");
 
@@ -70,46 +70,68 @@ test.describe("a checkbox", () => {
   });
 
   test("a disabled control does not flip", async ({ page }) => {
-    const { control: box, input } = control(page, "locked");
+    const { control: box, input } = checkboxControl(page, "toggle-checkbox");
 
     await expect(box).toHaveAttribute("data-disabled", "");
     await box.click({ force: true });
 
-    await expect(box).toHaveAttribute("aria-checked", "true");
-    await expect(input).toBeChecked();
+    await expect(box).toHaveAttribute("aria-checked", "false");
+    await expect(input).not.toBeChecked();
   });
 
   test("the input is out of the accessibility tree, because the control is in it", async ({
     page,
   }) => {
-    const { input } = control(page, "subscribe");
+    const { input } = checkboxControl(page, "terms-checkbox");
 
     await expect(input).toHaveAttribute("aria-hidden", "true");
     await expect(input).toHaveAttribute("tabindex", "-1");
   });
 
   test("the control is reachable by keyboard and flips on Space", async ({ page }) => {
-    await page.locator("#beta").focus();
-    await expect(page.locator("#beta")).toBeFocused();
+    await page.locator("#terms-checkbox-control").focus();
+    await expect(page.locator("#terms-checkbox-control")).toBeFocused();
 
     await page.keyboard.press(" ");
 
-    await expect(page.locator("#beta")).toHaveAttribute("aria-checked", "true");
+    await expect(page.locator("#terms-checkbox-control")).toHaveAttribute("aria-checked", "true");
   });
 });
 
 test.describe("a switch", () => {
   test("carries the same contract, drawn differently", async ({ page }) => {
     await visit(page, "/preview/switch/default");
-    const { control: box, input } = control(page, "watch");
-
-    await expect(box).toHaveAttribute("data-checked", "");
-    await expect(input).toBeChecked();
-
-    await box.click();
+    const box = page.locator("#airplane-mode-control");
+    const input = page.locator("#airplane-mode");
 
     await expect(box).toHaveAttribute("data-unchecked", "");
     await expect(input).not.toBeChecked();
+
+    await box.click();
+
+    await expect(box).toHaveAttribute("data-checked", "");
+    await expect(input).toBeChecked();
+  });
+});
+
+test.describe("checkbox table selection", () => {
+  test("select all changes every row", async ({ page }) => {
+    await visit(page, "/preview/checkbox/table", "#checkbox-table");
+    const { control: selectAll } = checkboxControl(page, "select-all-checkbox");
+
+    await selectAll.click();
+
+    await expect(page.locator("tbody [role='checkbox'][aria-checked='true']")).toHaveCount(4);
+    await expect(page.locator("tbody tr[data-state='selected']")).toHaveCount(4);
+  });
+
+  test("one row changes its selected state", async ({ page }) => {
+    await visit(page, "/preview/checkbox/table", "#checkbox-table");
+    const { control: second } = checkboxControl(page, "row-2-checkbox");
+
+    await second.click();
+    await expect(second).toHaveAttribute("aria-checked", "true");
+    await expect(second.locator("xpath=ancestor::tr")).toHaveAttribute("data-state", "selected");
   });
 });
 
@@ -117,39 +139,39 @@ test.describe("a radio group", () => {
   test("choosing one unchooses the others, which is what makes it a radio", async ({ page }) => {
     await visit(page, "/preview/radio-group/default");
 
-    const vega = control(page, "style-vega");
-    const nova = control(page, "style-nova");
+    const comfortable = checkboxControl(page, "r2");
+    const compact = checkboxControl(page, "r3");
 
-    await expect(vega.control).toHaveAttribute("aria-checked", "true");
-    await expect(vega.input).toBeChecked();
+    await expect(comfortable.control).toHaveAttribute("aria-checked", "true");
+    await expect(comfortable.input).toBeChecked();
 
-    await nova.control.click();
+    await compact.control.click();
 
-    await expect(nova.control).toHaveAttribute("aria-checked", "true");
-    await expect(nova.input).toBeChecked();
+    await expect(compact.control).toHaveAttribute("aria-checked", "true");
+    await expect(compact.input).toBeChecked();
 
-    await expect(vega.control).toHaveAttribute("aria-checked", "false");
-    await expect(vega.control).toHaveAttribute("data-unchecked", "");
-    await expect(vega.input).not.toBeChecked();
+    await expect(comfortable.control).toHaveAttribute("aria-checked", "false");
+    await expect(comfortable.control).toHaveAttribute("data-unchecked", "");
+    await expect(comfortable.input).not.toBeChecked();
   });
 
   test("each radio says it is a radio, not a checkbox", async ({ page }) => {
     await visit(page, "/preview/radio-group/default");
 
-    await expect(page.locator("#style-vega")).toHaveRole("radio");
+    await expect(page.locator("#r2-control")).toHaveRole("radio");
   });
 });
 
 test.describe("a toggle", () => {
   test("says pressed rather than checked, because it is a button", async ({ page }) => {
     await visit(page, "/preview/toggle/default");
-    const bold = page.locator("#bold");
+    const bookmark = page.locator("#bookmark");
 
-    await expect(bold).toHaveAttribute("aria-pressed", "false");
+    await expect(bookmark).toHaveAttribute("aria-pressed", "false");
 
-    await bold.click();
+    await bookmark.click();
 
-    await expect(bold).toHaveAttribute("aria-pressed", "true");
-    await expect(bold).toHaveAttribute("data-pressed", "");
+    await expect(bookmark).toHaveAttribute("aria-pressed", "true");
+    await expect(bookmark).toHaveAttribute("data-pressed", "");
   });
 });

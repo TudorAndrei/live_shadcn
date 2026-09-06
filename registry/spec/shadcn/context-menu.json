@@ -4,9 +4,19 @@
   },
   "bindings": {
     "copy": [
+      "jsx/ContextMenuCheckboxItem/class/0",
+      "jsx/ContextMenuCheckboxItem/class/1",
       "jsx/ContextMenuContent/class/0",
       "jsx/ContextMenuContent/class/1",
       "jsx/ContextMenuItem/class/0",
+      "jsx/ContextMenuLabel/class/0",
+      "jsx/ContextMenuRadioItem/class/0",
+      "jsx/ContextMenuRadioItem/class/1",
+      "jsx/ContextMenuSeparator/class/0",
+      "jsx/ContextMenuShortcut/class/0",
+      "jsx/ContextMenuSubContent/class/0",
+      "jsx/ContextMenuSubTrigger/class/0",
+      "jsx/ContextMenuSubTrigger/class/1",
       "jsx/ContextMenuTrigger/class/0"
     ],
     "derived": {}
@@ -16,29 +26,28 @@
     "--transform-origin"
   ],
   "facts": {
+    "jsx/ContextMenuCheckboxItem/class/0": "cn-context-menu-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/ContextMenuCheckboxItem/class/1": "cn-context-menu-item-indicator pointer-events-none",
     "jsx/ContextMenuContent/class/0": "isolate z-50 outline-none",
     "jsx/ContextMenuContent/class/1": "cn-context-menu-content cn-context-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none",
     "jsx/ContextMenuItem/class/0": "cn-context-menu-item group/context-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/ContextMenuLabel/class/0": "cn-context-menu-label",
+    "jsx/ContextMenuRadioItem/class/0": "cn-context-menu-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/ContextMenuRadioItem/class/1": "cn-context-menu-item-indicator pointer-events-none",
+    "jsx/ContextMenuSeparator/class/0": "cn-context-menu-separator",
+    "jsx/ContextMenuShortcut/class/0": "cn-context-menu-shortcut",
+    "jsx/ContextMenuSubContent/class/0": "cn-context-menu-subcontent cn-menu-target cn-menu-translucent",
+    "jsx/ContextMenuSubTrigger/class/0": "cn-context-menu-sub-trigger flex cursor-default items-center outline-hidden select-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "jsx/ContextMenuSubTrigger/class/1": "cn-rtl-flip ml-auto",
     "jsx/ContextMenuTrigger/class/0": "cn-context-menu-trigger select-none"
   },
   "file_fingerprints": {
     "shadcn/ui/context-menu.tsx": "c403b9c30e60b37221fd86d1ca91d7061fc71b10a2a0cf95d7e638bf368fc5b7"
   },
   "fingerprint": "1d436494c5161869bada0e9178e7cc82588f78315ef6acc134e9d0bd598159de",
-  "ignored": {
-    "jsx/ContextMenuCheckboxItem/class/0": "the generated port does not contain this source literal",
-    "jsx/ContextMenuCheckboxItem/class/1": "the generated port does not contain this source literal",
-    "jsx/ContextMenuLabel/class/0": "the generated port does not contain this source literal",
-    "jsx/ContextMenuRadioItem/class/0": "the generated port does not contain this source literal",
-    "jsx/ContextMenuRadioItem/class/1": "the generated port does not contain this source literal",
-    "jsx/ContextMenuSeparator/class/0": "the generated port does not contain this source literal",
-    "jsx/ContextMenuShortcut/class/0": "the generated port does not contain this source literal",
-    "jsx/ContextMenuSubContent/class/0": "the generated port does not contain this source literal",
-    "jsx/ContextMenuSubTrigger/class/0": "the generated port does not contain this source literal",
-    "jsx/ContextMenuSubTrigger/class/1": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "context-menu",
-  "port_body": "a95e4aae412c1359d2e0179221005f0aa630abd1669541acc43d4c6c634cd3cc",
+  "port_body": "99941231fa36d650d0be1ac9af271d141be09e2c057763534a14f083834f6bc1",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -124,14 +133,14 @@
     }
   ],
   "styles": {
-    "luma": "dac83a9f8f76b4f3ce5452e14aeabfa7029238a06ea65c1d4d15b15c4257ce13",
-    "lyra": "83bdc96befebfe228d681ec0b59d6295c4b2bda82e603c157f7fe51bea6b9c1c",
-    "maia": "a630908edb794d222172b44b938999ac1dd6775d50f4a055e27f573240ecf208",
-    "mira": "19c596eb43b6548a4b2780f40bf22f10b408962763402a08068c153366f98530",
-    "nova": "4ec6a17d82928965fecf66af355ee0c0c06247e4f6c7d9e4efe8f47fbe6e418e",
-    "rhea": "a3c1ee162935f9b2ffa3adefb9a4748a2a40d11b34c0ce0893a5eedb876d4b66",
-    "sera": "fd906fc5cb1bb071083251c0d050272a6c80505f1d6212ef18127299ab59e9d2",
-    "vega": "83b27362d0cce41fb821acbb5bd61a282253d62845fe63077d6e2b4930a3a29a"
+    "luma": "c67b9a75a9d030e90ee9f293187de708e338493fc1b635a4892fa29586185aca",
+    "lyra": "83a31373012e6cd96891f99be5b0999d1725904176d96d5ab0a52b17537f7c82",
+    "maia": "c6487f0deedd5078a79ac268aa05f81755a29049b066fb732bad620b66ceb5e5",
+    "mira": "14bc3aa6c7da4ee72f49e22603890a16a33f43d7c7895fe5f422f6ec53309ec9",
+    "nova": "502e38d2bfd02a4f4a25a46e728bb49a62914de0cad0fd17799e6505a409eea1",
+    "rhea": "d7b5f2ba0b379b1f5c2af78437e48a4914cbf57d63b527d2ed295d48a18ddfda",
+    "sera": "ff83639e84ef44fa4fe26475967029d4c6e65ca2f835ca8b08055b1ff8c9adeb",
+    "vega": "5e0d82eb3dc9f5c2edf150107ad7b69ffeb4a381364d7d4ed7fb608ac49c0d64"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"

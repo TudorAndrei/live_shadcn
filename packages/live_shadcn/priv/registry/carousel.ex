@@ -15,6 +15,7 @@ defmodule LiveShadcn.UI.Carousel do
     "jsx/CarouselContent/class/1" => "flex",
     "jsx/CarouselContent/class/2" => "-ml-4",
     "jsx/CarouselContent/class/3" => "-mt-4 flex-col",
+    "jsx/CarouselItem/class/0" => "min-w-0 shrink-0 grow-0 basis-full",
     "jsx/CarouselItem/class/1" => "pl-4",
     "jsx/CarouselItem/class/2" => "pt-4",
     "jsx/CarouselNext/class/0" => "cn-carousel-next absolute touch-manipulation",
@@ -24,8 +25,7 @@ defmodule LiveShadcn.UI.Carousel do
     "jsx/CarouselNext/class/4" => "sr-only",
     "jsx/CarouselPrevious/class/0" => "cn-carousel-previous absolute touch-manipulation",
     "jsx/CarouselPrevious/class/1" => "inset-y-0 -left-12 my-auto",
-    "jsx/CarouselPrevious/class/2" => "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-    "port/class/0" => "min-w-0 shrink-0 grow-0 basis-full snap-start"
+    "jsx/CarouselPrevious/class/2" => "-top-12 left-1/2 -translate-x-1/2 rotate-90"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)
@@ -35,7 +35,7 @@ defmodule LiveShadcn.UI.Carousel do
   alias LiveBase.Carousel
 
   @doc """
-  A scroll-snap carousel with previous and next controls.
+  A carousel with previous and next controls.
 
       <.carousel id="highlights">
         <.carousel_content>
@@ -46,8 +46,8 @@ defmodule LiveShadcn.UI.Carousel do
         <.carousel_next />
       </.carousel>
 
-  The browser owns the scroll position and the disabled state of the two
-  controls. Arrow keys move in the carousel's orientation.
+  The browser owns the carousel position and the disabled state of the two
+  controls. Left and right arrow keys move the carousel.
   """
 
   attr(:id, :string, required: true, doc: "The hook needs one root element.")
@@ -56,6 +56,23 @@ defmodule LiveShadcn.UI.Carousel do
     default: "horizontal",
     values: ["horizontal", "vertical"],
     doc: "The scroll and slide direction."
+  )
+
+  attr(:align, :string,
+    default: "center",
+    values: ["start", "center", "end"],
+    doc: "The slide alignment passed to the carousel engine."
+  )
+
+  attr(:direction, :string,
+    default: nil,
+    values: [nil, "ltr", "rtl"],
+    doc: "The carousel direction. The root `dir` value is used when this is not set."
+  )
+
+  attr(:autoplay, :integer,
+    default: nil,
+    doc: "The autoplay delay in milliseconds. Hover pauses autoplay."
   )
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -68,8 +85,11 @@ defmodule LiveShadcn.UI.Carousel do
       id={@id}
       phx-hook={Carousel.hook()}
       data-orientation={@orientation}
+      data-carousel-align={@align}
+      data-carousel-direction={@direction || @rest[:dir]}
+      data-carousel-autoplay={@autoplay}
       data-slot="carousel"
-      class={[upstream_fact("jsx/Carousel/class/0"), @class]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Carousel/class/0"), @class])}
       role="region"
       aria-roledescription="carousel"
       {@rest}
@@ -93,17 +113,22 @@ defmodule LiveShadcn.UI.Carousel do
     <div
       data-lb-carousel-viewport
       data-slot="carousel-content"
-      class={[
-        upstream_fact("jsx/CarouselContent/class/0"),
-        if(@orientation == "horizontal",
-          do: "snap-x snap-mandatory scroll-smooth",
-          else: "snap-y snap-mandatory scroll-smooth"
-        ),
-        @class
-      ]}
+      class={upstream_fact("jsx/CarouselContent/class/0")}
       {@rest}
     >
-      <div class={[upstream_fact("jsx/CarouselContent/class/1"), if(@orientation == "horizontal", do: upstream_fact("jsx/CarouselContent/class/2"), else: upstream_fact("jsx/CarouselContent/class/3"))]}>
+      <div
+        data-lb-carousel-track
+        class={
+          LiveShadcn.Cn.merge([
+            upstream_fact("jsx/CarouselContent/class/1"),
+            if(@orientation == "horizontal",
+              do: upstream_fact("jsx/CarouselContent/class/2"),
+              else: upstream_fact("jsx/CarouselContent/class/3")
+            ),
+            @class
+          ])
+        }
+      >
         {render_slot(@inner_block)}
       </div>
     </div>
@@ -121,11 +146,16 @@ defmodule LiveShadcn.UI.Carousel do
       role="group"
       aria-roledescription="slide"
       data-slot="carousel-item"
-      class={[
-        upstream_fact("port/class/0"),
-        if(@orientation == "horizontal", do: upstream_fact("jsx/CarouselItem/class/1"), else: upstream_fact("jsx/CarouselItem/class/2")),
-        @class
-      ]}
+      class={
+        LiveShadcn.Cn.merge([
+          upstream_fact("jsx/CarouselItem/class/0"),
+          if(@orientation == "horizontal",
+            do: upstream_fact("jsx/CarouselItem/class/1"),
+            else: upstream_fact("jsx/CarouselItem/class/2")
+          ),
+          @class
+        ])
+      }
       {@rest}
     >
       {render_slot(@inner_block)}

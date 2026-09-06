@@ -25,31 +25,35 @@ defmodule LiveShadcn.UI.ButtonGroup do
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)
 
+  @separator_base_class "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
+
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
-                       [table, "variant", group, choice] <- [String.split(path, "/")],
-                       reduce: %{} do
-    variants ->
-      put_in(
-        variants,
-        [
-          Access.key(table, %{}),
-          Access.key(group, %{}),
-          Access.key(choice, nil)
-        ],
-        value
-      )
-  end)
+                        [table, "variant", group, choice] <- [String.split(path, "/")],
+                        reduce: %{} do
+                      variants ->
+                        put_in(
+                          variants,
+                          [
+                            Access.key(table, %{}),
+                            Access.key(group, %{}),
+                            Access.key(choice, nil)
+                          ],
+                          value
+                        )
+                    end)
 
   @doc "The `button-group` part."
   attr(:orientation, :string,
-    default: @upstream_facts["cva/buttonGroupVariants/default/orientation"],
-    values:
-      @variant_classes
-      |> get_in(["buttonGroupVariants", "orientation"])
-      |> Map.keys()
-      |> Enum.sort()
+    default: nil,
+    values: [
+      nil
+      | @variant_classes
+        |> get_in(["buttonGroupVariants", "orientation"])
+        |> Map.keys()
+        |> Enum.sort()
+    ]
   )
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -57,14 +61,19 @@ defmodule LiveShadcn.UI.ButtonGroup do
   slot(:inner_block)
 
   def button_group(assigns) do
+    orientation =
+      assigns.orientation || @upstream_facts["cva/buttonGroupVariants/default/orientation"]
+
+    assigns = assign(assigns, :orientation_class, orientation)
+
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "button-group"}
       role="group"
       data-orientation={@orientation}
       class={[
-        variant_class("buttonGroupVariants", "orientation", @orientation),
         upstream_fact("cva/buttonGroupVariants/base"),
+        variant_class("buttonGroupVariants", "orientation", @orientation_class),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -81,18 +90,23 @@ defmodule LiveShadcn.UI.ButtonGroup do
   slot(:inner_block)
 
   def button_group_separator(assigns) do
+    assigns = assign(assigns, :separator_base_class, @separator_base_class)
+
     ~H"""
-    <LiveShadcn.UI.Separator.separator
+    <div
       data-slot={@rest[:"data-slot"] || "button-group-separator"}
-      orientation={@orientation}
+      role={@rest[:role] || "separator"}
+      aria-orientation={if(@rest[:role] in [nil, "separator"], do: @orientation)}
+      data-orientation={@orientation}
       class={[
+        @separator_base_class,
         upstream_fact("jsx/ButtonGroupSeparator/class/0"),
         @class
       ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      {Map.drop(@rest, [:"data-slot", :role])}
     >
       {render_slot(@inner_block)}
-    </LiveShadcn.UI.Separator.separator>
+    </div>
     """
   end
 

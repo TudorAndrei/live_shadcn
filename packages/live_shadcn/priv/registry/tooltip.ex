@@ -39,8 +39,8 @@ defmodule LiveShadcn.UI.Tooltip do
   attr(:disabled, :boolean, default: false, doc: "Whether the trigger refuses interaction.")
 
   attr(:side, :string,
-    default: "bottom",
-    values: ["top", "right", "bottom", "left"],
+    default: "top",
+    values: ["top", "right", "bottom", "left", "inline-start", "inline-end"],
     doc: "The side asked for. Where it lands is what `data-side` reports."
   )
 
@@ -54,6 +54,31 @@ defmodule LiveShadcn.UI.Tooltip do
 
   attr(:class, :any, default: nil, doc: "Appended to the popup's class string.")
   attr(:trigger_class, :any, default: nil)
+  attr(:trigger_label, :string, default: nil, doc: "The accessible name for an icon trigger.")
+  attr(:trigger_variant, :string, default: "outline")
+  attr(:trigger_size, :string, default: "default")
+
+  attr(:trigger_as, :string,
+    default: "button",
+    values: ["button", "span", "addon-wrapper"]
+  )
+
+  attr(:trigger_slot, :string, default: "tooltip-trigger")
+  attr(:trigger_data_size, :string, default: nil)
+  attr(:trigger_align, :string, default: nil)
+
+  attr(:trigger_click, :any,
+    default: nil,
+    doc: "An optional client command for a trusted native click."
+  )
+
+  attr(:hover_expanded, :boolean,
+    default: true,
+    doc: "Whether hover uses disclosure semantics on the trigger."
+  )
+
+  attr(:trigger_attrs, :map, default: %{}, doc: "Attributes merged onto the trigger.")
+  attr(:dir, :string, default: "ltr", values: ["ltr", "rtl"])
   attr(:align_offset, :string, default: "0")
   attr(:side_offset, :string, default: "4")
   attr(:rest, :global)
@@ -63,74 +88,145 @@ defmodule LiveShadcn.UI.Tooltip do
 
   def tooltip(assigns) do
     ~H"""
-    <div
-      id={@id}
-      phx-window-keydown={Popover.close(@id)}
+    <LiveShadcn.UI.Button.button
+      :if={@trigger_as == "button"}
+      id={Popover.trigger_id(@id)}
+      data-slot={@trigger_slot}
+      data-size={@trigger_data_size}
+      type="button"
+      variant={@trigger_variant}
+      size={@trigger_size}
+      class={@trigger_class}
+      disabled={@disabled}
+      aria-label={@trigger_label}
+      aria-controls={Popover.popup_id(@id)}
+      phx-window-keydown={close_command(@id, @hover_expanded)}
       phx-key="Escape"
-      phx-click-away={Popover.dismiss(@id)}
-      class="contents"
-      {@rest}
+      phx-hook="LiveBase.InteractionTrigger"
+      data-lb-open-on-hover
+      data-lb-hover-command={hover_command(@trigger_click, @disabled, @id, @hover_expanded)}
+      data-lb-caller-click={caller_click?(@trigger_click, @disabled)}
+      phx-click={click_command(@trigger_click, @disabled, @id)}
+      phx-mounted={Popover.owned_attributes(:trigger)}
+      data-popup-open={flag(@open)}
+      data-trigger-disabled={flag(@disabled)}
+      {@trigger_attrs}
     >
-      <button
-        data-slot="tooltip-trigger"
-        id={Popover.trigger_id(@id)}
-        type="button"
-        aria-controls={Popover.popup_id(@id)}
-        phx-hook="LiveBase.InteractionTrigger"
-        data-lb-open-on-hover
-        phx-click={if(not @disabled, do: Popover.toggle(@id))}
-        phx-mounted={Popover.owned_attributes(:trigger)}
-        data-popup-open={flag(@open)}
-        data-trigger-disabled={flag(@disabled)}
+      {render_slot(@trigger)}
+    </LiveShadcn.UI.Button.button>
+    <span
+      :if={@trigger_as == "span"}
+      id={Popover.trigger_id(@id)}
+      data-slot={@trigger_slot}
+      class={@trigger_class}
+      aria-label={@trigger_label}
+      aria-controls={Popover.popup_id(@id)}
+      phx-window-keydown={close_command(@id, @hover_expanded)}
+      phx-key="Escape"
+      phx-hook="LiveBase.InteractionTrigger"
+      data-lb-open-on-hover
+      data-lb-hover-command={hover_command(@trigger_click, @disabled, @id, @hover_expanded)}
+      data-lb-caller-click={caller_click?(@trigger_click, @disabled)}
+      phx-click={click_command(@trigger_click, @disabled, @id)}
+      phx-mounted={Popover.owned_attributes(:trigger)}
+      data-popup-open={flag(@open)}
+      data-trigger-disabled={flag(@disabled)}
+      {@trigger_attrs}
+    >
+      {render_slot(@trigger)}
+    </span>
+    <div
+      :if={@trigger_as == "addon-wrapper"}
+      id={Popover.trigger_id(@id)}
+      data-slot={@trigger_slot}
+      role="group"
+      data-lb-input-group-addon
+      data-align={@trigger_align}
+      class={@trigger_class}
+      aria-label={@trigger_label}
+      aria-controls={Popover.popup_id(@id)}
+      phx-window-keydown={close_command(@id, @hover_expanded)}
+      phx-key="Escape"
+      phx-hook="LiveBase.InteractionTrigger"
+      data-lb-open-on-hover
+      data-lb-hover-command={hover_command(@trigger_click, @disabled, @id, @hover_expanded)}
+      data-lb-caller-click={caller_click?(@trigger_click, @disabled)}
+      phx-click={click_command(@trigger_click, @disabled, @id)}
+      phx-mounted={Popover.owned_attributes(:trigger)}
+      data-popup-open={flag(@open)}
+      data-trigger-disabled={flag(@disabled)}
+      {@trigger_attrs}
+    >
+      {render_slot(@trigger)}
+    </div>
+    <.portal id={@id <> "-portal"} target="body" class="contents">
+      <div
+        id={Popover.positioner_id(@id)}
+        hidden={not @open}
+        phx-click-away={close_command(@id, @hover_expanded)}
+        phx-hook={Popover.hook()}
+        data-lb-anchor={Popover.trigger_id(@id)}
+        data-lb-side={physical_side(@side, @dir)}
+        data-lb-semantic-side={@side}
+        data-lb-align={@align}
+        data-lb-offset={to_string(@offset)}
+        data-lb-autofocus={flag(@autofocus)}
+        phx-mounted={Popover.owned_attributes(:positioner)}
+        data-open={flag(@open)}
+        data-closed={flag(not @open)}
+        class={upstream_fact("jsx/TooltipContent/class/0")}
+        dir={@dir}
+        {@rest}
       >
-        {render_slot(@trigger)}
-      </button>
-      <div class="contents">
         <div
-          id={Popover.positioner_id(@id)}
+          data-slot="tooltip-content"
+          id={Popover.popup_id(@id)}
+          tabindex="-1"
           hidden={not @open}
-          phx-hook={Popover.hook()}
-          data-lb-anchor={Popover.trigger_id(@id)}
-          data-lb-side={@side}
-          data-lb-align={@align}
-          data-lb-offset={to_string(@offset)}
-          data-lb-autofocus={flag(@autofocus)}
-          phx-mounted={Popover.owned_attributes(:positioner)}
+          data-lb-popup
+          phx-mounted={Popover.owned_attributes(:popup)}
           data-open={flag(@open)}
           data-closed={flag(not @open)}
-          class={upstream_fact("jsx/TooltipContent/class/0")}
+          class={LiveShadcn.Cn.merge([upstream_fact("jsx/TooltipContent/class/1"), @class])}
+          data-lb-style-target
+          data-lb-measure
         >
+          {render_slot(@inner_block)}
           <div
-            data-slot="tooltip-content"
-            id={Popover.popup_id(@id)}
-            tabindex="-1"
-            hidden={not @open}
-            data-lb-popup
-            phx-mounted={Popover.owned_attributes(:popup)}
+            data-lb-arrow
             data-open={flag(@open)}
             data-closed={flag(not @open)}
-            class={[
-              upstream_fact("jsx/TooltipContent/class/1"),
-              (@class || "")
-            ]}
+            class={upstream_fact("jsx/TooltipContent/class/2")}
             data-lb-style-target
-            data-lb-measure
-          >
-            {render_slot(@inner_block)}
-            <div
-              data-lb-arrow
-              data-open={flag(@open)}
-              data-closed={flag(not @open)}
-              class={upstream_fact("jsx/TooltipContent/class/2")}
-              data-lb-style-target
-            />
-          </div>
+          />
         </div>
       </div>
-    </div>
+    </.portal>
     """
   end
 
   defp flag(true), do: ""
   defp flag(_state), do: nil
+
+  defp caller_click?(trigger_click, false) when not is_nil(trigger_click), do: ""
+  defp caller_click?(_trigger_click, _disabled), do: nil
+
+  defp hover_command(trigger_click, false, id, true) when not is_nil(trigger_click),
+    do: Popover.toggle(id)
+
+  defp hover_command(trigger_click, false, id, false) when not is_nil(trigger_click),
+    do: Popover.tooltip_toggle(id)
+
+  defp hover_command(_trigger_click, _disabled, _id, _hover_expanded), do: nil
+
+  defp close_command(id, true), do: Popover.dismiss(id)
+  defp close_command(id, false), do: Popover.tooltip_close(id)
+
+  defp click_command(_trigger_click, true, _id), do: nil
+  defp click_command(nil, false, id), do: Popover.toggle(id)
+  defp click_command(trigger_click, false, _id), do: trigger_click
+
+  defp physical_side("inline-start", _dir), do: "left"
+  defp physical_side("inline-end", _dir), do: "right"
+  defp physical_side(side, _dir), do: side
 end

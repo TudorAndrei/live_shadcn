@@ -51,24 +51,46 @@ defmodule LiveShadcn.UI.Checkbox do
   attr(:readonly, :boolean, default: false)
   attr(:required, :boolean, default: false)
   attr(:indeterminate, :boolean, default: false)
+
+  attr(:on_toggle, :any,
+    default: nil,
+    doc: "An optional event name or JS command run after the client toggles."
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def checkbox(assigns) do
     assigns = FormControl.from_checkable(assigns)
+    assigns = assign(assigns, :control_id, "#{assigns.id}-control")
 
     ~H"""
     <span
       data-slot={@rest[:"data-slot"] || "checkbox"}
       role="checkbox"
       tabindex="0"
-      id={@id}
-      aria-checked={to_string(@checked)}
+      id={@control_id}
+      aria-checked={if(@indeterminate, do: "mixed", else: to_string(@checked))}
+      aria-label={rest_attribute(@rest, :"aria-label")}
+      aria-labelledby={
+        rest_attribute(@rest, :"aria-labelledby") ||
+          if(rest_attribute(@rest, :"aria-label"), do: nil, else: "#{@id}-label")
+      }
       aria-disabled={if(@disabled, do: "true")}
-      phx-click={if(@disabled or @readonly, do: nil, else: FormControl.toggle(control: @id))}
+      phx-click={
+        if(@disabled or @readonly,
+          do: nil,
+          else: toggle(@control_id, @id, @on_toggle)
+        )
+      }
       phx-mounted={FormControl.owned_attributes()}
-      phx-keydown={if(@disabled or @readonly, do: nil, else: FormControl.toggle(control: @id))}
+      phx-keydown={
+        if(@disabled or @readonly,
+          do: nil,
+          else: toggle(@control_id, @id, @on_toggle)
+        )
+      }
       phx-key=" "
       data-checked={flag(@checked)}
       data-unchecked={flag(not @checked)}
@@ -83,10 +105,19 @@ defmodule LiveShadcn.UI.Checkbox do
         upstream_fact("jsx/Checkbox/class/0"),
         (@class || "")
       ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      {
+        Map.drop(@rest, [
+          :"data-slot",
+          "data-slot",
+          :"aria-label",
+          "aria-label",
+          :"aria-labelledby",
+          "aria-labelledby"
+        ])
+      }
     >
       <span
-        hidden={not @checked}
+        hidden={not (@checked or @indeterminate)}
         data-slot="checkbox-indicator"
         class={upstream_fact("jsx/Checkbox/class/1")}
       >
@@ -96,7 +127,7 @@ defmodule LiveShadcn.UI.Checkbox do
     </span>
     <input
       type="checkbox"
-      id={FormControl.input_id(@id)}
+      id={@id}
       name={@name}
       value={@value}
       checked={@checked}
@@ -104,11 +135,25 @@ defmodule LiveShadcn.UI.Checkbox do
       required={@required}
       tabindex="-1"
       aria-hidden="true"
-      class="sr-only"
+      style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0; padding: 0; width: 1px; height: 1px; margin: -1px; position: absolute;"
     />
     """
   end
 
   defp flag(true), do: ""
   defp flag(_state), do: nil
+
+  defp toggle(control, input, on_toggle) do
+    js = FormControl.toggle(control: control, input: input)
+
+    cond do
+      is_binary(on_toggle) -> Phoenix.LiveView.JS.push(js, on_toggle)
+      is_struct(on_toggle, Phoenix.LiveView.JS) -> Phoenix.LiveView.JS.concat(js, on_toggle)
+      true -> js
+    end
+  end
+
+  defp rest_attribute(rest, attribute) do
+    Map.get(rest, attribute) || Map.get(rest, Atom.to_string(attribute))
+  end
 end

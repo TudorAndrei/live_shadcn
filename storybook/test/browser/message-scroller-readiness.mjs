@@ -5,6 +5,7 @@
 
 export const MESSAGE_SCROLLER_STABLE_FRAME_WINDOW = 4;
 export const MESSAGE_SCROLLER_TRAILING_FRAMES = 2;
+export const MESSAGE_SCROLLER_ENTRY_TRAILING_FRAMES = 2;
 
 let readinessInvocation = 0;
 
@@ -27,7 +28,7 @@ export function advanceMessageScrollerReadiness(
     return { hasMessageScroller: false, signature: null, stableFrames: 0, ready: true };
   }
 
-  if (sample.pending) {
+  if (sample.pending || sample.anchorVisible === false) {
     return { hasMessageScroller: true, signature: null, stableFrames: 0, ready: false };
   }
 
@@ -38,6 +39,32 @@ export function advanceMessageScrollerReadiness(
     signature: sample.signature,
     stableFrames,
     ready: stableFrames >= stableFrameWindow + trailingFrames,
+  };
+}
+
+/**
+ * Advance after a Message Scroller action until its entry animations have
+ * stopped and two animation frames confirm that no late LiveView patch starts
+ * another entry animation.
+ */
+export function advanceMessageScrollerEntryReadiness(
+  previous,
+  sample,
+  { trailingFrames = MESSAGE_SCROLLER_ENTRY_TRAILING_FRAMES } = {},
+) {
+  if (!sample.hasMessageScroller) {
+    return { hasMessageScroller: false, quietFrames: 0, ready: true };
+  }
+
+  if (sample.entryMarkerActive) {
+    return { hasMessageScroller: true, quietFrames: 0, ready: false };
+  }
+
+  const quietFrames = previous?.hasMessageScroller ? previous.quietFrames + 1 : 1;
+  return {
+    hasMessageScroller: true,
+    quietFrames,
+    ready: quietFrames >= trailingFrames,
   };
 }
 
@@ -117,6 +144,109 @@ export async function waitForMessageScrollerFinalLayout(page, selector) {
       trailingFrames: MESSAGE_SCROLLER_TRAILING_FRAMES,
       invocation,
     },
+    { polling: "raf" },
+  );
+}
+
+/**
+ * Wait for a requested Message Scroller anchor to have a visible, stable box.
+ *
+ * This observes standard DOM geometry only. It is valid for both the pinned
+ * React reference and the LiveView port, and it has no implementation marker.
+ */
+export async function waitForMessageScrollerAnchorGeometry(page, root, id) {
+  const invocation = ++readinessInvocation;
+
+  await page.waitForFunction(
+    ({ root, id, stableFrameWindow, trailingFrames, invocation }) => {
+      const viewport = root?.querySelector("[data-slot='message-scroller-viewport']");
+      const item = root?.querySelector(`[data-message-id=${JSON.stringify(id)}]`);
+      if (!viewport || !item) return false;
+
+      const viewportBox = viewport.getBoundingClientRect();
+      const itemBox = item.getBoundingClientRect();
+      const anchorVisible =
+        itemBox.bottom > viewportBox.top && itemBox.top < viewportBox.bottom;
+      const sample = {
+        hasMessageScroller: true,
+        pending: viewport.hasAttribute("data-pending-scroll"),
+        anchorVisible,
+        signature: JSON.stringify([
+          viewport.scrollTop,
+          viewport.scrollHeight,
+          viewport.clientHeight,
+          viewportBox.top,
+          viewportBox.bottom,
+          itemBox.top,
+          itemBox.bottom,
+        ]),
+      };
+      const key = "__liveShadcnMessageScrollerAnchorReadiness";
+      const previous = window[key]?.invocation === invocation ? window[key] : undefined;
+      let next;
+
+      if (sample.pending || !sample.anchorVisible) {
+        next = { hasMessageScroller: true, signature: null, stableFrames: 0, ready: false };
+      } else {
+        const stableFrames = previous?.signature === sample.signature ? previous.stableFrames + 1 : 1;
+        next = {
+          hasMessageScroller: true,
+          signature: sample.signature,
+          stableFrames,
+          ready: stableFrames >= stableFrameWindow + trailingFrames,
+        };
+      }
+
+      window[key] = { ...next, invocation };
+      return next.ready;
+    },
+    {
+      root,
+      id,
+      stableFrameWindow: MESSAGE_SCROLLER_STABLE_FRAME_WINDOW,
+      trailingFrames: MESSAGE_SCROLLER_TRAILING_FRAMES,
+      invocation,
+    },
+    { polling: "raf" },
+  );
+}
+
+/** Wait for active entry markers that a LiveView action can start late. */
+export async function waitForMessageScrollerEntryAnimations(page, selector) {
+  const invocation = ++readinessInvocation;
+
+  await page.waitForFunction(
+    ({ selector, trailingFrames, invocation }) => {
+      const scope = document.querySelector(selector);
+      if (!scope) return false;
+
+      const items = [...scope.querySelectorAll(
+        "[data-slot='message-scroller-item'][data-lb-message-animation]",
+      )];
+      const entryMarkerActive = items.some((item) =>
+        item.hasAttribute("data-lb-message-entry-active"),
+      );
+      const key = "__liveShadcnMessageScrollerEntryReadiness";
+      const previous = window[key]?.invocation === invocation ? window[key] : undefined;
+      let next;
+
+      if (items.length === 0) {
+        next = { hasMessageScroller: false, quietFrames: 0, ready: true };
+      } else if (entryMarkerActive) {
+        next = { hasMessageScroller: true, quietFrames: 0, ready: false };
+      } else {
+        const quietFrames = previous?.hasMessageScroller ? previous.quietFrames + 1 : 1;
+        next = {
+          hasMessageScroller: true,
+          quietFrames,
+          ready: quietFrames >= trailingFrames,
+        };
+      }
+
+      window[key] = { ...next, invocation };
+      return next.ready;
+    },
+    { selector, trailingFrames: MESSAGE_SCROLLER_ENTRY_TRAILING_FRAMES, invocation },
     { polling: "raf" },
   );
 }

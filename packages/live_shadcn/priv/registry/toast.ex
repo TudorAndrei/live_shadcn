@@ -83,6 +83,9 @@ defmodule LiveShadcn.UI.Toast do
     attr(:id, :string, required: true, doc: "What comes back with the dismiss event.")
     attr(:title, :string)
     attr(:type, :string, doc: "`success`, `info`, `warning` or `error`.")
+    attr(:priority, :string, doc: "Use `high` for an urgent toast.")
+    attr(:action_label, :string, doc: "The optional action button label.")
+    attr(:action_event, :string, doc: "The optional action event. It defaults to dismissal.")
   end
 
   def toaster(assigns) do
@@ -100,7 +103,7 @@ defmodule LiveShadcn.UI.Toast do
         aria-label={@label}
         class={[
           upstream_fact("jsx/ToastViewport/class/0"),
-          (@class || "")
+          @class || ""
         ]}
         {Map.drop(@rest, [:"data-slot"])}
       >
@@ -109,8 +112,9 @@ defmodule LiveShadcn.UI.Toast do
           data-slot="toast"
           id={Toast.toast_id(@id, toast[:id])}
           data-type={toast[:type]}
-          role="dialog"
+          role={if toast[:priority] == "high", do: "alertdialog", else: "dialog"}
           aria-modal="false"
+          aria-hidden={if toast[:priority] == "high", do: "true"}
           aria-labelledby={if(toast[:title], do: "#{Toast.toast_id(@id, toast[:id])}-title")}
           aria-label={if(!toast[:title], do: "Notification")}
           aria-live="polite"
@@ -124,10 +128,14 @@ defmodule LiveShadcn.UI.Toast do
             data-lb-style-target
           >
             <span
+              :if={icon(toast[:type])}
               data-slot="toast-icon"
               class={upstream_fact("jsx/ToastIcon/class/2")}
             >
-              <LiveShadcn.Icon.icon name={icon(toast[:type])} />
+              <LiveShadcn.Icon.icon
+                name={icon(toast[:type])}
+                class={icon_class(toast[:type])}
+              />
             </span>
 
             <div class={upstream_fact("jsx/ToastList/class/0")}>
@@ -148,6 +156,21 @@ defmodule LiveShadcn.UI.Toast do
                 {render_slot(toast)}
               </p>
             </div>
+
+            <LiveShadcn.UI.Button.button
+              :if={toast[:action_label]}
+              data-slot="toast-action"
+              variant="outline"
+              size="sm"
+              class="shrink-0"
+              phx-click={
+                JS.push(toast[:action_event] || @dismiss,
+                  value: %{id: Toast.toast_id(@id, toast[:id])}
+                )
+              }
+            >
+              {toast[:action_label]}
+            </LiveShadcn.UI.Button.button>
 
             <LiveShadcn.UI.Button.button
               data-slot="toast-close"
@@ -172,5 +195,10 @@ defmodule LiveShadcn.UI.Toast do
   defp icon("warning"), do: "triangle-alert"
   defp icon("error"), do: "octagon-x"
   defp icon("loading"), do: "loader-2"
-  defp icon(_type), do: "info"
+  defp icon("info"), do: "info"
+  defp icon(_type), do: nil
+
+  defp icon_class("error"), do: "text-destructive"
+  defp icon_class("loading"), do: "animate-spin"
+  defp icon_class(_type), do: nil
 end

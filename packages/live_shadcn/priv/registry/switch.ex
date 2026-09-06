@@ -52,24 +52,42 @@ defmodule LiveShadcn.UI.Switch do
   attr(:required, :boolean, default: false)
   attr(:indeterminate, :boolean, default: false)
   attr(:size, :string, default: "default", values: ["sm", "default"])
+
+  attr(:on_toggle, :string,
+    default: nil,
+    doc: "An optional event pushed after the client toggles."
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def switch(assigns) do
     assigns = FormControl.from_checkable(assigns)
+    assigns = assign(assigns, :control_id, "#{assigns.id}-control")
 
     ~H"""
     <span
       data-slot={@rest[:"data-slot"] || "switch"}
       role="switch"
       tabindex="0"
-      id={@id}
+      id={@control_id}
       aria-checked={to_string(@checked)}
+      aria-labelledby={"#{@id}-label"}
       aria-disabled={if(@disabled, do: "true")}
-      phx-click={if(@disabled or @readonly, do: nil, else: FormControl.toggle(control: @id))}
+      phx-click={
+        if(@disabled or @readonly,
+          do: nil,
+          else: toggle(@control_id, @id, @on_toggle)
+        )
+      }
       phx-mounted={FormControl.owned_attributes()}
-      phx-keydown={if(@disabled or @readonly, do: nil, else: FormControl.toggle(control: @id))}
+      phx-keydown={
+        if(@disabled or @readonly,
+          do: nil,
+          else: toggle(@control_id, @id, @on_toggle)
+        )
+      }
       phx-key=" "
       data-checked={flag(@checked)}
       data-unchecked={flag(not @checked)}
@@ -80,10 +98,7 @@ defmodule LiveShadcn.UI.Switch do
       data-invalid={flag(@errors != [])}
       data-filled={flag(@checked)}
       data-size={@size}
-      class={[
-        upstream_fact("jsx/Switch/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Switch/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <span
@@ -96,7 +111,7 @@ defmodule LiveShadcn.UI.Switch do
     </span>
     <input
       type="checkbox"
-      id={FormControl.input_id(@id)}
+      id={@id}
       name={@name}
       value={@value}
       checked={@checked}
@@ -104,9 +119,14 @@ defmodule LiveShadcn.UI.Switch do
       required={@required}
       tabindex="-1"
       aria-hidden="true"
-      class="sr-only"
+      style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0; padding: 0; width: 1px; height: 1px; margin: -1px; position: fixed; top: 0; left: 0;"
     />
     """
+  end
+
+  defp toggle(control, input, event) do
+    js = FormControl.toggle(control: control, input: input)
+    if event, do: Phoenix.LiveView.JS.push(js, event), else: js
   end
 
   defp flag(true), do: ""

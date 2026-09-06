@@ -21,42 +21,41 @@ const placed = async (page) =>
 
 test.describe("a slider", () => {
   test.beforeEach(async ({ page }) => {
-    await visit(page, "/preview/slider/default", "#passes");
+    await visit(page, "/preview/slider/default", "#slider-demo");
     await placed(page);
   });
 
   test("the thumb sits where its input says", async ({ page }) => {
-    // 3 of 1..5 is halfway.
     await expect(thumbs(page).first()).toHaveCSS("inset-inline-start", /.+/);
 
     const along = await thumbs(page).first().evaluate((el) => el.style.insetInlineStart);
-    expect(along).toBe("192px");
+    expect(along).toBe("236px");
   });
 
   test("moving the input moves the thumb", async ({ page }) => {
-    await inputs(page).first().fill("5");
+    await inputs(page).first().fill("100");
 
     await expect
       .poll(() => thumbs(page).first().evaluate((el) => el.style.insetInlineStart))
-      .toBe("376px");
+      .toBe("312px");
   });
 
   test("the filled part of the track reaches the thumb", async ({ page }) => {
-    await inputs(page).first().fill("1");
-    await expect.poll(() => range(page).evaluate((el) => el.style.width)).toBe("0px");
+    await inputs(page).first().fill("0");
+    await expect.poll(() => range(page).evaluate((el) => el.style.width)).toBe("8px");
 
-    await inputs(page).first().fill("5");
-    await expect.poll(() => range(page).evaluate((el) => el.style.width)).toBe("384px");
+    await inputs(page).first().fill("100");
+    await expect.poll(() => range(page).evaluate((el) => el.style.width)).toBe("312px");
   });
 
   test("a keypress moves it, because the input is a real one", async ({ page }) => {
     await inputs(page).first().focus();
     await page.keyboard.press("ArrowRight");
 
-    await expect(inputs(page).first()).toHaveValue("4");
+    await expect(inputs(page).first()).toHaveValue("76");
     await expect
       .poll(() => thumbs(page).first().evaluate((el) => el.style.insetInlineStart))
-      .toBe("284px");
+      .toBe("239.04px");
   });
 
   test("moving it costs no round trip", async ({ page }) => {
@@ -65,10 +64,10 @@ test.describe("a slider", () => {
       socket.on("framesent", ({ payload }) => events.push(String(payload))),
     );
 
-    await inputs(page).first().fill("5");
+    await inputs(page).first().fill("100");
     await expect
       .poll(() => thumbs(page).first().evaluate((el) => el.style.insetInlineStart))
-      .toBe("376px");
+      .toBe("312px");
 
     expect(events.filter((frame) => frame.includes("event"))).toEqual([]);
   });
@@ -76,7 +75,7 @@ test.describe("a slider", () => {
 
 test.describe("a slider with two values", () => {
   test.beforeEach(async ({ page }) => {
-    await visit(page, "/preview/slider/range", "#tiers");
+    await visit(page, "/preview/slider/range", "#slider-range");
     await placed(page);
   });
 
@@ -85,9 +84,11 @@ test.describe("a slider with two values", () => {
     await expect(inputs(page)).toHaveCount(2);
   });
 
-  test("both inputs carry the same name, so the form reports a list", async ({ page }) => {
-    await expect(inputs(page).first()).toHaveAttribute("name", "tiers");
-    await expect(inputs(page).nth(1)).toHaveAttribute("name", "tiers");
+  test("both native inputs carry the official values and step", async ({ page }) => {
+    await expect(inputs(page).first()).toHaveValue("25");
+    await expect(inputs(page).nth(1)).toHaveValue("50");
+    await expect(inputs(page).first()).toHaveAttribute("step", "5");
+    await expect(inputs(page).nth(1)).toHaveAttribute("step", "5");
   });
 
   test("the filled part of the track runs between them", async ({ page }) => {
@@ -96,7 +97,58 @@ test.describe("a slider with two values", () => {
       width: el.style.width,
     }));
 
-    expect(start).toBe("81.6px");
-    expect(width).toBe("220.8px");
+    expect(start).toBe("84px");
+    expect(width).toBe("76px");
   });
+});
+
+test("the multiple example draws all three official values", async ({ page }) => {
+  await visit(page, "/preview/slider/multiple", "#slider-multiple");
+  await placed(page);
+
+  await expect(inputs(page)).toHaveCount(3);
+  await expect(inputs(page).nth(0)).toHaveValue("10");
+  await expect(inputs(page).nth(1)).toHaveValue("20");
+  await expect(inputs(page).nth(2)).toHaveValue("70");
+});
+
+test("the vertical example draws two independent vertical sliders", async ({ page }) => {
+  await visit(page, "/preview/slider/vertical", "#slider-vertical-first");
+  await placed(page);
+
+  const first = page.locator("#slider-vertical-first");
+  const second = page.locator("#slider-vertical-second");
+
+  await expect(first).toHaveAttribute("data-orientation", "vertical");
+  await expect(second).toHaveAttribute("data-orientation", "vertical");
+  await expect(first.locator("[data-lb-slider-thumb]")).toHaveCSS("bottom", /.+/);
+  await expect(second.locator("[data-lb-slider-thumb]")).toHaveCSS("bottom", /.+/);
+});
+
+test("the controlled example updates its value text and keeps both values", async ({ page }) => {
+  await visit(page, "/preview/slider/controlled", "#slider-demo-temperature");
+  await placed(page);
+
+  const controlledInputs = page.locator("#slider-demo-temperature [data-lb-slider-input]");
+  await controlledInputs.first().fill("0.4");
+
+  await expect(page.getByText("0.4, 0.7", { exact: true })).toBeVisible();
+  await expect(controlledInputs.first()).toHaveValue("0.4");
+  await expect(controlledInputs.nth(1)).toHaveValue("0.7");
+});
+
+test("the disabled example refuses native input", async ({ page }) => {
+  await visit(page, "/preview/slider/disabled", "#slider-disabled");
+  await placed(page);
+
+  await expect(page.locator("#slider-disabled")).toHaveAttribute("data-disabled", "");
+  await expect(inputs(page).first()).toBeDisabled();
+});
+
+test("the RTL example uses right-to-left direction", async ({ page }) => {
+  await visit(page, "/preview/slider/rtl", "#slider-rtl");
+  await placed(page);
+
+  await expect(page.locator("#slider-rtl")).toHaveAttribute("dir", "rtl");
+  await expect(inputs(page).first()).toHaveValue("75");
 });

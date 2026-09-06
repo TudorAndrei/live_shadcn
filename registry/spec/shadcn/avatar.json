@@ -8,6 +8,7 @@
       "jsx/AvatarFallback/class/0",
       "jsx/AvatarGroup/class/0",
       "jsx/AvatarGroupCount/class/0",
+      "jsx/AvatarGroupCount/class/1",
       "jsx/AvatarImage/class/0"
     ],
     "derived": {
@@ -36,6 +37,7 @@
     "jsx/AvatarFallback/class/0": "cn-avatar-fallback flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs",
     "jsx/AvatarGroup/class/0": "cn-avatar-group group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background",
     "jsx/AvatarGroupCount/class/0": "cn-avatar-group-count relative flex shrink-0 items-center justify-center ring-2 ring-background",
+    "jsx/AvatarGroupCount/class/1": "",
     "jsx/AvatarImage/class/0": "cn-avatar-image aspect-square size-full object-cover",
     "port/class/0": "cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2"
   },
@@ -43,11 +45,9 @@
     "shadcn/ui/avatar.tsx": "30b2108ccff93064985c82283ad84624c8568768630f75e82f0008600d77b440"
   },
   "fingerprint": "7be9e13a707a32067c4692f6adcacade4447d982cffda1feb7314c26e41b319f",
-  "ignored": {
-    "jsx/AvatarGroupCount/class/1": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "avatar",
-  "port_body": "ddadd3f771008cfe1756ab3405d99dfd7c44950743cf563d8ee207157fcaa81f",
+  "port_body": "802d34992665b53738579c295a5c40784861adf85d79a674c5de77f0aa171f07",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

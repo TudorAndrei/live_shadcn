@@ -50,9 +50,19 @@ defmodule StorybookWeb.Docs do
   @external_resource @policy_path
 
   @spec_root Path.expand("../../../registry/spec", __DIR__)
+  @snapshot_index_path Path.expand("../../../registry/snapshot/index.json", __DIR__)
   @official_examples_path Path.expand("../../../parity/official-examples.json", __DIR__)
   @repo_root Path.expand("../../..", __DIR__)
   @spec_paths Path.wildcard(Path.join(@spec_root, "*/*.json"))
+  @snapshot_paths @snapshot_index_path
+                  |> File.read!()
+                  |> Jason.decode!()
+                  |> Enum.flat_map(fn {key, examples} ->
+                    Enum.map(
+                      examples,
+                      &Path.join(Path.dirname(@snapshot_index_path), "#{key}-#{&1}.html")
+                    )
+                  end)
   @parity_example_paths Path.expand("../../../parity/src/examples/*.tsx", __DIR__)
                         |> Path.wildcard()
   @ai_source_paths ["ai_elements", "ai_examples"]
@@ -63,6 +73,8 @@ defmodule StorybookWeb.Docs do
 
   @verification_rule_paths [
                              "tools/lib/mix/tasks/ui.verify.ex",
+                             "tools/lib/live_shadcn_tools.ex",
+                             "tools/lib/live_shadcn_tools/browser_verification.ex",
                              "tools/lib/live_shadcn_tools/ai_elements_examples.ex",
                              "tools/lib/live_shadcn_tools/shadcn_examples.ex",
                              "tools/lib/live_shadcn_tools/verification_policy.ex",
@@ -76,6 +88,7 @@ defmodule StorybookWeb.Docs do
                              "parity/src/main.tsx",
                              "parity/src/official-ai-elements.mjs",
                              "parity/src/official-shadcn.mjs",
+                             "parity/source-lease.mjs",
                              "parity/upstream.mjs",
                              "parity/vite.config.mjs"
                            ]
@@ -84,9 +97,11 @@ defmodule StorybookWeb.Docs do
                            |> Enum.sort()
 
   @external_resource @official_examples_path
+  @external_resource @snapshot_index_path
 
   for path <-
         @spec_paths ++
+          @snapshot_paths ++
           @parity_example_paths ++ @ai_source_paths ++ @verification_rule_paths do
     @external_resource path
   end
@@ -97,16 +112,14 @@ defmodule StorybookWeb.Docs do
                       )
 
   @verification @verify_path |> File.read!() |> Jason.decode!()
-  @policy_status_by_identity @policy_path
-                             |> File.read!()
-                             |> Jason.decode!()
+  @verification_policy @policy_path |> File.read!() |> Jason.decode!()
+  @standard_required_checks get_in(@verification_policy, ["_standard", "required_checks"])
+  @policy_status_by_identity @verification_policy
+                             |> Map.reject(fn {_identity, %{"kind" => kind}} ->
+                               kind == "standard"
+                             end)
                              |> Map.new(fn {identity, %{"kind" => kind}} ->
-                               status =
-                                 case kind do
-                                   "local_only" -> :local_only
-                                   "no_dom" -> :no_dom
-                                 end
-
+                               status = if kind == "local_only", do: :local_only, else: :no_dom
                                {identity, status}
                              end)
 
@@ -118,14 +131,32 @@ defmodule StorybookWeb.Docs do
                            :crypto.hash(:sha256, binary) |> Base.encode16(case: :lower)
                          end
 
-                         previews =
-                           @spec_root
-                           |> Path.join("../snapshot/index.json")
-                           |> File.read!()
-                           |> Jason.decode!()
-
+                         previews = @snapshot_index_path |> File.read!() |> Jason.decode!()
                          official = @official_examples_path |> File.read!() |> Jason.decode!()
                          manifest = @upstream_path |> File.read!() |> Jason.decode!()
+
+                         primitive_families =
+                           manifest
+                           |> Map.get("files", %{})
+                           |> Map.keys()
+                           |> Enum.filter(
+                             &(String.starts_with?(&1, "shadcn/ui/") and
+                                 String.ends_with?(&1, ".tsx"))
+                           )
+                           |> MapSet.new(&Path.basename(&1, ".tsx"))
+
+                         docs_only_families =
+                           manifest
+                           |> get_in(["examples", "shadcn"])
+                           |> Kernel.||(%{})
+                           |> Enum.filter(fn {name, examples} ->
+                             is_list(examples) and examples != [] and
+                               name not in primitive_families
+                           end)
+                           |> MapSet.new(&elem(&1, 0))
+
+                         docs_only_required_checks =
+                           ~w(snapshot examples browser behavior accessibility parity pixel)
 
                          verification_statuses =
                            Map.new(@verification, fn {identity, result} ->
@@ -152,10 +183,25 @@ defmodule StorybookWeb.Docs do
 
                              local_examples = Map.get(previews, key, [])
 
+                             snapshots =
+                               local_examples
+                               |> Enum.map(fn example ->
+                                 path =
+                                   Path.join(
+                                     Path.dirname(@snapshot_index_path),
+                                     "#{key}-#{example}.html"
+                                   )
+
+                                 {Path.relative_to(path, @repo_root),
+                                  if(File.regular?(path), do: File.read!(path), else: :missing)}
+                               end)
+                               |> Enum.sort_by(&elem(&1, 0))
+
                              upstream_ref = get_in(manifest, ["sources", source, "ref"])
                              documented = get_in(manifest, ["examples", source, name]) || []
+                             docs_only? = source == "shadcn" and name in docs_only_families
 
-                             evidence =
+                             evidence_inputs =
                                if source == "ai_elements" do
                                  ai_sources =
                                    @ai_source_paths
@@ -164,58 +210,79 @@ defmodule StorybookWeb.Docs do
                                      &{Path.relative_to(&1, @repo_root), File.read!(&1)}
                                    )
 
-                                 {upstream_ref, documented, fixtures,
-                                  {local_examples, manifest, ai_sources}, @verification_rules}
+                                 {local_examples, manifest, ai_sources}
                                else
-                                 official_for_component =
-                                   official
-                                   |> Enum.filter(fn {example, _path} ->
-                                     String.starts_with?(example, key <> ".")
-                                   end)
-                                   |> Enum.sort()
-
-                                 {upstream_ref, documented, fixtures, official_for_component,
-                                  @verification_rules}
+                                 official
+                                 |> Enum.filter(fn {example, _path} ->
+                                   String.starts_with?(example, key <> ".")
+                                 end)
+                                 |> Enum.sort()
                                end
 
-                             evidence = evidence |> :erlang.term_to_binary() |> digest.()
+                             storybook_renderers =
+                               [
+                                 "storybook/lib/storybook_web/examples.ex",
+                                 "storybook/lib/mix/tasks/snapshot.ex",
+                                 "storybook/lib/storybook_web/live/preview_live.ex"
+                               ]
+                               |> Enum.map(&Path.join(@repo_root, &1))
+                               |> Enum.filter(&File.regular?/1)
+                               |> Enum.sort()
+                               |> Enum.map(&{Path.relative_to(&1, @repo_root), File.read!(&1)})
 
-                             required_checks = ~w(
-                             generated snapshot examples browser behavior accessibility parity pixel
-                           )
+                             evidence =
+                               {upstream_ref, documented, fixtures, snapshots, evidence_inputs,
+                                storybook_renderers, @verification_rules}
+                               |> :erlang.term_to_binary()
+                               |> digest.()
 
-                             checks_pass =
-                               Enum.all?(required_checks, fn name ->
-                                 case get_in(result, ["checks", name]) do
-                                   %{"pass" => true, "gated" => gated} when gated != false -> true
+                             required_checks =
+                               if docs_only?,
+                                 do: docs_only_required_checks,
+                                 else: @standard_required_checks
+
+                             checks_complete =
+                               Enum.all?(required_checks, fn check ->
+                                 case get_in(result, ["checks", check]) do
+                                   %{"pass" => true, "gated" => false} -> false
                                    %{"pass" => true} -> true
                                    _ -> false
                                  end
+                               end)
+
+                             checks_failed =
+                               Enum.any?(result["checks"] || %{}, fn
+                                 {_check, %{"pass" => false}} -> true
+                                 _check -> false
                                end)
 
                              contract =
                                if File.exists?(spec), do: spec |> File.read!() |> Jason.decode!()
 
                              review_complete =
-                               contract != nil and
-                                 Enum.all?(contract["ignored"] || %{}, fn {_fact, reason} ->
-                                   reason !=
-                                     "the generated port does not contain this source literal"
-                                 end)
+                               docs_only? or
+                                 (contract != nil and
+                                    Enum.all?(contract["ignored"] || %{}, fn {_fact, reason} ->
+                                      reason !=
+                                        "the generated port does not contain this source literal"
+                                    end))
+
+                             current_evidence =
+                               result["evidence"] == evidence and review_complete and
+                                 if docs_only? do
+                                   is_nil(result["spec"])
+                                 else
+                                   File.exists?(spec) and
+                                     result["spec"] == digest.(File.read!(spec))
+                                 end
 
                              status =
                                cond do
-                                 File.exists?(spec) and result["pass"] == true and
-                                   result["spec"] == digest.(File.read!(spec)) and
-                                   result["evidence"] == evidence and checks_pass and
-                                     review_complete ->
+                                 result["pass"] == true and current_evidence and checks_complete ->
                                    :verified
 
-                                 result["pass"] == false or not checks_pass ->
+                                 result["pass"] == false or (current_evidence and checks_failed) ->
                                    :failed
-
-                                 not review_complete ->
-                                   :unverified
 
                                  true ->
                                    :unverified
@@ -264,19 +331,38 @@ defmodule StorybookWeb.Docs do
                   nil
               end
 
-              {_ast, found} =
+              local_delegate = fn
+                {name, _, [_argument]} when is_atom(name) -> name
+                _body -> nil
+              end
+
+              {_ast, functions} =
                 Macro.prewalk(ast, [], fn
                   {:defp, _, [{name, _, [_arg]}, [do: body]]} = node, acc when is_atom(name) ->
-                    case heex.(body) do
-                      nil -> {node, acc}
-                      raw -> {node, [{name, String.trim_trailing(raw)} | acc]}
-                    end
+                    {node, [{name, body} | acc]}
 
                   node, acc ->
                     {node, acc}
                 end)
 
-              Map.new(found)
+              direct_sources =
+                Map.new(functions, fn {name, body} ->
+                  source = heex.(body)
+                  {name, source && String.trim_trailing(source)}
+                end)
+                |> Map.reject(fn {_name, source} -> is_nil(source) end)
+
+              # Some examples keep a public name but reuse another local
+              # renderer. Resolve only that single direct call: it preserves
+              # the source a reader needs without following arbitrary calls.
+              delegated_sources =
+                Map.new(functions, fn {name, body} ->
+                  target = local_delegate.(body)
+                  {name, target && Map.get(direct_sources, target)}
+                end)
+                |> Map.reject(fn {_name, source} -> is_nil(source) end)
+
+              Map.merge(direct_sources, delegated_sources)
             end).()
 
   @doc """
@@ -408,7 +494,7 @@ defmodule StorybookWeb.Docs do
   group its components either. It is titled after the package.
   """
   def groups do
-    shadcn = components_in(LiveShadcn.UI)
+    shadcn = shadcn_components()
     documented = MapSet.new(Examples.components())
 
     sections =
@@ -454,16 +540,21 @@ defmodule StorybookWeb.Docs do
   """
   def library(component) do
     {source, name} = identity(component)
-    namespace = to_string(module(component))
+    component_module = module(component)
+    namespace = to_string(component_module)
 
     package =
-      Enum.find_value(@packages, fn
-        {app, ns} when not is_nil(ns) ->
-          String.starts_with?(namespace, to_string(ns)) && to_string(app)
+      if is_nil(component_module) and source == "shadcn" do
+        "live_shadcn"
+      else
+        Enum.find_value(@packages, fn
+          {app, ns} when not is_nil(ns) ->
+            String.starts_with?(namespace, to_string(ns)) && to_string(app)
 
-        _base ->
-          nil
-      end)
+          _base ->
+            nil
+        end)
+      end
 
     %{package: package, spec: "registry/spec/#{source}/#{name}.json"}
   end
@@ -494,6 +585,20 @@ defmodule StorybookWeb.Docs do
 
     Examples.components()
     |> Enum.filter(&String.starts_with?(to_string(module(&1)), prefix))
+    |> Enum.sort()
+  end
+
+  # Some official shadcn pages are examples made from several generated
+  # primitives. They have documentation and preview routes, but no one module
+  # named after the page. Keep them in the shadcn navigation with the primitive
+  # pages they use.
+  defp shadcn_components do
+    composites =
+      Examples.components()
+      |> Enum.filter(&is_nil(module(&1)))
+
+    (components_in(LiveShadcn.UI) ++ composites)
+    |> Enum.uniq()
     |> Enum.sort()
   end
 

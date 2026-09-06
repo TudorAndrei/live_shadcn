@@ -11,5 +11,57 @@
   </head>
   <body class="bg-background text-foreground antialiased">
     {@inner_content}
+    <script nonce={assigns[:csp_nonce]} phx-no-curly-interpolation>
+      (() => {
+        const hasMessageVisibilityConsumer = (root) => {
+          if (!root.id) return false;
+
+          return [...document.querySelectorAll("[data-message-scroller-outline]")].some(
+            (outline) => outline.getAttribute("data-message-scroller-controller") === root.id
+          );
+        };
+        const shouldPreScrollOpening = (root) =>
+          root.getAttribute("data-lb-message-pre-live-scroll") !== "false" &&
+            root.getAttribute("data-lb-message-opening-hold") !== "false" &&
+            !hasMessageVisibilityConsumer(root);
+        const shouldPreScrollUnheldOpening = (root) =>
+          root.getAttribute("data-lb-message-pre-live-scroll") !== "false" &&
+            root.getAttribute("data-lb-message-opening-hold") === "false" &&
+            !hasMessageVisibilityConsumer(root);
+        const roots = document.querySelectorAll(
+          "[data-lb-message-scroller][data-lb-message-default-position=end][data-pending-scroll]"
+        );
+
+        for (const root of roots) {
+          const viewport = [...root.querySelectorAll("[data-lb-message-scroller-viewport]")].find(
+            (candidate) => candidate.closest("[data-lb-message-scroller]") === root
+          );
+          const content = viewport?.querySelector("[data-slot=message-scroller-content]");
+          const items = [...(content?.children || [])].filter(
+            (item) => item instanceof HTMLElement &&
+              !item.hasAttribute("data-message-scroller-spacer")
+          );
+
+          if (!viewport || items.length === 0) continue;
+
+          // This matches React's layout-effect opening timing. Keep the
+          // pending markers so Scroller can observe that the one pre-live
+          // write happened and complete the opening without another write.
+          if (shouldPreScrollUnheldOpening(root)) {
+            viewport.scrollTop = viewport.scrollHeight;
+            viewport.__liveBaseMessageOpeningApplied = true;
+            continue;
+          }
+
+          if (!shouldPreScrollOpening(root)) continue;
+
+          viewport.scrollTop = viewport.scrollHeight;
+          viewport.__liveBaseMessageOpeningTop = viewport.scrollTop;
+          viewport.__liveBaseMessageOpeningApplied = true;
+          root.removeAttribute("data-pending-scroll");
+          viewport.removeAttribute("data-pending-scroll");
+        }
+      })();
+    </script>
   </body>
 </html>

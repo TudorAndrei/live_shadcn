@@ -30,6 +30,11 @@ defmodule Mix.Tasks.Snapshot do
 
   alias StorybookWeb.Examples
 
+  @reference_dates %{
+    "calendar" => ~D[2025-06-01],
+    "date-picker" => ~D[2025-06-01]
+  }
+
   @impl Mix.Task
   def run(argv) do
     Mix.Task.run("app.start")
@@ -45,13 +50,25 @@ defmodule Mix.Tasks.Snapshot do
     unless check?, do: write_index()
 
     outdated = for {:outdated, name} <- results, do: name
+    expected = Enum.map(results, fn {_status, name} -> name end)
+
+    unexpected =
+      if check? and names == [] do
+        unexpected_snapshot_names(snapshot_dir(), expected)
+      else
+        []
+      end
 
     cond do
-      check? and outdated != [] ->
+      check? and (outdated != [] or unexpected != []) ->
         Mix.raise("""
-        these snapshots no longer match what the components render:
+        snapshot files do not match the current example index.
 
-          #{Enum.join(outdated, "\n  ")}
+        Outdated or missing:
+          #{format_names(outdated)}
+
+        Not in the index:
+          #{format_names(unexpected)}
 
         Run `mix snapshot` and review the diff. A diff here is a change a reader
         would see.
@@ -108,8 +125,14 @@ defmodule Mix.Tasks.Snapshot do
 
   defp sorted_attributes(nodes) when is_list(nodes), do: Enum.map(nodes, &sorted_attributes/1)
 
-  defp sorted_attributes({tag, attrs, children}),
-    do: {tag, Enum.sort_by(attrs, &rank/1), sorted_attributes(children)}
+  defp sorted_attributes({tag, attrs, children}) do
+    attrs =
+      attrs
+      |> Enum.map(&canonicalize_json_attribute/1)
+      |> Enum.sort_by(&rank/1)
+
+    {tag, attrs, sorted_attributes(children)}
+  end
 
   defp sorted_attributes(node), do: node
 
@@ -121,6 +144,35 @@ defmodule Mix.Tasks.Snapshot do
     end
   end
 
+  # LiveView command attributes contain JSON. Phoenix serializes command maps
+  # in VM map order, which is not stable between runs. The browser reads these
+  # values as JSON objects, so their key order has no runtime meaning. A
+  # snapshot must record that stable meaning instead of the VM iteration order.
+  @doc false
+  def canonicalize_json_attribute({name, value} = attribute)
+      when is_binary(name) and is_binary(value) do
+    if String.starts_with?(name, "phx-") do
+      case Jason.decode(value) do
+        {:ok, json} -> {name, json |> ordered_json() |> Jason.encode!()}
+        {:error, _reason} -> attribute
+      end
+    else
+      attribute
+    end
+  end
+
+  def canonicalize_json_attribute(attribute), do: attribute
+
+  defp ordered_json(value) when is_map(value) do
+    value
+    |> Enum.map(fn {key, nested_value} -> {key, ordered_json(nested_value)} end)
+    |> Enum.sort_by(fn {key, _value} -> key end)
+    |> Jason.OrderedObject.new()
+  end
+
+  defp ordered_json(value) when is_list(value), do: Enum.map(value, &ordered_json/1)
+  defp ordered_json(value), do: value
+
   defp render(component, example) do
     # A function component is called with change tracking. Rendering one by
     # hand still has to hand it the same marker.
@@ -131,7 +183,7 @@ defmodule Mix.Tasks.Snapshot do
     # its own and drifting.
     html =
       %{__changed__: nil}
-      |> Map.merge(Examples.page_assigns())
+      |> Map.merge(Examples.page_assigns(reference_date: reference_date(component)))
       |> example.render.()
       |> Phoenix.LiveViewTest.rendered_to_string()
       |> Floki.parse_fragment!()
@@ -152,4 +204,22 @@ defmodule Mix.Tasks.Snapshot do
   defp snapshot_dir do
     Path.expand("../../../../registry/snapshot", __DIR__)
   end
+
+  @doc false
+  def unexpected_snapshot_names(directory, expected) do
+    actual =
+      directory
+      |> Path.join("*.html")
+      |> Path.wildcard()
+      |> Enum.map(&Path.basename(&1, ".html"))
+
+    actual
+    |> Kernel.--(expected)
+    |> Enum.sort()
+  end
+
+  defp format_names([]), do: "(none)"
+  defp format_names(names), do: Enum.join(names, "\n  ")
+
+  defp reference_date(component), do: Map.get(@reference_dates, component, Date.utc_today())
 end

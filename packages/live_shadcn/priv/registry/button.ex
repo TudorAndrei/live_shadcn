@@ -50,6 +50,11 @@ defmodule LiveShadcn.UI.Button do
     values: Enum.sort(@variant_values)
   )
 
+  attr(:shrink, :boolean,
+    default: true,
+    doc: "Keeps the upstream shrink token unless a pinned style variant omits it."
+  )
+
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
   slot(:inner_block)
@@ -58,17 +63,33 @@ defmodule LiveShadcn.UI.Button do
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "button"}
-      class={[
-        variant_class("buttonVariants", "size", @size),
-        variant_class("buttonVariants", "variant", @variant),
-        upstream_fact("cva/buttonVariants/base"),
-        @class
-      ]}
+      class={button_class(variant: @variant, size: @size, shrink: @shrink, class: @class)}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
     </button>
     """
+  end
+
+  @doc "Returns the class string for a button or another element rendered as a button."
+  def button_class(opts \\ []) do
+    variant = Keyword.get(opts, :variant, @upstream_facts["cva/buttonVariants/default/variant"])
+    size = Keyword.get(opts, :size, @upstream_facts["cva/buttonVariants/default/size"])
+    shrink = Keyword.get(opts, :shrink, true)
+
+    base =
+      if shrink do
+        upstream_fact("cva/buttonVariants/base")
+      else
+        String.replace(upstream_fact("cva/buttonVariants/base"), " shrink-0", "")
+      end
+
+    LiveShadcn.Cn.merge([
+      base,
+      variant_class("buttonVariants", "variant", variant),
+      variant_class("buttonVariants", "size", size),
+      Keyword.get(opts, :class)
+    ])
   end
 
   def part_class("button"), do: upstream_fact("cva/buttonVariants/base")

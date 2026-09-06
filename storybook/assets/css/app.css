@@ -10,8 +10,20 @@
  *
  * Change the style by importing a different sheet and setting the matching
  * class in config: the rules are nested inside `.style-<name>`. */
+@import "@fontsource-variable/vazirmatn";
 @import "./upstream/theme/globals.css";
 @import "./upstream/styles/vega.css";
+
+.font-vazirmatn {
+  font-family: "Vazirmatn Variable", sans-serif;
+}
+
+/* Keep intrinsic blocks stable during a server-rendered Message Scroller
+ * opening. The Scroller hook removes data-pending-scroll after it applies the
+ * initial position, so normal content-visibility:auto resumes before paint. */
+[data-lb-message-scroller][data-pending-scroll] [data-slot="message-scroller-item"] {
+  content-visibility: hidden;
+}
 
 /* Tailwind scans these for the utility classes it has to emit. Generated
  * components live in the registry, which is why it is listed. */
@@ -28,3 +40,12 @@
 @source "../../../registry/upstream/ai_elements";
 @source "../../../registry/upstream/ai_shadcn";
 @source "../../../registry/upstream/ai_examples";
+
+/* The generated data-active utility is emitted after Tailwind's reduced-motion
+ * utility. Keep a caller's official motion-reduce request above generated
+ * utility order, including data-state variants. */
+@media (prefers-reduced-motion: reduce) {
+  [class~="motion-reduce:animate-none"] {
+    animation: none;
+  }
+}

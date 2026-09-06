@@ -8,9 +8,10 @@ defmodule LiveShadcnTools.VerificationPolicy do
 
   @policy_path Path.expand("../../../registry/VERIFICATION_POLICY.json", __DIR__)
   @external_resource @policy_path
-  @policies @policy_path
-            |> File.read!()
-            |> Jason.decode!()
+  @policy_data @policy_path |> File.read!() |> Jason.decode!()
+  @standard_required_checks get_in(@policy_data, ["_standard", "required_checks"])
+  @policies @policy_data
+            |> Map.delete("_standard")
             |> Map.new(fn {reference, %{"kind" => kind, "reason" => reason} = entry} ->
               kind =
                 case kind do
@@ -24,12 +25,34 @@ defmodule LiveShadcnTools.VerificationPolicy do
                   _ -> :required
                 end
 
-              {reference, %{kind: kind, reason: reason, behavior: behavior}}
+              required_checks =
+                Map.get(
+                  entry,
+                  "required_checks",
+                  if(kind == :standard, do: @standard_required_checks, else: [])
+                )
+
+              fixture = Map.get(entry, "local_fixture")
+
+              {reference,
+               %{
+                 kind: kind,
+                 reason: reason,
+                 behavior: behavior,
+                 local_fixture: fixture,
+                 required_checks: required_checks
+               }}
             end)
 
-  @type kind :: :standard | :local_only | :no_dom
+  @type kind :: :standard | :docs_only | :local_only | :no_dom
   @type behavior :: :required | {:not_applicable, String.t()}
-  @type policy :: %{kind: kind(), reason: String.t() | nil, behavior: behavior()}
+  @type policy :: %{
+          kind: kind(),
+          reason: String.t() | nil,
+          behavior: behavior(),
+          local_fixture: String.t() | nil,
+          required_checks: [String.t()]
+        }
 
   @doc "Returns the verification policy for one source component."
   @spec get(String.t(), String.t()) :: policy()
@@ -38,7 +61,9 @@ defmodule LiveShadcnTools.VerificationPolicy do
       Map.get(@policies, source <> "/" <> name, %{
         kind: :standard,
         reason: nil,
-        behavior: :required
+        behavior: :required,
+        local_fixture: nil,
+        required_checks: @standard_required_checks
       })
 
   @doc "Whether a component needs a mapped interaction suite."
@@ -58,4 +83,8 @@ defmodule LiveShadcnTools.VerificationPolicy do
       kind -> kind
     end
   end
+
+  @doc "The checks that must complete under this policy."
+  @spec required_checks(String.t(), String.t()) :: [String.t()]
+  def required_checks(source, name), do: get(source, name).required_checks
 end

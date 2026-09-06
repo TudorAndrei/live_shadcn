@@ -22,4 +22,18 @@ defmodule LiveShadcn.IconTest do
 
     assert Floki.attribute(Floki.parse_fragment!(html), "svg", "hidden") != []
   end
+
+  test "an explicitly labelled SVG is not hidden from assistive technology" do
+    html =
+      render_component(&Icon.icon/1, %{
+        name: "loader-2",
+        rest: %{role: "status", "aria-label": "Loading"}
+      })
+
+    document = Floki.parse_fragment!(html)
+
+    assert Floki.attribute(document, "svg", "role") == ["status"]
+    assert Floki.attribute(document, "svg", "aria-label") == ["Loading"]
+    assert Floki.attribute(document, "svg", "aria-hidden") == []
+  end
 end

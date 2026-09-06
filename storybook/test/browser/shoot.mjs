@@ -26,7 +26,7 @@ import { PNG } from "pngjs";
 
 import { collect, PROPERTIES, SEMANTIC_ATTRIBUTES } from "./measure.mjs";
 import { waitForMessageScrollerFinalLayout } from "./message-scroller-readiness.mjs";
-import { enterVisualState } from "./visual-states.mjs";
+import { enterVisualState, waitForTimedExample } from "./visual-states.mjs";
 import { connected } from "./live.mjs";
 
 // How different two pixels must be before they count. pixelmatch measures in
@@ -48,6 +48,8 @@ const MINIMUM_HEIGHT = 2048;
  * after `liveSocket.isConnected()` first says yes.
  */
 export async function settle(page, selector) {
+  await waitForTimedExample(page, selector);
+
   await page.addStyleTag({
     content: `*, *::before, *::after {
       animation: none !important;
@@ -113,7 +115,14 @@ export async function settle(page, selector) {
       const scroll = [root, ...root.querySelectorAll("*")]
         .map((element) => `${element.scrollTop}:${element.scrollLeft}`)
         .join("|");
-      const now = `${height}|${scroll}`;
+      // Recharts animates `d`, `x`, `y`, `width`, and `height` values with
+      // requestAnimationFrame. The root height stays fixed while every bar is
+      // still moving. Include the SVG paint data, or the check can capture one
+      // renderer during the animation and the other after it.
+      const svg = [...root.querySelectorAll("svg")]
+        .map((element) => element.innerHTML)
+        .join("|");
+      const now = `${height}|${scroll}|${svg}`;
       const settled = window.__settledPaint === now;
       window.__settledPaint = now;
       return settled;
@@ -161,70 +170,75 @@ export async function documentHeight(page) {
  * exactly the finding wanted.
  */
 export async function paintedBox(page, selector) {
-  return page.evaluate((css) => {
-    const root = document.querySelector(css);
-    if (!root) return null;
+  return page.evaluate(paintedBoxInDocument, selector);
+}
 
-    const origin = root.getBoundingClientRect();
-    const boxes = [];
+// This function runs in the browser through `page.evaluate`. Keeping it named
+// also lets the Node test use a small fake document to check its layout reads.
+export function paintedBoxInDocument(css) {
+  const root = document.querySelector(css);
+  if (!root) return null;
 
-    // What the component paints, not the column it sits in. The preview root is
-    // 720px wide for every example, so clipping to it leaves most of the image
-    // blank and a percentage means nothing. `data-slot` is the anatomy both
-    // sides share, so those boxes are the component.
-    for (const part of root.querySelectorAll("[data-slot]")) {
-      const box = part.getBoundingClientRect();
-      if (box.width > 0 && box.height > 0) boxes.push(box);
-    }
+  const origin = root.getBoundingClientRect();
+  const boxes = [];
 
-    // And what the root holds, which is the component whether or not its parts
-    // carry a `data-slot` — shadcn puts one on every part, AI Elements on
-    // almost none. Its children rather than the root itself: the root is the
-    // 720px preview column.
-    for (const own of root.children) {
-      const box = own.getBoundingClientRect();
-      if (box.width > 0 && box.height > 0) boxes.push(box);
-    }
+  // What the component paints, not the column it sits in. The preview root is
+  // 720px wide for every example, so clipping to it leaves most of the image
+  // blank and a percentage means nothing. `data-slot` is the anatomy both
+  // sides share, so those boxes are the component.
+  for (const part of root.querySelectorAll("[data-slot]")) {
+    const box = part.getBoundingClientRect();
+    if (box.width > 0 && box.height > 0) boxes.push(box);
+  }
 
-    // Plus anything painted outside the root at all: portalled content, fixed
-    // overlays, backdrops. `toast` needs this — its root is zero pixels tall
-    // and React portals every toast to `document.body`.
-    for (const element of document.body.querySelectorAll("*")) {
-      const box = element.getBoundingClientRect();
-      if (box.width <= 0 || box.height <= 0) continue;
+  // And what the root holds, which is the component whether or not its parts
+  // carry a `data-slot` — shadcn puts one on every part, AI Elements on
+  // almost none. Its children rather than the root itself: the root is the
+  // 720px preview column.
+  for (const own of root.children) {
+    const box = own.getBoundingClientRect();
+    if (box.width > 0 && box.height > 0) boxes.push(box);
+  }
 
-      // An ancestor of the root is page chrome, not component. It satisfies
-      // "outside the root" on a naive reading — the root does not contain its
-      // own parent — and including `<main>` put the whole 1280px column in the
-      // clip, which is how a five-percent difference kept reporting as 0.15%.
-      if (element.contains(root)) continue;
-      if (root.contains(element)) continue;
+  // Plus anything painted outside the root at all: portalled content, fixed
+  // overlays, backdrops. `toast` needs this — its root is zero pixels tall
+  // and React portals every toast to `document.body`.
+  for (const element of document.body.querySelectorAll("*")) {
+    // An ancestor of the root is page chrome, not component. It satisfies
+    // "outside the root" on a naive reading — the root does not contain its
+    // own parent — and including `<main>` put the whole 1280px column in the
+    // clip, which is how a five-percent difference kept reporting as 0.15%.
+    // Reject both before a layout read. Neither can become a candidate below.
+    if (element.contains(root)) continue;
+    if (root.contains(element)) continue;
 
-      const position = getComputedStyle(element).position;
-      const portalled = element.parentElement === document.body;
-      if (position === "fixed" || portalled) boxes.push(box);
-    }
+    const box = element.getBoundingClientRect();
+    if (box.width <= 0 || box.height <= 0) continue;
 
-    // A component with neither is one that paints nothing recognisable; fall
-    // back to the root rather than return an empty rectangle.
-    if (boxes.length === 0) boxes.push(root.getBoundingClientRect());
+    const position = getComputedStyle(element).position;
+    const portalled = element.parentElement === document.body;
+    if (position === "fixed" || portalled) boxes.push(box);
+  }
 
-    const left = Math.min(...boxes.map((b) => b.left));
-    const top = Math.min(...boxes.map((b) => b.top));
-    const right = Math.max(...boxes.map((b) => b.right));
-    const bottom = Math.max(...boxes.map((b) => b.bottom));
+  // A component with neither is one that paints nothing recognisable; fall
+  // back to the root rather than return an empty rectangle.
+  if (boxes.length === 0) boxes.push(root.getBoundingClientRect());
 
-    // The React and LiveView preview pages can place the preview root on
-    // different device pixels. Page chrome is not component output. Keep the
-    // frame in component coordinates so an equal component is not shifted in
-    // the image by an unrelated page-shell difference.
-    return {
-      left: left - origin.left,
-      top: top - origin.top,
-      right: right - origin.left,
-      bottom: bottom - origin.top,
-    };
-  }, selector);
+  const left = Math.min(...boxes.map((b) => b.left));
+  const top = Math.min(...boxes.map((b) => b.top));
+  const right = Math.max(...boxes.map((b) => b.right));
+  const bottom = Math.max(...boxes.map((b) => b.bottom));
+
+  // The React and LiveView preview pages can place the preview root on
+  // different device pixels. Page chrome is not component output. Keep the
+  // frame in component coordinates so an equal component is not shifted in
+  // the image by an unrelated page-shell difference.
+  return {
+    left: left - origin.left,
+    top: top - origin.top,
+    right: right - origin.left,
+    bottom: bottom - origin.top,
+  };
 }
 
 /** One component-relative rectangle covering what either side paints. */
@@ -263,6 +277,19 @@ export async function shoot(page, url, selector, height, clip, state) {
 
   await enterVisualState(page, selector, state);
   await settle(page, selector);
+
+  return shootCurrent(page, selector, clip);
+}
+
+/**
+ * Photograph the current, already-settled page.
+ *
+ * Pixel comparison first measures the React and Phoenix paint bounds to make
+ * their shared clip rectangle. The second side is still settled when that
+ * rectangle is known, so reloading it only to take the same photograph wastes
+ * one renderer load per visual state.
+ */
+export async function shootCurrent(page, selector, clip) {
 
   const measured = await page.evaluate(collect, {
     selector,
@@ -362,12 +389,19 @@ function innermost(boxes, x, y) {
 /** Diffs two equally-sized images and returns the count plus a diff PNG. */
 export function compare(react, phoenix) {
   const { width, height } = react;
-  const diff = new PNG({ width, height });
-
-  const differing = pixelmatch(react.data, phoenix.data, diff.data, width, height, {
+  const options = {
     threshold: THRESHOLD,
     includeAA: false,
-  });
+  };
+  const differing = pixelmatch(react.data, phoenix.data, undefined, width, height, options);
+
+  // Green comparisons need only the exact count. A full RGBA diff buffer is
+  // large at the two-times device scale and is useful only when there is a
+  // difference to report.
+  if (differing === 0) return { differing, width, height };
+
+  const diff = new PNG({ width, height });
+  pixelmatch(react.data, phoenix.data, diff.data, width, height, options);
 
   return { differing, diff, width, height };
 }

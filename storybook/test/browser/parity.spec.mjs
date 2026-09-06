@@ -11,7 +11,7 @@
 // commit `registry/UPSTREAM.json` pins, against the same style sheet. So the
 // two pages differ only where the components differ.
 
-import { readdirSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
@@ -25,29 +25,30 @@ import {
   SEMANTIC_ATTRIBUTES,
 } from "./measure.mjs";
 import { gated, source } from "./registries.mjs";
-import { enterVisualState, installBrowserFixtures, visualStates } from "./visual-states.mjs";
+import {
+  enterVisualState,
+  installBrowserFixtures,
+  visualStateIdentity,
+  visualStates,
+  waitForTimedExample,
+} from "./visual-states.mjs";
+import { parityTimeoutMs } from "./parity-timeout.mjs";
 import { connected } from "./live.mjs";
 import { waitForMessageScrollerFinalLayout } from "./message-scroller-readiness.mjs";
+import { inScope, noScopedPagesMessage, scopeFromEnvironment } from "./preview-scope.mjs";
+import { hasOfficialReactReference } from "./react-references.mjs";
+import { comparisonApplies } from "./verification-policy.mjs";
 
 // Enough of a tree to find a difference in, and not so much that the report
 // becomes the thing nobody reads.
 const OUTLINE_ROWS = 400;
 
 const here = dirname(fileURLToPath(import.meta.url));
-const only = process.env.PREVIEW_COMPONENT;
-const onlySource = process.env.PREVIEW_SOURCE;
+const scope = scopeFromEnvironment();
 
 // Written by `mix snapshot`. Read rather than fetched, because Playwright
 // collects tests before it starts a server.
 const previews = JSON.parse(readFileSync(join(here, "../../../registry/snapshot/index.json")));
-
-// One file per example, named `<component>.<example>.tsx`. The directory is the
-// record of what has been ported.
-const ported = new Set(
-  readdirSync(join(here, "../../../parity/src/examples"))
-    .filter((name) => name.endsWith(".tsx"))
-    .map((name) => name.replace(/\.tsx$/, ""))
-);
 
 // Where a reviewed port deliberately does not draw what upstream draws,
 // by the slot the two disagree on. Everything else on the page still gates at
@@ -59,14 +60,22 @@ const { divergences } = JSON.parse(readFileSync(join(here, "parity-divergence.js
 // against, because a decision moves twenty numbers and none of them is the
 // reason.
 const subject = (difference) => difference.slice(0, difference.indexOf(":"));
+const hasOfficialReference = (component, example) =>
+  hasOfficialReactReference(source(component), `${component}.${example}`);
 
 // Every shadcn example. `registries.mjs` says why the AI Elements ones are not
 // compared.
 const pages = Object.entries(previews)
   .filter(([component]) => gated(component))
-  .filter(([component]) => !onlySource || source(component) === onlySource)
-  .filter(([component]) => !only || component === only)
-  .flatMap(([component, examples]) => examples.map((example) => ({ component, example })));
+  .flatMap(([component, examples]) => examples.map((example) => ({ component, example })))
+  .filter(({ component, example }) => comparisonApplies(source(component), component, example))
+  .filter(({ component, example }) => inScope(`${component}.${example}`, scope, source));
+
+if (pages.length === 0) {
+  test("there is a parity example to compare", () => {
+    throw new Error(noScopedPagesMessage("parity", scope));
+  });
+}
 
 // One test for the whole gap, rather than one failure per component. A page
 // nobody ported is a page nothing compares, and that is worth saying once and
@@ -74,7 +83,10 @@ const pages = Object.entries(previews)
 test("every example has a React reference", () => {
   const missing = pages
     .map(({ component, example }) => `${component}.${example}`)
-    .filter((name) => !ported.has(name));
+    .filter((name) => {
+      const [component, ...id] = name.split(".");
+      return !hasOfficialReference(component, id.join("."));
+    });
 
   expect(missing, `add parity/src/examples/<name>.tsx for each`).toEqual([]);
 });
@@ -85,13 +97,15 @@ test("every example has a React reference", () => {
 // to.
 test("every recorded divergence names an example this check compares", () => {
   const named = new Set(pages.map(({ component, example }) => `${component}.${example}`));
-  const stale = Object.keys(divergences).filter((name) => !named.has(name));
+  const stale = Object.keys(divergences)
+    .filter((name) => inScope(name, scope, source))
+    .filter((name) => !named.has(name));
 
-  expect(only ? [] : stale, "remove these from parity-divergence.json").toEqual([]);
+  expect(stale, "remove these from parity-divergence.json").toEqual([]);
 });
 
 for (const { component, example } of pages) {
-  if (!ported.has(`${component}.${example}`)) continue;
+  if (!hasOfficialReference(component, example)) continue;
 
   test(`${component} / ${example} draws what React draws`, async ({ page }, testInfo) => {
     await installBrowserFixtures(page);
@@ -101,24 +115,57 @@ for (const { component, example } of pages) {
     const phoenixURL = `/preview/${component}/${example}`;
     const name = `${component}.${example}`;
 
+    if (process.env.PARITY_DEBUG === name) {
+      await page.addInitScript(() => {
+        const original = Element.prototype.scrollTo;
+        Element.prototype.scrollTo = function (...args) {
+          if (this.getAttribute?.("data-slot") === "message-scroller-viewport") {
+            window.__parityScrollCalls ||= [];
+            window.__parityScrollCalls.push({
+              args,
+              before: {
+                scrollTop: this.scrollTop,
+                scrollHeight: this.scrollHeight,
+                clientHeight: this.clientHeight,
+              },
+            });
+          }
+          return original.apply(this, args);
+        };
+      });
+    }
+
     const reactStates = await statesAt(page, reactURL, selector);
+    testInfo.setTimeout(parityTimeoutMs(reactStates.length));
     const phoenixStates = await statesAt(page, phoenixURL, selector);
 
     expect(
-      phoenixStates.map(({ name }) => name),
+      phoenixStates.map(visualStateIdentity),
       `${name}: React and Phoenix must expose the same render states`,
-    ).toEqual(reactStates.map(({ name }) => name));
+    ).toEqual(reactStates.map(visualStateIdentity));
 
     const recorded = divergences[name]?.slots ?? [];
     const all = [];
     const differences = [];
     let where;
 
-    for (const state of reactStates) {
+    const selectedStates = process.env.PARITY_DEBUG_STATE
+      ? reactStates.filter(({ name: stateName }) => stateName === process.env.PARITY_DEBUG_STATE)
+      : reactStates;
+
+    if (selectedStates.length === 0) {
+      throw new Error(
+        `${name}: no parity state named ${JSON.stringify(process.env.PARITY_DEBUG_STATE)}`,
+      );
+    }
+
+    for (const state of selectedStates) {
       const react = await renderState(page, reactURL, selector, state);
       const phoenix = await renderState(page, phoenixURL, selector, state);
       if (process.env.PARITY_DEBUG === name) {
-        console.log(JSON.stringify({ state: state.name, react: react.measured, phoenix: phoenix.measured }, null, 2));
+        console.log(
+          JSON.stringify({ state: state.name, react: react.debug, phoenix: phoenix.debug }, null, 2)
+        );
       }
       const stateDifferences = described(compare(react.measured, phoenix.measured));
 
@@ -170,9 +217,94 @@ async function renderState(page, url, selector, state) {
   if (url.startsWith("/")) await connected(page);
   await enterVisualState(page, selector, state);
 
+  const animationsBeforeMeasurement =
+    process.env.PARITY_DEBUG == null
+      ? []
+      : await page.evaluate(() =>
+          document.getAnimations().map((animation) => {
+            const effect = animation.effect;
+            const target = effect?.target;
+            const timing = effect?.getComputedTiming?.() ?? {};
+
+            return {
+              animationName: animation.animationName ?? null,
+              currentTime: animation.currentTime,
+              playState: animation.playState,
+              target: target && {
+                id: target.id,
+                slot: target.getAttribute?.("data-slot"),
+                messageId: target.getAttribute?.("data-message-id"),
+                className: target.getAttribute?.("class"),
+              },
+              timing: {
+                activeDuration: timing.activeDuration,
+                delay: timing.delay,
+                endTime: timing.endTime,
+                progress: timing.progress,
+              },
+              keyframes:
+                effect?.getKeyframes?.().map(({ offset, opacity, transform }) => ({
+                  offset,
+                  opacity,
+                  transform,
+                })) ?? [],
+            };
+          }),
+        );
+
   return {
     measured: await measured(page, selector),
     tree: await page.evaluate(outline, { selector, limit: OUTLINE_ROWS }),
+    debug:
+      process.env.PARITY_DEBUG == null
+        ? null
+        : {
+            animations: animationsBeforeMeasurement,
+            ...(await page.evaluate(() => {
+            const popup = document.querySelector("[data-slot='context-menu-content']:not([hidden])");
+            const positioner = popup?.parentElement;
+            const view = document.documentElement;
+            const messageViewport = document.querySelector("[data-slot=\"message-scroller-viewport\"]");
+            const messageContent = document.querySelector("[data-slot=\"message-scroller-content\"]");
+
+            return {
+              scrollCalls: window.__parityScrollCalls ?? [],
+              messageScroller: messageViewport && {
+                scrollTop: messageViewport.scrollTop,
+                scrollHeight: messageViewport.scrollHeight,
+                clientHeight: messageViewport.clientHeight,
+                distanceToEnd:
+                  messageViewport.scrollHeight -
+                  messageViewport.scrollTop -
+                  messageViewport.clientHeight,
+                contentBox: messageContent?.getBoundingClientRect().toJSON(),
+                items: [...(messageContent?.querySelectorAll("[data-slot=\"message-scroller-item\"]") || [])].map((item) => ({
+                  id: item.getAttribute("data-message-id"),
+                  box: item.getBoundingClientRect().toJSON(),
+                  visible: item.checkVisibility?.({ contentVisibilityAuto: true }),
+                })),
+              },
+              popup: popup && {
+                box: popup.getBoundingClientRect().toJSON(),
+                availableHeight: getComputedStyle(popup).getPropertyValue("--available-height"),
+                maxHeight: getComputedStyle(popup).maxHeight,
+              },
+              positioner: positioner && {
+                box: positioner.getBoundingClientRect().toJSON(),
+                side: positioner.getAttribute("data-side"),
+                requestedSide: positioner.getAttribute("data-lb-side"),
+                pointX: positioner.getAttribute("data-lb-point-x"),
+                pointY: positioner.getAttribute("data-lb-point-y"),
+                style: positioner.getAttribute("style"),
+              },
+              viewport: {
+                width: view.clientWidth,
+                height: view.clientHeight,
+                offsetTop: window.visualViewport?.offsetTop,
+              },
+            };
+          })),
+          },
   };
 }
 
@@ -267,6 +399,8 @@ function align(react, phoenix) {
 // stop moving, which is the same question for a React render, a LiveView hook
 // and a CSS transition.
 async function measured(page, selector) {
+  await waitForTimedExample(page, selector);
+
   // A component can position every child outside its preview root. The root is
   // still the comparison origin, even when it has no visible box itself.
   await expect(page.locator(selector)).toBeAttached();
@@ -275,25 +409,69 @@ async function measured(page, selector) {
   // otherwise be sampled at different points in the same upstream animation.
   await page.addStyleTag({ content: "*,::before,::after{animation:none!important;transition:none!important}" });
 
+  await page.evaluate(async () => {
+    const finiteAnimations = document
+      .getAnimations({ subtree: true })
+      .filter((animation) => {
+        const endTime = animation.effect?.getComputedTiming().endTime;
+
+        return Number.isFinite(endTime) &&
+          ["pending", "running"].includes(animation.playState);
+      });
+
+    await Promise.allSettled(finiteAnimations.map((animation) => animation.finished));
+  });
+
+  const options = {
+    selector,
+    properties: PROPERTIES,
+    attributes: SEMANTIC_ATTRIBUTES,
+  };
+
   await page.waitForFunction(
     (selector) => {
-      const height = document.querySelector(selector)?.getBoundingClientRect().height;
-      const before = window.__parityHeight;
-      window.__parityHeight = height;
+      const root = document.querySelector(selector);
+      if (!root) return false;
 
-      return before !== undefined && Math.abs(before - height) < 0.01;
+      const scrollContainers = [root, ...root.querySelectorAll("*")]
+        .filter((element) => {
+          const { overflowX, overflowY } = getComputedStyle(element);
+          return ["auto", "scroll"].includes(overflowX) ||
+            ["auto", "scroll"].includes(overflowY);
+        })
+        .map((element) => {
+          const { top, left, width, height } = element.getBoundingClientRect();
+
+          return [
+            element.scrollTop,
+            element.scrollLeft,
+            element.scrollHeight,
+            element.scrollWidth,
+            element.clientHeight,
+            element.clientWidth,
+            top,
+            left,
+            width,
+            height,
+          ];
+        });
+      const snapshot = JSON.stringify({
+        root: root.getBoundingClientRect().toJSON(),
+        scrollContainers,
+      });
+      const prior = window.__parityLayoutState;
+      const frames = prior?.snapshot === snapshot ? prior.frames + 1 : 0;
+      window.__parityLayoutState = { snapshot, frames };
+
+      return frames >= 2;
     },
     selector,
-    { polling: 100 }
+    { polling: "raf" }
   );
 
   await waitForMessageScrollerFinalLayout(page, selector);
 
-  return page.evaluate(collect, {
-    selector,
-    properties: PROPERTIES,
-    attributes: SEMANTIC_ATTRIBUTES,
-  });
+  return page.evaluate(collect, options);
 }
 
 // A difference read as a sentence. `padding-left: React 0.5rem, Phoenix 8px` is

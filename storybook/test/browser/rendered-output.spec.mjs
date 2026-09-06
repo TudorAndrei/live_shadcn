@@ -159,6 +159,107 @@ test("the rendered-output check ignores dormant zero-size shadows", () => {
   expect(compare(react, phoenix)).toEqual([]);
 });
 
+const marginSlot = (margins, autoMargins) => ({
+  slot: "field",
+  box: { x: 200, y: 0, width: 320, height: 24 },
+  style: margins,
+  autoMargins,
+  semantic: { tag: "div", role: "group", text: "", states: {} },
+});
+
+test("the rendered-output check ignores different used values for the same authored auto margin", () => {
+  const react = {
+    whole: { width: 720, height: 24 },
+    slots: [
+      marginSlot(
+        { "margin-left": "0px", "margin-right": "0px" },
+        { top: false, right: true, bottom: false, left: true },
+      ),
+    ],
+  };
+  const phoenix = {
+    whole: { width: 720, height: 24 },
+    slots: [
+      marginSlot(
+        { "margin-left": "200px", "margin-right": "200px" },
+        { top: false, right: true, bottom: false, left: true },
+      ),
+    ],
+  };
+
+  expect(compare(react, phoenix)).toEqual([]);
+});
+
+test("the rendered-output check keeps a one-sided authored auto margin strict", () => {
+  const react = {
+    whole: { width: 720, height: 24 },
+    slots: [
+      marginSlot(
+        { "margin-left": "0px" },
+        { top: false, right: false, bottom: false, left: true },
+      ),
+    ],
+  };
+  const phoenix = {
+    whole: { width: 720, height: 24 },
+    slots: [
+      marginSlot(
+        { "margin-left": "200px" },
+        { top: false, right: false, bottom: false, left: false },
+      ),
+    ],
+  };
+
+  expect(compare(react, phoenix)).toEqual([
+    { slot: "field", property: "margin-left", react: "0px", phoenix: "200px" },
+  ]);
+});
+
+test("the rendered-output check keeps explicit margins strict", () => {
+  const react = {
+    whole: { width: 720, height: 24 },
+    slots: [
+      marginSlot(
+        { "margin-right": "8px" },
+        { top: false, right: false, bottom: false, left: false },
+      ),
+    ],
+  };
+  const phoenix = {
+    whole: { width: 720, height: 24 },
+    slots: [
+      marginSlot(
+        { "margin-right": "16px" },
+        { top: false, right: false, bottom: false, left: false },
+      ),
+    ],
+  };
+
+  expect(compare(react, phoenix)).toEqual([
+    { slot: "field", property: "margin-right", react: "8px", phoenix: "16px" },
+  ]);
+});
+
+test("the rendered-output check maps logical auto margins in RTL", async ({ page }) => {
+  await page.setContent(`
+    <main data-preview="margins">
+      <div data-slot="start" dir="rtl" class="ms-auto"></div>
+      <div data-slot="end" dir="rtl" class="me-auto"></div>
+    </main>
+  `);
+
+  const measured = await page.evaluate(collect, {
+    selector: "[data-preview='margins']",
+    properties: PROPERTIES,
+    attributes: SEMANTIC_ATTRIBUTES,
+  });
+
+  expect(measured.slots.map(({ slot, autoMargins }) => ({ slot, autoMargins }))).toEqual([
+    { slot: "start", autoMargins: { top: false, right: true, bottom: false, left: false } },
+    { slot: "end", autoMargins: { top: false, right: false, bottom: false, left: true } },
+  ]);
+});
+
 test("the rendered-output check ignores a React portal transport wrapper", async ({ page }) => {
   await page.setContent(`
     <main data-preview="dialog"></main>

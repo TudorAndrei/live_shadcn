@@ -1,21 +1,58 @@
 {
   "field": [
-    "default"
+    "default",
+    "input",
+    "textarea",
+    "select",
+    "slider",
+    "fieldset",
+    "checkbox",
+    "radio",
+    "switch",
+    "choice-card",
+    "group",
+    "rtl",
+    "responsive"
   ],
   "carousel": [
-    "default"
+    "default",
+    "size",
+    "spacing",
+    "orientation",
+    "api",
+    "plugin",
+    "rtl"
   ],
   "dialog": [
-    "default"
+    "default",
+    "close-button",
+    "no-close-button",
+    "sticky-footer",
+    "scrollable-content",
+    "rtl"
   ],
   "artifact": [
     "default"
   ],
   "sheet": [
-    "default"
+    "default",
+    "side",
+    "no-close-button",
+    "rtl"
   ],
   "calendar": [
-    "default"
+    "default",
+    "hijri",
+    "basic",
+    "multiple",
+    "range",
+    "caption",
+    "presets",
+    "time",
+    "booked-dates",
+    "custom-days",
+    "week-numbers",
+    "rtl"
   ],
   "shimmer": [
     "default"
@@ -27,7 +64,10 @@
     "default"
   ],
   "resizable": [
-    "default"
+    "default",
+    "vertical",
+    "handle",
+    "rtl"
   ],
   "persona": [
     "default"
@@ -36,58 +76,134 @@
     "default"
   ],
   "scroll-area": [
-    "default"
+    "default",
+    "horizontal-demo",
+    "rtl"
   ],
   "menubar": [
-    "default"
+    "default",
+    "checkbox",
+    "radio",
+    "submenu",
+    "icons",
+    "rtl"
   ],
   "badge": [
-    "variants"
+    "default",
+    "variants",
+    "icon",
+    "spinner",
+    "link",
+    "colors",
+    "rtl"
   ],
   "plan": [
     "default"
   ],
   "message-scroller": [
-    "default"
+    "default",
+    "anchoring",
+    "group-chat",
+    "previous-context",
+    "streaming",
+    "opening-position",
+    "load-history",
+    "animation",
+    "commands",
+    "visibility",
+    "scrollable"
   ],
   "prompt-input": [
     "default"
   ],
   "shadcn-message": [
-    "default"
+    "default",
+    "avatar",
+    "group",
+    "header-footer",
+    "actions",
+    "attachment"
   ],
   "bubble": [
-    "default"
+    "default",
+    "variants",
+    "alignment",
+    "group-demo",
+    "link-button",
+    "reactions",
+    "collapsible",
+    "tooltip",
+    "popover"
   ],
   "skeleton": [
-    "default"
+    "default",
+    "avatar",
+    "card",
+    "text",
+    "form",
+    "table",
+    "rtl"
   ],
   "connection": [
     "default"
   ],
   "textarea": [
-    "default"
+    "default",
+    "field",
+    "disabled",
+    "invalid",
+    "button",
+    "rtl"
   ],
   "command": [
-    "default"
+    "default",
+    "basic",
+    "shortcuts",
+    "groups",
+    "scrollable",
+    "rtl"
   ],
   "chart": [
-    "default"
+    "demo",
+    "example",
+    "example-grid",
+    "example-axis",
+    "example-tooltip",
+    "example-legend",
+    "tooltip",
+    "rtl"
   ],
   "conversation": [
     "default"
   ],
   "marker": [
-    "default"
+    "default",
+    "variants",
+    "status",
+    "shimmer",
+    "separator",
+    "border",
+    "icon",
+    "link-button"
   ],
   "package-info": [
     "default"
   ],
   "select": [
-    "default"
+    "default",
+    "align-item",
+    "groups",
+    "scrollable",
+    "disabled",
+    "invalid",
+    "rtl"
   ],
   "popover": [
-    "default"
+    "default",
+    "basic",
+    "alignments",
+    "form",
+    "rtl"
   ],
   "tool": [
     "default"
@@ -96,16 +212,48 @@
     "default"
   ],
   "switch": [
-    "default"
+    "default",
+    "description",
+    "choice-card",
+    "disabled",
+    "invalid",
+    "sizes",
+    "rtl"
   ],
   "avatar": [
-    "default"
+    "default",
+    "basic",
+    "badge",
+    "badge-icon",
+    "group",
+    "group-count",
+    "group-count-icon",
+    "size",
+    "dropdown",
+    "rtl"
   ],
   "input": [
-    "default"
+    "default",
+    "basic",
+    "field",
+    "fieldgroup",
+    "disabled",
+    "invalid",
+    "file",
+    "inline",
+    "grid",
+    "required",
+    "badge",
+    "input-group",
+    "button-group",
+    "form",
+    "rtl"
   ],
   "aspect-ratio": [
-    "default"
+    "default",
+    "square",
+    "portrait",
+    "rtl"
   ],
   "image": [
     "default"
@@ -120,38 +268,77 @@
     "default"
   ],
   "tooltip": [
-    "default"
+    "default",
+    "sides",
+    "keyboard",
+    "disabled",
+    "rtl"
   ],
   "alert": [
-    "default"
+    "default",
+    "basic",
+    "destructive",
+    "action",
+    "colors",
+    "rtl"
   ],
   "progress": [
-    "default"
+    "default",
+    "label",
+    "controlled",
+    "rtl"
   ],
   "chain-of-thought": [
     "default"
   ],
   "question": [
-    "default"
+    "default",
+    "freeform",
+    "multi-select",
+    "single-select"
   ],
   "jsx-preview": [
     "default"
   ],
   "input-otp": [
-    "default"
+    "default",
+    "pattern",
+    "separator",
+    "disabled",
+    "controlled",
+    "invalid",
+    "four-digits",
+    "alphanumeric",
+    "form",
+    "rtl"
   ],
   "tabs": [
-    "default"
+    "default",
+    "line",
+    "vertical",
+    "disabled",
+    "icons",
+    "rtl"
   ],
   "slider": [
     "default",
-    "range"
+    "range",
+    "multiple",
+    "vertical",
+    "controlled",
+    "disabled",
+    "rtl"
   ],
   "node": [
     "default"
   ],
   "toggle": [
-    "default"
+    "default",
+    "outline",
+    "text",
+    "sizes",
+    "disabled",
+    "rtl"
   ],
   "sidebar": [
     "default"
@@ -160,7 +347,20 @@
     "default"
   ],
   "questionnaire": [
-    "default"
+    "default",
+    "multiple",
+    "freeform",
+    "skip",
+    "shortcuts",
+    "validation",
+    "controlled",
+    "resume",
+    "conditional",
+    "navigation-state",
+    "progress",
+    "animated",
+    "card",
+    "dialog"
   ],
   "suggestion": [
     "default"
@@ -178,10 +378,18 @@
     "default"
   ],
   "drawer": [
-    "default"
+    "default",
+    "sides",
+    "swipe-handle",
+    "nested",
+    "non-modal",
+    "snap-points",
+    "dialog"
   ],
   "toast": [
-    "default"
+    "default",
+    "types",
+    "promise"
   ],
   "reasoning": [
     "default"
@@ -190,81 +398,223 @@
     "default"
   ],
   "native-select": [
-    "default"
+    "default",
+    "groups",
+    "disabled",
+    "invalid",
+    "rtl"
   ],
   "open-in-chat": [
     "default"
   ],
   "input-group": [
-    "default"
+    "default",
+    "inline-start",
+    "inline-end",
+    "block-start",
+    "block-end",
+    "icon",
+    "text",
+    "button",
+    "kbd",
+    "dropdown",
+    "spinner",
+    "textarea",
+    "custom",
+    "rtl"
   ],
   "stack-trace": [
     "default"
   ],
   "pagination": [
-    "default"
+    "default",
+    "simple",
+    "icons-only",
+    "rtl"
   ],
   "toggle-group": [
-    "default"
+    "default",
+    "outline",
+    "sizes",
+    "spacing",
+    "vertical",
+    "disabled",
+    "font-weight-selector",
+    "rtl"
+  ],
+  "typography": [
+    "default",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "p",
+    "blockquote",
+    "table",
+    "list",
+    "inline-code",
+    "lead",
+    "large",
+    "small",
+    "muted",
+    "rtl"
   ],
   "table": [
-    "default"
+    "default",
+    "footer",
+    "actions",
+    "rtl"
   ],
   "checkpoint": [
     "default"
   ],
   "kbd": [
-    "default"
+    "default",
+    "group",
+    "button",
+    "tooltip",
+    "input-group",
+    "rtl"
   ],
   "dropdown-menu": [
     "default",
+    "basic",
+    "submenu",
+    "shortcuts",
+    "icons",
     "checkboxes",
+    "checkboxes-icons",
     "radio-group",
-    "complex"
+    "radio-icons",
+    "destructive",
+    "avatar",
+    "complex",
+    "rtl"
   ],
   "attachments": [
-    "default"
+    "default",
+    "list",
+    "inline"
   ],
   "combobox": [
-    "default"
+    "default",
+    "basic",
+    "multiple",
+    "clear",
+    "groups",
+    "custom",
+    "invalid",
+    "disabled",
+    "auto-highlight",
+    "popup",
+    "input-group",
+    "rtl"
   ],
   "empty": [
-    "default"
+    "default",
+    "outline",
+    "background",
+    "avatar",
+    "avatar-group",
+    "input-group",
+    "rtl"
   ],
   "spinner": [
-    "default"
+    "default",
+    "custom",
+    "size",
+    "button",
+    "badge",
+    "input-group",
+    "empty",
+    "rtl"
   ],
   "snippet": [
     "default"
   ],
   "navigation-menu": [
-    "default"
+    "default",
+    "rtl"
   ],
   "checkbox": [
-    "default"
+    "default",
+    "basic",
+    "description",
+    "disabled",
+    "invalid",
+    "group",
+    "table",
+    "rtl"
   ],
   "breadcrumb": [
-    "default"
+    "default",
+    "basic",
+    "link",
+    "separator",
+    "ellipsis",
+    "dropdown",
+    "rtl"
   ],
   "attachment": [
-    "default"
+    "default",
+    "image",
+    "states",
+    "sizes",
+    "group",
+    "trigger"
+  ],
+  "date-picker": [
+    "default",
+    "basic",
+    "range",
+    "dob",
+    "input",
+    "time",
+    "natural-language",
+    "rtl"
+  ],
+  "data-table": [
+    "default",
+    "rtl"
   ],
   "accordion": [
     "default",
+    "basic",
     "multiple",
-    "states"
+    "disabled",
+    "borders",
+    "card",
+    "rtl"
   ],
   "collapsible": [
-    "default"
+    "default",
+    "basic",
+    "settings",
+    "file-tree",
+    "rtl"
   ],
   "audio-player": [
     "default"
   ],
   "confirmation": [
-    "default"
+    "default",
+    "request",
+    "accepted",
+    "rejected"
   ],
   "button-group": [
-    "default"
+    "default",
+    "orientation",
+    "size",
+    "nested",
+    "separator",
+    "split",
+    "input",
+    "input-group",
+    "dropdown",
+    "select",
+    "popover",
+    "rtl"
   ],
   "edge": [
     "default",
@@ -274,11 +624,30 @@
     "default"
   ],
   "radio-group": [
-    "default"
+    "default",
+    "description",
+    "choice-card",
+    "fieldset",
+    "disabled",
+    "invalid",
+    "rtl"
   ],
   "button": [
-    "variants",
-    "sizes"
+    "default",
+    "size",
+    "button-default",
+    "outline",
+    "secondary",
+    "ghost",
+    "destructive",
+    "link",
+    "icon",
+    "with-icon",
+    "rounded",
+    "spinner",
+    "group-demo",
+    "render",
+    "rtl"
   ],
   "code-block": [
     "default"
@@ -290,7 +659,11 @@
     "default"
   ],
   "separator": [
-    "default"
+    "default",
+    "vertical",
+    "menu",
+    "list",
+    "rtl"
   ],
   "mic-selector": [
     "default"
@@ -299,10 +672,26 @@
     "default"
   ],
   "item": [
-    "default"
+    "default",
+    "variant",
+    "size",
+    "icon",
+    "avatar",
+    "image",
+    "group",
+    "header",
+    "link",
+    "dropdown",
+    "rtl"
   ],
   "alert-dialog": [
-    "default"
+    "default",
+    "basic",
+    "small",
+    "media",
+    "small-media",
+    "destructive",
+    "rtl"
   ],
   "panel": [
     "default"
@@ -312,10 +701,13 @@
     "carousel"
   ],
   "label": [
-    "default"
+    "default",
+    "field-demo",
+    "rtl"
   ],
   "sonner": [
-    "default"
+    "basic",
+    "with-description"
   ],
   "queue": [
     "default"
@@ -324,15 +716,32 @@
     "default"
   ],
   "hover-card": [
-    "default"
+    "default",
+    "sides",
+    "rtl"
   ],
   "model-selector": [
     "default"
   ],
   "card": [
-    "default"
+    "default",
+    "small",
+    "spacing",
+    "edge-to-edge",
+    "image",
+    "rtl"
   ],
   "context-menu": [
-    "default"
+    "default",
+    "basic",
+    "submenu",
+    "shortcuts",
+    "groups",
+    "icons",
+    "checkboxes",
+    "radio",
+    "destructive",
+    "sides",
+    "rtl"
   ]
 }

@@ -6,12 +6,15 @@
     "copy": [
       "jsx/SelectContent/class/0",
       "jsx/SelectContent/class/1",
+      "jsx/SelectGroup/class/0",
+      "jsx/SelectLabel/class/0",
       "jsx/SelectItem/class/0",
       "jsx/SelectItem/class/1",
       "jsx/SelectItem/class/2",
       "jsx/SelectItem/class/3",
       "jsx/SelectScrollDownButton/class/0",
       "jsx/SelectScrollUpButton/class/0",
+      "jsx/SelectSeparator/class/0",
       "jsx/SelectTrigger/class/0",
       "jsx/SelectTrigger/class/1",
       "jsx/SelectValue/class/0"
@@ -27,12 +30,15 @@
   "facts": {
     "jsx/SelectContent/class/0": "isolate z-50",
     "jsx/SelectContent/class/1": "cn-select-content cn-select-content-logical cn-menu-target cn-menu-translucent relative isolate z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-[align-trigger=true]:animate-none",
+    "jsx/SelectGroup/class/0": "cn-select-group",
     "jsx/SelectItem/class/0": "cn-select-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/SelectItem/class/1": "cn-select-item-text shrink-0 whitespace-nowrap",
     "jsx/SelectItem/class/2": "cn-select-item-indicator",
     "jsx/SelectItem/class/3": "cn-select-item-indicator-icon pointer-events-none",
+    "jsx/SelectLabel/class/0": "cn-select-label",
     "jsx/SelectScrollDownButton/class/0": "cn-select-scroll-down-button bottom-0 w-full",
     "jsx/SelectScrollUpButton/class/0": "cn-select-scroll-up-button top-0 w-full",
+    "jsx/SelectSeparator/class/0": "cn-select-separator pointer-events-none",
     "jsx/SelectTrigger/class/0": "cn-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/SelectTrigger/class/1": "cn-select-trigger-icon pointer-events-none",
     "jsx/SelectValue/class/0": "cn-select-value"
@@ -41,13 +47,9 @@
     "shadcn/ui/select.tsx": "bbacb62a761a02e778e5584e374995e90c39d92bf43dea8ca76cb1014b1c9f6f"
   },
   "fingerprint": "694de06a7c8ef2a0a69b505a3b9b0e47f33c9afb5f1cd666f1fd48e6cb401fac",
-  "ignored": {
-    "jsx/SelectGroup/class/0": "the generated port does not contain this source literal",
-    "jsx/SelectLabel/class/0": "the generated port does not contain this source literal",
-    "jsx/SelectSeparator/class/0": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "select",
-  "port_body": "0e8ec902fb4ca03b20c7517444e3bc0da18a95c0ef8fe8bbf5d25c67f331839d",
+  "port_body": "826d11f0c1426d49cad5ebf2ea6166959e02384fc196f64e52c5ed025146454e",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -153,14 +155,14 @@
     }
   ],
   "styles": {
-    "luma": "fc0a0fc3988754a6c1113524d939daf3fad4c02bb0c91f72a115b232a1aa3ae8",
-    "lyra": "7aee276a9282138e79be75d24eb7760583f27102694579542b1455a7fdbfcf90",
-    "maia": "009e8dcc2299a433c231e7a732b37e3e81b77979ab8ae1ec692ce4706151e788",
-    "mira": "32f19c43d954c3b5cf59acc08a022ccbb3a533914f9514b37516f74f5b463b9f",
-    "nova": "220937fb2e29ada66b452dc75410a27ec98ffaae799c451d9293543e4a97b377",
-    "rhea": "a74134d1b3a1a2c7d835ebfe8c0d92fd32be91485c1dbe49fa905b38b70f52dd",
-    "sera": "cc8b98d838a408c44f8d06259b11f58b049a57bd518527d312b321fd9b6b7d66",
-    "vega": "a0b19bbb71f95c09eccf0e3025aaae4a38e06f86283e2ec1cb692b5d4e7640bb"
+    "luma": "fa590f8cf357ccfc63059888140ecec76ba464c6c513e5cb798475b3390aa17e",
+    "lyra": "55b403a424349d88de7d478abdc871e0da86cc3d520ee91e067ca9d9563074f1",
+    "maia": "59f0e7ccb4486167d0c79300c7a0d2f890e311de9c93bd73812ba3acf4daab9c",
+    "mira": "e08054217f97893fdcf744c488ea77102c1fcb4a95b2d3f6019914d7d11d7292",
+    "nova": "f8d2d895fe47f93ba9e411af0ff7db8450f0ed33758ddc6ffc2f1dce6f6a454e",
+    "rhea": "7ac06e025732e9e96219afe012708af5dab3e68e1f35a510a004bf5cc73998a4",
+    "sera": "7e50dd64ee171478ff6e6b377c3369d439d41916567e7da54959615f97ea19cf",
+    "vega": "1b6625f4e70ba93bbdc9c19ab63dda4505fae133170aff382e04b33945f98819"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"
@@ -171,12 +173,15 @@
   "uses": [
     "jsx/SelectContent/class/0",
     "jsx/SelectContent/class/1",
+    "jsx/SelectGroup/class/0",
     "jsx/SelectItem/class/0",
     "jsx/SelectItem/class/1",
     "jsx/SelectItem/class/2",
     "jsx/SelectItem/class/3",
+    "jsx/SelectLabel/class/0",
     "jsx/SelectScrollDownButton/class/0",
     "jsx/SelectScrollUpButton/class/0",
+    "jsx/SelectSeparator/class/0",
     "jsx/SelectTrigger/class/0",
     "jsx/SelectTrigger/class/1",
     "jsx/SelectValue/class/0"

@@ -66,12 +66,14 @@ defmodule LiveShadcn.UI.Textarea do
     <textarea
       phx-no-format
       data-slot={@rest[:"data-slot"] || "textarea"}
-      class={[
-        upstream_fact("jsx/Textarea/class/0"),
-        (@class || "")
-      ]}
+      id={@id}
+      name={@name}
+      disabled={@disabled}
+      readonly={@readonly}
+      required={@required}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Textarea/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
-    >{render_slot(@inner_block)}</textarea>
+    >{@value || render_slot(@inner_block)}</textarea>
     """
   end
 end

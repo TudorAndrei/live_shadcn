@@ -49,6 +49,70 @@ defmodule Mix.Tasks.Ui.FetchTest do
   # The storybook navigation is built from these, so a component upstream files
   # under no heading is a component the sidebar would not show.
   describe "the documentation sections" do
+    test "pins every official shadcn example from the component documentation" do
+      manifest = @manifest |> File.read!() |> Jason.decode!()
+      examples = get_in(manifest, ["examples", "shadcn"])
+
+      documented = Map.keys(examples)
+
+      for path <- Path.wildcard(Path.expand("../../registry/spec/shadcn/*.json", __DIR__)) do
+        assert Path.basename(path, ".json") in documented
+      end
+
+      assert examples["dropdown-menu"] == [
+               "dropdown-menu-demo",
+               "dropdown-menu-basic",
+               "dropdown-menu-submenu",
+               "dropdown-menu-shortcuts",
+               "dropdown-menu-icons",
+               "dropdown-menu-checkboxes",
+               "dropdown-menu-checkboxes-icons",
+               "dropdown-menu-radio-group",
+               "dropdown-menu-radio-icons",
+               "dropdown-menu-destructive",
+               "dropdown-menu-avatar",
+               "dropdown-menu-complex",
+               "dropdown-menu-rtl"
+             ]
+    end
+
+    test "pins public registry examples when the component has no documentation page" do
+      manifest = @manifest |> File.read!() |> Jason.decode!()
+
+      assert get_in(manifest, ["examples", "shadcn", "sonner"]) == [
+               %{
+                 "id" => "basic",
+                 "reference" => "shadcn/sonner#SonnerBasic",
+                 "source" => "shadcn/examples/sonner-example.tsx#SonnerBasic"
+               },
+               %{
+                 "id" => "with-description",
+                 "reference" => "shadcn/sonner#SonnerWithDescription",
+                 "source" => "shadcn/examples/sonner-example.tsx#SonnerWithDescription"
+               }
+             ]
+
+      assert Map.has_key?(manifest["files"], "shadcn/examples/sonner-example.tsx")
+    end
+
+    test "pins docs-only composite pages and each rendered example source" do
+      manifest = @manifest |> File.read!() |> Jason.decode!()
+
+      assert Map.has_key?(manifest["files"], "shadcn/docs-meta.json")
+
+      for component <- ["data-table", "date-picker", "typography"] do
+        sources = get_in(manifest, ["examples", "shadcn", component])
+
+        assert is_list(sources) and sources != [], "#{component} has no official sources"
+        assert Map.has_key?(manifest["files"], "shadcn/docs/#{component}.mdx")
+
+        for source <- sources do
+          assert Map.has_key?(manifest["files"], "shadcn/examples/#{source}.tsx"),
+                 "#{component} source #{source} is not pinned"
+        end
+      end
+    end
+
     test "pins the official AI Elements examples" do
       manifest = @manifest |> File.read!() |> Jason.decode!()
 

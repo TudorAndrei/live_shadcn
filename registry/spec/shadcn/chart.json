@@ -7,59 +7,55 @@
       "jsx/ChartLegendContent/class/1",
       "jsx/ChartLegendContent/class/2",
       "jsx/ChartLegendContent/class/3",
+      "jsx/ChartLegendContent/class/4",
       "jsx/ChartTooltipContent/class/0",
+      "jsx/ChartTooltipContent/class/1",
       "jsx/ChartTooltipContent/class/10",
       "jsx/ChartTooltipContent/class/11",
       "jsx/ChartTooltipContent/class/12",
-      "jsx/ChartTooltipContent/class/2"
+      "jsx/ChartTooltipContent/class/2",
+      "jsx/ChartTooltipContent/class/3",
+      "jsx/ChartTooltipContent/class/4",
+      "jsx/ChartTooltipContent/class/5",
+      "jsx/ChartTooltipContent/class/6",
+      "jsx/ChartTooltipContent/class/7",
+      "jsx/ChartTooltipContent/class/8",
+      "jsx/ChartTooltipContent/class/9"
     ],
-    "derived": {
-      "port/class/0": {
-        "items": [
-          {
-            "literal": "flex"
-          },
-          {
-            "fact": "jsx/ChartTooltipContent/class/5"
-          },
-          {
-            "literal": "justify-between gap-2"
-          }
-        ],
-        "op": "join"
-      }
-    }
+    "derived": {}
   },
-  "css_vars": [],
+  "css_vars": [
+    "--color-bg",
+    "--color-border"
+  ],
   "facts": {
     "jsx/ChartContainer/class/0": "cn-chart flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
     "jsx/ChartLegendContent/class/0": "flex items-center justify-center gap-4",
     "jsx/ChartLegendContent/class/1": "pb-3",
     "jsx/ChartLegendContent/class/2": "pt-3",
     "jsx/ChartLegendContent/class/3": "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
+    "jsx/ChartLegendContent/class/4": "h-2 w-2 shrink-0 rounded-[2px]",
     "jsx/ChartTooltipContent/class/0": "font-medium",
+    "jsx/ChartTooltipContent/class/1": "font-medium",
     "jsx/ChartTooltipContent/class/10": "grid gap-1.5",
     "jsx/ChartTooltipContent/class/11": "text-muted-foreground",
     "jsx/ChartTooltipContent/class/12": "font-mono font-medium text-foreground tabular-nums",
     "jsx/ChartTooltipContent/class/2": "cn-chart-tooltip grid min-w-32 items-start",
-    "port/class/0": "flex items-center justify-between gap-2"
+    "jsx/ChartTooltipContent/class/3": "grid gap-1.5",
+    "jsx/ChartTooltipContent/class/4": "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
+    "jsx/ChartTooltipContent/class/5": "items-center",
+    "jsx/ChartTooltipContent/class/6": "shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)",
+    "jsx/ChartTooltipContent/class/7": "flex flex-1 justify-between leading-none",
+    "jsx/ChartTooltipContent/class/8": "items-end",
+    "jsx/ChartTooltipContent/class/9": "items-center"
   },
   "file_fingerprints": {
     "shadcn/ui/chart.tsx": "497365ec47e2f1559baafb54d1d6ed5ff33aab2054acec15cf5b6f393d99b62b"
   },
   "fingerprint": "f2083e83253ef0d1a28c07b6dfa1c7dbaf8d5e0cbc2f7653777f886ce47582e3",
-  "ignored": {
-    "jsx/ChartLegendContent/class/4": "the generated port does not contain this source literal",
-    "jsx/ChartTooltipContent/class/1": "the generated port does not contain this source literal",
-    "jsx/ChartTooltipContent/class/3": "the generated port does not contain this source literal",
-    "jsx/ChartTooltipContent/class/4": "the generated port does not contain this source literal",
-    "jsx/ChartTooltipContent/class/6": "the generated port does not contain this source literal",
-    "jsx/ChartTooltipContent/class/7": "the generated port does not contain this source literal",
-    "jsx/ChartTooltipContent/class/8": "the generated port does not contain this source literal",
-    "jsx/ChartTooltipContent/class/9": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "chart",
-  "port_body": "306a6c596d65d16ef0fbec96e14f66f0fa2971c447d9497f9f7226eb5e9b0022",
+  "port_body": "d6880c625b6a8982a0907a1b09e6326c5328c52c59f9bc07a3a3a4ba7950cf25",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -106,11 +102,19 @@
     "jsx/ChartLegendContent/class/1",
     "jsx/ChartLegendContent/class/2",
     "jsx/ChartLegendContent/class/3",
+    "jsx/ChartLegendContent/class/4",
     "jsx/ChartTooltipContent/class/0",
+    "jsx/ChartTooltipContent/class/1",
     "jsx/ChartTooltipContent/class/10",
     "jsx/ChartTooltipContent/class/11",
     "jsx/ChartTooltipContent/class/12",
     "jsx/ChartTooltipContent/class/2",
-    "port/class/0"
+    "jsx/ChartTooltipContent/class/3",
+    "jsx/ChartTooltipContent/class/4",
+    "jsx/ChartTooltipContent/class/5",
+    "jsx/ChartTooltipContent/class/6",
+    "jsx/ChartTooltipContent/class/7",
+    "jsx/ChartTooltipContent/class/8",
+    "jsx/ChartTooltipContent/class/9"
   ]
 }

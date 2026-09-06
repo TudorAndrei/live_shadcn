@@ -48,6 +48,10 @@ defmodule LiveShadcn.UI.InputOtp do
   attr(:disabled, :boolean, default: false)
   attr(:readonly, :boolean, default: false)
   attr(:required, :boolean, default: false)
+  attr(:maxlength, :any, default: nil)
+  attr(:pattern, :string, default: nil)
+  attr(:inputmode, :string, default: "numeric")
+  attr(:autocomplete, :string, default: "one-time-code")
   attr(:container_class_name, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
@@ -63,15 +67,13 @@ defmodule LiveShadcn.UI.InputOtp do
       "max",
       "step",
       "minlength",
-      "maxlength",
-      "pattern",
       "readonly",
       "multiple",
-      "autocomplete",
       "disabled",
       "required"
     ]
   )
+  slot(:inner_block)
 
   def input_otp(assigns) do
     assigns = FormControl.from_field(assigns)
@@ -81,23 +83,30 @@ defmodule LiveShadcn.UI.InputOtp do
       data-input-otp-container
       translate="no"
       style="--root-height: 0px; position: relative; cursor: text; user-select: none; -webkit-user-select: none; pointer-events: none"
-      class={upstream_fact("jsx/InputOTP/class/0")}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/InputOTP/class/0"), @container_class_name])}
     >
-      <input
-        data-slot={@rest[:"data-slot"] || "input-otp"}
-        data-input-otp
-        id={@id}
-        name={@name}
-        value={@value}
-        disabled={@disabled}
-        readonly={@readonly}
-        required={@required}
-        phx-mounted={FormControl.owned_attributes()}
-        spellcheck={false}
-        style="position: absolute; inset: 0; width: 100%; height: 100%; display: flex; text-align: left; opacity: 1; color: transparent; pointer-events: all; background: transparent; caret-color: transparent; border: 0 solid transparent; outline: 0 solid transparent; box-shadow: none; line-height: 1; letter-spacing: -.5em; font-size: var(--root-height, 16px); font-family: monospace; font-variant-numeric: tabular-nums"
-        class={[upstream_fact("jsx/InputOTP/class/1"), (@class || "")]}
-        {Map.drop(@rest, [:"data-slot"])}
-      />
+      {render_slot(@inner_block)}
+      <div style="position: absolute; inset: 0; pointer-events: none">
+        <input
+          data-slot={@rest[:"data-slot"] || "input-otp"}
+          data-input-otp
+          id={@id}
+          name={@name}
+          value={@value}
+          disabled={@disabled}
+          readonly={@readonly}
+          required={@required}
+          maxlength={@maxlength}
+          pattern={@pattern}
+          inputmode={@inputmode}
+          autocomplete={@autocomplete}
+          phx-mounted={FormControl.owned_attributes()}
+          spellcheck={false}
+          style="position: absolute; inset: 0; width: 100%; height: 100%; display: flex; text-align: left; opacity: 1; color: transparent; pointer-events: all; background: transparent; caret-color: transparent; border: 0 solid transparent; outline: 0 solid transparent; box-shadow: none; line-height: 1; letter-spacing: -.5em; font-size: var(--root-height, 16px); font-family: monospace; font-variant-numeric: tabular-nums"
+          class={LiveShadcn.Cn.merge([upstream_fact("jsx/InputOTP/class/1"), @class])}
+          {Map.drop(@rest, [:"data-slot"])}
+        />
+      </div>
     </div>
     """
   end
@@ -112,7 +121,7 @@ defmodule LiveShadcn.UI.InputOtp do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "input-otp-group"}
-      class={[upstream_fact("jsx/InputOTPGroup/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/InputOTPGroup/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -122,22 +131,19 @@ defmodule LiveShadcn.UI.InputOtp do
 
   @doc "The `input-otp-slot` part."
   attr(:char, :string, default: nil)
-  attr(:has_fake_caret, :string, default: nil)
-  attr(:index, :any, default: nil)
-  attr(:is_active, :string, default: nil)
+  attr(:has_fake_caret, :boolean, default: false)
+  attr(:index, :integer, required: true)
+  attr(:is_active, :boolean, default: false)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
-  slot(:inner_block)
+  attr(:rest, :global, include: ["data-slot", "aria-invalid"])
 
   def input_otp_slot(assigns) do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "input-otp-slot"}
-      data-active={@is_active}
-      class={[
-        upstream_fact("jsx/InputOTPSlot/class/0"),
-        (@class || "")
-      ]}
+      data-input-otp-index={@index}
+      data-active={to_string(@is_active)}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/InputOTPSlot/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {@char}
@@ -147,7 +153,6 @@ defmodule LiveShadcn.UI.InputOtp do
       >
         <div class={upstream_fact("jsx/InputOTPSlot/class/2")} />
       </div>
-      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -163,7 +168,7 @@ defmodule LiveShadcn.UI.InputOtp do
     <div
       data-slot={@rest[:"data-slot"] || "input-otp-separator"}
       role="separator"
-      class={upstream_fact("jsx/InputOTPSeparator/class/0")}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/InputOTPSeparator/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <LiveShadcn.Icon.icon name="minus" />{render_slot(@inner_block)}

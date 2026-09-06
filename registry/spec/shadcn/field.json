@@ -10,6 +10,7 @@
       "cva/fieldVariants/variant/orientation/responsive",
       "cva/fieldVariants/variant/orientation/vertical",
       "jsx/FieldContent/class/0",
+      "jsx/FieldError/class/0",
       "jsx/FieldError/class/1",
       "jsx/FieldGroup/class/0",
       "jsx/FieldLegend/class/0",
@@ -55,6 +56,7 @@
     "cva/fieldVariants/variant/orientation/responsive": "cn-field-orientation-responsive flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
     "cva/fieldVariants/variant/orientation/vertical": "cn-field-orientation-vertical flex-col *:w-full [&>.sr-only]:w-auto",
     "jsx/FieldContent/class/0": "cn-field-content group/field-content flex flex-1 flex-col leading-snug",
+    "jsx/FieldError/class/0": "ml-4 flex list-disc flex-col gap-1",
     "jsx/FieldError/class/1": "cn-field-error font-normal",
     "jsx/FieldGroup/class/0": "cn-field-group group/field-group @container/field-group flex w-full flex-col",
     "jsx/FieldLegend/class/0": "cn-field-legend",
@@ -70,11 +72,9 @@
     "shadcn/ui/field.tsx": "a3f1ffa8e41f93f5adb9ab9fc54594a252a988d732616425c6c607d8f71dd3b8"
   },
   "fingerprint": "bcba21adc11108d379761402adef73213effb3ba8f989462706b40dbda0f533d",
-  "ignored": {
-    "jsx/FieldError/class/0": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "field",
-  "port_body": "2ef09e3c97b585e82c240063eb4ae5ec05f04f18613250a845031d06e74546a0",
+  "port_body": "e6b9622be40d5c8b82f522d3ed778a0847e31ba7103736b258c65a3149e00862",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

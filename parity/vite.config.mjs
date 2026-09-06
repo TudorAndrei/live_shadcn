@@ -10,6 +10,52 @@ const repo = resolve(here, "..");
 // for why the sources have to live inside this tree to resolve at all.
 const upstream = resolve(here, "src/upstream");
 
+function referenceSsr() {
+  return {
+    name: "reference-ssr",
+    configureServer(server) {
+      return () => {
+        server.middlewares.use(async (request, response, next) => {
+          const requestUrl = request.url || "/";
+          const { pathname } = new URL(requestUrl, "http://127.0.0.1");
+
+          if (!pathname.startsWith("/preview/")) {
+            next();
+            return;
+          }
+
+          try {
+            const { renderReferencePreview } = await server.ssrLoadModule("/src/reference-server.tsx");
+            const app = renderReferencePreview(requestUrl);
+            const template = `<!doctype html>
+<html lang="en" class="style-vega">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>live_shadcn parity</title>
+  </head>
+  <body class="bg-background text-foreground antialiased">
+    <main class="mx-auto max-w-3xl px-6 py-12">
+      <div id="root">${app}</div>
+    </main>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>`;
+            const html = await server.transformIndexHtml(pathname, template);
+
+            response.statusCode = 200;
+            response.setHeader("Content-Type", "text/html");
+            response.end(html);
+          } catch (error) {
+            server.ssrFixStacktrace(error);
+            next(error);
+          }
+        });
+      };
+    },
+  };
+}
+
 // The aliases upstream writes its imports against. shadcn builds inside a Next
 // application and AI Elements inside a monorepo, so each names the other's
 // files through a prefix its own build resolves. Both point at what
@@ -21,9 +67,13 @@ const upstream = resolve(here, "src/upstream");
 // swallow `@/registry/bases/base/lib/utils` before the shim below could.
 export default defineConfig({
   root: here,
-  plugins: [react()],
+  plugins: [react(), referenceSsr()],
   resolve: {
     alias: [
+      { find: "next/image", replacement: resolve(here, "src/shim/next-image.tsx") },
+      { find: "next/link", replacement: resolve(here, "src/shim/next-link.tsx") },
+      { find: "next/font/google", replacement: resolve(here, "src/shim/next-font-google.ts") },
+      { find: "@shadcn/helpers", replacement: resolve(upstream, "shadcn_helpers") },
       // Two files upstream imports and shadcn's registry does not publish: the
       // `cn` helper every class string is built with, and a hook that reports
       // the viewport width. Both are reimplemented in `src/shim`, and both are
@@ -48,8 +98,20 @@ export default defineConfig({
       // neither of them is the component. See `src/shim/streamdown.tsx`.
       { find: /^@streamdown\/.*/, replacement: resolve(here, "src/shim/streamdown-plugin.ts") },
       { find: "streamdown", replacement: resolve(here, "src/shim/streamdown.tsx") },
+      {
+        find: "@/registry/new-york-v4",
+        replacement: resolve(upstream, "shadcn_new_york_v4"),
+      },
       { find: "@/registry/bases/base/ui", replacement: resolve(upstream, "shadcn/ui") },
+      { find: "@/registry/icons", replacement: resolve(upstream, "shadcn_icons") },
+      { find: "@/components", replacement: resolve(upstream, "shadcn_app_components") },
+      { find: "@/hooks", replacement: resolve(upstream, "shadcn_app_hooks") },
+      { find: "@/lib", replacement: resolve(upstream, "shadcn_app_lib") },
       { find: "@/styles/base-nova/ui", replacement: resolve(upstream, "shadcn/ui") },
+      {
+        find: /^@\/styles\/[^/]+\/ui(?:-rtl)?/,
+        replacement: resolve(upstream, "shadcn/ui"),
+      },
       {
         find: "@repo/shadcn-ui/components/ui",
         replacement: resolve(upstream, "ai_shadcn/components/ui"),

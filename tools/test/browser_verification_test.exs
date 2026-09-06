@@ -20,4 +20,16 @@ defmodule LiveShadcnTools.BrowserVerificationTest do
              "pass"
            ]
   end
+
+  test "a strict zero-budget pixel failure remains a pixel failure" do
+    failure = %{
+      "pass" => false,
+      "detail" => "button / default paints what React paints\ndefault: 42 px differ"
+    }
+
+    result = BrowserVerification.finalize_pixel(failure, "button.default", {:budgeted, 0})
+
+    refute result["pass"]
+    assert result["detail"] == failure["detail"]
+  end
 end

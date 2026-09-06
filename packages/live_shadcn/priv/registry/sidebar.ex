@@ -146,10 +146,8 @@ defmodule LiveShadcn.UI.Sidebar do
         class={[
           upstream_fact("jsx/Sidebar/class/10"),
           if(@variant == "floating" || @variant == "inset",
-            do:
-              upstream_fact("jsx/Sidebar/class/11"),
-            else:
-              upstream_fact("jsx/Sidebar/class/12")
+            do: upstream_fact("jsx/Sidebar/class/11"),
+            else: upstream_fact("jsx/Sidebar/class/12")
           ),
           @class
         ]}
@@ -180,7 +178,7 @@ defmodule LiveShadcn.UI.Sidebar do
       data-sidebar="content"
       class={[
         upstream_fact("jsx/SidebarContent/class/0"),
-        (@class || "")
+        @class || ""
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -200,7 +198,7 @@ defmodule LiveShadcn.UI.Sidebar do
     <div
       data-slot={@rest[:"data-slot"] || "sidebar-footer"}
       data-sidebar="footer"
-      class={[upstream_fact("jsx/SidebarFooter/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SidebarFooter/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -219,7 +217,7 @@ defmodule LiveShadcn.UI.Sidebar do
     <div
       data-slot={@rest[:"data-slot"] || "sidebar-group"}
       data-sidebar="group"
-      class={[upstream_fact("jsx/SidebarGroup/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SidebarGroup/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -240,7 +238,7 @@ defmodule LiveShadcn.UI.Sidebar do
       data-sidebar="group-action"
       class={[
         upstream_fact("jsx/SidebarGroupAction/class/0"),
-        (@class || "")
+        @class || ""
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -260,7 +258,7 @@ defmodule LiveShadcn.UI.Sidebar do
     <div
       data-slot={@rest[:"data-slot"] || "sidebar-group-content"}
       data-sidebar="group-content"
-      class={[upstream_fact("jsx/SidebarGroupContent/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SidebarGroupContent/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -281,7 +279,7 @@ defmodule LiveShadcn.UI.Sidebar do
       data-sidebar="group-label"
       class={[
         upstream_fact("jsx/SidebarGroupLabel/class/0"),
-        (@class || "")
+        @class || ""
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -301,7 +299,7 @@ defmodule LiveShadcn.UI.Sidebar do
     <div
       data-slot={@rest[:"data-slot"] || "sidebar-header"}
       data-sidebar="header"
-      class={[upstream_fact("jsx/SidebarHeader/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SidebarHeader/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -340,7 +338,7 @@ defmodule LiveShadcn.UI.Sidebar do
     <LiveShadcn.UI.Input.input
       data-slot={@rest[:"data-slot"] || "sidebar-input"}
       data-sidebar="input"
-      class={[upstream_fact("jsx/SidebarInput/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SidebarInput/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     />
     """
@@ -356,7 +354,7 @@ defmodule LiveShadcn.UI.Sidebar do
     ~H"""
     <main
       data-slot={@rest[:"data-slot"] || "sidebar-inset"}
-      class={[upstream_fact("jsx/SidebarInset/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SidebarInset/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -375,7 +373,7 @@ defmodule LiveShadcn.UI.Sidebar do
     <ul
       data-slot={@rest[:"data-slot"] || "sidebar-menu"}
       data-sidebar="menu"
-      class={[upstream_fact("jsx/SidebarMenu/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SidebarMenu/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -397,8 +395,7 @@ defmodule LiveShadcn.UI.Sidebar do
       class={[
         upstream_fact("jsx/SidebarMenuAction/class/0"),
         if(@show_on_hover,
-          do:
-            upstream_fact("jsx/SidebarMenuAction/class/1"),
+          do: upstream_fact("jsx/SidebarMenuAction/class/1"),
           else: nil
         ),
         @class
@@ -408,6 +405,14 @@ defmodule LiveShadcn.UI.Sidebar do
       {render_slot(@inner_block)}
     </button>
     """
+  end
+
+  @doc false
+  def sidebar_menu_action_class(show_on_hover \\ false) do
+    [
+      upstream_fact("jsx/SidebarMenuAction/class/0"),
+      if(show_on_hover, do: upstream_fact("jsx/SidebarMenuAction/class/1"))
+    ]
   end
 
   @doc "The `sidebar-menu-badge` part."
@@ -459,12 +464,29 @@ defmodule LiveShadcn.UI.Sidebar do
   )
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
+
+  attr(:rest, :global,
+    include: [
+      "data-slot",
+      "type",
+      "value",
+      "name",
+      "formaction",
+      "disabled",
+      "href",
+      "target",
+      "rel",
+      "download",
+      "hreflang"
+    ]
+  )
+
   slot(:inner_block)
 
   def sidebar_menu_button(assigns) do
     ~H"""
-    <button
+    <.dynamic_tag
+      tag_name={@comp || "button"}
       data-slot={@rest[:"data-slot"] || "sidebar-menu-button"}
       data-active={to_string(@is_active)}
       data-sidebar="menu-button"
@@ -478,8 +500,17 @@ defmodule LiveShadcn.UI.Sidebar do
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </button>
+    </.dynamic_tag>
     """
+  end
+
+  @doc false
+  def sidebar_menu_button_class(size \\ "default", variant \\ "default") do
+    [
+      upstream_fact("cva/sidebarMenuButtonVariants/base"),
+      variant_class("sidebarMenuButtonVariants", "variant", variant),
+      variant_class("sidebarMenuButtonVariants", "size", size)
+    ]
   end
 
   @doc "The `sidebar-menu-item` part."
@@ -493,7 +524,7 @@ defmodule LiveShadcn.UI.Sidebar do
     <li
       data-slot={@rest[:"data-slot"] || "sidebar-menu-item"}
       data-sidebar="menu-item"
-      class={[upstream_fact("jsx/SidebarMenuItem/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SidebarMenuItem/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -513,7 +544,7 @@ defmodule LiveShadcn.UI.Sidebar do
     <div
       data-slot={@rest[:"data-slot"] || "sidebar-menu-skeleton"}
       data-sidebar="menu-skeleton"
-      class={[upstream_fact("jsx/SidebarMenuSkeleton/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SidebarMenuSkeleton/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <LiveShadcn.UI.Skeleton.skeleton
@@ -542,7 +573,7 @@ defmodule LiveShadcn.UI.Sidebar do
     <ul
       data-slot={@rest[:"data-slot"] || "sidebar-menu-sub"}
       data-sidebar="menu-sub"
-      class={[upstream_fact("jsx/SidebarMenuSub/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SidebarMenuSub/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -586,7 +617,7 @@ defmodule LiveShadcn.UI.Sidebar do
     <li
       data-slot={@rest[:"data-slot"] || "sidebar-menu-sub-item"}
       data-sidebar="menu-sub-item"
-      class={[upstream_fact("jsx/SidebarMenuSubItem/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SidebarMenuSubItem/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -658,7 +689,7 @@ defmodule LiveShadcn.UI.Sidebar do
       title="Toggle Sidebar"
       class={[
         upstream_fact("port/class/1"),
-        (@class || "")
+        @class || ""
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
@@ -722,9 +753,9 @@ defmodule LiveShadcn.UI.Sidebar do
       class={[upstream_fact("jsx/SidebarTrigger/class/0"), @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <LiveShadcn.Icon.icon name="panel-left" class={upstream_fact("jsx/SidebarTrigger/class/1")} /><span class={upstream_fact("jsx/Sidebar/class/2")}>Toggle Sidebar</span>{render_slot(
-        @inner_block
-      )}
+      <LiveShadcn.Icon.icon name="panel-left" class={upstream_fact("jsx/SidebarTrigger/class/1")} /><span class={
+        upstream_fact("jsx/Sidebar/class/2")
+      }>Toggle Sidebar</span>{render_slot(@inner_block)}
     </LiveShadcn.UI.Button.button>
     """
   end

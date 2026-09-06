@@ -54,10 +54,13 @@ defmodule LiveShadcn.UI.Sheet do
   )
 
   attr(:class, :any, default: nil, doc: "Appended to the dialog's own class string.")
+  attr(:overlay_class, :any, default: nil)
   attr(:close_class, :any, default: nil)
   attr(:description_class, :any, default: nil)
   attr(:title_class, :any, default: nil)
   attr(:trigger_class, :any, default: nil)
+  attr(:trigger_variant, :string, default: "outline")
+  attr(:trigger_size, :string, default: "default")
   attr(:side, :string, default: "right", values: ["top", "right", "bottom", "left"])
   attr(:rest, :global)
 
@@ -65,7 +68,7 @@ defmodule LiveShadcn.UI.Sheet do
   slot(:title, doc: "What names it. Required for a dialog to be announced.")
   slot(:description, doc: "What describes it, beyond the title.")
   slot(:footer, doc: "Actions, along the bottom.")
-  slot(:inner_block, required: true, doc: "The dialog's body.")
+  slot(:inner_block, doc: "The dialog's body.")
 
   def sheet(assigns) do
     ~H"""
@@ -76,10 +79,17 @@ defmodule LiveShadcn.UI.Sheet do
       aria-haspopup="dialog"
       aria-expanded={to_string(@open)}
       aria-controls={Dialog.popup_id(@id)}
-      phx-click={Dialog.open(@id)}
+      phx-click={if(not @disabled, do: Dialog.open(@id))}
       phx-mounted={Dialog.owned_attributes(:trigger)}
       data-popup-open={flag(@open)}
       data-disabled={flag(@disabled)}
+      aria-disabled={if(@disabled, do: "true")}
+      class={LiveShadcn.Cn.merge([
+        LiveShadcn.UI.Button.part_class("button"),
+        LiveShadcn.UI.Button.variant_class("buttonVariants", "variant", @trigger_variant),
+        LiveShadcn.UI.Button.variant_class("buttonVariants", "size", @trigger_size),
+        @trigger_class
+      ])}
     >
       {render_slot(@trigger)}
     </button>
@@ -95,7 +105,7 @@ defmodule LiveShadcn.UI.Sheet do
       data-closed={flag(not @open)}
       class={[
         upstream_fact("jsx/SheetOverlay/class/0"),
-        (@class || "")
+        (@overlay_class || "")
       ]}
       data-lb-style-target
     />
@@ -120,6 +130,7 @@ defmodule LiveShadcn.UI.Sheet do
         upstream_fact("jsx/SheetContent/class/0"),
         (@class || "")
       ]}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       <div data-slot="sheet-header" class={upstream_fact("jsx/SheetHeader/class/0")}>
         <h2
@@ -149,7 +160,7 @@ defmodule LiveShadcn.UI.Sheet do
         data-disabled={flag(@disabled)}
         variant="ghost"
         size="icon-sm"
-        class={upstream_fact("jsx/SheetContent/class/1")}
+        class={LiveShadcn.Cn.merge([upstream_fact("jsx/SheetContent/class/1"), @close_class])}
       >
         <LiveShadcn.Icon.icon name="x" /><span class={upstream_fact("jsx/SheetContent/class/2")}>Close</span>
       </LiveShadcn.UI.Button.button>

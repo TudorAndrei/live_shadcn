@@ -44,14 +44,34 @@ defmodule Mix.Tasks.Ui.Verify do
 
   alias LiveShadcnTools.AiElementsExamples
   alias LiveShadcnTools.BrowserVerification
+  alias LiveShadcnTools.IncrementalVerification
   alias LiveShadcnTools.PlaywrightReport
   alias LiveShadcnTools.ShadcnExamples
-  alias LiveShadcnTools.VerifierLock
   alias LiveShadcnTools.VerificationPolicy
+  alias LiveShadcnTools.VerifierLock
 
   import LiveShadcnTools
 
-  @browser_example_batch_size 4
+  @browser_example_batch_size 2
+  @message_scroller_behavior_batch_size 1
+  @single_example_browser_kinds ~w(parity pixel)
+  @browser_server_stop_timeout 5_000
+  @browser_server_stop_poll 50
+  @generic_shadcn_behavior_suite "interaction-parity.spec.mjs"
+  @suffix_colliding_suites ~w(dialog.spec.mjs input.spec.mjs parity.spec.mjs)
+  @message_scroller_behavior_titles [
+    "the default transcript uses the pinned composer and completes an assistant reply",
+    "anchoring uses the selected role, exact position, reset, and re-add flow",
+    "group chat keeps its marker anchor through Rocky's reply and reset",
+    "previous context uses the exact margin and peek through its busy, reply, and reset flow",
+    "streaming follows the end only until the reader scrolls away",
+    "opening position applies the initial last anchor and each exact tab position",
+    "loading history preserves the exact visible row position and supports reset",
+    "all animation presets run a real user entry and keep assistant rows static",
+    "commands render the pinned transcript and jump to each anchored user message",
+    "visibility renders the pinned transcript and updates its outline target state",
+    "scrollable matches the pinned transcript and reports native scroll state"
+  ]
   @managed_browser_servers_env "LIVE_SHADCN_MANAGED_SERVERS"
   @browser_server_ready_timeout 120_000
   @browser_server_request_timeout 1_000
@@ -59,7 +79,20 @@ defmodule Mix.Tasks.Ui.Verify do
   @impl Mix.Task
   def run(argv) do
     Mix.Task.run("app.start")
-    {opts, names, _} = OptionParser.parse(argv, strict: [browser: :boolean])
+
+    {opts, names, _} =
+      OptionParser.parse(argv, strict: [browser: :boolean, examples: :string, record: :keep])
+
+    records = Keyword.get_values(opts, :record)
+
+    if records != [] do
+      record_incremental!(names, opts, records)
+    else
+      verify_run(names, opts)
+    end
+  end
+
+  defp verify_run(names, opts) do
     browser? = Keyword.get(opts, :browser, true)
 
     components = if names == [], do: generated(), else: Enum.map(names, &resolve/1)
@@ -75,7 +108,7 @@ defmodule Mix.Tasks.Ui.Verify do
            source,
            name,
            example_key(source, name),
-           VerificationPolicy.get(source, name)
+           verification_policy(source, name)
          )}
       end)
 
@@ -142,6 +175,172 @@ defmodule Mix.Tasks.Ui.Verify do
     report(results)
   end
 
+  # Small browser batches are run outside this task to keep their scope and
+  # resource use explicit. This import path records one completed JSON report
+  # without starting a browser. The record is still gated by the same static
+  # checks and evidence digest as a full verification run.
+  defp record_incremental!(names, opts, records) do
+    {source, name} =
+      case Enum.map(names, &resolve/1) do
+        [component] -> component
+        [] -> Mix.raise("incremental evidence needs exactly one component name")
+        _ -> Mix.raise("incremental evidence records one component at a time")
+      end
+
+    {layer, report_path} = parse_record!(records)
+    key = example_key(source, name)
+    examples = parse_record_examples!(opts, key)
+    policy = verification_policy(source, name)
+
+    if policy.kind not in [:standard, :docs_only] do
+      Mix.raise("incremental browser evidence is not available for #{ref(source, name)}")
+    end
+
+    identity = incremental_identity(source, name, key)
+    results = import_report!(report_path, layer, key, examples)
+
+    VerifierLock.with_lock(repo_root(), fn _token ->
+      path = registry_path("VERIFY.json")
+      current = if File.exists?(path), do: read_json!(path), else: %{}
+      reference = ref(source, name)
+      prior = Map.get(current, reference, %{})
+
+      incremental =
+        IncrementalVerification.merge(
+          Map.get(prior, "incremental", %{}),
+          identity,
+          layer,
+          results
+        )
+
+      browser = IncrementalVerification.aggregate(incremental, identity)
+
+      checks =
+        source
+        |> incremental_static_checks(name, key, policy)
+        |> Map.merge(browser["checks"])
+
+      checks =
+        Map.put(checks, "policy", %{
+          "pass" => policy_checks_complete?(source, policy, checks),
+          "detail" => "required checks for #{policy.kind} policy"
+        })
+
+      record = %{
+        "pass" => verified_checks?(source, policy, checks),
+        "spec" => spec_digest(source, name),
+        "evidence" => identity["evidence"],
+        "checks" => checks,
+        "incremental" => incremental
+      }
+
+      current
+      |> Map.filter(fn {existing, _record} -> verification_target?(existing) end)
+      |> Map.put(reference, record)
+      |> then(&write_json_atomic!(path, &1))
+
+      report(%{reference => record})
+    end)
+  end
+
+  defp parse_record!([record]) do
+    case String.split(record, "=", parts: 2) do
+      [layer, path] ->
+        if layer in IncrementalVerification.layers() and byte_size(path) > 0 do
+          {layer, path}
+        else
+          invalid_record!()
+        end
+
+      _ ->
+        invalid_record!()
+    end
+  end
+
+  defp parse_record!(_records),
+    do: Mix.raise("import one completed Playwright report at a time")
+
+  defp invalid_record! do
+    Mix.raise(
+      "--record must be LAYER=PLAYWRIGHT_JSON, where LAYER is #{Enum.join(IncrementalVerification.layers(), ", ")}"
+    )
+  end
+
+  defp parse_record_examples!(opts, key) when is_binary(key) do
+    examples =
+      opts
+      |> Keyword.get(:examples, "")
+      |> String.split(",", trim: true)
+      |> Enum.uniq()
+      |> Enum.sort()
+
+    current = BrowserVerification.examples(previews(), key) |> Enum.sort()
+    unknown = examples -- current
+
+    cond do
+      examples == [] ->
+        Mix.raise("--examples must name the preview examples in this completed batch")
+
+      unknown != [] ->
+        Mix.raise("--examples contains unknown current examples: #{Enum.join(unknown, ", ")}")
+
+      true ->
+        examples
+    end
+  end
+
+  defp parse_record_examples!(_opts, _key),
+    do: Mix.raise("incremental evidence needs a Storybook preview")
+
+  defp incremental_identity(source, name, key) do
+    %{
+      "evidence" => verification_evidence_digest(source, name),
+      "examples" => BrowserVerification.examples(previews(), key) |> Enum.sort(),
+      "spec" => spec_digest(source, name)
+    }
+  end
+
+  defp import_report!(report_path, layer, key, examples) do
+    report = report_path |> File.read!() |> Jason.decode!()
+    names = Enum.map(examples, &"#{key}.#{&1}")
+
+    result = PlaywrightReport.incremental_example_results(report, layer, names)
+
+    Enum.into(examples, %{}, fn example ->
+      name = "#{key}.#{example}"
+
+      check =
+        Map.get(result.components, name, %{
+          "pass" => false,
+          "detail" => "#{layer} report has no result for #{name}"
+        })
+
+      check =
+        result.global_failures
+        |> Enum.map(&%{"pass" => false, "detail" => "#{layer}: #{&1}"})
+        |> then(&BrowserVerification.merge_checks([check | &1]))
+        |> maybe_finalize_pixel(layer, name)
+
+      {example, BrowserVerification.label(check, "#{layer} #{name}")}
+    end)
+  rescue
+    error in File.Error ->
+      Mix.raise("cannot import #{report_path}: #{Exception.message(error)}")
+
+    error in Jason.DecodeError ->
+      Mix.raise("cannot decode #{report_path}: #{Exception.message(error)}")
+  end
+
+  defp maybe_finalize_pixel(check, "pixel", name), do: pixel_result(check, name)
+  defp maybe_finalize_pixel(check, _layer, _name), do: check
+
+  defp incremental_static_checks(source, name, key, policy) do
+    (generated_checks(policy, ref(source, name)) ++
+       [{"snapshot", snapshot_check(key)}] ++
+       example_checks(source, name, key, policy))
+    |> Map.new()
+  end
+
   # A run over one component says nothing about the others, so it replaces its
   # own entries and leaves the rest of the file alone. Writing only what this
   # run proved would demote every component nobody asked about, and demoting a
@@ -151,7 +350,7 @@ defmodule Mix.Tasks.Ui.Verify do
     existing = if File.exists?(path), do: read_json!(path), else: %{}
 
     existing
-    |> Map.filter(fn {reference, _result} -> generated?(reference) end)
+    |> Map.filter(fn {reference, _result} -> verification_target?(reference) end)
     |> Map.merge(results)
   end
 
@@ -163,6 +362,14 @@ defmodule Mix.Tasks.Ui.Verify do
     {source, name} = parse_ref(reference)
 
     File.exists?(module_path(source, name))
+  end
+
+  defp verification_target?(reference) do
+    generated?(reference) or
+      case parse_ref(reference) do
+        {"shadcn", name} -> name in docs_only_shadcn_families()
+        _ -> false
+      end
   end
 
   # `registry/` knows a component by source and name. `storybook/` knows it by
@@ -188,11 +395,17 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   defp generated do
-    registry_path("spec")
-    |> Path.join("*/*.json")
-    |> Path.wildcard()
-    |> Enum.map(&{Path.basename(Path.dirname(&1)), Path.basename(&1, ".json")})
-    |> Enum.filter(fn {source, name} -> File.exists?(module_path(source, name)) end)
+    primitives =
+      registry_path("spec")
+      |> Path.join("*/*.json")
+      |> Path.wildcard()
+      |> Enum.map(&{Path.basename(Path.dirname(&1)), Path.basename(&1, ".json")})
+      |> Enum.filter(fn {source, name} -> File.exists?(module_path(source, name)) end)
+
+    docs_only = Enum.map(docs_only_shadcn_families(), &{"shadcn", &1})
+
+    (primitives ++ docs_only)
+    |> Enum.uniq()
     |> Enum.sort()
   end
 
@@ -229,31 +442,35 @@ defmodule Mix.Tasks.Ui.Verify do
        ) do
     reference = ref(source, name)
     key = example_key(source, name)
-    policy = VerificationPolicy.get(source, name)
+    policy = verification_policy(source, name)
 
     checks =
       if policy.kind == :no_dom do
         no_dom_checks(policy)
       else
-        [
-          {"generated", generated_check(reference)},
-          {"snapshot", snapshot_check(key)}
-        ] ++
+        generated_checks(policy, reference) ++
+          [{"snapshot", snapshot_check(key)}] ++
           example_checks ++
-          browser_checks(
-            source,
-            name,
-            key,
-            browser?,
-            examples_complete?,
-            official_comparison?,
-            shared_checks,
-            policy,
-            preparation_failure
-          )
+          browser_checks(%{
+            source: source,
+            name: name,
+            key: key,
+            browser?: browser?,
+            examples_complete?: examples_complete?,
+            official_comparison?: official_comparison?,
+            shared_checks: shared_checks,
+            policy: policy,
+            preparation_failure: preparation_failure
+          })
       end
 
     checks = Map.new(checks)
+
+    checks =
+      Map.put(checks, "policy", %{
+        "pass" => policy_checks_complete?(source, policy, checks),
+        "detail" => "required checks for #{policy.kind} policy"
+      })
 
     %{
       "pass" => verified_checks?(source, policy, checks),
@@ -268,8 +485,6 @@ defmodule Mix.Tasks.Ui.Verify do
   defp verification_preparation_failed(components, example_results, detail) do
     Map.new(components, fn {source, name} ->
       reference = ref(source, name)
-      key = example_key(source, name)
-      policy = VerificationPolicy.get(source, name)
       examples = Map.fetch!(example_results, reference)
 
       {reference,
@@ -286,54 +501,34 @@ defmodule Mix.Tasks.Ui.Verify do
     end)
   end
 
-  defp browser_checks(
-         _source,
-         _name,
-         _key,
-         false,
-         _examples_complete?,
-         _official_comparison?,
-         _shared_checks,
-         _policy,
-         nil
-       ),
-       do: browser_not_run_checks()
+  defp browser_checks(%{browser?: false, preparation_failure: nil}),
+    do: browser_not_run_checks()
 
-  defp browser_checks(
-         _source,
-         _name,
-         _key,
-         false,
-         _examples_complete?,
-         _official_comparison?,
-         _shared_checks,
-         _policy,
-         reason
-       ),
-       do: browser_not_run_checks(reason)
+  defp browser_checks(%{browser?: false, preparation_failure: reason}),
+    do: browser_not_run_checks(reason)
 
-  defp browser_checks(
-         _source,
-         _name,
-         _key,
-         true,
-         false,
-         _official_comparison?,
-         _shared_checks,
-         _policy,
-         _preparation_failure
-       ),
-       do: browser_not_run_checks("official example coverage is incomplete")
+  defp browser_checks(%{browser?: true, examples_complete?: false}),
+    do: browser_not_run_checks("official example coverage is incomplete")
 
-  defp browser_checks(source, name, key, true, true, false, shared_checks, policy, _failure) do
+  defp browser_checks(%{
+         source: source,
+         name: name,
+         key: key,
+         browser?: true,
+         examples_complete?: true,
+         official_comparison?: official_comparison?,
+         shared_checks: shared_checks,
+         policy: policy
+       }) do
     browser_results(source, name, key, shared_checks, policy) ++
-      not_applicable_upstream_checks(policy)
+      upstream_checks(official_comparison?, source, key, shared_checks, policy)
   end
 
-  defp browser_checks(source, name, key, true, true, true, shared_checks, policy, _failure) do
-    browser_results(source, name, key, shared_checks, policy) ++
-      upstream_results(source, key, shared_checks)
-  end
+  defp upstream_checks(true, source, key, shared_checks, _policy),
+    do: upstream_results(source, key, shared_checks)
+
+  defp upstream_checks(false, _source, _key, _shared_checks, policy),
+    do: not_applicable_upstream_checks(policy)
 
   defp browser_results(source, name, key, nil, policy),
     do: browser_checks_for_component(source, name, key, policy)
@@ -427,14 +622,15 @@ defmodule Mix.Tasks.Ui.Verify do
       %{"pass" => false, "detail" => "#{kind} report has no result for #{key}"}
   end
 
-  # Full verification uses the same four-example batches as a one-component
+  # Full verification uses the same two-example batches as a one-component
   # run. Previously it put every preview into one Playwright process, which
   # made a late example time out after an unrelated example had exhausted the
   # browser. Keeping the work in this one Mix task avoids a task per component;
   # each browser command still has one worker by configuration.
   #
-  # The behaviour suite remains one file per component. It is a component
-  # contract, not an unbounded sweep over every visual state. Accessibility,
+  # Each shadcn component runs the common semantic suite and, when present, its
+  # component suite. Message Scroller has many independent behaviour contracts,
+  # so it runs selected titles in small sequential batches. Accessibility,
   # semantic parity, and pixel parity all enumerate each local official
   # example and use `batched_example_reports/3` below.
   defp batch_browser_checks(components) do
@@ -444,14 +640,14 @@ defmodule Mix.Tasks.Ui.Verify do
       %{"behavior" => %{}, "accessibility" => %{}, "parity" => %{}, "pixel" => %{}},
       fn {source, name}, checks ->
         key = example_key(source, name)
-        policy = VerificationPolicy.get(source, name)
+        policy = verification_policy(source, name)
 
         checks =
           checks
           |> put_in(["behavior", key], behavior_check(source, name, key, policy))
           |> put_in(["accessibility", key], accessibility_check(key))
 
-        if policy.kind == :standard do
+        if upstream_comparison_policy?(policy) do
           checks
           |> put_in(["parity", key], parity_check(key))
           |> put_in(["pixel", key], pixel_check(key))
@@ -462,9 +658,7 @@ defmodule Mix.Tasks.Ui.Verify do
     )
   end
 
-  defp batch_browser_check(kind, args, env, parser \\ nil) do
-    parser = parser || fn json -> PlaywrightReport.results(json, previewed()) end
-
+  defp batch_browser_check(kind, args, env, parser) do
     report =
       Path.join(
         System.tmp_dir!(),
@@ -564,7 +758,6 @@ defmodule Mix.Tasks.Ui.Verify do
   defp start_and_await_browser_servers! do
     servers = start_browser_servers!()
     await_browser_servers!(servers)
-    servers
   rescue
     error ->
       stop_browser_servers(Process.get(:live_shadcn_started_browser_servers, []))
@@ -585,8 +778,8 @@ defmodule Mix.Tasks.Ui.Verify do
       start_browser_server!(
         :parity,
         parity_root(),
-        "npm",
-        ["run", "dev:prepared"],
+        vite_executable!(),
+        [vite_entrypoint!()],
         %{"PARITY_PORT" => Integer.to_string(browser_port!("PARITY_PORT", 4102))},
         "/preview/badge/variants",
         ~r/<div id="root"/
@@ -615,9 +808,20 @@ defmodule Mix.Tasks.Ui.Verify do
         ]
       )
 
+    os_pid =
+      case Port.info(process, :os_pid) do
+        {:os_pid, pid} when is_integer(pid) and pid > 0 ->
+          pid
+
+        _ ->
+          Port.close(process)
+          Mix.raise("cannot start #{name} browser server: no operating-system process id")
+      end
+
     server = %{
       name: name,
       process: process,
+      os_pid: os_pid,
       port: browser_port!(port_env(name), default_port(name)),
       path: path,
       expected: expected
@@ -634,8 +838,39 @@ defmodule Mix.Tasks.Ui.Verify do
     Application.ensure_all_started(:inets)
     deadline = System.monotonic_time(:millisecond) + @browser_server_ready_timeout
     Enum.each(servers, &await_browser_server!(&1, deadline))
+
+    servers = Enum.map(servers, &attach_browser_server_drain/1)
     Process.delete(:live_shadcn_started_browser_servers)
     servers
+  end
+
+  # A Port stops its child when its controlling process stops reading output.
+  # Storybook writes normal request logs after readiness, so ownership moves to
+  # a small process that discards those logs for the whole verification run.
+  defp attach_browser_server_drain(%{process: process} = server) do
+    Map.put(server, :drain, drain_browser_port(process))
+  end
+
+  @doc false
+  def drain_browser_port(port, observer \\ nil) when is_port(port) do
+    drain = spawn(fn -> drain_browser_port_output(port, observer) end)
+    true = Port.connect(port, drain)
+    drain
+  end
+
+  defp drain_browser_port_output(port, observer) do
+    receive do
+      {^port, {:data, output}} ->
+        if is_pid(observer), do: send(observer, {:browser_port_output, port, output})
+        drain_browser_port_output(port, observer)
+
+      {^port, {:exit_status, status}} ->
+        if is_pid(observer), do: send(observer, {:browser_port_exit, port, status})
+
+      {:stop_browser_port_drain, caller} ->
+        if Port.info(port) != nil, do: Port.close(port)
+        send(caller, {:browser_port_drain_stopped, self()})
+    end
   end
 
   defp await_browser_server!(server, deadline) do
@@ -688,21 +923,258 @@ defmodule Mix.Tasks.Ui.Verify do
     end
   end
 
-  defp stop_browser_servers(servers) do
+  @doc false
+  def stop_browser_servers(servers) when is_list(servers) do
     Enum.each(Enum.reverse(servers), &stop_browser_server/1)
     Process.delete(:live_shadcn_started_browser_servers)
+    :ok
   end
 
-  defp stop_browser_server(%{process: process}) do
+  defp stop_browser_server(%{process: process, os_pid: os_pid} = server) do
+    processes = browser_server_process_tree(process, os_pid)
+    term_sent? = signal_browser_server_processes(processes, "-TERM")
+
+    if term_sent? and
+         not wait_for_browser_server_stop(server, @browser_server_stop_timeout) do
+      processes
+      |> Kernel.++(browser_server_process_tree(process, os_pid))
+      |> Enum.uniq_by(&{&1.pid, &1.identity})
+      |> signal_browser_server_processes("-KILL")
+    end
+
+    close_browser_server_port(server)
+    await_browser_server_stopped!(server)
+  end
+
+  defp close_browser_server_port(%{drain: drain, process: process}) when is_pid(drain) do
+    stop_browser_port_drain(drain)
+    close_browser_server_port(process)
+  end
+
+  defp close_browser_server_port(%{process: process}), do: close_browser_server_port(process)
+
+  defp close_browser_server_port(process) when is_port(process) do
     if Port.info(process) != nil do
       Port.close(process)
     end
+  end
+
+  # `mix phx.server` starts through `erl_child_setup`. The Port owns that
+  # wrapper, but the wrapper owns the Phoenix BEAM process that keeps the
+  # listener alive. Capture only the current Port process tree, then stop
+  # descendants before their wrapper. This cannot signal another verifier.
+  defp browser_server_process_tree(process, os_pid)
+       when is_port(process) and is_integer(os_pid) and os_pid > 0 do
+    if Port.info(process, :os_pid) == {:os_pid, os_pid} do
+      [os_pid | descendant_process_ids(os_pid)]
+      |> Enum.flat_map(&capture_process/1)
+    else
+      []
+    end
+  end
+
+  defp descendant_process_ids(pid) when is_integer(pid) and pid > 0 do
+    pid
+    |> child_process_ids()
+    |> Enum.flat_map(fn child -> [child | descendant_process_ids(child)] end)
+  end
+
+  defp child_process_ids(pid) do
+    case System.find_executable("pgrep") do
+      nil ->
+        []
+
+      executable ->
+        case System.cmd(executable, ["-P", Integer.to_string(pid)], stderr_to_stdout: true) do
+          {output, 0} ->
+            parse_process_ids(output)
+
+          _ ->
+            []
+        end
+    end
+  end
+
+  defp parse_process_ids(output) do
+    output
+    |> String.split()
+    |> Enum.flat_map(&parse_process_id/1)
+  end
+
+  defp parse_process_id(value) do
+    case Integer.parse(value) do
+      {pid, ""} when pid > 0 -> [pid]
+      _ -> []
+    end
+  end
+
+  # The KILL retry happens after the graceful timeout. A PID can be reused in
+  # that interval, so signal only a process whose start time and command still
+  # equal the identity captured from the Port process tree.
+  defp capture_process(pid) when is_integer(pid) and pid > 0 do
+    case System.find_executable("ps") do
+      nil ->
+        []
+
+      executable ->
+        case System.cmd(
+               executable,
+               ["-p", Integer.to_string(pid), "-o", "lstart=", "-o", "command="],
+               stderr_to_stdout: true
+             ) do
+          {identity, 0} when identity != "" -> [%{pid: pid, identity: identity}]
+          _ -> []
+        end
+    end
+  end
+
+  defp signal_browser_server_processes(processes, signal)
+       when is_list(processes) and signal in ["-TERM", "-KILL"] do
+    matching_processes =
+      processes
+      |> Enum.reverse()
+      |> Enum.filter(&same_process?/1)
+
+    Enum.each(matching_processes, &signal_process(&1.pid, signal))
+    matching_processes != []
+  end
+
+  defp same_process?(%{pid: pid, identity: identity}) do
+    os_process_alive?(pid) and capture_process(pid) == [%{pid: pid, identity: identity}]
+  end
+
+  defp await_browser_server_stopped!(%{name: name, os_pid: os_pid, port: port} = server) do
+    if browser_server_stopped?(server) do
+      :ok
+    else
+      Mix.raise("#{name} browser server did not stop (pid #{os_pid}, port #{port})")
+    end
+  end
+
+  defp wait_for_browser_server_stop(server, timeout) do
+    deadline = System.monotonic_time(:millisecond) + timeout
+
+    Stream.repeatedly(fn -> browser_server_stopped?(server) end)
+    |> Enum.reduce_while(false, fn stopped?, _ ->
+      cond do
+        stopped? ->
+          {:halt, true}
+
+        System.monotonic_time(:millisecond) >= deadline ->
+          {:halt, false}
+
+        true ->
+          Process.sleep(@browser_server_stop_poll)
+          {:cont, false}
+      end
+    end)
+  end
+
+  # `kill -0` is not a safe final lifecycle check. A terminated child can be a
+  # zombie briefly, and its former PID can later identify an unrelated process.
+  # The Port is the managed child identity. Once it is closed and the service
+  # port is free, this verification run no longer owns a running server.
+  defp browser_server_stopped?(%{process: process, port: port}) do
+    Port.info(process) == nil and browser_server_port_free?(port)
+  end
+
+  defp os_process_alive?(pid) when is_integer(pid) and pid > 0 do
+    case :os.type() do
+      {:unix, _} ->
+        case System.cmd("kill", ["-0", Integer.to_string(pid)], stderr_to_stdout: true) do
+          {_output, 0} -> true
+          _ -> false
+        end
+
+      _ ->
+        true
+    end
+  end
+
+  defp signal_process(pid, signal) when is_integer(pid) and pid > 0 do
+    if match?({:unix, _}, :os.type()) do
+      _ = System.cmd("kill", [signal, Integer.to_string(pid)], stderr_to_stdout: true)
+    end
+
+    :ok
+  end
+
+  defp browser_server_port_free?(port) when is_integer(port) and port in 1..65_535 do
+    browser_port_probe(port) == :free
+  end
+
+  defp browser_port_probe(port) when is_integer(port) and port in 1..65_535 do
+    case :gen_tcp.connect({127, 0, 0, 1}, port, [:binary, active: false], 100) do
+      {:ok, socket} ->
+        :ok = :gen_tcp.close(socket)
+        :occupied
+
+      {:error, :econnrefused} ->
+        reserve_browser_port(port)
+
+      {:error, reason} ->
+        {:error, reason}
+    end
+  end
+
+  defp reserve_browser_port(port) do
+    case :gen_tcp.listen(port, [:binary, active: false, reuseaddr: true, ip: {127, 0, 0, 1}]) do
+      {:ok, socket} ->
+        :ok = :gen_tcp.close(socket)
+        :free
+
+      {:error, :eaddrinuse} ->
+        :occupied
+
+      {:error, reason} ->
+        {:error, reason}
+    end
+  end
+
+  @doc false
+  def stop_browser_port_drain(drain) when is_pid(drain) do
+    monitor = Process.monitor(drain)
+    send(drain, {:stop_browser_port_drain, self()})
+
+    receive do
+      {:browser_port_drain_stopped, ^drain} ->
+        Process.demonitor(monitor, [:flush])
+
+      {:DOWN, ^monitor, :process, ^drain, _reason} ->
+        :ok
+    after
+      1_000 ->
+        Process.exit(drain, :kill)
+
+        receive do
+          {:DOWN, ^monitor, :process, ^drain, _reason} -> :ok
+        after
+          1_000 -> :ok
+        end
+    end
+
+    :ok
   end
 
   defp port_env(:storybook), do: "STORYBOOK_PORT"
   defp port_env(:parity), do: "PARITY_PORT"
   defp default_port(:storybook), do: 4101
   defp default_port(:parity), do: 4102
+
+  defp vite_executable! do
+    System.find_executable("node") ||
+      Mix.raise("cannot start parity browser server: `node` is not available")
+  end
+
+  defp vite_entrypoint! do
+    path = Path.join([parity_root(), "node_modules", "vite", "bin", "vite.js"])
+
+    if File.regular?(path) do
+      path
+    else
+      Mix.raise("cannot start parity browser server: Vite is not installed at #{path}")
+    end
+  end
 
   # Prepare the pinned React sources once before Playwright starts any small
   # batch. The prepared server command only starts Vite, so repeated batches do
@@ -717,11 +1189,11 @@ defmodule Mix.Tasks.Ui.Verify do
   @doc false
   def ensure_browser_ports_free!(ports \\ browser_ports()) do
     Enum.each(ports, fn {name, port} ->
-      case :gen_tcp.listen(port, [:binary, active: false]) do
-        {:ok, socket} ->
-          :ok = :gen_tcp.close(socket)
+      case browser_port_probe(port) do
+        :free ->
+          :ok
 
-        {:error, :eaddrinuse} ->
+        :occupied ->
           Mix.raise(
             "cannot prepare browser sources: #{name} port #{port} is already occupied; " <>
               "stop that server before verification"
@@ -729,7 +1201,7 @@ defmodule Mix.Tasks.Ui.Verify do
 
         {:error, reason} ->
           Mix.raise(
-            "cannot reserve #{name} port #{port} before browser preparation: " <>
+            "cannot check #{name} port #{port} before browser preparation: " <>
               "#{:inet.format_error(reason)}"
           )
       end
@@ -837,20 +1309,33 @@ defmodule Mix.Tasks.Ui.Verify do
     end
   end
 
-  defp example_checks(_source, _name, key, %{kind: :local_only, reason: reason}),
-    do: [{"examples", local_only_examples_check(key, reason)}]
+  defp generated_checks(%{kind: :docs_only}, _reference), do: []
+  defp generated_checks(_policy, reference), do: [{"generated", generated_check(reference)}]
 
-  defp example_checks(_source, _name, _key, %{kind: :no_dom, reason: reason}),
-    do: [{"examples", no_dom_examples_check(reason)}]
+  defp upstream_comparison_policy?(%{kind: kind}) when kind in [:standard, :docs_only], do: true
+  defp upstream_comparison_policy?(_policy), do: false
 
-  defp example_checks("shadcn", name, key, _policy), do: [{"examples", examples_check(name, key)}]
+  defp example_checks(source, name, key, policy) do
+    case policy do
+      %{kind: :local_only} ->
+        [{"examples", local_only_examples_check(key, policy)}]
 
-  defp example_checks("ai_elements", name, key, _policy),
+      %{kind: :no_dom, reason: reason} ->
+        [{"examples", no_dom_examples_check(reason)}]
+
+      _ ->
+        source_example_checks(source, name, key)
+    end
+  end
+
+  defp source_example_checks("shadcn", name, key), do: [{"examples", examples_check(name, key)}]
+
+  defp source_example_checks("ai_elements", name, key),
     do: [{"examples", ai_examples_check(name, key)}]
 
-  defp example_checks(_source, _name, _key, _policy), do: []
+  defp source_example_checks(_source, _name, _key), do: []
 
-  defp local_only_examples_check(key, reason) do
+  defp local_only_examples_check(key, %{local_fixture: fixture, reason: reason}) do
     case BrowserVerification.examples(previews(), key || "") do
       [] ->
         %{
@@ -860,12 +1345,19 @@ defmodule Mix.Tasks.Ui.Verify do
         }
 
       examples ->
-        %{
-          "pass" => true,
-          "official_comparison" => false,
-          "detail" =>
-            "not applicable: #{length(examples)} local-only HEEx preview#{if length(examples) == 1, do: "", else: "s"}; #{reason}"
-        }
+        if fixture in examples do
+          %{
+            "pass" => true,
+            "official_comparison" => false,
+            "detail" => "not applicable: approved local fixture #{key}.#{fixture}; #{reason}"
+          }
+        else
+          %{
+            "pass" => false,
+            "official_comparison" => false,
+            "detail" => "local-only policy fixture #{key}.#{fixture} is not a HEEx preview"
+          }
+        end
     end
   end
 
@@ -946,17 +1438,21 @@ defmodule Mix.Tasks.Ui.Verify do
   defp behavior_check(_source, _name, nil, _policy), do: no_example()
 
   defp behavior_check(source, name, key, policy) do
-    case behavior_suite(source, name, key, policy) do
-      {:suite, suite} ->
-        run_in(browser_dir(), "npx", ["playwright", "test", suite], %{
-          "PREVIEW_COMPONENT" => key
-        })
-        |> BrowserVerification.label("behavior #{key}")
+    case behavior_commands(source, name, key, policy) do
+      {:commands, commands} ->
+        commands
+        |> Enum.map(fn arguments ->
+          run_in(browser_dir(), "npx", arguments, %{
+            "PREVIEW_COMPONENT" => key
+          })
+          |> BrowserVerification.label("behavior #{key}")
+        end)
+        |> BrowserVerification.merge_checks()
 
       {:not_applicable, reason} ->
         %{
-          "pass" => false,
-          "gated" => false,
+          "pass" => true,
+          "not_applicable" => true,
           "detail" => "behavior is not applicable: #{reason}"
         }
 
@@ -968,7 +1464,51 @@ defmodule Mix.Tasks.Ui.Verify do
     end
   end
 
-  defp behavior_suite("ai_elements", _name, key, _policy) do
+  @doc false
+  def behavior_commands(source, name, key, policy) do
+    case behavior_suites(source, name, key, policy) do
+      {:suites, suites} ->
+        {:commands, Enum.flat_map(suites, &behavior_batch_arguments(source, name, key, &1))}
+
+      result ->
+        result
+    end
+  end
+
+  @doc false
+  def behavior_suites("shadcn", name, _key, policy) do
+    case VerificationPolicy.behavior("shadcn", name) do
+      {:not_applicable, reason} ->
+        {:not_applicable, reason}
+
+      :required ->
+        named_suite = "#{name}.spec.mjs"
+
+        cond do
+          not upstream_comparison_policy?(policy) ->
+            :missing
+
+          not File.exists?(Path.join(browser_dir(), @generic_shadcn_behavior_suite)) ->
+            :missing
+
+          File.exists?(Path.join(browser_dir(), named_suite)) ->
+            {:suites, [@generic_shadcn_behavior_suite, named_suite]}
+
+          true ->
+            {:suites, [@generic_shadcn_behavior_suite]}
+        end
+    end
+  end
+
+  def behavior_suites(source, name, key, policy) do
+    case behavior_suite(source, name, key, policy) do
+      {:suite, suite} -> {:suites, [suite]}
+      result -> result
+    end
+  end
+
+  @doc false
+  def behavior_suite("ai_elements", _name, key, _policy) do
     contract =
       browser_dir()
       |> Path.join("ai-component-audit.json")
@@ -988,7 +1528,7 @@ defmodule Mix.Tasks.Ui.Verify do
     end
   end
 
-  defp behavior_suite(source, name, _key, policy) do
+  def behavior_suite(source, name, _key, policy) do
     case VerificationPolicy.behavior(source, name) do
       {:not_applicable, reason} ->
         {:not_applicable, reason}
@@ -996,12 +1536,87 @@ defmodule Mix.Tasks.Ui.Verify do
       :required ->
         suite = "#{name}.spec.mjs"
 
-        if policy.kind == :standard and File.exists?(Path.join(browser_dir(), suite)) do
-          {:suite, suite}
-        else
-          :missing
+        cond do
+          not upstream_comparison_policy?(policy) ->
+            :missing
+
+          File.exists?(Path.join(browser_dir(), suite)) ->
+            {:suite, suite}
+
+          true ->
+            :missing
         end
     end
+  end
+
+  @doc false
+  def behavior_batch_arguments("shadcn", _name, key, @generic_shadcn_behavior_suite) do
+    key
+    |> official_example_names()
+    |> Enum.map(&"#{key} / #{&1} keeps inferred interaction semantics")
+    |> BrowserVerification.batches(@browser_example_batch_size)
+    |> Enum.map(fn titles ->
+      [
+        "playwright",
+        "test",
+        @generic_shadcn_behavior_suite,
+        "--workers",
+        "1",
+        "--grep",
+        behavior_title_pattern(titles)
+      ]
+    end)
+  end
+
+  def behavior_batch_arguments("shadcn", "message-scroller", _key, suite)
+      when is_binary(suite) do
+    @message_scroller_behavior_titles
+    |> BrowserVerification.batches(@message_scroller_behavior_batch_size)
+    |> Enum.map(fn titles ->
+      [
+        "playwright",
+        "test",
+        exact_spec_path_filter(suite),
+        "--workers",
+        "1",
+        "--grep",
+        behavior_title_pattern(titles)
+      ]
+    end)
+  end
+
+  def behavior_batch_arguments(_source, _name, _key, suite) when is_binary(suite),
+    do: [["playwright", "test", exact_spec_path_filter(suite), "--workers", "1"]]
+
+  @doc false
+  def behavior_batch_arguments(source, name, suite),
+    do: behavior_batch_arguments(source, name, name, suite)
+
+  defp behavior_title_pattern(titles) do
+    titles
+    |> Enum.map_join("|", &Regex.escape/1)
+    # Playwright matches against the complete title path, which includes the
+    # project and spec-file titles before the test title. Keep the end anchor
+    # to select the exact examples, but do not require the test title to start
+    # the complete path.
+    |> then(&"(?:#{&1})$")
+  end
+
+  defp exact_spec_path_filter(suite) when suite in @suffix_colliding_suites,
+    do: "(?:^|/)#{Regex.escape(suite)}$"
+
+  defp exact_spec_path_filter(suite), do: suite
+
+  defp official_example_names(key) do
+    prefix = key <> "."
+
+    parity_root()
+    |> Path.join("official-examples.json")
+    |> read_json!()
+    |> Map.keys()
+    |> Enum.filter(&String.starts_with?(&1, prefix))
+    |> Enum.map(&String.replace_prefix(&1, prefix, ""))
+    |> Enum.sort()
   end
 
   defp accessibility_check(nil), do: no_example()
@@ -1025,19 +1640,24 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp parity_check(key) do
     if ported?(key) do
-      batched_example_check(key, "parity", [
-        "playwright",
-        "test",
-        "parity.spec.mjs",
-        "--grep",
-        "draws what React draws"
-      ])
+      batched_example_check(key, "parity", parity_batch_arguments())
     else
       %{
         "pass" => false,
         "detail" => "no React reference yet: add one to parity/src/examples/#{key}.<example>.tsx"
       }
     end
+  end
+
+  @doc false
+  def parity_batch_arguments do
+    [
+      "playwright",
+      "test",
+      exact_spec_path_filter("parity.spec.mjs"),
+      "--grep",
+      "draws what React draws"
+    ]
   end
 
   # The fifth check, and the only one that looks at what was painted.
@@ -1098,7 +1718,7 @@ defmodule Mix.Tasks.Ui.Verify do
 
     reports =
       key
-      |> example_batches()
+      |> example_batches(kind)
       |> Enum.map(fn batch ->
         names = Enum.map(batch, &"#{key}.#{&1}")
 
@@ -1116,11 +1736,19 @@ defmodule Mix.Tasks.Ui.Verify do
     {BrowserVerification.merge_reports(reports), expected}
   end
 
-  defp example_batches(key) do
-    previews()
-    |> BrowserVerification.examples(key)
-    |> BrowserVerification.batches(@browser_example_batch_size)
+  defp example_batches(key, kind) do
+    example_batches(key, kind, BrowserVerification.examples(previews(), key))
   end
+
+  @doc false
+  def example_batches(key, kind, examples)
+      when is_binary(key) and is_binary(kind) and is_list(examples) do
+    examples
+    |> BrowserVerification.batches(browser_example_batch_size(key, kind))
+  end
+
+  defp browser_example_batch_size(_key, kind) when kind in @single_example_browser_kinds, do: 1
+  defp browser_example_batch_size(_key, _kind), do: @browser_example_batch_size
 
   defp expected_examples(key) do
     previews()
@@ -1189,10 +1817,9 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   defp pending_pixel?(name) do
-    with %{"pending" => pending} <- budget() do
-      name in pending
-    else
-      _none -> false
+    case budget() do
+      %{"pending" => pending} -> name in pending
+      _ -> false
     end
   end
 

@@ -8,8 +8,12 @@ defmodule LiveShadcn.UI.Drawer do
 
   use Phoenix.Component
 
+  alias Phoenix.LiveView.JS
+
   # live-shadcn: upstream facts start
   @upstream_facts %{
+    "jsx/DrawerContent/class/0" =>
+      "pointer-events-none fixed inset-0 z-50 select-none data-[modal=true]:pointer-events-auto",
     "jsx/DrawerContent/class/13" =>
       "cn-drawer-content-base flex min-h-0 flex-1 flex-col overflow-hidden overscroll-contain rounded-[inherit] transition-opacity duration-300 ease-[cubic-bezier(0.45,1.005,0,1.005)] select-text group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 group-data-swiping/drawer-popup:select-none",
     "jsx/DrawerDescription/class/0" => "cn-drawer-description text-balance",
@@ -50,6 +54,14 @@ defmodule LiveShadcn.UI.Drawer do
   attr(:alert, :boolean, default: false, doc: "An alert dialog interrupts; a dialog does not.")
   attr(:dismissable, :boolean, default: true, doc: "Whether Escape and the backdrop close it.")
   attr(:disabled, :boolean, default: false, doc: "Whether the trigger refuses interaction.")
+  attr(:modal, :boolean, default: true, doc: "Whether the drawer makes the page behind it inert.")
+  attr(:nested, :boolean, default: false, doc: "Whether this drawer is inside another drawer.")
+  attr(:parent, :string, default: nil, doc: "The id of the parent drawer.")
+
+  attr(:disable_pointer_dismissal, :boolean,
+    default: false,
+    doc: "Whether a pointer outside a non-modal drawer can dismiss it."
+  )
 
   attr(:show_close_button, :boolean,
     default: true,
@@ -58,43 +70,78 @@ defmodule LiveShadcn.UI.Drawer do
 
   attr(:snap_points, :list, default: [], doc: "The heights a drawer settles at.")
   attr(:class, :any, default: nil, doc: "Appended to the dialog's own class string.")
+  attr(:content_class, :any, default: nil)
+  attr(:footer_class, :any, default: nil)
+  attr(:header_class, :any, default: nil)
   attr(:overlay_class, :any, default: nil)
   attr(:close_class, :any, default: nil)
   attr(:description_class, :any, default: nil)
   attr(:portal_class, :any, default: nil)
   attr(:title_class, :any, default: nil)
   attr(:trigger_class, :any, default: nil)
-  attr(:show_swipe_handle, :string, default: nil)
-  attr(:swipe_direction, :string, default: "down")
+  attr(:viewport_class, :any, default: nil)
+  attr(:show_swipe_handle, :boolean, default: false)
+
+  attr(:swipe_direction, :string,
+    default: "down",
+    values: ["down", "left", "right", "up"]
+  )
+
+  attr(:trigger_variant, :string,
+    default: "secondary",
+    values: ["default", "destructive", "outline", "secondary", "ghost", "link"]
+  )
+
+  attr(:trigger_size, :string,
+    default: "default",
+    values: ["default", "xs", "sm", "lg", "icon", "icon-xs", "icon-sm", "icon-lg"]
+  )
+
   attr(:rest, :global)
 
   slot(:trigger, required: true, doc: "What opens it.")
   slot(:title, doc: "What names it. Required for a dialog to be announced.")
   slot(:description, doc: "What describes it, beyond the title.")
   slot(:footer, doc: "Actions, along the bottom.")
+
+  slot :close, doc: "A button that closes the drawer." do
+    attr(:variant, :string)
+    attr(:size, :string)
+    attr(:class, :any)
+    attr(:disabled, :boolean)
+  end
+
   slot(:inner_block, required: true, doc: "The dialog's body.")
 
   def drawer(assigns) do
     ~H"""
-    <button
+    <LiveShadcn.UI.Button.button
       data-slot="drawer-trigger"
       id={Dialog.trigger_id(@id)}
       type="button"
+      disabled={@disabled}
       aria-haspopup="dialog"
       aria-expanded={to_string(@open)}
       aria-controls={Dialog.popup_id(@id)}
-      phx-click={Dialog.open(@id)}
+      phx-click={if(not @disabled, do: open(@id))}
       phx-mounted={Dialog.owned_attributes(:trigger)}
+      data-popup-open={flag(@open)}
+      data-disabled={flag(@disabled)}
+      variant={@trigger_variant}
+      size={@trigger_size}
+      class={@trigger_class}
     >
       {render_slot(@trigger)}
-    </button>
+    </LiveShadcn.UI.Button.button>
+    <.portal id={"#{@id}-portal"} target="body" class={["contents", @portal_class]}>
     <div
+      :if={@modal and not @nested}
       data-slot="drawer-overlay"
       id={Dialog.backdrop_id(@id)}
       role="presentation"
       aria-hidden="true"
       hidden={not @open}
-      phx-click={if(@dismissable, do: Dialog.close(@id))}
+      phx-click={if(@dismissable, do: close(@id))}
       phx-mounted={Dialog.owned_attributes(:backdrop)}
       data-open={flag(@open)}
       data-closed={flag(not @open)}
@@ -107,75 +154,115 @@ defmodule LiveShadcn.UI.Drawer do
       data-lb-measure
     />
     <div
-      data-slot="drawer-popup"
-      id={Dialog.popup_id(@id)}
-      role={if(@alert, do: "alertdialog", else: "dialog")}
-      aria-labelledby={Dialog.title_id(@id)}
-      aria-describedby={Dialog.description_id(@id)}
-      tabindex="-1"
+      data-slot="drawer-viewport"
+      id={viewport_id(@id)}
+      data-modal={to_string(@modal)}
       hidden={not @open}
-      phx-window-keydown={if(@dismissable, do: Dialog.close(@id))}
-      phx-key="Escape"
-      phx-hook={Dialog.hook()}
-      data-lb-backdrop={Dialog.backdrop_id(@id)}
-      data-lb-modal
-      phx-mounted={Dialog.owned_attributes(:popup)}
-      data-open={flag(@open)}
-      data-closed={flag(not @open)}
-      data-swipe-axis={if(@swipe_direction in ["down", "up"], do: "y", else: "x")}
-      data-swipe-direction={@swipe_direction}
-      data-snap-points={flag(@snap_points != [])}
+      phx-mounted={JS.ignore_attributes(["hidden"], [])}
       class={[
-        upstream_fact("port/class/0"),
-        (@class || "")
+        upstream_fact("jsx/DrawerContent/class/0"),
+        @viewport_class
       ]}
-      data-lb-measure
     >
       <div
-        :if={@show_swipe_handle}
-        data-slot="drawer-swipe-handle"
-        aria-hidden="true"
+        data-slot="drawer-popup"
+        id={Dialog.popup_id(@id)}
+        role={if(@alert, do: "alertdialog", else: "dialog")}
+        aria-labelledby={if(@title != [], do: Dialog.title_id(@id))}
+        aria-describedby={if(@description != [], do: Dialog.description_id(@id))}
+        tabindex="-1"
+        hidden={not @open}
+        phx-hook="LiveBase.Drawer"
+        data-lb-backdrop={if(@modal and not @nested, do: Dialog.backdrop_id(@id))}
+        data-lb-dismissible={flag(@dismissable)}
+        data-lb-modal={flag(@modal)}
+        data-lb-parent={if(@parent, do: Dialog.popup_id(@parent))}
+        data-lb-disable-pointer-dismissal={flag(@disable_pointer_dismissal)}
+        data-lb-snap-points={if(@snap_points != [], do: Jason.encode!(@snap_points))}
+        data-lb-trigger={Dialog.trigger_id(@id)}
+        data-lb-viewport={viewport_id(@id)}
+        phx-mounted={Dialog.owned_attributes(:popup)}
+        data-open={flag(@open)}
+        data-closed={flag(not @open)}
+        data-swipe-axis={if(@swipe_direction in ["down", "up"], do: "y", else: "x")}
+        data-swipe-direction={@swipe_direction}
+        data-snap-points={flag(@snap_points != [])}
         class={[
-          upstream_fact("jsx/DrawerSwipeHandle/class/0"),
+          upstream_fact("port/class/0"),
           (@class || "")
         ]}
-      />
-      <div
-        data-slot="drawer-content"
-        class={upstream_fact("jsx/DrawerContent/class/13")}
+        data-lb-measure
+        {@rest}
       >
         <div
-          data-slot="drawer-header"
-          class={upstream_fact("jsx/DrawerHeader/class/0")}
-        >
-          <h2
-            data-slot="drawer-title"
-            id={Dialog.title_id(@id)}
-            class={[upstream_fact("jsx/DrawerTitle/class/0"), (@title_class || "")]}
-          >
-            {render_slot(@title)}
-          </h2>
-          <p
-            data-slot="drawer-description"
-            id={Dialog.description_id(@id)}
-            class={[upstream_fact("jsx/DrawerDescription/class/0"), (@description_class || "")]}
-          >
-            {render_slot(@description)}
-          </p>
-        </div>
-        {render_slot(@inner_block)}
+          :if={@show_swipe_handle}
+          data-slot="drawer-swipe-handle"
+          aria-hidden="true"
+          class={upstream_fact("jsx/DrawerSwipeHandle/class/0")}
+        />
         <div
-          :if={@footer != []}
-          data-slot="drawer-footer"
-          class={upstream_fact("jsx/DrawerFooter/class/0")}
+          data-slot="drawer-content"
+          class={[upstream_fact("jsx/DrawerContent/class/13"), @content_class]}
         >
-          {render_slot(@footer)}
+          <div
+            :if={@title != [] or @description != []}
+            data-slot="drawer-header"
+            class={[upstream_fact("jsx/DrawerHeader/class/0"), @header_class]}
+          >
+            <h2
+              :if={@title != []}
+              data-slot="drawer-title"
+              id={Dialog.title_id(@id)}
+              class={[upstream_fact("jsx/DrawerTitle/class/0"), (@title_class || "")]}
+            >
+              {render_slot(@title)}
+            </h2>
+            <p
+              :if={@description != []}
+              data-slot="drawer-description"
+              id={Dialog.description_id(@id)}
+              class={[upstream_fact("jsx/DrawerDescription/class/0"), (@description_class || "")]}
+            >
+              {render_slot(@description)}
+            </p>
+          </div>
+          {render_slot(@inner_block)}
+          <div
+            :if={@footer != [] or @close != []}
+            data-slot="drawer-footer"
+            class={[upstream_fact("jsx/DrawerFooter/class/0"), @footer_class]}
+          >
+            {render_slot(@footer)}
+            <LiveShadcn.UI.Button.button
+              :for={close <- @close}
+              data-slot="drawer-close"
+              type="button"
+              phx-click={close(@id)}
+              disabled={close[:disabled] || false}
+              variant={close[:variant] || "default"}
+              size={close[:size] || "default"}
+              class={[close[:class], @close_class]}
+            >
+              {render_slot(close)}
+            </LiveShadcn.UI.Button.button>
+          </div>
         </div>
       </div>
     </div>
+    </.portal>
     """
   end
 
   defp flag(true), do: ""
   defp flag(_state), do: nil
+
+  defp viewport_id(id), do: "#{id}-viewport"
+
+  defp open(id) do
+    %JS{}
+    |> JS.remove_attribute("hidden", to: "##{viewport_id(id)}")
+    |> Dialog.open(id)
+  end
+
+  defp close(id), do: Dialog.close(id)
 end

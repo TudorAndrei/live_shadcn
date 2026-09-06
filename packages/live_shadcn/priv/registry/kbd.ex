@@ -29,10 +29,7 @@ defmodule LiveShadcn.UI.Kbd do
     ~H"""
     <kbd
       data-slot={@rest[:"data-slot"] || "kbd"}
-      class={[
-        upstream_fact("jsx/Kbd/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Kbd/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -50,7 +47,7 @@ defmodule LiveShadcn.UI.Kbd do
     ~H"""
     <kbd
       data-slot={@rest[:"data-slot"] || "kbd-group"}
-      class={[upstream_fact("jsx/KbdGroup/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/KbdGroup/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

@@ -13,13 +13,14 @@ export const Resizable = {
   drag(event) {
     const handle = event.target.closest("[data-lb-resizable-handle]");
     if (!handle) return;
+    if (handle.closest("[data-lb-orientation]") !== this.el) return;
     const previous = handle.previousElementSibling;
     const next = handle.nextElementSibling;
     if (!previous || !next) return;
 
     event.preventDefault();
     handle.setPointerCapture(event.pointerId);
-    const horizontal = this.el.getAttribute("aria-orientation") !== "vertical";
+    const horizontal = this.el.dataset.lbOrientation !== "vertical";
     const start = horizontal ? event.clientX : event.clientY;
     const previousSize = horizontal ? previous.getBoundingClientRect().width : previous.getBoundingClientRect().height;
     const nextSize = horizontal ? next.getBoundingClientRect().width : next.getBoundingClientRect().height;

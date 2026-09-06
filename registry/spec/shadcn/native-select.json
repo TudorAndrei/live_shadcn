@@ -26,7 +26,7 @@
     "jsx/NativeSelectOption/class/0": "the generated port does not contain this source literal"
   },
   "name": "native-select",
-  "port_body": "973f6a78c2caca6a120cf50e044aa5f874f1891381b486a1a3e3270d54516d05",
+  "port_body": "c6e32e4384736c968a7177a96d2e2bca825bc906e9d3664842d380ba89bfadec",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

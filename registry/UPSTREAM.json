@@ -1,9 +1,624 @@
 {
+  "examples": {
+    "shadcn": {
+      "field": [
+        "field-demo",
+        "field-input",
+        "field-textarea",
+        "field-select",
+        "field-slider",
+        "field-fieldset",
+        "field-checkbox",
+        "field-radio",
+        "field-switch",
+        "field-choice-card",
+        "field-group",
+        "field-rtl",
+        "field-responsive"
+      ],
+      "carousel": [
+        "carousel-demo",
+        "carousel-size",
+        "carousel-spacing",
+        "carousel-orientation",
+        "carousel-api",
+        "carousel-plugin",
+        "carousel-rtl"
+      ],
+      "dialog": [
+        "dialog-demo",
+        "dialog-close-button",
+        "dialog-no-close-button",
+        "dialog-sticky-footer",
+        "dialog-scrollable-content",
+        "dialog-rtl"
+      ],
+      "sheet": [
+        "sheet-demo",
+        "sheet-side",
+        "sheet-no-close-button",
+        "sheet-rtl"
+      ],
+      "calendar": [
+        "calendar-demo",
+        "calendar-hijri",
+        "calendar-basic",
+        "calendar-multiple",
+        "calendar-range",
+        "calendar-caption",
+        "calendar-presets",
+        "calendar-time",
+        "calendar-booked-dates",
+        "calendar-custom-days",
+        "calendar-week-numbers",
+        "calendar-rtl"
+      ],
+      "date-picker": [
+        "date-picker-demo",
+        "date-picker-basic",
+        "date-picker-range",
+        "date-picker-dob",
+        "date-picker-input",
+        "date-picker-time",
+        "date-picker-natural-language",
+        "date-picker-rtl"
+      ],
+      "data-table": [
+        "data-table-demo",
+        "data-table-rtl"
+      ],
+      "typography": [
+        "typography-demo",
+        "typography-h1",
+        "typography-h2",
+        "typography-h3",
+        "typography-h4",
+        "typography-p",
+        "typography-blockquote",
+        "typography-table",
+        "typography-list",
+        "typography-inline-code",
+        "typography-lead",
+        "typography-large",
+        "typography-small",
+        "typography-muted",
+        "typography-rtl"
+      ],
+      "resizable": [
+        "resizable-demo",
+        "resizable-vertical",
+        "resizable-handle",
+        "resizable-rtl"
+      ],
+      "scroll-area": [
+        "scroll-area-demo",
+        "scroll-area-horizontal-demo",
+        "scroll-area-rtl"
+      ],
+      "menubar": [
+        "menubar-demo",
+        "menubar-checkbox",
+        "menubar-radio",
+        "menubar-submenu",
+        "menubar-icons",
+        "menubar-rtl"
+      ],
+      "badge": [
+        "badge-demo",
+        "badge-variants",
+        "badge-icon",
+        "badge-spinner",
+        "badge-link",
+        "badge-colors",
+        "badge-rtl"
+      ],
+      "message-scroller": [
+        "message-scroller-demo",
+        "message-scroller-anchoring",
+        "message-scroller-group-chat",
+        "message-scroller-previous-context",
+        "message-scroller-streaming",
+        "message-scroller-opening-position",
+        "message-scroller-load-history",
+        "message-scroller-animation",
+        "message-scroller-commands",
+        "message-scroller-visibility",
+        "message-scroller-scrollable"
+      ],
+      "bubble": [
+        "bubble-demo",
+        "bubble-variants",
+        "bubble-alignment",
+        "bubble-group-demo",
+        "bubble-link-button",
+        "bubble-reactions",
+        "bubble-collapsible",
+        "bubble-tooltip",
+        "bubble-popover"
+      ],
+      "skeleton": [
+        "skeleton-demo",
+        "skeleton-avatar",
+        "skeleton-card",
+        "skeleton-text",
+        "skeleton-form",
+        "skeleton-table",
+        "skeleton-rtl"
+      ],
+      "textarea": [
+        "textarea-demo",
+        "textarea-field",
+        "textarea-disabled",
+        "textarea-invalid",
+        "textarea-button",
+        "textarea-rtl"
+      ],
+      "command": [
+        "command-demo",
+        "command-basic",
+        "command-shortcuts",
+        "command-groups",
+        "command-scrollable",
+        "command-rtl"
+      ],
+      "chart": [
+        {
+          "id": "demo",
+          "source": "chart-demo"
+        },
+        "chart-example",
+        "chart-example-grid",
+        "chart-example-axis",
+        "chart-example-tooltip",
+        "chart-example-legend",
+        "chart-tooltip",
+        "chart-rtl"
+      ],
+      "marker": [
+        "marker-demo",
+        "marker-variants",
+        "marker-status",
+        "marker-shimmer",
+        "marker-separator",
+        "marker-border",
+        "marker-icon",
+        "marker-link-button"
+      ],
+      "message": [
+        "message-demo",
+        "message-avatar",
+        "message-group",
+        "message-header-footer",
+        "message-actions",
+        "message-attachment"
+      ],
+      "select": [
+        "select-demo",
+        "select-align-item",
+        "select-groups",
+        "select-scrollable",
+        "select-disabled",
+        "select-invalid",
+        "select-rtl"
+      ],
+      "popover": [
+        "popover-demo",
+        "popover-basic",
+        "popover-alignments",
+        "popover-form",
+        "popover-rtl"
+      ],
+      "switch": [
+        "switch-demo",
+        "switch-description",
+        "switch-choice-card",
+        "switch-disabled",
+        "switch-invalid",
+        "switch-sizes",
+        "switch-rtl"
+      ],
+      "avatar": [
+        "avatar-demo",
+        "avatar-basic",
+        "avatar-badge",
+        "avatar-badge-icon",
+        "avatar-group",
+        "avatar-group-count",
+        "avatar-group-count-icon",
+        "avatar-size",
+        "avatar-dropdown",
+        "avatar-rtl"
+      ],
+      "direction": [
+        "card-rtl"
+      ],
+      "input": [
+        "input-demo",
+        "input-basic",
+        "input-field",
+        "input-fieldgroup",
+        "input-disabled",
+        "input-invalid",
+        "input-file",
+        "input-inline",
+        "input-grid",
+        "input-required",
+        "input-badge",
+        "input-input-group",
+        "input-button-group",
+        "input-form",
+        "input-rtl"
+      ],
+      "aspect-ratio": [
+        "aspect-ratio-demo",
+        "aspect-ratio-square",
+        "aspect-ratio-portrait",
+        "aspect-ratio-rtl"
+      ],
+      "tooltip": [
+        "tooltip-demo",
+        "tooltip-sides",
+        "tooltip-keyboard",
+        "tooltip-disabled",
+        "tooltip-rtl"
+      ],
+      "alert": [
+        "alert-demo",
+        "alert-basic",
+        "alert-destructive",
+        "alert-action",
+        "alert-colors",
+        "alert-rtl"
+      ],
+      "progress": [
+        "progress-demo",
+        "progress-label",
+        "progress-controlled",
+        "progress-rtl"
+      ],
+      "input-otp": [
+        "input-otp-demo",
+        "input-otp-pattern",
+        "input-otp-separator",
+        "input-otp-disabled",
+        "input-otp-controlled",
+        "input-otp-invalid",
+        "input-otp-four-digits",
+        "input-otp-alphanumeric",
+        "input-otp-form",
+        "input-otp-rtl"
+      ],
+      "tabs": [
+        "tabs-demo",
+        "tabs-line",
+        "tabs-vertical",
+        "tabs-disabled",
+        "tabs-icons",
+        "tabs-rtl"
+      ],
+      "form": [],
+      "slider": [
+        "slider-demo",
+        "slider-range",
+        "slider-multiple",
+        "slider-vertical",
+        "slider-controlled",
+        "slider-disabled",
+        "slider-rtl"
+      ],
+      "toggle": [
+        "toggle-demo",
+        "toggle-outline",
+        "toggle-text",
+        "toggle-sizes",
+        "toggle-disabled",
+        "toggle-rtl"
+      ],
+      "sidebar": [
+        "sidebar-demo"
+      ],
+      "questionnaire": [
+        "questionnaire-demo",
+        "questionnaire-multiple",
+        "questionnaire-freeform",
+        "questionnaire-skip",
+        "questionnaire-shortcuts",
+        "questionnaire-validation",
+        "questionnaire-controlled",
+        "questionnaire-resume",
+        "questionnaire-conditional",
+        "questionnaire-navigation-state",
+        "questionnaire-progress",
+        "questionnaire-animated",
+        "questionnaire-card",
+        "questionnaire-dialog"
+      ],
+      "drawer": [
+        "drawer-demo",
+        "drawer-sides",
+        "drawer-swipe-handle",
+        "drawer-nested",
+        "drawer-non-modal",
+        "drawer-snap-points",
+        "drawer-dialog"
+      ],
+      "toast": [
+        "toast-demo",
+        "toast-types",
+        "toast-promise"
+      ],
+      "native-select": [
+        "native-select-demo",
+        "native-select-groups",
+        "native-select-disabled",
+        "native-select-invalid",
+        "native-select-rtl"
+      ],
+      "input-group": [
+        "input-group-demo",
+        "input-group-inline-start",
+        "input-group-inline-end",
+        "input-group-block-start",
+        "input-group-block-end",
+        "input-group-icon",
+        "input-group-text",
+        "input-group-button",
+        "input-group-kbd",
+        "input-group-dropdown",
+        "input-group-spinner",
+        "input-group-textarea",
+        "input-group-custom",
+        "input-group-rtl"
+      ],
+      "pagination": [
+        "pagination-demo",
+        "pagination-simple",
+        "pagination-icons-only",
+        "pagination-rtl"
+      ],
+      "toggle-group": [
+        "toggle-group-demo",
+        "toggle-group-outline",
+        "toggle-group-sizes",
+        "toggle-group-spacing",
+        "toggle-group-vertical",
+        "toggle-group-disabled",
+        "toggle-group-font-weight-selector",
+        "toggle-group-rtl"
+      ],
+      "table": [
+        "table-demo",
+        "table-footer",
+        "table-actions",
+        "table-rtl"
+      ],
+      "kbd": [
+        "kbd-demo",
+        "kbd-group",
+        "kbd-button",
+        "kbd-tooltip",
+        "kbd-input-group",
+        "kbd-rtl"
+      ],
+      "dropdown-menu": [
+        "dropdown-menu-demo",
+        "dropdown-menu-basic",
+        "dropdown-menu-submenu",
+        "dropdown-menu-shortcuts",
+        "dropdown-menu-icons",
+        "dropdown-menu-checkboxes",
+        "dropdown-menu-checkboxes-icons",
+        "dropdown-menu-radio-group",
+        "dropdown-menu-radio-icons",
+        "dropdown-menu-destructive",
+        "dropdown-menu-avatar",
+        "dropdown-menu-complex",
+        "dropdown-menu-rtl"
+      ],
+      "combobox": [
+        "combobox-demo",
+        "combobox-basic",
+        "combobox-multiple",
+        "combobox-clear",
+        "combobox-groups",
+        "combobox-custom",
+        "combobox-invalid",
+        "combobox-disabled",
+        "combobox-auto-highlight",
+        "combobox-popup",
+        "combobox-input-group",
+        "combobox-rtl"
+      ],
+      "empty": [
+        "empty-demo",
+        "empty-outline",
+        "empty-background",
+        "empty-avatar",
+        "empty-avatar-group",
+        "empty-input-group",
+        "empty-rtl"
+      ],
+      "spinner": [
+        "spinner-demo",
+        "spinner-custom",
+        "spinner-size",
+        "spinner-button",
+        "spinner-badge",
+        "spinner-input-group",
+        "spinner-empty",
+        "spinner-rtl"
+      ],
+      "navigation-menu": [
+        "navigation-menu-demo",
+        "navigation-menu-rtl"
+      ],
+      "checkbox": [
+        "checkbox-demo",
+        "checkbox-invalid",
+        "checkbox-basic",
+        "checkbox-description",
+        "checkbox-disabled",
+        "checkbox-group",
+        "checkbox-table",
+        "checkbox-rtl"
+      ],
+      "breadcrumb": [
+        "breadcrumb-demo",
+        "breadcrumb-basic",
+        "breadcrumb-separator",
+        "breadcrumb-dropdown",
+        "breadcrumb-ellipsis",
+        "breadcrumb-link",
+        "breadcrumb-rtl"
+      ],
+      "attachment": [
+        "attachment-demo",
+        "attachment-image",
+        "attachment-states",
+        "attachment-sizes",
+        "attachment-group",
+        "attachment-trigger"
+      ],
+      "accordion": [
+        "accordion-demo",
+        "accordion-basic",
+        "accordion-multiple",
+        "accordion-disabled",
+        "accordion-borders",
+        "accordion-card",
+        "accordion-rtl"
+      ],
+      "collapsible": [
+        "collapsible-demo",
+        "collapsible-basic",
+        "collapsible-settings",
+        "collapsible-file-tree",
+        "collapsible-rtl"
+      ],
+      "button-group": [
+        "button-group-demo",
+        "button-group-orientation",
+        "button-group-size",
+        "button-group-nested",
+        "button-group-separator",
+        "button-group-split",
+        "button-group-input",
+        "button-group-input-group",
+        "button-group-dropdown",
+        "button-group-select",
+        "button-group-popover",
+        "button-group-rtl"
+      ],
+      "radio-group": [
+        "radio-group-demo",
+        "radio-group-description",
+        "radio-group-choice-card",
+        "radio-group-fieldset",
+        "radio-group-disabled",
+        "radio-group-invalid",
+        "radio-group-rtl"
+      ],
+      "button": [
+        "button-demo",
+        "button-size",
+        "button-default",
+        "button-outline",
+        "button-secondary",
+        "button-ghost",
+        "button-destructive",
+        "button-link",
+        "button-icon",
+        "button-with-icon",
+        "button-rounded",
+        "button-spinner",
+        "button-group-demo",
+        "button-render",
+        "button-rtl"
+      ],
+      "separator": [
+        "separator-demo",
+        "separator-vertical",
+        "separator-menu",
+        "separator-list",
+        "separator-rtl"
+      ],
+      "item": [
+        "item-demo",
+        "item-variant",
+        "item-size",
+        "item-icon",
+        "item-avatar",
+        "item-image",
+        "item-group",
+        "item-header",
+        "item-link",
+        "item-dropdown",
+        "item-rtl"
+      ],
+      "alert-dialog": [
+        "alert-dialog-demo",
+        "alert-dialog-basic",
+        "alert-dialog-small",
+        "alert-dialog-media",
+        "alert-dialog-small-media",
+        "alert-dialog-destructive",
+        "alert-dialog-rtl"
+      ],
+      "label": [
+        "label-demo",
+        "field-demo",
+        "label-rtl"
+      ],
+      "sonner": [
+        {
+          "id": "basic",
+          "source": "shadcn/examples/sonner-example.tsx#SonnerBasic",
+          "reference": "shadcn/sonner#SonnerBasic"
+        },
+        {
+          "id": "with-description",
+          "source": "shadcn/examples/sonner-example.tsx#SonnerWithDescription",
+          "reference": "shadcn/sonner#SonnerWithDescription"
+        }
+      ],
+      "hover-card": [
+        "hover-card-demo",
+        "hover-card-sides",
+        "hover-card-rtl"
+      ],
+      "card": [
+        "card-demo",
+        "card-small",
+        "card-spacing",
+        "card-edge-to-edge",
+        "card-image",
+        "card-rtl"
+      ],
+      "context-menu": [
+        "context-menu-demo",
+        "context-menu-basic",
+        "context-menu-submenu",
+        "context-menu-shortcuts",
+        "context-menu-groups",
+        "context-menu-icons",
+        "context-menu-checkboxes",
+        "context-menu-radio",
+        "context-menu-destructive",
+        "context-menu-sides",
+        "context-menu-rtl"
+      ]
+    }
+  },
   "files": {
     "ai_examples/schema-display-nested.tsx": {
       "bytes": 460,
       "sha256": "ab98dc7164806ef482200ac84e860e1655f7047acc9888cf61924358de5bf29f",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/schema-display-nested.tsx"
+    },
+    "shadcn/docs/accordion.mdx": {
+      "bytes": 3358,
+      "sha256": "52d994969582fca0f54ed0ff75ee2fb5b765549f2a87deecf005f16a45691c5e",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/accordion.mdx"
     },
     "ai_examples/mic-selector.tsx": {
       "bytes": 1226,
@@ -20,10 +635,20 @@
       "sha256": "ba9be2fcd4eac13c482f77663f4cca797553e53d2efb9c6dc52eb1e3af9a0d2f",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/badge.tsx"
     },
+    "shadcn/docs/input.mdx": {
+      "bytes": 3766,
+      "sha256": "39c7395ca281c3fc7029159b65b9a08747dc8fca92495ae935a49d5a11cc1225",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/input.mdx"
+    },
     "ai_shadcn/ui/button-group.tsx": {
       "bytes": 2256,
       "sha256": "1b0147f3d6ee8770524363f9bc9a57db83de8d2a0733c6e635e51034219e4c1e",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/button-group.tsx"
+    },
+    "shadcn/docs/select.mdx": {
+      "bytes": 3510,
+      "sha256": "6dfdca0d48c9f77190d5dd7d968abfae8c3d85b751f042503c8d56b4a8b9f7e9",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/select.mdx"
     },
     "ai_elements/reasoning.tsx": {
       "bytes": 6285,
@@ -54,6 +679,11 @@
       "bytes": 3305,
       "sha256": "f4149920c5f869f5f88917f56b68169b02e2043bfc11538a9d27cbddbb740ae8",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/inline-citation.tsx"
+    },
+    "shadcn/docs/dialog.mdx": {
+      "bytes": 2825,
+      "sha256": "9079868107a2eed2486d7529f1f1e358fe58858c73542add3876e93d695b0b76",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/dialog.mdx"
     },
     "ai_shadcn/ui/aspect-ratio.tsx": {
       "bytes": 274,
@@ -110,6 +740,11 @@
       "sha256": "84548a51102c4a12b2a4c43955d9c4d8975aca90bcedff3c383cdb0fed91464c",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/slider.tsx"
     },
+    "shadcn/docs/resizable.mdx": {
+      "bytes": 3430,
+      "sha256": "4d8a3f17dd10ecc0c97ef8e8a7fefd2062af5d3527b2a9d1143b13f15599d24b",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/resizable.mdx"
+    },
     "ai_examples/suggestion.tsx": {
       "bytes": 792,
       "sha256": "758313fdbe2fed04e5edf1cb4d954c1906f148be2226b11131f57f75c0d6d31c",
@@ -139,6 +774,11 @@
       "bytes": 7152,
       "sha256": "7ae44586766db67c5341b36a30340b202e6f45c205457ad98f0817968d162d2c",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/web-preview.tsx"
+    },
+    "shadcn/docs/avatar.mdx": {
+      "bytes": 5208,
+      "sha256": "f0e7a35ef6d6bcd3c74c356e62bec85d071891de7054e525379cbe080b389c12",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/avatar.mdx"
     },
     "ai_shadcn/ui/separator.tsx": {
       "bytes": 708,
@@ -195,15 +835,30 @@
       "sha256": "238ec266c2ce0a1c81e0c2fe2dfb2df2d9f28eeed7cb24ec2bb5cb7e028ed12d",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/web-preview.tsx"
     },
+    "shadcn/docs/carousel.mdx": {
+      "bytes": 7593,
+      "sha256": "42e87e8c7fecc9f7f5fbb1786ca2bdd0af3e97af052529b8b31b07b0cdb2f07b",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/carousel.mdx"
+    },
     "shadcn/ui/alert-dialog.tsx": {
       "bytes": 4061,
       "sha256": "48e4538e028be8b5aa1fe040de0f7ea7a6491e4f31bade2a9622a74500d2b1b3",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/alert-dialog.tsx"
     },
+    "shadcn/docs/toggle.mdx": {
+      "bytes": 1757,
+      "sha256": "a5268565d3c8fa8479a45fec832dbd5870db58a592a3a729ee469d6f26bb10a3",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/toggle.mdx"
+    },
     "base_ui/avatar.md": {
       "bytes": 11659,
       "sha256": "4843f408ba65889f1085b18348400472d5c27fbc491506bb29076d0809a1d22b",
       "url": "https://base-ui.com/react/components/avatar.md"
+    },
+    "shadcn/docs/command.mdx": {
+      "bytes": 3049,
+      "sha256": "44bc1f723bda05d7954a9268697d42c6bf91054d76802fd401ec547ee2bb56c0",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/command.mdx"
     },
     "ai_shadcn/ui/badge.tsx": {
       "bytes": 1666,
@@ -214,6 +869,11 @@
       "bytes": 2282,
       "sha256": "d5178ce4c7834d3f46d261698395b498b8f45fef29975585df7e26cb43aa3cc7",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/sonner.tsx"
+    },
+    "shadcn/examples/sonner-example.tsx": {
+      "bytes": 1043,
+      "sha256": "43627fc677ef32387e313ff12a620068b9e18dc77a184a24a5a15d3eea506676",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/examples/sonner-example.tsx"
     },
     "ai_shadcn/ui/sheet.tsx": {
       "bytes": 4099,
@@ -315,6 +975,11 @@
       "sha256": "5c649409c4c08408959eff5ec43a179ca6f585ec101ca7f8322348510b6b0375",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/persona.tsx"
     },
+    "shadcn/docs/combobox.mdx": {
+      "bytes": 7277,
+      "sha256": "9ebdfbc6857a743beb988ea91c81e7345a659d414ac153a465fcb0efb40884e7",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/combobox.mdx"
+    },
     "ai_examples/model-selector.tsx": {
       "bytes": 8686,
       "sha256": "aad3ca8e0b6e1ad8710c890c88bace8109d958f6329ffcafeaa76416a1a1dd64",
@@ -375,10 +1040,20 @@
       "sha256": "7d8a04464f2f3cbfb4e5b7456d5432d662168ab90468d9683fe9f5a54406aa18",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/demo-workflow.tsx"
     },
+    "shadcn/docs/kbd.mdx": {
+      "bytes": 2280,
+      "sha256": "366fa8fa3ea4c8c0c8f0cfc1824f033fb409a459c83787b3d5264369e61c9b9b",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/kbd.mdx"
+    },
     "ai_elements/test-results.tsx": {
       "bytes": 11478,
       "sha256": "71fb2b77cfa34e6d7d3b1cc06a765622f755bcec193d3d539f4bead0e937f346",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/test-results.tsx"
+    },
+    "shadcn/docs/message-scroller.mdx": {
+      "bytes": 24504,
+      "sha256": "fd16afbed259a2f917c7a598701d2c623c20999eee954afc8e1cbdec7b501c51",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/message-scroller.mdx"
     },
     "ai_elements/open-in-chat.tsx": {
       "bytes": 16654,
@@ -389,6 +1064,11 @@
       "bytes": 8518,
       "sha256": "96ed24154a44297366cbb42104c1dcb18aa2f48d49e6c3829682e23436dce0e9",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/toast.tsx"
+    },
+    "shadcn/docs/checkbox.mdx": {
+      "bytes": 2746,
+      "sha256": "36d0cc475ca4e1b4f501060e1033837d7f6138c4cdbdb43d3d15b1f51dece296",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/checkbox.mdx"
     },
     "shadcn/ui/alert.tsx": {
       "bytes": 1578,
@@ -415,6 +1095,11 @@
       "sha256": "29c20ffb1eb1a3477eb6bd1fd00903bfea151e4d0f637b538163727769e30c7c",
       "url": "https://base-ui.com/react/components/collapsible.md"
     },
+    "shadcn/docs/label.mdx": {
+      "bytes": 1939,
+      "sha256": "7e84849ed5c8f4101e12b79de7567c07c77871f7c59f173b4ea471b3b35d04f0",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/label.mdx"
+    },
     "shadcn/ui/avatar.tsx": {
       "bytes": 2706,
       "sha256": "b159c0a5b7e9ba8a2462c6dddd11c6ab63bd44925203486551eae93250e474bb",
@@ -429,6 +1114,11 @@
       "bytes": 3225,
       "sha256": "4a8243afd661180ac9b0a2f60a4e10c54ae856443876f40070605453a98ba862",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/tabs.tsx"
+    },
+    "shadcn/docs/marker.mdx": {
+      "bytes": 7867,
+      "sha256": "d597f5be129e122e245b0d4782dc1816c6a17908859211b148c4da06d7cb4d08",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/marker.mdx"
     },
     "ai_elements/agent.tsx": {
       "bytes": 4008,
@@ -475,6 +1165,16 @@
       "sha256": "6e5017f85105164b95861b1d10a78c956c312682c5ecd17e2619870ba5993aba",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/artifact.tsx"
     },
+    "shadcn/docs/separator.mdx": {
+      "bytes": 1791,
+      "sha256": "eae95ff0c0e1545b27ce8ab0fc405a7ad9156764a2cc4409ce722e80f92cdd19",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/separator.mdx"
+    },
+    "shadcn/docs/scroll-area.mdx": {
+      "bytes": 1910,
+      "sha256": "4572c57f1f068afb74ee7253a28cdd4ee89256067a805bacb9cee53eced52ebb",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/scroll-area.mdx"
+    },
     "base_ui/progress.md": {
       "bytes": 19660,
       "sha256": "b7dff015a93fb55027da950ce9f0cab4d95352cf1edd8bfb51b2cf26c7d3a0bf",
@@ -484,6 +1184,11 @@
       "bytes": 173760,
       "sha256": "7647aa5cbfcefe22771b4d6f2aa362029be7405396dc6c6e0bf7ee7bc95bc262",
       "url": "https://base-ui.com/react/components/toast.md"
+    },
+    "shadcn/docs/switch.mdx": {
+      "bytes": 2205,
+      "sha256": "0c27f1b62185621184eac1e7471b78d956fba70ad95c5b4a9aba5224a9e8e429",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/switch.mdx"
     },
     "base_ui/dialog.md": {
       "bytes": 171135,
@@ -550,6 +1255,11 @@
       "sha256": "f6d46e4ec7b3225ef772308ac06e1e158ab4628d44a245fdb2f403fcda3ac094",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/question-multi-select.tsx"
     },
+    "shadcn/docs/pagination.mdx": {
+      "bytes": 4637,
+      "sha256": "d362b24d2370df4b957d0f90969d1a1fb13472ea9fb445310dea41d39778742d",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/pagination.mdx"
+    },
     "ai_shadcn/ui/command.tsx": {
       "bytes": 4846,
       "sha256": "53be7fe88f0ddbb2f6d97c64c07c1b4816050494880a582c92c0c3c62117b03c",
@@ -570,10 +1280,73 @@
       "sha256": "2e483ab9425d31f3c5336a5e27323acd244c986f6899e3593e81c9db3cec38e0",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/skeleton.tsx"
     },
+    "shadcn/docs/calendar.mdx": {
+      "bytes": 9586,
+      "sha256": "c9d22ce8f5c3e2229e792099cc5f542f79c715966573887f867035d2c3bc35ff",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/calendar.mdx"
+    },
+    "shadcn/docs/data-table.mdx": {
+      "bytes": 24295,
+      "sha256": "a502d72b8242cb77f724a723a83c684a7738ba9b784b64db6df79111724bc41e",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/data-table.mdx"
+    },
+    "shadcn/docs-meta.json": {
+      "bytes": 1086,
+      "sha256": "71601893b2c88341fe34bba5ad97d443b491b65bf3322593d081378b96ffb421",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/meta.json"
+    },
+    "shadcn/docs/date-picker.mdx": {
+      "bytes": 2991,
+      "sha256": "ece4f9f3e8dc77e96fd79af3d530e79ee2e13a7a465a14923829e226f3d5fda4",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/date-picker.mdx"
+    },
+    "shadcn/docs/typography.mdx": {
+      "bytes": 1571,
+      "sha256": "94675f629d08d41feca386477ee4b66f7e3db551980ea9061ac66d2c699cfd70",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/typography.mdx"
+    },
+    "shadcn/examples/date-picker-basic.tsx": {"bytes": 1156, "sha256": "3a362e0d7d7458fe3a1a6b1267841d83145fa7028d48c14062ccab5c9a168aa2", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-basic.tsx"},
+    "shadcn/examples/date-picker-demo.tsx": {"bytes": 1090, "sha256": "6e2e2191ee17d699aa3821c6fef0ef14401ef0c7a9c59241d3c50b67d71591df", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-demo.tsx"},
+    "shadcn/examples/date-picker-dob.tsx": {"bytes": 1330, "sha256": "55148d52178286a57bca51a6911a76fe2dd568d155e43ddc256f778f14ae6723", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-dob.tsx"},
+    "shadcn/examples/date-picker-input.tsx": {"bytes": 2848, "sha256": "3f9601a170b0dc21996e761f097462bed504e3195fa801d6bcd549b3011a04a6", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-input.tsx"},
+    "shadcn/examples/date-picker-natural-language.tsx": {"bytes": 2837, "sha256": "cab7dd423fa2fe787417204d839edbea27935637e171ea0a72c11abbc0c3de22", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-natural-language.tsx"},
+    "shadcn/examples/date-picker-range.tsx": {"bytes": 1772, "sha256": "d3a623938f4dc9f66cc89295af62947e00ba8813fd845b0fb45f395770bbe140", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-range.tsx"},
+    "shadcn/examples/date-picker-rtl.tsx": {"bytes": 2251, "sha256": "68343f94eaa5e7cf69d7cac4a9388eefebb54a5da7cda0be4621ace06bfe772d", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-rtl.tsx"},
+    "shadcn/examples/date-picker-time.tsx": {"bytes": 2061, "sha256": "4a65399ebf3ddebad365e04d7a876236311fd099dcf67fd64712fc2f704b72a2", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-time.tsx"},
+    "shadcn/examples/typography-blockquote.tsx": {"bytes": 281, "sha256": "91e4005ae86a5df1c80d71e97249b860c2729bfae721d10ea1b66d0481e056b6", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-blockquote.tsx"},
+    "shadcn/examples/typography-demo.tsx": {"bytes": 5511, "sha256": "4fb115115db5f65215a302c5c167ce642ef7f787b6250bf2795029239a7437e6", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-demo.tsx"},
+    "shadcn/examples/typography-h1.tsx": {"bytes": 204, "sha256": "dc9143fa11f2450a3e16b570c63be782381a802413d51e040e176b1ad77a078f", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h1.tsx"},
+    "shadcn/examples/typography-h2.tsx": {"bytes": 188, "sha256": "52b9ba6c96baa968433bd0e364c7cab439f6e375f7e3bce278d3d4dfad06659e", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h2.tsx"},
+    "shadcn/examples/typography-h3.tsx": {"bytes": 150, "sha256": "b7ce0fe42def3d440b0365657bdfb766fdad7b0a489a0d4e9f99bcb823f99d51", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h3.tsx"},
+    "shadcn/examples/typography-h4.tsx": {"bytes": 165, "sha256": "346c7b646ef34a7829c1506206b47687c5ebcad29bc7ea681f696dd7ffebf044", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h4.tsx"},
+    "shadcn/examples/typography-inline-code.tsx": {"bytes": 210, "sha256": "1c584644b11f6dddf958feaf73d1ffc677bb9e7c72cfd92f8b4a434a395ad2ab", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-inline-code.tsx"},
+    "shadcn/examples/typography-large.tsx": {"bytes": 117, "sha256": "a1b93e6aadafcb1d7eae51476293be622439ffcc3b7a7b7496969e1dbc679be3", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-large.tsx"},
+    "shadcn/examples/typography-lead.tsx": {"bytes": 210, "sha256": "656f642e35581509659f87cd8a950e73ce8f1dabfdd6f2d0fa7bef425a7f104a", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-lead.tsx"},
+    "shadcn/examples/typography-list.tsx": {"bytes": 266, "sha256": "b2c2d829405df2950ee050f92ebf12731b990853a4f0fb09af8bcd19ec97b638", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-list.tsx"},
+    "shadcn/examples/typography-muted.tsx": {"bytes": 132, "sha256": "f0dfc348b866bcec400d74230aa0ec67e1a0c67e2c4917887381209b5453cbc0", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-muted.tsx"},
+    "shadcn/examples/typography-p.tsx": {"bytes": 238, "sha256": "7df2b94e75a622f01506d479e443f878e432ecac7ed814337c938a84cf79d8ef", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-p.tsx"},
+    "shadcn/examples/typography-rtl.tsx": {"bytes": 12331, "sha256": "0068016227cdbfb39e1f851b54f62c768fa76fcec1093fb0ca02bd841213f676", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-rtl.tsx"},
+    "shadcn/examples/typography-small.tsx": {"bytes": 131, "sha256": "0a7156d1aa9533d1d99856ec0ac98cb35d8dc0b6b392fed810d8130862149268", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-small.tsx"},
+    "shadcn/examples/typography-table.tsx": {"bytes": 1806, "sha256": "916d4bad2b4b3f13ed4d8aac680c7eab8550e8a91b63fa8bb30ebf46e48715b7", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-table.tsx"},
+    "shadcn/examples/data-table-demo.tsx": {
+      "bytes": 9468,
+      "sha256": "0c866650c361ca0ebc6745ccb2993eef6fb88520abb772a41e631d1ef3505e4e",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/data-table-demo.tsx"
+    },
+    "shadcn/examples/data-table-rtl.tsx": {
+      "bytes": 13335,
+      "sha256": "5634f5b725092e93a5e8e7acc3f41ab44268499216e0de4a36f8e64263e635fc",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/data-table-rtl.tsx"
+    },
     "ai_examples/persona-halo.tsx": {
       "bytes": 2558,
       "sha256": "e28b90a1a9c8437e00b59fd634598a975ee477b2835ec198eb9d7f0e0147e079",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/persona-halo.tsx"
+    },
+    "shadcn/docs/alert.mdx": {
+      "bytes": 3322,
+      "sha256": "e86ac12ea181b073cbe803b4e142dd80aee1e9879c099b5ca704e7ee578f73f7",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/alert.mdx"
     },
     "ai_examples/task.tsx": {
       "bytes": 1497,
@@ -600,6 +1373,11 @@
       "sha256": "9586b99d5117033115082fae79a58008f1383e1c7b391cdfb2353203bd349faf",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/audio-player.tsx"
     },
+    "shadcn/docs/badge.mdx": {
+      "bytes": 2557,
+      "sha256": "1bee6e70606e0c374c84c5294525f876de671fe7d9640eb5d7491741cf48f59f",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/badge.mdx"
+    },
     "base_ui/dropdown-menu.md": {
       "bytes": 244841,
       "sha256": "119837757a89a71d8e0ed68ce021591f32cd1484fb02a73e8ca8170fa2b65d62",
@@ -614,6 +1392,11 @@
       "bytes": 599,
       "sha256": "f4cc7cafbf8f139253a58cd20d6e059f8105462ea1f4119b9a57a2be71a1a033",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/file-tree-expanded.tsx"
+    },
+    "shadcn/docs/breadcrumb.mdx": {
+      "bytes": 4707,
+      "sha256": "1a2c9d53bb192c9cee5ac9e6544a8f464d61f58ef4e0913be41bb0fce7aa7bf1",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/breadcrumb.mdx"
     },
     "ai_examples/reasoning.tsx": {
       "bytes": 2254,
@@ -675,6 +1458,11 @@
       "sha256": "f0ffc739a4fbb40af1a9e7cfc08d0d8d27e1b79b2c6697506655fd5deb07bd52",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/chart.tsx"
     },
+    "shadcn/docs/message.mdx": {
+      "bytes": 7278,
+      "sha256": "e89794ca20b01689aae4cc0028a77ae8e96782846e54993c78f8ac5eee2d4848",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/message.mdx"
+    },
     "ai_elements/message.tsx": {
       "bytes": 8610,
       "sha256": "19c7755740e116f221e4247f7b6d4f20b57a44e4c4fcf66d2db5e1f111476509",
@@ -694,6 +1482,11 @@
       "bytes": 2332,
       "sha256": "aa5457acc4487c798eef71e488b9133e2cae3fd89caf7fa9adb5421634bfedd2",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/speech-input.tsx"
+    },
+    "shadcn/docs/progress.mdx": {
+      "bytes": 2240,
+      "sha256": "41f1a5e3bc0527d2638f5abf12e623d022d1a1ae5d68cfc62eacc0c1ff703372",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/progress.mdx"
     },
     "ai_examples/tool-input-available.tsx": {
       "bytes": 728,
@@ -724,6 +1517,11 @@
       "bytes": 7243,
       "sha256": "63a1cf2cf17c3aabea84bec40d6be317e7d4ba9536a2795e5acc9781906f3c8e",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/voice-selector.tsx"
+    },
+    "shadcn/docs/radio-group.mdx": {
+      "bytes": 2904,
+      "sha256": "2b12455a2651e0fadcbed1ecf01e18dc1f80c3d8c4ab03bc559b2a4d9e23b187",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/radio-group.mdx"
     },
     "shadcn/ui/field.tsx": {
       "bytes": 5367,
@@ -764,6 +1562,11 @@
       "bytes": 3844,
       "sha256": "7cc0befed99499ed9010643e7a90ec619180a3f6e79cba5668cfc84126b96a10",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/confirmation.tsx"
+    },
+    "shadcn/docs/tooltip.mdx": {
+      "bytes": 2940,
+      "sha256": "04e47f5e1b8300ce162e00968760a4c5628feda1cf6682c363e230d176cd68a9",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/tooltip.mdx"
     },
     "ai_shadcn/ui/pagination.tsx": {
       "bytes": 2740,
@@ -850,6 +1653,11 @@
       "sha256": "1454af3ac2c58766a155a881d119d1f9321632a4922d3f74581ba37f52b4707a",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/sources.tsx"
     },
+    "shadcn/docs/field.mdx": {
+      "bytes": 11005,
+      "sha256": "80b9a621fe3cfb41ed49a8afb9df21ef8458b8836f60e9a23fa3ddfcc8a0a6b5",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/field.mdx"
+    },
     "ai_examples/file-tree-selection.tsx": {
       "bytes": 609,
       "sha256": "2b0b2f93e1219e4829458a63fcc40480e1bf87fe652507927a655af2220d0c2c",
@@ -860,10 +1668,20 @@
       "sha256": "3d1ebed4f4685ee7689db9f05c48389df00ec54b28061b7cea2795cf5189199f",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/alert.tsx"
     },
+    "shadcn/docs/item.mdx": {
+      "bytes": 5754,
+      "sha256": "c702f71e9727490b0953a9271824093f2b9adc80e9f165193e66c26f4d5292ff",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/item.mdx"
+    },
     "base_ui/separator.md": {
       "bytes": 8005,
       "sha256": "085ed595788bc62eeb4a0ee080cd854214aea3a4205ec4b9d6648bfa918b0fb7",
       "url": "https://base-ui.com/react/components/separator.md"
+    },
+    "shadcn/docs/tabs.mdx": {
+      "bytes": 2406,
+      "sha256": "dfdad7346332d0dfc9c21cba8325c32833560ec105b04cec89102af79eacd3b9",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/tabs.mdx"
     },
     "shadcn/ui/tooltip.tsx": {
       "bytes": 1989,
@@ -895,6 +1713,11 @@
       "sha256": "d671ee72d47a38110f8e6a57a660f5940add1ede373c7af6ffb3dce458168cf3",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/stack-trace.tsx"
     },
+    "shadcn/docs/menubar.mdx": {
+      "bytes": 3839,
+      "sha256": "18c979d74cacd51bb7c1db36541f2b44606643676a2cf60b6447890c0707eb97",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/menubar.mdx"
+    },
     "ai_examples/terminal-streaming.tsx": {
       "bytes": 997,
       "sha256": "c0051aa1442d11fef881abf80308e547eb25a0d8cfe7de24367ddb78e65ac8f0",
@@ -925,6 +1748,11 @@
       "sha256": "d91041247b3af008bffb070f95f307f1e7cb87982c835b04a4fcb8fcecf4397a",
       "url": "https://base-ui.com/react/components/switch.md"
     },
+    "shadcn/docs/alert-dialog.mdx": {
+      "bytes": 4171,
+      "sha256": "bb4b918855c5bbea6a6bcf0082eb93ceea21a6973ee7e2ba24d40dfe83b5e04a",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/alert-dialog.mdx"
+    },
     "base_ui/tabs.md": {
       "bytes": 46785,
       "sha256": "e8b6a6d4dda126619b989d90b9df597f56f7e64346a374a6a8ccaa5f1ea72fd5",
@@ -940,15 +1768,35 @@
       "sha256": "c516bf105f257e5184d336097125a22a70de15517ed3fea0b8050d7b21c5f67d",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/attachments-list.tsx"
     },
+    "shadcn/docs/native-select.mdx": {
+      "bytes": 3964,
+      "sha256": "8a802399bb9b6de9a663caad3d505acb280d1490774c631f7a60c54767914948",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/native-select.mdx"
+    },
+    "shadcn/docs/aspect-ratio.mdx": {
+      "bytes": 2165,
+      "sha256": "0a248906c3ee2ec5e9f5dc8272b07ce546914114d00fcce6c1912507e3526639",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/aspect-ratio.mdx"
+    },
     "base_ui/direction.md": {
       "bytes": 5470,
       "sha256": "7e3190c679a28f50b82684f9766a16722b6147f6934766ef85acd11303e73577",
       "url": "https://base-ui.com/react/utils/direction-provider.md"
     },
+    "shadcn/docs/chart.mdx": {
+      "bytes": 15941,
+      "sha256": "2d2a256a5fa2f2dd71faabde8f78108910d65a864fc708d015880bd7d45b2043",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/chart.mdx"
+    },
     "ai_elements/inline-citation.tsx": {
       "bytes": 6765,
       "sha256": "c7dc2a67386bc06d23fa42344f48f3b45e51f1f91b22e44801a2902acdf64018",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/inline-citation.tsx"
+    },
+    "shadcn/docs/textarea.mdx": {
+      "bytes": 1989,
+      "sha256": "42887e101023fadc9b8d085a1ae3d4fe91c547285c8381bcf51337eca42c7d5c",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/textarea.mdx"
     },
     "ai_elements/docs-meta.json": {
       "bytes": 309,
@@ -995,6 +1843,11 @@
       "sha256": "3da80a551da8a7eb4949a0b64b5329af463037dc15e6945e60ae66dcd903e71f",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/connection.tsx"
     },
+    "shadcn/docs/table.mdx": {
+      "bytes": 3042,
+      "sha256": "f37ea1e03c099986ec946cdc9eaebbbeee3c4b86bbcefe36a09ed5a96bfb40c5",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/table.mdx"
+    },
     "ai_shadcn/ui/calendar.tsx": {
       "bytes": 7809,
       "sha256": "1ce5e6b5118043191f0e7635a037f0b03bfa0c3f73a56029c6a9799ba26b5421",
@@ -1009,6 +1862,11 @@
       "bytes": 6696,
       "sha256": "a407a77ebee8636f3dccf62a0cd95899a61f84d172517fa2191cd8374698cef3",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/menubar.tsx"
+    },
+    "shadcn/docs/navigation-menu.mdx": {
+      "bytes": 2989,
+      "sha256": "dd2698a2b4d07e0ddecf51415640205b843464cd9802492ee58837b05df88412",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/navigation-menu.mdx"
     },
     "ai_shadcn/ui/navigation-menu.tsx": {
       "bytes": 6672,
@@ -1035,6 +1893,11 @@
       "sha256": "de3d562080b8f4770ea7d33bc6c5dd2d9b7cf0d1a2f37725f4f6079c6ad036b7",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/avatar.tsx"
     },
+    "shadcn/docs/skeleton.mdx": {
+      "bytes": 1474,
+      "sha256": "445325cbc6d390ee38c5a1f3ea38fa4eaaf610d4cc0618e7eb748238815cddee",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/skeleton.mdx"
+    },
     "shadcn/ui/message.tsx": {
       "bytes": 2023,
       "sha256": "197803d433247e93f9b457f66e2c2e94c3bd30280e3079ff342753bba430edc8",
@@ -1044,6 +1907,16 @@
       "bytes": 3642,
       "sha256": "7c1c3be5f743e8651300fa4f3d18201d298dde3ab5e28a3aebd688f2d48b86d3",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/pagination.tsx"
+    },
+    "shadcn/docs/button.mdx": {
+      "bytes": 4195,
+      "sha256": "3580d11761e0cb4f035567ac08dc2d8e8023d8c2fb964bbe163b9111e1892ebd",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/button.mdx"
+    },
+    "shadcn/docs/spinner.mdx": {
+      "bytes": 2486,
+      "sha256": "68be950d436d1d4544f7fbbfa16cd1c0df41422435bba28d36a3d4dee0425faf",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/spinner.mdx"
     },
     "shadcn/ui/input-otp.tsx": {
       "bytes": 2215,
@@ -1085,6 +1958,11 @@
       "sha256": "661ff5b9c0dc26edde1226bfedc0ab50976d84f8bae42ca83a38dc3b478fd4d4",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/direction.tsx"
     },
+    "shadcn/docs/bubble.mdx": {
+      "bytes": 10432,
+      "sha256": "78594d2f236f5618aacd4f9525e95b60d8ea4ff17ddfdfdeb687b967330e379e",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/bubble.mdx"
+    },
     "ai_examples/persona-opal.tsx": {
       "bytes": 2596,
       "sha256": "f42d0042dd32e75bb8c93c6d7b35836dadb513c0fcd30dc820c530fd2f38d79f",
@@ -1125,6 +2003,11 @@
       "sha256": "a4d51f76ddf5197cb86b7f70ba62bd62327468a9acae1351a0b1adcb3710ec0a",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/model-selector.tsx"
     },
+    "shadcn/docs/slider.mdx": {
+      "bytes": 2003,
+      "sha256": "89c1821040576ca8b6156076f7a911c8e7844be8611894babb2fe35f7d627eea",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/slider.mdx"
+    },
     "ai_shadcn/ui/chart.tsx": {
       "bytes": 10083,
       "sha256": "d642ed70c321f0ecb24df0a375cbb73c37074c904aea027aeac6686ba398c65c",
@@ -1150,6 +2033,16 @@
       "sha256": "17944002e0af2c13b36bfb279249ecbde08dcd11ab5f6a3ab7f5e29f3351dc38",
       "url": "https://base-ui.com/react/components/scroll-area.md"
     },
+    "shadcn/docs/empty.mdx": {
+      "bytes": 4618,
+      "sha256": "c5774ea5afe66274441071b1d1ac0491d9335eb171576001413d207649c91934",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/empty.mdx"
+    },
+    "shadcn/docs/input-group.mdx": {
+      "bytes": 7206,
+      "sha256": "4d128cc0ff287ed88396d686c73f2ed02b67fdd8aa1d73a0ab32f34b102f26bb",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/input-group.mdx"
+    },
     "ai_examples/prompt-input-cursor.tsx": {
       "bytes": 15412,
       "sha256": "19e58ff46f85f29872e038212330a1d3b51481cdd85fa48ade6d2b9a6ec63de9",
@@ -1159,6 +2052,11 @@
       "bytes": 423,
       "sha256": "6037c112b43482d06a7f102f715c8af03833073f0db69399a21df92050fcdae6",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/aspect-ratio.tsx"
+    },
+    "shadcn/docs/drawer.mdx": {
+      "bytes": 10288,
+      "sha256": "4f0474a675c714681cbb24f4521556d15f7a3c1d96c2ae1387e5b65505c3a3c3",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/drawer.mdx"
     },
     "ai_shadcn/ui/tooltip.tsx": {
       "bytes": 1901,
@@ -1180,6 +2078,11 @@
       "sha256": "1bc316cb8320bcfbd35b252fb4bd1f1cea3343ae7900d7432734b4f020793a80",
       "url": "https://base-ui.com/react/components/tooltip.md"
     },
+    "shadcn/docs/direction.mdx": {
+      "bytes": 1993,
+      "sha256": "8d589ea68ae084d4d25cf0077be47504b5ef773120b7107017ef0cf9516afe8f",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/direction.mdx"
+    },
     "ai_examples/confirmation.tsx": {
       "bytes": 1697,
       "sha256": "722ddb15e7f64bae6d7b1f48683fdb53fd01cc74d525cb9ca72d7cf8ad1d5353",
@@ -1194,6 +2097,11 @@
       "bytes": 39046,
       "sha256": "cf43baf5baa444b4ae06d250643b3fb2efd329c85f9b31a43e3aaf481dd27305",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/prompt-input.tsx"
+    },
+    "shadcn/docs/questionnaire.mdx": {
+      "bytes": 9354,
+      "sha256": "a92d18daa039a225b5762b79633e284e77b18443768a899c22845eefc814cb78",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/questionnaire.mdx"
     },
     "ai_shadcn/ui/empty.tsx": {
       "bytes": 2410,
@@ -1229,6 +2137,11 @@
       "bytes": 139002,
       "sha256": "fe7869fe6776fd4e2e4663139b7bc5bced33764e66fe0736b72deb70787793b4",
       "url": "https://base-ui.com/react/components/context-menu.md"
+    },
+    "shadcn/docs/toast.mdx": {
+      "bytes": 2647,
+      "sha256": "282db7dad6c7a9abf562aa998f89cf9088e136868fbea9d41fd06ef9615f2ecc",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/toast.mdx"
     },
     "ai_examples/test-results-errors.tsx": {
       "bytes": 1296,
@@ -1290,6 +2203,11 @@
       "sha256": "cf19544ba82d332ce2f882f9ae64d9e848c475f13e79fa0353492f2ce7afe1ef",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/hover-card.tsx"
     },
+    "shadcn/docs/hover-card.mdx": {
+      "bytes": 2635,
+      "sha256": "4f76a01c6949f349749d4975c44260483d4782384608a35582dfa7079c35e97b",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/hover-card.mdx"
+    },
     "ai_shadcn/ui/sidebar.tsx": {
       "bytes": 21825,
       "sha256": "bb4a96e7cf2a3fbf1c0514bbc55c388b8009f07444da8b90f55ba7fddb2e6f75",
@@ -1299,6 +2217,11 @@
       "bytes": 976,
       "sha256": "96207e020d2624fba7241b91a1f2e5a971510003b9c0becc9d0c02a535b15067",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/input.tsx"
+    },
+    "shadcn/docs/dropdown-menu.mdx": {
+      "bytes": 4833,
+      "sha256": "36e21a0f00fb6f808c5ce4af27353f9cbaac4f8d746ada2306f809114826d990",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/dropdown-menu.mdx"
     },
     "shadcn/ui/empty.tsx": {
       "bytes": 2306,
@@ -1350,6 +2273,11 @@
       "sha256": "c13cb31f1df89a32aa5672ddc068437f321ae701f46876ae77d0ba5234b73310",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/confirmation-accepted.tsx"
     },
+    "shadcn/docs/popover.mdx": {
+      "bytes": 2321,
+      "sha256": "ae07e5ab3203d606d8ff804ba3517a43914f7471b0e852ff11e63d03f8b7ccb3",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/popover.mdx"
+    },
     "ai_examples/file-tree-basic.tsx": {
       "bytes": 370,
       "sha256": "52c7fdf5ad9f659860ecd898b495faa6a830fdd1ea7f4c138589d486e4bf1799",
@@ -1374,6 +2302,11 @@
       "bytes": 12845,
       "sha256": "a95df4178538ac35f3d51b5586ed7cccb980d2a15de01b6a9e6d37db9894ad7e",
       "url": "https://base-ui.com/react/components/toggle.md"
+    },
+    "shadcn/docs/context-menu.mdx": {
+      "bytes": 4524,
+      "sha256": "15ad5959bcb215afe5de3fd7d667a3cb9a8869accf7493565f4060b06c820156",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/context-menu.mdx"
     },
     "ai_examples/plan.tsx": {
       "bytes": 1992,
@@ -1420,6 +2353,21 @@
       "sha256": "cc9fb7138ded75f17c37c28a2b23425c98f4d06bead436531ad6e65ae553507e",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/task.tsx"
     },
+    "shadcn/docs/sheet.mdx": {
+      "bytes": 2395,
+      "sha256": "039bf46b0e5bc7a2b7a28831670c41775502b1cf6b40cae60148791892aa62e1",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/sheet.mdx"
+    },
+    "shadcn/docs/input-otp.mdx": {
+      "bytes": 3640,
+      "sha256": "bc3af0765b342e0f40c0ae3aa01bf26effb9a626749b57cd0f1752bd9961fd2b",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/input-otp.mdx"
+    },
+    "shadcn/docs/sidebar.mdx": {
+      "bytes": 18559,
+      "sha256": "3acdf8f48bef3ddbe6a31920106e56ab391ecfce8e4fb2ba93e8858e2790fbc7",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/sidebar.mdx"
+    },
     "base_ui/accordion.md": {
       "bytes": 42068,
       "sha256": "e3e22cc82ffe5b0d2c5662fbbc5950a26d414a2f05e0b0cb0b006a7f379d0971",
@@ -1429,6 +2377,11 @@
       "bytes": 4738,
       "sha256": "3ad88a370242987b0981342fc7e87a7aa7908f3e81282b5a6e69b0c9505abdf0",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/command.tsx"
+    },
+    "shadcn/docs/card.mdx": {
+      "bytes": 7077,
+      "sha256": "a058a2f8a1fdfaece149524fa4bf6466b0af831276d25489f918f6ceb4c10c0c",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/card.mdx"
     },
     "ai_examples/prompt-input-tooltip.tsx": {
       "bytes": 1098,
@@ -1450,10 +2403,20 @@
       "sha256": "d6443a767b07bacf553340fc8f199aef3161f08f12709663bc74ff119d776c38",
       "url": "https://base-ui.com/react/components/alert-dialog.md"
     },
+    "shadcn/docs/button-group.mdx": {
+      "bytes": 5510,
+      "sha256": "5a955ee44d95ea6e1d10a3c549f8f6fa13ce3da32714a7e375a5e85e3f23b97e",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/button-group.mdx"
+    },
     "ai_examples/environment-variables.tsx": {
       "bytes": 1725,
       "sha256": "7afa286ac6b489fdd4cc1fb0debd242e083f266822b2de8e729cbeb9267b599e",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/environment-variables.tsx"
+    },
+    "shadcn/docs/collapsible.mdx": {
+      "bytes": 2755,
+      "sha256": "0aa7f2c4943d0b12c6329964b0ca052096b7895befcf6d195ddad309f9d26926",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/collapsible.mdx"
     },
     "ai_examples/terminal-basic.tsx": {
       "bytes": 159,
@@ -1479,6 +2442,11 @@
       "bytes": 11558,
       "sha256": "a330174924c1c354e7093a323bba536a453f59f02d15c047187783cedb36bd46",
       "url": "https://base-ui.com/react/components/button.md"
+    },
+    "shadcn/docs/toggle-group.mdx": {
+      "bytes": 2784,
+      "sha256": "7be06167d743c4454bea5a8ec24d7ebbb8f330c749aa2fabfc31d537e2e2e1e6",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/toggle-group.mdx"
     },
     "ai_elements/question.tsx": {
       "bytes": 7333,
@@ -1534,6 +2502,11 @@
       "bytes": 3223,
       "sha256": "f7929c87f5f2828d9e5cf65b9dffd73dec0a0fc8c8c0dce8f7ef55e33b610049",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/edge.tsx"
+    },
+    "shadcn/docs/attachment.mdx": {
+      "bytes": 10092,
+      "sha256": "1fe065378f7929d12d4b85c0472cc72543173d206e691ac32aaec07a25d95764",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/attachment.mdx"
     }
   },
   "generated_by": "mix ui.fetch",
@@ -1632,6 +2605,8 @@
     },
     "shadcn": {
       "dir": "apps/v4/registry/bases/base/ui",
+      "docs_dir": "apps/v4/content/docs/components/base",
+      "examples_dir": "apps/v4/examples/base",
       "ref": "503a3a57aec9a3817e37f90aa0817b1fabd284d0",
       "repo": "shadcn-ui/ui"
     }

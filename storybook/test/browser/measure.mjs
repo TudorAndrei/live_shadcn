@@ -74,6 +74,13 @@ export const SEMANTIC_ATTRIBUTES = [
   "aria-readonly",
   "aria-required",
   "aria-selected",
+  "aria-valuemax",
+  "aria-valuemin",
+  "aria-valuenow",
+  "aria-valuetext",
+  "data-complete",
+  "data-indeterminate",
+  "data-progressing",
   "disabled",
 ];
 
@@ -88,31 +95,94 @@ export function collect({ selector, properties, attributes }) {
   const seen = new Map();
   const found = [];
   const portaledParts = new Set([
+    "drawer-overlay",
+    "drawer-popup",
     "dropdown-menu-sub-content",
     "menubar-content",
     "navigation-menu-content",
+    "tooltip-content",
   ]);
 
   const round = (n) => Math.round(n * 100) / 100;
 
-  const record = (child, path) => {
+  const normaliseClassName = (value) =>
+    value.split(/\s+/).filter(Boolean).sort().join(" ");
+
+  function hiddenInDocumentTree(element) {
+    for (let node = element; node; node = node.parentElement) {
+      if (node.hidden) return true;
+    }
+
+    return false;
+  }
+
+  function authoredAutoMargins(element, direction) {
+    const margins = { top: false, right: false, bottom: false, left: false };
+    const classes = element.classList;
+    const has = (name) => classes.contains(name);
+
+    if (has("m-auto")) {
+      margins.top = true;
+      margins.right = true;
+      margins.bottom = true;
+      margins.left = true;
+    }
+
+    if (has("mx-auto")) {
+      margins.right = true;
+      margins.left = true;
+    }
+
+    if (has("ml-auto")) margins.left = true;
+    if (has("mr-auto")) margins.right = true;
+
+    if (has("ms-auto")) {
+      margins[direction === "rtl" ? "right" : "left"] = true;
+    }
+
+    if (has("me-auto")) {
+      margins[direction === "rtl" ? "left" : "right"] = true;
+    }
+
+    return margins;
+  }
+
+  const record = (child, path, context) => {
     // Hidden nodes have no visual or accessibility presence. LiveView keeps
     // them ready for a client-side state change; Base UI can unmount them.
     // Compare the state a reader can see, not that implementation detail.
-    if (child.hidden) return;
+    if (hiddenInDocumentTree(child)) return;
 
+    const style = getComputedStyle(child);
+    const skipped = skippedAutoContentVisibility(child, style);
     const slot = child.getAttribute("data-slot");
+    const isScrollViewport = ["auto", "scroll"].includes(style.overflowY);
+    const insideScrollViewport = context.insideScrollViewport || isScrollViewport;
+    const lazyBox =
+      insideScrollViewport && !context.geometryOmitted && style.contentVisibility === "auto"
+        ? child.getBoundingClientRect()
+        : null;
+    const offscreenLazyItem = Boolean(
+      lazyBox &&
+      context.scrollViewportBox &&
+      (lazyBox.bottom <= context.scrollViewportBox.top || lazyBox.top >= context.scrollViewportBox.bottom),
+    );
+    const geometryOmitted = context.geometryOmitted || offscreenLazyItem;
     const transport = slot?.endsWith("-portal") || slot === "drawer-viewport";
     const here = slot && !transport
       ? portaledParts.has(slot)
         ? [slot]
         : [...path, slot]
       : path;
+    const box =
+      geometryOmitted ? null : lazyBox || child.getBoundingClientRect();
 
     // A portal is a transport wrapper, not a visible component part. React
     // mounts it beside the preview root, while LiveView keeps it in the root,
     // so its host box is different by design. Its children are compared as
     // component parts, without this renderer-specific wrapper in their path.
+    let entry = null;
+
     if (slot && !transport) {
       // A component draws three badges and each is `badge`. The path says
       // where in the anatomy an element sits; the count says which of the
@@ -121,45 +191,103 @@ export function collect({ selector, properties, attributes }) {
       const at = seen.get(name) ?? 0;
       seen.set(name, at + 1);
 
-      const box = child.getBoundingClientRect();
-      const style = getComputedStyle(child);
-
-      found.push({
+      entry = {
         slot: at === 0 ? name : `${name} #${at + 1}`,
-        box: {
+        box: box && {
           x: round(box.x - origin.x),
           y: round(box.y - origin.y),
           width: round(box.width),
           height: round(box.height),
         },
+        geometryOmitted,
+        lazyOffscreenDescendant: false,
         style: Object.fromEntries(properties.map((p) => [p, style.getPropertyValue(p)])),
+        // A logical auto margin can resolve to different physical pixel values
+        // when the two otherwise-identical renderers have different layout
+        // contexts. The box records the visual result. Keep the authored
+        // intent too, so `compare` can distinguish that case from a real
+        // margin difference.
+        autoMargins: authoredAutoMargins(child, style.direction),
         semantic: {
           tag: child.tagName.toLowerCase(),
           role: child.getAttribute("role") || "",
-          text: ownSlotText(child),
+          text: geometryOmitted ? ownSlotTextWithoutGeometry(child) : skipped ? "" : ownSlotText(child),
+          className: normaliseClassName(child.getAttribute("class") || ""),
+          rendering: {
+            contentVisibility: style.contentVisibility,
+            containIntrinsicSize: style.containIntrinsicSize,
+          },
           states: Object.fromEntries(
             attributes.map((attribute) => [attribute, child.getAttribute(attribute) || ""]),
           ),
         },
+      };
+
+      found.push(entry);
+    }
+
+    const scrollViewport = isScrollViewport ? child : context.scrollViewport;
+    const scrollViewportBox = isScrollViewport ? box : context.scrollViewportBox;
+    const scrollContent =
+      child.parentElement === context.scrollViewport && slot?.endsWith("-content")
+        ? entry
+        : context.scrollContent;
+
+    if (geometryOmitted && scrollContent) scrollContent.lazyOffscreenDescendant = true;
+
+    // Off-screen `content-visibility:auto` descendants do not paint. Reading
+    // their ranges here would activate them and change the page being tested.
+    if (!skipped || geometryOmitted) {
+      walk(child, here, {
+        insideScrollViewport,
+        geometryOmitted,
+        scrollViewport,
+        scrollViewportBox,
+        scrollContent,
       });
     }
-
-    walk(child, here);
   };
 
-  const walk = (element, path) => {
+  function skippedAutoContentVisibility(element, style) {
+    if (
+      style.contentVisibility !== "auto" ||
+      typeof element.checkVisibility !== "function"
+    ) {
+      return false;
+    }
+
+    try {
+      return !element.checkVisibility({ contentVisibilityAuto: true });
+    } catch {
+      return false;
+    }
+  }
+
+  const walk = (element, path, context) => {
     for (const child of element.children) {
-      record(child, path);
+      record(child, path, context);
     }
   };
 
-  walk(root, []);
+  walk(root, [], {
+    insideScrollViewport: false,
+    geometryOmitted: false,
+    scrollViewport: null,
+    scrollViewportBox: null,
+    scrollContent: null,
+  });
 
   // React portals live beside the preview root. Their slots still belong to
   // this example and need the same origin as the inline LiveView equivalent.
   for (const portal of document.querySelectorAll("[data-slot]")) {
     if (!root.contains(portal) && !portal.parentElement?.closest("[data-slot]")) {
-      record(portal, []);
+      record(portal, [], {
+        insideScrollViewport: false,
+        geometryOmitted: false,
+        scrollViewport: null,
+        scrollViewportBox: null,
+        scrollContent: null,
+      });
     }
   }
 
@@ -204,6 +332,39 @@ export function collect({ selector, properties, attributes }) {
       }, "")
       .replace(/\s+/g, " ")
       .trim();
+  }
+
+  function ownSlotTextWithoutGeometry(element) {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const parts = [];
+
+    while (walker.nextNode()) {
+      if (walker.currentNode.parentElement?.closest("select")) continue;
+
+      const owner = walker.currentNode.parentElement?.closest("[data-slot]");
+      if (owner === element && visibleTextWithoutGeometry(walker.currentNode, element)) {
+        parts.push(walker.currentNode.textContent || "");
+      }
+    }
+
+    return parts.join(" ").replace(/\s+/g, " ").trim();
+  }
+
+  function visibleTextWithoutGeometry(textNode, boundary) {
+    for (
+      let node = textNode.parentElement;
+      node && boundary.contains(node);
+      node = node.parentElement
+    ) {
+      if (node.hidden || node.getAttribute("role") === "presentation") return false;
+
+      const style = getComputedStyle(node);
+      if (style.display === "none" || style.visibility === "hidden") return false;
+
+      if (node === boundary) break;
+    }
+
+    return true;
   }
 
   function visibleText(textNode, boundary) {
@@ -265,6 +426,9 @@ export function outline({ selector, limit }) {
     // that would otherwise head every report of every failing example.
     if (element.hidden || screenReaderOnly(element, box)) return;
 
+    const style = getComputedStyle(element);
+    const skipped = skippedAutoContentVisibility(element, style);
+
     rows.push({
       depth,
       tag: element.tagName.toLowerCase(),
@@ -273,12 +437,33 @@ export function outline({ selector, limit }) {
       height: round(box.height),
       // Leaf text only. An ancestor's `textContent` is every descendant's, and
       // repeating it on the way down buries the row that actually holds it.
-      text: element.children.length === 0 ? element.textContent.trim().slice(0, 40) : "",
+      text:
+        !skipped && element.children.length === 0
+          ? element.textContent.trim().slice(0, 40)
+          : "",
       class: element.getAttribute("class") || "",
     });
 
-    for (const child of element.children) walk(child, depth + 1);
+    // Do not activate content that the browser intentionally skipped.
+    if (!skipped) {
+      for (const child of element.children) walk(child, depth + 1);
+    }
   };
+
+  function skippedAutoContentVisibility(element, style) {
+    if (
+      style.contentVisibility !== "auto" ||
+      typeof element.checkVisibility !== "function"
+    ) {
+      return false;
+    }
+
+    try {
+      return !element.checkVisibility({ contentVisibilityAuto: true });
+    } catch {
+      return false;
+    }
+  }
 
   // Clipped to nothing, in a box no bigger than a pixel. That is what every
   // `sr-only` utility comes down to, whichever of the two spellings it uses.
@@ -346,13 +531,23 @@ export function compare(react, phoenix) {
     const b = right.get(slot);
     if (!b) continue;
 
-    for (const [what, value] of Object.entries(a.box)) {
-      if (Math.abs(value - b.box[what]) > TOLERANCE) {
-        differences.push({ slot, property: what, react: value, phoenix: b.box[what] });
+    if (a.box == null || b.box == null) {
+      if (!(a.geometryOmitted && b.geometryOmitted)) {
+        differences.push({ slot, property: "box", react: a.box, phoenix: b.box });
+      }
+    } else {
+      for (const [what, value] of Object.entries(a.box)) {
+        if (omitsGeometry(what, slot, a, b, left, right)) continue;
+
+        if (Math.abs(value - b.box[what]) > TOLERANCE) {
+          differences.push({ slot, property: what, react: value, phoenix: b.box[what] });
+        }
       }
     }
 
     for (const [what, value] of Object.entries(a.style)) {
+      if (sameAuthoredAutoMargin(what, a, b)) continue;
+
       // Browsers keep a default width and colour for an outline whose style is
       // `none`. Those dormant values do not paint. Compare the active outline
       // contract, but do not fail because two engines keep different unused
@@ -371,12 +566,31 @@ export function compare(react, phoenix) {
       }
     }
 
-    for (const what of ["tag", "role", "text"]) {
+    for (const what of ["tag", "role", "text", "className"]) {
       const value = a.semantic?.[what] ?? "";
       const next = b.semantic?.[what] ?? "";
 
       if (value !== next) {
-        differences.push({ slot, property: what, react: value, phoenix: next });
+        differences.push({
+          slot,
+          property: what === "className" ? "class" : what,
+          react: value,
+          phoenix: next,
+        });
+      }
+    }
+
+    for (const what of ["contentVisibility", "containIntrinsicSize"]) {
+      const value = a.semantic?.rendering?.[what] ?? "";
+      const next = b.semantic?.rendering?.[what] ?? "";
+
+      if (value !== next) {
+        differences.push({
+          slot,
+          property: what === "contentVisibility" ? "content-visibility" : "contain-intrinsic-size",
+          react: value,
+          phoenix: next,
+        });
       }
     }
 
@@ -396,6 +610,44 @@ export function compare(react, phoenix) {
   }
 
   return differences;
+}
+
+function omitsGeometry(property, slot, react, phoenix, left, right) {
+  if (!["y", "height"].includes(property)) return false;
+
+  if (react.geometryOmitted && phoenix.geometryOmitted) return true;
+
+  if (!react.lazyOffscreenDescendant || !phoenix.lazyOffscreenDescendant) return false;
+
+  return !hasVisibleDescendantGeometryDifference(slot, left, right);
+}
+
+function hasVisibleDescendantGeometryDifference(slot, react, phoenix) {
+  const prefix = `${slot} > `;
+
+  for (const [descendantSlot, left] of react) {
+    if (!descendantSlot.startsWith(prefix)) continue;
+
+    const right = phoenix.get(descendantSlot);
+    if (!right || left.geometryOmitted || right.geometryOmitted) continue;
+
+    for (const property of ["y", "height"]) {
+      if (Math.abs(left.box?.[property] - right.box?.[property]) > TOLERANCE) return true;
+    }
+  }
+
+  return false;
+}
+
+function sameAuthoredAutoMargin(property, left, right) {
+  const side = {
+    "margin-top": "top",
+    "margin-right": "right",
+    "margin-bottom": "bottom",
+    "margin-left": "left",
+  }[property];
+
+  return side != null && left.autoMargins?.[side] === true && right.autoMargins?.[side] === true;
 }
 
 function normaliseStyle(property, value) {

@@ -43,8 +43,8 @@ function componentFor(name: string) {
   return icon;
 }
 
-/** One lucide icon by its kebab-case name, hidden from assistive technology. */
+/** One lucide icon by its kebab-case name. Lucide sets its own ARIA default. */
 export function Icon({ name, ...props }: IconProps) {
   const Component = componentFor(name);
-  return <Component aria-hidden="true" {...props} />;
+  return <Component {...props} />;
 }

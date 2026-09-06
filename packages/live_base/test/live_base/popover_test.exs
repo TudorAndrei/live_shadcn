@@ -26,4 +26,19 @@ defmodule LiveBase.PopoverTest do
       end
     end
   end
+
+  test "open can retain the keyboard focus that invoked it" do
+    command = Popover.open(%Phoenix.LiveView.JS{}, "date-picker-input", focus: false)
+
+    assert trigger_targets(command) == List.duplicate("#date-picker-input-trigger", 3)
+    refute Enum.any?(ops(command), fn [kind | _] -> kind == "focus" end)
+  end
+
+  describe "attributes the client owns" do
+    test "the trigger keeps aria controls across a server render" do
+      assert [["ignore_attrs", %{attrs: attrs}]] = ops(Popover.owned_attributes(:trigger))
+
+      assert attrs == ["aria-controls", "aria-expanded", "data-popup-open", "data-pressed"]
+    end
+  end
 end

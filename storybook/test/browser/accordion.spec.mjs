@@ -22,19 +22,17 @@ const item = (page, id) => ({
 
 test.describe("a set of panels, one open at a time", () => {
   test.beforeEach(async ({ page }) => {
-    await visit(page, "/preview/accordion/default", "#faq");
+    await visit(page, "/preview/accordion/default", "#accordion-default");
   });
 
-  test("every panel starts closed and hidden", async ({ page }) => {
-    for (const id of ["faq-what", "faq-start", "faq-use"]) {
-      const { trigger, panel } = item(page, id);
-      await expect(trigger).toHaveAttribute("aria-expanded", "false");
-      await expect(panel).toBeHidden();
-    }
+  test("the official default panel starts open", async ({ page }) => {
+    const shipping = item(page, "accordion-shipping");
+    await expect(shipping.trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(shipping.panel).toBeVisible();
   });
 
   test("a click opens the panel and says so", async ({ page }) => {
-    const { trigger, panel } = item(page, "faq-what");
+    const { trigger, panel } = item(page, "accordion-returns");
 
     await trigger.click();
 
@@ -45,7 +43,7 @@ test.describe("a set of panels, one open at a time", () => {
   });
 
   test("a second click closes it again", async ({ page }) => {
-    const { trigger, panel } = item(page, "faq-what");
+    const { trigger, panel } = item(page, "accordion-returns");
 
     await trigger.click();
     await expect(panel).toBeVisible();
@@ -56,10 +54,8 @@ test.describe("a set of panels, one open at a time", () => {
   });
 
   test("opening one panel closes the one before it", async ({ page }) => {
-    const first = item(page, "faq-what");
-    const second = item(page, "faq-start");
-
-    await first.trigger.click();
+    const first = item(page, "accordion-shipping");
+    const second = item(page, "accordion-returns");
     await expect(first.panel).toBeVisible();
 
     await second.trigger.click();
@@ -70,9 +66,7 @@ test.describe("a set of panels, one open at a time", () => {
   });
 
   test("the open panel is measured, which is what the class strings ask for", async ({ page }) => {
-    const { trigger, panel } = item(page, "faq-what");
-
-    await trigger.click();
+    const { panel } = item(page, "accordion-shipping");
     await expect(panel).toBeVisible();
 
     const height = await panel.evaluate((el) =>
@@ -83,9 +77,7 @@ test.describe("a set of panels, one open at a time", () => {
   });
 
   test("the panel takes the height it was measured at", async ({ page }) => {
-    const { trigger, panel } = item(page, "faq-what");
-
-    await trigger.click();
+    const { panel } = item(page, "accordion-shipping");
     await expect(panel).toBeVisible();
 
     const box = await panel.boundingBox();
@@ -95,58 +87,53 @@ test.describe("a set of panels, one open at a time", () => {
 
 test.describe("keyboard", () => {
   test.beforeEach(async ({ page }) => {
-    await visit(page, "/preview/accordion/default", "#faq");
+    await visit(page, "/preview/accordion/default", "#accordion-default");
   });
 
   test("each trigger is reachable by Tab, in document order", async ({ page }) => {
     await page.keyboard.press("Tab");
-    await expect(page.locator("#faq-what-trigger")).toBeFocused();
+    await expect(page.locator("#accordion-shipping-trigger")).toBeFocused();
 
     await page.keyboard.press("Tab");
-    await expect(page.locator("#faq-start-trigger")).toBeFocused();
+    await expect(page.locator("#accordion-returns-trigger")).toBeFocused();
   });
 
   test("Enter opens the focused panel", async ({ page }) => {
-    await page.locator("#faq-what-trigger").focus();
+    await page.locator("#accordion-returns-trigger").focus();
     await page.keyboard.press("Enter");
 
-    await expect(page.locator("#faq-what-panel")).toBeVisible();
+    await expect(page.locator("#accordion-returns-panel")).toBeVisible();
   });
 
   test("Space opens the focused panel", async ({ page }) => {
-    await page.locator("#faq-start-trigger").focus();
+    await page.locator("#accordion-support-trigger").focus();
     await page.keyboard.press(" ");
 
-    await expect(page.locator("#faq-start-panel")).toBeVisible();
+    await expect(page.locator("#accordion-support-panel")).toBeVisible();
   });
 });
 
 test.describe("several panels at once", () => {
   test("multiple leaves the other panels alone", async ({ page }) => {
     await visit(page, "/preview/accordion/multiple");
-    const added = item(page, "release-added");
-    const changed = item(page, "release-changed");
+    const notifications = item(page, "accordion-notifications");
+    const privacy = item(page, "accordion-privacy");
 
-    await added.trigger.click();
-    await changed.trigger.click();
+    await expect(notifications.panel).toBeVisible();
+    await privacy.trigger.click();
 
-    await expect(added.panel).toBeVisible();
-    await expect(changed.panel).toBeVisible();
+    await expect(notifications.panel).toBeVisible();
+    await expect(privacy.panel).toBeVisible();
   });
 });
 
 test.describe("open and disabled", () => {
   test.beforeEach(async ({ page }) => {
-    await visit(page, "/preview/accordion/states", "#states");
-  });
-
-  test("an item that starts open is readable straight away", async ({ page }) => {
-    await expect(page.locator("#states-open-panel")).toBeVisible();
-    await expect(page.locator("#states-open-trigger")).toHaveAttribute("aria-expanded", "true");
+    await visit(page, "/preview/accordion/disabled", "#accordion-disabled");
   });
 
   test("a disabled item does not open", async ({ page }) => {
-    const disabled = item(page, "states-disabled");
+    const disabled = item(page, "accordion-disabled-2");
 
     // `"true"`, not presence. ARIA defines the value, and Tailwind compiles
     // `aria-disabled:` to `[aria-disabled="true"]` — so written as a bare
@@ -161,13 +148,13 @@ test.describe("open and disabled", () => {
   test("a disabled trigger is still reachable, which is why it is not a disabled button", async ({
     page,
   }) => {
-    await page.locator("#states-disabled-trigger").focus();
-    await expect(page.locator("#states-disabled-trigger")).toBeFocused();
+    await page.locator("#accordion-disabled-2-trigger").focus();
+    await expect(page.locator("#accordion-disabled-2-trigger")).toBeFocused();
   });
 });
 
 test.describe("accessibility", () => {
-  for (const example of ["default", "multiple", "states"]) {
+  for (const example of ["default", "basic", "multiple", "disabled", "borders", "card", "rtl"]) {
     test(`${example} has no axe-core violations, closed or open`, async ({ page }) => {
       await visit(page, `/preview/accordion/${example}`, "[data-preview='accordion']");
 

@@ -17,6 +17,8 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const upstream = join(here, "..", "..", "registry", "upstream", "shadcn");
 const target = join(here, "css", "upstream");
+const fontSource = join(here, "node_modules", "@fontsource-variable", "vazirmatn", "files");
+const fontTarget = join(here, "..", "priv", "static", "assets", "files");
 
 const sources = [
   ["theme", "the design tokens every rule resolves against"],
@@ -37,3 +39,12 @@ mkdirSync(target, { recursive: true });
 for (const [dir] of sources) {
   cpSync(join(upstream, dir), join(target, dir), { recursive: true });
 }
+
+if (!existsSync(fontSource)) {
+  console.error("\nMissing @fontsource-variable/vazirmatn.\n\nRun `npm install` in storybook/assets first.\n");
+  process.exit(1);
+}
+
+rmSync(fontTarget, { recursive: true, force: true });
+mkdirSync(fontTarget, { recursive: true });
+cpSync(fontSource, fontTarget, { recursive: true });

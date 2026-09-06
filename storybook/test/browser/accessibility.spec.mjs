@@ -1,9 +1,12 @@
-// Every preview page, compared with its pinned upstream page through axe-core.
+// Every preview page has an axe-core check. Official pages compare against the
+// pinned upstream page. Declared local-only pages have no official comparison,
+// so they must have no local markup violation.
 //
 // A component with no behaviour still has an accessibility contract, and this
 // is the check that applies to all of them: the markup a reader gets, in a real
-// browser, with a real accessibility tree. A port can inherit an upstream
-// violation, but it cannot add one or increase its affected node count.
+// browser, with a real accessibility tree. A port with an official page can
+// inherit an upstream violation only at the same axe target. A local-only page
+// must have no violations.
 //
 // Components that also have behaviour get a suite of their own beside this one.
 // This file never replaces that; it is the floor, not the ceiling.
@@ -16,18 +19,43 @@ import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+import { regressions } from "./accessibility.mjs";
 import { connected } from "./live.mjs";
+import {
+  enterVisualState,
+  visualStateIdentity,
+  visualStates,
+  waitForTimedExample,
+} from "./visual-states.mjs";
 
 const only = process.env.PREVIEW_COMPONENT;
+const onlyExample = process.env.PREVIEW_EXAMPLE;
+const selectedExamples = new Set(
+  (process.env.PREVIEW_EXAMPLES || "").split(",").filter(Boolean),
+);
+const selected = new Set(
+  (process.env.PREVIEW_COMPONENTS || "").split(",").filter(Boolean),
+);
 
 // Written by `mix snapshot`, and read here rather than fetched: Playwright
 // collects tests before it starts the server.
 const index = join(dirname(fileURLToPath(import.meta.url)), "../../../registry/snapshot/index.json");
 const previews = JSON.parse(readFileSync(index, "utf8"));
+const aiAudit = JSON.parse(
+  readFileSync(join(dirname(fileURLToPath(import.meta.url)), "ai-component-audit.json"), "utf8"),
+);
+const localOnly = new Set(
+  Object.entries(aiAudit).flatMap(([component, contract]) =>
+    (contract.local_only_examples || []).map((example) => `${component}.${example}`),
+  ),
+);
 
 const pages = Object.entries(previews)
   .filter(([component]) => !only || component === only)
-  .flatMap(([component, examples]) => examples.map((example) => ({ component, example })));
+  .filter(([component]) => selected.size === 0 || selected.has(component))
+  .flatMap(([component, examples]) => examples.map((example) => ({ component, example })))
+  .filter(({ example }) => selectedExamples.size === 0 || selectedExamples.has(example))
+  .filter(({ example }) => !onlyExample || example === onlyExample);
 
 if (pages.length === 0) {
   test("there is an example to check", () => {
@@ -39,60 +67,65 @@ if (pages.length === 0) {
   });
 }
 
-// Contrast is a property of the palette, and the palette is shadcn's. A
-// reviewed port reproduces upstream's colours faithfully. These violations
-// are reported and do not fail the run. Other violations fail only when the
-// port adds affected nodes compared with the pinned upstream page.
-const PALETTE = ["color-contrast"];
-const PAGE_CHROME = ["page-has-heading-one"];
-
 for (const { component, example } of pages) {
-  test(`${component} / ${example} has the upstream accessibility contract`, async (
+  const hasLocalOnlyPolicy = localOnly.has(`${component}.${example}`);
+  const contract = hasLocalOnlyPolicy ? "local accessibility" : "upstream accessibility";
+
+  test(`${component} / ${example} has the ${contract} contract`, async (
     { page },
     testInfo,
   ) => {
     const path = `/preview/${component}/${example}`;
     const selector = `[data-preview='${component}']`;
-    const upstream = await scan(page, `${testInfo.project.use.parityURL}${path}`, selector);
-    const port = await scan(page, path, selector, true);
-    const [palette, markup] = partition(port, (v) => PALETTE.includes(v.id));
 
-    for (const violation of palette) {
-      for (const node of violation.nodes) {
-        console.log(`  upstream palette — ${component}/${example}: ${first(node)}`);
+    if (hasLocalOnlyPolicy) {
+      const portStates = await statesAt(page, path, selector, true);
+
+      for (const state of portStates) {
+        const port = await scan(page, path, selector, state, true);
+        expect(port, `${component}/${example}/${state.name} has an accessibility violation`).toEqual([]);
       }
+
+      return;
     }
 
-    expect(regressions(markup, upstream)).toEqual([]);
+    const upstreamURL = `${testInfo.project.use.parityURL}${path}`;
+    const upstreamStates = await statesAt(page, upstreamURL, selector);
+    const portStates = await statesAt(page, path, selector, true);
+
+    expect(portStates.map(visualStateIdentity)).toEqual(upstreamStates.map(visualStateIdentity));
+
+    const added = [];
+
+    for (const state of upstreamStates) {
+      const upstream = await scan(page, upstreamURL, selector, state);
+      const port = await scan(page, path, selector, state, true);
+      added.push(...regressions(port, upstream).map((failure) => `${state.name}: ${failure}`));
+    }
+
+    expect(added).toEqual([]);
   });
 }
 
-async function scan(page, url, selector, live = false) {
+async function statesAt(page, url, selector, live = false) {
+  await page.goto(url);
+  if (live) await connected(page);
+  return visualStates(page, selector);
+}
+
+async function scan(page, url, selector, state, live = false) {
   await page.goto(url);
   if (live) await connected(page);
   // A preview can contain only fixed, absolute children. It is then present
   // in the accessibility tree but has no box of its own to make visible.
   await expect(page.locator(selector)).toBeAttached();
-  return (await new AxeBuilder({ page }).analyze()).violations;
-}
+  await enterVisualState(page, selector, state);
+  await waitForTimedExample(page, selector);
 
-function regressions(port, upstream) {
-  const allowed = new Map(upstream.map(({ id, nodes }) => [id, nodes.length]));
-
-  return port
-    .filter(({ id }) => !PAGE_CHROME.includes(id))
-    .filter(({ id, nodes }) => nodes.length > (allowed.get(id) || 0))
-    .map(
-      ({ id, help, nodes }) =>
-        `${id}: ${help} (${nodes.length} in port, ${allowed.get(id) || 0} upstream)`,
-    )
-    .sort();
-}
-
-function partition(items, predicate) {
-  return [items.filter(predicate), items.filter((item) => !predicate(item))];
-}
-
-function first(node) {
-  return (node.any?.[0]?.message || node.failureSummary || "").split("\n")[0];
+  return (
+    await new AxeBuilder({ page })
+      .include(selector)
+      .include("[data-slot]")
+      .analyze()
+  ).violations;
 }

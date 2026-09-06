@@ -37,7 +37,6 @@ defmodule Mix.Tasks.Ui.Status do
   use Mix.Task
 
   import LiveShadcnTools
-
   alias LiveShadcnTools.VerificationPolicy
 
   @statuses [:planned, :fetched, :spec, :generated, :failed, :local_only, :no_dom, :verified]
@@ -51,6 +50,12 @@ defmodule Mix.Tasks.Ui.Status do
     inventory = read_json!(registry_path("INVENTORY.json"))
     {components, added} = merge_upstream(inventory["components"])
 
+    # Docs-only families do not have a registry primitive and therefore do not
+    # appear in INVENTORY.md. They still need the same completed browser
+    # evidence as a primitive. Check their records here so CI cannot accept a
+    # missing, stale, failed, or incomplete docs-only verification.
+    docs_only_gaps = docs_only_verification_gaps()
+
     if added != [] do
       Mix.shell().info(
         "new upstream components added to the inventory: #{Enum.join(added, ", ")}"
@@ -63,6 +68,12 @@ defmodule Mix.Tasks.Ui.Status do
     path = Path.join([repo_root(), "docs", "INVENTORY.md"])
 
     cond do
+      check? and docs_only_gaps != [] ->
+        Mix.raise(
+          "docs-only families are not currently verified: #{Enum.join(docs_only_gaps, ", ")}. " <>
+            "Run `mix ui.verify #{Enum.map_join(docs_only_gaps, " ", &String.replace_prefix(&1, "shadcn/", ""))}`."
+        )
+
       not check? ->
         write!(path, rendered)
         Mix.shell().info("wrote docs/INVENTORY.md (#{length(components)} components)")
@@ -146,6 +157,31 @@ defmodule Mix.Tasks.Ui.Status do
     end
   end
 
+  @doc false
+  def docs_only_verification_gaps(root \\ repo_root()) do
+    verify_path = Path.join([root, "registry", "VERIFY.json"])
+    verify = if File.exists?(verify_path), do: read_json!(verify_path), else: %{}
+
+    root
+    |> docs_only_shadcn_families()
+    |> Enum.map(&ref("shadcn", &1))
+    |> Enum.reject(&docs_only_verified?(verify, root, &1))
+  end
+
+  defp docs_only_verified?(verify, root, reference) do
+    {source, name} = parse_ref(reference)
+    policy = verification_policy(source, name, root)
+
+    with %{"pass" => true, "checks" => checks} = result <- Map.get(verify, reference),
+         true <- is_nil(result["spec"]),
+         true <- result["evidence"] == verification_evidence_digest(source, name, root),
+         true <- verified_checks?(source, policy, checks) do
+      true
+    else
+      _ -> false
+    end
+  end
+
   defp generated?(source, name), do: File.exists?(module_path(source, name))
 
   # A pass counts only while it is a pass about the spec on disk. `mix ui.verify`
@@ -154,12 +190,19 @@ defmodule Mix.Tasks.Ui.Status do
   defp verified?(source, name) do
     verify = registry_path("VERIFY.json")
     spec = spec_path(source, name)
+    policy = verification_policy(source, name)
 
-    with true <- File.exists?(verify) and File.exists?(spec),
-         result when is_map(result) <- get_in(read_json!(verify), [ref(source, name)]),
-         true <- spec |> read_json!() |> reviewed_contract?(),
-         policy = VerificationPolicy.get(source, name) do
-      result["pass"] == true and result["spec"] == digest(File.read!(spec)) and
+    with true <- File.exists?(verify),
+         result when is_map(result) <- get_in(read_json!(verify), [ref(source, name)]) do
+      current_target =
+        if policy.kind == :docs_only do
+          is_nil(result["spec"])
+        else
+          File.exists?(spec) and result["spec"] == digest(File.read!(spec)) and
+            reviewed_contract?(read_json!(spec))
+        end
+
+      result["pass"] == true and current_target and
         result["evidence"] == verification_evidence_digest(source, name) and
         verified_checks?(source, policy, result["checks"])
     else
@@ -172,12 +215,26 @@ defmodule Mix.Tasks.Ui.Status do
 
     with true <- File.exists?(verify),
          result when is_map(result) <- get_in(read_json!(verify), [ref(source, name)]) do
-      result["pass"] == false or
-        (result["pass"] == true and
-           not verified_checks?(source, VerificationPolicy.get(source, name), result["checks"]))
+      verification_failed?(result, verification_current?(source, name, result))
     else
       _ -> false
     end
+  end
+
+  defp verification_current?(source, name, result) do
+    spec = spec_path(source, name)
+
+    policy = verification_policy(source, name)
+
+    current_target =
+      if policy.kind == :docs_only do
+        is_nil(result["spec"])
+      else
+        File.exists?(spec) and result["spec"] == digest(File.read!(spec)) and
+          reviewed_contract?(read_json!(spec))
+      end
+
+    current_target and result["evidence"] == verification_evidence_digest(source, name)
   end
 
   defp render(inventory, components) do

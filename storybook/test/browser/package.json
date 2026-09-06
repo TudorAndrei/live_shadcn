@@ -4,7 +4,7 @@
   "type": "module",
   "description": "The browser half of `mix ui.verify`: behaviour parity and accessibility.",
   "scripts": {
-    "verify": "playwright test",
+    "verify": "node verify.mjs",
     "verify:install": "playwright install --with-deps chromium"
   },
   "devDependencies": {

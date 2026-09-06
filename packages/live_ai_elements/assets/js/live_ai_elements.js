@@ -13,6 +13,7 @@
 // markup cannot collide with a hook of your own.
 
 import { Delta, DELTA_EVENT } from "./delta.js";
+import { installAttachmentRemove } from "./attachment_remove.js";
 import { FileTree } from "./file_tree.js";
 import { MicSelector } from "./mic_selector.js";
 import { Persona } from "./persona.js";
@@ -21,6 +22,8 @@ import { Question } from "./question.js";
 import { SpeechInput } from "./speech_input.js";
 import { Transcription } from "./transcription.js";
 import { WebPreview } from "./web_preview.js";
+
+installAttachmentRemove();
 
 export const hooks = {
   "LiveAiElements.Delta": Delta,

@@ -10,12 +10,15 @@ defmodule LiveShadcn.UI.AlertDialog do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
+    "jsx/AlertDialogAction/class/0" => "cn-alert-dialog-action",
+    "jsx/AlertDialogCancel/class/0" => "cn-alert-dialog-cancel",
     "jsx/AlertDialogContent/class/0" =>
       "cn-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 outline-none",
     "jsx/AlertDialogDescription/class/0" => "cn-alert-dialog-description",
     "jsx/AlertDialogFooter/class/0" =>
       "cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
     "jsx/AlertDialogHeader/class/0" => "cn-alert-dialog-header",
+    "jsx/AlertDialogMedia/class/0" => "cn-alert-dialog-media",
     "jsx/AlertDialogOverlay/class/0" => "cn-alert-dialog-overlay fixed inset-0 isolate z-50",
     "jsx/AlertDialogTitle/class/0" => "cn-alert-dialog-title cn-font-heading"
   }
@@ -25,6 +28,7 @@ defmodule LiveShadcn.UI.AlertDialog do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   alias LiveBase.Dialog
+  alias LiveShadcn.UI.Button
 
   @doc """
   Groups all parts of the alert dialog.
@@ -42,8 +46,8 @@ defmodule LiveShadcn.UI.AlertDialog do
   """
   attr(:id, :string, required: true, doc: "Every id inside the dialog derives from it.")
   attr(:open, :boolean, default: false, doc: "Whether it starts open.")
-  attr(:alert, :boolean, default: false, doc: "An alert dialog interrupts; a dialog does not.")
-  attr(:dismissable, :boolean, default: true, doc: "Whether Escape and the backdrop close it.")
+  attr(:alert, :boolean, default: true, doc: "An alert dialog interrupts; a dialog does not.")
+  attr(:dismissable, :boolean, default: false, doc: "Whether Escape and the backdrop close it.")
   attr(:disabled, :boolean, default: false, doc: "Whether the trigger refuses interaction.")
 
   attr(:show_close_button, :boolean,
@@ -55,17 +59,35 @@ defmodule LiveShadcn.UI.AlertDialog do
   attr(:overlay_class, :any, default: nil)
   attr(:cancel_class, :any, default: nil)
   attr(:description_class, :any, default: nil)
+  attr(:footer_class, :any, default: nil)
+  attr(:header_class, :any, default: nil)
   attr(:portal_class, :any, default: nil)
   attr(:title_class, :any, default: nil)
   attr(:trigger_class, :any, default: nil)
+
+  attr(:trigger_variant, :string,
+    default: nil,
+    values: [nil, "default", "destructive", "outline", "secondary", "ghost", "link"]
+  )
+
+  attr(:trigger_size, :string,
+    default: "default",
+    values: ["default", "xs", "sm", "lg", "icon", "icon-xs", "icon-sm", "icon-lg"]
+  )
+
   attr(:size, :string, default: "default")
   attr(:rest, :global)
 
   slot(:trigger, required: true, doc: "What opens it.")
+
+  slot :media, doc: "An icon or other visual shown above the title." do
+    attr(:class, :any)
+  end
+
   slot(:title, doc: "What names it. Required for a dialog to be announced.")
   slot(:description, doc: "What describes it, beyond the title.")
   slot(:footer, doc: "Actions, along the bottom.")
-  slot(:inner_block, required: true, doc: "The dialog's body.")
+  slot(:inner_block, doc: "The dialog's body.")
 
   def alert_dialog(assigns) do
     ~H"""
@@ -73,13 +95,15 @@ defmodule LiveShadcn.UI.AlertDialog do
       data-slot="alert-dialog-trigger"
       id={Dialog.trigger_id(@id)}
       type="button"
+      disabled={@disabled}
       aria-haspopup="dialog"
       aria-expanded={to_string(@open)}
       aria-controls={Dialog.popup_id(@id)}
-      phx-click={Dialog.open(@id)}
+      phx-click={if(not @disabled, do: Dialog.open(@id))}
       phx-mounted={Dialog.owned_attributes(:trigger)}
       data-popup-open={flag(@open)}
       data-disabled={flag(@disabled)}
+      class={trigger_classes(@trigger_variant, @trigger_size, @trigger_class)}
     >
       {render_slot(@trigger)}
     </button>
@@ -116,8 +140,19 @@ defmodule LiveShadcn.UI.AlertDialog do
         upstream_fact("jsx/AlertDialogContent/class/0"),
         (@class || "")
       ]}
+      {@rest}
     >
-      <div data-slot="alert-dialog-header" class={upstream_fact("jsx/AlertDialogHeader/class/0")}>
+      <div
+        data-slot="alert-dialog-header"
+        class={[upstream_fact("jsx/AlertDialogHeader/class/0"), @header_class]}
+      >
+        <div
+          :for={media <- @media}
+          data-slot="alert-dialog-media"
+          class={[upstream_fact("jsx/AlertDialogMedia/class/0"), media[:class]]}
+        >
+          {render_slot(media)}
+        </div>
         <h2
           data-slot="alert-dialog-title"
           id={Dialog.title_id(@id)}
@@ -137,7 +172,7 @@ defmodule LiveShadcn.UI.AlertDialog do
       <div
         :if={@footer != []}
         data-slot="alert-dialog-footer"
-        class={upstream_fact("jsx/AlertDialogFooter/class/0")}
+        class={[upstream_fact("jsx/AlertDialogFooter/class/0"), @footer_class]}
       >
         {render_slot(@footer)}
       </div>
@@ -145,6 +180,61 @@ defmodule LiveShadcn.UI.AlertDialog do
     """
   end
 
+  @doc "The primary action in an alert dialog."
+  attr(:variant, :string, default: "default")
+  attr(:size, :string, default: "default")
+  attr(:class, :any, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block)
+
+  def alert_dialog_action(assigns) do
+    ~H"""
+    <Button.button
+      data-slot="alert-dialog-action"
+      variant={@variant}
+      size={@size}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/AlertDialogAction/class/0"), @class])}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </Button.button>
+    """
+  end
+
+  @doc "A button that closes an alert dialog without the primary action."
+  attr(:for, :string, required: true, doc: "The alert dialog id.")
+  attr(:variant, :string, default: "outline")
+  attr(:size, :string, default: "default")
+  attr(:class, :any, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block)
+
+  def alert_dialog_cancel(assigns) do
+    ~H"""
+    <Button.button
+      data-slot="alert-dialog-cancel"
+      variant={@variant}
+      size={@size}
+      phx-click={Dialog.close(@for)}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/AlertDialogCancel/class/0"), @class])}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </Button.button>
+    """
+  end
+
   defp flag(true), do: ""
   defp flag(_state), do: nil
+
+  defp trigger_classes(nil, _size, class), do: class
+
+  defp trigger_classes(variant, size, class) do
+    LiveShadcn.Cn.merge([
+      Button.part_class("button"),
+      Button.variant_class("buttonVariants", "variant", variant),
+      Button.variant_class("buttonVariants", "size", size),
+      class
+    ])
+  end
 end

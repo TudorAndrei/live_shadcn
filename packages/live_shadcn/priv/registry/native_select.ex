@@ -22,11 +22,12 @@ defmodule LiveShadcn.UI.NativeSelect do
   Module.get_attribute(__MODULE__, :upstream_facts)
 
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
+  defp merged_class(parts), do: LiveShadcn.Cn.merge(parts)
 
   @doc "The `native-select-wrapper` part."
   attr(:size, :string, default: "default", values: ["sm", "default"])
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot", "name", "multiple", "size", "disabled", "required"])
+  attr(:rest, :global, include: ["data-slot", "form", "name", "multiple", "size", "disabled", "required"])
   slot(:inner_block)
 
   def native_select(assigns) do
@@ -34,10 +35,10 @@ defmodule LiveShadcn.UI.NativeSelect do
     <div
       data-slot="native-select-wrapper"
       data-size={@size}
-      class={[
+      class={merged_class([
         upstream_fact("jsx/NativeSelect/class/0"),
-        (@class || "")
-      ]}
+        @class
+      ])}
     >
       <select
         data-slot={@rest[:"data-slot"] || "native-select"}
@@ -59,14 +60,14 @@ defmodule LiveShadcn.UI.NativeSelect do
   @doc "The `native-select-optgroup` part."
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
-  attr(:rest, :global, include: ["data-slot"])
+  attr(:rest, :global, include: ["data-slot", "label", "disabled"])
   slot(:inner_block)
 
   def native_select_opt_group(assigns) do
     ~H"""
     <optgroup
       data-slot={@rest[:"data-slot"] || "native-select-optgroup"}
-      class={[upstream_fact("jsx/NativeSelectOptGroup/class/0"), (@class || "")]}
+      class={merged_class([upstream_fact("jsx/NativeSelectOptGroup/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -84,7 +85,7 @@ defmodule LiveShadcn.UI.NativeSelect do
     ~H"""
     <option
       data-slot={@rest[:"data-slot"] || "native-select-option"}
-      class={[upstream_fact("jsx/NativeSelectOptGroup/class/0"), (@class || "")]}
+      class={merged_class([upstream_fact("jsx/NativeSelectOptGroup/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

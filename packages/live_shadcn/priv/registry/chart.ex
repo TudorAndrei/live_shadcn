@@ -14,12 +14,22 @@ defmodule LiveShadcn.UI.Chart do
     "jsx/ChartLegendContent/class/2" => "pt-3",
     "jsx/ChartLegendContent/class/3" =>
       "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
+    "jsx/ChartLegendContent/class/4" => "h-2 w-2 shrink-0 rounded-[2px]",
     "jsx/ChartTooltipContent/class/0" => "font-medium",
+    "jsx/ChartTooltipContent/class/1" => "font-medium",
     "jsx/ChartTooltipContent/class/10" => "grid gap-1.5",
     "jsx/ChartTooltipContent/class/11" => "text-muted-foreground",
     "jsx/ChartTooltipContent/class/12" => "font-mono font-medium text-foreground tabular-nums",
     "jsx/ChartTooltipContent/class/2" => "cn-chart-tooltip grid min-w-32 items-start",
-    "port/class/0" => "flex items-center justify-between gap-2"
+    "jsx/ChartTooltipContent/class/3" => "grid gap-1.5",
+    "jsx/ChartTooltipContent/class/4" =>
+      "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
+    "jsx/ChartTooltipContent/class/5" => "items-center",
+    "jsx/ChartTooltipContent/class/6" =>
+      "shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)",
+    "jsx/ChartTooltipContent/class/7" => "flex flex-1 justify-between leading-none",
+    "jsx/ChartTooltipContent/class/8" => "items-end",
+    "jsx/ChartTooltipContent/class/9" => "items-center"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)
@@ -39,10 +49,10 @@ defmodule LiveShadcn.UI.Chart do
     <div
       data-slot="chart"
       data-chart={"chart-" <> @id}
-      class={[
+      class={LiveShadcn.Cn.merge([
         upstream_fact("jsx/ChartContainer/class/0"),
-        (@class || "")
-      ]}
+        @class || ""
+      ])}
       {@rest}
     >
       <%!-- `<%= %>` rather than `{…}`. A `<style>` is a raw-text element and
@@ -59,18 +69,78 @@ defmodule LiveShadcn.UI.Chart do
   end
 
   attr(:label, :string, default: nil)
+  attr(:indicator, :string, default: "dot", values: ["dot", "line", "dashed"])
+  attr(:hide_label, :boolean, default: false)
+  attr(:hide_indicator, :boolean, default: false)
+  attr(:label_class, :any, default: nil)
   attr(:class, :any, default: nil)
-  slot(:item)
+
+  slot(:item) do
+    attr(:label, :string)
+    attr(:color, :string)
+  end
 
   def chart_tooltip_content(assigns) do
+    assigns =
+      assign(assigns, :nest_label, length(assigns.item) == 1 and assigns.indicator != "dot")
+
     ~H"""
-    <div data-slot="chart-tooltip" class={[upstream_fact("jsx/ChartTooltipContent/class/2"), (@class || "")]}>
-      <p :if={@label} class={upstream_fact("jsx/ChartTooltipContent/class/0")}>{@label}</p>
-      <div class={upstream_fact("jsx/ChartTooltipContent/class/10")}>
-        <div :for={item <- @item} class={upstream_fact("port/class/0")}>
-          <span class={upstream_fact("jsx/ChartTooltipContent/class/11")}>{item[:label]}</span><span class={upstream_fact("jsx/ChartTooltipContent/class/12")}>{render_slot(
-            item
-          )}</span>
+    <div class={
+      LiveShadcn.Cn.merge([upstream_fact("jsx/ChartTooltipContent/class/2"), @class || ""])
+    }>
+      <div
+        :if={@label && !@hide_label && !@nest_label}
+        class={
+          LiveShadcn.Cn.merge([
+            upstream_fact("jsx/ChartTooltipContent/class/0"),
+            @label_class
+          ])
+        }
+      >
+        {@label}
+      </div>
+      <div class={upstream_fact("jsx/ChartTooltipContent/class/3")}>
+        <div
+          :for={item <- @item}
+          class={LiveShadcn.Cn.merge([
+            upstream_fact("jsx/ChartTooltipContent/class/4"),
+            @indicator == "dot" && upstream_fact("jsx/ChartTooltipContent/class/5")
+          ])}
+        >
+          <div
+            :if={!@hide_indicator}
+            class={LiveShadcn.Cn.merge([
+              upstream_fact("jsx/ChartTooltipContent/class/6"),
+              @indicator == "dot" && "h-2.5 w-2.5",
+              @indicator == "line" && "w-1",
+              @indicator == "dashed" && "w-0 border-[1.5px] border-dashed bg-transparent",
+              @nest_label && @indicator == "dashed" && "my-0.5"
+            ])}
+            style={"--color-bg: #{item[:color]}; --color-border: #{item[:color]};"}
+          />
+          <div class={LiveShadcn.Cn.merge([
+            upstream_fact("jsx/ChartTooltipContent/class/7"),
+            if(@nest_label,
+              do: upstream_fact("jsx/ChartTooltipContent/class/8"),
+              else: upstream_fact("jsx/ChartTooltipContent/class/9")
+            )
+          ])}>
+            <div class={upstream_fact("jsx/ChartTooltipContent/class/10")}>
+              <div
+                :if={@label && !@hide_label && @nest_label}
+                class={
+                  LiveShadcn.Cn.merge([
+                    upstream_fact("jsx/ChartTooltipContent/class/1"),
+                    @label_class
+                  ])
+                }
+              >
+                {@label}
+              </div>
+              <span class={upstream_fact("jsx/ChartTooltipContent/class/11")}>{item[:label]}</span>
+            </div>
+            <span class={upstream_fact("jsx/ChartTooltipContent/class/12")}>{render_slot(item)}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -79,24 +149,30 @@ defmodule LiveShadcn.UI.Chart do
 
   attr(:vertical_align, :string, default: "bottom", values: ["top", "bottom"])
   attr(:class, :any, default: nil)
-  slot(:item)
+
+  slot(:item) do
+    attr(:color, :string)
+  end
 
   def chart_legend_content(assigns) do
     ~H"""
-    <div
-      data-slot="chart-legend"
-      class={[
-        upstream_fact("jsx/ChartLegendContent/class/0"),
-        if(@vertical_align == "top", do: upstream_fact("jsx/ChartLegendContent/class/1"), else: upstream_fact("jsx/ChartLegendContent/class/2")),
-        (@class || "")
-      ]}
-    >
+    <div class={LiveShadcn.Cn.merge([
+      upstream_fact("jsx/ChartLegendContent/class/0"),
+      if(@vertical_align == "top",
+        do: upstream_fact("jsx/ChartLegendContent/class/1"),
+        else: upstream_fact("jsx/ChartLegendContent/class/2")
+      ),
+      @class || ""
+    ])}>
       <span
         :for={item <- @item}
         class={upstream_fact("jsx/ChartLegendContent/class/3")}
-      ><span class="size-2 rounded-sm" style={"background: " <> (item[:color] || "currentColor")}></span>{render_slot(
-        item
-      )}</span>
+      >
+        <span
+          class={upstream_fact("jsx/ChartLegendContent/class/4")}
+          style={"background-color: " <> (item[:color] || "currentColor")}
+        />{render_slot(item)}
+      </span>
     </div>
     """
   end
