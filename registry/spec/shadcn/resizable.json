@@ -3,24 +3,24 @@
   "bindings": {
     "copy": [
       "jsx/ResizableHandle/class/0",
-      "jsx/ResizableHandle/class/1"
+      "jsx/ResizableHandle/class/1",
+      "jsx/ResizablePanelGroup/class/0"
     ],
     "derived": {}
   },
   "css_vars": [],
   "facts": {
     "jsx/ResizableHandle/class/0": "cn-resizable-handle relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90",
-    "jsx/ResizableHandle/class/1": "cn-resizable-handle-icon z-10 flex shrink-0"
+    "jsx/ResizableHandle/class/1": "cn-resizable-handle-icon z-10 flex shrink-0",
+    "jsx/ResizablePanelGroup/class/0": "cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col"
   },
   "file_fingerprints": {
     "shadcn/ui/resizable.tsx": "b75cd1201723c1ea9423fec1193088160c681d69065791dc4d8cf2e9b8663495"
   },
   "fingerprint": "3fe4da093fe3b204f5d3e33dd37219f51caa25eaf2c6ad859d8778e343a6e789",
-  "ignored": {
-    "jsx/ResizablePanelGroup/class/0": "the generated port does not contain this source literal"
-  },
+  "ignored": {},
   "name": "resizable",
-  "port_body": "35d855f9f3e7e720da25290703041241db16d78e0f5ff91a4da2bbd84518a838",
+  "port_body": "a91eb052ff955e209c09754b78f8760435c8c5e68ccafd44d54b5086d2868fb2",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -32,6 +32,10 @@
     {
       "name": "aria-orientation",
       "value": "horizontal"
+    },
+    {
+      "name": "aria-orientation",
+      "value": "vertical"
     }
   ],
   "styles": {
@@ -52,6 +56,7 @@
   },
   "uses": [
     "jsx/ResizableHandle/class/0",
-    "jsx/ResizableHandle/class/1"
+    "jsx/ResizableHandle/class/1",
+    "jsx/ResizablePanelGroup/class/0"
   ]
 }
