@@ -16,7 +16,8 @@ defmodule LiveShadcn.UI.NativeSelect do
       "cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed",
     "jsx/NativeSelect/class/2" =>
       "cn-native-select-icon pointer-events-none absolute select-none",
-    "jsx/NativeSelectOptGroup/class/0" => "bg-[Canvas] text-[CanvasText]"
+    "jsx/NativeSelectOptGroup/class/0" => "bg-[Canvas] text-[CanvasText]",
+    "jsx/NativeSelectOption/class/0" => "bg-[Canvas] text-[CanvasText]"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)
@@ -67,7 +68,7 @@ defmodule LiveShadcn.UI.NativeSelect do
     ~H"""
     <optgroup
       data-slot={@rest[:"data-slot"] || "native-select-optgroup"}
-      class={merged_class([upstream_fact("jsx/NativeSelectOptGroup/class/0"), @class])}
+      class={merged_class([upstream_fact("jsx/NativeSelectOption/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
