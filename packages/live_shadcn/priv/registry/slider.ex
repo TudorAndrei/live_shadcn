@@ -40,7 +40,7 @@ defmodule LiveShadcn.UI.Slider do
   attr(:name, :string, default: nil, doc: "What the form submits every value under.")
 
   attr(:value, :any,
-    default: [50],
+    default: nil,
     doc: "A scalar makes one thumb. A list supplies one value per thumb."
   )
 
@@ -60,8 +60,12 @@ defmodule LiveShadcn.UI.Slider do
   attr(:rest, :global)
 
   def slider(assigns) do
-    scalar? = not is_list(assigns.value)
-    values = if scalar?, do: [assigns.value], else: assigns.value
+    {scalar?, values} =
+      case assigns.value do
+        nil -> {false, [assigns.min, assigns.max]}
+        value when is_list(value) -> {false, value}
+        value -> {true, [value]}
+      end
 
     assigns =
       assigns
