@@ -38,6 +38,7 @@ defmodule Storybook.MixProject do
 
   defp deps do
     [
+      {:live_shadcn_verification, path: "../tools/verification"},
       {:live_base, path: "../packages/live_base"},
       {:live_shadcn, path: "../packages/live_shadcn"},
       {:live_ai_elements, path: "../packages/live_ai_elements"},

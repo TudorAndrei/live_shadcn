@@ -1,167 +1,119 @@
-# TODO: replace TSX generation with port synchronization
+# TODO: shadcn parity and verification badges
 
-This checklist follows [PLAN.md](PLAN.md). Complete one phase, run its checks,
-and make its listed commit before work starts on the next phase.
+Follow [PLAN.md](PLAN.md). Phase 1 complete. Complete each phase,
+run its checks, and make its exact commit before starting the next phase.
 
-## Phase 1: add the read-only synchronizer
+## Phase 1: share shadcn evidence evaluation
 
-- [x] Add batched Oxc fact extraction in `tools/priv/facts.mjs`.
-- [x] Add `LiveShadcnTools.Converter.sync/1` in
-      `tools/lib/live_shadcn_tools/converter.ex`.
-- [x] Define stable keys, source spans, the structural fingerprint, the version
-      2 contract, and the marked fact block.
-- [x] Keep class and CVA literals as the only automatic source changes.
-- [x] Return manual drift for state-read, JSX, export, prop-flow, hook, context,
-      portal, primitive import, and Base UI contract changes.
-- [x] Add `tools/test/converter_test.exs` at the external interface.
-- [x] Verify that the same input returns identical contract and port bytes.
-- [x] Verify that this phase does not change any existing spec or port.
-- [x] Run `cd tools && mix test`.
-- [x] Run `cd tools && mix check`.
-- [x] Commit: `feat(converter): classify safe upstream changes`
+- [x] Add private `tools/verification/` project and fixture tests.
+- [x] Add tools/Storybook path dependencies and private-project CI checks.
+- [x] Share shadcn identity and evaluation across tools, status, and Docs.
+- [x] Preserve producer digest bytes during extraction and preserve the AI path.
+- [x] Test primitive, documentation-family, No DOM, missing, and stale records.
+- [x] Prove both adapters match independent expected results.
+- [x] Run private-project, tools identity/policy, and Storybook status tests.
+- [ ] Commit: `refactor(verification): share shadcn evidence evaluation`
 
-## Phase 2: prove the contract with three ports
+## Phase 2: bind current inputs to badges
 
-- [x] Add temporary version routing to `Mix.Tasks.Ui.Spec` and
-      `Mix.Tasks.Ui.Gen`.
-- [x] Add a checked migration helper for old specs and generated modules.
-- [x] Convert `registry/spec/shadcn/button.json` and
-      `packages/live_shadcn/priv/registry/button.ex`.
-- [x] Convert `registry/spec/shadcn/dialog.json` and
-      `packages/live_shadcn/priv/registry/dialog.ex`.
-- [x] Convert `registry/spec/shadcn/calendar.json` and
-      `packages/live_shadcn/priv/registry/calendar.ex`.
-- [x] Verify that class text, class order, CVA defaults, and CVA values do not
-      change.
-- [x] Verify that all three ports keep their compile-time `attr` and `slot`
-      declarations.
-- [x] Run `cd tools && mix test`.
-- [x] Run `cd tools && mix ui.gen --check button dialog calendar`.
-- [x] Run `cd packages/live_shadcn && mix test`.
-- [x] Run `cd storybook && mix snapshot --check button dialog calendar`.
-- [x] Run the browser, accessibility, React parity, and pixel checks for
-      `button`, `dialog`, and `calendar`.
-- [x] Count the new production lines. Stop if the count is above 1,650 or if the
-      converter needs a general expression IR.
-- [x] Commit: `refactor(registry): prove fact-backed ports on three modules`
+- [ ] Version identity and include runtime, dependency, and verifier inputs.
+- [ ] Test changed hooks, CSS, references, shims, locks, port dependencies,
+  and file sets.
+- [ ] Test equal identities for prepared and clean-checkout fixtures.
+- [ ] Check fetched bytes against committed digests during preparation.
+- [ ] Capture identity at test start and reject changes before publication.
+- [ ] Implement Verified, Failed, Stale, Not verified, and No DOM decisions.
+- [ ] Distinguish failure from skipped, incomplete, and diagnostic checks.
+- [ ] Update both badge locations and add readable per-check reasons.
+- [ ] Test all badge states against independent expected fixtures.
+- [ ] Test reload after evidence changes and added/deleted inputs.
+- [ ] Check builder inputs and compiled results in a clean temporary build.
+- [ ] Run shared-project, tools, and Storybook focused tests.
+- [ ] Commit: `fix(verification): bind shadcn badges to current pipeline evidence`
 
-## Phase 3: migrate all verified ports
+## Phase 3: validate reports and reject partial verification
 
-- [x] Convert every remaining verified shadcn port and contract to version 2.
-- [x] Convert every remaining verified AI Elements port and contract to version
-      2.
-- [x] Keep the two fetched entries at their current stage.
-- [x] Check that every extracted fact has a binding or an ignored reason.
-- [x] Check that every bound old fact matches its current port value.
-- [x] Check that every fact block has canonical key order and stable bytes.
-- [x] Update `LiveShadcnTools.Drift` for version 2 contracts.
-- [x] Run `cd tools && mix test`.
-- [x] Run `cd tools && mix ui.spec --check --source shadcn` after
-      `mix ui.fetch`.
-- [x] Run `cd tools && mix ui.spec --check --source ai_elements` after
-      `mix ui.fetch`.
-- [x] Run `cd tools && mix ui.gen --check` while the dual path still exists.
-- [x] Run `cd packages/live_base && mix test`.
-- [x] Run `cd packages/live_shadcn && mix test`.
-- [x] Run `cd packages/live_ai_elements && mix test`.
-- [x] Run all storybook snapshots.
-- [x] Run the full browser, accessibility, React parity, and pixel suite.
-- [x] Run `cd tools && mix ui.verify` for all changed contracts.
-- [x] Run `cd tools && mix ui.status` and confirm that all 109 verified entries
-      remain verified.
-- [x] Commit: `refactor(registry): migrate verified modules to fact-backed ports`
+- [ ] Produce reports with test-time identity, scope, layer, states, and completion.
+- [ ] Use one identity implementation for direct and managed execution.
+- [ ] Validate identity, ownership, layer, examples, states, and global errors.
+- [ ] Reject old raw reports with a rerun reason.
+- [ ] Reject diagnostic filters in evidence runs and reject partial imports.
+- [ ] Preserve complete-example batches and require all required batches.
+- [ ] Keep validation, merge, and publication under the verifier lock.
+- [ ] Test source changes, wrong ownership/layer, top-level errors,
+  and missing states.
+- [ ] Test valid multi-batch completion and safe rejection of invalid imports.
+- [ ] Run tools report/import tests and all browser helper tests.
+- [ ] Run a complete shadcn batch through direct and managed execution.
+- [ ] Commit: `fix(verification): reject stale and partial browser reports`
 
-## Phase 4: switch the maintainer workflow
+## Phase 4: capture overflow and preserve pixel diagnostics
 
-- [x] Remove old-spec routing from `Mix.Tasks.Ui.Spec`.
-- [x] Add `mix ui.spec --check --offline`.
-- [x] Make full-registry writes all-or-nothing.
-- [x] Change `Mix.Tasks.Ui.Verify.generated_check/1` to the offline spec check.
-- [x] Change `.github/workflows/ci.yml` to the offline spec check.
-- [x] Remove `mix ui.gen` from `.github/workflows/sync-upstream.yml`.
-- [x] Make the sync workflow stop before writes on manual structural drift.
-- [x] Keep separate source checks for shadcn and AI Elements.
-- [x] Update `Mix.Tasks.Ui.Status` for the version 2 contract digest where
-      required.
-- [x] Run `cd tools && mix test`.
-- [x] Run `cd tools && mix ui.spec --check --offline` without
-      `registry/upstream/`.
-- [x] Run both fetched-source checks.
-- [x] Run `cd tools && mix ui.status --check`.
-- [x] Commit: `refactor(tools): switch registry updates to port synchronization`
+- [ ] Include visible unslotted overflow in `paintedBoxInDocument`.
+- [ ] Preserve page-chrome, hidden-content, clipping, portal, and lazy-layout rules.
+- [ ] Add a browser case where changed overflow must produce a pixel difference.
+- [ ] Test nested overflow, portals, clipping, and hidden descendants.
+- [ ] Handle null boxes in `localise` and preserve unmatched pixel counts.
+- [ ] Run `shoot.test.mjs` and all browser helper tests.
+- [ ] Run scoped parity/pixel checks for dialog, popover, tooltip, toast, and message-scroller.
+- [ ] Commit: `fix(parity): capture visible shadcn overflow`
 
-## Phase 5: remove the old compiler
+## Phase 5: make shadcn workflow scope explicit
 
-- [x] Delete `tools/lib/live_shadcn_tools/ast.ex`.
-- [x] Delete `tools/lib/live_shadcn_tools/tsx.ex`.
-- [x] Delete `tools/lib/live_shadcn_tools/cva.ex`.
-- [x] Delete the replaced code from `tools/lib/live_shadcn_tools/spec.ex`.
-- [x] Delete `tools/lib/live_shadcn_tools/gen.ex` and
-      `tools/lib/live_shadcn_tools/gen/`.
-- [x] Delete `tools/lib/mix/tasks/ui.gen.ex`.
-- [x] Delete the temporary migration helper.
-- [x] Delete the replaced internal tests from `tools/test/ast_test.exs`,
-      `tools/test/spec_test.exs`, and `tools/test/gen_test.exs`.
-- [x] Keep current API, security, persistence, and behavior tests. Do not add
-      tests that only check that deleted code stays absent.
-- [x] Remove dead aliases, functions, and fixtures.
-- [x] Run `cd tools && mix format`.
-- [x] Run `cd tools && mix test`.
-- [x] Run `cd tools && mix check`.
-- [x] Run the test and check aliases in `packages/live_base`,
-      `packages/live_shadcn`, and `packages/live_ai_elements`.
-- [x] Run `cd tools && mix ui.spec --check --offline`.
-- [x] Confirm that `tools/priv/facts.mjs`, the converter, and the final spec task
-      contain no more than 1,650 new production lines in total.
-- [x] Record the old count of 15,069 lines, the final count, and the net
-      deletion in `PLAN.md`.
-- [x] Commit: `refactor(tools): remove the TSX-to-HEEx compiler`
+- [ ] Add and test `--source shadcn` in `ui.verify` and `ui.status`.
+- [ ] Select ports and documentation families and apply No DOM policy.
+- [ ] Reject unknown options and invalid source/name combinations.
+- [ ] Add `--require-verified` to source-scoped status checking.
+- [ ] Prove incomplete evidence fails even when inventory text matches.
+- [ ] Install parity dependencies in upstream sync.
+- [ ] Make the shadcn sync write evidence and refresh inventory.
+- [ ] Add the strict shadcn CI gate and preserve unrelated checks.
+- [ ] Run tools tests, Node tests, and actionlint for both workflows.
+- [ ] Exercise clean-checkout installation and scoped verification.
+- [ ] Commit: `fix(ci): record and gate shadcn verification results`
 
-## Phase 6: document the reviewed-port workflow
+## Phase 6: refresh evidence and verify release badges
 
-- [x] Update the pipeline in `README.md`.
-- [x] Update the stages and ownership rules in `docs/ARCHITECTURE.md`.
-- [x] Remove statements that say every port is generated or must not be edited.
-- [x] Document safe fact updates and manual structural drift.
-- [x] Document how to create and verify the first port for a new upstream
-      component.
-- [x] Document that Oxc extracts facts and does not translate React behavior.
-- [x] Run Markdown and repository formatting checks.
-- [x] Run `cd tools && mix ui.status --check`.
-- [x] Commit: `docs(architecture): document port synchronization`
+- [ ] Prepare pinned sources without advancing the upstream manifest or ref.
+- [ ] Run offline and fetched-source shadcn contract checks.
+- [ ] Check snapshots and record unrelated baseline failures separately.
+- [ ] Run `mix ui.verify --source shadcn` for every selected target.
+- [ ] Resolve failures without weakening thresholds or dropping official examples.
+- [ ] Add scoped phases to both documents before substantial port repairs if needed.
+- [ ] Refresh inventory and pass `mix ui.status --check --source shadcn --require-verified`.
+- [ ] Preserve AI record bytes and account for shared-input status changes.
+- [ ] Recompile Storybook after the final record write.
+- [ ] Check both badge locations for button, dialog, the three docs families,
+  and direction.
+- [ ] Test stale, failed, and incomplete badges and recovery in a temporary copy.
+- [ ] Build a clean release image and check badges without runtime repository files.
+- [ ] Update README, architecture, and parity documentation.
+- [ ] Commit: `docs(verification): record current shadcn parity and badge results`
 
 ## Verification
 
-- [x] No behavior change in the 109 currently verified entries.
-- [x] All class strings and their order match the current ports before the
-      migration.
-- [x] All CVA values, defaults, and compile-time accepted values match.
-- [x] `mix ui.add` still copies standalone Elixir modules.
-- [x] Two runs on the same input return byte-identical contracts and fact
-      blocks.
-- [x] A class-only change updates only safe facts and the marked block.
-- [x] A CVA-only change updates the table and compile-time accepted values.
-- [x] A new data or ARIA state read returns manual drift and writes nothing.
-- [x] A JSX shape, export, prop-flow, hook, context, portal, primitive import,
-      `data-slot`, static attribute, or Base UI contract change returns manual
-      drift and writes nothing.
-- [x] A syntax error reports the source file and span.
-- [x] An edited port body fails the offline check until its contract records the
-      new body digest.
-- [x] A full-registry failure leaves all contracts and ports unchanged.
-- [x] All package tests and static checks pass.
-- [x] All snapshots pass.
-- [x] All browser and accessibility checks pass.
-- [x] All React parity and pixel checks pass.
-- [x] `registry/VERIFY.json` and `docs/INVENTORY.md` are current.
-- [x] The final replacement stays within the 1,650-line target.
+- [ ] Run all private verification project tests.
+- [ ] Run `mix test` in tools, Storybook, live_base, and live_shadcn.
+- [ ] Run configured format and static checks for changed Elixir projects.
+- [ ] Run `node --test ./*.test.mjs` in `storybook/test/browser`.
+- [ ] Run `npm test` in `parity` with local test-port access.
+- [ ] Pass complete current shadcn behavior, accessibility, semantic,
+  and pixel checks.
+- [ ] Verify every official shadcn example, including documentation families.
+- [ ] Match shadcn results across pipeline, index, component pages,
+  and release build.
+- [ ] Prove no-browser, missing, partial, stale, failed, and ungated evidence
+  cannot show Verified.
+- [ ] Preserve component APIs and behavior except explicitly reviewed parity repairs.
+- [ ] Confirm source isolation and unchanged AI policy, examples, and records.
+- [ ] Add no tests that only assert removed code stays absent.
 
 ## Review
 
-- [x] Review the converter interface and version 2 contract before phase 2.
-- [x] Review the `button`, `dialog`, and `calendar` diff before phase 3.
-- [x] Update `PLAN.md` and `TODO.md` before work continues if the design changes.
-- [x] Complete and commit each phase before the next phase starts.
-- [x] Check that every phase commit uses the exact conventional commit message
-      in this file.
-- [x] Check all TODO items before the migration is complete.
+- [ ] Review input coverage, report ownership, status precedence, and release compilation.
+- [ ] Review each test against a current behavior or persistence contract.
+- [ ] Update both files before scope, approach, or phase boundaries change.
+- [ ] Confirm every phase commit passed its checks and used its exact message.
+- [ ] Record final shadcn run time and component/example counts.
+- [ ] Pass the strict shadcn gate before marking the plan complete.
+- [ ] Check TODO items only after their work and required commits succeed.

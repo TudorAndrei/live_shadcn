@@ -71,30 +71,10 @@ defmodule StorybookWeb.Docs do
                      |> Path.wildcard()
                    end)
 
-  @verification_rule_paths [
-                             "tools/lib/mix/tasks/ui.verify.ex",
-                             "tools/lib/live_shadcn_tools.ex",
-                             "tools/lib/live_shadcn_tools/browser_verification.ex",
-                             "tools/lib/live_shadcn_tools/ai_elements_examples.ex",
-                             "tools/lib/live_shadcn_tools/shadcn_examples.ex",
-                             "tools/lib/live_shadcn_tools/verification_policy.ex",
-                             "registry/VERIFICATION_POLICY.json",
-                             "storybook/test/browser/*.mjs",
-                             "storybook/test/browser/ai-component-audit.json",
-                             "storybook/test/browser/parity-divergence.json",
-                             "storybook/test/browser/pixel-budget.json",
-                             "storybook/test/browser/package-lock.json",
-                             "parity/package-lock.json",
-                             "parity/src/main.tsx",
-                             "parity/src/official-ai-elements.mjs",
-                             "parity/src/official-shadcn.mjs",
-                             "parity/source-lease.mjs",
-                             "parity/upstream.mjs",
-                             "parity/vite.config.mjs"
-                           ]
-                           |> Enum.flat_map(&Path.wildcard(Path.join(@repo_root, &1)))
-                           |> Enum.uniq()
-                           |> Enum.sort()
+  @verification_rule_paths LiveShadcnVerification.collect_verification_rules(@repo_root)
+                           |> Enum.map(fn {relative, _content} ->
+                             Path.join(@repo_root, relative)
+                           end)
 
   @external_resource @official_examples_path
   @external_resource @snapshot_index_path
@@ -106,194 +86,30 @@ defmodule StorybookWeb.Docs do
     @external_resource path
   end
 
-  @verification_rules Enum.map(
-                        @verification_rule_paths,
-                        &{Path.relative_to(&1, @repo_root), File.read!(&1)}
-                      )
-
   @verification @verify_path |> File.read!() |> Jason.decode!()
-  @verification_policy @policy_path |> File.read!() |> Jason.decode!()
-  @standard_required_checks get_in(@verification_policy, ["_standard", "required_checks"])
-  @policy_status_by_identity @verification_policy
-                             |> Map.reject(fn {_identity, %{"kind" => kind}} ->
-                               kind == "standard"
-                             end)
-                             |> Map.new(fn {identity, %{"kind" => kind}} ->
-                               status = if kind == "local_only", do: :local_only, else: :no_dom
-                               {identity, status}
-                             end)
 
-  # A release does not keep the repository beside its BEAM files. Resolve each
-  # result while the repository is present, during compilation, so production
-  # uses the same evidence check as local development without run-time file IO.
   @status_by_identity (fn ->
-                         digest = fn binary ->
-                           :crypto.hash(:sha256, binary) |> Base.encode16(case: :lower)
-                         end
-
-                         previews = @snapshot_index_path |> File.read!() |> Jason.decode!()
-                         official = @official_examples_path |> File.read!() |> Jason.decode!()
-                         manifest = @upstream_path |> File.read!() |> Jason.decode!()
-
-                         primitive_families =
-                           manifest
-                           |> Map.get("files", %{})
-                           |> Map.keys()
-                           |> Enum.filter(
-                             &(String.starts_with?(&1, "shadcn/ui/") and
-                                 String.ends_with?(&1, ".tsx"))
-                           )
-                           |> MapSet.new(&Path.basename(&1, ".tsx"))
-
-                         docs_only_families =
-                           manifest
-                           |> get_in(["examples", "shadcn"])
-                           |> Kernel.||(%{})
-                           |> Enum.filter(fn {name, examples} ->
-                             is_list(examples) and examples != [] and
-                               name not in primitive_families
-                           end)
-                           |> MapSet.new(&elem(&1, 0))
-
-                         docs_only_required_checks =
-                           ~w(snapshot examples browser behavior accessibility parity pixel)
-
                          verification_statuses =
                            Map.new(@verification, fn {identity, result} ->
                              [source, name] = String.split(identity, "/", parts: 2)
                              spec = Path.join([@spec_root, source, "#{name}.json"])
 
-                             key =
-                               cond do
-                                 Map.has_key?(previews, "#{source}-#{name}") ->
-                                   "#{source}-#{name}"
-
-                                 Map.has_key?(previews, name) ->
-                                   name
-
-                                 true ->
-                                   name
-                               end
-
-                             fixtures =
-                               @parity_example_paths
-                               |> Enum.filter(&String.starts_with?(Path.basename(&1), key <> "."))
-                               |> Enum.sort()
-                               |> Enum.map(&{Path.basename(&1), File.read!(&1)})
-
-                             local_examples = Map.get(previews, key, [])
-
-                             snapshots =
-                               local_examples
-                               |> Enum.map(fn example ->
-                                 path =
-                                   Path.join(
-                                     Path.dirname(@snapshot_index_path),
-                                     "#{key}-#{example}.html"
-                                   )
-
-                                 {Path.relative_to(path, @repo_root),
-                                  if(File.regular?(path), do: File.read!(path), else: :missing)}
-                               end)
-                               |> Enum.sort_by(&elem(&1, 0))
-
-                             upstream_ref = get_in(manifest, ["sources", source, "ref"])
-                             documented = get_in(manifest, ["examples", source, name]) || []
-                             docs_only? = source == "shadcn" and name in docs_only_families
-
-                             evidence_inputs =
-                               if source == "ai_elements" do
-                                 ai_sources =
-                                   @ai_source_paths
-                                   |> Enum.sort()
-                                   |> Enum.map(
-                                     &{Path.relative_to(&1, @repo_root), File.read!(&1)}
-                                   )
-
-                                 {local_examples, manifest, ai_sources}
-                               else
-                                 official
-                                 |> Enum.filter(fn {example, _path} ->
-                                   String.starts_with?(example, key <> ".")
-                                 end)
-                                 |> Enum.sort()
-                               end
-
-                             storybook_renderers =
-                               [
-                                 "storybook/lib/storybook_web/examples.ex",
-                                 "storybook/lib/mix/tasks/snapshot.ex",
-                                 "storybook/lib/storybook_web/live/preview_live.ex"
-                               ]
-                               |> Enum.map(&Path.join(@repo_root, &1))
-                               |> Enum.filter(&File.regular?/1)
-                               |> Enum.sort()
-                               |> Enum.map(&{Path.relative_to(&1, @repo_root), File.read!(&1)})
-
-                             evidence =
-                               {upstream_ref, documented, fixtures, snapshots, evidence_inputs,
-                                storybook_renderers, @verification_rules}
-                               |> :erlang.term_to_binary()
-                               |> digest.()
-
-                             required_checks =
-                               if docs_only?,
-                                 do: docs_only_required_checks,
-                                 else: @standard_required_checks
-
-                             checks_complete =
-                               Enum.all?(required_checks, fn check ->
-                                 case get_in(result, ["checks", check]) do
-                                   %{"pass" => true, "gated" => false} -> false
-                                   %{"pass" => true} -> true
-                                   _ -> false
-                                 end
-                               end)
-
-                             checks_failed =
-                               Enum.any?(result["checks"] || %{}, fn
-                                 {_check, %{"pass" => false}} -> true
-                                 _check -> false
-                               end)
-
-                             contract =
-                               if File.exists?(spec), do: spec |> File.read!() |> Jason.decode!()
-
-                             review_complete =
-                               docs_only? or
-                                 (contract != nil and
-                                    Enum.all?(contract["ignored"] || %{}, fn {_fact, reason} ->
-                                      reason !=
-                                        "the generated port does not contain this source literal"
-                                    end))
-
-                             current_evidence =
-                               result["evidence"] == evidence and review_complete and
-                                 if docs_only? do
-                                   is_nil(result["spec"])
-                                 else
-                                   File.exists?(spec) and
-                                     result["spec"] == digest.(File.read!(spec))
-                                 end
-
                              status =
-                               cond do
-                                 result["pass"] == true and current_evidence and checks_complete ->
-                                   :verified
-
-                                 result["pass"] == false or (current_evidence and checks_failed) ->
-                                   :failed
-
-                                 true ->
-                                   :unverified
-                               end
+                               LiveShadcnVerification.badge_status(
+                                 result,
+                                 source,
+                                 name,
+                                 @repo_root,
+                                 spec
+                               )
 
                              {identity, status}
                            end)
 
-                         # These policies are explicit exceptions. They never
-                         # inherit a passed React parity or pixel result.
-                         Map.merge(verification_statuses, @policy_status_by_identity)
+                         Map.merge(
+                           verification_statuses,
+                           LiveShadcnVerification.policy_status_overrides()
+                         )
                        end).()
 
   # The sections the AI Elements documentation groups its components under, in

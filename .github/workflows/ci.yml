@@ -27,6 +27,7 @@ jobs:
           - packages/live_base
           - packages/live_shadcn
           - packages/live_ai_elements
+          - tools/verification
           - tools
           - storybook
     steps:

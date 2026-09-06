@@ -41,6 +41,7 @@ defmodule LiveShadcnTools.MixProject do
 
   defp deps do
     [
+      {:live_shadcn_verification, path: "verification"},
       {:req, "~> 0.5"},
       {:jason, "~> 1.4"}
     ] ++ checks()

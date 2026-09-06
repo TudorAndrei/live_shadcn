@@ -34,9 +34,8 @@ defmodule LiveShadcnTools do
   def registry_path(parts), do: Path.join([repo_root(), "registry" | List.wrap(parts)])
 
   @sources ~w(shadcn ai_elements)
-  @docs_only_required_checks ~w(snapshot examples browser behavior accessibility parity pixel)
-
   alias LiveShadcnTools.VerificationPolicy
+  alias LiveShadcnVerification
 
   @doc """
   The two upstream registries a component can come from.
@@ -44,38 +43,14 @@ defmodule LiveShadcnTools do
   def sources, do: @sources
 
   @doc "Official shadcn documentation families with examples but no registry primitive."
-  def docs_only_shadcn_families(root \\ repo_root()) do
-    manifest = root |> registry_path("UPSTREAM.json") |> read_json!()
-
-    primitives =
-      manifest
-      |> Map.get("files", %{})
-      |> Map.keys()
-      |> Enum.filter(&(String.starts_with?(&1, "shadcn/ui/") and String.ends_with?(&1, ".tsx")))
-      |> MapSet.new(fn path -> path |> Path.basename(".tsx") end)
-
-    manifest
-    |> get_in(["examples", "shadcn"])
-    |> Kernel.||(%{})
-    |> Enum.filter(fn {name, examples} ->
-      is_list(examples) and examples != [] and name not in primitives
-    end)
-    |> Enum.map(&elem(&1, 0))
-    |> Enum.sort()
-  end
+  def docs_only_shadcn_families(root \\ repo_root()),
+    do: LiveShadcnVerification.docs_only_shadcn_families(root)
 
   @doc "Returns the effective verification policy for a primitive or docs-only family."
   def verification_policy(source, name), do: verification_policy(source, name, repo_root())
 
-  def verification_policy("shadcn", name, root) do
-    policy = VerificationPolicy.get("shadcn", name)
-
-    if name in docs_only_shadcn_families(root) do
-      %{policy | kind: :docs_only, required_checks: @docs_only_required_checks}
-    else
-      policy
-    end
-  end
+  def verification_policy("shadcn", name, root),
+    do: LiveShadcnVerification.verification_policy("shadcn", name, root)
 
   def verification_policy(source, name, _root), do: VerificationPolicy.get(source, name)
 
@@ -264,186 +239,38 @@ defmodule LiveShadcnTools do
   """
   def assign(name), do: name |> Macro.underscore() |> String.trim_leading("_")
 
-  @unresolved_reason "the generated port does not contain this source literal"
-
   @doc "Official source facts that the reviewed port still does not implement."
-  def unresolved_facts(contract) when is_map(contract) do
-    contract
-    |> Map.get("ignored", %{})
-    |> Enum.filter(fn {_fact, reason} -> reason == @unresolved_reason end)
-    |> Enum.map(&elem(&1, 0))
-    |> Enum.sort()
-  end
+  def unresolved_facts(contract), do: LiveShadcnVerification.unresolved_facts(contract)
 
   @doc "Whether a contract accounts for all official source facts."
-  def reviewed_contract?(contract), do: unresolved_facts(contract) == []
+  def reviewed_contract?(contract), do: LiveShadcnVerification.reviewed_contract?(contract)
 
   @doc "The checks a current verification record must contain for this policy."
-  def required_verification_checks(_source, %{required_checks: checks}) when is_list(checks),
-    do: checks
-
-  def required_verification_checks(_source, %{kind: :standard}),
-    do: ~w(generated snapshot examples browser behavior accessibility parity pixel)
-
-  def required_verification_checks(_source, _policy), do: []
+  def required_verification_checks(source, policy),
+    do: LiveShadcnVerification.required_verification_checks(source, policy)
 
   @doc "Whether all checks required by a policy are current and successful."
-  def policy_checks_complete?(source, policy, checks) when is_map(checks) do
-    Enum.all?(required_verification_checks(source, policy), fn name ->
-      case Map.get(checks, name) do
-        %{"pass" => true, "gated" => false} when policy.kind in [:standard, :docs_only] -> false
-        %{"pass" => true} -> true
-        _ -> false
-      end
-    end)
-  end
-
-  def policy_checks_complete?(_source, _policy, _checks), do: false
+  def policy_checks_complete?(source, policy, checks),
+    do: LiveShadcnVerification.policy_checks_complete?(source, policy, checks)
 
   @doc "Whether a verification record has an explicit current failure."
-  def verification_failed?(%{"pass" => false}, _current?), do: true
-
-  def verification_failed?(%{"checks" => checks}, true) when is_map(checks) do
-    Enum.any?(checks, fn
-      {_name, %{"pass" => false}} -> true
-      _check -> false
-    end)
-  end
-
-  def verification_failed?(_result, _current?), do: false
+  def verification_failed?(result, current?),
+    do: LiveShadcnVerification.verification_failed?(result, current?)
 
   @doc "Whether the current check schema proves a standard component verified."
-  def verified_checks?(source, policy, checks) when is_map(checks) do
-    policy.kind in [:standard, :docs_only] and policy_checks_complete?(source, policy, checks)
-  end
-
-  def verified_checks?(_source, _policy, _checks), do: false
+  def verified_checks?(source, policy, checks),
+    do: LiveShadcnVerification.verified_checks?(source, policy, checks)
 
   @doc "Digest of the pinned upstream source, rendered output, and verification rules."
   def verification_evidence_digest(source, name),
     do: verification_evidence_digest(source, name, repo_root())
 
   @doc false
-  def verification_evidence_digest(source, name, root) do
-    snapshot_index = root |> registry_path(["snapshot", "index.json"]) |> read_json!()
-    previews = Map.keys(snapshot_index)
+  def verification_evidence_digest("shadcn", name, root),
+    do: LiveShadcnVerification.evidence_digest("shadcn", name, root)
 
-    key =
-      cond do
-        "#{source}-#{name}" in previews -> "#{source}-#{name}"
-        name in previews -> name
-        true -> name
-      end
-
-    local_examples = Map.get(snapshot_index, key, [])
-
-    snapshots =
-      local_examples
-      |> Enum.map(fn example ->
-        path = Path.join([root, "registry", "snapshot", "#{key}-#{example}.html"])
-
-        {Path.relative_to(path, root),
-         if(File.regular?(path), do: File.read!(path), else: :missing)}
-      end)
-      |> Enum.sort_by(&elem(&1, 0))
-
-    fixtures =
-      root
-      |> Path.join("parity/src/examples/#{key}.*.tsx")
-      |> Path.wildcard()
-      |> Enum.sort()
-      |> Enum.map(&{Path.basename(&1), File.read!(&1)})
-
-    manifest = root |> registry_path("UPSTREAM.json") |> read_json!()
-    documented = get_in(manifest, ["examples", source, name]) || []
-    upstream_ref = get_in(manifest, ["sources", source, "ref"])
-
-    evidence_inputs =
-      case source do
-        "ai_elements" ->
-          {local_examples, manifest, pinned_ai_sources(root)}
-
-        _other ->
-          official_path = Path.join(root, "parity/official-examples.json")
-
-          official =
-            if File.exists?(official_path) do
-              official_path
-              |> read_json!()
-              |> Enum.filter(fn {example, _path} -> String.starts_with?(example, key <> ".") end)
-              |> Enum.sort()
-            else
-              []
-            end
-
-          official
-      end
-
-    storybook_renderers =
-      evidence_files(root, [
-        "storybook/lib/storybook_web/examples.ex",
-        "storybook/lib/mix/tasks/snapshot.ex",
-        "storybook/lib/storybook_web/live/preview_live.ex"
-      ])
-
-    verification_rules =
-      [
-        "tools/lib/mix/tasks/ui.verify.ex",
-        "tools/lib/live_shadcn_tools.ex",
-        "tools/lib/live_shadcn_tools/browser_verification.ex",
-        "tools/lib/live_shadcn_tools/incremental_verification.ex",
-        "tools/lib/live_shadcn_tools/playwright_report.ex",
-        "tools/lib/live_shadcn_tools/ai_elements_examples.ex",
-        "tools/lib/live_shadcn_tools/shadcn_examples.ex",
-        "tools/lib/live_shadcn_tools/verification_policy.ex",
-        "registry/VERIFICATION_POLICY.json",
-        "storybook/test/browser/*.mjs",
-        "storybook/test/browser/ai-component-audit.json",
-        "storybook/test/browser/parity-divergence.json",
-        "storybook/test/browser/pixel-budget.json",
-        "storybook/test/browser/package-lock.json",
-        "parity/package-lock.json",
-        "parity/src/main.tsx",
-        "parity/src/official-ai-elements.mjs",
-        "parity/src/official-shadcn.mjs",
-        "parity/source-lease.mjs",
-        "parity/upstream.mjs",
-        "parity/vite.config.mjs"
-      ]
-      |> Enum.flat_map(fn pattern -> Path.wildcard(Path.join(root, pattern)) end)
-      |> Enum.uniq()
-      |> Enum.sort()
-      |> Enum.map(&{Path.relative_to(&1, root), File.read!(&1)})
-
-    digest(
-      :erlang.term_to_binary({
-        upstream_ref,
-        documented,
-        fixtures,
-        snapshots,
-        evidence_inputs,
-        storybook_renderers,
-        verification_rules
-      })
-    )
-  end
-
-  defp registry_path(root, parts), do: Path.join([root, "registry" | List.wrap(parts)])
-
-  defp evidence_files(root, paths) do
-    paths
-    |> Enum.map(&Path.join(root, &1))
-    |> Enum.filter(&File.regular?/1)
-    |> Enum.sort()
-    |> Enum.map(&{Path.relative_to(&1, root), File.read!(&1)})
-  end
-
-  defp pinned_ai_sources(root) do
-    ["registry/upstream/ai_elements/*.tsx", "registry/upstream/ai_examples/*.tsx"]
-    |> Enum.flat_map(&Path.wildcard(Path.join(root, &1)))
-    |> Enum.sort()
-    |> Enum.map(&{Path.relative_to(&1, root), File.read!(&1)})
-  end
+  def verification_evidence_digest("ai_elements", name, root),
+    do: LiveShadcnVerification.evidence_digest("ai_elements", name, root)
 
   @doc "SHA-256 of a binary, hex encoded. Used to detect upstream drift."
   def digest(binary), do: :crypto.hash(:sha256, binary) |> Base.encode16(case: :lower)

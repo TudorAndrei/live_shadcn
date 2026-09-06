@@ -1,0 +1,167 @@
+# TODO: replace TSX generation with port synchronization
+
+This checklist follows [PLAN.md](PLAN.md). Complete one phase, run its checks,
+and make its listed commit before work starts on the next phase.
+
+## Phase 1: add the read-only synchronizer
+
+- [x] Add batched Oxc fact extraction in `tools/priv/facts.mjs`.
+- [x] Add `LiveShadcnTools.Converter.sync/1` in
+      `tools/lib/live_shadcn_tools/converter.ex`.
+- [x] Define stable keys, source spans, the structural fingerprint, the version
+      2 contract, and the marked fact block.
+- [x] Keep class and CVA literals as the only automatic source changes.
+- [x] Return manual drift for state-read, JSX, export, prop-flow, hook, context,
+      portal, primitive import, and Base UI contract changes.
+- [x] Add `tools/test/converter_test.exs` at the external interface.
+- [x] Verify that the same input returns identical contract and port bytes.
+- [x] Verify that this phase does not change any existing spec or port.
+- [x] Run `cd tools && mix test`.
+- [x] Run `cd tools && mix check`.
+- [x] Commit: `feat(converter): classify safe upstream changes`
+
+## Phase 2: prove the contract with three ports
+
+- [x] Add temporary version routing to `Mix.Tasks.Ui.Spec` and
+      `Mix.Tasks.Ui.Gen`.
+- [x] Add a checked migration helper for old specs and generated modules.
+- [x] Convert `registry/spec/shadcn/button.json` and
+      `packages/live_shadcn/priv/registry/button.ex`.
+- [x] Convert `registry/spec/shadcn/dialog.json` and
+      `packages/live_shadcn/priv/registry/dialog.ex`.
+- [x] Convert `registry/spec/shadcn/calendar.json` and
+      `packages/live_shadcn/priv/registry/calendar.ex`.
+- [x] Verify that class text, class order, CVA defaults, and CVA values do not
+      change.
+- [x] Verify that all three ports keep their compile-time `attr` and `slot`
+      declarations.
+- [x] Run `cd tools && mix test`.
+- [x] Run `cd tools && mix ui.gen --check button dialog calendar`.
+- [x] Run `cd packages/live_shadcn && mix test`.
+- [x] Run `cd storybook && mix snapshot --check button dialog calendar`.
+- [x] Run the browser, accessibility, React parity, and pixel checks for
+      `button`, `dialog`, and `calendar`.
+- [x] Count the new production lines. Stop if the count is above 1,650 or if the
+      converter needs a general expression IR.
+- [x] Commit: `refactor(registry): prove fact-backed ports on three modules`
+
+## Phase 3: migrate all verified ports
+
+- [x] Convert every remaining verified shadcn port and contract to version 2.
+- [x] Convert every remaining verified AI Elements port and contract to version
+      2.
+- [x] Keep the two fetched entries at their current stage.
+- [x] Check that every extracted fact has a binding or an ignored reason.
+- [x] Check that every bound old fact matches its current port value.
+- [x] Check that every fact block has canonical key order and stable bytes.
+- [x] Update `LiveShadcnTools.Drift` for version 2 contracts.
+- [x] Run `cd tools && mix test`.
+- [x] Run `cd tools && mix ui.spec --check --source shadcn` after
+      `mix ui.fetch`.
+- [x] Run `cd tools && mix ui.spec --check --source ai_elements` after
+      `mix ui.fetch`.
+- [x] Run `cd tools && mix ui.gen --check` while the dual path still exists.
+- [x] Run `cd packages/live_base && mix test`.
+- [x] Run `cd packages/live_shadcn && mix test`.
+- [x] Run `cd packages/live_ai_elements && mix test`.
+- [x] Run all storybook snapshots.
+- [x] Run the full browser, accessibility, React parity, and pixel suite.
+- [x] Run `cd tools && mix ui.verify` for all changed contracts.
+- [x] Run `cd tools && mix ui.status` and confirm that all 109 verified entries
+      remain verified.
+- [x] Commit: `refactor(registry): migrate verified modules to fact-backed ports`
+
+## Phase 4: switch the maintainer workflow
+
+- [x] Remove old-spec routing from `Mix.Tasks.Ui.Spec`.
+- [x] Add `mix ui.spec --check --offline`.
+- [x] Make full-registry writes all-or-nothing.
+- [x] Change `Mix.Tasks.Ui.Verify.generated_check/1` to the offline spec check.
+- [x] Change `.github/workflows/ci.yml` to the offline spec check.
+- [x] Remove `mix ui.gen` from `.github/workflows/sync-upstream.yml`.
+- [x] Make the sync workflow stop before writes on manual structural drift.
+- [x] Keep separate source checks for shadcn and AI Elements.
+- [x] Update `Mix.Tasks.Ui.Status` for the version 2 contract digest where
+      required.
+- [x] Run `cd tools && mix test`.
+- [x] Run `cd tools && mix ui.spec --check --offline` without
+      `registry/upstream/`.
+- [x] Run both fetched-source checks.
+- [x] Run `cd tools && mix ui.status --check`.
+- [x] Commit: `refactor(tools): switch registry updates to port synchronization`
+
+## Phase 5: remove the old compiler
+
+- [x] Delete `tools/lib/live_shadcn_tools/ast.ex`.
+- [x] Delete `tools/lib/live_shadcn_tools/tsx.ex`.
+- [x] Delete `tools/lib/live_shadcn_tools/cva.ex`.
+- [x] Delete the replaced code from `tools/lib/live_shadcn_tools/spec.ex`.
+- [x] Delete `tools/lib/live_shadcn_tools/gen.ex` and
+      `tools/lib/live_shadcn_tools/gen/`.
+- [x] Delete `tools/lib/mix/tasks/ui.gen.ex`.
+- [x] Delete the temporary migration helper.
+- [x] Delete the replaced internal tests from `tools/test/ast_test.exs`,
+      `tools/test/spec_test.exs`, and `tools/test/gen_test.exs`.
+- [x] Keep current API, security, persistence, and behavior tests. Do not add
+      tests that only check that deleted code stays absent.
+- [x] Remove dead aliases, functions, and fixtures.
+- [x] Run `cd tools && mix format`.
+- [x] Run `cd tools && mix test`.
+- [x] Run `cd tools && mix check`.
+- [x] Run the test and check aliases in `packages/live_base`,
+      `packages/live_shadcn`, and `packages/live_ai_elements`.
+- [x] Run `cd tools && mix ui.spec --check --offline`.
+- [x] Confirm that `tools/priv/facts.mjs`, the converter, and the final spec task
+      contain no more than 1,650 new production lines in total.
+- [x] Record the old count of 15,069 lines, the final count, and the net
+      deletion in `PLAN.md`.
+- [x] Commit: `refactor(tools): remove the TSX-to-HEEx compiler`
+
+## Phase 6: document the reviewed-port workflow
+
+- [x] Update the pipeline in `README.md`.
+- [x] Update the stages and ownership rules in `docs/ARCHITECTURE.md`.
+- [x] Remove statements that say every port is generated or must not be edited.
+- [x] Document safe fact updates and manual structural drift.
+- [x] Document how to create and verify the first port for a new upstream
+      component.
+- [x] Document that Oxc extracts facts and does not translate React behavior.
+- [x] Run Markdown and repository formatting checks.
+- [x] Run `cd tools && mix ui.status --check`.
+- [x] Commit: `docs(architecture): document port synchronization`
+
+## Verification
+
+- [x] No behavior change in the 109 currently verified entries.
+- [x] All class strings and their order match the current ports before the
+      migration.
+- [x] All CVA values, defaults, and compile-time accepted values match.
+- [x] `mix ui.add` still copies standalone Elixir modules.
+- [x] Two runs on the same input return byte-identical contracts and fact
+      blocks.
+- [x] A class-only change updates only safe facts and the marked block.
+- [x] A CVA-only change updates the table and compile-time accepted values.
+- [x] A new data or ARIA state read returns manual drift and writes nothing.
+- [x] A JSX shape, export, prop-flow, hook, context, portal, primitive import,
+      `data-slot`, static attribute, or Base UI contract change returns manual
+      drift and writes nothing.
+- [x] A syntax error reports the source file and span.
+- [x] An edited port body fails the offline check until its contract records the
+      new body digest.
+- [x] A full-registry failure leaves all contracts and ports unchanged.
+- [x] All package tests and static checks pass.
+- [x] All snapshots pass.
+- [x] All browser and accessibility checks pass.
+- [x] All React parity and pixel checks pass.
+- [x] `registry/VERIFY.json` and `docs/INVENTORY.md` are current.
+- [x] The final replacement stays within the 1,650-line target.
+
+## Review
+
+- [x] Review the converter interface and version 2 contract before phase 2.
+- [x] Review the `button`, `dialog`, and `calendar` diff before phase 3.
+- [x] Update `PLAN.md` and `TODO.md` before work continues if the design changes.
+- [x] Complete and commit each phase before the next phase starts.
+- [x] Check that every phase commit uses the exact conventional commit message
+      in this file.
+- [x] Check all TODO items before the migration is complete.
