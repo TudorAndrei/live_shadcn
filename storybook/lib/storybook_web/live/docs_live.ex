@@ -35,20 +35,9 @@ defmodule StorybookWeb.DocsLive do
         <.badge
           data-component-status={@status}
           variant={if(@status == :verified, do: "default", else: "secondary")}
-          class={[
-            "capitalize",
-            @status == :verified &&
-              "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300",
-            @status == :unverified &&
-              "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
-            @status == :failed && "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-300",
-            @status == :local_only &&
-              "bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-300",
-            @status == :no_dom &&
-              "bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-300"
-          ]}
+          class={["capitalize", Docs.status_classes(@status)]}
         >
-          {@status}
+          {@status_label}
         </.badge>
         <%!-- Which of the three libraries this one is. Two components are called
               `Message` and they are not the same component; without this the
@@ -58,6 +47,25 @@ defmodule StorybookWeb.DocsLive do
               a badge beside the package rather than a sentence about it. --%>
         <.badge variant="outline"><code>{@library.spec}</code></.badge>
       </div>
+      <details :if={@verification.checks != []} class="mt-3 text-sm">
+        <summary class="cursor-pointer text-muted-foreground">
+          Verification checks
+          <span :if={@verification.reason} class="ml-1">— {@verification.reason}</span>
+        </summary>
+        <ul class="mt-2 space-y-1">
+          <li :for={check <- @verification.checks} class="flex flex-wrap gap-x-2">
+            <span class="font-medium">{check.name}</span>
+            <span>{Docs.check_outcome_label(check.outcome)}</span>
+            <span class="text-muted-foreground">{check.reason}</span>
+          </li>
+        </ul>
+      </details>
+      <p
+        :if={@verification.checks == [] and @verification.reason}
+        class="mt-2 text-sm text-muted-foreground"
+      >
+        {@verification.reason}
+      </p>
     </header>
 
     <section :for={example <- @examples} class="mt-10">
@@ -200,6 +208,8 @@ defmodule StorybookWeb.DocsLive do
        api: Docs.api(component),
        library: Docs.library(component),
        status: Docs.status(component),
+       status_label: Docs.status_label(component),
+       verification: Docs.evaluation(component),
        install: Docs.install(component),
        page_title: Docs.title(component)
      )

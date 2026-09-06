@@ -1,6 +1,6 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 1 complete.
+Status: in progress. Phase 2 complete.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).

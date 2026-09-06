@@ -14,8 +14,9 @@ defmodule StorybookWeb.IndexLive do
 
   @status_classes %{
     verified: "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300",
-    unverified: "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
     failed: "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-300",
+    stale: "bg-orange-100 text-orange-900 dark:bg-orange-950 dark:text-orange-300",
+    not_verified: "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
     local_only: "bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-300",
     no_dom: "bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-300"
   }
@@ -97,11 +98,11 @@ defmodule StorybookWeb.IndexLive do
           <span
             data-component-status={Docs.status(component)}
             class={[
-              "rounded-full px-1.5 py-0.5 text-[10px] font-medium capitalize",
+              "rounded-full px-1.5 py-0.5 text-[10px] font-medium",
               status_class(Docs.status(component))
             ]}
           >
-            {Docs.status(component)}
+            {Docs.status_label(component)}
           </span>
         </li>
       </ul>

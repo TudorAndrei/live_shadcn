@@ -1,7 +1,45 @@
 defmodule LiveShadcnVerification do
   @moduledoc false
 
+  @identity_version 2
+
   @docs_only_required_checks ~w(snapshot examples browser behavior accessibility parity pixel)
+
+  @shared_input_globs [
+    "registry/UPSTREAM.json",
+    "registry/VERIFICATION_POLICY.json",
+    "registry/snapshot/index.json",
+    "registry/spec/shadcn/*.json",
+    "packages/live_shadcn/priv/registry/*.ex",
+    "packages/live_shadcn/lib/**/*.ex",
+    "packages/live_base/lib/**/*.ex",
+    "packages/live_base/assets/js/*.js",
+    "parity/official-examples.json",
+    "parity/src/examples/*.tsx",
+    "parity/src/shim/**/*.{ts,tsx}",
+    "parity/src/reference/**/*.tsx",
+    "parity/src/main.tsx",
+    "parity/src/reference-server.tsx",
+    "parity/src/reference-page.tsx",
+    "parity/src/official-shadcn.mjs",
+    "parity/upstream.mjs",
+    "parity/upstream-directories.mjs",
+    "parity/source-lease.mjs",
+    "parity/vite.config.mjs",
+    "parity/package.json",
+    "parity/package-lock.json",
+    "storybook/assets/**/*.{css,js,mjs,json}",
+    "storybook/lib/**/*.ex",
+    "storybook/test/browser/*.{mjs,json}",
+    "tools/lib/live_shadcn_tools/**/*.ex",
+    "tools/lib/mix/tasks/ui.verify.ex",
+    "tools/verification/lib/**/*.ex",
+    "tools/mix.lock",
+    "tools/verification/mix.lock",
+    "storybook/mix.lock",
+    "packages/live_base/mix.lock",
+    "packages/live_shadcn/mix.lock"
+  ]
 
   @verification_rule_globs [
     "tools/lib/mix/tasks/ui.verify.ex",
@@ -64,7 +102,11 @@ defmodule LiveShadcnVerification do
                }}
             end)
 
+  def identity_version, do: @identity_version
+
   def verification_rule_globs, do: @verification_rule_globs
+
+  def shared_input_globs, do: @shared_input_globs
 
   def docs_only_shadcn_families(root) do
     manifest = root |> registry_path(["UPSTREAM.json"]) |> read_json!()
@@ -117,6 +159,16 @@ defmodule LiveShadcnVerification do
     |> Map.new()
   end
 
+  def status_label(:verified), do: "Verified"
+  def status_label(:failed), do: "Failed"
+  def status_label(:stale), do: "Stale"
+  def status_label(:not_verified), do: "Not verified"
+  def status_label(:no_dom), do: "No DOM"
+  def status_label(:local_only), do: "Local only"
+
+  def status_label(status) when is_atom(status),
+    do: status |> to_string() |> String.replace("_", " ") |> String.capitalize()
+
   def required_verification_checks(_source, %{required_checks: checks}) when is_list(checks),
     do: checks
 
@@ -139,11 +191,7 @@ defmodule LiveShadcnVerification do
 
   def policy_checks_complete?(source, policy, checks) when is_map(checks) do
     Enum.all?(required_verification_checks(source, policy), fn name ->
-      case Map.get(checks, name) do
-        %{"pass" => true, "gated" => false} when policy.kind in [:standard, :docs_only] -> false
-        %{"pass" => true} -> true
-        _ -> false
-      end
+      check_outcome(name, Map.get(checks, name), policy) == :passed
     end)
   end
 
@@ -152,9 +200,8 @@ defmodule LiveShadcnVerification do
   def verification_failed?(%{"pass" => false}, _current?), do: true
 
   def verification_failed?(%{"checks" => checks}, true) when is_map(checks) do
-    Enum.any?(checks, fn
-      {_name, %{"pass" => false}} -> true
-      _check -> false
+    Enum.any?(checks, fn {name, check} ->
+      check_outcome(name, check, %{kind: :standard}) == :failed
     end)
   end
 
@@ -196,30 +243,90 @@ defmodule LiveShadcnVerification do
     key = preview_key(snapshot_index, "shadcn", name)
     local_examples = Map.get(snapshot_index, key, [])
     manifest = root |> registry_path(["UPSTREAM.json"]) |> read_json!()
+    spec_path = Path.join(root, "registry/spec/shadcn/#{name}.json")
+    port_path = Path.join(root, "packages/live_shadcn/priv/registry/#{module_file(name)}")
 
     %{
+      version: @identity_version,
       upstream_ref: get_in(manifest, ["sources", "shadcn", "ref"]),
+      upstream_files: collect_shadcn_upstream_digests(manifest),
       documented: get_in(manifest, ["examples", "shadcn", name]) || [],
+      contract: file_digest(spec_path),
+      port: file_digest(port_path),
       fixtures: collect_fixtures(root, key),
       snapshots: collect_snapshots(root, key, local_examples),
       evidence_inputs: collect_official_examples(root, key),
       storybook_renderers: collect_storybook_renderers(root),
-      verification_rules: collect_verification_rules(root)
+      verification_rules: collect_verification_rules(root),
+      shared_inputs: collect_shared_inputs(root)
     }
   end
 
   def evidence_digest_from_inputs(%{} = inputs) do
     {
+      Map.fetch!(inputs, :version),
       inputs.upstream_ref,
+      inputs.upstream_files,
+      inputs.contract,
+      inputs.port,
       inputs.documented,
       inputs.fixtures,
       inputs.snapshots,
       inputs.evidence_inputs,
       inputs.storybook_renderers,
-      inputs.verification_rules
+      inputs.verification_rules,
+      inputs.shared_inputs
     }
     |> :erlang.term_to_binary()
     |> digest()
+  end
+
+  def identity_compile_paths(root) do
+    root
+    |> compile_path_globs()
+    |> Enum.uniq()
+    |> Enum.sort()
+  end
+
+  def compile_path_globs(root) do
+    (@shared_input_globs ++ @verification_rule_globs)
+    |> Enum.flat_map(fn pattern -> Path.wildcard(Path.join(root, pattern)) end)
+    |> Enum.reject(&generated_path?/1)
+  end
+
+  def verify_pinned_upstream_files!(root) do
+    manifest = root |> registry_path(["UPSTREAM.json"]) |> read_json!()
+
+    manifest
+    |> Map.get("files", %{})
+    |> Enum.filter(fn {path, _meta} -> String.starts_with?(path, "shadcn/") end)
+    |> Enum.each(fn {path, %{"sha256" => expected}} ->
+      local = Path.join(root, "registry/upstream/#{path}")
+
+      if File.regular?(local) do
+        actual = digest(File.read!(local))
+
+        if actual != expected do
+          Mix.raise(
+            "pinned upstream file #{path} does not match registry/UPSTREAM.json; run `mix ui.fetch`"
+          )
+        end
+      end
+    end)
+
+    :ok
+  end
+
+  def assert_identity_unchanged!(root, source, name, captured_digest) do
+    current = evidence_digest(source, name, root)
+
+    if current != captured_digest do
+      Mix.raise(
+        "verification inputs changed during the run for #{source}/#{name}; rerun verification"
+      )
+    end
+
+    :ok
   end
 
   def preview_key(snapshot_index, source, name) do
@@ -235,7 +342,7 @@ defmodule LiveShadcnVerification do
     |> Enum.flat_map(fn pattern -> Path.wildcard(Path.join(root, pattern)) end)
     |> Enum.uniq()
     |> Enum.sort()
-    |> Enum.map(&{Path.relative_to(&1, root), File.read!(&1)})
+    |> Enum.map(&file_entry(root, &1))
   end
 
   def collect_storybook_renderers(root) do
@@ -243,7 +350,16 @@ defmodule LiveShadcnVerification do
     |> Enum.map(&Path.join(root, &1))
     |> Enum.filter(&File.regular?/1)
     |> Enum.sort()
-    |> Enum.map(&{Path.relative_to(&1, root), File.read!(&1)})
+    |> Enum.map(&file_entry(root, &1))
+  end
+
+  def collect_shared_inputs(root) do
+    @shared_input_globs
+    |> Enum.flat_map(fn pattern -> Path.wildcard(Path.join(root, pattern)) end)
+    |> Enum.reject(&generated_path?/1)
+    |> Enum.uniq()
+    |> Enum.sort()
+    |> Enum.map(&file_entry(root, &1))
   end
 
   def collect_fixtures(root, key) do
@@ -282,7 +398,15 @@ defmodule LiveShadcnVerification do
     ["registry/upstream/ai_elements/*.tsx", "registry/upstream/ai_examples/*.tsx"]
     |> Enum.flat_map(&Path.wildcard(Path.join(root, &1)))
     |> Enum.sort()
-    |> Enum.map(&{Path.relative_to(&1, root), File.read!(&1)})
+    |> Enum.map(&file_entry(root, &1))
+  end
+
+  def collect_shadcn_upstream_digests(manifest) do
+    manifest
+    |> Map.get("files", %{})
+    |> Enum.filter(fn {path, _meta} -> String.starts_with?(path, "shadcn/") end)
+    |> Enum.sort()
+    |> Enum.map(fn {path, %{"sha256" => sha}} -> {path, sha} end)
   end
 
   def evidence_current?(result, source, name, root, spec_path)
@@ -300,64 +424,202 @@ defmodule LiveShadcnVerification do
     current_target and result["evidence"] == evidence_digest(source, name, root)
   end
 
-  def pipeline_verified?(result, source, name, root, spec_path) do
-    policy = verification_policy(source, name, root)
+  def record_stale?(result, source, name, root, spec_path) do
+    is_map(result) and map_size(result) > 0 and
+      not evidence_current?(result, source, name, root, spec_path)
+  end
 
-    with true <- is_map(result),
-         true <- evidence_current?(result, source, name, root, spec_path),
-         true <- result["pass"] == true,
-         %{"checks" => checks} <- result,
-         true <- verified_checks?(source, policy, checks) do
-      true
-    else
-      _ -> false
-    end
+  def pipeline_verified?(result, source, name, root, spec_path) do
+    evaluate(result, source, name, root, spec_path).status == :verified
   end
 
   def pipeline_failed?(result, source, name, root, spec_path) do
-    with true <- is_map(result),
-         true <- evidence_current?(result, source, name, root, spec_path) do
-      verification_failed?(result, true)
-    else
-      _ -> false
-    end
+    evaluate(result, source, name, root, spec_path).status == :failed
   end
 
   def badge_status(result, source, name, root, spec_path) do
-    with nil <- policy_status(source, name),
-         true <- is_map(result) do
-      policy = effective_policy(source, name, root)
-      required_checks = required_verification_checks(source, policy)
+    evaluate(result, source, name, root, spec_path).status
+  end
 
-      checks_complete =
-        Enum.all?(required_checks, fn check ->
-          case get_in(result, ["checks", check]) do
-            %{"pass" => true, "gated" => false} -> false
-            %{"pass" => true} -> true
-            _ -> false
-          end
-        end)
+  def evaluate(result, source, name, root, spec_path) do
+    case policy_status(source, name) do
+      status when status in [:local_only, :no_dom] ->
+        %{
+          status: status,
+          label: status_label(status),
+          reason: policy_entry(source, name).reason,
+          checks: []
+        }
 
-      checks_failed =
-        Enum.any?(result["checks"] || %{}, fn
-          {_check, %{"pass" => false}} -> true
-          _check -> false
-        end)
-
-      current_evidence = evidence_current?(result, source, name, root, spec_path)
-
-      cond do
-        result["pass"] == true and current_evidence and checks_complete -> :verified
-        result["pass"] == false or (current_evidence and checks_failed) -> :failed
-        true -> :unverified
-      end
-    else
-      status when status in [:local_only, :no_dom] -> status
-      _ -> :unverified
+      _ ->
+        evaluate_record(result, source, name, root, spec_path)
     end
   end
 
+  def evaluate_record(result, source, name, root, spec_path) do
+    policy = effective_policy(source, name, root)
+    checks = evaluate_checks(source, policy, Map.get(result, "checks", %{}))
+
+    cond do
+      not record_present?(result) ->
+        not_verified_result(checks, "No verification record exists")
+
+      record_stale?(result, source, name, root, spec_path) ->
+        %{
+          status: :stale,
+          label: status_label(:stale),
+          reason: stale_reason(result, source, name, root, spec_path),
+          checks: checks
+        }
+
+      result["pass"] == true and Enum.all?(checks, &(&1.outcome == :passed)) ->
+        %{
+          status: :verified,
+          label: status_label(:verified),
+          reason: nil,
+          checks: checks
+        }
+
+      Enum.any?(checks, &(&1.outcome == :failed)) or result["pass"] == false ->
+        %{
+          status: :failed,
+          label: status_label(:failed),
+          reason: failed_reason(checks),
+          checks: checks
+        }
+
+      true ->
+        not_verified_result(checks, incomplete_reason(checks))
+    end
+  end
+
+  def evaluate_checks(source, policy, checks) when is_map(checks) do
+    required_verification_checks(source, policy)
+    |> Enum.map(fn name ->
+      check = Map.get(checks, name)
+      outcome = check_outcome(name, check, policy)
+
+      %{
+        name: name,
+        outcome: outcome,
+        reason: check_reason(name, check, outcome)
+      }
+    end)
+  end
+
+  def check_outcome(_name, %{"outcome" => "passed"}, _policy), do: :passed
+  def check_outcome(_name, %{"outcome" => "failed"}, _policy), do: :failed
+  def check_outcome(_name, %{"outcome" => "skipped"}, _policy), do: :skipped
+  def check_outcome(_name, %{"outcome" => "incomplete"}, _policy), do: :incomplete
+  def check_outcome(_name, %{"outcome" => "not_run"}, _policy), do: :not_run
+
+  def check_outcome(_name, %{"pass" => true, "gated" => false}, %{kind: kind})
+      when kind in [:standard, :docs_only],
+      do: :incomplete
+
+  def check_outcome(_name, %{"pass" => true}, _policy), do: :passed
+  def check_outcome(_name, %{"pass" => false}, _policy), do: :failed
+  def check_outcome(_name, nil, _policy), do: :not_run
+  def check_outcome(_name, _check, _policy), do: :incomplete
+
+  def with_check_outcome(check) when is_map(check) do
+    outcome =
+      case check do
+        %{"outcome" => outcome} when outcome in ~w(passed failed skipped incomplete not_run) ->
+          outcome
+
+        %{"pass" => true, "gated" => false} ->
+          "incomplete"
+
+        %{"pass" => true} ->
+          "passed"
+
+        %{"pass" => false} ->
+          "failed"
+
+        _ ->
+          "incomplete"
+      end
+
+    Map.put(check, "outcome", outcome)
+  end
+
+  def with_check_outcome(check), do: check
+
   def digest(binary), do: :crypto.hash(:sha256, binary) |> Base.encode16(case: :lower)
+
+  defp not_verified_result(checks, reason) do
+    %{
+      status: :not_verified,
+      label: status_label(:not_verified),
+      reason: reason,
+      checks: checks
+    }
+  end
+
+  defp record_present?(result), do: is_map(result) and map_size(result) > 0
+
+  defp stale_reason(result, source, name, root, spec_path) do
+    policy = effective_policy(source, name, root)
+
+    cond do
+      result["evidence"] != evidence_digest(source, name, root) ->
+        "Source changed since verification"
+
+      policy.kind == :docs_only and not is_nil(result["spec"]) ->
+        "Documentation family record has a spec digest"
+
+      policy.kind != :docs_only and
+          (not File.exists?(spec_path) or result["spec"] != digest(File.read!(spec_path))) ->
+        "Contract changed since verification"
+
+      policy.kind != :docs_only and File.exists?(spec_path) and
+          not reviewed_contract?(read_json!(spec_path)) ->
+        "Contract review is incomplete"
+
+      true ->
+        "Verification inputs changed since the record was written"
+    end
+  end
+
+  defp failed_reason(checks) do
+    checks
+    |> Enum.find(&(&1.outcome == :failed))
+    |> case do
+      %{name: _name, reason: reason} when is_binary(reason) and reason != "" -> reason
+      %{name: name} -> "#{human_check(name)} check failed"
+      _ -> "A required check failed"
+    end
+  end
+
+  defp incomplete_reason(checks) do
+    case Enum.find(checks, &(&1.outcome in [:incomplete, :not_run, :skipped])) do
+      %{name: _name, reason: reason} when is_binary(reason) and reason != "" -> reason
+      %{name: name} -> "#{human_check(name)} check is incomplete"
+      _ -> "Verification is incomplete"
+    end
+  end
+
+  defp check_reason(name, check, outcome) do
+    detail = if is_map(check), do: Map.get(check, "detail")
+
+    case {outcome, detail} do
+      {:passed, detail} when is_binary(detail) and detail != "" -> detail
+      {:passed, _} -> "#{human_check(name)} check passed"
+      {:failed, detail} when is_binary(detail) and detail != "" -> detail
+      {:failed, _} -> "#{human_check(name)} check failed"
+      {:skipped, detail} when is_binary(detail) and detail != "" -> detail
+      {:skipped, _} -> "#{human_check(name)} check was skipped"
+      {:incomplete, detail} when is_binary(detail) and detail != "" -> detail
+      {:incomplete, _} -> "#{human_check(name)} check did not run"
+      {:not_run, _} -> "#{human_check(name)} check has no record"
+      {_, detail} when is_binary(detail) and detail != "" -> detail
+      _ -> "#{human_check(name)} check is incomplete"
+    end
+  end
+
+  defp human_check("pixel"), do: "Pixel"
+  defp human_check(name), do: name |> String.replace("-", " ") |> String.capitalize()
 
   defp effective_policy("shadcn", name, root), do: verification_policy("shadcn", name, root)
   defp effective_policy(source, name, _root), do: policy_entry(source, name)
@@ -368,6 +630,23 @@ defmodule LiveShadcnVerification do
       reason: nil,
       required_checks: @standard_required_checks
     })
+  end
+
+  defp file_entry(root, path) do
+    {Path.relative_to(path, root), File.read!(path)}
+  end
+
+  defp file_digest(path) do
+    if File.regular?(path), do: digest(File.read!(path)), else: :missing
+  end
+
+  defp module_file(name), do: String.replace(name, "-", "_") <> ".ex"
+
+  defp generated_path?(path) do
+    String.contains?(path, "/node_modules/") or
+      String.contains?(path, "/_build/") or
+      String.contains?(path, "/priv/static/assets/") or
+      String.contains?(path, "/assets/css/upstream/")
   end
 
   defp registry_path(root, parts), do: Path.join([root, "registry" | List.wrap(parts)])

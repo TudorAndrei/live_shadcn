@@ -3,57 +3,112 @@ defmodule LiveShadcnVerificationTest do
 
   @repo_root Path.expand("../../..", __DIR__)
 
-  describe "shadcn evidence digest" do
-    test "matches the tools adapter for a primitive" do
-      assert LiveShadcnVerification.evidence_digest("shadcn", "button", @repo_root) ==
-               tools_digest("shadcn", "button", @repo_root)
+  describe "shadcn identity version 2" do
+    test "includes version, shared inputs, and component files" do
+      inputs = LiveShadcnVerification.collect_shadcn_evidence_inputs(@repo_root, "button")
+
+      assert inputs.version == LiveShadcnVerification.identity_version()
+      assert inputs.shared_inputs != []
+      assert inputs.upstream_files != []
+      assert is_binary(LiveShadcnVerification.evidence_digest("shadcn", "button", @repo_root))
     end
 
-    test "matches the tools adapter for a documentation family" do
-      assert LiveShadcnVerification.evidence_digest("shadcn", "data-table", @repo_root) ==
-               tools_digest("shadcn", "data-table", @repo_root)
-    end
-
-    test "matches the storybook adapter for the same inputs" do
+    test "matches the tools and storybook adapters" do
       for name <- ["button", "data-table", "typography"] do
-        assert storybook_digest("shadcn", name, @repo_root) ==
-                 LiveShadcnVerification.evidence_digest("shadcn", name, @repo_root)
+        digest = LiveShadcnVerification.evidence_digest("shadcn", name, @repo_root)
+        assert digest == tools_digest("shadcn", name, @repo_root)
+        assert digest == storybook_digest("shadcn", name, @repo_root)
       end
     end
 
-    test "changes when a snapshot or renderer changes" do
-      root = fixture_root("evidence-change")
+    test "changes when a hook, css asset, or shim changes" do
+      root = fixture_root("identity-inputs")
 
-      write(
-        root,
-        "registry/snapshot/index.json",
-        ~s({"button":["default"]})
-      )
+      bootstrap_identity(root, "button")
+
+      original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      write(root, "packages/live_base/assets/js/combobox.js", "export default {}\n")
+      refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      bootstrap_identity(root, "button")
+      original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      write(root, "storybook/assets/css/app.css", "body { color: red; }\n")
+      refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      bootstrap_identity(root, "button")
+      original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      write(root, "parity/src/shim/utils.ts", "export const x = 1\n")
+      refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+    end
+
+    test "changes when the port module or lockfile changes" do
+      root = fixture_root("identity-port")
+      bootstrap_identity(root, "button")
+      original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      write(root, "packages/live_shadcn/priv/registry/button.ex", "defmodule X do end\n")
+      refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      bootstrap_identity(root, "button")
+      original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      write(root, "packages/live_shadcn/mix.lock", "LOCK\n")
+      refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+    end
+
+    test "produces equal digests for prepared and clean-checkout fixtures" do
+      root = fixture_root("identity-stable")
+      bootstrap_identity(root, "button")
+
+      first = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+      second = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+      assert first == second
+    end
+
+    test "changes when a new shared input file is added" do
+      root = fixture_root("identity-paths")
+      bootstrap_identity(root, "button")
+
+      original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      write(root, "packages/live_base/assets/js/new-hook.js", "export default {}\n")
+
+      refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+    end
+
+    test "rejects publication when identity changes during a run" do
+      root = fixture_root("identity-lock")
+      bootstrap_identity(root, "button")
+      captured = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      write(root, "packages/live_base/assets/js/combobox.js", "changed\n")
+
+      assert_raise Mix.Error, ~r/verification inputs changed/, fn ->
+        LiveShadcnVerification.assert_identity_unchanged!(root, "shadcn", "button", captured)
+      end
+    end
+
+    test "rejects pinned upstream bytes that do not match the manifest" do
+      root = fixture_root("upstream-pin")
 
       write(
         root,
         "registry/UPSTREAM.json",
-        ~s({"sources":{"shadcn":{"ref":"test"}},"examples":{"shadcn":{"button":[]}}})
+        ~s({"files":{"shadcn/ui/button.tsx":{"sha256":"abc123"}}})
       )
 
-      write(root, "registry/snapshot/button-default.html", "<button>Before</button>\n")
-      write(root, "storybook/lib/storybook_web/examples.ex", "example renderer before\n")
-      write(root, "storybook/lib/mix/tasks/snapshot.ex", "snapshot renderer before\n")
-      write(root, "storybook/lib/storybook_web/live/preview_live.ex", "preview renderer before\n")
+      write(root, "registry/upstream/shadcn/ui/button.tsx", "stale bytes\n")
 
-      original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
-
-      write(root, "registry/snapshot/button-default.html", "<button>After</button>\n")
-      changed_snapshot = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
-      refute original == changed_snapshot
-
-      write(root, "storybook/lib/storybook_web/examples.ex", "example renderer after\n")
-      changed_example = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
-      refute changed_snapshot == changed_example
+      assert_raise Mix.Error, ~r/does not match registry\/UPSTREAM.json/, fn ->
+        LiveShadcnVerification.verify_pinned_upstream_files!(root)
+      end
     end
   end
 
-  describe "badge status" do
+  describe "badge evaluation" do
     test "reports verified for a current primitive record" do
       root = fixture_root("badge-primitive")
       record = verified_record(root, "button", :standard)
@@ -79,7 +134,7 @@ defmodule LiveShadcnVerificationTest do
       write(root, "storybook/lib/storybook_web/live/preview_live.ex", "preview renderer\n")
 
       policy = LiveShadcnVerification.verification_policy("shadcn", "data-table", root)
-      checks = Map.new(policy.required_checks, &{&1, %{"pass" => true}})
+      checks = Map.new(policy.required_checks, &{&1, %{"pass" => true, "outcome" => "passed"}})
 
       record = %{
         "pass" => true,
@@ -93,44 +148,62 @@ defmodule LiveShadcnVerificationTest do
 
     test "reports no_dom for direction regardless of verification records" do
       assert LiveShadcnVerification.policy_status("shadcn", "direction") == :no_dom
-      assert LiveShadcnVerification.policy_status_overrides()["shadcn/direction"] == :no_dom
 
       assert badge_for(@repo_root, "shadcn", "direction", %{"pass" => true, "checks" => %{}}) ==
                :no_dom
     end
 
-    test "reports unverified for missing checks" do
+    test "reports not_verified for missing checks with current evidence" do
       root = fixture_root("badge-missing")
       record = verified_record(root, "button", :standard)
       incomplete = %{record | "checks" => Map.delete(record["checks"], "pixel")}
 
-      assert badge_for(root, "shadcn", "button", incomplete) == :unverified
+      assert badge_for(root, "shadcn", "button", incomplete) == :not_verified
       refute pipeline_verified?(root, "shadcn", "button", incomplete)
     end
 
-    test "reports unverified for stale evidence and failed for a current failure" do
+    test "reports stale for outdated evidence including historical failures" do
       root = fixture_root("badge-stale")
       record = verified_record(root, "button", :standard)
 
       stale = %{record | "evidence" => "stale"}
-      assert badge_for(root, "shadcn", "button", stale) == :unverified
+      assert badge_for(root, "shadcn", "button", stale) == :stale
+
+      failed_stale =
+        stale
+        |> put_in(["checks", "pixel"], %{"pass" => false, "outcome" => "failed"})
+
+      assert badge_for(root, "shadcn", "button", failed_stale) == :stale
+    end
+
+    test "reports failed for a current failure" do
+      root = fixture_root("badge-failed")
+      record = verified_record(root, "button", :standard)
 
       failed =
-        put_in(record, ["checks", "pixel"], %{"pass" => false})
+        put_in(record, ["checks", "pixel"], %{"pass" => false, "outcome" => "failed"})
 
       assert badge_for(root, "shadcn", "button", failed) == :failed
       assert pipeline_failed?(root, "shadcn", "button", failed)
     end
 
-    test "tools and storybook adapters agree on independent fixtures" do
-      root = fixture_root("adapter-agreement")
+    test "includes readable check reasons" do
+      root = fixture_root("badge-reasons")
       record = verified_record(root, "button", :standard)
 
-      assert badge_for(root, "shadcn", "button", record) ==
-               storybook_badge(root, "shadcn", "button", record)
+      failed =
+        put_in(record, ["checks", "pixel"], %{
+          "pass" => false,
+          "outcome" => "failed",
+          "detail" => "Pixel check failed"
+        })
 
-      assert tools_digest("shadcn", "button", root) ==
-               storybook_digest("shadcn", "button", root)
+      evaluation = evaluate(root, "shadcn", "button", failed)
+      assert evaluation.status == :failed
+      assert evaluation.reason == "Pixel check failed"
+
+      pixel = Enum.find(evaluation.checks, &(&1.name == "pixel"))
+      assert pixel.reason == "Pixel check failed"
     end
   end
 
@@ -145,19 +218,23 @@ defmodule LiveShadcnVerificationTest do
     root
   end
 
-  defp verified_record(root, name, kind) do
+  defp bootstrap_identity(root, name) do
     write(root, "registry/snapshot/index.json", ~s({"#{name}":["default"]}))
 
     write(
       root,
       "registry/UPSTREAM.json",
-      ~s({"sources":{"shadcn":{"ref":"test"}},"examples":{"shadcn":{"#{name}":[]}}})
+      ~s({"sources":{"shadcn":{"ref":"test"}},"examples":{"shadcn":{"#{name}":[]}},"files":{}})
     )
 
     write(root, "registry/snapshot/#{name}-default.html", "<main>#{name}</main>\n")
     write(root, "storybook/lib/storybook_web/examples.ex", "example renderer\n")
     write(root, "storybook/lib/mix/tasks/snapshot.ex", "snapshot renderer\n")
     write(root, "storybook/lib/storybook_web/live/preview_live.ex", "preview renderer\n")
+  end
+
+  defp verified_record(root, name, kind) do
+    bootstrap_identity(root, name)
 
     spec_path = Path.join(root, "registry/spec/shadcn/#{name}.json")
     contract = ~s({"ignored":{}})
@@ -179,7 +256,8 @@ defmodule LiveShadcnVerificationTest do
           }
       end
 
-    checks = Map.new(policy.required_checks, &{&1, %{"pass" => true}})
+    checks =
+      Map.new(policy.required_checks, &{&1, %{"pass" => true, "outcome" => "passed"}})
 
     %{
       "pass" => true,
@@ -194,9 +272,9 @@ defmodule LiveShadcnVerificationTest do
     LiveShadcnVerification.badge_status(record, source, name, root, spec)
   end
 
-  defp storybook_badge(root, source, name, record) do
+  defp evaluate(root, source, name, record) do
     spec = Path.join(root, "registry/spec/#{source}/#{name}.json")
-    LiveShadcnVerification.badge_status(record, source, name, root, spec)
+    LiveShadcnVerification.evaluate(record, source, name, root, spec)
   end
 
   defp pipeline_verified?(root, source, name, record) do
@@ -210,8 +288,7 @@ defmodule LiveShadcnVerificationTest do
   end
 
   defp tools_digest(source, name, root) do
-    inputs = LiveShadcnVerification.collect_shadcn_evidence_inputs(root, name)
-    LiveShadcnVerification.evidence_digest_from_inputs(inputs)
+    LiveShadcnVerification.evidence_digest(source, name, root)
   end
 
   defp storybook_digest(source, name, root) do

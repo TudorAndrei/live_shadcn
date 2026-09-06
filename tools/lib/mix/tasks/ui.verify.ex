@@ -49,6 +49,7 @@ defmodule Mix.Tasks.Ui.Verify do
   alias LiveShadcnTools.ShadcnExamples
   alias LiveShadcnTools.VerificationPolicy
   alias LiveShadcnTools.VerifierLock
+  alias LiveShadcnVerification
 
   import LiveShadcnTools
 
@@ -101,6 +102,16 @@ defmodule Mix.Tasks.Ui.Verify do
       Mix.raise("nothing to verify: no reviewed component port exists.")
     end
 
+    shadcn_identities =
+      Map.new(components, fn
+        {"shadcn", name} ->
+          {ref("shadcn", name),
+           LiveShadcnVerification.evidence_digest("shadcn", name, repo_root())}
+
+        {source, name} ->
+          {ref(source, name), verification_evidence_digest(source, name)}
+      end)
+
     example_results =
       Map.new(components, fn {source, name} ->
         {ref(source, name),
@@ -145,6 +156,7 @@ defmodule Mix.Tasks.Ui.Verify do
 
             try do
               ensure_browser_ports_free!()
+              LiveShadcnVerification.verify_pinned_upstream_files!(repo_root())
               prepare_browser!()
 
               with_managed_browser_servers(fn ->
@@ -170,6 +182,17 @@ defmodule Mix.Tasks.Ui.Verify do
       else
         verify_components.(nil)
       end
+
+    Enum.each(components, fn {source, name} ->
+      reference = ref(source, name)
+
+      LiveShadcnVerification.assert_identity_unchanged!(
+        repo_root(),
+        source,
+        name,
+        Map.fetch!(shadcn_identities, reference)
+      )
+    end)
 
     write_json!(registry_path("VERIFY.json"), merge(results))
     report(results)
@@ -464,12 +487,17 @@ defmodule Mix.Tasks.Ui.Verify do
           })
       end
 
-    checks = Map.new(checks)
+    checks =
+      Map.new(checks, fn {name, check} ->
+        {name, LiveShadcnVerification.with_check_outcome(check)}
+      end)
 
     checks =
       Map.put(checks, "policy", %{
         "pass" => policy_checks_complete?(source, policy, checks),
-        "detail" => "required checks for #{policy.kind} policy"
+        "detail" => "required checks for #{policy.kind} policy",
+        "outcome" =>
+          if(policy_checks_complete?(source, policy, checks), do: "passed", else: "incomplete")
       })
 
     %{

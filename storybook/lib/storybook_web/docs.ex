@@ -76,40 +76,48 @@ defmodule StorybookWeb.Docs do
                              Path.join(@repo_root, relative)
                            end)
 
+  @identity_compile_paths LiveShadcnVerification.identity_compile_paths(@repo_root)
+
   @external_resource @official_examples_path
   @external_resource @snapshot_index_path
 
   for path <-
         @spec_paths ++
           @snapshot_paths ++
-          @parity_example_paths ++ @ai_source_paths ++ @verification_rule_paths do
+          @parity_example_paths ++
+          @ai_source_paths ++
+          @verification_rule_paths ++
+          @identity_compile_paths do
     @external_resource path
   end
 
   @verification @verify_path |> File.read!() |> Jason.decode!()
 
+  @evaluation_by_identity (fn ->
+                             Map.new(@verification, fn {identity, result} ->
+                               [source, name] = String.split(identity, "/", parts: 2)
+                               spec = Path.join([@spec_root, source, "#{name}.json"])
+
+                               evaluation =
+                                 LiveShadcnVerification.evaluate(
+                                   result,
+                                   source,
+                                   name,
+                                   @repo_root,
+                                   spec
+                                 )
+
+                               {identity, evaluation}
+                             end)
+                           end).()
+
   @status_by_identity (fn ->
-                         verification_statuses =
-                           Map.new(@verification, fn {identity, result} ->
-                             [source, name] = String.split(identity, "/", parts: 2)
-                             spec = Path.join([@spec_root, source, "#{name}.json"])
-
-                             status =
-                               LiveShadcnVerification.badge_status(
-                                 result,
-                                 source,
-                                 name,
-                                 @repo_root,
-                                 spec
-                               )
-
-                             {identity, status}
+                         statuses =
+                           Map.new(@evaluation_by_identity, fn {identity, evaluation} ->
+                             {identity, evaluation.status}
                            end)
 
-                         Map.merge(
-                           verification_statuses,
-                           LiveShadcnVerification.policy_status_overrides()
-                         )
+                         Map.merge(statuses, LiveShadcnVerification.policy_status_overrides())
                        end).()
 
   # The sections the AI Elements documentation groups its components under, in
@@ -376,11 +384,52 @@ defmodule StorybookWeb.Docs do
   end
 
   @doc "The highest pipeline stage that has current evidence for a documented component."
-  @spec status(String.t()) :: :verified | :failed | :unverified | :local_only | :no_dom
+  @spec status(String.t()) ::
+          :verified | :failed | :stale | :not_verified | :local_only | :no_dom
   def status(component) do
     {source, name} = identity(component)
-    Map.get(@status_by_identity, "#{source}/#{name}", :unverified)
+    Map.get(@status_by_identity, "#{source}/#{name}", :not_verified)
   end
+
+  @doc "Human-readable verification label for a documented component."
+  def status_label(component), do: evaluation(component).label
+
+  @doc "Verification evaluation with per-check reasons for a documented component."
+  def evaluation(component) do
+    {source, name} = identity(component)
+    Map.get(@evaluation_by_identity, "#{source}/#{name}", default_evaluation())
+  end
+
+  defp default_evaluation do
+    %{
+      status: :not_verified,
+      label: LiveShadcnVerification.status_label(:not_verified),
+      reason: "No verification record exists",
+      checks: []
+    }
+  end
+
+  def status_classes(status) do
+    Map.fetch!(
+      %{
+        verified: "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300",
+        failed: "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-300",
+        stale: "bg-orange-100 text-orange-900 dark:bg-orange-950 dark:text-orange-300",
+        not_verified: "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300",
+        local_only: "bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-300",
+        no_dom: "bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-300"
+      },
+      status
+    )
+  end
+
+  def check_outcome_label(:passed), do: "Passed"
+  def check_outcome_label(:failed), do: "Failed"
+  def check_outcome_label(:stale), do: "Stale"
+  def check_outcome_label(:skipped), do: "Skipped"
+  def check_outcome_label(:incomplete), do: "Incomplete"
+  def check_outcome_label(:not_run), do: "Not run"
+  def check_outcome_label(outcome), do: outcome |> to_string() |> String.capitalize()
 
   defp identity(component) do
     namespace = to_string(module(component))

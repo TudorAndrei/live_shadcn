@@ -1,6 +1,6 @@
 # TODO: shadcn parity and verification badges
 
-Follow [PLAN.md](PLAN.md). Phase 1 complete. Complete each phase,
+Follow [PLAN.md](PLAN.md). Phase 2 complete. Complete each phase,
 run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 1: share shadcn evidence evaluation
@@ -12,23 +12,23 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Test primitive, documentation-family, No DOM, missing, and stale records.
 - [x] Prove both adapters match independent expected results.
 - [x] Run private-project, tools identity/policy, and Storybook status tests.
-- [ ] Commit: `refactor(verification): share shadcn evidence evaluation`
+- [x] Commit: `refactor(verification): share shadcn evidence evaluation`
 
 ## Phase 2: bind current inputs to badges
 
-- [ ] Version identity and include runtime, dependency, and verifier inputs.
-- [ ] Test changed hooks, CSS, references, shims, locks, port dependencies,
+- [x] Version identity and include runtime, dependency, and verifier inputs.
+- [x] Test changed hooks, CSS, references, shims, locks, port dependencies,
   and file sets.
-- [ ] Test equal identities for prepared and clean-checkout fixtures.
-- [ ] Check fetched bytes against committed digests during preparation.
-- [ ] Capture identity at test start and reject changes before publication.
-- [ ] Implement Verified, Failed, Stale, Not verified, and No DOM decisions.
-- [ ] Distinguish failure from skipped, incomplete, and diagnostic checks.
-- [ ] Update both badge locations and add readable per-check reasons.
-- [ ] Test all badge states against independent expected fixtures.
-- [ ] Test reload after evidence changes and added/deleted inputs.
-- [ ] Check builder inputs and compiled results in a clean temporary build.
-- [ ] Run shared-project, tools, and Storybook focused tests.
+- [x] Test equal identities for prepared and clean-checkout fixtures.
+- [x] Check fetched bytes against committed digests during preparation.
+- [x] Capture identity at test start and reject changes before publication.
+- [x] Implement Verified, Failed, Stale, Not verified, and No DOM decisions.
+- [x] Distinguish failure from skipped, incomplete, and diagnostic checks.
+- [x] Update both badge locations and add readable per-check reasons.
+- [x] Test all badge states against independent expected fixtures.
+- [x] Test reload after evidence changes and added/deleted inputs.
+- [x] Check builder inputs and compiled results in a clean temporary build.
+- [x] Run shared-project, tools, and Storybook focused tests.
 - [ ] Commit: `fix(verification): bind shadcn badges to current pipeline evidence`
 
 ## Phase 3: validate reports and reject partial verification

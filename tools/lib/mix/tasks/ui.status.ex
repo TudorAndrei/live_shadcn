@@ -38,8 +38,19 @@ defmodule Mix.Tasks.Ui.Status do
 
   import LiveShadcnTools
   alias LiveShadcnTools.VerificationPolicy
+  alias LiveShadcnVerification
 
-  @statuses [:planned, :fetched, :spec, :generated, :failed, :local_only, :no_dom, :verified]
+  @statuses [
+    :planned,
+    :fetched,
+    :spec,
+    :generated,
+    :failed,
+    :stale,
+    :local_only,
+    :no_dom,
+    :verified
+  ]
 
   @impl Mix.Task
   def run(argv) do
@@ -138,9 +149,41 @@ defmodule Mix.Tasks.Ui.Status do
 
   defp status_of(%{"name" => name, "source" => source}) do
     cond do
-      policy = VerificationPolicy.status(source, name) -> policy
-      verified?(source, name) -> :verified
-      failed?(source, name) -> :failed
+      policy = VerificationPolicy.status(source, name) ->
+        policy
+
+      true ->
+        evaluation =
+          LiveShadcnVerification.evaluate(
+            verification_result(source, name),
+            source,
+            name,
+            repo_root(),
+            spec_path(source, name)
+          )
+
+        case evaluation.status do
+          :verified -> :verified
+          :failed -> :failed
+          :stale -> :stale
+          :not_verified -> pipeline_stage(source, name)
+          status -> status
+        end
+    end
+  end
+
+  defp verification_result(source, name) do
+    verify = registry_path("VERIFY.json")
+
+    if File.exists?(verify) do
+      get_in(read_json!(verify), [ref(source, name)]) || %{}
+    else
+      %{}
+    end
+  end
+
+  defp pipeline_stage(source, name) do
+    cond do
       generated?(source, name) -> :generated
       File.exists?(spec_path(source, name)) -> :spec
       fetched?(source, name) -> :fetched
@@ -170,72 +213,18 @@ defmodule Mix.Tasks.Ui.Status do
 
   defp docs_only_verified?(verify, root, reference) do
     {source, name} = parse_ref(reference)
-    policy = verification_policy(source, name, root)
+    result = Map.get(verify, reference, %{})
 
-    with %{"pass" => true, "checks" => checks} = result <- Map.get(verify, reference),
-         true <- is_nil(result["spec"]),
-         true <- result["evidence"] == verification_evidence_digest(source, name, root),
-         true <- verified_checks?(source, policy, checks) do
-      true
-    else
-      _ -> false
-    end
+    LiveShadcnVerification.pipeline_verified?(
+      result,
+      source,
+      name,
+      root,
+      Path.join([root, "registry", "spec", source, "#{name}.json"])
+    )
   end
 
   defp generated?(source, name), do: File.exists?(module_path(source, name))
-
-  # A pass counts only while it is a pass about the spec on disk. `mix ui.verify`
-  # records the digest it verified, so a spec that moved on since demotes the
-  # component instead of leaving a green mark nobody earned.
-  defp verified?(source, name) do
-    verify = registry_path("VERIFY.json")
-    spec = spec_path(source, name)
-    policy = verification_policy(source, name)
-
-    with true <- File.exists?(verify),
-         result when is_map(result) <- get_in(read_json!(verify), [ref(source, name)]) do
-      current_target =
-        if policy.kind == :docs_only do
-          is_nil(result["spec"])
-        else
-          File.exists?(spec) and result["spec"] == digest(File.read!(spec)) and
-            reviewed_contract?(read_json!(spec))
-        end
-
-      result["pass"] == true and current_target and
-        result["evidence"] == verification_evidence_digest(source, name) and
-        verified_checks?(source, policy, result["checks"])
-    else
-      _ -> false
-    end
-  end
-
-  defp failed?(source, name) do
-    verify = registry_path("VERIFY.json")
-
-    with true <- File.exists?(verify),
-         result when is_map(result) <- get_in(read_json!(verify), [ref(source, name)]) do
-      verification_failed?(result, verification_current?(source, name, result))
-    else
-      _ -> false
-    end
-  end
-
-  defp verification_current?(source, name, result) do
-    spec = spec_path(source, name)
-
-    policy = verification_policy(source, name)
-
-    current_target =
-      if policy.kind == :docs_only do
-        is_nil(result["spec"])
-      else
-        File.exists?(spec) and result["spec"] == digest(File.read!(spec)) and
-          reviewed_contract?(read_json!(spec))
-      end
-
-    current_target and result["evidence"] == verification_evidence_digest(source, name)
-  end
 
   defp render(inventory, components) do
     counts = Enum.frequencies_by(components, & &1["status"])
@@ -322,6 +311,7 @@ defmodule Mix.Tasks.Ui.Status do
 
   defp mark(:verified), do: "✅"
   defp mark(:failed), do: "🟥"
+  defp mark(:stale), do: "🟧"
   defp mark(:local_only), do: "⬛"
   defp mark(:no_dom), do: "⬛"
   defp mark(:generated), do: "🟩"

@@ -1053,11 +1053,12 @@ defmodule StorybookWeb.ExamplesTest do
       end
     end
 
-    test "marks a historical pass with missing checks as unverified", %{conn: conn} do
+    test "marks a historical pass with missing checks as stale or not verified", %{conn: conn} do
       {:ok, _view, html} = live(conn, "/docs/attachments")
 
-      assert StorybookWeb.Docs.status("attachments") == :unverified
-      assert html =~ ~s(data-component-status="unverified")
+      status = StorybookWeb.Docs.status("attachments")
+      assert status in [:stale, :not_verified]
+      assert html =~ ~s(data-component-status="#{status}")
     end
 
     test "uses the verification result for Sonner", %{conn: conn} do
@@ -1066,10 +1067,25 @@ defmodule StorybookWeb.ExamplesTest do
 
       status = StorybookWeb.Docs.status("sonner")
 
-      assert status in [:verified, :failed, :unverified]
+      assert status in [:verified, :failed, :stale, :not_verified]
       assert html =~ ~s(data-component-status="#{status}")
       refute html =~ ~s(data-component-status="local_only")
       refute index_html =~ ~s(data-component-status="local_only")
+    end
+
+    test "shows the same verification label on the index and component page", %{conn: _conn} do
+      for component <- ["button", "data-table", "typography"] do
+        status = StorybookWeb.Docs.status(component)
+        label = StorybookWeb.Docs.status_label(component)
+
+        {:ok, _view, index_html} = live(build_conn(), "/")
+        assert index_html =~ ~s(data-component-status="#{status}")
+        assert index_html =~ label
+
+        {:ok, _view, docs_html} = live(build_conn(), "/docs/#{component}")
+        assert docs_html =~ ~s(data-component-status="#{status}")
+        assert docs_html =~ label
+      end
     end
 
     test "shows the markup each example is written with", %{conn: conn} do
