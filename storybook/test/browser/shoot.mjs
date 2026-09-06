@@ -182,33 +182,27 @@ export function paintedBoxInDocument(css) {
   const origin = root.getBoundingClientRect();
   const boxes = [];
 
-  // What the component paints, not the column it sits in. The preview root is
-  // 720px wide for every example, so clipping to it leaves most of the image
-  // blank and a percentage means nothing. `data-slot` is the anatomy both
-  // sides share, so those boxes are the component.
   for (const part of root.querySelectorAll("[data-slot]")) {
     const box = part.getBoundingClientRect();
     if (box.width > 0 && box.height > 0) boxes.push(box);
   }
 
-  // And what the root holds, which is the component whether or not its parts
-  // carry a `data-slot` — shadcn puts one on every part, AI Elements on
-  // almost none. Its children rather than the root itself: the root is the
-  // 720px preview column.
   for (const own of root.children) {
     const box = own.getBoundingClientRect();
     if (box.width > 0 && box.height > 0) boxes.push(box);
   }
 
-  // Plus anything painted outside the root at all: portalled content, fixed
-  // overlays, backdrops. `toast` needs this — its root is zero pixels tall
-  // and React portals every toast to `document.body`.
+  for (const element of root.querySelectorAll("*")) {
+    if (element === root || element.hasAttribute("data-slot")) continue;
+    if (!visibleInDocument(element)) continue;
+    if (clippedByAncestor(element, root)) continue;
+    if (offscreenLazyDescendant(element, root)) continue;
+
+    const box = element.getBoundingClientRect();
+    if (box.width > 0 && box.height > 0) boxes.push(box);
+  }
+
   for (const element of document.body.querySelectorAll("*")) {
-    // An ancestor of the root is page chrome, not component. It satisfies
-    // "outside the root" on a naive reading — the root does not contain its
-    // own parent — and including `<main>` put the whole 1280px column in the
-    // clip, which is how a five-percent difference kept reporting as 0.15%.
-    // Reject both before a layout read. Neither can become a candidate below.
     if (element.contains(root)) continue;
     if (root.contains(element)) continue;
 
@@ -220,8 +214,6 @@ export function paintedBoxInDocument(css) {
     if (position === "fixed" || portalled) boxes.push(box);
   }
 
-  // A component with neither is one that paints nothing recognisable; fall
-  // back to the root rather than return an empty rectangle.
   if (boxes.length === 0) boxes.push(root.getBoundingClientRect());
 
   const left = Math.min(...boxes.map((b) => b.left));
@@ -229,16 +221,87 @@ export function paintedBoxInDocument(css) {
   const right = Math.max(...boxes.map((b) => b.right));
   const bottom = Math.max(...boxes.map((b) => b.bottom));
 
-  // The React and LiveView preview pages can place the preview root on
-  // different device pixels. Page chrome is not component output. Keep the
-  // frame in component coordinates so an equal component is not shifted in
-  // the image by an unrelated page-shell difference.
   return {
     left: left - origin.left,
     top: top - origin.top,
     right: right - origin.left,
     bottom: bottom - origin.top,
   };
+}
+
+function visibleInDocument(element) {
+  if (element.hidden) return false;
+  if (element.getAttribute("aria-hidden") === "true") return false;
+
+  if (typeof element.checkVisibility === "function") {
+    return element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true });
+  }
+
+  const style = getComputedStyle(element);
+  return (
+    style.display !== "none" &&
+    style.visibility !== "hidden" &&
+    Number.parseFloat(style.opacity || "1") > 0
+  );
+}
+
+function clippedByAncestor(element, root) {
+  const box = element.getBoundingClientRect();
+  let node = element.parentElement;
+
+  while (node && node !== root && root.contains(node)) {
+    const style = getComputedStyle(node);
+
+    if (overflowClips(style)) {
+      const clip = node.getBoundingClientRect();
+
+      if (
+        box.left < clip.left - 0.5 ||
+        box.top < clip.top - 0.5 ||
+        box.right > clip.right + 0.5 ||
+        box.bottom > clip.bottom + 0.5
+      ) {
+        return true;
+      }
+    }
+
+    node = node.parentElement;
+  }
+
+  return false;
+}
+
+function overflowClips(style) {
+  return (
+    ["hidden", "clip"].includes(style.overflow) ||
+    ["hidden", "clip"].includes(style.overflowX) ||
+    ["hidden", "clip"].includes(style.overflowY)
+  );
+}
+
+function offscreenLazyDescendant(element, root) {
+  let scrollViewport = null;
+  let node = element;
+
+  while (node && node !== root) {
+    const style = getComputedStyle(node);
+
+    if (["auto", "scroll"].includes(style.overflowY)) {
+      scrollViewport = node;
+    }
+
+    node = node.parentElement;
+  }
+
+  if (!scrollViewport) return false;
+
+  const style = getComputedStyle(element);
+  if (style.contentVisibility !== "auto") return false;
+
+  const lazyBox = element.getBoundingClientRect();
+  const viewportBox = scrollViewport.getBoundingClientRect();
+
+  return lazyBox.bottom <= viewportBox.top || lazyBox.top >= viewportBox.bottom;
 }
 
 /** One component-relative rectangle covering what either side paints. */
@@ -336,15 +399,17 @@ export function localise(diff, width, height, slots, into) {
   // factor, so both have to be applied before a coordinate means anything.
   const { origin, clip, scale } = into ?? { origin: { x: 0, y: 0 }, clip: { x: 0, y: 0 }, scale: 1 };
 
-  const boxes = (slots ?? []).map(({ slot, box }) => ({
-    slot,
-    box: {
-      x: (box.x + origin.x - clip.x) * scale,
-      y: (box.y + origin.y - clip.y) * scale,
-      width: box.width * scale,
-      height: box.height * scale,
-    },
-  }));
+  const boxes = (slots ?? [])
+    .filter(({ box }) => box)
+    .map(({ slot, box }) => ({
+      slot,
+      box: {
+        x: (box.x + origin.x - clip.x) * scale,
+        y: (box.y + origin.y - clip.y) * scale,
+        width: box.width * scale,
+        height: box.height * scale,
+      },
+    }));
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {

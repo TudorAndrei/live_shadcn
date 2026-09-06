@@ -1,6 +1,6 @@
 # TODO: shadcn parity and verification badges
 
-Follow [PLAN.md](PLAN.md). Phase 3 complete. Complete each phase,
+Follow [PLAN.md](PLAN.md). Phase 4 complete. Complete each phase,
 run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 1: share shadcn evidence evaluation
@@ -49,14 +49,14 @@ run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 4: capture overflow and preserve pixel diagnostics
 
-- [ ] Include visible unslotted overflow in `paintedBoxInDocument`.
-- [ ] Preserve page-chrome, hidden-content, clipping, portal, and lazy-layout rules.
-- [ ] Add a browser case where changed overflow must produce a pixel difference.
-- [ ] Test nested overflow, portals, clipping, and hidden descendants.
-- [ ] Handle null boxes in `localise` and preserve unmatched pixel counts.
-- [ ] Run `shoot.test.mjs` and all browser helper tests.
-- [ ] Run scoped parity/pixel checks for dialog, popover, tooltip, toast, and message-scroller.
-- [ ] Commit: `fix(parity): capture visible shadcn overflow`
+- [x] Include visible unslotted overflow in `paintedBoxInDocument`.
+- [x] Preserve page-chrome, hidden-content, clipping, portal, and lazy-layout rules.
+- [x] Add a browser case where changed overflow must produce a pixel difference.
+- [x] Test nested overflow, portals, clipping, and hidden descendants.
+- [x] Handle null boxes in `localise` and preserve unmatched pixel counts.
+- [x] Run `shoot.test.mjs` and all browser helper tests.
+- [x] Run scoped parity/pixel checks for dialog, popover, tooltip, toast, and message-scroller.
+- [x] Commit: `fix(parity): capture visible shadcn overflow`
 
 ## Phase 5: make shadcn workflow scope explicit
 
