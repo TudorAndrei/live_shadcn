@@ -55,17 +55,38 @@ defmodule Mix.Tasks.Ui.Status do
   @impl Mix.Task
   def run(argv) do
     Mix.Task.run("app.start")
-    {opts, _, _} = OptionParser.parse(argv, strict: [check: :boolean])
+
+    {opts, _, invalid} =
+      OptionParser.parse(argv,
+        strict: [check: :boolean, source: :string, require_verified: :boolean]
+      )
+
+    valid_options!(invalid)
+
     check? = Keyword.get(opts, :check, false)
+    source = source!(Keyword.get(opts, :source))
+    require_verified? = Keyword.get(opts, :require_verified, false)
+
+    if require_verified? and not check? do
+      Mix.raise("`--require-verified` is valid only with `--check`.")
+    end
 
     inventory = read_json!(registry_path("INVENTORY.json"))
     {components, added} = merge_upstream(inventory["components"])
 
-    # Docs-only families do not have a registry primitive and therefore do not
-    # appear in INVENTORY.md. They still need the same completed browser
-    # evidence as a primitive. Check their records here so CI cannot accept a
-    # missing, stale, failed, or incomplete docs-only verification.
-    docs_only_gaps = docs_only_verification_gaps()
+    docs_only_gaps =
+      if check? and not require_verified? and source in [nil, "shadcn"] do
+        docs_only_verification_gaps()
+      else
+        []
+      end
+
+    requirement_gaps =
+      if check? and require_verified? do
+        LiveShadcnTools.verification_requirement_gaps(source)
+      else
+        []
+      end
 
     if added != [] do
       Mix.shell().info(
@@ -83,6 +104,14 @@ defmodule Mix.Tasks.Ui.Status do
         Mix.raise(
           "docs-only families are not currently verified: #{Enum.join(docs_only_gaps, ", ")}. " <>
             "Run `mix ui.verify #{Enum.map_join(docs_only_gaps, " ", &String.replace_prefix(&1, "shadcn/", ""))}`."
+        )
+
+      check? and requirement_gaps != [] ->
+        source_flag = if source, do: " --source #{source}", else: ""
+
+        Mix.raise(
+          "verification requirements are not currently met: #{Enum.join(requirement_gaps, ", ")}. " <>
+            "Run `mix ui.verify#{source_flag} #{Enum.map_join(requirement_gaps, " ", &verification_rerun_arg/1)}`."
         )
 
       not check? ->
@@ -222,6 +251,27 @@ defmodule Mix.Tasks.Ui.Status do
       root,
       Path.join([root, "registry", "spec", source, "#{name}.json"])
     )
+  end
+
+  defp valid_options!([]), do: :ok
+
+  defp valid_options!(invalid) do
+    options = Enum.map_join(invalid, ", ", fn {option, _value} -> option end)
+    Mix.raise("invalid option(s): #{options}")
+  end
+
+  defp source!(nil), do: nil
+
+  defp source!(source) when source in ["shadcn", "ai_elements"], do: source
+
+  defp source!(source),
+    do: Mix.raise("invalid source #{source}; expected shadcn or ai_elements")
+
+  defp verification_rerun_arg(reference) do
+    case String.split(reference, "/", parts: 2) do
+      [_source, name] -> name
+      [name] -> name
+    end
   end
 
   defp generated?(source, name), do: File.exists?(module_path(source, name))

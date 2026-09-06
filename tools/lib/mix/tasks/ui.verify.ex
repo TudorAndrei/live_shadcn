@@ -81,9 +81,12 @@ defmodule Mix.Tasks.Ui.Verify do
   def run(argv) do
     Mix.Task.run("app.start")
 
-    {opts, names, _} =
-      OptionParser.parse(argv, strict: [browser: :boolean, examples: :string, record: :keep])
+    {opts, names, invalid} =
+      OptionParser.parse(argv,
+        strict: [browser: :boolean, examples: :string, source: :string, record: :keep]
+      )
 
+    valid_options!(invalid)
     records = Keyword.get_values(opts, :record)
 
     if records != [] do
@@ -93,10 +96,17 @@ defmodule Mix.Tasks.Ui.Verify do
     end
   end
 
+  defp valid_options!([]), do: :ok
+
+  defp valid_options!(invalid) do
+    options = Enum.map_join(invalid, ", ", fn {option, _value} -> option end)
+    Mix.raise("invalid option(s): #{options}")
+  end
+
   defp verify_run(names, opts) do
     browser? = Keyword.get(opts, :browser, true)
-
-    components = if names == [], do: generated(), else: Enum.map(names, &resolve/1)
+    source = source!(Keyword.get(opts, :source))
+    components = components_for_verify(names, source)
 
     if components == [] do
       Mix.raise("nothing to verify: no reviewed component port exists.")
@@ -203,8 +213,10 @@ defmodule Mix.Tasks.Ui.Verify do
   # without starting a browser. The record is still gated by the same static
   # checks and evidence digest as a full verification run.
   defp record_incremental!(names, opts, records) do
+    source_filter = source!(Keyword.get(opts, :source))
+
     {source, name} =
-      case Enum.map(names, &resolve/1) do
+      case components_for_verify(names, source_filter) do
         [component] -> component
         [] -> Mix.raise("incremental evidence needs exactly one component name")
         _ -> Mix.raise("incremental evidence records one component at a time")
@@ -438,19 +450,34 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   defp generated do
-    primitives =
-      registry_path("spec")
-      |> Path.join("*/*.json")
-      |> Path.wildcard()
-      |> Enum.map(&{Path.basename(Path.dirname(&1)), Path.basename(&1, ".json")})
-      |> Enum.filter(fn {source, name} -> File.exists?(module_path(source, name)) end)
-
-    docs_only = Enum.map(docs_only_shadcn_families(), &{"shadcn", &1})
-
-    (primitives ++ docs_only)
-    |> Enum.uniq()
-    |> Enum.sort()
+    LiveShadcnTools.verification_targets()
   end
+
+  defp components_for_verify(names, source) do
+    components =
+      if names == [], do: generated(), else: Enum.map(names, &resolve/1)
+
+    components
+    |> Enum.uniq()
+    |> Enum.map(fn {component_source, name} = component ->
+      if source != nil and source != component_source do
+        Mix.raise("#{ref(component_source, name)} does not belong to source #{source}.")
+      end
+
+      component
+    end)
+    |> only_source(source)
+  end
+
+  defp only_source(components, nil), do: components
+  defp only_source(components, source), do: Enum.filter(components, fn {s, _} -> s == source end)
+
+  defp source!(nil), do: nil
+
+  defp source!(source) when source in ["shadcn", "ai_elements"], do: source
+
+  defp source!(source),
+    do: Mix.raise("invalid source #{source}; expected shadcn or ai_elements")
 
   defp verify(
          source,

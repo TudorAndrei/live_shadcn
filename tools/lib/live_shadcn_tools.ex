@@ -272,6 +272,65 @@ defmodule LiveShadcnTools do
   def verification_evidence_digest("ai_elements", name, root),
     do: LiveShadcnVerification.evidence_digest("ai_elements", name, root)
 
+  @doc false
+  def verification_targets(source \\ nil, root \\ repo_root()) do
+    primitives =
+      Path.join([root, "registry/spec/*/*.json"])
+      |> Path.wildcard()
+      |> Enum.map(&{Path.basename(Path.dirname(&1)), Path.basename(&1, ".json")})
+      |> Enum.filter(fn {component_source, name} ->
+        File.exists?(Path.join(root, module_path(component_source, name)))
+      end)
+
+    docs_only =
+      LiveShadcnVerification.docs_only_shadcn_families(root)
+      |> Enum.map(&{"shadcn", &1})
+
+    (primitives ++ docs_only)
+    |> Enum.uniq()
+    |> Enum.sort()
+    |> only_verification_source(source)
+  end
+
+  @doc false
+  def verification_requirement_met?(reference, root \\ repo_root()) do
+    {source, name} = parse_ref(reference)
+
+    case VerificationPolicy.status(source, name) do
+      status when status in [:no_dom, :local_only] ->
+        true
+
+      _ ->
+        verify_path = Path.join(root, "registry/VERIFY.json")
+
+        result =
+          if File.exists?(verify_path),
+            do: get_in(read_json!(verify_path), [reference]),
+            else: %{}
+
+        LiveShadcnVerification.pipeline_verified?(
+          result || %{},
+          source,
+          name,
+          root,
+          Path.join(root, "registry/spec/#{source}/#{name}.json")
+        )
+    end
+  end
+
+  @doc false
+  def verification_requirement_gaps(source \\ nil, root \\ repo_root()) do
+    root
+    |> verification_targets(source)
+    |> Enum.map(&ref(elem(&1, 0), elem(&1, 1)))
+    |> Enum.reject(&verification_requirement_met?(&1, root))
+  end
+
+  defp only_verification_source(components, nil), do: components
+
+  defp only_verification_source(components, source),
+    do: Enum.filter(components, fn {component_source, _} -> component_source == source end)
+
   @doc "SHA-256 of a binary, hex encoded. Used to detect upstream drift."
   def digest(binary), do: :crypto.hash(:sha256, binary) |> Base.encode16(case: :lower)
 

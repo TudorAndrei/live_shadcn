@@ -135,6 +135,9 @@ jobs:
       - run: mix ui.status --check
         working-directory: tools
 
+      - run: mix ui.status --check --source shadcn --require-verified
+        working-directory: tools
+
       # This check reads only committed contracts and reviewed ports. It needs
       # no upstream source and no JavaScript parser.
       - run: mix ui.spec --check --offline

@@ -1,6 +1,6 @@
 # TODO: shadcn parity and verification badges
 
-Follow [PLAN.md](PLAN.md). Phase 4 complete. Complete each phase,
+Follow [PLAN.md](PLAN.md). Phase 5 complete. Complete each phase,
 run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 1: share shadcn evidence evaluation
@@ -60,17 +60,17 @@ run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 5: make shadcn workflow scope explicit
 
-- [ ] Add and test `--source shadcn` in `ui.verify` and `ui.status`.
-- [ ] Select ports and documentation families and apply No DOM policy.
-- [ ] Reject unknown options and invalid source/name combinations.
-- [ ] Add `--require-verified` to source-scoped status checking.
-- [ ] Prove incomplete evidence fails even when inventory text matches.
-- [ ] Install parity dependencies in upstream sync.
-- [ ] Make the shadcn sync write evidence and refresh inventory.
-- [ ] Add the strict shadcn CI gate and preserve unrelated checks.
-- [ ] Run tools tests, Node tests, and actionlint for both workflows.
-- [ ] Exercise clean-checkout installation and scoped verification.
-- [ ] Commit: `fix(ci): record and gate shadcn verification results`
+- [x] Add and test `--source shadcn` in `ui.verify` and `ui.status`.
+- [x] Select ports and documentation families and apply No DOM policy.
+- [x] Reject unknown options and invalid source/name combinations.
+- [x] Add `--require-verified` to source-scoped status checking.
+- [x] Prove incomplete evidence fails even when inventory text matches.
+- [x] Install parity dependencies in upstream sync.
+- [x] Make the shadcn sync write evidence and refresh inventory.
+- [x] Add the strict shadcn CI gate and preserve unrelated checks.
+- [x] Run tools tests, Node tests, and actionlint for both workflows.
+- [x] Exercise clean-checkout installation and scoped verification.
+- [x] Commit: `fix(ci): record and gate shadcn verification results`
 
 ## Phase 6: refresh evidence and verify release badges
 

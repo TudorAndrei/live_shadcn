@@ -1,6 +1,7 @@
 defmodule LiveShadcnTools.IdentityTest do
   use ExUnit.Case, async: true
 
+  alias LiveShadcnVerification
   alias Mix.Tasks.Ui.Status
 
   # A component is identified by its source and its name, never by its name
@@ -314,6 +315,58 @@ defmodule LiveShadcnTools.IdentityTest do
         LiveShadcnTools.verification_evidence_digest("shadcn", "button", root)
 
       refute changed_snapshot_renderer == changed_preview_renderer
+    end
+  end
+
+  describe "source-scoped verification workflow" do
+    test "verification targets include shadcn documentation families" do
+      targets = LiveShadcnTools.verification_targets("shadcn")
+
+      assert Enum.all?(targets, fn {source, _name} -> source == "shadcn" end)
+      assert {"shadcn", "typography"} in targets
+    end
+
+    test "require-verified rejects incomplete evidence even when a record says pass" do
+      root = LiveShadcnTools.repo_root()
+      policy = LiveShadcnTools.verification_policy("shadcn", "button", root)
+      evidence = LiveShadcnTools.verification_evidence_digest("shadcn", "button", root)
+      spec_path = Path.join([root, "registry/spec/shadcn/button.json"])
+
+      checks =
+        Map.new(policy.required_checks, fn check ->
+          {check, %{"pass" => check != "pixel"}}
+        end)
+
+      result = %{
+        "pass" => true,
+        "evidence" => evidence,
+        "checks" => checks,
+        "spec" => LiveShadcnTools.digest(File.read!(spec_path))
+      }
+
+      refute LiveShadcnVerification.pipeline_verified?(
+               result,
+               "shadcn",
+               "button",
+               root,
+               spec_path
+             )
+    end
+
+    test "no-dom components satisfy verification requirements without browser evidence" do
+      assert LiveShadcnTools.verification_requirement_met?("shadcn/direction")
+    end
+
+    test "ui.verify rejects a component from another source" do
+      assert_raise Mix.Error, ~r/does not belong to source shadcn/, fn ->
+        Mix.Task.run("ui.verify", ["--source", "shadcn", "ai_elements/message", "--no-browser"])
+      end
+    end
+
+    test "ui.status rejects unknown options" do
+      assert_raise Mix.Error, ~r/invalid option\(s\): --unknown/, fn ->
+        Mix.Task.run("ui.status", ["--unknown"])
+      end
     end
   end
 

@@ -65,6 +65,18 @@ jobs:
         env:
           CI: "true"
 
+      - name: Install parity dependencies
+        run: npm ci
+        working-directory: parity
+
+      - name: Record shadcn verification
+        run: mix ui.verify --source shadcn
+        working-directory: tools
+
+      - name: Refresh inventory
+        run: mix ui.status
+        working-directory: tools
+
       # What moved, in words. `git diff --stat` would say four files and 807
       # lines, which is true and useless; `mix ui.drift` reads the specs and
       # says whether a class string moved or an attribute appeared.
