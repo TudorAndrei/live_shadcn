@@ -1,12 +1,15 @@
 {
   "base_ui": {
-    "navigation-menu": "57c2647f243a801ac4737852bfe0db8c2dac728bb7e1e22e977151cde99ebbca"
+    "navigation-menu": "3f43a8fdcc90b41857aa2931a1ebd35f89cb9892226889a7a22914efd5c6e3fa"
   },
   "bindings": {
     "copy": [
       "jsx/NavigationMenu/class/0",
       "jsx/NavigationMenuContent/class/0",
+      "jsx/NavigationMenuIndicator/class/0",
+      "jsx/NavigationMenuIndicator/class/1",
       "jsx/NavigationMenuItem/class/0",
+      "jsx/NavigationMenuLink/class/0",
       "jsx/NavigationMenuList/class/0",
       "jsx/NavigationMenuPositioner/class/0",
       "jsx/NavigationMenuPositioner/class/1",
@@ -38,7 +41,10 @@
   "facts": {
     "jsx/NavigationMenu/class/0": "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
     "jsx/NavigationMenuContent/class/0": "cn-navigation-menu-content data-ending-style:data-activation-direction=left:translate-x-[50%] data-ending-style:data-activation-direction=right:translate-x-[-50%] data-starting-style:data-activation-direction=left:translate-x-[-50%] data-starting-style:data-activation-direction=right:translate-x-[50%] h-full w-auto transition-[opacity,transform,translate] duration-[0.35s] data-ending-style:opacity-0 data-starting-style:opacity-0 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
+    "jsx/NavigationMenuIndicator/class/0": "cn-navigation-menu-indicator top-full z-1 flex h-1.5 items-end justify-center overflow-hidden",
+    "jsx/NavigationMenuIndicator/class/1": "cn-navigation-menu-indicator-arrow relative top-[60%] h-2 w-2 rotate-45",
     "jsx/NavigationMenuItem/class/0": "cn-navigation-menu-item relative",
+    "jsx/NavigationMenuLink/class/0": "cn-navigation-menu-link",
     "jsx/NavigationMenuList/class/0": "cn-navigation-menu-list group flex flex-1 list-none items-center justify-center",
     "jsx/NavigationMenuPositioner/class/0": "cn-navigation-menu-positioner isolate z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-[0.35s] data-instant:transition-none",
     "jsx/NavigationMenuPositioner/class/1": "cn-navigation-menu-popup data-[ending-style]:easing-[ease] xs:w-(--popup-width) relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]",
@@ -47,16 +53,12 @@
     "port/class/0": "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none group"
   },
   "file_fingerprints": {
-    "shadcn/ui/navigation-menu.tsx": "fa5b8798d28af5fce5e892908e4df05358a0f21b5cc3785389ada1106ab588e4"
+    "shadcn/ui/navigation-menu.tsx": "f65f7eddfc121a6b210d628b1b57bac634d05706cc3c9ea888d85df8e5d102bc"
   },
-  "fingerprint": "fb7d168d17edeab7e3be313598e9b9ef60534456b2373fc7ee1ed5fafc71ba5e",
-  "ignored": {
-    "jsx/NavigationMenuIndicator/class/0": "the generated port does not contain this source literal",
-    "jsx/NavigationMenuIndicator/class/1": "the generated port does not contain this source literal",
-    "jsx/NavigationMenuLink/class/0": "the generated port does not contain this source literal"
-  },
+  "fingerprint": "287c5772c73db06dcacfa2f661040f78b474d1217c48e0087bff80252759977e",
+  "ignored": {},
   "name": "navigation-menu",
-  "port_body": "93f308ed2ca18bb5b5c2567ff3946854148a02a3c1a162e141f5dc4382631865",
+  "port_body": "756d740f630b3bac0ef7b2d5640048e055289ae81a639ac45aed6a75ed377a21",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -82,6 +84,14 @@
     {
       "name": "data-activation-direction",
       "value": "right"
+    },
+    {
+      "name": "data-active",
+      "value": null
+    },
+    {
+      "name": "data-active",
+      "value": "true"
     },
     {
       "name": "data-closed",
@@ -140,6 +150,14 @@
       "value": null
     },
     {
+      "name": "data-state",
+      "value": "hidden"
+    },
+    {
+      "name": "data-state",
+      "value": "visible"
+    },
+    {
       "group": "navigation-menu",
       "name": "data-viewport",
       "value": "false"
@@ -156,25 +174,28 @@
     }
   ],
   "styles": {
-    "luma": "273b755a6b06582cfad3d9ae4e91e841b83a665f9f6dc4f2b0d36c43d5788ab9",
-    "lyra": "ec451e80f112189c277a17c010667538305a69ff3040b92eb54d415f6fe3788f",
-    "maia": "5bc34cc1a101af237039bab3ae42720ea9c4c5e39687121fad4f55586bbc8b6a",
-    "mira": "1fcb8effe76bbde38a64ef94039073d8db07c5f8622db8e530b46ed7d54445ca",
-    "nova": "2d755f3ecc5065195436f1126a7d86958a88b6d0175ba8f8fc86c00805d08cdf",
-    "rhea": "dc5324614d1781e3dd6e2d87d7b38e44e482ec48f14adbc43e26724ebac11bf3",
-    "sera": "5c57eb80dba55d27115047917e65432f0d07f04552ec939d803d3a77ab7fe4c5",
-    "vega": "729941fdf494e7532bcc58d724db6a6d85f7efe965dacd84ab0f47c65c60b60f"
+    "luma": "efc3c91303667116933bc5d2f58ce6dfca23e4b5a3a10a6700408b6f56b1130b",
+    "lyra": "52fcc65a268e1f0b85c317a043230c754cce51bdbe45a0041df8e8276639c6f2",
+    "maia": "539858222b6f9043a337af932301a45a8dd733cbf3ca6749ad8e3e50711b56c7",
+    "mira": "fbf4a5813f91d4e1fe8869c5c2e54849a5673b9174eacc8e2c11845e0d228250",
+    "nova": "e3e8108f074c896cb161f76b3033523807435bec59214eeba00f689e144991a9",
+    "rhea": "90ad2ec2a3dbc66eed412980e87100c3a5bfb5d22bde05bbd816eb11a728d501",
+    "sera": "1a85a35f427a5949b9fd26a28897731d5b8c2d3a9c4f24743a8fdbd3beef3187",
+    "vega": "9103e7430c1301d1184ee5259db672a8cdf143d13a6fdc5c727492624eee3321"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/navigation-menu.tsx": "40629a60998e13c173c141a604dd47ee3766f1fee580cceb92c4ba0f5af3a6f5"
+    "shadcn/ui/navigation-menu.tsx": "37074909a349319adc1f90ab122c46730103b5bf752915de27fb10ab25b90f65"
   },
   "uses": [
     "jsx/NavigationMenu/class/0",
     "jsx/NavigationMenuContent/class/0",
+    "jsx/NavigationMenuIndicator/class/0",
+    "jsx/NavigationMenuIndicator/class/1",
     "jsx/NavigationMenuItem/class/0",
+    "jsx/NavigationMenuLink/class/0",
     "jsx/NavigationMenuList/class/0",
     "jsx/NavigationMenuPositioner/class/0",
     "jsx/NavigationMenuPositioner/class/1",

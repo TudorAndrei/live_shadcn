@@ -21,6 +21,10 @@ defmodule LiveShadcn.UI.Sidebar do
       "cn-sidebar-menu-button-variant-default",
     "cva/sidebarMenuButtonVariants/variant/variant/outline" =>
       "cn-sidebar-menu-button-variant-outline",
+    "jsx/Sidebar/class/0" =>
+      "flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground",
+    "jsx/Sidebar/class/1" =>
+      "w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden",
     "jsx/Sidebar/class/10" =>
       "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
     "jsx/Sidebar/class/11" =>
@@ -29,6 +33,7 @@ defmodule LiveShadcn.UI.Sidebar do
       "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
     "jsx/Sidebar/class/13" => "cn-sidebar-inner flex size-full flex-col",
     "jsx/Sidebar/class/2" => "sr-only",
+    "jsx/Sidebar/class/3" => "flex h-full w-full flex-col",
     "jsx/Sidebar/class/4" => "group peer hidden text-sidebar-foreground md:block",
     "jsx/Sidebar/class/8" =>
       "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]",
@@ -61,9 +66,12 @@ defmodule LiveShadcn.UI.Sidebar do
     "jsx/SidebarMenuSubButton/class/0" =>
       "cn-sidebar-menu-sub-button flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
     "jsx/SidebarMenuSubItem/class/0" => "group/menu-sub-item relative",
+    "jsx/SidebarProvider/class/0" =>
+      "group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar",
     "jsx/SidebarSeparator/class/0" => "cn-sidebar-separator w-auto",
     "jsx/SidebarTrigger/class/0" => "cn-sidebar-trigger",
     "jsx/SidebarTrigger/class/1" => "cn-rtl-flip",
+    "jsx/SidebarTrigger/class/2" => "sr-only",
     "port/class/0" =>
       "cn-sidebar-gap relative w-(--sidebar-width) bg-transparent group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180",
     "port/class/1" =>
@@ -110,9 +118,11 @@ defmodule LiveShadcn.UI.Sidebar do
 
   attr(:collapsible, :string,
     default: "offcanvas",
-    values: ["offcanvas", "icon"],
+    values: ["offcanvas", "icon", "none"],
     doc: "What is left behind when it collapses: a strip of icons, or nothing."
   )
+
+  attr(:mobile, :boolean, default: false, doc: "Use the narrow-screen sidebar layout.")
 
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global)
@@ -120,7 +130,17 @@ defmodule LiveShadcn.UI.Sidebar do
 
   def sidebar(assigns) do
     ~H"""
-    <div
+    <%= if @collapsible == "none" do %>
+      <div
+        id={@id}
+        data-slot="sidebar"
+        class={[upstream_fact("jsx/Sidebar/class/0"), @class]}
+        {@rest}
+      >
+        {render_slot(@inner_block)}
+      </div>
+    <% else %>
+      <div
       id={@id}
       data-state={if(@open, do: "expanded", else: "collapsed")}
       data-collapsible={if(@open, do: "", else: @collapsible)}
@@ -128,8 +148,13 @@ defmodule LiveShadcn.UI.Sidebar do
       data-variant={@variant}
       phx-mounted={Sidebar.owned_attributes(:sidebar)}
       data-slot="sidebar"
-      class={upstream_fact("jsx/Sidebar/class/4")}
+      data-mobile={if(@mobile, do: "true")}
+      class={if(@mobile, do: upstream_fact("jsx/Sidebar/class/1"), else: upstream_fact("jsx/Sidebar/class/4"))}
     >
+      <div :if={@mobile} class={upstream_fact("jsx/Sidebar/class/3")}>
+        {render_slot(@inner_block)}
+      </div>
+      <%= if not @mobile do %>
       <div
         data-slot="sidebar-gap"
         class={[
@@ -161,7 +186,9 @@ defmodule LiveShadcn.UI.Sidebar do
           {render_slot(@inner_block)}
         </div>
       </div>
+      <% end %>
     </div>
+    <% end %>
     """
   end
 
@@ -637,7 +664,7 @@ defmodule LiveShadcn.UI.Sidebar do
       data-slot={@rest[:"data-slot"] || "sidebar-wrapper"}
       style={"--sidebar-width: 16rem; --sidebar-width-icon: 3rem; #{@style}"}
       class={[
-        "group/sidebar-wrapper flex w-full has-data-[variant=inset]:bg-sidebar",
+        upstream_fact("jsx/SidebarProvider/class/0"),
         minimum_height_class(@class),
         @class
       ]}
@@ -754,7 +781,7 @@ defmodule LiveShadcn.UI.Sidebar do
       {Map.drop(@rest, [:"data-slot"])}
     >
       <LiveShadcn.Icon.icon name="panel-left" class={upstream_fact("jsx/SidebarTrigger/class/1")} /><span class={
-        upstream_fact("jsx/Sidebar/class/2")
+        upstream_fact("jsx/SidebarTrigger/class/2")
       }>Toggle Sidebar</span>{render_slot(@inner_block)}
     </LiveShadcn.UI.Button.button>
     """

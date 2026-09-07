@@ -1,6 +1,6 @@
 {
   "base_ui": {
-    "menu": "bbae180f4b466560142e2558ecde3a2bfdf08a771eb785798f09b240278653e3",
+    "menu": "433a3ddf8eb4245b32f1efd314908348c1657b2c1854ba6c889db42b437cdb84",
     "menubar": "146ee60ba3565250502c02c7da6a761525bcf7738476e08ffb73c8cdd3a360f8"
   },
   "bindings": {
@@ -8,35 +8,44 @@
       "jsx/Menubar/class/0",
       "jsx/MenubarCheckboxItem/class/0",
       "jsx/MenubarCheckboxItem/class/1",
+      "jsx/MenubarContent/class/0",
+      "jsx/MenubarItem/class/0",
+      "jsx/MenubarLabel/class/0",
       "jsx/MenubarRadioItem/class/0",
-      "jsx/MenubarRadioItem/class/1"
+      "jsx/MenubarRadioItem/class/1",
+      "jsx/MenubarSeparator/class/0",
+      "jsx/MenubarShortcut/class/0",
+      "jsx/MenubarSubContent/class/0",
+      "jsx/MenubarSubTrigger/class/0",
+      "jsx/MenubarTrigger/class/0"
     ],
     "derived": {}
   },
-  "css_vars": [],
+  "css_vars": [
+    "--radius-md"
+  ],
   "facts": {
     "jsx/Menubar/class/0": "cn-menubar flex items-center",
     "jsx/MenubarCheckboxItem/class/0": "cn-menubar-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/MenubarCheckboxItem/class/1": "cn-menubar-checkbox-item-indicator pointer-events-none absolute flex items-center justify-center",
+    "jsx/MenubarContent/class/0": "cn-menubar-content cn-menubar-content-logical cn-menu-target cn-menu-translucent",
+    "jsx/MenubarItem/class/0": "cn-menubar-item group/menubar-item",
+    "jsx/MenubarLabel/class/0": "cn-menubar-label",
     "jsx/MenubarRadioItem/class/0": "cn-menubar-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
-    "jsx/MenubarRadioItem/class/1": "cn-menubar-radio-item-indicator pointer-events-none absolute flex items-center justify-center"
+    "jsx/MenubarRadioItem/class/1": "cn-menubar-radio-item-indicator pointer-events-none absolute flex items-center justify-center",
+    "jsx/MenubarSeparator/class/0": "cn-menubar-separator -mx-1 my-1 h-px",
+    "jsx/MenubarShortcut/class/0": "cn-menubar-shortcut ml-auto",
+    "jsx/MenubarSubContent/class/0": "cn-menubar-sub-content cn-menu-target cn-menu-translucent",
+    "jsx/MenubarSubTrigger/class/0": "cn-menubar-sub-trigger",
+    "jsx/MenubarTrigger/class/0": "cn-menubar-trigger flex items-center outline-hidden select-none"
   },
   "file_fingerprints": {
-    "shadcn/ui/menubar.tsx": "5cd4ccb4da5b7c7b7bc0023c4de4d6876ec338d27d753b8d105af4052c0685ef"
+    "shadcn/ui/menubar.tsx": "c347c618df397777d0d71a3582253e8b9d553a24dc3c5287aa2911a622e4eaa8"
   },
-  "fingerprint": "badbcaf5fa87a08a95f24bc1f3b4bb536a146877fccd6ed602ef73b2b486a025",
-  "ignored": {
-    "jsx/MenubarContent/class/0": "the generated port does not contain this source literal",
-    "jsx/MenubarItem/class/0": "the generated port does not contain this source literal",
-    "jsx/MenubarLabel/class/0": "the generated port does not contain this source literal",
-    "jsx/MenubarSeparator/class/0": "the generated port does not contain this source literal",
-    "jsx/MenubarShortcut/class/0": "the generated port does not contain this source literal",
-    "jsx/MenubarSubContent/class/0": "the generated port does not contain this source literal",
-    "jsx/MenubarSubTrigger/class/0": "the generated port does not contain this source literal",
-    "jsx/MenubarTrigger/class/0": "the generated port does not contain this source literal"
-  },
+  "fingerprint": "d8a9295e410b1e684c8d70e5982dc0ef0c47cc5c25d2c0774b9e59491339bd19",
+  "ignored": {},
   "name": "menubar",
-  "port_body": "49fae526293d51fca145b70f2b7ff61bf70a173bc3f54746830e7767dea58655",
+  "port_body": "47e0fb71a553a7d215003e77423535c83651f73a0aa9dd1a1583623e811e5b62",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -56,35 +65,99 @@
   },
   "state_reads": [
     {
+      "name": "aria-expanded",
+      "value": null
+    },
+    {
+      "name": "data-closed",
+      "value": null
+    },
+    {
       "name": "data-disabled",
+      "value": null
+    },
+    {
+      "name": "data-highlighted",
       "value": null
     },
     {
       "name": "data-inset",
       "value": null
+    },
+    {
+      "name": "data-open",
+      "value": null
+    },
+    {
+      "name": "data-side",
+      "value": "bottom"
+    },
+    {
+      "name": "data-side",
+      "value": "inline-end"
+    },
+    {
+      "name": "data-side",
+      "value": "inline-start"
+    },
+    {
+      "name": "data-side",
+      "value": "left"
+    },
+    {
+      "name": "data-side",
+      "value": "right"
+    },
+    {
+      "name": "data-side",
+      "value": "top"
+    },
+    {
+      "name": "data-slot",
+      "value": "-item"
+    },
+    {
+      "name": "data-slot",
+      "value": "-separator"
+    },
+    {
+      "name": "data-slot",
+      "value": "-trigger"
+    },
+    {
+      "name": "data-variant",
+      "value": "destructive"
     }
   ],
   "styles": {
-    "luma": "4ab0e05e4f9b69b2550d461e3d4a10875bcf3ed8911f80210375c604b5328134",
-    "lyra": "bd8246fb7f794a087440812577b79d741bf24b04e3cb73a90aafb3a6b7de7718",
-    "maia": "e1652349297c151991f4ade123ee309cd5dd632cdaa9da6528ca74b1e2e9e0b3",
-    "mira": "9d039f8db78697571326ff0d976a8288966ee88983c9aba82c4e255dda5dc377",
-    "nova": "53aae52a24ab693f68bd98ebc04000930b032a6c195aa13c2581f4933e2fcc32",
-    "rhea": "84014be4908b190c2bf8fbe28c29c86119f3f1e06410b4b9000cdf079703b063",
-    "sera": "3ad257ec13bddeb8113da53e2281ac9e8f1eee43ae53ef8553d52a8155b0205e",
-    "vega": "9f85005641e168a8fbf45f42417b1b527d589ed700af474eba346da39cfa9ec5"
+    "luma": "b32a2ba3fb98920f002e90cfdb9e10117bb66d8a273c1e03aaf54c1600351ae6",
+    "lyra": "045c35785b990e99ee88fd0209ef97a71614619ca68cefe42bdf9120365d21ba",
+    "maia": "42a17acc904359fc57373782a8e32d26c2d8c09c927ac547639a176c578c051c",
+    "mira": "34131bdccbfb8b24357bafe06967bec1af66c0f17c96afea20a9948a0c27d20b",
+    "nova": "3c717f45ba0eaa08b2bf19321f3d11dacea913634b0f9bb36b9604ebf56bc374",
+    "rhea": "f816d2b26f8664683ed22fc9be123e14f714f6ba77f27e20d908839e874730c0",
+    "sera": "350f2022e19c54e5dee77fb8ed1d9d588c37e88e494ab3e00609b200fc4ee888",
+    "vega": "750f5760513aeee16eb7788d97e433e39885d6a9b678fc73e5653c83405da2e5"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/menubar.tsx": "a407a77ebee8636f3dccf62a0cd95899a61f84d172517fa2191cd8374698cef3"
+    "shadcn/ui/menubar.tsx": "0abe1b7b30525404044f1bf693e2a31f624260aec61a6d19271ac1c21f9cc26d"
   },
   "uses": [
     "jsx/Menubar/class/0",
     "jsx/MenubarCheckboxItem/class/0",
     "jsx/MenubarCheckboxItem/class/1",
+    "jsx/MenubarContent/class/0",
+    "jsx/MenubarItem/class/0",
+    "jsx/MenubarLabel/class/0",
     "jsx/MenubarRadioItem/class/0",
-    "jsx/MenubarRadioItem/class/1"
+    "jsx/MenubarRadioItem/class/1",
+    "jsx/MenubarSeparator/class/0",
+    "jsx/MenubarShortcut/class/0",
+    "jsx/MenubarSubContent/class/0",
+    "jsx/MenubarSubTrigger/class/0",
+    "jsx/MenubarTrigger/class/0"
   ]
 }

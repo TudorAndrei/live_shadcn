@@ -14,6 +14,7 @@ defmodule LiveShadcn.UI.Popover do
     "jsx/PopoverContent/class/1" =>
       "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
     "jsx/PopoverDescription/class/0" => "cn-popover-description",
+    "jsx/PopoverHeader/class/0" => "cn-popover-header",
     "jsx/PopoverTitle/class/0" => "cn-popover-title"
   }
   # live-shadcn: upstream facts end
@@ -257,7 +258,7 @@ defmodule LiveShadcn.UI.Popover do
             <div
               :if={@title != [] or @description != []}
               data-slot="popover-header"
-              class={LiveShadcn.Cn.merge(["cn-popover-header", @header_class])}
+              class={LiveShadcn.Cn.merge([upstream_fact("jsx/PopoverHeader/class/0"), @header_class])}
             >
               <h2
                 :if={@title != []}

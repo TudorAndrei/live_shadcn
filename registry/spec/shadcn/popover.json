@@ -1,12 +1,13 @@
 {
   "base_ui": {
-    "popover": "4490b8128003f2316db0d87ebd37c41974606a8bd245a698a89f1a87a5163ab7"
+    "popover": "8a64304a2f1a43f965f0630000086e6e520ce896f9b26f6b4cc5ef20adc04834"
   },
   "bindings": {
     "copy": [
       "jsx/PopoverContent/class/0",
       "jsx/PopoverContent/class/1",
       "jsx/PopoverDescription/class/0",
+      "jsx/PopoverHeader/class/0",
       "jsx/PopoverTitle/class/0"
     ],
     "derived": {}
@@ -18,17 +19,16 @@
     "jsx/PopoverContent/class/0": "isolate z-50",
     "jsx/PopoverContent/class/1": "cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) outline-hidden",
     "jsx/PopoverDescription/class/0": "cn-popover-description",
+    "jsx/PopoverHeader/class/0": "cn-popover-header",
     "jsx/PopoverTitle/class/0": "cn-popover-title"
   },
   "file_fingerprints": {
-    "shadcn/ui/popover.tsx": "1b6e4a1c5988d3f741d87b7b955335351e715b1121a1d5f342e26815d9cc21fe"
+    "shadcn/ui/popover.tsx": "6aefb6bcb72bcfb5b42238343dc6df1116e36f7c37bf265aa4cb20ced9863387"
   },
-  "fingerprint": "0c6f2f507debd677669ed9af3befbe1be636227cd41ca8b86217fcd3bc367652",
-  "ignored": {
-    "jsx/PopoverHeader/class/0": "the generated port does not contain this source literal"
-  },
+  "fingerprint": "e72b38de9e38cc1c9958e703ccc64231d3dc91a100e12978b02d97603b7ae409",
+  "ignored": {},
   "name": "popover",
-  "port_body": "8fef2cf5f8a7b5fb3eaedcc3d3d4b8b512efe228530b65fb820160da9340c10d",
+  "port_body": "44ee812c8d2600fa6dc98c1d165ff2e55f2951d309128a6d2151d75c73a60d06",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -73,25 +73,26 @@
     }
   ],
   "styles": {
-    "luma": "aae488f35d148d1f82e4ba7ad711d08ce6a58a424706e277065766aaf4b7b8ef",
-    "lyra": "c8abb22f47ce462f2bc7573d9efd454d66d3a2f820d56c3cfecfbdca05018f51",
-    "maia": "18075240c439a978867ccda9d56d053c022485526119be111c3953af2df2884f",
-    "mira": "4e151becd79333cb76e7cbd9a5bdfb89bc8003f046df56ac47dd50fa1d1325d9",
-    "nova": "d977ec9e2eb3d74fa0c37d71aed24dc65b7aed75243277161c82d7ab211e2f2d",
-    "rhea": "aae488f35d148d1f82e4ba7ad711d08ce6a58a424706e277065766aaf4b7b8ef",
-    "sera": "95fb0af77640ba1a5f4a6813b4dcddd62f8d561795458179647c66595b8fcfa4",
-    "vega": "d22ec5206fdcd2dacaec77550b0353f3a8fead1a6916b443ddb955a55e3b6f11"
+    "luma": "7116f9393619d06a0dc0dc2cdd79fed1c9cf5e2217a645d5ffe92df5c3229fa5",
+    "lyra": "b51cca6a38b8d6420d3c751d942a27334fb28444aae04a0f295944e68aeb7782",
+    "maia": "5f290738a59389bb892d53325b37c8295907541232259f2733f22dd0e910f3f2",
+    "mira": "52dda185f88b822b240560819c6498bb3a3ea943f2f38365a34eaf17b85d0de0",
+    "nova": "05e0b06e887b99b98cf0a7535863676e038baa784d059b6b789b69c4645c416b",
+    "rhea": "7116f9393619d06a0dc0dc2cdd79fed1c9cf5e2217a645d5ffe92df5c3229fa5",
+    "sera": "9313d07f66b7efdc4497f14b65dcf85185d811854f58aea351b7ac8b80dcec62",
+    "vega": "6974f7c932c075d744bd15bf3d9e3bb9f43483f9260db9130e270efb31612511"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/popover.tsx": "27b854b12d7c7c0d531d2ee928b0d2b882bbb2081938c510d237c22cb819d25f"
+    "shadcn/ui/popover.tsx": "935bab728b60fd867384ebc6097d6a46c937423e015503e0251999b686f38bb7"
   },
   "uses": [
     "jsx/PopoverContent/class/0",
     "jsx/PopoverContent/class/1",
     "jsx/PopoverDescription/class/0",
+    "jsx/PopoverHeader/class/0",
     "jsx/PopoverTitle/class/0"
   ]
 }

@@ -10,11 +10,14 @@ defmodule LiveShadcn.UI.Toast do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
+    "jsx/ToastAction/class/0" => "shrink-0",
     "jsx/ToastClose/class/0" =>
       "relative shrink-0 text-muted-foreground after:absolute after:-inset-2 after:content-[''] hover:text-foreground",
     "jsx/ToastContent/class/0" =>
       "flex h-full items-center gap-3 overflow-hidden p-4 transition-opacity duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100",
     "jsx/ToastDescription/class/0" => "text-sm text-muted-foreground",
+    "jsx/ToastIcon/class/0" => "text-destructive",
+    "jsx/ToastIcon/class/1" => "animate-spin",
     "jsx/ToastIcon/class/2" =>
       "shrink-0 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
     "jsx/ToastList/class/0" => "flex min-w-0 flex-1 flex-col gap-1",
@@ -162,7 +165,7 @@ defmodule LiveShadcn.UI.Toast do
               data-slot="toast-action"
               variant="outline"
               size="sm"
-              class="shrink-0"
+              class={upstream_fact("jsx/ToastAction/class/0")}
               phx-click={
                 JS.push(toast[:action_event] || @dismiss,
                   value: %{id: Toast.toast_id(@id, toast[:id])}
@@ -198,7 +201,7 @@ defmodule LiveShadcn.UI.Toast do
   defp icon("info"), do: "info"
   defp icon(_type), do: nil
 
-  defp icon_class("error"), do: "text-destructive"
-  defp icon_class("loading"), do: "animate-spin"
+  defp icon_class("error"), do: upstream_fact("jsx/ToastIcon/class/0")
+  defp icon_class("loading"), do: upstream_fact("jsx/ToastIcon/class/1")
   defp icon_class(_type), do: nil
 end

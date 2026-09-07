@@ -17,7 +17,9 @@
       "jsx/CarouselNext/class/4",
       "jsx/CarouselPrevious/class/0",
       "jsx/CarouselPrevious/class/1",
-      "jsx/CarouselPrevious/class/2"
+      "jsx/CarouselPrevious/class/2",
+      "jsx/CarouselPrevious/class/3",
+      "jsx/CarouselPrevious/class/4"
     ],
     "derived": {}
   },
@@ -38,18 +40,17 @@
     "jsx/CarouselNext/class/4": "sr-only",
     "jsx/CarouselPrevious/class/0": "cn-carousel-previous absolute touch-manipulation",
     "jsx/CarouselPrevious/class/1": "inset-y-0 -left-12 my-auto",
-    "jsx/CarouselPrevious/class/2": "-top-12 left-1/2 -translate-x-1/2 rotate-90"
+    "jsx/CarouselPrevious/class/2": "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+    "jsx/CarouselPrevious/class/3": "cn-rtl-flip",
+    "jsx/CarouselPrevious/class/4": "sr-only"
   },
   "file_fingerprints": {
-    "shadcn/ui/carousel.tsx": "257d21bc55d6708994de767c5c5602e3ba9a6fb7e7ace4e823e8ee926fa364aa"
+    "shadcn/ui/carousel.tsx": "f86ff524798cb97d0fd4c722a2206ffc99e421f73dd6ef558afd28d87d4c9c33"
   },
-  "fingerprint": "49f664aa42af2440e10486ca33fdf71f111a9885a99dd2dbf5d2bce67a1ce546",
-  "ignored": {
-    "jsx/CarouselPrevious/class/3": "the generated port does not contain this source literal",
-    "jsx/CarouselPrevious/class/4": "the generated port does not contain this source literal"
-  },
+  "fingerprint": "f6c392c15c5202c3a575a19e8f9c9ce9ed34e59b9474e4960ed5bb8103a25ac6",
+  "ignored": {},
   "name": "carousel",
-  "port_body": "e0c8bfaee646922f0d32cccac210fb1d8f11c68a035c0b0ef957a0aeae86d89e",
+  "port_body": "7c74eae0c3a3f2ca28a1b5a62fdaa3a999e8f22666f2f1132af9dc96e050dcd7",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -85,7 +86,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/carousel.tsx": "f96cbdfe39d65ccb9052507598b421eba6625c0677cc25d771b7953e2f3e9385"
+    "shadcn/ui/carousel.tsx": "d2c33f0ae6b64f5d6ba8d6ad467322008008621fff6b09e9f6d8e21011849123"
   },
   "uses": [
     "jsx/Carousel/class/0",
@@ -103,6 +104,8 @@
     "jsx/CarouselPrevious/class/0",
     "jsx/CarouselPrevious/class/1",
     "jsx/CarouselPrevious/class/2",
+    "jsx/CarouselPrevious/class/3",
+    "jsx/CarouselPrevious/class/4",
     "port/class/0"
   ]
 }

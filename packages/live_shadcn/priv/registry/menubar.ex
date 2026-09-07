@@ -21,10 +21,21 @@ defmodule LiveShadcn.UI.Menubar do
       "cn-menubar-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/MenubarCheckboxItem/class/1" =>
       "cn-menubar-checkbox-item-indicator pointer-events-none absolute flex items-center justify-center",
+    "jsx/MenubarContent/class/0" =>
+      "cn-menubar-content cn-menubar-content-logical cn-menu-target cn-menu-translucent",
+    "jsx/MenubarItem/class/0" => "cn-menubar-item group/menubar-item",
+    "jsx/MenubarLabel/class/0" => "cn-menubar-label",
     "jsx/MenubarRadioItem/class/0" =>
       "cn-menubar-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
     "jsx/MenubarRadioItem/class/1" =>
-      "cn-menubar-radio-item-indicator pointer-events-none absolute flex items-center justify-center"
+      "cn-menubar-radio-item-indicator pointer-events-none absolute flex items-center justify-center",
+    "jsx/MenubarSeparator/class/0" => "cn-menubar-separator -mx-1 my-1 h-px",
+    "jsx/MenubarShortcut/class/0" => "cn-menubar-shortcut ml-auto",
+    "jsx/MenubarSubContent/class/0" =>
+      "cn-menubar-sub-content cn-menu-target cn-menu-translucent",
+    "jsx/MenubarSubTrigger/class/0" => "cn-menubar-sub-trigger",
+    "jsx/MenubarTrigger/class/0" =>
+      "cn-menubar-trigger flex items-center outline-hidden select-none"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)
@@ -38,7 +49,7 @@ defmodule LiveShadcn.UI.Menubar do
     group_slot: "menubar-group",
     item_slot: "menubar-item",
     item_class:
-      "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-menubar-item group/menubar-item",
+      "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 " <> @upstream_facts["jsx/MenubarItem/class/0"],
     checkbox_item_slot: "menubar-checkbox-item",
     checkbox_item_class: @upstream_facts["jsx/MenubarCheckboxItem/class/0"],
     checkbox_indicator_slot: nil,
@@ -49,15 +60,15 @@ defmodule LiveShadcn.UI.Menubar do
     radio_indicator_slot: nil,
     radio_indicator_class: @upstream_facts["jsx/MenubarRadioItem/class/1"],
     label_slot: "menubar-label",
-    label_class: "cn-dropdown-menu-label cn-menubar-label",
+    label_class: "cn-dropdown-menu-label " <> @upstream_facts["jsx/MenubarLabel/class/0"],
     separator_slot: "menubar-separator",
-    separator_class: "cn-dropdown-menu-separator cn-menubar-separator -mx-1 my-1 h-px",
+    separator_class: "cn-dropdown-menu-separator " <> @upstream_facts["jsx/MenubarSeparator/class/0"],
     shortcut_slot: "menubar-shortcut",
-    shortcut_class: "cn-dropdown-menu-shortcut cn-menubar-shortcut ml-auto",
+    shortcut_class: "cn-dropdown-menu-shortcut " <> @upstream_facts["jsx/MenubarShortcut/class/0"],
     sub_trigger_slot: "menubar-sub-trigger",
-    sub_trigger_class: "cn-menubar-sub-trigger",
+    sub_trigger_class: @upstream_facts["jsx/MenubarSubTrigger/class/0"],
     sub_content_slot: "menubar-sub-content",
-    sub_content_class: "cn-menubar-sub-content cn-menu-target cn-menu-translucent"
+    sub_content_class: @upstream_facts["jsx/MenubarSubContent/class/0"]
   }
 
   @doc "The `menubar` part."
@@ -143,12 +154,12 @@ defmodule LiveShadcn.UI.Menubar do
       trigger_slot="menubar-trigger"
       popup_slot="menubar-content"
       item_slot="menubar-item"
-      trigger_class="cn-menubar-trigger flex items-center outline-hidden select-none"
+      trigger_class={upstream_fact("jsx/MenubarTrigger/class/0")}
       class={[
-        "cn-menubar-content cn-menubar-content-logical cn-menu-target cn-menu-translucent",
+        upstream_fact("jsx/MenubarContent/class/0"),
         @class
       ]}
-      item_class="cn-menubar-item group/menubar-item"
+      item_class={upstream_fact("jsx/MenubarItem/class/0")}
       trigger_attrs={@trigger_attrs}
       content_attrs={@content_attrs}
       parts={@menu_parts}

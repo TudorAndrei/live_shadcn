@@ -14,7 +14,12 @@ defmodule LiveShadcn.UI.NavigationMenu do
       "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
     "jsx/NavigationMenuContent/class/0" =>
       "cn-navigation-menu-content data-ending-style:data-activation-direction=left:translate-x-[50%] data-ending-style:data-activation-direction=right:translate-x-[-50%] data-starting-style:data-activation-direction=left:translate-x-[-50%] data-starting-style:data-activation-direction=right:translate-x-[50%] h-full w-auto transition-[opacity,transform,translate] duration-[0.35s] data-ending-style:opacity-0 data-starting-style:opacity-0 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
+    "jsx/NavigationMenuIndicator/class/0" =>
+      "cn-navigation-menu-indicator top-full z-1 flex h-1.5 items-end justify-center overflow-hidden",
+    "jsx/NavigationMenuIndicator/class/1" =>
+      "cn-navigation-menu-indicator-arrow relative top-[60%] h-2 w-2 rotate-45",
     "jsx/NavigationMenuItem/class/0" => "cn-navigation-menu-item relative",
+    "jsx/NavigationMenuLink/class/0" => "cn-navigation-menu-link",
     "jsx/NavigationMenuList/class/0" =>
       "cn-navigation-menu-list group flex flex-1 list-none items-center justify-center",
     "jsx/NavigationMenuPositioner/class/0" =>
@@ -213,6 +218,7 @@ defmodule LiveShadcn.UI.NavigationMenu do
   end
 
   attr(:href, :string, required: true)
+  attr(:active, :boolean, default: false)
   attr(:class, :any, default: nil)
   attr(:rest, :global)
   slot(:inner_block, required: true)
@@ -223,11 +229,30 @@ defmodule LiveShadcn.UI.NavigationMenu do
     <a
       data-slot="navigation-menu-link"
       href={@href}
-      class={["cn-navigation-menu-link", (@class || "")]}
+      data-active={if(@active, do: "true")}
+      class={[upstream_fact("jsx/NavigationMenuLink/class/0"), (@class || "")]}
       {@rest}
     >
       {render_slot(@inner_block)}
     </a>
+    """
+  end
+
+  @doc "An arrow under the active navigation item."
+  attr(:state, :string, default: "visible", values: ["visible", "hidden"])
+  attr(:class, :any, default: nil)
+  attr(:rest, :global)
+
+  def navigation_menu_indicator(assigns) do
+    ~H"""
+    <div
+      data-slot="navigation-menu-indicator"
+      data-state={@state}
+      class={[upstream_fact("jsx/NavigationMenuIndicator/class/0"), @class || ""]}
+      {@rest}
+    >
+      <div class={upstream_fact("jsx/NavigationMenuIndicator/class/1")} />
+    </div>
     """
   end
 

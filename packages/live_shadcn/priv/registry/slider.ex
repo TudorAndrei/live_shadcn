@@ -14,6 +14,8 @@ defmodule LiveShadcn.UI.Slider do
     "jsx/Slider/class/1" =>
       "cn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col",
     "jsx/Slider/class/2" => "cn-slider-track relative grow overflow-hidden select-none",
+    "jsx/Slider/class/3" =>
+      "cn-slider-range select-none data-horizontal:h-full data-vertical:w-full",
     "jsx/Slider/class/4" =>
       "cn-slider-thumb block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50"
   }
@@ -102,7 +104,7 @@ defmodule LiveShadcn.UI.Slider do
             data-lb-slider-range
             data-orientation={@orientation}
             data-disabled={flag(@disabled)}
-            class="cn-slider-range select-none data-horizontal:h-full data-vertical:w-full"
+            class={upstream_fact("jsx/Slider/class/3")}
           />
         </div>
         <div

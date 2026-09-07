@@ -1,12 +1,13 @@
 {
   "base_ui": {
-    "slider": "76e76c035918d32830855484c1200c53f4ac5fdc100fe32b5493defb2fc3f702"
+    "slider": "34608ad14bc2768fec3ee87cb0ef26997f60564dcb26acb4a9a354b0e1027d6f"
   },
   "bindings": {
     "copy": [
       "jsx/Slider/class/0",
       "jsx/Slider/class/1",
       "jsx/Slider/class/2",
+      "jsx/Slider/class/3",
       "jsx/Slider/class/4"
     ],
     "derived": {}
@@ -16,17 +17,16 @@
     "jsx/Slider/class/0": "data-horizontal:w-full data-vertical:h-full",
     "jsx/Slider/class/1": "cn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col",
     "jsx/Slider/class/2": "cn-slider-track relative grow overflow-hidden select-none",
+    "jsx/Slider/class/3": "cn-slider-range select-none data-horizontal:h-full data-vertical:w-full",
     "jsx/Slider/class/4": "cn-slider-thumb block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50"
   },
   "file_fingerprints": {
-    "shadcn/ui/slider.tsx": "18954e80b3f54fd5d325b65318a8e959dab7165df6c1798032cf2c6ce37654a7"
+    "shadcn/ui/slider.tsx": "e663165fdb68ba41dba162ef64354d1cb0f920a65a595c99c4b6ccba625181ab"
   },
-  "fingerprint": "78fe9f44312acbab3a087f22aa8499f53fc1d753ad3ee837895eb9fd9d56ca86",
-  "ignored": {
-    "jsx/Slider/class/3": "the generated port does not contain this source literal"
-  },
+  "fingerprint": "6071bb17734ffdc776d9adc791fe2dd80ac7a8d181cf669740ebbebb9df37dde",
+  "ignored": {},
   "name": "slider",
-  "port_body": "2fef657f2aa18117311af28fc7a6db066361183cf472d82139a5950311dac35a",
+  "port_body": "fcd7160fb777300f9e3646f02c0c48dc1793e2b8d6aba058074fa6689d5314f6",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -51,25 +51,26 @@
     }
   ],
   "styles": {
-    "luma": "510a8f1b8c973d854d7ccf50c704729bbdcdebfe958a8145c95f3d84d9f45bea",
-    "lyra": "cb5379869501e578aced9dba72804fe6b209ef58ab12670ff38ae836d0a770c6",
-    "maia": "24830ba3e96c57ea5018b8a4715e2c17eabce667d40d788c75787f7e4f5a4bab",
-    "mira": "a07b537af089e7d641184dbde221b9c8d4b680a77a5e5f038fcf8af79ba47638",
-    "nova": "e19242f79449ed7818ca1e3902e7433814b5a8251171495b02b06a8ab8c38d1c",
-    "rhea": "17040235d37072bd251a62e8e5791ebac39fde30c48c66ece868a8e4f56f40ef",
-    "sera": "76bce8ebee565da0743c25a844f367f0023f3e0a23ed33a4654f251d8e68b34c",
-    "vega": "731618acc35d9d17c87f590d0268a5838ee09ba75173f4c52fba230cbf05828c"
+    "luma": "b7d8c69f027f87edc1fb0d4bd08ad69807bd37cbe478c327b6bf6443e4002491",
+    "lyra": "9f41101aee76e6717d14a0bb46b1b1331fc82f03776608e5e0dc60edfb6f8dbe",
+    "maia": "c7b3af3f0c7e6858798f1339af13250549cd8e428d24493711fe4e49a61ab78d",
+    "mira": "60cdcb14bf0e916bcdd0b3de564626f9b05ec7cbec7c1a10a40019a389f78946",
+    "nova": "a90a5ec1e8870fc320ce838656533291020f1303e58b3089f55a4426d7d3d4be",
+    "rhea": "326de720e0ef3d6c28c4218d8b5b4a24e58a6801be210ecb2c64c63070f1f157",
+    "sera": "2d1990fc11c4f7751a984a24c6d44e09dc09bcdc0f844258bf88295debb41af8",
+    "vega": "45e4519c1fccead03720f86d1920ee71b662280d3aa1a6b5c9805ed1aa7c3b20"
   },
   "toolchain": {
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/slider.tsx": "144f4992fbc25de172fc3089101af955e971529f06a5c02ea8a53c5a6479d541"
+    "shadcn/ui/slider.tsx": "0255828e9c4477580d1428ae633f322434d2d652939272720d6980736465d712"
   },
   "uses": [
     "jsx/Slider/class/0",
     "jsx/Slider/class/1",
     "jsx/Slider/class/2",
+    "jsx/Slider/class/3",
     "jsx/Slider/class/4"
   ]
 }

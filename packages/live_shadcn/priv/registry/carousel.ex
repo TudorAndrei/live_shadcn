@@ -25,7 +25,9 @@ defmodule LiveShadcn.UI.Carousel do
     "jsx/CarouselNext/class/4" => "sr-only",
     "jsx/CarouselPrevious/class/0" => "cn-carousel-previous absolute touch-manipulation",
     "jsx/CarouselPrevious/class/1" => "inset-y-0 -left-12 my-auto",
-    "jsx/CarouselPrevious/class/2" => "-top-12 left-1/2 -translate-x-1/2 rotate-90"
+    "jsx/CarouselPrevious/class/2" => "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+    "jsx/CarouselPrevious/class/3" => "cn-rtl-flip",
+    "jsx/CarouselPrevious/class/4" => "sr-only"
   }
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)
@@ -186,8 +188,8 @@ defmodule LiveShadcn.UI.Carousel do
       ]}
       {@rest}
     >
-      <LiveShadcn.Icon.icon name="chevron-left" class={upstream_fact("jsx/CarouselNext/class/3")} />
-      <span class={upstream_fact("jsx/CarouselNext/class/4")}>Previous slide</span>
+      <LiveShadcn.Icon.icon name="chevron-left" class={upstream_fact("jsx/CarouselPrevious/class/3")} />
+      <span class={upstream_fact("jsx/CarouselPrevious/class/4")}>Previous slide</span>
     </LiveShadcn.UI.Button.button>
     """
   end
