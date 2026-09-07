@@ -23,10 +23,14 @@ defmodule LiveShadcn.UI.DropdownMenuTest do
 
     document = Floki.parse_fragment!(html)
     groups = Floki.find(document, "[data-slot='dropdown-menu-group']")
+    [label] = Floki.find(document, "[data-slot='dropdown-menu-label']")
     separators = Floki.find(document, "[data-slot='dropdown-menu-separator']")
 
     assert [_, _, _] = groups
     assert [_, _] = separators
+    assert Floki.attribute([label], "role") == ["presentation"]
+    assert [label_id] = Floki.attribute([label], "id")
+    assert Floki.attribute([hd(groups)], "aria-labelledby") == [label_id]
 
     assert ["MyAccountProfile", "Team", "Logout"] ==
              Enum.map(groups, fn group ->

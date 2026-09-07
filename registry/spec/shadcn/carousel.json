@@ -45,9 +45,9 @@
     "jsx/CarouselPrevious/class/4": "sr-only"
   },
   "file_fingerprints": {
-    "shadcn/ui/carousel.tsx": "f86ff524798cb97d0fd4c722a2206ffc99e421f73dd6ef558afd28d87d4c9c33"
+    "shadcn/ui/carousel.tsx": "257d21bc55d6708994de767c5c5602e3ba9a6fb7e7ace4e823e8ee926fa364aa"
   },
-  "fingerprint": "f6c392c15c5202c3a575a19e8f9c9ce9ed34e59b9474e4960ed5bb8103a25ac6",
+  "fingerprint": "49f664aa42af2440e10486ca33fdf71f111a9885a99dd2dbf5d2bce67a1ce546",
   "ignored": {},
   "name": "carousel",
   "port_body": "7c74eae0c3a3f2ca28a1b5a62fdaa3a999e8f22666f2f1132af9dc96e050dcd7",
@@ -86,7 +86,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/carousel.tsx": "d2c33f0ae6b64f5d6ba8d6ad467322008008621fff6b09e9f6d8e21011849123"
+    "shadcn/ui/carousel.tsx": "f96cbdfe39d65ccb9052507598b421eba6625c0677cc25d771b7953e2f3e9385"
   },
   "uses": [
     "jsx/Carousel/class/0",

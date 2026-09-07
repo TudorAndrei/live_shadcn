@@ -297,11 +297,14 @@ defmodule LiveShadcn.UI.DropdownMenu do
             data-lb-measure
             {@content_attrs}
           >
-            <%= for {grouped, entries} <- entry_groups(@entry, @grouped) do %>
-              <.entry_group grouped={grouped} parts={@parts}>
-                <%= for entry <- entries do %>
+            <%= for {{grouped, entries}, group_index} <- Enum.with_index(entry_groups(@entry, @grouped)) do %>
+              <% label_index = Enum.find_index(entries, &(&1[:kind] == "label")) %>
+              <% label_id = menu_group_label_id(@id, grouped, label_index, group_index) %>
+              <.entry_group grouped={grouped} labelled_by={label_id} parts={@parts}>
+                <%= for {entry, entry_index} <- Enum.with_index(entries) do %>
                   <div
                     :if={entry[:kind] == "label"}
+                    id={if(entry_index == label_index, do: label_id)}
                     role="presentation"
                     data-slot={part(@parts, :label_slot, "dropdown-menu-label")}
                     data-inset={flag(entry[:inset] == true)}
@@ -761,13 +764,18 @@ defmodule LiveShadcn.UI.DropdownMenu do
   end
 
   attr(:grouped, :boolean, required: true)
+  attr(:labelled_by, :string, default: nil)
   attr(:parts, :map, required: true)
   slot(:inner_block, required: true)
 
   defp entry_group(assigns) do
     ~H"""
     <%= if @grouped do %>
-      <div data-slot={part(@parts, :group_slot, "dropdown-menu-group")} role="group">
+      <div
+        data-slot={part(@parts, :group_slot, "dropdown-menu-group")}
+        role="group"
+        aria-labelledby={@labelled_by}
+      >
         {render_slot(@inner_block)}
       </div>
     <% else %>
@@ -785,11 +793,14 @@ defmodule LiveShadcn.UI.DropdownMenu do
 
   defp submenu_entries(assigns) do
     ~H"""
-    <%= for {grouped, entries} <- entry_groups(@entries, @grouped) do %>
-      <.entry_group grouped={grouped} parts={@parts}>
-        <%= for entry <- entries do %>
+    <%= for {{grouped, entries}, group_index} <- Enum.with_index(entry_groups(@entries, @grouped)) do %>
+      <% label_index = Enum.find_index(entries, &(entry_kind(&1) == "label")) %>
+      <% label_id = menu_group_label_id(@menu, grouped, label_index, group_index) %>
+      <.entry_group grouped={grouped} labelled_by={label_id} parts={@parts}>
+        <%= for {entry, entry_index} <- Enum.with_index(entries) do %>
           <div
             :if={entry_kind(entry) == "label"}
+            id={if(entry_index == label_index, do: label_id)}
             role="presentation"
             data-slot={part(@parts, :label_slot, "dropdown-menu-label")}
             data-inset={flag(entry[:inset] == true)}
@@ -1098,6 +1109,13 @@ defmodule LiveShadcn.UI.DropdownMenu do
   end
 
   defp entry_kind(entry), do: entry[:kind] || "item"
+
+  defp menu_group_label_id(_menu, false, _label_index, _group_index), do: nil
+  defp menu_group_label_id(_menu, _grouped, nil, _group_index), do: nil
+
+  defp menu_group_label_id(menu, true, _label_index, group_index) do
+    "#{menu}-group-#{group_index}-label"
+  end
 
   defp submenu_id(menu, value), do: "#{menu}-#{value}"
   defp radio_group_id(menu, group), do: "#{menu}-#{group || "radio"}-group"

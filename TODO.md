@@ -72,7 +72,25 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Exercise clean-checkout installation and scoped verification.
 - [x] Commit: `fix(ci): record and gate shadcn verification results`
 
-## Phase 6: refresh evidence and verify release badges
+## Phase 6a: restore pinned shadcn source facts
+
+- [x] Restore `calendar`, `carousel`, and `sidebar` facts to the pinned shadcn ref.
+- [x] Restore snapshots and tests that changed only because of the wrong facts.
+- [x] Connect grouped dropdown-menu labels to their menu groups.
+- [x] Record current port-body hashes for reviewed port changes.
+- [x] Run the offline shadcn contract check.
+- [x] Run focused package, snapshot, and browser checks for the three components.
+- [x] Commit: `fix(registry): restore pinned shadcn source facts`
+
+## Phase 6b: serve shared example assets to the reference
+
+- [ ] Serve tracked Storybook static files from the parity Vite server.
+- [ ] Include static example assets in shadcn evidence identity.
+- [ ] Test that an asset-byte change invalidates evidence.
+- [ ] Run focused sidebar accessibility, semantic, and pixel checks.
+- [ ] Commit: `fix(parity): serve shared example assets`
+
+## Phase 6c: refresh evidence and verify release badges
 
 - [ ] Prepare pinned sources without advancing the upstream manifest or ref.
 - [ ] Run offline and fetched-source shadcn contract checks.

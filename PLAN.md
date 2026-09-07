@@ -1,6 +1,6 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 5 complete.
+Status: in progress. Phase 6a complete. Phase 6b in progress.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -234,7 +234,36 @@ report mtime as proof of source identity.
 
 **Commit:** `fix(ci): record and gate shadcn verification results`
 
-### Phase 6: refresh evidence and verify release badges
+### Phase 6a: restore pinned shadcn source facts
+
+- Restore the `calendar`, `carousel`, and `sidebar` contracts and ports to the
+  shadcn ref in `registry/UPSTREAM.json`. A prior local source tree supplied
+  facts from another ref without changing the committed pin.
+- Restore snapshots and focused tests that changed only because of those wrong
+  facts. Keep later behavior fixes that do not depend on the wrong ref.
+- Give grouped dropdown-menu labels an ID and connect their menu group with
+  `aria-labelledby`, as the pinned Base UI primitive does. This keeps rich label
+  content out of the menu ownership tree.
+- Record current port-body hashes after the reviewed code changes already on
+  the branch.
+- Run the offline shadcn contract check, the three focused component tests,
+  and their snapshot checks. Run focused browser checks and record the static
+  reference asset gap for the next phase.
+
+**Commit:** `fix(registry): restore pinned shadcn source facts`
+
+### Phase 6b: serve shared example assets to the reference
+
+- Serve the tracked Storybook static files from the parity Vite server so both
+  renderers use the same example images. Do not read an unrecorded file from an
+  upstream checkout.
+- Add tracked static example assets to the shadcn evidence identity. Test that
+  an asset-byte change invalidates evidence.
+- Run the focused sidebar accessibility, semantic, and pixel checks.
+
+**Commit:** `fix(parity): serve shared example assets`
+
+### Phase 6c: refresh evidence and verify release badges
 
 - Finish verifier changes before the final full run. Prepare existing pinned
   inputs and locked dependencies. Confirm that the upstream manifest and ref

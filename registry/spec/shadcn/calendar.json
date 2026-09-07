@@ -261,10 +261,10 @@
     "port/calendar/weekdays": "flex rdp-weekdays"
   },
   "file_fingerprints": {
-    "shadcn/ui/button.tsx": "ace3fb4a598eb607f628a8bddf3b78bc51b432e5461c4e3ff2b582a68e0c6403",
-    "shadcn/ui/calendar.tsx": "51d367e0657a6feffca5b039c04bd1311baa8ffbd99a3d8382659404b797f964"
+    "shadcn/ui/button.tsx": "0c911259d9cce5dfd13cf06dd8ead680b5a3b67761bc27486503ead411968509",
+    "shadcn/ui/calendar.tsx": "9974bed4006dfc781145a6ac08543989c1fe998b6fbced9bf9208f3e6ac40a73"
   },
-  "fingerprint": "0ebe668c1576617710213f86818c4bf23559e268b3d24310c10c70326f538650",
+  "fingerprint": "d93dfef8bd4ddd169a0ca41d8fa3a29ed38a639b734dc4427c958a8e5adcfbd5",
   "ignored": {
     "cva/buttonVariants/default/size": "the reviewed month grid does not render it",
     "cva/buttonVariants/default/variant": "the reviewed month grid does not render it",
@@ -408,8 +408,8 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/button.tsx": "74f982d7ad7a764e3c95a519fc063a671e66ad758ea31dc89d747838e20c2487",
-    "shadcn/ui/calendar.tsx": "0a492edf3888b88a5505786c48165159285cfde7e6c52eb5e4c2fdc44b09ba21"
+    "shadcn/ui/button.tsx": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12",
+    "shadcn/ui/calendar.tsx": "c88319b932b378349d643ef2c452f6095d5681998acc0c1e3c2a1682500c5bc9"
   },
   "uses": [
     "port/calendar/*"
