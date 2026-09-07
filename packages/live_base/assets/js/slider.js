@@ -15,8 +15,8 @@
 //   data-lb-slider-thumb   on each thumb, the one a reader sees
 //   data-lb-slider-range   on the filled part of the track
 //
-// Nothing here decides a value. The input holds it, `phx-change` on the form
-// around it carries it, and the server never has to be asked what it is.
+// Each input holds its value. Adjacent thumbs bound range input changes before
+// the hook draws or reports the value to LiveView.
 
 export const Slider = {
   mounted() {
@@ -25,6 +25,7 @@ export const Slider = {
     this.range = this.el.querySelector("[data-lb-slider-range]");
 
     this.onInput = (event) => {
+      this.clampValue(event.target);
       this.place();
       this.reportValue(event.target);
     };
@@ -56,6 +57,15 @@ export const Slider = {
       input.removeEventListener("input", this.onInput);
       input.removeEventListener("change", this.onInput);
     }
+  },
+
+  clampValue(input) {
+    const index = this.inputs.indexOf(input);
+    const previous = this.inputs[index - 1];
+    const next = this.inputs[index + 1];
+    const min = Number(previous?.value ?? (input.min || 0));
+    const max = Number(next?.value ?? (input.max || 100));
+    input.value = String(Math.min(max, Math.max(min, Number(input.value))));
   },
 
   reportValue(input) {

@@ -178,7 +178,12 @@ defmodule StorybookWeb.PreviewLive do
   end
 
   def handle_event("slider_controlled_value", %{"values" => values}, socket) do
-    parsed = Enum.map(values, fn value -> value |> Float.parse() |> elem(0) end)
+    parsed =
+      Enum.map(values, fn value ->
+        {number, ""} = Float.parse(value)
+        if number == trunc(number), do: trunc(number), else: number
+      end)
+
     {:noreply, assign(socket, slider_controlled_values: parsed)}
   end
 

@@ -19,6 +19,7 @@ function sliderHook() {
   };
   const events = [];
   const hook = {
+    clampValue: Slider.clampValue,
     reportValue: Slider.reportValue,
     el: {
       clientWidth: 0,
@@ -77,4 +78,24 @@ test("Slider sends one event for the browser input and change pair", () => {
       payload: { value: "96", values: ["96"] },
     },
   ]);
+});
+
+test("range input changes stop at the adjacent thumb before reporting values", () => {
+  for (const [index, attempted, expected] of [[0, "100", "70"], [1, "0", "20"]]) {
+    const { events, hook, input, listeners } = sliderHook();
+    Slider.mounted.call(hook);
+    const neighbor = { value: index === 0 ? "70" : "20" };
+    input.min = "0";
+    input.max = "100";
+    hook.inputs = index === 0 ? [input, neighbor] : [neighbor, input];
+    input.value = attempted;
+    listeners.get("input")({ target: input });
+    listeners.get("change")({ target: input });
+
+    assert.equal(input.value, expected);
+    assert.deepEqual(events.map(event => event.payload), [{
+      value: expected,
+      values: index === 0 ? ["70", "70"] : ["20", "20"],
+    }]);
+  }
 });
