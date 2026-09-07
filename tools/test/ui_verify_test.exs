@@ -330,20 +330,18 @@ defmodule Mix.Tasks.Ui.VerifyTest do
              Verify.behavior_suites("shadcn", "typography", "typography", policy)
   end
 
-  test "semantic parity and pixel batches run one example per process" do
+  test "semantic parity and pixel batches preserve every example in bounded groups" do
     examples = ["default", "anchoring", "streaming"]
 
     for kind <- ["parity", "pixel"] do
       assert Verify.example_batches("message-scroller", kind, examples) == [
-               ["default"],
-               ["anchoring"],
+               ["default", "anchoring"],
                ["streaming"]
              ]
     end
 
     assert Verify.example_batches("data-table", "pixel", ["default", "rtl"]) == [
-             ["default"],
-             ["rtl"]
+             ["default", "rtl"]
            ]
   end
 

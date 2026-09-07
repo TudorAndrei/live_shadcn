@@ -1,26 +1,55 @@
-import { StrictMode, type ComponentType } from "react";
+import { StrictMode, useEffect, type ComponentType } from "react";
 
 import officialExamples, {
   officialComponents,
   sonnerToastExamples,
 } from "./upstream/shadcn_examples/official";
-import { Toaster as ToastToaster } from "./upstream/shadcn/ui/toast";
-import { Toaster as SonnerToaster } from "./upstream/shadcn/ui/sonner";
-import { ThemeProvider } from "next-themes";
+import { loadReferenceExample } from "./reference-loader.mjs";
 
-const modules = import.meta.glob<{ default: ComponentType }>("./examples/*.tsx", { eager: true });
+const modules = import.meta.glob<{ default: ComponentType }>("./examples/*.tsx");
 
 const examples = Object.fromEntries(
-  Object.entries(modules).map(([path, module]) => [
+  Object.entries(modules).map(([path, load]) => [
     path.replace("./examples/", "").replace(/\.tsx$/, ""),
-    module.default,
+    () => load().then((module) => module.default),
   ])
 );
 
-export function ReferencePage({ pathname }: { pathname: string }) {
+export async function loadReferencePage(pathname: string) {
+  const Example = await loadReferenceExample(pathname, {
+    officialComponents,
+    officialExamples,
+    examples,
+  });
   const [, , component, id] = pathname.split("/");
-  const exampleId = `${component}.${id}`;
-  const Example = officialComponents.has(component) ? officialExamples[exampleId] : examples[exampleId];
+  const ToastToaster = Example && component === "toast"
+    ? (await import("./upstream/shadcn/ui/toast")).Toaster
+    : undefined;
+  const sonner = sonnerToastExamples.has(`${component}.${id}`)
+    ? await Promise.all([import("./upstream/shadcn/ui/sonner"), import("next-themes")])
+    : undefined;
+
+  return {
+    pathname,
+    Example,
+    ToastToaster,
+    SonnerToaster: sonner?.[0].Toaster,
+    ThemeProvider: sonner?.[1].ThemeProvider,
+  };
+}
+
+export function ReferencePage({
+  pathname,
+  Example,
+  ToastToaster,
+  SonnerToaster,
+  ThemeProvider,
+}: Awaited<ReturnType<typeof loadReferencePage>>) {
+  useEffect(() => {
+    document.documentElement.dataset.referenceReady = "true";
+    return () => { delete document.documentElement.dataset.referenceReady; };
+  }, []);
+  const [, , component, id] = pathname.split("/");
 
   if (!Example) {
     return (
@@ -31,7 +60,6 @@ export function ReferencePage({ pathname }: { pathname: string }) {
   }
 
   const example = <Example />;
-  const hasSonnerToaster = sonnerToastExamples.has(exampleId);
 
   return (
     <StrictMode>
@@ -57,8 +85,8 @@ export function ReferencePage({ pathname }: { pathname: string }) {
             component === "toast" && id === "promise" ? "2200" : undefined
           }
         >
-          {component === "toast" ? <ToastToaster>{example}</ToastToaster> : example}
-          {hasSonnerToaster ? (
+          {ToastToaster ? <ToastToaster>{example}</ToastToaster> : example}
+          {SonnerToaster && ThemeProvider ? (
             <ThemeProvider defaultTheme="light">
               <SonnerToaster />
             </ThemeProvider>

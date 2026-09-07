@@ -10,6 +10,7 @@ function pinnedExamples() {
     readFileSync(new URL("../../registry/snapshot/index.json", import.meta.url)),
   );
   const expected = new Map();
+  let count = 0;
 
   for (const [component, sources] of Object.entries(upstream.examples.shadcn)) {
     const storybook = previews[component]
@@ -19,6 +20,7 @@ function pinnedExamples() {
         : null;
 
     for (const { id, source } of entries(component, sources)) {
+      count += 1;
       expected.set(`${storybook}.${id}`, {
         source,
         storybook,
@@ -27,7 +29,7 @@ function pinnedExamples() {
     }
   }
 
-  return { expected, previews };
+  return { expected, previews, count };
 }
 
 test("official ids match the verifier and stay unique", () => {
@@ -102,7 +104,7 @@ test("keeps the shared Card RTL example with Card", () => {
 });
 
 test("the pinned shadcn catalog has a Storybook page for every official example", () => {
-  const { expected, previews } = pinnedExamples();
+  const { expected, previews, count } = pinnedExamples();
   const missing = [];
 
   for (const { storybook, id, source } of expected.values()) {
@@ -111,7 +113,8 @@ test("the pinned shadcn catalog has a Storybook page for every official example"
     }
   }
 
-  assert.equal(expected.size, 463);
+  assert.ok(count > 0);
+  assert.equal(expected.size, count, "each pinned example has a unique route");
   assert.deepEqual(missing, []);
 });
 

@@ -17,7 +17,7 @@
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { expect, test } from "@playwright/test";
+import { expect, test as base } from "@playwright/test";
 import { PNG } from "pngjs";
 
 import { gated, source } from "./registries.mjs";
@@ -40,7 +40,6 @@ import {
   localise,
   paintedBox,
   settle,
-  shoot,
   shootCurrent,
   union,
 } from "./shoot.mjs";
@@ -50,6 +49,18 @@ const scope = scopeFromEnvironment();
 
 const previews = JSON.parse(readFileSync(join(here, "../../../registry/snapshot/index.json")));
 const budget = JSON.parse(readFileSync(join(here, "pixel-budget.json")));
+
+const test = base.extend({
+  referencePage: async ({ context }, use) => {
+    const page = await context.newPage();
+    try {
+      await installBrowserFixtures(page);
+      await use(page);
+    } finally {
+      await page.close();
+    }
+  },
+});
 
 // Every example. `registries.mjs` says which of them this gates. Both
 // registries use the same DOM, style, pixel, behavior, and accessibility rules.
@@ -125,7 +136,7 @@ test("every example has a budget or is pending", () => {
 for (const { component, example } of pages) {
   const name = named(component, example);
 
-  test(`${component} / ${example} paints what React paints`, async ({ page }, testInfo) => {
+  test(`${component} / ${example} paints what React paints`, async ({ page, referencePage }, testInfo) => {
     // Named rather than passed over. A `continue` here left an example out of
     // the run with nothing in the output to say so, and a check that cannot
     // tell "did not run" from "passed" is worse than no check.
@@ -138,7 +149,7 @@ for (const { component, example } of pages) {
     const reactURL = `${parity}/preview/${component}/${example}`;
     const phoenixURL = `/preview/${component}/${example}`;
 
-    const reactStates = await statesAt(page, reactURL, selector);
+    const reactStates = await statesAt(referencePage, reactURL, selector);
     const phoenixStates = await statesAt(page, phoenixURL, selector);
 
     expect(
@@ -154,9 +165,10 @@ for (const { component, example } of pages) {
       // One viewport for both sides, tall enough for either document in this
       // state, then one clip rectangle covering what either side paints.
       await page.setViewportSize({ width: 1280, height: MINIMUM_HEIGHT });
-      await page.goto(reactURL);
-      await enterVisualState(page, selector, state);
-      const reactHeight = await documentHeight(page);
+      await referencePage.setViewportSize({ width: 1280, height: MINIMUM_HEIGHT });
+      await referencePage.goto(reactURL);
+      await enterVisualState(referencePage, selector, state);
+      const reactHeight = await documentHeight(referencePage);
       await page.goto(phoenixURL);
       await connected(page);
       await enterVisualState(page, selector, state);
@@ -165,11 +177,12 @@ for (const { component, example } of pages) {
 
       const viewport = { width: 1280, height };
       await page.setViewportSize(viewport);
+      await referencePage.setViewportSize(viewport);
 
-      await page.goto(reactURL);
-      await enterVisualState(page, selector, state);
-      await settle(page, selector);
-      const reactPaint = await paintedBox(page, selector);
+      await referencePage.goto(reactURL);
+      await enterVisualState(referencePage, selector, state);
+      await settle(referencePage, selector);
+      const reactPaint = await paintedBox(referencePage, selector);
 
       await page.goto(phoenixURL);
       await connected(page);
@@ -179,10 +192,10 @@ for (const { component, example } of pages) {
 
       const clip = union(reactPaint, phoenixPaint);
 
-      // `page` already contains this exact settled Phoenix state. Capture it
-      // now rather than reload it only to obtain the same pixels.
+      // Both pages contain the measured state at the final viewport size.
+      // Capture those pages, then reset them on the next state.
       const phoenix = await shootCurrent(page, selector, clip);
-      const react = await shoot(page, reactURL, selector, height, clip, state);
+      const react = await shootCurrent(referencePage, selector, clip);
 
       const { differing, diff, width } = compare(react.image, phoenix.image);
       const suffix = safeName(state.name);

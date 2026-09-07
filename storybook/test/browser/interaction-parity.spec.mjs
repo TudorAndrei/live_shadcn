@@ -13,7 +13,7 @@ import {
   probeIdentity,
   scopedInteractionPages,
 } from "./interaction-parity.mjs";
-import { connected } from "./live.mjs";
+import { connected, referenceReady } from "./live.mjs";
 import { hasScopeFilter, scopeFromEnvironment } from "./preview-scope.mjs";
 import { hasOfficialReactReference } from "./react-references.mjs";
 
@@ -42,6 +42,7 @@ for (const { component, example } of pages) {
     const phoenixURL = `/preview/${component}/${example}`;
 
     await page.goto(reactURL);
+    await referenceReady(page);
     const reactProbes = await discoverInteractionProbes(page.locator(selector));
 
     await page.goto(phoenixURL);
@@ -55,6 +56,7 @@ for (const { component, example } of pages) {
 
     for (const probe of reactProbes) {
       await page.goto(reactURL);
+      await referenceReady(page);
       const react = await enterInteractionProbe(page, selector, probe);
 
       await page.goto(phoenixURL);

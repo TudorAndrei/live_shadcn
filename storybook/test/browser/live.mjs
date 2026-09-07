@@ -41,3 +41,11 @@ export async function connected(page) {
         document.querySelector("[data-phx-main].phx-connected") !== null,
   );
 }
+
+/** Server-rendered reference controls are usable after React commits. */
+export async function referenceReady(page) {
+  await page.waitForFunction(() =>
+    !document.documentElement.hasAttribute("data-reference-page") ||
+    document.documentElement.dataset.referenceReady === "true",
+  );
+}

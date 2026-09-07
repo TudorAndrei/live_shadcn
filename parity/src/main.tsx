@@ -1,6 +1,6 @@
 import { hydrateRoot } from "react-dom/client";
 
-import { ReferencePage } from "./reference-page";
+import { ReferencePage, loadReferencePage } from "./reference-page";
 
 // The storybook's style sheet, not one of this application's own. Tailwind
 // emits only the utilities it finds, so two builds over two source trees would
@@ -11,7 +11,6 @@ import { ReferencePage } from "./reference-page";
 // one build covers both. Run `npm run build:css` in `storybook/assets` first.
 import "../../storybook/priv/static/assets/app.css";
 
-hydrateRoot(
-  document.getElementById("root")!,
-  <ReferencePage pathname={window.location.pathname} />
-);
+loadReferencePage(window.location.pathname).then((props) => {
+  hydrateRoot(document.getElementById("root")!, <ReferencePage {...props} />);
+});

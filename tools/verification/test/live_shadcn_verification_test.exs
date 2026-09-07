@@ -3,6 +3,44 @@ defmodule LiveShadcnVerificationTest do
 
   @repo_root Path.expand("../../..", __DIR__)
 
+  test "a shared evidence pass agrees with independent component digests" do
+    names = ["button", "slider", "data-table"]
+
+    expected =
+      Map.new(names, &{&1, LiveShadcnVerification.evidence_digest("shadcn", &1, @repo_root)})
+
+    assert LiveShadcnVerification.evidence_digests(names, @repo_root) == expected
+  end
+
+  test "publication rechecks changed bytes and added or removed shared files" do
+    root = fixture_root("identity-batch")
+    bootstrap_identity(root, "button")
+    path = "packages/live_base/assets/js/batch.js"
+    write(root, path, "first")
+    original = LiveShadcnVerification.evidence_digests(["button"], root)
+
+    write(root, path, "other")
+
+    assert_raise Mix.Error, ~r/verification inputs changed/, fn ->
+      LiveShadcnVerification.assert_identities_unchanged!(root, original)
+    end
+
+    write(root, path, "first")
+    assert :ok = LiveShadcnVerification.assert_identities_unchanged!(root, original)
+    write(root, "packages/live_base/assets/js/added.js", "added")
+
+    assert_raise Mix.Error, ~r/verification inputs changed/, fn ->
+      LiveShadcnVerification.assert_identities_unchanged!(root, original)
+    end
+
+    File.rm!(Path.join(root, "packages/live_base/assets/js/added.js"))
+    File.rm!(Path.join(root, path))
+
+    assert_raise Mix.Error, ~r/verification inputs changed/, fn ->
+      LiveShadcnVerification.assert_identities_unchanged!(root, original)
+    end
+  end
+
   describe "shadcn identity version 2" do
     test "includes version, shared inputs, and component files" do
       inputs = LiveShadcnVerification.collect_shadcn_evidence_inputs(@repo_root, "button")

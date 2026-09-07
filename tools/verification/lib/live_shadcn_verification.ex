@@ -21,6 +21,7 @@ defmodule LiveShadcnVerification do
     "parity/src/main.tsx",
     "parity/src/reference-server.tsx",
     "parity/src/reference-page.tsx",
+    "parity/src/reference-loader.mjs",
     "parity/src/official-shadcn.mjs",
     "parity/upstream.mjs",
     "parity/upstream-directories.mjs",
@@ -234,26 +235,67 @@ defmodule LiveShadcnVerification do
   end
 
   def collect_shadcn_evidence_inputs(root, name) do
+    collect_shadcn_evidence_inputs(root, name, collect_shadcn_shared_evidence_inputs(root))
+  end
+
+  # The cache belongs to this call. Publication must make a new call so that
+  # changed bytes and added or removed paths are read again.
+  def evidence_digests(names, root) do
+    shared = collect_shadcn_shared_evidence_inputs(root)
+
+    Map.new(names, fn name ->
+      inputs = collect_shadcn_evidence_inputs(root, name, shared)
+      {name, evidence_digest_from_inputs(inputs)}
+    end)
+  end
+
+  def assert_identities_unchanged!(root, captured) do
+    current = evidence_digests(Map.keys(captured), root)
+
+    Enum.each(captured, fn {name, digest} ->
+      if Map.fetch!(current, name) != digest do
+        Mix.raise(
+          "verification inputs changed during the run for shadcn/#{name}; rerun verification"
+        )
+      end
+    end)
+  end
+
+  defp collect_shadcn_shared_evidence_inputs(root) do
     snapshot_index = root |> registry_path(["snapshot", "index.json"]) |> read_json!()
+    manifest = root |> registry_path(["UPSTREAM.json"]) |> read_json!()
+
+    %{
+      snapshot_index: snapshot_index,
+      manifest: manifest,
+      upstream_files: collect_shadcn_upstream_digests(manifest),
+      storybook_renderers: collect_storybook_renderers(root),
+      verification_rules: collect_verification_rules(root),
+      shared_inputs: collect_shared_inputs(root)
+    }
+  end
+
+  defp collect_shadcn_evidence_inputs(root, name, shared) do
+    snapshot_index = shared.snapshot_index
     key = preview_key(snapshot_index, "shadcn", name)
     local_examples = Map.get(snapshot_index, key, [])
-    manifest = root |> registry_path(["UPSTREAM.json"]) |> read_json!()
+    manifest = shared.manifest
     spec_path = Path.join(root, "registry/spec/shadcn/#{name}.json")
     port_path = Path.join(root, "packages/live_shadcn/priv/registry/#{module_file(name)}")
 
     %{
       version: @identity_version,
       upstream_ref: get_in(manifest, ["sources", "shadcn", "ref"]),
-      upstream_files: collect_shadcn_upstream_digests(manifest),
+      upstream_files: shared.upstream_files,
       documented: get_in(manifest, ["examples", "shadcn", name]) || [],
       contract: file_digest(spec_path),
       port: file_digest(port_path),
       fixtures: collect_fixtures(root, key),
       snapshots: collect_snapshots(root, key, local_examples),
       evidence_inputs: collect_official_examples(root, key),
-      storybook_renderers: collect_storybook_renderers(root),
-      verification_rules: collect_verification_rules(root),
-      shared_inputs: collect_shared_inputs(root)
+      storybook_renderers: shared.storybook_renderers,
+      verification_rules: shared.verification_rules,
+      shared_inputs: shared.shared_inputs
     }
   end
 

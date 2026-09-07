@@ -3,9 +3,8 @@ export const pixelChromiumArgs = [
   "--disable-lcd-text",
   "--disable-font-subpixel-positioning",
   "--disable-gpu",
-  // Pixel checks use one page and visit the two sources in sequence. One
-  // renderer process is sufficient and prevents old renderers from using
-  // memory until Chrome removes them.
+  // Pixel checks keep one page per source. Limit renderer processes so that
+  // old renderers do not retain memory between examples.
   "--renderer-process-limit=1",
   // Software raster work is CPU-heavy. One raster thread keeps the host usable
   // while it keeps the same pixel output and test coverage.

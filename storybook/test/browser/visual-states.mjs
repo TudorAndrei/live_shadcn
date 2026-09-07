@@ -1,4 +1,5 @@
 import { isOfficialInteractiveShadcnComponent } from "./official-interactive-components.mjs";
+import { referenceReady } from "./live.mjs";
 import {
   waitForMessageScrollerAnchorGeometry,
   waitForMessageScrollerEntryAnimations,
@@ -12,6 +13,7 @@ import {
  * different ids and transport attributes. They must expose this same state.
  */
 export async function visualStates(page, selector) {
+  await referenceReady(page);
   const states = [{ name: "default", kind: "default" }];
   const scope = page.locator(selector);
   const model = await visualActionModel(scope);
@@ -1163,6 +1165,7 @@ async function discoverExpandedStates(page, scope, path, labels, states) {
 
 /** Enter one state returned by `visualStates`. */
 export async function enterVisualState(page, selector, state) {
+  await referenceReady(page);
   if (state.kind === "default") return;
 
   if (state.kind === "message-scroller-action") {

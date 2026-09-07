@@ -1,9 +1,10 @@
 import { renderToString } from "react-dom/server";
 
-import { ReferencePage } from "./reference-page";
+import { ReferencePage, loadReferencePage } from "./reference-page";
 
-export function renderReferencePreview(requestUrl: string) {
+export async function renderReferencePreview(requestUrl: string) {
   const pathname = new URL(requestUrl, "http://127.0.0.1").pathname;
 
-  return renderToString(<ReferencePage pathname={pathname} />);
+  const props = await loadReferencePage(pathname);
+  return renderToString(<ReferencePage {...props} />);
 }

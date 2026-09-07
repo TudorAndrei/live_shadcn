@@ -55,7 +55,6 @@ defmodule Mix.Tasks.Ui.Verify do
 
   @browser_example_batch_size 2
   @message_scroller_behavior_batch_size 1
-  @single_example_browser_kinds ~w(parity pixel)
   @browser_server_stop_timeout 5_000
   @browser_server_stop_poll 50
   @generic_shadcn_behavior_suite "interaction-parity.spec.mjs"
@@ -118,6 +117,7 @@ defmodule Mix.Tasks.Ui.Verify do
       try do
         verify_locked(components, browser?)
       after
+        Process.delete(:live_shadcn_verification_identities)
         Process.delete(:live_shadcn_source_lease_token)
       end
     end)
@@ -125,14 +125,11 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp verify_locked(components, browser?) do
     shadcn_identities =
-      Map.new(components, fn
-        {"shadcn", name} ->
-          {ref("shadcn", name),
-           LiveShadcnVerification.evidence_digest("shadcn", name, repo_root())}
+      components
+      |> Enum.map(fn {"shadcn", name} -> name end)
+      |> LiveShadcnVerification.evidence_digests(repo_root())
 
-        {source, name} ->
-          {ref(source, name), verification_evidence_digest(source, name)}
-      end)
+    Process.put(:live_shadcn_verification_identities, shadcn_identities)
 
     example_results =
       Map.new(components, fn {source, name} ->
@@ -197,16 +194,7 @@ defmodule Mix.Tasks.Ui.Verify do
         verify_components.(nil)
       end
 
-    Enum.each(components, fn {source, name} ->
-      reference = ref(source, name)
-
-      LiveShadcnVerification.assert_identity_unchanged!(
-        repo_root(),
-        source,
-        name,
-        Map.fetch!(shadcn_identities, reference)
-      )
-    end)
+    LiveShadcnVerification.assert_identities_unchanged!(repo_root(), shadcn_identities)
 
     write_json_atomic!(registry_path("VERIFY.json"), merge(results))
     report(results)
@@ -553,7 +541,7 @@ defmodule Mix.Tasks.Ui.Verify do
     %{
       "pass" => verified_checks?(source, policy, checks),
       "spec" => spec_digest(source, name),
-      "evidence" => verification_evidence_digest(source, name),
+      "evidence" => run_evidence_digest(source, name),
       "checks" => checks
     }
   end
@@ -778,7 +766,7 @@ defmodule Mix.Tasks.Ui.Verify do
             layer: kind,
             preview_key: key,
             examples: examples,
-            identity: verification_evidence_digest(source, name),
+            identity: run_evidence_digest(source, name),
             states: []
           })
 
@@ -822,7 +810,7 @@ defmodule Mix.Tasks.Ui.Verify do
       layer,
       preview_key,
       examples,
-      verification_evidence_digest(source, name),
+      run_evidence_digest(source, name),
       opts
     )
   end
@@ -1414,6 +1402,15 @@ defmodule Mix.Tasks.Ui.Verify do
     if File.exists?(path), do: digest(File.read!(path))
   end
 
+  # A managed run uses its captured identity for every report. The fresh
+  # publication check above rejects the whole run if any input changed.
+  defp run_evidence_digest(source, name) do
+    case Process.get(:live_shadcn_verification_identities) do
+      %{} = identities when source == "shadcn" -> Map.fetch!(identities, name)
+      nil -> verification_evidence_digest(source, name)
+    end
+  end
+
   defp generated_check(reference) do
     {source, name} = parse_ref(reference)
     contract = read_json!(spec_path(source, name))
@@ -1875,7 +1872,6 @@ defmodule Mix.Tasks.Ui.Verify do
     |> BrowserVerification.batches(browser_example_batch_size(key, kind))
   end
 
-  defp browser_example_batch_size(_key, kind) when kind in @single_example_browser_kinds, do: 1
   defp browser_example_batch_size(_key, _kind), do: @browser_example_batch_size
 
   defp expected_examples(key) do

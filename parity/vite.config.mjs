@@ -14,21 +14,21 @@ function referenceSsr() {
   return {
     name: "reference-ssr",
     configureServer(server) {
-      return () => {
-        server.middlewares.use(async (request, response, next) => {
-          const requestUrl = request.url || "/";
-          const { pathname } = new URL(requestUrl, "http://127.0.0.1");
+      // Install before Vite rewrites preview URLs to index.html.
+      server.middlewares.use(async (request, response, next) => {
+        const requestUrl = request.url || "/";
+        const { pathname } = new URL(requestUrl, "http://127.0.0.1");
 
-          if (!pathname.startsWith("/preview/")) {
-            next();
-            return;
-          }
+        if (!pathname.startsWith("/preview/")) {
+          next();
+          return;
+        }
 
-          try {
-            const { renderReferencePreview } = await server.ssrLoadModule("/src/reference-server.tsx");
-            const app = renderReferencePreview(requestUrl);
-            const template = `<!doctype html>
-<html lang="en" class="style-vega">
+        try {
+          const { renderReferencePreview } = await server.ssrLoadModule("/src/reference-server.tsx");
+          const app = await renderReferencePreview(requestUrl);
+          const template = `<!doctype html>
+<html lang="en" class="style-vega" data-reference-page>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,17 +41,16 @@ function referenceSsr() {
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>`;
-            const html = await server.transformIndexHtml(pathname, template);
+          const html = await server.transformIndexHtml(pathname, template);
 
-            response.statusCode = 200;
-            response.setHeader("Content-Type", "text/html");
-            response.end(html);
-          } catch (error) {
-            server.ssrFixStacktrace(error);
-            next(error);
-          }
-        });
-      };
+          response.statusCode = 200;
+          response.setHeader("Content-Type", "text/html");
+          response.end(html);
+        } catch (error) {
+          server.ssrFixStacktrace(error);
+          next(error);
+        }
+      });
     },
   };
 }
@@ -70,6 +69,7 @@ export default defineConfig({
   plugins: [react(), referenceSsr()],
   resolve: {
     alias: [
+      { find: /^cn$/, replacement: resolve(here, "src/shim/utils.ts") },
       { find: "next/image", replacement: resolve(here, "src/shim/next-image.tsx") },
       { find: "next/link", replacement: resolve(here, "src/shim/next-link.tsx") },
       { find: "next/font/google", replacement: resolve(here, "src/shim/next-font-google.ts") },

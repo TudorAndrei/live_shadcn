@@ -7,11 +7,23 @@
 
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { referenceReady, visit } from "./live.mjs";
 
 const thumbs = (page) => page.locator("[data-lb-slider-thumb]");
 const inputs = (page) => page.locator("[data-lb-slider-input]");
 const range = (page) => page.locator("[data-lb-slider-range]");
+
+test("the reference accepts keyboard input after delayed hydration", async ({ page }, testInfo) => {
+  await page.route("**/slider-rtl.tsx", async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    await route.continue();
+  });
+  await page.goto(`${testInfo.project.use.parityURL}/preview/slider/rtl`);
+  await referenceReady(page);
+  const input = page.locator("input[type='range']");
+  await input.press("End");
+  await expect(input).toHaveValue("100");
+});
 
 // The hook places on mount, which is when the LiveView connects.
 const placed = async (page) =>

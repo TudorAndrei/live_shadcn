@@ -127,7 +127,6 @@ await useSourceLease(sourceLeasePath(here), process.env.PARITY_SOURCE_LEASE_TOKE
       JSON.stringify(manifest.examples.shadcn),
     );
 
-    const imports = [];
     const exports = [];
     const officialExamples = {};
     const sonnerToastExamples = [];
@@ -143,7 +142,6 @@ await useSourceLease(sourceLeasePath(here), process.env.PARITY_SOURCE_LEASE_TOKE
         .map((name) => previews[name] ? name : previews[`shadcn-${name}`] ? `shadcn-${name}` : null)
         .filter(Boolean),
     );
-    let index = 0;
 
     for (const [component, sources] of Object.entries(manifest.examples.shadcn)) {
       const componentEntries = entries(component, sources);
@@ -167,8 +165,8 @@ await useSourceLease(sourceLeasePath(here), process.env.PARITY_SOURCE_LEASE_TOKE
           throw new Error(`${storybook}.${id} has no Storybook example`);
         }
 
-        const symbol = `OfficialExample${index++}`;
         const key = `${storybook}.${id}`;
+        let loader;
         const sourcePath = source.split("#", 1)[0];
         const body = await readFile(
           join(staging, sourcePath.startsWith("shadcn/") ? sourcePath : `shadcn_examples/${source}.tsx`),
@@ -182,16 +180,16 @@ await useSourceLease(sourceLeasePath(here), process.env.PARITY_SOURCE_LEASE_TOKE
             throw new Error(`${source} has an invalid supplemental reference`);
           }
 
-          imports.push(`import { ${exported} as ${symbol} } from "../../reference/${module}";`);
+          loader = `() => import(${JSON.stringify(`../../reference/${module}`)}).then(module => module[${JSON.stringify(exported)}])`;
           officialExamples[key] = source;
         } else {
           const named = body.match(/export\s+function\s+([A-Za-z_$][A-Za-z0-9_$]*)/);
 
           if (/export\s+default\s+function/.test(body)) {
-            imports.push(`import ${symbol} from "./${source}";`);
+            loader = `() => import(${JSON.stringify(`./${source}`)}).then(module => module.default)`;
             officialExamples[key] = `shadcn_examples/${source}.tsx#default`;
           } else if (named) {
-            imports.push(`import { ${named[1]} as ${symbol} } from "./${source}";`);
+            loader = `() => import(${JSON.stringify(`./${source}`)}).then(module => module[${JSON.stringify(named[1])}])`;
             officialExamples[key] = `shadcn_examples/${source}.tsx#${named[1]}`;
           } else {
             throw new Error(`${source}.tsx has no exported example function`);
@@ -202,14 +200,14 @@ await useSourceLease(sourceLeasePath(here), process.env.PARITY_SOURCE_LEASE_TOKE
           sonnerToastExamples.push(key);
         }
 
-        exports.push(`  ${JSON.stringify(key)}: ${symbol},`);
+        exports.push(`  ${JSON.stringify(key)}: ${loader},`);
       }
     }
 
     await assertLease();
     await writeFile(
       join(staging, "shadcn_examples/official.tsx"),
-      `${imports.join("\n")}\n\nexport const officialComponents = new Set(${JSON.stringify([...officialComponents].sort())});\nexport const sonnerToastExamples = new Set(${JSON.stringify(sonnerToastExamples.sort())});\n\nexport default {\n${exports.join("\n")}\n};\n`,
+      `export const officialComponents = new Set(${JSON.stringify([...officialComponents].sort())});\nexport const sonnerToastExamples = new Set(${JSON.stringify(sonnerToastExamples.sort())});\n\nexport default {\n${exports.join("\n")}\n};\n`,
     );
 
     await assertLease();

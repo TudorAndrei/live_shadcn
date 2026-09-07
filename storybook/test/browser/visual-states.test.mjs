@@ -358,6 +358,7 @@ test("hover visual states wait for finite tooltip animations", async () => {
     return 0;
   };
   globalThis.document = {
+    documentElement: { hasAttribute: () => false },
     getAnimations: () => [
       {
         effect: { getComputedTiming: () => ({ endTime: 150 }) },
@@ -374,6 +375,7 @@ test("hover visual states wait for finite tooltip animations", async () => {
   };
   const page = {
     mouse: { move: async () => calls.push("move") },
+    waitForFunction: async (callback) => assert.equal(callback(), true),
     locator: (selector) => {
       if (selector.includes("tooltip-trigger")) return { nth: () => trigger };
 
