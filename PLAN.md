@@ -1,6 +1,6 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6c complete. Phase 6d in progress.
+Status: in progress. Phase 6d complete. Phase 6e in progress.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -280,11 +280,38 @@ report mtime as proof of source identity.
 
 **Commit:** `fix(sidebar): align pinned browser contracts`
 
-### Phase 6d: refresh evidence and verify release badges
+### Phase 6d: pin the Base UI documentation source
+
+- Fetch Base UI contracts from its immutable official release deployment
+  instead of mutable website pages. Pin release 1.7.0, its commit, and its
+  Netlify deployment ID.
+- Translate Base UI component and utility links to immutable deployment paths.
+  Record the release and immutable file origins in the upstream manifest.
+- Preserve all reviewed page digests, extracted source facts, ports, and
+  snapshots.
+- Add manifest regression tests and fetch the already pinned shadcn and AI refs.
+  Pass the full offline check and focused fetched-source checks for the restored
+  Base UI contracts. Record separate shadcn structure differences for repair.
+
+**Commit:** `fix(fetch): pin Base UI documentation source`
+
+### Phase 6e: align pinned shadcn structure facts
+
+- Add focused regression tests for the structure facts that differ from the
+  pinned shadcn source.
+- Review menubar, navigation-menu, popover, slider, and toast against their
+  pinned source files. Update only the stale facts, ports, snapshots, and tests
+  that the review requires.
+- Pass the focused component checks and the full offline and fetched-source
+  shadcn contract checks.
+
+**Commit:** `fix(registry): align pinned shadcn structure facts`
+
+### Phase 6f: refresh evidence and verify release badges
 
 - Finish verifier changes before the final full run. Prepare existing pinned
-  inputs and locked dependencies. Confirm that the upstream manifest and ref
-  have not advanced.
+  inputs and locked dependencies. Confirm that the shadcn and AI refs have not
+  advanced.
 - In tools, run `mix ui.spec --check --offline --source shadcn` and
   `mix ui.spec --check --source shadcn`. In Storybook, run
   `mix snapshot --check` and identify existing unrelated gaps.

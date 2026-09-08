@@ -19,6 +19,7 @@ defmodule Mix.Tasks.Ui.Fetch do
       mix ui.fetch --only accordion
       mix ui.fetch --ref a1b2c3d   # pin shadcn to an explicit commit
       mix ui.fetch --ai-ref a1b2c3d # pin AI Elements to an explicit commit
+      mix ui.fetch --base-ui       # restore the pinned Base UI docs only
       mix ui.fetch --styles        # the style sheets alone, at the pinned commit
 
   `--styles` is what a build of this repository runs: the reviewed ports
@@ -56,7 +57,10 @@ defmodule Mix.Tasks.Ui.Fetch do
   # in, `(chatbot)/attachments.mdx`, and `meta.json`, which titles the sections
   # and puts them in order.
   @ai_docs_dir "apps/docs/content/components"
-  @base_ui_docs "https://base-ui.com/react/components"
+  @base_ui_version "1.7.0"
+  @base_ui_ref "254f4744f0a241c20697b9eeab33402f4469a081"
+  @base_ui_deploy "6a71b76c1fdcdd00097c7c47"
+  @base_ui_docs "https://#{@base_ui_deploy}--base-ui.netlify.app/react"
 
   # Base UI is one site, and its pages are not all under one path: most
   # components live at `/react/components/`, but `direction-provider` lives at
@@ -107,10 +111,20 @@ defmodule Mix.Tasks.Ui.Fetch do
 
     {opts, _, _} =
       OptionParser.parse(argv,
-        strict: [only: :string, ref: :string, ai_ref: :string, styles: :boolean]
+        strict: [
+          only: :string,
+          ref: :string,
+          ai_ref: :string,
+          base_ui: :boolean,
+          styles: :boolean
+        ]
       )
 
-    if opts[:styles], do: styling_layer(opts[:ref]), else: everything(opts)
+    cond do
+      opts[:styles] -> styling_layer(opts[:ref])
+      opts[:base_ui] -> base_ui_layer()
+      true -> everything(opts)
+    end
   end
 
   # The styling layer and nothing else, at the commit `registry/UPSTREAM.json`
@@ -133,6 +147,33 @@ defmodule Mix.Tasks.Ui.Fetch do
   end
 
   defp pinned_ref, do: get_in(existing_manifest(), ["sources", "shadcn", "ref"])
+
+  defp base_ui_layer do
+    manifest = existing_manifest()
+
+    files =
+      manifest["files"]
+      |> Enum.filter(fn {path, _entry} -> String.starts_with?(path, "base_ui/") end)
+      |> Map.new(fn {path, expected} ->
+        url = base_ui_deploy_url(expected["url"])
+        body = fetch_base_ui_body!(path, url)
+        store(path, body, url)
+      end)
+
+    manifest
+    |> put_in(["sources", "base_ui"], base_ui_source())
+    |> update_in(["files"], &Map.merge(&1, files))
+    |> then(&write_json!(registry_path("UPSTREAM.json"), &1))
+
+    Mix.shell().info("restored #{map_size(files)} pinned Base UI file(s)")
+  end
+
+  defp fetch_base_ui_body!(path, url) do
+    case get(url) do
+      {:ok, body} -> body
+      {:error, status} -> Mix.raise("#{path} returned HTTP #{status} from the pinned deployment")
+    end
+  end
 
   defp everything(opts) do
     only = opts[:only]
@@ -165,7 +206,7 @@ defmodule Mix.Tasks.Ui.Fetch do
           "docs_dir" => @shadcn_docs_dir,
           "examples_dir" => @shadcn_examples_dir
         },
-        "base_ui" => %{"origin" => "https://base-ui.com/react/components"},
+        "base_ui" => base_ui_source(),
         "ai_elements" => %{
           "repo" => @ai_elements_repo,
           "ref" => ai_ref,
@@ -332,7 +373,17 @@ defmodule Mix.Tasks.Ui.Fetch do
     end
   end
 
-  defp page_url(module), do: "#{@base_ui_docs}/#{module}.md"
+  defp page_url(module), do: "#{@base_ui_docs}/components/#{module}.md"
+
+  defp base_ui_source do
+    %{
+      "deploy" => @base_ui_deploy,
+      "origin" => "#{@base_ui_docs}/components",
+      "ref" => @base_ui_ref,
+      "repo" => "mui/base-ui",
+      "version" => @base_ui_version
+    }
+  end
 
   # The index's `base.api` link is not always a Base UI page. A component built
   # on a React library points at that library: `resizable` at
@@ -350,10 +401,30 @@ defmodule Mix.Tasks.Ui.Fetch do
   # spec reader already reports for each of them.
   defp base_ui_link(item) do
     case get_in(item, ["meta", "links", "base", "api"]) do
-      @base_ui_host <> _rest = link -> link
-      _other -> nil
+      @base_ui_host <> _path = link ->
+        base_ui_deploy_url(link)
+
+      _other ->
+        nil
     end
   end
+
+  defp base_ui_deploy_url(@base_ui_docs <> "/" <> path),
+    do: "#{@base_ui_docs}/#{path}"
+
+  defp base_ui_deploy_url(@base_ui_host <> path) do
+    path =
+      path
+      |> String.trim_leading("/")
+      |> String.trim_trailing("/")
+      |> String.trim_trailing(".md")
+      |> String.trim_leading("react/")
+
+    "#{@base_ui_docs}/#{path}.md"
+  end
+
+  defp base_ui_deploy_url(url),
+    do: Mix.raise("not a Base UI documentation URL: #{url}")
 
   defp base_ui_modules(source) do
     ~r|from "@base-ui/react/([a-z0-9-]+)"|

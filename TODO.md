@@ -104,9 +104,31 @@ run its checks, and make its exact commit before starting the next phase.
   pixel checks.
 - [x] Commit: `fix(sidebar): align pinned browser contracts`
 
-## Phase 6d: refresh evidence and verify release badges
+## Phase 6d: pin the Base UI documentation source
 
-- [ ] Prepare pinned sources without advancing the upstream manifest or ref.
+- [x] Add a regression test for a versioned Base UI deployment source.
+- [x] Pin Base UI documentation to its immutable 1.7.0 release deployment.
+- [x] Translate component and utility links to deployment paths.
+- [x] Fetch the existing shadcn and AI refs without advancing them.
+- [x] Keep all reviewed page digests and source facts current.
+- [x] Pass the full offline check and focused Base UI fetched-source checks.
+- [x] Record separate shadcn structure differences for repair.
+- [x] Commit: `fix(fetch): pin Base UI documentation source`
+
+## Phase 6e: align pinned shadcn structure facts
+
+- [ ] Add focused regression tests for the five structure differences.
+- [ ] Review menubar, navigation-menu, popover, slider, and toast against their
+  pinned source files.
+- [ ] Update only the stale facts, ports, snapshots, and tests that the review
+  requires.
+- [ ] Pass focused component checks.
+- [ ] Pass full offline and fetched-source shadcn contract checks.
+- [ ] Commit: `fix(registry): align pinned shadcn structure facts`
+
+## Phase 6f: refresh evidence and verify release badges
+
+- [ ] Prepare pinned sources without advancing the shadcn or AI ref.
 - [ ] Run offline and fetched-source shadcn contract checks.
 - [ ] Check snapshots and record unrelated baseline failures separately.
 - [ ] Run `mix ui.verify --source shadcn` for every selected target.

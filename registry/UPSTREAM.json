@@ -53,37 +53,6 @@
         "calendar-week-numbers",
         "calendar-rtl"
       ],
-      "date-picker": [
-        "date-picker-demo",
-        "date-picker-basic",
-        "date-picker-range",
-        "date-picker-dob",
-        "date-picker-input",
-        "date-picker-time",
-        "date-picker-natural-language",
-        "date-picker-rtl"
-      ],
-      "data-table": [
-        "data-table-demo",
-        "data-table-rtl"
-      ],
-      "typography": [
-        "typography-demo",
-        "typography-h1",
-        "typography-h2",
-        "typography-h3",
-        "typography-h4",
-        "typography-p",
-        "typography-blockquote",
-        "typography-table",
-        "typography-list",
-        "typography-inline-code",
-        "typography-lead",
-        "typography-large",
-        "typography-small",
-        "typography-muted",
-        "typography-rtl"
-      ],
       "resizable": [
         "resizable-demo",
         "resizable-vertical",
@@ -386,6 +355,23 @@
         "toggle-group-font-weight-selector",
         "toggle-group-rtl"
       ],
+      "typography": [
+        "typography-demo",
+        "typography-h1",
+        "typography-h2",
+        "typography-h3",
+        "typography-h4",
+        "typography-p",
+        "typography-blockquote",
+        "typography-table",
+        "typography-list",
+        "typography-inline-code",
+        "typography-lead",
+        "typography-large",
+        "typography-small",
+        "typography-muted",
+        "typography-rtl"
+      ],
       "table": [
         "table-demo",
         "table-footer",
@@ -478,6 +464,20 @@
         "attachment-sizes",
         "attachment-group",
         "attachment-trigger"
+      ],
+      "date-picker": [
+        "date-picker-demo",
+        "date-picker-basic",
+        "date-picker-range",
+        "date-picker-dob",
+        "date-picker-input",
+        "date-picker-time",
+        "date-picker-natural-language",
+        "date-picker-rtl"
+      ],
+      "data-table": [
+        "data-table-demo",
+        "data-table-rtl"
       ],
       "accordion": [
         "accordion-demo",
@@ -572,13 +572,13 @@
       "sonner": [
         {
           "id": "basic",
-          "source": "shadcn/examples/sonner-example.tsx#SonnerBasic",
-          "reference": "shadcn/sonner#SonnerBasic"
+          "reference": "shadcn/sonner#SonnerBasic",
+          "source": "shadcn/examples/sonner-example.tsx#SonnerBasic"
         },
         {
           "id": "with-description",
-          "source": "shadcn/examples/sonner-example.tsx#SonnerWithDescription",
-          "reference": "shadcn/sonner#SonnerWithDescription"
+          "reference": "shadcn/sonner#SonnerWithDescription",
+          "source": "shadcn/examples/sonner-example.tsx#SonnerWithDescription"
         }
       ],
       "hover-card": [
@@ -670,10 +670,15 @@
       "sha256": "bcf23205f7759d7811603a09ddc199606bc06fdf50270f23ca24b51ddf5ac68a",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/toggle.tsx"
     },
+    "shadcn/examples/date-picker-natural-language.tsx": {
+      "bytes": 2837,
+      "sha256": "cab7dd423fa2fe787417204d839edbea27935637e171ea0a72c11abbc0c3de22",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-natural-language.tsx"
+    },
     "base_ui/checkbox.md": {
       "bytes": 22953,
       "sha256": "9ccd915abaf8916cbf26e55e88b0782e5eb290322cd0a3d01b5533aef3fbf4dc",
-      "url": "https://base-ui.com/react/components/checkbox.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/checkbox.md"
     },
     "ai_examples/inline-citation.tsx": {
       "bytes": 3305,
@@ -689,6 +694,11 @@
       "bytes": 274,
       "sha256": "b1c157886236782cb92d8fbcd4749532aaf6d8aabefd6e157ca40358f902f407",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/aspect-ratio.tsx"
+    },
+    "shadcn/examples/typography-h4.tsx": {
+      "bytes": 165,
+      "sha256": "346c7b646ef34a7829c1506206b47687c5ebcad29bc7ea681f696dd7ffebf044",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h4.tsx"
     },
     "shadcn/ui/kbd.tsx": {
       "bytes": 585,
@@ -709,6 +719,11 @@
       "bytes": 2676,
       "sha256": "806a823d1ec998652e6db0d1a6498016276825ae0edbc8c59cd20164815123f0",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/toggle-group.tsx"
+    },
+    "shadcn/examples/date-picker-range.tsx": {
+      "bytes": 1772,
+      "sha256": "d3a623938f4dc9f66cc89295af62947e00ba8813fd845b0fb45f395770bbe140",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-range.tsx"
     },
     "shadcn/ui/slider.tsx": {
       "bytes": 1607,
@@ -758,7 +773,7 @@
     "base_ui/select.md": {
       "bytes": 169258,
       "sha256": "95484f6becede76811b671909b3656451fe7c70f1ddba01635af9240ff273ebb",
-      "url": "https://base-ui.com/react/components/select.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/select.md"
     },
     "ai_examples/persona-mana.tsx": {
       "bytes": 2558,
@@ -769,6 +784,11 @@
       "bytes": 1054,
       "sha256": "7b5becbdbef7163d14a6e8cd8deb753a1d83ec5ea6e4917a24f534a3a6b57d94",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/audio-player-remote.tsx"
+    },
+    "shadcn/examples/date-picker-time.tsx": {
+      "bytes": 2061,
+      "sha256": "4a65399ebf3ddebad365e04d7a876236311fd099dcf67fd64712fc2f704b72a2",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-time.tsx"
     },
     "ai_elements/web-preview.tsx": {
       "bytes": 7152,
@@ -850,10 +870,15 @@
       "sha256": "a5268565d3c8fa8479a45fec832dbd5870db58a592a3a729ee469d6f26bb10a3",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/toggle.mdx"
     },
+    "shadcn/docs/typography.mdx": {
+      "bytes": 1571,
+      "sha256": "94675f629d08d41feca386477ee4b66f7e3db551980ea9061ac66d2c699cfd70",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/typography.mdx"
+    },
     "base_ui/avatar.md": {
       "bytes": 11659,
       "sha256": "4843f408ba65889f1085b18348400472d5c27fbc491506bb29076d0809a1d22b",
-      "url": "https://base-ui.com/react/components/avatar.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/avatar.md"
     },
     "shadcn/docs/command.mdx": {
       "bytes": 3049,
@@ -870,11 +895,6 @@
       "sha256": "d5178ce4c7834d3f46d261698395b498b8f45fef29975585df7e26cb43aa3cc7",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/sonner.tsx"
     },
-    "shadcn/examples/sonner-example.tsx": {
-      "bytes": 1043,
-      "sha256": "43627fc677ef32387e313ff12a620068b9e18dc77a184a24a5a15d3eea506676",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/examples/sonner-example.tsx"
-    },
     "ai_shadcn/ui/sheet.tsx": {
       "bytes": 4099,
       "sha256": "4af432ffb07cd4540349c0ff1d7323dd9caef4cff060d45a843d552a87157f79",
@@ -888,7 +908,7 @@
     "base_ui/sheet.md": {
       "bytes": 171135,
       "sha256": "cd3f2f1d3d6adcd6be24602e1eecd26e18a2bffd1b72577e5983c6064f663ced",
-      "url": "https://base-ui.com/react/components/dialog.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/dialog.md"
     },
     "ai_shadcn/ui/input-otp.tsx": {
       "bytes": 2268,
@@ -898,7 +918,7 @@
     "base_ui/combobox.md": {
       "bytes": 340747,
       "sha256": "759e3f7e32809dbfff8ff922b3e866145687c289e2d125bfac385cd90e75b853",
-      "url": "https://base-ui.com/react/components/combobox.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/combobox.md"
     },
     "shadcn/styles/nova.css": {
       "bytes": 75461,
@@ -933,7 +953,7 @@
     "base_ui/drawer.md": {
       "bytes": 241333,
       "sha256": "06e18a642563ba92e71fe756dbadfc3fc8789c9458a37bba6b7b359f3ae8fbcd",
-      "url": "https://base-ui.com/react/components/drawer.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/drawer.md"
     },
     "shadcn/ui/toggle.tsx": {
       "bytes": 1165,
@@ -943,7 +963,12 @@
     "base_ui/slider.md": {
       "bytes": 68060,
       "sha256": "29c38561a854f1c972d6cb2d5d32017f135354f52549caaa5897e263ccd31432",
-      "url": "https://base-ui.com/react/components/slider.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/slider.md"
+    },
+    "shadcn/examples/typography-inline-code.tsx": {
+      "bytes": 210,
+      "sha256": "1c584644b11f6dddf958feaf73d1ffc677bb9e7c72cfd92f8b4a434a395ad2ab",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-inline-code.tsx"
     },
     "shadcn/ui/scroll-area.tsx": {
       "bytes": 1508,
@@ -960,10 +985,20 @@
       "sha256": "3fbd0fd128f90598e5387f55646f66fff0775ba95bc152a7252ddb24a601be5c",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/accordion.tsx"
     },
+    "shadcn/docs-meta.json": {
+      "bytes": 1086,
+      "sha256": "71601893b2c88341fe34bba5ad97d443b491b65bf3322593d081378b96ffb421",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/meta.json"
+    },
     "ai_shadcn/ui/select.tsx": {
       "bytes": 6304,
       "sha256": "a0eefd67e05688a6318a3a86080a6951723c6b5d323e1fa92b9d1b7fee777995",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/select.tsx"
+    },
+    "shadcn/examples/date-picker-demo.tsx": {
+      "bytes": 1090,
+      "sha256": "6e2e2191ee17d699aa3821c6fef0ef14401ef0c7a9c59241d3c50b67d71591df",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-demo.tsx"
     },
     "shadcn/ui/spinner.tsx": {
       "bytes": 559,
@@ -993,7 +1028,7 @@
     "base_ui/field.md": {
       "bytes": 37088,
       "sha256": "592fd96a5b4a4175823e90ae6a8d4c0960d47b4516d6b411e8908ea8fcae5688",
-      "url": "https://base-ui.com/react/components/field.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/field.md"
     },
     "ai_examples/tool-output-error.tsx": {
       "bytes": 1075,
@@ -1093,7 +1128,7 @@
     "base_ui/collapsible.md": {
       "bytes": 18546,
       "sha256": "29c20ffb1eb1a3477eb6bd1fd00903bfea151e4d0f637b538163727769e30c7c",
-      "url": "https://base-ui.com/react/components/collapsible.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/collapsible.md"
     },
     "shadcn/docs/label.mdx": {
       "bytes": 1939,
@@ -1129,6 +1164,11 @@
       "bytes": 5886,
       "sha256": "78c2d54e8c52f0b2b7d59a9fc8872d6f871849a97c6ddaddd36146dacafe83db",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/styles.tsx"
+    },
+    "shadcn/examples/date-picker-dob.tsx": {
+      "bytes": 1330,
+      "sha256": "55148d52178286a57bca51a6911a76fe2dd568d155e43ddc256f778f14ae6723",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-dob.tsx"
     },
     "ai_shadcn/ui/resizable.tsx": {
       "bytes": 2042,
@@ -1170,6 +1210,11 @@
       "sha256": "eae95ff0c0e1545b27ce8ab0fc405a7ad9156764a2cc4409ce722e80f92cdd19",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/separator.mdx"
     },
+    "shadcn/examples/typography-rtl.tsx": {
+      "bytes": 12331,
+      "sha256": "0068016227cdbfb39e1f851b54f62c768fa76fcec1093fb0ca02bd841213f676",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-rtl.tsx"
+    },
     "shadcn/docs/scroll-area.mdx": {
       "bytes": 1910,
       "sha256": "4572c57f1f068afb74ee7253a28cdd4ee89256067a805bacb9cee53eced52ebb",
@@ -1178,12 +1223,12 @@
     "base_ui/progress.md": {
       "bytes": 19660,
       "sha256": "b7dff015a93fb55027da950ce9f0cab4d95352cf1edd8bfb51b2cf26c7d3a0bf",
-      "url": "https://base-ui.com/react/components/progress.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/progress.md"
     },
     "base_ui/toast.md": {
       "bytes": 173760,
       "sha256": "7647aa5cbfcefe22771b4d6f2aa362029be7405396dc6c6e0bf7ee7bc95bc262",
-      "url": "https://base-ui.com/react/components/toast.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/toast.md"
     },
     "shadcn/docs/switch.mdx": {
       "bytes": 2205,
@@ -1193,12 +1238,12 @@
     "base_ui/dialog.md": {
       "bytes": 171135,
       "sha256": "cd3f2f1d3d6adcd6be24602e1eecd26e18a2bffd1b72577e5983c6064f663ced",
-      "url": "https://base-ui.com/react/components/dialog.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/dialog.md"
     },
     "base_ui/menu.md": {
       "bytes": 244841,
       "sha256": "119837757a89a71d8e0ed68ce021591f32cd1484fb02a73e8ca8170fa2b65d62",
-      "url": "https://base-ui.com/react/components/menu.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/menu.md"
     },
     "ai_examples/confirmation-rejected.tsx": {
       "bytes": 1165,
@@ -1210,6 +1255,11 @@
       "sha256": "f813fbd2ec0eab4eee518fff9847943929ab3ef2de0aa1330913647311bfb095",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/skeleton.tsx"
     },
+    "shadcn/examples/typography-small.tsx": {
+      "bytes": 131,
+      "sha256": "0a7156d1aa9533d1d99856ec0ac98cb35d8dc0b6b392fed810d8130862149268",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-small.tsx"
+    },
     "ai_elements/voice-selector.tsx": {
       "bytes": 11165,
       "sha256": "c777aa17525ea3664880f52e762dc1f49d4e9b32f0b815cc839677bff406aa3d",
@@ -1219,6 +1269,11 @@
       "bytes": 1708,
       "sha256": "9ede633fa22ee68dd58c6f282e36e1e4beabf5283fb321adc940c2e32ff18258",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/confirmation-request.tsx"
+    },
+    "shadcn/examples/typography-p.tsx": {
+      "bytes": 238,
+      "sha256": "7df2b94e75a622f01506d479e443f878e432ecac7ed814337c938a84cf79d8ef",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-p.tsx"
     },
     "ai_shadcn/ui/accordion.tsx": {
       "bytes": 2062,
@@ -1268,7 +1323,7 @@
     "base_ui/navigation-menu.md": {
       "bytes": 156253,
       "sha256": "d07f63f71374cdf7d33eb493d98967fb78357d63d9a28b1be6c2d4c5c4c1e656",
-      "url": "https://base-ui.com/react/components/navigation-menu.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/navigation-menu.md"
     },
     "ai_shadcn/ui/drawer.tsx": {
       "bytes": 4269,
@@ -1284,59 +1339,6 @@
       "bytes": 9586,
       "sha256": "c9d22ce8f5c3e2229e792099cc5f542f79c715966573887f867035d2c3bc35ff",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/calendar.mdx"
-    },
-    "shadcn/docs/data-table.mdx": {
-      "bytes": 24295,
-      "sha256": "a502d72b8242cb77f724a723a83c684a7738ba9b784b64db6df79111724bc41e",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/data-table.mdx"
-    },
-    "shadcn/docs-meta.json": {
-      "bytes": 1086,
-      "sha256": "71601893b2c88341fe34bba5ad97d443b491b65bf3322593d081378b96ffb421",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/meta.json"
-    },
-    "shadcn/docs/date-picker.mdx": {
-      "bytes": 2991,
-      "sha256": "ece4f9f3e8dc77e96fd79af3d530e79ee2e13a7a465a14923829e226f3d5fda4",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/date-picker.mdx"
-    },
-    "shadcn/docs/typography.mdx": {
-      "bytes": 1571,
-      "sha256": "94675f629d08d41feca386477ee4b66f7e3db551980ea9061ac66d2c699cfd70",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/typography.mdx"
-    },
-    "shadcn/examples/date-picker-basic.tsx": {"bytes": 1156, "sha256": "3a362e0d7d7458fe3a1a6b1267841d83145fa7028d48c14062ccab5c9a168aa2", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-basic.tsx"},
-    "shadcn/examples/date-picker-demo.tsx": {"bytes": 1090, "sha256": "6e2e2191ee17d699aa3821c6fef0ef14401ef0c7a9c59241d3c50b67d71591df", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-demo.tsx"},
-    "shadcn/examples/date-picker-dob.tsx": {"bytes": 1330, "sha256": "55148d52178286a57bca51a6911a76fe2dd568d155e43ddc256f778f14ae6723", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-dob.tsx"},
-    "shadcn/examples/date-picker-input.tsx": {"bytes": 2848, "sha256": "3f9601a170b0dc21996e761f097462bed504e3195fa801d6bcd549b3011a04a6", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-input.tsx"},
-    "shadcn/examples/date-picker-natural-language.tsx": {"bytes": 2837, "sha256": "cab7dd423fa2fe787417204d839edbea27935637e171ea0a72c11abbc0c3de22", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-natural-language.tsx"},
-    "shadcn/examples/date-picker-range.tsx": {"bytes": 1772, "sha256": "d3a623938f4dc9f66cc89295af62947e00ba8813fd845b0fb45f395770bbe140", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-range.tsx"},
-    "shadcn/examples/date-picker-rtl.tsx": {"bytes": 2251, "sha256": "68343f94eaa5e7cf69d7cac4a9388eefebb54a5da7cda0be4621ace06bfe772d", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-rtl.tsx"},
-    "shadcn/examples/date-picker-time.tsx": {"bytes": 2061, "sha256": "4a65399ebf3ddebad365e04d7a876236311fd099dcf67fd64712fc2f704b72a2", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-time.tsx"},
-    "shadcn/examples/typography-blockquote.tsx": {"bytes": 281, "sha256": "91e4005ae86a5df1c80d71e97249b860c2729bfae721d10ea1b66d0481e056b6", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-blockquote.tsx"},
-    "shadcn/examples/typography-demo.tsx": {"bytes": 5511, "sha256": "4fb115115db5f65215a302c5c167ce642ef7f787b6250bf2795029239a7437e6", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-demo.tsx"},
-    "shadcn/examples/typography-h1.tsx": {"bytes": 204, "sha256": "dc9143fa11f2450a3e16b570c63be782381a802413d51e040e176b1ad77a078f", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h1.tsx"},
-    "shadcn/examples/typography-h2.tsx": {"bytes": 188, "sha256": "52b9ba6c96baa968433bd0e364c7cab439f6e375f7e3bce278d3d4dfad06659e", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h2.tsx"},
-    "shadcn/examples/typography-h3.tsx": {"bytes": 150, "sha256": "b7ce0fe42def3d440b0365657bdfb766fdad7b0a489a0d4e9f99bcb823f99d51", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h3.tsx"},
-    "shadcn/examples/typography-h4.tsx": {"bytes": 165, "sha256": "346c7b646ef34a7829c1506206b47687c5ebcad29bc7ea681f696dd7ffebf044", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h4.tsx"},
-    "shadcn/examples/typography-inline-code.tsx": {"bytes": 210, "sha256": "1c584644b11f6dddf958feaf73d1ffc677bb9e7c72cfd92f8b4a434a395ad2ab", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-inline-code.tsx"},
-    "shadcn/examples/typography-large.tsx": {"bytes": 117, "sha256": "a1b93e6aadafcb1d7eae51476293be622439ffcc3b7a7b7496969e1dbc679be3", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-large.tsx"},
-    "shadcn/examples/typography-lead.tsx": {"bytes": 210, "sha256": "656f642e35581509659f87cd8a950e73ce8f1dabfdd6f2d0fa7bef425a7f104a", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-lead.tsx"},
-    "shadcn/examples/typography-list.tsx": {"bytes": 266, "sha256": "b2c2d829405df2950ee050f92ebf12731b990853a4f0fb09af8bcd19ec97b638", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-list.tsx"},
-    "shadcn/examples/typography-muted.tsx": {"bytes": 132, "sha256": "f0dfc348b866bcec400d74230aa0ec67e1a0c67e2c4917887381209b5453cbc0", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-muted.tsx"},
-    "shadcn/examples/typography-p.tsx": {"bytes": 238, "sha256": "7df2b94e75a622f01506d479e443f878e432ecac7ed814337c938a84cf79d8ef", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-p.tsx"},
-    "shadcn/examples/typography-rtl.tsx": {"bytes": 12331, "sha256": "0068016227cdbfb39e1f851b54f62c768fa76fcec1093fb0ca02bd841213f676", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-rtl.tsx"},
-    "shadcn/examples/typography-small.tsx": {"bytes": 131, "sha256": "0a7156d1aa9533d1d99856ec0ac98cb35d8dc0b6b392fed810d8130862149268", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-small.tsx"},
-    "shadcn/examples/typography-table.tsx": {"bytes": 1806, "sha256": "916d4bad2b4b3f13ed4d8aac680c7eab8550e8a91b63fa8bb30ebf46e48715b7", "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-table.tsx"},
-    "shadcn/examples/data-table-demo.tsx": {
-      "bytes": 9468,
-      "sha256": "0c866650c361ca0ebc6745ccb2993eef6fb88520abb772a41e631d1ef3505e4e",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/data-table-demo.tsx"
-    },
-    "shadcn/examples/data-table-rtl.tsx": {
-      "bytes": 13335,
-      "sha256": "5634f5b725092e93a5e8e7acc3f41ab44268499216e0de4a36f8e64263e635fc",
-      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/data-table-rtl.tsx"
     },
     "ai_examples/persona-halo.tsx": {
       "bytes": 2558,
@@ -1381,12 +1383,17 @@
     "base_ui/dropdown-menu.md": {
       "bytes": 244841,
       "sha256": "119837757a89a71d8e0ed68ce021591f32cd1484fb02a73e8ca8170fa2b65d62",
-      "url": "https://base-ui.com/react/components/menu.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/menu.md"
     },
     "ai_examples/terminal.tsx": {
       "bytes": 2375,
       "sha256": "1d43e6741db70e615593af52330773b2323f08122aba5c481a3f9f075ff08f26",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/terminal.tsx"
+    },
+    "shadcn/examples/typography-large.tsx": {
+      "bytes": 117,
+      "sha256": "a1b93e6aadafcb1d7eae51476293be622439ffcc3b7a7b7496969e1dbc679be3",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-large.tsx"
     },
     "ai_examples/file-tree-expanded.tsx": {
       "bytes": 599,
@@ -1458,6 +1465,11 @@
       "sha256": "f0ffc739a4fbb40af1a9e7cfc08d0d8d27e1b79b2c6697506655fd5deb07bd52",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/ui/chart.tsx"
     },
+    "shadcn/examples/typography-lead.tsx": {
+      "bytes": 210,
+      "sha256": "656f642e35581509659f87cd8a950e73ce8f1dabfdd6f2d0fa7bef425a7f104a",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-lead.tsx"
+    },
     "shadcn/docs/message.mdx": {
       "bytes": 7278,
       "sha256": "e89794ca20b01689aae4cc0028a77ae8e96782846e54993c78f8ac5eee2d4848",
@@ -1496,7 +1508,7 @@
     "base_ui/preview-card.md": {
       "bytes": 119560,
       "sha256": "595774b5012ff987542e1e26dd35bf6efeca42593dd74e4c89c7d4a4c870ca71",
-      "url": "https://base-ui.com/react/components/preview-card.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/preview-card.md"
     },
     "ai_elements/speech-input.tsx": {
       "bytes": 9657,
@@ -1507,6 +1519,11 @@
       "bytes": 814,
       "sha256": "57a1a1f2a5fb9646c9c2d8386970f626b882ec2b6571db4f4608085a470f471d",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/toaster.tsx"
+    },
+    "shadcn/examples/typography-table.tsx": {
+      "bytes": 1806,
+      "sha256": "916d4bad2b4b3f13ed4d8aac680c7eab8550e8a91b63fa8bb30ebf46e48715b7",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-table.tsx"
     },
     "ai_elements/transcription.tsx": {
       "bytes": 3298,
@@ -1633,6 +1650,11 @@
       "sha256": "ed0a5e6bf2f11b5b9654c073a67391a8fbeacfd262ad0cb91f962970c9bc8028",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/panel.tsx"
     },
+    "shadcn/examples/typography-h2.tsx": {
+      "bytes": 188,
+      "sha256": "52b9ba6c96baa968433bd0e364c7cab439f6e375f7e3bce278d3d4dfad06659e",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h2.tsx"
+    },
     "ai_examples/snippet.tsx": {
       "bytes": 579,
       "sha256": "0ce97416e61415021f5bbe3bcf5428faa9d9f23e3b78d8d886f7ead16eb6e3e3",
@@ -1673,15 +1695,25 @@
       "sha256": "c702f71e9727490b0953a9271824093f2b9adc80e9f165193e66c26f4d5292ff",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/item.mdx"
     },
+    "shadcn/examples/date-picker-basic.tsx": {
+      "bytes": 1156,
+      "sha256": "3a362e0d7d7458fe3a1a6b1267841d83145fa7028d48c14062ccab5c9a168aa2",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-basic.tsx"
+    },
     "base_ui/separator.md": {
       "bytes": 8005,
       "sha256": "085ed595788bc62eeb4a0ee080cd854214aea3a4205ec4b9d6648bfa918b0fb7",
-      "url": "https://base-ui.com/react/components/separator.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/separator.md"
     },
     "shadcn/docs/tabs.mdx": {
       "bytes": 2406,
       "sha256": "dfdad7346332d0dfc9c21cba8325c32833560ec105b04cec89102af79eacd3b9",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/tabs.mdx"
+    },
+    "shadcn/docs/date-picker.mdx": {
+      "bytes": 2991,
+      "sha256": "ece4f9f3e8dc77e96fd79af3d530e79ee2e13a7a465a14923829e226f3d5fda4",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/date-picker.mdx"
     },
     "shadcn/ui/tooltip.tsx": {
       "bytes": 1989,
@@ -1706,7 +1738,7 @@
     "base_ui/menubar.md": {
       "bytes": 34166,
       "sha256": "61d6e837a6a615e5c378a8a31bc281e6d383e7761d12649ec1c50a680f4ec2a5",
-      "url": "https://base-ui.com/react/components/menubar.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/menubar.md"
     },
     "ai_examples/stack-trace.tsx": {
       "bytes": 1981,
@@ -1746,7 +1778,7 @@
     "base_ui/switch.md": {
       "bytes": 18859,
       "sha256": "d91041247b3af008bffb070f95f307f1e7cb87982c835b04a4fcb8fcecf4397a",
-      "url": "https://base-ui.com/react/components/switch.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/switch.md"
     },
     "shadcn/docs/alert-dialog.mdx": {
       "bytes": 4171,
@@ -1756,12 +1788,12 @@
     "base_ui/tabs.md": {
       "bytes": 46785,
       "sha256": "e8b6a6d4dda126619b989d90b9df597f56f7e64346a374a6a8ccaa5f1ea72fd5",
-      "url": "https://base-ui.com/react/components/tabs.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/tabs.md"
     },
     "base_ui/toggle-group.md": {
       "bytes": 32299,
       "sha256": "4a19b1f1ed82381e3ca03ef4745875e2bfe59f6e84de52e20376f777c9cecf31",
-      "url": "https://base-ui.com/react/components/toggle-group.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/toggle-group.md"
     },
     "ai_examples/attachments-list.tsx": {
       "bytes": 2271,
@@ -1773,6 +1805,11 @@
       "sha256": "8a802399bb9b6de9a663caad3d505acb280d1490774c631f7a60c54767914948",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/native-select.mdx"
     },
+    "shadcn/examples/typography-h1.tsx": {
+      "bytes": 204,
+      "sha256": "dc9143fa11f2450a3e16b570c63be782381a802413d51e040e176b1ad77a078f",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h1.tsx"
+    },
     "shadcn/docs/aspect-ratio.mdx": {
       "bytes": 2165,
       "sha256": "0a248906c3ee2ec5e9f5dc8272b07ce546914114d00fcce6c1912507e3526639",
@@ -1781,7 +1818,7 @@
     "base_ui/direction.md": {
       "bytes": 5470,
       "sha256": "7e3190c679a28f50b82684f9766a16722b6147f6934766ef85acd11303e73577",
-      "url": "https://base-ui.com/react/utils/direction-provider.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/utils/direction-provider.md"
     },
     "shadcn/docs/chart.mdx": {
       "bytes": 15941,
@@ -1868,15 +1905,25 @@
       "sha256": "dd2698a2b4d07e0ddecf51415640205b843464cd9802492ee58837b05df88412",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/navigation-menu.mdx"
     },
+    "shadcn/examples/typography-muted.tsx": {
+      "bytes": 132,
+      "sha256": "f0dfc348b866bcec400d74230aa0ec67e1a0c67e2c4917887381209b5453cbc0",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-muted.tsx"
+    },
     "ai_shadcn/ui/navigation-menu.tsx": {
       "bytes": 6672,
       "sha256": "577b67b9a42bb5b306c430a9fc8c4b75b1af3861ea0ae2a8cbb68d245b706120",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/navigation-menu.tsx"
     },
+    "shadcn/examples/typography-blockquote.tsx": {
+      "bytes": 281,
+      "sha256": "91e4005ae86a5df1c80d71e97249b860c2729bfae721d10ea1b66d0481e056b6",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-blockquote.tsx"
+    },
     "base_ui/input.md": {
       "bytes": 8437,
       "sha256": "d8c987f1f235eca97efc665d002b5ba2e1a6dd645eff427902aa2694bdc5985e",
-      "url": "https://base-ui.com/react/components/input.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/input.md"
     },
     "shadcn/ui/sidebar.tsx": {
       "bytes": 19493,
@@ -1886,7 +1933,7 @@
     "base_ui/radio.md": {
       "bytes": 27375,
       "sha256": "abd2d336d02fa7c04608c5ae1d21a903a447350e35b362e9770ff02d01e70dfd",
-      "url": "https://base-ui.com/react/components/radio.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/radio.md"
     },
     "ai_shadcn/ui/avatar.tsx": {
       "bytes": 1106,
@@ -1943,6 +1990,11 @@
       "sha256": "68f139d2df32ce10b1bcc36340e921ca2785a9c99296e95283684d10262c8d81",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/shimmer-elements.tsx"
     },
+    "shadcn/examples/date-picker-input.tsx": {
+      "bytes": 2848,
+      "sha256": "3f9601a170b0dc21996e761f097462bed504e3195fa801d6bcd549b3011a04a6",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-input.tsx"
+    },
     "ai_examples/message.tsx": {
       "bytes": 10277,
       "sha256": "a37eeec241613a666a2a3e4feea1455d587c348f085b02c9350133bcb72cd77a",
@@ -1983,6 +2035,11 @@
       "sha256": "d971d3b436c96c782b22d2e23c5e9cbd975ced900a3eff638c2224383221056d",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/stack-trace-collapsed.tsx"
     },
+    "shadcn/examples/date-picker-rtl.tsx": {
+      "bytes": 2251,
+      "sha256": "68343f94eaa5e7cf69d7cac4a9388eefebb54a5da7cda0be4621ace06bfe772d",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/date-picker-rtl.tsx"
+    },
     "shadcn/styles/sera.css": {
       "bytes": 75728,
       "sha256": "eda71a39ba86625eb81b25f2e5824579952ced0cf0451be16be3f4dd70bf9876",
@@ -1993,6 +2050,16 @@
       "sha256": "686721c57c65ba1211b813eb5dcdde6ca6281ede160cd92436799b760d3a4b8a",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/components/ui/menubar.tsx"
     },
+    "shadcn/examples/typography-demo.tsx": {
+      "bytes": 5511,
+      "sha256": "4fb115115db5f65215a302c5c167ce642ef7f787b6250bf2795029239a7437e6",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-demo.tsx"
+    },
+    "shadcn/examples/sonner-example.tsx": {
+      "bytes": 1043,
+      "sha256": "43627fc677ef32387e313ff12a620068b9e18dc77a184a24a5a15d3eea506676",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/registry/bases/base/examples/sonner-example.tsx"
+    },
     "ai_examples/test-results-basic.tsx": {
       "bytes": 454,
       "sha256": "2286b9c7bd72f63d3a8b07ffc5b2b49338b21e72b90891554230d3ae39a9f7fe",
@@ -2002,6 +2069,11 @@
       "bytes": 5092,
       "sha256": "a4d51f76ddf5197cb86b7f70ba62bd62327468a9acae1351a0b1adcb3710ec0a",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/elements/src/model-selector.tsx"
+    },
+    "shadcn/examples/typography-h3.tsx": {
+      "bytes": 150,
+      "sha256": "b7ce0fe42def3d440b0365657bdfb766fdad7b0a489a0d4e9f99bcb823f99d51",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-h3.tsx"
     },
     "shadcn/docs/slider.mdx": {
       "bytes": 2003,
@@ -2031,7 +2103,7 @@
     "base_ui/scroll-area.md": {
       "bytes": 44386,
       "sha256": "17944002e0af2c13b36bfb279249ecbde08dcd11ab5f6a3ab7f5e29f3351dc38",
-      "url": "https://base-ui.com/react/components/scroll-area.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/scroll-area.md"
     },
     "shadcn/docs/empty.mdx": {
       "bytes": 4618,
@@ -2076,7 +2148,7 @@
     "base_ui/tooltip.md": {
       "bytes": 135404,
       "sha256": "1bc316cb8320bcfbd35b252fb4bd1f1cea3343ae7900d7432734b4f020793a80",
-      "url": "https://base-ui.com/react/components/tooltip.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/tooltip.md"
     },
     "shadcn/docs/direction.mdx": {
       "bytes": 1993,
@@ -2123,6 +2195,11 @@
       "sha256": "7ac46a4f30e923e610eb7b25ae54680ebbb07c868456a11b2ac6b416d38a8958",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/examples/src/suggestion-input.tsx"
     },
+    "shadcn/examples/typography-list.tsx": {
+      "bytes": 266,
+      "sha256": "b2c2d829405df2950ee050f92ebf12731b990853a4f0fb09af8bcd19ec97b638",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/typography-list.tsx"
+    },
     "ai_shadcn/ui/card.tsx": {
       "bytes": 2001,
       "sha256": "1c0537a8fa6adb76a9a275b8c569a744b92fa70fd1edbdca05d3b7234923be1a",
@@ -2136,12 +2213,17 @@
     "base_ui/context-menu.md": {
       "bytes": 139002,
       "sha256": "fe7869fe6776fd4e2e4663139b7bc5bced33764e66fe0736b72deb70787793b4",
-      "url": "https://base-ui.com/react/components/context-menu.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/context-menu.md"
     },
     "shadcn/docs/toast.mdx": {
       "bytes": 2647,
       "sha256": "282db7dad6c7a9abf562aa998f89cf9088e136868fbea9d41fd06ef9615f2ecc",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/toast.mdx"
+    },
+    "shadcn/examples/data-table-rtl.tsx": {
+      "bytes": 13335,
+      "sha256": "5634f5b725092e93a5e8e7acc3f41ab44268499216e0de4a36f8e64263e635fc",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/data-table-rtl.tsx"
     },
     "ai_examples/test-results-errors.tsx": {
       "bytes": 1296,
@@ -2231,7 +2313,7 @@
     "base_ui/form.md": {
       "bytes": 31909,
       "sha256": "fd2efd788d005d5213095c84eda251174e28301e87bcce2477c27bfb6088dd72",
-      "url": "https://base-ui.com/react/components/form.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/form.md"
     },
     "ai_shadcn/ui/carousel.tsx": {
       "bytes": 5584,
@@ -2247,6 +2329,11 @@
       "bytes": 565,
       "sha256": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b",
       "url": "https://raw.githubusercontent.com/vercel/ai-elements/6a9d5b1822ffb10bba4bd97175f01edd7d8651cd/packages/shadcn-ui/hooks/use-mobile.ts"
+    },
+    "shadcn/docs/data-table.mdx": {
+      "bytes": 24295,
+      "sha256": "a502d72b8242cb77f724a723a83c684a7738ba9b784b64db6df79111724bc41e",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/data-table.mdx"
     },
     "ai_shadcn/ui/tabs.tsx": {
       "bytes": 1978,
@@ -2301,7 +2388,7 @@
     "base_ui/toggle.md": {
       "bytes": 12845,
       "sha256": "a95df4178538ac35f3d51b5586ed7cccb980d2a15de01b6a9e6d37db9894ad7e",
-      "url": "https://base-ui.com/react/components/toggle.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/toggle.md"
     },
     "shadcn/docs/context-menu.mdx": {
       "bytes": 4524,
@@ -2371,7 +2458,7 @@
     "base_ui/accordion.md": {
       "bytes": 42068,
       "sha256": "e3e22cc82ffe5b0d2c5662fbbc5950a26d414a2f05e0b0cb0b006a7f379d0971",
-      "url": "https://base-ui.com/react/components/accordion.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/accordion.md"
     },
     "shadcn/ui/command.tsx": {
       "bytes": 4738,
@@ -2401,7 +2488,7 @@
     "base_ui/alert-dialog.md": {
       "bytes": 85432,
       "sha256": "d6443a767b07bacf553340fc8f199aef3161f08f12709663bc74ff119d776c38",
-      "url": "https://base-ui.com/react/components/alert-dialog.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/alert-dialog.md"
     },
     "shadcn/docs/button-group.mdx": {
       "bytes": 5510,
@@ -2417,6 +2504,11 @@
       "bytes": 2755,
       "sha256": "0aa7f2c4943d0b12c6329964b0ca052096b7895befcf6d195ddad309f9d26926",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/content/docs/components/base/collapsible.mdx"
+    },
+    "shadcn/examples/data-table-demo.tsx": {
+      "bytes": 9468,
+      "sha256": "0c866650c361ca0ebc6745ccb2993eef6fb88520abb772a41e631d1ef3505e4e",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4/examples/base/data-table-demo.tsx"
     },
     "ai_examples/terminal-basic.tsx": {
       "bytes": 159,
@@ -2441,7 +2533,7 @@
     "base_ui/button.md": {
       "bytes": 11558,
       "sha256": "a330174924c1c354e7093a323bba536a453f59f02d15c047187783cedb36bd46",
-      "url": "https://base-ui.com/react/components/button.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/button.md"
     },
     "shadcn/docs/toggle-group.mdx": {
       "bytes": 2784,
@@ -2481,7 +2573,7 @@
     "base_ui/popover.md": {
       "bytes": 142727,
       "sha256": "3b8a8f677dd8bd6de6fdc409dbcd94901ed5eae16ff3b71b18b9a5a4e12c5a30",
-      "url": "https://base-ui.com/react/components/popover.md"
+      "url": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components/popover.md"
     },
     "shadcn/ui/drawer.tsx": {
       "bytes": 10232,
@@ -2597,7 +2689,11 @@
       "shadcn_dir": "packages/shadcn-ui"
     },
     "base_ui": {
-      "origin": "https://base-ui.com/react/components"
+      "deploy": "6a71b76c1fdcdd00097c7c47",
+      "origin": "https://6a71b76c1fdcdd00097c7c47--base-ui.netlify.app/react/components",
+      "ref": "254f4744f0a241c20697b9eeab33402f4469a081",
+      "repo": "mui/base-ui",
+      "version": "1.7.0"
     },
     "lucide": {
       "package": "lucide-react",
