@@ -66,6 +66,7 @@ function referenceSsr() {
 // swallow `@/registry/bases/base/lib/utils` before the shim below could.
 export default defineConfig({
   root: here,
+  publicDir: resolve(repo, "storybook/priv/static"),
   plugins: [react(), referenceSsr()],
   resolve: {
     alias: [

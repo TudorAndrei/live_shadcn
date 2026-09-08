@@ -84,13 +84,25 @@ run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 6b: serve shared example assets to the reference
 
-- [ ] Serve tracked Storybook static files from the parity Vite server.
-- [ ] Include static example assets in shadcn evidence identity.
-- [ ] Test that an asset-byte change invalidates evidence.
-- [ ] Run focused sidebar accessibility, semantic, and pixel checks.
-- [ ] Commit: `fix(parity): serve shared example assets`
+- [x] Serve tracked Storybook static files from the parity Vite server.
+- [x] Include static example assets in shadcn evidence identity.
+- [x] Test that an asset-byte change invalidates evidence.
+- [x] Run focused sidebar accessibility, semantic, and pixel checks.
+- [x] Record exposed component defects without mixing them into the asset change.
+- [x] Commit: `fix(parity): serve shared example assets`
 
-## Phase 6c: refresh evidence and verify release badges
+## Phase 6c: repair sidebar composition parity
+
+- [ ] Add a render regression test for direct `li` children before the repair.
+- [ ] Make the optional collapsible wrapper the disclosure root.
+- [ ] Preserve disclosure IDs, state attributes, classes, and client behavior.
+- [ ] Normalize the current sidebar team IDs and repair the behavior selector.
+- [ ] Refresh the collapsible body hash and sidebar snapshot.
+- [ ] Run focused package, snapshot, behavior, accessibility, semantic, and
+  pixel checks.
+- [ ] Commit: `fix(sidebar): preserve list ownership for collapsibles`
+
+## Phase 6d: refresh evidence and verify release badges
 
 - [ ] Prepare pinned sources without advancing the upstream manifest or ref.
 - [ ] Run offline and fetched-source shadcn contract checks.

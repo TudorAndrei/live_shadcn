@@ -59,7 +59,7 @@ defmodule LiveShadcnVerificationTest do
       end
     end
 
-    test "changes when a hook, css asset, or shim changes" do
+    test "changes when a hook, css asset, static image, or shim changes" do
       root = fixture_root("identity-inputs")
 
       bootstrap_identity(root, "button")
@@ -73,6 +73,13 @@ defmodule LiveShadcnVerificationTest do
       original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
 
       write(root, "storybook/assets/css/app.css", "body { color: red; }\n")
+      refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      bootstrap_identity(root, "button")
+      write(root, "storybook/priv/static/avatars/shadcn.jpg", "first image")
+      original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+
+      write(root, "storybook/priv/static/avatars/shadcn.jpg", "other image")
       refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root)
 
       bootstrap_identity(root, "button")

@@ -30,6 +30,7 @@ defmodule LiveShadcnVerification do
     "parity/package.json",
     "parity/package-lock.json",
     "storybook/assets/**/*.{css,js,mjs,json}",
+    "storybook/priv/static/avatars/**/*",
     "storybook/lib/**/*.{ex,heex}",
     "storybook/test/browser/*.mjs",
     "storybook/test/browser/package.json",

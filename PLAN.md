@@ -1,6 +1,6 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6a complete. Phase 6b in progress.
+Status: in progress. Phase 6b complete. Phase 6c in progress.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -260,10 +260,27 @@ report mtime as proof of source identity.
 - Add tracked static example assets to the shadcn evidence identity. Test that
   an asset-byte change invalidates evidence.
 - Run the focused sidebar accessibility, semantic, and pixel checks.
+- Record any component defect that the corrected reference exposes. Keep the
+  asset change separate from the component repair.
 
 **Commit:** `fix(parity): serve shared example assets`
 
-### Phase 6c: refresh evidence and verify release badges
+### Phase 6c: repair sidebar composition parity
+
+- Make the optional collapsible wrapper the disclosure root. A sidebar menu
+  `ul` must contain the requested `li` directly, as the reference does. Preserve
+  the disclosure state, IDs, classes, attributes, and client-side behavior.
+- Add a render regression test for the direct-child list contract before the
+  repair. Keep the test because valid list ownership is a current accessibility
+  contract.
+- Normalize example team IDs without trailing punctuation so the current team
+  selection check targets the rendered second team.
+- Refresh the collapsible contract body hash and the sidebar snapshot. Run the
+  focused package, snapshot, behavior, accessibility, semantic, and pixel checks.
+
+**Commit:** `fix(sidebar): preserve list ownership for collapsibles`
+
+### Phase 6d: refresh evidence and verify release badges
 
 - Finish verifier changes before the final full run. Prepare existing pinned
   inputs and locked dependencies. Confirm that the upstream manifest and ref
