@@ -554,15 +554,17 @@ defmodule LiveShadcnVerification do
     end)
   end
 
-  def check_outcome(_name, %{"outcome" => "passed"}, _policy), do: :passed
+  def check_outcome(_name, %{"gated" => false}, %{kind: kind})
+      when kind in [:standard, :docs_only],
+      do: :incomplete
+
+  def check_outcome(_name, %{"outcome" => "passed", "pass" => true}, _policy), do: :passed
+  def check_outcome(_name, %{"outcome" => "passed"}, _policy), do: :incomplete
   def check_outcome(_name, %{"outcome" => "failed"}, _policy), do: :failed
   def check_outcome(_name, %{"outcome" => "skipped"}, _policy), do: :skipped
   def check_outcome(_name, %{"outcome" => "incomplete"}, _policy), do: :incomplete
   def check_outcome(_name, %{"outcome" => "not_run"}, _policy), do: :not_run
-
-  def check_outcome(_name, %{"pass" => true, "gated" => false}, %{kind: kind})
-      when kind in [:standard, :docs_only],
-      do: :incomplete
+  def check_outcome(_name, %{"outcome" => _unknown}, _policy), do: :incomplete
 
   def check_outcome(_name, %{"pass" => true}, _policy), do: :passed
   def check_outcome(_name, %{"pass" => false}, _policy), do: :failed

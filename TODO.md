@@ -136,6 +136,14 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Align the combobox ownership test and pass Base package and hook tests.
 - [x] Commit: `fix(verification): preserve out-of-scope evidence records`
 
+## Phase 6e.2: enforce badge gating and input-set reload
+
+- [x] Add failing tests for ungated/contradictory records and input-set reload.
+- [x] Repair check precedence and Mix input-path-set tracking.
+- [x] Repeat both-route temporary-copy state, file-set, and recovery checks.
+- [x] Pass private-project, tools, and Storybook tests and static checks.
+- [x] Commit: `fix(verification): enforce badge gating and input-set reload`
+
 ## Phase 6f: refresh evidence and verify release badges
 
 - [ ] Prepare pinned sources without advancing the shadcn or AI ref.

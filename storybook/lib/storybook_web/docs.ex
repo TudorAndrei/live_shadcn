@@ -78,6 +78,13 @@ defmodule StorybookWeb.Docs do
 
   @identity_compile_paths LiveShadcnVerification.identity_compile_paths(@repo_root)
 
+  # External resources track bytes of known files, not new wildcard matches.
+  # Mix calls this hook during compilation; status requests use compiled data.
+  @doc false
+  def __mix_recompile__? do
+    LiveShadcnVerification.identity_compile_paths(@repo_root) != @identity_compile_paths
+  end
+
   @external_resource @official_examples_path
   @external_resource @snapshot_index_path
 

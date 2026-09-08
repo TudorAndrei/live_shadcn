@@ -1,6 +1,6 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6e.1 complete. Phase 6f in progress.
+Status: in progress. Phase 6e.2 complete. Phase 6f in progress.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -349,6 +349,33 @@ after this persistence check; final evidence still requires a complete run.
 
 **Commit:** `fix(verification): preserve out-of-scope evidence records`
 
+### Phase 6e.2: enforce badge gating and input-set reload
+
+- A compiled temporary-copy route test exposed that explicit `outcome: passed`
+  overrides `gated: false`. Reject ungated and contradictory passing records;
+  test standard and documentation-family policies against independent results.
+- A second route test exposed that an added hook does not recompile Docs.
+  Implement Mix's documented `__mix_recompile__?/0` input-path-set check beside
+  existing `@external_resource` byte tracking. Do not read repository files in
+  HTTP handlers or require them in a runtime release.
+- Add regression tests before repair, then repeat both-route temporary-copy
+  checks for Verified, Failed, Stale, missing, incomplete, ungated, no-browser,
+  added/deleted hooks, and recovery.
+- Run private-project, tools, and Storybook tests and configured static checks.
+  Restart full evidence verification only after the repaired identity is stable.
+
+Verification: private-project regressions failed for ungated, contradictory,
+and unknown passing outcomes before their repairs; all 28 tests now pass.
+The input-set regression failed before the Mix hook and now passes for both
+added and deleted hooks. Tools pass 160 tests; Storybook passes 75. Formatting,
+Tools/Storybook Credo, and Storybook Dialyzer pass. A separately compiled temporary
+copy passed both index and component-page assertions for Verified, Failed,
+Stale, missing, incomplete, ungated, no-browser, added/deleted inputs, and
+recovery. Only the temporary copy used synthetic records; repository evidence
+was not replaced with fixture passes.
+
+**Commit:** `fix(verification): enforce badge gating and input-set reload`
+
 ### Phase 6f: refresh evidence and verify release badges
 
 - Finish verifier changes before the final full run. Prepare existing pinned
@@ -373,6 +400,23 @@ after this persistence check; final evidence still requires a complete run.
   runtime repository files. Do not deploy as part of this plan.
 - Update `README.md`, `docs/ARCHITECTURE.md`, and `parity/README.md` with source
   selection, report provenance, badge meaning, and rerun instructions.
+
+Progress: the shadcn-only refresh renders 463 snapshots; all pass the scoped
+snapshot check. Of 159 refreshed files, 118 differ only in Phoenix JS JSON
+object-key order. The remaining changes reflect previously committed class
+binding/order, Tailwind conflict resolution, select hidden-input and label
+ownership, menu-group label ownership, and resizable orientation repairs. No
+port was changed by this refresh. The full snapshot check still reports 17 AI
+example snapshots (task, sources, chain-of-thought, reasoning, snippet,
+attachments ×3, commit, environment-variables, mic-selector, plan, stack-trace,
+tool, code-block, terminal, open-in-chat); these are outside the shadcn refresh.
+
+Integration checks so far: private verification 27 tests, tools 160, Base 42,
+shadcn 147, Storybook 74, browser helpers 101, parity helpers 32, and Base hooks
+93 pass. The first Storybook run raced an evidence write; recompilation and a
+stable-record rerun pass. Tools/Storybook/Base Credo, configured formatting, and
+both workflow actionlint checks pass. Final evidence and release checks remain
+unproven until the restarted full browser run and image validation finish.
 
 **Commit:** `docs(verification): record current shadcn parity and badge results`
 

@@ -192,6 +192,23 @@ defmodule LiveShadcnVerificationTest do
       assert evaluation.reason == "AI Elements is outside the shadcn verification pipeline."
     end
 
+    test "explicit passing outcomes cannot override required gating or contradictory pass flags" do
+      for {name, kind} <- [{"button", :standard}, {"data-table", :docs_only}],
+          bad_check <- [
+            %{"pass" => true, "gated" => false, "outcome" => "passed"},
+            %{"pass" => false, "gated" => true, "outcome" => "passed"},
+            %{"gated" => true, "outcome" => "passed"},
+            %{"pass" => true, "gated" => true, "outcome" => "unknown"}
+          ] do
+        root = fixture_root("badge-contradiction-#{name}")
+        record = verified_record(root, name, kind)
+        record = put_in(record, ["checks", "pixel"], bad_check)
+
+        assert badge_for(root, "shadcn", name, record) == :not_verified
+        refute pipeline_verified?(root, "shadcn", name, record)
+      end
+    end
+
     test "reports verified for a current primitive record" do
       root = fixture_root("badge-primitive")
       record = verified_record(root, "button", :standard)
@@ -318,6 +335,14 @@ defmodule LiveShadcnVerificationTest do
 
   defp verified_record(root, name, kind) do
     bootstrap_identity(root, name)
+
+    if kind == :docs_only do
+      write(
+        root,
+        "registry/UPSTREAM.json",
+        Jason.encode!(%{"examples" => %{"shadcn" => %{name => ["demo"]}}, "files" => %{}})
+      )
+    end
 
     spec_path = Path.join(root, "registry/spec/shadcn/#{name}.json")
     contract = ~s({"ignored":{}})
