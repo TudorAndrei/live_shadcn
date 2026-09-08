@@ -449,12 +449,18 @@ defmodule StorybookWeb.ExamplesTest do
       assert html =~ ~s(alt="shadcn")
       assert html =~ "CN"
 
+      document = Floki.parse_fragment!(html)
+
+      for trigger <- ["#sidebar-team-trigger", "#sidebar-user-trigger"] do
+        assert Floki.attribute(document, trigger, "aria-controls") == []
+      end
+
       image_conn = get(build_conn(), "/avatars/shadcn.jpg")
       assert response(image_conn, 200)
       assert {"content-type", "image/jpeg"} in image_conn.resp_headers
 
       assert html =~ "sidebar_team_select"
-      render_hook(view, "sidebar_team_select", %{"team" => "acme-corp-"})
+      render_hook(view, "sidebar_team_select", %{"team" => "acme-corp"})
 
       trigger = view |> element("#sidebar-team-trigger") |> render()
       assert trigger =~ "Acme Corp."

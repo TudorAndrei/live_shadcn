@@ -3,10 +3,14 @@ import test from "node:test";
 
 import { regressions } from "./accessibility.mjs";
 
-const violation = (id, targets) => ({
+const violation = (id, targets, stableTargets = []) => ({
   id,
   help: `${id} help`,
-  nodes: targets.map((target) => ({ target: [target], failureSummary: `${id} at ${target}` })),
+  nodes: targets.map((target, index) => ({
+    target: [target],
+    stableTarget: stableTargets[index],
+    failureSummary: `${id} at ${target}`,
+  })),
 });
 
 test("inherits an upstream violation only at the same axe target", () => {
@@ -23,6 +27,33 @@ test("accepts the same upstream rule at the same target", () => {
   const port = [violation("aria-valid-attr", ["#control"])];
 
   assert.deepEqual(regressions(port, upstream), []);
+});
+
+test("accepts framework-specific selectors that resolve to the same stable target", () => {
+  const stableTarget =
+    "preview:sidebar > slot:sidebar-group:1 > slot:sidebar-menu";
+  const upstream = [
+    violation("list", [".cn-sidebar-menu:nth-child(1)"], [stableTarget]),
+  ];
+  const port = [
+    violation("list", ['ul[data-phx-id="m9-phx-id"]'], [stableTarget]),
+  ];
+
+  assert.deepEqual(regressions(port, upstream), []);
+});
+
+test("reports equal rules at different stable targets", () => {
+  const expected =
+    'list: list help (port target ["preview:sidebar > slot:body"] has no matching upstream violation): ' +
+    'list at ul[data-phx-id="m9-phx-id"] at ul[data-phx-id="m9-phx-id"]';
+  const upstream = [
+    violation("list", [".cn-sidebar-menu"], ["preview:sidebar > slot:header"]),
+  ];
+  const port = [
+    violation("list", ['ul[data-phx-id="m9-phx-id"]'], ["preview:sidebar > slot:body"]),
+  ];
+
+  assert.deepEqual(regressions(port, upstream), [expected]);
 });
 
 test("does not ignore a local color contrast violation", () => {

@@ -26,7 +26,9 @@ function violationNodeKey(id, node) {
 }
 
 function target(node) {
-  return JSON.stringify(node.target || []);
+  return JSON.stringify(
+    node.stableTarget ? [node.stableTarget] : node.target || [],
+  );
 }
 
 function first(node) {

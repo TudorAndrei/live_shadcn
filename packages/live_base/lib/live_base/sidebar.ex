@@ -8,9 +8,10 @@ defmodule LiveBase.Sidebar do
   measurement, a timed attribute, a floating position, a roving focus. A
   sidebar owns none of them.
 
-  What a sidebar is, is one attribute. `data-state` is `expanded` or
-  `collapsed`, and every class string shadcn writes for it keys off that
-  through the group it sits on — `group-data-[collapsible=icon]:w-…`,
+  A sidebar has two related attributes. `data-state` is `expanded` or
+  `collapsed`, and `data-collapsible` contains the active collapse mode. Every
+  class string shadcn writes for it keys off those attributes through the
+  group it sits on — `group-data-[collapsible=icon]:w-…`,
   `group-data-[collapsible=offcanvas]:w-0`. Widths, offsets, which way the
   rail's cursor points: all of it is CSS reading one attribute. So flipping
   the attribute is the whole of the behavior, and `JS.toggle_attribute/2`
@@ -26,7 +27,6 @@ defmodule LiveBase.Sidebar do
   |---|---|---|
   | sidebar | `data-state` | `expanded` or `collapsed`, always one |
   | sidebar | `data-collapsible` | the collapse mode while collapsed, empty while expanded |
-  | trigger | `aria-expanded` | `true` while the sidebar is expanded |
 
   `data-collapsible` carries the mode rather than a presence, because shadcn
   writes two collapse modes and styles them differently: `icon` leaves a strip
@@ -64,29 +64,28 @@ defmodule LiveBase.Sidebar do
     js
     |> JS.toggle_attribute({"data-state", "collapsed", "expanded"}, to: "##{sidebar}")
     |> JS.toggle_attribute({"data-collapsible", collapsible, ""}, to: "##{sidebar}")
-    |> JS.toggle_attribute({"aria-expanded", "false", "true"}, to: trigger(sidebar))
   end
 
   @doc """
   Every element that opens this sidebar.
 
-  A sidebar has two: the button in the header and the rail down its edge. Both
-  flip the same attribute, so both report the same state, and a selector is how
-  one command reaches both without either knowing about the other.
+  A sidebar has two: the button in the header and the rail down its edge. A
+  selector lets the component identify both without either knowing about the
+  other.
   """
   def trigger(sidebar), do: "[data-lb-sidebar='#{sidebar}']"
 
   @doc """
   The attributes the client owns once the page is live.
 
-  `data-state` and the two that move with it are flipped in the browser and
-  never re-rendered from the server, so a patch that re-rendered the sidebar
-  would otherwise put it back the way it was first drawn.
+  The two sidebar state attributes are flipped in the browser and never
+  re-rendered from the server, so a patch that re-rendered the sidebar would
+  otherwise put it back the way it was first drawn.
   """
   def owned_attributes(js \\ %JS{}, part)
 
   def owned_attributes(js, :sidebar),
     do: JS.ignore_attributes(js, ["data-state", "data-collapsible"], [])
 
-  def owned_attributes(js, :trigger), do: JS.ignore_attributes(js, ["aria-expanded"], [])
+  def owned_attributes(js, :trigger), do: js
 end

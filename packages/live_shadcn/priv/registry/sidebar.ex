@@ -665,7 +665,6 @@ defmodule LiveShadcn.UI.Sidebar do
       style={"--sidebar-width: 16rem; --sidebar-width-icon: 3rem; #{@style}"}
       class={[
         upstream_fact("jsx/SidebarProvider/class/0"),
-        minimum_height_class(@class),
         @class
       ]}
       {Map.drop(@rest, [:"data-slot"])}
@@ -673,14 +672,6 @@ defmodule LiveShadcn.UI.Sidebar do
       {render_slot(@inner_block)}
     </div>
     """
-  end
-
-  defp minimum_height_class(class) do
-    if Enum.any?(List.wrap(class), &(is_binary(&1) and String.starts_with?(&1, "min-h-"))) do
-      nil
-    else
-      "min-h-svh"
-    end
   end
 
   @doc """

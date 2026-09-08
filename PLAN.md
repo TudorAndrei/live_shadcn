@@ -1,6 +1,6 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6b complete. Phase 6c in progress.
+Status: in progress. Phase 6c complete. Phase 6d in progress.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -265,20 +265,20 @@ report mtime as proof of source identity.
 
 **Commit:** `fix(parity): serve shared example assets`
 
-### Phase 6c: repair sidebar composition parity
+### Phase 6c: align the sidebar with pinned browser contracts
 
-- Make the optional collapsible wrapper the disclosure root. A sidebar menu
-  `ul` must contain the requested `li` directly, as the reference does. Preserve
-  the disclosure state, IDs, classes, attributes, and client-side behavior.
-- Add a render regression test for the direct-child list contract before the
-  repair. Keep the test because valid list ownership is a current accessibility
-  contract.
+- Preserve the pinned collapsible root and sidebar menu-item structure. Both
+  renderers have the same inherited list violations. Normalize axe targets by
+  stable DOM structure so LiveView-only selector attributes cannot turn an
+  upstream violation into a false local regression.
 - Normalize example team IDs without trailing punctuation so the current team
   selection check targets the rendered second team.
-- Refresh the collapsible contract body hash and the sidebar snapshot. Run the
-  focused package, snapshot, behavior, accessibility, semantic, and pixel checks.
+- Match the pinned closed-menu relation, grouped menu-label ownership, sidebar
+  classes, and toggle attributes. Add regression tests before each repair.
+- Refresh affected port-body hashes and the sidebar snapshot. Run the focused
+  package, snapshot, behavior, accessibility, semantic, and pixel checks.
 
-**Commit:** `fix(sidebar): preserve list ownership for collapsibles`
+**Commit:** `fix(sidebar): align pinned browser contracts`
 
 ### Phase 6d: refresh evidence and verify release badges
 

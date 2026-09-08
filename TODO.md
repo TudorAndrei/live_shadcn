@@ -1,6 +1,6 @@
 # TODO: shadcn parity and verification badges
 
-Follow [PLAN.md](PLAN.md). Phase 5 complete. Complete each phase,
+Follow [PLAN.md](PLAN.md). Phase 6c complete. Complete each phase,
 run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 1: share shadcn evidence evaluation
@@ -91,16 +91,18 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Record exposed component defects without mixing them into the asset change.
 - [x] Commit: `fix(parity): serve shared example assets`
 
-## Phase 6c: repair sidebar composition parity
+## Phase 6c: align the sidebar with pinned browser contracts
 
-- [ ] Add a render regression test for direct `li` children before the repair.
-- [ ] Make the optional collapsible wrapper the disclosure root.
-- [ ] Preserve disclosure IDs, state attributes, classes, and client behavior.
-- [ ] Normalize the current sidebar team IDs and repair the behavior selector.
-- [ ] Refresh the collapsible body hash and sidebar snapshot.
-- [ ] Run focused package, snapshot, behavior, accessibility, semantic, and
+- [x] Preserve the pinned collapsible and menu-item DOM structure.
+- [x] Normalize equal axe targets by stable DOM structure.
+- [x] Normalize the current sidebar team IDs and repair the behavior selector.
+- [x] Match menu-label ownership, closed-popup semantics, classes, and toggle
+  attributes.
+- [x] Add regression tests before each repair.
+- [x] Refresh affected port-body hashes and the sidebar snapshot.
+- [x] Run focused package, snapshot, behavior, accessibility, semantic, and
   pixel checks.
-- [ ] Commit: `fix(sidebar): preserve list ownership for collapsibles`
+- [x] Commit: `fix(sidebar): align pinned browser contracts`
 
 ## Phase 6d: refresh evidence and verify release badges
 

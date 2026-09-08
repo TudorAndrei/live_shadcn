@@ -982,8 +982,12 @@ defmodule StorybookWeb.Examples do
     Enum.find(sidebar_teams(), &(sidebar_team_id(&1) == id)) || hd(sidebar_teams())
   end
 
-  defp sidebar_team_id(team),
-    do: String.replace(String.downcase(team.name), ~r/[^a-z]+/, "-")
+  defp sidebar_team_id(team) do
+    team.name
+    |> String.downcase()
+    |> String.replace(~r/[^a-z]+/, "-")
+    |> String.trim("-")
+  end
 
   @doc false
   def message_scroller_event(%{default_busy: true} = state, "send", "default"), do: state
@@ -13877,6 +13881,7 @@ defmodule StorybookWeb.Examples do
             <.sidebar_menu_item>
               <.dropdown_menu
                 id="sidebar-team"
+                transient_controls
                 side="right"
                 align="start"
                 side_offset="4"
@@ -14011,6 +14016,7 @@ defmodule StorybookWeb.Examples do
             <.sidebar_menu_item>
               <.dropdown_menu
                 id="sidebar-user"
+                transient_controls
                 side="right"
                 align="end"
                 side_offset="4"

@@ -124,10 +124,80 @@ async function scan(page, url, selector, state, live = false) {
   await enterVisualState(page, selector, state);
   await waitForTimedExample(page, selector);
 
-  return (
-    await new AxeBuilder({ page })
-      .include(selector)
-      .include("[data-slot]")
-      .analyze()
-  ).violations;
+  const result = await new AxeBuilder({ page })
+    .include(selector)
+    .include("[data-slot]")
+    .analyze();
+
+  return stableViolations(page, result.violations);
+}
+
+async function stableViolations(page, violations) {
+  return Promise.all(
+    violations.map(async (violation) => ({
+      ...violation,
+      nodes: await Promise.all(
+        violation.nodes.map(async (node) => ({
+          ...node,
+          stableTarget: await stableTarget(page, node.target),
+        })),
+      ),
+    })),
+  );
+}
+
+async function stableTarget(page, target) {
+  if (
+    !Array.isArray(target) ||
+    target.length !== 1 ||
+    typeof target[0] !== "string"
+  )
+    return null;
+
+  try {
+    return await page.locator(target[0]).first().evaluate((element) => {
+      const segments = [];
+
+      for (let current = element; current; current = current.parentElement) {
+        const preview = current.getAttribute("data-preview");
+        const slot = current.getAttribute("data-slot");
+
+        if (preview) {
+          segments.unshift(`preview:${preview}`);
+          break;
+        }
+
+        if (slot) {
+          const peers = current.parentElement
+            ? [...current.parentElement.children].filter(
+                (candidate) => candidate.getAttribute("data-slot") === slot,
+              )
+            : [current];
+        const occurrence =
+          peers.length > 1 ? `:${peers.indexOf(current) + 1}` : "";
+          segments.unshift(`slot:${slot}${occurrence}`);
+        }
+      }
+
+      if (!element.hasAttribute("data-slot") && !element.hasAttribute("data-preview")) {
+        const text = element.textContent.replace(/\s+/g, " ").trim().slice(0, 80);
+        const role = element.getAttribute("role");
+        const peers = element.parentElement
+          ? [...element.parentElement.children].filter(
+              (candidate) =>
+                candidate.tagName === element.tagName && candidate.getAttribute("role") === role,
+            )
+          : [element];
+        const occurrence =
+          peers.length > 1 ? `:${peers.indexOf(element) + 1}` : "";
+        segments.push(
+          `node:${element.tagName.toLowerCase()}:${role || ""}:${text}${occurrence}`,
+        );
+      }
+
+      return segments.length > 0 ? segments.join(" > ") : null;
+    });
+  } catch {
+    return null;
+  }
 }

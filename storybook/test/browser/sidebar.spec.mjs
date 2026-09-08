@@ -43,10 +43,8 @@ test("the default sidebar selects teams, opens navigation, and collapses", async
   await sidebarTrigger.click();
   await expect(sidebar).toHaveAttribute("data-state", "collapsed");
   await expect(sidebar).toHaveAttribute("data-collapsible", "icon");
-  await expect(sidebarTrigger).toHaveAttribute("aria-expanded", "false");
 
   await sidebarRail.click();
   await expect(sidebar).toHaveAttribute("data-state", "expanded");
   await expect(sidebar).toHaveAttribute("data-collapsible", "");
-  await expect(sidebarTrigger).toHaveAttribute("aria-expanded", "true");
 });

@@ -390,7 +390,11 @@ export async function enterInteractionProbe(
   const opened = await observeInteraction(scope, target, probe);
   if (options.keepOpen) return { opened };
 
-  await page.keyboard.press("Escape");
+  if (await target.getAttribute("aria-haspopup")) {
+    await page.keyboard.press("Escape");
+  } else {
+    await target.click();
+  }
   await waitForDisclosureClosed(target, popup);
   return { opened, closed: await observeInteraction(scope, target, probe) };
 }
@@ -463,7 +467,9 @@ async function observeInteraction(scope, target, probe) {
         ? Array.from(
             document.querySelectorAll(`[data-slot='${popupSlot}']`),
           ).find(visible)
-        : popup;
+        : visible(popup)
+          ? popup
+          : null;
       const active = document.activeElement;
 
       return {
