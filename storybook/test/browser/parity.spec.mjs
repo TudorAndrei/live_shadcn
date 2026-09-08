@@ -33,6 +33,7 @@ import {
   waitForTimedExample,
 } from "./visual-states.mjs";
 import { rejectEvidenceStateFilter } from "./evidence-run.mjs";
+import { beginStateCoverage } from "./report-provenance.mjs";
 import { parityTimeoutMs } from "./parity-timeout.mjs";
 import { connected } from "./live.mjs";
 import { waitForMessageScrollerFinalLayout } from "./message-scroller-readiness.mjs";
@@ -150,6 +151,8 @@ for (const { component, example } of pages) {
     const differences = [];
     let where;
 
+    const coverage = beginStateCoverage(testInfo, name,
+      reactStates.map((state) => JSON.stringify(visualStateIdentity(state))));
     const selectedStates = process.env.PARITY_DEBUG_STATE
       ? reactStates.filter(({ name: stateName }) => stateName === process.env.PARITY_DEBUG_STATE)
       : reactStates;
@@ -171,6 +174,7 @@ for (const { component, example } of pages) {
         );
       }
       const stateDifferences = described(compare(react.measured, phoenix.measured));
+      coverage.complete(JSON.stringify(visualStateIdentity(state)));
 
       all.push(...stateDifferences);
 

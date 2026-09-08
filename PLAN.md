@@ -1,6 +1,7 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6e.2 complete. Phase 6f in progress.
+Status: in progress. Phase 6e.3 complete. Phase 6e.4 repairs the clean release
+build before the remaining input-coverage and button comparison phases.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -375,6 +376,75 @@ recovery. Only the temporary copy used synthetic records; repository evidence
 was not replaced with fixture passes.
 
 **Commit:** `fix(verification): enforce badge gating and input-set reload`
+
+### Phase 6e.3: complete browser report provenance
+
+- Test and fix incremental publication's independent AI-pruning path; reuse the
+  source-safe merge and put identity capture and report validation inside the lock.
+- Replace empty state metadata with test-time expected/completed state coverage
+  from the actual parity, pixel, and accessibility loops. Reject missing or partial
+  coverage on the real managed/import paths, not only in validator unit tests.
+- Capture a scoped direct run's identity through the existing Mix exporter before
+  testing. Always write its JSON report; derive completion from actual execution,
+  not a caller-provided constant. Direct mixed-scope diagnostic runs remain
+  non-importable; complete single-component/layer batches support direct import.
+- Test report failure, skipped/interrupted execution, diagnostic filters, identity
+  changes, ownership, layer, and state coverage. Preserve complete-example batching.
+- Pass private/tools/browser-helper tests, then exercise a complete direct batch
+  and import plus a managed component run. Preserve AI bytes on both writes.
+
+Verification: private tests (29), tools tests (161), browser helpers (108),
+parity helpers (32), formatting, Tools Credo, and Tools Dialyzer pass. The real
+button/default direct parity batch passes four tests with three completed states;
+its import records only that batch and correctly remains incomplete. A complete
+managed aspect-ratio run passes all required layers. Both paths preserve all 48
+AI record values byte-for-byte. Real malformed imports (missing/partial states,
+wrong owner/layer, incomplete execution, and global error) leave evidence bytes
+unchanged. An identical temporary checkout first matches the direct identity;
+editing its hook afterward causes import rejection without an evidence write.
+The full button run exposed separately recorded failures for phase 6e.6; no
+thresholds or example scope were relaxed to complete this report repair.
+
+**Commit:** `fix(verification): complete browser report provenance`
+
+### Phase 6e.4: install locked hook dependencies in release builds
+
+- The clean Docker build fails resolving `motion` from the Base hooks. Install
+  the Base package's locked npm dependencies in the builder, before asset bundling.
+- Add a packaging regression test, build the clean image, and test compiled badge
+  routes without runtime repository files. Keep dependency versions unchanged.
+
+**Commit:** `fix(release): install locked Base hook dependencies`
+
+### Phase 6e.5: bind shared build manifests to evidence
+
+- The input audit found that Mix manifests, Storybook configuration, and the
+  Base hook npm manifest/lock are not included in the identity. Add mutation
+  tests for these current build inputs before including them.
+- Follow the shared Tailwind source list: include committed AI component and
+  reference source files that contribute classes to the shared stylesheet.
+  This is conservative shadcn invalidation, not a change to AI policy or records.
+- Cover the same path set in Docs compilation and test prepared/clean identity
+  equality. Recheck fetched files used by the shared stylesheet against their
+  committed digests, without advancing upstream refs.
+- Pass private/tools/Storybook tests and the offline/fetched shadcn checks before
+  restarting the final verification run.
+
+**Commit:** `fix(verification): bind shared build manifests to evidence`
+
+### Phase 6e.6: align complete button comparison states
+
+- The full managed button run exposed destructive/RTL accessibility regressions
+  and incomplete group-demo/render comparisons. A direct group-demo run reproduces
+  a 140-second timeout in nested interactive-state discovery while closing a root.
+- Minimize and regression-test each cause before repairing it. Check stable axe
+  target ownership, settled state, and actual pinned styles for the contrast
+  mismatch; do not normalize away a real contrast regression.
+- Preserve every official example and discovered state and all current thresholds.
+  Pass complete button behavior, accessibility, semantic, and pixel checks before
+  the final full-source run.
+
+**Commit:** `fix(button): align complete official comparison states`
 
 ### Phase 6f: refresh evidence and verify release badges
 

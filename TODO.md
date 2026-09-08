@@ -144,6 +144,40 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Pass private-project, tools, and Storybook tests and static checks.
 - [x] Commit: `fix(verification): enforce badge gating and input-set reload`
 
+## Phase 6e.3: complete browser report provenance
+
+- [x] Regression-test source-safe incremental publication and locked validation.
+- [x] Record and validate actual expected/completed browser state coverage.
+- [x] Capture direct scoped identity through Mix and derive report completion.
+- [x] Reject incomplete, skipped, interrupted, filtered, and wrong-owner imports.
+- [x] Pass private/tools/browser-helper tests.
+- [x] Verify a complete direct batch/import and managed component,
+  preserving AI bytes.
+- [x] Commit: `fix(verification): complete browser report provenance`
+
+## Phase 6e.4: install locked hook dependencies in release builds
+
+- [ ] Add a packaging regression test and install locked Base npm dependencies.
+- [ ] Build a clean image and check compiled badges without repository files.
+- [ ] Commit: `fix(release): install locked Base hook dependencies`
+
+## Phase 6e.5: bind shared build manifests to evidence
+
+- [ ] Add mutation tests for Mix/configuration/Base npm inputs and shared CSS sources.
+- [ ] Include those inputs in evidence and compilation path tracking.
+- [ ] Check fetched shared CSS sources against committed digests.
+- [ ] Pass prepared/clean identity and private/tools/Storybook tests.
+- [ ] Pass offline and fetched shadcn contract checks.
+- [ ] Commit: `fix(verification): bind shared build manifests to evidence`
+
+## Phase 6e.6: align complete button comparison states
+
+- [ ] Diagnose and regression-test group-demo/render state discovery timeouts.
+- [ ] Diagnose and regression-test destructive/RTL accessibility mismatches.
+- [ ] Repair proven causes without removing examples/states or relaxing thresholds.
+- [ ] Pass complete button behavior, accessibility, semantic, and pixel checks.
+- [ ] Commit: `fix(button): align complete official comparison states`
+
 ## Phase 6f: refresh evidence and verify release badges
 
 - [ ] Prepare pinned sources without advancing the shadcn or AI ref.

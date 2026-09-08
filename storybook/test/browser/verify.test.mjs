@@ -7,6 +7,30 @@ import test from "node:test";
 import { embedVerificationReport, runVerification } from "./verify.mjs";
 import { acquireSourceLease, releaseSourceLease } from "../../../parity/source-lease.mjs";
 
+test("a scoped direct batch captures identity before executing and always requests a report", async () => {
+  const calls = [];
+  const meta = { version: 2, identity: "captured-before-browser", layer: "parity", completed: true };
+  await runVerification({
+    arguments: ["parity.spec.mjs"],
+    environment: { PREVIEW_COMPONENTS: "button", PREVIEW_EXAMPLES: "default" },
+    acquire: async () => ({ token: "test" }),
+    release: async () => {},
+    prepareEnvelope: (args, env) => {
+      calls.push("identity");
+      assert.deepEqual(args, ["parity.spec.mjs"]);
+      assert.equal(env.PREVIEW_COMPONENTS, "button");
+      return meta;
+    },
+    execute: async ({ environment }) => {
+      calls.push("execute");
+      assert.equal(environment.LIVE_SHADCN_VERIFY_ENVELOPE, JSON.stringify(meta));
+      assert.ok(environment.PLAYWRIGHT_JSON_OUTPUT_FILE);
+      return { code: 0, signal: null };
+    },
+  });
+  assert.deepEqual(calls, ["identity", "execute"]);
+});
+
 test("a browser batch uses and returns its live parent lease", async () => {
   const directory = mkdtempSync(join(tmpdir(), "verify-parent-"));
   const leasePath = join(directory, "lease");
@@ -73,7 +97,7 @@ test("a fresh failure report keeps the current run identity and results", async 
       },
     });
     assert.deepEqual(JSON.parse(readFileSync(reportPath, "utf8")), {
-      suites, errors: [], _live_shadcn_verification: envelope,
+      suites, errors: [], _live_shadcn_verification: { ...envelope, states: {}, completed: false },
     });
   } finally {
     rmSync(directory, { recursive: true, force: true });
@@ -132,13 +156,13 @@ test("embedVerificationReport writes verification metadata into the Playwright J
   const directory = mkdtempSync(join(tmpdir(), "live-shadcn-verify-"));
   const reportPath = join(directory, "results.json");
   const envelope = {
-    version: 1,
+    version: 2,
     source: "shadcn",
     name: "button",
     layer: "parity",
     preview_key: "button",
     examples: ["default"],
-    states: [],
+    states: {},
     identity: "digest-1",
     completed: true,
   };
@@ -155,7 +179,7 @@ test("embedVerificationReport writes verification metadata into the Playwright J
     embedVerificationReport(reportPath);
 
     const report = JSON.parse(readFileSync(reportPath, "utf8"));
-    assert.deepEqual(report._live_shadcn_verification, envelope);
+    assert.deepEqual(report._live_shadcn_verification, { ...envelope, states: {}, completed: false });
   } finally {
     if (previous === undefined) {
       delete process.env.LIVE_SHADCN_VERIFY_ENVELOPE;

@@ -15,6 +15,7 @@
 // decision everything else follows from.
 
 import { readFileSync } from "node:fs";
+import { beginStateCoverage } from "./report-provenance.mjs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test as base } from "@playwright/test";
@@ -160,6 +161,8 @@ for (const { component, example } of pages) {
     test.setTimeout(pixelTimeoutMs(reactStates.length));
 
     const observations = [];
+    const coverage = beginStateCoverage(testInfo, name,
+      reactStates.map((state) => JSON.stringify(visualStateIdentity(state))));
 
     for (const state of reactStates) {
       // One viewport for both sides, tall enough for either document in this
@@ -235,6 +238,7 @@ for (const { component, example } of pages) {
       const report = `${state.name}: ${differing} px differ (${share}%) — hottest: ${hottest || "nothing"}`;
 
       observations.push({ differing, report });
+      coverage.complete(JSON.stringify(visualStateIdentity(state)));
     }
 
     const largest = Math.max(...observations.map(({ differing }) => differing));

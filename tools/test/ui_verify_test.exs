@@ -29,6 +29,37 @@ defmodule Mix.Tasks.Ui.VerifyTest do
              |> Map.merge(results)
   end
 
+  test "incremental report validation waits for the verifier lock" do
+    root = LiveShadcnTools.repo_root()
+
+    report =
+      Path.join(System.tmp_dir!(), "missing-report-#{System.unique_integer([:positive])}.json")
+
+    task =
+      LiveShadcnTools.VerifierLock.with_lock(root, fn _token ->
+        task =
+          Task.async(fn ->
+            try do
+              Verify.run([
+                "shadcn/button",
+                "--examples",
+                "default",
+                "--record",
+                "parity=#{report}"
+              ])
+            rescue
+              error in Mix.Error -> {:error, Exception.message(error)}
+            end
+          end)
+
+        assert Task.yield(task, 5_000) == nil
+        task
+      end)
+
+    assert {:error, message} = Task.await(task, 5_000)
+    assert message =~ "cannot import"
+  end
+
   test "browser preparation updates pinned parity sources once" do
     test_pid = self()
 

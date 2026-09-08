@@ -14,6 +14,7 @@
 // `mix ui.verify` runs it filtered to one component through PREVIEW_COMPONENT.
 
 import { readFileSync } from "node:fs";
+import { beginStateCoverage } from "./report-provenance.mjs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
@@ -82,9 +83,12 @@ for (const { component, example } of pages) {
 
     if (hasLocalOnlyPolicy) {
       const portStates = await statesAt(page, path, selector, true);
+      const coverage = beginStateCoverage(testInfo, `${component}.${example}`,
+        portStates.map((state) => JSON.stringify(visualStateIdentity(state))));
 
       for (const state of portStates) {
         const port = await scan(page, path, selector, state, true);
+        coverage.complete(JSON.stringify(visualStateIdentity(state)));
         expect(port, `${component}/${example}/${state.name} has an accessibility violation`).toEqual([]);
       }
 
@@ -98,11 +102,14 @@ for (const { component, example } of pages) {
     expect(portStates.map(visualStateIdentity)).toEqual(upstreamStates.map(visualStateIdentity));
 
     const added = [];
+    const coverage = beginStateCoverage(testInfo, `${component}.${example}`,
+      upstreamStates.map((state) => JSON.stringify(visualStateIdentity(state))));
 
     for (const state of upstreamStates) {
       const upstream = await scan(page, upstreamURL, selector, state);
       const port = await scan(page, path, selector, state, true);
       added.push(...regressions(port, upstream).map((failure) => `${state.name}: ${failure}`));
+      coverage.complete(JSON.stringify(visualStateIdentity(state)));
     }
 
     expect(added).toEqual([]);

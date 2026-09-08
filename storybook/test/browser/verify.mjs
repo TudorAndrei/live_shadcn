@@ -4,6 +4,9 @@ import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
 
 import { acquireSourceLease, releaseSourceLease, useSourceLease } from "../../../parity/source-lease.mjs";
+import { completedEnvelope } from "./report-provenance.mjs";
+import { directEnvelope } from "./direct-report.mjs";
+import { rejectEvidenceStateFilter } from "./evidence-run.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "../../..");
@@ -28,6 +31,7 @@ export function embedVerificationReport(
     process.env.PLAYWRIGHT_JSON_OUTPUT_FILE ??
     join(here, "results.json"),
   envelope = process.env.LIVE_SHADCN_VERIFY_ENVELOPE,
+  outcome = { code: 0, signal: null },
 ) {
 
   if (!envelope || !existsSync(reportPath)) {
@@ -35,7 +39,7 @@ export function embedVerificationReport(
   }
 
   const report = JSON.parse(readFileSync(reportPath, "utf8"));
-  report._live_shadcn_verification = JSON.parse(envelope);
+  report._live_shadcn_verification = completedEnvelope(report, JSON.parse(envelope), outcome);
   writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`);
 }
 
@@ -46,12 +50,16 @@ export async function runVerification({
   acquire = acquireSourceLease,
   release = releaseSourceLease,
   execute = executeLocalPlaywright,
+  prepareEnvelope = directEnvelope,
 } = {}) {
   if (environment.PREVIEW_SOURCE && environment.PREVIEW_SOURCE !== "shadcn") {
     throw new Error("verification supports only source shadcn");
   }
 
   const run = async (token) => {
+    rejectEvidenceStateFilter({ ...environment, LIVE_SHADCN_BROWSER_VERIFY_WRAPPER: "1" });
+    const envelope = environment.LIVE_SHADCN_VERIFY_ENVELOPE ||
+      JSON.stringify(prepareEnvelope(arguments_, environment));
     const reportPath = resolve(here, environment.PLAYWRIGHT_JSON_OUTPUT_FILE || "results.json");
     // A failed child must never leave an earlier report available for import.
     rmSync(reportPath, { force: true });
@@ -63,10 +71,11 @@ export async function runVerification({
         PLAYWRIGHT_JSON_OUTPUT_FILE: reportPath,
         PARITY_SOURCE_LEASE_TOKEN: token,
         LIVE_SHADCN_BROWSER_VERIFY_WRAPPER: "1",
+        LIVE_SHADCN_VERIFY_ENVELOPE: envelope,
       },
     });
 
-    embedVerificationReport(reportPath, environment.LIVE_SHADCN_VERIFY_ENVELOPE);
+    embedVerificationReport(reportPath, envelope, outcome);
     return outcome;
   };
 

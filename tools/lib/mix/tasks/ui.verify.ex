@@ -205,6 +205,12 @@ defmodule Mix.Tasks.Ui.Verify do
   # without starting a browser. The record is still gated by the same static
   # checks and evidence digest as a full verification run.
   defp record_incremental!(names, opts, records) do
+    VerifierLock.with_lock(repo_root(), fn _token ->
+      record_incremental_locked!(names, opts, records)
+    end)
+  end
+
+  defp record_incremental_locked!(names, opts, records) do
     source_filter = source!(Keyword.get(opts, :source))
 
     {source, name} =
@@ -227,55 +233,52 @@ defmodule Mix.Tasks.Ui.Verify do
     identity = incremental_identity(source, name, key)
     results = import_report!(report_path, source, name, layer, key, examples)
 
-    VerifierLock.with_lock(repo_root(), fn _token ->
-      path = registry_path("VERIFY.json")
-      current = if File.exists?(path), do: read_json!(path), else: %{}
-      reference = ref(source, name)
-      prior = Map.get(current, reference, %{})
+    path = registry_path("VERIFY.json")
+    current = if File.exists?(path), do: read_json!(path), else: %{}
+    reference = ref(source, name)
+    prior = Map.get(current, reference, %{})
 
-      incremental =
-        IncrementalVerification.merge(
-          Map.get(prior, "incremental", %{}),
-          identity,
-          layer,
-          results
-        )
-
-      browser = IncrementalVerification.aggregate(incremental, identity)
-
-      checks =
-        source
-        |> incremental_static_checks(name, key, policy)
-        |> Map.merge(browser["checks"])
-
-      checks =
-        Map.put(checks, "policy", %{
-          "pass" => policy_checks_complete?(source, policy, checks),
-          "detail" => "required checks for #{policy.kind} policy"
-        })
-
-      record = %{
-        "pass" => verified_checks?(source, policy, checks),
-        "spec" => spec_digest(source, name),
-        "evidence" => identity["evidence"],
-        "checks" => checks,
-        "incremental" => incremental
-      }
-
-      LiveShadcnVerification.assert_identity_unchanged!(
-        repo_root(),
-        source,
-        name,
-        identity_digest
+    incremental =
+      IncrementalVerification.merge(
+        Map.get(prior, "incremental", %{}),
+        identity,
+        layer,
+        results
       )
 
-      current
-      |> Map.filter(fn {existing, _record} -> verification_target?(existing) end)
-      |> Map.put(reference, record)
-      |> then(&write_json_atomic!(path, &1))
+    browser = IncrementalVerification.aggregate(incremental, identity)
 
-      report(%{reference => record})
-    end)
+    checks =
+      source
+      |> incremental_static_checks(name, key, policy)
+      |> Map.merge(browser["checks"])
+
+    checks =
+      Map.put(checks, "policy", %{
+        "pass" => policy_checks_complete?(source, policy, checks),
+        "detail" => "required checks for #{policy.kind} policy"
+      })
+
+    record = %{
+      "pass" => verified_checks?(source, policy, checks),
+      "spec" => spec_digest(source, name),
+      "evidence" => identity["evidence"],
+      "checks" => checks,
+      "incremental" => incremental
+    }
+
+    LiveShadcnVerification.assert_identity_unchanged!(
+      repo_root(),
+      source,
+      name,
+      identity_digest
+    )
+
+    current
+    |> merge_results(%{reference => record})
+    |> then(&write_json_atomic!(path, &1))
+
+    report(%{reference => record})
   end
 
   defp parse_record!([record]) do
@@ -772,8 +775,7 @@ defmodule Mix.Tasks.Ui.Verify do
             layer: kind,
             preview_key: key,
             examples: examples,
-            identity: run_evidence_digest(source, name),
-            states: []
+            identity: run_evidence_digest(source, name)
           })
 
           result = parser.(decoded)
