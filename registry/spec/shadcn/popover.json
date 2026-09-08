@@ -1,6 +1,6 @@
 {
   "base_ui": {
-    "popover": "8a64304a2f1a43f965f0630000086e6e520ce896f9b26f6b4cc5ef20adc04834"
+    "popover": "4490b8128003f2316db0d87ebd37c41974606a8bd245a698a89f1a87a5163ab7"
   },
   "bindings": {
     "copy": [
@@ -23,9 +23,9 @@
     "jsx/PopoverTitle/class/0": "cn-popover-title"
   },
   "file_fingerprints": {
-    "shadcn/ui/popover.tsx": "6aefb6bcb72bcfb5b42238343dc6df1116e36f7c37bf265aa4cb20ced9863387"
+    "shadcn/ui/popover.tsx": "1b6e4a1c5988d3f741d87b7b955335351e715b1121a1d5f342e26815d9cc21fe"
   },
-  "fingerprint": "e72b38de9e38cc1c9958e703ccc64231d3dc91a100e12978b02d97603b7ae409",
+  "fingerprint": "0c6f2f507debd677669ed9af3befbe1be636227cd41ca8b86217fcd3bc367652",
   "ignored": {},
   "name": "popover",
   "port_body": "44ee812c8d2600fa6dc98c1d165ff2e55f2951d309128a6d2151d75c73a60d06",
@@ -86,7 +86,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/popover.tsx": "935bab728b60fd867384ebc6097d6a46c937423e015503e0251999b686f38bb7"
+    "shadcn/ui/popover.tsx": "27b854b12d7c7c0d531d2ee928b0d2b882bbb2081938c510d237c22cb819d25f"
   },
   "uses": [
     "jsx/PopoverContent/class/0",

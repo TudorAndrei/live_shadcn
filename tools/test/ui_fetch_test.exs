@@ -38,6 +38,23 @@ defmodule Mix.Tasks.Ui.FetchTest do
       end
     end
 
+    test "every version 2 contract records the current pinned source digests" do
+      manifest = @manifest |> File.read!() |> Jason.decode!()
+
+      mismatches =
+        Path.expand("../../registry/spec/*/*.json", __DIR__)
+        |> Path.wildcard()
+        |> Enum.flat_map(fn path ->
+          contract = path |> File.read!() |> Jason.decode!()
+
+          for {source_path, digest} <- Map.get(contract, "upstream", %{}),
+              digest != get_in(manifest, ["files", source_path, "sha256"]),
+              do: "#{contract["source"]}/#{contract["name"]}: #{source_path}"
+        end)
+
+      assert mismatches == []
+    end
+
     # shadcn's registry index points a component at whatever documents it, and
     # for a component built on a React library that is the library's own site:
     # `resizable` at react-resizable-panels, `command` at cmdk, `sonner` at

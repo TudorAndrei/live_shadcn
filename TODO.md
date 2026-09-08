@@ -1,6 +1,6 @@
 # TODO: shadcn parity and verification badges
 
-Follow [PLAN.md](PLAN.md). Phase 6c complete. Complete each phase,
+Follow [PLAN.md](PLAN.md). Phase 6e complete. Complete each phase,
 run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 1: share shadcn evidence evaluation
@@ -117,14 +117,15 @@ run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 6e: align pinned shadcn structure facts
 
-- [ ] Add focused regression tests for the five structure differences.
-- [ ] Review menubar, navigation-menu, popover, slider, and toast against their
+- [x] Add focused regression tests for the five structure differences.
+- [x] Review menubar, navigation-menu, popover, slider, and toast against their
   pinned source files.
-- [ ] Update only the stale facts, ports, snapshots, and tests that the review
+- [x] Update only the stale facts, ports, snapshots, and tests that the review
   requires.
-- [ ] Pass focused component checks.
-- [ ] Pass full offline and fetched-source shadcn contract checks.
-- [ ] Commit: `fix(registry): align pinned shadcn structure facts`
+- [x] Review and refresh the five contracts' immutable Base UI 1.7.0 page identities.
+- [x] Pass focused component checks.
+- [x] Pass full offline and fetched-source shadcn contract checks.
+- [x] Commit: `fix(registry): align pinned shadcn structure facts`
 
 ## Phase 6f: refresh evidence and verify release badges
 

@@ -1,6 +1,6 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6d complete. Phase 6e in progress.
+Status: in progress. Phase 6e complete. Phase 6f in progress.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -302,8 +302,27 @@ report mtime as proof of source identity.
 - Review menubar, navigation-menu, popover, slider, and toast against their
   pinned source files. Update only the stale facts, ports, snapshots, and tests
   that the review requires.
+- Refresh the five contracts' Base UI page identities against the immutable
+  1.7.0 documentation deployment introduced in phase 6d. Review the documented
+  primitive parts and defaults against the ports; retain current APIs.
 - Pass the focused component checks and the full offline and fetched-source
   shadcn contract checks.
+
+Review: all five shadcn source diffs replace the synthetic `cn` import with
+`@/registry/bases/base/lib/utils`; no JSX or class facts change. Verbatim pinned
+fixtures verify source bytes, structure fingerprints, copied facts, and joined
+facts. Base UI 1.7.0 npm documentation matches the deployment for navigation-menu,
+slider, toast, and menubar; menu and popover differ only in a generated example
+CSS import/comment (`home` versus `opt`). No port or snapshot repair is implied
+by these source-location differences. Focused component and full fetched-source
+checks remain required before accepting the refreshed identities.
+
+Phase 6e checks: 35 focused tools tests and 6 package tests passed; all 61
+contracts passed both offline and fetched-source checks. The 23 focused snapshots
+passed after refreshing 13 files whose only difference was JSON object-key order
+inside Phoenix JS attributes under the configured OTP 29 runtime. Parsed JS
+payloads, markup, ports, and class facts are unchanged. Five regression tests
+failed against the original contracts and passed against the reviewed contracts.
 
 **Commit:** `fix(registry): align pinned shadcn structure facts`
 
