@@ -155,11 +155,13 @@ run its checks, and make its exact commit before starting the next phase.
   preserving AI bytes.
 - [x] Commit: `fix(verification): complete browser report provenance`
 
-## Phase 6e.4: install locked hook dependencies in release builds
+## Phase 6e.4: prepare reproducible release badge inputs
 
-- [ ] Add a packaging regression test and install locked Base npm dependencies.
-- [ ] Build a clean image and check compiled badges without repository files.
-- [ ] Commit: `fix(release): install locked Base hook dependencies`
+- [x] Add a packaging regression test and install locked Base npm dependencies.
+- [x] Regression-test digest-named asset copies and nested asset directories.
+- [x] Exclude only proven generated copies and verify builder/checkout identity.
+- [x] Build a clean image and check compiled badges without repository files.
+- [x] Commit: `fix(release): prepare reproducible badge inputs`
 
 ## Phase 6e.5: bind shared build manifests to evidence
 
@@ -177,6 +179,15 @@ run its checks, and make its exact commit before starting the next phase.
 - [ ] Repair proven causes without removing examples/states or relaxing thresholds.
 - [ ] Pass complete button behavior, accessibility, semantic, and pixel checks.
 - [ ] Commit: `fix(button): align complete official comparison states`
+
+## Phase 6e.7: complete badge status semantics
+
+- [ ] Regression-test real incomplete/no-browser record shapes and preparation failures.
+- [ ] Repair precedence and record explicit preparation failure evidence.
+- [ ] Add direction to documentation navigation and routing with No DOM badges.
+- [ ] Check both badge locations, stale precedence, recovery, and AI isolation.
+- [ ] Pass private/tools/Storybook tests and static checks.
+- [ ] Commit: `fix(verification): complete badge status semantics`
 
 ## Phase 6f: refresh evidence and verify release badges
 

@@ -329,6 +329,7 @@ defmodule LiveShadcnVerification do
   def compile_path_globs(root) do
     (@shared_input_globs ++ @verification_rule_globs)
     |> Enum.flat_map(fn pattern -> Path.wildcard(Path.join(root, pattern)) end)
+    |> Enum.filter(&File.regular?/1)
     |> Enum.reject(&generated_path?/1)
   end
 
@@ -394,6 +395,7 @@ defmodule LiveShadcnVerification do
   def collect_shared_inputs(root) do
     @shared_input_globs
     |> Enum.flat_map(fn pattern -> Path.wildcard(Path.join(root, pattern)) end)
+    |> Enum.filter(&File.regular?/1)
     |> Enum.reject(&generated_path?/1)
     |> Enum.uniq()
     |> Enum.sort()
@@ -700,7 +702,23 @@ defmodule LiveShadcnVerification do
     String.contains?(path, "/node_modules/") or
       String.contains?(path, "/_build/") or
       String.contains?(path, "/priv/static/assets/") or
-      String.contains?(path, "/assets/css/upstream/")
+      String.contains?(path, "/assets/css/upstream/") or
+      digested_static_copy?(path)
+  end
+
+  # phx.digest emits a second copy beside each logical image. Its filename is
+  # not a source input, but do not hide an unexpected file merely because its
+  # name resembles a digest: both the suffix and bytes must match the source.
+  defp digested_static_copy?(path) do
+    with true <- String.contains?(path, "/storybook/priv/static/"),
+         [_, logical, hash, extension] <- Regex.run(~r/^(.*)-([a-f0-9]{32})(\.[^\/.]+)$/, path),
+         {:ok, source} <- File.read(logical <> extension),
+         ^hash <- :crypto.hash(:md5, source) |> Base.encode16(case: :lower),
+         {:ok, ^source} <- File.read(path) do
+      true
+    else
+      _ -> false
+    end
   end
 
   defp registry_path(root, parts), do: Path.join([root, "registry" | List.wrap(parts)])

@@ -89,6 +89,38 @@ defmodule LiveShadcnVerificationTest do
       refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root)
     end
 
+    test "Phoenix digest copies preserve identity without hiding changed source or derivative bytes" do
+      root = fixture_root("digested-avatar")
+      bootstrap_identity(root, "button")
+      source = "storybook/priv/static/avatars/shadcn.jpg"
+      bytes = "avatar source bytes"
+      md5 = :crypto.hash(:md5, bytes) |> Base.encode16(case: :lower)
+      copy = "storybook/priv/static/avatars/shadcn-#{md5}.jpg"
+      write(root, source, bytes)
+      original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+      original_paths = LiveShadcnVerification.identity_compile_paths(root)
+
+      write(root, copy, bytes)
+      assert LiveShadcnVerification.evidence_digest("shadcn", "button", root) == original
+      assert LiveShadcnVerification.identity_compile_paths(root) == original_paths
+
+      write(root, copy, "unexpected derivative bytes")
+      refute LiveShadcnVerification.evidence_digest("shadcn", "button", root) == original
+
+      write(root, copy, bytes)
+      write(root, source, "changed source bytes")
+      refute LiveShadcnVerification.evidence_digest("shadcn", "button", root) == original
+    end
+
+    test "nested static asset directories contribute files, not unreadable directory entries" do
+      root = fixture_root("nested-avatar")
+      bootstrap_identity(root, "button")
+      original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+      write(root, "storybook/priv/static/avatars/team/person.png", "new avatar")
+      refute LiveShadcnVerification.evidence_digest("shadcn", "button", root) == original
+      assert Enum.all?(LiveShadcnVerification.identity_compile_paths(root), &File.regular?/1)
+    end
+
     test "changes when the port module or lockfile changes" do
       root = fixture_root("identity-port")
       bootstrap_identity(root, "button")

@@ -62,6 +62,9 @@ WORKDIR /build/storybook
 
 RUN mix deps.get --only prod && mix deps.compile
 RUN cd assets && npm ci
+# Bare imports in the shared hooks resolve from the Base package, not from
+# Storybook's assets directory. Install that package's exact locked versions.
+RUN cd /build/packages/live_base && npm ci
 RUN mix assets.deploy
 RUN mix compile
 RUN mix release

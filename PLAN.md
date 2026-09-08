@@ -1,7 +1,7 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6e.3 complete. Phase 6e.4 repairs the clean release
-build before the remaining input-coverage and button comparison phases.
+Status: in progress. Phase 6e.4 complete. Phase 6e.5 completes shared build
+input coverage before button comparison and badge-semantic repairs.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -407,14 +407,30 @@ thresholds or example scope were relaxed to complete this report repair.
 
 **Commit:** `fix(verification): complete browser report provenance`
 
-### Phase 6e.4: install locked hook dependencies in release builds
+### Phase 6e.4: prepare reproducible release badge inputs
 
 - The clean Docker build fails resolving `motion` from the Base hooks. Install
   the Base package's locked npm dependencies in the builder, before asset bundling.
 - Add a packaging regression test, build the clean image, and test compiled badge
   routes without runtime repository files. Keep dependency versions unchanged.
+- The first successful build exposed one extra identity input: Phoenix's generated
+  digest-named avatar copy. Exclude only a digest-named copy whose MD5 suffix and
+  bytes match its logical source. Keep source-byte changes and unexpected derivative
+  changes visible; cover nested asset directories without treating directories as
+  file inputs. Verify builder/checkout input equality and rendered badge equality.
 
-**Commit:** `fix(release): install locked Base hook dependencies`
+Verification: the clean build first failed on missing `motion`, then exposed
+one generated avatar copy in its identity. Both regressions now pass; all 31
+private tests, 161 tools tests, and 76 Storybook tests pass. The rebuilt image
+`c8b88451cdf5` and clean checkout have 600 identical shared input paths/hashes.
+With no `/build`, `/registry`, `/app/registry`, or `/app/tools` tree in the runtime,
+its index and six component pages match pipeline results: aspect-ratio is Verified;
+button, dialog, data-table, date-picker, and typography are Stale. The aspect-ratio
+record comes from a complete passing managed browser run, not a fixture. The
+explicit direction route returns 404 and is absent from the index; that existing
+presentation gap is recorded in phase 6e.7 and remains a final acceptance blocker.
+
+**Commit:** `fix(release): prepare reproducible badge inputs`
 
 ### Phase 6e.5: bind shared build manifests to evidence
 
@@ -445,6 +461,25 @@ thresholds or example scope were relaxed to complete this report repair.
   the final full-source run.
 
 **Commit:** `fix(button): align complete official comparison states`
+
+### Phase 6e.7: complete badge status semantics
+
+- The real partial import exposes another badge precedence issue: producers set
+  top-level `pass: false` for incomplete evidence, and the evaluator treats that
+  alone as an actual failure. Regression-test real incomplete/no-browser records,
+  not only synthetic records with `pass: true`.
+- Require an actual failed required check for Failed. Record preparation failures
+  explicitly and include their readable reason, so a genuine preparation failure
+  remains Failed while skipped/incomplete checks remain Not verified.
+- The release check also exposes that direction is omitted from the index and
+  `/docs/direction` returns 404 because it has no examples. Include explicit
+  No DOM policy components in documentation navigation and routing without
+  inventing a DOM preview or counting them as parity passes.
+- Test both rendered badge locations against producer-shaped fixtures and preserve
+  stale precedence, No DOM policy, and AI records. Pass private/tools/Storybook
+  tests and rerun current verification after this shared identity change.
+
+**Commit:** `fix(verification): complete badge status semantics`
 
 ### Phase 6f: refresh evidence and verify release badges
 
