@@ -397,15 +397,21 @@ defmodule Mix.Tasks.Ui.Verify do
     path = registry_path("VERIFY.json")
     existing = if File.exists?(path), do: read_json!(path), else: %{}
 
+    merge_results(existing, results)
+  end
+
+  @doc false
+  def merge_results(existing, results) do
     existing
-    |> Map.filter(fn {reference, _result} -> verification_target?(reference) end)
+    |> Map.filter(fn {reference, _result} ->
+      not String.starts_with?(reference, "shadcn/") or verification_target?(reference)
+    end)
     |> Map.merge(results)
   end
 
-  # A component that no longer generates has no record to keep. `open-in-chat`
-  # is one: every part of it turned out to be a wrapper around
-  # `<.dropdown_menu>`, so there is nothing to generate and nothing to verify,
-  # and a passing entry left behind would say the opposite.
+  # Prune obsolete targets only within the source this verifier owns. An AI
+  # record is historical data outside this run's scope, even if its component
+  # no longer has a generated port.
   defp generated?(reference) do
     {source, name} = parse_ref(reference)
 

@@ -11,7 +11,12 @@ defmodule LiveBase.ComboboxTest do
     assert [["ignore_attrs", %{attrs: trigger_attributes}]] =
              Combobox.owned_attributes(:trigger).ops
 
-    assert trigger_attributes == ["aria-expanded", "data-popup-open", "data-pressed"]
+    assert trigger_attributes == [
+             "aria-controls",
+             "aria-expanded",
+             "data-popup-open",
+             "data-pressed"
+           ]
 
     assert [["ignore_attrs", %{attrs: addon_attributes}]] = Combobox.owned_attributes(:addon).ops
     assert addon_attributes == ["aria-hidden"]

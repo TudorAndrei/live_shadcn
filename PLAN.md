@@ -1,6 +1,6 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6e complete. Phase 6f in progress.
+Status: in progress. Phase 6e.1 complete. Phase 6f in progress.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -325,6 +325,29 @@ payloads, markup, ports, and class facts are unchanged. Five regression tests
 failed against the original contracts and passed against the reviewed contracts.
 
 **Commit:** `fix(registry): align pinned shadcn structure facts`
+
+### Phase 6e.1: preserve out-of-scope verification records
+
+- A full shadcn run exposed that `ui.verify` prunes all AI records while merging
+  results. Add a regression test for preserving out-of-scope records, including
+  records whose component no longer has a generated port.
+- Limit stale-target pruning to shadcn. Preserve AI records unchanged through
+  full and scoped publication; do not alter AI evaluation or examples.
+- Restore the 48 AI records from the pre-run file, run focused and full tools
+  tests, and verify persistence with a real scoped no-browser run.
+- Align the existing combobox ownership test with the already reviewed
+  `aria-controls` ownership; run the Base package and hook tests.
+- Keep the snapshot refresh in phase 6f. Stop the interrupted run and rerun
+  against the repaired verifier identity before accepting browser evidence.
+
+Verification: the regression failed before the merge repair; all 160 tools
+tests and 42 Base tests pass afterward, as do 93 hook tests. A real scoped
+`--no-browser shadcn/direction` publication preserved all 48 AI record values
+byte-for-byte. That diagnostic command exits nonzero and is not parity evidence.
+Tools Credo and tools/Base formatting pass. The pre-run records were restored
+after this persistence check; final evidence still requires a complete run.
+
+**Commit:** `fix(verification): preserve out-of-scope evidence records`
 
 ### Phase 6f: refresh evidence and verify release badges
 

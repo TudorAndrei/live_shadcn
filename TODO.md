@@ -127,6 +127,15 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Pass full offline and fetched-source shadcn contract checks.
 - [x] Commit: `fix(registry): align pinned shadcn structure facts`
 
+## Phase 6e.1: preserve out-of-scope verification records
+
+- [x] Add a failing regression test for out-of-scope record preservation.
+- [x] Limit obsolete-target pruning to shadcn and restore all 48 AI records.
+- [x] Prove a real scoped no-browser write preserves AI record bytes.
+- [x] Run focused and full tools tests.
+- [x] Align the combobox ownership test and pass Base package and hook tests.
+- [x] Commit: `fix(verification): preserve out-of-scope evidence records`
+
 ## Phase 6f: refresh evidence and verify release badges
 
 - [ ] Prepare pinned sources without advancing the shadcn or AI ref.

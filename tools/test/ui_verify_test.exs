@@ -5,6 +5,30 @@ defmodule Mix.Tasks.Ui.VerifyTest do
   alias LiveShadcnVerification
   alias Mix.Tasks.Ui.Verify
 
+  test "shadcn publication preserves out-of-scope records, even without a generated port" do
+    ai_record = %{
+      "pass" => true,
+      "evidence" => "historical-ai-identity",
+      "checks" => %{"pixel" => %{"pass" => false, "gated" => false}},
+      "time" => "2025-01-01T00:00:00Z"
+    }
+
+    existing = %{
+      "ai_elements/open-in-chat" => ai_record,
+      "ai_elements/message" => Map.put(ai_record, "pass", false),
+      "shadcn/button" => %{"pass" => false},
+      "shadcn/dialog" => %{"pass" => true},
+      "shadcn/removed-test-component" => %{"pass" => true}
+    }
+
+    results = %{"shadcn/button" => %{"pass" => true, "evidence" => "current"}}
+
+    assert Verify.merge_results(existing, results) ==
+             existing
+             |> Map.delete("shadcn/removed-test-component")
+             |> Map.merge(results)
+  end
+
   test "browser preparation updates pinned parity sources once" do
     test_pid = self()
 
