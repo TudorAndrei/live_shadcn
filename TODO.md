@@ -1,6 +1,6 @@
 # TODO: shadcn parity and verification badges
 
-Follow [PLAN.md](PLAN.md). Phase 6e.4a complete. Complete each phase,
+Follow [PLAN.md](PLAN.md). Phase 6e.5 complete. Complete each phase,
 run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 1: share shadcn evidence evaluation
@@ -175,12 +175,12 @@ run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 6e.5: bind shared build manifests to evidence
 
-- [ ] Add mutation tests for Mix/configuration/Base npm inputs and shared CSS sources.
-- [ ] Include those inputs in evidence and compilation path tracking.
-- [ ] Check fetched shared CSS sources against committed digests.
-- [ ] Pass prepared/clean identity and private/tools/Storybook tests.
-- [ ] Pass offline and fetched shadcn contract checks.
-- [ ] Commit: `fix(verification): bind shared build manifests to evidence`
+- [x] Add mutation tests for Mix/configuration/Base npm inputs and shared CSS sources.
+- [x] Include those inputs in evidence and compilation path tracking.
+- [x] Check fetched shared CSS sources against committed digests.
+- [x] Pass prepared/clean identity and private/tools/Storybook tests.
+- [x] Pass offline and fetched shadcn contract checks.
+- [x] Commit: `fix(verification): bind shared build manifests to evidence`
 
 ## Phase 6e.6: align complete button comparison states
 

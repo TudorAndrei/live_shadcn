@@ -59,6 +59,44 @@ defmodule LiveShadcnVerificationTest do
       end
     end
 
+    test "shared build manifests and stylesheet source mutations invalidate evidence" do
+      for path <-
+            ~w(tools/mix.exs tools/verification/mix.exs storybook/mix.exs storybook/config/config.exs packages/live_base/mix.exs packages/live_shadcn/mix.exs packages/live_ai_elements/mix.exs packages/live_base/package.json packages/live_base/package-lock.json packages/live_ai_elements/lib/component.ex parity/src/official-ai-elements.mjs) do
+        root = fixture_root("build-input-#{Path.basename(path)}")
+        bootstrap_identity(root, "button")
+        write(root, path, "original")
+        original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+        assert Path.join(root, path) in LiveShadcnVerification.identity_compile_paths(root)
+        write(root, path, "changed")
+        refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root), path
+        File.rm!(Path.join(root, path))
+        refute original == LiveShadcnVerification.evidence_digest("shadcn", "button", root), path
+      end
+    end
+
+    test "shared fetched stylesheet sources are pinned without depending on preparation" do
+      for family <- ~w(ai_elements ai_shadcn ai_examples) do
+        root = fixture_root("shared-fetched-#{family}")
+        bootstrap_identity(root, "button")
+        path = "#{family}/example.tsx"
+
+        manifest = %{
+          "files" => %{path => %{"sha256" => LiveShadcnVerification.digest("original")}}
+        }
+
+        write(root, "registry/UPSTREAM.json", Jason.encode!(manifest))
+        original = LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+        write(root, "registry/upstream/#{path}", "original")
+        assert original == LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+        assert :ok == LiveShadcnVerification.verify_pinned_upstream_files!(root)
+        write(root, "registry/upstream/#{path}", "corrupt")
+
+        assert_raise Mix.Error, ~r/pinned upstream file/, fn ->
+          LiveShadcnVerification.verify_pinned_upstream_files!(root)
+        end
+      end
+    end
+
     test "changes when a hook, css asset, static image, or shim changes" do
       root = fixture_root("identity-inputs")
 

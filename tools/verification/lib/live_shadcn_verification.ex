@@ -7,6 +7,15 @@ defmodule LiveShadcnVerification do
 
   @shared_input_globs [
     "registry/UPSTREAM.json",
+    "tools/mix.exs",
+    "tools/verification/mix.exs",
+    "storybook/mix.exs",
+    "storybook/config/*.exs",
+    "packages/*/mix.exs",
+    "packages/live_base/package.json",
+    "packages/live_base/package-lock.json",
+    "packages/live_ai_elements/lib/**/*.{ex,heex}",
+    "parity/src/official-ai-elements.mjs",
     "registry/VERIFICATION_POLICY.json",
     "registry/snapshot/index.json",
     "registry/spec/shadcn/*.json",
@@ -338,7 +347,7 @@ defmodule LiveShadcnVerification do
 
     manifest
     |> Map.get("files", %{})
-    |> Enum.filter(fn {path, _meta} -> String.starts_with?(path, "shadcn/") end)
+    |> Enum.filter(fn {path, _meta} -> shared_upstream_source?(path) end)
     |> Enum.each(fn {path, %{"sha256" => expected}} ->
       local = Path.join(root, "registry/upstream/#{path}")
 
@@ -441,10 +450,14 @@ defmodule LiveShadcnVerification do
     |> Enum.map(&file_entry(root, &1))
   end
 
+  defp shared_upstream_source?(path) do
+    Enum.any?(~w(shadcn/ ai_elements/ ai_shadcn/ ai_examples/), &String.starts_with?(path, &1))
+  end
+
   def collect_shadcn_upstream_digests(manifest) do
     manifest
     |> Map.get("files", %{})
-    |> Enum.filter(fn {path, _meta} -> String.starts_with?(path, "shadcn/") end)
+    |> Enum.filter(fn {path, _meta} -> shared_upstream_source?(path) end)
     |> Enum.sort()
     |> Enum.map(fn {path, %{"sha256" => sha}} -> {path, sha} end)
   end

@@ -1,7 +1,7 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6e.4a complete. Phase 6e.5 completes shared build
-input coverage before button comparison and badge-semantic repairs.
+Status: in progress. Phase 6e.5 complete. Phase 6e.6 repairs complete button
+comparison states before badge status repairs and the full verification run.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -465,6 +465,21 @@ verification records still match the previous commit.
   committed digests, without advancing upstream refs.
 - Pass private/tools/Storybook tests and the offline/fetched shadcn checks before
   restarting the final verification run.
+
+Result: both new tests fail against the previous code and pass with the input
+coverage change. Mix manifests, Storybook configuration, Base npm inputs, and
+AI source files used by the shared stylesheet now invalidate shadcn evidence
+and participate in compilation input tracking. Prepared and clean fixture
+identities agree. Fetched shared stylesheet source bytes match their committed
+digests.
+
+All 33 private verification tests, 162 tools tests, and 76 Storybook tests pass.
+All three projects pass `mix check`. Offline and fetched-source checks pass for
+all 61 shadcn ports. The 463 snapshot checks, 108 browser helper tests, and 32
+reference tests pass. Package tests pass for Base, shadcn, and AI Elements with
+42, 147, and 99 results. The strict shadcn gate still reports 64 targets that
+need current verification. No full browser verification or release build ran
+in this phase. Phase 6e.6 and phase 6e.7 remain open.
 
 **Commit:** `fix(verification): bind shared build manifests to evidence`
 
