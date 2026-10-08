@@ -71,11 +71,13 @@ defmodule LiveShadcn.UI.ButtonGroup do
       data-slot={@rest[:"data-slot"] || "button-group"}
       role="group"
       data-orientation={@orientation}
-      class={[
-        upstream_fact("cva/buttonGroupVariants/base"),
-        variant_class("buttonGroupVariants", "orientation", @orientation_class),
-        @class
-      ]}
+      class={
+        LiveShadcn.Cn.merge([
+          upstream_fact("cva/buttonGroupVariants/base"),
+          variant_class("buttonGroupVariants", "orientation", @orientation_class),
+          @class
+        ])
+      }
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

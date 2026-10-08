@@ -24,6 +24,15 @@ defmodule LiveShadcn.UI.ButtonGroupTest do
     assert attribute(group, "data-orientation") == "vertical"
   end
 
+  test "caller classes control display and width with independent responsive display" do
+    html = render_component(&ButtonGroup.button_group/1, %{class: "hidden sm:flex w-full"})
+    group_classes = html |> slot("button-group") |> classes()
+
+    assert Enum.filter(group_classes, &(&1 in ~w(flex hidden sm:flex))) == ~w(hidden sm:flex)
+    assert Enum.filter(group_classes, &String.starts_with?(&1, "w-")) == ["w-full"]
+    assert "cn-button-group" in group_classes
+  end
+
   test "the separator carries the independent separator contract" do
     html = render_component(&ButtonGroup.button_group_separator/1, %{})
 

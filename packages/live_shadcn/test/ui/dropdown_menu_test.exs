@@ -49,23 +49,36 @@ defmodule LiveShadcn.UI.DropdownMenuTest do
           slot(:entry, "Invite users",
             kind: "submenu",
             value: "invite-users",
-            items: [%{value: "email", label: "Email"}]
+            items: [
+              %{
+                value: "more",
+                label: "More",
+                kind: "submenu",
+                items: [%{value: "email", label: "Email"}]
+              }
+            ]
           )
         ]
       })
 
-    [submenu] =
+    submenus =
       html
       |> Floki.parse_fragment!()
       |> Floki.find("[data-slot='dropdown-menu-sub-content']")
 
-    assert Floki.attribute([submenu], "aria-orientation") == ["vertical"]
+    assert [_, _] = submenus
 
-    classes = Floki.attribute([submenu], "class") |> hd() |> String.split()
-    assert "cn-dropdown-menu-content" in classes
-    assert "cn-dropdown-menu-sub-content" in classes
-    assert "overflow-x-hidden" in classes
-    assert "overflow-y-auto" in classes
+    for submenu <- submenus do
+      assert Floki.attribute([submenu], "aria-orientation") == ["vertical"]
+
+      classes = Floki.attribute([submenu], "class") |> hd() |> String.split()
+      assert "cn-dropdown-menu-content" in classes
+      assert "cn-dropdown-menu-sub-content" in classes
+      assert "overflow-x-hidden" in classes
+      assert "overflow-y-auto" in classes
+      assert Enum.filter(classes, &String.starts_with?(&1, "w-")) == ["w-auto"]
+      assert Enum.count(classes, &(&1 == "cn-menu-target")) == 2
+    end
   end
 
   test "a composed trigger keeps the input group button contract" do

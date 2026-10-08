@@ -91,6 +91,8 @@ defmodule LiveShadcn.Cn do
   # clamp does replace an earlier display utility.
   defp conflicts({variants, "line-clamp"}), do: [{variants, "line-clamp"}, {variants, "display"}]
 
+  defp conflicts({_variants, nil}), do: []
+
   defp conflicts({variants, group}), do: [{variants, group}]
 
   defp utility_group("!" <> utility, variants), do: utility_group(utility, variants)
@@ -112,7 +114,7 @@ defmodule LiveShadcn.Cn do
         prefix
 
       true ->
-        utility
+        nil
     end
   end
 

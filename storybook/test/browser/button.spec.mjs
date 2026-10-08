@@ -41,11 +41,63 @@ test("the Button group menu and its radio submenu work", async ({ page }) => {
   await expect(labelPopup).toBeVisible();
   await expect(personal).toHaveAttribute("aria-checked", "true");
 
+  await labelTrigger.focus();
+  await page.keyboard.press("Escape");
+  await expect(labelPopup).toBeHidden();
+  await expect(popup).toBeVisible();
+  await expect(labelTrigger).toBeFocused();
+  await labelTrigger.evaluate(async (submenuTrigger) => {
+    const scheduleFrame = window.requestAnimationFrame;
+    const pendingFrames = [];
+    window.requestAnimationFrame = (callback) => {
+      pendingFrames.push(callback);
+      return 0;
+    };
+    try {
+      submenuTrigger.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true, cancelable: true }),
+      );
+      await Promise.resolve();
+      const parent = document.getElementById("button-more-options-popup");
+      parent.focus();
+      parent.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true }),
+      );
+      await Promise.resolve();
+    } finally {
+      window.requestAnimationFrame = scheduleFrame;
+    }
+    // Deliver the pending frame before the close timer. This order can occur
+    // with rapid key input and must preserve the Escape focus destination.
+    for (const callback of pendingFrames) callback(performance.now());
+  });
+  await expect(labelPopup).toBeHidden();
+  await expect(popup).toBeVisible();
+  await expect(labelTrigger).toBeFocused();
+  await labelTrigger.press("ArrowRight");
+  await expect(labelPopup).toBeVisible();
+
+  await popup.focus();
+  await page.keyboard.press("Escape");
+  await expect(labelPopup).toBeHidden();
+  await expect(popup).toBeVisible();
+  await expect(labelTrigger).toBeFocused();
+  await labelTrigger.press("ArrowRight");
+  await expect(labelPopup).toBeVisible();
+
   await work.click();
   await expect(work).toHaveAttribute("aria-checked", "true");
   await expect(personal).toHaveAttribute("aria-checked", "false");
   await expect(popup).toBeVisible();
   await expect(labelPopup).toBeVisible();
+
+  await page.keyboard.press("Escape");
+  await expect(labelPopup).toBeHidden();
+  await expect(popup).toBeVisible();
+  await expect(labelTrigger).toBeFocused();
+  await labelTrigger.press("ArrowRight");
+  await expect(labelPopup).toBeVisible();
+  await expect(work).toHaveAttribute("aria-checked", "true");
 
   await page.locator("body").click({ position: { x: 5, y: 5 } });
   await expect(popup).toBeHidden();

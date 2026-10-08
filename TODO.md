@@ -184,11 +184,18 @@ run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 6e.6: align complete button comparison states
 
-- [ ] Diagnose and regression-test group-demo/render state discovery timeouts.
-- [ ] Diagnose and regression-test destructive/RTL accessibility mismatches.
-- [ ] Repair proven causes without removing examples/states or relaxing thresholds.
-- [ ] Pass complete button behavior, accessibility, semantic, and pixel checks.
-- [ ] Commit: `fix(button): align complete official comparison states`
+- [x] Test submenu Escape behavior and focus return before repairing Base roving.
+- [x] Test finite transitions before repairing default-state readiness.
+- [x] Diagnose and regression-test group-demo/render state discovery timeouts.
+- [x] Diagnose and regression-test destructive/RTL accessibility mismatches.
+- [x] Repair proven causes without removing examples/states or relaxing thresholds.
+- [x] Test and repair rapid submenu closure focus.
+- [x] Pass shared menu and state-helper browser suites with current fixture readiness.
+- [x] Test and repair nested radio replay without moving outside an open submenu.
+- [x] Test and repair group display and submenu width class precedence.
+- [x] Review updated port hashes and affected snapshots.
+- [x] Pass complete button behavior, accessibility, semantic, and pixel checks.
+- [x] Commit: `fix(button): align complete official comparison states`
 
 ## Phase 6e.7: complete badge status semantics
 

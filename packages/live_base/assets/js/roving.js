@@ -85,6 +85,23 @@ export const Roving = {
       trigger.click();
   },
 
+  deepestOpenSubmenuTrigger() {
+    let menu = this.el;
+    let trigger = null;
+
+    while (menu) {
+      const child = [...menu.querySelectorAll("[aria-haspopup='menu'][aria-expanded='true']")].find(
+        (item) => item.closest("[data-lb-roving]") === menu,
+      );
+
+      if (!child) break;
+      trigger = child;
+      menu = document.getElementById(child.getAttribute("aria-controls"));
+    }
+
+    return trigger;
+  },
+
   keydown(event) {
     this.cancelSubmenuOpen();
     const active = document.activeElement;
@@ -99,19 +116,26 @@ export const Roving = {
       event.preventDefault();
       const popup = document.getElementById(active.getAttribute("aria-controls"));
       active.click();
-      requestAnimationFrame(() => popup?.focus());
+      requestAnimationFrame(() => {
+        if (active.getAttribute("aria-expanded") === "true") popup?.focus();
+      });
       return;
     }
 
-    if (event.key === "ArrowLeft" && this.el.hasAttribute("data-lb-submenu")) {
-      const trigger = document.getElementById(this.el.getAttribute("data-lb-parent-trigger"));
+    let closingTrigger = event.key === "Escape" ? this.deepestOpenSubmenuTrigger() : null;
 
-      if (trigger) {
-        event.preventDefault();
-        trigger.click();
-        trigger.focus();
-      }
+    if (
+      !closingTrigger &&
+      ["ArrowLeft", "Escape"].includes(event.key) &&
+      this.el.hasAttribute("data-lb-submenu")
+    )
+      closingTrigger = document.getElementById(this.el.getAttribute("data-lb-parent-trigger"));
 
+    if (closingTrigger) {
+      event.preventDefault();
+      event.stopPropagation();
+      closingTrigger.click();
+      closingTrigger.focus();
       return;
     }
 

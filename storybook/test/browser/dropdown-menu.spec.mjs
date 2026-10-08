@@ -71,6 +71,18 @@ test("the nested submenu example opens both submenu levels", async ({ page }) =>
   await expect(page.locator("#dropdown-submenu-invite-users-popup")).toBeVisible();
   await expect(invite).toHaveAttribute("aria-expanded", "true");
   await expect(page.getByRole("menuitem", { name: "Webhook" })).toBeVisible();
+
+  await page.locator("#dropdown-submenu-popup").focus();
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#dropdown-submenu-invite-users-more-options-popup")).toBeHidden();
+  await expect(page.locator("#dropdown-submenu-invite-users-popup")).toBeVisible();
+  await expect(page.locator("#dropdown-submenu-popup")).toBeVisible();
+  await expect(more).toBeFocused();
+
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#dropdown-submenu-invite-users-popup")).toBeHidden();
+  await expect(page.locator("#dropdown-submenu-popup")).toBeVisible();
+  await expect(invite).toBeFocused();
 });
 
 test("checkbox items change state and keep the menu open", async ({ page }) => {

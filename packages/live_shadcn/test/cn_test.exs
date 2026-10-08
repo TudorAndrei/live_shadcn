@@ -3,6 +3,13 @@ defmodule LiveShadcn.CnTest do
 
   alias LiveShadcn.Cn
 
+  test "repeated custom classes survive known utility conflicts" do
+    assert Cn.merge([
+             "cn-menu-target w-(--anchor-width) cn-menu-translucent",
+             "cn-menu-target cn-menu-translucent w-auto"
+           ]) == "cn-menu-target cn-menu-translucent cn-menu-target cn-menu-translucent w-auto"
+  end
+
   test "a later display class removes the earlier display class" do
     assert Cn.merge(["inline-flex items-center", "flex"]) == "items-center flex"
   end

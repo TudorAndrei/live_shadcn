@@ -184,7 +184,9 @@ for (const side of sides) {
     await expect(bookmarks).toHaveAttribute("aria-checked", "true");
     await expect(popup).toBeVisible();
 
-    await trigger(page, "الملفات الشخصية").click();
+    const profiles = trigger(page, "الملفات الشخصية");
+    await profiles.hover();
+    await expect(profiles).toHaveAttribute("aria-expanded", "true");
     popup = visibleContent(page);
     const andy = popup
       .locator("[data-slot='menubar-radio-item']")

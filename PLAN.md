@@ -1,7 +1,7 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6e.5 complete. Phase 6e.6 repairs complete button
-comparison states before badge status repairs and the full verification run.
+Status: in progress. Phase 6e.6 complete. Phase 6e.7 repairs badge status
+semantics before the full verification run.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -494,6 +494,64 @@ in this phase. Phase 6e.6 and phase 6e.7 remain open.
 - Preserve every official example and discovered state and all current thresholds.
   Pass complete button behavior, accessibility, semantic, and pixel checks before
   the final full-source run.
+- Browser diagnosis confirms that Escape closes both LiveView menu levels.
+  The pinned React menu closes only its submenu and restores focus to its
+  trigger. Extend the existing button group browser test before repairing the
+  Base roving keyboard handler. This is a shared menu behavior repair.
+- The accessibility scan captures React during a finite CSS transition. It
+  records temporary passing colors, while both settled pages have the same
+  contrast violation. Add a browser regression for default-state settling and
+  wait for finite transitions before comparing accessibility. Keep contrast
+  rules and target matching unchanged.
+- The first repair passes Escape from inside a submenu. The complete rerun
+  exposes the same defect when focus remains on the parent trigger or parent
+  popup. Compare this pointer path with pinned React behavior. Extend the button
+  and nested dropdown browser tests, then close the deepest open submenu before
+  closing the current menu.
+- The shared menu run passes the two new regressions and 58 of 59 checks.
+  The remaining check fails on pinned React: moving to the RTL Profiles trigger
+  opens it by hover, then clicking closes it before the radio assertion. Switch
+  the already-open menubar by hover and require the Profiles trigger to expand.
+  Preserve all checkbox and radio assertions and rerun all four menu suites.
+- The broader state-helper browser run passes all 59 menu checks but exposes
+  seven old fixture failures. LiveView previews must use the existing connected
+  visit helper before discovery and replay. Update the tooltip expectation to
+  include its current click state, and use the pinned context-menu trigger name.
+  Preserve the existing state and popup assertions. Pass all state-helper browser
+  tests before recording the complete button run.
+- Connected fixtures expose five previously missed editable states: four fields
+  in the popover and one editable combobox. Add them to the expected state lists
+  and replay the intended expanded state. Do not remove any discovered state.
+- The complete rerun reaches nested radio replay, then waits indefinitely on
+  the React submenu. The trace shows that replay moves the pointer to (0, 0)
+  after opening each menu level; pinned React closes the child on pointer leave.
+  Add a two-sided nested-radio replay regression. Clear hover after the root or
+  a listbox opens, but keep the pointer inside the nested menu path.
+- The final shared run exposes focus loss after rapid ArrowRight/Escape input.
+  Extend the existing menu regression to close after open observers run but
+  before the next frame. Diagnose delayed focus, floating focus return, and
+  LiveView updates. The controlled frame regression reproduces focus loss.
+  Require the trigger to remain expanded before delayed ArrowRight focus runs,
+  so a pending frame cannot override the Escape focus destination. Repeat the
+  complete checks after this shared hook change.
+- Complete group comparison now exposes conflicting display and submenu width
+  classes. Test caller display/width precedence and both submenu renderer levels.
+  Use the shared class merger for these ports. Preserve repeated unknown classes
+  as the pinned Tailwind merger does, and test that dependency contract. Refresh
+  the two reviewed port hashes and affected snapshots after review.
+
+Verification: all three class regressions failed before repair and pass after
+repair. All 149 shadcn package tests and 108 browser helper tests pass. Offline
+and fetched-source checks pass for all 61 ports. All 463 shadcn snapshots are
+current. Shadcn static checks pass after refreshing stale local dependency data.
+The complete managed button run passes every required check for all 15 official
+examples. Stored AI record blocks preserve their committed bytes. The final
+shared run exposed an intermittent submenu focus return failure. A controlled
+frame regression fails before the delayed focus repair and passes in all ten
+runs after it. All 93 Base hook tests pass. All 72 shared menu and state-helper
+browser tests pass after the final hook change. The final complete button run
+passes every required check for all 15 official examples. All 48 AI record
+blocks still match their committed bytes.
 
 **Commit:** `fix(button): align complete official comparison states`
 

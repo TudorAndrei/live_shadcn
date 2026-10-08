@@ -407,19 +407,21 @@ defmodule LiveShadcn.UI.DropdownMenu do
                           phx-mounted={Popover.owned_attributes(:popup)}
                           data-slot={part(@parts, :sub_content_slot, "dropdown-menu-sub-content")}
                           data-closed=""
-                          class={[
-                            part(
-                              @parts,
-                              :content_class,
-                              upstream_fact("jsx/DropdownMenuContent/class/1")
-                            ),
-                            part(
-                              @parts,
-                              :sub_content_base_class,
-                              upstream_fact("jsx/DropdownMenuSubContent/class/0")
-                            ),
-                            part(@parts, :sub_content_class, nil)
-                          ]}
+                          class={
+                            LiveShadcn.Cn.merge([
+                              part(
+                                @parts,
+                                :content_class,
+                                upstream_fact("jsx/DropdownMenuContent/class/1")
+                              ),
+                              part(
+                                @parts,
+                                :sub_content_base_class,
+                                upstream_fact("jsx/DropdownMenuSubContent/class/0")
+                              ),
+                              part(@parts, :sub_content_class, nil)
+                            ])
+                          }
                           data-lb-style-target
                           data-lb-measure
                           {entry[:content_attrs] || %{}}
@@ -899,19 +901,21 @@ defmodule LiveShadcn.UI.DropdownMenu do
                   phx-mounted={Popover.owned_attributes(:popup)}
                   data-slot={part(@parts, :sub_content_slot, "dropdown-menu-sub-content")}
                   data-closed=""
-                  class={[
-                    part(
-                      @parts,
-                      :content_class,
-                      upstream_fact("jsx/DropdownMenuContent/class/1")
-                    ),
-                    part(
-                      @parts,
-                      :sub_content_base_class,
-                      upstream_fact("jsx/DropdownMenuSubContent/class/0")
-                    ),
-                    part(@parts, :sub_content_class, nil)
-                  ]}
+                  class={
+                    LiveShadcn.Cn.merge([
+                      part(
+                        @parts,
+                        :content_class,
+                        upstream_fact("jsx/DropdownMenuContent/class/1")
+                      ),
+                      part(
+                        @parts,
+                        :sub_content_base_class,
+                        upstream_fact("jsx/DropdownMenuSubContent/class/0")
+                      ),
+                      part(@parts, :sub_content_class, nil)
+                    ])
+                  }
                   data-lb-style-target
                   data-lb-measure
                   {entry[:content_attrs] || %{}}

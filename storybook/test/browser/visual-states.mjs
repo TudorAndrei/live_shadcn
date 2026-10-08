@@ -1166,7 +1166,10 @@ async function discoverExpandedStates(page, scope, path, labels, states) {
 /** Enter one state returned by `visualStates`. */
 export async function enterVisualState(page, selector, state) {
   await referenceReady(page);
-  if (state.kind === "default") return;
+  if (state.kind === "default") {
+    await settleInteraction(page, { waitForTransitions: true });
+    return;
+  }
 
   if (state.kind === "message-scroller-action") {
     const scope = page.locator(selector);
@@ -1410,17 +1413,16 @@ async function enterNestedInteractionPath(page, selector, path) {
   let scope = page.locator(selector);
   await page.mouse.move(0, 0);
 
-  for (const step of path) {
+  for (const [position, step] of path.entries()) {
     const trigger = actionableTriggers(scope).nth(step.index);
     const triggerElement = await trigger.elementHandle();
+    const listbox = (await trigger.getAttribute("aria-haspopup")) === "listbox";
 
-    if ((await trigger.getAttribute("aria-haspopup")) === "listbox") {
-      await trigger.click();
+    await trigger.click();
+    // Leaving a nested menu closes the pinned React submenu. Clear root and
+    // listbox hover without cancelling the menu path the next action uses.
+    if (position === 0 || listbox)
       await page.mouse.move(0, 0);
-    } else {
-      await trigger.click();
-      await page.mouse.move(0, 0);
-    }
 
     await waitForElementExpanded(triggerElement, "true");
     const controls = await triggerElement.evaluate((element) =>

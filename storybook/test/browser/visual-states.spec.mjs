@@ -1,6 +1,30 @@
 import { expect, test } from "@playwright/test";
 
 import { enterVisualState, visualStates } from "./visual-states.mjs";
+import { visit } from "./live.mjs";
+
+async function visitPreview(page, path) {
+  if (path.startsWith("/")) await visit(page, path);
+  else await page.goto(path);
+}
+
+test("the default render state waits for finite color and font transitions", async ({ page }) => {
+  await page.setContent('<main data-preview="transition"><button>Button</button></main>');
+  await page.locator("button").evaluate((element) => {
+    element.animate(
+      [{ color: "#000000", fontSize: "12px" }, { color: "#ffffff", fontSize: "14px" }],
+      { duration: 600, fill: "forwards" },
+    );
+  });
+
+  await enterVisualState(page, "[data-preview='transition']", { kind: "default" });
+
+  const style = await page.locator("button").evaluate((element) => {
+    const computed = getComputedStyle(element);
+    return { color: computed.color, fontSize: computed.fontSize };
+  });
+  expect(style).toEqual({ color: "rgb(255, 255, 255)", fontSize: "14px" });
+});
 
 test("state names use a control's native label", async ({ page }) => {
   await page.setContent(`
@@ -18,14 +42,21 @@ test("state names use a control's native label", async ({ page }) => {
 test("popover / default exposes its closed and expanded render states", async ({ page }) => {
   const selector = "[data-preview='popover']";
 
-  await page.goto("/preview/popover/default");
+  await visitPreview(page, "/preview/popover/default");
 
   const states = await visualStates(page, selector);
 
-  expect(states.map(({ name }) => name)).toEqual(["default", "expanded:Open popover"]);
+  expect(states.map(({ name }) => name)).toEqual([
+    "default",
+    "action:Open popover > editable:Width",
+    "action:Open popover > editable:Max. width",
+    "action:Open popover > editable:Height",
+    "action:Open popover > editable:Max. height",
+    "expanded:Open popover",
+  ]);
 
-  await page.goto("/preview/popover/default");
-  await enterVisualState(page, selector, states[1]);
+  await visitPreview(page, "/preview/popover/default");
+  await enterVisualState(page, selector, states[5]);
 
   await expect(page.getByRole("dialog")).toBeVisible();
 });
@@ -38,17 +69,18 @@ test("editable comboboxes use a user click to enter the expanded state", async (
   ];
 
   for (const path of paths) {
-    await page.goto(path);
+    await visitPreview(page, path);
     const states = await visualStates(page, selector);
 
     expect(states.map(({ kind, path }) => ({ kind, path }))).toEqual([
       { kind: "default", path: undefined },
+      { kind: "editable", path: undefined },
       { kind: "expanded", path: [{ index: 0 }] },
       { kind: "expanded", path: [{ index: 1 }] },
     ]);
 
-    await page.goto(path);
-    await enterVisualState(page, selector, states[1]);
+    await visitPreview(page, path);
+    await enterVisualState(page, selector, states[2]);
     await expect(page.getByRole("combobox", { name: "Select a framework" })).toHaveAttribute(
       "aria-expanded",
       "true",
@@ -58,7 +90,7 @@ test("editable comboboxes use a user click to enter the expanded state", async (
 });
 
 test("disabled disclosures do not become render states", async ({ page }) => {
-  await page.goto("/preview/accordion/disabled");
+  await visitPreview(page, "/preview/accordion/disabled");
 
   const states = await visualStates(page, "[data-preview='accordion']");
 
@@ -71,15 +103,16 @@ test("disabled disclosures do not become render states", async ({ page }) => {
 
 test("tooltip exposes its hover state", async ({ page }) => {
   const selector = "[data-preview='tooltip']";
-  await page.goto("/preview/tooltip/default");
+  await visitPreview(page, "/preview/tooltip/default");
 
   const states = await visualStates(page, selector);
   expect(states).toEqual([
     { name: "default", kind: "default" },
+    { name: "action:Hover", kind: "interactive-action", index: 0 },
     { name: "hover:Hover", kind: "hover", index: 0 },
   ]);
 
-  await enterVisualState(page, selector, states[1]);
+  await enterVisualState(page, selector, states[2]);
   await expect(page.locator("[data-slot='tooltip-content']")).toBeVisible();
 });
 
@@ -91,7 +124,7 @@ test("chart tooltip examples expose their hover state", async ({ page }, testInf
   ];
 
   for (const path of paths) {
-    await page.goto(path);
+    await visitPreview(page, path);
     const states = await visualStates(page, selector);
 
     expect(states).toEqual([
@@ -99,7 +132,7 @@ test("chart tooltip examples expose their hover state", async ({ page }, testInf
       { name: "chart-hover:first-series", kind: "chart-hover", index: 0 },
     ]);
 
-    await page.goto(path);
+    await visitPreview(page, path);
     await enterVisualState(page, selector, states[1]);
     await expect(page.locator(".recharts-tooltip-wrapper")).toBeVisible();
   }
@@ -107,10 +140,10 @@ test("chart tooltip examples expose their hover state", async ({ page }, testInf
 
 test("context menu exposes its right-click state", async ({ page }) => {
   const selector = "[data-preview='context-menu']";
-  await page.goto("/preview/context-menu/default");
+  await visitPreview(page, "/preview/context-menu/default");
 
   const states = await visualStates(page, selector);
-  expect(states.map(({ name }) => name)).toEqual(["default", "context:accordion.json"]);
+  expect(states.map(({ name }) => name)).toEqual(["default", "context:Right click here"]);
 
   await enterVisualState(page, selector, states[1]);
   await expect(page.locator("[data-slot='context-menu-content']")).toBeVisible();
@@ -124,7 +157,7 @@ test("dropdown menu exposes its nested menu state", async ({ page }, testInfo) =
   ];
 
   for (const path of paths) {
-    await page.goto(path);
+    await visitPreview(page, path);
     const states = await visualStates(page, selector);
 
     expect(states.map(({ name }) => name)).toEqual([
@@ -133,9 +166,41 @@ test("dropdown menu exposes its nested menu state", async ({ page }, testInfo) =
       "expanded:Open > Invite users",
     ]);
 
-    await page.goto(path);
+    await visitPreview(page, path);
     await enterVisualState(page, selector, states[2]);
     await expect(page.locator("[data-slot='dropdown-menu-sub-content']")).toBeVisible();
+  }
+});
+
+test("nested radio replay keeps both menu levels open", async ({ page }, testInfo) => {
+  const selector = "[data-preview='button']";
+  const paths = [
+    `${testInfo.project.use.parityURL}/preview/button/group-demo`,
+    "/preview/button/group-demo",
+  ];
+
+  for (const path of paths) {
+    await visitPreview(page, path);
+    const states = await visualStates(page, selector);
+    const state = states.find(
+      ({ name }) => name === "action:More Options > Label As... > checked:Work",
+    );
+    expect(state).toBeDefined();
+
+    await visitPreview(page, path);
+    await enterVisualState(page, selector, state);
+    await expect(page.getByRole("menuitemradio", { name: "Work", exact: true })).toHaveAttribute(
+      "aria-checked", "true",
+    );
+    await expect(page.getByRole("menuitemradio", { name: "Personal", exact: true })).toHaveAttribute(
+      "aria-checked", "false",
+    );
+    await expect(page.getByRole("button", { name: "More Options", exact: true })).toHaveAttribute(
+      "aria-expanded", "true",
+    );
+    await expect(page.getByRole("menuitem", { name: "Label As...", exact: true })).toHaveAttribute(
+      "aria-expanded", "true",
+    );
   }
 });
 
@@ -147,7 +212,7 @@ test("table actions expose each menu as a separate render state", async ({ page 
   ];
 
   for (const path of paths) {
-    await page.goto(path);
+    await visitPreview(page, path);
     const states = await visualStates(page, selector);
 
     expect(states.map(({ name }) => name)).toEqual([
@@ -167,7 +232,7 @@ test("navigation menu exposes each content state", async ({ page }, testInfo) =>
   ];
 
   for (const path of paths) {
-    await page.goto(path);
+    await visitPreview(page, path);
     const states = await visualStates(page, selector);
 
     expect(states.map(({ name }) => name)).toEqual([
@@ -187,7 +252,7 @@ test("toast exposes each action result and the completed Promise", async ({ page
   ];
 
   for (const path of paths) {
-    await page.goto(path);
+    await visitPreview(page, path);
     const states = await visualStates(page, selector);
 
     expect(states.map(({ name }) => name)).toEqual([
@@ -196,11 +261,11 @@ test("toast exposes each action result and the completed Promise", async ({ page
       "action-settled:Create Event",
     ]);
 
-    await page.goto(path);
+    await visitPreview(page, path);
     await enterVisualState(page, selector, states[1]);
     await expect(page.locator("[data-slot='toast-description']")).toHaveText("Creating event…");
 
-    await page.goto(path);
+    await visitPreview(page, path);
     await enterVisualState(page, selector, states[2]);
     await expect(page.locator("[data-slot='toast-description']")).toHaveText("Event created.");
   }
