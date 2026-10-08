@@ -1,6 +1,6 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6e.4 complete. Phase 6e.5 completes shared build
+Status: in progress. Phase 6e.4a complete. Phase 6e.5 completes shared build
 input coverage before button comparison and badge-semantic repairs.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
@@ -431,6 +431,26 @@ explicit direction route returns 404 and is absent from the index; that existing
 presentation gap is recorded in phase 6e.7 and remains a final acceptance blocker.
 
 **Commit:** `fix(release): prepare reproducible badge inputs`
+
+### Phase 6e.4a: restore inventory and static checks
+
+- The status command fails when the shared evaluator returns `excluded` for
+  AI Elements. Add an inventory command regression test with an AI component.
+  Render this status and preserve the stored AI evidence.
+- Extract state annotation collection from the report validator to meet the
+  configured nesting limit. Preserve report validation behavior.
+- Pass the status regression, private verification tests, and tools tests.
+  Pass the configured static checks for both changed projects.
+- Rerun the strict shadcn status command. It must report verification gaps,
+  rather than fail in the inventory renderer.
+
+Result: the regression test reproduced the missing `excluded` renderer before
+the repair. All 33 private verification tests and 162 tools tests pass. Both
+projects pass `mix check`. The real strict status command now reports 64
+shadcn targets that need current verification. It does not crash. All 48 AI
+verification records still match the previous commit.
+
+**Commit:** `fix(verification): restore inventory and static checks`
 
 ### Phase 6e.5: bind shared build manifests to evidence
 

@@ -1,6 +1,6 @@
 # TODO: shadcn parity and verification badges
 
-Follow [PLAN.md](PLAN.md). Phase 6e complete. Complete each phase,
+Follow [PLAN.md](PLAN.md). Phase 6e.4a complete. Complete each phase,
 run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 1: share shadcn evidence evaluation
@@ -162,6 +162,16 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Exclude only proven generated copies and verify builder/checkout identity.
 - [x] Build a clean image and check compiled badges without repository files.
 - [x] Commit: `fix(release): prepare reproducible badge inputs`
+
+## Phase 6e.4a: restore inventory and static checks
+
+- [x] Add a failing inventory command test for excluded AI components.
+- [x] Render excluded status and preserve stored AI evidence.
+- [x] Reduce report validator nesting without changing validation behavior.
+- [x] Pass the status regression, private verification tests, and tools tests.
+- [x] Pass configured static checks for both changed projects.
+- [x] Confirm strict shadcn status reports verification gaps without a crash.
+- [x] Commit: `fix(verification): restore inventory and static checks`
 
 ## Phase 6e.5: bind shared build manifests to evidence
 

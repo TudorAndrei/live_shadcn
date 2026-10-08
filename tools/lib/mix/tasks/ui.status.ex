@@ -16,6 +16,7 @@ defmodule Mix.Tasks.Ui.Status do
   | `failed` | a current verification record that did not prove Verified |
   | `local_only` | an explicit policy; upstream comparison does not apply |
   | `no_dom` | an explicit policy; the component renders no DOM |
+  | `excluded` | the source is outside the verification pipeline |
   | `verified` | a passing entry in `registry/VERIFY.json`, for this spec |
 
   Every one of those is looked up by source *and* name. A name is not an
@@ -369,6 +370,7 @@ defmodule Mix.Tasks.Ui.Status do
   defp mark(:stale), do: "🟧"
   defp mark(:local_only), do: "⬛"
   defp mark(:no_dom), do: "⬛"
+  defp mark(:excluded), do: "⬛"
   defp mark(:generated), do: "🟩"
   defp mark(:spec), do: "🟨"
   defp mark(:fetched), do: "🟦"

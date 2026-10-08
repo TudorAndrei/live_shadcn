@@ -136,17 +136,7 @@ defmodule LiveShadcnVerification.Report do
         tests
         |> Enum.flat_map(&Map.get(&1, "annotations", []))
         |> Enum.filter(&(&1["type"] == "verification-state-coverage"))
-        |> Enum.reduce(%{}, fn annotation, acc ->
-          case Jason.decode(Map.get(annotation, "description", "")) do
-            {:ok, %{"example" => key, "expected" => needed, "completed" => completed}} ->
-              if Map.has_key?(acc, key),
-                do: Map.put(acc, key, :duplicate),
-                else: Map.put(acc, key, %{"expected" => needed, "completed" => completed})
-
-            _ ->
-              acc
-          end
-        end)
+        |> Enum.reduce(%{}, &collect_state_coverage/2)
       end
 
     valid? =
@@ -166,6 +156,18 @@ defmodule LiveShadcnVerification.Report do
       do: :ok,
       else:
         {:error, "Playwright report has missing or incomplete state coverage; rerun verification"}
+  end
+
+  defp collect_state_coverage(annotation, acc) do
+    case Jason.decode(Map.get(annotation, "description", "")) do
+      {:ok, %{"example" => key, "expected" => needed, "completed" => completed}} ->
+        if Map.has_key?(acc, key),
+          do: Map.put(acc, key, :duplicate),
+          else: Map.put(acc, key, %{"expected" => needed, "completed" => completed})
+
+      _ ->
+        acc
+    end
   end
 
   defp failure_details(report) do
