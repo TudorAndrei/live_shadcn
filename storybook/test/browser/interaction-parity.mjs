@@ -462,6 +462,9 @@ async function observeInteraction(scope, target, probe, referenceLabels) {
       const popup = controlled ? document.getElementById(controlled) : null;
       const visible = (node) => {
         if (!node) return false;
+        for (let ancestor = node; ancestor; ancestor = ancestor.parentElement) {
+          if (ancestor.getAttribute("aria-hidden") === "true" || ancestor.inert) return false;
+        }
         const style = window.getComputedStyle(node);
         const box = node.getBoundingClientRect();
         return (
@@ -471,13 +474,6 @@ async function observeInteraction(scope, target, probe, referenceLabels) {
           box.width + box.height > 0
         );
       };
-      const controls = Array.from(
-        root.querySelectorAll(
-          "[role='checkbox'], [role='switch'], [role='radio'], [aria-pressed], select, textarea, input:not([type]), input[type='text'], input[type='search'], input[type='email'], input[type='url'], input[type='tel'], input[type='password']",
-        ),
-      )
-        .filter((node) => node.getAttribute("aria-hidden") !== "true" && visible(node))
-        .map(describe);
       const visiblePopup = popupSlot
         ? Array.from(
             document.querySelectorAll(`[data-slot='${popupSlot}']`),
@@ -485,6 +481,14 @@ async function observeInteraction(scope, target, probe, referenceLabels) {
         : visible(popup)
           ? popup
           : null;
+      const controlSelector =
+        "[role='checkbox'], [role='switch'], [role='radio'], [aria-pressed], select, textarea, input:not([type]), input[type='text'], input[type='search'], input[type='email'], input[type='url'], input[type='tel'], input[type='password']";
+      // A popup can be outside the preview tree. Observe its visible controls
+      // with the preview, and keep each physical control only once.
+      const roots = visiblePopup ? [root, visiblePopup] : [root];
+      const controls = [...new Set(roots.flatMap((node) => [...node.querySelectorAll(controlSelector)]))]
+        .filter(visible)
+        .map(describe);
       const active = document.activeElement;
 
       return {

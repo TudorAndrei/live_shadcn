@@ -7,7 +7,8 @@
 
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { discoverInteractionProbes, enterInteractionProbe } from "./interaction-parity.mjs";
+import { connected, referenceReady, visit } from "./live.mjs";
 
 const dialog = (page, id) => ({
   trigger: page.locator(`#${id}-trigger`),
@@ -210,3 +211,39 @@ test("the RTL dialog keeps the Arabic content direction", async ({ page }) => {
   await expect(popup).toHaveAttribute("data-lang", "ar");
   await expect(popup.locator("#dialog-rtl-title")).toHaveText("تعديل الملف الشخصي");
 });
+
+for (const side of ["React", "Phoenix"]) {
+  test(`interaction observations include visible popup fields on ${side}`, async ({ page }, testInfo) => {
+    const path = side === "Phoenix" ? "/preview/dialog/default"
+      : `${testInfo.project.use.parityURL}/preview/dialog/default`;
+    const selector = "[data-preview='dialog']";
+    async function load() {
+      await page.goto(path);
+      if (side === "Phoenix") await connected(page);
+      else await referenceReady(page);
+      const probes = await discoverInteractionProbes(page.locator(selector));
+      return probes.find(({ kind }) => kind === "disclosure");
+    }
+    const probe = await load();
+    expect(probe).toBeDefined();
+    const result = await enterInteractionProbe(page, selector, probe);
+    expect(result.opened.controls.map(({ name, values }) => ({ name, values }))).toEqual([
+      { name: "Name", values: ["Pedro Duarte"] },
+      { name: "Username", values: ["@peduarte"] },
+    ]);
+    expect(result.closed.controls).toEqual([]);
+
+    await load();
+    await enterInteractionProbe(page, selector, probe, { keepOpen: true });
+    const popup = page.getByRole("dialog");
+    const edits = await discoverInteractionProbes(popup);
+    const edit = edits.find(({ kind, name }) => kind === "editable-text" && name === "Username");
+    expect(edit).toBeDefined();
+    const changed = await enterInteractionProbe(page, popup, edit);
+    expect(changed.controls.map(({ name, values }) => ({ name, values }))).toEqual([
+      { name: "Name", values: ["Pedro Duarte"] },
+      { name: "Username", values: ["Parity text"] },
+    ]);
+    expect(changed.controls).not.toEqual(result.opened.controls);
+  });
+}
