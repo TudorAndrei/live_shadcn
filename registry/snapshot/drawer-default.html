@@ -17,7 +17,7 @@
               We&#39;ll prepare your order as soon as possible.
             </p>
           </div>
-          <div class="flex-1 scroll-fade overflow-y-auto p-4">
+          <form id="drawer-delivery-form" phx-change="drawer_delivery_time" phx-submit="[]" class="flex-1 scroll-fade overflow-y-auto p-4">
             <div data-slot="radio-group" id="drawer-delivery-times" role="radiogroup" phx-hook="LiveBase.RadioGroup" class="cn-radio-group w-full gap-2">
               <label data-slot="field-label" id="delivery-asap-label" for="delivery-asap" class="cn-label items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed cn-field-label group/field-label peer/field-label flex w-fit has-[&gt;[data-slot=field]]:w-full has-[&gt;[data-slot=field]]:flex-col">
                 <div data-slot="field" role="group" data-orientation="horizontal" class="cn-field group/field flex w-full cn-field-orientation-horizontal flex-row items-center has-[&gt;[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[&gt;[data-slot=field-content]]:[&amp;&gt;[role=checkbox],[role=radio]]:mt-px">
@@ -118,9 +118,9 @@
                 </div>
               </label>
             </div>
-          </div>
+          </form>
           <div data-slot="drawer-footer" class="cn-drawer-footer-base mt-auto flex shrink-0 flex-col">
-            <button data-slot="button" phx-click="[[&quot;remove_attr&quot;,{&quot;attr&quot;:&quot;data-popup-open&quot;,&quot;to&quot;:&quot;#drawer-demo-trigger&quot;}],[&quot;set_attr&quot;,{&quot;attr&quot;:[&quot;aria-expanded&quot;,&quot;false&quot;],&quot;to&quot;:&quot;#drawer-demo-trigger&quot;}],[&quot;remove_attr&quot;,{&quot;attr&quot;:&quot;data-open&quot;,&quot;to&quot;:&quot;#drawer-demo-backdrop, #drawer-demo-popup&quot;}],[&quot;set_attr&quot;,{&quot;attr&quot;:[&quot;data-closed&quot;,&quot;&quot;],&quot;to&quot;:&quot;#drawer-demo-backdrop, #drawer-demo-popup&quot;}],[&quot;pop_focus&quot;,{}]]" class="cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 cn-button-variant-default cn-button-size-default h-[34px]">
+            <button data-slot="button" phx-click="[[&quot;remove_attr&quot;,{&quot;attr&quot;:&quot;data-popup-open&quot;,&quot;to&quot;:&quot;#drawer-demo-trigger&quot;}],[&quot;set_attr&quot;,{&quot;attr&quot;:[&quot;aria-expanded&quot;,&quot;false&quot;],&quot;to&quot;:&quot;#drawer-demo-trigger&quot;}],[&quot;remove_attr&quot;,{&quot;attr&quot;:&quot;data-open&quot;,&quot;to&quot;:&quot;#drawer-demo-backdrop, #drawer-demo-popup&quot;}],[&quot;set_attr&quot;,{&quot;attr&quot;:[&quot;data-closed&quot;,&quot;&quot;],&quot;to&quot;:&quot;#drawer-demo-backdrop, #drawer-demo-popup&quot;}],[&quot;pop_focus&quot;,{}],[&quot;push&quot;,{&quot;event&quot;:&quot;drawer_confirm_delivery_time&quot;}]]" class="cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 cn-button-variant-default cn-button-size-default h-[34px]">
               Confirm Delivery Time
             </button>
             <button data-slot="drawer-close" type="button" phx-click="[[&quot;remove_attr&quot;,{&quot;attr&quot;:&quot;data-popup-open&quot;,&quot;to&quot;:&quot;#drawer-demo-trigger&quot;}],[&quot;set_attr&quot;,{&quot;attr&quot;:[&quot;aria-expanded&quot;,&quot;false&quot;],&quot;to&quot;:&quot;#drawer-demo-trigger&quot;}],[&quot;remove_attr&quot;,{&quot;attr&quot;:&quot;data-open&quot;,&quot;to&quot;:&quot;#drawer-demo-backdrop, #drawer-demo-popup&quot;}],[&quot;set_attr&quot;,{&quot;attr&quot;:[&quot;data-closed&quot;,&quot;&quot;],&quot;to&quot;:&quot;#drawer-demo-backdrop, #drawer-demo-popup&quot;}],[&quot;pop_focus&quot;,{}]]" class="cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 cn-button-variant-outline cn-button-size-default">
@@ -132,3 +132,7 @@
     </div>
   </div>
 </template>
+<section aria-atomic="false" aria-label="Notifications" aria-live="polite" aria-relevant="additions text" data-react-aria-top-layer="data-react-aria-top-layer">
+  <ol id="drawer-delivery-toasts" data-lb-dismiss="dismiss_drawer_delivery_toast" data-lb-duration="4000" data-lb-limit="3" data-lb-toasts="data-lb-toasts" data-sonner-theme="light" data-sonner-toaster="data-sonner-toaster" data-x-position="right" data-y-position="bottom" phx-hook="LiveBase.Toast" tabindex="-1" class="toaster group fixed right-6 bottom-6 z-[999999999] m-0 w-[356px] list-none p-0 " style="font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji; --width: 356px; --gap: 14px; --offset-right: 24px; --offset-bottom: 24px; --border-radius: var(--radius); --normal-bg: var(--popover); --normal-border: var(--border); --normal-text: var(--popover-foreground)">
+  </ol>
+</section>

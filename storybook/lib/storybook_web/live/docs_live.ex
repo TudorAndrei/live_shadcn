@@ -256,6 +256,36 @@ defmodule StorybookWeb.DocsLive do
      )}
   end
 
+  def handle_event("drawer_delivery_time", %{"drawer-delivery-times" => value}, socket) do
+    if Examples.drawer_delivery_label(value) do
+      {:noreply, assign(socket, drawer_delivery_time: value)}
+    else
+      {:noreply, socket}
+    end
+  end
+
+  def handle_event("drawer_confirm_delivery_time", _params, socket) do
+    sequence = socket.assigns.drawer_delivery_sequence + 1
+
+    notice =
+      Examples.drawer_delivery_notice(socket.assigns.drawer_delivery_time, "delivery-#{sequence}")
+
+    {:noreply,
+     socket
+     |> assign(drawer_delivery_sequence: sequence)
+     |> assign(drawer_delivery_toasts: socket.assigns.drawer_delivery_toasts ++ [notice])}
+  end
+
+  def handle_event("dismiss_drawer_delivery_toast", %{"id" => id}, socket) do
+    {:noreply,
+     assign(socket,
+       drawer_delivery_toasts:
+         Enum.reject(socket.assigns.drawer_delivery_toasts, fn notice ->
+           LiveBase.Toast.toast_id("drawer-delivery-toasts", notice.id) == id
+         end)
+     )}
+  end
+
   def handle_event("bubble_collapsible_toggle", _params, socket) do
     {:noreply,
      assign(socket, bubble_collapsible_open: not socket.assigns.bubble_collapsible_open)}

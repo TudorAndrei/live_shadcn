@@ -468,6 +468,14 @@ defmodule StorybookWeb.Examples do
   """
   @bubble_collapsible_preview String.slice(@bubble_collapsible_text, 0, 180) <> "..."
 
+  @drawer_delivery_labels %{
+    "asap" => "Standard delivery",
+    "5-00" => "5:00 PM – 5:15 PM",
+    "5-30" => "5:30 PM – 5:45 PM",
+    "6-00" => "6:00 PM – 6:15 PM",
+    "6-30" => "6:30 PM – 6:45 PM"
+  }
+
   @card_spacing_classes %{
     "4" => "[--card-spacing:--spacing(4)]",
     "5" => "[--card-spacing:--spacing(5)]",
@@ -834,6 +842,9 @@ defmodule StorybookWeb.Examples do
       bubble_toasts: [],
       bubble_sequence: 0,
       bubble_collapsible_open: false,
+      drawer_delivery_time: "asap",
+      drawer_delivery_toasts: [],
+      drawer_delivery_sequence: 0,
       show_values: false,
       card_spacing: "4",
       field_switch_checked: false,
@@ -1291,6 +1302,18 @@ defmodule StorybookWeb.Examples do
   @doc "Removes one Bubble notice."
   def dismiss_bubble_notice(toasts, id) do
     Enum.reject(toasts, &(LiveBase.Toast.toast_id("bubble-toasts", &1.id) == id))
+  end
+
+  @doc "Returns the label for an official delivery time."
+  def drawer_delivery_label(value), do: Map.get(@drawer_delivery_labels, value)
+
+  @doc "Builds the selected delivery confirmation notice."
+  def drawer_delivery_notice(value, id) do
+    %{
+      id: id,
+      title: "Delivery time confirmed",
+      description: Map.fetch!(@drawer_delivery_labels, value)
+    }
   end
 
   @doc "Returns the Card spacing class for an official spacing value."
@@ -12472,7 +12495,12 @@ defmodule StorybookWeb.Examples do
       <:trigger>Open Drawer</:trigger>
       <:title>Pick a delivery time</:title>
       <:description>We'll prepare your order as soon as possible.</:description>
-      <div class="flex-1 scroll-fade overflow-y-auto p-4">
+      <form
+        id="drawer-delivery-form"
+        class="flex-1 scroll-fade overflow-y-auto p-4"
+        phx-change="drawer_delivery_time"
+        phx-submit={%JS{}}
+      >
         <.radio_group id="drawer-delivery-times" class="gap-2">
           <.field_label for="delivery-asap">
             <.field orientation="horizontal">
@@ -12487,7 +12515,7 @@ defmodule StorybookWeb.Examples do
                 id="delivery-asap"
                 group="drawer-delivery-times"
                 value="asap"
-                checked
+                checked={@drawer_delivery_time == "asap"}
               />
             </.field>
           </.field_label>
@@ -12501,6 +12529,7 @@ defmodule StorybookWeb.Examples do
                 id="delivery-5-00"
                 group="drawer-delivery-times"
                 value="5-00"
+                checked={@drawer_delivery_time == "5-00"}
               />
             </.field>
           </.field_label>
@@ -12514,6 +12543,7 @@ defmodule StorybookWeb.Examples do
                 id="delivery-5-30"
                 group="drawer-delivery-times"
                 value="5-30"
+                checked={@drawer_delivery_time == "5-30"}
               />
             </.field>
           </.field_label>
@@ -12527,6 +12557,7 @@ defmodule StorybookWeb.Examples do
                 id="delivery-6-00"
                 group="drawer-delivery-times"
                 value="6-00"
+                checked={@drawer_delivery_time == "6-00"}
               />
             </.field>
           </.field_label>
@@ -12540,21 +12571,27 @@ defmodule StorybookWeb.Examples do
                 id="delivery-6-30"
                 group="drawer-delivery-times"
                 value="6-30"
+                checked={@drawer_delivery_time == "6-30"}
               />
             </.field>
           </.field_label>
         </.radio_group>
-      </div>
+      </form>
       <:footer>
         <.button
           class="h-[34px]"
-          phx-click={LiveBase.Dialog.close("drawer-demo")}
+          phx-click={LiveBase.Dialog.close("drawer-demo") |> JS.push("drawer_confirm_delivery_time")}
         >
           Confirm Delivery Time
         </.button>
       </:footer>
       <:close variant="outline">Cancel</:close>
     </.drawer>
+    <Sonner.toaster id="drawer-delivery-toasts" dismiss="dismiss_drawer_delivery_toast">
+      <:toast :for={notice <- @drawer_delivery_toasts} id={notice.id} title={notice.title}>
+        {notice.description}
+      </:toast>
+    </Sonner.toaster>
     """
   end
 

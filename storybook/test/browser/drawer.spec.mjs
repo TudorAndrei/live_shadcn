@@ -195,25 +195,44 @@ test("responsive example uses a drawer on a small screen", async ({ page }) => {
   await expect(trigger).toBeFocused();
 });
 
-test("default selects a delivery time and confirms", async ({ page }) => {
-  await visit(page, "/preview/drawer/default", "#drawer-demo-trigger");
+for (const side of ["React", "Phoenix"]) {
+  for (const [id, label] of [
+    ["delivery-asap", "Standard delivery"],
+    ["delivery-5-30", "5:30 PM – 5:45 PM"],
+  ]) {
+    test(`default confirms ${id} with a notice on ${side}`, async ({ page }, testInfo) => {
+      const path = side === "Phoenix" ? "/preview/drawer/default"
+        : `${testInfo.project.use.parityURL}/preview/drawer/default`;
+      await page.goto(path);
+      if (side === "Phoenix") await connected(page);
+      else await referenceReady(page);
 
-  const trigger = page.getByRole("button", { name: "Open Drawer", exact: true });
-  const popup = page.locator("#drawer-demo-popup");
-  const first = page.locator("#delivery-asap");
-  const later = page.locator("#delivery-5-30");
+      const trigger = page.getByRole("button", { name: "Open Drawer", exact: true });
+      const popup = page.locator("[data-slot='drawer-popup']");
+      const selected = page.locator(`#${id}`);
+      await trigger.click();
+      await expect(page.locator("#delivery-asap")).toBeChecked();
+      if (id !== "delivery-asap") {
+        await page.locator(`label[for='${id}']`).click();
+        await expect(selected).toBeChecked();
+        await expect(page.locator("#delivery-asap")).not.toBeChecked();
+      }
 
-  await trigger.click();
-  await expect(first).toBeChecked();
+      await popup.getByRole("button", { name: "Confirm Delivery Time", exact: true }).click();
+      await expect(popup).toBeHidden();
+      await expect(trigger).toBeFocused();
+      const notice = page.locator("[data-sonner-toast]");
+      await expect(notice.locator("[data-title]")).toHaveText("Delivery time confirmed", { timeout: 2000 });
+      await expect(notice.locator("[data-description]")).toHaveText(label);
 
-  await page.locator("label[for='delivery-5-30']").click();
-  await expect(later).toBeChecked();
-  await expect(first).not.toBeChecked();
-
-  await popup.getByRole("button", { name: "Confirm Delivery Time", exact: true }).click();
-  await expect(popup).toBeHidden();
-  await expect(trigger).toBeFocused();
-});
+      await trigger.click();
+      await expect(selected).toBeChecked();
+      await page.keyboard.press("Escape");
+      await expect(popup).toBeHidden();
+      await expect(trigger).toBeFocused();
+    });
+  }
+}
 
 test("modal closes when the user points outside it", async ({ page }) => {
   await visit(page, "/preview/drawer/default", "#drawer-demo-trigger");
