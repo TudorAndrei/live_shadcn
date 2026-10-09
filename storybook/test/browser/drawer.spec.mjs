@@ -20,6 +20,7 @@ for (const [example, id, triggerName] of standardExamples) {
     await expect(popup).toBeVisible();
     await expect(popup).toHaveRole("dialog");
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(popup).toBeFocused();
 
     await popup.getByRole("button", { name: /^(Cancel|Close)$/ }).click();
     await expect(popup).toBeHidden();
@@ -52,6 +53,7 @@ test("non-modal keeps the page active and ignores outside pointers", async ({ pa
   await trigger.click();
   await expect(popup).toBeVisible();
   await expect(page.locator("#drawer-non-modal-backdrop")).toHaveCount(0);
+  await expect(popup).toBeFocused();
   await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe("");
 
   await page.mouse.click(20, 20);
@@ -78,6 +80,7 @@ test("nested Escape closes only the front drawer", async ({ page }) => {
   for (let index = 0; index < popups.length; index += 1) {
     await page.getByRole("button", { name: triggerNames[index], exact: true }).click();
     await expect(popups[index]).toBeVisible();
+    await expect(popups[index]).toBeFocused();
   }
 
   await expect(popups[0]).toHaveAttribute("data-nested-drawer-open", "");
@@ -88,11 +91,13 @@ test("nested Escape closes only the front drawer", async ({ page }) => {
   await expect(popups[0]).toBeVisible();
   await expect(popups[1]).toBeVisible();
   await expect(popups[2]).toBeVisible();
+  await expect(popups[2].getByRole("button", { name: "Open Fourth Drawer", exact: true })).toBeFocused();
 
   await page.keyboard.press("Escape");
   await expect(popups[2]).toBeHidden();
   await expect(popups[0]).toBeVisible();
   await expect(popups[1]).toBeVisible();
+  await expect(popups[1].getByRole("button", { name: "Open Third Drawer", exact: true })).toBeFocused();
 });
 
 test("swipe handle closes the drawer after a downward drag", async ({ page }) => {
@@ -161,6 +166,10 @@ test("responsive example uses a dialog on desktop", async ({ page }) => {
   await expect(popup).toHaveRole("dialog");
   await expect(popup.getByLabel("Email")).toHaveValue("shadcn@example.com");
   await expect(popup.getByLabel("Username")).toHaveValue("@shadcn");
+  await expect(popup.getByLabel("Email")).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(popup).toBeHidden();
+  await expect(trigger).toBeFocused();
 });
 
 test("responsive example uses a drawer on a small screen", async ({ page }) => {
@@ -178,8 +187,12 @@ test("responsive example uses a drawer on a small screen", async ({ page }) => {
   await expect(popup).toBeVisible();
   await expect(popup).toHaveRole("dialog");
   await expect(popup).toHaveAttribute("data-swipe-direction", "down");
+  await expect(popup).toBeFocused();
   await expect(popup.getByLabel("Email")).toHaveValue("shadcn@example.com");
   await expect(popup.getByLabel("Username")).toHaveValue("@shadcn");
+  await page.keyboard.press("Escape");
+  await expect(popup).toBeHidden();
+  await expect(trigger).toBeFocused();
 });
 
 test("default selects a delivery time and confirms", async ({ page }) => {

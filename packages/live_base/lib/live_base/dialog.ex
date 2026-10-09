@@ -73,16 +73,28 @@ defmodule LiveBase.Dialog do
   Focus the popup before searching its children. If no child accepts focus,
   the popup keeps focus.
   """
-  def open(js \\ %JS{}, dialog) do
-    js
-    |> JS.set_attribute({"data-popup-open", ""}, to: "##{trigger_id(dialog)}")
-    |> JS.set_attribute({"aria-expanded", "true"}, to: "##{trigger_id(dialog)}")
-    |> JS.remove_attribute("hidden", to: layers(dialog))
-    |> JS.set_attribute({"data-open", ""}, to: layers(dialog))
-    |> JS.remove_attribute("data-closed", to: layers(dialog))
-    |> JS.push_focus()
-    |> JS.focus(to: "##{popup_id(dialog)}")
-    |> JS.focus_first(to: "##{popup_id(dialog)}")
+  def open(js \\ %JS{}, dialog), do: open(js, dialog, :first)
+
+  @doc """
+  Opens a dialog with focus on its first focusable child or its popup.
+
+  Use `:first` for ordinary dialogs and `:popup` for drawers. Both choices
+  remember the previous focus and focus the popup before any child search.
+  """
+  def open(js, dialog, initial_focus) when initial_focus in [:first, :popup] do
+    js =
+      js
+      |> JS.set_attribute({"data-popup-open", ""}, to: "##{trigger_id(dialog)}")
+      |> JS.set_attribute({"aria-expanded", "true"}, to: "##{trigger_id(dialog)}")
+      |> JS.remove_attribute("hidden", to: layers(dialog))
+      |> JS.set_attribute({"data-open", ""}, to: layers(dialog))
+      |> JS.remove_attribute("data-closed", to: layers(dialog))
+      |> JS.push_focus()
+      |> JS.focus(to: "##{popup_id(dialog)}")
+
+    if initial_focus == :first,
+      do: JS.focus_first(js, to: "##{popup_id(dialog)}"),
+      else: js
   end
 
   @doc """

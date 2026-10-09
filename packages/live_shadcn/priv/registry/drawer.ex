@@ -261,7 +261,7 @@ defmodule LiveShadcn.UI.Drawer do
   defp open(id) do
     %JS{}
     |> JS.remove_attribute("hidden", to: "##{viewport_id(id)}")
-    |> Dialog.open(id)
+    |> Dialog.open(id, :popup)
   end
 
   defp close(id), do: Dialog.close(id)
