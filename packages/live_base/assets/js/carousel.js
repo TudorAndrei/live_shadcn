@@ -81,7 +81,10 @@ export const Carousel = {
     this.set(this.previous, !this.api.canScrollPrev());
     this.set(this.next, !this.api.canScrollNext());
     if (this.index) this.index.textContent = `${current}/${count}`;
-    if (this.status) this.status.textContent = `Slide ${current} of ${count}`;
+    if (this.status) {
+      // Separate numeric text nodes preserve the reference caption's glyph positions.
+      this.status.replaceChildren("Slide ", String(current), " of ", String(count));
+    }
   },
 
   set(button, disabled) {

@@ -100,6 +100,13 @@ for (const side of sides) {
       await next(page).click();
 
       await expect(page.getByText("Slide 2 of 5", { exact: true })).toBeVisible();
+
+      await next(page).click();
+      await expect(page.getByText("Slide 3 of 5", { exact: true })).toBeVisible();
+      await previous(page).click();
+      await expect(page.getByText("Slide 2 of 5", { exact: true })).toBeVisible();
+      await previous(page).click();
+      await expect(page.getByText("Slide 1 of 5", { exact: true })).toBeVisible();
     });
 
     test("uses the right-to-left direction", async ({ page }, testInfo) => {
