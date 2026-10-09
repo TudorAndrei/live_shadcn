@@ -74,9 +74,9 @@ for (const side of sides) {
       const advance = second.x - first.x;
 
       await next(page).click();
-      await expect.poll(async () => (await transformPosition(track(page))).x).not.toBe(before.x);
-      const moved = Math.abs((await transformPosition(track(page))).x - before.x);
-      expect(moved).toBeCloseTo(advance, 0);
+      await expect
+        .poll(async () => Math.abs((await transformPosition(track(page))).x - before.x))
+        .toBeCloseTo(advance, 0);
 
       await previous(page).click();
       await expect.poll(async () => (await transformPosition(track(page))).x).toBeCloseTo(before.x, 0);

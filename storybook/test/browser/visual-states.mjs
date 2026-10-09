@@ -1254,6 +1254,7 @@ export async function enterVisualState(page, selector, state) {
     const scope = page.locator(selector);
     await actionControls(scope).nth(state.index).click();
     await settleInteraction(page, { waitForTransitions: true });
+    await waitForCarouselMotion(page, selector);
     return;
   }
 
@@ -2048,6 +2049,36 @@ export function actionControlSelector() {
 
 function actionControls(scope) {
   return scope.locator(actionControlSelector());
+}
+
+async function waitForCarouselMotion(page, selector) {
+  await page.evaluate(async (selector) => {
+    const tracks = Array.from(
+      document.querySelector(selector)?.querySelectorAll("[data-slot='carousel-content'] > div") ?? [],
+    );
+    if (tracks.length === 0) return;
+
+    const transforms = () => tracks.map((track) => getComputedStyle(track).transform);
+    let previous = transforms();
+    let stableSince = performance.now();
+    const deadline = stableSince + 10_000;
+
+    // Embla writes rounded transforms in requestAnimationFrame. Near its final
+    // position, the same rounded value can span several frames before it moves
+    // again. Require a quiet interval, rather than two adjacent equal frames.
+    while (performance.now() < deadline) {
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      const current = transforms();
+      const now = performance.now();
+      if (current.some((transform, index) => transform !== previous[index])) {
+        stableSince = now;
+      } else if (now - stableSince >= 400) {
+        return;
+      }
+      previous = current;
+    }
+    throw new Error("Carousel movement did not stop within 10 seconds");
+  }, selector);
 }
 
 async function settleInteraction(page, { waitForTransitions = false } = {}) {

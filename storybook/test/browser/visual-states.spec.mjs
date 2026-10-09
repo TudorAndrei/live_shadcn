@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { enterVisualState, visualStates } from "./visual-states.mjs";
-import { visit } from "./live.mjs";
+import { referenceReady, visit } from "./live.mjs";
 
 async function visitPreview(page, path) {
   if (path.startsWith("/")) await visit(page, path);
@@ -305,3 +305,37 @@ test("toast exposes each action result and the completed Promise", async ({ page
     await expect(page.locator("[data-slot='toast-description']")).toHaveText("Event created.");
   }
 });
+
+for (const side of ["Phoenix", "React"]) {
+  test(`carousel / spacing returns a settled visual action on ${side}`, async ({ page }, testInfo) => {
+    const selector = "[data-preview='carousel']";
+    const path = side === "Phoenix"
+      ? "/preview/carousel/spacing"
+      : `${testInfo.project.use.parityURL}/preview/carousel/spacing`;
+    await visitPreview(page, path);
+    const states = await visualStates(page, selector);
+    const next = states.find(({ name }) => name === "action:Next slide");
+    expect(next).toBeDefined();
+
+    await visitPreview(page, path);
+    await referenceReady(page);
+    const track = page.locator("[data-slot='carousel-content'] > div");
+    const initial = await track.evaluate((element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).m41);
+    const positions = await page.locator("[data-slot='carousel-item']").evaluateAll((items) =>
+      items.slice(0, 2).map((item) => item.getBoundingClientRect().x),
+    );
+    const advance = positions[1] - positions[0];
+    await enterVisualState(page, selector, next);
+    const position = await track.evaluate((element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).m41);
+    expect(Math.abs(position - initial)).toBeCloseTo(advance, 0);
+    const laterPositions = await track.evaluate(async (element) => {
+      const positions = [];
+      for (let frame = 0; frame < 32; frame += 1) {
+        await new Promise((resolve) => requestAnimationFrame(resolve));
+        positions.push(new DOMMatrixReadOnly(getComputedStyle(element).transform).m41);
+      }
+      return positions;
+    });
+    expect([...new Set(laterPositions)]).toEqual([position]);
+  });
+}

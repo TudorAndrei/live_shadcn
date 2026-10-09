@@ -3123,16 +3123,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior carousel:       82 |       await expect.poll(async () => (await transformPosition(track(page))).x).toBeCloseTo(before.x, 0);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/carousel.spec.mjs:79:21\n    Error Context: test-results/carousel-Phoenix-port-caro-902b9-turns-to-its-first-position-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/carousel-Phoenix-port-caro-902b9-turns-to-its-first-position-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/carousel-Phoenix-port-caro-902b9-turns-to-its-first-position-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › carousel.spec.mjs:66:5 › official React carousel › moves one spaced item and returns to its first position \n    [chromium] › carousel.spec.mjs:66:5 › Phoenix port carousel › moves one spaced item and returns to its first position \n  12 passed (26.2s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior carousel:       82 |       await expect.poll(async () => (await transformPosition(track(page))).x).toBeCloseTo(before.x, 0);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/carousel.spec.mjs:79:21\n    Error Context: test-results/carousel-Phoenix-port-caro-902b9-turns-to-its-first-position-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/carousel-Phoenix-port-caro-902b9-turns-to-its-first-position-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/carousel-Phoenix-port-caro-902b9-turns-to-its-first-position-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › carousel.spec.mjs:66:5 › official React carousel › moves one spaced item and returns to its first position \n    [chromium] › carousel.spec.mjs:66:5 › Phoenix port carousel › moves one spaced item and returns to its first position \n  12 passed (26.2s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "7 of 7 official examples have HEEx previews",
@@ -3144,27 +3140,25 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity carousel.default: carousel / default draws what React draws\nError: action:Next slide: the element trees agree; the difference is in a computed style\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 17\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item: x — React -222.06, Phoenix -230.65\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item > card: x — React -202.06, Phoenix -210.65\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item > card > card-content: x — React -202.06, Phoenix -210.65\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item #2: x — React 113.94, Phoenix 105.35\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item > card #2: x — React 133.94, Phoenix 125.35\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item > card > card-content #2: x — React 133.94, Phoenix 125.35\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item #3: x — React 449.94, Phoenix 441.35\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item > card #3: x — React 469.94, Phoenix 461.35\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item > card > card-content #3: x — React 469.94, Phoenix 461.35\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item #4: x — React 785.94, Phoenix 777.35\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item > card #4: x — React 805.94, Phoenix 797.35\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item > card > card-content #4: x — React 805.94, Phoenix 797.35\",\u001B[39m\n\u001B[31m+   \"action:Next slide / carousel > carousel-content > carousel-item #5: x — React \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel carousel.default: carousel / default paints what React paints\nError: action:Next slide: 6042 px differ (0.12%) — hottest: carousel > carousel-content > carousel-item > card > card-content #2 (3406 px), outside any slot (1333 px), carousel > carousel-content > carousel-item > card > card-content #3 (942 px), carousel > carousel-content > carousel-item > card #2 (226 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m6042\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel carousel.size: carousel / size paints what React paints\nError: action:Next slide: 8662 px differ (0.31%) — hottest: carousel > carousel-content > carousel-item > card > card-content #2 (2142 px), carousel > carousel-content > carousel-item > card > card-content #3 (2132 px), carousel > carousel-content > carousel-item > card > card-content #4 (1533 px), carousel > carousel-content > carousel-item #2 (452 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m8662\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel carousel.spacing: carousel / spacing paints what React paints\nError: action:Next slide: 8047 px differ (0.30%) — hottest: carousel > carousel-content > carousel-item > card > card-content #2 (1819 px), carousel > carousel-content > carousel-item > card > card-content #3 \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "525e801fc2348934d57e4c6e84c15a0030eb18706ae33d6ae7563b86fdd921aa",
-    "pass": false,
+    "evidence": "b513f5b969ad7a6a436e5607a9f112f885f83c9cf4f720b62a924608af2949da",
+    "pass": true,
     "spec": "7322835b0afc280543d5676a165c823c7761825f100ce9949c881db738a414cf"
   },
   "shadcn/card": {
