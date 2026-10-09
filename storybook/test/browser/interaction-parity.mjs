@@ -4,6 +4,7 @@
 // example. It does not guess what an ordinary application button should do.
 
 import { inScope } from "./preview-scope.mjs";
+import { waitForFixtureImages } from "./visual-states.mjs";
 
 /**
  * Selects official shadcn pages from the common preview scope. The source
@@ -67,6 +68,7 @@ export function isInteractionControlDisabled(element) {
  * a locator detail and is intentionally left out of `probeIdentity`.
  */
 export async function discoverInteractionProbes(scope, options = {}) {
+  await waitForFixtureImages(scope.page());
   const resolved = {
     includeButtons: false,
     includeDisclosures: true,
@@ -338,6 +340,7 @@ export async function enterInteractionProbe(
 ) {
   const scope =
     typeof selector === "string" ? page.locator(selector) : selector;
+  await waitForFixtureImages(page);
   const target = scope.locator(probe.selector).nth(probe.index);
 
   if (probe.kind === "native-select") {

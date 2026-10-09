@@ -2210,6 +2210,18 @@ export async function installBrowserFixtures(page) {
   });
 
   await page.addInitScript(() => {
+    if (!window.__liveShadcnFixtureImages) {
+      const images = new Set();
+      Object.defineProperty(window, "__liveShadcnFixtureImages", { value: images });
+      window.Image = new Proxy(window.Image, {
+        construct(target, args, newTarget) {
+          const image = Reflect.construct(target, args, newTarget);
+          images.add(image);
+          return image;
+        },
+      });
+    }
+
     const devices = [
       {
         deviceId: "built-in",
@@ -2243,5 +2255,33 @@ export async function installBrowserFixtures(page) {
         }),
       },
     });
+  });
+}
+
+/** Wait for native fixture images, including detached Avatar preload images. */
+export async function waitForFixtureImages(page) {
+  await page.evaluate(async () => {
+    const frames = () => new Promise((resolve) =>
+      requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    const currentImages = () => [...new Set([
+      ...(window.__liveShadcnFixtureImages ?? []),
+      ...document.images,
+    ])].filter((image) => image.src || image.srcset);
+    const loaded = (image) => new Promise((resolve) => {
+      if (image.complete) return resolve();
+      const finish = () => {
+        image.removeEventListener("load", finish);
+        image.removeEventListener("error", finish);
+        resolve();
+      };
+      image.addEventListener("load", finish, { once: true });
+      image.addEventListener("error", finish, { once: true });
+      if (image.complete) finish();
+    });
+
+    do {
+      await Promise.all(currentImages().map(loaded));
+      await frames();
+    } while (currentImages().some((image) => !image.complete));
   });
 }

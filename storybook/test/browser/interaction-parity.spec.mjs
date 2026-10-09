@@ -14,6 +14,7 @@ import {
   scopedInteractionPages,
 } from "./interaction-parity.mjs";
 import { connected, referenceReady } from "./live.mjs";
+import { installBrowserFixtures } from "./visual-states.mjs";
 import { hasScopeFilter, scopeFromEnvironment } from "./preview-scope.mjs";
 import { hasOfficialReactReference } from "./react-references.mjs";
 
@@ -37,6 +38,7 @@ if (!hasScopeFilter(scope)) {
 
 for (const { component, example } of pages) {
   test(`${component} / ${example} keeps inferred interaction semantics`, async ({ page }, testInfo) => {
+    await installBrowserFixtures(page);
     const selector = `[data-preview='${component}']`;
     const reactURL = `${testInfo.project.use.parityURL}/preview/${component}/${example}`;
     const phoenixURL = `/preview/${component}/${example}`;
