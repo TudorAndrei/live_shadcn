@@ -2095,22 +2095,33 @@ function actionableTriggers(scope) {
   );
 }
 
+// Base UI omits the open submenu's expanded attribute after keyboard entry
+// on macOS. Its controlled menu remains the observable open-state contract.
+async function waitForDisclosureState(trigger, expected) {
+  const matches = () => {
+    const expanded = trigger.getAttribute("aria-expanded");
+    if (expanded !== null) return expanded === expected;
+    if (trigger.getAttribute("role") !== "menuitem" ||
+        trigger.getAttribute("aria-haspopup") !== "menu") return false;
+
+    const popup = document.getElementById(trigger.getAttribute("aria-controls"));
+    const visible = Boolean(popup && popup.getClientRects().length &&
+      getComputedStyle(popup).visibility !== "hidden");
+    return visible === (expected === "true");
+  };
+
+  while (!matches()) {
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+  }
+}
+
 async function waitForExpanded(trigger, value) {
-  await trigger.evaluate(async (element, expected) => {
-    while (element.getAttribute("aria-expanded") !== expected) {
-      await new Promise((resolve) => requestAnimationFrame(resolve));
-    }
-  }, value);
+  await trigger.evaluate(waitForDisclosureState, value);
 }
 
 async function waitForElementExpanded(element, value) {
   if (!element) throw new Error("expanded-state trigger is not attached");
-
-  await element.evaluate(async (trigger, expected) => {
-    while (trigger.getAttribute("aria-expanded") !== expected) {
-      await new Promise((resolve) => requestAnimationFrame(resolve));
-    }
-  }, value);
+  await element.evaluate(waitForDisclosureState, value);
 }
 
 async function closeRootState(page, trigger) {
@@ -2136,7 +2147,13 @@ async function closeRootState(page, trigger) {
   }
 
   for (let attempt = 0; attempt < 8; attempt += 1) {
-    if ((await trigger.getAttribute("aria-expanded")) === "false") {
+    const expanded = await trigger.getAttribute("aria-expanded");
+    const controls = await trigger.getAttribute("aria-controls");
+    const closedSubmenu = expanded === null && controls &&
+      (await trigger.getAttribute("role")) === "menuitem" &&
+      (await trigger.getAttribute("aria-haspopup")) === "menu" &&
+      !(await page.locator(`[id=${JSON.stringify(controls)}]`).isVisible());
+    if (expanded === "false" || closedSubmenu) {
       await waitForControlledHidden(page, trigger);
       return;
     }
