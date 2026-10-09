@@ -34,7 +34,8 @@ defmodule LiveShadcn.Cn do
                          font-bold font-extrabold font-black),
     "outline-style" => ~w(outline-none outline-hidden),
     "flex-grow" => ~w(grow grow-0),
-    "flex-shrink" => ~w(shrink shrink-0)
+    "flex-shrink" => ~w(shrink shrink-0),
+    "translate-none" => ~w(translate-none)
   }
 
   @prefixes ~w(
@@ -43,6 +44,7 @@ defmodule LiveShadcn.Cn do
     m- mx- my- mt- mr- mb- ml- ms- me-
     gap- gap-x- gap-y- space-x- space-y-
     top- right- bottom- left- inset- inset-x- inset-y- start- end-
+    translate- translate-x- translate-y- translate-z-
     basis- grow- shrink- order- z-
     grid-cols- grid-rows- col-span- row-span-
     justify- justify-items- justify-self- items- self-
@@ -85,6 +87,16 @@ defmodule LiveShadcn.Cn do
   # `size-*` for width. Padding follows the same directional rule.
   defp conflicts({variants, "size-"}), do: Enum.map(["size-", "w-", "h-"], &{variants, &1})
   defp conflicts({variants, "p-"}), do: Enum.map(@padding_groups, &{variants, &1})
+
+  defp conflicts({variants, "translate-"}),
+    do: Enum.map(~w(translate- translate-x- translate-y- translate-none), &{variants, &1})
+
+  defp conflicts({variants, "translate-none"}),
+    do:
+      Enum.map(
+        ~w(translate-none translate- translate-x- translate-y- translate-z-),
+        &{variants, &1}
+      )
 
   # `line-clamp-*` sets overflow as well as display. A later `flex` replaces
   # only its display value, so it must not remove the clamp utility. A later

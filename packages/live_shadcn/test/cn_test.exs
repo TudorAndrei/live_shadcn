@@ -89,4 +89,17 @@ defmodule LiveShadcn.CnTest do
   test "a later variant background replaces an earlier background" do
     assert Cn.merge(["hover:bg-accent", "hover:bg-background"]) == "hover:bg-background"
   end
+
+  test "translation conflicts preserve variants and independent dimensions" do
+    assert Cn.merge([
+             "-translate-x-1/2 hover:-translate-y-1/2 translate-z-4",
+             "translate-x-2 hover:translate-y-2"
+           ]) == "translate-z-4 translate-x-2 hover:translate-y-2"
+
+    assert Cn.merge(["translate-z-4 -translate-x-1/2 -translate-y-1/2", "translate-0"]) ==
+             "translate-z-4 translate-0"
+
+    assert Cn.merge(["translate-z-4 translate-0 hover:translate-x-2", "translate-none"]) ==
+             "hover:translate-x-2 translate-none"
+  end
 end
