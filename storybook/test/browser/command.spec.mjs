@@ -108,7 +108,7 @@ for (const side of sides) {
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
     await expect(dialog.getByRole("combobox")).toBeFocused();
-    await expect(dialog.getByText("Settings", { exact: true })).toBeVisible();
+    await expect(dialog.getByRole("group", { name: "Settings", exact: true })).toBeVisible();
     await expect(dialog.locator("[data-slot='command-shortcut']")).toHaveText(["⌘P", "⌘B", "⌘S"]);
 
     await page.keyboard.press("Escape");
@@ -123,8 +123,8 @@ for (const side of sides) {
 
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByText("Suggestions", { exact: true })).toBeVisible();
-    await expect(dialog.getByText("Settings", { exact: true })).toBeVisible();
+    await expect(dialog.getByRole("group", { name: "Suggestions", exact: true })).toBeVisible();
+    await expect(dialog.getByRole("group", { name: "Settings", exact: true })).toBeVisible();
     await expect(dialog.locator("[data-slot='command-separator']")).toHaveCount(1);
     await expect(dialog.locator("[data-slot='command-item']")).toHaveCount(6);
   });

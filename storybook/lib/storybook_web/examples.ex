@@ -7433,7 +7433,6 @@ defmodule StorybookWeb.Examples do
     <.command id="command-default" class="max-w-sm rounded-lg border">
       <.command_input
         placeholder="Type a command or search..."
-        aria-label="Type a command or search"
         controls="command-default-list"
       />
       <.command_list id="command-default-list">

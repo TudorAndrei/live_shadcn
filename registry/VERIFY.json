@@ -1747,21 +1747,16 @@
   "shadcn/command": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility command.groups: command / groups has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Open Menu: aria-required-children: Certain ARIA roles must contain particular children (port target [\\\"preview:command > slot:dialog-content > slot:command > slot:command-list\\\"] has no matching upstream violation): Element has children which are not allowed: [role=separator] {\\\"messageKey\\\":\\\"unallowed\\\",\\\"values\\\":\\\"[role=separator]\\\"} at #command-groups-list\",\u001B[39m\n\u001B[31m+   \"dialog:Open Menu: aria-required-children: Certain ARIA roles must contain particular children (port target [\\\"preview:command > slot:dialog-content > slot:command > slot:command-list\\\"] has no matching upstream violation): Element has children which are not allowed: [role=separator] {\\\"messageKey\\\":\\\"unallowed\\\",\\\"values\\\":\\\"[role=separator]\\\"} at #command-groups-list\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  113 |     }\n  114 |\n> 115 |     expect(added).toEqual([]);\n      |                   ^\n  116 |   });\n  117 | }\n  118 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:115:19\naccessibility command.scrollable: command / scrollable has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Open Menu: aria-required-children: Certain ARIA roles must contain particular children (port target [\\\"preview:command > slot:dialog-content > slot:command > slot:command-list\\\"] has no matching upstream violation): Element has children which are not allowed: [role=separator] {\\\"messageKey\\\":\\\"unallowed\\\",\\\"values\\\":\\\"[role=separator]\\\"} at #command-scrollable-list\",\u001B[39m\n\u001B[31m+   \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
-        "detail": "behavior command:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-command-3a9c0-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-command-3a9c0-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-command-3a9c0-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › command / default keeps inferred interaction semantics \n  1 passed (8.8s)\nbehavior command:     Error Context: test-results/command-Phoenix-port-group-f0e64-s-its-pinned-group-boundary-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/command-Phoenix-port-group-f0e64-s-its-pinned-group-boundary-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/command-Phoenix-port-group-f0e64-s-its-pinned-group-boundary-chromium/trace.zip\n    ───────────────────────────────────────────────────────────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior command:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-command-3a9c0-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-command-3a9c0-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-command-3a9c0-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › command / default keeps inferred interaction semantics \n  1 passed (8.8s)\nbehavior command:     Error Context: test-results/command-Phoenix-port-group-f0e64-s-its-pinned-group-boundary-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/command-Phoenix-port-group-f0e64-s-its-pinned-group-boundary-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/command-Phoenix-port-group-f0e64-s-its-pinned-group-boundary-chromium/trace.zip\n    ───────────────────────────────────────────────────────────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "6 of 6 official examples have HEEx previews",
@@ -1773,9 +1768,8 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity command.basic: command / basic draws what React draws\nError: action:Open Menu: where the two trees differ (full trees attached):\n  React   <nothing>\n  Phoenix     div 1280x720 [dialog-overlay] cn-dialog-overlay fixed inset-0 isolate z-50 \n\n  React   <nothing>\n  Phoenix     div 448x224 [dialog-content] cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0\n\n  React   <nothing>\n  Phoenix       div 400x176 [command] cn-command flex size-full flex-col overflow-hidden\n\n  React   <nothing>\n  Phoenix         div 392x36 [command-input-wrapper] cn-command-input-wrapper\n\n  React   <nothing>\n  Phoenix           div 384x32 [input-group] group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto cn-command-input-group\n\n  React   <nothing>\n  Phoenix             input 358x20 [command-input] cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Open Menu / dialog-content: class — React -translate-x-1/2 cn-command-dialog cn-dialog-content fixed left-1/2 outline-none overflow-hidden p-0 top-1/3 translate-y-0 w-full z-50, Phoenix -translate-x-1/2 -translate-y-1/2 cn-command-dialog cn-dialog-content fixed left-1/2 outline-none overflow-hidden p-0 top-1/2 top-1/3 translate-y-0 w-full z-50\",\u001B[39m\n\u001B[31m+   \"dialog:Open Menu / dialog-content: class — React -translate-x-1/2 cn-command-dialog cn-dialog-content fixed left-1/2 outline-none overflow-hidden p-0 top-1/3 translate-y-0 w-full z-50, Phoenix -translate-x-1/2 -translate-y-1/2 cn-command-dialog cn-dialog-content fixed left-1/2 outline-none overflow-hidden p-0 top-1/2 top-1/3 translate-y-0 w-full z-50\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  201 |    \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
         "outcome": "passed",
@@ -1783,16 +1777,16 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "baeeaf724d0ada44ceb726ede34ce92589c661db895d5ded3d558fb920522806",
-    "pass": false,
+    "evidence": "cdcfa084bb1d8cd409fa019a515c373c3c9be68cc2caff4db935400c9e51cfa6",
+    "pass": true,
     "spec": "c167356ada9c0dd540de06055911391093885018bacd915ba236dc00ffb3f4ed"
   },
   "ai_elements/sources": {
