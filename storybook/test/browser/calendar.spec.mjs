@@ -17,8 +17,10 @@ test("default supports native single-date selection, focus, and navigation", asy
   await expect(root(page).locator("button[data-lb-calendar-day]:focus")).toHaveCount(1);
   await page.keyboard.press("Enter");
   await expect(selected(page)).not.toHaveCount(0);
-  await calendar.locator("[data-lb-calendar-nav='next']").click();
+  const navigation = calendar.getByRole("navigation", { name: "Navigation bar", exact: true });
+  await navigation.getByRole("button", { name: "Go to the Next Month", exact: true }).click();
   await expect(calendar).not.toHaveAttribute("data-lb-calendar-month", month);
+  await expect(navigation.getByRole("button", { name: "Go to the Previous Month", exact: true })).toBeVisible();
 });
 
 test("basic starts unselected and supports native single-date selection", async ({ page }) => {
@@ -119,6 +121,12 @@ test("Hijri retains its Persian calendar and RTL contracts", async ({ page }) =>
   await expect(root(page)).toHaveAttribute("data-lb-calendar-system", "persian");
   await expect(root(page)).toHaveAttribute("dir", "rtl");
   await expect(root(page).locator(".rdp-caption_label")).toContainText(/[۰-۹]/);
+  const calendar = root(page);
+  const month = await calendar.getAttribute("data-lb-calendar-month");
+  const navigation = calendar.getByRole("navigation", { name: "نوار ناوبری", exact: true });
+  await navigation.getByRole("button", { name: "رفتن به ماه بعد", exact: true }).click();
+  await expect(calendar).not.toHaveAttribute("data-lb-calendar-month", month);
+  await expect(navigation.getByRole("button", { name: "رفتن به ماه قبل", exact: true })).toBeVisible();
 });
 
 test("RTL retains its caption and selected-date contracts", async ({ page }) => {
@@ -126,4 +134,10 @@ test("RTL retains its caption and selected-date contracts", async ({ page }) => 
   await expect(root(page)).toHaveAttribute("dir", "rtl");
   await expect(root(page).locator("select[data-lb-calendar-caption='month']")).toHaveCount(1);
   await expect(selected(page)).toHaveCount(1);
+  const calendar = root(page);
+  const month = await calendar.getAttribute("data-lb-calendar-month");
+  const navigation = calendar.getByRole("navigation", { name: "شريط التنقل", exact: true });
+  await navigation.getByRole("button", { name: "اذهب إلى الشهر التالي", exact: true }).click();
+  await expect(calendar).not.toHaveAttribute("data-lb-calendar-month", month);
+  await expect(navigation.getByRole("button", { name: "اذهب إلى الشهر السابق", exact: true })).toBeVisible();
 });

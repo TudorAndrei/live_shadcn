@@ -1852,9 +1852,9 @@
         "pass": true
       }
     },
-    "evidence": "6f40e4e6efd2b2dc5f3811a6cd433404f903526b6c72bcd903454f536cce62eb",
+    "evidence": "c035b4722274c99e411f0d26e9b026a6df7647e51add2a78bc08ce2f849595c5",
     "pass": true,
-    "spec": "a127152a78990e8d96bc7fb81038f67b44ffe372bd257e6d3eff06fe506af559"
+    "spec": "518d04be1101210b7970f9a2f29617a77e4918736e2e0c22f22a473c4739e9d3"
   },
   "ai_elements/test-results": {
     "checks": {
@@ -2144,16 +2144,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior date-picker:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-date-pi-b008b-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-date-pi-b008b-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-date-pi-b008b-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › date-picker / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › date-picker / basic keeps inferred interaction semantics \nbehavior date-picker:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-date-pi-c68e2-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-date-pi-c68e2-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-date-pi-c68e2-erred-interaction-semantics-chromium/trace.zip\n    ──────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior date-picker:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-date-pi-b008b-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-date-pi-b008b-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-date-pi-b008b-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › date-picker / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › date-picker / basic keeps inferred interaction semantics \nbehavior date-picker:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-date-pi-c68e2-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-date-pi-c68e2-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-date-pi-c68e2-erred-interaction-semantics-chromium/trace.zip\n    ──────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "8 of 8 official examples have HEEx previews",
@@ -2161,9 +2157,8 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity date-picker.default: date-picker / default draws what React draws\nError: action:open: where the two trees differ (full trees attached):\n  React     span 1x1\n  Phoenix <nothing>\n\n  React       span 72.5x20 \"Pick a date\"\n  Phoenix <nothing>\n\n  React     span 1x1\n  Phoenix <nothing>\n\n  React     span 1x1\n  Phoenix <nothing>\n\n  React     span 0x0\n  Phoenix <nothing>\n\n  React     span 1x1\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 72\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:open / popover-content > calendar > button: class — React [&>span]:opacity-70 [&>span]:text-xs [&_svg]:pointer-events-none [&_svg]:shrink-0 aspect-square border-0 cn-button cn-button-size-icon cn-button-variant-ghost cn-calendar-day-button dark:hover:text-foreground data-[range-end=true]:bg-primary data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:text-primary-foreground data-[range-middle=true]:bg-muted data-[range-middle=true]:rounded-none data-[range-middle=true]:text-foreground data-[range-start=true]:bg-primary data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground disabled:opacity-50 disabled:pointer-events-none flex flex-col font-normal gap-1 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:relative group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 group-data-[focused=true]/day:z-10 group/button isolate items-center justify-center leading-none min-w-(--cell-size) outline-none rdp-day rdp-day_button relative select-none shrink-0 size-auto transition-all w-full whitespace-nowrap z-10, Phoenix [&>span]:opacity-70 [&>span]:text-xs [&_svg]:poi\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
         "outcome": "passed",
@@ -2171,16 +2166,16 @@
       },
       "policy": {
         "detail": "required checks for docs_only policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "e3463d193a7c1122bd6ecc4d640f59a222fe10a8ec0204bca9e575a399179e4a",
-    "pass": false,
+    "evidence": "a06c1d51895ed0bfd9704ac10d350a5adc5fdb1b299e8cbfed875f87ce683e51",
+    "pass": true,
     "spec": null
   },
   "shadcn/tabs": {

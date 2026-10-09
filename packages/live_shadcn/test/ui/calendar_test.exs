@@ -155,14 +155,24 @@ defmodule LiveShadcn.UI.CalendarTest do
            ) == ["11"]
   end
 
-  test "dropdown captions use the DayPicker accessible names for each locale" do
+  test "captions and navigation use the DayPicker accessible names for each locale" do
     labels = %{
-      "en" => {"Choose the Month", "Choose the Year"},
-      "ar" => {"اختر الشهر", "اختر السنة"},
-      "fa" => {"ماه را انتخاب کنید", "سال را انتخاب کنید"}
+      "en" =>
+        {"Choose the Month", "Choose the Year", "Go to the Previous Month",
+         "Go to the Next Month", "Navigation bar"},
+      "browser" =>
+        {"Choose the Month", "Choose the Year", "Go to the Previous Month",
+         "Go to the Next Month", "Navigation bar"},
+      "ar" =>
+        {"اختر الشهر", "اختر السنة", "اذهب إلى الشهر السابق", "اذهب إلى الشهر التالي",
+         "شريط التنقل"},
+      "fa" =>
+        {"ماه را انتخاب کنید", "سال را انتخاب کنید", "رفتن به ماه قبل", "رفتن به ماه بعد",
+         "نوار ناوبری"}
     }
 
-    for {locale, {month_label, year_label}} <- labels do
+    for {locale, {month_label, year_label, previous_label, next_label, navigation_label}} <-
+          labels do
       html =
         render_component(&Calendar.calendar/1, %{
           id: "#{locale}-dropdown-calendar",
@@ -174,6 +184,10 @@ defmodule LiveShadcn.UI.CalendarTest do
 
       document = Floki.parse_fragment!(html)
 
+      assert Floki.attribute(Floki.find(document, "nav.rdp-nav"), "aria-label") == [
+               navigation_label
+             ]
+
       assert Floki.attribute(
                Floki.find(document, "select[data-lb-calendar-caption='month']"),
                "aria-label"
@@ -183,6 +197,16 @@ defmodule LiveShadcn.UI.CalendarTest do
                Floki.find(document, "select[data-lb-calendar-caption='year']"),
                "aria-label"
              ) == [year_label]
+
+      assert Floki.attribute(
+               Floki.find(document, "button[data-lb-calendar-nav='previous']"),
+               "aria-label"
+             ) == [previous_label]
+
+      assert Floki.attribute(
+               Floki.find(document, "button[data-lb-calendar-nav='next']"),
+               "aria-label"
+             ) == [next_label]
     end
   end
 

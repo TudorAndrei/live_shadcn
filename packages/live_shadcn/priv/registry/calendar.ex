@@ -231,11 +231,11 @@ defmodule LiveShadcn.UI.Calendar do
       {Map.drop(@rest, [:"data-slot"])}
     >
       <div class="relative flex flex-col gap-4 md:flex-row rdp-months">
-        <nav class="absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1 rdp-nav">
+        <nav aria-label={navigation_label("bar", @locale)} class="absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1 rdp-nav">
           <button
             type="button"
             data-lb-calendar-nav="previous"
-            aria-label="Go to the previous month"
+            aria-label={navigation_label("previous", @locale)}
             disabled={@previous_disabled}
             class={calendar_button_class("previous")}
           >
@@ -244,7 +244,7 @@ defmodule LiveShadcn.UI.Calendar do
           <button
             type="button"
             data-lb-calendar-nav="next"
-            aria-label="Go to the next month"
+            aria-label={navigation_label("next", @locale)}
             disabled={@next_disabled}
             class={calendar_button_class("next")}
           >
@@ -644,6 +644,16 @@ defmodule LiveShadcn.UI.Calendar do
   defp month_label(date, locale, calendar),
     do:
       "#{caption_month(month_number(date, calendar), "long", locale, calendar)} #{year_label(display_year(date, calendar), calendar)}"
+
+  defp navigation_label("previous", "ar"), do: "اذهب إلى الشهر السابق"
+  defp navigation_label("next", "ar"), do: "اذهب إلى الشهر التالي"
+  defp navigation_label("bar", "ar"), do: "شريط التنقل"
+  defp navigation_label("previous", "fa"), do: "رفتن به ماه قبل"
+  defp navigation_label("next", "fa"), do: "رفتن به ماه بعد"
+  defp navigation_label("bar", "fa"), do: "نوار ناوبری"
+  defp navigation_label("previous", _locale), do: "Go to the Previous Month"
+  defp navigation_label("next", _locale), do: "Go to the Next Month"
+  defp navigation_label("bar", _locale), do: "Navigation bar"
 
   defp caption_dropdown_label("month", "ar"), do: "اختر الشهر"
   defp caption_dropdown_label("year", "ar"), do: "اختر السنة"
