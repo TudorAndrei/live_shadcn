@@ -151,10 +151,10 @@ defmodule LiveShadcn.UI.Dialog do
       phx-mounted={Dialog.owned_attributes(:popup)}
       data-open={flag(@open)}
       data-closed={flag(not @open)}
-      class={[
+      class={LiveShadcn.Cn.merge([
         upstream_fact("jsx/DialogContent/class/0"),
-        @class || ""
-      ]}
+        @class
+      ])}
       {@rest}
     >
       <.dialog_header
