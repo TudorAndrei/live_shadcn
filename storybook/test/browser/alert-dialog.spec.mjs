@@ -60,17 +60,20 @@ for (const side of sides) {
       await expect(trigger).toBeFocused();
     });
 
-    test("does not close from Escape or the backdrop", async ({ page }) => {
+    test("ignores backdrop clicks and closes with Escape", async ({ page }) => {
       const { trigger, popup, backdrop } = alertDialog(page);
 
       await trigger.click();
       await expect(popup).toBeVisible();
 
-      await page.keyboard.press("Escape");
+      await backdrop.click({ position: { x: 5, y: 5 } });
+      await expect(trigger).toHaveAttribute("aria-expanded", "true");
       await expect(popup).toBeVisible();
 
-      await backdrop.click({ position: { x: 5, y: 5 } });
-      await expect(popup).toBeVisible();
+      await page.keyboard.press("Escape");
+      await expect(trigger).toHaveAttribute("aria-expanded", "false");
+      await expect(popup).toBeHidden();
+      await expect(trigger).toBeFocused();
     });
 
     test("keeps the dialog open when its action has no application handler", async ({ page }) => {

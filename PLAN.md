@@ -1,6 +1,6 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phases 6e.6 through 6e.12 are complete. Phase 6f refreshes
+Status: in progress. Phases 6e.6 through 6e.13 are complete. Phase 6f refreshes
 the full verification evidence and checks release badges.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
@@ -684,6 +684,30 @@ usage and source-label errors. All 80 Storybook tests pass after the repair,
 including connected documentation families, the native Direction route, and
 the compiled badge fixture. Storybook static checks pass. Pinned refs,
 comparison rules, and AI record bytes remain unchanged.
+
+### Phase 6e.13: restore Alert Dialog Escape dismissal
+
+- The full browser check finds all seven Alert Dialog examples stay open after
+  Escape. The pinned React implementation closes them. It disables pointer
+  dismissal independently of its Escape handler.
+- Correct the existing browser test. Click the backdrop while open, then press
+  Escape and require a closed popup, a closed trigger, and returned focus.
+  Prove the test fails on the current LiveView port and passes on pinned React.
+- Keep backdrop dismissal disabled by default. Bind Escape to the shared close
+  command. Do not add a new public option or change comparison rules.
+- Review the port hash, refresh affected snapshots, pass package static checks,
+  and pass complete Alert Dialog verification before the scoped commit.
+
+**Commit:** `fix(alert-dialog): restore Escape dismissal`
+
+Validation: the corrected browser test passes on pinned React and fails on the
+old LiveView port because the trigger stays open after Escape. Both sides pass
+after the repair. All 149 package tests and package static checks pass. All 61
+offline and fetched-source contracts and all 463 shadcn snapshots are current.
+Complete Alert Dialog verification passes all nine required checks over all
+seven official examples. The snapshot commit changes only the eight popup
+Escape bindings. Pinned refs, comparison limits, and all 48 AI record byte
+blocks remain unchanged.
 
 ### Phase 6f: refresh evidence and verify release badges
 

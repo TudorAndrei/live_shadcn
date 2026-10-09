@@ -47,7 +47,7 @@ defmodule LiveShadcn.UI.AlertDialog do
   attr(:id, :string, required: true, doc: "Every id inside the dialog derives from it.")
   attr(:open, :boolean, default: false, doc: "Whether it starts open.")
   attr(:alert, :boolean, default: true, doc: "An alert dialog interrupts; a dialog does not.")
-  attr(:dismissable, :boolean, default: false, doc: "Whether Escape and the backdrop close it.")
+  attr(:dismissable, :boolean, default: false, doc: "Whether a backdrop click closes it.")
   attr(:disabled, :boolean, default: false, doc: "Whether the trigger refuses interaction.")
 
   attr(:show_close_button, :boolean,
@@ -127,7 +127,7 @@ defmodule LiveShadcn.UI.AlertDialog do
       aria-describedby={Dialog.description_id(@id)}
       tabindex="-1"
       hidden={not @open}
-      phx-window-keydown={if(@dismissable, do: Dialog.close(@id))}
+      phx-window-keydown={Dialog.close(@id)}
       phx-key="Escape"
       phx-hook={Dialog.hook()}
       data-lb-backdrop={Dialog.backdrop_id(@id)}

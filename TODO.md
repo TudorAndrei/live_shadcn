@@ -1,7 +1,8 @@
 # TODO: shadcn parity and verification badges
 
-Follow [PLAN.md](PLAN.md). Phase 6e.5 complete. Complete each phase,
-run its checks, and make its exact commit before starting the next phase.
+Follow [PLAN.md](PLAN.md). Phases 6e.6 through 6e.13 are complete.
+Phase 6f is in progress. Complete each phase, run its checks, and make its exact
+commit before starting the next phase.
 
 ## Phase 1: share shadcn evidence evaluation
 
@@ -243,6 +244,14 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Show valid source manifests and adaptation guidance for documentation families.
 - [x] Pass the route test, Storybook tests, and static checks.
 - [x] Commit: `fix(storybook): document native and composed examples`
+
+## Phase 6e.13: restore Alert Dialog Escape dismissal
+
+- [x] Prove the corrected keyboard and backdrop test fails on the port.
+- [x] Keep backdrop dismissal disabled and restore Escape dismissal.
+- [x] Review the port hash and refresh affected snapshots.
+- [x] Pass package static checks and complete Alert Dialog verification.
+- [x] Commit: `fix(alert-dialog): restore Escape dismissal`
 
 ## Phase 6f: refresh evidence and verify release badges
 
