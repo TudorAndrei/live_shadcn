@@ -23,6 +23,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { regressions } from "./accessibility.mjs";
 import { source } from "./registries.mjs";
 import { connected } from "./live.mjs";
+import { parityTimeoutMs } from "./parity-timeout.mjs";
 import {
   enterVisualState,
   visualStateIdentity,
@@ -83,6 +84,7 @@ for (const { component, example } of pages) {
 
     if (hasLocalOnlyPolicy) {
       const portStates = await statesAt(page, path, selector, true);
+      testInfo.setTimeout(parityTimeoutMs(portStates.length));
       const coverage = beginStateCoverage(testInfo, `${component}.${example}`,
         portStates.map((state) => JSON.stringify(visualStateIdentity(state))));
 
@@ -98,6 +100,7 @@ for (const { component, example } of pages) {
     const upstreamURL = `${testInfo.project.use.parityURL}${path}`;
     const upstreamStates = await statesAt(page, upstreamURL, selector);
     const portStates = await statesAt(page, path, selector, true);
+    testInfo.setTimeout(parityTimeoutMs(upstreamStates.length));
 
     expect(portStates.map(visualStateIdentity)).toEqual(upstreamStates.map(visualStateIdentity));
 
