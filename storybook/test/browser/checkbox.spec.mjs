@@ -115,6 +115,45 @@ test.describe("a switch", () => {
 });
 
 for (const side of ["React", "Phoenix"]) {
+  for (const labelType of ["separate", "containing"]) {
+    test(`checkbox ${labelType} label keeps state, focus, and Space aligned on ${side}`, async ({ page }, testInfo) => {
+      const path = "/preview/checkbox/default";
+      await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+      await (side === "React" ? referenceReady(page) : connected(page));
+      const scope = page.locator("[data-preview='checkbox']");
+      const name = labelType === "separate" ? "terms-checkbox" : "toggle-checkbox-2";
+      const label = labelType === "separate"
+        ? scope.locator("label[for='terms-checkbox']")
+        : scope.locator("label:has([role='checkbox'])");
+      const control = scope.getByRole("checkbox").nth(labelType === "separate" ? 0 : 3);
+      const input = scope.locator(`input[name='${name}']`);
+      const nativeValue = side === "React" ? "on" : "true";
+
+      async function expectState(checked) {
+        await expect(control).toHaveAttribute("aria-checked", String(checked));
+        await expect(input).toBeChecked({ checked });
+        const submitted = await input.evaluate((element) => element.checked ? [element.name, element.value] : []);
+        expect(submitted).toEqual(checked ? [name, nativeValue] : []);
+      }
+
+      await expectState(false);
+      await label.click();
+      await expectState(true);
+      await expect(control).toBeFocused();
+      await page.keyboard.press(" ");
+      await expectState(false);
+      await expect(control).toBeFocused();
+      await control.click();
+      await expectState(true);
+      await expect(control).toBeFocused();
+      await label.click();
+      await expectState(false);
+      await expect(control).toBeFocused();
+    });
+  }
+}
+
+for (const side of ["React", "Phoenix"]) {
   test(`checkbox table keeps partial, full, and cleared selection aligned on ${side}`, async ({ page }, testInfo) => {
     const path = "/preview/checkbox/table";
     await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);

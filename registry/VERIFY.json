@@ -191,16 +191,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior checkbox:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-checkbo-ef887-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-checkbo-ef887-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-checkbo-ef887-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › checkbox / default keeps inferred interaction semantics \n  1 passed (13.6s)\nbehavior checkbox:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-checkbo-87e39-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-checkbo-87e39-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-checkbo-87e39-erred-interaction-semantics-chromium/trace.zip\n    ─────────────────────────────────────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior checkbox:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-checkbo-ef887-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-checkbo-ef887-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-checkbo-ef887-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › checkbox / default keeps inferred interaction semantics \n  1 passed (13.6s)\nbehavior checkbox:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-checkbo-87e39-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-checkbo-87e39-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-checkbo-87e39-erred-interaction-semantics-chromium/trace.zip\n    ─────────────────────────────────────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "8 of 8 official examples have HEEx previews",
@@ -212,28 +208,26 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity checkbox.table: checkbox / table draws what React draws\nError: checked:3: where the two trees differ (full trees attached):\n  React       table 720x187.5 [table] cn-table\n  Phoenix     table 720x187.5 [table] cn-table \n  ← class\n\n  React         thead 720x40 [table-header] cn-table-header\n  Phoenix       thead 720x40 [table-header] cn-table-header \n  ← class\n\n  React           tr 720x40 [table-row] cn-table-row has-aria-expanded:bg-muted/50\n  Phoenix         tr 720x40 [table-row] cn-table-row has-aria-expanded:bg-muted/50 \n  ← class\n\n  React               span 16x16 [checkbox] cn-checkbox peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50\n  Phoenix             span 16x16 [checkbox] cn-checkbox peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50 \n  ← class\n\n  React   <nothing>\n  Phoenix               span 14x14 [checkbox-indicator] cn-checkbox-indicator grid place-content-center text-current transition-none\n\n  React   <nothing>\n  Phoenix                 svg 14x14 lucide lucide-check\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 8\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"checked:3 / table-container > table > table-header > table-row > table-head > checkbox > checkbox-indicator: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"checked:3 / table-container > table > table-header > table-row > table-head > checkbox: aria-checked — React false, Phoenix mixed\",\u001B[39m\n\u001B[31m+   \"checked:4 / table-container > table > table-header > table-row > table-head > checkbox > checkbox-indicator: only in Phoenix\",\u001B[39m\n\u001B[31m+   \"checked:4 / table-container > table > table-header > table-row > table-head > checkbox: aria-checked — React false, Phoenix mixed\",\u001B[39m\n\u001B[31m+   \"checked:5 / table-container > tabl\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel checkbox.table: checkbox / table paints what React paints\nError: checked:3: 38 px differ (0.00%) — hottest: table-container > table > table-header > table-row > table-head > checkbox > checkbox-indicator (38 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m38\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "ece859d2745e080e0e671d278b75ff12268c01cb9fa61b00fa3100789afa0edb",
-    "pass": false,
-    "spec": "ad3c3d126ea4c5aecbc5aa069e8ff48123877eb8f964ff7a2aa50348149872c5"
+    "evidence": "844f7d9d0e20ba9b780bf213f9e61e6a99e3d0ac22ff8e5ff132d122db00dc32",
+    "pass": true,
+    "spec": "c01778853a6581e9008b60523543f453189f8c1a88d3907f7b1d0ef99fdf74fd"
   },
   "ai_elements/chain-of-thought": {
     "checks": {

@@ -15,6 +15,7 @@ import { Disclosure } from "./disclosure.js";
 import { installAvatarImages } from "./avatar.js";
 import { Carousel } from "./carousel.js";
 import { Calendar } from "./calendar.js";
+import { installCheckboxBehavior } from "./checkbox.js";
 import { Clipboard } from "./clipboard.js";
 import { Combobox } from "./combobox.js";
 import { Command } from "./command.js";
@@ -63,6 +64,7 @@ export const hooks = {
 };
 
 installAvatarImages();
+installCheckboxBehavior();
 installInputGroupBehavior();
 installInputOtpBehavior();
 
@@ -91,6 +93,7 @@ export {
   Toast,
   ToggleGroup,
   installAvatarImages,
+  installCheckboxBehavior,
   installInputGroupBehavior,
   installInputOtpBehavior,
 };

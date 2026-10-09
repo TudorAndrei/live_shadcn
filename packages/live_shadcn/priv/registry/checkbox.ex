@@ -127,6 +127,7 @@ defmodule LiveShadcn.UI.Checkbox do
     </span>
     <input
       type="checkbox"
+      data-lb-checkbox-input=""
       id={@id}
       name={@name}
       value={@value}
