@@ -4055,9 +4055,8 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity combobox.input-group: combobox / input-group draws what React draws\nError: editable:base-ui-_R_7_: where the two trees differ (full trees attached):\n  React   <nothing>\n  Phoenix   template 0x0\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 5\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"editable:base-ui-_R_7_ / input-group > input-group-addon #2: aria-hidden — React true, Phoenix \",\u001B[39m\n\u001B[31m+   \"expanded:1 / input-group > input-group-addon #2: aria-hidden — React true, Phoenix \",\u001B[39m\n\u001B[31m+   \"expanded:2 / input-group > input-group-addon #2: aria-hidden — React true, Phoenix \",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  201 |     }\n  202 |\n> 203 |     expect(differences, where).toEqual([]);\n      |                                ^\n  204 |\n  205 |     // A decision that has stopped costing anything is a decision to delete.\n  206 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:203:32",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
         "outcome": "passed",
@@ -4065,16 +4064,16 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "944d98da3b53e37b2a92cf668e3f4ca17f66ce8b63b785ab2a2dd2d5f73fd8cf",
-    "pass": false,
+    "evidence": "cc9a02c9755355efdc174fc7480ec9a01082be2b5bc913f818d397ceb9bf0c81",
+    "pass": true,
     "spec": "101f01cfc4ba8b44975dd15ed5c06606e3e794c96b24992857175a2fa9730a4a"
   }
 }

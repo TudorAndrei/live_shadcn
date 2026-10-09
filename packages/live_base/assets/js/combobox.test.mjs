@@ -164,43 +164,6 @@ test("Combobox leaves pointer opens unhighlighted and highlights the first item 
   assert.equal(inputAttributes.get("aria-activedescendant"), "first");
 });
 
-test("Combobox keeps an empty Popup input addon exposed when it opens", () => {
-  const originalDocument = globalThis.document;
-  const attributes = () => new Map();
-  const element = (values = attributes()) => ({
-    removeAttribute: (name) => values.delete(name),
-    setAttribute: (name, value) => values.set(name, value),
-    values,
-  });
-  const emptyAddon = { ...element(), querySelector: () => null };
-  const hook = {
-    addons: [emptyAddon],
-    clear: null,
-    content: element(),
-    disabled: () => false,
-    el: { ...element(), matches: () => false },
-    filter() {},
-    input: element(),
-    isOpen: () => false,
-    labels: [],
-    positioner: element(),
-    selected: new Set(),
-    setChipsHidden() {},
-    setControls() {},
-    trigger: element(),
-  };
-
-  globalThis.document = { activeElement: null };
-
-  try {
-    Combobox.open.call(hook, { focus: false });
-
-    assert.equal(emptyAddon.values.has("aria-hidden"), false);
-  } finally {
-    globalThis.document = originalDocument;
-  }
-});
-
 test("Combobox replaces a server-rendered chip during client synchronization", () => {
   let removed = false;
   const hook = {

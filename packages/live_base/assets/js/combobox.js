@@ -177,7 +177,7 @@ export const Combobox = {
     this.trigger?.setAttribute("data-popup-open", "");
     this.trigger?.setAttribute("data-pressed", "");
     for (const addon of this.addons) {
-      if (addon.querySelector("button")) addon.setAttribute("aria-hidden", "true");
+      if (!this.content?.contains(addon)) addon.setAttribute("aria-hidden", "true");
     }
     for (const label of this.labels) label.setAttribute("aria-hidden", "true");
     this.clear?.setAttribute("tabindex", "-1");

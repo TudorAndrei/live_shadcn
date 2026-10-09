@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { connected, referenceReady, visit } from "./live.mjs";
 
 const controller = (page, id) => page.locator(`[data-lb-combobox][data-combobox-controller='${id}']`);
 const input = (page, id) =>
@@ -19,6 +19,7 @@ test("Combobox add-on triggers use the pinned accessible name", async ({ page },
     const path = `/preview/combobox/${example}`;
 
     await page.goto(`${testInfo.project.use.parityURL}${path}`);
+    await referenceReady(page);
     const upstreamName = await page.locator(selector).ariaSnapshot();
 
     await visit(page, path);
@@ -67,32 +68,37 @@ test("Combobox Basic filters, keyboard-selects, closes, and retains input focus"
   await selectSvelteKitWithKeyboard(page, "combobox-basic");
 });
 
-test("Combobox Popup opens, updates direct trigger text, and restores trigger focus on Escape", async ({ page }) => {
-  const id = "combobox-popup";
-  await visit(page, `/preview/combobox/popup`);
+for (const side of ["React", "Phoenix"]) {
+  test(`Combobox Popup keeps its inside add-on exposed, selects, and restores focus on ${side}`, async ({ page }, testInfo) => {
+    const path = "/preview/combobox/popup";
+    await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+    await (side === "React" ? referenceReady(page) : connected(page));
+    const trigger = page.locator("[data-preview='combobox'] [data-slot='combobox-trigger']");
+    const popup = page.locator("[data-slot='combobox-content']");
+    const control = popup.getByRole("combobox");
+    const argentina = popup.getByRole("option", { name: "Argentina", exact: true });
+    const addon = popup.locator("[data-slot='input-group-addon']");
 
-  const trigger = controller(page, id);
-  const popup = content(page, id);
-  const control = input(page, id);
-  const argentina = item(page, id, "argentina");
+    await expect(trigger).toHaveText("Select country");
+    await trigger.click();
+    await expect(popup).toBeVisible();
+    await expect(control).toBeFocused();
+    await expect(addon).toHaveCount(1);
+    await expect(addon).not.toHaveAttribute("aria-hidden");
+    await argentina.click();
+    if (side === "Phoenix") await expect(trigger).toHaveAttribute("data-combobox-value", "argentina");
+    await expect(trigger).toHaveText("Argentina");
+    await expect(popup).toBeHidden();
 
-  await expect(trigger).toHaveText("Select country");
-  await trigger.click();
-  await expect(popup).toBeVisible();
-  await expect(control).toBeFocused();
-
-  await argentina.click();
-
-  await expect(argentina).toHaveAttribute("aria-selected", "true");
-  await expect(trigger).toHaveAttribute("data-combobox-value", "argentina");
-  await expect(trigger).toHaveText("Argentina");
-  await expect(popup).toBeHidden();
-
-  await trigger.click();
-  await expect(control).toBeFocused();
-  await control.press("Escape");
-  await expect(trigger).toBeFocused();
-});
+    await trigger.click();
+    await expect(control).toBeFocused();
+    await expect(argentina).toHaveAttribute("aria-selected", "true");
+    await expect(addon).not.toHaveAttribute("aria-hidden");
+    await control.press("Escape");
+    await expect(popup).toBeHidden();
+    await expect(trigger).toBeFocused();
+  });
+}
 
 test("Combobox Multiple keeps initial chips, updates selected options, and returns input focus", async ({ page }) => {
   const id = "combobox-multiple";
@@ -252,48 +258,69 @@ test("Combobox Groups filters groups, preserves separators, selects, and returns
   await expect(control).toBeFocused();
 });
 
-test("Combobox Input Group opens from either official control, filters, selects, and returns focus", async ({ page }) => {
-  await visit(page, "/preview/combobox/input-group");
-  const id = "combobox-input-group";
-  const control = input(page, id);
-  const trigger = control.locator(
-    "xpath=following-sibling::*[@data-slot='input-group-addon']//*[@data-slot='input-group-button']",
-  );
-  const popup = content(page, id);
-  const paris = item(page, id, "(GMT+1) Paris");
+for (const side of ["React", "Phoenix"]) {
+  test(`Combobox Input Group hides both outside add-ons, filters, selects, and returns focus on ${side}`, async ({ page }, testInfo) => {
+    const path = "/preview/combobox/input-group";
+    await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+    await (side === "React" ? referenceReady(page) : connected(page));
+    const scope = page.locator("[data-preview='combobox']");
+    const control = scope.getByRole("combobox");
+    const group = scope.locator("[data-slot='input-group']");
+    const addons = group.locator("[data-slot='input-group-addon']");
+    const trigger = group.locator("[data-slot='input-group-button']");
+    const popup = page.locator("[data-slot='combobox-content']");
+    const paris = popup.getByRole("option", { name: "(GMT+1) Paris", exact: true });
 
-  await expect(control).toHaveAttribute("data-slot", "input-group-control");
-  await expect(control).toHaveAttribute("aria-haspopup", "listbox");
-  await expect(trigger).toHaveAttribute("data-slot", "input-group-button");
-  await expect(trigger).toHaveAttribute("aria-haspopup", "listbox");
-  await expect(trigger).toHaveAttribute("data-placeholder", "");
-  await expect(trigger).toHaveAttribute("tabindex", "0");
+    async function expectAddons(hidden) {
+      await expect(addons).toHaveCount(2);
+      for (const addon of await addons.all()) {
+        if (hidden) await expect(addon).toHaveAttribute("aria-hidden", "true");
+        else await expect(addon).not.toHaveAttribute("aria-hidden");
+      }
+    }
 
-  await control.click();
-  await expect(popup).toBeVisible();
-  await expect(control).toHaveAttribute("aria-expanded", "true");
-  await expect(trigger).toHaveAttribute("aria-expanded", "true");
-  await control.press("Escape");
-  await expect(popup).toBeHidden();
-  await expect(control).toBeFocused();
+    await expect(control).toHaveAttribute("data-slot", "input-group-control");
+    await expect(control).toHaveAttribute("aria-haspopup", "listbox");
+    await expect(trigger).toHaveAttribute("data-slot", "input-group-button");
+    await expect(trigger).toHaveAttribute("aria-haspopup", "listbox");
+    await expect(trigger).toHaveAttribute("data-placeholder", "");
+    await expect(trigger).toHaveAttribute("tabindex", "0");
+    await expectAddons(false);
+    await control.click();
+    await expect(popup).toBeVisible();
+    await expect(control).toHaveAttribute("aria-expanded", "true");
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expectAddons(true);
+    await control.press("Escape");
+    await expect(popup).toBeHidden();
+    await expect(control).toBeFocused();
+    await expectAddons(false);
 
-  await trigger.click();
-  await expect(popup).toBeVisible();
-  await expect(control).toBeFocused();
-  await control.fill("Paris");
-  await expect(paris).toBeVisible();
-  await expect(popup.locator("[data-slot='combobox-group']").nth(0)).toBeHidden();
-  await expect(popup.locator("[data-slot='combobox-group']").nth(1)).toBeVisible();
-  await expect(popup.locator("[data-slot='combobox-group']").nth(2)).toBeHidden();
+    await trigger.click();
+    await expect(popup).toBeVisible();
+    await expect(control).toBeFocused();
+    await expectAddons(true);
+    await control.fill("Paris");
+    await expect(paris).toBeVisible();
+    await expect(popup.getByText("Americas", { exact: true })).toBeHidden();
+    await expect(popup.getByText("Europe", { exact: true })).toBeVisible();
+    await expect(popup.getByText("Asia/Pacific", { exact: true })).toBeHidden();
+    await paris.click();
+    if (side === "Phoenix") await expect(controller(page, "combobox-input-group")).toHaveAttribute("data-combobox-value", "(GMT+1) Paris");
+    await expect(control).toHaveValue("(GMT+1) Paris");
+    await expect(popup).toBeHidden();
+    await expect(control).toBeFocused();
+    await expectAddons(false);
 
-  await paris.click();
-
-  await expect(paris).toHaveAttribute("aria-selected", "true");
-  await expect(controller(page, id)).toHaveAttribute("data-combobox-value", "(GMT+1) Paris");
-  await expect(control).toHaveValue("(GMT+1) Paris");
-  await expect(popup).toBeHidden();
-  await expect(control).toBeFocused();
-});
+    await control.click();
+    await expect(popup).toBeVisible();
+    await expect(paris).toHaveAttribute("aria-selected", "true");
+    await expectAddons(true);
+    await control.press("Escape");
+    await expect(popup).toBeHidden();
+    await expectAddons(false);
+  });
+}
 
 test("Combobox Custom filters labels, preserves item content, selects, and retains input focus", async ({ page }) => {
   const id = "combobox-custom";
