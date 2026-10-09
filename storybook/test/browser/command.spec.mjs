@@ -1,5 +1,9 @@
 import { expect, test } from "@playwright/test";
 
+import AxeBuilder from "@axe-core/playwright";
+import { regressions, stableViolations } from "./accessibility.mjs";
+import { enterVisualState } from "./visual-states.mjs";
+
 import { connected } from "./live.mjs";
 
 const sides = [
@@ -146,3 +150,57 @@ for (const side of sides) {
     await expect(dialog.getByText("Code Editor", { exact: true })).toBeVisible();
   });
 }
+
+test("grouped Command accessibility keeps popup ownership and distinct failing targets", async ({ page }, testInfo) => {
+  const selector = "[data-preview='command']";
+  async function scan() {
+    const result = await new AxeBuilder({ page }).include(selector).include("[data-slot]").analyze();
+    return stableViolations(page, result.violations, selector);
+  }
+  async function open(side) {
+    await visitSide(page, testInfo, side, "groups");
+    await enterVisualState(page, selector, { kind: "dialog", index: 0 });
+    await expect(page.getByRole("dialog")).toBeVisible();
+  }
+  await open(sides[0]);
+  const upstream = await scan();
+  const inherited = upstream.find(({ id }) => id === "aria-required-children");
+  expect(inherited?.nodes).toHaveLength(1);
+
+  await open(sides[1]);
+  const port = await scan();
+  expect(port.find(({ id }) => id === "aria-required-children")?.nodes).toHaveLength(1);
+  expect(regressions(port, upstream)).toEqual([]);
+
+  // An additional invalid listbox is a current accessibility regression. It
+  // must not inherit the warning on the original listbox just because the rule
+  // and popup owner are the same.
+  await page.locator("[data-slot='command-list']").evaluate((list) => {
+    const extra = document.createElement("div");
+    extra.setAttribute("data-slot", "command-extra-list");
+    extra.setAttribute("role", "listbox");
+    extra.setAttribute("aria-label", "Additional commands");
+    extra.innerHTML = '<div role="separator"></div>';
+    list.parentElement.append(extra);
+  });
+  const added = regressions(await scan(), upstream).filter((failure) => failure.startsWith("aria-required-children:"));
+  expect(added).toHaveLength(1);
+  expect(added[0]).toContain("slot:command-extra-list");
+
+  await page.locator("[data-slot='command-extra-list']").evaluate((list) => list.setAttribute("data-slot", "command-list"));
+  const repeated = await scan();
+  const listTargets = repeated.find(({ id }) => id === "aria-required-children").nodes.map(({ stableTarget }) => stableTarget);
+  expect(new Set(listTargets).size).toBe(2);
+  expect(regressions(repeated, upstream).filter((failure) => failure.startsWith("aria-required-children:"))).toHaveLength(2);
+
+  await page.locator("[data-slot='command-list']").last().evaluate((list) => {
+    list.remove();
+    const other = document.createElement("section");
+    other.setAttribute("data-preview", "unrelated");
+    other.innerHTML = '<div data-slot="dialog-content"><div data-slot="command"><div role="listbox" aria-label="Other commands" data-slot="command-list"><div role="separator"></div></div></div></div>';
+    document.body.append(other);
+  });
+  const unrelated = regressions(await scan(), upstream).filter((failure) => failure.startsWith("aria-required-children:"));
+  expect(unrelated).toHaveLength(1);
+  expect(unrelated[0]).toContain("preview:unrelated");
+});
