@@ -1847,9 +1847,8 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity calendar.default: calendar / default draws what React draws\nError: default: where the two trees differ (full trees attached):\n  React           button 32x36 cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-variant-ghost cn-button-size-default size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_previous\n  Phoenix         button 32x36 cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-button-variant-ghost size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_previous\n  ← class\n\n  React           button 32x36 cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-variant-ghost cn-button-size-default size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_next\n  Phoenix         button 32x36 cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-size-default cn-button-variant-ghost size-(--cell-size) p-0 select-none aria-disabled:opacity-50 rdp-button_next\n  ← class\n\n  React                   button 36x36 [button] \"27\" cn-button group/button shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-variant-ghost cn-button-size-icon cn-calendar-day-button relative isolate z-10 flex aspect-square s\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
         "outcome": "passed",
@@ -1857,17 +1856,17 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "c3a972d254fd9de89b4b6cf682a184f95081b8e089328fff6858995759b425e7",
-    "pass": false,
-    "spec": "ac8de0089f03ff1279d1b66605106b93963ecb8bdad81fbaeabd0e0b6d833c96"
+    "evidence": "6f40e4e6efd2b2dc5f3811a6cd433404f903526b6c72bcd903454f536cce62eb",
+    "pass": true,
+    "spec": "a127152a78990e8d96bc7fb81038f67b44ffe372bd257e6d3eff06fe506af559"
   },
   "ai_elements/test-results": {
     "checks": {
