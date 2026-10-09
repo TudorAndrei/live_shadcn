@@ -347,7 +347,11 @@ export async function enterInteractionProbe(
   const scope =
     typeof selector === "string" ? page.locator(selector) : selector;
   await waitForFixtureImages(page);
-  const target = scope.locator(probe.selector).nth(probe.index);
+  const candidate = scope.locator(probe.selector).nth(probe.index);
+  // A modal can hide its trigger from the accessibility tree. Keep the
+  // discovered element while its eligibility changes during popup entry.
+  const target = probe.kind === "disclosure" ? await candidate.elementHandle() : candidate;
+  if (!target) throw new Error("interaction probe target is not attached");
   const observe = () => observeInteraction(scope, target, probe, options.referenceLabels);
 
   if (probe.kind === "native-select") {

@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { discoverInteractionProbes, enterInteractionProbe } from "./interaction-parity.mjs";
+import { connected, referenceReady, visit } from "./live.mjs";
 
 const standardExamples = [
   ["default", "drawer-demo", "Open Drawer"],
@@ -231,4 +232,24 @@ async function snapOffset(locator) {
   return locator.evaluate((element) =>
     Number.parseFloat(getComputedStyle(element).getPropertyValue("--drawer-snap-point-offset")),
   );
+}
+
+for (const side of ["React", "Phoenix"]) {
+  test(`a modal disclosure probe keeps its original trigger on ${side}`, async ({ page }, testInfo) => {
+    const path = side === "Phoenix" ? "/preview/drawer/default"
+      : `${testInfo.project.use.parityURL}/preview/drawer/default`;
+    await page.goto(path);
+    if (side === "Phoenix") await connected(page);
+    else await referenceReady(page);
+    const scope = page.locator("[data-preview='drawer']");
+    const probes = await discoverInteractionProbes(scope);
+    const probe = probes.find(({ kind }) => kind === "disclosure");
+    expect(probe).toBeDefined();
+    const result = await enterInteractionProbe(page, scope, probe);
+    expect(result.opened.target.expanded).toBe("true");
+    expect(result.opened.popup).toEqual({ role: "dialog", visible: true, expanded: null });
+    expect(result.closed.target.expanded).toBe("false");
+    expect(result.closed.popup).toBeNull();
+    await expect(scope.getByRole("button", { name: "Open Drawer", exact: true })).toBeFocused();
+  });
 }
