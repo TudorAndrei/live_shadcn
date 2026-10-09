@@ -69,6 +69,9 @@ defmodule LiveBase.Dialog do
   `JS.push_focus` remembers where the reader was before the focus moves, so
   `close/2` can put it back. A dialog that opens from a button and closes to
   nowhere loses a keyboard reader's place on the page.
+
+  Focus the popup before searching its children. If no child accepts focus,
+  the popup keeps focus.
   """
   def open(js \\ %JS{}, dialog) do
     js
@@ -78,6 +81,7 @@ defmodule LiveBase.Dialog do
     |> JS.set_attribute({"data-open", ""}, to: layers(dialog))
     |> JS.remove_attribute("data-closed", to: layers(dialog))
     |> JS.push_focus()
+    |> JS.focus(to: "##{popup_id(dialog)}")
     |> JS.focus_first(to: "##{popup_id(dialog)}")
   end
 

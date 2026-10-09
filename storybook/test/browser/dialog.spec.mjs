@@ -54,13 +54,38 @@ test.describe("a dialog", () => {
   });
 
   test("the focus moves into it, so a keyboard reader is where the dialog is", async ({ page }) => {
-    const { trigger, popup } = dialog(page, "dialog-default");
+    for (const [example, focusName] of [
+      ["default", "Name"],
+      ["no-close-button", null],
+      ["default", "Username"],
+    ]) {
+      await visit(page, `/preview/dialog/${example}`, `#dialog-${example}-trigger`);
+      const { trigger, popup } = dialog(page, `dialog-${example}`);
+      if (focusName === "Username") {
+        const inputId = await popup.getByRole("textbox", { name: focusName, exact: true, includeHidden: true }).getAttribute("id");
+        await trigger.evaluate((element, id) => {
+          const commands = JSON.parse(element.getAttribute("phx-click"));
+          commands.push(["focus", { to: `#${CSS.escape(id)}` }]);
+          element.setAttribute("phx-click", JSON.stringify(commands));
+        }, inputId);
+      }
+      await trigger.click();
+      await expect(popup).toBeVisible();
 
-    await trigger.click();
-    await expect(popup).toBeVisible();
+      if (focusName) {
+        await expect(popup.getByRole("textbox", { name: focusName, exact: true })).toBeFocused();
+      } else {
+        await expect(popup).toBeFocused();
+        for (const key of ["Tab", "Shift+Tab"]) {
+          await page.keyboard.press(key);
+          await expect(popup).toBeFocused();
+        }
+      }
 
-    const inside = await popup.evaluate((el) => el.contains(document.activeElement));
-    expect(inside).toBe(true);
+      await page.keyboard.press("Escape");
+      await expect(popup).toBeHidden();
+      await expect(trigger).toBeFocused();
+    }
   });
 
   test("the focus comes back to the trigger when it closes", async ({ page }) => {
