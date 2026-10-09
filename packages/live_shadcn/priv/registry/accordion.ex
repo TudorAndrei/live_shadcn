@@ -33,6 +33,7 @@ defmodule LiveShadcn.UI.Accordion do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   alias LiveBase.Disclosure
+  alias LiveShadcn.Cn
 
   @doc """
   Groups all parts of the accordion.
@@ -87,7 +88,7 @@ defmodule LiveShadcn.UI.Accordion do
       id={@id}
       data-orientation={@orientation}
       data-disabled={flag(@disabled)}
-      class={[upstream_fact("jsx/Accordion/class/0"), (@class || "")]}
+      class={Cn.merge([upstream_fact("jsx/Accordion/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <div
@@ -96,7 +97,7 @@ defmodule LiveShadcn.UI.Accordion do
         id={item.id}
         phx-mounted={Disclosure.owned_attributes(:item)}
         data-open={flag(open?(item))}
-        data-disabled={flag(disabled?(item))}
+        data-disabled={flag(disabled?(item, @disabled))}
         data-index={index}
         class={[upstream_fact("jsx/AccordionItem/class/0"), (item[:class] || "")]}
       >
@@ -104,7 +105,7 @@ defmodule LiveShadcn.UI.Accordion do
           id={Disclosure.header_id(item.id)}
           phx-mounted={Disclosure.owned_attributes(:header)}
           data-open={flag(open?(item))}
-          data-disabled={flag(disabled?(item))}
+          data-disabled={flag(disabled?(item, @disabled))}
           data-index={index}
           class={[upstream_fact("jsx/AccordionTrigger/class/0"), (item[:trigger_class] || "")]}
         >
@@ -116,14 +117,14 @@ defmodule LiveShadcn.UI.Accordion do
             aria-controls={Disclosure.panel_id(item.id)}
             phx-click={
               interactive(
-                disabled?(item),
+                disabled?(item, @disabled),
                 Disclosure.toggle(item: item.id, root: @id, multiple: @multiple)
               )
             }
             phx-mounted={Disclosure.owned_attributes(:trigger)}
             data-panel-open={flag(open?(item))}
-            data-disabled={flag(disabled?(item))}
-            aria-disabled={to_string(disabled?(item))}
+            data-disabled={flag(disabled?(item, @disabled))}
+            aria-disabled={to_string(disabled?(item, @disabled))}
             class={[
               upstream_fact("jsx/AccordionTrigger/class/1"),
               (item[:trigger_class] || "")
@@ -152,7 +153,7 @@ defmodule LiveShadcn.UI.Accordion do
           data-lb-width-var="--accordion-panel-width"
           data-open={flag(open?(item))}
           data-orientation={@orientation}
-          data-disabled={flag(disabled?(item))}
+          data-disabled={flag(disabled?(item, @disabled))}
           data-index={index}
           data-closed={flag(not open?(item))}
           class={upstream_fact("jsx/AccordionContent/class/0")}
@@ -174,7 +175,7 @@ defmodule LiveShadcn.UI.Accordion do
   end
 
   defp open?(item), do: item[:open] == true
-  defp disabled?(item), do: item[:disabled] == true
+  defp disabled?(item, root_disabled), do: root_disabled == true or item[:disabled] == true
 
   # A disabled disclosure ignores interaction. `aria-disabled` and
   # `pointer-events-none` say so to a reader and to a mouse, but a keypress

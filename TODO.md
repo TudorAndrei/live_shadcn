@@ -227,13 +227,21 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Check source preparation, generated file ignores, and unchanged pinned refs.
 - [x] Commit: `chore(parity): untrack generated upstream link`
 
-## Phase 6e.11: apply Accordion caller width classes
+## Phase 6e.11: honor Accordion caller width and disabled state
 
-- [ ] Prove caller width merge failures in the existing Accordion class test.
-- [ ] Apply the shared class merger to the Accordion root.
-- [ ] Review its port hash and refresh affected root classes.
-- [ ] Pass package tests and complete Accordion verification.
-- [ ] Commit: `fix(accordion): apply caller width classes`
+- [x] Prove caller width merge failures in the existing Accordion class test.
+- [x] Apply the shared class merger to the Accordion root.
+- [x] Prove and repair inherited root disablement for parts and client commands.
+- [x] Review its port hash and refresh affected root classes.
+- [x] Pass package tests and complete Accordion verification.
+- [x] Commit: `fix(accordion): honor caller width and disabled state`
+
+## Phase 6e.12: show native Direction usage
+
+- [ ] Prove the route lacks a usable native direction example.
+- [ ] Show native HTML usage and the real Direction policy source.
+- [ ] Pass the route test, Storybook tests, and static checks.
+- [ ] Commit: `fix(storybook): show native direction usage`
 
 ## Phase 6f: refresh evidence and verify release badges
 

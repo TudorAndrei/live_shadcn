@@ -1,7 +1,7 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phases 6e.6 through 6e.10 are complete. Phase 6e.11
-repairs Accordion caller widths before the full verification run resumes.
+Status: in progress. Phases 6e.6 through 6e.11 are complete. Phase 6e.12
+corrects native Direction instructions before the full run resumes.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -642,7 +642,7 @@ Validation: preparation creates a valid reference directory. Git ignores both
 the generated symlink and the old regular pointer file. The pinned source
 manifest is unchanged, and the recorded verification identity still matches.
 
-### Phase 6e.11: apply Accordion caller width classes
+### Phase 6e.11: honor Accordion caller width and disabled state
 
 - State replay now reaches every Accordion state. The semantic check finds
   duplicate `w-full` classes in the disabled example. The root appends caller
@@ -650,9 +650,31 @@ manifest is unchanged, and the recorded verification identity still matches.
 - Extend the existing caller-class test with explicit default and replacement
   widths. Use the shared class merger for the root. Review its port-body hash
   and refreshed root classes without changing pinned facts or comparison rules.
+- The same root review finds that `disabled=true` only marks the root. Child
+  flags and commands read the item value, so root-disabled items can still open.
+  Test the documented root contract and propagate root disablement to each part
+  and its client command. Keep independently disabled items disabled.
 - Pass package tests and complete Accordion verification before the full run.
 
-**Commit:** `fix(accordion): apply caller width classes`
+**Commit:** `fix(accordion): honor caller width and disabled state`
+
+Validation: both extended package tests fail before their repairs and pass
+after them. All 149 shadcn tests and its static check pass. Offline and fetched
+contract checks pass for all 61 ports. Only the Accordion port-body hash changes.
+All 463 shadcn snapshots are current. Complete Accordion verification passes all
+nine required checks over its seven official examples. Comparison rules and
+pinned refs remain unchanged.
+
+### Phase 6e.12: show native Direction usage
+
+- The new No DOM route inherits a generic installation command and a nonexistent
+  component spec path. Direction uses the native HTML `dir` attribute.
+- Extend the connected route test to require a usable HTML direction example.
+  Show native usage and the real policy source for Direction. Keep ordinary
+  component installation instructions and the No DOM badge contract.
+- Pass the route test, Storybook tests, and static checks before the full run.
+
+**Commit:** `fix(storybook): show native direction usage`
 
 ### Phase 6f: refresh evidence and verify release badges
 

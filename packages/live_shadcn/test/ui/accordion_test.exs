@@ -88,11 +88,18 @@ defmodule LiveShadcn.UI.AccordionTest do
       assert "w-full" in classes
     end
 
-    test "the caller's class is appended to the class string upstream renders" do
-      classes = classes(slot(render(%{class: "mt-4"}), "accordion"))
+    test "caller classes keep additions and control the root width" do
+      for {caller, width} <- [
+            {"mt-4", "w-full"},
+            {"mt-4 w-full", "w-full"},
+            {"mt-4 w-auto", "w-auto"}
+          ] do
+        classes = classes(slot(render(%{class: caller}), "accordion"))
 
-      assert "cn-accordion" in classes
-      assert "mt-4" in classes
+        assert "cn-accordion" in classes
+        assert "mt-4" in classes
+        assert Enum.filter(classes, &String.starts_with?(&1, "w-")) == [width]
+      end
     end
   end
 
@@ -143,12 +150,16 @@ defmodule LiveShadcn.UI.AccordionTest do
       assert attribute(slot(html, "accordion-trigger"), "data-panel-open") == nil
     end
 
-    test "a disabled item sets both the attribute Base UI documents and the one shadcn styles" do
-      html = with_item(%{disabled: true})
-      trigger = slot(html, "accordion-trigger")
+    test "root and item disablement mark each part and withhold interaction" do
+      for html <- [with_item(%{disabled: true}), render(%{disabled: true})] do
+        for name <- ~w(accordion-item accordion-trigger accordion-content) do
+          assert attribute(slot(html, name), "data-disabled") == :present
+        end
 
-      assert attribute(trigger, "data-disabled") == :present
-      assert attribute(trigger, "aria-disabled") == "true"
+        trigger = slot(html, "accordion-trigger")
+        assert attribute(trigger, "aria-disabled") == "true"
+        assert attribute(trigger, "phx-click") == nil
+      end
     end
 
     test "the accordion and its panels carry the documented orientation" do
