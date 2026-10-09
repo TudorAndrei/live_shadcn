@@ -1441,6 +1441,9 @@ async function enterNestedInteractionPath(page, selector, path) {
     await scope.waitFor({ state: "visible" });
   }
 
+  // Opening focus can run again in a later animation frame. Finish popup
+  // entry before a nested action edits a field or moves selection.
+  await settleInteraction(page, { waitForTransitions: true });
   return scope;
 }
 

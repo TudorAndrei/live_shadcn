@@ -373,3 +373,46 @@ for (const side of ["Phoenix", "React"]) {
     await expect(page.getByRole("textbox", { name: "Name", exact: true })).toHaveValue("Parity text");
   });
 }
+
+for (const side of ["React", "Phoenix"]) {
+  test(`nested text replay keeps focus on the edited Username field on ${side}`, async ({ page }, testInfo) => {
+    // Deliver callbacks on real browser frames at a lower rate to expose
+    // opening focus that can finish after the next action on a busy page.
+    await page.addInitScript(() => {
+      const request = window.requestAnimationFrame.bind(window);
+      const cancel = window.cancelAnimationFrame.bind(window);
+      const pending = new Map();
+      window.requestAnimationFrame = (callback) => {
+        let remaining = 8;
+        let handle;
+        const advance = (timestamp) => {
+          if (!pending.has(handle)) return;
+          if (--remaining === 0) {
+            pending.delete(handle);
+            callback(timestamp);
+          } else pending.set(handle, request(advance));
+        };
+        handle = request(advance);
+        pending.set(handle, handle);
+        return handle;
+      };
+      window.cancelAnimationFrame = (handle) => {
+        cancel(pending.get(handle) ?? handle);
+        pending.delete(handle);
+      };
+    });
+    const path = side === "Phoenix" ? "/preview/dialog/default"
+      : `${testInfo.project.use.parityURL}/preview/dialog/default`;
+    const selector = "[data-preview='dialog']";
+    await visitPreview(page, path);
+    const states = await visualStates(page, selector);
+    const state = states.find(({ name, kind }) => kind === "nested-native-control" && name.endsWith("editable:Username"));
+    expect(state).toBeDefined();
+    await visitPreview(page, path);
+    await enterVisualState(page, selector, state);
+    const username = page.getByRole("textbox", { name: "Username", exact: true });
+    await expect(username).toHaveValue("Parity text");
+    expect(await username.evaluate((element) => document.activeElement === element)).toBe(true);
+    await expect(page.getByRole("textbox", { name: "Name", exact: true })).toHaveValue("Pedro Duarte");
+  });
+}
