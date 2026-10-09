@@ -24,8 +24,9 @@ export const CheckboxTable = {
     else row?.removeAttribute("data-state");
 
     const selectAll = this.el.querySelector("[data-select-all]");
-    const selected = this.rowControls().filter((item) => this.input(item).checked).length;
-    this.setControl(selectAll, selected === this.rowControls().length, selected > 0 && selected < this.rowControls().length);
+    const rows = this.rowControls();
+    const selected = rows.filter((item) => this.input(item).checked).length;
+    this.setControl(selectAll, selected === rows.length);
   },
 
   rowControls() {
@@ -36,20 +37,18 @@ export const CheckboxTable = {
     return control.nextElementSibling;
   },
 
-  setControl(control, checked, indeterminate = false) {
+  setControl(control, checked) {
     if (!control) return;
 
-    control.setAttribute("aria-checked", indeterminate ? "mixed" : String(checked));
+    control.setAttribute("aria-checked", String(checked));
     control.toggleAttribute("data-checked", checked);
     control.toggleAttribute("data-unchecked", !checked);
     control.toggleAttribute("data-filled", checked);
-    control.toggleAttribute("data-indeterminate", indeterminate);
 
     const indicator = control.querySelector("[data-slot='checkbox-indicator']");
-    if (indicator) indicator.hidden = !(checked || indeterminate);
+    if (indicator) indicator.hidden = !checked;
 
     const input = this.input(control);
-    input.checked = checked;
     input.toggleAttribute("checked", checked);
   },
 };

@@ -10,7 +10,7 @@
 
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { connected, referenceReady, visit } from "./live.mjs";
 
 const checkboxControl = (page, id) => ({
   control: page.locator(`#${id}-control`),
@@ -114,26 +114,46 @@ test.describe("a switch", () => {
   });
 });
 
-test.describe("checkbox table selection", () => {
-  test("select all changes every row", async ({ page }) => {
-    await visit(page, "/preview/checkbox/table", "#checkbox-table");
-    const { control: selectAll } = checkboxControl(page, "select-all-checkbox");
+for (const side of ["React", "Phoenix"]) {
+  test(`checkbox table keeps partial, full, and cleared selection aligned on ${side}`, async ({ page }, testInfo) => {
+    const path = "/preview/checkbox/table";
+    await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+    await (side === "React" ? referenceReady(page) : connected(page));
+    const scope = page.locator("[data-preview='checkbox']");
+    const header = scope.locator("thead [role='checkbox']");
+    const rows = scope.locator("tbody [role='checkbox']");
+    const nativeValue = side === "React" ? "on" : "true";
 
-    await selectAll.click();
+    async function expectSelection(selected) {
+      const all = selected.every(Boolean);
+      await expect(header).toHaveAttribute("aria-checked", String(all));
+      for (let index = 0; index < selected.length; index += 1) {
+        await expect(rows.nth(index)).toHaveAttribute("aria-checked", String(selected[index]));
+      }
+      await expect(scope.locator("tbody tr[data-state='selected']")).toHaveCount(selected.filter(Boolean).length);
+      const submitted = await scope.locator("input[type='checkbox']").evaluateAll((inputs) =>
+        inputs.filter((input) => input.checked && !input.disabled).map((input) => [input.name, input.value]),
+      );
+      const expected = all ? [["select-all-checkbox", nativeValue]] : [];
+      selected.forEach((checked, index) => {
+        if (checked) expected.push([`row-${index + 1}-checkbox`, nativeValue]);
+      });
+      expect(submitted).toEqual(expected);
+    }
 
-    await expect(page.locator("tbody [role='checkbox'][aria-checked='true']")).toHaveCount(4);
-    await expect(page.locator("tbody tr[data-state='selected']")).toHaveCount(4);
+    await expectSelection([true, false, false, false]);
+    await rows.nth(1).click();
+    await expectSelection([true, true, false, false]);
+    await header.click();
+    await expectSelection([true, true, true, true]);
+    await rows.nth(0).click();
+    await expectSelection([false, true, true, true]);
+    await header.click();
+    await expectSelection([true, true, true, true]);
+    await header.click();
+    await expectSelection([false, false, false, false]);
   });
-
-  test("one row changes its selected state", async ({ page }) => {
-    await visit(page, "/preview/checkbox/table", "#checkbox-table");
-    const { control: second } = checkboxControl(page, "row-2-checkbox");
-
-    await second.click();
-    await expect(second).toHaveAttribute("aria-checked", "true");
-    await expect(second.locator("xpath=ancestor::tr")).toHaveAttribute("data-state", "selected");
-  });
-});
+}
 
 test.describe("a radio group", () => {
   test("choosing one unchooses the others, which is what makes it a radio", async ({ page }) => {
