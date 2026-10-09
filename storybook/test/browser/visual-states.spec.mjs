@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { enterVisualState, visualStates } from "./visual-states.mjs";
+import { discoverInteractionProbes } from "./interaction-parity.mjs";
 import { referenceReady, visit } from "./live.mjs";
 
 async function visitPreview(page, path) {
@@ -337,5 +338,38 @@ for (const side of ["Phoenix", "React"]) {
       return positions;
     });
     expect([...new Set(laterPositions)]).toEqual([position]);
+  });
+}
+
+for (const side of ["Phoenix", "React"]) {
+  test(`read-only Share fields survive every declared state on ${side}`, async ({ page }, testInfo) => {
+    const path = side === "Phoenix" ? "/preview/dialog/close-button"
+      : `${testInfo.project.use.parityURL}/preview/dialog/close-button`;
+    const selector = "[data-preview='dialog']";
+    await visitPreview(page, path);
+    const states = await visualStates(page, selector);
+    const open = states.find((state) => state.kind === "expanded");
+    expect(open).toBeDefined();
+    for (const state of states) {
+      await visitPreview(page, path);
+      await enterVisualState(page, selector, state);
+    }
+    await visitPreview(page, path);
+    await enterVisualState(page, selector, open);
+    const link = page.getByRole("textbox", { name: "Link", exact: true });
+    await expect(link).toHaveAttribute("readonly", "");
+    await expect(link).toHaveValue("https://ui.shadcn.com/docs/installation");
+    const probes = await discoverInteractionProbes(page.getByRole("dialog"));
+    expect(probes.filter(({ kind }) => kind === "editable-text")).toEqual([]);
+
+    const editablePath = side === "Phoenix" ? "/preview/dialog/default"
+      : `${testInfo.project.use.parityURL}/preview/dialog/default`;
+    await visitPreview(page, editablePath);
+    const editableStates = await visualStates(page, selector);
+    const edit = editableStates.find((state) => state.controlKind === "editable");
+    expect(edit).toBeDefined();
+    await visitPreview(page, editablePath);
+    await enterVisualState(page, selector, edit);
+    await expect(page.getByRole("textbox", { name: "Name", exact: true })).toHaveValue("Parity text");
   });
 }

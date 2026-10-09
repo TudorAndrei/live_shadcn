@@ -925,12 +925,13 @@ async function discoverEditableControlStates(scope, states, component, model) {
 
 // A control marked aria-hidden is an implementation proxy, not a control a
 // reader can use. Base UI Select uses one for browser autofill. Keep real,
-// visible fields in the state model, but never enter a proxy state.
+// visible editable fields in the state model. Read-only fields remain visible
+// during expanded-state scans, but have no text mutation state.
 export function nativeVisualControlSelector() {
   return [
-    "input:not([type]):not([aria-hidden='true']):visible, input[type='text']:not([aria-hidden='true']):visible, input[type='search']:not([aria-hidden='true']):visible",
-    "input[type='email']:not([aria-hidden='true']):visible, input[type='url']:not([aria-hidden='true']):visible, input[type='tel']:not([aria-hidden='true']):visible",
-    "input[type='password']:not([aria-hidden='true']):visible, textarea:not([aria-hidden='true']):visible, input[type='checkbox']:not([aria-hidden='true']):visible",
+    "input:not([type]):not([readonly]):not([aria-hidden='true']):visible, input[type='text']:not([readonly]):not([aria-hidden='true']):visible, input[type='search']:not([readonly]):not([aria-hidden='true']):visible",
+    "input[type='email']:not([readonly]):not([aria-hidden='true']):visible, input[type='url']:not([readonly]):not([aria-hidden='true']):visible, input[type='tel']:not([readonly]):not([aria-hidden='true']):visible",
+    "input[type='password']:not([readonly]):not([aria-hidden='true']):visible, textarea:not([readonly]):not([aria-hidden='true']):visible, input[type='checkbox']:not([aria-hidden='true']):visible",
     "input[type='radio']:not([aria-hidden='true']):visible, input[type='range']:not([aria-hidden='true']):visible, select:not([aria-hidden='true']):visible",
   ].join(", ");
 }

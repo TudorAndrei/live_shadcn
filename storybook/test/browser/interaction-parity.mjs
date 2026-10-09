@@ -27,14 +27,14 @@ export function scopedInteractionPages(previews, scope, hasOfficialReference) {
 /** Native editable controls that a reader can use and a probe can safely enter. */
 export function editableInteractionSelector() {
   return [
-    "textarea:not([aria-hidden='true'])",
-    "input:not([type]):not([aria-hidden='true'])",
-    "input[type='text']:not([aria-hidden='true'])",
-    "input[type='search']:not([aria-hidden='true'])",
-    "input[type='email']:not([aria-hidden='true'])",
-    "input[type='url']:not([aria-hidden='true'])",
-    "input[type='tel']:not([aria-hidden='true'])",
-    "input[type='password']:not([aria-hidden='true'])",
+    "textarea:not([readonly]):not([aria-hidden='true'])",
+    "input:not([type]):not([readonly]):not([aria-hidden='true'])",
+    "input[type='text']:not([readonly]):not([aria-hidden='true'])",
+    "input[type='search']:not([readonly]):not([aria-hidden='true'])",
+    "input[type='email']:not([readonly]):not([aria-hidden='true'])",
+    "input[type='url']:not([readonly]):not([aria-hidden='true'])",
+    "input[type='tel']:not([readonly]):not([aria-hidden='true'])",
+    "input[type='password']:not([readonly]):not([aria-hidden='true'])",
   ].join(", ");
 }
 
