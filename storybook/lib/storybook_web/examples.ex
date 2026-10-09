@@ -16740,12 +16740,12 @@ defmodule StorybookWeb.Examples do
         </:description>
         <.field_group>
           <.field>
-            <.label for="name-1">الاسم</.label>
-            <.input id="name-1" name="name" value="Pedro Duarte" />
+            <.label for="dialog-rtl-name">الاسم</.label>
+            <.input id="dialog-rtl-name" name="name" value="Pedro Duarte" />
           </.field>
           <.field>
-            <.label for="username-1">اسم المستخدم</.label>
-            <.input id="username-1" name="username" value="@peduarte" />
+            <.label for="dialog-rtl-username">اسم المستخدم</.label>
+            <.input id="dialog-rtl-username" name="username" value="@peduarte" />
           </.field>
         </.field_group>
         <:footer>

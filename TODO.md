@@ -206,6 +206,14 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Pass private/tools/Storybook tests and static checks.
 - [x] Commit: `fix(verification): complete badge status semantics`
 
+## Phase 6e.8: isolate Dialog documentation inputs
+
+- [x] Prove the connected route failure and test label associations.
+- [x] Give RTL Dialog inputs and labels distinct IDs.
+- [x] Refresh only the RTL Dialog snapshot.
+- [x] Pass focused route, preview, formatting, and shadcn snapshot checks.
+- [x] Commit: `fix(storybook): isolate dialog example inputs`
+
 ## Phase 6f: refresh evidence and verify release badges
 
 - [ ] Prepare pinned sources without advancing the shadcn or AI ref.

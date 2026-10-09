@@ -21,6 +21,27 @@ defmodule StorybookWeb.ExamplesTest do
     end
   end
 
+  test "Dialog documentation connects with each label bound to its own input", %{conn: conn} do
+    {:ok, _view, html} = live(conn, "/docs/dialog")
+    document = Floki.parse_fragment!(html)
+
+    for {dialog, labels} <- [
+          {"dialog-default", ["Name", "Username"]},
+          {"dialog-rtl", ["الاسم", "اسم المستخدم"]}
+        ] do
+      for text <- labels do
+        [label] =
+          document
+          |> Floki.find("##{dialog}-popup label")
+          |> Enum.filter(&(String.trim(Floki.text(&1)) == text))
+
+        [target] = Floki.attribute([label], "for")
+        assert [_input] = Floki.find(document, "input##{target}")
+        assert [_input] = Floki.find(document, "##{dialog}-popup input##{target}")
+      end
+    end
+  end
+
   describe "Message Scroller pre-LiveSocket opening" do
     test "pre-scrolls a held end opening before the hook mounts" do
       root_layout =

@@ -1,6 +1,6 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phases 6e.6 and 6e.7 are complete. Phase 6f refreshes
+Status: in progress. Phases 6e.6 through 6e.8 are complete. Phase 6f refreshes
 the full verification evidence and checks release badges.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
@@ -586,6 +586,24 @@ Run the large suites in sequence because they scan or change shared inputs.
 AI record bytes remain unchanged.
 
 **Commit:** `fix(verification): complete badge status semantics`
+
+### Phase 6e.8: isolate Dialog documentation inputs
+
+- The default and RTL Dialog examples both use `name-1` and `username-1`.
+  They share one documentation page, so LiveView rejects duplicate IDs and
+  labels can select the wrong input.
+- Test the connected documentation route and each dialog's label association.
+  Give the RTL inputs distinct IDs and update their labels. Keep the official
+  text, values, names, and interaction checks.
+- Refresh only the RTL Dialog snapshot. Check the focused route, preview
+  coverage, formatting, and the shadcn snapshots before the full browser run.
+
+**Commit:** `fix(storybook): isolate dialog example inputs`
+
+Validation: the connected route fails before the repair on duplicate
+`username-1` IDs. After the repair, all 64 example tests pass, including
+connected Dialog documentation and independent label associations. All 463
+shadcn snapshots are current. Formatting and diff checks pass.
 
 ### Phase 6f: refresh evidence and verify release badges
 
