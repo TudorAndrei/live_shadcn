@@ -18,6 +18,7 @@ defmodule LiveShadcn.UI.Collapsible do
   Module.get_attribute(__MODULE__, :upstream_facts)
 
   alias LiveBase.Disclosure
+  alias Phoenix.LiveView.JS
 
   @doc """
   Groups all parts of the collapsible.
@@ -26,8 +27,9 @@ defmodule LiveShadcn.UI.Collapsible do
         The panel body.
       </.collapsible>
 
-  Opening and closing runs entirely on the client. The server is not told,
-  and does not need to be: the state is whether a reader is looking at it.
+  The local toggle runs on the client. Set `phx-click` on the trigger to send
+  a server event or run a caller JS command after the toggle. `trigger_attrs`
+  accepts the same command on the grouped component.
   """
   attr(:id, :string, required: true, doc: "Every id inside the component derives from it.")
   attr(:title, :any, default: nil, doc: "The trigger content when no trigger slot is given.")
@@ -123,13 +125,19 @@ defmodule LiveShadcn.UI.Collapsible do
       aria-disabled={to_string(@disabled)}
       aria-controls={Disclosure.panel_id(@for)}
       phx-click={
-        interactive(@disabled, Disclosure.toggle(item: @for, root: @for, multiple: true))
+        interactive(
+          @disabled,
+          caller_click(
+            Disclosure.toggle(item: @for, root: @for, multiple: true),
+            @rest[:"phx-click"]
+          )
+        )
       }
       phx-mounted={Disclosure.owned_attributes(:trigger)}
       data-panel-open={flag(@open)}
       disabled={@disabled}
       class={@class}
-      {Map.drop(@rest, [:"data-slot", :type])}
+      {Map.drop(@rest, [:"data-slot", :type, :"phx-click"])}
     >
       {render_slot(@inner_block)}
     </button>
@@ -163,6 +171,11 @@ defmodule LiveShadcn.UI.Collapsible do
     </div>
     """
   end
+
+  defp caller_click(command, nil), do: command
+  defp caller_click(command, ""), do: command
+  defp caller_click(command, %JS{} = caller), do: JS.concat(command, caller)
+  defp caller_click(command, event) when is_binary(event), do: JS.push(command, event)
 
   # A disabled disclosure ignores interaction. `aria-disabled` and
   # `pointer-events-none` say so to a reader and to a mouse, but a keypress
