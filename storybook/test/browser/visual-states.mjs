@@ -1387,6 +1387,8 @@ export async function enterVisualState(page, selector, state) {
       await scope.waitFor({ state: "visible" });
     }
   }
+
+  await settleInteraction(page, { waitForTransitions: true });
 }
 
 async function enterNativeVisualControl(control, kind, value) {

@@ -39,27 +39,39 @@ test("state names use a control's native label", async ({ page }) => {
   expect(states.map(({ name }) => name)).toEqual(["default", "checked:الشهر"]);
 });
 
-test("popover / default exposes its closed and expanded render states", async ({ page }) => {
-  const selector = "[data-preview='popover']";
+for (const side of ["Phoenix", "React"]) {
+  test(`popover / default exposes settled closed and expanded states on ${side}`, async ({ page }, testInfo) => {
+    const selector = "[data-preview='popover']";
+    const path = side === "Phoenix"
+      ? "/preview/popover/default"
+      : `${testInfo.project.use.parityURL}/preview/popover/default`;
 
-  await visitPreview(page, "/preview/popover/default");
+    await visitPreview(page, path);
+    const states = await visualStates(page, selector);
+    expect(states.map(({ name }) => name)).toEqual([
+      "default",
+      "action:Open popover > editable:Width",
+      "action:Open popover > editable:Max. width",
+      "action:Open popover > editable:Height",
+      "action:Open popover > editable:Max. height",
+      "expanded:Open popover",
+    ]);
 
-  const states = await visualStates(page, selector);
+    await visitPreview(page, path);
+    await page.addStyleTag({ content: `
+      [data-slot='popover-content'] {
+        transition-duration: 600ms !important;
+        animation-duration: 600ms !important;
+      }
+    ` });
+    await enterVisualState(page, selector, states[5]);
 
-  expect(states.map(({ name }) => name)).toEqual([
-    "default",
-    "action:Open popover > editable:Width",
-    "action:Open popover > editable:Max. width",
-    "action:Open popover > editable:Height",
-    "action:Open popover > editable:Max. height",
-    "expanded:Open popover",
-  ]);
-
-  await visitPreview(page, "/preview/popover/default");
-  await enterVisualState(page, selector, states[5]);
-
-  await expect(page.getByRole("dialog")).toBeVisible();
-});
+    const opacity = await page.locator("[data-slot='popover-content']")
+      .evaluate((element) => getComputedStyle(element).opacity);
+    expect(opacity).toBe("1");
+    await expect(page.getByRole("dialog")).toBeVisible();
+  });
+}
 
 test("editable comboboxes use a user click to enter the expanded state", async ({ page }, testInfo) => {
   const selector = "[data-preview='combobox']";
