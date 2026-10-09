@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 import { enterVisualState, visualStates } from "./visual-states.mjs";
 import { discoverInteractionProbes } from "./interaction-parity.mjs";
-import { referenceReady, visit } from "./live.mjs";
+import { referenceReady, slowAnimationFrames, visit } from "./live.mjs";
 import { collect } from "./measure.mjs";
 
 async function visitPreview(page, path) {
@@ -402,29 +402,7 @@ for (const side of ["React", "Phoenix"]) {
   test(`nested text replay keeps focus on the edited Username field on ${side}`, async ({ page }, testInfo) => {
     // Deliver callbacks on real browser frames at a lower rate to expose
     // opening focus that can finish after the next action on a busy page.
-    await page.addInitScript(() => {
-      const request = window.requestAnimationFrame.bind(window);
-      const cancel = window.cancelAnimationFrame.bind(window);
-      const pending = new Map();
-      window.requestAnimationFrame = (callback) => {
-        let remaining = 8;
-        let handle;
-        const advance = (timestamp) => {
-          if (!pending.has(handle)) return;
-          if (--remaining === 0) {
-            pending.delete(handle);
-            callback(timestamp);
-          } else pending.set(handle, request(advance));
-        };
-        handle = request(advance);
-        pending.set(handle, handle);
-        return handle;
-      };
-      window.cancelAnimationFrame = (handle) => {
-        cancel(pending.get(handle) ?? handle);
-        pending.delete(handle);
-      };
-    });
+    await slowAnimationFrames(page);
     const path = side === "Phoenix" ? "/preview/dialog/default"
       : `${testInfo.project.use.parityURL}/preview/dialog/default`;
     const selector = "[data-preview='dialog']";

@@ -49,3 +49,30 @@ export async function referenceReady(page) {
     document.documentElement.dataset.referenceReady === "true",
   );
 }
+
+/** Deliver animation callbacks on real browser frames at a lower rate. */
+export async function slowAnimationFrames(page) {
+  await page.addInitScript(() => {
+    const request = window.requestAnimationFrame.bind(window);
+    const cancel = window.cancelAnimationFrame.bind(window);
+    const pending = new Map();
+    window.requestAnimationFrame = (callback) => {
+      let remaining = 8;
+      let handle;
+      const advance = (timestamp) => {
+        if (!pending.has(handle)) return;
+        if (--remaining === 0) {
+          pending.delete(handle);
+          callback(timestamp);
+        } else pending.set(handle, request(advance));
+      };
+      handle = request(advance);
+      pending.set(handle, handle);
+      return handle;
+    };
+    window.cancelAnimationFrame = (handle) => {
+      cancel(pending.get(handle) ?? handle);
+      pending.delete(handle);
+    };
+  });
+}

@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { discoverInteractionProbes, enterInteractionProbe } from "./interaction-parity.mjs";
-import { connected, referenceReady, visit } from "./live.mjs";
+import { connected, referenceReady, slowAnimationFrames, visit } from "./live.mjs";
 
 const standardExamples = [
   ["default", "drawer-demo", "Open Drawer"],
@@ -9,24 +9,47 @@ const standardExamples = [
   ["swipe-handle", "drawer-swipe-handle", "Open Drawer"],
 ];
 
-for (const [example, id, triggerName] of standardExamples) {
-  test(`${example} opens and closes through its public controls`, async ({ page }) => {
-    await visit(page, `/preview/drawer/${example}`, `#${id}-trigger`);
+async function visitSide(page, testInfo, side, example) {
+  const path = `/preview/drawer/${example}`;
+  await page.goto(side === "Phoenix" ? path : `${testInfo.project.use.parityURL}${path}`);
+  if (side === "Phoenix") await connected(page);
+  else await referenceReady(page);
+}
 
-    const trigger = page.getByRole("button", { name: triggerName, exact: true });
-    const popup = page.locator(`#${id}-popup`);
-
-    await trigger.click();
-    await expect(popup).toBeVisible();
-    await expect(popup).toHaveRole("dialog");
-    await expect(trigger).toHaveAttribute("aria-expanded", "true");
-    await expect(popup).toBeFocused();
-
-    await popup.getByRole("button", { name: /^(Cancel|Close)$/ }).click();
-    await expect(popup).toBeHidden();
-    await expect(trigger).toHaveAttribute("aria-expanded", "false");
-    await expect(trigger).toBeFocused();
+async function popupEntryFinished(popup) {
+  await popup.evaluate(async (element) => {
+    // LiveView focus commands repeat after two frames for show/hide chains.
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    await Promise.all(element.getAnimations({ subtree: true })
+      .filter((animation) => Number.isFinite(animation.effect?.getComputedTiming().endTime))
+      .map((animation) => animation.finished.catch(() => {})));
   });
+}
+
+for (const side of ["React", "Phoenix"]) {
+  for (const [example, , triggerName] of standardExamples) {
+    test(`${example} opens and closes through its public controls on ${side}`, async ({ page }, testInfo) => {
+      await visitSide(page, testInfo, side, example);
+      const trigger = page.locator("[data-slot='drawer-trigger']");
+      const popup = page.locator("[data-slot='drawer-popup']");
+
+      await trigger.click();
+      await expect(popup).toBeVisible();
+      await expect(popup).toHaveRole("dialog");
+      await expect(trigger).toHaveAttribute("aria-expanded", "true");
+      await expect(popup).toBeFocused();
+      await expect(page.getByRole("button", { name: triggerName, exact: true })).toHaveCount(0);
+      if (example === "default") {
+        await expect(page.getByRole("region", { name: /^Notifications/ })).toHaveCount(1);
+      }
+
+      await popup.getByRole("button", { name: /^(Cancel|Close)$/ }).click();
+      await expect(popup).toBeHidden();
+      await expect(trigger).toHaveAttribute("aria-expanded", "false");
+      await expect(trigger).toBeFocused();
+      await expect(page.getByRole("button", { name: triggerName, exact: true })).toBeVisible();
+    });
+  }
 }
 
 test("snap-points opens at its compact point and closes with Escape", async ({ page }) => {
@@ -38,6 +61,7 @@ test("snap-points opens at its compact point and closes with Escape", async ({ p
   await trigger.click();
   await expect(popup).toBeVisible();
   await expect(popup).toHaveRole("dialog");
+  await popupEntryFinished(popup);
 
   await page.keyboard.press("Escape");
   await expect(popup).toBeHidden();
@@ -54,6 +78,7 @@ test("non-modal keeps the page active and ignores outside pointers", async ({ pa
   await expect(popup).toBeVisible();
   await expect(page.locator("#drawer-non-modal-backdrop")).toHaveCount(0);
   await expect(popup).toBeFocused();
+  await expect(page.getByRole("button", { name: "Non Modal", exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe("");
 
   await page.mouse.click(20, 20);
@@ -64,40 +89,119 @@ test("non-modal keeps the page active and ignores outside pointers", async ({ pa
   await expect(trigger).toBeFocused();
 });
 
-test("nested Escape closes only the front drawer", async ({ page }) => {
-  await visit(page, "/preview/drawer/nested", "#drawer-nested-trigger");
+for (const side of ["React", "Phoenix"]) {
+  test(`nested Tab and Escape use only the front drawer on ${side}`, async ({ page }, testInfo) => {
+    await visitSide(page, testInfo, side, "nested");
+    const titles = ["Drawer", "Nested Drawer", "Third Drawer", "Fourth Drawer"];
+    const popups = titles.map((title) => page.locator("[data-slot='drawer-popup']").filter({
+      has: page.locator("[data-slot='drawer-title']", { hasText: new RegExp(`^\\s*${title}\\s*$`) }),
+    }));
+    const triggerNames = ["Open Drawer", "Open Nested Drawer", "Open Third Drawer", "Open Fourth Drawer"];
 
-  const popups = [1, 2, 3, 4].map((level) =>
-    page.locator(`#drawer-nested${level === 1 ? "" : `-${level}`}-popup`),
-  );
-  const triggerNames = [
-    "Open Drawer",
-    "Open Nested Drawer",
-    "Open Third Drawer",
-    "Open Fourth Drawer",
-  ];
+    for (let index = 0; index < popups.length; index += 1) {
+      await page.getByRole("button", { name: triggerNames[index], exact: true }).click();
+      const popup = popups[index];
+      await expect(popup).toBeVisible();
+      await expect(popup).toBeFocused();
+      await popupEntryFinished(popup);
+      const close = popup.getByRole("button", { name: "Close", exact: true });
+      await page.keyboard.press("Tab");
+      if (index < popups.length - 1) {
+        const next = popup.getByRole("button", { name: triggerNames[index + 1], exact: true });
+        await expect(next).toBeFocused();
+        await page.keyboard.press("Tab");
+        await expect(close).toBeFocused();
+        await page.keyboard.press("Shift+Tab");
+        await expect(next).toBeFocused();
+        await page.keyboard.press("Shift+Tab");
+      }
+      await expect(close).toBeFocused();
+    }
+    await expect(page.getByRole("dialog")).toHaveCount(1);
+    await expect(page.getByRole("button", { name: "Open Drawer", exact: true })).toHaveCount(0);
 
-  for (let index = 0; index < popups.length; index += 1) {
-    await page.getByRole("button", { name: triggerNames[index], exact: true }).click();
-    await expect(popups[index]).toBeVisible();
-    await expect(popups[index]).toBeFocused();
-  }
+    await expect(popups[0]).toHaveAttribute("data-nested-drawer-open", "");
+    await expect(popups[0]).toHaveCSS("--nested-drawers", "3");
+    for (let index = popups.length - 1; index >= 0; index -= 1) {
+      await page.keyboard.press("Escape");
+      await expect(popups[index]).toBeHidden();
+      if (index > 0) {
+        await expect(popups[index - 1]).toBeVisible();
+        await expect(popups[index - 1].getByRole("button", { name: triggerNames[index], exact: true })).toBeFocused();
+        await expect(page.getByRole("dialog")).toHaveCount(1);
+      }
+    }
+    await expect(page.getByRole("button", { name: "Open Drawer", exact: true })).toBeFocused();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe("");
+  });
+}
 
-  await expect(popups[0]).toHaveAttribute("data-nested-drawer-open", "");
-  await expect(popups[0]).toHaveCSS("--nested-drawers", "3");
-
+test("modal background attributes follow document changes and restore on close", async ({ page }) => {
+  await visit(page, "/preview/drawer/default", "#drawer-demo-trigger");
+  await page.evaluate(() => {
+    for (const [id, value] of [["authored-false", "false"], ["authored-true", "true"]]) {
+      const node = document.createElement("aside");
+      node.id = id;
+      node.setAttribute("aria-hidden", value);
+      node.textContent = id;
+      document.body.append(node);
+    }
+    document.body.style.overflow = "scroll";
+    document.body.style.paddingRight = "7px";
+  });
+  const trigger = page.locator("#drawer-demo-trigger");
+  await trigger.click();
+  await expect(page.locator("#authored-false")).toHaveAttribute("aria-hidden", "true");
+  await expect(page.getByRole("region", { name: /^Notifications/ })).toHaveCount(1);
+  await page.evaluate(() => {
+    document.querySelector("#authored-false").setAttribute("aria-hidden", "false");
+    const node = document.createElement("aside");
+    node.id = "late-background";
+    node.textContent = "Added while the modal is open";
+    document.body.append(node);
+  });
+  await expect(page.locator("#authored-false")).toHaveAttribute("aria-hidden", "true");
+  await expect(page.locator("#late-background")).toHaveAttribute("aria-hidden", "true");
   await page.keyboard.press("Escape");
-  await expect(popups[3]).toBeHidden();
-  await expect(popups[0]).toBeVisible();
-  await expect(popups[1]).toBeVisible();
-  await expect(popups[2]).toBeVisible();
-  await expect(popups[2].getByRole("button", { name: "Open Fourth Drawer", exact: true })).toBeFocused();
+  await expect(page.locator("#drawer-demo-popup")).toBeHidden();
+  await expect(page.locator("#authored-false")).toHaveAttribute("aria-hidden", "false");
+  await expect(page.locator("#authored-true")).toHaveAttribute("aria-hidden", "true");
+  await expect(page.locator("#late-background")).not.toHaveAttribute("aria-hidden", /.*/);
+  await expect(trigger).toBeFocused();
+  await expect.poll(() => page.evaluate(() => [document.body.style.overflow, document.body.style.paddingRight])).toEqual(["scroll", "7px"]);
+});
 
+test("modal locks survive an earlier close and release when the view is removed", async ({ page }) => {
+  await visit(page, "/docs/drawer", "#drawer-demo-trigger");
+  await page.evaluate(() => {
+    document.body.style.overflow = "scroll";
+    document.body.style.paddingRight = "7px";
+  });
+  await page.locator("#drawer-demo-trigger").click();
+  await expect(page.locator("#drawer-demo-popup")).toBeVisible();
+  // An application can open another root while a modal is already open.
+  await page.locator("#drawer-swipe-handle-trigger").evaluate((element) => element.click());
+  const front = page.locator("#drawer-swipe-handle-popup");
+  await expect(front).toBeVisible();
+  await page.locator("#drawer-demo-popup [data-slot='drawer-close']").evaluate((element) => element.click());
+  await expect(page.locator("#drawer-demo-popup")).toBeHidden();
+  await expect(front).toBeVisible();
+  await expect(page.getByRole("dialog")).toHaveCount(1);
+  await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe("hidden");
+  await page.keyboard.press("Tab");
+  await expect(front.getByRole("button", { name: "Close", exact: true })).toBeFocused();
   await page.keyboard.press("Escape");
-  await expect(popups[2]).toBeHidden();
-  await expect(popups[0]).toBeVisible();
-  await expect(popups[1]).toBeVisible();
-  await expect(popups[1].getByRole("button", { name: "Open Third Drawer", exact: true })).toBeFocused();
+  await expect(front).toBeHidden();
+  await expect.poll(() => page.evaluate(() => [document.body.style.overflow, document.body.style.paddingRight])).toEqual(["scroll", "7px"]);
+
+  await page.locator("#drawer-demo-trigger").click();
+  await expect(page.locator("#drawer-demo-popup")).toBeVisible();
+  // Live navigation destroys the old view and its portalled popup hooks.
+  await page.locator("a[href='/docs/button']").first().evaluate((element) => element.click());
+  await expect(page).toHaveURL(/\/docs\/button$/);
+  await connected(page);
+  await expect(page.locator("#drawer-demo-popup")).toHaveCount(0);
+  await expect.poll(() => page.evaluate(() => [document.body.style.overflow, document.body.style.paddingRight])).toEqual(["scroll", "7px"]);
 });
 
 test("swipe handle closes the drawer after a downward drag", async ({ page }) => {
@@ -201,11 +305,7 @@ for (const side of ["React", "Phoenix"]) {
     ["delivery-5-30", "5:30 PM – 5:45 PM"],
   ]) {
     test(`default confirms ${id} with a notice on ${side}`, async ({ page }, testInfo) => {
-      const path = side === "Phoenix" ? "/preview/drawer/default"
-        : `${testInfo.project.use.parityURL}/preview/drawer/default`;
-      await page.goto(path);
-      if (side === "Phoenix") await connected(page);
-      else await referenceReady(page);
+      await visitSide(page, testInfo, side, "default");
 
       const trigger = page.getByRole("button", { name: "Open Drawer", exact: true });
       const popup = page.locator("[data-slot='drawer-popup']");
@@ -234,19 +334,19 @@ for (const side of ["React", "Phoenix"]) {
   }
 }
 
-test("modal closes when the user points outside it", async ({ page }) => {
-  await visit(page, "/preview/drawer/default", "#drawer-demo-trigger");
-
-  const trigger = page.getByRole("button", { name: "Open Drawer", exact: true });
-  const popup = page.locator("#drawer-demo-popup");
-
-  await trigger.click();
-  await expect(popup).toBeVisible();
-
-  await page.mouse.click(20, 20);
-  await expect(popup).toBeHidden();
-  await expect(trigger).toBeFocused();
-});
+for (const side of ["React", "Phoenix"]) {
+  test(`modal closes during entry and returns focus after an outside pointer on ${side}`, async ({ page }, testInfo) => {
+    await slowAnimationFrames(page);
+    await visitSide(page, testInfo, side, "default");
+    const trigger = page.locator("[data-slot='drawer-trigger']");
+    const popup = page.locator("[data-slot='drawer-popup']");
+    await trigger.click();
+    await expect(popup).toBeVisible();
+    await page.mouse.click(20, 20);
+    await expect(popup).toBeHidden();
+    await expect(trigger).toBeFocused();
+  });
+}
 
 async function dragBy(page, locator, deltaX, deltaY) {
   const box = await locator.boundingBox();
@@ -268,11 +368,7 @@ async function snapOffset(locator) {
 
 for (const side of ["React", "Phoenix"]) {
   test(`a modal disclosure probe keeps its original trigger on ${side}`, async ({ page }, testInfo) => {
-    const path = side === "Phoenix" ? "/preview/drawer/default"
-      : `${testInfo.project.use.parityURL}/preview/drawer/default`;
-    await page.goto(path);
-    if (side === "Phoenix") await connected(page);
-    else await referenceReady(page);
+    await visitSide(page, testInfo, side, "default");
     const scope = page.locator("[data-preview='drawer']");
     const probes = await discoverInteractionProbes(scope);
     const probe = probes.find(({ kind }) => kind === "disclosure");
