@@ -223,9 +223,9 @@ run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 6e.10: stop tracking the generated reference link
 
-- [ ] Remove the generated reference link from the index and fix ignore patterns.
-- [ ] Check source preparation, generated file ignores, and unchanged pinned refs.
-- [ ] Commit: `chore(parity): untrack generated upstream link`
+- [x] Remove the generated reference link from the index and fix ignore patterns.
+- [x] Check source preparation, generated file ignores, and unchanged pinned refs.
+- [x] Commit: `chore(parity): untrack generated upstream link`
 
 ## Phase 6e.11: apply Accordion caller width classes
 

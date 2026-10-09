@@ -1,7 +1,7 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phases 6e.6 through 6e.8 are complete. Phase 6e.9 repairs
-initially open state replay before the full verification run resumes.
+Status: in progress. Phases 6e.6 through 6e.10 are complete. Phase 6e.11
+repairs Accordion caller widths before the full verification run resumes.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -637,6 +637,10 @@ only semantic failure is the duplicate root width recorded in phase 6e.11.
   absence test is needed for this generated-file cleanup.
 
 **Commit:** `chore(parity): untrack generated upstream link`
+
+Validation: preparation creates a valid reference directory. Git ignores both
+the generated symlink and the old regular pointer file. The pinned source
+manifest is unchanged, and the recorded verification identity still matches.
 
 ### Phase 6e.11: apply Accordion caller width classes
 
