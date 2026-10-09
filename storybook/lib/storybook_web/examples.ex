@@ -16599,7 +16599,7 @@ defmodule StorybookWeb.Examples do
 
   defp dialog_default(assigns) do
     ~H"""
-    <form>
+    <form phx-submit={%JS{}}>
       <.dialog id="dialog-default" trigger_variant="outline" class="sm:max-w-sm">
         <:trigger>Open Dialog</:trigger>
         <:title>Edit profile</:title>
@@ -16720,7 +16720,7 @@ defmodule StorybookWeb.Examples do
 
   defp dialog_rtl(assigns) do
     ~H"""
-    <form>
+    <form phx-submit={%JS{}}>
       <.dialog
         id="dialog-rtl"
         trigger_variant="outline"

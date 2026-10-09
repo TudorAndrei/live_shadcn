@@ -17,6 +17,14 @@ const dialog = (page, id) => ({
   title: page.locator(`#${id}-title`),
 });
 
+async function visitSide(page, testInfo, side, example) {
+  const path = side === "Phoenix" ? `/preview/dialog/${example}`
+    : `${testInfo.project.use.parityURL}/preview/dialog/${example}`;
+  await page.goto(path);
+  if (side === "Phoenix") await connected(page);
+  else await referenceReady(page);
+}
+
 test.describe("a dialog", () => {
   test.beforeEach(async ({ page }) => {
     await visit(page, "/preview/dialog/default", "#dialog-default-trigger");
@@ -239,13 +247,9 @@ test("the RTL dialog keeps the Arabic content direction", async ({ page }) => {
 
 for (const side of ["React", "Phoenix"]) {
   test(`interaction observations include visible popup fields on ${side}`, async ({ page }, testInfo) => {
-    const path = side === "Phoenix" ? "/preview/dialog/default"
-      : `${testInfo.project.use.parityURL}/preview/dialog/default`;
     const selector = "[data-preview='dialog']";
     async function load() {
-      await page.goto(path);
-      if (side === "Phoenix") await connected(page);
-      else await referenceReady(page);
+      await visitSide(page, testInfo, side, "default");
       const probes = await discoverInteractionProbes(page.locator(selector));
       return probes.find(({ kind }) => kind === "disclosure");
     }
@@ -271,4 +275,39 @@ for (const side of ["React", "Phoenix"]) {
     ]);
     expect(changed.controls).not.toEqual(result.opened.controls);
   });
+}
+
+for (const side of ["React", "Phoenix"]) {
+  for (const [example, triggerName, usernameName, saveName, cancelName] of [
+    ["default", "Open Dialog", "Username", "Save changes", "Cancel"],
+    ["rtl", "فتح الحوار", "اسم المستخدم", "حفظ التغييرات", "إلغاء"],
+  ]) {
+    test(`${side} ${example} Save keeps the current page and edited fields`, async ({ page }, testInfo) => {
+      await visitSide(page, testInfo, side, example);
+      const url = page.url();
+      const trigger = page.getByRole("button", { name: triggerName, exact: true });
+      await trigger.click();
+      const popup = page.getByRole("dialog");
+      const username = popup.getByRole("textbox", { name: usernameName, exact: true });
+      await username.fill("@parity-save");
+      const save = popup.getByRole("button", { name: saveName, exact: true });
+      await expect(save).toHaveAttribute("type", "submit");
+      await save.click();
+
+      await expect(page).toHaveURL(url);
+      await expect(popup).toBeVisible();
+      await expect(username).toHaveValue("@parity-save");
+      await expect(username).toBeEnabled();
+      await expect(save).toBeEnabled();
+      await popup.getByRole("button", { name: cancelName, exact: true }).click();
+      await expect(popup).toBeHidden();
+      await expect(trigger).toBeFocused();
+
+      await trigger.click();
+      await expect(popup.getByRole("textbox").first()).toBeFocused();
+      await page.keyboard.press("Escape");
+      await expect(popup).toBeHidden();
+      await expect(trigger).toBeFocused();
+    });
+  }
 }
