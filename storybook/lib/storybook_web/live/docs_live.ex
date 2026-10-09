@@ -187,7 +187,7 @@ defmodule StorybookWeb.DocsLive do
 
   @impl Phoenix.LiveView
   def mount(%{"component" => component}, _session, socket) do
-    if component not in Examples.components() do
+    if component not in Docs.components() do
       raise NotFound, message: "no component called #{component}"
     end
 

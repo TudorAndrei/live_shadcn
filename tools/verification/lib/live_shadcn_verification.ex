@@ -542,7 +542,7 @@ defmodule LiveShadcnVerification do
           checks: checks
         }
 
-      Enum.any?(checks, &(&1.outcome == :failed)) or result["pass"] == false ->
+      Enum.any?(checks, &(&1.outcome == :failed)) ->
         %{
           status: :failed,
           label: status_label(:failed),

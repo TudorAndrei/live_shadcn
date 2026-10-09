@@ -1095,6 +1095,30 @@ defmodule StorybookWeb.ExamplesTest do
       end
     end
 
+    test "direction is documented with No DOM status on both pages", %{conn: conn} do
+      {:ok, _view, index_html} = live(conn, "/")
+
+      row =
+        index_html
+        |> Floki.parse_fragment!()
+        |> Floki.find("li")
+        |> Enum.find(fn row ->
+          Floki.attribute(Floki.find([row], "a"), "href") == ["/docs/direction"] and
+            Floki.find([row], "[data-component-status]") != []
+        end)
+
+      assert row
+      [index_badge] = Floki.find([row], "[data-component-status]")
+      assert Floki.attribute([index_badge], "data-component-status") == ["no_dom"]
+      assert String.trim(Floki.text(index_badge)) == "No DOM"
+
+      {:ok, _view, docs_html} = live(conn, "/docs/direction")
+      [docs_badge] = Floki.find(Floki.parse_fragment!(docs_html), "[data-component-status]")
+      assert Floki.attribute([docs_badge], "data-component-status") == ["no_dom"]
+      assert String.trim(Floki.text(docs_badge)) == "No DOM"
+      assert docs_html =~ "only provides direction context and renders no DOM"
+    end
+
     test "shows the markup each example is written with", %{conn: conn} do
       {:ok, _view, html} = live(conn, "/docs/badge")
 
@@ -1152,7 +1176,7 @@ defmodule StorybookWeb.ExamplesTest do
     test "puts every documented component in exactly one group" do
       grouped = StorybookWeb.Docs.groups() |> Enum.flat_map(& &1.components)
 
-      assert Enum.sort(grouped) == Enum.sort(Examples.components())
+      assert Enum.sort(grouped) == Enum.sort(StorybookWeb.Docs.components())
       assert Enum.uniq(grouped) == grouped
     end
 

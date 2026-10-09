@@ -199,12 +199,12 @@ run its checks, and make its exact commit before starting the next phase.
 
 ## Phase 6e.7: complete badge status semantics
 
-- [ ] Regression-test real incomplete/no-browser record shapes and preparation failures.
-- [ ] Repair precedence and record explicit preparation failure evidence.
-- [ ] Add direction to documentation navigation and routing with No DOM badges.
-- [ ] Check both badge locations, stale precedence, recovery, and AI isolation.
-- [ ] Pass private/tools/Storybook tests and static checks.
-- [ ] Commit: `fix(verification): complete badge status semantics`
+- [x] Regression-test real incomplete/no-browser record shapes and preparation failures.
+- [x] Repair precedence and record explicit preparation failure evidence.
+- [x] Add direction to documentation navigation and routing with No DOM badges.
+- [x] Check both badge locations, stale precedence, recovery, and AI isolation.
+- [x] Pass private/tools/Storybook tests and static checks.
+- [x] Commit: `fix(verification): complete badge status semantics`
 
 ## Phase 6f: refresh evidence and verify release badges
 

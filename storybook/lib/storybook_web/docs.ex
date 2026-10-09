@@ -100,14 +100,20 @@ defmodule StorybookWeb.Docs do
 
   @verification @verify_path |> File.read!() |> Jason.decode!()
 
+  @policy_statuses LiveShadcnVerification.policy_status_overrides()
+  @no_dom_components for {"shadcn/" <> name, :no_dom} <- @policy_statuses, do: name
+
   @evaluation_by_identity (fn ->
-                             Map.new(@verification, fn {identity, result} ->
+                             identities =
+                               Enum.uniq(Map.keys(@verification) ++ Map.keys(@policy_statuses))
+
+                             Map.new(identities, fn identity ->
                                [source, name] = String.split(identity, "/", parts: 2)
                                spec = Path.join([@spec_root, source, "#{name}.json"])
 
                                evaluation =
                                  LiveShadcnVerification.evaluate(
-                                   result,
+                                   Map.get(@verification, identity, %{}),
                                    source,
                                    name,
                                    @repo_root,
@@ -118,14 +124,9 @@ defmodule StorybookWeb.Docs do
                              end)
                            end).()
 
-  @status_by_identity (fn ->
-                         statuses =
-                           Map.new(@evaluation_by_identity, fn {identity, evaluation} ->
-                             {identity, evaluation.status}
-                           end)
-
-                         Map.merge(statuses, LiveShadcnVerification.policy_status_overrides())
-                       end).()
+  @status_by_identity Map.new(@evaluation_by_identity, fn {identity, evaluation} ->
+                        {identity, evaluation.status}
+                      end)
 
   # The sections the AI Elements documentation groups its components under, in
   # the order it lists them. `mix ui.fetch` reads them from upstream's own
@@ -311,6 +312,9 @@ defmodule StorybookWeb.Docs do
     end
   end
 
+  @doc "Components with documentation, including explicit No DOM policy pages."
+  def components, do: Enum.sort(Enum.uniq(Examples.components() ++ @no_dom_components))
+
   @doc """
   The components, grouped for the navigation.
 
@@ -477,7 +481,7 @@ defmodule StorybookWeb.Docs do
       Examples.components()
       |> Enum.filter(&is_nil(module(&1)))
 
-    (components_in(LiveShadcn.UI) ++ composites)
+    (components_in(LiveShadcn.UI) ++ composites ++ @no_dom_components)
     |> Enum.uniq()
     |> Enum.sort()
   end

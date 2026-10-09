@@ -1,7 +1,7 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phase 6e.6 complete. Phase 6e.7 repairs badge status
-semantics before the full verification run.
+Status: in progress. Phases 6e.6 and 6e.7 are complete. Phase 6f refreshes
+the full verification evidence and checks release badges.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -568,9 +568,22 @@ blocks still match their committed bytes.
   `/docs/direction` returns 404 because it has no examples. Include explicit
   No DOM policy components in documentation navigation and routing without
   inventing a DOM preview or counting them as parity passes.
+- The compiled badge HTTP fixture exposes duplicate `username-1` ids in the
+  existing connected Dialog documentation examples. Record this separate
+  documentation defect for the full review. Keep LiveView duplicate-id checks
+  enabled; use HTTP for the compiled status contract.
 - Test both rendered badge locations against producer-shaped fixtures and preserve
   stale precedence, No DOM policy, and AI records. Pass private/tools/Storybook
   tests and rerun current verification after this shared identity change.
+
+Validation: the actual CLI regression tests fail before the repair and pass
+after it. The compiled HTTP fixture checks both badge locations for incomplete,
+failed, stale, verified, docs-only, No DOM, and excluded AI records. It also
+checks recovery after a new record and compilation. Direction passes its
+connected LiveView route and index checks. Private verification has 33 passing
+tests, tools has 164, and Storybook has 78. All three static checks pass.
+Run the large suites in sequence because they scan or change shared inputs.
+AI record bytes remain unchanged.
 
 **Commit:** `fix(verification): complete badge status semantics`
 

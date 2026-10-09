@@ -579,8 +579,13 @@ defmodule Mix.Tasks.Ui.Verify do
   defp browser_checks(%{browser?: false, preparation_failure: nil}),
     do: browser_not_run_checks()
 
-  defp browser_checks(%{browser?: false, preparation_failure: reason}),
-    do: browser_not_run_checks(reason)
+  defp browser_checks(%{browser?: false, preparation_failure: reason}) do
+    browser_not_run_checks(reason)
+    |> List.keyreplace("browser", 0, {
+      "browser",
+      %{"pass" => false, "outcome" => "failed", "detail" => reason}
+    })
+  end
 
   defp browser_checks(%{browser?: true, examples_complete?: false}),
     do: browser_not_run_checks("official example coverage is incomplete")
@@ -650,6 +655,7 @@ defmodule Mix.Tasks.Ui.Verify do
        %{
          "pass" => false,
          "gated" => false,
+         "outcome" => "not_run",
          "detail" => "not run because #{reason}"
        }}
     end
