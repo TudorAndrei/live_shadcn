@@ -1,7 +1,7 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phases 6e.6 through 6e.8 are complete. Phase 6f refreshes
-the full verification evidence and checks release badges.
+Status: in progress. Phases 6e.6 through 6e.8 are complete. Phase 6e.9 repairs
+initially open state replay before the full verification run resumes.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -604,6 +604,51 @@ Validation: the connected route fails before the repair on duplicate
 `username-1` IDs. After the repair, all 64 example tests pass, including
 connected Dialog documentation and independent label associations. All 463
 shadcn snapshots are current. Formatting and diff checks pass.
+
+### Phase 6e.9: preserve initially open disclosure states
+
+- The full run exposes an Accordion replay timeout. The reference trace shows
+  an initially expanded trigger, a click that closes it, and a wait for true.
+  The affected examples include borders, card, and RTL.
+- Test replay against both real renderers. Keep every discovered state and
+  require its controlled panel to be visible. Skip the opening click when the
+  path trigger is already expanded, including nested action paths.
+- Pass the shared state suite and verify all Accordion states. Record any
+  separate rendering failure before the full source run restarts.
+
+**Commit:** `fix(verification): preserve initially open disclosure states`
+
+Validation: the retained reference trace and the new LiveView regression both
+fail before the repair because a click closes the initial panel. The repaired
+test checks both real renderers. All 14 shared state tests and 108 helper tests
+pass. Complete Accordion behavior, accessibility, and pixel checks pass. Its
+only semantic failure is the duplicate root width recorded in phase 6e.11.
+
+### Phase 6e.10: stop tracking the generated reference link
+
+- Git tracks `parity/src/upstream`, although the reference loader regenerates
+  it. Restoring unstaged changes after a commit has produced a regular pointer
+  file at its old target and left the prepared reference link unusable.
+- Remove the generated link from the index. Ignore both the link and generated
+  release paths regardless of file type. Preserve the pinned registry source
+  files and the running prepared tree.
+- Check that source preparation still creates a valid reference directory,
+  the generated link is ignored, and pinned refs remain unchanged. No new
+  absence test is needed for this generated-file cleanup.
+
+**Commit:** `chore(parity): untrack generated upstream link`
+
+### Phase 6e.11: apply Accordion caller width classes
+
+- State replay now reaches every Accordion state. The semantic check finds
+  duplicate `w-full` classes in the disabled example. The root appends caller
+  utilities instead of applying the pinned `cn` merge contract.
+- Extend the existing caller-class test with explicit default and replacement
+  widths. Use the shared class merger for the root. Review its port-body hash
+  and refreshed root classes without changing pinned facts or comparison rules.
+- Pass package tests and complete Accordion verification before the full run.
+
+**Commit:** `fix(accordion): apply caller width classes`
 
 ### Phase 6f: refresh evidence and verify release badges
 

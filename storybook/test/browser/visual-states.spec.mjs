@@ -89,6 +89,29 @@ test("editable comboboxes use a user click to enter the expanded state", async (
   }
 });
 
+test("disclosure states keep an initially open panel open during replay", async ({ page }, testInfo) => {
+  const selector = "[data-preview='accordion']";
+  const paths = [
+    "/preview/accordion/card",
+    `${testInfo.project.use.parityURL}/preview/accordion/card`,
+  ];
+
+  for (const path of paths) {
+    await visitPreview(page, path);
+    const first = page.locator(`${selector} [data-slot='accordion-trigger']`).first();
+    await expect(first).toHaveAttribute("aria-expanded", "true");
+    const states = await visualStates(page, selector);
+    const expanded = states.find((state) => state.kind === "expanded" && state.path[0].index === 0);
+    expect(expanded).toBeDefined();
+
+    await visitPreview(page, path);
+    await enterVisualState(page, selector, expanded);
+    await expect(first).toHaveAttribute("aria-expanded", "true");
+    const controls = await first.getAttribute("aria-controls");
+    await expect(page.locator(`[id=${JSON.stringify(controls)}]`)).toBeVisible();
+  }
+});
+
 test("disabled disclosures do not become render states", async ({ page }) => {
   await visitPreview(page, "/preview/accordion/disabled");
 

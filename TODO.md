@@ -214,6 +214,27 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Pass focused route, preview, formatting, and shadcn snapshot checks.
 - [x] Commit: `fix(storybook): isolate dialog example inputs`
 
+## Phase 6e.9: preserve initially open disclosure states
+
+- [x] Prove replay failure on both real Accordion renderers.
+- [x] Preserve expanded path triggers and nested action paths.
+- [x] Pass the shared state suite and verify all Accordion states.
+- [x] Commit: `fix(verification): preserve initially open disclosure states`
+
+## Phase 6e.10: stop tracking the generated reference link
+
+- [ ] Remove the generated reference link from the index and fix ignore patterns.
+- [ ] Check source preparation, generated file ignores, and unchanged pinned refs.
+- [ ] Commit: `chore(parity): untrack generated upstream link`
+
+## Phase 6e.11: apply Accordion caller width classes
+
+- [ ] Prove caller width merge failures in the existing Accordion class test.
+- [ ] Apply the shared class merger to the Accordion root.
+- [ ] Review its port hash and refresh affected root classes.
+- [ ] Pass package tests and complete Accordion verification.
+- [ ] Commit: `fix(accordion): apply caller width classes`
+
 ## Phase 6f: refresh evidence and verify release badges
 
 - [ ] Prepare pinned sources without advancing the shadcn or AI ref.
