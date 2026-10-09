@@ -1,7 +1,7 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phases 6e.6 through 6e.11 are complete. Phase 6e.12
-corrects native Direction instructions before the full run resumes.
+Status: in progress. Phases 6e.6 through 6e.12 are complete. Phase 6f refreshes
+the full verification evidence and checks release badges.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -665,16 +665,25 @@ All 463 shadcn snapshots are current. Complete Accordion verification passes all
 nine required checks over its seven official examples. Comparison rules and
 pinned refs remain unchanged.
 
-### Phase 6e.12: show native Direction usage
+### Phase 6e.12: document native and composed examples
 
 - The new No DOM route inherits a generic installation command and a nonexistent
-  component spec path. Direction uses the native HTML `dir` attribute.
+  component spec path. Direction uses the native HTML `dir` attribute. The three
+  documentation families also have no copied component or version-2 spec.
 - Extend the connected route test to require a usable HTML direction example.
-  Show native usage and the real policy source for Direction. Keep ordinary
-  component installation instructions and the No DOM badge contract.
+  Show native usage and the real policy source for Direction. Point the composed
+  documentation families to their pinned source manifest and explain example
+  adaptation. Keep ordinary component installation instructions and the badge
+  contract.
 - Pass the route test, Storybook tests, and static checks before the full run.
 
-**Commit:** `fix(storybook): show native direction usage`
+**Commit:** `fix(storybook): document native and composed examples`
+
+Validation: both route tests fail before the repair for the intended native
+usage and source-label errors. All 80 Storybook tests pass after the repair,
+including connected documentation families, the native Direction route, and
+the compiled badge fixture. Storybook static checks pass. Pinned refs,
+comparison rules, and AI record bytes remain unchanged.
 
 ### Phase 6f: refresh evidence and verify release badges
 

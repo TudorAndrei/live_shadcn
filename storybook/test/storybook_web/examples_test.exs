@@ -1138,6 +1138,22 @@ defmodule StorybookWeb.ExamplesTest do
       assert Floki.attribute([docs_badge], "data-component-status") == ["no_dom"]
       assert String.trim(Floki.text(docs_badge)) == "No DOM"
       assert docs_html =~ "only provides direction context and renders no DOM"
+
+      document = Floki.parse_fragment!(docs_html)
+      [usage] = Floki.find(document, "pre code")
+      assert [_container] = Floki.find(Floki.parse_fragment!(Floki.text(usage)), "[dir='rtl']")
+      source_labels = Enum.map(Floki.find(document, "header code"), &Floki.text/1)
+      assert "HTML" in source_labels
+      assert "registry/VERIFICATION_POLICY.json" in source_labels
+    end
+
+    test "documentation families identify their real pinned source manifest", %{conn: conn} do
+      for component <- ~w(data-table date-picker typography) do
+        {:ok, _view, html} = live(conn, "/docs/#{component}")
+        document = Floki.parse_fragment!(html)
+        source_labels = Enum.map(Floki.find(document, "header code"), &Floki.text/1)
+        assert "registry/UPSTREAM.json" in source_labels
+      end
     end
 
     test "shows the markup each example is written with", %{conn: conn} do

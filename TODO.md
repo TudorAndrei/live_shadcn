@@ -236,12 +236,13 @@ run its checks, and make its exact commit before starting the next phase.
 - [x] Pass package tests and complete Accordion verification.
 - [x] Commit: `fix(accordion): honor caller width and disabled state`
 
-## Phase 6e.12: show native Direction usage
+## Phase 6e.12: document native and composed examples
 
-- [ ] Prove the route lacks a usable native direction example.
-- [ ] Show native HTML usage and the real Direction policy source.
-- [ ] Pass the route test, Storybook tests, and static checks.
-- [ ] Commit: `fix(storybook): show native direction usage`
+- [x] Prove the route lacks a usable native direction example.
+- [x] Show native HTML usage and the real Direction policy source.
+- [x] Show valid source manifests and adaptation guidance for documentation families.
+- [x] Pass the route test, Storybook tests, and static checks.
+- [x] Commit: `fix(storybook): document native and composed examples`
 
 ## Phase 6f: refresh evidence and verify release badges
 

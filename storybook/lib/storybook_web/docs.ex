@@ -102,6 +102,7 @@ defmodule StorybookWeb.Docs do
 
   @policy_statuses LiveShadcnVerification.policy_status_overrides()
   @no_dom_components for {"shadcn/" <> name, :no_dom} <- @policy_statuses, do: name
+  @docs_only_components LiveShadcnVerification.docs_only_shadcn_families(@repo_root)
 
   @evaluation_by_identity (fn ->
                              identities =
@@ -262,7 +263,12 @@ defmodule StorybookWeb.Docs do
     end
   end
 
-  @doc "What `mix ui.add` is called with, which is the component's own name."
+  @doc "How to install a component or use a native or composed documentation example."
+  def install("direction"), do: ~s(<div dir="rtl">...</div>)
+
+  def install(component) when component in @docs_only_components,
+    do: "Copy the example markup into your LiveView. Adapt its assigns and event handlers."
+
   def install(component) do
     case component do
       "shadcn-" <> rest -> "mix ui.add #{rest}"
@@ -373,6 +379,9 @@ defmodule StorybookWeb.Docs do
   an identity — each registry has a `message`. So it named a file nobody could
   open, for a library it did not say.
   """
+  def library("direction"),
+    do: %{package: "HTML", spec: "registry/VERIFICATION_POLICY.json"}
+
   def library(component) do
     {source, name} = identity(component)
     component_module = module(component)
@@ -391,7 +400,12 @@ defmodule StorybookWeb.Docs do
         end)
       end
 
-    %{package: package, spec: "registry/spec/#{source}/#{name}.json"}
+    spec =
+      if source == "shadcn" and name in @docs_only_components,
+        do: "registry/UPSTREAM.json",
+        else: "registry/spec/#{source}/#{name}.json"
+
+    %{package: package, spec: spec}
   end
 
   @doc "The highest pipeline stage that has current evidence for a documented component."

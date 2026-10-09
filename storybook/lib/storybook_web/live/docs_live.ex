@@ -87,7 +87,11 @@ defmodule StorybookWeb.DocsLive do
     </section>
 
     <section class="mt-14">
-      <h2 class="text-lg font-medium">Installation</h2>
+      <h2 class="text-lg font-medium">
+        {if @status == :no_dom or is_nil(Docs.module(@component)),
+          do: "Usage",
+          else: "Installation"}
+      </h2>
       <pre class="mt-3 overflow-x-auto rounded-md border bg-muted p-4 text-xs"><code>{@install}</code></pre>
     </section>
 
