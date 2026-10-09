@@ -3,11 +3,35 @@ import { expect, test } from "@playwright/test";
 import { enterVisualState, visualStates } from "./visual-states.mjs";
 import { discoverInteractionProbes } from "./interaction-parity.mjs";
 import { referenceReady, visit } from "./live.mjs";
+import { collect } from "./measure.mjs";
 
 async function visitPreview(page, path) {
   if (path.startsWith("/")) await visit(page, path);
   else await page.goto(path);
 }
+
+test("semantic observations follow inherited hidden state", async ({ page }, testInfo) => {
+  await page.goto(`${testInfo.project.use.parityURL}/preview/dialog/default`);
+  await referenceReady(page);
+  const selector = "[data-preview='dialog']";
+  const state = (await visualStates(page, selector)).find(({ name }) => name === "expanded:Open Dialog");
+  expect(state).toBeDefined();
+  await enterVisualState(page, selector, state);
+  const trigger = page.locator("[data-slot='dialog-trigger']");
+  const observedHidden = async () => {
+    const rows = await page.evaluate(collect, { selector, properties: [], attributes: ["aria-hidden"] });
+    return rows.slots.find(({ slot }) => slot === "dialog-trigger").semantic.states["aria-hidden"];
+  };
+
+  await expect(page.getByRole("button", { name: "Open Dialog", exact: true })).toHaveCount(0);
+  expect(await observedHidden()).toBe("true");
+  await trigger.evaluate((element) => element.setAttribute("aria-hidden", "false"));
+  await expect(page.getByRole("button", { name: "Open Dialog", exact: true })).toHaveCount(0);
+  expect(await observedHidden()).toBe("true");
+  await page.locator("main").evaluate((element) => element.setAttribute("aria-hidden", "false"));
+  await expect(page.getByRole("button", { name: "Open Dialog", exact: true })).toBeVisible();
+  expect(await observedHidden()).toBe("false");
+});
 
 test("the default render state waits for finite color and font transitions", async ({ page }) => {
   await page.setContent('<main data-preview="transition"><button>Button</button></main>');

@@ -116,6 +116,15 @@ export function collect({ selector, properties, attributes }) {
     return false;
   }
 
+  function semanticAttribute(element, attribute) {
+    if (attribute === "aria-hidden") {
+      for (let node = element; node; node = node.parentElement) {
+        if (node.getAttribute(attribute) === "true") return "true";
+      }
+    }
+    return element.getAttribute(attribute) || "";
+  }
+
   function authoredAutoMargins(element, direction) {
     const margins = { top: false, right: false, bottom: false, left: false };
     const classes = element.classList;
@@ -218,7 +227,7 @@ export function collect({ selector, properties, attributes }) {
             containIntrinsicSize: style.containIntrinsicSize,
           },
           states: Object.fromEntries(
-            attributes.map((attribute) => [attribute, child.getAttribute(attribute) || ""]),
+            attributes.map((attribute) => [attribute, semanticAttribute(child, attribute)]),
           ),
         },
       };
