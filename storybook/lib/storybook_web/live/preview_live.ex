@@ -71,6 +71,11 @@ defmodule StorybookWeb.PreviewLive do
      )}
   end
 
+  def handle_event("bubble_collapsible_toggle", _params, socket) do
+    {:noreply,
+     assign(socket, bubble_collapsible_open: not socket.assigns.bubble_collapsible_open)}
+  end
+
   def handle_event("bubble_toast", %{"message" => message}, socket) do
     sequence = socket.assigns.bubble_sequence + 1
     toast = Examples.bubble_notice(message, "bubble-#{sequence}")

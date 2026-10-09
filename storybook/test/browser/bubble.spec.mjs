@@ -9,7 +9,7 @@ test("the official Bubble choices are native buttons and show their notices", as
   await expect(choice).toHaveAttribute("data-slot", "bubble-content");
 
   await choice.click();
-  await expect(page.locator("[data-slot='toast']")).toContainText(
+  await expect(page.locator("[data-sonner-toast]")).toContainText(
     "You clicked forgot password",
   );
 });
@@ -19,7 +19,7 @@ test("the destructive Bubble action reports success", async ({ page }) => {
 
   await page.getByRole("button", { name: "Yes, run it" }).click();
 
-  const toast = page.locator("[data-slot='toast']");
+  const toast = page.locator("[data-sonner-toast]");
   await expect(toast).toHaveAttribute("data-type", "success");
   await expect(toast).toContainText("You clicked yes, running command...");
 });

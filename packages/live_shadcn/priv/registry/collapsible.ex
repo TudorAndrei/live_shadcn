@@ -73,16 +73,12 @@ defmodule LiveShadcn.UI.Collapsible do
       class={[@class]}
       phx-mounted={Disclosure.owned_attributes(:item)}
       {Map.drop(@rest, [:"data-slot"])}
-    >
-      <%= if @composed do %>
-        {render_slot(@inner_block)}
-      <% else %>
+    ><%= if @composed do %>{render_slot(@inner_block)}<% else %>
       <.dynamic_tag :if={@wrapper_tag} tag_name={@wrapper_tag} {@wrapper_attrs}>
         <.collapsible_parts {assigns} />
       </.dynamic_tag>
       <.collapsible_parts :if={is_nil(@wrapper_tag)} {assigns} />
-      <% end %>
-    </div>
+      <% end %></div>
     """
   end
 

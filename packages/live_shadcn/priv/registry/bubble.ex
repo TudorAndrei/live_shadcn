@@ -116,9 +116,7 @@ defmodule LiveShadcn.UI.Bubble do
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
-    >
-      {render_slot(@inner_block)}
-    </.dynamic_tag>
+    >{render_slot(@inner_block)}</.dynamic_tag>
     """
   end
 

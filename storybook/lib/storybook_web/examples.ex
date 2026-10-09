@@ -833,6 +833,7 @@ defmodule StorybookWeb.Examples do
       sonner_sequence: 0,
       bubble_toasts: [],
       bubble_sequence: 0,
+      bubble_collapsible_open: false,
       show_values: false,
       card_spacing: "4",
       field_switch_checked: false,
@@ -4704,41 +4705,34 @@ defmodule StorybookWeb.Examples do
     assigns =
       assign(assigns,
         bubble_collapsible_preview: @bubble_collapsible_preview,
-        bubble_collapsible_text: @bubble_collapsible_text
+        bubble_collapsible_text: @bubble_collapsible_text,
+        bubble_collapsible_answer:
+          if(assigns.bubble_collapsible_open,
+            do: String.trim_trailing(@bubble_collapsible_text),
+            else: @bubble_collapsible_preview
+          )
       )
 
+    # Keep the pre-line slot boundaries inline. Only answer text has visible line breaks.
     ~H"""
     <div class="flex w-full max-w-sm flex-col gap-8 py-12">
       <.bubble variant="muted">
         <.bubble_content>How can I help you today?</.bubble_content>
       </.bubble>
       <.bubble variant="muted" align="end">
-        <.bubble_content>
-          <.collapsible
-            id="bubble-collapsible"
-            composed
-            class="group/collapsible whitespace-normal"
-          >
-            <div class="group-data-[open]/collapsible:hidden">
-              <span class="whitespace-pre-line">{@bubble_collapsible_preview}</span>
-            </div>
-            <div class="hidden group-data-[open]/collapsible:block">
-              <span class="whitespace-pre-line">{@bubble_collapsible_text}</span>
-            </div>
-            <.collapsible_trigger
+        <.bubble_content class="whitespace-pre-line" phx-no-format><.collapsible id="bubble-collapsible" composed open={@bubble_collapsible_open}><div>{@bubble_collapsible_answer}</div><.collapsible_trigger
               for="bubble-collapsible"
+              open={@bubble_collapsible_open}
+              phx-click={JS.push("bubble_collapsible_toggle")}
               class={collapsible_button_class("link", "default", "gap-1 p-0 text-muted-foreground")}
             >
-              <span class="group-data-[open]/collapsible:hidden">Show more</span>
-              <span class="hidden group-data-[open]/collapsible:inline">Show less</span>
+              {if(@bubble_collapsible_open, do: "Show less", else: "Show more")}
               <LiveShadcn.Icon.icon
                 name="chevron-down"
                 data-icon="inline-end"
                 class="group-data-[panel-open]/button:rotate-180"
               />
-            </.collapsible_trigger>
-          </.collapsible>
-        </.bubble_content>
+            </.collapsible_trigger></.collapsible></.bubble_content>
       </.bubble>
     </div>
     """
@@ -4757,7 +4751,6 @@ defmodule StorybookWeb.Examples do
             id="bubble-read-receipt"
             trigger_variant="ghost"
             trigger_size="icon-xs"
-            trigger_label="Message read"
           >
             <:trigger><LiveShadcn.Icon.icon name="check" /></:trigger>
             Read on Jan 5, 2026 at 4:32 PM
@@ -4783,6 +4776,8 @@ defmodule StorybookWeb.Examples do
             trigger_size="icon-xs"
             trigger_label="Show error details"
             trigger_class="aria-expanded:text-destructive"
+            title_class="text-sm"
+            description_class="text-sm"
           >
             <:trigger><LiveShadcn.Icon.icon name="info" /></:trigger>
             <:title>Command failed with exit code 1</:title>

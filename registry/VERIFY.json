@@ -717,21 +717,16 @@
   "shadcn/bubble": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility bubble.popover: bubble / popover has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 3\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"expanded:Show error details: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"slot:popover-content > slot:popover-header > slot:popover-title\\\"] has no matching upstream violation): Element has insufficient color contrast of 2.99 (foreground color: #959595, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#959595\\\",\\\"bgColor\\\":\\\"#ffffff\\\",\\\"contrastRatio\\\":2.99,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at #bubble-error-details-title\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  113 |     }\n  114 |\n> 115 |     expect(added).toEqual([]);\n      |                   ^\n  116 |   });\n  117 | }\n  118 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:115:19",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
-        "detail": "behavior bubble:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-bubble--ca0ff-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-bubble--ca0ff-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-bubble--ca0ff-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › bubble / tooltip keeps inferred interaction semantics \n  1 passed (8.0s)\nbehavior bubble:       26 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/bubble.spec.mjs:23:23\n    Error Context: test-results/bubble-the-destructive-Bubble-action-reports-success-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/bubble-the-destructive-Bubble-action-reports-success-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/bubble-the-destructive-Bubble-action-reports-success-chromium/trace.zip\n    ────────────────────────────────────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior bubble:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-bubble--ca0ff-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-bubble--ca0ff-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-bubble--ca0ff-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › bubble / tooltip keeps inferred interaction semantics \n  1 passed (8.0s)\nbehavior bubble:       26 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/bubble.spec.mjs:23:23\n    Error Context: test-results/bubble-the-destructive-Bubble-action-reports-success-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/bubble-the-destructive-Bubble-action-reports-success-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/bubble-the-destructive-Bubble-action-reports-success-chromium/trace.zip\n    ────────────────────────────────────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "9 of 9 official examples have HEEx previews",
@@ -743,28 +738,26 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity bubble.collapsible: bubble / collapsible draws what React draws\nError: default: where the two trees differ (full trees attached):\n  React         div 194.81x40.75 [bubble-content] \"How can I help you today?\" cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors\n  Phoenix       div 194.81x40.75 [bubble-content] \"How can I help you today?\" cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors \n  ← class\n\n  React         div 307.19x213.25 [bubble-content] cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors whitespace-pre-line\n  Phoenix       div 307.19x213.25 [bubble-content] cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors \n  ← class\n\n  React           div 281.19x195.25 [collapsible]\n  Phoenix         div 281.19x195.25 [collapsible] group/collapsible whitespace-normal\n  ← class\n\n  React             div 281.19x159.25 \"The accessibility review found two focus\"\n  Phoenix           div 281.19x159.25 group-data-[open]/collapsible:hidden\n  ← text \"The accessibility review found two focus\" → \"\", class\n\n  React   <nothing>\n  Phoenix             span 277.13x153.5 \"The accessibility review found two focus\" whitespace-pre-line\n\n  React   <nothing>\n  Phoenix           div 0x0 hidden group-data-[open]/collapsible:block\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 6\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"default / bubble > bubble-content #2: class — React [button,a]:transition-colors [button]:text-left cn-bubble-content max-w-full min-w-0 overflow-hidden w-fit whitespace-pre-line wrap-break-word, Phoenix [button,a]:transition-colors [button]:text-left cn-bubble-con\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel bubble.link-button: bubble / link-button paints what React paints\nError: action:I forgot my password: 1978 px differ (0.05%) — hottest: nothing\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m1978\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "8fd571118810da099a57f03d34df795ec1a6cce4dff5214ef3e81be8f20b47e6",
-    "pass": false,
-    "spec": "577122531f53d7c2332de523e58a3d2e68ccd698b6d16b5f95f63804cd2097e9"
+    "evidence": "141655eb0a0a9fc52ed8e13554808316d517733117a8493a1bd87aa97d759ce8",
+    "pass": true,
+    "spec": "40e9511253bad8e4e8252354ec90913ef4e7147748d09135df10d88a52a004e6"
   },
   "ai_elements/queue": {
     "checks": {
