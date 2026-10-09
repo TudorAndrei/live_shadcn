@@ -1294,7 +1294,26 @@ export async function enterVisualState(page, selector, state) {
 
   if (state.kind === "nested-action") {
     const scope = await enterNestedInteractionPath(page, selector, state.path);
-    await actionControls(scope).nth(state.index).click();
+    const action = actionControls(scope).nth(state.index);
+    // A compact snap point can place a footer outside the fixed viewport.
+    // Follow the real Tab path before activating that button with Enter.
+    const outsideSnapViewport = await action.evaluate((element) => {
+      if (!element.closest("[data-slot='drawer-popup'][data-snap-points]")) return false;
+      const box = element.getBoundingClientRect();
+      return box.bottom <= 0 || box.top >= innerHeight || box.right <= 0 || box.left >= innerWidth;
+    });
+    if (outsideSnapViewport) {
+      const limit = await scope.locator("a[href], button, input, select, textarea, [tabindex]").count() + 1;
+      for (let step = 0; step < limit && !(await action.evaluate((element) => element === element.ownerDocument.activeElement)); step += 1) {
+        await page.keyboard.press("Tab");
+      }
+      if (!(await action.evaluate((element) => element === element.ownerDocument.activeElement))) {
+        throw new Error("compact Drawer action is not reachable through Tab");
+      }
+      await page.keyboard.press("Enter");
+    } else {
+      await action.click();
+    }
 
     await settleInteraction(page, { waitForTransitions: true });
     return;

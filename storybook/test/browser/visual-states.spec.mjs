@@ -418,3 +418,21 @@ for (const side of ["React", "Phoenix"]) {
     await expect(page.getByRole("textbox", { name: "Name", exact: true })).toHaveValue("Pedro Duarte");
   });
 }
+
+for (const side of ["React", "Phoenix"]) {
+  test(`compact Drawer Close replays through a reachable keyboard action on ${side}`, async ({ page }, testInfo) => {
+    const path = side === "Phoenix" ? "/preview/drawer/snap-points"
+      : `${testInfo.project.use.parityURL}/preview/drawer/snap-points`;
+    const selector = "[data-preview='drawer']";
+    await visitPreview(page, path);
+    if (side === "React") await referenceReady(page);
+    const states = await visualStates(page, selector);
+    const close = states.find(({ kind, name }) => kind === "nested-action" && name.endsWith("button:Close"));
+    expect(close).toBeDefined();
+    await visitPreview(page, path);
+    if (side === "React") await referenceReady(page);
+    await enterVisualState(page, selector, close);
+    await expect(page.getByRole("dialog")).toBeHidden();
+    await expect(page.getByRole("button", { name: "Open Snap Drawer", exact: true })).toBeFocused();
+  });
+}
