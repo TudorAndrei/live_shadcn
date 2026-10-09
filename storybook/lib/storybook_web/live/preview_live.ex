@@ -71,6 +71,13 @@ defmodule StorybookWeb.PreviewLive do
      )}
   end
 
+  def handle_event("drawer_nested_mobile", %{"mobile" => mobile}, socket)
+      when is_boolean(mobile) do
+    {:noreply, assign(socket, drawer_nested_mobile: mobile)}
+  end
+
+  def handle_event("drawer_nested_mobile", _params, socket), do: {:noreply, socket}
+
   def handle_event("drawer_delivery_time", %{"drawer-delivery-times" => value}, socket) do
     if Examples.drawer_delivery_label(value) do
       {:noreply, assign(socket, drawer_delivery_time: value)}

@@ -9,6 +9,15 @@ const standardExamples = [
   ["swipe-handle", "drawer-swipe-handle", "Open Drawer"],
 ];
 
+const nestedTitles = ["Drawer", "Nested Drawer", "Third Drawer", "Fourth Drawer"];
+const nestedTriggers = ["Open Drawer", "Open Nested Drawer", "Open Third Drawer", "Open Fourth Drawer"];
+
+function nestedPopups(page, selector = "[data-slot='drawer-popup']") {
+  return nestedTitles.map((title) => page.locator(selector).filter({
+    has: page.locator("[data-slot='drawer-title']", { hasText: new RegExp(`^\\s*${title}\\s*$`) }),
+  }));
+}
+
 async function visitSide(page, testInfo, side, example) {
   const path = `/preview/drawer/${example}`;
   await page.goto(side === "Phoenix" ? path : `${testInfo.project.use.parityURL}${path}`);
@@ -92,11 +101,8 @@ test("non-modal keeps the page active and ignores outside pointers", async ({ pa
 for (const side of ["React", "Phoenix"]) {
   test(`nested Tab and Escape preserve front access and size after parent resize on ${side}`, async ({ page }, testInfo) => {
     await visitSide(page, testInfo, side, "nested");
-    const titles = ["Drawer", "Nested Drawer", "Third Drawer", "Fourth Drawer"];
-    const popups = titles.map((title) => page.locator("[data-slot='drawer-popup']").filter({
-      has: page.locator("[data-slot='drawer-title']", { hasText: new RegExp(`^\\s*${title}\\s*$`) }),
-    }));
-    const triggerNames = ["Open Drawer", "Open Nested Drawer", "Open Third Drawer", "Open Fourth Drawer"];
+    const popups = nestedPopups(page);
+    const triggerNames = nestedTriggers;
 
     for (let index = 0; index < popups.length; index += 1) {
       await page.getByRole("button", { name: triggerNames[index], exact: true }).click();
@@ -140,6 +146,55 @@ for (const side of ["React", "Phoenix"]) {
       }
     }
     await expect(page.getByRole("button", { name: "Open Drawer", exact: true })).toBeFocused();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe("");
+  });
+}
+
+for (const host of ["React", "Phoenix preview", "Phoenix docs"]) {
+  test(`nested mobile direction and swipe preserve state across the breakpoint on ${host}`, async ({ page }, testInfo) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    if (host === "Phoenix docs") await visit(page, "/docs/drawer", "#drawer-nested-trigger");
+    else await visitSide(page, testInfo, host === "React" ? "React" : "Phoenix", "nested");
+    const popups = nestedPopups(page, host === "Phoenix docs"
+      ? "[data-slot='drawer-popup'][id^='drawer-nested']" : undefined);
+    const trigger = host === "React"
+      ? page.getByRole("button", { name: "Open Drawer", exact: true })
+      : page.locator("#drawer-nested-trigger");
+    if (host !== "React") await expect(popups[0]).toHaveAttribute("data-swipe-direction", "down");
+
+    for (let index = 0; index < popups.length; index += 1) {
+      await (index === 0 ? trigger : popups[index - 1].getByRole("button", {
+        name: nestedTriggers[index], exact: true,
+      })).click();
+      await expect(popups[index]).toBeVisible();
+      await popupEntryFinished(popups[index]);
+      await expect(popups[index]).toHaveAttribute("data-swipe-direction", "down");
+      await expect(popups[index]).toHaveAttribute("data-swipe-axis", "y");
+      await expect(popups[index].locator("[data-slot='drawer-swipe-handle']")).toBeVisible();
+    }
+
+    for (const [width, direction, axis] of [[768, "right", "x"], [767, "down", "y"]]) {
+      await page.setViewportSize({ width, height: 844 });
+      for (const popup of popups) {
+        await expect(popup).toBeVisible();
+        await expect(popup).toHaveAttribute("data-swipe-direction", direction);
+        await expect(popup).toHaveAttribute("data-swipe-axis", axis);
+        if (direction === "down") await expect(popup.locator("[data-slot='drawer-swipe-handle']")).toBeVisible();
+        else await expect(popup.locator("[data-slot='drawer-swipe-handle']")).toBeHidden();
+      }
+      await expect(popups[3]).toBeFocused();
+      await expect(page.getByRole("dialog")).toHaveCount(1);
+      await popupEntryFinished(popups[3]);
+    }
+
+    await dragBy(page, popups[3].locator("[data-slot='drawer-swipe-handle']"), 0, 240);
+    await expect(popups[3]).toBeHidden();
+    await expect(popups[2].getByRole("button", { name: "Open Fourth Drawer", exact: true })).toBeFocused();
+    for (let index = 2; index >= 0; index -= 1) {
+      await page.keyboard.press("Escape");
+      await expect(popups[index]).toBeHidden();
+    }
+    await expect(trigger).toBeFocused();
     await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe("");
   });
 }

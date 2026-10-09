@@ -845,6 +845,7 @@ defmodule StorybookWeb.Examples do
       drawer_delivery_time: "asap",
       drawer_delivery_toasts: [],
       drawer_delivery_sequence: 0,
+      drawer_nested_mobile: false,
       show_values: false,
       card_spacing: "4",
       field_switch_checked: false,
@@ -12624,59 +12625,75 @@ defmodule StorybookWeb.Examples do
   end
 
   defp drawer_nested(assigns) do
+    assigns =
+      assign(
+        assigns,
+        :drawer_nested_direction,
+        if(assigns.drawer_nested_mobile, do: "down", else: "right")
+      )
+
     ~H"""
-    <.drawer id="drawer-nested" swipe_direction="right">
-      <:trigger>Open Drawer</:trigger>
-      <:title>Drawer</:title>
-      <:description>Open another drawer from the same direction.</:description>
-      <.drawer_placeholder />
-      <:footer>
-        <.drawer
-          id="drawer-nested-2"
-          nested
-          parent="drawer-nested"
-          swipe_direction="right"
-          trigger_variant="outline"
-        >
-          <:trigger>Open Nested Drawer</:trigger>
-          <:title>Nested Drawer</:title>
-          <:description>The parent drawer stays mounted behind this one.</:description>
-          <.drawer_placeholder />
-          <:footer>
-            <.drawer
-              id="drawer-nested-3"
-              nested
-              parent="drawer-nested-2"
-              swipe_direction="right"
-              trigger_variant="outline"
-            >
-              <:trigger>Open Third Drawer</:trigger>
-              <:title>Third Drawer</:title>
-              <:description>Two drawers are stacked behind this one.</:description>
-              <.drawer_placeholder />
-              <:footer>
-                <.drawer
-                  id="drawer-nested-4"
-                  nested
-                  parent="drawer-nested-3"
-                  swipe_direction="right"
-                  trigger_variant="outline"
-                >
-                  <:trigger>Open Fourth Drawer</:trigger>
-                  <:title>Fourth Drawer</:title>
-                  <:description>This is the frontmost drawer in the stack.</:description>
-                  <.drawer_placeholder />
-                  <:close variant="outline">Close</:close>
-                </.drawer>
-              </:footer>
-              <:close variant="outline">Close</:close>
-            </.drawer>
-          </:footer>
-          <:close variant="outline">Close</:close>
-        </.drawer>
-      </:footer>
-      <:close variant="outline">Close</:close>
-    </.drawer>
+    <div id="drawer-nested-responsive" phx-hook="NestedDrawerMedia" class="contents">
+      <.drawer
+        id="drawer-nested"
+        swipe_direction={@drawer_nested_direction}
+        show_swipe_handle={@drawer_nested_mobile}
+      >
+        <:trigger>Open Drawer</:trigger>
+        <:title>Drawer</:title>
+        <:description>Open another drawer from the same direction.</:description>
+        <.drawer_placeholder />
+        <:footer>
+          <.drawer
+            id="drawer-nested-2"
+            nested
+            parent="drawer-nested"
+            swipe_direction={@drawer_nested_direction}
+            show_swipe_handle={@drawer_nested_mobile}
+            trigger_variant="outline"
+          >
+            <:trigger>Open Nested Drawer</:trigger>
+            <:title>Nested Drawer</:title>
+            <:description>The parent drawer stays mounted behind this one.</:description>
+            <.drawer_placeholder />
+            <:footer>
+              <.drawer
+                id="drawer-nested-3"
+                nested
+                parent="drawer-nested-2"
+                swipe_direction={@drawer_nested_direction}
+                show_swipe_handle={@drawer_nested_mobile}
+                trigger_variant="outline"
+              >
+                <:trigger>Open Third Drawer</:trigger>
+                <:title>Third Drawer</:title>
+                <:description>Two drawers are stacked behind this one.</:description>
+                <.drawer_placeholder />
+                <:footer>
+                  <.drawer
+                    id="drawer-nested-4"
+                    nested
+                    parent="drawer-nested-3"
+                    swipe_direction={@drawer_nested_direction}
+                    show_swipe_handle={@drawer_nested_mobile}
+                    trigger_variant="outline"
+                  >
+                    <:trigger>Open Fourth Drawer</:trigger>
+                    <:title>Fourth Drawer</:title>
+                    <:description>This is the frontmost drawer in the stack.</:description>
+                    <.drawer_placeholder />
+                    <:close variant="outline">Close</:close>
+                  </.drawer>
+                </:footer>
+                <:close variant="outline">Close</:close>
+              </.drawer>
+            </:footer>
+            <:close variant="outline">Close</:close>
+          </.drawer>
+        </:footer>
+        <:close variant="outline">Close</:close>
+      </.drawer>
+    </div>
     """
   end
 

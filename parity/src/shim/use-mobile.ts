@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-// shadcn's own hook, which its registry imports and does not publish. Only
-// `sidebar` reads it, and only to decide whether the sidebar is a sheet.
+// shadcn's own hook, which its registry imports and does not publish. Sidebar
+// and the nested Drawer use it to choose their mobile presentation.
 const MOBILE_BREAKPOINT = 768;
 
 export function useIsMobile() {
