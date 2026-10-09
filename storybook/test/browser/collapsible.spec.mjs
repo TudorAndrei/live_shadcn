@@ -3,7 +3,8 @@
 import { expect, test } from "@playwright/test";
 
 import { connected, referenceReady, visit } from "./live.mjs";
-import { discoverInteractionProbes, enterInteractionProbe } from "./interaction-parity.mjs";
+import { reviewedReferenceLabels } from "./reviewed-reference-labels.mjs";
+import { discoverInteractionProbes, enterInteractionProbe, probeIdentity } from "./interaction-parity.mjs";
 
 const parts = (page, id) => ({
   root: page.locator(`#${id}`),
@@ -106,3 +107,32 @@ for (const side of ["React", "Phoenix"]) {
     expect(inputs(state.closed.controls)).toEqual(Array(2).fill({ tag: "input", values: ["0"] }));
   });
 }
+
+test("settings label comparison preserves port names and rejects a changed reference pattern", async ({ page }, testInfo) => {
+  const path = "/preview/collapsible/settings";
+  const referenceURL = `${testInfo.project.use.parityURL}${path}`;
+  const referenceOptions = { referenceLabels: reviewedReferenceLabels("collapsible", "settings") };
+  const scope = page.locator("[data-preview='collapsible']");
+  await page.goto(referenceURL);
+  await referenceReady(page);
+  const referenceProbes = await discoverInteractionProbes(scope, referenceOptions);
+  expect(referenceProbes.filter((probe) => probe.kind === "editable-text").map((probe) => probe.name))
+    .toEqual(["Radius X", "Radius Y"]);
+  const disclosure = referenceProbes.find((probe) => probe.kind === "disclosure");
+  const reference = await enterInteractionProbe(page, scope, disclosure, referenceOptions);
+  expect(reference.opened.controls.map((control) => control.name)).toEqual(["Radius X", "Radius Y", "Radius X", "Radius Y"]);
+  expect(reference.closed.controls.map((control) => control.name)).toEqual(["Radius X", "Radius Y"]);
+
+  await page.goto(path);
+  await connected(page);
+  const portProbes = await discoverInteractionProbes(scope);
+  expect(portProbes.map(probeIdentity)).toEqual(referenceProbes.map(probeIdentity));
+  expect(await enterInteractionProbe(page, scope, disclosure)).toEqual(reference);
+  await scope.locator("label[for='radius-x']").evaluate((label) => { label.textContent = "Wrong radius"; });
+  expect((await discoverInteractionProbes(scope)).map(probeIdentity)).not.toEqual(referenceProbes.map(probeIdentity));
+
+  await page.goto(referenceURL);
+  await referenceReady(page);
+  await scope.locator("input").first().evaluate((input) => { input.id = "radius-x"; });
+  await expect(discoverInteractionProbes(scope, referenceOptions)).rejects.toThrow("reviewed Collapsible settings label pattern changed");
+});

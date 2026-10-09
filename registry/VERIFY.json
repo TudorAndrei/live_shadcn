@@ -3662,21 +3662,16 @@
   "shadcn/collapsible": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility collapsible.settings: accessibility report has no result for collapsible.settings\naccessibility collapsible.file-tree: accessibility report has no result for collapsible.file-tree\naccessibility: cannot run Playwright: Playwright report metadata marks the run incomplete\ncollapsible / file-tree has the upstream accessibility contract: \u001B[31mTest timeout of 30000ms exceeded.\u001B[39m\ncollapsible / file-tree has the upstream accessibility contract: Error: page.goto: Target page, context or browser has been closed\n\n  124 |\n  125 | async function scan(page, url, selector, state, live = false) {\n> 126 |   await page.goto(url);\n      |              ^\n  127 |   if (live) await connected(page);\n  128 |   // A preview can contain only fixed, absolute children. It is then present\n  129 |   // in the accessibility tree but has no box of its own to make visible.\n    at scan (/Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:126:14)\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:110:26",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
-        "detail": "behavior collapsible:       56 |\n      57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-collaps-68afe-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-collaps-68afe-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-collaps-68afe-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › collapsible / settings keeps inferred interaction semantics ",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior collapsible:       56 |\n      57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-collaps-68afe-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-collaps-68afe-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-collaps-68afe-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › collapsible / settings keeps inferred interaction semantics \naccessibility collapsible.settings: accessibility report has no result for collapsible.settings\naccessibility collapsible.file-tree: accessibility report has no result for collapsible.file-tree\naccessibility: cannot run Playwright: Playwright report metadata marks the run incomplete\ncollapsible / file-tree has the upstream accessibility contract: \u001B[31mTest timeout of 30000ms exceeded.\u001B[39m\ncollapsible / file-tree has the upstream accessibility contract: Error: page.goto: Target page, context or browser has been closed\n\n  124 |\n  125 | async function scan(page, url, selector, state, live = false) {\n> 126 |   await page.goto(url);\n      |              ^\n  127 |   if (live) await connected(page);\n  128 |   // A preview can contain only fixed, absolute children. It is then present\n  1\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "5 of 5 official examples have HEEx previews",
@@ -3697,17 +3692,17 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "506fa38163f99c0f32f4d03be4003b9d42ab49ce300e7ca37ba41112875d8b9f",
-    "pass": false,
-    "spec": "483030ed3528277fcaeb9f71560743ed078b4d298231eb339530c60c672eecdd"
+    "evidence": "a9dfe10cf65f4be9e71bd9e27cd3e85e94465ff910dc18921054f1ca61aba1a8",
+    "pass": true,
+    "spec": "eab85a764736082e9f964609f3a6f622069adc9cedd1f68106bbec602d7231d5"
   },
   "shadcn/questionnaire": {
     "checks": {

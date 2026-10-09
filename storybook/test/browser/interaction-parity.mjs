@@ -5,6 +5,7 @@
 
 import { inScope } from "./preview-scope.mjs";
 import { waitForFixtureImages } from "./visual-states.mjs";
+import { referenceLabelNames } from "./reviewed-reference-labels.mjs";
 
 /**
  * Selects official shadcn pages from the common preview scope. The source
@@ -78,6 +79,7 @@ export async function discoverInteractionProbes(scope, options = {}) {
     editableSelector: editableInteractionSelector(),
     editableProbeSelector: editableInteractionProbeSelector(),
     ...options,
+    referenceInputNames: await referenceLabelNames(scope, options.referenceLabels),
   };
 
   return scope.evaluate((root, options) => {
@@ -106,6 +108,10 @@ export async function discoverInteractionProbes(scope, options = {}) {
     };
 
     const name = (element) => {
+      if (options.referenceInputNames.length && element instanceof HTMLInputElement) {
+        const inputIndex = [...root.querySelectorAll("input")].indexOf(element);
+        if (options.referenceInputNames[inputIndex]) return options.referenceInputNames[inputIndex];
+      }
       const aria = element.getAttribute("aria-label");
       if (aria) return aria.trim();
 
@@ -342,30 +348,31 @@ export async function enterInteractionProbe(
     typeof selector === "string" ? page.locator(selector) : selector;
   await waitForFixtureImages(page);
   const target = scope.locator(probe.selector).nth(probe.index);
+  const observe = () => observeInteraction(scope, target, probe, options.referenceLabels);
 
   if (probe.kind === "native-select") {
     await target.selectOption(probe.value);
-    return observeInteraction(scope, target, probe);
+    return observe();
   }
 
   if (probe.kind === "editable-text") {
     await target.fill(probe.value);
     await settle(page);
-    return observeInteraction(scope, target, probe);
+    return observe();
   }
 
   if (probe.kind === "range") {
     await target.focus();
     await target.press("End");
     await settle(page);
-    return observeInteraction(scope, target, probe);
+    return observe();
   }
 
   if (
     probe.kind === "disabled-native-select" ||
     probe.kind === "disabled-checkable"
   ) {
-    return observeInteraction(scope, target, probe);
+    return observe();
   }
 
   if (probe.kind === "hover") {
@@ -373,24 +380,24 @@ export async function enterInteractionProbe(
     await target.hover();
     const popup = page.locator(`[data-slot='${probe.popupSlot}']:visible`);
     await popup.waitFor({ timeout: 1_000 });
-    const opened = await observeInteraction(scope, target, probe);
+    const opened = await observe();
     if (options.keepOpen) return { opened };
 
     await page.mouse.move(0, 0);
     await popup.waitFor({ state: "hidden", timeout: 1_000 });
-    return { opened, closed: await observeInteraction(scope, target, probe) };
+    return { opened, closed: await observe() };
   }
 
   await target.click();
   await settle(page);
 
   if (probe.kind !== "disclosure")
-    return observeInteraction(scope, target, probe);
+    return observe();
 
   await waitForAttribute(target, "aria-expanded", "true");
   const popupId = await target.getAttribute("aria-controls");
   const popup = popupId ? page.locator(`#${popupId}`) : null;
-  const opened = await observeInteraction(scope, target, probe);
+  const opened = await observe();
   if (options.keepOpen) return { opened };
 
   if (await target.getAttribute("aria-haspopup")) {
@@ -399,19 +406,24 @@ export async function enterInteractionProbe(
     await target.click();
   }
   await waitForDisclosureClosed(target, popup);
-  return { opened, closed: await observeInteraction(scope, target, probe) };
+  return { opened, closed: await observe() };
 }
 
 /** Enter a visual action and leave its rendered state on screen. */
 export const enterVisualActionProbe = (page, scope, probe) =>
   enterInteractionProbe(page, scope, probe, { keepOpen: true });
 
-async function observeInteraction(scope, target, probe) {
+async function observeInteraction(scope, target, probe, referenceLabels) {
   const scopeHandle = await scope.elementHandle();
+  const referenceInputNames = await referenceLabelNames(scope, referenceLabels);
 
   return target.evaluate(
-    (element, { root, kind, popupSlot }) => {
+    (element, { root, kind, popupSlot, referenceInputNames }) => {
       const accessibleName = (node) => {
+        if (referenceInputNames.length && node instanceof HTMLInputElement) {
+          const inputIndex = [...root.querySelectorAll("input")].indexOf(node);
+          if (referenceInputNames[inputIndex]) return referenceInputNames[inputIndex];
+        }
         const aria = node.getAttribute("aria-label");
         if (aria) return aria.trim();
         const labels = Array.from(node.labels ?? [])
@@ -492,7 +504,7 @@ async function observeInteraction(scope, target, probe) {
         kind,
       };
     },
-    { root: scopeHandle, kind: probe.kind, popupSlot: probe.popupSlot ?? null },
+    { root: scopeHandle, kind: probe.kind, popupSlot: probe.popupSlot ?? null, referenceInputNames },
   );
 }
 

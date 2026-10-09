@@ -17,6 +17,7 @@ import { connected, referenceReady } from "./live.mjs";
 import { installBrowserFixtures } from "./visual-states.mjs";
 import { hasScopeFilter, scopeFromEnvironment } from "./preview-scope.mjs";
 import { hasOfficialReactReference } from "./react-references.mjs";
+import { reviewedReferenceLabels } from "./reviewed-reference-labels.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const previews = JSON.parse(readFileSync(join(here, "../../../registry/snapshot/index.json"), "utf8"));
@@ -42,10 +43,19 @@ for (const { component, example } of pages) {
     const selector = `[data-preview='${component}']`;
     const reactURL = `${testInfo.project.use.parityURL}/preview/${component}/${example}`;
     const phoenixURL = `/preview/${component}/${example}`;
+    const referenceLabels = reviewedReferenceLabels(component, example);
+    const referenceOptions = { referenceLabels };
+    if (referenceLabels) {
+      testInfo.annotations.push({ type: "reference-normalization", description: referenceLabels.reason });
+      await testInfo.attach("reviewed-reference-labels.json", {
+        body: JSON.stringify({ component, example, ...referenceLabels }),
+        contentType: "application/json",
+      });
+    }
 
     await page.goto(reactURL);
     await referenceReady(page);
-    const reactProbes = await discoverInteractionProbes(page.locator(selector));
+    const reactProbes = await discoverInteractionProbes(page.locator(selector), referenceOptions);
 
     await page.goto(phoenixURL);
     await connected(page);
@@ -59,7 +69,7 @@ for (const { component, example } of pages) {
     for (const probe of reactProbes) {
       await page.goto(reactURL);
       await referenceReady(page);
-      const react = await enterInteractionProbe(page, selector, probe);
+      const react = await enterInteractionProbe(page, selector, probe, referenceOptions);
 
       await page.goto(phoenixURL);
       await connected(page);
