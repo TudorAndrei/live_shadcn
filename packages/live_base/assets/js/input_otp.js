@@ -11,6 +11,13 @@ export function installInputOtpBehavior() {
   if (installed) return;
   installed = true;
 
+  const style = document.createElement("style");
+  style.textContent = `[data-input-otp]::selection {
+    background: transparent !important;
+    color: transparent !important;
+  }`;
+  document.head.appendChild(style);
+
   const mount = (element) => {
     if (controllers.has(element)) return;
     const controller = Object.assign(Object.create(InputOtp), { el: element });

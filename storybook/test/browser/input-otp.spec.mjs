@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test";
+import { PNG } from "pngjs";
 
-import { visit } from "./live.mjs";
+import { compare, paintedBox, settle, shootCurrent, union } from "./shoot.mjs";
+
+import { referenceReady, visit } from "./live.mjs";
 
 const otpInput = (page) => page.locator("[data-preview='input-otp'] input[data-input-otp]");
 const slots = (page) => page.locator("[data-preview='input-otp'] [data-slot='input-otp-slot']");
@@ -108,4 +111,41 @@ test("controlled, invalid, form, and RTL examples keep their official states", a
   await visit(page, "/preview/input-otp/rtl", "#input-otp-rtl");
   await expect(page.getByLabel("رمز التحقق")).toHaveAttribute("dir", "rtl");
   await expect(otpInput(page)).toHaveValue("123456");
+});
+
+
+test("native keyboard selection paints only the visible OTP slots", async ({ page, context }, testInfo) => {
+  const reference = await context.newPage();
+  const selector = "[data-preview='input-otp']";
+  try {
+    await reference.goto(`${testInfo.project.use.parityURL}/preview/input-otp/default`);
+    await referenceReady(reference);
+    await visit(page, "/preview/input-otp/default");
+    for (const current of [reference, page]) {
+      const input = otpInput(current);
+      await current.bringToFront();
+      await input.focus();
+      await expect.poll(() => input.evaluate(element => [element.selectionStart, element.selectionEnd])).toEqual([5, 6]);
+      await input.pressSequentially("9");
+      await expect(input).toHaveValue("123459");
+      await expect(slots(current).nth(5)).toHaveText("9");
+      await expect(input).toBeFocused();
+      await expect.poll(() => input.evaluate(element => [element.selectionStart, element.selectionEnd])).toEqual([5, 6]);
+      await settle(current, selector);
+    }
+    const clip = union(await paintedBox(reference, selector), await paintedBox(page, selector));
+    await page.bringToFront();
+    const phoenix = await shootCurrent(page, selector, clip);
+    await reference.bringToFront();
+    const react = await shootCurrent(reference, selector, clip);
+    const result = compare(react.image, phoenix.image);
+    if (result.differing) {
+      await testInfo.attach("otp-selection-react.png", {body:PNG.sync.write(react.image),contentType:"image/png"});
+      await testInfo.attach("otp-selection-phoenix.png", {body:PNG.sync.write(phoenix.image),contentType:"image/png"});
+      await testInfo.attach("otp-selection-diff.png", {body:PNG.sync.write(result.diff),contentType:"image/png"});
+    }
+    expect(result.differing, "native selection must not cover the visible slots").toBe(0);
+  } finally {
+    await reference.close();
+  }
 });
