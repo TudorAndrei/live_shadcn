@@ -1929,23 +1929,22 @@
         "pass": true
       },
       "pixel": {
-        "detail": "pixel sonner.basic: sonner / basic paints what React paints\nError: action:Show Toast: 1629 px differ (0.04%) — hottest: nothing\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m1629\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel sonner.with-description: sonner / with-description paints what React paints\nError: action:Show Toast: 3599 px differ (0.09%) — hottest: nothing\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m3599\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "a7e6abf11b6727e7e72465a32ff0aadc4fdb2e678528b7e871781df46138b5ac",
-    "pass": false,
-    "spec": "874788f207563dc1a36edbfd00676ee6e5d2d1c8b124b9afa595268edb70eabc"
+    "evidence": "3791478d68b8f8ceb9b42b311a740dafeb0d67351fc8d2c57a7e576bcfbdb8cf",
+    "pass": true,
+    "spec": "9ec43549de9fc0e9fa4912157f95a4c1f93f51d025ab6c2ae11bf57f8e8d2429"
   },
   "ai_elements/web-preview": {
     "checks": {

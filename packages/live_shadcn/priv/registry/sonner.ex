@@ -102,10 +102,10 @@ defmodule LiveShadcn.UI.Sonner do
       phx-hook={Toast.hook()}
         class={[
           upstream_fact("jsx/Toaster/class/0"),
-          "fixed right-8 bottom-8 z-[999999999] m-0 w-[356px] list-none p-0",
+          "fixed right-6 bottom-6 z-[999999999] m-0 w-[356px] list-none p-0",
           (@class || "")
         ]}
-        style="--width: 356px; --gap: 14px; --offset-right: 32px; --offset-bottom: 32px; --border-radius: var(--radius); --normal-bg: var(--popover); --normal-border: var(--border); --normal-text: var(--popover-foreground)"
+        style="font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji; --width: 356px; --gap: 14px; --offset-right: 24px; --offset-bottom: 24px; --border-radius: var(--radius); --normal-bg: var(--popover); --normal-border: var(--border); --normal-text: var(--popover-foreground)"
         {@rest}
       >
         <li
@@ -131,14 +131,15 @@ defmodule LiveShadcn.UI.Sonner do
           data-swipe-out="false"
           data-expanded="false"
           style="--index: 0; --toasts-before: 0; --z-index: 1; --offset: 0px; --initial-height: auto"
-          class="cn-toast absolute right-0 bottom-0 flex w-full items-center gap-1.5 rounded-[var(--border-radius)] border bg-[var(--normal-bg)] p-4 text-[13px] text-[var(--normal-text)] shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
+          class="absolute right-0 bottom-0 flex w-full items-center gap-1.5 rounded-[var(--border-radius)] border bg-[var(--normal-bg)] p-4 text-[13px] text-[var(--normal-text)] shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
         >
+          <% description = render_slot(toast) %>
           <div :if={toast[:type]} data-icon>
             <LiveShadcn.Icon.icon name={icon(toast[:type])} class={icon_class(toast[:type])} />
           </div>
           <div data-content class="flex min-w-0 flex-1 flex-col gap-0.5">
-            <div :if={toast[:title]} data-title class="leading-[1.5]">{toast[:title]}</div>
-            <div data-description class="leading-[1.4] text-[#3f3f3f]">{render_slot(toast)}</div>
+            <div :if={toast[:title]} data-title class="font-medium leading-[1.5]">{toast[:title]}</div>
+            <div :if={description_present?(description)} data-description class="leading-[1.4] text-[#3f3f3f]">{description}</div>
           </div>
           <button
             :if={@close_button}
@@ -153,6 +154,14 @@ defmodule LiveShadcn.UI.Sonner do
       </ol>
     </section>
     """
+  end
+
+  defp description_present?(description) do
+    description
+    |> Phoenix.HTML.Safe.to_iodata()
+    |> IO.iodata_to_binary()
+    |> String.trim()
+    |> then(&(&1 != ""))
   end
 
   defp icon("success"), do: "circle-check"
