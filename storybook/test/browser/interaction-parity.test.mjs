@@ -137,6 +137,7 @@ test("a disclosure close waits for its opened popup exit before it samples close
       callback(
         {
           getAttribute: (name) => (name === "aria-expanded" ? "false" : null),
+          classList: { contains: () => false },
         },
         args,
       ),

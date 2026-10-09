@@ -2099,6 +2099,7 @@ function actionableTriggers(scope) {
 // on macOS. Its controlled menu remains the observable open-state contract.
 async function waitForDisclosureState(trigger, expected) {
   const matches = () => {
+    if (trigger.classList.contains("phx-click-loading")) return false;
     const expanded = trigger.getAttribute("aria-expanded");
     if (expanded !== null) return expanded === expected;
     if (trigger.getAttribute("role") !== "menuitem" ||

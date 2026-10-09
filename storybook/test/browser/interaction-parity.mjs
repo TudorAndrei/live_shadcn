@@ -499,7 +499,9 @@ async function observeInteraction(scope, target, probe) {
 async function waitForAttribute(locator, name, value) {
   await locator.evaluate(
     async (element, [attribute, expected]) => {
-      while (element.getAttribute(attribute) !== expected) {
+      // Local state can change before a caller event updates its label and content.
+      while (element.getAttribute(attribute) !== expected ||
+             element.classList.contains("phx-click-loading")) {
         await new Promise((resolve) => requestAnimationFrame(resolve));
       }
     },
