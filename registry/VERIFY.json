@@ -3174,16 +3174,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior card:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-card-sp-836a1-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-card-sp-836a1-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-card-sp-836a1-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › card / spacing keeps inferred interaction semantics \n  1 passed (9.0s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior card:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-card-sp-836a1-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-card-sp-836a1-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-card-sp-836a1-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › card / spacing keeps inferred interaction semantics \n  1 passed (9.0s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "6 of 6 official examples have HEEx previews",
@@ -3204,16 +3200,16 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "dda7f18029ba6ed3768f2d9142e5fc3cc779eab6276d8564b9046dfcfdf043f1",
-    "pass": false,
+    "evidence": "5c23bfeae8859bb555847424e79a8c3dbf631201f33104d099a28222fb051b03",
+    "pass": true,
     "spec": "5ed5dc0bd2d345168a570e4817612ce9028ff2a7c479acc7996c877a2af934d3"
   },
   "ai_elements/panel": {

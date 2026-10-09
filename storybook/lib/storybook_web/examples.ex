@@ -10975,6 +10975,7 @@ defmodule StorybookWeb.Examples do
           :for={{value, label} <- [{"4", "16px"}, {"5", "20px"}, {"6", "24px"}, {"8", "32px"}]}
           id={"card-spacing-#{value}"}
           value={value}
+          native_value=""
           checked={@card_spacing == value}
           on_click={JS.push("card_spacing", value: %{spacing: value})}
         >
