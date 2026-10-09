@@ -5,7 +5,7 @@ import { visit } from "./live.mjs";
 const preview = "[data-preview='shadcn-message']";
 
 test("the default Message example keeps alignment, reactions, and typing status", async ({ page }) => {
-  await visit(page, "/preview/shadcn-message/default", `${preview} [data-slot='message']`);
+  await visit(page, "/preview/shadcn-message/default", preview);
 
   await expect(page.locator(`${preview} [data-slot='message']`)).toHaveCount(4);
   await expect(page.locator(`${preview} [data-slot='message'][data-align='end']`)).toHaveCount(2);
@@ -18,7 +18,7 @@ test("the default Message example keeps alignment, reactions, and typing status"
 });
 
 test("the avatar Message example keeps pinned image names and grouped content", async ({ page }) => {
-  await visit(page, "/preview/shadcn-message/avatar", `${preview} [data-slot='message']`);
+  await visit(page, "/preview/shadcn-message/avatar", preview);
 
   await expect(page.locator(`${preview} [data-slot='message']`)).toHaveCount(3);
   await expect(page.getByAltText("@avatar")).toHaveCount(3);
@@ -26,7 +26,7 @@ test("the avatar Message example keeps pinned image names and grouped content", 
 });
 
 test("the grouped Message example keeps its empty avatar and message group", async ({ page }) => {
-  await visit(page, "/preview/shadcn-message/group", `${preview} [data-slot='message-group']`);
+  await visit(page, "/preview/shadcn-message/group", preview);
 
   const group = page.locator(`${preview} [data-slot='message-group']`);
   await expect(group.locator("[data-slot='message']")).toHaveCount(2);
@@ -35,7 +35,7 @@ test("the grouped Message example keeps its empty avatar and message group", asy
 });
 
 test("the header and footer Message example keeps its pinned text", async ({ page }) => {
-  await visit(page, "/preview/shadcn-message/header-footer", `${preview} [data-slot='message-header']`);
+  await visit(page, "/preview/shadcn-message/header-footer", preview);
 
   await expect(page.locator(`${preview} [data-slot='message-header']`)).toHaveText("Olivia");
   await expect(page.locator(`${preview} [data-slot='message-footer']`)).toHaveText("Read Yesterday");
@@ -43,7 +43,7 @@ test("the header and footer Message example keeps its pinned text", async ({ pag
 });
 
 test("the actions Message example exposes named native buttons", async ({ page }) => {
-  await visit(page, "/preview/shadcn-message/actions", `${preview} [data-slot='message-footer']`);
+  await visit(page, "/preview/shadcn-message/actions", preview);
 
   for (const name of ["Copy", "Like", "Dislike", "Retry"]) {
     await expect(page.getByRole("button", { name, exact: true })).toBeVisible();
@@ -54,7 +54,7 @@ test("the actions Message example exposes named native buttons", async ({ page }
 });
 
 test("the attachment Message example exposes informative media and Download", async ({ page }) => {
-  await visit(page, "/preview/shadcn-message/attachment", `${preview} [data-slot='attachment']`);
+  await visit(page, "/preview/shadcn-message/attachment", preview);
 
   await expect(page.getByAltText("Workspace")).toBeVisible();
   await expect(page.getByRole("button", { name: "Download", exact: true })).toHaveAttribute(
