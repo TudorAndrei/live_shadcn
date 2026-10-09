@@ -8,13 +8,9 @@ function syncImage(image) {
 
   const fallback = image.parentElement?.querySelector(FALLBACK_SELECTOR);
 
-  if (image.naturalWidth > 0) {
-    image.hidden = false;
-    fallback?.setAttribute("hidden", "");
-  } else {
-    image.hidden = true;
-    fallback?.removeAttribute("hidden");
-  }
+  const failed = image.naturalWidth === 0;
+  if (image.hidden !== failed) image.hidden = failed;
+  fallback?.toggleAttribute("hidden", !failed);
 }
 
 function syncImages(node) {
