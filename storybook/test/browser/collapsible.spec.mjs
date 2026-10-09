@@ -2,7 +2,8 @@
 
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { connected, referenceReady, visit } from "./live.mjs";
+import { discoverInteractionProbes, enterInteractionProbe } from "./interaction-parity.mjs";
 
 const parts = (page, id) => ({
   root: page.locator(`#${id}`),
@@ -91,3 +92,17 @@ test("nested file-tree panels keep independent state", async ({ page }) => {
   await components.trigger.click();
   await expect(components.panel).toBeHidden();
 });
+
+for (const side of ["React", "Phoenix"]) {
+  test(`settings observation contains the visible inputs through opening and closing on ${side}`, async ({ page }, testInfo) => {
+    const path = "/preview/collapsible/settings";
+    await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+    await (side === "React" ? referenceReady(page) : connected(page));
+    const scope = page.locator("[data-preview='collapsible']");
+    const probe = (await discoverInteractionProbes(scope)).find((candidate) => candidate.kind === "disclosure");
+    const state = await enterInteractionProbe(page, scope, probe);
+    const inputs = (controls) => controls.map((control) => ({ tag: control.tag, values: control.values }));
+    expect(inputs(state.opened.controls)).toEqual(Array(4).fill({ tag: "input", values: ["0"] }));
+    expect(inputs(state.closed.controls)).toEqual(Array(2).fill({ tag: "input", values: ["0"] }));
+  });
+}

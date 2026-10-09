@@ -446,13 +446,6 @@ async function observeInteraction(scope, target, probe) {
         };
       };
 
-      const controls = Array.from(
-        root.querySelectorAll(
-          "[role='checkbox'], [role='switch'], [role='radio'], [aria-pressed], select, textarea, input:not([type]), input[type='text'], input[type='search'], input[type='email'], input[type='url'], input[type='tel'], input[type='password']",
-        ),
-      )
-        .filter((node) => node.getAttribute("aria-hidden") !== "true")
-        .map(describe);
       const controlled = element.getAttribute("aria-controls");
       const popup = controlled ? document.getElementById(controlled) : null;
       const visible = (node) => {
@@ -466,6 +459,13 @@ async function observeInteraction(scope, target, probe) {
           box.width + box.height > 0
         );
       };
+      const controls = Array.from(
+        root.querySelectorAll(
+          "[role='checkbox'], [role='switch'], [role='radio'], [aria-pressed], select, textarea, input:not([type]), input[type='text'], input[type='search'], input[type='email'], input[type='url'], input[type='tel'], input[type='password']",
+        ),
+      )
+        .filter((node) => node.getAttribute("aria-hidden") !== "true" && visible(node))
+        .map(describe);
       const visiblePopup = popupSlot
         ? Array.from(
             document.querySelectorAll(`[data-slot='${popupSlot}']`),
