@@ -72,6 +72,8 @@ defmodule Mix.Tasks.Ui.Verify do
     "visibility renders the pinned transcript and updates its outline target state",
     "scrollable matches the pinned transcript and reports native scroll state"
   ]
+  @stored_detail_limit 2_048
+  @full_detail_notice "\nMore detail is in the verification output."
   @managed_browser_servers_env "LIVE_SHADCN_MANAGED_SERVERS"
   @browser_server_ready_timeout 120_000
   @browser_server_request_timeout 1_000
@@ -409,8 +411,42 @@ defmodule Mix.Tasks.Ui.Verify do
     |> Map.filter(fn {reference, _result} ->
       not String.starts_with?(reference, "shadcn/") or verification_target?(reference)
     end)
-    |> Map.merge(results)
+    |> Map.merge(
+      Map.new(results, fn {reference, record} ->
+        {reference, concise_record(reference, record)}
+      end)
+    )
   end
+
+  defp concise_record("shadcn/" <> _name, %{"checks" => checks} = record) do
+    Map.put(
+      record,
+      "checks",
+      Map.new(checks, fn {name, check} ->
+        {name, concise_check(check)}
+      end)
+    )
+  end
+
+  defp concise_record(_reference, record), do: record
+
+  defp concise_check(%{"detail" => detail} = check) when is_binary(detail) do
+    if byte_size(detail) > @stored_detail_limit do
+      prefix = binary_part(detail, 0, @stored_detail_limit - byte_size(@full_detail_notice))
+
+      valid_prefix =
+        case :unicode.characters_to_binary(prefix) do
+          text when is_binary(text) -> text
+          {:incomplete, text, _remainder} -> text
+        end
+
+      Map.put(check, "detail", valid_prefix <> @full_detail_notice)
+    else
+      check
+    end
+  end
+
+  defp concise_check(check), do: check
 
   # Prune obsolete targets only within the source this verifier owns. An AI
   # record is historical data outside this run's scope, even if its component

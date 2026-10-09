@@ -29,6 +29,36 @@ defmodule Mix.Tasks.Ui.VerifyTest do
              |> Map.merge(results)
   end
 
+  test "a failed shadcn publication keeps its identity and a bounded Unicode diagnostic" do
+    detail = "First failure: caller event did not run.\n" <> String.duplicate("خطأ é 🔎 ", 2_000)
+    ai_record = %{"pass" => false, "checks" => %{"browser" => %{"detail" => detail}}}
+    failure = %{"pass" => false, "outcome" => "failed", "detail" => detail}
+    short = %{"pass" => true, "detail" => "required checks for standard policy"}
+
+    record = %{
+      "pass" => false,
+      "spec" => "contract-identity",
+      "evidence" => "input-identity",
+      "checks" => %{"browser" => failure, "policy" => short}
+    }
+
+    published =
+      Verify.merge_results(%{"ai_elements/message" => ai_record}, %{"shadcn/button" => record})
+
+    stored = published["shadcn/button"]
+    diagnostic = stored["checks"]["browser"]["detail"]
+
+    assert byte_size(diagnostic) <= 2_048
+    assert String.valid?(diagnostic)
+    assert String.starts_with?(diagnostic, "First failure: caller event did not run.")
+    assert diagnostic =~ "verification output"
+    assert Map.delete(stored, "checks") == Map.delete(record, "checks")
+    assert Map.delete(stored["checks"]["browser"], "detail") == Map.delete(failure, "detail")
+    assert stored["checks"]["policy"] == short
+    assert published["ai_elements/message"] == ai_record
+    assert Jason.decode!(Jason.encode!(published)) == published
+  end
+
   test "incremental report validation waits for the verifier lock" do
     root = LiveShadcnTools.repo_root()
 
