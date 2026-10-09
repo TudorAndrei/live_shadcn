@@ -171,7 +171,7 @@ defmodule LiveShadcn.UI.Dialog do
       <div
         :if={@footer != []}
         data-slot="dialog-footer"
-        class={[upstream_fact("jsx/DialogFooter/class/0"), @footer_class]}
+        class={LiveShadcn.Cn.merge([upstream_fact("jsx/DialogFooter/class/0"), @footer_class])}
       >
         {render_slot(@footer)}
       </div>
