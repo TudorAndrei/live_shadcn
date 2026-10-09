@@ -1454,18 +1454,16 @@
   "shadcn/button-group": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility button-group.popover: button-group / popover has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"expanded:Open Popover: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"slot:popover-content > slot:field > slot:textarea\\\"] has no matching upstream violation): Element has insufficient color contrast of 2.81 (foreground color: #9a9a9a, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#9a9a9a\\\",\\\"bgColor\\\":\\\"#ffffff\\\",\\\"contrastRatio\\\":2.81,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at #button-group-task\",\u001B[39m\n\u001B[31m+   \"expanded:Open Popover: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"slot:popover-content > slot:popover-header > slot:popover-title\\\"] has no matching upstream violation): Element has insufficient color contrast of 2.81 (foreground color: #9a9a9a, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#9a9a9a\\\",\\\"bgColor\\\":\\\"#ffffff\\\",\\\"contrastRatio\\\":2.81,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at #button-group-copilot-title\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  113 |     }\n  114 |\n> 115 |     expect(added).toEqual([]);\n      |                   ^\n  116 |   });\n  117 | }\n  118 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:115:19",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
         "outcome": "passed",
         "pass": true
       },
       "browser": {
-        "detail": "accessibility button-group.popover: button-group / popover has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"expanded:Open Popover: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"slot:popover-content > slot:field > slot:textarea\\\"] has no matching upstream violation): Element has insufficient color contrast of 2.81 (foreground color: #9a9a9a, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#9a9a9a\\\",\\\"bgColor\\\":\\\"#ffffff\\\",\\\"contrastRatio\\\":2.81,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at #button-group-task\",\u001B[39m\n\u001B[31m+   \"expanded:Open Popover: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"slot:popover-content > slot:popover-header > slot:popover-title\\\"] has no matching upstream violation): Element has insufficient color contrast of 2.81 (foreground color: #9a9a9a, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#9a9a9a\\\",\\\"bgColor\\\":\\\"#ffffff\\\",\\\"contrastRatio\\\":2.81,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at #button-group-copilot-title\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  113 |     }\n  114 |\n> 115 |     expect(added).toEqual([]);\n      |                   ^\n  116 |   });\n  117 | }\n  118 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:115:19",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "12 of 12 official examples have HEEx previews",
@@ -1477,9 +1475,8 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity button-group.separator: button-group / separator draws what React draws\nError: default: where the two trees differ (full trees attached):\n  React       div 1x30 [button-group-separator] shrink-0 bg-border data-horizontal:h-px data-vertical:w-px data-vertical:self-stretch cn-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto\n  Phoenix     div 1x30 [button-group-separator] shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch cn-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto\n  ← class\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 5\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"default / button-group > button-group-separator: class — React bg-border cn-button-group-separator data-horizontal:h-px data-horizontal:mx-px data-horizontal:w-auto data-vertical:h-auto data-vertical:my-px data-vertical:self-stretch data-vertical:w-px relative self-stretch shrink-0, Phoenix bg-border cn-button-group-separator data-horizontal:h-px data-horizontal:mx-px data-horizontal:w-auto data-horizontal:w-full data-vertical:h-auto data-vertical:my-px data-vertical:self-stretch data-vertical:w-px relative self-stretch shrink-0\",\u001B[39m\n\u001B[31m+   \"action:Copy / button-group > button-group-separator: class — React bg-border cn-button-group-separator data-horizontal:h-px data-horizontal:mx-px data-horizontal:w-auto data-vertical:h-auto data-vertical:my-px data-vertical:self-stretch data-vertical:w-px relative self-stretch shrink-0, Phoenix bg-border cn-button-group-separator data-horizontal:h-px data-horizontal:mx-px data-horizontal:w-auto data-horizontal:w-full data-vertical:h-auto data-vertical:my-px data-vertical:self-stretch data-vertical:w-px relative se\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
         "outcome": "passed",
@@ -1487,17 +1484,17 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "a5a1229bd5e5c07ec195af4276d38d937c7f126be13d685fd615fdd86ea5db07",
-    "pass": false,
-    "spec": "62dc6533160488415fd9e99a3a7e67c56760c1e0545194e97211e339da87ce5f"
+    "evidence": "e6a50fc4e2da1bc820f9068aa4700a986e2df02a3a85c26ab4200e731f8eff57",
+    "pass": true,
+    "spec": "b0ce3bc5666011d47517943ff12bf960ebec2b84e7ed2f90780a2308cfd91d65"
   },
   "ai_elements/checkpoint": {
     "checks": {
@@ -3471,9 +3468,9 @@
         "pass": true
       }
     },
-    "evidence": "b30864e0ebaead4e13d3081d68991e42ad05e4135ff1db6e2f09d17ef719f2b8",
+    "evidence": "2439e8226039424c3397330fd18c61a02fc56eaf4ff7b5f27da5f57efec4af76",
     "pass": true,
-    "spec": "ca02e5d617771f3cae3ab59f7c6a8d877e5540fac3fed5b513e91e1fa6c66302"
+    "spec": "ac85ee6d3dffded7d6db06e6036dbe50de13da6a45bb10b95fa2bc1f3a5f7f46"
   },
   "shadcn/empty": {
     "checks": {

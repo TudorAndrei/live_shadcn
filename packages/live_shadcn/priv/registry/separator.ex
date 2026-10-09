@@ -20,7 +20,7 @@ defmodule LiveShadcn.UI.Separator do
 
   @doc "The `separator` part."
   attr(:orientation, :string, default: "horizontal")
-  attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:class, :any, default: nil, doc: "Merged with the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
@@ -31,10 +31,7 @@ defmodule LiveShadcn.UI.Separator do
       role={@rest[:role] || "separator"}
       aria-orientation={if(@rest[:role] in [nil, "separator"], do: @orientation)}
       data-orientation={@orientation}
-      class={[
-        upstream_fact("jsx/Separator/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Separator/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot", :role])}
     >
       {render_slot(@inner_block)}

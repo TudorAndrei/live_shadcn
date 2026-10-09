@@ -43,5 +43,11 @@ defmodule LiveShadcn.UI.ButtonGroupTest do
     assert attribute(separator, "data-orientation") == "vertical"
     assert "shrink-0" in classes(separator)
     assert "cn-button-group-separator" in classes(separator)
+
+    assert Enum.filter(classes(separator), &String.starts_with?(&1, "data-horizontal:w-")) ==
+             ["data-horizontal:w-auto"]
+
+    assert Enum.filter(classes(separator), &String.starts_with?(&1, "data-vertical:h-")) ==
+             ["data-vertical:h-auto"]
   end
 end

@@ -25,8 +25,6 @@ defmodule LiveShadcn.UI.ButtonGroup do
   # live-shadcn: upstream facts end
   Module.get_attribute(__MODULE__, :upstream_facts)
 
-  @separator_base_class "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
-
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @variant_classes (for {"cva/" <> path, value} <- @upstream_facts,
@@ -92,23 +90,22 @@ defmodule LiveShadcn.UI.ButtonGroup do
   slot(:inner_block)
 
   def button_group_separator(assigns) do
-    assigns = assign(assigns, :separator_base_class, @separator_base_class)
+    assigns =
+      assign(
+        assigns,
+        :separator_class,
+        LiveShadcn.Cn.merge([upstream_fact("jsx/ButtonGroupSeparator/class/0"), assigns.class])
+      )
 
     ~H"""
-    <div
+    <LiveShadcn.UI.Separator.separator
       data-slot={@rest[:"data-slot"] || "button-group-separator"}
-      role={@rest[:role] || "separator"}
-      aria-orientation={if(@rest[:role] in [nil, "separator"], do: @orientation)}
-      data-orientation={@orientation}
-      class={[
-        @separator_base_class,
-        upstream_fact("jsx/ButtonGroupSeparator/class/0"),
-        @class
-      ]}
-      {Map.drop(@rest, [:"data-slot", :role])}
+      orientation={@orientation}
+      class={@separator_class}
+      {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
-    </div>
+    </LiveShadcn.UI.Separator.separator>
     """
   end
 
