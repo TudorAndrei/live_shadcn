@@ -90,7 +90,7 @@ test("non-modal keeps the page active and ignores outside pointers", async ({ pa
 });
 
 for (const side of ["React", "Phoenix"]) {
-  test(`nested Tab and Escape use only the front drawer on ${side}`, async ({ page }, testInfo) => {
+  test(`nested Tab and Escape preserve front access and size after parent resize on ${side}`, async ({ page }, testInfo) => {
     await visitSide(page, testInfo, side, "nested");
     const titles = ["Drawer", "Nested Drawer", "Third Drawer", "Fourth Drawer"];
     const popups = titles.map((title) => page.locator("[data-slot='drawer-popup']").filter({
@@ -122,6 +122,8 @@ for (const side of ["React", "Phoenix"]) {
 
     await expect(popups[0]).toHaveAttribute("data-nested-drawer-open", "");
     await expect(popups[0]).toHaveCSS("--nested-drawers", "3");
+    // A caller can change popup width while its nested drawers remain open.
+    await popups[0].evaluate((element) => { element.style.width = "400px"; });
     for (let index = popups.length - 1; index >= 0; index -= 1) {
       await page.keyboard.press("Escape");
       await expect(popups[index]).toBeHidden();
@@ -129,6 +131,12 @@ for (const side of ["React", "Phoenix"]) {
         await expect(popups[index - 1]).toBeVisible();
         await expect(popups[index - 1].getByRole("button", { name: triggerNames[index], exact: true })).toBeFocused();
         await expect(page.getByRole("dialog")).toHaveCount(1);
+        if (index === 1) {
+          await popupEntryFinished(popups[0]);
+          await expect.poll(() => popups[0].evaluate((element) =>
+            element.getBoundingClientRect().height,
+          )).toBe(page.viewportSize().height);
+        }
       }
     }
     await expect(page.getByRole("button", { name: "Open Drawer", exact: true })).toBeFocused();

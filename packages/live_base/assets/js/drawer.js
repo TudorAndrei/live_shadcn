@@ -55,6 +55,8 @@ export const Drawer = {
 
   enter(animate) {
     clearTimeout(this.viewportTimer);
+    this.popupHeight = 0;
+    this.el.style.removeProperty("--drawer-height");
     if (this.viewport) this.viewport.hidden = false;
     Overlay.enter.call(this, animate);
     requestAnimationFrame(() => {
@@ -77,11 +79,16 @@ export const Drawer = {
 
   measure() {
     if (!this.open || this.el.hidden) return;
-    const height = this.el.getBoundingClientRect().height;
+    // A stacked popup is visually scaled. Keep its own layout height rather
+    // than feeding that scale back into the size on every resize callback.
+    const nested = [...document.querySelectorAll("[data-slot='drawer-popup'][data-lb-parent]")]
+      .some((drawer) => hasDrawerAncestor(drawer, this.el));
+    const height = this.popupHeight > 0 && nested ? this.popupHeight : this.el.offsetHeight;
+    this.popupHeight = height;
     this.el.style.setProperty("--drawer-height", `${height}px`);
-    this.el.style.setProperty("--drawer-frontmost-height", `${height}px`);
     this.resolvedSnapPoints = resolveSnapPoints(this.snapPoints, height);
     if (this.resolvedSnapPoints.length > 0) this.applySnapPoint(this.activeSnapIndex);
+    updateStacks();
   },
 
   applySnapPoint(index) {
@@ -334,11 +341,14 @@ function updateStacks() {
       drawer.setAttribute("data-nested-drawer-open", "");
       drawer.style.setProperty(
         "--drawer-frontmost-height",
-        `${entry.frontmost.getBoundingClientRect().height}px`,
+        entry.frontmost.style.getPropertyValue("--drawer-height") || `${entry.frontmost.offsetHeight}px`,
       );
     } else {
       drawer.removeAttribute("data-nested-drawer-open");
       drawer.removeAttribute("data-nested-drawer-swiping");
+      const height = drawer.style.getPropertyValue("--drawer-height");
+      if (height) drawer.style.setProperty("--drawer-frontmost-height", height);
+      else drawer.style.removeProperty("--drawer-frontmost-height");
     }
   }
 }
