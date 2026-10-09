@@ -12494,7 +12494,7 @@ defmodule StorybookWeb.Examples do
           <.field_label for="delivery-5-00">
             <.field orientation="horizontal">
               <.field_content>
-                <.field_title>5:00 PM – 5:15 PM</.field_title>
+                <.field_title class="flex items-center gap-2">5:00 PM – 5:15 PM</.field_title>
                 <.field_description>Prep starts at 4:45 PM</.field_description>
               </.field_content>
               <.radio_group_item
@@ -12507,7 +12507,7 @@ defmodule StorybookWeb.Examples do
           <.field_label for="delivery-5-30">
             <.field orientation="horizontal">
               <.field_content>
-                <.field_title>5:30 PM – 5:45 PM</.field_title>
+                <.field_title class="flex items-center gap-2">5:30 PM – 5:45 PM</.field_title>
                 <.field_description>Good if you're heading home</.field_description>
               </.field_content>
               <.radio_group_item
@@ -12520,7 +12520,7 @@ defmodule StorybookWeb.Examples do
           <.field_label for="delivery-6-00">
             <.field orientation="horizontal">
               <.field_content>
-                <.field_title>6:00 PM – 6:15 PM</.field_title>
+                <.field_title class="flex items-center gap-2">6:00 PM – 6:15 PM</.field_title>
                 <.field_description>Most popular · High demand</.field_description>
               </.field_content>
               <.radio_group_item
@@ -12533,7 +12533,7 @@ defmodule StorybookWeb.Examples do
           <.field_label for="delivery-6-30">
             <.field orientation="horizontal">
               <.field_content>
-                <.field_title>6:30 PM – 6:45 PM</.field_title>
+                <.field_title class="flex items-center gap-2">6:30 PM – 6:45 PM</.field_title>
                 <.field_description>Last slot before kitchen closes</.field_description>
               </.field_content>
               <.radio_group_item

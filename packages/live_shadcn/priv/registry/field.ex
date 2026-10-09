@@ -282,7 +282,7 @@ defmodule LiveShadcn.UI.Field do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "field-label"}
-      class={[upstream_fact("jsx/FieldTitle/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/FieldTitle/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
