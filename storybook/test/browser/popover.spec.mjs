@@ -30,7 +30,11 @@ async function placeWithOffset(page, { side, align, offset, dir = "ltr" }) {
       hook.popup.dir = options.dir;
       await hook.place();
 
-      return positioner.getBoundingClientRect().toJSON();
+      return {
+        ...positioner.getBoundingClientRect().toJSON(),
+        positionerDirection: getComputedStyle(positioner).direction,
+        popupDirection: getComputedStyle(hook.popup).direction,
+      };
     },
     { side, align, offset, dir },
   );
@@ -156,6 +160,11 @@ test.describe("Floating align offsets", () => {
       const base = await placeWithOffset(page, { side: "bottom", align, offset: 0, dir: "rtl" });
       const shifted = await placeWithOffset(page, { side: "bottom", align, offset: 12, dir: "rtl" });
 
+      // Public Popover dir is on the popup. The body portal stays LTR.
+      expect(base.positionerDirection).toBe("ltr");
+      expect(shifted.positionerDirection).toBe("ltr");
+      expect(base.popupDirection).toBe("rtl");
+      expect(shifted.popupDirection).toBe("rtl");
       expect(shifted.x - base.x).toBeCloseTo(expectedOffset(align, 12));
     });
   }

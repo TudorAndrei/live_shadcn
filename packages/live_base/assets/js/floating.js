@@ -489,15 +489,10 @@ export const Floating = {
     return align === "center" ? side : `${side}-${align}`;
   },
 
-  // Base UI defines alignOffset on the logical cross axis. Floating UI uses
-  // a physical cross-axis value. For a top or bottom popup, invert the value
-  // in RTL so that the same offset moves toward the same logical edge.
+  // Base UI passes the raw alignOffset. Floating UI applies the direction
+  // of the positioner when it converts this value to browser coordinates.
   crossAxisOffset() {
-    const value = Number(this.el.getAttribute("data-lb-align-offset")) || 0;
-    if (!["top", "bottom"].includes(this.requestedSide)) return value;
-
-    const direction = this.popup.dir || getComputedStyle(this.popup).direction;
-    return direction === "rtl" ? -value : value;
+    return Number(this.el.getAttribute("data-lb-align-offset")) || 0;
   },
 
   // Base UI passes alignOffset as both crossAxis and alignmentAxis. Floating
