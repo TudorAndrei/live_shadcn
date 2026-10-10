@@ -376,9 +376,32 @@ export async function shootCurrent(page, selector, clip) {
         height: clip.height,
       }
     : null;
-  const image = PNG.sync.read(await page.screenshot(pageClip ? { clip: pageClip } : {}));
+  const image = PNG.sync.read(await captureCurrentPaint(page, pageClip ? { clip: pageClip } : {}));
 
   return { image, measured, origin, clip: pageClip };
+}
+
+async function captureCurrentPaint(page, options) {
+  // Browser validation prompts animate outside document.getAnimations().
+  const nativeValidation = await page.evaluate(() => {
+    const control = document.activeElement;
+    return (control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement ||
+      control instanceof HTMLSelectElement) && control.form !== null &&
+      control.matches(":user-invalid") && !control.validity.valid;
+  });
+  if (!nativeValidation) return page.screenshot(options);
+
+  await page.bringToFront();
+  let previous;
+  let stable = 0;
+  for (let attempt = 0; attempt < 60; attempt += 1) {
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(resolve)));
+    const current = await page.screenshot(options);
+    stable = previous && current.equals(previous) ? stable + 1 : 0;
+    if (stable >= 3) return current;
+    previous = current;
+  }
+  throw new Error("native validation prompt paint did not become stable after 60 samples");
 }
 
 /**
