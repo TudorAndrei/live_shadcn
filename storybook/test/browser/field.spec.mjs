@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { connected, referenceReady, visit } from "./live.mjs";
 
 test("the price range label follows both slider values", async ({ page }) => {
   await visit(page, "/preview/field/slider", "#field-price-range");
@@ -28,3 +28,23 @@ test("the select field chooses a department and updates its form value", async (
   await expect(trigger).toContainText("Engineering");
   await expect(input).toHaveValue("engineering");
 });
+
+for (const side of ["React", "Phoenix"]) {
+  test(`choice-card labels keep focus on the visible radio on ${side}`, async ({ page }, testInfo) => {
+    const path = "/preview/field/choice-card";
+    await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+    await (side === "React" ? referenceReady(page) : connected(page));
+    const scope = page.locator("[data-preview='field']");
+    const label = scope.locator("label").filter({ hasText: "Virtual Machine" });
+    const radio = label.getByRole("radio");
+    await label.click();
+    await expect(radio).toHaveAttribute("aria-checked", "true");
+    await expect(radio).toBeFocused();
+    await expect(scope.locator("input[type='radio']:checked")).toHaveValue("vm");
+    await page.mouse.click(0, 0);
+    await label.click();
+    await expect(radio).toHaveAttribute("aria-checked", "true");
+    await expect(radio).toBeFocused();
+    await expect(scope.locator("input[type='radio']:checked")).toHaveValue("vm");
+  });
+}

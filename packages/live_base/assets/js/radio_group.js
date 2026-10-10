@@ -2,12 +2,21 @@
 
 export const RadioGroup = {
   mounted() {
+    this.onRadioFocus = (event) => this.radioFocus(event);
+    this.el.addEventListener("focusin", this.onRadioFocus);
     this.onRadioChange = (event) => this.radioChange(event);
     this.el.addEventListener("change", this.onRadioChange);
   },
 
   destroyed() {
     this.el.removeEventListener("change", this.onRadioChange);
+    this.el.removeEventListener("focusin", this.onRadioFocus);
+  },
+
+  radioFocus(event) {
+    const input = event.target;
+    if (!(input instanceof HTMLInputElement) || input.type !== "radio") return;
+    document.getElementById(`${input.id}-control`)?.focus();
   },
 
   radioChange(event) {
