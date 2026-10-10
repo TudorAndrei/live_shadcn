@@ -10242,8 +10242,13 @@ defmodule StorybookWeb.Examples do
             <.input id="form-phone" type="tel" placeholder="+1 (555) 123-4567" />
           </.field>
           <.field>
-            <.field_label for="form-country">Country</.field_label>
-            <.select id="form-country" trigger_id="form-country" value="us">
+            <.field_label id="form-country-label" for="form-country">Country</.field_label>
+            <.select
+              id="form-country"
+              trigger_id="form-country"
+              labelledby="form-country-label"
+              value="us"
+            >
               <:option value="us" label="United States" />
               <:option value="uk" label="United Kingdom" />
               <:option value="ca" label="Canada" />
