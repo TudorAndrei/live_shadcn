@@ -73,7 +73,7 @@ defmodule LiveShadcn.UI.Tooltip do
   )
 
   attr(:hover_expanded, :boolean,
-    default: true,
+    default: false,
     doc: "Whether hover uses disclosure semantics on the trigger."
   )
 
@@ -106,7 +106,7 @@ defmodule LiveShadcn.UI.Tooltip do
       data-lb-open-on-hover
       data-lb-hover-command={hover_command(@trigger_click, @disabled, @id, @hover_expanded)}
       data-lb-caller-click={caller_click?(@trigger_click, @disabled)}
-      phx-click={click_command(@trigger_click, @disabled, @id)}
+      phx-click={click_command(@trigger_click, @disabled, @id, @hover_expanded)}
       phx-mounted={Popover.owned_attributes(:trigger)}
       data-popup-open={flag(@open)}
       data-trigger-disabled={flag(@disabled)}
@@ -127,7 +127,7 @@ defmodule LiveShadcn.UI.Tooltip do
       data-lb-open-on-hover
       data-lb-hover-command={hover_command(@trigger_click, @disabled, @id, @hover_expanded)}
       data-lb-caller-click={caller_click?(@trigger_click, @disabled)}
-      phx-click={click_command(@trigger_click, @disabled, @id)}
+      phx-click={click_command(@trigger_click, @disabled, @id, @hover_expanded)}
       phx-mounted={Popover.owned_attributes(:trigger)}
       data-popup-open={flag(@open)}
       data-trigger-disabled={flag(@disabled)}
@@ -151,7 +151,7 @@ defmodule LiveShadcn.UI.Tooltip do
       data-lb-open-on-hover
       data-lb-hover-command={hover_command(@trigger_click, @disabled, @id, @hover_expanded)}
       data-lb-caller-click={caller_click?(@trigger_click, @disabled)}
-      phx-click={click_command(@trigger_click, @disabled, @id)}
+      phx-click={click_command(@trigger_click, @disabled, @id, @hover_expanded)}
       phx-mounted={Popover.owned_attributes(:trigger)}
       data-popup-open={flag(@open)}
       data-trigger-disabled={flag(@disabled)}
@@ -222,9 +222,10 @@ defmodule LiveShadcn.UI.Tooltip do
   defp close_command(id, true), do: Popover.dismiss(id)
   defp close_command(id, false), do: Popover.tooltip_close(id)
 
-  defp click_command(_trigger_click, true, _id), do: nil
-  defp click_command(nil, false, id), do: Popover.toggle(id)
-  defp click_command(trigger_click, false, _id), do: trigger_click
+  defp click_command(_trigger_click, true, _id, _hover_expanded), do: nil
+  defp click_command(nil, false, id, true), do: Popover.toggle(id)
+  defp click_command(nil, false, id, false), do: Popover.tooltip_toggle(id)
+  defp click_command(trigger_click, false, _id, _hover_expanded), do: trigger_click
 
   defp physical_side("inline-start", _dir), do: "left"
   defp physical_side("inline-end", _dir), do: "right"
