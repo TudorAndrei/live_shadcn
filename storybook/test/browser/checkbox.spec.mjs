@@ -280,6 +280,81 @@ for (const side of ["React", "Phoenix"]) {
 }
 
 test.describe("a radio group", () => {
+  const examples = [
+    { example: "default", values: ["default", "comfortable", "compact"], steps: [["ArrowRight", 2], ["ArrowDown", 0], ["ArrowUp", 2], ["ArrowLeft", 1]] },
+    { example: "rtl", values: ["default", "comfortable", "compact"], steps: [["ArrowLeft", 0], ["ArrowUp", 2], ["ArrowDown", 0], ["ArrowRight", 1]] },
+    { example: "disabled", values: ["option1", "option2", "option3"], steps: [["ArrowUp", 2], ["ArrowDown", 1], ["ArrowRight", 2], ["ArrowLeft", 1]] },
+  ];
+
+  for (const side of ["React", "Phoenix"]) {
+    for (const { example, values, steps } of examples) {
+      test(`${example} radio keyboard selection keeps focus and native changes aligned on ${side}`, async ({ page }, testInfo) => {
+        const path = `/preview/radio-group/${example}`;
+        await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+        await (side === "React" ? referenceReady(page) : connected(page));
+        const group = page.getByRole("radiogroup");
+        const controls = group.getByRole("radio");
+        const inputs = group.locator("input[type='radio']");
+        await controls.nth(1).focus();
+        await group.evaluate((element) => {
+          window.radioKeyboardChanges = [];
+          element.addEventListener("change", (event) => {
+            window.radioKeyboardChanges.push({ value: event.target.value, checked: event.target.checked });
+          });
+        });
+
+        async function expectSelection(index, changes) {
+          await expect(controls.nth(index)).toBeFocused();
+          for (let item = 0; item < values.length; item += 1) {
+            await expect(controls.nth(item)).toHaveAttribute("aria-checked", String(item === index));
+            await expect(inputs.nth(item)).toBeChecked({ checked: item === index });
+          }
+          const events = await page.evaluate(() => window.radioKeyboardChanges);
+          expect(events).toHaveLength(changes);
+          if (changes) expect(events.at(-1)).toEqual({ value: values[index], checked: true });
+        }
+
+        await expectSelection(1, 0);
+        let changes = 0;
+        for (const [key, index] of steps) {
+          await page.keyboard.press(key);
+          await expectSelection(index, ++changes);
+        }
+        await page.keyboard.press("Shift+ArrowDown");
+        await expectSelection(2, ++changes);
+        for (const key of ["Home", "End", "Enter", " "]) {
+          await page.keyboard.press(key);
+          await expectSelection(2, changes);
+        }
+        const spaceTarget = example === "disabled" ? 1 : 0;
+        await controls.nth(spaceTarget).focus();
+        await expect(inputs.nth(2)).toBeChecked();
+        await page.keyboard.press(" ");
+        await expectSelection(spaceTarget, ++changes);
+        await page.keyboard.press("Tab");
+        expect(await group.evaluate((element) => element.contains(document.activeElement))).toBe(false);
+        await page.keyboard.press("Shift+Tab");
+        await expectSelection(spaceTarget, changes);
+      });
+    }
+
+    for (const example of ["default", "disabled"]) {
+      test(`${example} radio Tab entry uses the selected enabled control on ${side}`, async ({ page }, testInfo) => {
+        const path = `/preview/radio-group/${example}`;
+        await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+        await (side === "React" ? referenceReady(page) : connected(page));
+        const group = page.getByRole("radiogroup");
+        const controls = group.getByRole("radio");
+        await page.keyboard.press("Tab");
+        await expect(controls.nth(1)).toBeFocused();
+        await page.keyboard.press("Tab");
+        expect(await group.evaluate((element) => element.contains(document.activeElement))).toBe(false);
+        await page.keyboard.press("Shift+Tab");
+        await expect(controls.nth(1)).toBeFocused();
+      });
+    }
+  }
+
   test("choosing one unchooses the others, which is what makes it a radio", async ({ page }) => {
     await visit(page, "/preview/radio-group/default");
 
