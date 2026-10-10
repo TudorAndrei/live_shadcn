@@ -46,23 +46,26 @@ defmodule LiveShadcn.UI.RadioGroup do
   end
 
   @doc """
-  Represents the radio button itself.
+  Represents one radio button in a group.
 
-      <.radio_group_item field={@form[:subscribe]} />
+      <.radio_group_item group="updates" field={@form[:updates]} value="all"
+        aria-label="All updates" />
 
-  The control a reader sees and the input a form submits are two elements,
-  as Base UI documents. Flipping one flips the other, on the client, so a
-  click costs no round trip and `phx-change` still fires.
+  The visible control and the native form input are two elements. Selecting
+  the control updates both elements before the form receives its change event.
+  Items can share a field. The item whose value matches the field is checked.
+  An explicit checked input takes priority over the field value.
 
-  It needs an accessible name, and a `<label for>` cannot give it one: a
-  label names a labelable element, and this is not one. Name it directly:
+  Give the visible control an accessible name through aria-label or a relation
+  to an existing label:
 
-      <.label id="subscribe-label">Send me the pull requests</.label>
-      <.checkbox field={@form[:subscribe]} aria-labelledby="subscribe-label" />
+      <.label id="all-updates-label">All updates</.label>
+      <.radio_group_item group="updates" value="all"
+        aria-labelledby="all-updates-label" />
   """
   attr(:field, Phoenix.HTML.FormField,
     default: nil,
-    doc: "A form field. Fills in id, name, value and errors."
+    doc: "A form field. Fills in identity, checked state and errors."
   )
 
   attr(:id, :string, default: nil)
@@ -80,8 +83,8 @@ defmodule LiveShadcn.UI.RadioGroup do
   slot(:inner_block)
 
   def radio_group_item(assigns) do
-    assigns = FormControl.from_checkable(assigns)
-    assigns = assign(assigns, :control_id, "#{assigns.id}-control")
+    assigns = FormControl.from_radio(assigns)
+    assigns = assign(assigns, :control_id, if(assigns.id, do: "#{assigns.id}-control"))
 
     ~H"""
     <span
@@ -89,8 +92,13 @@ defmodule LiveShadcn.UI.RadioGroup do
       role="radio"
       tabindex="0"
       id={@control_id}
+      data-lb-radio-state={to_string(@checked)}
       aria-checked={to_string(@checked)}
-      aria-labelledby={@rest[:"aria-labelledby"] || "#{@id}-label"}
+      aria-label={rest_attribute(@rest, :"aria-label")}
+      aria-labelledby={
+        rest_attribute(@rest, :"aria-labelledby") ||
+          if(@id && !rest_attribute(@rest, :"aria-label"), do: "#{@id}-label")
+      }
       aria-disabled={if(@disabled, do: "true")}
       phx-click={
         if(@disabled or @readonly,
@@ -118,7 +126,12 @@ defmodule LiveShadcn.UI.RadioGroup do
         upstream_fact("jsx/RadioGroupItem/class/0"),
         (@class || "")
       ]}
-      {Map.drop(@rest, [:"data-slot", :"aria-labelledby"])}
+      {
+        Map.drop(@rest, [
+          :"data-slot", "data-slot", :"aria-label", "aria-label",
+          :"aria-labelledby", "aria-labelledby"
+        ])
+      }
     >
       <span hidden={not @checked} data-slot="radio-group-indicator" class={upstream_fact("jsx/RadioGroupItem/class/1")}>
         <span class={upstream_fact("jsx/RadioGroupItem/class/2")} />
@@ -139,6 +152,8 @@ defmodule LiveShadcn.UI.RadioGroup do
     />
     """
   end
+
+  defp rest_attribute(rest, name), do: rest[name] || rest[Atom.to_string(name)]
 
   defp flag(true), do: ""
   defp flag(_state), do: nil

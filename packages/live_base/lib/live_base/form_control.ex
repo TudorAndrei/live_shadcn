@@ -76,6 +76,25 @@ defmodule LiveBase.FormControl do
     |> assign(:id, assigns[:id] || assigns[:name])
   end
 
+  @doc """
+  Fills a radio item's identity and checked state in from its field.
+
+  The item keeps its submitted value. A matching field value selects it unless
+  the caller supplies checked state. Items sharing a field get separate ids.
+  Without a field, id and name remain optional.
+  """
+  def from_radio(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
+    selected = not is_nil(field.value) and to_string(field.value) == assigns.value
+    id = assigns[:id] || "#{field.id}_#{Base.encode16(assigns.value, case: :lower)}"
+
+    assigns
+    |> identity(field)
+    |> assign(:id, id)
+    |> assign(:checked, checked(assigns[:checked], selected))
+  end
+
+  def from_radio(assigns), do: assign(assigns, :checked, assigns[:checked] == true)
+
   defp identity(assigns, field) do
     assigns
     |> assign(:id, assigns[:id] || field.id)
@@ -152,7 +171,8 @@ defmodule LiveBase.FormControl do
 
   ## Options
 
-    * `:control` — required, the id of the radio
+    * `:control` — required, the id of the radio. Use nil for the current
+      control and its adjacent native input.
     * `:group` — required, the id of the element that groups them
 
   The others are found by their role rather than by a list of ids, so a group
@@ -161,7 +181,18 @@ defmodule LiveBase.FormControl do
   def select(js \\ %JS{}, opts) do
     control = Keyword.fetch!(opts, :control)
     group = Keyword.fetch!(opts, :group)
-    input = Keyword.get(opts, :input, input_id(control))
+
+    if is_nil(control) do
+      js
+      |> JS.dispatch("live-base:select-radio", detail: %{group: group})
+      |> JS.set_attribute({"data-dirty", ""})
+      |> JS.set_attribute({"data-touched", ""})
+    else
+      select_by_id(js, control, group, Keyword.get(opts, :input, input_id(control)))
+    end
+  end
+
+  defp select_by_id(js, control, group, input) do
     to = by_id(control)
     group = by_id(group)
     others = "#{group} [role='radio']:not(#{to})"

@@ -7,6 +7,21 @@ const fixture = String.raw`
 defmodule CheckableFixture.Live do
   use Phoenix.LiveView, layout: false
 
+  def mount(%{"kind" => kind}, _session, socket)
+      when kind in ["radio-anonymous", "radio-named", "radio-field"] do
+    radio_values = if(kind == "radio-field", do: ["a b", "a-b", "a_b"], else: ["first", "second", "third"])
+    selected = Enum.at(radio_values, 1)
+    {:ok, assign(socket,
+      kind: kind,
+      radio_values: radio_values,
+      selected: selected,
+      form: Phoenix.Component.to_form(%{"choice" => selected}, as: "settings"),
+      events: 0,
+      applied: false,
+      values: %{}
+    )}
+  end
+
   def mount(%{"kind" => kind}, _session, socket) when kind in ["checkbox", "switch"] do
     {:ok, assign(socket,
       kind: kind,
@@ -22,6 +37,40 @@ defmodule CheckableFixture.Live do
       applied: false,
       values: %{}
     )}
+  end
+
+  def render(%{kind: kind} = assigns)
+      when kind in ["radio-anonymous", "radio-named", "radio-field"] do
+    ~H"""
+    <main>
+      <h1>Radio controls</h1>
+      <form id="radio-form" phx-change="radio_changed">
+        <LiveShadcn.UI.RadioGroup.radio_group id="choices" aria-label="Choices">
+          <label :for={{value, label} <- Enum.zip(@radio_values ++ ["disabled", "readonly"], ["First choice", "Second choice", "Third choice", "Disabled choice", "Read-only choice"])} class="flex items-center gap-2 p-2">
+            {label}
+            <LiveShadcn.UI.RadioGroup.radio_group_item
+              group="choices"
+              id={if(@kind == "radio-named" and value in ["first", "readonly"], do: "radio-" <> value)}
+              field={if(@kind == "radio-field", do: @form[:choice])}
+              name={if(@kind == "radio-named", do: "selection")}
+              value={value}
+              checked={if(@kind != "radio-field", do: @selected == value)}
+              disabled={value == "disabled"}
+              readonly={value == "readonly"}
+              aria-label={label}
+            />
+          </label>
+        </LiveShadcn.UI.RadioGroup.radio_group>
+        <label :if={@kind == "radio-named"} for="radio-first">First choice outside group</label>
+        <label :if={@kind == "radio-named"} for="radio-readonly">Read-only choice outside group</label>
+      </form>
+      <output id="radio-events" data-count={@events}>{@events}</output>
+      <output id="radio-values">{Jason.encode!(@values)}</output>
+      <button type="button" phx-click="radio_update">Apply choice</button>
+      <output id="radio-applied">{to_string(@applied)}</output>
+      <button :if={@kind == "radio-named"} type="button" phx-click="radio_readonly">Apply read-only choice</button>
+    </main>
+    """
   end
 
   def render(assigns) do
@@ -75,6 +124,37 @@ defmodule CheckableFixture.Live do
     {:noreply, assign(socket,
       applied: applied,
       checked: %{"first" => applied, "second" => !applied, "named" => applied, "disabled" => false, "readonly" => true}
+    )}
+  end
+
+  def handle_event("radio_changed", params, socket) do
+    selected = case socket.assigns.kind do
+      "radio-anonymous" -> params["choices"]
+      "radio-named" -> params["selection"]
+      "radio-field" -> params["settings"]["choice"]
+    end
+    {:noreply, assign(socket,
+      selected: selected,
+      form: Phoenix.Component.to_form(%{"choice" => selected}, as: "settings"),
+      events: socket.assigns.events + 1,
+      values: Map.drop(params, ["_target"])
+    )}
+  end
+
+  def handle_event("radio_readonly", _params, socket) do
+    {:noreply, assign(socket,
+      selected: "readonly",
+      form: Phoenix.Component.to_form(%{"choice" => "readonly"}, as: "settings")
+    )}
+  end
+
+  def handle_event("radio_update", _params, socket) do
+    applied = !socket.assigns.applied
+    selected = Enum.at(socket.assigns.radio_values, if(applied, do: 2, else: 1))
+    {:noreply, assign(socket,
+      applied: applied,
+      selected: selected,
+      form: Phoenix.Component.to_form(%{"choice" => selected}, as: "settings")
     )}
   end
 end

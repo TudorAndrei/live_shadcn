@@ -100,6 +100,97 @@ test.describe("anonymous checkable pairs", () => {
       await expect(update).toBeFocused();
     });
   }
+
+  for (const mode of ["anonymous", "named", "field"]) {
+    test(`radio ${mode} items keep selection, submitted values, and caller updates aligned`, async ({ page }) => {
+      const response = await page.goto(`${fixture.url}/radio-${mode}`);
+      expect(response.status(), "the public radio inputs render on a real page").toBe(200);
+      await connected(page);
+      const form = page.locator("#radio-form");
+      const group = form.getByRole("radiogroup", { name: "Choices", exact: true });
+      const controls = group.getByRole("radio");
+      const inputs = group.locator("input[type='radio']");
+      const labels = group.locator("label");
+      const values = [...(mode === "field" ? ["a b", "a-b", "a_b"] : ["first", "second", "third"]), "disabled", "readonly"];
+      const name = mode === "anonymous" ? "choices" : mode === "named" ? "selection" : "settings[choice]";
+      await form.evaluate((element) => {
+        window.radioFixtureChanges = [];
+        element.addEventListener("change", (event) => {
+          window.radioFixtureChanges.push({ value: event.target.value, submitted: [...new FormData(element)] });
+        });
+      });
+
+      async function expectSelection(index, events, lastChanged = index) {
+        await expect(page.locator("#radio-events")).toHaveAttribute("data-count", String(events));
+        for (let item = 0; item < values.length; item += 1) {
+          await expect(controls.nth(item)).toHaveAttribute("aria-checked", String(item === index));
+          await expect(inputs.nth(item)).toBeChecked({ checked: item === index });
+        }
+        const submitted = [[name, values[index]]];
+        expect(await form.evaluate((element) => [...new FormData(element)])).toEqual(submitted);
+        const changes = await page.evaluate(() => window.radioFixtureChanges);
+        expect(changes).toHaveLength(events);
+        if (events) expect(changes.at(-1)).toEqual({
+          value: values[lastChanged], submitted: [[name, values[lastChanged]]],
+        });
+      }
+
+      await expect(group.getByRole("radio", { name: "First choice", exact: true })).toBeVisible();
+      await expectSelection(1, 0);
+      if (mode === "named") {
+        await form.getByText("Read-only choice outside group", { exact: true }).click();
+        await expectSelection(1, 0);
+      }
+      await controls.nth(0).click();
+      await expectSelection(0, 1);
+      await expect(controls.nth(0)).toBeFocused();
+      await page.keyboard.press("ArrowRight");
+      await expectSelection(1, 2);
+      await page.keyboard.press("ArrowRight");
+      await expectSelection(2, 3);
+      await labels.nth(0).click();
+      await expectSelection(0, 4);
+      await expect(controls.nth(0)).toBeFocused();
+      await controls.nth(2).focus();
+      await page.keyboard.press(" ");
+      await expectSelection(2, 5);
+      await labels.nth(3).click({ force: true });
+      await labels.nth(4).click();
+      await expectSelection(2, 5);
+      if (mode === "named") {
+        await form.getByText("Read-only choice outside group", { exact: true }).click();
+        await expectSelection(2, 5);
+        await form.getByText("First choice outside group", { exact: true }).click();
+        await expectSelection(0, 6);
+        await expect(controls.nth(0)).toBeFocused();
+        await form.getByText("First choice outside group", { exact: true }).click();
+      } else {
+        await controls.nth(0).click();
+      }
+      await expectSelection(0, 6);
+
+      const update = page.getByRole("button", { name: "Apply choice", exact: true });
+      for (const [applied, index] of [[true, 2], [false, 1]]) {
+        await update.click();
+        await expect(page.locator("#radio-applied")).toHaveText(String(applied));
+        await expect(page.locator("#radio-events")).toHaveAttribute("data-count", "6");
+        for (let item = 0; item < values.length; item += 1) {
+          await expect(controls.nth(item)).toHaveAttribute("aria-checked", String(item === index));
+          await expect(inputs.nth(item)).toBeChecked({ checked: item === index });
+        }
+        expect(await form.evaluate((element) => [...new FormData(element)])).toEqual([[name, values[index]]]);
+        await expect(update).toBeFocused();
+      }
+      if (mode === "named") {
+        const readOnlyUpdate = page.getByRole("button", { name: "Apply read-only choice", exact: true });
+        await readOnlyUpdate.click();
+        await expectSelection(4, 6, 0);
+        await expect(readOnlyUpdate).toBeFocused();
+        await form.getByText("Read-only choice outside group", { exact: true }).click();
+        await expectSelection(4, 6, 0);
+      }
+    });
+  }
 });
 
 test.describe("a checkbox", () => {
