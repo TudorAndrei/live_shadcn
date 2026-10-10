@@ -656,6 +656,17 @@ test("visibility renders the pinned transcript and updates its outline target st
     expect(await bars.evaluateAll((items) => items.filter((item) => item.getAttribute("data-current") === "true").length)).toBe(1);
   }
 
+  const outlinePopup = page.locator(`#${await outline.getAttribute("aria-controls")}`);
+  await page.mouse.move(0, 0);
+  await expect(outlinePopup).toBeHidden();
+  await outline.scrollIntoViewIfNeeded();
+  const outlineBox = await outline.boundingBox();
+  expect(outlineBox).not.toBeNull();
+  await page.mouse.click(outlineBox.x + outlineBox.width / 2, outlineBox.y + outlineBox.height / 2);
+  await expect(outlinePopup).toBeVisible();
+  await outlinePopup.hover();
+  await expect(outlinePopup).toBeVisible();
+
   for (const [label, id] of choices) {
     const choice = page.getByRole("button", { name: label, exact: true });
     if (!(await choice.isVisible())) {
@@ -671,6 +682,11 @@ test("visibility renders the pinned transcript and updates its outline target st
     await expect(target).toBeVisible();
     await expectExactStartScroll(page, target, { margin: 12 });
     expect(await bars.evaluateAll((items) => items.filter((item) => item.getAttribute("data-current") === "true").length)).toBe(1);
+
+    if (id === choices[0][1]) {
+      await page.keyboard.press("Escape");
+      await expect(outlinePopup).toBeHidden();
+    }
   }
 });
 

@@ -80,6 +80,7 @@ defmodule LiveShadcn.UI.HoverCard do
       phx-key="Escape"
       phx-hook="LiveBase.InteractionTrigger"
       data-lb-open-on-hover
+      data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}
       data-lb-close-delay={to_string(@close_delay)}
       phx-click={if(not @disabled, do: Popover.toggle(@id))}
@@ -100,6 +101,7 @@ defmodule LiveShadcn.UI.HoverCard do
       phx-key="Escape"
       phx-hook="LiveBase.InteractionTrigger"
       data-lb-open-on-hover
+      data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}
       data-lb-close-delay={to_string(@close_delay)}
       phx-click={if(not @disabled, do: Popover.toggle(@id))}
@@ -118,6 +120,7 @@ defmodule LiveShadcn.UI.HoverCard do
       phx-key="Escape"
       phx-hook="LiveBase.InteractionTrigger"
       data-lb-open-on-hover
+      data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}
       data-lb-close-delay={to_string(@close_delay)}
       phx-click={if(not @disabled, do: Popover.toggle(@id))}
@@ -193,6 +196,7 @@ defmodule LiveShadcn.UI.HoverCard do
       phx-key="Escape"
       phx-hook="LiveBase.InteractionTrigger"
       data-lb-open-on-hover
+      data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}
       data-lb-close-delay={to_string(@close_delay)}
       phx-click={if(not @disabled, do: Popover.toggle(@id))}
@@ -214,6 +218,7 @@ defmodule LiveShadcn.UI.HoverCard do
       phx-key="Escape"
       phx-hook="LiveBase.InteractionTrigger"
       data-lb-open-on-hover
+      data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}
       data-lb-close-delay={to_string(@close_delay)}
       phx-click={if(not @disabled, do: Popover.toggle(@id))}
@@ -233,6 +238,7 @@ defmodule LiveShadcn.UI.HoverCard do
       phx-key="Escape"
       phx-hook="LiveBase.InteractionTrigger"
       data-lb-open-on-hover
+      data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}
       data-lb-close-delay={to_string(@close_delay)}
       phx-click={if(not @disabled, do: Popover.toggle(@id))}

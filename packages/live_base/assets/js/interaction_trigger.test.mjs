@@ -74,6 +74,10 @@ test("InteractionTrigger does not open a tooltip from pointer-induced focus", ()
   let opens = 0;
   let closes = 0;
   const hook = {
+    el: {
+      hasAttribute: () => false,
+      getAttribute: () => null,
+    },
     pointerPressed: false,
     openTimer: 1,
     scheduleOpen: () => {

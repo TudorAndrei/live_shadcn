@@ -73,6 +73,12 @@ export const InteractionTrigger = {
 
   markPointerPressed() {
     this.pointerPressed = true;
+    // Hover Card keeps the pointer entry request when the trigger is pressed.
+    // Composed attachment triggers also expose the Hover Card slot.
+    if (
+      this.el.hasAttribute("data-lb-hover-card") ||
+      this.el.getAttribute("data-slot") === "hover-card-trigger"
+    ) return;
     clearTimeout(this.openTimer);
   },
 
