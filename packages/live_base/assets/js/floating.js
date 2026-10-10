@@ -278,11 +278,6 @@ export const Floating = {
     });
 
     const [side, align = "center"] = placement.split("-");
-    if (align !== this.requestedAlign) {
-      const correction = 2 * this.crossAxisOffset();
-      if (["left", "right"].includes(this.requestedSide)) y -= correction;
-      else x -= correction;
-    }
 
     // SelectPopup first waits for Floating UI to position the outer element,
     // then reads that exact rectangle before it replaces the coordinates. Do

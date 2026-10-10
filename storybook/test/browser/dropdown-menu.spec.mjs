@@ -157,6 +157,17 @@ for (const side of ["React", "Phoenix"]) {
       await expect(menu).toHaveAccessibleName(name);
     }
 
+    const notificationMenu = labelledMenus.find(([name]) => name === "Notifications")[1];
+    await expect(notificationMenu).toHaveAttribute("data-side", "right");
+    await expect(notificationMenu).toHaveAttribute("data-align", "end");
+    // The authored -3 alignment offset becomes +3 at the flipped end edge.
+    await expect.poll(async () => {
+      const anchor = await notifications.boundingBox();
+      const popup = await notificationMenu.boundingBox();
+      if (!anchor || !popup) throw new Error("The open submenu has no measured rectangle");
+      return popup.y + popup.height - (anchor.y + anchor.height);
+    }).toBeCloseTo(3, 2);
+
     for (const name of ["Push Notifications", "Email Notifications"]) {
       const choice = page.getByRole("menuitemcheckbox", { name, exact: true, includeHidden: true });
       await expect(choice).toHaveAttribute("aria-checked", "true");
