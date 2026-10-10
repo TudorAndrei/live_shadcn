@@ -78,7 +78,9 @@ for (const side of sides) {
 
       await share.focus();
       await page.keyboard.press("ArrowRight");
-      await expect(visibleContent(page, "menubar-sub-content")).toBeVisible();
+      const submenu = visibleContent(page, "menubar-sub-content");
+      await expect(submenu).toBeVisible();
+      await expect.poll(() => submenu.evaluate((element) => element.contains(document.activeElement))).toBe(true);
 
       await page.keyboard.press("ArrowLeft");
       await expect(page.locator(`#${await share.getAttribute("aria-controls")}`)).toBeHidden();

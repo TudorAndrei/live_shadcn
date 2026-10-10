@@ -251,7 +251,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
         id={Popover.positioner_id(@id)}
         hidden={not @open}
         phx-hook={Popover.hook()}
-        phx-click-away={close_menu(@id, @entry, @transient_controls)}
+        data-lb-dismiss-command={close_menu(@id, @entry, @transient_controls)}
         phx-window-keydown={if(@direct_trigger, do: close_menu(@id, @entry, @transient_controls))}
         phx-key={if(@direct_trigger, do: "Escape")}
         data-lb-anchor={Popover.trigger_id(@id)}
@@ -295,7 +295,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
             }
             data-lb-style-target
             data-lb-measure
-            {@content_attrs}
+            {menu_content_attrs(@content_attrs, if(not @context, do: Popover.trigger_id(@id)))}
           >
             <%= for {{grouped, entries}, group_index} <- Enum.with_index(entry_groups(@entry, @grouped)) do %>
               <% label_index = Enum.find_index(entries, &(&1[:kind] == "label")) %>
@@ -424,7 +424,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
                           }
                           data-lb-style-target
                           data-lb-measure
-                          {entry[:content_attrs] || %{}}
+                          {menu_content_attrs(entry[:content_attrs] || %{}, Popover.trigger_id(submenu_id(@id, entry[:value])))}
                         >
                           <.submenu_entries
                             menu={submenu_id(@id, entry[:value])}
@@ -739,6 +739,17 @@ defmodule LiveShadcn.UI.DropdownMenu do
   defp flag(true), do: ""
   defp flag(_state), do: nil
 
+  defp menu_content_attrs(attrs, labelled_by) do
+    caller_labelled_by =
+      Enum.any?([:"aria-labelledby", "aria-labelledby"], fn key ->
+        Map.has_key?(attrs, key)
+      end)
+
+    if is_nil(labelled_by) or caller_labelled_by,
+      do: attrs,
+      else: Map.put(attrs, :"aria-labelledby", labelled_by)
+  end
+
   defp entry_owned_attributes(entry) do
     js = Menu.owned_attributes(:item)
 
@@ -918,7 +929,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
                   }
                   data-lb-style-target
                   data-lb-measure
-                  {entry[:content_attrs] || %{}}
+                  {menu_content_attrs(entry[:content_attrs] || %{}, Popover.trigger_id(submenu_id(@menu, entry[:value])))}
                 >
                   <.submenu_entries
                     menu={submenu_id(@menu, entry[:value])}

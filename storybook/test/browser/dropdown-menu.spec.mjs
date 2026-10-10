@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { connected, referenceReady, visit } from "./live.mjs";
 
 const examples = [
   ["default", "actions"],
@@ -126,7 +126,74 @@ test("the complex menu opens a third menu level", async ({ page }) => {
   await expect(page.locator("#complex-actions-open-recent-popup")).toBeVisible();
   await expect(page.getByRole("menuitem", { name: "Project Gamma" })).toBeVisible();
   await expect(page.getByRole("menuitem", { name: "Project Delta" })).toBeVisible();
+
+  await page.getByRole("menuitem", { name: "Project Gamma", exact: true }).click();
+  await expect(page.locator("#complex-actions-open-recent-more-projects-popup")).toBeHidden();
+  await expect(page.locator("#complex-actions-open-recent-popup")).toBeHidden();
+  await expect(page.locator("#complex-actions-popup")).toBeHidden();
 });
+
+for (const side of ["React", "Phoenix"]) {
+  test(`nested checkbox choices keep all menu levels open on ${side}`, async ({ page }, testInfo) => {
+    const path = "/preview/dropdown-menu/complex";
+    await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+    await (side === "React" ? referenceReady(page) : connected(page));
+
+    const trigger = page.getByRole("button", { name: "Complex Menu", exact: true });
+    await trigger.click();
+    const settings = page.getByRole("menuitem", { name: "Settings", exact: true });
+    await settings.click();
+    const notifications = page.getByRole("menuitem", { name: "Notifications", exact: true });
+    await notifications.click();
+    const menus = page.getByRole("menu");
+    await expect(menus).toHaveCount(3);
+    const sidebar = page.getByRole("menuitemcheckbox", { name: "Show Sidebar", exact: true });
+    await expect(sidebar).toHaveAttribute("aria-checked", "true");
+    const labelledMenus = [];
+    for (const [name, owner] of [["Complex Menu", trigger], ["Settings", settings], ["Notifications", notifications]]) {
+      const popupId = await owner.getAttribute("aria-controls");
+      const menu = page.locator(`[id=${JSON.stringify(popupId)}]`);
+      labelledMenus.push([name, menu]);
+      await expect(menu).toHaveAccessibleName(name);
+    }
+
+    for (const name of ["Push Notifications", "Email Notifications"]) {
+      const choice = page.getByRole("menuitemcheckbox", { name, exact: true, includeHidden: true });
+      await expect(choice).toHaveAttribute("aria-checked", "true");
+      await choice.click();
+      await expect(choice).toHaveAttribute("aria-checked", "false");
+      await expect(sidebar).toHaveAttribute("aria-checked", name === "Email Notifications" ? "false" : "true");
+      await expect(menus).toHaveCount(3);
+      for (let index = 0; index < 3; index++) await expect(menus.nth(index)).toBeVisible();
+      for (const [name, menu] of labelledMenus) await expect(menu).toHaveAccessibleName(name);
+      await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    }
+
+    const email = page.getByRole("menuitemcheckbox", { name: "Email Notifications", exact: true });
+    const push = page.getByRole("menuitemcheckbox", { name: "Push Notifications", exact: true });
+    await email.click();
+    await expect(email).toHaveAttribute("aria-checked", "true");
+    await expect(sidebar).toHaveAttribute("aria-checked", "true");
+    await expect(push).toHaveAttribute("aria-checked", "false");
+    await expect(menus).toHaveCount(3);
+
+    await page.mouse.click(0, 0);
+    await expect(menus).toHaveCount(0);
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+
+    await trigger.click();
+    await sidebar.click();
+    await expect(sidebar).toHaveAttribute("aria-checked", "false");
+    await settings.click();
+    await notifications.click();
+    await expect(email).toHaveAttribute("aria-checked", "false");
+    await expect(push).toHaveAttribute("aria-checked", "false");
+    await expect(menus).toHaveCount(3);
+    await page.mouse.click(0, 0);
+    await expect(menus).toHaveCount(0);
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+  });
+}
 
 test("the Arabic menu keeps its direction in each open level", async ({ page }) => {
   await visit(page, "/preview/dropdown-menu/rtl", "#dropdown-rtl-trigger");

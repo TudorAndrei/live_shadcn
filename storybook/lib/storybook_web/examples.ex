@@ -17107,7 +17107,17 @@ defmodule StorybookWeb.Examples do
       </:entry>
       <:entry kind="separator" />
       <:entry kind="label" section="view">View</:entry>
-      <:entry kind="checkbox" value="show-sidebar" checked section="view">
+      <:entry
+        kind="checkbox"
+        value="show-sidebar"
+        checked
+        section="view"
+        phx-click={
+          dropdown_menu_complex_email_toggle(
+            "#complex-actions-settings-notifications-item-email-notifications"
+          )
+        }
+      >
         <LiveShadcn.Icon.icon name="eye" /> Show Sidebar
       </:entry>
       <:entry kind="checkbox" value="show-status-bar" section="view">
@@ -17171,7 +17181,8 @@ defmodule StorybookWeb.Examples do
                 value: "email-notifications",
                 label: "Email Notifications",
                 icon: "mail",
-                checked: true
+                checked: true,
+                "phx-click": dropdown_menu_complex_email_toggle("#complex-actions-item-show-sidebar")
               }
             ]
           },
@@ -17200,6 +17211,19 @@ defmodule StorybookWeb.Examples do
       </:entry>
     </.dropdown_menu>
     """
+  end
+
+  # The pinned complex example shares notifications.email between these items.
+  # Each item already toggles itself. The caller command toggles its other view.
+  defp dropdown_menu_complex_email_toggle(control) do
+    indicator = "#{control} [data-slot='dropdown-menu-checkbox-item-indicator']"
+
+    Phoenix.LiveView.JS.toggle_attribute({"aria-checked", "true", "false"}, to: control)
+    |> Phoenix.LiveView.JS.toggle_attribute({"data-checked", ""}, to: control)
+    |> Phoenix.LiveView.JS.toggle_attribute({"data-unchecked", ""}, to: control)
+    |> Phoenix.LiveView.JS.toggle_attribute({"hidden", ""}, to: "#{indicator} > svg")
+    |> Phoenix.LiveView.JS.toggle_attribute({"data-checked", ""}, to: indicator)
+    |> Phoenix.LiveView.JS.toggle_attribute({"data-unchecked", ""}, to: indicator)
   end
 
   defp dropdown_menu_rtl(assigns) do

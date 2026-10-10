@@ -166,14 +166,15 @@ defmodule Mix.Tasks.Snapshot do
     end
   end
 
-  # LiveView command attributes contain JSON. Phoenix serializes command maps
+  # LiveView commands in phx attributes and the menu dismissal data attribute
+  # contain JSON. Phoenix serializes command maps
   # in VM map order, which is not stable between runs. The browser reads these
   # values as JSON objects, so their key order has no runtime meaning. A
   # snapshot must record that stable meaning instead of the VM iteration order.
   @doc false
   def canonicalize_json_attribute({name, value} = attribute)
       when is_binary(name) and is_binary(value) do
-    if String.starts_with?(name, "phx-") do
+    if String.starts_with?(name, "phx-") or name == "data-lb-dismiss-command" do
       case Jason.decode(value) do
         {:ok, json} -> {name, json |> ordered_json() |> Jason.encode!()}
         {:error, _reason} -> attribute

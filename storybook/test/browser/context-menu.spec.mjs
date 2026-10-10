@@ -116,6 +116,8 @@ test("the submenu stays in the root branch and closes outside", async ({ page })
   await subTrigger.click();
   await expect(root).toBeVisible();
   await expect(submenu).toBeVisible();
+  await expect(root).toHaveAccessibleName("");
+  await expect(submenu).toHaveAccessibleName("More Tools");
   await expect(subTrigger).toHaveAttribute("aria-expanded", "true");
   await expect(page.getByRole("menuitem", { name: "Delete" })).toHaveAttribute(
     "data-variant",

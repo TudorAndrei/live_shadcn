@@ -29,21 +29,22 @@ defmodule Mix.Tasks.SnapshotTest do
              ["button-old-example"]
   end
 
-  test "sorts object keys inside JSON LiveView command attributes" do
+  test "sorts object keys inside JSON command attributes" do
     first =
       ~s([["dispatch",{"detail":{"id":"message-7","behavior":"smooth","align":"start","scrollMargin":null},"event":"message-scroller:scroll-to","to":"#messages"}]])
 
     second =
       ~s([["dispatch",{"to":"#messages","event":"message-scroller:scroll-to","detail":{"scrollMargin":null,"align":"start","behavior":"smooth","id":"message-7"}}]])
 
-    {"phx-click", canonical} =
-      Mix.Tasks.Snapshot.canonicalize_json_attribute({"phx-click", first})
+    for name <- ["phx-click", "data-lb-dismiss-command"] do
+      {^name, canonical} = Mix.Tasks.Snapshot.canonicalize_json_attribute({name, first})
 
-    assert canonical ==
-             ~s([["dispatch",{"detail":{"align":"start","behavior":"smooth","id":"message-7","scrollMargin":null},"event":"message-scroller:scroll-to","to":"#messages"}]])
+      assert canonical ==
+               ~s([["dispatch",{"detail":{"align":"start","behavior":"smooth","id":"message-7","scrollMargin":null},"event":"message-scroller:scroll-to","to":"#messages"}]])
 
-    assert {"phx-click", canonical} ==
-             Mix.Tasks.Snapshot.canonicalize_json_attribute({"phx-click", second})
+      assert {name, canonical} ==
+               Mix.Tasks.Snapshot.canonicalize_json_attribute({name, second})
+    end
 
     assert {"phx-hook", "LiveBase.Scroller"} =
              Mix.Tasks.Snapshot.canonicalize_json_attribute({"phx-hook", "LiveBase.Scroller"})

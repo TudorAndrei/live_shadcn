@@ -203,14 +203,14 @@ export const Floating = {
     this.cleanup = null;
   },
 
-  // Phoenix ignores phx-click-away on a display: contents owner because that
-  // owner has no visible rectangle. Run the same command from the visible
-  // floating layer, while the trigger and popup remain inside the boundary.
+  // Some owners have no visible rectangle. Menus also own portaled child
+  // popups through their parent-trigger chain. Run their declared close command
+  // from this layer, and retain the native click-away owners for other popups.
   findDismissOwner() {
     const ownerId = this.el.getAttribute("data-lb-dismiss-owner");
     const owner = ownerId
       ? document.getElementById(ownerId)
-      : this.el.closest("[phx-click-away]");
+      : this.el.closest("[data-lb-dismiss-command], [phx-click-away]");
     if (!owner) return null;
     if (owner === this.el) return owner;
     if (this.el.getAttribute("data-lb-anchor") !== `${owner.id}-trigger`) return null;
@@ -221,7 +221,9 @@ export const Floating = {
     if (!this.el.hasAttribute("data-open")) return;
     if (this.anchor?.contains(event.target) || this.owns(event.target)) return;
 
-    const command = this.dismissOwner?.getAttribute("phx-click-away");
+    const command =
+      this.dismissOwner?.getAttribute("data-lb-dismiss-command") ||
+      this.dismissOwner?.getAttribute("phx-click-away");
     if (command) this.liveSocket.execJS(this.dismissOwner, command, "click");
   },
 
