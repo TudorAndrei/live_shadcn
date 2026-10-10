@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { connected } from "./live.mjs";
+import { connected, referenceReady } from "./live.mjs";
 
 const sides = [
   { name: "official React", live: false },
@@ -10,7 +10,7 @@ const sides = [
 async function visitSide(page, testInfo, side, example = "default") {
   const path = `/preview/menubar/${example}`;
   await page.goto(side.live ? path : `${testInfo.project.use.parityURL}${path}`);
-  if (side.live) await connected(page);
+  await (side.live ? connected(page) : referenceReady(page));
 
   await expect(page.locator("[data-preview='menubar']")).toBeAttached();
 }

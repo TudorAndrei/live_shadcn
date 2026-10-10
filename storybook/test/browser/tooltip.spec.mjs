@@ -12,7 +12,7 @@ test("uses the same positioning and reports the same side", async ({ page }) => 
   const positioner = page.locator("#tooltip-default-positioner");
   const popup = page.locator("#tooltip-default-popup");
 
-  await trigger.click();
+  await trigger.hover();
   await expect(popup).toBeVisible();
   await expect(positioner).toHaveAttribute("data-side", /top|right|bottom|left/);
 });
