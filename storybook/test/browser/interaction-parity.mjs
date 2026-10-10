@@ -430,6 +430,18 @@ async function observeInteraction(scope, target, probe, referenceLabels) {
         }
         const aria = node.getAttribute("aria-label");
         if (aria) return aria.trim();
+
+        const labelledBy = node.getAttribute("aria-labelledby");
+        if (labelledBy) {
+          const text = labelledBy
+            .split(/\s+/)
+            .map((id) => document.getElementById(id)?.innerText ?? "")
+            .join(" ")
+            .replace(/\s+/g, " ")
+            .trim();
+          if (text) return text;
+        }
+
         const labels = Array.from(node.labels ?? [])
           .map((label) => label.innerText ?? "")
           .join(" ")

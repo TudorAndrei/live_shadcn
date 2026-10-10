@@ -7,7 +7,8 @@
 
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { connected, referenceReady, visit } from "./live.mjs";
+import { discoverInteractionProbes, enterInteractionProbe } from "./interaction-parity.mjs";
 
 const select = (page) => ({
   trigger: page.locator("#select-fruit-trigger"),
@@ -284,3 +285,27 @@ test("the invalid select exposes its error and keeps invalid state after selecti
   await expect(trigger).toHaveAttribute("aria-invalid", "true");
   await expect(popup).toBeHidden();
 });
+
+for (const [example, label] of [["default", "Month"], ["rtl", "الشهر"]]) {
+  for (const side of ["React", "Phoenix"]) {
+    test(`Field ${example} Select observations retain the label on ${side}`, async ({ page }, testInfo) => {
+      const path = `/preview/field/${example}`;
+      await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+      await (side === "React" ? referenceReady(page) : connected(page));
+      const scope = page.locator("[data-preview='field']");
+      const trigger = scope.getByRole("combobox", { name: label, exact: true });
+      await expect(trigger).toHaveAccessibleName(label);
+      await expect(trigger).toContainText("MM");
+
+      const probes = await discoverInteractionProbes(scope);
+      const probe = probes.find(({ kind, name }) => kind === "disclosure" && name === label);
+      expect(probe).toBeDefined();
+      const state = await enterInteractionProbe(page, scope, probe);
+
+      expect(state.opened.target.name).toBe(label);
+      expect(state.closed.target.name).toBe(label);
+      await expect(trigger).toHaveAccessibleName(label);
+      await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    });
+  }
+}
