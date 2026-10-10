@@ -1837,31 +1837,6 @@ test("Message Scroller reanchors when the Slide Up visual offset finishes", asyn
   }
 });
 
-test("Message Scroller keeps native end when an entry animation completes", async () => {
-  const item = { isConnected: true };
-  let finish;
-  let reanchors = 0;
-  const controls = { finished: new Promise((resolve) => (finish = resolve)) };
-  const hook = {
-    viewport: {
-      scrollTop: 391.6,
-      scrollHeight: 659,
-      clientHeight: 267,
-    },
-    messageAnchoredItem: item,
-    reanchorMessageItem() {
-      reanchors += 1;
-    },
-  };
-
-  Scroller.reanchorMessageEntryAfterFinish.call(hook, item, controls);
-  finish();
-  await Promise.resolve();
-
-  assert.equal(reanchors, 0);
-  assert.equal(hook.viewport.scrollTop, 391.6);
-});
-
 test("Message Scroller keeps subpixel anchor geometry without an entry transform", () => {
   const previous = globalThis.getComputedStyle;
   globalThis.getComputedStyle = () => ({

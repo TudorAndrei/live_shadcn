@@ -275,6 +275,9 @@ export const Scroller = {
     this.onMessageUserScrollIntent = (event) => {
       if (event.type !== "keydown" || MESSAGE_SCROLL_KEYS.has(event.key)) {
         this.releaseMessageFrozenOpeningPosition();
+        // Native scroll input ends the active anchor. A pointer press only
+        // releases the frozen opening position.
+        if (event.type !== "pointerdown") this.messageAnchoredItem = null;
       }
     };
     for (const type of ["keydown", "pointerdown", "touchmove", "wheel"]) {
@@ -746,8 +749,6 @@ export const Scroller = {
   reanchorMessageEntryAfterFinish(item, controls) {
     controls?.finished?.then(
       () => {
-        const nativeEnd = Math.max(0, this.viewport.scrollHeight - this.viewport.clientHeight);
-        if (Math.abs(this.viewport.scrollTop - nativeEnd) <= SCROLL_POSITION_EPSILON) return;
         if (this.messageAnchoredItem === item && item.isConnected) this.reanchorMessageItem();
       },
       () => {},

@@ -187,6 +187,89 @@ test("anchoring uses the selected role, exact position, reset, and re-add flow",
   await expect(content(page).locator("[data-message-id='anchor-1-user']")).toBeVisible();
 });
 
+for (const action of ["wheel", "Home"]) {
+  test(`native reader ${action} keeps the start position after active message entry`, async ({ page }) => {
+    await page.addInitScript((input) => {
+      const capture = (event) => {
+        if (event.type !== input.type || (input.key && event.key !== input.key)) return;
+        const viewportElement = event.target.closest?.("[data-slot='message-scroller-viewport']");
+        if (!viewportElement || viewportElement.id !== "message-scroller-anchoring-viewport") return;
+        const target = viewportElement.querySelector("[data-message-id='anchor-3-user']");
+        window.__messageReaderIntent = {
+          type: event.type,
+          key: event.key ?? null,
+          trusted: event.isTrusted,
+          activeEntry: target?.hasAttribute("data-lb-message-entry-active") ?? false,
+          transform: target ? getComputedStyle(target).transform : null,
+          scrollTopBeforeInput: viewportElement.scrollTop,
+          scrollRange: viewportElement.scrollHeight - viewportElement.clientHeight,
+        };
+      };
+      document.addEventListener(input.type, capture, { capture: true, passive: true });
+    }, { type: action === "wheel" ? "wheel" : "keydown", key: action === "Home" ? "Home" : null });
+
+    await visit(page, "/preview/message-scroller/anchoring");
+    const send = page.getByRole("button", { name: "Send Message" });
+    for (const id of ["anchor-1-user", "anchor-1-assistant", "anchor-2-user", "anchor-2-assistant"]) {
+      await send.click();
+      await expect(content(page).locator(`[data-message-id='${id}']`)).toBeVisible();
+    }
+    const preview = "[data-preview='message-scroller']";
+    await waitForMessageScrollerEntryAnimations(page, preview);
+    await waitForMessageScrollerFinalLayout(page, preview);
+    const scroller = viewport(page);
+    const bounds = await scroller.boundingBox();
+    expect(bounds).not.toBeNull();
+
+    await send.click();
+    const target = content(page).locator("[data-message-id='anchor-3-user']");
+    await expect(target).toHaveAttribute("data-lb-message-entry-active", "true");
+    if (action === "wheel") {
+      await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+      // A passive wheel observer can run after native scrolling. Read the real
+      // pre-input position immediately before dispatch, without blocking scroll.
+      const beforeInput = await scroller.evaluate((element) => {
+        const row = element.querySelector("[data-message-id='anchor-3-user']");
+        return {
+          activeEntry: row?.hasAttribute("data-lb-message-entry-active") ?? false,
+          transform: row ? getComputedStyle(row).transform : null,
+          scrollTop: element.scrollTop,
+          scrollRange: element.scrollHeight - element.clientHeight,
+        };
+      });
+      await test.info().attach("native-reader-wheel-before-input", {
+        body: JSON.stringify(beforeInput, null, 2),
+        contentType: "application/json",
+      });
+      expect(beforeInput.activeEntry).toBe(true);
+      expect(beforeInput.transform).not.toBe("none");
+      expect(beforeInput.scrollTop).toBeGreaterThan(0);
+      expect(beforeInput.scrollRange).toBeGreaterThan(0);
+      await page.mouse.wheel(0, -2000);
+    } else {
+      await scroller.focus();
+      await page.keyboard.press("Home");
+    }
+
+    await expect.poll(() => page.evaluate(() => window.__messageReaderIntent?.trusted)).toBe(true);
+    const receipt = await page.evaluate(() => window.__messageReaderIntent);
+    await test.info().attach("native-reader-entry-input", {
+      body: JSON.stringify({ action, receipt }, null, 2),
+      contentType: "application/json",
+    });
+    expect(receipt.activeEntry, "the native input must arrive during actual entry motion").toBe(true);
+    expect(receipt.transform).not.toBe("none");
+    if (action === "Home") expect(receipt.scrollTopBeforeInput).toBeGreaterThan(0);
+    expect(receipt.scrollRange).toBeGreaterThan(0);
+
+    await expect.poll(() => scroller.evaluate((element) => element.scrollTop)).toBe(0);
+    await waitForMessageScrollerEntryAnimations(page, preview);
+    await waitForMessageScrollerFinalLayout(page, preview);
+    expect(await scroller.evaluate((element) => element.scrollTop)).toBe(0);
+  });
+}
+
+
 test("group chat keeps its marker anchor through Rocky's reply and reset", async ({ page }) => {
   await visit(page, "/preview/message-scroller/group-chat");
   const rows = content(page).locator("[data-slot='message-scroller-item']");
