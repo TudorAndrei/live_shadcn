@@ -11,10 +11,95 @@
 import { expect, test } from "@playwright/test";
 
 import { connected, referenceReady, visit } from "./live.mjs";
+import { startCheckableFixture } from "./checkable-fixture.mjs";
 
 const checkboxControl = (page, id) => ({
   control: page.locator(`#${id}-control`),
   input: page.locator(`#${id}`),
+});
+
+test.describe("anonymous checkable pairs", () => {
+  let fixture;
+  test.beforeAll(async ({}, testInfo) => {
+    testInfo.setTimeout(190_000);
+    fixture = await startCheckableFixture(testInfo.outputPath("checkable-fixture.log"));
+  });
+  test.afterAll(async () => { await fixture?.close(); });
+
+  for (const kind of ["checkbox", "switch"]) {
+    test(`${kind} keeps unnamed controls independent through labels, Space, and caller updates`, async ({ page }) => {
+      const response = await page.goto(`${fixture.url}/${kind}`);
+      expect(response.status(), "the public defaults render on a real page").toBe(200);
+      await connected(page);
+      const form = page.locator("#checkable-form");
+      const controls = form.getByRole(kind);
+      const inputs = form.locator("input[type='checkbox']");
+      const labels = form.locator("label");
+
+      await form.evaluate((element) => {
+        window.checkableChanges = [];
+        element.addEventListener("change", () => {
+          window.checkableChanges.push({
+            controls: [...element.querySelectorAll("[aria-checked]")].map((control) => control.getAttribute("aria-checked") === "true"),
+            inputs: [...element.querySelectorAll("input[type='checkbox']")].map((input) => input.checked),
+          });
+        });
+      });
+
+      async function expectState(checked, events) {
+        await expect(page.locator("#checkable-events")).toHaveAttribute("data-count", String(events));
+        for (let index = 0; index < checked.length; index += 1) {
+          await expect(controls.nth(index)).toHaveAttribute("aria-checked", String(checked[index]));
+          await expect(inputs.nth(index)).toBeChecked({ checked: checked[index] });
+        }
+        const values = await form.evaluate((element) => [...new FormData(element)]);
+        expect(values).toEqual(checked[2] ? [["submitted", "true"]] : []);
+        if (events > 0) {
+          const changes = await page.evaluate(() => window.checkableChanges);
+          expect(changes).toHaveLength(events);
+          expect(changes.at(-1)).toEqual({ controls: checked, inputs: checked });
+        }
+      }
+
+      await expect(controls).toHaveCount(5);
+      await expect(form.getByRole(kind, { name: "First setting", exact: true })).toBeVisible();
+      await expectState([false, true, false, false, true], 0);
+      await labels.nth(0).click();
+      await expectState([true, true, false, false, true], 1);
+      await expect(controls.nth(0)).toBeFocused();
+      await expect(controls.nth(0)).toHaveAttribute("data-dirty", "");
+      await expect(controls.nth(0)).toHaveAttribute("data-touched", "");
+      await page.keyboard.press(" ");
+      await expectState([false, true, false, false, true], 2);
+      await expect(controls.nth(0)).toBeFocused();
+      await controls.nth(1).click();
+      await expectState([false, false, false, false, true], 3);
+      await expect(controls.nth(1)).toBeFocused();
+      await controls.nth(2).click();
+      await expectState([false, false, true, false, true], 4);
+      await expect(page.locator("#checkable-values")).toHaveText('{"submitted":"true"}');
+      await labels.nth(0).click();
+      await expectState([true, false, true, false, true], 5);
+      await expect(controls.nth(0)).toBeFocused();
+      await labels.nth(3).click({ force: true });
+      await labels.nth(4).click();
+      await expectState([true, false, true, false, true], 5);
+      const update = page.getByRole("button", { name: "Apply settings", exact: true });
+      await update.click();
+      await expect(page.locator("#checkable-applied")).toHaveText("true");
+      await expectState([true, false, true, false, true], 5);
+      await update.click();
+      await expect(page.locator("#checkable-applied")).toHaveText("false");
+      await expect(page.locator("#checkable-events")).toHaveAttribute("data-count", "5");
+      for (let index = 0; index < 5; index += 1) {
+        const checked = [false, true, false, false, true][index];
+        await expect(controls.nth(index)).toHaveAttribute("aria-checked", String(checked));
+        await expect(inputs.nth(index)).toBeChecked({ checked });
+      }
+      expect(await form.evaluate((element) => [...new FormData(element)])).toEqual([]);
+      await expect(update).toBeFocused();
+    });
+  }
 });
 
 test.describe("a checkbox", () => {

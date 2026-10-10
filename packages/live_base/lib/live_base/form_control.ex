@@ -108,12 +108,14 @@ defmodule LiveBase.FormControl do
 
   ## Options
 
-    * `:control` — required, the id of the control element
+    * `:control` — required, the id of the control element. Use nil to target
+      the element that runs the command.
     * `:state` — `:checked` for a checkbox or switch, `:pressed` for a toggle.
       Defaults to `:checked`.
     * `:input` — whether there is a hidden input beside the control. A string
-      gives its id when it does not use the default derived id. Base UI
-      documents which controls have one, and a toggle does not.
+      gives its id when it does not use the default derived id. With no control
+      id, or a nil input id, the adjacent marked native input carries the value.
+      Base UI documents which controls have one, and a toggle does not.
     * `:change` — whether to tell the form. Defaults to `true`, which is what
       makes `phx-change` fire and the server learn the new value.
   """
@@ -122,12 +124,14 @@ defmodule LiveBase.FormControl do
 
     input =
       case Keyword.get(opts, :input, true) do
+        true when is_nil(control) -> :adjacent
         true -> by_id(input_id(control))
+        nil -> :adjacent
         false -> nil
         id when is_binary(id) -> by_id(id)
       end
 
-    to = by_id(control)
+    to = if control, do: by_id(control)
 
     js
     |> state(to, Keyword.get(opts, :state, :checked))
@@ -186,6 +190,7 @@ defmodule LiveBase.FormControl do
   # control's state — a click costs no round trip — so an element that only
   # exists when the *server* says checked can never appear on a click. It is in
   # the DOM and `hidden` instead, and these commands flip that with the rest.
+  defp indicator(nil), do: {:inner, "[data-slot$='-indicator']"}
   defp indicator(control), do: "#{control} [data-slot$='-indicator']"
 
   # A checkbox is checked or unchecked; a toggle is pressed or not. Base UI
@@ -207,10 +212,17 @@ defmodule LiveBase.FormControl do
     |> JS.toggle_attribute({"data-pressed", ""}, to: to)
   end
 
+  defp thumb(nil), do: {:inner, "[data-slot$='-thumb']"}
   defp thumb(control), do: "#{control} [data-slot$='-thumb']"
 
   # The reader never touches the hidden input, so its `checked` property still
   # follows its attribute. The `change` event is what makes `phx-change` fire.
+  defp submit(js, :adjacent, opts) do
+    JS.dispatch(js, "live-base:sync-checkable-input",
+      detail: %{change: Keyword.get(opts, :change, true)}
+    )
+  end
+
   defp submit(js, input, opts) do
     js = JS.toggle_attribute(js, {"checked", ""}, to: input)
     if Keyword.get(opts, :change, true), do: notify(js, input), else: js

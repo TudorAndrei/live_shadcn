@@ -63,7 +63,7 @@ defmodule LiveShadcn.UI.Checkbox do
 
   def checkbox(assigns) do
     assigns = FormControl.from_checkable(assigns)
-    assigns = assign(assigns, :control_id, "#{assigns.id}-control")
+    assigns = assign(assigns, :control_id, if(assigns.id, do: "#{assigns.id}-control"))
 
     ~H"""
     <span
@@ -71,11 +71,12 @@ defmodule LiveShadcn.UI.Checkbox do
       role="checkbox"
       tabindex="0"
       id={@control_id}
+      data-lb-checkable-state={"#{@checked}:#{@indeterminate}"}
       aria-checked={if(@indeterminate, do: "mixed", else: to_string(@checked))}
       aria-label={rest_attribute(@rest, :"aria-label")}
       aria-labelledby={
         rest_attribute(@rest, :"aria-labelledby") ||
-          if(rest_attribute(@rest, :"aria-label"), do: nil, else: "#{@id}-label")
+          if(@id && !rest_attribute(@rest, :"aria-label"), do: "#{@id}-label")
       }
       aria-disabled={if(@disabled, do: "true")}
       phx-click={

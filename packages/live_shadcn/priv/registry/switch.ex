@@ -64,7 +64,7 @@ defmodule LiveShadcn.UI.Switch do
 
   def switch(assigns) do
     assigns = FormControl.from_checkable(assigns)
-    assigns = assign(assigns, :control_id, "#{assigns.id}-control")
+    assigns = assign(assigns, :control_id, if(assigns.id, do: "#{assigns.id}-control"))
 
     ~H"""
     <span
@@ -72,8 +72,13 @@ defmodule LiveShadcn.UI.Switch do
       role="switch"
       tabindex="0"
       id={@control_id}
+      data-lb-checkable-state={"#{@checked}:false"}
       aria-checked={to_string(@checked)}
-      aria-labelledby={"#{@id}-label"}
+      aria-label={rest_attribute(@rest, :"aria-label")}
+      aria-labelledby={
+        rest_attribute(@rest, :"aria-labelledby") ||
+          if(@id && !rest_attribute(@rest, :"aria-label"), do: "#{@id}-label")
+      }
       aria-disabled={if(@disabled, do: "true")}
       phx-click={
         if(@disabled or @readonly,
@@ -99,7 +104,16 @@ defmodule LiveShadcn.UI.Switch do
       data-filled={flag(@checked)}
       data-size={@size}
       class={LiveShadcn.Cn.merge([upstream_fact("jsx/Switch/class/0"), @class])}
-      {Map.drop(@rest, [:"data-slot"])}
+      {
+        Map.drop(@rest, [
+          :"data-slot",
+          "data-slot",
+          :"aria-label",
+          "aria-label",
+          :"aria-labelledby",
+          "aria-labelledby"
+        ])
+      }
     >
       <span
         data-checked={flag(@checked)}
@@ -111,6 +125,7 @@ defmodule LiveShadcn.UI.Switch do
     </span>
     <input
       type="checkbox"
+      data-lb-checkbox-input=""
       id={@id}
       name={@name}
       value={@value}
@@ -131,4 +146,8 @@ defmodule LiveShadcn.UI.Switch do
 
   defp flag(true), do: ""
   defp flag(_state), do: nil
+
+  defp rest_attribute(rest, attribute) do
+    Map.get(rest, attribute) || Map.get(rest, Atom.to_string(attribute))
+  end
 end
