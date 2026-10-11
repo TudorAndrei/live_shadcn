@@ -66,11 +66,16 @@ defmodule Mix.Tasks.Ui.VerifyStatusTest do
 
   test "an AI no-browser run records local gates and explicit comparison policy", context do
     File.cd!(context.root, fn ->
-      assert_raise Mix.Error, ~r/not verified: ai_elements\/image/, fn ->
-        Verify.run(["--source", "ai_elements", "image", "--no-browser"])
+      contract =
+        LiveShadcnTools.read_json!(LiveShadcnTools.spec_path("ai_elements", "code-block"))
+
+      assert LiveShadcnVerification.unresolved_facts(contract) != []
+
+      assert_raise Mix.Error, ~r/not verified: ai_elements\/code-block/, fn ->
+        Verify.run(["--source", "ai_elements", "code-block", "--no-browser"])
       end
 
-      record = LiveShadcnTools.read_json!(context.path)["ai_elements/image"]
+      record = LiveShadcnTools.read_json!(context.path)["ai_elements/code-block"]
       refute record["pass"]
 
       for name <- ~w(generated snapshot examples) do
@@ -86,9 +91,9 @@ defmodule Mix.Tasks.Ui.VerifyStatusTest do
         LiveShadcnVerification.evaluate(
           record,
           "ai_elements",
-          "image",
+          "code-block",
           context.root,
-          Path.join(context.root, "registry/spec/ai_elements/image.json")
+          Path.join(context.root, "registry/spec/ai_elements/code-block.json")
         )
 
       assert evaluation.status == :not_verified

@@ -497,7 +497,7 @@ defmodule LiveShadcnVerification do
         is_nil(result["spec"])
       else
         File.exists?(spec_path) and result["spec"] == digest(File.read!(spec_path)) and
-          reviewed_contract?(read_json!(spec_path))
+          (policy.kind == :authored or reviewed_contract?(read_json!(spec_path)))
       end
 
     current_target and result["evidence"] == current_evidence.()
@@ -692,7 +692,7 @@ defmodule LiveShadcnVerification do
           (not File.exists?(spec_path) or result["spec"] != digest(File.read!(spec_path))) ->
         "Contract changed since verification"
 
-      policy.kind != :docs_only and File.exists?(spec_path) and
+      policy.kind not in [:docs_only, :authored] and File.exists?(spec_path) and
           not reviewed_contract?(read_json!(spec_path)) ->
         "Contract review is incomplete"
 

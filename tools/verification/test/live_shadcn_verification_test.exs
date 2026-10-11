@@ -393,7 +393,14 @@ defmodule LiveShadcnVerificationTest do
     test "AI authored checks require complete current local evidence" do
       root = fixture_root("ai-authored-status")
       bootstrap_identity(root, "message")
-      contract = ~s({"ignored":{}})
+
+      contract =
+        Jason.encode!(%{
+          "ignored" => %{
+            "jsx/Message/class/0" => "the generated port does not contain this source literal"
+          }
+        })
+
       write(root, "registry/spec/ai_elements/message.json", contract)
 
       checks =
@@ -419,6 +426,7 @@ defmodule LiveShadcnVerificationTest do
       }
 
       assert badge_for(root, "ai_elements", "message", record) == :verified
+      assert pipeline_verified?(root, "ai_elements", "message", record)
 
       for name <- ~w(generated snapshot examples browser behavior accessibility),
           outcome <- ~w(skipped incomplete not_run) do
@@ -428,6 +436,29 @@ defmodule LiveShadcnVerificationTest do
 
       write(root, "packages/live_ai_elements/assets/js/prompt_input.js", "changed")
       assert badge_for(root, "ai_elements", "message", record) == :stale
+    end
+
+    test "Shadcn still requires source literal review with current passing evidence" do
+      root = fixture_root("shadcn-literal-review")
+      record = verified_record(root, "button", :standard)
+
+      contract =
+        Jason.encode!(%{
+          "ignored" => %{
+            "jsx/Button/class/0" => "the generated port does not contain this source literal"
+          }
+        })
+
+      write(root, "registry/spec/shadcn/button.json", contract)
+
+      record = %{
+        record
+        | "spec" => LiveShadcnVerification.digest(contract),
+          "evidence" => LiveShadcnVerification.evidence_digest("shadcn", "button", root)
+      }
+
+      assert evaluate(root, "shadcn", "button", record).reason == "Contract review is incomplete"
+      refute pipeline_verified?(root, "shadcn", "button", record)
     end
 
     test "explicit passing outcomes cannot override required gating or contradictory pass flags" do

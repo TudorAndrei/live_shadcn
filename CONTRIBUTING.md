@@ -141,6 +141,11 @@ check. AI Elements accessibility scans must report no violations. These checks
 run in CI. React semantic and pixel comparisons do not apply to AI Elements.
 Use `mix snapshot --check --source ai_elements` to check its snapshots.
 
+Authored verification still checks the pinned source bytes, the contract, and
+the port for drift. It requires passing local contract tests. It does not
+require every upstream style literal to map to the port. Existing ignored
+source facts remain in the contract and do not prove upstream equivalence.
+
 For incremental AI verification, import the complete behavior suite with all
 current examples, then import accessibility batches. The same source identity
 must apply to every batch. Source, hook, fixture, contract, test, or dependency

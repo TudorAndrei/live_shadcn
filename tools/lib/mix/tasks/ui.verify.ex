@@ -1535,7 +1535,7 @@ defmodule Mix.Tasks.Ui.Verify do
     end
   end
 
-  defp generated_check(reference) do
+  defp generated_check(policy, reference) do
     {source, name} = parse_ref(reference)
 
     cond do
@@ -1548,7 +1548,9 @@ defmodule Mix.Tasks.Ui.Verify do
       true ->
         contract = read_json!(spec_path(source, name))
 
-        if reviewed_contract?(contract) do
+        # Authored verification checks local contract agreement, not whether
+        # each upstream style literal has an equivalent in the HEEx port.
+        if policy.kind == :authored or reviewed_contract?(contract) do
           run_in(tools_dir(), "mix", ["ui.spec", "--check", "--offline", reference])
         else
           %{
@@ -1561,7 +1563,9 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   defp generated_checks(%{kind: :docs_only}, _reference), do: []
-  defp generated_checks(_policy, reference), do: [{"generated", generated_check(reference)}]
+
+  defp generated_checks(policy, reference),
+    do: [{"generated", generated_check(policy, reference)}]
 
   defp upstream_comparison_policy?(%{kind: kind}) when kind in [:standard, :docs_only], do: true
   defp upstream_comparison_policy?(_policy), do: false
