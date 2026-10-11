@@ -72,7 +72,7 @@ not need a server round trip for actions such as opening a menu.
 | close on an outside click | `phx-click-away` |
 | close on Escape | `phx-window-keydown` |
 
-Four hooks cover work that server-declared commands cannot do:
+The core hooks cover work that server-declared commands cannot do:
 
 | Hook | Purpose |
 |---|---|
@@ -83,6 +83,9 @@ Four hooks cover work that server-declared commands cannot do:
 
 A hook decides which element to use. The `JS` command on that element decides
 what happens.
+
+Specialist hooks also handle controls such as Calendar, Carousel, Scroller,
+Slider, and Toast. Register the complete `live_base` hook map in applications.
 
 ## Maintainer workflow
 

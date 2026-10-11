@@ -20,7 +20,8 @@
 ## Recipes
 
 Eight core recipes cover 84 of 111 components.
-Only the recipes are written by hand; every component is data.
+Maintainers review component bodies. The synchronizer updates marked upstream
+facts.
 
 | Recipe | Kind | Components |
 |---|---|---:|

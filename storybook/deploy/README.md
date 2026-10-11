@@ -1,5 +1,10 @@
 # Deploying the storybook
 
+This directory contains the optional Cloudflare deployment. The maintained CI
+workflow deploys to Fly with `storybook/fly.toml`. Use
+[the release instructions](../../DEFERRED.md) for that path. The former
+`Deploy storybook` workflow described below is no longer present.
+
 The storybook runs as one Cloudflare Container behind a Worker that does nothing
 but hand every request to it. There is no routing to do: every reader sees the
 same pages and none of them is behind a login.
