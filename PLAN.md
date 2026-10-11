@@ -3605,7 +3605,10 @@ The test therefore cannot observe its intended independent violation.
 Insert the same fixture inside the visible dialog and prove it remains
 accessible before the scan. Keep the distinct preview target and the expected
 single `aria-required-children` failure. Preserve production modal behavior.
-Pass the unchanged matcher contracts and complete Command comparisons.
+The same owner can fill the React input before hydration. Its saved failure
+shows `data-reference-ready` absent during the input action. Use the existing
+reference readiness check before React interactions. Pass the unchanged
+matcher contracts, filter test, and complete Command comparisons.
 
 Commit: `test(command): keep the unrelated accessibility fixture visible`.
 
@@ -3622,6 +3625,45 @@ repair. Keep production colors, durations, deadlines, and all comparison
 states. Pass shared helper checks and complete Date Picker comparisons.
 
 Commit: `fix(verification): wait for Date Picker entry transitions`.
+
+## Phase 6e.81: finish Select entry before clearing pointer hover
+
+The visual-state helper moves the pointer after a listbox click before the
+popup is ready. Depending on entry timing, the pointer leaves the trigger or
+an option. The resulting highlight differs. A real Scrollable Select test
+with the existing slow-frame fixture reproduces the failure on React.
+
+In listbox paths, wait for expanded state, a visible controlled listbox, and
+the existing finite entry settlement before clearing hover. Cover discovery,
+expanded entry, and nested entry through their existing helper paths. Leave
+menu paths unchanged. Extend the existing browser owner with the native
+pointer regression. Pass complete Select comparisons and repeated Message
+Animation comparisons. Preserve inventory, thresholds, and production timing.
+
+Commit: `fix(verification): finish Select entry before clearing hover`.
+
+## Phase 6e.82: preserve Navigation Menu focus and accessibility
+
+Both official Navigation Menu examples fail behavior, accessibility, and
+semantic comparisons. Native diagnostics identify four causes. A plain link
+uses the trigger-only `group` class. Click-away closes a popup before its
+trigger toggles it open again. Autofocus moves pointer focus to the first link.
+The nested popup navigation landmark duplicates the root landmark and places
+content outside the active item in the accessibility tree.
+
+Use the existing pinned CVA base for plain links. Use the existing Floating
+dismiss-command path and keep pointer focus on the trigger. Represent the
+popup as a container inside the root navigation landmark. Match native
+`aria-owns` ownership with a span in each item and an identified viewport.
+Keep the original root reading order and all trigger/content states.
+
+Extend the existing Navigation browser owner with the native root accessibility
+tree and open/close focus behavior. Preserve the single-item public form,
+disabled items, outside dismissal, Escape, and RTL. Review both snapshots and
+the added copy binding. Keep upstream facts unchanged. Require both complete
+examples in all four layers without comparison exclusions or new limits.
+
+Commit: `fix(navigation-menu): preserve focus and accessibility ownership`.
 
 ## Phase 6f: refresh evidence and verify release badges
 

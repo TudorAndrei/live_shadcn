@@ -1111,6 +1111,7 @@ verification remains required where a phase check box is still open.
 - [x] Prove the modal hides the injected body fixture.
 - [ ] Put the same fixture inside the visible dialog and assert accessibility.
 - [ ] Preserve its distinct preview target and single expected violation.
+- [ ] Wait for React hydration before the existing filter and keyboard tests.
 - [ ] Pass matcher contracts and complete Command comparisons.
 - [ ] Commit: `test(command): keep the unrelated accessibility fixture visible`.
 
@@ -1121,6 +1122,28 @@ verification remains required where a phase check box is still open.
 - [ ] Wait for finite entry transitions without changing colors, timers, or limits.
 - [ ] Pass shared helper checks and complete Date Picker comparisons.
 - [ ] Commit: `fix(verification): wait for Date Picker entry transitions`.
+
+## Phase 6e.81: finish Select entry before clearing pointer hover
+
+- [x] Prove the native pointer exit race with the existing slow-frame fixture.
+- [ ] Extend the browser owner and save the intended failure before the repair.
+- [ ] Wait for listbox entry before clearing hover in all existing listbox paths.
+- [ ] Preserve menu paths, production timing, states, and limits.
+- [ ] Pass complete Select and repeated Message Animation comparisons.
+- [ ] Commit: `fix(verification): finish Select entry before clearing hover`.
+
+## Phase 6e.82: preserve Navigation Menu focus and accessibility
+
+- [x] Reproduce both examples and prove native focus, dismissal, and ownership.
+- [ ] Extend the existing browser owner and save the intended failure.
+- [ ] Use pinned link classes, the existing dismissal path, and native pointer
+  focus.
+- [ ] Match active-item accessibility ownership without a nested landmark.
+- [ ] Preserve single-item form, disabled items, outside dismissal, Escape,
+  and RTL.
+- [ ] Review both snapshots and the copy binding with unchanged upstream facts.
+- [ ] Pass both complete examples in all four layers without changed limits.
+- [ ] Commit: `fix(navigation-menu): preserve focus and accessibility ownership`.
 
 ## Phase 6f: refresh evidence and verify release badges
 
