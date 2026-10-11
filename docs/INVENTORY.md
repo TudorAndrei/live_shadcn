@@ -11,11 +11,11 @@
 | `spec` | 0 | ························ |
 | `generated` | 0 | ························ |
 | `failed` | 0 | ························ |
-| `stale` | 61 | █████████████··········· |
+| `stale` | 0 | ························ |
 | `local_only` | 0 | ························ |
 | `no_dom` | 1 | ························ |
 | `excluded` | 49 | ███████████············· |
-| `verified` | 0 | ························ |
+| `verified` | 61 | █████████████··········· |
 
 ## Recipes
 
@@ -59,68 +59,68 @@ facts.
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `accordion` | 1 | `disclosure` | 🟧 stale |
-| `alert` | 1 | `presentational` | 🟧 stale |
-| `avatar` | 1 | `presentational` | 🟧 stale |
-| `badge` | 1 | `presentational` | 🟧 stale |
-| `button` | 1 | `presentational` | 🟧 stale |
-| `card` | 1 | `presentational` | 🟧 stale |
-| `checkbox` | 1 | `checkbox` | 🟧 stale |
-| `collapsible` | 1 | `disclosure` | 🟧 stale |
-| `dialog` | 1 | `dialog` | 🟧 stale |
-| `dropdown-menu` | 1 | `menu` | 🟧 stale |
-| `input` | 1 | `form-control` | 🟧 stale |
-| `label` | 1 | `form-control` | 🟧 stale |
-| `popover` | 1 | `popover` | 🟧 stale |
-| `select` | 1 | `listbox` | 🟧 stale |
-| `separator` | 1 | `separator` | 🟧 stale |
-| `skeleton` | 1 | `presentational` | 🟧 stale |
-| `spinner` | 1 | `presentational` | 🟧 stale |
-| `switch` | 1 | `switch` | 🟧 stale |
-| `table` | 1 | `presentational` | 🟧 stale |
-| `tabs` | 1 | `tabs` | 🟧 stale |
-| `textarea` | 1 | `form-control` | 🟧 stale |
-| `tooltip` | 1 | `popover` | 🟧 stale |
-| `alert-dialog` | 2 | `dialog` | 🟧 stale |
-| `aspect-ratio` | 2 | `presentational` | 🟧 stale |
-| `attachment` | 2 | `presentational` | 🟧 stale |
-| `breadcrumb` | 2 | `presentational` | 🟧 stale |
-| `bubble` | 2 | `presentational` | 🟧 stale |
-| `button-group` | 2 | `presentational` | 🟧 stale |
-| `combobox` | 2 | `listbox` | 🟧 stale |
-| `command` | 2 | `listbox` | 🟧 stale |
-| `context-menu` | 2 | `menu` | 🟧 stale |
+| `accordion` | 1 | `disclosure` | ✅ verified |
+| `alert` | 1 | `presentational` | ✅ verified |
+| `avatar` | 1 | `presentational` | ✅ verified |
+| `badge` | 1 | `presentational` | ✅ verified |
+| `button` | 1 | `presentational` | ✅ verified |
+| `card` | 1 | `presentational` | ✅ verified |
+| `checkbox` | 1 | `checkbox` | ✅ verified |
+| `collapsible` | 1 | `disclosure` | ✅ verified |
+| `dialog` | 1 | `dialog` | ✅ verified |
+| `dropdown-menu` | 1 | `menu` | ✅ verified |
+| `input` | 1 | `form-control` | ✅ verified |
+| `label` | 1 | `form-control` | ✅ verified |
+| `popover` | 1 | `popover` | ✅ verified |
+| `select` | 1 | `listbox` | ✅ verified |
+| `separator` | 1 | `separator` | ✅ verified |
+| `skeleton` | 1 | `presentational` | ✅ verified |
+| `spinner` | 1 | `presentational` | ✅ verified |
+| `switch` | 1 | `switch` | ✅ verified |
+| `table` | 1 | `presentational` | ✅ verified |
+| `tabs` | 1 | `tabs` | ✅ verified |
+| `textarea` | 1 | `form-control` | ✅ verified |
+| `tooltip` | 1 | `popover` | ✅ verified |
+| `alert-dialog` | 2 | `dialog` | ✅ verified |
+| `aspect-ratio` | 2 | `presentational` | ✅ verified |
+| `attachment` | 2 | `presentational` | ✅ verified |
+| `breadcrumb` | 2 | `presentational` | ✅ verified |
+| `bubble` | 2 | `presentational` | ✅ verified |
+| `button-group` | 2 | `presentational` | ✅ verified |
+| `combobox` | 2 | `listbox` | ✅ verified |
+| `command` | 2 | `listbox` | ✅ verified |
+| `context-menu` | 2 | `menu` | ✅ verified |
 | `direction` | 2 | `utility` | ⬛ no_dom |
-| `drawer` | 2 | `dialog` | 🟧 stale |
-| `empty` | 2 | `presentational` | 🟧 stale |
-| `field` | 2 | `form-control` | 🟧 stale |
-| `hover-card` | 2 | `popover` | 🟧 stale |
-| `input-group` | 2 | `form-control` | 🟧 stale |
-| `input-otp` | 2 | `form-control` | 🟧 stale |
-| `item` | 2 | `presentational` | 🟧 stale |
-| `kbd` | 2 | `presentational` | 🟧 stale |
-| `marker` | 2 | `presentational` | 🟧 stale |
-| `menubar` | 2 | `presentational` | 🟧 stale |
-| `message` | 2 | `presentational` | 🟧 stale |
-| `message-scroller` | 2 | `scroller` | 🟧 stale |
-| `native-select` | 2 | `presentational` | 🟧 stale |
-| `navigation-menu` | 2 | `navigation-menu` | 🟧 stale |
-| `pagination` | 2 | `pagination` | 🟧 stale |
-| `progress` | 2 | `progress` | 🟧 stale |
-| `radio-group` | 2 | `radio-group` | 🟧 stale |
-| `scroll-area` | 2 | `scroller` | 🟧 stale |
-| `sheet` | 2 | `dialog` | 🟧 stale |
-| `sidebar` | 2 | `sidebar` | 🟧 stale |
-| `slider` | 2 | `slider` | 🟧 stale |
-| `sonner` | 2 | `toast` | 🟧 stale |
-| `toast` | 2 | `toast` | 🟧 stale |
-| `toggle` | 2 | `form-control` | 🟧 stale |
-| `toggle-group` | 2 | `toggle-group` | 🟧 stale |
-| `calendar` | 3 | `calendar` | 🟧 stale |
-| `carousel` | 3 | `carousel` | 🟧 stale |
-| `chart` | 3 | `chart` | 🟧 stale |
-| `questionnaire` | 3 | `presentational` | 🟧 stale |
-| `resizable` | 3 | `resizable` | 🟧 stale |
+| `drawer` | 2 | `dialog` | ✅ verified |
+| `empty` | 2 | `presentational` | ✅ verified |
+| `field` | 2 | `form-control` | ✅ verified |
+| `hover-card` | 2 | `popover` | ✅ verified |
+| `input-group` | 2 | `form-control` | ✅ verified |
+| `input-otp` | 2 | `form-control` | ✅ verified |
+| `item` | 2 | `presentational` | ✅ verified |
+| `kbd` | 2 | `presentational` | ✅ verified |
+| `marker` | 2 | `presentational` | ✅ verified |
+| `menubar` | 2 | `presentational` | ✅ verified |
+| `message` | 2 | `presentational` | ✅ verified |
+| `message-scroller` | 2 | `scroller` | ✅ verified |
+| `native-select` | 2 | `presentational` | ✅ verified |
+| `navigation-menu` | 2 | `navigation-menu` | ✅ verified |
+| `pagination` | 2 | `pagination` | ✅ verified |
+| `progress` | 2 | `progress` | ✅ verified |
+| `radio-group` | 2 | `radio-group` | ✅ verified |
+| `scroll-area` | 2 | `scroller` | ✅ verified |
+| `sheet` | 2 | `dialog` | ✅ verified |
+| `sidebar` | 2 | `sidebar` | ✅ verified |
+| `slider` | 2 | `slider` | ✅ verified |
+| `sonner` | 2 | `toast` | ✅ verified |
+| `toast` | 2 | `toast` | ✅ verified |
+| `toggle` | 2 | `form-control` | ✅ verified |
+| `toggle-group` | 2 | `toggle-group` | ✅ verified |
+| `calendar` | 3 | `calendar` | ✅ verified |
+| `carousel` | 3 | `carousel` | ✅ verified |
+| `chart` | 3 | `chart` | ✅ verified |
+| `questionnaire` | 3 | `presentational` | ✅ verified |
+| `resizable` | 3 | `resizable` | ✅ verified |
 
 ## AI Elements
 
