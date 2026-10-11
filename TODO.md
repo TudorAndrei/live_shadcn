@@ -31,9 +31,9 @@ The full run at `9f0e798` passed 53 of 64 groups. Repair the remaining groups,
 then repeat verification on the combined source. Focused worker results do
 not replace final acceptance.
 
-- [x] All six Elixir test suites pass; final shadcn suite passes 158 tests.
+- [x] All six Elixir test suites pass; current shadcn suite passes 162 tests.
 - [x] Configured Elixir checks pass.
-- [x] Base JavaScript: 91 tests pass.
+- [x] Base JavaScript: 96 tests pass.
 - [x] Browser helpers: 107 tests pass. Parity helpers: 32 tests pass.
 - [x] All 61 offline and fetched-source shadcn contracts pass.
 - [x] All 463 shadcn snapshots are current.

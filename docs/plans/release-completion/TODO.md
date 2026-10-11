@@ -4,6 +4,10 @@ Follow [PLAN.md](PLAN.md). The coordinator owns this file.
 Full-run source: `9f0e798`. CI-only repair: `1e27f4c`.
 The completed run passed 53 of 64 groups. Phase 6e.83 repairs the remaining
 11 groups before the next acceptance run.
+All source repairs are now reviewed and combined. Final local checks pass:
+Base 42, shadcn 162, Storybook 80, Base hooks 96, browser helpers 107, and parity
+helpers 32. All 61 contracts and 463 snapshots are current. Configured checks
+and the asset build pass. The next full run will use fixed combined source.
 
 ## Checkpoint
 
@@ -52,18 +56,18 @@ Follow root phase 6e.83 for repair scope and required proof.
 | Owner | Groups | Failed checks |
 |---|---|---|
 | Coordinator | Hover Card | Complete at zero pixels, `dea5c33` |
-| Menus worker | Label, Pagination, Toggle Group, Progress | Select names integrated as `185b361`; Toggle Group integrated as `b3ba6a9` at zero pixels; Progress server reset remains under review |
+| Menus worker | Label, Pagination, Toggle Group, Progress | Select names `185b361`; Toggle Group `b3ba6a9`; Progress/Slider `913f211`, `0622a6b`; all focused checks and independent review pass |
 | Message worker | Scroll Area, Marker, Toast, Sidebar | Repairs integrated as `b3d91d7`, `8053f16`, and `2a8bcbf`; Sidebar repeats pass without source change |
-| Chart worker | Questionnaire, Item | Item and Avatar integrated as `8d0dbb2`; Questionnaire validation, conditional updates, and reset notice are under repair |
+| Chart worker | Questionnaire, Item | Item and Avatar `8d0dbb2`; Questionnaire `6e88c3c`; all focused checks and independent review pass |
 
-- [ ] Repair and review all 11 groups.
-- [ ] Recheck affected composed callers, including Avatar and Toggle.
+- [x] Review all 11 groups and repair the proved faults.
+- [x] Recheck affected composed callers, including Avatar and Toggle.
 - [x] Require zero for the two legacy nonzero budgets after exact proof.
 - [ ] Repeat full combined verification and final package proof.
 
 ## Final acceptance
 
-- [ ] All scoped repairs have reviewed commits.
+- [x] All scoped repairs have reviewed commits.
 - [x] Base, shadcn, tools, private verification, and Storybook tests pass.
 - [x] AI package checks pass where shared work affects them.
 - [x] Browser helper and parity helper tests pass.

@@ -3686,7 +3686,7 @@ pinned native reference before editing its port or observation code.
 | Message worker | Marker notice behavior and pixels differ. | Prove the actual notice after the caller action. `fix(marker): render the native notice title`. |
 | Message worker | Toast types adds an aria-hidden-focus failure. | Prove native focus, announcements, and cleanup. `fix(toast): preserve urgent notice focus and announcements`. |
 | Message worker | Sidebar toggle differs by 448 pixels at the trigger. | Prove exact open and closed captures after real interaction. No source repair is justified by current repeat results. |
-| Chart worker | Questionnaire Next validation, behavior, and pixels differ. | Prove invalid state and visible feedback for every example. `fix(questionnaire): synchronize invalid answer state`. |
+| Chart worker | Questionnaire Next validation, behavior, and pixels differ. | Prove invalid state, conditional updates, and reset behavior. `fix(questionnaire): preserve answer and reset behavior`. |
 | Chart worker | Item has caller class conflicts and a one-pixel image difference. | Prove Item and composed Avatar class replacement and exact layout. `fix(item): preserve caller display and text layout`. |
 
 Use separate worktrees and existing behavior owners. The coordinator owns the
@@ -3720,12 +3720,22 @@ repairs are integrated as `b3d91d7` and `8053f16` after complete scoped proof.
 Select field names are integrated as `185b361`. Toast focus and announcements
 are integrated as `2a8bcbf`; all 25 Toast checks and 15 shared caller checks
 pass. Toggle Group is integrated as `b3ba6a9`, including its 32-to-zero pixel
-limit. Both legacy pixel limits are now zero. Progress remains under review
-for controlled updates after a server reset. Questionnaire needs further
-repairs for conditional descriptions, composed title classes, and its reset
-notice before complete scoped proof can pass.
+limit. Both legacy pixel limits are now zero. Progress and Slider updates are
+integrated as `913f211` and `0622a6b`. Independent review found no further
+blocker. All 96 Base hook tests, 52 non-pixel browser checks, and 11 complete
+Slider/Progress image examples pass. All 24 official image states use zero
+budgets. Questionnaire is integrated as `6e88c3c`. All 14 examples pass every
+required layer. Its final seven direct tests also pass, including explicit
+caller IDs. Independent review found no blocker.
 Item and Avatar are integrated as `8d0dbb2`; all 21 examples pass all required
 checks. The Item image example has zero pixel difference.
+
+Questionnaire now marks generated description and error IDs through LiveView's
+JS API. Raw client ID writes had caused empty description nodes after server
+patches. Existing caller IDs remain intact. The hook forwards the declared
+reset event because LiveView does not send it. The resumed example now shows
+the pinned reset notice. Input updates clear invalid state on the item, its
+choices, and the freeform control.
 
 Sidebar's first full-run image failure has not reproduced. One complete run
 and six complete pixel repeats pass. Three measured repeats show equal trigger

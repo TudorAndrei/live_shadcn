@@ -157,6 +157,15 @@ Commits: `fix(build): resolve motion from Storybook dependencies` and
 
 ## Integration and acceptance
 
+Repeat this factory cycle for later work. Use one coordinator and up to three
+workers. Give each worker one bounded assignment, owned files, a separate
+worktree, and an acceptance command. Put each assignment through these states:
+queued, active, proof complete, review complete, and accepted. A commit moves
+to accepted only after the coordinator reviews it and checks the combined
+source. Assign a different worker to review shared controllers. Stop source
+writes before the final run. Build packages from that exact source revision.
+Keep failed checks on the board until current evidence closes them.
+
 1. Review and integrate code commits. Keep focused results and unresolved
    shared-caller checks distinct. Run affected package and helper checks.
 2. Finish all source, fixture, contract, snapshot, and verifier changes before
