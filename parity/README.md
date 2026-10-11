@@ -18,17 +18,22 @@ what it has is upstream, drawn beside it.
 
 ## What it renders
 
-The sources in `registry/upstream/`, unmodified, at the commit
-`registry/UPSTREAM.json` pins. Nothing here reimplements a component. Three
-files are shimmed, in `src/shim/`, and each is something upstream imports and
-shadcn's registry does not publish:
+The sources in `registry/upstream/` are unmodified and use the commits in
+`registry/UPSTREAM.json`. Vite maps imports to eight adapters in `src/shim/`:
 
-| Shim | Why |
+| Shim | Purpose |
 |---|---|
-| `utils.ts` | `cn`, which every class string is built with |
-| `use-mobile.ts` | a hook that reports the viewport width, read only by `sidebar` |
-| `icon-placeholder.tsx` | shadcn writes an icon as one name per icon library; this renders the lucide one, which is the set `LiveShadcn.Icon` ships |
-| `streamdown.tsx` | the markdown renderer, which is the one shim standing in for a package upstream really does depend on — see below |
+| `utils.ts` | Provides the `cn` class helper. |
+| `use-mobile.ts` | Reports viewport width for the registry hook import. |
+| `icon-placeholder.tsx` | Uses the Lucide icon named by the official example. |
+| `next-image.tsx` | Renders Next Image inputs as a native image, including fill positioning. |
+| `next-link.tsx` | Renders Next Link inputs as a native anchor. |
+| `next-font-google.ts` | Maps Vazirmatn to the locally installed font. |
+| `streamdown.tsx` | Renders assistant prose as text when no markdown renderer is configured. |
+| `streamdown-plugin.ts` | Resolves plugin imports used with the text-only Streamdown adapter. |
+
+The directory also contains `lucide.tsx`, an icon-name helper imported by the
+local Sidebar reference. It is not a Vite import alias.
 
 **The markdown renderer is shimmed, and that is a decision.** AI Elements
 renders assistant prose with Streamdown. The reviewed ports render no
@@ -77,10 +82,13 @@ is therefore a difference that the report assigns to the port.
 
 ## Running it
 
+Complete the [repository setup](../CONTRIBUTING.md#setup) first. It restores
+pinned inputs and installs the tools parser, Storybook Mix and asset
+dependencies, browser npm dependencies and Chromium, and parity npm dependencies.
+Then run from the repository root:
+
 ```bash
-cd parity && npm ci
-cd ../storybook/test/browser && npm ci && npm run verify:install
-cd ../../../tools
+cd tools
 mix ui.verify --source shadcn
 mix ui.status
 mix ui.status --check --source shadcn --require-verified

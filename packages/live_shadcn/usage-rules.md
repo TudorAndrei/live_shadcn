@@ -28,9 +28,13 @@ copied Carousel, copy Button and edit the Carousel reference explicitly.
 edited**. An edited component stays at its installed version until you merge an
 update or replace it explicitly.
 
-For a style change, prefer the `class` attribute because every component appends
-it to the upstream class string. Edit the copied module when the application
-needs a different API, markup, or behavior.
+For a style change, use the component's `class` attribute. Follow that
+component's class contract: some parts append caller classes, while parts that
+use `LiveShadcn.Cn.merge/1` remove conflicting defaults. For example, `hidden`
+replaces Avatar's default `flex`. Input OTP Separator replaces its whole default
+class string when the caller supplies `class`. Do not assume every part appends
+or merges classes. Edit the copied module when the application needs a different
+API, markup, or behavior.
 
 ## Register the JavaScript hooks, or nothing behaves
 
