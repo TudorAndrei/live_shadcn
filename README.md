@@ -171,8 +171,8 @@ storybook/                   demo application and browser tests
 ## Development
 
 ```bash
-cd tools && mix deps.get && npm install
-mix ui.fetch
+cd tools && mix deps.get && npm ci
+mix ui.fetch --locked
 mix ui.spec
 mix ui.spec --check --offline
 mix ui.status
@@ -190,7 +190,7 @@ cd ../storybook && mix phx.server
 ```
 
 Open <http://localhost:14101> with the repository's mise environment (otherwise
-port 4100). The demo uses the shadcn style sheets fetched by `mix ui.fetch`.
+port 4100). The demo uses the shadcn style sheets restored by `mix ui.fetch --locked`.
 The repository's mise environment sets verification ports 14101 and 14102.
 Stop existing development servers on those ports before verification.
 

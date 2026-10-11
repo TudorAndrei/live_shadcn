@@ -134,6 +134,12 @@ The task resolves upstream repositories to commit SHAs. It downloads sources to
 the ignored `registry/upstream/` directory and records their digests in
 `registry/UPSTREAM.json`.
 
+Use `mix ui.fetch --locked` to prepare an existing checkout. It restores the
+recorded URLs and checks each file against its recorded digest. It keeps the
+manifest unchanged and reuses files whose digests match. CI uses this mode.
+Plain `mix ui.fetch` selects current upstream commits for a source update.
+The release image uses `mix ui.fetch --styles` to restore only pinned styles.
+
 ### `mix ui.spec`
 
 The task reads existing version-2 contracts and ports. It parses all required

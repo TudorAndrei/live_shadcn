@@ -111,8 +111,8 @@ jobs:
 
   # ── What CI checks, and what it deliberately does not ──
   #
-  # CI checks that the committed record is internally consistent. It does not
-  # open a browser, and it does not fetch upstream.
+  # CI checks that the committed record is internally consistent. It restores
+  # pinned source files for tests and the reader. It does not open a browser.
   #
   # The browser suite used to run here and could not have been working: the job
   # fetched `--only accordion`, `registry/upstream/**` is gitignored, and
@@ -179,10 +179,9 @@ jobs:
   # specs sat stale behind a wholly green build, and one of them was hiding a
   # component whose attribute type had changed.
   #
-  # So this job fetches, and it is the only one that does. That is a real cost —
-  # a network call, Node, and a parse of every source — and it buys the one
-  # question the committed record cannot ask itself: does what is on disk still
-  # match what the reader produces from the same file.
+  # This job restores the pinned files and parses every shadcn source. The tools
+  # tests also restore pinned files. This reader check proves that the committed
+  # specs still match the reader output for those exact files.
   #
   # `--check` refuses when a source was not read, rather than reporting that the
   # specs it never compared are current. The browser job that used to live here

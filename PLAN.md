@@ -3578,6 +3578,24 @@ record bytes and normal evidence staleness.
 
 **Commit:** `fix(message-scroller): preserve clamped entry positions`
 
+## Phase 6e.78: preserve Select pointer focus and highlight
+
+The final Message Scroller Animation comparison exposed an intermittent Select
+highlight difference. A native pointer sequence makes the defect repeatable.
+The pinned reference clears the pointer highlight and focuses the popup when
+the pointer leaves an option. Phoenix retains the selected Fade highlight,
+does not focus Slide Up on hover, and starts the next ArrowDown from Fade.
+
+Scope the repair to option roving focus in `live_base/assets/js/roving.js`.
+Keep selected values unchanged during hover. Use focus without scrolling.
+Preserve keyboard highlight, disabled options, nested content, and cleanup.
+Extend the existing Select browser owner with the same native pointer and
+keyboard sequence on both hosts. Require intended failure before repair,
+passing direct Select checks, complete Select comparisons, and repeated
+Message Scroller Animation semantic checks. Keep all limits and states.
+
+Commit: `fix(select): preserve pointer focus and highlight`.
+
 ## Phase 6f: refresh evidence and verify release badges
 
 - Finish verifier changes before the final full run. Prepare existing pinned

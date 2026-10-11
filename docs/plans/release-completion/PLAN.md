@@ -147,6 +147,14 @@ Prove restoration in an empty temporary checkout and retain all existing tests.
 
 Commit: `fix(ci): restore pinned inputs before verification`.
 
+The clean asset build also needs a `motion` alias in the Storybook bundler.
+Prove the build with Base's local `node_modules` unavailable. A package archive
+inspection found ignored Dialyzer caches under shadcn's broad `priv` entry.
+Package `priv/registry` and prove all 61 ports remain in the built archive.
+
+Commits: `fix(build): resolve motion from Storybook dependencies` and
+`fix(release): package only runtime registry files`.
+
 ## Integration and acceptance
 
 1. Review and integrate code commits. Keep focused results and unresolved

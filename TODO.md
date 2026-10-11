@@ -1097,6 +1097,15 @@ verification remains required where a phase check box is still open.
 - [ ] Pass complete Message comparisons and final publication checks.
 - [x] Commit: `fix(message-scroller): preserve clamped entry positions` (`715e2b5`).
 
+## Phase 6e.78: preserve Select pointer focus and highlight
+
+- [x] Prove the native hover, leave, and next-key difference on both hosts.
+- [ ] Extend the existing Select browser owner and save the intended failure.
+- [ ] Repair option pointer focus without changing selection or keyboard highlight.
+- [ ] Preserve disabled options, nested content, scroll position, and cleanup.
+- [ ] Pass direct Select checks, complete comparisons, and repeated Animation checks.
+- [ ] Commit: `fix(select): preserve pointer focus and highlight`.
+
 ## Phase 6f: refresh evidence and verify release badges
 
 - [x] Prepare pinned sources without advancing the shadcn or AI ref.

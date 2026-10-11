@@ -14,16 +14,25 @@ Follow [PLAN.md](PLAN.md). The coordinator owns this file.
 | Task | Code | Focused checks | Review | Integration | Final evidence |
 |---|---|---|---|---|---|
 | Menus and modal accessibility | Committed | 125 comparisons; 43 Context/Drawer cases pass | Passed | `11efb19`, `9ed0017` | Pending |
-| Message Scroller and transient capture | Running | Initial/reset distinction under repair; busy capture passes | In progress | Pending | Pending |
+| Message Scroller and transient capture | Three commits ready | 13 direct cases; 48 of 49 comparisons pass | Passed | Pending | Pending |
 | Chart readiness and hover | Committed | All 8 examples pass; narrow hover passes | Passed | `5ccae15`, `b7f58f1` | Pending |
-| Input composition | Phases 51 and 46 committed; 47 running | Focus and name pass; Copy pixel mismatch open | In progress | In progress | Pending |
-| Input OTP | Running on `codex/factory-chart` | Pending | Pending | Pending | Pending |
-| Release and consumer installation | Install docs and CI repairs committed | Clean consumer passes; tools 167 pass; 398 pinned inputs restored | In progress | In progress | Pending |
+| Input composition | Phases 51 and 46 integrated; 47 ready | 80 of 81 Input Group/Popover comparisons pass | Passed | In progress | Pending |
+| Input OTP | Two commits ready | All 10 examples; 12 direct browser tests pass | Passed | Pending | Pending |
+| Release and consumer installation | Install docs and CI repairs integrated; build repairs active | Clean consumer and local Hex resolution pass; tools 167 pass | In progress | In progress | Pending |
 
 ## Integration findings
 
-- Input Group Copy has a short-lived pixel mismatch. The transient capture owner
-  will inspect the existing per-host path. Keep timers, states, and limits.
+- Input Group Copy fails because Chromium denies clipboard write permission.
+  The transient capture owner will check the permission setup used by the
+  existing direct test. Preserve timers, states, and limits.
+- Message Scroller Animation has an intermittent Select highlight difference.
+  The menu owner will inspect the actual pointer and keyboard state.
+- AI Inline Citation fails its Next scroll check on pre-menu source `637975c`
+  and on the repair branch. The menu changes did not introduce this failure.
+- The Storybook asset build cannot resolve `motion` without Base's local
+  `node_modules`. Add the missing asset alias and prove the clean build.
+- The local shadcn package includes ignored Dialyzer caches under `priv`.
+  Restrict package contents to runtime registry files and inspect a new archive.
 - The checkpoint CI fetched current upstream source and omitted test inputs.
   The locked-source restore and dependency setup now pass local checks.
 - Release notes now describe the current 61 ports and complete Base hook setup.
