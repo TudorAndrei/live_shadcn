@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { enterVisualState, visualStates } from "./visual-states.mjs";
+import { actionControlSelector, enterVisualState, visualStates } from "./visual-states.mjs";
 import { discoverInteractionProbes } from "./interaction-parity.mjs";
 import { referenceReady, slowAnimationFrames, visit } from "./live.mjs";
 import { collect } from "./measure.mjs";
@@ -65,6 +65,72 @@ test("state names use a control's native label", async ({ page }) => {
 });
 
 for (const side of ["Phoenix", "React"]) {
+  test(`sidebar / default finishes initial motion before the header action on ${side}`, async ({ page }, testInfo) => {
+    const selector = "[data-preview='sidebar']";
+    const path = side === "Phoenix"
+      ? "/preview/sidebar/default"
+      : `${testInfo.project.use.parityURL}/preview/sidebar/default`;
+    await page.setViewportSize({ width: 1280, height: 2144 });
+    await visitPreview(page, path);
+    const states = (await visualStates(page, selector))
+      .filter(({ name }) => name === "action:Toggle Sidebar");
+    expect(states.map(({ kind, index }) => ({ kind, index }))).toEqual([
+      { kind: "interactive-action", index: 1 },
+      { kind: "interactive-action", index: 2 },
+    ]);
+    const controls = page.locator(selector).locator(actionControlSelector());
+    await expect(controls.nth(1)).toHaveAttribute("data-slot", "sidebar-rail");
+    await expect(controls.nth(2)).toHaveAttribute("data-slot", "sidebar-trigger");
+
+    // A reload can start finite horizontal motion before the first action.
+    // Keep that motion long enough to exercise native pointer stability retries.
+    await visitPreview(page, path);
+    await enterVisualState(page, selector, { kind: "default" });
+    const trigger = page.locator("[data-slot='sidebar-trigger']");
+    const pointerDown = trigger.evaluate((element) => new Promise((resolve) => {
+      const motion = element.animate(
+        [{ transform: "translateX(4px)" }, { transform: "translateX(0px)" }],
+        { duration: 150 },
+      );
+      element.addEventListener("pointerdown", () => resolve({
+        slot: element.dataset.slot,
+        scrollY,
+        y: element.getBoundingClientRect().y,
+        initialMotion: motion.playState,
+      }), { once: true });
+    }));
+    await enterVisualState(page, selector, states[1]);
+    const entry = await pointerDown;
+    await testInfo.attach("sidebar-header-pointer-entry", {
+      body: JSON.stringify(entry), contentType: "application/json",
+    });
+    expect(entry).toMatchObject({ slot: "sidebar-trigger", scrollY: 0, initialMotion: "finished" });
+    expect(entry.y).toBeGreaterThan(0);
+
+    await expect(trigger).toBeFocused();
+    await expect(page.locator("[data-slot='sidebar']")).toHaveAttribute("data-state", "collapsed");
+    expect(await page.evaluate(() => ({ scrollY, scrollTop: document.scrollingElement.scrollTop })))
+      .toEqual({ scrollY: 0, scrollTop: 0 });
+    expect((await trigger.boundingBox()).y).toBeGreaterThan(0);
+  });
+  for (const [example, action] of [["time", "open"], ["natural-language", "typed-open"]]) {
+    test(`date-picker / ${example} finishes entry before observation on ${side}`, async ({ page }, testInfo) => {
+      const selector = "[data-preview='date-picker']";
+      const path = side === "Phoenix"
+        ? `/preview/date-picker/${example}`
+        : `${testInfo.project.use.parityURL}/preview/date-picker/${example}`;
+
+      await visitPreview(page, path);
+      const state = (await visualStates(page, selector)).find(({ name }) => name === `action:${action}`);
+      expect(state).toBeDefined();
+      await enterVisualState(page, selector, state);
+
+      const opacity = await page.locator("[data-slot='popover-content']:visible")
+        .evaluate((element) => getComputedStyle(element).opacity);
+      expect(opacity).toBe("1");
+    });
+  }
+
   test(`popover / default exposes settled closed and expanded states on ${side}`, async ({ page }, testInfo) => {
     const selector = "[data-preview='popover']";
     const path = side === "Phoenix"
@@ -126,6 +192,69 @@ test("editable comboboxes use a user click to enter the expanded state", async (
   }
 });
 
+for (const side of ["React", "Phoenix"]) {
+  test(`Select expanded state clears hover after popup entry on slow frames on ${side}`, async ({ page }, testInfo) => {
+    await slowAnimationFrames(page);
+    const path = side === "Phoenix" ? "/preview/select/scrollable"
+      : `${testInfo.project.use.parityURL}/preview/select/scrollable`;
+    const selector = "[data-preview='select']";
+    await visitPreview(page, path);
+    const states = await visualStates(page, selector);
+    const expanded = states.find((state) => state.kind === "expanded");
+    expect(expanded).toBeDefined();
+
+    await visitPreview(page, path);
+    await referenceReady(page);
+    await enterVisualState(page, selector, expanded);
+    const popup = page.locator("[data-slot='select-content']:visible");
+    expect(await popup.locator("[data-highlighted]").allTextContents()).toEqual([]);
+    await expect(popup).toBeFocused();
+    await expect(page.getByRole("combobox")).toContainText("Select a timezone");
+  });
+}
+
+for (const side of ["React", "Phoenix"]) {
+  test(`nested Drawer states finish entry and clear incidental hover on ${side}`, async ({ page }, testInfo) => {
+    await slowAnimationFrames(page);
+    const path = side === "Phoenix" ? "/preview/drawer/nested"
+      : `${testInfo.project.use.parityURL}/preview/drawer/nested`;
+    const selector = "[data-preview='drawer']";
+    await visitPreview(page, path);
+    const state = (await visualStates(page, selector)).find(({ name }) =>
+      name === "expanded:Open Drawer > Open Nested Drawer > Open Third Drawer");
+    expect(state).toBeDefined();
+
+    await visitPreview(page, path);
+    const entries = [];
+    await page.exposeFunction("recordDrawerEntry", entry => entries.push(entry));
+    await page.evaluate(() => {
+      document.addEventListener("pointerdown", event => {
+        const trigger = event.target.closest("[data-slot='drawer-trigger']");
+        const popup = trigger?.closest("[data-slot='drawer-popup']");
+        if (!popup) return;
+        window.recordDrawerEntry({
+          trigger: trigger.textContent.trim(),
+          starting: popup.hasAttribute("data-starting-style"),
+          moving: popup.getAnimations().some(animation =>
+            animation.pending || animation.playState === "running"),
+        });
+      }, true);
+    });
+    await enterVisualState(page, selector, state);
+
+    expect(entries).toEqual([
+      { trigger: "Open Nested Drawer", starting: false, moving: false },
+      { trigger: "Open Third Drawer", starting: false, moving: false },
+    ]);
+    const fourth = page.getByRole("button", { name: "Open Fourth Drawer", exact: true });
+    await expect(fourth).toHaveAttribute("aria-expanded", "false");
+    expect(await fourth.evaluate(element => element.matches(":hover"))).toBe(false);
+    await expect(fourth).toHaveCSS("background-color", "oklch(1 0 0)");
+    const front = page.getByRole("dialog").filter({ has: page.getByRole("heading", { name: "Third Drawer", exact: true }) });
+    await expect(front).toBeFocused();
+  });
+}
+
 test("disclosure states keep an initially open panel open during replay", async ({ page }, testInfo) => {
   const selector = "[data-preview='accordion']";
   const paths = [
@@ -178,13 +307,25 @@ test("tooltip exposes its hover state", async ({ page }) => {
 
 test("chart tooltip examples expose their hover state", async ({ page }, testInfo) => {
   const selector = "[data-preview='chart']";
+  await page.route(`${testInfo.project.use.parityURL}/preview/chart/**`, async (route) => {
+    const response = await route.fetch();
+    const html = await response.text();
+    await route.fulfill({ response, body: html.replace("<head>",
+      '<head><style id="delayed-chart-size">.recharts-responsive-container { width: 0 !important; }</style>') });
+  });
   const paths = [
     "/preview/chart/example-tooltip",
+    "/preview/chart/example-legend",
+    `${testInfo.project.use.parityURL}/preview/chart/example-legend`,
     `${testInfo.project.use.parityURL}/preview/chart/example-tooltip`,
   ];
 
   for (const path of paths) {
     await visitPreview(page, path);
+    await referenceReady(page);
+    await page.evaluate(() => {
+      setTimeout(() => document.getElementById("delayed-chart-size")?.remove(), 750);
+    });
     const states = await visualStates(page, selector);
 
     expect(states).toEqual([
@@ -192,10 +333,14 @@ test("chart tooltip examples expose their hover state", async ({ page }, testInf
       { name: "chart-hover:first-series", kind: "chart-hover", index: 0 },
     ]);
 
-    await visitPreview(page, path);
     await enterVisualState(page, selector, states[1]);
     await expect(page.locator(".recharts-tooltip-wrapper")).toBeVisible();
   }
+  for (const path of ["/preview/chart/tooltip", `${testInfo.project.use.parityURL}/preview/chart/tooltip`]) {
+    await visitPreview(page, path);
+    expect(await visualStates(page, selector)).toEqual([{ name: "default", kind: "default" }]);
+  }
+
 });
 
 test("context menu exposes its right-click state", async ({ page }) => {
@@ -284,25 +429,58 @@ test("table actions expose each menu as a separate render state", async ({ page 
   }
 });
 
-test("navigation menu exposes each content state", async ({ page }, testInfo) => {
-  const selector = "[data-preview='navigation-menu']";
-  const paths = [
-    "/preview/navigation-menu/default",
-    `${testInfo.project.use.parityURL}/preview/navigation-menu/default`,
-  ];
+for (const { example, labels } of [
+  { example: "default", labels: ["Getting started", "Components", "With Icon"] },
+  { example: "rtl", labels: ["البدء", "المكونات", "مع أيقونة"] },
+]) {
+  test(`navigation menu / ${example} preserves native reading order and dismissal`, async ({ page }, testInfo) => {
+    const selector = "[data-preview='navigation-menu']";
+    const paths = [
+      `${testInfo.project.use.parityURL}/preview/navigation-menu/${example}`,
+      `/preview/navigation-menu/${example}`,
+    ];
+    const referenceTrees = new Map();
 
-  for (const path of paths) {
-    await visitPreview(page, path);
-    const states = await visualStates(page, selector);
+    for (const path of paths) {
+      await visitPreview(page, path);
+      const states = await visualStates(page, selector);
+      expect(states.map(({ name }) => name)).toEqual([
+        "default", ...labels.map((label) => `expanded:${label}`),
+      ]);
 
-    expect(states.map(({ name }) => name)).toEqual([
-      "default",
-      "expanded:Getting started",
-      "expanded:Components",
-      "expanded:With Icon",
-    ]);
-  }
-});
+      for (const state of states.slice(1)) {
+        await visitPreview(page, path);
+        await enterVisualState(page, selector, state);
+        const trigger = page.locator("[data-slot='navigation-menu-trigger']").nth(state.path[0].index);
+        const popup = page.locator(".cn-navigation-menu-popup:visible");
+        const tree = await page.locator("[data-slot='navigation-menu']").ariaSnapshot();
+        if (path.startsWith("/")) expect(tree, state.name).toBe(referenceTrees.get(state.name));
+        else referenceTrees.set(state.name, tree);
+        await expect(trigger).toBeFocused();
+
+        await trigger.click();
+        await expect(trigger).toHaveAttribute("aria-expanded", "false");
+        await expect(popup).toBeHidden();
+        await expect(trigger).toBeFocused();
+
+        await trigger.click();
+        await expect(trigger).toHaveAttribute("aria-expanded", "true");
+        await popup.getByRole("link").first().focus();
+        await expect(popup.getByRole("link").first()).toBeFocused();
+        await page.keyboard.press("Escape");
+        await expect(trigger).toHaveAttribute("aria-expanded", "false");
+        await expect(popup).toBeHidden();
+        await expect(trigger).toBeFocused();
+
+        await trigger.click();
+        await expect(trigger).toHaveAttribute("aria-expanded", "true");
+        await page.locator("body").click({ position: { x: 5, y: 5 } });
+        await expect(trigger).toHaveAttribute("aria-expanded", "false");
+        await expect(popup).toBeHidden();
+      }
+    }
+  });
+}
 
 test("toast exposes each action result and the completed Promise", async ({ page }, testInfo) => {
   const selector = "[data-preview='toast']";

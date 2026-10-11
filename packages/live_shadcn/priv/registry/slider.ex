@@ -46,6 +46,12 @@ defmodule LiveShadcn.UI.Slider do
     doc: "A scalar makes one thumb. A list supplies one value per thumb."
   )
 
+  attr(:thumb_count, :integer,
+    default: 1,
+    doc:
+      "A positive number of operable thumbs for one scalar value. Each thumb controls the same value. Lists keep one thumb per value and require the default count."
+  )
+
   attr(:min, :any, default: 0)
   attr(:max, :any, default: 100)
   attr(:step, :any, default: 1)
@@ -62,11 +68,19 @@ defmodule LiveShadcn.UI.Slider do
   attr(:rest, :global)
 
   def slider(assigns) do
+    unless is_integer(assigns.thumb_count) and assigns.thumb_count > 0 do
+      raise ArgumentError, "thumb_count must be a positive integer"
+    end
+
+    if assigns.thumb_count != 1 and (is_nil(assigns.value) or is_list(assigns.value)) do
+      raise ArgumentError, "thumb_count can duplicate only a scalar value"
+    end
+
     {scalar?, values} =
       case assigns.value do
         nil -> {false, [assigns.min, assigns.max]}
         value when is_list(value) -> {false, value}
-        value -> {true, [value]}
+        value -> {true, List.duplicate(value, assigns.thumb_count)}
       end
 
     assigns =
@@ -110,7 +124,7 @@ defmodule LiveShadcn.UI.Slider do
         <div
           :for={index <- 0..(length(@values) - 1)//1}
           data-slot="slider-thumb"
-          data-index={index}
+          data-index={if(@scalar?, do: 0, else: index)}
           data-lb-slider-thumb
           style="position: absolute"
           data-orientation={@orientation}

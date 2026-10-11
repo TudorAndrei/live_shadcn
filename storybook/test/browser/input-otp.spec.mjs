@@ -149,3 +149,86 @@ test("native keyboard selection paints only the visible OTP slots", async ({ pag
     await reference.close();
   }
 });
+
+for (const [name, options, extraWidth] of [
+  ["native pointer detection", {}, 40],
+  ["password manager marker", { noPointerBadge: true, marker: true }, 40],
+  ["no detected badge", { noPointerBadge: true }, 0],
+  ["insufficient space", { clipped: true }, 0],
+  ["none strategy", { strategy: "none" }, 0],
+]) {
+  test(`password manager space follows ${name}`, async ({ page }) => {
+    await visit(page, "/preview/input-otp/default");
+    const input = otpInput(page);
+    const root = page.locator("[data-input-otp-container]");
+    await root.evaluate((element, options) => {
+      if (options.noPointerBadge) {
+        element.style.pointerEvents = "auto";
+        for (const child of element.querySelectorAll("*")) child.style.pointerEvents = "none";
+      }
+      if (options.marker) {
+        const badge = document.createElement("span");
+        badge.setAttribute("data-lastpass-icon-root", "");
+        badge.textContent = "Password manager";
+        document.body.appendChild(badge);
+      }
+      if (options.clipped) element.style.overflow = "hidden";
+      if (options.strategy) element.dataset.inputOtpPasswordManagerStrategy = options.strategy;
+    }, options);
+    await page.clock.install();
+    await input.focus();
+    await page.clock.fastForward(6100);
+    await expect.poll(async () => {
+      const inputBox = await input.boundingBox();
+      const rootBox = await root.boundingBox();
+      return inputBox.width - rootBox.width;
+    }).toBe(extraWidth);
+    await expect(input).toHaveCSS("clip-path", extraWidth ? "inset(0px 40px 0px 0px)" : "none");
+    await input.pressSequentially("9");
+    await expect(input).toHaveValue("123459");
+    await expect(slots(page).nth(5)).toHaveText("9");
+    await expect.poll(() => input.evaluate(element => [element.selectionStart, element.selectionEnd]))
+      .toEqual([5, 6]);
+  });
+}
+
+test("password manager reservation follows space changes and input lifecycle", async ({ page }) => {
+  await visit(page, "/preview/input-otp/default");
+  const input = otpInput(page);
+  const root = page.locator("[data-input-otp-container]");
+  await input.focus();
+  await expect(input).toHaveCSS("clip-path", "inset(0px 40px 0px 0px)");
+  await root.evaluate(element => { element.style.overflow = "hidden"; });
+  await expect(input).toHaveCSS("clip-path", "none");
+  await root.evaluate(element => { element.style.overflow = "visible"; });
+  await expect(input).toHaveCSS("clip-path", "inset(0px 40px 0px 0px)");
+
+  await root.evaluate(element => { element.dataset.inputOtpPasswordManagerStrategy = "none"; });
+  await expect(input).toHaveCSS("clip-path", "none");
+  await root.evaluate(element => { element.dataset.inputOtpPasswordManagerStrategy = "increase-width"; });
+  await expect(input).toHaveCSS("clip-path", "inset(0px 40px 0px 0px)");
+
+  const removed = await root.evaluateHandle(element => { element.remove(); return element; });
+  await expect.poll(() => removed.evaluate(element => element.querySelector("input").style.width)).toBe("100%");
+  await removed.evaluate(element => { element.querySelector("input").style.width = "73px"; });
+  await page.waitForTimeout(1100);
+  expect(await removed.evaluate(element => element.querySelector("input").style.width)).toBe("73px");
+  await removed.evaluate(element => {
+    element.querySelector("input").style.width = "100%";
+    document.querySelector("[data-preview='input-otp']").appendChild(element);
+  });
+  await input.focus();
+  await expect(input).toHaveCSS("clip-path", "inset(0px 40px 0px 0px)");
+  await expect(input).toHaveValue("123456");
+  const removedInput = await input.evaluateHandle(element => { element.remove(); return element; });
+  await expect.poll(() => removedInput.evaluate(element => element.style.width)).toBe("100%");
+  await removedInput.evaluate(element => { element.style.width = "73px"; });
+  await page.waitForTimeout(1100);
+  expect(await removedInput.evaluate(element => element.style.width)).toBe("73px");
+  await removedInput.evaluate(element => {
+    element.style.width = "100%";
+    document.querySelector("[data-input-otp-container] > div:last-child").appendChild(element);
+  });
+  await input.focus();
+  await expect(input).toHaveCSS("clip-path", "inset(0px 40px 0px 0px)");
+});

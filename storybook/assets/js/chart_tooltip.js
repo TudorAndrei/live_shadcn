@@ -64,3 +64,55 @@ export const ChartTooltip = {
     this.el.removeEventListener("pointerleave", this.hideTooltip);
   },
 };
+
+// The daily demo has one active series. Read its current server-rendered bars
+// on each event so a connected series change cannot retain old values.
+export const ChartDemoTooltip = {
+  mounted() {
+    this.showTooltip = (event) => {
+      const bar = event.target.closest("[data-chart-date]");
+      const tooltip = this.el.querySelector("[data-chart-tooltip]");
+      if (!bar || !tooltip) return;
+      const content = tooltip.querySelector(".cn-chart-tooltip");
+      content.firstElementChild.textContent = new Date(`${bar.dataset.chartDate}T00:00:00Z`)
+        .toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+      content.querySelector(".font-mono").textContent = Number(bar.dataset.chartValue).toLocaleString("en-US");
+      tooltip.style.visibility = "visible";
+
+      const chart = this.el.getBoundingClientRect();
+      const box = tooltip.getBoundingClientRect();
+      const categoryWidth = 646 / 30;
+      const categoryX = 12 + Number(bar.dataset.chartIndex) * categoryWidth;
+      const matrix = this.el.querySelector("svg").getScreenCTM();
+      const plotStart = new DOMPoint(12, 0).matrixTransform(matrix);
+      const plotEnd = new DOMPoint(658, 220).matrixTransform(matrix);
+      const anchor = new DOMPoint(categoryX + categoryWidth / 2, 0).matrixTransform(matrix);
+      const x = anchor.x - chart.left;
+      const y = Math.round(event.clientY - chart.top);
+      const left = Math.max(plotStart.x - chart.left,
+        x + 10 + box.width > plotEnd.x - chart.left ? x - box.width - 10 : x + 10);
+      const top = Math.max(plotStart.y - chart.top,
+        y + 10 + box.height > plotEnd.y - chart.top ? y - box.height - 10 : y + 10);
+      tooltip.style.transform = `translate(${left}px, ${top}px)`;
+      const cursor = this.el.querySelector("[data-chart-cursor]");
+      cursor.setAttribute("d", `M ${categoryX},0.5 h 21.5333 v 219 h -21.5333 Z`);
+      cursor.style.visibility = "visible";
+    };
+    this.hideTooltip = () => {
+      this.el.querySelector("[data-chart-tooltip]").style.visibility = "hidden";
+      this.el.querySelector("[data-chart-cursor]").style.visibility = "hidden";
+    };
+    this.el.addEventListener("pointermove", this.showTooltip);
+    this.el.addEventListener("pointerleave", this.hideTooltip);
+    this.el.dataset.chartReady = "true";
+  },
+
+  updated() {
+    this.hideTooltip();
+  },
+
+  destroyed() {
+    this.el.removeEventListener("pointermove", this.showTooltip);
+    this.el.removeEventListener("pointerleave", this.hideTooltip);
+  },
+};

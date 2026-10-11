@@ -85,24 +85,63 @@ test.describe("a select", () => {
     await expect(popup).toBeHidden();
   });
 
-  test("the arrow keys walk the options without choosing one", async ({
+  test("pointer and arrow keys move focus without choosing an option", async ({
     page,
-  }) => {
-    const { trigger, popup, input } = select(page);
+  }, testInfo) => {
+    for (const side of ["React", "Phoenix"]) {
+      const path = "/preview/select/default";
+      await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+      await (side === "React" ? referenceReady(page) : connected(page));
 
-    await trigger.click();
-    await expect(popup).toBeVisible();
-    await expect(select(page).option("")).toBeFocused();
+      const trigger = page.getByRole("combobox");
+      const popup = page.locator("[data-slot='select-content']:visible");
+      const options = page.getByRole("option");
+      const apple = page.getByRole("option", { name: "Apple", exact: true });
+      const banana = page.getByRole("option", { name: "Banana", exact: true });
+      const initialText = await trigger.textContent();
 
-    await page.keyboard.press("ArrowDown");
-    await expect(select(page).option("apple")).toBeFocused();
-    await expect(select(page).option("apple")).toHaveAttribute(
-      "data-highlighted",
-      "",
-    );
+      await trigger.click();
+      await expect(popup).toBeVisible();
+      await expect(options.first()).toBeFocused();
+      const selectedOptions = popup.locator("[role='option'][aria-selected='true']");
+      const selected = await selectedOptions.allTextContents();
 
-    // Walked to, not chosen: nothing has been submitted yet.
-    await expect(input).toHaveValue("");
+      await page.keyboard.press("ArrowDown");
+      await expect(apple).toBeFocused();
+      await expect(apple).toHaveAttribute("data-highlighted", "");
+
+      // Move onto the label, then across the same option's outer box.
+      await banana.getByText("Banana", { exact: true }).hover();
+      await expect(banana).toBeFocused();
+      await expect(banana).toHaveAttribute("data-highlighted", "");
+      await expect(apple).not.toHaveAttribute("data-highlighted");
+      const box = await banana.boundingBox();
+      await page.mouse.move(box.x + 4, box.y + box.height / 2);
+      await expect(banana).toBeFocused();
+      await expect(banana).toHaveAttribute("data-highlighted", "");
+
+      await page.mouse.move(0, 0);
+      await expect(popup.locator("[data-highlighted]")).toHaveCount(0);
+      await expect(popup).toBeFocused();
+      await page.keyboard.press("ArrowDown");
+      await expect(options.first()).toBeFocused();
+      await expect(options.first()).toHaveAttribute("data-highlighted", "");
+
+      // A keyboard move keeps its highlight when the idle pointer leaves.
+      await apple.hover();
+      await expect(apple).toBeFocused();
+      await page.keyboard.press("ArrowDown");
+      await expect(banana).toBeFocused();
+      await page.mouse.move(0, 0);
+      await expect(banana).toBeFocused();
+      await expect(banana).toHaveAttribute("data-highlighted", "");
+      expect(await selectedOptions.allTextContents()).toEqual(selected);
+      if (side === "Phoenix") await expect(select(page).input).toHaveValue("");
+
+      await page.keyboard.press("Escape");
+      await expect(trigger).toHaveText(initialText);
+      await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    }
   });
 
   test("Escape closes it without choosing", async ({ page }) => {

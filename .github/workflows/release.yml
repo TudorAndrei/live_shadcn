@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        package: [packages/live_base, packages/live_shadcn, tools]
+        package: [packages/live_base, packages/live_shadcn, tools/verification, tools]
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
@@ -40,6 +40,14 @@ jobs:
 
       - run: mix deps.get
         working-directory: ${{ matrix.package }}
+
+      - name: Prepare tools integration test inputs
+        if: matrix.package == 'tools'
+        run: |
+          mix ui.fetch --locked
+          cd ../storybook
+          mix deps.get
+        working-directory: tools
 
       - run: mix format --check-formatted
         working-directory: ${{ matrix.package }}
@@ -70,6 +78,9 @@ jobs:
         working-directory: tools
 
       - run: mix ui.status --check
+        working-directory: tools
+
+      - run: mix ui.status --check --source shadcn --require-verified
         working-directory: tools
 
   publish:

@@ -22,9 +22,8 @@ end
 
 ## Adding components
 
-Components are not called from this dependency. `mix ui.add` copies their source
-into your application, the way the shadcn CLI does, so you own and can edit every
-file:
+`mix ui.add` copies each requested component into your application. Use that
+copy as the application's entry point. You can edit the copied file:
 
 ```bash
 mix ui.add button card accordion
@@ -38,6 +37,25 @@ mix ui.add button --into lib/ui
 
 The module is rewritten to match where it landed: `LiveShadcn.UI.Button` becomes
 `MyAppWeb.Components.UI.Button`.
+
+Alias the copied modules in your LiveView:
+
+```elixir
+alias MyAppWeb.Components.UI.Button
+```
+
+```heex
+<Button.button phx-click="save">Save</Button.button>
+```
+
+The alias avoids a conflict with the default Phoenix `CoreComponents.button/1`.
+
+Only the requested modules are copied. References inside a component retain
+their package namespace. For example, a copied Carousel still uses the package
+Button. Editing the application's Button does not change that nested Button.
+Keep the package dependency. To own a nested component too, copy it and change
+the parent reference to the application module. `mix ui.sync` will preserve
+that edited parent. Package upgrades can change nested package components.
 
 ## Keeping up
 
@@ -66,12 +84,14 @@ mix ui.sync --apply        # update the ones you have not edited
 all: the whole point of copying source into your repository is that it becomes
 yours. `mix ui.add card --force` is the explicit way to discard your changes.
 
-That is what a component library owes you when it writes into your `lib/`. A
-dependency can be upgraded behind your back; a file you own cannot.
+This protection applies to the copied file. Shared behavior and nested package
+components still follow the installed dependency version.
 
 ## Behavior
 
-The components' behavior lives in `live_base`. Register its hooks:
+The components' behavior lives in `live_base`. Follow its
+[JavaScript installation instructions](../live_base/README.md#installation)
+and register the complete hook map. Preserve existing socket options and hooks:
 
 ```javascript
 import { hooks as liveBase } from "live_base";
@@ -87,20 +107,53 @@ assign for a menu that is open.
 
 ## Styling
 
-The class strings are shadcn's, and they read shadcn's own `cn-` classes, which
-are defined in its style sheets. Point Tailwind at the components and import the
-sheet for the style you want:
+The ports require Tailwind 4 and the pinned shadcn theme and style sheets.
+The following setup uses the Vega style tested in Storybook. From the
+application's `assets` directory, install the CSS dependencies:
 
-```css
-@import "tailwindcss";
-@import "shadcn/tailwind.css";
-
-@source "../../deps/live_shadcn/priv/registry";
-@source "../../lib/my_app_web/components/ui";
+```bash
+npm install tailwindcss@4.3.0 shadcn@4.19.0 tw-animate-css@1.4.0
 ```
 
-Every `cn-` rule upstream publishes is nested inside `.style-<name>`, so which
-style you get is a class on the document.
+Copy these files from the pinned shadcn commit. Run this command from `assets`:
+
+```bash
+shadcn_source=https://raw.githubusercontent.com/shadcn-ui/ui/503a3a57aec9a3817e37f90aa0817b1fabd284d0/apps/v4
+mkdir -p css/upstream/theme css/upstream/styles
+curl -fL "$shadcn_source/app/globals.css" -o css/upstream/theme/globals.css
+curl -fL "$shadcn_source/app/legacy-themes.css" -o css/upstream/theme/legacy-themes.css
+curl -fL "$shadcn_source/registry/styles/style-vega.css" -o css/upstream/styles/vega.css
+```
+
+Commit these files and the npm lock file. Keep them at the package's upstream
+pin. Replace the generated Tailwind and theme imports in `assets/css/app.css`
+with these imports. Keep any application-specific CSS and colocated CSS import:
+
+```css
+@import "./upstream/theme/globals.css";
+@import "./upstream/styles/vega.css";
+
+@source "../js";
+@source "../../lib/my_app_web";
+@source "../../deps/live_shadcn/priv/registry";
+
+:root {
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-mono: ui-monospace, monospace;
+}
+```
+
+Replace `my_app_web` with the application directory. Put the style class on
+the root layout:
+
+```heex
+<html lang="en" class="style-vega">
+```
+
+Run `mix assets.build`. The globals file imports Tailwind, animation classes,
+shadcn variants, and legacy theme tokens. The Vega file supplies the `cn-`
+classes used by these ports. Importing only `shadcn/tailwind.css` is insufficient.
 
 ## Icons
 

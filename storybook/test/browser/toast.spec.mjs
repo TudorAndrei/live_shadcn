@@ -1,6 +1,7 @@
+import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { referenceReady, visit } from "./live.mjs";
 
 const viewport = (page) => page.locator("[data-lb-toasts]");
 const toasts = (page) => page.locator("[data-slot='toast']");
@@ -58,6 +59,79 @@ test.describe("the official toast examples", () => {
     await expect(viewport(page)).toHaveAttribute("aria-label", "Notifications");
     await expect(toasts(page)).toHaveAttribute("role", "dialog");
     await expect(toasts(page)).toHaveAttribute("aria-live", "polite");
+  });
+
+  test("an urgent toast follows native keyboard focus and announcement ownership", async ({ page }, testInfo) => {
+    for (const path of [
+      `${testInfo.project.use.parityURL}/preview/toast/types`,
+      "/preview/toast/types",
+    ]) {
+      if (path.startsWith("http")) {
+        await page.goto(path);
+        await referenceReady(page);
+      } else await visit(page, path);
+
+      const trigger = page.getByRole("button", { name: "Error", exact: true });
+      await trigger.click();
+      const notice = page.locator("[data-slot='toast']");
+      const close = notice.locator("[data-slot='toast-close']");
+      await expect(notice).toHaveAttribute("role", "alertdialog");
+      await expect(notice).toHaveAttribute("aria-hidden", "true");
+      await expect(page.getByRole("alert")).toHaveText("The event could not be created.");
+
+      await page.keyboard.press("Tab");
+      await expect(notice).toBeFocused();
+      await expect(page.getByRole("alertdialog")).toHaveCount(1);
+      await expect(page.getByRole("alert")).toHaveCount(0);
+      await page.keyboard.press("Tab");
+      await expect(close).toBeFocused();
+      await expect(close).not.toHaveAttribute("aria-hidden", "true");
+      await expect(notice).not.toHaveAttribute("aria-hidden", "true");
+
+      await trigger.focus();
+      await expect(notice).toHaveAttribute("aria-hidden", "true");
+      await expect(page.getByRole("alert")).toHaveText("The event could not be created.");
+    }
+  });
+
+  test("toast focus callbacks preserve caller handlers through updates and cleanup", async ({ page }) => {
+    await visit(page, "/preview/toast/default");
+    await showDefault(page);
+    const markup = await page.locator("[data-slot='toast-portal']").evaluate((element) => element.outerHTML);
+    await page.goto("about:blank");
+    await page.setContent(`${markup}<button id="outside">Outside</button>`);
+    await page.keyboard.press("Tab");
+    const controller = readFileSync(new URL("../../../packages/live_base/assets/js/toast.js", import.meta.url), "utf8");
+    const result = await page.evaluate(async (source) => {
+      const { Toast } = await import(`data:text/javascript,${encodeURIComponent(source)}`);
+      const viewport = document.querySelector("[data-lb-toasts]");
+      const parts = ["toast", "toast-action", "toast-close"].map((slot) =>
+        viewport.querySelector(`[data-slot='${slot}']`));
+      const outside = document.querySelector("#outside");
+      const calls = [0, 0, 0];
+      const receivers = [];
+      parts.forEach((part, index) => {
+        part.onfocus = function () { calls[index]++; receivers.push(this === part); };
+      });
+      const hook = { ...Toast, el: viewport, pushEvent() {} };
+      hook.mounted();
+      outside.focus();
+      for (const part of parts) part.focus();
+      const expanded = viewport.hasAttribute("data-expanded");
+      const closeExposed = parts[2].getAttribute("aria-hidden") === "false";
+      hook.updated();
+      parts[0].focus();
+      let replacementCalls = 0;
+      parts[2].onfocus = () => replacementCalls++;
+      hook.destroyed();
+      outside.focus();
+      viewport.removeAttribute("data-expanded");
+      for (const part of parts) part.focus();
+      return { calls, receivers, replacementCalls, expanded, closeExposed,
+        expandedAfterCleanup: viewport.hasAttribute("data-expanded") };
+    }, controller);
+    expect(result).toEqual({ calls: [3, 2, 1], receivers: Array(6).fill(true),
+      replacementCalls: 1, expanded: true, closeExposed: true, expandedAfterCleanup: false });
   });
 
   test("measures, orders, limits, and expands a toast stack", async ({ page }) => {

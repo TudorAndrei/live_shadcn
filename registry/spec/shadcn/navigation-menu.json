@@ -4,6 +4,7 @@
   },
   "bindings": {
     "copy": [
+      "cva/navigationMenuTriggerStyle/base",
       "jsx/NavigationMenu/class/0",
       "jsx/NavigationMenuContent/class/0",
       "jsx/NavigationMenuIndicator/class/0",
@@ -39,6 +40,7 @@
     "--transform-origin"
   ],
   "facts": {
+    "cva/navigationMenuTriggerStyle/base": "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none",
     "jsx/NavigationMenu/class/0": "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
     "jsx/NavigationMenuContent/class/0": "cn-navigation-menu-content data-ending-style:data-activation-direction=left:translate-x-[50%] data-ending-style:data-activation-direction=right:translate-x-[-50%] data-starting-style:data-activation-direction=left:translate-x-[-50%] data-starting-style:data-activation-direction=right:translate-x-[50%] h-full w-auto transition-[opacity,transform,translate] duration-[0.35s] data-ending-style:opacity-0 data-starting-style:opacity-0 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
     "jsx/NavigationMenuIndicator/class/0": "cn-navigation-menu-indicator top-full z-1 flex h-1.5 items-end justify-center overflow-hidden",
@@ -58,7 +60,7 @@
   "fingerprint": "fb7d168d17edeab7e3be313598e9b9ef60534456b2373fc7ee1ed5fafc71ba5e",
   "ignored": {},
   "name": "navigation-menu",
-  "port_body": "756d740f630b3bac0ef7b2d5640048e055289ae81a639ac45aed6a75ed377a21",
+  "port_body": "428945f71ebf47ab4abfc12cd03d0e974d3559b01b2c7430cf7ae8c14d3105b7",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

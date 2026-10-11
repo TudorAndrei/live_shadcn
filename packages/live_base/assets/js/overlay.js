@@ -24,6 +24,7 @@
 // a shadcn class string.
 
 import { hide, show } from "./transition.js";
+import { accessibilityInside, holdAccessibility, releaseAccessibility } from "./modal_accessibility.js";
 
 const OPEN = "data-open";
 
@@ -37,7 +38,7 @@ const FOCUSABLE = [
 ].join(",");
 
 // Each document has one modal stack. An earlier overlay can close or be
-// destroyed while a later one is still open, so scroll and outside attributes
+// destroyed while a later one is still open, so scroll locking and focus
 // belong to the stack rather than to an individual hook.
 const modalDocuments = new WeakMap();
 
@@ -45,86 +46,16 @@ function frontModal(state) {
   return state.owners.findLast((owner) => owner.el.isConnected && owner.el.hasAttribute(OPEN));
 }
 
-function insideModal(popup) {
-  const document = popup.ownerDocument;
-  const inside = new Set([popup]);
-  const candidates = [...document.querySelectorAll(
-    "[data-lb-anchor][data-open], [data-lb-trigger][data-open], [data-phx-teleported-src]",
-  )];
-  let changed;
-  do {
-    changed = false;
-    for (const node of candidates) {
-      if (inside.has(node)) continue;
-      const anchor = document.getElementById(
-        node.getAttribute("data-lb-anchor") || node.getAttribute("data-lb-trigger"),
-      );
-      const source = document.getElementById(node.getAttribute("data-phx-teleported-src"));
-      const attached = [...inside].some((target) =>
-        (anchor && target.contains(anchor)) ||
-        (source && target.contains(source) && node.querySelector("[data-open]")),
-      );
-      if (attached) {
-        inside.add(node);
-        changed = true;
-      }
-    }
-  } while (changed);
-  return inside;
-}
-
-function outsideNodes(document, allowed) {
-  const ancestors = new Set();
-  for (const target of allowed) {
-    for (let node = target; node; node = node.parentElement) ancestors.add(node);
-  }
-  const outside = new Set();
-  const collect = (parent) => {
-    for (const node of parent.children) {
-      if (node.matches("script, template") || allowed.has(node)) continue;
-      // A display: contents portal transports controls without adding its own
-      // accessible box. Mark its outside children, not the transport wrapper.
-      if (ancestors.has(node) || document.defaultView.getComputedStyle(node).display === "contents") {
-        collect(node);
-      } else {
-        outside.add(node);
-      }
-    }
-  };
-  collect(document.body);
-  return outside;
-}
-
-function refreshModal(state, records = []) {
-  const pending = [...records, ...state.observer.takeRecords()];
-  for (const record of pending) {
-    if (record.attributeName === "aria-hidden" && state.hidden.has(record.target)) {
-      state.hidden.set(record.target, record.target.getAttribute("aria-hidden"));
-    }
-  }
-  // Disconnect for our own writes. Pending caller changes above become the
-  // values restored later, and our mask writes cannot start an observer loop.
+function refreshModal(state) {
   state.observer.disconnect();
   const front = frontModal(state);
-  state.inside = front ? insideModal(front.el) : new Set();
-  const allowed = new Set([...state.inside, ...state.document.querySelectorAll("[aria-live]")]);
-  const outside = front ? outsideNodes(state.document, allowed) : new Set();
-  for (const [node, value] of state.hidden) {
-    if (outside.has(node)) continue;
-    if (value === null) node.removeAttribute("aria-hidden");
-    else node.setAttribute("aria-hidden", value);
-    state.hidden.delete(node);
-  }
-  for (const node of outside) {
-    if (!state.hidden.has(node)) state.hidden.set(node, node.getAttribute("aria-hidden"));
-    if (node.getAttribute("aria-hidden") !== "true") node.setAttribute("aria-hidden", "true");
-  }
+  state.inside = front ? accessibilityInside(front.el) : new Set();
   if (state.owners.length) {
     state.observer.observe(state.document.body, {
       subtree: true,
       childList: true,
       attributes: true,
-      attributeFilter: ["aria-hidden", "aria-live", "data-open", "hidden", "class", "style"],
+      attributeFilter: ["aria-live", "data-open", "hidden", "class", "style"],
     });
   }
 }
@@ -134,22 +65,25 @@ function holdModal(owner) {
   let state = modalDocuments.get(document);
   if (!state) {
     state = {
-      document, owners: [], hidden: new Map(), inside: new Set(),
+      document, owners: [], inside: new Set(),
       overflow: document.body.style.overflow,
       padding: document.body.style.paddingRight,
     };
-    state.observer = new document.defaultView.MutationObserver((records) => refreshModal(state, records));
+    state.observer = new document.defaultView.MutationObserver(() => refreshModal(state));
     modalDocuments.set(document, state);
     const scrollbar = document.defaultView.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = "hidden";
     if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`;
   }
   state.owners.push(owner);
+  owner.accessibilityLease = holdAccessibility(owner.el);
   refreshModal(state);
   return state;
 }
 
 function releaseModal(owner, state) {
+  releaseAccessibility(owner.accessibilityLease);
+  owner.accessibilityLease = null;
   state.owners = state.owners.filter((candidate) => candidate !== owner);
   refreshModal(state);
   if (state.owners.length) return;

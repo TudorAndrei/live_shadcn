@@ -103,18 +103,54 @@ for (const side of sides) {
     });
   });
 
-  test(`${side.name} checkbox items toggle and keep the menu open`, async ({ page }, testInfo) => {
-    await visitSide(page, testInfo, side, "checkbox");
-    await trigger(page, "View").click();
+  test(`${side.name} checkbox choices keep caller values and change independent items`, async ({ page }, testInfo) => {
+    for (const { example, menu, fixed, free } of [
+      { example: "default", menu: "View", fixed: "Full URLs", free: "Bookmarks Bar" },
+      { example: "checkbox", menu: "View", fixed: "Always Show Full URLs", free: "Always Show Bookmarks Bar" },
+      { example: "checkbox", menu: "Format", fixed: "Strikethrough", free: "Code" },
+    ]) {
+      await visitSide(page, testInfo, side, example);
+      await trigger(page, menu).click();
+      const popup = visibleContent(page);
+      const freeChoice = popup.getByRole("menuitemcheckbox", { name: free, exact: true });
+      const fixedChoice = popup.getByRole("menuitemcheckbox", { name: fixed, exact: true });
 
+      await expect(freeChoice).toHaveAttribute("aria-checked", "false");
+      await freeChoice.click();
+      await expect(freeChoice).toHaveAttribute("aria-checked", "true");
+      await expect(fixedChoice).toHaveAttribute("aria-checked", "true");
+      await expect(fixedChoice).toBeEnabled();
+      await fixedChoice.click();
+      await expect(fixedChoice).toHaveAttribute("aria-checked", "true");
+      await fixedChoice.focus();
+      await expect(fixedChoice).toBeFocused();
+      await page.keyboard.press("Enter");
+      await expect(fixedChoice).toHaveAttribute("aria-checked", "true");
+      await expect(fixedChoice.locator(".cn-menubar-checkbox-item-indicator svg")).toBeVisible();
+      await expect(freeChoice).toHaveAttribute("aria-checked", "true");
+      await expect(popup).toBeVisible();
+    }
+  });
+
+  test(`${side.name} default Profiles keeps the caller value after pointer and keyboard selection`, async ({ page }, testInfo) => {
+    await visitSide(page, testInfo, side, "default");
+    await trigger(page, "Profiles").click();
     const popup = visibleContent(page);
-    const bookmarks = popup
-      .locator("[data-slot='menubar-checkbox-item']")
-      .filter({ hasText: "Always Show Bookmarks Bar" });
+    const benoit = popup.getByRole("menuitemradio", { name: "Benoit", exact: true });
+    const andy = popup.getByRole("menuitemradio", { name: "Andy", exact: true });
+    const luis = popup.getByRole("menuitemradio", { name: "Luis", exact: true });
 
-    await expect(bookmarks).toHaveAttribute("aria-checked", "false");
-    await bookmarks.click();
-    await expect(bookmarks).toHaveAttribute("aria-checked", "true");
+    await expect(benoit).toHaveAttribute("aria-checked", "true");
+    await expect(andy).toBeEnabled();
+    await andy.click();
+    await expect(andy).toHaveAttribute("aria-checked", "false");
+    await expect(benoit).toHaveAttribute("aria-checked", "true");
+    await luis.focus();
+    await expect(luis).toBeFocused();
+    await page.keyboard.press("Space");
+    await expect(luis).toHaveAttribute("aria-checked", "false");
+    await expect(benoit).toHaveAttribute("aria-checked", "true");
+    await expect(benoit.locator(".cn-menubar-radio-item-indicator svg")).toBeVisible();
     await expect(popup).toBeVisible();
   });
 
@@ -183,6 +219,13 @@ for (const side of sides) {
     await expect(popup).toHaveAttribute("dir", "rtl");
     await expect(bookmarks).toHaveAttribute("aria-checked", "false");
     await bookmarks.click();
+    await expect(bookmarks).toHaveAttribute("aria-checked", "true");
+    await expect(popup).toBeVisible();
+
+    const fullUrls = popup.getByRole("menuitemcheckbox", { name: "عناوين URL الكاملة", exact: true });
+    await expect(fullUrls).toBeEnabled();
+    await fullUrls.click();
+    await expect(fullUrls).toHaveAttribute("aria-checked", "true");
     await expect(bookmarks).toHaveAttribute("aria-checked", "true");
     await expect(popup).toBeVisible();
 

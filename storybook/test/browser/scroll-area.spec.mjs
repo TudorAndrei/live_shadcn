@@ -7,7 +7,7 @@
 
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { referenceReady, visit } from "./live.mjs";
 
 const root = (page) => page.locator("#tags");
 const viewport = (page) => page.locator("[data-lb-scroller]");
@@ -69,12 +69,23 @@ test.describe("a scroll area", () => {
     expect(height).toBeLessThan(track);
   });
 
-  test("scrolling to the bottom moves which edge has more behind it", async ({ page }) => {
-    await measured(page);
+  test("scrolling to the bottom moves which edge has more behind it", async ({ page }, testInfo) => {
+    for (const path of [
+      `${testInfo.project.use.parityURL}/preview/scroll-area/default`,
+      "/preview/scroll-area/default",
+    ]) {
+      if (path.startsWith("http")) {
+        await page.goto(path);
+        await referenceReady(page);
+      } else await visit(page, path);
 
-    await viewport(page).evaluate((el) => el.scrollTo(0, el.scrollHeight));
-    await expect(root(page)).toHaveAttribute("data-overflow-y-start", "");
-    await expect(root(page)).not.toHaveAttribute("data-overflow-y-end", "");
+      const scrollArea = page.locator("[data-slot='scroll-area']");
+      const scrollViewport = scrollArea.locator("[data-slot='scroll-area-viewport']");
+      await expect(scrollArea).toHaveAttribute("data-overflow-y-end", "");
+      await scrollViewport.evaluate((el) => el.scrollTo(0, el.scrollHeight));
+      await expect(scrollArea).toHaveAttribute("data-overflow-y-start", "");
+      await expect(scrollArea).not.toHaveAttribute("data-overflow-y-end", "");
+    }
   });
 
   test("scrolling moves the thumb, and the thumb is never moved directly", async ({ page }) => {

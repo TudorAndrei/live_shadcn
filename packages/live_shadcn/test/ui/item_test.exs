@@ -4,7 +4,7 @@ defmodule LiveShadcn.UI.ItemTest do
   import LiveShadcn.Test.Markup
   import Phoenix.LiveViewTest, except: [render: 1]
 
-  alias LiveShadcn.UI.Item
+  alias LiveShadcn.UI.{Avatar, Item}
 
   defp item(assigns \\ %{}) do
     assigns =
@@ -57,10 +57,17 @@ defmodule LiveShadcn.UI.ItemTest do
            ]
   end
 
-  test "lets a caller title class take the same precedence as upstream cn" do
-    classes = classes(slot(item_title(%{class: "line-clamp-1"}), "item-title"))
-
-    assert "line-clamp-1" in classes
-    refute "flex" in classes
+  test "caller display classes take precedence in titles, groups, and avatars" do
+    for {renderer, slot_name, caller, display} <- [
+          {&Item.item_title/1, "item-title", "line-clamp-1", "line-clamp-1"},
+          {&Item.item_group/1, "item-group", "grid grid-cols-3 gap-4", "grid"},
+          {&Avatar.avatar/1, "avatar", "hidden sm:flex", "hidden"}
+        ] do
+      html = render_component(renderer, %{class: caller})
+      classes = classes(slot(html, slot_name))
+      assert display in classes
+      refute "flex" in classes
+      assert Enum.all?(String.split(caller), &(&1 in classes))
+    end
   end
 end

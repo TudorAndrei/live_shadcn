@@ -4,7 +4,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { regressions, stableViolations } from "./accessibility.mjs";
 import { enterVisualState } from "./visual-states.mjs";
 
-import { connected } from "./live.mjs";
+import { connected, referenceReady } from "./live.mjs";
 
 const sides = [
   { name: "official React", live: false },
@@ -15,6 +15,7 @@ async function visitSide(page, testInfo, side, example = "default") {
   const path = `/preview/command/${example}`;
   await page.goto(side.live ? path : `${testInfo.project.use.parityURL}${path}`);
   if (side.live) await connected(page);
+  else await referenceReady(page);
 
   await expect(page.locator("[data-preview='command']")).toBeAttached();
 }
@@ -194,12 +195,14 @@ test("grouped Command accessibility keeps popup ownership and distinct failing t
   expect(regressions(repeated, upstream).filter((failure) => failure.startsWith("aria-required-children:"))).toHaveLength(2);
 
   await page.locator("[data-slot='command-list']").last().evaluate((list) => {
+    const dialog = list.closest("[role='dialog']");
     list.remove();
     const other = document.createElement("section");
     other.setAttribute("data-preview", "unrelated");
     other.innerHTML = '<div data-slot="dialog-content"><div data-slot="command"><div role="listbox" aria-label="Other commands" data-slot="command-list"><div role="separator"></div></div></div></div>';
-    document.body.append(other);
+    dialog.append(other);
   });
+  await expect(page.getByRole("listbox", { name: "Other commands", exact: true })).toHaveCount(1);
   const unrelated = regressions(await scan(), upstream).filter((failure) => failure.startsWith("aria-required-children:"));
   expect(unrelated).toHaveLength(1);
   expect(unrelated[0]).toContain("preview:unrelated");

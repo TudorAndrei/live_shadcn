@@ -1008,8 +1008,7 @@ async function discoverNestedInteractiveStates(
     const triggerElement = await trigger.elementHandle();
 
     if ((await trigger.getAttribute("aria-haspopup")) === "listbox") {
-      await trigger.click();
-      await page.mouse.move(0, 0);
+      await openListboxBeforeClearingHover(page, trigger);
     } else {
       await trigger.evaluate((element) => element.click());
     }
@@ -1122,8 +1121,7 @@ async function discoverExpandedStates(page, scope, path, labels, states) {
     // disclosures can use a DOM click. Base UI listboxes require a real user
     // click, so move the pointer away after they open.
     if ((await trigger.getAttribute("aria-haspopup")) === "listbox") {
-      await trigger.click();
-      await page.mouse.move(0, 0);
+      await openListboxBeforeClearingHover(page, trigger);
     } else {
       await trigger.evaluate((element) => element.click());
     }
@@ -1213,7 +1211,7 @@ export async function enterVisualState(page, selector, state) {
     for (const step of action.steps)
       await runDatePickerStep(page, scope, step, context);
     await waitForDatePickerAction(page, scope, action.expect, context);
-    await settleInteraction(page);
+    await settleInteraction(page, { waitForTransitions: true });
     return;
   }
 
@@ -1232,7 +1230,7 @@ export async function enterVisualState(page, selector, state) {
 
   if (state.kind === "chart-hover") {
     const scope = page.locator(selector);
-    const hook = scope.locator("[phx-hook='ChartTooltip']");
+    const hook = scope.locator("[phx-hook='ChartTooltip'], [phx-hook='ChartDemoTooltip']");
     if ((await hook.count()) > 0) {
       await hook.waitFor({ state: "attached" });
       await page.waitForFunction(
@@ -1253,6 +1251,8 @@ export async function enterVisualState(page, selector, state) {
 
   if (state.kind === "interactive-action") {
     const scope = page.locator(selector);
+    // Initial motion can make native pointer retries choose a new scroll alignment.
+    await settleInteraction(page, { waitForTransitions: true });
     await actionControls(scope).nth(state.index).click();
     await settleInteraction(page, { waitForTransitions: true });
     await waitForCarouselMotion(page, selector);
@@ -1379,29 +1379,31 @@ export async function enterVisualState(page, selector, state) {
   for (const [position, step] of path.entries()) {
     const trigger = actionableTriggers(scope).nth(step.index);
     const triggerElement = await trigger.elementHandle();
+    const dialog = (await trigger.getAttribute("aria-haspopup")) === "dialog";
 
-    if ((await trigger.getAttribute("aria-expanded")) !== "true" && path.length === 1) {
-      // A listbox can open under the pointer. Use a DOM click so the expanded
-      // state does not also become an item-hover state. Menus and disclosures
-      // need their real pointer event, followed by a move away from the popup.
+    if ((await trigger.getAttribute("aria-expanded")) !== "true") {
+      // A listbox can open under the pointer. Finish popup entry before
+      // leaving it, so both hosts clear the same option-hover state.
       if ((await trigger.getAttribute("aria-haspopup")) === "listbox") {
-        // Base UI opens editable comboboxes from a real pointer click. Move the
-        // pointer away after the click so the open state does not also include
-        // an item-hover state.
-        await trigger.click();
-        await page.mouse.move(0, 0);
+        await openListboxBeforeClearingHover(page, trigger);
       } else {
         await trigger.click();
-        await page.mouse.move(0, 0);
+        if (path.length === 1) await page.mouse.move(0, 0);
       }
-    } else if ((await trigger.getAttribute("aria-expanded")) !== "true") {
-      await trigger.click();
     }
 
     await waitForElementExpanded(triggerElement, "true");
     const controls = await triggerElement.evaluate((element) =>
       element.getAttribute("aria-controls"),
     );
+
+    if (dialog && controls) {
+      await page.locator(`[id=${JSON.stringify(controls)}]`).waitFor({ state: "visible" });
+      // A dialog can slide its next trigger under the last click position.
+      // Finish entry before another click, then clear incidental hover.
+      await settleInteraction(page, { waitForTransitions: true });
+      await page.mouse.move(0, 0);
+    }
 
     if (controls && position < path.length - 1) {
       scope = page.locator(`[id=${JSON.stringify(controls)}]`);
@@ -1410,6 +1412,16 @@ export async function enterVisualState(page, selector, state) {
   }
 
   await settleInteraction(page, { waitForTransitions: true });
+}
+
+async function openListboxBeforeClearingHover(page, trigger) {
+  await trigger.click();
+  await waitForExpanded(trigger, "true");
+  const controls = await trigger.getAttribute("aria-controls");
+  if (!controls) throw new Error("expanded listbox trigger has no controlled content");
+  await page.locator(`[id=${JSON.stringify(controls)}]`).waitFor({ state: "visible" });
+  await settleInteraction(page, { waitForTransitions: true });
+  await page.mouse.move(0, 0);
 }
 
 async function enterNativeVisualControl(control, kind, value) {
@@ -1439,14 +1451,17 @@ async function enterNestedInteractionPath(page, selector, path) {
   for (const [position, step] of path.entries()) {
     const trigger = actionableTriggers(scope).nth(step.index);
     const triggerElement = await trigger.elementHandle();
-    const listbox = (await trigger.getAttribute("aria-haspopup")) === "listbox";
+    const popupType = await trigger.getAttribute("aria-haspopup");
+    const listbox = popupType === "listbox";
 
     if ((await trigger.getAttribute("aria-expanded")) !== "true") {
-      await trigger.click();
-      // Leaving a nested menu closes the pinned React submenu. Clear root and
-      // listbox hover without cancelling the menu path the next action uses.
-      if (position === 0 || listbox)
-        await page.mouse.move(0, 0);
+      if (listbox) {
+        await openListboxBeforeClearingHover(page, trigger);
+      } else {
+        await trigger.click();
+        // Leaving a nested menu closes the pinned React submenu.
+        if (position === 0) await page.mouse.move(0, 0);
+      }
     }
 
     await waitForElementExpanded(triggerElement, "true");
@@ -1458,6 +1473,10 @@ async function enterNestedInteractionPath(page, selector, path) {
 
     scope = page.locator(`[id=${JSON.stringify(controls)}]`);
     await scope.waitFor({ state: "visible" });
+    if (popupType === "dialog") {
+      await settleInteraction(page, { waitForTransitions: true });
+      await page.mouse.move(0, 0);
+    }
   }
 
   // Opening focus can run again in a later animation frame. Finish popup
@@ -2025,6 +2044,13 @@ function resolveMessageScrollerContract(contract, context) {
 }
 
 async function discoverChartHoverState(scope, states) {
+  // ResponsiveContainer mounts its plot after the first measured size. Tooltip
+  // anatomy examples have no responsive container and need no plot wait.
+  if (await scope.locator(".recharts-responsive-container").count()) {
+    await scope.locator(".recharts-surface").first().waitFor({ state: "visible" });
+    await scope.locator(".recharts-rectangle:not(.recharts-tooltip-cursor)").first()
+      .waitFor({ state: "visible" });
+  }
   const tooltip = scope.locator(".recharts-tooltip-wrapper");
   const bars = scope.locator(
     ".recharts-rectangle:not(.recharts-tooltip-cursor)",

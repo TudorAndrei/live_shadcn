@@ -3,19 +3,24 @@
 Reviewed shadcn/ui ports for Phoenix LiveView. The class strings, `data-slot`
 names, and data-attribute contract come from upstream.
 
-## The components are copied into your application, not called from the dependency
+## Use the copied application modules
 
 `mix ui.add button dialog select` copies the modules into your own namespace and
-rewrites them. So the module you import is **yours**, not `LiveShadcn.UI.*`:
+rewrites their module declarations. Alias the application modules:
 
 ```elixir
-# in my_app_web.ex
-import MyAppWeb.Components.UI.Button
-import MyAppWeb.Components.UI.Dialog
+alias MyAppWeb.Components.UI.Button
+alias MyAppWeb.Components.UI.Dialog
 ```
 
-Never write `import LiveShadcn.UI.Button` in an application. That module exists
-in the dependency, but `mix ui.add` renamed the copy, and the two will drift.
+Call them as `<Button.button>` and `<Dialog.dialog>`. This avoids a name
+conflict with the generated Phoenix `CoreComponents.button/1`. Use the copied
+module as the application entry point so local edits take effect.
+
+The installer changes only the copied module declaration. Nested component
+references keep their package namespace. To use an application's Button in a
+copied Carousel, copy Button and edit the Carousel reference explicitly.
+`mix ui.sync` then treats Carousel as locally edited and preserves it.
 
 ## Local edits are allowed
 
@@ -23,15 +28,22 @@ in the dependency, but `mix ui.add` renamed the copy, and the two will drift.
 edited**. An edited component stays at its installed version until you merge an
 update or replace it explicitly.
 
-For a style change, prefer the `class` attribute because every component appends
-it to the upstream class string. Edit the copied module when the application
-needs a different API, markup, or behavior.
+For a style change, use the component's `class` attribute. Follow that
+component's class contract: some parts append caller classes, while parts that
+use `LiveShadcn.Cn.merge/1` remove conflicting defaults. For example, `hidden`
+replaces Avatar's default `flex`. Input OTP Separator replaces its whole default
+class string when the caller supplies `class`. Do not assume every part appends
+or merges classes. Edit the copied module when the application needs a different
+API, markup, or behavior.
 
 ## Register the JavaScript hooks, or nothing behaves
 
 Opening a dialog, positioning a popover, measuring a scrollbar and stacking
 toasts are client behaviour. Without the hooks the markup renders and does
 nothing.
+
+Install the Base JavaScript package and all peers as described in its README.
+The complete hook import requires Floating UI, Embla, Embla Autoplay, and Motion.
 
 ```javascript
 import { hooks as liveBase } from "live_base";

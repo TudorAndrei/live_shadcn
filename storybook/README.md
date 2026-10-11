@@ -3,29 +3,30 @@
 The demo application. It exists so a person can look at a component, and so
 `mix ui.verify` has a real browser to drive.
 
+Complete the [repository setup](../CONTRIBUTING.md#setup) from the repository
+root first. It restores pinned inputs, installs Mix and npm dependencies, and
+builds the shared assets. Then run this command in `storybook/`:
+
 ```bash
-mix setup          # deps.get, then npm install
-mix phx.server     # http://localhost:4100
+mix phx.server     # repository mise default: http://localhost:14101
 ```
 
-`mix ui.fetch` has to have run first. The styling is not written here: it is
-shadcn's own, assembled from the sheets in `registry/upstream/`, which are
-gitignored. `npm run upstream` copies them into the asset pipeline, because
-Tailwind resolves the bare imports shadcn writes from the directory of the file
-that wrote them.
+The styling comes from the pinned sheets in `registry/upstream/`.
+`npm run upstream` in `assets/` copies them into the asset pipeline so Tailwind
+can resolve their package imports.
 
 ## What is where
 
 | Path | What it is |
 |---|---|
-| `lib/storybook_web/examples.ex` | the examples, and the only markup written by hand |
+| `lib/storybook_web/examples.ex` | reviewed examples for the public ports |
 | `lib/storybook_web/live/preview_live.ex` | one example on a bare page, for axe-core |
 | `storybook/*.story.exs` | the `phoenix_storybook` entries, at `/storybook` |
 | `test/browser/` | the Playwright suite `mix ui.verify` runs |
 | `lib/mix/tasks/snapshot.ex` | renders every example into `registry/snapshot/` |
 
 The examples are the fixtures. That is deliberate: if the markup in
-`examples.ex` is awkward to write, the generated API is awkward, and correct
+`examples.ex` is awkward to write, the public API is awkward, and correct
 output does not make up for it.
 
 ## Styles
@@ -52,10 +53,10 @@ the packages by path, and the asset build reads the registry beside them.
 
 Two things about that build are worth knowing:
 
-- It runs `mix ui.fetch` in the builder stage, because the shadcn styling layer
-  is gitignored. That means the build needs network access to GitHub and
-  base-ui.com, once. It fetches the commit `registry/UPSTREAM.json` pins, so the
-  image is still reproducible.
+- It runs `mix ui.fetch --styles` in the builder stage, because the shadcn
+  styling layer is gitignored. This fetch uses the GitHub commit pinned in
+  `registry/UPSTREAM.json`. The other build steps also need access to the OS,
+  Node, Hex, and npm package sources.
 - The release keeps its `Docs` chunks. `phoenix_storybook` reads a component's
   `@doc` at runtime to show it, and a stripped release has nothing to show.
 
@@ -64,13 +65,18 @@ Everything that varies by environment is read at boot: `SECRET_KEY_BASE`,
 
 ## Browser checks
 
+The repository setup installs `tools` npm dependencies, Storybook Mix and asset
+dependencies, `storybook/test/browser` npm dependencies and Chromium, and
+`parity` npm dependencies. Complete that setup before the first run.
+
+Stop development servers on the verification ports. From the repository root:
+
 ```bash
-cd test/browser
-npm install
-npm run verify:install     # once, downloads Chromium
-npm run verify
+cd tools
+mix ui.verify --source shadcn
 ```
 
-The suite is transcribed from the Base UI documentation, and it runs on one
-worker on purpose: every test drives the same development server, and a
-verification run that is flaky under load verifies nothing.
+The verifier prepares the pinned React references and shared assets. It owns
+one Storybook server and one reference server, on ports 14101 and 14102 with
+the repository's mise environment. The browser checks use one worker.
+See [the parity guide](../parity/README.md#running-it) for scoped and direct runs.

@@ -52,6 +52,13 @@ defmodule LiveShadcn.UI.InputOtp do
   attr(:pattern, :string, default: nil)
   attr(:inputmode, :string, default: "numeric")
   attr(:autocomplete, :string, default: "one-time-code")
+
+  attr(:push_password_manager_strategy, :string,
+    default: "increase-width",
+    values: ["increase-width", "experimental-no-flickering", "none"],
+    doc: "Reserves room for a detected password manager badge when space is available."
+  )
+
   attr(:container_class_name, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
@@ -73,6 +80,7 @@ defmodule LiveShadcn.UI.InputOtp do
       "required"
     ]
   )
+
   slot(:inner_block)
 
   def input_otp(assigns) do
@@ -81,6 +89,9 @@ defmodule LiveShadcn.UI.InputOtp do
     ~H"""
     <div
       data-input-otp-container
+      data-input-otp-password-manager-strategy={
+        @push_password_manager_strategy != "increase-width" && @push_password_manager_strategy
+      }
       translate="no"
       style="--root-height: 0px; position: relative; cursor: text; user-select: none; -webkit-user-select: none; pointer-events: none"
       class={LiveShadcn.Cn.merge([upstream_fact("jsx/InputOTP/class/0"), @container_class_name])}
@@ -159,7 +170,7 @@ defmodule LiveShadcn.UI.InputOtp do
 
   @doc "The `input-otp-separator` part."
 
-  attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:class, :any, default: nil, doc: "Replaces the default class string when supplied.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
@@ -168,7 +179,7 @@ defmodule LiveShadcn.UI.InputOtp do
     <div
       data-slot={@rest[:"data-slot"] || "input-otp-separator"}
       role="separator"
-      class={LiveShadcn.Cn.merge([upstream_fact("jsx/InputOTPSeparator/class/0"), @class])}
+      class={@class || upstream_fact("jsx/InputOTPSeparator/class/0")}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <LiveShadcn.Icon.icon name="minus" />{render_slot(@inner_block)}

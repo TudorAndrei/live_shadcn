@@ -116,6 +116,11 @@ defmodule LiveShadcn.UI.Menubar do
 
     attr(:value, :string)
     attr(:checked, :boolean)
+
+    attr(:controlled, :boolean,
+      doc: "The caller owns checked or value. Run its click command without a client state change."
+    )
+
     attr(:group, :string)
     attr(:section, :string)
     attr(:disabled, :boolean)
@@ -170,6 +175,7 @@ defmodule LiveShadcn.UI.Menubar do
         kind={entry[:kind]}
         value={entry[:value]}
         checked={entry[:checked]}
+        controlled={entry[:controlled]}
         group={entry[:group]}
         section={entry[:section]}
         disabled={entry[:disabled]}

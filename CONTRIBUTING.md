@@ -1,21 +1,32 @@
 # Contributing
 
-The maintainer workflow is `mix ui.fetch → mix ui.spec → mix ui.verify`.
+The upstream-update workflow is `mix ui.fetch → mix ui.spec → mix ui.verify`.
 
 Oxc keeps class and CVA facts current. Maintainers review and edit the HEEx port
 body. The synchronizer does not translate React behavior.
 
 ## Setup
 
+Start from the repository root with the tool versions in `mise.toml`:
+
 ```bash
-cd tools && mix deps.get && npm install
-mix ui.fetch
+cd tools && mix deps.get && npm ci
+mix ui.fetch --locked
 
 cd ../storybook && mix setup
-cd test/browser && npm install && npm run verify:install
+cd test/browser && npm ci && npm run verify:install
+cd ../../../parity && npm ci
+cd ../storybook && mix assets.build
 ```
 
-Run `mix phx.server` in `storybook/` and open <http://localhost:4100>.
+This installs the tools parser, Storybook assets, Playwright and Chromium, and
+the React reference dependencies. Locked fetch restores the recorded inputs
+without changing the upstream pins.
+
+Run `mix phx.server` in `storybook/` and open <http://localhost:14101> with the
+repository's mise environment. Without `STORYBOOK_PORT` or `PORT`, the server
+uses port 4100. Stop development servers on ports 14101 and 14102 before a
+managed verification run.
 
 ## Ownership rules
 
@@ -66,8 +77,9 @@ change the port body, bindings, or ignored reasons as required.
 The first port is manual because Oxc does not choose an API or translate React
 behavior.
 
-1. Run `mix ui.fetch` and add the source, tier, and classification to
-   `registry/INVENTORY.json`.
+1. Restore the pinned sources with `mix ui.fetch --locked`. If the new component
+   needs an upstream update, follow the update instructions above. Add its
+   source, tier, and classification to `registry/INVENTORY.json`.
 2. Read the upstream `.tsx`, Base UI page, and nearest existing reviewed port.
 3. Select or add the required `live_base` primitive.
 4. Create the Elixir module at the path used by its source:
@@ -140,8 +152,9 @@ cd ../storybook
 mix snapshot --check
 ```
 
-If the change reads upstream sources, also run both online source checks after
-`mix ui.fetch`.
+If the change reads upstream sources, restore them with `mix ui.fetch --locked`
+and run both online source checks. Use plain `mix ui.fetch` only for the explicit
+upstream-update procedure above.
 
 Do not commit `registry/upstream/`. The repository commits source digests, not
 copies of upstream files. Do not use a model in the scheduled synchronization

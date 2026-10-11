@@ -25,6 +25,7 @@ import { gated, source } from "./registries.mjs";
 import {
   enterVisualState,
   installBrowserFixtures,
+  messageScrollerActionDefinitions,
   visualStateIdentity,
   visualStates,
 } from "./visual-states.mjs";
@@ -137,12 +138,15 @@ test("every example has a budget or is pending", () => {
 for (const { component, example } of pages) {
   const name = named(component, example);
 
-  test(`${component} / ${example} paints what React paints`, async ({ page, referencePage }, testInfo) => {
+  test(`${component} / ${example} paints what React paints`, async ({ page, referencePage, context }, testInfo) => {
     // Named rather than passed over. A `continue` here left an example out of
     // the run with nothing in the output to say so, and a check that cannot
     // tell "did not run" from "passed" is worse than no check.
     test.skip(!hasOfficialReference(component, example), `no official React reference for ${name}`);
     await installBrowserFixtures(page);
+    const copyExample = component === "input-group" && example === "button";
+    // Use the same clipboard access as the direct Input Group browser owner.
+    if (copyExample) await context.grantPermissions(["clipboard-read", "clipboard-write"]);
 
     const selector = `[data-preview='${component}']`;
     const parity = testInfo.project.use.parityURL;
@@ -165,6 +169,23 @@ for (const { component, example } of pages) {
       reactStates.map((state) => JSON.stringify(visualStateIdentity(state))));
 
     for (const state of reactStates) {
+      const copiedState = copyExample && state.name === "action:Copy";
+      const copyReceipts = {};
+      const authoredAction = component === "message-scroller" &&
+        state.kind === "message-scroller-action"
+        ? messageScrollerActionDefinitions(example).find(({ name }) => name === state.action)
+        : null;
+      const captureContract = authoredAction?.expect.busy === true
+        ? { items: authoredAction.expect.items, busy: String(authoredAction.expect.busy) }
+        : null;
+      const historyNoticeContract = component === "message-scroller" &&
+        example === "load-history" && state.kind === "message-scroller-action" &&
+        ["load-history", "reset"].includes(state.action)
+        ? { items: authoredAction.expect.items, button: authoredAction.expect.button,
+            buttonDisabled: state.action === "load-history",
+            notices: [{ title: "History loaded", description: "Scroll up to see earlier messages." }] }
+        : null;
+      const noticeFrames = {};
       // One viewport for both sides, tall enough for either document in this
       // state, then one clip rectangle covering what either side paints.
       await page.setViewportSize({ width: 1280, height: MINIMUM_HEIGHT });
@@ -184,29 +205,77 @@ for (const { component, example } of pages) {
 
       await referencePage.goto(reactURL);
       await enterVisualState(referencePage, selector, state);
+      if (copiedState) copyReceipts.reactEntry = await copyPaintReceipt(referencePage, selector);
+      if (historyNoticeContract) noticeFrames.reactEntry = await messageScrollerPaintReceipt(referencePage, selector);
       await settle(referencePage, selector);
+      if (historyNoticeContract) noticeFrames.reactBefore = await messageScrollerPaintReceipt(referencePage, selector);
       const reactPaint = await paintedBox(referencePage, selector);
+      if (historyNoticeContract) noticeFrames.reactAfter = await messageScrollerPaintReceipt(referencePage, selector);
 
       await page.goto(phoenixURL);
       await connected(page);
       await enterVisualState(page, selector, state);
+      if (copiedState) copyReceipts.phoenixEntry = await copyPaintReceipt(page, selector);
+      if (historyNoticeContract) noticeFrames.phoenixEntry = await messageScrollerPaintReceipt(page, selector);
       await settle(page, selector);
+      if (historyNoticeContract) noticeFrames.phoenixBefore = await messageScrollerPaintReceipt(page, selector);
       const phoenixPaint = await paintedBox(page, selector);
+      if (historyNoticeContract) noticeFrames.phoenixAfter = await messageScrollerPaintReceipt(page, selector);
 
       const clip = union(reactPaint, phoenixPaint);
 
-      // Both pages contain the measured state at the final viewport size.
-      // Capture those pages, then reset them on the next state.
+
+      // Check the actual inventory on each side of each screenshot. A busy
+      // state can expire while the other renderer loads and settles.
+      if (captureContract) {
+        await page.goto(phoenixURL);
+        await connected(page);
+        await enterVisualState(page, selector, state);
+        await settle(page, selector);
+      }
+      const phoenixBefore = captureContract || historyNoticeContract
+        ? await messageScrollerPaintReceipt(page, selector)
+        : null;
+      if (copiedState) copyReceipts.phoenixBefore = await copyPaintReceipt(page, selector);
       const phoenix = await shootCurrent(page, selector, clip);
+      if (copiedState) copyReceipts.phoenixAfter = await copyPaintReceipt(page, selector);
+      const phoenixAfter = captureContract || historyNoticeContract
+        ? await messageScrollerPaintReceipt(page, selector)
+        : null;
+      if (captureContract) {
+        await referencePage.goto(reactURL);
+        await enterVisualState(referencePage, selector, state);
+        await settle(referencePage, selector);
+      }
+      const reactBefore = captureContract || historyNoticeContract
+        ? await messageScrollerPaintReceipt(referencePage, selector)
+        : null;
+      if (copiedState) copyReceipts.reactBefore = await copyPaintReceipt(referencePage, selector);
       const react = await shootCurrent(referencePage, selector, clip);
+      if (copiedState) copyReceipts.reactAfter = await copyPaintReceipt(referencePage, selector);
+      const reactAfter = captureContract || historyNoticeContract
+        ? await messageScrollerPaintReceipt(referencePage, selector)
+        : null;
+
 
       const { differing, diff, width } = compare(react.image, phoenix.image);
       const suffix = safeName(state.name);
 
-      // Attach images only when they explain an actual difference. Encoding
+      // Attach images for a pixel difference or a failed notice receipt. Encoding
       // three large PNGs for every zero-pixel state drives Node CPU and keeps
       // report artifacts alive without adding verification evidence.
-      if (differing > 0) {
+      const noticeReceiptInvalid = historyNoticeContract && [
+        noticeFrames.reactBefore, noticeFrames.reactAfter,
+        noticeFrames.phoenixBefore, noticeFrames.phoenixAfter,
+        phoenixBefore, phoenixAfter, reactBefore, reactAfter,
+      ].some((receipt) => JSON.stringify(historyNoticeState(receipt)) !==
+        JSON.stringify(historyNoticeContract));
+      const busyReceiptInvalid = captureContract && [
+        phoenixBefore, phoenixAfter, reactBefore, reactAfter,
+      ].some((receipt) => receipt.items.length !== captureContract.items ||
+        receipt.busy !== captureContract.busy);
+      if (differing > 0 || busyReceiptInvalid || noticeReceiptInvalid ||
+          (copiedState && Object.values(copyReceipts).some(({ copied }) => !copied))) {
         await testInfo.attach(`react-${suffix}.png`, {
           body: PNG.sync.write(react.image),
           contentType: "image/png",
@@ -215,10 +284,68 @@ for (const { component, example } of pages) {
           body: PNG.sync.write(phoenix.image),
           contentType: "image/png",
         });
-        await testInfo.attach(`diff-${suffix}.png`, {
-          body: PNG.sync.write(diff),
-          contentType: "image/png",
+        if (differing > 0) {
+          await testInfo.attach(`diff-${suffix}.png`, {
+            body: PNG.sync.write(diff),
+            contentType: "image/png",
+          });
+        }
+      }
+
+      if (copiedState) {
+        await testInfo.attach("copy-capture.json", {
+          body: Buffer.from(JSON.stringify(copyReceipts, null, 2)),
+          contentType: "application/json",
         });
+        for (const [stage, receipt] of Object.entries(copyReceipts)) {
+          expect(receipt.copied, `${name} / ${state.name} / ${stage}: copied state must be painted`).toBe(true);
+        }
+      }
+
+      if (captureContract) {
+        const receipts = { phoenixBefore, phoenixAfter, reactBefore, reactAfter };
+        await testInfo.attach(`capture-${safeName(state.name)}.json`, {
+          body: Buffer.from(JSON.stringify({ state: visualStateIdentity(state), captureContract, receipts }, null, 2)),
+          contentType: "application/json",
+        });
+        for (const [stage, receipt] of Object.entries(receipts)) {
+          expect({ items: receipt.items.length, busy: receipt.busy },
+            `${name} / ${state.name} / ${stage}: the screenshot must contain the authored busy inventory`,
+          ).toEqual(captureContract);
+        }
+      }
+
+
+      if (historyNoticeContract) {
+        const receipts = { phoenixBefore, phoenixAfter, reactBefore, reactAfter };
+        await testInfo.attach(`history-notice-${safeName(state.name)}.json`, {
+          body: Buffer.from(JSON.stringify({ state: visualStateIdentity(state), historyNoticeContract,
+            noticeFrames, receipts, clip,
+            captures: { phoenix: { origin: phoenix.origin, clip: phoenix.clip,
+              width: phoenix.image.width, height: phoenix.image.height },
+              react: { origin: react.origin, clip: react.clip,
+                width: react.image.width, height: react.image.height } } }, null, 2)),
+          contentType: "application/json",
+        });
+        // The framing measurements must include the real notice. Entry reads
+        // are diagnostics; the notice can still mount during the normal settle.
+        for (const stage of ["reactBefore", "reactAfter", "phoenixBefore", "phoenixAfter"]) {
+          expect(historyNoticeState(noticeFrames[stage]),
+            `${name} / ${state.name} / framing ${stage}: the real history notice must be painted`,
+          ).toEqual(historyNoticeContract);
+        }
+        for (const [stage, receipt] of Object.entries(receipts)) {
+          expect(historyNoticeState(receipt),
+            `${name} / ${state.name} / capture ${stage}: the screenshot must retain the real history notice`,
+          ).toEqual(historyNoticeContract);
+          const notice = receipt.notices.find(({ title, description, painted }) => painted &&
+            title === historyNoticeContract.notices[0].title &&
+            description === historyNoticeContract.notices[0].description);
+          expect(notice.box.left - receipt.rootBox.left).toBeGreaterThanOrEqual(clip.x);
+          expect(notice.box.top - receipt.rootBox.top).toBeGreaterThanOrEqual(clip.y);
+          expect(notice.box.right - receipt.rootBox.left).toBeLessThanOrEqual(clip.x + clip.width);
+          expect(notice.box.bottom - receipt.rootBox.top).toBeLessThanOrEqual(clip.y + clip.height);
+        }
       }
 
       const hottest =
@@ -287,3 +414,77 @@ async function statesAt(page, url, selector) {
 }
 
 const safeName = (name) => name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "");
+
+async function messageScrollerPaintReceipt(page, selector) {
+  return page.locator(selector).evaluate((root) => {
+    const viewport = root.querySelector("[data-slot='message-scroller-viewport']");
+    const content = root.querySelector("[data-slot='message-scroller-content']");
+    return {
+      wallTime: Date.now(),
+      pageTime: performance.now(),
+      documentVisibility: document.visibilityState,
+      documentFocused: document.hasFocus(),
+      rootBox: root.getBoundingClientRect().toJSON(),
+      historyButton: [...root.querySelectorAll("button")].map((button) => ({
+        text: button.textContent?.replace(/\s+/g, " ").trim() ?? "",
+        disabled: button.disabled,
+      })).find(({ text }) => text === "Load History" || text === "History Loaded") ?? null,
+      notices: [...document.querySelectorAll("[data-sonner-toast]")].map((notice) => {
+        const box = notice.getBoundingClientRect();
+        const style = getComputedStyle(notice);
+        return {
+          title: notice.querySelector("[data-title]")?.textContent?.trim() ?? "",
+          description: notice.querySelector("[data-description]")?.textContent?.trim() ?? "",
+          id: notice.id,
+          type: notice.getAttribute("data-type"),
+          mounted: notice.getAttribute("data-mounted"),
+          visible: notice.getAttribute("data-visible"),
+          removed: notice.getAttribute("data-removed"),
+          display: style.display, visibility: style.visibility, opacity: style.opacity,
+          box: box.toJSON(),
+          painted: box.width > 0 && box.height > 0 &&
+            notice.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }),
+        };
+      }),
+      busy: content?.getAttribute("aria-busy") ?? null,
+      items: [...root.querySelectorAll("[data-slot='message-scroller-item']")].map((item) => ({
+        id: item.getAttribute("data-message-id"),
+        text: item.textContent?.replace(/\s+/g, " ").trim() ?? "",
+        box: item.getBoundingClientRect().toJSON(),
+        entryActive: item.hasAttribute("data-lb-message-entry-active"),
+      })),
+      viewport: viewport ? {
+        scrollTop: viewport.scrollTop,
+        scrollHeight: viewport.scrollHeight,
+        clientHeight: viewport.clientHeight,
+        pending: viewport.hasAttribute("data-pending-scroll"),
+        box: viewport.getBoundingClientRect().toJSON(),
+      } : null,
+      buttonActive: root.querySelector("[data-slot='message-scroller-button']")?.getAttribute("data-active") ?? null,
+    };
+  });
+}
+
+function historyNoticeState(receipt) {
+  return {
+    items: receipt.items.length,
+    button: receipt.historyButton?.text ?? null,
+    buttonDisabled: receipt.historyButton?.disabled ?? null,
+    notices: receipt.notices.filter(({ painted }) => painted)
+      .map(({ title, description }) => ({ title, description })),
+  };
+}
+
+async function copyPaintReceipt(page, selector) {
+  return page.locator(selector).evaluate((root) => {
+    const button = [...root.querySelectorAll("button")].find((element) =>
+      element.getAttribute("aria-label") === "Copy");
+    const check = button?.querySelector(".tabler-icon-check");
+    return {
+      time: performance.now(),
+      focused: document.hasFocus(),
+      visibility: document.visibilityState,
+      copied: Boolean(check?.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })),
+    };
+  });
+}

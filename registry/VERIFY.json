@@ -23,27 +23,25 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity message-scroller.previous-context: message-scroller / previous-context draws what React draws\nError: default: where the two trees differ (full trees attached):\n  React   <nothing>\n  Phoenix           template 0x0\n\n  React             button 30.4x30.4 [message-scroller-button] cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-variant-secondary cn-button-size-icon-sm cn-message-scroller-button absolute inset-s-1/2 -translate-x-1/2 border-border bg-background text-foreground transition-[translate,scale,opacity] duration-200 hover:bg-muted hover:text-foreground data-[active=false]:pointer-events-none data-[active=false]:scale-95 data-[active=false]:opacity-0 data-[active=false]:duration-400 data-[active=false]:ease-[cubic-bezier(0.7,0,0.84,0)] data-[active=true]:translate-y-0 data-[active=true]:scale-100 data-[active=true]:opacity-100 data-[active=true]:ease-[cubic-bezier(0.23,1,0.32,1)] data-[direction=end]:bottom-4 data-[direction=end]:data-[active=false]:translate-y-full data-[direction=start]:top-4 data-[direction=start]:data-[active=false]:-translate-y-full rtl:translate-x-1/2 data-[direction=start]:[&_svg]:rotate-180\n  Phoenix           button 32x32 [message-scroller-button] cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-variant-secondary cn-button-size-icon-sm cn-message-scroller-button absolute inset-s-1/2 -translate-x-1/2 border-border bg-background text-foreground transition-[translate,scale,opacity] duration-200 hover:bg-muted hover:text-foreground data-[active=false]:pointer-events-none data-[active=false]:scale-95 data-[active=false]:opacity-0 data-[active=false]:duration-400 data-[active=false]:ease-[cubic-bezier(0.7,0,\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel message-scroller.default: message-scroller / default paints what React paints\nError: action:send-busy: 5344 px differ (0.18%) — hottest: card > card-content > message-scroller (5320 px), card > card-content > message-scroller > message-scroller-button (24 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m5344\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel message-scroller.previous-context: message-scroller / previous-context paints what React paints\nError: default: 24894 px differ (0.83%) — hottest: card > card-content > message-scroller > message-scroller-viewport > message-scroller-content > message-scroller-item #2 (16909 px), card > card-content > message-scroller > message-scroller-viewport > message-scroller-content > message-scroller-item > message > message-content > bubble (4209 px), card > card-content > message-scroller (2813 px), card > card-content > message-scroller > message-scroller-viewport > message-scroller-content > message-scroller-item (737 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m24894\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel message-scroller.streaming: message-scroller / streaming paints what React paints\nError: action:send-busy: 14846 px differ (0.50%) — hottest: card > card-content > message\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "88c11b3f44a762a3d235e63014bbfe1b9156463650badc1c2b70d52efd7673fd",
-    "pass": false,
+    "evidence": "8664e6f8913cbe4e1a6b1dee5a1ff695f960190505acea731449a72b053a5277",
+    "pass": true,
     "spec": "bd136812bebb47f1c7d76448d7815a8d63e8416e9181b2eda83bfa0c9f34f1e4"
   },
   "ai_elements/open-in-chat": {
@@ -109,7 +107,7 @@
         "pass": true
       }
     },
-    "evidence": "9db518e6ef876911cd2bc719a2d70783819a6c570aed443300f22f40749c0344",
+    "evidence": "262d7d72c902b19632e612813ef8c612be6998891bb224d66c957a93eb9904d2",
     "pass": true,
     "spec": "3bf7896caaaccb6fd54d59bed15f06b38f18790ecb2e1a8e1581ce173552c7db"
   },
@@ -120,16 +118,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior scroll-area:     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/scroll-area-the-RTL-tag-ex-0c875-the-user-scrolls-to-the-end-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/scroll-area-the-RTL-tag-ex-0c875-the-user-scrolls-to-the-end-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  5 failed\n    [chromium] › scroll-area.spec.mjs:72:3 › a scroll area › scrolling to the bottom moves which edge has more behind it \n    [chromium] › scroll-area.spec.mjs:80:3 › a scroll area › scrolling moves the thumb, and the thumb is never moved directly \n    [chromium] › scroll-area.spec.mjs:91:3 › a scroll area › scrolling costs no round trip ─────────\n    [chromium] › scroll-area.spec.mjs:106:1 › the horizontal artwork example scrolls on the x axis and moves its thumb \n    [chromium] › scroll-area.spec.mjs:127:1 › the RTL tag example keeps direction while the user scrolls to the end \n  2 passed (36.3s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior scroll-area:     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/scroll-area-the-RTL-tag-ex-0c875-the-user-scrolls-to-the-end-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/scroll-area-the-RTL-tag-ex-0c875-the-user-scrolls-to-the-end-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  5 failed\n    [chromium] › scroll-area.spec.mjs:72:3 › a scroll area › scrolling to the bottom moves which edge has more behind it \n    [chromium] › scroll-area.spec.mjs:80:3 › a scroll area › scrolling moves the thumb, and the thumb is never moved directly \n    [chromium] › scroll-area.spec.mjs:91:3 › a scroll area › scrolling costs no round trip ─────────\n    [chromium] › scroll-area.spec.mjs:106:1 › the horizontal artwork example scrolls on the x axis and moves its thumb \n    [chromium] › scroll-area.spec.mjs:127:1 › the RTL tag example keeps direction while the user scrolls to the end \n  2 passed (36.3s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "3 of 3 official examples have HEEx previews",
@@ -150,16 +144,16 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "0fce48961e85913aac5acb3df8ca2778eb922923fededff81848aa06cea87b24",
-    "pass": false,
+    "evidence": "a14a8c3669fcee4956aa73075f2e38ad910580cb92287c745af498039176a86a",
+    "pass": true,
     "spec": "109d4fa3135e70ece189d6e81bb8cabfb3e08f9baee64dc2945b977154d86def"
   },
   "ai_elements/shimmer": {
@@ -225,9 +219,9 @@
         "pass": true
       }
     },
-    "evidence": "844f7d9d0e20ba9b780bf213f9e61e6a99e3d0ac22ff8e5ff132d122db00dc32",
+    "evidence": "dd00224a826301a255555f8eea897b27c20e1cb1ed4dbafe8e5422ffc2471297",
     "pass": true,
-    "spec": "c01778853a6581e9008b60523543f453189f8c1a88d3907f7b1d0ef99fdf74fd"
+    "spec": "be5beb913c4b381d2d193f3f8d18b87872970a6cc15c0d61d25d5dba05945711"
   },
   "ai_elements/chain-of-thought": {
     "checks": {
@@ -292,9 +286,9 @@
         "pass": true
       }
     },
-    "evidence": "1a5deae780acaf48c1b88f51d804cc4546a42bcdcbde2aab3c02702bf590b4cd",
+    "evidence": "5d2733270102d7f18e2d259eaef043919d45d37bbeb5fecf4f6834b3cfe37d27",
     "pass": true,
-    "spec": "760212b7f0479f6a197b33b6e4e74d73a9c2a2fa6b2f58843a15216ce6c760d4"
+    "spec": "29ff1667f3409de785bc6bfa0c2a231e70b1a192751bd4877140e16dbb57f1c0"
   },
   "ai_elements/edge": {
     "checks": {
@@ -321,18 +315,16 @@
   "shadcn/hover-card": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility hover-card.sides: hover-card / sides has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 6\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"hover:Left: heading-order: Heading levels should only increase by one (port target [\\\"preview:hover-card > slot:hover-card-content > node:h4::Hover Card\\\"] has no matching upstream violation): Heading order invalid {\\\"headingOrder\\\":[{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h1:nth-child(1)\\\"],\\\"level\\\":1},{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h2:nth-child(2)\\\"],\\\"level\\\":2},{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > div:nth-child(3) > div > div:nth-child(2) > div > div > h4:nth-child(1)\\\"],\\\"level\\\":4}]} at #hover-card-left-popup > .flex-col.gap-1.flex > h4\",\u001B[39m\n\u001B[31m+   \"hover:Top: heading-order: Heading levels should only increase by one (port target [\\\"preview:hover-card > slot:hover-card-content > node:h4::Hover Card\\\"] has no matching upstream violation): Heading order invalid {\\\"headingOrder\\\":[{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h1:nth-child(1)\\\"],\\\"level\\\":1},{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h2:nth-child(2)\\\"],\\\"level\\\":2},{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > div:nth-child(3) > div > div:nth-child(4) > div > div > h4:nth-child(1)\\\"],\\\"level\\\":4}]} at #hover-card-top-popup > .flex-col.gap-1.flex > h4\",\u001B[39m\n\u001B[31m+   \"hover:Bottom: heading-order: Heading levels should only increase by one (port target [\\\"preview:hover-card > slot:hover-card-content > node:h4::Hover Card\\\"] has no matching upstream violation): Heading order invalid {\\\"headingOrder\\\":[{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h1:nth-child(1)\\\"],\\\"level\\\":1},{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h2:nth-child(2)\\\"],\\\"level\\\":2},{\\\"ancestry\\\":[\\\"html \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
         "outcome": "passed",
         "pass": true
       },
       "browser": {
-        "detail": "accessibility hover-card.sides: hover-card / sides has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 6\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"hover:Left: heading-order: Heading levels should only increase by one (port target [\\\"preview:hover-card > slot:hover-card-content > node:h4::Hover Card\\\"] has no matching upstream violation): Heading order invalid {\\\"headingOrder\\\":[{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h1:nth-child(1)\\\"],\\\"level\\\":1},{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h2:nth-child(2)\\\"],\\\"level\\\":2},{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > div:nth-child(3) > div > div:nth-child(2) > div > div > h4:nth-child(1)\\\"],\\\"level\\\":4}]} at #hover-card-left-popup > .flex-col.gap-1.flex > h4\",\u001B[39m\n\u001B[31m+   \"hover:Top: heading-order: Heading levels should only increase by one (port target [\\\"preview:hover-card > slot:hover-card-content > node:h4::Hover Card\\\"] has no matching upstream violation): Heading order invalid {\\\"headingOrder\\\":[{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h1:nth-child(1)\\\"],\\\"level\\\":1},{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h2:nth-child(2)\\\"],\\\"level\\\":2},{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > div:nth-child(3) > div > div:nth-child(4) > div > div > h4:nth-child(1)\\\"],\\\"level\\\":4}]} at #hover-card-top-popup > .flex-col.gap-1.flex > h4\",\u001B[39m\n\u001B[31m+   \"hover:Bottom: heading-order: Heading levels should only increase by one (port target [\\\"preview:hover-card > slot:hover-card-content > node:h4::Hover Card\\\"] has no matching upstream violation): Heading order invalid {\\\"headingOrder\\\":[{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h1:nth-child(1)\\\"],\\\"level\\\":1},{\\\"ancestry\\\":[\\\"html > body > div:nth-child(1) > main > h2:nth-child(2)\\\"],\\\"level\\\":2},{\\\"ancestry\\\":[\\\"html \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "3 of 3 official examples have HEEx previews",
@@ -344,28 +336,26 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity hover-card.default: hover-card / default draws what React draws\nError: action:Hover Here: the element trees agree; the difference is in a computed style\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 3\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Hover Here / hover-card-content: only in React\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  201 |     }\n  202 |\n> 203 |     expect(differences, where).toEqual([]);\n      |                                ^\n  204 |\n  205 |     // A decision that has stopped costing anything is a decision to delete.\n  206 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:203:32\nparity hover-card.sides: hover-card / sides draws what React draws\nError: action:Left: the element trees agree; the difference is in a computed style\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 6\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Left / hover-card-content: only in React\",\u001B[39m\n\u001B[31m+   \"action:Top / hover-card-content: only in React\",\u001B[39m\n\u001B[31m+   \"action:Bottom / hover-card-content: only in React\",\u001B[39m\n\u001B[31m+   \"action:Right / hover-card-content: only in React\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  201 |     }\n  202 |\n> 203 |     expect(differences, where).toEqual([]);\n      |                                ^\n  204 |\n  205 |     // A decision that has stopped costing anything is a decision to delete.\n  206 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:203:32\nparity hover-card.rtl: hover-card / rtl draws what React draws\nError: action:يسار: the element trees agree; the difference is in a computed style\n\n\u001B[2mexpect(\u001B[22m\u001B[3\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel hover-card.sides: hover-card / sides paints what React paints\nError: action:Left: 1838 px differ (0.06%) — hottest: outside any slot (1838 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m11\u001B[39m\nReceived:    \u001B[31m1838\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\nhover-card.sides has a nonzero pixel budget (11 px)\npixel hover-card.rtl: hover-card / rtl paints what React paints\nError: action:يسار: 2108 px differ (0.07%) — hottest: outside any slot (2108 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m2108\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "9fa56b65a28362b3240c4c07678557d450a573d0e8414f3236968f4fef3dbbc9",
-    "pass": false,
-    "spec": "524b0771416baec31f1f423b7de82665c3f65aa057254ef7398da7dbbd5d920d"
+    "evidence": "ac49176573217c5111162e7e1123bba55ead2d6ff0c0e21a5540721c13d8337d",
+    "pass": true,
+    "spec": "91b21f8d569dee71462ad63d1b9807e089523894a829f92c80193553761c2a8f"
   },
   "shadcn/resizable": {
     "checks": {
@@ -408,7 +398,7 @@
         "pass": true
       }
     },
-    "evidence": "92cd40a3e2d042fde9daab5dc622bbf335505fd24332a2836593f96f324e6e4f",
+    "evidence": "de982d772553d3772910413cb265321fc4070f0d06e917ee2a954f7e2bdbdf8f",
     "pass": true,
     "spec": "ecf4445873da1bbc2d64d0d90cc27f94c8a74ba586172bbc223ec88d1fe2697c"
   },
@@ -463,16 +453,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior pagination:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-paginat-fb8b5-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-paginat-fb8b5-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-paginat-fb8b5-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › pagination / icons-only keeps inferred interaction semantics \n  1 passed (5.9s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior pagination:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-paginat-fb8b5-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-paginat-fb8b5-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-paginat-fb8b5-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › pagination / icons-only keeps inferred interaction semantics \n  1 passed (5.9s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "4 of 4 official examples have HEEx previews",
@@ -493,16 +479,16 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "7af54e05c242c1ec49570593a64e9906bcf4b579d403e31b1b59f814fdce9e44",
-    "pass": false,
+    "evidence": "256be910d36e5c59e3ef590808d603cf4b067db0d0b3325f4c0e6bda4fcda93a",
+    "pass": true,
     "spec": "b64bb7607ce1f8dcb6aa1a49ca8146e765887e24535c1b8913c24b8867e4fc0a"
   },
   "shadcn/radio-group": {
@@ -512,16 +498,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior radio-group:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-radio-g-8f244-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-radio-g-8f244-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-radio-g-8f244-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › radio-group / choice-card keeps inferred interaction semantics \n  1 passed (5.4s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior radio-group:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-radio-g-8f244-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-radio-g-8f244-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-radio-g-8f244-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › radio-group / choice-card keeps inferred interaction semantics \n  1 passed (5.4s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "7 of 7 official examples have HEEx previews",
@@ -542,17 +524,17 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "951c9a34d6572f848aa0806dea7df8532d9db482473d2148add56af5ca566e5d",
-    "pass": false,
-    "spec": "4d641bf20d422600c8f341bfd34507a1fd2eb41fcace80a6433378517cdd778f"
+    "evidence": "915a388ba76df883e3a90edbe502f80fe96fe378cd828039048349a7cf652142",
+    "pass": true,
+    "spec": "a678f9fcdc633fa3dec48be77777b35d2138f9ca6b27a9e47cc0fced4bd639e9"
   },
   "shadcn/attachment": {
     "checks": {
@@ -595,7 +577,7 @@
         "pass": true
       }
     },
-    "evidence": "966365f592a77cd5971f6bd5f0edf36e6b8fe5e493c0afd9ef51b87a9cfc4f99",
+    "evidence": "86110dd1a2084995758874d058c6d25a811d68e52824a8d59d49cf69fa84b7ac",
     "pass": true,
     "spec": "a53972ea9e8c48f2e5c9eff5d2a4f5a9ce62cf746fa437538dffe2a41910b009"
   },
@@ -627,22 +609,21 @@
         "pass": true
       },
       "pixel": {
-        "detail": "pixel sidebar.default: sidebar / default paints what React paints\nError: action:Toggle Sidebar: 448 px differ (0.01%) — hottest: outside any slot (224 px), sidebar-wrapper > sidebar-inset > sidebar-trigger (224 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m448\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "882aa0846b1d22993e074b3eef8c909bb8f3d733a04d8f54db4961f33ac3fb31",
-    "pass": false,
+    "evidence": "b4c9bc757b224a6abb25a22a7c29e4099cfd9a7c76eac9b8ee5b5749d8dd1e32",
+    "pass": true,
     "spec": "9e15a72b1a67c8f6d72b8022e12ab43f83fd0dcc27dca35f7648505490308af6"
   },
   "shadcn/typography": {
@@ -682,7 +663,7 @@
         "pass": true
       }
     },
-    "evidence": "63d082a54cc6507f8f9847ab0cc2acf80f34e873290d40489303f9fe0baa81c4",
+    "evidence": "8dde11ee01c6e12ab3a3ce17f9913030bbca5922174997726b18825c38fdb37e",
     "pass": true,
     "spec": null
   },
@@ -749,7 +730,7 @@
         "pass": true
       }
     },
-    "evidence": "141655eb0a0a9fc52ed8e13554808316d517733117a8493a1bd87aa97d759ce8",
+    "evidence": "92348143fd3f3958d3a2c60a90c21c64f382a5c6ffc52899d34d6452c60a4493",
     "pass": true,
     "spec": "40e9511253bad8e4e8252354ec90913ef4e7147748d09135df10d88a52a004e6"
   },
@@ -778,21 +759,16 @@
   "shadcn/sheet": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility sheet.default: accessibility report has no result for sheet.default\naccessibility sheet.side: accessibility report has no result for sheet.side\naccessibility sheet.no-close-button: sheet / no-close-button has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"expanded:Open Sheet: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"preview:sheet > slot:sheet-content > slot:sheet-header > slot:sheet-description\\\"] has no matching upstream violation): Element has insufficient color contrast of 1.02 (foreground color: #fafafa, background color: #fdfdfd, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#fafafa\\\",\\\"bgColor\\\":\\\"#fdfdfd\\\",\\\"contrastRatio\\\":1.02,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at #sheet-no-close-description\",\u001B[39m\n\u001B[31m+   \"expanded:Open Sheet: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"preview:sheet > slot:sheet-content > slot:sheet-header > slot:sheet-title\\\"] has no matching upstream violation): Element has insufficient color contrast of 1.07 (foreground color: #f5f5f5, background color: #fdfdfd, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#f5f5f5\\\",\\\"bgColor\\\":\\\"#fdfdfd\\\",\\\"contrastRatio\\\":1.07,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at #sheet-no-close-title\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  113 |     }\n  114 |\n> 115 |     expect(added).toEqual([]);\n      |                   ^\n  116 |   });\n  117 | }\n  118 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:115:19\naccessibility: cannot \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
-        "detail": "behavior sheet:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-sheet-n-9cc50-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-sheet-n-9cc50-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-sheet-n-9cc50-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › sheet / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › sheet / no-close-button keeps inferred interaction semantics \nbehavior sheet:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-sheet-r-fc3a0-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-sheet-r-fc3a0-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-sheet-r-fc3a0-erred-interaction-semantics-chromium/trace.zip\n    ───────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior sheet:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-sheet-n-9cc50-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-sheet-n-9cc50-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-sheet-n-9cc50-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › sheet / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › sheet / no-close-button keeps inferred interaction semantics \nbehavior sheet:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-sheet-r-fc3a0-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-sheet-r-fc3a0-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-sheet-r-fc3a0-erred-interaction-semantics-chromium/trace.zip\n    ───────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "4 of 4 official examples have HEEx previews",
@@ -804,47 +780,40 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity sheet.default: sheet / default draws what React draws\nError: action:Open > editable:Username: where the two trees differ (full trees attached):\n  React   <nothing>\n  Phoenix   div 1280x720 [sheet-overlay] cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 \n\n  React   <nothing>\n  Phoenix   div 384x720 [sheet-content] cn-sheet-content data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem] \n\n  React   <nothing>\n  Phoenix     div 383x98 [sheet-header] cn-sheet-header flex flex-col\n\n  React   <nothing>\n  Phoenix       h2 351x20 [sheet-title] \"Edit profile\" cn-sheet-title cn-font-heading \n\n  React   <nothing>\n  Phoenix       p 351x40 [sheet-description] \"Make changes to your profile here. Click\" cn-sheet-description \n\n  React   <nothing>\n  Phoenix     div 383x478 grid flex-1 auto-rows-min gap-6 px-4\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 6\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Open > editable:Username / sheet-content > input: border-top-color — React oklch(0.922 0 0), Phoenix oklch(0.708 0 0)\",\u001B[39m\n\u001B[31m+   \"action:Open > editable:Username / sheet-content > input: box-shadow — React rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px, Phoenix rgba(0, 0, 0, 0) 0px 0px 0px 0px, \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel sheet.default: sheet / default paints what React paints\nError: action:Open > editable:Username: 19614 px differ (0.37%) — hottest: sheet-content (10906 px), sheet-content > input #2 (4356 px), sheet-content > input (4352 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m19614\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel sheet.rtl: sheet / rtl paints what React paints\nError: action:فتح > editable:اسم المستخدم: 19607 px differ (0.37%) — hottest: sheet-content > field-group > field (4843 px), sheet-content > field-group > field #2 (4830 px), sheet-content > field-group > field > input #2 (4458 px), sheet-content > field-group > field > input (4449 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m19607\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "02143c0d786dfc1ce67a14d74641e7f3d051fe6c1a814356b9ea4b5610fa1695",
-    "pass": false,
+    "evidence": "ed55f946b43d37890bf723d8e16ddbfee04954ef59216e7a7456fa048a2620d6",
+    "pass": true,
     "spec": "98ab00824780b355dc0cb080dcbd6c971bbd663d33f688fc1285aee069cf5b52"
   },
   "shadcn/popover": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility popover.default: popover / default has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 11\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"expanded:Open popover: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"slot:popover-content > node:h4::Dimensions\\\"] has no matching upstream violation): Element has insufficient color contrast of 2.95 (foreground color: #969696, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#969696\\\",\\\"bgColor\\\":\\\"#ffffff\\\",\\\"contrastRatio\\\":2.95,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at h4\",\u001B[39m\n\u001B[31m+   \"expanded:Open popover: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"slot:popover-content > slot:input\\\"] has no matching upstream violation): Element has insufficient color contrast of 2.95 (foreground color: #969696, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#969696\\\",\\\"bgColor\\\":\\\"#ffffff\\\",\\\"contrastRatio\\\":2.95,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at #height\",\u001B[39m\n\u001B[31m+   \"expanded:Open popover: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"slot:popover-content > slot:input\\\"] has no matching upstream violation): Element has insufficient color contrast of 2.95 (foreground color: #969696, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#969696\\\",\\\"bgColor\\\":\\\"#ffffff\\\",\\\"contrastRatio\\\":2.95,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":nu\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
-        "detail": "behavior popover:       162 | });\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/popover.spec.mjs:159:34\n    Error Context: test-results/popover-Floating-align-off-89935-e-logical-horizontal-offset-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/popover-Floating-align-off-89935-e-logical-horizontal-offset-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/popover-Floating-align-off-89935-e-logical-horizontal-offset-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › popover.spec.mjs:155:5 › Floating align offsets › RTL bottom start keeps the logical horizontal offset \n    [chromium] › popover.spec.mjs:155:5 › Floating align offsets › RTL bottom end keeps the logical horizontal offset \n  16 passed (26.3s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior popover:       162 | });\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/popover.spec.mjs:159:34\n    Error Context: test-results/popover-Floating-align-off-89935-e-logical-horizontal-offset-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/popover-Floating-align-off-89935-e-logical-horizontal-offset-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/popover-Floating-align-off-89935-e-logical-horizontal-offset-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › popover.spec.mjs:155:5 › Floating align offsets › RTL bottom start keeps the logical horizontal offset \n    [chromium] › popover.spec.mjs:155:5 › Floating align offsets › RTL bottom end keeps the logical horizontal offset \n  16 passed (26.3s)\naccessibility popover.default: popover / default has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 11\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"expanded:Open popover: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"slot:popover-content > node:h4::Dimensions\\\"] has no matching upstream violation): Element has insufficient color contrast of 2.95 (foreground color: #969696, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#969696\\\",\\\"bgColor\\\":\\\"#ffffff\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "5 of 5 official examples have HEEx previews",
@@ -865,17 +834,17 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "b98eb527522c22e08b40744a6a379d43de8b5c305a70611b25af96297b828c69",
-    "pass": false,
-    "spec": "be77661e4744c3a2c4fc2b622816e19f1ddb9f7d93ef5cdb1a8e3b9177427aae"
+    "evidence": "127458de4f7fb2de53453efe6a2642e8234ccc1458a2ea19d3024d65d6cc54c1",
+    "pass": true,
+    "spec": "11e43b8aeff2e3f32d95be1493afd31e821ff2f67d19a79189f09a6b53379fac"
   },
   "ai_elements/attachments": {
     "checks": {
@@ -933,16 +902,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior field:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-field-c-9eb96-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-field-c-9eb96-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-field-c-9eb96-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › field / choice-card keeps inferred interaction semantics \n  1 passed (9.2s)\nbehavior field:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-field-d-57ac8-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-field-d-57ac8-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-field-d-57ac8-erred-interaction-semantics-chromium/trace.zip\n    ───────────────────────────────────────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior field:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-field-c-9eb96-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-field-c-9eb96-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-field-c-9eb96-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › field / choice-card keeps inferred interaction semantics \n  1 passed (9.2s)\nbehavior field:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-field-d-57ac8-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-field-d-57ac8-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-field-d-57ac8-erred-interaction-semantics-chromium/trace.zip\n    ───────────────────────────────────────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "13 of 13 official examples have HEEx previews",
@@ -958,23 +923,22 @@
         "pass": true
       },
       "pixel": {
-        "detail": "pixel field.default: field / default paints what React paints\nError: action:Submit: 1610 px differ (0.09%) — hottest: field-group > field-set > field-group > field > field-label #2 (794 px), field-group > field-set > field-group (720 px), field-group > field-set > field-group > field #2 (96 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m1610\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel field.rtl: field / rtl paints what React paints\nError: action:إرسال: 1634 px differ (0.09%) — hottest: field-group > field-set > field-group > field > field-label #2 (807 px), field-group > field-set > field-group (737 px), field-group > field-set > field-group > field #2 (90 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m1634\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel field.responsive: field / responsive paints what React paints\nError: action:Submit: 1932 px differ (0.09%) — hottest: field-set > field-group (1234 px), field-set > field-group > field #2 (660 px), field-set > field-group > field (36 px), field-set > field-group > field > input (2 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m1932\u001B[39m\n\n  276 |\n  277 |     for (const { d\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "8f29828593633dcbdb6f1701a8ee83308c339788a0d300f83275d9376fb74e26",
-    "pass": false,
-    "spec": "6508a96c49ff66c99d385882a57a2275f64734af0ad4640952da592234121983"
+    "evidence": "ccbe1dadef5e3b01bbebff44e1609f209fefff5cbc1e70f6c96b22e61fcd2998",
+    "pass": true,
+    "spec": "3268746e32d77ea0372c701bf1dc38b07bf8d43882ad0ea3d06e12717ae001e9"
   },
   "shadcn/menubar": {
     "checks": {
@@ -1000,28 +964,26 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity menubar.default: menubar / default draws what React draws\nError: action:View > checked:Full URLs: where the two trees differ (full trees attached):\n  React       button 39.05x28 [menubar-trigger] \"File\" cn-menubar-trigger flex items-center outline-hidden select-none\n  Phoenix <nothing>\n\n  React       button 41.59x28 [menubar-trigger] \"Edit\" cn-menubar-trigger flex items-center outline-hidden select-none\n  Phoenix <nothing>\n\n  React       button 47.97x28 [menubar-trigger] \"View\" cn-menubar-trigger flex items-center outline-hidden select-none\n  Phoenix <nothing>\n\n  React       span 1x1\n  Phoenix <nothing>\n\n  React       span 0x0\n  Phoenix <nothing>\n\n  React       span 1x1\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 7\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:View > checked:Full URLs / menubar-content > menubar-group > menubar-checkbox-item #2: aria-checked — React true, Phoenix false\",\u001B[39m\n\u001B[31m+   \"action:Profiles > checked:Andy / menubar-content > menubar-radio-group > menubar-radio-item: aria-checked — React false, Phoenix true\",\u001B[39m\n\u001B[31m+   \"action:Profiles > checked:Andy / menubar-content > menubar-radio-group > menubar-radio-item #2: aria-checked — React true, Phoenix false\",\u001B[39m\n\u001B[31m+   \"action:Profiles > checked:Luis / menubar-content > menubar-radio-group > menubar-radio-item #2: aria-checked — React true, Phoenix false\",\u001B[39m\n\u001B[31m+   \"action:Profiles > checked:Luis / menubar-content > menubar-radio-group > menubar-radio-item #3: aria-checked — React false, Phoenix true\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  201 |     }\n  202 |\n> 203 |     expect(differences, where).toEqual([]);\n      |                                ^\n  204 |\n  205 |     // A decision that has stopped costing anything is a decision to delete.\n  206 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Use\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel menubar.default: menubar / default paints what React paints\nError: action:View > checked:Full URLs: 44 px differ (0.00%) — hottest: menubar-content > menubar-group > menubar-checkbox-item #2 (44 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m44\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel menubar.checkbox: menubar / checkbox paints what React paints\nError: action:View > checked:Always Show Full URLs: 44 px differ (0.00%) — hottest: menubar-content > menubar-checkbox-item #2 (44 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m44\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel menubar.rtl: menubar / rtl paints what React paints\nError: action:عرض > checked:شريط الإشارات المرجعية: 8018 px differ (0.15%) — hottest: outside any slot (1740 px), menubar-content > menubar-group > menubar-checkbox-item #2 (1017 px), menubar-content > menubar-group > menubar-checkbox-item (953 px), menubar-content (893 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m8018\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |     \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "1f829807c24bff113b283f018ed13b508161794092400761b64fd5b6e3bc9fe6",
-    "pass": false,
-    "spec": "07ebacef391b8830c89965c37f863f9312b5194c9a8eda6629fa6fdc2ff281ca"
+    "evidence": "0d577663b8a1b525dba64710391a16cf8ebd1b3735e1f58624d826c961a74a7c",
+    "pass": true,
+    "spec": "a649b8330173a0bcf5e0b738ddb06a93127723b085e8dd5162f7140bb3a4f2ad"
   },
   "shadcn/input-otp": {
     "checks": {
@@ -1047,28 +1009,26 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity input-otp.default: input-otp / default draws what React draws\nError: editable:1: where the two trees differ (full trees attached):\n  React     noscript 0x0 \"<style>\\n[data-input-otp] {\\n  --nojs-bg: \"\n  Phoenix <nothing>\n\n  React         input 760x36 [input-otp] cn-input-otp-input disabled:cursor-not-allowed\n  Phoenix       input 720x36 [input-otp] cn-input-otp-input disabled:cursor-not-allowed\n  ← width 760 → 720\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 3\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"editable:1 / input-otp: width — React 760, Phoenix 720\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  201 |     }\n  202 |\n> 203 |     expect(differences, where).toEqual([]);\n      |                                ^\n  204 |\n  205 |     // A decision that has stopped costing anything is a decision to delete.\n  206 |     // Either the recipe changed or upstream did, and a list nobody prunes is\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:203:32\nparity input-otp.pattern: input-otp / pattern draws what React draws\nError: editable:Digits Only: where the two trees differ (full trees attached):\n  React       noscript 0x0 \"<style>\\n[data-input-otp] {\\n  --nojs-bg: \"\n  Phoenix <nothing>\n\n  React           input 256x36 [input-otp] cn-input-otp-input disabled:cursor-not-allowed\n  Phoenix         input 216x36 [input-otp] cn-input-otp-input disabled:cursor-not-allowed\n  ← width 256 → 216\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 3\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"editable:Digits Only / field > input-otp: width — React 256, Phoenix 216\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  201 |     }\n  202 |\n> 203 |     expect(differences, where).toEqual([]);\n      |                                ^\n  204 |\n  205 |     // A decision t\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel input-otp.default: input-otp / default paints what React paints\nError: editable:1: 453 px differ (0.01%) — hottest: input-otp-group > input-otp-slot (453 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m453\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel input-otp.separator: input-otp / separator paints what React paints\nError: editable:1: 500 px differ (0.02%) — hottest: input-otp-group > input-otp-slot (500 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m500\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel input-otp.controlled: input-otp / controlled paints what React paints\nError: editable:1: 500 px differ (0.02%) — hottest: input-otp-group > input-otp-slot (500 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m500\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel input-otp.invalid: input-otp / invalid paints what React paints\nError: editable:1: 450 px differ (0.01%) \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "ea8f6611bcddfa2150f6868885632be3561b81222d282ee7e9eda25d285bbc90",
-    "pass": false,
-    "spec": "cc364f0652c704964c747bdbdab5b2cd311af978dd31ea3c96203dea5bce4c8e"
+    "evidence": "c3c0a3ec2dfd784ff179eccbc8321d503a6833ae2aa46f93e588b8f4d1f1c65a",
+    "pass": true,
+    "spec": "f8f2cdc8c8fb1d04a67df4a305be094ee4398ace2eac16164a13c63efd208980"
   },
   "shadcn/native-select": {
     "checks": {
@@ -1111,7 +1071,7 @@
         "pass": true
       }
     },
-    "evidence": "c3c8f3881d8f62b6566907a1d7a485ed448e351f646e1730d70c2dabef7782dd",
+    "evidence": "7f83fa0e32a274c2d881411996f5c43ea237b6a41e6e9bb5ef346fb4664819a1",
     "pass": true,
     "spec": "2e4905698455c13679294a83741427cd114ed4c206fc28165ebc63d6c9046217"
   },
@@ -1156,9 +1116,9 @@
         "pass": true
       }
     },
-    "evidence": "3b7e82fe8595db1746b38a7abb550733b9595c79f1d8b790e913099456af37f4",
+    "evidence": "506221b58039f3bee459db7241bd1c27ec702d61c6b42321d044d0c8b8601557",
     "pass": true,
-    "spec": "8618c873bbbe620ef61c9f0cba7331835cdf4fa080a191a60757c2ed99e4ed38"
+    "spec": "f9bba03042eb93bfccb458db16a79fd2460993392e9318eac37373076285e056"
   },
   "ai_elements/context": {
     "checks": {
@@ -1189,16 +1149,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior input:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-input-f-308ec-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-input-f-308ec-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-input-f-308ec-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › input / form keeps inferred interaction semantics \n  1 passed (5.6s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior input:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-input-f-308ec-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-input-f-308ec-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-input-f-308ec-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › input / form keeps inferred interaction semantics \n  1 passed (5.6s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "15 of 15 official examples have HEEx previews",
@@ -1214,22 +1170,21 @@
         "pass": true
       },
       "pixel": {
-        "detail": "pixel input.form: input / form paints what React paints\nError: action:Submit: 2212 px differ (0.14%) — hottest: field-group > field > field-label #2 (1168 px), field-group (946 px), field-group > field #2 (98 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m2212\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "3b6fc8459089e290976fb82a92aa82a50122b4af09054ba544ef0936d7339e52",
-    "pass": false,
+    "evidence": "91a056208ca05a379bb7ea88e20c9e7b22362d3dbb35308c50fb4f646e11a6f2",
+    "pass": true,
     "spec": "2af5928e8e89ef9c8abc4504f8262b175c76a505cb7d6085e8011ea1eb9c27dc"
   },
   "shadcn/marker": {
@@ -1239,16 +1194,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior marker:       30 | });\n      31 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/marker.spec.mjs:28:44\n    Error Context: test-results/marker-the-official-marker-3a118-e-revert-button-is-selected-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/marker-the-official-marker-3a118-e-revert-button-is-selected-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/marker-the-official-marker-3a118-e-revert-button-is-selected-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › marker.spec.mjs:25:3 › the official marker link and button example › shows the official notice when the revert button is selected \n  1 passed (8.5s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior marker:       30 | });\n      31 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/marker.spec.mjs:28:44\n    Error Context: test-results/marker-the-official-marker-3a118-e-revert-button-is-selected-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/marker-the-official-marker-3a118-e-revert-button-is-selected-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/marker-the-official-marker-3a118-e-revert-button-is-selected-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › marker.spec.mjs:25:3 › the official marker link and button example › shows the official notice when the revert button is selected \n  1 passed (8.5s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "8 of 8 official examples have HEEx previews",
@@ -1264,22 +1215,21 @@
         "pass": true
       },
       "pixel": {
-        "detail": "pixel marker.link-button: marker / link-button paints what React paints\nError: action:Revert this change: 2002 px differ (0.05%) — hottest: nothing\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m2002\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "8d92001a57c56cf81353d7f6217b2e374a12570d2eb0feb5fa44245bac69ebf4",
-    "pass": false,
+    "evidence": "f6e90a1fd27a233dbfb22ea70c98575e471852c3f1aedc24c3c55c6bb0c049da",
+    "pass": true,
     "spec": "9f5d1231244698f859772731e357fd6a4478793f7c15d2ca7433dc69470cc0b7"
   },
   "ai_elements/sandbox": {
@@ -1389,7 +1339,7 @@
         "pass": true
       }
     },
-    "evidence": "a23f1e0b45d493f42ffe08d9178e6776e9ba992204306ff60248d6d55ef8607f",
+    "evidence": "1ee8165bc6b1247d42e2562acc1d3f83397d268e7acd17062c236c034fdedcde",
     "pass": true,
     "spec": "0c607317ccb650d68306b70db29c4ed6e04482613c0416b70d44edf6c042d1df"
   },
@@ -1434,7 +1384,7 @@
         "pass": true
       }
     },
-    "evidence": "575d5c9438bcebdf9a29bdc1f7279f9110bfc5358f6c162880e0eba3b1da333a",
+    "evidence": "dc1046a1d7ee6c62d365702b5ed66bbad4cfdb300721ba655420ab7cb6b75c78",
     "pass": true,
     "spec": "a29b938b9640d54c6e8b1029716375c596a48af7f6201a09966f5a44360bec18"
   },
@@ -1479,7 +1429,7 @@
         "pass": true
       }
     },
-    "evidence": "e6a50fc4e2da1bc820f9068aa4700a986e2df02a3a85c26ab4200e731f8eff57",
+    "evidence": "e10cfeece917eb9a99f1c48ca38770a75f876fcc4b13922686bfe278e016e04e",
     "pass": true,
     "spec": "b0ce3bc5666011d47517943ff12bf960ebec2b84e7ed2f90780a2308cfd91d65"
   },
@@ -1508,21 +1458,16 @@
   "shadcn/input-group": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility input-group.text: accessibility report has no result for input-group.text\naccessibility input-group.button: accessibility report has no result for input-group.button\naccessibility: cannot run Playwright: Playwright report metadata marks the run incomplete\ninput-group / button has the upstream accessibility contract: \u001B[31mTest timeout of 30000ms exceeded.\u001B[39m\ninput-group / button has the upstream accessibility contract: Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001B[2m  - waiting for locator('[data-preview=\\'input-group\\']').locator('input:not([type]):not([aria-hidden=\\'true\\']):visible, input[type=\\'text\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'search\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'email\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'url\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'tel\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'password\\']:not([aria-hidden=\\'true\\']):visible, textarea:not([aria-hidden=\\'true\\']):visible, input[type=\\'checkbox\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'radio\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'range\\']:not([aria-hidden=\\'true\\']):visible, select:not([aria-hidden=\\'true\\']):visible').first()\u001B[22m\n\u001B[2m    - locator resolved to <input readonly id=\"base-ui-_R_2n_\" data-slot=\"input-group-control\" placeholder=\"https://x.com/shadcn\" class=\"cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 cn-input-group-input flex-1\"/>\u001B[22m\n\u001B[2m    - fill(\"Parity text\")\u001B[22m\n\u001B[2m  - attempting fill action\u001B[22m\n\u001B[2m    2 × waiting for element to be visible, enabled and editable\u001B[22m\n\u001B[2m      - element is not editable\u001B[22m\n\u001B[2m    - retrying fill action\u001B[22m\n\u001B[2m    - waiting 20ms\u001B[22m\n\u001B[2m    2 × waiting for element to be visible, enabled and editable\u001B[22m\n\u001B[2m      - element\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
-        "detail": "behavior input-group:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-input-g-7b1a5-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-input-g-7b1a5-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-input-g-7b1a5-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › input-group / button keeps inferred interaction semantics \n  1 passed (12.3s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior input-group:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-input-g-7b1a5-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-input-g-7b1a5-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-input-g-7b1a5-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › input-group / button keeps inferred interaction semantics \n  1 passed (12.3s)\naccessibility input-group.text: accessibility report has no result for input-group.text\naccessibility input-group.button: accessibility report has no result for input-group.button\naccessibility: cannot run Playwright: Playwright report metadata marks the run incomplete\ninput-group / button has the upstream accessibility contract: \u001B[31mTest timeout of 30000ms exceeded.\u001B[39m\ninput-group / button has the upstream accessibility contract: Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001B[2m  - waiting for locator('[data-preview=\\'input-group\\']').locator('input:not([type]):not([aria-hidden=\\'true\\']):visible, input[type=\\'text\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'search\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'email\\']:not([aria-hidden\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "14 of 14 official examples have HEEx previews",
@@ -1534,27 +1479,25 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity input-group.text: parity report has no result for input-group.text\nparity input-group.button: parity report has no result for input-group.button\nparity input-group.dropdown: input-group / dropdown draws what React draws\nError: default: where the two trees differ (full trees attached):\n  React         div 32x36 [input-group-addon] cn-input-group-addon flex cursor-text items-center justify-center select-none cn-input-group-addon-align-inline-end order-last\n  Phoenix       div 32x36 [input-group-addon] cn-input-group-addon flex cursor-text items-center justify-center select-none cn-input-group-addon-align-inline-end order-last -mr-1\n  ← class\n\n  React           button 24x24 [dropdown-menu-trigger] cn-button group/button shrink-0 justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-variant-ghost cn-button-size-default cn-input-group-button flex items-center shadow-none cn-input-group-button-size-icon-xs\n  Phoenix <nothing>\n\n  React             svg 16x16 lucide lucide-ellipsis\n  Phoenix <nothing>\n\n  React               circle 1.33x1.33\n  Phoenix <nothing>\n\n  React               circle 1.33x1.33\n  Phoenix <nothing>\n\n  React               circle 1.33x1.33\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 12\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"default / input-group > input-group-addon: class — React cn-input-group-addon cn-input-group-addon-align-inline-end cursor-text flex items-center justify-center order-last select-none, Phoenix -mr-1 cn-input-group-addon cn-input-group-addon-align-inline-end cursor-text flex items-center justify-center order-last select-none\",\u001B[39m\n\u001B[31m+   \"default / input-group > input-group-addon #2: class — React cn-input-group-addon cn-input-group-addon-align-inline-end cur\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel input-group.text: pixel report has no result for input-group.text\npixel input-group.button: pixel report has no result for input-group.button\npixel: cannot run Playwright: Playwright report metadata marks the run incomplete\ninput-group / button paints what React paints: \u001B[31mTest timeout of 200000ms exceeded.\u001B[39m\ninput-group / button paints what React paints: Error: locator.fill: Target page, context or browser has been closed\nCall log:\n\u001B[2m  - waiting for locator('[data-preview=\\'input-group\\']').locator('input:not([type]):not([aria-hidden=\\'true\\']):visible, input[type=\\'text\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'search\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'email\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'url\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'tel\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'password\\']:not([aria-hidden=\\'true\\']):visible, textarea:not([aria-hidden=\\'true\\']):visible, input[type=\\'checkbox\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'radio\\']:not([aria-hidden=\\'true\\']):visible, input[type=\\'range\\']:not([aria-hidden=\\'true\\']):visible, select:not([aria-hidden=\\'true\\']):visible').first()\u001B[22m\n\u001B[2m    - locator resolved to <input readonly id=\"base-ui-_R_2n_\" data-slot=\"input-group-control\" placeholder=\"https://x.com/shadcn\" class=\"cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 cn-input-group-input flex-1\"/>\u001B[22m\n\u001B[2m    - fill(\"Parity text\")\u001B[22m\n\u001B[2m  - attempting fill action\u001B[22m\n\u001B[2m    2 × waiting for element to be visible, enabled and editable\u001B[22m\n\u001B[2m      - element is not editable\u001B[22m\n\u001B[2m    - retrying fill action\u001B[22m\n\u001B[2m    - waiting 20ms\u001B[22m\n\u001B[2m    2 × waiting for element to be visible, enabled and editable\u001B[22m\n\u001B[2m      - element is not editable\u001B[22m\n\u001B[2m    - retrying fill action\u001B[2\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "5585b3295f148ae78754aca1efcbd87ecb534ebe2a44820e1b190be695cefeb5",
-    "pass": false,
+    "evidence": "67ddd7b8c45a57b4e447791ca4d844c19b9d63fefe19da4e23b3a69d1aa406aa",
+    "pass": true,
     "spec": "2c0f1052c7686a053d03cc717730cef24b0e40232eec7f893cc6acaa244f180b"
   },
   "shadcn/data-table": {
@@ -1594,28 +1537,23 @@
         "pass": true
       }
     },
-    "evidence": "c2cac230d33b868090fa48bedb399665544bd283ac2b3ed454c8628beee1c88d",
+    "evidence": "d9dd71adc4ec643fd0a4b76200b9d4f11e23fabcba69f81c1bdb3b90c00f334b",
     "pass": true,
     "spec": null
   },
   "shadcn/message": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility shadcn-message.default: accessibility report has no result for shadcn-message.default\naccessibility shadcn-message.avatar: accessibility report has no result for shadcn-message.avatar\naccessibility shadcn-message.group: accessibility report has no result for shadcn-message.group\naccessibility shadcn-message.header-footer: accessibility report has no result for shadcn-message.header-footer\naccessibility: cannot run Playwright: Playwright report metadata marks the run incomplete\nshadcn-message / default has the upstream accessibility contract: \u001B[31mTest timeout of 30000ms exceeded.\u001B[39m\nshadcn-message / default has the upstream accessibility contract: Error: page.goto: Test timeout of 30000ms exceeded.\nCall log:\n\u001B[2m  - navigating to \"http://127.0.0.1:14101/preview/shadcn-message/default\", waiting until \"load\"\u001B[22m\n\n\n  118 |\n  119 | async function statesAt(page, url, selector, live = false) {\n> 120 |   await page.goto(url);\n      |              ^\n  121 |   if (live) await connected(page);\n  122 |   return visualStates(page, selector);\n  123 | }\n    at statesAt (/Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:120:14)\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:100:30\nshadcn-message / avatar has the upstream accessibility contract: \u001B[31mTest timeout of 30000ms exceeded.\u001B[39m\nshadcn-message / avatar has the upstream accessibility contract: Error: page.goto: Test timeout of 30000ms exceeded.\nCall log:\n\u001B[2m  - navigating to \"http://127.0.0.1:14101/preview/shadcn-message/avatar\", waiting until \"load\"\u001B[22m\n\n\n  118 |\n  119 | async function statesAt(page, url, selector, live = false) {\n> 120 |   await page.goto(url);\n      |              ^\n  121 |   if (live) await connected(page);\n  122 |   return visualStates(page, selector);\n  123 | }\n    at statesAt (/Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:120:14)\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/access\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
-        "detail": "behavior shadcn-message:       50 |     const phoenixProbes = await discoverInteractionProbes(page.locator(selector));\n      51 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:48:16\n    Error Context: test-results/interaction-parity-shadcn--27413-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-shadcn--27413-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-shadcn--27413-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › shadcn-message / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › shadcn-message / avatar keeps inferred interaction semantics \nbehavior shadcn-message:       50 |     const phoenixProbes = await discoverInteractionProbes(page.locator(selector));\n      51 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:48:16\n    Error Context: test-results/interaction-parity-shadcn--1fcb5-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-shadcn--1fcb5-erred-interaction-semantics-chromium/trace.zip\n    Usag\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior shadcn-message:       50 |     const phoenixProbes = await discoverInteractionProbes(page.locator(selector));\n      51 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:48:16\n    Error Context: test-results/interaction-parity-shadcn--27413-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-shadcn--27413-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-shadcn--27413-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › shadcn-message / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › shadcn-message / avatar keeps inferred interaction semantics \nbehavior shadcn-message:       50 |     const phoenixProbes = await discoverInteractionProbes(page.locator(selector));\n      51 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:48:16\n    Error Context: test-results/interaction-parity-shadcn--1fcb5-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-shadcn--1fcb5-erred-interaction-semantics-chromium/trace.zip\n    Usag\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "6 of 6 official examples have HEEx previews",
@@ -1627,27 +1565,25 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity shadcn-message.default: parity report has no result for shadcn-message.default\nparity shadcn-message.avatar: parity report has no result for shadcn-message.avatar\nparity shadcn-message.group: parity report has no result for shadcn-message.group\nparity shadcn-message.header-footer: parity report has no result for shadcn-message.header-footer\nparity: cannot run Playwright: Playwright report metadata marks the run incomplete\nshadcn-message / default draws what React draws: \u001B[31mTest timeout of 32000ms exceeded.\u001B[39m\nshadcn-message / default draws what React draws: Error: page.goto: Test timeout of 32000ms exceeded.\nCall log:\n\u001B[2m  - navigating to \"http://127.0.0.1:14101/preview/shadcn-message/default\", waiting until \"load\"\u001B[22m\n\n\n  215 |\n  216 | async function statesAt(page, url, selector) {\n> 217 |   await page.goto(url);\n      |              ^\n  218 |   if (url.startsWith(\"/\")) await connected(page);\n  219 |   return visualStates(page, selector);\n  220 | }\n    at statesAt (/Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:217:14)\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:142:33\nshadcn-message / avatar draws what React draws: \u001B[31mTest timeout of 32000ms exceeded.\u001B[39m\nshadcn-message / avatar draws what React draws: Error: page.goto: Test timeout of 32000ms exceeded.\nCall log:\n\u001B[2m  - navigating to \"http://127.0.0.1:14101/preview/shadcn-message/avatar\", waiting until \"load\"\u001B[22m\n\n\n  215 |\n  216 | async function statesAt(page, url, selector) {\n> 217 |   await page.goto(url);\n      |              ^\n  218 |   if (url.startsWith(\"/\")) await connected(page);\n  219 |   return visualStates(page, selector);\n  220 | }\n    at statesAt (/Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:217:14)\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:142:33\nparity: cannot run Playwright: Playwright report metadata marks the run incomplete\nshadcn-message / group draws what React draws: \u001B[3\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel shadcn-message.default: pixel report has no result for shadcn-message.default\npixel shadcn-message.avatar: pixel report has no result for shadcn-message.avatar\npixel shadcn-message.group: pixel report has no result for shadcn-message.group\npixel shadcn-message.header-footer: pixel report has no result for shadcn-message.header-footer\npixel: cannot run Playwright: Playwright report metadata marks the run incomplete\nshadcn-message / default paints what React paints: \u001B[31mTest timeout of 30000ms exceeded.\u001B[39m\nshadcn-message / default paints what React paints: Error: page.goto: Test timeout of 30000ms exceeded.\nCall log:\n\u001B[2m  - navigating to \"http://127.0.0.1:14101/preview/shadcn-message/default\", waiting until \"load\"\u001B[22m\n\n\n  282 |\n  283 | async function statesAt(page, url, selector) {\n> 284 |   await page.goto(url);\n      |              ^\n  285 |   if (url.startsWith(\"/\")) await connected(page);\n  286 |   return visualStates(page, selector);\n  287 | }\n    at statesAt (/Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:284:14)\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:154:33\nshadcn-message / avatar paints what React paints: \u001B[31mTest timeout of 30000ms exceeded.\u001B[39m\nshadcn-message / avatar paints what React paints: Error: page.goto: Test timeout of 30000ms exceeded.\nCall log:\n\u001B[2m  - navigating to \"http://127.0.0.1:14101/preview/shadcn-message/avatar\", waiting until \"load\"\u001B[22m\n\n\n  282 |\n  283 | async function statesAt(page, url, selector) {\n> 284 |   await page.goto(url);\n      |              ^\n  285 |   if (url.startsWith(\"/\")) await connected(page);\n  286 |   return visualStates(page, selector);\n  287 | }\n    at statesAt (/Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:284:14)\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:154:33\npixel: cannot run Playwright: Playwright report metadata marks the run incomplete\nshadcn-message / group paints what React paints: \u001B[31mTe\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "3c405d74e7ab5ab265dee4e70a7864ed323ee5a786392601445990dd0dc43725",
-    "pass": false,
+    "evidence": "f105631ad7865b6a683b34f8b7499f723eb56772e92d8c0a4ca61fb9fbd95d33",
+    "pass": true,
     "spec": "ef8bf115048a1d5a36627d1a3d6759e02ceafea50ebf629fc53ec59f39001ebd"
   },
   "shadcn/badge": {
@@ -1691,25 +1627,23 @@
         "pass": true
       }
     },
-    "evidence": "50c9ae32f1139c73ca9b023a0967ef72fdc6648acf9ff250eb661002639e735a",
+    "evidence": "7b9fd6ac6110cdb4380ea482f766957fde9265c4c6f3b8f43ca1823a857fedef",
     "pass": true,
     "spec": "1313c0fced5c124b15675dcf6b65321afa74dc08524a563814d616ad4aa31c8e"
   },
   "shadcn/chart": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility chart.demo: accessibility report has no result for chart.demo\naccessibility chart.example: accessibility report has no result for chart.example\naccessibility: cannot run Playwright: Playwright report metadata marks the run incomplete\nchart / demo has the upstream accessibility contract: Error: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 10\u001B[39m\n\u001B[31m+ Received  +  0\u001B[39m\n\n\u001B[33m@@ -27,16 +27,6 @@\u001B[39m\n\u001B[2m      \"path\": null,\u001B[22m\n\u001B[2m      \"selector\": null,\u001B[22m\n\u001B[2m      \"settleMs\": null,\u001B[22m\n\u001B[2m      \"value\": null,\u001B[22m\n\u001B[2m    },\u001B[22m\n\u001B[32m-   Object {\u001B[39m\n\u001B[32m-     \"action\": null,\u001B[39m\n\u001B[32m-     \"controlKind\": null,\u001B[39m\n\u001B[32m-     \"index\": 0,\u001B[39m\n\u001B[32m-     \"kind\": \"chart-hover\",\u001B[39m\n\u001B[32m-     \"path\": null,\u001B[39m\n\u001B[32m-     \"selector\": null,\u001B[39m\n\u001B[32m-     \"settleMs\": null,\u001B[39m\n\u001B[32m-     \"value\": null,\u001B[39m\n\u001B[32m-   },\u001B[39m\n\u001B[2m  ]\u001B[22m\n\n  100 |     const portStates = await statesAt(page, path, selector, true);\n  101 |\n> 102 |     expect(portStates.map(visualStateIdentity)).toEqual(upstreamStates.map(visualStateIdentity));\n      |                                                 ^\n  103 |\n  104 |     const added = [];\n  105 |     const coverage = beginStateCoverage(testInfo, `${component}.${example}`,\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:102:49",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
         "outcome": "passed",
         "pass": true
       },
       "browser": {
-        "detail": "accessibility chart.demo: accessibility report has no result for chart.demo\naccessibility chart.example: accessibility report has no result for chart.example\naccessibility: cannot run Playwright: Playwright report metadata marks the run incomplete\nchart / demo has the upstream accessibility contract: Error: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 10\u001B[39m\n\u001B[31m+ Received  +  0\u001B[39m\n\n\u001B[33m@@ -27,16 +27,6 @@\u001B[39m\n\u001B[2m      \"path\": null,\u001B[22m\n\u001B[2m      \"selector\": null,\u001B[22m\n\u001B[2m      \"settleMs\": null,\u001B[22m\n\u001B[2m      \"value\": null,\u001B[22m\n\u001B[2m    },\u001B[22m\n\u001B[32m-   Object {\u001B[39m\n\u001B[32m-     \"action\": null,\u001B[39m\n\u001B[32m-     \"controlKind\": null,\u001B[39m\n\u001B[32m-     \"index\": 0,\u001B[39m\n\u001B[32m-     \"kind\": \"chart-hover\",\u001B[39m\n\u001B[32m-     \"path\": null,\u001B[39m\n\u001B[32m-     \"selector\": null,\u001B[39m\n\u001B[32m-     \"settleMs\": null,\u001B[39m\n\u001B[32m-     \"value\": null,\u001B[39m\n\u001B[32m-   },\u001B[39m\n\u001B[2m  ]\u001B[22m\n\n  100 |     const portStates = await statesAt(page, path, selector, true);\n  101 |\n> 102 |     expect(portStates.map(visualStateIdentity)).toEqual(upstreamStates.map(visualStateIdentity));\n      |                                                 ^\n  103 |\n  104 |     const added = [];\n  105 |     const coverage = beginStateCoverage(testInfo, `${component}.${example}`,\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:102:49",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "8 of 8 official examples have HEEx previews",
@@ -1721,27 +1655,25 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity chart.demo: parity report has no result for chart.demo\nparity chart.example: parity report has no result for chart.example\nparity: cannot run Playwright: Playwright report metadata marks the run incomplete\nchart / demo draws what React draws: Error: chart.demo: React and Phoenix must expose the same render states\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 10\u001B[39m\n\u001B[31m+ Received  +  0\u001B[39m\n\n\u001B[33m@@ -27,16 +27,6 @@\u001B[39m\n\u001B[2m      \"path\": null,\u001B[22m\n\u001B[2m      \"selector\": null,\u001B[22m\n\u001B[2m      \"settleMs\": null,\u001B[22m\n\u001B[2m      \"value\": null,\u001B[22m\n\u001B[2m    },\u001B[22m\n\u001B[32m-   Object {\u001B[39m\n\u001B[32m-     \"action\": null,\u001B[39m\n\u001B[32m-     \"controlKind\": null,\u001B[39m\n\u001B[32m-     \"index\": 0,\u001B[39m\n\u001B[32m-     \"kind\": \"chart-hover\",\u001B[39m\n\u001B[32m-     \"path\": null,\u001B[39m\n\u001B[32m-     \"selector\": null,\u001B[39m\n\u001B[32m-     \"settleMs\": null,\u001B[39m\n\u001B[32m-     \"value\": null,\u001B[39m\n\u001B[32m-   },\u001B[39m\n\u001B[2m  ]\u001B[22m\n\n  145 |       phoenixStates.map(visualStateIdentity),\n  146 |       `${name}: React and Phoenix must expose the same render states`,\n> 147 |     ).toEqual(reactStates.map(visualStateIdentity));\n      |       ^\n  148 |\n  149 |     const recorded = divergences[name]?.slots ?? [];\n  150 |     const all = [];\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/parity.spec.mjs:147:7",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel chart.demo: pixel report has no result for chart.demo\npixel chart.example: pixel report has no result for chart.example\npixel chart.example-tooltip: pixel report has no result for chart.example-tooltip\npixel chart.example-legend: pixel report has no result for chart.example-legend\npixel: cannot run Playwright: Playwright report metadata marks the run incomplete\nevery example has a budget or is pending: Error: add each to budgets, pending, or skips\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 3\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"chart.demo\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  132 |     .filter((name) => !decided.has(name));\n  133 |\n> 134 |   expect(undecided, \"add each to budgets, pending, or skips\").toEqual([]);\n      |                                                               ^\n  135 | });\n  136 |\n  137 | for (const { component, example } of pages) {\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:134:63\nchart / demo paints what React paints: Error: chart.demo: React and Phoenix must expose the same render states\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 10\u001B[39m\n\u001B[31m+ Received  +  0\u001B[39m\n\n\u001B[33m@@ -27,16 +27,6 @@\u001B[39m\n\u001B[2m      \"path\": null,\u001B[22m\n\u001B[2m      \"selector\": null,\u001B[22m\n\u001B[2m      \"settleMs\": null,\u001B[22m\n\u001B[2m      \"value\": null,\u001B[22m\n\u001B[2m    },\u001B[22m\n\u001B[32m-   Object {\u001B[39m\n\u001B[32m-     \"action\": null,\u001B[39m\n\u001B[32m-     \"controlKind\": null,\u001B[39m\n\u001B[32m-     \"index\": 0,\u001B[39m\n\u001B[32m-     \"kind\": \"chart-hover\",\u001B[39m\n\u001B[32m-     \"path\": null,\u001B[39m\n\u001B[32m-     \"selector\": null,\u001B[39m\n\u001B[32m-     \"settleMs\": null,\u001B[39m\n\u001B[32m-     \"value\": null,\u001B[39m\n\u001B[32m-   },\u001B[39m\n\u001B[2m  ]\u001B[22m\n\n  157 |       phoenixStates.map(visualStateIdentity),\n  158 |       `${name}: React and Phoenix must expose the same render states`,\n> 159 |     ).toEqual(reactState\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "cd079fadad7dba8b21a8ff28897bd90594423fdc37e02d03adf8f624aa9a996a",
-    "pass": false,
+    "evidence": "dcb2f08d2b6ac1cf5bd1422d905421f2a5e47de0770199c52c9bdd9a4a3e5ee8",
+    "pass": true,
     "spec": "2b203e5458b6ab4fef4ff2e16b877f07100659c6fda5b29a5a929375a798298e"
   },
   "shadcn/command": {
@@ -1785,7 +1717,7 @@
         "pass": true
       }
     },
-    "evidence": "cdcfa084bb1d8cd409fa019a515c373c3c9be68cc2caff4db935400c9e51cfa6",
+    "evidence": "11c7ff2a6609012ade5884126c8fe8422d64f4026476598fbb0d20aef2f97487",
     "pass": true,
     "spec": "c167356ada9c0dd540de06055911391093885018bacd915ba236dc00ffb3f4ed"
   },
@@ -1852,7 +1784,7 @@
         "pass": true
       }
     },
-    "evidence": "c035b4722274c99e411f0d26e9b026a6df7647e51add2a78bc08ce2f849595c5",
+    "evidence": "623e01948593065d32e9d8385835413b60dd5a2116619f6e30c8233c35305d62",
     "pass": true,
     "spec": "518d04be1101210b7970f9a2f29617a77e4918736e2e0c22f22a473c4739e9d3"
   },
@@ -1919,7 +1851,7 @@
         "pass": true
       }
     },
-    "evidence": "3791478d68b8f8ceb9b42b311a740dafeb0d67351fc8d2c57a7e576bcfbdb8cf",
+    "evidence": "30ca0c83cb7b7fb09693b6c1a745aece748fe16316738e1ded538543c3af7c41",
     "pass": true,
     "spec": "9ec43549de9fc0e9fa4912157f95a4c1f93f51d025ab6c2ae11bf57f8e8d2429"
   },
@@ -1974,16 +1906,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior dropdown-menu:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-dropdow-ee8e9-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-dropdow-ee8e9-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-dropdow-ee8e9-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › dropdown-menu / avatar keeps inferred interaction semantics \n  1 passed (5.0s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior dropdown-menu:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-dropdow-ee8e9-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-dropdow-ee8e9-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-dropdow-ee8e9-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › dropdown-menu / avatar keeps inferred interaction semantics \n  1 passed (5.0s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "13 of 13 official examples have HEEx previews",
@@ -1995,47 +1923,40 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity dropdown-menu.complex: dropdown-menu / complex draws what React draws\nError: action:Complex Menu > Settings > Notifications > checked:Push Notifications: where the two trees differ (full trees attached):\n  React     span 1x1\n  Phoenix <nothing>\n\n  React     button 120.22x36 [dropdown-menu-trigger] \"Complex Menu\" cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-variant-outline cn-button-size-default\n  Phoenix <nothing>\n\n  React     span 1x1\n  Phoenix <nothing>\n\n  React     span 1x1\n  Phoenix <nothing>\n\n  React     span 0x0\n  Phoenix <nothing>\n\n  React     span 1x1\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -   1\u001B[39m\n\u001B[31m+ Received  + 117\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Complex Menu > Settings > Notifications > checked:Push Notifications / dropdown-menu-content: only in React\",\u001B[39m\n\u001B[31m+   \"action:Complex Menu > Settings > Notifications > checked:Push Notifications / dropdown-menu-content > dropdown-menu-group: only in React\",\u001B[39m\n\u001B[31m+   \"action:Complex Menu > Settings > Notifications > checked:Push Notifications / dropdown-menu-content > dropdown-menu-group > dropdown-menu-label: only in React\",\u001B[39m\n\u001B[31m+   \"action:Complex Menu > Settings > Notifications > checked:Push Notifications / dropdown-menu-content > dropdown-menu-group > dropdown-menu-item: only in React\",\u001B[39m\n\u001B[31m+   \"action:Complex Menu > Settings > Notifications > checked:Push Notifications / dropdown-menu-content > dropdown-menu-group > dropdown-menu-item > dropdown-menu-shortcut: only in React\",\u001B[39m\n\u001B[31m+   \"action:Complex Menu > Settings > Notifications > checked:Push Notifications / dropdown-menu-content > dropdown-menu-group > dropdown-menu-item #2: only in React\",\u001B[39m\n\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel dropdown-menu.complex: dropdown-menu / complex paints what React paints\nError: action:Complex Menu > Settings > Notifications > checked:Push Notifications: 26945 px differ (0.51%) — hottest: outside any slot (26945 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m26945\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "98913bb4660d2a9fa37007e46f9397d37cacda32f4c952bf5c8e83bf87f32130",
-    "pass": false,
-    "spec": "ef5908e3b2a0dcb11c3b0c1dc71208badcd49ff2c29fbde0ea87b1af8f33fee6"
+    "evidence": "453a4a8f78b1b4afe3ae6992febac691877c493ee3cb479a127d828e54c19994",
+    "pass": true,
+    "spec": "585768514a29435dde30fe147e0e0ecfa3174abc7eefb286eaee843f8c0bc4ce"
   },
   "shadcn/dialog": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility dialog.default: accessibility report has no result for dialog.default\naccessibility dialog.close-button: accessibility report has no result for dialog.close-button\naccessibility dialog.sticky-footer: dialog / sticky-footer has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 4\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"expanded:Sticky Footer: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"preview:dialog > slot:dialog-content > slot:dialog-header > slot:dialog-title\\\"] has no matching upstream violation): Element has insufficient color contrast of 3.23 (foreground color: #8b8b8b, background color: #f9f9f9, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#8b8b8b\\\",\\\"bgColor\\\":\\\"#f9f9f9\\\",\\\"contrastRatio\\\":3.23,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at #dialog-sticky-footer-title\",\u001B[39m\n\u001B[31m+   \"expanded:Sticky Footer: scrollable-region-focusable: Scrollable region must have keyboard access (port target [\\\"preview:dialog > slot:dialog-content > node:div::Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i:2\\\"] has no matching upstream violation): Element should have focusable content at .-mx-4\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  113 |     }\n  114 |\n> 115 |     expect(added).toEqual([]);\n      |                   ^\n  116 |   });\n  117 | }\n  118 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:115:19\naccessibility dialog.scrollable-content: dialog / scrollable-content has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 3\u001B[39m\n\n\u001B[32m- Array \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
-        "detail": "behavior dialog:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-dialog--7a492-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-dialog--7a492-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-dialog--7a492-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › dialog / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › dialog / close-button keeps inferred interaction semantics \nbehavior dialog:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-dialog--6ff21-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-dialog--6ff21-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-dialog--6ff21-erred-interaction-semantics-chromium/trace.zip\n    ──────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior dialog:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-dialog--7a492-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-dialog--7a492-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-dialog--7a492-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › dialog / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › dialog / close-button keeps inferred interaction semantics \nbehavior dialog:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-dialog--6ff21-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-dialog--6ff21-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-dialog--6ff21-erred-interaction-semantics-chromium/trace.zip\n    ──────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "6 of 6 official examples have HEEx previews",
@@ -2047,28 +1968,26 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity dialog.default: parity report has no result for dialog.default\nparity dialog.close-button: parity report has no result for dialog.close-button\nparity dialog.rtl: dialog / rtl draws what React draws\nError: action:فتح الحوار > editable:اسم المستخدم: where the two trees differ (full trees attached):\n  React   <nothing>\n  Phoenix     div 1280x720 [dialog-overlay] cn-dialog-overlay fixed inset-0 isolate z-50 \n\n  React   <nothing>\n  Phoenix     div 448x326 [dialog-content] cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none sm:max-w-sm\n\n  React   <nothing>\n  Phoenix       div 400x42 [dialog-header] cn-dialog-header flex flex-col\n\n  React   <nothing>\n  Phoenix         h2 400x14 [dialog-title] \"تعديل الملف الشخصي\" cn-dialog-title cn-font-heading\n\n  React   <nothing>\n  Phoenix         p 400x20 [dialog-description] \"قم بإجراء تغييرات على ملفك الشخصي هنا. ا\" cn-dialog-description\n\n  React   <nothing>\n  Phoenix       div 400x152 [field-group] cn-field-group group/field-group @container/field-group flex w-full flex-col\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 24\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:فتح الحوار > editable:اسم المستخدم / dialog-content > field-group > field > input: border-top-color — React oklch(0.922 0 0), Phoenix oklch(0.708 0 0)\",\u001B[39m\n\u001B[31m+   \"action:فتح الحوار > editable:اسم المستخدم / dialog-content > field-group > field > input: box-shadow — React rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px, Phoenix rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, oklab(0.708 0 0 / 0.5) 0px 0px 0p\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel dialog.default: pixel report has no result for dialog.default\npixel dialog.close-button: pixel report has no result for dialog.close-button\npixel dialog.rtl: dialog / rtl paints what React paints\nError: action:فتح الحوار > editable:اسم المستخدم: 22162 px differ (0.42%) — hottest: dialog-content > field-group (4754 px), dialog-content > field-group > field > input (3294 px), dialog-content > field-group > field (2334 px), dialog-content (699 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m22162\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel: cannot run Playwright: Playwright report metadata marks the run incomplete\ndialog / default paints what React paints: Error: action:Open Dialog > editable:Username: 22162 px differ (0.42%) — hottest: dialog-content > field-group > field > input (3294 px), dialog-content > field-group (2414 px), dialog-content > field-group > field (2334 px), dialog-content (699 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m22162\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\ndialog / close-button paints what React paints: \u001B[31mTest timeout of 120000ms exceeded.\u001B[39m\ndialog / close-button paints what React paints: Error: locator.fill: Target page, context or browser has been closed\nCall log:\n\u001B[2\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "24c6ac0be45a4be325373aff25326f0e8fbf33bc7a9e148a73ef6a4461535eca",
-    "pass": false,
-    "spec": "98fbe53ef18d2882c93b6e460b2d5efea56129ef6dcfa66f4c094f803a8dffc5"
+    "evidence": "0bc967ade2043434eb9ecb813bb38d7f2fb898fd3480e56a2d9f2dcfc0cc84e6",
+    "pass": true,
+    "spec": "e54c6726dde9a052c9b44db6e8bccd399ef0e424ab653c9dd266899ba3dc7eaa"
   },
   "shadcn/accordion": {
     "checks": {
@@ -2111,7 +2030,7 @@
         "pass": true
       }
     },
-    "evidence": "c820daebdaba8b56cb11aed808e96da6992bd326259b0fcf1f8f52c57d78380b",
+    "evidence": "31bdad9825c2d7e131aa5f78a8b958fac46220a13a562e7627fff393e052b23a",
     "pass": true,
     "spec": "a93d023c22598e0846b5474b049301502ab2eaf5f10deae23472866759da2aba"
   },
@@ -2174,7 +2093,7 @@
         "pass": true
       }
     },
-    "evidence": "a06c1d51895ed0bfd9704ac10d350a5adc5fdb1b299e8cbfed875f87ce683e51",
+    "evidence": "e27d072da1e27cdb26d70db089ee602e2bf22cfe4cb15a64674f4bd7b1e7dc0c",
     "pass": true,
     "spec": null
   },
@@ -2219,7 +2138,7 @@
         "pass": true
       }
     },
-    "evidence": "1e97c3135c06739b02e30b3f1a335f27700640805e1f087b57b333807e49f2fc",
+    "evidence": "93f0e5a8793c4e076e962dace926560872c69c3f5557d6b7461442c7da193fdb",
     "pass": true,
     "spec": "745f87b2225c141748904b57749a5701533f1a7a66a2231d12b2cf8ed6f4a263"
   },
@@ -2296,16 +2215,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior tooltip:       17 |   await expect(positioner).toHaveAttribute(\"data-side\", /top|right|bottom|left/);\n      18 | });\n      19 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/tooltip.spec.mjs:16:23\n    Error Context: test-results/tooltip-uses-the-same-positioning-and-reports-the-same-side-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/tooltip-uses-the-same-positioning-and-reports-the-same-side-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/tooltip-uses-the-same-positioning-and-reports-the-same-side-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › tooltip.spec.mjs:10:1 › uses the same positioning and reports the same side ───────",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior tooltip:       17 |   await expect(positioner).toHaveAttribute(\"data-side\", /top|right|bottom|left/);\n      18 | });\n      19 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/tooltip.spec.mjs:16:23\n    Error Context: test-results/tooltip-uses-the-same-positioning-and-reports-the-same-side-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/tooltip-uses-the-same-positioning-and-reports-the-same-side-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/tooltip-uses-the-same-positioning-and-reports-the-same-side-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › tooltip.spec.mjs:10:1 › uses the same positioning and reports the same side ───────",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "5 of 5 official examples have HEEx previews",
@@ -2326,17 +2241,17 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "673897a06bf5aefe1991990813347e07c6ad0e0b9fe5964e55f9e59d8a5fd99e",
-    "pass": false,
-    "spec": "a7022bd4f50648cbfa179d756eedf1508b51ad3c0ad201ac5b6f9b37341b9deb"
+    "evidence": "f526de0513e67f9cea84671338e8cb7b4a1e2622bd5c299487fd65e687279caf",
+    "pass": true,
+    "spec": "97d13f4ea3aa35428c9d5033ea00206ef165e1cfc4d30c48cff3c9eaf1246f70"
   },
   "ai_elements/node": {
     "checks": {
@@ -2411,16 +2326,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior toggle-group:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-toggle--78ee2-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-toggle--78ee2-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-toggle--78ee2-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › toggle-group / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › toggle-group / disabled keeps inferred interaction semantics \nbehavior toggle-group:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-toggle--d42e9-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-toggle--d42e9-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-toggle--d42e9-erred-interaction-semantics-chromium/trace.zip\n    ────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior toggle-group:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-toggle--78ee2-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-toggle--78ee2-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-toggle--78ee2-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › toggle-group / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › toggle-group / disabled keeps inferred interaction semantics \nbehavior toggle-group:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-toggle--d42e9-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-toggle--d42e9-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-toggle--d42e9-erred-interaction-semantics-chromium/trace.zip\n    ────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "8 of 8 official examples have HEEx previews",
@@ -2432,29 +2343,26 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity toggle-group.font-weight-selector: toggle-group / font-weight-selector draws what React draws\nError: default: where the two trees differ (full trees attached):\n  React         button 64x40 [toggle-group-item] cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t cn-toggle group/toggle whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-toggle-variant-outline cn-toggle-size-lg flex size-16 flex-col items-center justify-center rounded-xl\n  Phoenix       button 64x40 [toggle-group-item] cn-toggle-size-lg cn-toggle-variant-outline cn-toggle group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t flex size-16 flex-col items-center justify-center rounded-xl\n  ← class\n\n  React         button 64x40 [toggle-group-item] cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel toggle-group.font-weight-selector: toggle-group.font-weight-selector has a nonzero pixel budget (32 px)",
-        "gated": false,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "ddc4a4f308fe5404f99af29c0a7be29e720ae6b2d9f115952acc22cb0600f9ec",
-    "pass": false,
-    "spec": "91389a42b0c9c66fe762a0c92b69138ab03525792b904e98a7d30cf536269173"
+    "evidence": "2c1c1076465ccb980b57fd7bd578065ee96d063bc082e0e36668ac14e845ce63",
+    "pass": true,
+    "spec": "79c10a96729f686f13bc835947f490e621c93287f21cad4daceab5c8fdedcff6"
   },
   "shadcn/aspect-ratio": {
     "checks": {
@@ -2497,7 +2405,7 @@
         "pass": true
       }
     },
-    "evidence": "adca1277f0fc377f81d1d617d5c82185ac1abd24b03a63f3fe71e2faa7511884",
+    "evidence": "f12f4b836920a5483abebdd0905058f066f57e507f7df804fe862dfb74ad6113",
     "pass": true,
     "spec": "3dbb8c1e55be04759542eb7243005a4bfd28771442da391b43e46858ff0e53d7"
   },
@@ -2542,7 +2450,7 @@
         "pass": true
       }
     },
-    "evidence": "05f2e9426e225e274b22c655fe55128f6b5c768090d5e4cc7264a8e0bba46bd4",
+    "evidence": "34a6c85bf3a23dfbf9b95c8d03e0c9a981d934b0cd15ae299b885a9d98a5e6a5",
     "pass": true,
     "spec": "346963c5e3546d6b1c96e9a3b35bb0a06c216f206ebed696ffe5232c251bf062"
   },
@@ -2571,18 +2479,16 @@
   "shadcn/toast": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility toast.types: toast / types has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 3\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Error: aria-hidden-focus: ARIA hidden element must not be focusable or contain focusable elements (port target [\\\"preview:toast > slot:toast-portal > slot:toast-viewport > slot:toast\\\"] has no matching upstream violation): Focusable content should be disabled or be removed from the DOM at #toast-types-toast-1\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  113 |     }\n  114 |\n> 115 |     expect(added).toEqual([]);\n      |                   ^\n  116 |   });\n  117 | }\n  118 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:115:19",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
         "outcome": "passed",
         "pass": true
       },
       "browser": {
-        "detail": "accessibility toast.types: toast / types has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 3\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Error: aria-hidden-focus: ARIA hidden element must not be focusable or contain focusable elements (port target [\\\"preview:toast > slot:toast-portal > slot:toast-viewport > slot:toast\\\"] has no matching upstream violation): Focusable content should be disabled or be removed from the DOM at #toast-types-toast-1\",\u001B[39m\n\u001B[31m+ ]\u001B[39m\n\n  113 |     }\n  114 |\n> 115 |     expect(added).toEqual([]);\n      |                   ^\n  116 |   });\n  117 | }\n  118 |\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/accessibility.spec.mjs:115:19",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "3 of 3 official examples have HEEx previews",
@@ -2603,17 +2509,17 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "f68722efc87fe23c76496cfafde7b4f078cb4c8809b34e6c8ab06136c9f7ee8d",
-    "pass": false,
-    "spec": "264b6410e0d78a75429835096145af06fbe4db46ff1f8a7da28ff25f8b1bf02b"
+    "evidence": "f031371cece8b7f7625b6fc468d3c3bdcd0928628a915b68a8ccb94c3c71aafe",
+    "pass": true,
+    "spec": "4b076478a83642c0fbe805df81efb2e1fdbac4aaa93c999d9b73e631064af0a8"
   },
   "ai_elements/message": {
     "checks": {
@@ -2710,16 +2616,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior switch:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-switch--45597-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-switch--45597-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-switch--45597-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › switch / choice-card keeps inferred interaction semantics \n  1 passed (5.9s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior switch:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-switch--45597-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-switch--45597-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-switch--45597-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › switch / choice-card keeps inferred interaction semantics \n  1 passed (5.9s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "7 of 7 official examples have HEEx previews",
@@ -2740,17 +2642,17 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "221f1280db10aef9c319980e943733957003a6bfc5186c1760013bd8f51851da",
-    "pass": false,
-    "spec": "dc51ae50851b1b24452e8aedbf890bca8d7cbbf78f7f555aecbca360898fcf46"
+    "evidence": "f18c4f63d76e5c65ac23d00fa5c0ca83ea414608afea2995f9a25669212ca1f2",
+    "pass": true,
+    "spec": "25bf3ef1cc377b6cccc4f73ad547963dcb22c4f0c9c82b01891ee56b697e65b0"
   },
   "ai_elements/jsx-preview": {
     "checks": {
@@ -2803,16 +2705,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior label:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-label-f-ec281-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-label-f-ec281-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-label-f-ec281-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › label / field-demo keeps inferred interaction semantics \n  1 passed (4.6s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior label:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-label-f-ec281-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-label-f-ec281-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-label-f-ec281-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › label / field-demo keeps inferred interaction semantics \n  1 passed (4.6s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "3 of 3 official examples have HEEx previews",
@@ -2828,22 +2726,21 @@
         "pass": true
       },
       "pixel": {
-        "detail": "pixel label.field-demo: label / field-demo paints what React paints\nError: action:Submit: 1400 px differ (0.07%) — hottest: field-group > field-set > field-group > field > field-label #2 (666 px), field-group > field-set > field-group (616 px), field-group > field-set > field-group > field #2 (116 px), field-group > field-set > field-group > field > input (2 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m1400\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "791fea1fa84b7fd531d1de9c2d286d32b16862afa88407d283898248cc2f479c",
-    "pass": false,
+    "evidence": "083c5a509cb21ae9b82677d6bb6b8d8d5d9b6762c38ec8b8b40e4dfa89fc44f0",
+    "pass": true,
     "spec": "f7335dd3cb91cab27b38ef14b1165793fa1d1bf1bbc882408af41f41187af1ba"
   },
   "shadcn/alert": {
@@ -2887,7 +2784,7 @@
         "pass": true
       }
     },
-    "evidence": "d279bfb81369be8ba816e6611086a6d58d6ee31c2b7829ecf5062089de58ba7e",
+    "evidence": "feacb1c5c460593e0ffd640fd1d19b39a44f809c15f2e66e290e1ff26c7a52ee",
     "pass": true,
     "spec": "da4df87623d96a4bef151f523f4582eb4bff1bfcdadbec4d6fc982ca1a9e5b7d"
   },
@@ -2937,28 +2834,26 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity item.avatar: item / avatar draws what React draws\nError: default: where the two trees differ (full trees attached):\n  React             img 32x32 [avatar-image] cn-avatar-image aspect-square size-full object-cover\n  Phoenix           img 32x32 [avatar-image] cn-avatar-image aspect-square size-full object-cover \n  ← class\n\n  React           p 386x21 [item-description] \"Last seen 5 months ago\" cn-item-description line-clamp-2 font-normal [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary\n  Phoenix         p 386x21 [item-description] \"Last seen 5 months ago\" cn-item-description line-clamp-2 font-normal [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary \n  ← class\n\n  React         div 32x32 [item-actions] cn-item-actions flex items-center\n  Phoenix       div 32x32 [item-actions] cn-item-actions flex items-center \n  ← class\n\n  React             span 32x32 [avatar] cn-avatar group/avatar relative shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten hidden sm:flex\n  Phoenix           span 32x32 [avatar] cn-avatar group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten hidden sm:flex\n  ← class\n\n  React               img 32x32 [avatar-image] cn-avatar-image aspect-square size-full object-cover\n  Phoenix             img 32x32 [avatar-image] cn-avatar-image aspect-square size-full object-cover \n  ← class\n\n  React             span 32x32 [avatar] cn-avatar group/avatar relative shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten hidden sm:flex\n  Phoenix           span 32x32 [avatar] cn-avatar group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten hidden sm:flex\n  ←\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel item.image: item / image paints what React paints\nError: default: 1 px differ (0.00%) — hottest: item-group > item > item-content > item-title #3 (1 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m1\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "45bf7712f50e4ddd28fa313ad9f63349be95f6bba11b1ecb94c39716dd33ed3b",
-    "pass": false,
-    "spec": "5470f5b738d3e9de4ccbcf499aba1dc39aebaaf3310d07a5a7d5099a3b0147da"
+    "evidence": "a30911dc52983a393465b4718e409fac753b711f103e365fd662bb58e8ec187c",
+    "pass": true,
+    "spec": "dab094849fa2cb8b816cf8c92bc10ec29bd28bf17403d43eb5d2e7ec5a2b2c1c"
   },
   "shadcn/breadcrumb": {
     "checks": {
@@ -3001,7 +2896,7 @@
         "pass": true
       }
     },
-    "evidence": "67a8aece50fcb9b9cde7e32bd84ee58959f6eed825a3ec9c086823675b00ca38",
+    "evidence": "f9f5b50ecb7214bf04f5f0ef64ff1e8f56fbaa8d3023eb2df0bf95fb8bd3ef68",
     "pass": true,
     "spec": "ec690fd91370b3ab72c844f97d1ba6af1605171cc12f5fc77bc1a7f13629194d"
   },
@@ -3012,16 +2907,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior avatar:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-avatar--d7b9e-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-avatar--d7b9e-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-avatar--d7b9e-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › avatar / dropdown keeps inferred interaction semantics \n  1 passed (3.7s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior avatar:       57 |     for (const probe of reactProbes) {\n      58 |       await page.goto(reactURL);\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:55:7\n    Error Context: test-results/interaction-parity-avatar--d7b9e-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-avatar--d7b9e-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-avatar--d7b9e-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › avatar / dropdown keeps inferred interaction semantics \n  1 passed (3.7s)",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "10 of 10 official examples have HEEx previews",
@@ -3042,17 +2933,17 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "922bb98ee7fea4c6008535722d08fcc106ba98ea9ee9e8bf5054beb6379a12f3",
-    "pass": false,
-    "spec": "ff5c2fabbac3beedc423b0f91b295a3ccf5abb8ef49974a159c4cb98f6940288"
+    "evidence": "ebab0f27e27b3a7b504141cf6cde5cd844288a9221d6df38681c5ecae62bf86c",
+    "pass": true,
+    "spec": "5c0aeb5028a4c0f252f1680cc48c355c57ea0499c253a990fb7cf899642ac6b3"
   },
   "shadcn/select": {
     "checks": {
@@ -3095,7 +2986,7 @@
         "pass": true
       }
     },
-    "evidence": "ec72a8968e8bb6aa50c6286792769a784acf4c7ee9b7106957e35946255c52aa",
+    "evidence": "76a4ef1e643ea265fc9e66010afdf65278f076b7ff5dfea1deafefea9eb24e1a",
     "pass": true,
     "spec": "7be5e84a32cd5d6a5f2f4e222856a99586e9a67253b854506cb9ae6310a0e170"
   },
@@ -3140,7 +3031,7 @@
         "pass": true
       }
     },
-    "evidence": "b513f5b969ad7a6a436e5607a9f112f885f83c9cf4f720b62a924608af2949da",
+    "evidence": "467a71c318f3fb34c98b179ea2203c3edfc914f872e9a934d78eaed93fe08380",
     "pass": true,
     "spec": "7322835b0afc280543d5676a165c823c7761825f100ce9949c881db738a414cf"
   },
@@ -3185,7 +3076,7 @@
         "pass": true
       }
     },
-    "evidence": "5c23bfeae8859bb555847424e79a8c3dbf631201f33104d099a28222fb051b03",
+    "evidence": "8cc36a137ef9db9436002e20a1e9af7948890bc6f3e3b43a54d6ee581c7cb166",
     "pass": true,
     "spec": "5ed5dc0bd2d345168a570e4817612ce9028ff2a7c479acc7996c877a2af934d3"
   },
@@ -3433,7 +3324,7 @@
         "pass": true
       }
     },
-    "evidence": "2439e8226039424c3397330fd18c61a02fc56eaf4ff7b5f27da5f57efec4af76",
+    "evidence": "edbdd84e50a42a62a3d201873019e8025b4672c269714028a9dc66b3b9765e8f",
     "pass": true,
     "spec": "ac85ee6d3dffded7d6db06e6036dbe50de13da6a45bb10b95fa2bc1f3a5f7f46"
   },
@@ -3478,7 +3369,7 @@
         "pass": true
       }
     },
-    "evidence": "22c602b7682433af56fffa6bd246451468956e982bbbfaf70fd3b0c517de39d0",
+    "evidence": "796fdcd45a479fc6f1819d94fae8d113adbfe6ebfd240a7ed4d3b3c481d6b528",
     "pass": true,
     "spec": "30b3f91ad49b08b37512d2c7ee8156ba28c19003b7fd90b53c3b40a17c048aa4"
   },
@@ -3507,21 +3398,16 @@
   "shadcn/navigation-menu": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility navigation-menu.default: navigation-menu / default has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 25\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"expanded:Getting started: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"preview:navigation-menu > slot:navigation-menu > slot:navigation-menu-content > slot:navigation-menu-link > node:div::How to install dependencies and structure your app.:2\\\"] has no matching upstream violation): Element has insufficient color contrast of 1.67 (foreground color: #c8c8c8, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#c8c8c8\\\",\\\"bgColor\\\":\\\"#ffffff\\\",\\\"contrastRatio\\\":1.67,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at a[href$=\\\"installation\\\"] > .flex-col.gap-1.text-sm > .line-clamp-2.text-muted-foreground\",\u001B[39m\n\u001B[31m+   \"expanded:Getting started: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"preview:navigation-menu > slot:navigation-menu > slot:navigation-menu-content > slot:navigation-menu-link > node:div::Installation:1\\\"] has no matching upstream violation): Element has insufficient color contrast of 2.81 (foreground color: #9a9a9a, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1 {\\\"fgColor\\\":\\\"#9a9a9a\\\",\\\"bgColor\\\":\\\"#ffffff\\\",\\\"contrastRatio\\\":2.81,\\\"fontSize\\\":\\\"10.5pt (14px)\\\",\\\"fontWeight\\\":\\\"normal\\\",\\\"messageKey\\\":null,\\\"expectedContrastRatio\\\":\\\"4.5:1\\\"} at a[href$=\\\"installation\\\"] > .flex-col.gap-1.text-sm > .leading-none.font-medium\",\u001B[39m\n\u001B[31m+   \"expanded:Getting started: color-contrast: Elements must meet minimum color contrast ratio thresholds (port ta\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
-        "detail": "behavior navigation-menu:         at waitForDisclosureClosed (/Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.mjs:508:9)\n        at enterInteractionProbe (/Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.mjs:398:9)\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:64:23\n    Error Context: test-results/interaction-parity-navigat-f561a-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-navigat-f561a-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-navigat-f561a-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › navigation-menu / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › navigation-menu / rtl keeps inferred interaction semantics ",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior navigation-menu:         at waitForDisclosureClosed (/Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.mjs:508:9)\n        at enterInteractionProbe (/Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.mjs:398:9)\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:64:23\n    Error Context: test-results/interaction-parity-navigat-f561a-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-navigat-f561a-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-navigat-f561a-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › navigation-menu / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › navigation-menu / rtl keeps inferred interaction semantics \naccessibility navigation-menu.default: navigation-menu / default has the upstream accessibility contract\nError: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 25\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"expanded:Getting started: color-contrast: Elements must meet minimum color contrast ratio thresholds (port target [\\\"preview:navigation-menu > slot:navigation-menu > slot:navigation-menu-content > slot:navigat\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "2 of 2 official examples have HEEx previews",
@@ -3533,9 +3419,8 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity navigation-menu.default: navigation-menu / default draws what React draws\nError: default: where the two trees differ (full trees attached):\n  React     nav 440.36x36 [navigation-menu] cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center\n  Phoenix <nothing>\n\n  React       ul 440.36x36 [navigation-menu-list] cn-navigation-menu-list group flex flex-1 list-none items-center justify-center\n  Phoenix <nothing>\n\n  React         li 148.17x36 [navigation-menu-item] cn-navigation-menu-item relative\n  Phoenix <nothing>\n\n  React           button 148.17x36 [navigation-menu-trigger] cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none group\n  Phoenix <nothing>\n\n  React             svg 12x12 lucide lucide-chevron-down cn-navigation-menu-trigger-icon\n  Phoenix <nothing>\n\n  React               path 6x3\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 12\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"default / navigation-menu > navigation-menu-list > navigation-menu-item > navigation-menu-link: class — React cn-navigation-menu-link cn-navigation-menu-trigger disabled:pointer-events-none group/navigation-menu-trigger h-9 inline-flex items-center justify-center outline-none w-max, Phoenix cn-navigation-menu-link cn-navigation-menu-trigger disabled:pointer-events-none group group/navigation-menu-trigger h-9 inline-flex items-center justify-center outline-none w-max\",\u001B[39m\n\u001B[31m+   \"expanded:Getting started / navigation-menu > navigation-menu-list > navigation-menu-item > navigation-menu-link: class — React cn-navigation-menu-link cn-navigation-menu-trigger disabled:pointer-events-none group/navigation-menu-trigger h-9 inline-flex items-center justify-center outline-none w-max, Phoenix cn-navigation-menu-li\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
         "outcome": "passed",
@@ -3543,33 +3428,31 @@
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "f91e83e014b60b877002949d571201d00556ca77c64096db800f1ef727be821e",
-    "pass": false,
-    "spec": "32dd1d082c89e18911e7a3309eba815d35aa22f04aae48b9d19c184870dc6f9e"
+    "evidence": "ce60abd01c31f974dc332ea2819ff7534af01ccd14b1c58b7f28fc418d83ce20",
+    "pass": true,
+    "spec": "651af72a981f05e5256b9247424a832e95369902716fa53339875da128396158"
   },
   "shadcn/progress": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility progress.controlled: accessibility report has no result for progress.controlled\naccessibility progress.rtl: accessibility report has no result for progress.rtl\naccessibility: cannot run Playwright: Playwright report metadata marks the run incomplete\nprogress / controlled has the upstream accessibility contract: Error: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 10\u001B[39m\n\u001B[31m+ Received  +  0\u001B[39m\n\n\u001B[33m@@ -17,16 +17,6 @@\u001B[39m\n\u001B[2m      \"path\": null,\u001B[22m\n\u001B[2m      \"selector\": \"input:not([type]):not([aria-hidden='true']):visible, input[type='text']:not([aria-hidden='true']):visible, input[type='search']:not([aria-hidden='true']):visible, input[type='email']:not([aria-hidden='true']):visible, input[type='url']:not([aria-hidden='true']):visible, input[type='tel']:not([aria-hidden='true']):visible, input[type='password']:not([aria-hidden='true']):visible, textarea:not([aria-hidden='true']):visible, input[type='checkbox']:not([aria-hidden='true']):visible, input[type='radio']:not([aria-hidden='true']):visible, input[type='range']:not([aria-hidden='true']):visible, select:not([aria-hidden='true']):visible\",\u001B[22m\n\u001B[2m      \"settleMs\": null,\u001B[22m\n\u001B[2m      \"value\": null,\u001B[22m\n\u001B[2m    },\u001B[22m\n\u001B[32m-   Object {\u001B[39m\n\u001B[32m-     \"action\": null,\u001B[39m\n\u001B[32m-     \"controlKind\": null,\u001B[39m\n\u001B[32m-     \"index\": 1,\u001B[39m\n\u001B[32m-     \"kind\": \"native-range\",\u001B[39m\n\u001B[32m-     \"path\": null,\u001B[39m\n\u001B[32m-     \"selector\": \"input:not([type]):not([aria-hidden='true']):visible, input[type='text']:not([aria-hidden='true']):visible, input[type='search']:not([aria-hidden='true']):visible, input[type='email']:not([aria-hidden='true']):visible, input[type='url']:not([aria-hidden='true']):visible, input[type='tel']:not([aria-hidden='true']):visible, input[type='password']:not([aria-hidden='true']):visible, textarea:not([aria-hidden='true']):visible, input[type='checkbox']:not([aria-hidden='true']):visible, input[t\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
         "outcome": "passed",
         "pass": true
       },
       "browser": {
-        "detail": "accessibility progress.controlled: accessibility report has no result for progress.controlled\naccessibility progress.rtl: accessibility report has no result for progress.rtl\naccessibility: cannot run Playwright: Playwright report metadata marks the run incomplete\nprogress / controlled has the upstream accessibility contract: Error: \u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 10\u001B[39m\n\u001B[31m+ Received  +  0\u001B[39m\n\n\u001B[33m@@ -17,16 +17,6 @@\u001B[39m\n\u001B[2m      \"path\": null,\u001B[22m\n\u001B[2m      \"selector\": \"input:not([type]):not([aria-hidden='true']):visible, input[type='text']:not([aria-hidden='true']):visible, input[type='search']:not([aria-hidden='true']):visible, input[type='email']:not([aria-hidden='true']):visible, input[type='url']:not([aria-hidden='true']):visible, input[type='tel']:not([aria-hidden='true']):visible, input[type='password']:not([aria-hidden='true']):visible, textarea:not([aria-hidden='true']):visible, input[type='checkbox']:not([aria-hidden='true']):visible, input[type='radio']:not([aria-hidden='true']):visible, input[type='range']:not([aria-hidden='true']):visible, select:not([aria-hidden='true']):visible\",\u001B[22m\n\u001B[2m      \"settleMs\": null,\u001B[22m\n\u001B[2m      \"value\": null,\u001B[22m\n\u001B[2m    },\u001B[22m\n\u001B[32m-   Object {\u001B[39m\n\u001B[32m-     \"action\": null,\u001B[39m\n\u001B[32m-     \"controlKind\": null,\u001B[39m\n\u001B[32m-     \"index\": 1,\u001B[39m\n\u001B[32m-     \"kind\": \"native-range\",\u001B[39m\n\u001B[32m-     \"path\": null,\u001B[39m\n\u001B[32m-     \"selector\": \"input:not([type]):not([aria-hidden='true']):visible, input[type='text']:not([aria-hidden='true']):visible, input[type='search']:not([aria-hidden='true']):visible, input[type='email']:not([aria-hidden='true']):visible, input[type='url']:not([aria-hidden='true']):visible, input[type='tel']:not([aria-hidden='true']):visible, input[type='password']:not([aria-hidden='true']):visible, textarea:not([aria-hidden='true']):visible, input[type='checkbox']:not([aria-hidden='true']):visible, input[t\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "4 of 4 official examples have HEEx previews",
@@ -3581,27 +3464,25 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity progress.controlled: parity report has no result for progress.controlled\nparity progress.rtl: parity report has no result for progress.rtl\nparity: cannot run Playwright: Playwright report metadata marks the run incomplete\nprogress / controlled draws what React draws: Error: progress.controlled: React and Phoenix must expose the same render states\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 10\u001B[39m\n\u001B[31m+ Received  +  0\u001B[39m\n\n\u001B[33m@@ -17,16 +17,6 @@\u001B[39m\n\u001B[2m      \"path\": null,\u001B[22m\n\u001B[2m      \"selector\": \"input:not([type]):not([aria-hidden='true']):visible, input[type='text']:not([aria-hidden='true']):visible, input[type='search']:not([aria-hidden='true']):visible, input[type='email']:not([aria-hidden='true']):visible, input[type='url']:not([aria-hidden='true']):visible, input[type='tel']:not([aria-hidden='true']):visible, input[type='password']:not([aria-hidden='true']):visible, textarea:not([aria-hidden='true']):visible, input[type='checkbox']:not([aria-hidden='true']):visible, input[type='radio']:not([aria-hidden='true']):visible, input[type='range']:not([aria-hidden='true']):visible, select:not([aria-hidden='true']):visible\",\u001B[22m\n\u001B[2m      \"settleMs\": null,\u001B[22m\n\u001B[2m      \"value\": null,\u001B[22m\n\u001B[2m    },\u001B[22m\n\u001B[32m-   Object {\u001B[39m\n\u001B[32m-     \"action\": null,\u001B[39m\n\u001B[32m-     \"controlKind\": null,\u001B[39m\n\u001B[32m-     \"index\": 1,\u001B[39m\n\u001B[32m-     \"kind\": \"native-range\",\u001B[39m\n\u001B[32m-     \"path\": null,\u001B[39m\n\u001B[32m-     \"selector\": \"input:not([type]):not([aria-hidden='true']):visible, input[type='text']:not([aria-hidden='true']):visible, input[type='search']:not([aria-hidden='true']):visible, input[type='email']:not([aria-hidden='true']):visible, input[type='url']:not([aria-hidden='true']):visible, input[type='tel']:not([aria-hidden='true']):visible, input[type='password']:not([aria-hidden='true']):visible, textarea:not([aria-hidden='true']):visible, input[type='checkbox']:not([aria-hidden='t\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel progress.controlled: pixel report has no result for progress.controlled\npixel progress.rtl: pixel report has no result for progress.rtl\npixel: cannot run Playwright: Playwright report metadata marks the run incomplete\nprogress / controlled paints what React paints: Error: progress.controlled: React and Phoenix must expose the same render states\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 10\u001B[39m\n\u001B[31m+ Received  +  0\u001B[39m\n\n\u001B[33m@@ -17,16 +17,6 @@\u001B[39m\n\u001B[2m      \"path\": null,\u001B[22m\n\u001B[2m      \"selector\": \"input:not([type]):not([aria-hidden='true']):visible, input[type='text']:not([aria-hidden='true']):visible, input[type='search']:not([aria-hidden='true']):visible, input[type='email']:not([aria-hidden='true']):visible, input[type='url']:not([aria-hidden='true']):visible, input[type='tel']:not([aria-hidden='true']):visible, input[type='password']:not([aria-hidden='true']):visible, textarea:not([aria-hidden='true']):visible, input[type='checkbox']:not([aria-hidden='true']):visible, input[type='radio']:not([aria-hidden='true']):visible, input[type='range']:not([aria-hidden='true']):visible, select:not([aria-hidden='true']):visible\",\u001B[22m\n\u001B[2m      \"settleMs\": null,\u001B[22m\n\u001B[2m      \"value\": null,\u001B[22m\n\u001B[2m    },\u001B[22m\n\u001B[32m-   Object {\u001B[39m\n\u001B[32m-     \"action\": null,\u001B[39m\n\u001B[32m-     \"controlKind\": null,\u001B[39m\n\u001B[32m-     \"index\": 1,\u001B[39m\n\u001B[32m-     \"kind\": \"native-range\",\u001B[39m\n\u001B[32m-     \"path\": null,\u001B[39m\n\u001B[32m-     \"selector\": \"input:not([type]):not([aria-hidden='true']):visible, input[type='text']:not([aria-hidden='true']):visible, input[type='search']:not([aria-hidden='true']):visible, input[type='email']:not([aria-hidden='true']):visible, input[type='url']:not([aria-hidden='true']):visible, input[type='tel']:not([aria-hidden='true']):visible, input[type='password']:not([aria-hidden='true']):visible, textarea:not([aria-hidden='true']):visible, input[type='checkbox']:not([aria-hidden='true\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "2697d22e61b39db3a91a6406aab201bcff3090077cb0270d3c098c113cb9f456",
-    "pass": false,
+    "evidence": "f603bad7f97716a46c4339475bec65524620ad8a635c342b9633df66b2bc9d40",
+    "pass": true,
     "spec": "c2421b48ff5165ad061a295f1dded89545d729c7714b620b41423994fe0ce809"
   },
   "ai_elements/code-block": {
@@ -3689,7 +3570,7 @@
         "pass": true
       }
     },
-    "evidence": "a9dfe10cf65f4be9e71bd9e27cd3e85e94465ff910dc18921054f1ca61aba1a8",
+    "evidence": "2bb9349713ce426ecbb6dd8d47ffd21ee30e4f9cf3453fa5f0a0242272e31465",
     "pass": true,
     "spec": "eab85a764736082e9f964609f3a6f622069adc9cedd1f68106bbec602d7231d5"
   },
@@ -3700,16 +3581,12 @@
         "pass": true
       },
       "behavior": {
-        "detail": "behavior questionnaire:         at waitForAttribute (/Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.mjs:497:17)\n        at enterInteractionProbe (/Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.mjs:387:9)\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:60:21\n    Error Context: test-results/interaction-parity-questio-fbdf1-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-questio-fbdf1-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-questio-fbdf1-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › questionnaire / dialog keeps inferred interaction semantics \n  1 passed (33.8s)\nbehavior questionnaire:       207 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/questionnaire.spec.mjs:204:23\n    Error Context: test-results/questionnaire-the-dialog-c-990be-eturns-focus-to-its-trigger-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/questionnaire-the-dialog-c-990be-eturns-focus-to-its-trigger-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/questionnaire-the-dialog-\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior questionnaire:         at waitForAttribute (/Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.mjs:497:17)\n        at enterInteractionProbe (/Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.mjs:387:9)\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:60:21\n    Error Context: test-results/interaction-parity-questio-fbdf1-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-questio-fbdf1-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-questio-fbdf1-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  1 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › questionnaire / dialog keeps inferred interaction semantics \n  1 passed (33.8s)\nbehavior questionnaire:       207 |\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/questionnaire.spec.mjs:204:23\n    Error Context: test-results/questionnaire-the-dialog-c-990be-eturns-focus-to-its-trigger-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/questionnaire-the-dialog-c-990be-eturns-focus-to-its-trigger-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/questionnaire-the-dialog-\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "14 of 14 official examples have HEEx previews",
@@ -3721,27 +3598,25 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity questionnaire.default: questionnaire / default draws what React draws\nError: action:Next: where the two trees differ (full trees attached):\n  React     script 0x0 \"((e,i,s,u,m,a,l,h)=>{let d=document.docu\"\n  Phoenix <nothing>\n\n  React     section 720x0\n  Phoenix <nothing>\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  - 1\u001B[39m\n\u001B[31m+ Received  + 9\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Next / questionnaire > questionnaire-item: aria-invalid — React true, Phoenix \",\u001B[39m\n\u001B[31m+   \"action:Next / questionnaire > questionnaire-item > questionnaire-choices > questionnaire-choice: border-top-color — React oklch(0.577 0.245 27.325), Phoenix oklch(0.922 0 0)\",\u001B[39m\n\u001B[31m+   \"action:Next / questionnaire > questionnaire-item > questionnaire-choices > questionnaire-choice #2: border-top-color — React oklch(0.577 0.245 27.325), Phoenix oklch(0.922 0 0)\",\u001B[39m\n\u001B[31m+   \"action:Next / questionnaire > questionnaire-item > questionnaire-choices > questionnaire-choice #3: border-top-color — React oklch(0.577 0.245 27.325), Phoenix oklch(0.922 0 0)\",\u001B[39m\n\u001B[31m+   \"action:Next / questionnaire > questionnaire-item > questionnaire-choices > questionnaire-input-wrapper > questionnaire-input: border-top-color — React oklch(0.577 0.245 27.325), Phoenix oklch(0.922 0 0)\",\u001B[39m\n\u001B[31m+   \"action:Next / questionnaire > questionnaire-item > questionnaire-choices > questionnaire-input-wrapper > questionnaire-input: box-shadow — React rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, oklab(0.577 0.217662 0.112464 / 0.2) 0px 0px 0px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px, Phoenix rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px\",\u001B[39m\n\u001B[31m+   \"action:Next / questionnaire > questionnaire-item > questionnai\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel questionnaire.default: questionnaire / default paints what React paints\nError: action:Next: 24516 px differ (1.31%) — hottest: questionnaire > questionnaire-item > questionnaire-choices (4395 px), questionnaire > questionnaire-item > questionnaire-choices > questionnaire-input-wrapper (3944 px), questionnaire > questionnaire-item > questionnaire-choices > questionnaire-choice (3865 px), questionnaire > questionnaire-item > questionnaire-choices > questionnaire-choice #3 (3865 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m24516\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel questionnaire.multiple: questionnaire / multiple paints what React paints\nError: action:Share context: 15500 px differ (0.83%) — hottest: questionnaire > questionnaire-item > questionnaire-choices > questionnaire-choice (2849 px), questionnaire > questionnaire-item > questionnaire-choices > questionnaire-choice #2 (2849 px), questionnaire > questionnaire-item > questionnaire-choices > questionnaire-choice #3 (2849 px), questionnaire > questionnaire-item > questionnaire-choices > questionnaire-choice #4 (2849 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m15500\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel questionnaire.freeform: questionnaire / freeform pai\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "23dea8605b0cce655309532fe10bd5b0fac8a8f87e450e8fd50a4752147b4894",
-    "pass": false,
+    "evidence": "b6f85711a5ae597713c78042fe2f6c0a19e1d75c045f33beea85491dd2efe191",
+    "pass": true,
     "spec": "8f2c1c4d64a90f52488985c6732003e0863ddbf541f4a74bac985e7e14f3c75a"
   },
   "shadcn/slider": {
@@ -3785,9 +3660,9 @@
         "pass": true
       }
     },
-    "evidence": "0325e8e5c8101457dcaf63a061a48448d1021e5a016c30e3b066e931d4c3e687",
+    "evidence": "10e713d89ac6abb5050df0c20ce1d7cf72fcc2fd7ed3493e91a57fceecc986b0",
     "pass": true,
-    "spec": "0b4180f05e9959d60be0018b4fb4402ce7b1af5e4e03058536b08c6401fc8b7a"
+    "spec": "24a36822c6682d80d24b8bc6a6e2211820446f372240e0190d8ae422453f4c8e"
   },
   "ai_elements/file-tree": {
     "checks": {
@@ -3814,21 +3689,16 @@
   "shadcn/drawer": {
     "checks": {
       "accessibility": {
-        "detail": "accessibility drawer.swipe-handle: accessibility report has no result for drawer.swipe-handle\naccessibility drawer.nested: accessibility report has no result for drawer.nested\naccessibility drawer.non-modal: accessibility report has no result for drawer.non-modal\naccessibility drawer.snap-points: accessibility report has no result for drawer.snap-points\naccessibility: cannot run Playwright: Playwright report metadata marks the run incomplete\ndrawer / nested has the upstream accessibility contract: \u001B[31mTest timeout of 30000ms exceeded.\u001B[39m\ndrawer / nested has the upstream accessibility contract: Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001B[2m  - waiting for locator('[id=\"_R_7_\"]').locator(':is([aria-expanded], [role=\\'menuitem\\'][aria-haspopup=\\'menu\\'], [data-slot$=\\'sub-trigger\\']):not([aria-disabled=\\'true\\']):not(:disabled):visible').first()\u001B[22m\n\u001B[2m    - locator resolved to <button tabindex=\"0\" type=\"button\" id=\"base-ui-_r_4_\" aria-expanded=\"false\" aria-haspopup=\"dialog\" data-slot=\"drawer-trigger\" data-base-ui-click-trigger=\"\" class=\"cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cn-button-variant-outline cn-button-size-default\">Open Nested Drawer</button>\u001B[22m\n\u001B[2m  - attempting click action\u001B[22m\n\u001B[2m    2 × waiting for element to be visible, enabled and stable\u001B[22m\n\u001B[2m      - element is not stable\u001B[22m\n\u001B[2m    - retrying click action\u001B[22m\n\u001B[2m    - waiting 20ms\u001B[22m\n\u001B[2m    2 × waiting for element to be visible, enabled and stable\u001B[22m\n\u001B[2m      - element is not stable\u001B[22m\n\u001B[2m    - retrying click action\u001B[22m\n\u001B[2m      - waiting 100ms\u001B[22m\n\u001B[2m    - waiting for element to be visible, enabled and stable\u001B[22m\n\u001B[2m    - element is not stable\u001B[22m\n\u001B[2m  - retrying click action\u001B[22m\n\u001B[2m    - waiting 500ms\u001B[22m\n\n\n   at visual-states.mjs:1377\n\n  1375 |       }\n  1376 \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "behavior": {
-        "detail": "behavior drawer:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-drawer--25d6f-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-drawer--25d6f-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-drawer--25d6f-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › drawer / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › drawer / dialog keeps inferred interaction semantics \nbehavior drawer:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-drawer--aa85d-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-drawer--aa85d-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-drawer--aa85d-erred-interaction-semantics-chromium/trace.zip\n    ────────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "browser": {
-        "detail": "behavior drawer:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-drawer--25d6f-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-drawer--25d6f-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-drawer--25d6f-erred-interaction-semantics-chromium/trace.zip\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n  2 failed\n    [chromium] › interaction-parity.spec.mjs:39:3 › drawer / default keeps inferred interaction semantics \n    [chromium] › interaction-parity.spec.mjs:39:3 › drawer / dialog keeps inferred interaction semantics \nbehavior drawer:       71 |   });\n      72 | }\n        at /Users/tudor/cave/live_shadcn/storybook/test/browser/interaction-parity.spec.mjs:69:9\n    Error Context: test-results/interaction-parity-drawer--aa85d-erred-interaction-semantics-chromium/error-context.md\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/interaction-parity-drawer--aa85d-erred-interaction-semantics-chromium/trace.zip\n    Usage:\n        npx playwright show-trace test-results/interaction-parity-drawer--aa85d-erred-interaction-semantics-chromium/trace.zip\n    ────────────────\nMore detail is in the verification output.",
-        "exit": 1,
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "examples": {
         "detail": "7 of 7 official examples have HEEx previews",
@@ -3840,28 +3710,26 @@
         "pass": true
       },
       "parity": {
-        "detail": "parity drawer.default: drawer / default draws what React draws\nError: action:Open Drawer > checked:Standard delivery Fastest 25–35 min · Driver assigned now: where the two trees differ (full trees attached):\n  React     script 0x0 \"((e,i,s,u,m,a,l,h)=>{let d=document.docu\"\n  Phoenix <nothing>\n\n  React     section 720x0\n  Phoenix <nothing>\n\n  React   <nothing>\n  Phoenix   template 0x0\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m) // deep equality\u001B[22m\n\n\u001B[32m- Expected  -  1\u001B[39m\n\u001B[31m+ Received  + 38\u001B[39m\n\n\u001B[32m- Array []\u001B[39m\n\u001B[31m+ Array [\u001B[39m\n\u001B[31m+   \"action:Open Drawer > checked:Standard delivery Fastest 25–35 min · Driver assigned now / drawer-trigger: aria-hidden — React true, Phoenix \",\u001B[39m\n\u001B[31m+   \"action:Open Drawer > checked:Standard delivery Fastest 25–35 min · Driver assigned now / drawer-popup > drawer-content > radio-group > field-label > field > field-content > field-label: class — React cn-field-title flex gap-2 items-center w-fit, Phoenix cn-field-title flex flex gap-2 items-center items-center w-fit\",\u001B[39m\n\u001B[31m+   \"action:Open Drawer > checked:Standard delivery Fastest 25–35 min · Driver assigned now / drawer-popup > drawer-content > radio-group > field-label > field > field-content > field-label #2: class — React cn-field-title flex gap-2 items-center w-fit, Phoenix cn-field-title flex items-center w-fit\",\u001B[39m\n\u001B[31m+   \"action:Open Drawer > checked:Standard delivery Fastest 25–35 min · Driver assigned now / drawer-popup > drawer-content > radio-group > field-label > field > field-content > field-label #3: class — React cn-field-title flex gap-2 items-center w-fit, Phoenix cn-field-title flex items-center w-fit\",\u001B[39m\n\u001B[31m+   \"action:Open Drawer > checked:Standard delivery Fastest 25–35 min · Driver assigned now / drawer-popup > drawer-content > radio-group > field-label > field > field-content > field-label #4: class — React cn-field-title flex gap-2 items-center w-fit, Phoenix \nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "pixel": {
-        "detail": "pixel drawer.default: drawer / default paints what React paints\nError: action:Open Drawer > button:Confirm Delivery Time: 1602 px differ (0.04%) — hottest: nothing\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m1602\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel drawer.non-modal: pixel report has no result for drawer.non-modal\npixel drawer.snap-points: pixel report has no result for drawer.snap-points\npixel drawer.dialog: drawer / dialog paints what React paints\nError: action:Edit Profile > editable:Username: 22162 px differ (0.42%) — hottest: dialog-content > input (3294 px), dialog-content (3052 px)\n\n\u001B[2mexpect(\u001B[22m\u001B[31mreceived\u001B[39m\u001B[2m).\u001B[22mtoBeLessThanOrEqual\u001B[2m(\u001B[22m\u001B[32mexpected\u001B[39m\u001B[2m)\u001B[22m\n\nExpected: <= \u001B[32m0\u001B[39m\nReceived:    \u001B[31m22162\u001B[39m\n\n  276 |\n  277 |     for (const { differing, report } of observations) {\n> 278 |       expect(differing, report).toBeLessThanOrEqual(allowed);\n      |                                 ^\n  279 |     }\n  280 |   });\n  281 | }\n    at /Users/tudor/cave/live_shadcn/storybook/test/browser/pixel.spec.mjs:278:33\npixel: cannot run Playwright: Playwright report metadata marks the run incomplete\ndrawer / snap-points paints what React paints: \u001B[31mTest timeout of 120000ms exceeded.\u001B[39m\ndrawer / snap-points paints what React paints: Error: locator.click: Target page, context or browser has been closed\nCall log:\n\u001B[2m  - waiting for locator('[id=\"_R_7_\"]').locator('button:not([aria-expanded]):not([aria-pressed]):not([aria-checked]):not([role=\\'tab\\']):not([aria-disabled=\\'true\\']):not(:disabled):visible').first()\u001B[22m\n\u001B[2m    - locator resolved to <button tabindex=\"\nMore detail is in the verification output.",
-        "outcome": "failed",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "policy": {
         "detail": "required checks for standard policy",
-        "outcome": "incomplete",
-        "pass": false
+        "outcome": "passed",
+        "pass": true
       },
       "snapshot": {
         "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "8fa7c1beb120d84f5ad3ffb9efc3199402ee07c5441a6072439827d909193cb2",
-    "pass": false,
-    "spec": "55d4b72dc22d9d6659e3f66db2849e0d50ca27e7e194ae3b7f037bbc1105834e"
+    "evidence": "953f08cda8295e718d4aed18da1478b3dde033a0a4499b02b9e7153c3669611c",
+    "pass": true,
+    "spec": "3c1e45e065736277de0ab5cc18ac8b4e9257dda6a5c20634441bb35164332034"
   },
   "ai_elements/connection": {
     "checks": {
@@ -3926,7 +3794,7 @@
         "pass": true
       }
     },
-    "evidence": "8893e7cf9bbdfbaa86643aabfa02ca4188d181280cd0ea6d37bfa7cb0dfe02f2",
+    "evidence": "aba0b051ca000d1436635aa5bb61ad945a2f6eced228e6bc41edaf628d8f40c3",
     "pass": true,
     "spec": "07857005cee5aae4524be16ecadb3b911b0009c599fb243466937aa1d5c80442"
   },
@@ -3971,7 +3839,7 @@
         "pass": true
       }
     },
-    "evidence": "2e0b5af52be735947d0fbef0b14d8f3948c4581c894dfb72b0d71c33813a3457",
+    "evidence": "59a30043fc4e93306864310159d479f42626171791afe25bf62de80d751c94a3",
     "pass": true,
     "spec": "6406a9025a436eda3e8da53c7dbede98e14dfc18a5ddf86371cdc63c31eb6b63"
   },
@@ -4016,7 +3884,7 @@
         "pass": true
       }
     },
-    "evidence": "bc8542649316c3f5035caf4eabb101682301ddef4bcc72f55d43cd86ca4a4ef9",
+    "evidence": "000225c0d0da7e79dfb7e67271f059da46065ef4b116714844bbc3a076663a15",
     "pass": true,
     "spec": "c0dc7450063e96c48067e8f564a1dc07f949ca8311d5ab3359f7a81ff1ec6594"
   },
@@ -4061,7 +3929,7 @@
         "pass": true
       }
     },
-    "evidence": "cc9a02c9755355efdc174fc7480ec9a01082be2b5bc913f818d397ceb9bf0c81",
+    "evidence": "0027a6b8284a2762f8527334e634d5a8e3c07cef691215c527a3890d131276ad",
     "pass": true,
     "spec": "101f01cfc4ba8b44975dd15ed5c06606e3e794c96b24992857175a2fa9730a4a"
   }

@@ -298,7 +298,8 @@ defmodule Mix.Tasks.Ui.Status do
     ## Recipes
 
     Eight core recipes cover #{core_coverage(inventory, components)} of #{total} components.
-    Only the recipes are written by hand; every component is data.
+    Maintainers review component bodies. The synchronizer updates marked upstream
+    facts.
 
     #{recipe_table(components)}
 

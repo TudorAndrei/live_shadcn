@@ -72,7 +72,7 @@ not need a server round trip for actions such as opening a menu.
 | close on an outside click | `phx-click-away` |
 | close on Escape | `phx-window-keydown` |
 
-Four hooks cover work that server-declared commands cannot do:
+The core hooks cover work that server-declared commands cannot do:
 
 | Hook | Purpose |
 |---|---|
@@ -83,6 +83,9 @@ Four hooks cover work that server-declared commands cannot do:
 
 A hook decides which element to use. The `JS` command on that element decides
 what happens.
+
+Specialist hooks also handle controls such as Calendar, Carousel, Scroller,
+Slider, and Toast. Register the complete `live_base` hook map in applications.
 
 ## Maintainer workflow
 
@@ -95,6 +98,9 @@ mix ui.fetch  ->  mix ui.spec  ->  mix ui.verify
 
 `mix ui.fetch` stores fetched files in the ignored `registry/upstream/`
 directory. `registry/UPSTREAM.json` commits their SHA-256 digests.
+Use `mix ui.fetch --locked` to prepare an existing checkout or CI run. It
+restores the recorded URLs, checks their digests, and preserves the manifest.
+Use plain `mix ui.fetch` only when you intend to update upstream sources.
 
 `mix ui.verify --source shadcn` checks every shadcn port and the data-table,
 date-picker, and typography documentation families. AI Elements is outside this
@@ -165,8 +171,8 @@ storybook/                   demo application and browser tests
 ## Development
 
 ```bash
-cd tools && mix deps.get && npm install
-mix ui.fetch
+cd tools && mix deps.get && npm ci
+mix ui.fetch --locked
 mix ui.spec
 mix ui.spec --check --offline
 mix ui.status
@@ -184,7 +190,7 @@ cd ../storybook && mix phx.server
 ```
 
 Open <http://localhost:14101> with the repository's mise environment (otherwise
-port 4100). The demo uses the shadcn style sheets fetched by `mix ui.fetch`.
+port 4100). The demo uses the shadcn style sheets restored by `mix ui.fetch --locked`.
 The repository's mise environment sets verification ports 14101 and 14102.
 Stop existing development servers on those ports before verification.
 

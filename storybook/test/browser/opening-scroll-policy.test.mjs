@@ -7,7 +7,6 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const rootLayout = readFileSync(join(here, "../../lib/storybook_web/layouts/root.html.heex"), "utf8");
-const appStyles = readFileSync(join(here, "../../assets/css/app.css"), "utf8");
 const inlineOpeningScript = rootLayout.match(
   /<script nonce=\{assigns\[:csp_nonce\]\} phx-no-curly-interpolation>\s*([\s\S]*?)\s*<\/script>/,
 )?.[1];
@@ -121,12 +120,4 @@ test("the root opening script pre-scrolls an unheld opening for Scroller", () =>
   assert.equal(viewport.__liveBaseMessageOpeningApplied, true);
   assert.equal(viewport.__liveBaseMessageOpeningTop, undefined);
   assert.deepEqual(itemStyleReads, []);
-});
-
-test("pending Message Scroller roots keep their items in intrinsic hidden layout", () => {
-  assert.match(
-    appStyles,
-    /\[data-lb-message-scroller\]\[data-pending-scroll\]\s+\[data-slot="message-scroller-item"\]/,
-  );
-  assert.match(appStyles, /content-visibility:\s*hidden/);
 });

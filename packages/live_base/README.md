@@ -5,7 +5,7 @@ contract.
 
 `live_base` owns no styling and renders no markup. It provides the two halves of
 component behavior that LiveView does not: the `Phoenix.LiveView.JS` commands
-that flip a component's state on the client, and the four hooks for the things
+that flip a component's state on the client, and hooks for the things
 no command can express.
 
 It is the behavior layer under
@@ -20,7 +20,37 @@ def deps do
 end
 ```
 
-Register the hooks with your `LiveSocket`:
+After `mix deps.get`, install the JavaScript package and its peers:
+
+```bash
+cd assets
+npm install --install-links ../deps/live_base \
+  @floating-ui/dom@1.8.0 embla-carousel@8.5.2 \
+  embla-carousel-autoplay@8.5.2 motion@13.1.1
+```
+
+`--install-links` copies the local package into `assets/node_modules`. Its
+imports can then resolve the peers in the same directory. Commit the npm lock
+file. Repeat this step after upgrading the Hex package.
+
+Add `assets/node_modules` to the esbuild `NODE_PATH` in `config/config.exs`.
+Keep the existing dependency and build paths:
+
+```elixir
+env: %{
+  "NODE_PATH" => [
+    Path.expand("../assets/node_modules", __DIR__),
+    Path.expand("../deps", __DIR__),
+    Mix.Project.build_path()
+  ]
+}
+```
+
+Phoenix also resolves JavaScript from Mix dependencies. This path lets esbuild
+find the npm peers when it loads a hook from `deps/live_base`.
+
+Register the hooks with your existing `LiveSocket`. Preserve other hooks and
+socket options:
 
 ```javascript
 import { hooks as liveBase } from "live_base";
@@ -30,15 +60,12 @@ const liveSocket = new LiveSocket("/live", Socket, {
 });
 ```
 
-Hook names are namespaced — `LiveBase.Overlay`, `LiveBase.Floating` — so they
-cannot collide with hooks of your own.
+Hook names are namespaced, such as `LiveBase.Overlay` and `LiveBase.Floating`.
+They cannot collide with hooks of your own.
 
-Floating placement needs `@floating-ui/dom`, which is a peer dependency so you
-control its version:
-
-```bash
-npm install @floating-ui/dom --prefix assets
-```
+The standard import includes all hooks. Floating uses `@floating-ui/dom`,
+Carousel uses Embla, and Message Scroller animation uses Motion. These imports
+require all listed peers, even when a page uses only one component.
 
 ## The contract
 
@@ -64,7 +91,8 @@ run on the client, so it costs no round trip, no socket traffic, and no assign.
 <button phx-click={LiveBase.Disclosure.toggle(item: "faq-1", root: "faq")}>
 ```
 
-A hook is used only where a command cannot reach:
+A hook is used where a command cannot complete the operation. The core hooks
+include:
 
 | Hook | Because |
 |---|---|
@@ -72,6 +100,10 @@ A hook is used only where a command cannot reach:
 | `LiveBase.Overlay` | scroll lock, focus containment, and holding an attribute for the length of a transition |
 | `LiveBase.Floating` | where a popup lands depends on how much room was left for it |
 | `LiveBase.Roving` | `phx-key` filters one key per binding, and the arrow keys are four |
+
+The complete export also includes specialist hooks for Calendar, Carousel,
+Scroller, Slider, Toast, and other controls. Use the exported hook map instead
+of maintaining a separate list in the application.
 
 **A hook decides which element, never what happens to it.** Arriving at a tab
 shows its panel; arriving at a menu item does not choose it. The same roving

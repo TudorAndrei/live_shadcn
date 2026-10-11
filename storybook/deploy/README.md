@@ -1,5 +1,10 @@
 # Deploying the storybook
 
+This directory contains the optional Cloudflare deployment. The maintained CI
+workflow deploys to Fly with `storybook/fly.toml`. Use
+[the release instructions](../../DEFERRED.md) for that path. The files here
+provide an optional manual Cloudflare path.
+
 The storybook runs as one Cloudflare Container behind a Worker that does nothing
 but hand every request to it. There is no routing to do: every reader sees the
 same pages and none of them is behind a login.
@@ -12,11 +17,12 @@ same pages and none of them is behind a login.
 
 ## First deploy
 
-Three things have to exist before the first `wrangler deploy`.
+Use a machine with Docker and access to the target Cloudflare account. From the
+repository root, install the local deployment dependencies and authenticate:
 
 ```bash
 cd storybook/deploy
-npm install
+npm ci
 npx wrangler login
 ```
 
@@ -38,12 +44,17 @@ deploying to, before deploying:
 "vars": { "PHX_HOST": "storybook.example.com" }
 ```
 
-**An amd64 machine.** Cloudflare Containers run linux/amd64, and `wrangler
-deploy` builds the image where it runs. On an Apple Silicon machine that means
-emulation, and the BEAM does not survive it — `mix local.hex` dies with
-`failed_to_start_child,user,nouser` before anything is compiled. Deploy from the
-`Deploy storybook` workflow instead, which runs on an amd64 runner and needs two
-repository secrets: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
+The configured container uses `../Dockerfile` with the repository root as its
+build context. Prepare a build environment that supports the target container
+architecture. After configuring the secret and hostname, deploy from
+`storybook/deploy/`:
+
+```bash
+npm run deploy
+```
+
+This command runs the local `wrangler deploy` script. It publishes the optional
+Cloudflare application; it does not use the maintained Fly workflow.
 
 ## What the build does that is unusual
 

@@ -1,24 +1,43 @@
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { referenceReady, visit } from "./live.mjs";
 
 const root = (page) => page.locator("[data-preview='questionnaire'] [data-slot='questionnaire']");
 const active = (page) => root(page).locator("[data-slot='questionnaire-item'][data-active]");
 
-test("the demo validates, focuses the error, navigates, and submits native answers", async ({ page }) => {
-  await visit(page, "/preview/questionnaire/default");
-  const form = root(page);
+test("the demo validates, clears answer errors, focuses, and navigates", async ({ page }, testInfo) => {
+  for (const side of ["React", "Phoenix"]) {
+    const path = "/preview/questionnaire/default";
+    if (side === "React") {
+      await page.goto(`${testInfo.project.use.parityURL}${path}`);
+      await referenceReady(page);
+    } else await visit(page, path);
+    const form = root(page);
+    const item = active(page);
+    const freeform = item.locator("[data-slot='questionnaire-input']");
+    const choice = item.locator("[data-slot='questionnaire-choice']").first();
 
-  await expect(active(page)).toHaveAttribute("data-questionnaire-name", "direction");
-  await form.getByRole("button", { name: "Next" }).click();
-  await expect(active(page)).toHaveAttribute("data-invalid", "");
-  await expect(active(page).locator("[data-slot='questionnaire-error']")).toHaveAttribute("role", "alert");
-  await expect(active(page).locator("input").first()).toBeFocused();
+    await form.getByRole("button", { name: "Next" }).click();
+    await expect(item).toHaveAttribute("aria-invalid", "true");
+    await expect(choice).toHaveAttribute("data-invalid", "");
+    await expect(freeform).toHaveAttribute("aria-invalid", "true");
+    await expect(item.locator("[data-slot='questionnaire-error']")).toHaveAttribute("role", "alert");
+    await expect(item.locator("input").first()).toBeFocused();
 
-  await active(page).getByLabel("Tool call timeline").check();
-  await form.getByRole("button", { name: "Next" }).click();
-  await expect(active(page)).toHaveAttribute("data-questionnaire-name", "signals");
-  await expect(active(page).locator("[data-slot='questionnaire-error']")).toBeHidden();
+    await freeform.fill("Show the task history.");
+    await expect(item).not.toHaveAttribute("aria-invalid");
+    await expect(choice).not.toHaveAttribute("data-invalid");
+    await expect(freeform).not.toHaveAttribute("aria-invalid");
+    await expect(item.locator("[data-slot='questionnaire-error']")).toBeHidden();
+    await freeform.fill("");
+    await form.getByRole("button", { name: "Next" }).click();
+    await expect(item).toHaveAttribute("aria-invalid", "true");
+    await item.getByLabel("Tool call timeline").check();
+    await expect(item).not.toHaveAttribute("aria-invalid");
+    await form.getByRole("button", { name: "Next" }).click();
+    await expect(active(page).getByText("What should every progress update include?", { exact: true })).toBeVisible();
+    await expect(active(page).locator("[data-slot='questionnaire-error']")).toBeHidden();
+  }
 });
 
 test("shortcuts, arrows, reset, and error associations keep their contracts", async ({ page }) => {
@@ -59,6 +78,12 @@ test("controlled, conditional, shortcuts, and navigation state use their host co
   await expect(environment).toHaveCount(1);
   await expect(environment).toBeHidden();
   await expect(conditionalProgress).toHaveAttribute("aria-valuemax", "3");
+  const description = active(page).locator("[data-slot='questionnaire-description']");
+  await expect(description).toHaveText("Cloud runs add an environment question to this flow.");
+  const error = active(page).locator("[data-slot='questionnaire-error']");
+  await expect(error).toHaveCount(1);
+  await expect(error).toHaveAttribute("id", "questionnaire-runtime-error-1");
+  await expect(active(page).locator("input").first()).toHaveAttribute("aria-describedby", await description.getAttribute("id"));
   await root(page).getByRole("button", { name: "Next" }).click();
   await expect(active(page)).toHaveAttribute("data-questionnaire-name", "environment");
   await expect(environment).toBeVisible();
@@ -105,6 +130,7 @@ test("validation, resume, and navigation fixtures retain their state contracts",
   await root(page).getByRole("button", { name: "Reset changes" }).click();
   await expect(active(page).locator("input[value='manual']")).not.toBeChecked();
   await expect(active(page).locator("input[value='tests']")).toBeChecked();
+  await expect(page.locator("[data-sonner-toast]")).toContainText("Saved answers restored");
 });
 
 test("multiple, freeform, skip, progress, and animated fixtures expose their official controls", async ({ page }) => {
@@ -159,14 +185,15 @@ test("the card supports number shortcuts, navigation, and the official submit re
   await active(page).locator("input[value='files']").check();
   await form.getByRole("button", { name: "Create task" }).click();
 
-  const toast = page.locator("#questionnaire-card-toasts [data-slot='toast']");
+  const toast = page.locator("#questionnaire-card-toasts [data-sonner-toast]");
   await expect(toast).toContainText("Agent task created");
   await expect(toast).toContainText("Task: fix · Handoff: files");
 });
 
 test("the dialog cancels, escapes, submits, and returns focus to its trigger", async ({ page }) => {
   await visit(page, "/preview/questionnaire/dialog");
-  const trigger = page.getByRole("button", { name: "Open clarification" });
+  const trigger = page.locator("#questionnaire-dialog-trigger");
+  await expect(trigger).toHaveAccessibleName("Open clarification");
   const dialog = page.locator("#questionnaire-dialog-popup");
   await expect(trigger).toHaveAttribute("aria-expanded", "false");
   await trigger.click();
@@ -174,6 +201,9 @@ test("the dialog cancels, escapes, submits, and returns focus to its trigger", a
   await expect(root(page)).toBeVisible();
   await expect(dialog).toHaveAttribute("data-open", "");
   await expect(dialog).toHaveAttribute("aria-labelledby", "questionnaire-dialog-scope-title");
+  const description = root(page).locator("#questionnaire-dialog-scope-description");
+  await expect(description).toBeVisible();
+  await expect(active(page).locator("input").first()).toHaveAttribute("aria-describedby", "questionnaire-dialog-scope-description");
 
   await active(page).locator("input[value='component']").check();
   await root(page).getByRole("button", { name: "Next" }).click();
@@ -200,7 +230,8 @@ test("the dialog cancels, escapes, submits, and returns focus to its trigger", a
   await expect(dialog).toBeHidden();
   await expect(trigger).toBeFocused();
 
-  const toast = page.locator("#questionnaire-dialog-toasts [data-slot='toast']");
+  const toast = page.locator("#questionnaire-dialog-toasts [data-sonner-toast]");
   await expect(toast).toContainText("Clarification sent");
   await expect(toast).toContainText("Scope: feature · Verification: package");
+  await expect(description).toHaveAttribute("id", "questionnaire-dialog-scope-description");
 });

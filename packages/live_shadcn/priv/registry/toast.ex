@@ -115,6 +115,7 @@ defmodule LiveShadcn.UI.Toast do
           data-slot="toast"
           id={Toast.toast_id(@id, toast[:id])}
           data-type={toast[:type]}
+          tabindex="0"
           role={if toast[:priority] == "high", do: "alertdialog", else: "dialog"}
           aria-modal="false"
           aria-hidden={if toast[:priority] == "high", do: "true"}
@@ -189,6 +190,17 @@ defmodule LiveShadcn.UI.Toast do
             </LiveShadcn.UI.Button.button>
           </div>
         </div>
+      </div>
+      <div
+        :for={toast <- @toast}
+        :if={toast[:priority] == "high"}
+        data-lb-toast-announcement
+        class="sr-only"
+        role="alert"
+        aria-atomic="true"
+      >
+        <div>{toast[:title]}</div>
+        <div>{render_slot(toast)}</div>
       </div>
     </div>
     """

@@ -10,6 +10,7 @@ defmodule LiveShadcn.UI.InputOtpTest do
       render_component(&InputOtp.input_otp/1, %{
         id: "verification-code",
         maxlength: 6,
+        push_password_manager_strategy: "none",
         pattern: "^\\d+$",
         container_class_name: "max-w-48",
         class: "input-class",
@@ -25,6 +26,7 @@ defmodule LiveShadcn.UI.InputOtpTest do
            ]
 
     assert Floki.text([container]) =~ "slots"
+    assert Floki.attribute([container], "data-input-otp-password-manager-strategy") == ["none"]
 
     assert Floki.attribute([input], "class") == [
              "cn-input-otp-input disabled:cursor-not-allowed input-class"
@@ -53,16 +55,17 @@ defmodule LiveShadcn.UI.InputOtpTest do
     assert Floki.text([slot]) |> String.trim() == "0"
   end
 
-  test "a separator appends its caller class" do
-    html = render_component(&InputOtp.input_otp_separator/1, %{class: "mx-2"})
-
-    [separator] = Floki.find(Floki.parse_fragment!(html), "[data-slot='input-otp-separator']")
-
-    assert Floki.attribute([separator], "class") == [
-             "cn-input-otp-separator flex items-center mx-2"
-           ]
-
-    assert Floki.attribute([separator], "role") == ["separator"]
+  test "a separator uses its recipe by default and replaces it with caller classes" do
+    for {caller, classes} <- [
+          {nil, "cn-input-otp-separator flex items-center"},
+          {"mx-2", "mx-2"},
+          {"", ""}
+        ] do
+      html = render_component(&InputOtp.input_otp_separator/1, %{class: caller})
+      [separator] = Floki.find(Floki.parse_fragment!(html), "[data-slot='input-otp-separator']")
+      assert Floki.attribute([separator], "class") == [classes]
+      assert Floki.attribute([separator], "role") == ["separator"]
+    end
   end
 
   defp slot(name, text) do

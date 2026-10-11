@@ -3,7 +3,8 @@ defmodule LiveShadcn.UI.DropdownMenuTest do
 
   import Phoenix.LiveViewTest, except: [render: 1]
 
-  alias LiveShadcn.UI.DropdownMenu
+  alias LiveShadcn.UI.{ContextMenu, DropdownMenu, Menubar}
+  alias Phoenix.LiveView.JS
 
   test "grouped menus put each section in an upstream menu group" do
     html =
@@ -163,6 +164,98 @@ defmodule LiveShadcn.UI.DropdownMenuTest do
     assert click =~ "push"
     assert click =~ "payment_copied"
     assert position(click, "push") > position(click, "data-closed")
+  end
+
+  test "caller-controlled choices preserve callbacks and render server values" do
+    for renderer <- [
+          &DropdownMenu.dropdown_menu/1,
+          &Menubar.menubar_menu/1,
+          &ContextMenu.context_menu/1
+        ],
+        {checked, selected} <- [{true, "email"}, {false, "paper"}] do
+      checkbox_command =
+        JS.push("set_bookmarks", value: %{checked: not checked})
+        |> JS.dispatch("menu:requested", to: "#status", bubbles: false)
+
+      entries = [
+        %{
+          kind: "checkbox",
+          value: "bookmarks",
+          label: "Bookmarks",
+          checked: checked,
+          controlled: true,
+          "phx-click": checkbox_command
+        },
+        %{
+          kind: "radio-group",
+          group: "delivery",
+          value: selected,
+          controlled: true,
+          "phx-click": "select_email",
+          items: [
+            %{value: "email", label: "Email"},
+            %{
+              value: "paper",
+              label: "Paper",
+              "phx-click": JS.push("select_delivery", value: %{value: "paper"})
+            }
+          ]
+        }
+      ]
+
+      html =
+        render_component(renderer, %{
+          id: "controlled",
+          trigger: [slot(:trigger, "Open")],
+          entry:
+            Enum.map(entries, fn entry ->
+              slot(:entry, entry[:label] || "", Map.to_list(entry))
+            end) ++
+              [slot(:entry, "More", kind: "submenu", value: "more", items: entries)]
+        })
+
+      document = Floki.parse_fragment!(html)
+
+      for menu <- ["controlled", "controlled-more"] do
+        [checkbox] = Floki.find(document, "##{menu}-item-bookmarks")
+        assert Floki.attribute([checkbox], "aria-checked") == [to_string(checked)]
+
+        assert command(checkbox, "phx-click") == [
+                 ["push", %{"event" => "set_bookmarks", "value" => %{"checked" => not checked}}],
+                 [
+                   "dispatch",
+                   %{"event" => "menu:requested", "to" => "#status", "bubbles" => false}
+                 ]
+               ]
+
+        for value <- ["email", "paper"] do
+          [radio] = Floki.find(document, "##{menu}-item-#{value}")
+          assert Floki.attribute([radio], "aria-checked") == [to_string(selected == value)]
+
+          expected =
+            if value == "email",
+              do: [["push", %{"event" => "select_email"}]],
+              else: [["push", %{"event" => "select_delivery", "value" => %{"value" => "paper"}}]]
+
+          assert command(radio, "phx-click") == expected
+        end
+
+        for [control] <- [
+              Floki.find(document, "##{menu}-item-bookmarks"),
+              Floki.find(document, "##{menu}-item-email"),
+              Floki.find(document, "##{menu}-item-paper")
+            ] do
+          assert command(control, "phx-mounted") == [
+                   ["ignore_attrs", %{"attrs" => ["data-highlighted"]}]
+                 ]
+        end
+      end
+    end
+  end
+
+  defp command(element, attribute) do
+    [encoded] = Floki.attribute([element], attribute)
+    Jason.decode!(encoded)
   end
 
   defp slot(name, text, attrs \\ []) do

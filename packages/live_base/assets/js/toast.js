@@ -35,11 +35,35 @@ const THRESHOLD = 48;
 export const Toast = {
   mounted() {
     this.timers = new Map();
+    this.focused = false;
+    this.hovered = false;
+    this.focusHandlers = new Map();
+    this.onToastFocus = () => {
+      if (document.activeElement?.matches(":focus-visible")) this.focused = true;
+      this.expand(this.focused || this.hovered);
+    };
 
-    this.el.addEventListener("pointerenter", () => this.expand(true));
-    this.el.addEventListener("pointerleave", () => this.expand(false));
-    this.el.addEventListener("focusin", () => this.expand(true));
-    this.el.addEventListener("focusout", () => this.expand(false));
+    this.listeners = {
+      pointerenter: () => {
+        this.hovered = true;
+        this.expand(true);
+      },
+      pointerleave: () => {
+        this.hovered = false;
+        this.expand(this.focused);
+      },
+      focusin: (event) => {
+        if (this.focusHandlers.get(event.target)?.handler !== event.target.onfocus) this.onToastFocus();
+      },
+      focusout: (event) => {
+        if (this.el.contains(event.relatedTarget)) return;
+        this.focused = false;
+        this.expand(this.hovered);
+      },
+    };
+    for (const [name, handler] of Object.entries(this.listeners)) {
+      this.el.addEventListener(name, handler);
+    }
 
     this.arrange();
   },
@@ -49,7 +73,35 @@ export const Toast = {
   },
 
   destroyed() {
+    for (const [name, handler] of Object.entries(this.listeners)) {
+      this.el.removeEventListener(name, handler);
+    }
     for (const timer of this.timers.values()) clearTimeout(timer);
+    for (const target of this.focusHandlers.keys()) this.releaseFocusHandler(target);
+  },
+
+  releaseFocusHandler(target) {
+    const { handler, previous } = this.focusHandlers.get(target);
+    if (target.onfocus === handler) target.onfocus = previous;
+    this.focusHandlers.delete(target);
+  },
+
+  bindFocusHandlers() {
+    for (const target of this.focusHandlers.keys()) {
+      if (!this.el.contains(target)) this.releaseFocusHandler(target);
+    }
+    for (const target of this.el.querySelectorAll(
+      "[data-slot='toast'], [data-slot='toast-action'], [data-slot='toast-close']",
+    )) {
+      if (this.focusHandlers.has(target)) continue;
+      const previous = target.onfocus;
+      const handler = (event) => {
+        previous?.call(target, event);
+        this.onToastFocus();
+      };
+      this.focusHandlers.set(target, { previous, handler });
+      target.onfocus = handler;
+    }
   },
 
   toasts() {
@@ -91,6 +143,8 @@ export const Toast = {
       this.arm(toast);
       this.grabbable(toast);
     });
+    this.bindFocusHandlers();
+    this.expand(this.focused || this.hovered);
   },
 
   // One toast's own elements that read state: itself, and whatever the
@@ -140,6 +194,19 @@ export const Toast = {
 
   expand(on) {
     for (const target of this.targets()) target.toggleAttribute("data-expanded", on);
+
+    for (const toast of this.el.querySelectorAll("[data-slot='toast']")) {
+      if (toast.getAttribute("role") === "alertdialog") {
+        if (this.focused) toast.removeAttribute("aria-hidden");
+        else toast.setAttribute("aria-hidden", "true");
+      }
+      for (const close of toast.querySelectorAll("[data-slot='toast-close']")) {
+        close.setAttribute("aria-hidden", String(!on && close !== document.activeElement));
+      }
+    }
+    for (const announcement of this.el.parentElement.querySelectorAll("[data-lb-toast-announcement]")) {
+      announcement.hidden = this.focused;
+    }
   },
 
   grabbable(toast) {

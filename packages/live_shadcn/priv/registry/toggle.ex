@@ -108,12 +108,12 @@ defmodule LiveShadcn.UI.Toggle do
       phx-mounted={FormControl.owned_attributes()}
       data-pressed={flag(@checked)}
       data-disabled={flag(@disabled)}
-      class={[
+      class={LiveShadcn.Cn.merge([
         variant_class("toggleVariants", "size", @size),
         variant_class("toggleVariants", "variant", @variant),
         upstream_fact("cva/toggleVariants/base"),
         @class
-      ]}
+      ])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

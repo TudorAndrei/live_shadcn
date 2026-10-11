@@ -69,7 +69,8 @@ defmodule LiveShadcn.UI.ToggleGroup do
         :for={item <- @item}
         id={item[:id] || "#{@id}-#{item[:value]}"}
         name={item[:name]}
-        value={item[:native_value] || item[:value] || "true"}
+        value={item[:native_value]}
+        data-lb-value={item[:value]}
         checked={item[:checked]}
         disabled={@disabled || item[:disabled] || false}
         aria-disabled={to_string(@disabled || item[:disabled] || false)}

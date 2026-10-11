@@ -1,7 +1,18 @@
 # Plan: shadcn parity and verification badges
 
-Status: in progress. Phases 6e.6 through 6e.13 are complete. Phase 6f refreshes
-the full verification evidence and checks release badges.
+Active execution: [release completion](docs/plans/release-completion/PLAN.md).
+Use its task board for parallel work. The phase details below remain the
+technical reference. A code commit does not establish current verification.
+
+Status: the full run on `826910d` passed all 64 comparison groups. The strict
+status check, preservation check, and all 80 Storybook tests pass. Current
+index and Docs badges show 64 Verified groups and Direction as No DOM.
+The accepted evidence is committed as `7e7b83a`. Clean package installation
+passes. Clean release-image badge proof and CI on the accepted evidence commit
+also pass. Phase 6f is complete. The pull request is ready for review.
+The detailed phases below retain their original diagnosis and measurement
+history. Use [the release record](docs/plans/release-completion/RELEASE.md)
+and the current checklist for acceptance.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -26,9 +37,11 @@ CI checks of committed evidence, and current comparison thresholds. Component
 API redesign, upstream updates, dependency upgrades, and deployment are outside
 this plan. Add specific repair phases if corrected checks expose port bugs.
 
-## Findings to resolve
+## Original review findings
 
-| ID | Current code and problem | Required result |
+Phases 1–5 resolved these findings. This table records the original baseline.
+
+| ID | Original code and problem | Required result |
 |---|---|---|
 | S1 | `LiveShadcnTools.verification_evidence_digest/3` in `tools/lib/live_shadcn_tools.ex` omits hooks, CSS, reference-page code, and shims. | Runtime changes invalidate affected shadcn evidence. |
 | S2 | `Mix.Tasks.Ui.Verify.record_incremental!/3` calculates identity at import time. `PlaywrightReport` omits top-level errors. | Imports prove their test-time identity and complete execution. |
@@ -1420,7 +1433,8 @@ adds the visible controlled popup to the preview scope and removes duplicate
 physical controls. Controls below an accessibility-hidden or inert ancestor
 are excluded. Field names, values, states, and focus remain in the comparison.
 
-All 27 tests selected by the Dialog file filter pass, including Alert Dialog. The actual popup regression runs
+All 27 tests selected by the Dialog file filter pass, including Alert Dialog.
+The actual popup regression runs
 on both renderers. It checks two open fields, no closed fields, and a changed
 Username value. All three affected Dialog interaction examples and the Drawer
 Dialog interaction example pass. All 108 verification helper tests pass.
@@ -1545,7 +1559,8 @@ The scoped commit is `5df749a`. All commit checks pass.
   Cancel and Escape dismissal checks.
 - Pass Storybook checks and complete affected semantic and pixel examples.
   Review snapshots before the scoped example commit.
-- Canonical repair passes all four Save cases and all 31 Dialog and Alert Dialog browser tests.
+- Canonical repair passes all four Save cases and all 31 Dialog and Alert Dialog
+  browser tests.
   Storybook passes 80 tests and its static checks. Only the two outer form
   attributes change in reviewed snapshots. The complete default and RTL
   interaction, accessibility, semantic, and pixel run passes all 13 tests
@@ -1774,7 +1789,9 @@ or verification record changed. Commit checks passed. The before and complete
 logs are `/tmp/shadcn-compact-current-browser-red.log` and
 `/tmp/shadcn-compact-current-complete.log`.
 
-**Commit:** `fix(verification): replay compact drawer actions through user controls` (`36fec6c`)
+**Commit:**
+`fix(verification): replay compact drawer actions through user controls`
+(`36fec6c`)
 
 ### Phase 6e.39: align the responsive Drawer desktop Dialog class
 
@@ -1839,9 +1856,12 @@ and Collapsible observation cases. All 13 Field examples pass accessibility,
 interaction, structure, and pixel checks with the phase 6e.45 capture repair.
 The complete Field run has 57 passes in 7.0 minutes, with no skips or unstable
 results. Current reports use `/tmp/shadcn-label-names` and
-`/tmp/shadcn-native-validation`. Storybook passes 80 tests. All 463 Shadcn snapshots are current. Static checks pass with zero errors. No snapshot bytes changed.
+`/tmp/shadcn-native-validation` . Storybook passes 80 tests. All 463 Shadcn
+snapshots are current. Static checks pass with zero errors. No snapshot bytes
+changed.
 
-**Commit:** `fix(verification): preserve labelled control names in observations` (`20369b0`)
+**Commit:** `fix(verification): preserve labelled control names in observations`
+(`20369b0`)
 
 ### Phase 6e.41: keep radio label focus on the visible control
 
@@ -1927,7 +1947,9 @@ The source uses only the public label id and Select `labelledby` input. The
 snapshot review confirms that only `input-form.html` changes. Its one changed
 attribute replaces `form-country-value` with `form-country-label`; all other
 bytes match. The snapshot index, port bodies, facts, and pins remain unchanged.
-Storybook passes 80 tests in 62.0 seconds. All 463 Shadcn snapshots are current. Static checks pass with zero errors. All three test input files have their original bytes. All 48 AI record byte blocks remain unchanged.
+Storybook passes 80 tests in 62.0 seconds. All 463 Shadcn snapshots are current.
+Static checks pass with zero errors. All three test input files have their
+original bytes. All 48 AI record byte blocks remain unchanged.
 
 **Commit:** `fix(input): preserve the country field name` (`bd2ae35`)
 
@@ -2039,7 +2061,8 @@ Message Scroller owner also checks its real native trigger and outline action.
 Its shorter delay is a composition check rather than the primary bug proof.
 
 - Before the repair, the shared hover hook canceled pointer entry on pointerdown.
-  This is intended for Tooltip, but the pinned Hover Card keeps its entry request. A real click
+  This is intended for Tooltip, but the pinned Hover Card keeps its entry
+  request. A real click
   opens the reference card; the port stays closed through 60 animation frames.
 - Give Hover Card triggers an internal gesture marker and preserve their entry
   timer and pointer focus request. Keep Tooltip behavior and caller click actions.
@@ -2113,7 +2136,9 @@ All 13 Field examples pass their complete four-layer checks, with 57 passes
 in 7.0 minutes. Input Form passes complete pixel comparison with four passes
 in 31.0 seconds. No skips, unstable results, state exclusions, or limit changes
 occur. The fresh reports use `/tmp/shadcn-native-validation`. All 48 AI record
-byte blocks remain unchanged. Storybook passes 80 tests. All 463 Shadcn snapshots are current. Static checks pass with zero errors. No snapshot bytes changed.
+byte blocks remain unchanged. Storybook passes 80 tests. All 463 Shadcn
+snapshots are current. Static checks pass with zero errors. No snapshot bytes
+changed.
 
 **Commit:** `fix(verification): settle native validation prompt paint` (`0ae3c40`)
 
@@ -2398,7 +2423,8 @@ fixture mutation before starting a server or a managed verifier in that checkout
 
 The public Checkbox and Switch attributes give `id`, `name`, and `field` nil defaults.
 A real package render with only an accessible label fails in both components.
-The shared toggle command receives a nil input identity and raises a case-clause error.
+The shared toggle command receives a nil input identity and raises a case-clause
+error.
 The saved proof is `/tmp/shadcn-optional-checkable-render-proof.json`.
 Repair the public defaults without requiring a previously optional attribute.
 Use the smallest change that preserves separate control pairs, labels, focus,
@@ -2814,7 +2840,8 @@ Use hover in that existing owner and preserve its visibility and side checks.
 The Menubar reference-readiness change is a test correction. Commit it with
 the Tooltip hover-input correction, apart from production menu and offset
 repairs. Keep the real submenu entry-focus assertion with phase 43. It protects
-keyboard entry before dismissal. Full inherited-document direction remains a separate untested input.
+keyboard entry before dismissal. Full inherited-document direction remains a
+separate untested input.
 
 **Commit:** `fix(floating): preserve raw alignment offsets` (`451f57b`)
 
@@ -3385,7 +3412,8 @@ selection. Add no long-lived cache or weaker input coverage.
 
 Before application, compile the saved pre-change source and candidate source
 as two distinct private modules. Use the same real source filename and unchanged
-live input root. Compare the actual pre-change evaluator with the candidate batch. Save complete evaluation maps, independent and
+live input root. Compare the actual pre-change evaluator with the candidate
+batch. Save complete evaluation maps, independent and
 batch digest maps, elapsed time and reductions. Reject a timeout, changed
 inputs or unequal results. Record measurement order and warm-state limits.
 Then save actual test and dev Docs warm times with comparable preparation.
@@ -3468,7 +3496,8 @@ Before source application, measure the actual saved phase 75 source and the
 private candidate as distinct modules against the same unchanged live root.
 Use the same real source filename. End all input-writing tests, source leases
 and compilers before measurement. Matching endpoint receipts cannot detect
-every transient write that a concurrent test restores. Save raw compile lists, exact shared byte
+every transient write that a concurrent test restores. Save raw compile lists,
+exact shared byte
 list equality, complete evaluations, digest values and input receipts. Include
 added and deleted selected paths in the unchanged-input check. Use a finite
 five-minute shared limit. Reject timeout, input changes or unequal data. Record
@@ -3558,6 +3587,223 @@ record bytes and normal evidence staleness.
 
 **Commit:** `fix(message-scroller): preserve clamped entry positions`
 
+## Phase 6e.78: preserve Select pointer focus and highlight
+
+The final Message Scroller Animation comparison exposed an intermittent Select
+highlight difference. A native pointer sequence makes the defect repeatable.
+The pinned reference clears the pointer highlight and focuses the popup when
+the pointer leaves an option. Phoenix retains the selected Fade highlight,
+does not focus Slide Up on hover, and starts the next ArrowDown from Fade.
+
+Scope the repair to option roving focus in `live_base/assets/js/roving.js`.
+Keep selected values unchanged during hover. Use focus without scrolling.
+Preserve keyboard highlight, disabled options, nested content, and cleanup.
+Extend the existing Select browser owner with the same native pointer and
+keyboard sequence on both hosts. Require intended failure before repair,
+passing direct Select checks, complete Select comparisons, and repeated
+Message Scroller Animation semantic checks. Keep all limits and states.
+
+Commit: `fix(select): preserve pointer focus and highlight`.
+
+## Phase 6e.79: keep the Command accessibility fixture visible
+
+The grouped Command owner inserts an invalid unrelated preview under the body
+while a modal is open. The modal now correctly hides this late outside node.
+The test therefore cannot observe its intended independent violation.
+
+Insert the same fixture inside the visible dialog and prove it remains
+accessible before the scan. Keep the distinct preview target and the expected
+single `aria-required-children` failure. Preserve production modal behavior.
+The same owner can fill the React input before hydration. Its saved failure
+shows `data-reference-ready` absent during the input action. Use the existing
+reference readiness check before React interactions. Pass the unchanged
+matcher contracts, filter test, and complete Command comparisons.
+
+Commit: `test(command): keep the unrelated accessibility fixture visible`.
+
+## Phase 6e.80: wait for Date Picker entry before observation
+
+The dedicated Date Picker action path returns during the native popup entry
+transition. Six native runs measured opacity below one and false contrast
+failures. After the same finite animations ended, all those failures cleared.
+The two hosts use the same weekday text color.
+
+Use the existing finite-transition wait in the Date Picker action path.
+Extend an existing browser owner with a real transition regression before the
+repair. Keep production colors, durations, deadlines, and all comparison
+states. Pass shared helper checks and complete Date Picker comparisons.
+
+Commit: `fix(verification): wait for Date Picker entry transitions`.
+
+## Phase 6e.81: finish Select entry before clearing pointer hover
+
+The visual-state helper moves the pointer after a listbox click before the
+popup is ready. Depending on entry timing, the pointer leaves the trigger or
+an option. The resulting highlight differs. A real Scrollable Select test
+with the existing slow-frame fixture reproduces the failure on React.
+
+In listbox paths, wait for expanded state, a visible controlled listbox, and
+the existing finite entry settlement before clearing hover. Cover discovery,
+expanded entry, and nested entry through their existing helper paths. Leave
+menu paths unchanged. Extend the existing browser owner with the native
+pointer regression. Pass complete Select comparisons and repeated Message
+Animation comparisons. Preserve inventory, thresholds, and production timing.
+
+Commit: `fix(verification): finish Select entry before clearing hover`.
+
+## Phase 6e.82: preserve Navigation Menu focus and accessibility
+
+Both official Navigation Menu examples fail behavior, accessibility, and
+semantic comparisons. Native diagnostics identify four causes. A plain link
+uses the trigger-only `group` class. Click-away closes a popup before its
+trigger toggles it open again. Autofocus moves pointer focus to the first link.
+The nested popup navigation landmark duplicates the root landmark and places
+content outside the active item in the accessibility tree.
+
+Use the existing pinned CVA base for plain links. Use the existing Floating
+dismiss-command path and keep pointer focus on the trigger. Represent the
+popup as a container inside the root navigation landmark. Match native
+`aria-owns` ownership with a span in each item and an identified viewport.
+Keep the original root reading order and all trigger/content states.
+
+Extend the existing Navigation browser owner with the native root accessibility
+tree and open/close focus behavior. Preserve the single-item public form,
+disabled items, outside dismissal, Escape, and RTL. Review both snapshots and
+the added copy binding. Keep upstream facts unchanged. Require both complete
+examples in all four layers without comparison exclusions or new limits.
+
+Commit: `fix(navigation-menu): preserve focus and accessibility ownership`.
+
+## Phase 6e.83: resolve remaining integrated comparison failures
+
+The full run at `9f0e798` completed on 2026-10-11. It passed 53 of 64 groups.
+All repairs in the first factory assignments passed this run. The following
+failures still prevent release acceptance. Diagnose each failure against the
+pinned native reference before editing its port or observation code.
+
+| Owner | Group and current failure | Required proof and scoped commit |
+|---|---|---|
+| Coordinator | Hover Card sides has a legacy 11-pixel budget. | Require exact pixels, then set the budget to zero. `fix(hover-card): preserve native paragraph text runs`. |
+| Menus worker | Label and Pagination inferred control discovery differs. | Compare actual native controls and interactions. `fix(examples): preserve Select field names`. |
+| Menus worker | Toggle Group behavior and font-weight layout differ. Its legacy budget is 32 pixels. | Prove controlled choices, caller classes, and exact pixels. `fix(toggle-group): preserve native selection and caller layout`. |
+| Menus worker | Progress control discovery, accessibility, and rendering differ. | Prove controlled updates and native control semantics. `fix(progress): preserve controlled example behavior`. |
+| Message worker | Scroll Area fails five scroll behavior checks. | Prove edge state, thumb movement, local scrolling, horizontal scrolling, and RTL. `fix(scroll-area): preserve ordinary scroll measurements`. |
+| Message worker | Marker notice behavior and pixels differ. | Prove the actual notice after the caller action. `fix(marker): render the native notice title`. |
+| Message worker | Toast types adds an aria-hidden-focus failure. | Prove native focus, announcements, and cleanup. `fix(toast): preserve urgent notice focus and announcements`. |
+| Message worker | Sidebar toggle differs by 448 pixels at the trigger. | Prove exact open and closed captures after real interaction. No source repair is justified by current repeat results. |
+| Chart worker | Questionnaire Next validation, behavior, and pixels differ. | Prove invalid state, conditional updates, and reset behavior. `fix(questionnaire): preserve answer and reset behavior`. |
+| Chart worker | Item has caller class conflicts and a one-pixel image difference. | Prove Item and composed Avatar class replacement and exact layout. `fix(item): preserve caller display and text layout`. |
+
+Use separate worktrees and existing behavior owners. The coordinator owns the
+shared pixel-budget file. Lower a legacy budget only after exact comparison
+passes. Never increase a limit, omit a state, change a pin, or change AI records.
+Keep all failures visible until reviewed repairs and complete scoped checks
+pass. Update the exact commit title if diagnosis changes the repair scope.
+
+Diagnosis has also identified composed caller repairs. Avatar and Toggle must
+merge caller classes through the existing `Cn.merge` API. The controlled
+Progress reference exposes two scalar Slider thumbs. Add an explicit optional
+thumb count while keeping the documented one-thumb default and list behavior.
+Both scalar controls must stay operable and update the same value.
+The first candidate retained its last reported scalar value after a server
+reset. A new selection of that value then sent no event. Refresh that baseline
+after a server update and preserve duplicate input/change suppression. The new
+thumb count must also remain operable when its server value changes. Prove
+control binding, caller ownership, and cleanup through an update.
+Commit: `fix(slider): preserve controlled values across updates`.
+
+Hover Card sides has three paragraph text nodes in React and one in Phoenix.
+Native boxes match, but glyph positions differ by 1/64 pixel. Explicit comment
+boundaries remove the measured difference. Keep the paragraph on one line with
+`phx-no-format`; formatter whitespace otherwise changes glyph positions again.
+
+Completed coordinator proof: all three Hover Card examples pass every layer
+at zero pixels after formatting. Commit `dea5c33` contains the text repair,
+reviewed snapshot, and 11-to-zero budget reduction. Scroll Area and Marker
+repairs are integrated as `b3d91d7` and `8053f16` after complete scoped proof.
+
+Select field names are integrated as `185b361`. Toast focus and announcements
+are integrated as `2a8bcbf`; all 25 Toast checks and 15 shared caller checks
+pass. Toggle Group is integrated as `b3ba6a9`, including its 32-to-zero pixel
+limit. Both legacy pixel limits are now zero. Progress and Slider updates are
+integrated as `913f211` and `0622a6b`. Independent review found no further
+blocker. All 96 Base hook tests, 52 non-pixel browser checks, and 11 complete
+Slider/Progress image examples pass. All 24 official image states use zero
+budgets. Questionnaire is integrated as `6e88c3c`. All 14 examples pass every
+required layer. Its final seven direct tests also pass, including explicit
+caller IDs. Independent review found no blocker.
+Item and Avatar are integrated as `8d0dbb2`; all 21 examples pass all required
+checks. The Item image example has zero pixel difference.
+
+Questionnaire now marks generated description and error IDs through LiveView's
+JS API. Raw client ID writes had caused empty description nodes after server
+patches. Existing caller IDs remain intact. The hook forwards the declared
+reset event because LiveView does not send it. The resumed example now shows
+the pinned reset notice. Input updates clear invalid state on the item, its
+choices, and the freeform control.
+
+Sidebar passed one complete run and six image repeats after the first failure.
+The next full run at `c6ba115` reproduced the exact 448-pixel failure. Phase
+6e.85 records its proved cause and repair. The repeat passes did not close it.
+
+The first full run's records are diagnostic evidence. Source repairs invalidate
+that evidence. Repeat all affected verification on the combined source before
+acceptance. Build and test new package archives after the final port changes.
+
+## Phase 6e.84: finish nested dialog entry before capture
+
+The full run at `c6ba115` passed 62 of 64 groups. Nested Drawer failed semantic
+comparison because the pointer remained on the next trigger on Phoenix. The
+same pointer position was outside that trigger on React. Their native hover
+backgrounds differed. All other Drawer checks passed.
+
+In `storybook/test/browser/visual-states.mjs`, wait for a controlled dialog to
+be visible and finish finite entry transitions. Then move the pointer outside
+before the next nested click and after the last dialog entry. Apply this to
+expanded replay and nested action replay. Preserve menu and listbox behavior.
+Do not change official states, component source, or comparison limits.
+
+The existing browser owner must prove that nested pointer actions start after
+entry, the unopened fourth trigger has no incidental hover, and the front
+dialog retains focus. Require a failing check before the repair, passing checks
+on both hosts, repeated nested comparisons, and shared popup caller checks.
+
+**Commit:** `fix(verification): finish nested dialog entry before capture`
+
+Integrated as `005dfe2`. Both direct regressions fail before the repair and
+pass after it. Three complete nested semantic comparisons pass. The related
+browser run passes 416 checks, including 54 example image comparisons at zero
+pixels. All 107 Node helper tests pass. Independent review found no defect.
+
+## Phase 6e.85: finish initial motion before action entry
+
+The same full run reproduced Sidebar's 448-pixel image difference. Fresh images
+match both saved failure images exactly. The failing state is interactive
+action index 2, the header trigger. Index 1 is the rail. React's trigger moves
+during initial entry. Playwright retries the unstable click and cycles its
+scroll alignment. Its fourth attempt scrolls the document by 64 pixels.
+Phoenix's stable trigger needs no retry and the document stays at zero.
+
+Before the shared interactive-action click in `visual-states.mjs`, use the
+existing finite transition wait. Check the real Sidebar action in the existing
+browser owner, with a failing result before the repair and passing results
+after it. Prove native focus, document scroll, and collapsed state. Repeat the
+full Sidebar sequence and check other interactive-action callers.
+
+Preserve Sidebar source, screenshot coordinates, native scrolling, official
+states, pins, and zero image limits. Do not reset scroll to hide a difference.
+Require independent review before integration.
+
+**Commit:** `fix(verification): finish initial motion before action entry`
+
+Integrated as `3f6aa19`. All six direct regressions fail before the repair with
+scroll position 64 and pass after it with scroll position zero. Native focus
+and collapsed state pass. Three complete Sidebar sequences pass all four
+layers, 27 checks in total. The shared browser owner and Sidebar direct tests
+pass 35 checks. Carousel and Input Group action callers pass 13 checks across
+all four layers. Independent review found no defect. The full combined run
+remains the acceptance gate.
+
 ## Phase 6f: refresh evidence and verify release badges
 
 - Finish verifier changes before the final full run. Prepare existing pinned
@@ -3594,12 +3840,22 @@ example snapshots (task, sources, chain-of-thought, reasoning, snippet,
 attachments ×3, commit, environment-variables, mic-selector, plan, stack-trace,
 tool, code-block, terminal, open-in-chat); these are outside the shadcn refresh.
 
-Integration checks so far: private verification 33 tests, tools 164, Base 42,
+Historical integration checks: private verification 33 tests, tools 164, Base 42,
 shadcn 149, Storybook 80, browser helpers 108, parity helpers 32, and Base hooks
 93 pass. The first Storybook run raced an evidence write; recompilation and a
 stable-record rerun pass. Tools/Storybook/Base Credo, configured formatting, and
-both workflow actionlint checks pass. Final evidence and release checks remain
-unproven until the restarted full browser run and image validation finish.
+both workflow actionlint checks pass. Those results preceded the final full
+run. The current acceptance record below supersedes their pending evidence
+status.
+
+Final local acceptance: all 64 groups pass on `826910d`. Strict status and
+preservation checks pass. All 80 Storybook tests pass after final evidence.
+The current compiled index and seven Docs pages agree with the pipeline.
+A clean Linux ARM64 release image also shows 64 Verified groups and Direction
+as No DOM without repository files or mounts. Package installation passes.
+See [the release record](docs/plans/release-completion/RELEASE.md) for hashes,
+proof, and limits. CI passes on the accepted evidence commit `7e7b83a`.
+The final documentation commit changes no runtime or verification inputs.
 
 **Commit:** `docs(verification): record current shadcn parity and badge results`
 
@@ -3640,6 +3896,8 @@ behavior specified above. Measure full shadcn run time and invalidated target
 counts during implementation. These measurements can guide later performance
 work; they do not relax acceptance criteria.
 
-Run 3 is terminal: 64 shadcn records, 24 passed and 40 failed. All 48 AI
-record byte blocks are unchanged. Save the reviewed snapshot baseline and full
-run evidence, then integrate the repair branch. Original source edits can resume.
+Historical run 3 had 64 shadcn records, 24 passed and 40 failed. The later run
+at `c6ba115` passed 62 of 64. The final full run at `826910d` passes all 64,
+including the Drawer and Sidebar entry repairs. All 48 AI record byte blocks
+remain unchanged. The old phase 6e.75 isolated Docs build measurement was not
+saved; no isolated build speedup is claimed.

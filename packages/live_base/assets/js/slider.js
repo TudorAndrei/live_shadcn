@@ -20,9 +20,7 @@
 
 export const Slider = {
   mounted() {
-    this.inputs = [...this.el.querySelectorAll("[data-lb-slider-input]")];
-    this.thumbs = [...this.el.querySelectorAll("[data-lb-slider-thumb]")];
-    this.range = this.el.querySelector("[data-lb-slider-range]");
+    this.inputs = [];
 
     this.onInput = (event) => {
       this.clampValue(event.target);
@@ -30,36 +28,62 @@ export const Slider = {
       this.reportValue(event.target);
     };
 
-    for (const input of this.inputs) {
-      input.addEventListener("input", this.onInput);
-      // Browsers normally emit both `input` and `change` for keyboard range
-      // changes. `input` is the live update; `change` is the compatibility
-      // path for a platform that only commits the final keyboard value.
-      input.addEventListener("change", this.onInput);
-      // `data-dragging` is what the style sheet fades a ring in on, and the
-      // platform has no event for "the reader is holding the thumb".
-      input.addEventListener("pointerdown", () => this.dragging(true));
-      input.addEventListener("pointerup", () => this.dragging(false));
-      input.addEventListener("pointercancel", () => this.dragging(false));
-      input.addEventListener("focus", () => this.focused(true));
-      input.addEventListener("blur", () => this.focused(false));
-    }
+    this.inputListeners = {
+      input: this.onInput,
+      // Some browsers commit keyboard changes with only a change event.
+      change: this.onInput,
+      pointerdown: () => this.dragging(true),
+      pointerup: () => this.dragging(false),
+      pointercancel: () => this.dragging(false),
+      focus: () => this.focused(true),
+      blur: () => this.focused(false),
+    };
+    this.refreshControls();
 
     this.place();
   },
 
   updated() {
+    this.refreshControls();
+    if (this.el.hasAttribute("data-lb-slider-scalar")) {
+      this.reportedScalarValue = this.inputs[0]?.value;
+    }
     this.place();
   },
 
   destroyed() {
     for (const input of this.inputs) {
-      input.removeEventListener("input", this.onInput);
-      input.removeEventListener("change", this.onInput);
+      for (const [event, listener] of Object.entries(this.inputListeners)) {
+        input.removeEventListener(event, listener);
+      }
     }
   },
 
+  refreshControls() {
+    const inputs = [...this.el.querySelectorAll("[data-lb-slider-input]")];
+    for (const input of this.inputs) {
+      if (inputs.includes(input)) continue;
+      for (const [event, listener] of Object.entries(this.inputListeners)) {
+        input.removeEventListener(event, listener);
+      }
+    }
+    for (const input of inputs) {
+      if (this.inputs.includes(input)) continue;
+      for (const [event, listener] of Object.entries(this.inputListeners)) {
+        input.addEventListener(event, listener);
+      }
+    }
+    this.inputs = inputs;
+    this.thumbs = [...this.el.querySelectorAll("[data-lb-slider-thumb]")];
+    this.range = this.el.querySelector("[data-lb-slider-range]");
+  },
+
   clampValue(input) {
+    if (this.el.hasAttribute("data-lb-slider-scalar")) {
+      for (const other of this.inputs) other.value = input.value;
+      return;
+    }
+
     const index = this.inputs.indexOf(input);
     const previous = this.inputs[index - 1];
     const next = this.inputs[index + 1];
@@ -75,12 +99,14 @@ export const Slider = {
     // Do not send the same native value twice when a browser emits its normal
     // `input` followed by `change` pair.
     const value = input.value;
-    if (input.dataset.lbReportedValue === value) return;
+    const scalar = this.el.hasAttribute("data-lb-slider-scalar");
+    if (scalar ? this.reportedScalarValue === value : input.dataset.lbReportedValue === value) return;
 
-    input.dataset.lbReportedValue = value;
+    if (scalar) this.reportedScalarValue = value;
+    else input.dataset.lbReportedValue = value;
     this.pushEvent(change, {
       value,
-      values: this.inputs.map((nestedInput) => nestedInput.value),
+      values: scalar ? [value] : this.inputs.map((nestedInput) => nestedInput.value),
     });
   },
 

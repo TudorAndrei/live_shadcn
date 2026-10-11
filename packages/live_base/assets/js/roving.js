@@ -5,14 +5,13 @@
 // Phoenix.LiveView.JS command: `phx-key` filters one key per binding, and one
 // element cannot carry four of them.
 //
-// So this hook does one thing: it works out which item the key means and
-// clicks it. Every consequence of choosing an item — which attributes flip,
-// which panel shows — stays in the `JS` command already on that item. The hook
-// decides *which*, never *what*.
+// The hook moves focus and highlight. Tabs can activate on focus; menus and
+// options wait for a separate choice. Selection and its effects stay in the
+// `JS` command on the item. Pointer focus in an option list does not select it.
 //
 // Declared on the container:
 //
-//   data-lb-roving       the ARIA role of the items to walk, "tab" or "menuitem"
+//   data-lb-roving       the ARIA role of the items: "tab", "menuitem", or "option"
 //   data-lb-orientation  "horizontal" or "vertical"; decides which arrows apply
 //   data-lb-loop         present when the end wraps round to the start
 //   data-lb-activate     present when landing on an item chooses it, as in a set
@@ -26,13 +25,35 @@ const SUBMENU_POINTER_DELAY = 100;
 
 export const Roving = {
   mounted() {
-    this.el.addEventListener("keydown", (event) => this.keydown(event));
-    this.el.addEventListener("pointermove", (event) => this.pointermove(event));
-    this.el.addEventListener("pointerleave", () => this.cancelSubmenuOpen());
+    this.optionNavigation = this.el.getAttribute("data-lb-roving") === "option";
+    this.pointerNavigation = true;
+    this.onKeydown = (event) => this.keydown(event);
+    this.onPointermove = (event) => this.pointermove(event);
+    this.onPointerout = (event) => this.pointerout(event);
+    this.onPointerleave = () => this.cancelSubmenuOpen();
+    this.el.addEventListener("keydown", this.onKeydown);
+    this.el.addEventListener("pointermove", this.onPointermove);
+    this.el.addEventListener("pointerout", this.onPointerout);
+    this.el.addEventListener("pointerleave", this.onPointerleave);
+
+    if (this.optionNavigation) {
+      const positioner = this.el.closest("[data-lb-anchor]");
+      this.anchor = document.getElementById(positioner?.getAttribute("data-lb-anchor"));
+      this.markPointer = () => (this.pointerNavigation = true);
+      this.markKeyboard = () => (this.pointerNavigation = false);
+      this.anchor?.addEventListener("pointerdown", this.markPointer);
+      this.anchor?.addEventListener("keydown", this.markKeyboard);
+    }
   },
 
   destroyed() {
     this.cancelSubmenuOpen();
+    this.el.removeEventListener("keydown", this.onKeydown);
+    this.el.removeEventListener("pointermove", this.onPointermove);
+    this.el.removeEventListener("pointerout", this.onPointerout);
+    this.el.removeEventListener("pointerleave", this.onPointerleave);
+    this.anchor?.removeEventListener("pointerdown", this.markPointer);
+    this.anchor?.removeEventListener("keydown", this.markKeyboard);
   },
 
   items() {
@@ -52,6 +73,15 @@ export const Roving = {
   pointermove(event) {
     const item = event.target.closest(this.itemSelector());
 
+    if (this.optionNavigation) {
+      if (event.pointerType === "touch") return;
+      this.pointerNavigation = true;
+      if (!this.items().includes(item)) return;
+      this.highlight(item);
+      item.focus({ preventScroll: true });
+      return;
+    }
+
     if (!item || item.closest("[data-lb-roving]") !== this.el) return;
 
     this.closeOpenSubmenus(item);
@@ -68,6 +98,25 @@ export const Roving = {
       )
         item.click();
     }, SUBMENU_POINTER_DELAY);
+  },
+
+  pointerout(event) {
+    if (!this.optionNavigation || !this.pointerNavigation || event.pointerType === "touch") return;
+
+    const items = this.items();
+    const item = event.target.closest(this.itemSelector());
+    const next = event.relatedTarget?.closest?.(this.itemSelector());
+    if (!items.includes(item) || items.includes(next)) return;
+
+    this.highlight(null);
+    if (this.el.contains(document.activeElement)) this.el.focus({ preventScroll: true });
+  },
+
+  highlight(item) {
+    const attribute = this.el.getAttribute("data-lb-highlight");
+    if (!attribute) return;
+    for (const sibling of this.items()) sibling.removeAttribute(attribute);
+    item?.setAttribute(attribute, "");
   },
 
   cancelSubmenuOpen() {
@@ -103,6 +152,7 @@ export const Roving = {
   },
 
   keydown(event) {
+    this.pointerNavigation = false;
     this.cancelSubmenuOpen();
     const active = document.activeElement;
 
@@ -156,14 +206,8 @@ export const Roving = {
   // either way, and never what happens to it: for tabs it clicks, and the
   // command already on the tab does the rest.
   move(items, to) {
-    const highlight = this.el.getAttribute("data-lb-highlight");
-
     this.closeOpenSubmenus(items[to]);
-
-    if (highlight) {
-      for (const item of items) item.removeAttribute(highlight);
-      items[to].setAttribute(highlight, "");
-    }
+    this.highlight(items[to]);
 
     if (this.el.hasAttribute("data-lb-activate")) items[to].click();
     items[to].focus();

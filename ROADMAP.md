@@ -1,5 +1,11 @@
 # Roadmap
 
+This document records historical milestones. Some counts and implementation
+descriptions refer to earlier versions. Use the
+[release completion plan](docs/plans/release-completion/PLAN.md) and its
+[task board](docs/plans/release-completion/TODO.md) for current work.
+Reviewed HEEx ports now replace the earlier component generator.
+
 Component-by-component status lives in [docs/INVENTORY.md](docs/INVENTORY.md),
 which `mix ui.status` regenerates from the files on disk. This page holds the
 milestones and their exit criteria.
@@ -184,8 +190,9 @@ Three things that took a browser to get right, and each one is now a test:
 
 **Exit:** somebody who is not us installs it from hex and it works.
 
-The three open boxes need an account, not more code: a hex API key, a
-Cloudflare token, and a push. [DEFERRED.md](DEFERRED.md) has the steps.
+Release preparation still requires current verification, clean installation,
+and release-image proof. Account setup does not complete these checks.
+[DEFERRED.md](DEFERRED.md) describes publication and deployment after acceptance.
 
 ### Four bugs preparing to publish found
 

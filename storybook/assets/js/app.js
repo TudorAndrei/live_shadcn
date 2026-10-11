@@ -11,7 +11,7 @@ import { hooks as liveAiElements } from "live_ai_elements";
 import { Nav } from "./nav";
 import { OpeningPosition } from "./opening_position";
 import { CheckboxTable } from "./checkbox_table";
-import { ChartTooltip } from "./chart_tooltip";
+import { ChartDemoTooltip, ChartTooltip } from "./chart_tooltip";
 import { DatePickerInput } from "./date_picker_input";
 import { DataTableFilter } from "./data_table";
 import { SidebarPopupPlacement } from "./sidebar_popup_placement";
@@ -24,6 +24,7 @@ const liveSocket = new LiveSocket("/live", Socket, {
   hooks: {
     ...liveBase,
     ...liveAiElements,
+    ChartDemoTooltip,
     ChartTooltip,
     CheckboxTable,
     DatePickerInput,

@@ -143,6 +143,11 @@ defmodule LiveShadcn.UI.DropdownMenu do
 
     attr(:value, :string)
     attr(:checked, :boolean)
+
+    attr(:controlled, :boolean,
+      doc: "The caller owns checked or value. Run its click command without a client state change."
+    )
+
     attr(:group, :string)
     attr(:label, :string, doc: "An optional label rendered inside a radio group.")
     attr(:section, :string, doc: "Entries with the same section share one menu group.")
@@ -260,6 +265,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
         data-lb-offset={@side_offset}
         data-lb-align-offset={@align_offset}
         data-lb-autofocus
+        data-lb-accessibility={if(@context, do: "modal")}
         data-lb-no-return-focus={flag(not @return_focus)}
         phx-mounted={Popover.owned_attributes(:positioner)}
         data-open={flag(@open)}
@@ -451,7 +457,8 @@ defmodule LiveShadcn.UI.DropdownMenu do
                           toggle_checkbox(
                             Menu.item_id(@id, entry[:value]),
                             @parts,
-                            entry[:"phx-click"]
+                            entry[:"phx-click"],
+                            entry[:controlled] == true
                           )
                       )
                     }
@@ -537,7 +544,8 @@ defmodule LiveShadcn.UI.DropdownMenu do
                               radio_group_id(@id, entry[:group]),
                               Menu.item_id(@id, radio[:value]),
                               @parts,
-                              radio[:"phx-click"] || entry[:"phx-click"]
+                              radio[:"phx-click"] || entry[:"phx-click"],
+                              entry[:controlled] == true
                             )
                         )
                       }
@@ -956,7 +964,8 @@ defmodule LiveShadcn.UI.DropdownMenu do
                   toggle_checkbox(
                     Menu.item_id(@menu, entry[:value]),
                     @parts,
-                    entry[:"phx-click"]
+                    entry[:"phx-click"],
+                    entry[:controlled] == true
                   )
               )
             }
@@ -1029,7 +1038,8 @@ defmodule LiveShadcn.UI.DropdownMenu do
                       radio_group_id(@menu, entry[:group]),
                       Menu.item_id(@menu, radio[:value]),
                       @parts,
-                      radio[:"phx-click"] || entry[:"phx-click"]
+                      radio[:"phx-click"] || entry[:"phx-click"],
+                      entry[:controlled] == true
                     )
                 )
               }
@@ -1135,7 +1145,9 @@ defmodule LiveShadcn.UI.DropdownMenu do
   defp submenu_id(menu, value), do: "#{menu}-#{value}"
   defp radio_group_id(menu, group), do: "#{menu}-#{group || "radio"}-group"
 
-  defp toggle_checkbox(item, parts, command) do
+  defp toggle_checkbox(_item, _parts, command, true), do: append_command(%JS{}, command)
+
+  defp toggle_checkbox(item, parts, command, false) do
     control = "##{item}"
 
     indicator_slot =
@@ -1161,7 +1173,9 @@ defmodule LiveShadcn.UI.DropdownMenu do
     |> append_command(command)
   end
 
-  defp select_radio(group, item, parts, command) do
+  defp select_radio(_group, _item, _parts, command, true), do: append_command(%JS{}, command)
+
+  defp select_radio(group, item, parts, command, false) do
     control = "##{item}"
     others = "##{group} [role='menuitemradio']:not(#{control})"
     indicator_slot = part(parts, :radio_indicator_slot, "dropdown-menu-radio-item-indicator")
