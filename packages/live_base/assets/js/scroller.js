@@ -201,7 +201,7 @@ export const Scroller = {
 
   resized() {
     this.measure();
-    if (this.messageOpeningFrozenTop !== null) {
+    if (this.messageScroller && this.messageOpeningFrozenTop !== null) {
       this.restoreMessageFrozenOpeningPosition();
     } else if (this.messageOpeningHold) {
       this.messageOpeningSawLayout = true;
@@ -1145,7 +1145,7 @@ export const Scroller = {
   },
 
   scrolled() {
-    if (this.messageOpeningFrozenTop !== null) {
+    if (this.messageScroller && this.messageOpeningFrozenTop !== null) {
       this.restoreMessageFrozenOpeningPosition();
       return;
     }
