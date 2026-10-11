@@ -13419,9 +13419,10 @@ defmodule StorybookWeb.Examples do
     <div class="grid w-full max-w-sm gap-4">
       <.input_group>
         <.input_group_input placeholder="Enter file name" />
-        <.input_group_addon align="inline-end" class="-mr-1">
+        <.input_group_addon align="inline-end">
           <.dropdown_menu
             id="input-group-more"
+            direct_trigger
             trigger_slot="dropdown-menu-trigger"
             trigger_variant="ghost"
             trigger_class="cn-input-group-button flex items-center shadow-none cn-input-group-button-size-icon-xs"
@@ -13440,9 +13441,10 @@ defmodule StorybookWeb.Examples do
       </.input_group>
       <.input_group>
         <.input_group_input placeholder="Enter search query" />
-        <.input_group_addon align="inline-end" class="-mr-1">
+        <.input_group_addon align="inline-end">
           <.dropdown_menu
             id="input-group-search-in"
+            direct_trigger
             trigger_slot="dropdown-menu-trigger"
             trigger_variant="ghost"
             trigger_class="cn-input-group-button flex items-center shadow-none cn-input-group-button-size-xs pr-1.5! text-xs"
