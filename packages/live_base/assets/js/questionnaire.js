@@ -5,9 +5,14 @@ export const Questionnaire = {
     this.onChange = (event) => this.change(event);
     this.onClick = (event) => this.click(event);
     this.onKeydown = (event) => this.keydown(event);
-    this.onReset = () => this.reset();
+    this.onReset = () => {
+      this.reset();
+      const event = this.el.getAttribute("phx-reset");
+      if (event) this.pushEvent(event, {});
+    };
     this.onSubmit = (event) => this.submit(event);
     this.el.addEventListener("change", this.onChange);
+    this.el.addEventListener("input", this.onChange);
     this.el.addEventListener("click", this.onClick);
     this.el.addEventListener("keydown", this.onKeydown);
     this.el.addEventListener("reset", this.onReset);
@@ -25,6 +30,7 @@ export const Questionnaire = {
 
   destroyed() {
     this.el.removeEventListener("change", this.onChange);
+    this.el.removeEventListener("input", this.onChange);
     this.el.removeEventListener("click", this.onClick);
     this.el.removeEventListener("keydown", this.onKeydown);
     this.el.removeEventListener("reset", this.onReset);
@@ -221,6 +227,8 @@ export const Questionnaire = {
     for (const [position, item] of items.entries()) {
       const active = position === index;
       const invalid = item.hasAttribute("data-invalid");
+      if (invalid) item.setAttribute("aria-invalid", "true");
+      else item.removeAttribute("aria-invalid");
       const config = this.itemConfig(item);
       const status = this.status(item);
       item.hidden = !active;
@@ -234,6 +242,7 @@ export const Questionnaire = {
       item.querySelectorAll("[data-slot='questionnaire-choice']").forEach((choice, choiceIndex) => {
         const input = choice.querySelector("input");
         const shortcut = this.el.dataset.shortcuts && !input?.disabled ? (this.el.dataset.shortcuts === "letters" ? String.fromCharCode(65 + choiceIndex) : String(choiceIndex + 1)) : null;
+        choice.toggleAttribute("data-invalid", invalid);
         choice.toggleAttribute("data-checked", Boolean(input?.checked));
         choice.toggleAttribute("data-unchecked", !input?.checked);
         choice.toggleAttribute("data-shortcut", Boolean(shortcut));
@@ -243,20 +252,22 @@ export const Questionnaire = {
           input.name = item.dataset.questionnaireName;
           input.type = item.hasAttribute("data-multiple") || config?.multiple ? "checkbox" : "radio";
           input.dataset.questionnaireShortcut = shortcut || "";
-          if (invalid) input.setAttribute("aria-invalid", "true"); else input.removeAttribute("aria-invalid");
         }
       });
       const descriptions = [...item.querySelectorAll("[data-slot='questionnaire-description']")];
       const errors = [...item.querySelectorAll("[data-slot='questionnaire-error']")];
-      descriptions.forEach((node, number) => { if (!node.id) node.id = `questionnaire-${item.dataset.questionnaireName}-description-${number + 1}`; });
+      descriptions.forEach((node, number) => { if (!node.id) this.js().setAttribute(node, "id", `questionnaire-${item.dataset.questionnaireName}-description-${number + 1}`); });
       errors.forEach((node, number) => {
-        if (!node.id) node.id = `questionnaire-${item.dataset.questionnaireName}-error-${number + 1}`;
+        if (!node.id) this.js().setAttribute(node, "id", `questionnaire-${item.dataset.questionnaireName}-error-${number + 1}`);
         node.hidden = !invalid;
         node.toggleAttribute("data-invalid", invalid);
         if (invalid) node.setAttribute("role", "alert"); else node.removeAttribute("role");
       });
       const describedBy = [...descriptions, ...(invalid ? errors : [])].map((node) => node.id).join(" ");
-      this.controls(item).forEach((input) => { if (describedBy) input.setAttribute("aria-describedby", describedBy); else input.removeAttribute("aria-describedby"); });
+      this.controls(item).forEach((input) => {
+        if (invalid) input.setAttribute("aria-invalid", "true"); else input.removeAttribute("aria-invalid");
+        if (describedBy) input.setAttribute("aria-describedby", describedBy); else input.removeAttribute("aria-describedby");
+      });
       const event = item.dataset.lbStatusChangeEvent;
       if (event && item.dataset.lastStatus !== status && this.pushEvent) this.pushEvent(event, { name: item.dataset.questionnaireName, status });
       item.dataset.lastStatus = status;

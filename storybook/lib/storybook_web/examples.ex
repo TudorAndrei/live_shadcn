@@ -105,6 +105,7 @@ defmodule StorybookWeb.Examples do
     "marker" => [],
     "questionnaire-card" => [],
     "questionnaire-dialog" => [],
+    "questionnaire-resume" => [],
     "message-scroller-load-history" => []
   }
 
@@ -1215,6 +1216,10 @@ defmodule StorybookWeb.Examples do
   end
 
   @doc "Builds the result message for one official Questionnaire submission."
+  def questionnaire_notice("resume", _params, id) do
+    %{id: id, type: nil, title: "Saved answers restored", description: nil}
+  end
+
   def questionnaire_notice("card", params, id) do
     %{
       id: id,
@@ -15203,7 +15208,7 @@ defmodule StorybookWeb.Examples do
             <h2
               id="questionnaire-dialog-scope-title"
               data-slot="questionnaire-title"
-              class="cn-dialog-title cn-font-heading cn-questionnaire-title text-pretty"
+              class="cn-dialog-title cn-font-heading cn-font-heading cn-questionnaire-title text-pretty"
             >
               Which files are in scope?
             </h2>
@@ -15234,7 +15239,7 @@ defmodule StorybookWeb.Examples do
             <h2
               id="questionnaire-dialog-tests-title"
               data-slot="questionnaire-title"
-              class="cn-dialog-title cn-font-heading cn-questionnaire-title text-pretty"
+              class="cn-dialog-title cn-font-heading cn-font-heading cn-questionnaire-title text-pretty"
             >
               How much verification is needed?
             </h2>

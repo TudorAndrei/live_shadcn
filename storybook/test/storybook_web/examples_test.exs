@@ -1359,7 +1359,7 @@ defmodule StorybookWeb.ExamplesTest do
         Floki.find(document, "#questionnaire-dialog [data-slot='questionnaire-title']")
 
       assert Floki.attribute([scope_title], "class") == [
-               "cn-dialog-title cn-font-heading cn-questionnaire-title text-pretty"
+               "cn-dialog-title cn-font-heading cn-font-heading cn-questionnaire-title text-pretty"
              ]
 
       html =

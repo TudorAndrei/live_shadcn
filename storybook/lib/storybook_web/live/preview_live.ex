@@ -305,7 +305,9 @@ defmodule StorybookWeb.PreviewLive do
     questionnaire_toast(socket, "dialog", params)
   end
 
-  def handle_event("questionnaire_resume_reset", _params, socket), do: {:noreply, socket}
+  def handle_event("questionnaire_resume_reset", params, socket) do
+    questionnaire_toast(socket, "resume", params)
+  end
 
   def handle_event("questionnaire_navigation_item", %{"item" => item}, socket)
       when item in ["permission", "verification"] do
@@ -623,6 +625,20 @@ defmodule StorybookWeb.PreviewLive do
     >
       <:toast
         :for={notice <- @toast_examples["questionnaire-dialog"]}
+        id={notice.id}
+        title={notice.title}
+      >
+        {notice.description}
+      </:toast>
+    </LiveShadcn.UI.Sonner.toaster>
+    <LiveShadcn.UI.Sonner.toaster
+      :if={@component == "questionnaire" && @example.id == "resume"}
+      id="questionnaire-resume-toasts"
+      dismiss="dismiss_toast"
+      duration={0}
+    >
+      <:toast
+        :for={notice <- @toast_examples["questionnaire-resume"]}
         id={notice.id}
         title={notice.title}
       >
