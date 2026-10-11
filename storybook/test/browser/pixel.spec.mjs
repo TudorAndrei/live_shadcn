@@ -166,6 +166,21 @@ for (const { component, example } of pages) {
       reactStates.map((state) => JSON.stringify(visualStateIdentity(state))));
 
     for (const state of reactStates) {
+      const authoredAction = component === "message-scroller" &&
+        state.kind === "message-scroller-action"
+        ? messageScrollerActionDefinitions(example).find(({ name }) => name === state.action)
+        : null;
+      const captureContract = authoredAction?.expect.busy === true
+        ? { items: authoredAction.expect.items, busy: String(authoredAction.expect.busy) }
+        : null;
+      const historyNoticeContract = component === "message-scroller" &&
+        example === "load-history" && state.kind === "message-scroller-action" &&
+        ["load-history", "reset"].includes(state.action)
+        ? { items: authoredAction.expect.items, button: authoredAction.expect.button,
+            buttonDisabled: state.action === "load-history",
+            notices: [{ title: "History loaded", description: "Scroll up to see earlier messages." }] }
+        : null;
+      const noticeFrames = {};
       // One viewport for both sides, tall enough for either document in this
       // state, then one clip rectangle covering what either side paints.
       await page.setViewportSize({ width: 1280, height: MINIMUM_HEIGHT });
@@ -185,24 +200,23 @@ for (const { component, example } of pages) {
 
       await referencePage.goto(reactURL);
       await enterVisualState(referencePage, selector, state);
+      if (historyNoticeContract) noticeFrames.reactEntry = await messageScrollerPaintReceipt(referencePage, selector);
       await settle(referencePage, selector);
+      if (historyNoticeContract) noticeFrames.reactBefore = await messageScrollerPaintReceipt(referencePage, selector);
       const reactPaint = await paintedBox(referencePage, selector);
+      if (historyNoticeContract) noticeFrames.reactAfter = await messageScrollerPaintReceipt(referencePage, selector);
 
       await page.goto(phoenixURL);
       await connected(page);
       await enterVisualState(page, selector, state);
+      if (historyNoticeContract) noticeFrames.phoenixEntry = await messageScrollerPaintReceipt(page, selector);
       await settle(page, selector);
+      if (historyNoticeContract) noticeFrames.phoenixBefore = await messageScrollerPaintReceipt(page, selector);
       const phoenixPaint = await paintedBox(page, selector);
+      if (historyNoticeContract) noticeFrames.phoenixAfter = await messageScrollerPaintReceipt(page, selector);
 
       const clip = union(reactPaint, phoenixPaint);
 
-      const authoredAction = component === "message-scroller" &&
-        state.kind === "message-scroller-action"
-        ? messageScrollerActionDefinitions(example).find(({ name }) => name === state.action)
-        : null;
-      const captureContract = authoredAction?.expect.busy === true
-        ? { items: authoredAction.expect.items, busy: String(authoredAction.expect.busy) }
-        : null;
 
       // Check the actual inventory on each side of each screenshot. A busy
       // state can expire while the other renderer loads and settles.
@@ -212,11 +226,11 @@ for (const { component, example } of pages) {
         await enterVisualState(page, selector, state);
         await settle(page, selector);
       }
-      const phoenixBefore = captureContract
+      const phoenixBefore = captureContract || historyNoticeContract
         ? await messageScrollerPaintReceipt(page, selector)
         : null;
       const phoenix = await shootCurrent(page, selector, clip);
-      const phoenixAfter = captureContract
+      const phoenixAfter = captureContract || historyNoticeContract
         ? await messageScrollerPaintReceipt(page, selector)
         : null;
       if (captureContract) {
@@ -224,11 +238,11 @@ for (const { component, example } of pages) {
         await enterVisualState(referencePage, selector, state);
         await settle(referencePage, selector);
       }
-      const reactBefore = captureContract
+      const reactBefore = captureContract || historyNoticeContract
         ? await messageScrollerPaintReceipt(referencePage, selector)
         : null;
       const react = await shootCurrent(referencePage, selector, clip);
-      const reactAfter = captureContract
+      const reactAfter = captureContract || historyNoticeContract
         ? await messageScrollerPaintReceipt(referencePage, selector)
         : null;
 
@@ -236,10 +250,20 @@ for (const { component, example } of pages) {
       const { differing, diff, width } = compare(react.image, phoenix.image);
       const suffix = safeName(state.name);
 
-      // Attach images only when they explain an actual difference. Encoding
+      // Attach images for a pixel difference or a failed notice receipt. Encoding
       // three large PNGs for every zero-pixel state drives Node CPU and keeps
       // report artifacts alive without adding verification evidence.
-      if (differing > 0) {
+      const noticeReceiptInvalid = historyNoticeContract && [
+        noticeFrames.reactBefore, noticeFrames.reactAfter,
+        noticeFrames.phoenixBefore, noticeFrames.phoenixAfter,
+        phoenixBefore, phoenixAfter, reactBefore, reactAfter,
+      ].some((receipt) => JSON.stringify(historyNoticeState(receipt)) !==
+        JSON.stringify(historyNoticeContract));
+      const busyReceiptInvalid = captureContract && [
+        phoenixBefore, phoenixAfter, reactBefore, reactAfter,
+      ].some((receipt) => receipt.items.length !== captureContract.items ||
+        receipt.busy !== captureContract.busy);
+      if (differing > 0 || busyReceiptInvalid || noticeReceiptInvalid) {
         await testInfo.attach(`react-${suffix}.png`, {
           body: PNG.sync.write(react.image),
           contentType: "image/png",
@@ -248,10 +272,12 @@ for (const { component, example } of pages) {
           body: PNG.sync.write(phoenix.image),
           contentType: "image/png",
         });
-        await testInfo.attach(`diff-${suffix}.png`, {
-          body: PNG.sync.write(diff),
-          contentType: "image/png",
-        });
+        if (differing > 0) {
+          await testInfo.attach(`diff-${suffix}.png`, {
+            body: PNG.sync.write(diff),
+            contentType: "image/png",
+          });
+        }
       }
 
       if (captureContract) {
@@ -267,6 +293,38 @@ for (const { component, example } of pages) {
         }
       }
 
+
+      if (historyNoticeContract) {
+        const receipts = { phoenixBefore, phoenixAfter, reactBefore, reactAfter };
+        await testInfo.attach(`history-notice-${safeName(state.name)}.json`, {
+          body: Buffer.from(JSON.stringify({ state: visualStateIdentity(state), historyNoticeContract,
+            noticeFrames, receipts, clip,
+            captures: { phoenix: { origin: phoenix.origin, clip: phoenix.clip,
+              width: phoenix.image.width, height: phoenix.image.height },
+              react: { origin: react.origin, clip: react.clip,
+                width: react.image.width, height: react.image.height } } }, null, 2)),
+          contentType: "application/json",
+        });
+        // The framing measurements must include the real notice. Entry reads
+        // are diagnostics; the notice can still mount during the normal settle.
+        for (const stage of ["reactBefore", "reactAfter", "phoenixBefore", "phoenixAfter"]) {
+          expect(historyNoticeState(noticeFrames[stage]),
+            `${name} / ${state.name} / framing ${stage}: the real history notice must be painted`,
+          ).toEqual(historyNoticeContract);
+        }
+        for (const [stage, receipt] of Object.entries(receipts)) {
+          expect(historyNoticeState(receipt),
+            `${name} / ${state.name} / capture ${stage}: the screenshot must retain the real history notice`,
+          ).toEqual(historyNoticeContract);
+          const notice = receipt.notices.find(({ title, description, painted }) => painted &&
+            title === historyNoticeContract.notices[0].title &&
+            description === historyNoticeContract.notices[0].description);
+          expect(notice.box.left - receipt.rootBox.left).toBeGreaterThanOrEqual(clip.x);
+          expect(notice.box.top - receipt.rootBox.top).toBeGreaterThanOrEqual(clip.y);
+          expect(notice.box.right - receipt.rootBox.left).toBeLessThanOrEqual(clip.x + clip.width);
+          expect(notice.box.bottom - receipt.rootBox.top).toBeLessThanOrEqual(clip.y + clip.height);
+        }
+      }
 
       const hottest =
         differing === 0
@@ -342,6 +400,30 @@ async function messageScrollerPaintReceipt(page, selector) {
     return {
       wallTime: Date.now(),
       pageTime: performance.now(),
+      documentVisibility: document.visibilityState,
+      documentFocused: document.hasFocus(),
+      rootBox: root.getBoundingClientRect().toJSON(),
+      historyButton: [...root.querySelectorAll("button")].map((button) => ({
+        text: button.textContent?.replace(/\s+/g, " ").trim() ?? "",
+        disabled: button.disabled,
+      })).find(({ text }) => text === "Load History" || text === "History Loaded") ?? null,
+      notices: [...document.querySelectorAll("[data-sonner-toast]")].map((notice) => {
+        const box = notice.getBoundingClientRect();
+        const style = getComputedStyle(notice);
+        return {
+          title: notice.querySelector("[data-title]")?.textContent?.trim() ?? "",
+          description: notice.querySelector("[data-description]")?.textContent?.trim() ?? "",
+          id: notice.id,
+          type: notice.getAttribute("data-type"),
+          mounted: notice.getAttribute("data-mounted"),
+          visible: notice.getAttribute("data-visible"),
+          removed: notice.getAttribute("data-removed"),
+          display: style.display, visibility: style.visibility, opacity: style.opacity,
+          box: box.toJSON(),
+          painted: box.width > 0 && box.height > 0 &&
+            notice.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }),
+        };
+      }),
       busy: content?.getAttribute("aria-busy") ?? null,
       items: [...root.querySelectorAll("[data-slot='message-scroller-item']")].map((item) => ({
         id: item.getAttribute("data-message-id"),
@@ -359,4 +441,14 @@ async function messageScrollerPaintReceipt(page, selector) {
       buttonActive: root.querySelector("[data-slot='message-scroller-button']")?.getAttribute("data-active") ?? null,
     };
   });
+}
+
+function historyNoticeState(receipt) {
+  return {
+    items: receipt.items.length,
+    button: receipt.historyButton?.text ?? null,
+    buttonDisabled: receipt.historyButton?.disabled ?? null,
+    notices: receipt.notices.filter(({ painted }) => painted)
+      .map(({ title, description }) => ({ title, description })),
+  };
 }
