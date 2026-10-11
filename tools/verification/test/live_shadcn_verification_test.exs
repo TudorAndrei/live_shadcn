@@ -176,6 +176,100 @@ defmodule LiveShadcnVerificationTest do
       assert Enum.all?(LiveShadcnVerification.identity_compile_paths(root), &File.regular?/1)
     end
 
+    test "identity paths keep native hidden-root and symlink behavior" do
+      root = Path.join(fixture_root("wildcard-contract"), ".root")
+      bootstrap_identity(root, "button")
+
+      for path <- [
+            "storybook/assets/root.css",
+            "storybook/assets/nested/café.mjs",
+            "storybook/assets/node_modules-note/kept.js",
+            "storybook/assets/_build-note/kept.json",
+            "storybook/assets/css/upstream-note/kept.css",
+            "storybook/priv/static/avatars/node_modules",
+            "storybook/assets/.hidden.js",
+            "storybook/assets/.hidden/nested.css",
+            "external/target/linked.js"
+          ] do
+        write(root, path, path)
+      end
+
+      excluded = [
+        "storybook/assets/node_modules/excluded.js",
+        "storybook/assets/_build/excluded.json",
+        "storybook/assets/nested/priv/static/assets/excluded.js",
+        "storybook/assets/css/upstream/excluded.css",
+        "storybook/assets/generated-alias/node_modules/linked.js"
+      ]
+
+      Enum.each(excluded |> Enum.take(4), &write(root, &1, &1))
+
+      File.ln_s!(
+        Path.join(root, "external/target"),
+        Path.join(root, "storybook/assets/source-link")
+      )
+
+      File.ln_s!(
+        Path.join(root, "external/target/linked.js"),
+        Path.join(root, "storybook/assets/file-link.js")
+      )
+
+      File.ln_s!(
+        Path.join(root, "storybook/assets/node_modules"),
+        Path.join(root, "storybook/assets/source-alias")
+      )
+
+      File.mkdir_p!(Path.join(root, "storybook/assets/generated-alias"))
+
+      File.ln_s!(
+        Path.join(root, "external/target"),
+        Path.join(root, "storybook/assets/generated-alias/node_modules")
+      )
+
+      File.ln_s!(
+        Path.join(root, "external/missing.js"),
+        Path.join(root, "storybook/assets/broken.js")
+      )
+
+      native_paths = fn globs ->
+        globs
+        |> Enum.flat_map(&Path.wildcard(Path.join(root, &1)))
+        |> Enum.filter(&File.regular?/1)
+        |> Enum.reject(&(Path.relative_to(&1, root) in excluded))
+      end
+
+      shared_paths = native_paths.(LiveShadcnVerification.shared_input_globs())
+
+      expected =
+        shared_paths
+        |> Enum.uniq()
+        |> Enum.sort()
+        |> Enum.map(&{Path.relative_to(&1, root), File.read!(&1)})
+
+      assert LiveShadcnVerification.collect_shared_inputs(root) == expected
+
+      globs =
+        LiveShadcnVerification.shared_input_globs() ++
+          LiveShadcnVerification.verification_rule_globs()
+
+      expected_compile = native_paths.(globs)
+      assert LiveShadcnVerification.compile_path_globs(root) == expected_compile
+
+      assert LiveShadcnVerification.identity_compile_paths(root) ==
+               Enum.sort(Enum.uniq(expected_compile))
+
+      for path <- [
+            "storybook/assets/root.css",
+            "storybook/assets/nested/café.mjs",
+            "storybook/assets/source-link/linked.js",
+            "storybook/assets/file-link.js",
+            "storybook/assets/source-alias/excluded.js",
+            "storybook/priv/static/avatars/node_modules"
+          ] do
+        assert {path, File.read!(Path.join(root, path))} in expected
+      end
+    end
+
     test "changes when the port module or lockfile changes" do
       root = fixture_root("identity-port")
       bootstrap_identity(root, "button")

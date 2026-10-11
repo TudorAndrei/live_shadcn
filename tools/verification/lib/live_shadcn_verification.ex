@@ -337,7 +337,7 @@ defmodule LiveShadcnVerification do
 
   def compile_path_globs(root) do
     (@shared_input_globs ++ @verification_rule_globs)
-    |> Enum.flat_map(fn pattern -> Path.wildcard(Path.join(root, pattern)) end)
+    |> Enum.flat_map(fn pattern -> input_wildcard(Path.join(root, pattern)) end)
     |> Enum.filter(&File.regular?/1)
     |> Enum.reject(&generated_path?/1)
   end
@@ -403,7 +403,7 @@ defmodule LiveShadcnVerification do
 
   def collect_shared_inputs(root) do
     @shared_input_globs
-    |> Enum.flat_map(fn pattern -> Path.wildcard(Path.join(root, pattern)) end)
+    |> Enum.flat_map(fn pattern -> input_wildcard(Path.join(root, pattern)) end)
     |> Enum.filter(&File.regular?/1)
     |> Enum.reject(&generated_path?/1)
     |> Enum.uniq()
@@ -754,11 +754,15 @@ defmodule LiveShadcnVerification do
 
   defp module_file(name), do: String.replace(name, "-", "_") <> ".ex"
 
+  defp input_wildcard(glob) do
+    glob
+    |> String.to_charlist()
+    |> :filelib.wildcard(LiveShadcnVerification.InputWildcard)
+    |> Enum.map(&IO.chardata_to_string/1)
+  end
+
   defp generated_path?(path) do
-    String.contains?(path, "/node_modules/") or
-      String.contains?(path, "/_build/") or
-      String.contains?(path, "/priv/static/assets/") or
-      String.contains?(path, "/assets/css/upstream/") or
+    LiveShadcnVerification.InputWildcard.generated_directory_path?(path) or
       digested_static_copy?(path)
   end
 
