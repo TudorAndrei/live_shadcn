@@ -165,6 +165,48 @@ for (const side of ["React", "Phoenix"]) {
   });
 }
 
+for (const side of ["React", "Phoenix"]) {
+  test(`nested Drawer states finish entry and clear incidental hover on ${side}`, async ({ page }, testInfo) => {
+    await slowAnimationFrames(page);
+    const path = side === "Phoenix" ? "/preview/drawer/nested"
+      : `${testInfo.project.use.parityURL}/preview/drawer/nested`;
+    const selector = "[data-preview='drawer']";
+    await visitPreview(page, path);
+    const state = (await visualStates(page, selector)).find(({ name }) =>
+      name === "expanded:Open Drawer > Open Nested Drawer > Open Third Drawer");
+    expect(state).toBeDefined();
+
+    await visitPreview(page, path);
+    const entries = [];
+    await page.exposeFunction("recordDrawerEntry", entry => entries.push(entry));
+    await page.evaluate(() => {
+      document.addEventListener("pointerdown", event => {
+        const trigger = event.target.closest("[data-slot='drawer-trigger']");
+        const popup = trigger?.closest("[data-slot='drawer-popup']");
+        if (!popup) return;
+        window.recordDrawerEntry({
+          trigger: trigger.textContent.trim(),
+          starting: popup.hasAttribute("data-starting-style"),
+          moving: popup.getAnimations().some(animation =>
+            animation.pending || animation.playState === "running"),
+        });
+      }, true);
+    });
+    await enterVisualState(page, selector, state);
+
+    expect(entries).toEqual([
+      { trigger: "Open Nested Drawer", starting: false, moving: false },
+      { trigger: "Open Third Drawer", starting: false, moving: false },
+    ]);
+    const fourth = page.getByRole("button", { name: "Open Fourth Drawer", exact: true });
+    await expect(fourth).toHaveAttribute("aria-expanded", "false");
+    expect(await fourth.evaluate(element => element.matches(":hover"))).toBe(false);
+    await expect(fourth).toHaveCSS("background-color", "oklch(1 0 0)");
+    const front = page.getByRole("dialog").filter({ has: page.getByRole("heading", { name: "Third Drawer", exact: true }) });
+    await expect(front).toBeFocused();
+  });
+}
+
 test("disclosure states keep an initially open panel open during replay", async ({ page }, testInfo) => {
   const selector = "[data-preview='accordion']";
   const paths = [

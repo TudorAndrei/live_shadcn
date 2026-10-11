@@ -1377,6 +1377,7 @@ export async function enterVisualState(page, selector, state) {
   for (const [position, step] of path.entries()) {
     const trigger = actionableTriggers(scope).nth(step.index);
     const triggerElement = await trigger.elementHandle();
+    const dialog = (await trigger.getAttribute("aria-haspopup")) === "dialog";
 
     if ((await trigger.getAttribute("aria-expanded")) !== "true") {
       // A listbox can open under the pointer. Finish popup entry before
@@ -1393,6 +1394,14 @@ export async function enterVisualState(page, selector, state) {
     const controls = await triggerElement.evaluate((element) =>
       element.getAttribute("aria-controls"),
     );
+
+    if (dialog && controls) {
+      await page.locator(`[id=${JSON.stringify(controls)}]`).waitFor({ state: "visible" });
+      // A dialog can slide its next trigger under the last click position.
+      // Finish entry before another click, then clear incidental hover.
+      await settleInteraction(page, { waitForTransitions: true });
+      await page.mouse.move(0, 0);
+    }
 
     if (controls && position < path.length - 1) {
       scope = page.locator(`[id=${JSON.stringify(controls)}]`);
@@ -1440,7 +1449,8 @@ async function enterNestedInteractionPath(page, selector, path) {
   for (const [position, step] of path.entries()) {
     const trigger = actionableTriggers(scope).nth(step.index);
     const triggerElement = await trigger.elementHandle();
-    const listbox = (await trigger.getAttribute("aria-haspopup")) === "listbox";
+    const popupType = await trigger.getAttribute("aria-haspopup");
+    const listbox = popupType === "listbox";
 
     if ((await trigger.getAttribute("aria-expanded")) !== "true") {
       if (listbox) {
@@ -1461,6 +1471,10 @@ async function enterNestedInteractionPath(page, selector, path) {
 
     scope = page.locator(`[id=${JSON.stringify(controls)}]`);
     await scope.waitFor({ state: "visible" });
+    if (popupType === "dialog") {
+      await settleInteraction(page, { waitForTransitions: true });
+      await page.mouse.move(0, 0);
+    }
   }
 
   // Opening focus can run again in a later animation frame. Finish popup
