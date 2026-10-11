@@ -2170,8 +2170,16 @@ async function settleInteraction(page, { waitForTransitions = false } = {}) {
 }
 
 function actionableTriggers(scope) {
+  // A tree item can expose its expansion state while separate buttons own
+  // click activation. Follow those buttons instead of clicking the container.
+  // Limit this to its own row; nested tree items have separate controls.
+  const button = ":is(button, [role='button'])[aria-expanded]";
+  const row = ":not([role='treeitem']):not([role='group'])";
+  const compositeTreeItem = `[role='treeitem']:has(> ${button}, > ${row} > ${button})`;
+  // Hover cards already have hover states. A synthetic disclosure click can
+  // leave their transient aria-expanded attribute in the trigger inventory.
   return scope.locator(
-    ":is([aria-expanded], [role='menuitem'][aria-haspopup='menu'], [data-slot$='sub-trigger']):not([aria-disabled='true']):not(:disabled):visible",
+    `:is([aria-expanded], [role='menuitem'][aria-haspopup='menu'], [data-slot$='sub-trigger']):not(${compositeTreeItem}):not([data-slot='hover-card-trigger']):not([aria-disabled='true']):not(:disabled):visible`,
   );
 }
 

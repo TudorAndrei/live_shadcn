@@ -46,7 +46,7 @@ export default defineConfig({
   // a verification run that is flaky under load verifies nothing.
   fullyParallel: false,
   workers: 1,
-  forbidOnly: !!process.env.CI,
+  forbidOnly: true,
   retries: process.env.CI ? 1 : 0,
   reporter:
     process.env.LIVE_SHADCN_VERIFY_ENVELOPE || process.env.CI

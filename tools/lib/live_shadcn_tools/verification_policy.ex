@@ -10,8 +10,9 @@ defmodule LiveShadcnTools.VerificationPolicy do
   @external_resource @policy_path
   @policy_data @policy_path |> File.read!() |> Jason.decode!()
   @standard_required_checks get_in(@policy_data, ["_standard", "required_checks"])
+  @ai_policy Map.fetch!(@policy_data, "_ai_elements")
   @policies @policy_data
-            |> Map.delete("_standard")
+            |> Map.drop(["_standard", "_ai_elements"])
             |> Map.new(fn {reference, %{"kind" => kind, "reason" => reason} = entry} ->
               kind =
                 case kind do
@@ -44,7 +45,7 @@ defmodule LiveShadcnTools.VerificationPolicy do
                }}
             end)
 
-  @type kind :: :standard | :docs_only | :local_only | :no_dom
+  @type kind :: :standard | :docs_only | :authored | :local_only | :no_dom
   @type behavior :: :required | {:not_applicable, String.t()}
   @type policy :: %{
           kind: kind(),
@@ -56,6 +57,15 @@ defmodule LiveShadcnTools.VerificationPolicy do
 
   @doc "Returns the verification policy for one source component."
   @spec get(String.t(), String.t()) :: policy()
+  def get("ai_elements", _name),
+    do: %{
+      kind: :authored,
+      reason: @ai_policy["reason"],
+      behavior: :required,
+      local_fixture: nil,
+      required_checks: @ai_policy["required_checks"]
+    }
+
   def get(source, name),
     do:
       Map.get(@policies, source <> "/" <> name, %{
@@ -79,7 +89,7 @@ defmodule LiveShadcnTools.VerificationPolicy do
   @spec status(String.t(), String.t()) :: :local_only | :no_dom | nil
   def status(source, name) do
     case get(source, name).kind do
-      :standard -> nil
+      kind when kind in [:standard, :authored] -> nil
       kind -> kind
     end
   end

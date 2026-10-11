@@ -32,8 +32,9 @@ test.describe("a transcription", () => {
     });
 
     await expect(segments(page).nth(18)).toHaveAttribute("data-active", "true");
-    await expect(segments(page).nth(17)).toHaveClass(/text-muted-foreground/);
-    await expect(segments(page).nth(19)).toHaveClass(/text-muted-foreground\/60/);
+    await expect(segments(page).nth(18)).toHaveAttribute("aria-current", "true");
+    await expect(segments(page).nth(17)).toHaveClass(/text-foreground\/80/);
+    await expect(segments(page).nth(19)).toHaveClass(/text-muted-foreground/);
   });
 
   test("selecting a word seeks without a server event", async ({ page }) => {
@@ -50,7 +51,7 @@ test.describe("a transcription", () => {
       });
     });
 
-    await segments(page).nth(10).click();
+    await segments(page).nth(10).press("Enter");
 
     await expect.poll(() => player(page).evaluate((audio) => audio.currentTime)).toBe(3.48);
     await expect(segments(page).nth(10)).toHaveAttribute("data-active", "true");

@@ -3,7 +3,7 @@ defmodule StorybookWeb do
   Entrypoints for the demo application's web layer.
   """
 
-  def static_paths, do: ~w(assets avatars favicon.ico robots.txt)
+  def static_paths, do: ~w(assets avatars previews favicon.ico robots.txt)
 
   def router do
     quote do

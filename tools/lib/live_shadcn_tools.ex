@@ -274,10 +274,10 @@ defmodule LiveShadcnTools do
 
   @doc false
   def verification_targets(source \\ nil, root \\ repo_root()) do
-    if source not in [nil, "shadcn"], do: Mix.raise("verification supports only source shadcn")
+    if source not in [nil | @sources], do: Mix.raise("unknown verification source #{source}")
 
     primitives =
-      Path.join([root, "registry/spec/shadcn/*.json"])
+      Path.join([root, "registry/spec/{shadcn,ai_elements}/*.json"])
       |> Path.wildcard()
       |> Enum.map(&{Path.basename(Path.dirname(&1)), Path.basename(&1, ".json")})
       |> Enum.filter(fn {component_source, name} ->
@@ -289,7 +289,23 @@ defmodule LiveShadcnTools do
       LiveShadcnVerification.docs_only_shadcn_families(root)
       |> Enum.map(&{"shadcn", &1})
 
-    (primitives ++ docs_only)
+    pinned_ai =
+      root
+      |> Path.join("registry/UPSTREAM.json")
+      |> read_json!()
+      |> Map.get("files", %{})
+      |> Map.keys()
+      |> Enum.flat_map(fn
+        "ai_elements/" <> file ->
+          if Path.extname(file) == ".tsx",
+            do: [{"ai_elements", Path.basename(file, ".tsx")}],
+            else: []
+
+        _ ->
+          []
+      end)
+
+    (primitives ++ docs_only ++ pinned_ai)
     |> Enum.uniq()
     |> Enum.sort()
     |> only_verification_source(source)

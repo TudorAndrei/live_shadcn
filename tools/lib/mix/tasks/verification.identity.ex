@@ -1,5 +1,5 @@
 defmodule Mix.Tasks.Verification.Identity do
-  @shortdoc "Export shadcn verification identity JSON for browser reports"
+  @shortdoc "Export verification identity JSON for browser reports"
 
   @moduledoc false
 
@@ -28,10 +28,6 @@ defmodule Mix.Tasks.Verification.Identity do
             "usage: mix verification.identity [--layer LAYER] [--examples a,b] <source/name>"
           )
       end
-
-    unless source == "shadcn" do
-      Mix.raise("verification.identity currently exports shadcn identity only")
-    end
 
     root = repo_root()
     layer = Keyword.get(opts, :layer)

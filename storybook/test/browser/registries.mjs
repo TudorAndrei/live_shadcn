@@ -11,6 +11,7 @@ import { officialShadcnReferences } from "./react-references.mjs";
 const here = dirname(fileURLToPath(import.meta.url));
 
 const inventory = JSON.parse(readFileSync(join(here, "../../../registry/INVENTORY.json")));
+const aiAudit = JSON.parse(readFileSync(join(here, "ai-component-audit.json"), "utf8"));
 
 // The storybook knows a component by name; the registry knows it by source and
 // name, because upstream publishes a `message` in each. The storybook calls
@@ -42,8 +43,17 @@ export function source(component) {
 /** Whether the two upstream-comparing checks gate this component. */
 export const gated = (component) => source(component) === "shadcn";
 
+const selectedSource = process.env.PREVIEW_SOURCE;
+const shadcnSuites = selectedSource === "ai_elements" ? [] : [
+  ...inventory.components.filter(({ source }) => source === "shadcn").map(({ name }) => `${name}.spec.mjs`),
+  ...[...officialShadcnComponents].map((name) => `${name.replace(/^shadcn-/, "")}.spec.mjs`),
+  ...["interaction-parity", "parity", "pixel", "rendered-output", "visual-states", "navigation"].map((name) => `${name}.spec.mjs`),
+];
+const aiSuites = selectedSource === "shadcn" ? [] : [
+  ...Object.values(aiAudit).map(({ spec }) => spec).filter(Boolean),
+  "ai-component-audit.spec.mjs",
+];
+
 export const verificationSpecFiles = [...new Set([
-  ...inventory.components.filter(({ source }) => source === "shadcn").map(({ name }) => name),
-  ...[...officialShadcnComponents].map((name) => name.replace(/^shadcn-/, "")),
-  "accessibility", "interaction-parity", "parity", "pixel", "rendered-output", "visual-states", "navigation",
-])].sort().map((name) => `**/${name}.spec.mjs`);
+  ...shadcnSuites, ...aiSuites, "accessibility.spec.mjs",
+])].sort().map((name) => `**/${name}`);

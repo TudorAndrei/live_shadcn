@@ -32,7 +32,8 @@
     "rtl"
   ],
   "artifact": [
-    "default"
+    "default",
+    "contract"
   ],
   "sheet": [
     "default",
@@ -55,13 +56,19 @@
     "rtl"
   ],
   "shimmer": [
-    "default"
+    "default",
+    "duration",
+    "elements"
   ],
   "controls": [
-    "default"
+    "default",
+    "contract"
   ],
   "file-tree": [
-    "default"
+    "default",
+    "basic",
+    "expanded",
+    "selection"
   ],
   "resizable": [
     "default",
@@ -70,7 +77,13 @@
     "rtl"
   ],
   "persona": [
-    "default"
+    "default",
+    "command",
+    "glint",
+    "halo",
+    "mana",
+    "obsidian",
+    "opal"
   ],
   "environment-variables": [
     "default"
@@ -114,7 +127,10 @@
     "scrollable"
   ],
   "prompt-input": [
-    "default"
+    "default",
+    "contract",
+    "cursor",
+    "tooltip"
   ],
   "shadcn-message": [
     "default",
@@ -145,7 +161,8 @@
     "rtl"
   ],
   "connection": [
-    "default"
+    "default",
+    "contract"
   ],
   "textarea": [
     "default",
@@ -187,7 +204,8 @@
     "link-button"
   ],
   "package-info": [
-    "default"
+    "default",
+    "contract"
   ],
   "select": [
     "default",
@@ -206,10 +224,15 @@
     "rtl"
   ],
   "tool": [
-    "default"
+    "default",
+    "input-available",
+    "input-streaming",
+    "output-available",
+    "output-error"
   ],
   "voice-selector": [
-    "default"
+    "default",
+    "contract"
   ],
   "switch": [
     "default",
@@ -259,13 +282,20 @@
     "default"
   ],
   "sources": [
-    "default"
+    "default",
+    "custom"
   ],
   "toolbar": [
-    "default"
+    "default",
+    "contract"
   ],
   "schema-display": [
-    "default"
+    "default",
+    "contract",
+    "basic",
+    "body",
+    "nested",
+    "params"
   ],
   "tooltip": [
     "default",
@@ -298,7 +328,8 @@
     "single-select"
   ],
   "jsx-preview": [
-    "default"
+    "default",
+    "contract"
   ],
   "input-otp": [
     "default",
@@ -330,7 +361,8 @@
     "rtl"
   ],
   "node": [
-    "default"
+    "default",
+    "contract"
   ],
   "toggle": [
     "default",
@@ -344,7 +376,8 @@
     "default"
   ],
   "ai_elements-message": [
-    "default"
+    "default",
+    "contract"
   ],
   "questionnaire": [
     "default",
@@ -363,10 +396,13 @@
     "dialog"
   ],
   "suggestion": [
-    "default"
+    "default",
+    "contract",
+    "input"
   ],
   "sandbox": [
-    "default"
+    "default",
+    "contract"
   ],
   "transcription": [
     "default"
@@ -395,7 +431,11 @@
     "default"
   ],
   "terminal": [
-    "default"
+    "default",
+    "contract",
+    "basic",
+    "clear",
+    "streaming"
   ],
   "native-select": [
     "default",
@@ -424,7 +464,10 @@
     "rtl"
   ],
   "stack-trace": [
-    "default"
+    "default",
+    "contract",
+    "collapsed",
+    "no-internal"
   ],
   "pagination": [
     "default",
@@ -466,7 +509,8 @@
     "rtl"
   ],
   "checkpoint": [
-    "default"
+    "default",
+    "contract"
   ],
   "kbd": [
     "default",
@@ -530,7 +574,8 @@
     "rtl"
   ],
   "snippet": [
-    "default"
+    "default",
+    "plain"
   ],
   "navigation-menu": [
     "default",
@@ -594,7 +639,8 @@
     "rtl"
   ],
   "audio-player": [
-    "default"
+    "default",
+    "remote"
   ],
   "confirmation": [
     "default",
@@ -621,7 +667,8 @@
     "animated"
   ],
   "agent": [
-    "default"
+    "default",
+    "contract"
   ],
   "radio-group": [
     "default",
@@ -650,10 +697,16 @@
     "rtl"
   ],
   "code-block": [
-    "default"
+    "default",
+    "contract",
+    "dark"
   ],
   "test-results": [
-    "default"
+    "default",
+    "contract",
+    "basic",
+    "errors",
+    "suites"
   ],
   "speech-input": [
     "default"
@@ -694,7 +747,8 @@
     "rtl"
   ],
   "panel": [
-    "default"
+    "default",
+    "contract"
   ],
   "inline-citation": [
     "default",
@@ -710,10 +764,13 @@
     "with-description"
   ],
   "queue": [
-    "default"
+    "default",
+    "contract",
+    "prompt-input"
   ],
   "context": [
-    "default"
+    "default",
+    "contract"
   ],
   "hover-card": [
     "default",
@@ -721,7 +778,8 @@
     "rtl"
   ],
   "model-selector": [
-    "default"
+    "default",
+    "contract"
   ],
   "card": [
     "default",

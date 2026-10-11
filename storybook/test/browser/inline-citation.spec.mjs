@@ -9,18 +9,26 @@ test("the citation carousel moves and updates its index", async ({ page }) => {
   const previous = page.getByRole("button", { name: "Previous" });
   const next = page.getByRole("button", { name: "Next" });
   const index = page.locator("[data-lb-carousel-index]");
+  const first = page.getByRole("heading", { name: "Advances in Natural Language Processing" });
+  const second = page.getByRole("heading", { name: "Breakthroughs in Machine Learning" });
+  const insideViewport = async (heading) => {
+    const [card, frame] = await Promise.all([heading.boundingBox(), viewport.boundingBox()]);
+    return card !== null && frame !== null && card.x >= frame.x && card.x < frame.x + frame.width;
+  };
 
   await expect(index).toHaveText("1/2");
   await expect(previous).toBeDisabled();
   await expect(next).toBeEnabled();
 
   await next.click();
-  await expect.poll(() => viewport.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+  await expect.poll(() => insideViewport(second)).toBe(true);
+  await expect.poll(() => insideViewport(first)).toBe(false);
   await expect(index).toHaveText("2/2");
   await expect(previous).toBeEnabled();
   await expect(next).toBeDisabled();
 
   await previous.click();
-  await expect.poll(() => viewport.evaluate((element) => element.scrollLeft)).toBe(0);
+  await expect.poll(() => insideViewport(first)).toBe(true);
+  await expect.poll(() => insideViewport(second)).toBe(false);
   await expect(index).toHaveText("1/2");
 });

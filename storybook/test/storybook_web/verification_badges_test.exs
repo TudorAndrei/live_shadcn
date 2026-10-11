@@ -30,7 +30,7 @@ defmodule StorybookWeb.VerificationBadgesTest do
             {"aspect-ratio", "verified", "Verified"},
             {"data-table", "verified", "Verified"},
             {"direction", "no_dom", "No DOM"},
-            {"attachments", "excluded", "Outside verification"}
+            {"attachments", "stale", "Stale"}
           ] do
         docs_html = assert_badges(index_html, component, status, label)
 

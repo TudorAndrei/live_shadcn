@@ -6,7 +6,6 @@ const here = dirname(fileURLToPath(import.meta.url));
 const policies = JSON.parse(
   readFileSync(join(here, "../../../registry/VERIFICATION_POLICY.json"), "utf8"),
 );
-const aiAudit = JSON.parse(readFileSync(join(here, "ai-component-audit.json"), "utf8"));
 
 export function componentName(source, component) {
   const prefix = `${source}-`;
@@ -16,8 +15,8 @@ export function componentName(source, component) {
 export function policy(source, component, example) {
   const name = componentName(source, component);
 
-  if (source === "ai_elements" && aiAudit[name]?.local_only_examples?.includes(example)) {
-    return { kind: "local_only", reason: "approved local fixture" };
+  if (source === "ai_elements") {
+    return policies._ai_elements;
   }
 
   return policies[`${source}/${name}`] ?? { kind: "standard" };

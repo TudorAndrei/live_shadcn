@@ -8,16 +8,22 @@ defmodule Mix.Tasks.Ui.Verify do
       mix ui.verify
       mix ui.verify accordion
       mix ui.verify shadcn/message    # one component, said unambiguously
+      mix ui.verify --source ai_elements # all authored AI component contracts
       mix ui.verify --no-browser      # skip the browser, for a machine without one
 
-  Six checks, each answering a different question:
+  Shadcn requires React comparison. AI Elements requires authored behavior and
+  local accessibility checks. AI parity and pixel outcomes are not applicable.
+
+  The checks answer different questions:
 
   | Check | Question |
   |---|---|
   | generated | does the reviewed port on disk still match its contract? |
   | snapshot | has the markup a reader gets changed? |
   | examples | does every official upstream example have HEEx and the exact React reference? |
-  | browser | does it behave like Base UI, and does it add no axe-core failures? |
+  | browser | do the required behavior and accessibility checks pass? |
+  | behavior | does the mapped component suite prove its public contract? |
+  | accessibility | does the component meet its accessibility policy? |
   | parity | does its semantic HTML and computed CSS match upstream React? |
   | pixel | does it paint the same pixels as upstream React? |
 
@@ -128,10 +134,23 @@ defmodule Mix.Tasks.Ui.Verify do
   defp verify_locked(components, browser?) do
     shadcn_identities =
       components
-      |> Enum.map(fn {"shadcn", name} -> name end)
+      |> Enum.flat_map(fn
+        {"shadcn", name} -> [name]
+        _ -> []
+      end)
       |> LiveShadcnVerification.evidence_digests(repo_root())
 
-    Process.put(:live_shadcn_verification_identities, shadcn_identities)
+    identities =
+      Map.new(components, fn {source, name} = component ->
+        value =
+          if source == "shadcn",
+            do: Map.fetch!(shadcn_identities, name),
+            else: verification_evidence_digest(source, name)
+
+        {component, value}
+      end)
+
+    Process.put(:live_shadcn_verification_identities, identities)
 
     example_results =
       Map.new(components, fn {source, name} ->
@@ -196,7 +215,17 @@ defmodule Mix.Tasks.Ui.Verify do
         verify_components.(nil)
       end
 
+    LiveShadcnVerification.verify_pinned_upstream_files!(repo_root())
     LiveShadcnVerification.assert_identities_unchanged!(repo_root(), shadcn_identities)
+
+    for {{"ai_elements", name}, identity} <- identities do
+      LiveShadcnVerification.assert_identity_unchanged!(
+        repo_root(),
+        "ai_elements",
+        name,
+        identity
+      )
+    end
 
     write_json_atomic!(registry_path("VERIFY.json"), merge(results))
     report(results)
@@ -225,9 +254,21 @@ defmodule Mix.Tasks.Ui.Verify do
     {layer, report_path} = parse_record!(records)
     key = example_key(source, name)
     examples = parse_record_examples!(opts, key)
+
+    if layer not in IncrementalVerification.layers(source) do
+      Mix.raise("#{layer} evidence does not apply to #{source}")
+    end
+
+    if source == "ai_elements" and layer == "behavior" and
+         examples != Enum.sort(BrowserVerification.examples(previews(), key)) do
+      Mix.raise(
+        "AI behavior evidence must run the complete mapped suite for all current examples"
+      )
+    end
+
     policy = verification_policy(source, name)
 
-    if policy.kind not in [:standard, :docs_only] do
+    if policy.kind not in [:standard, :docs_only, :authored] do
       Mix.raise("incremental browser evidence is not available for #{ref(source, name)}")
     end
 
@@ -254,6 +295,11 @@ defmodule Mix.Tasks.Ui.Verify do
       source
       |> incremental_static_checks(name, key, policy)
       |> Map.merge(browser["checks"])
+      |> then(fn checks ->
+        if policy.kind == :authored,
+          do: Map.merge(checks, Map.new(not_applicable_upstream_checks(policy))),
+          else: checks
+      end)
 
     checks =
       Map.put(checks, "policy", %{
@@ -268,6 +314,8 @@ defmodule Mix.Tasks.Ui.Verify do
       "checks" => checks,
       "incremental" => incremental
     }
+
+    LiveShadcnVerification.verify_pinned_upstream_files!(repo_root())
 
     LiveShadcnVerification.assert_identity_unchanged!(
       repo_root(),
@@ -335,6 +383,7 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp incremental_identity(source, name, key) do
     %{
+      "source" => source,
       "evidence" => verification_evidence_digest(source, name),
       "examples" => BrowserVerification.examples(previews(), key) |> Enum.sort(),
       "spec" => spec_digest(source, name)
@@ -356,7 +405,11 @@ defmodule Mix.Tasks.Ui.Verify do
     LiveShadcnVerification.Report.validate!(report, expected)
     names = Enum.map(examples, &"#{key}.#{&1}")
 
-    result = PlaywrightReport.incremental_example_results(report, layer, names)
+    result =
+      if source == "ai_elements" and layer == "behavior",
+        do: PlaywrightReport.behavior_results(report, names),
+        else: PlaywrightReport.incremental_example_results(report, layer, names)
+
     PlaywrightReport.require_example_coverage!(result, names)
 
     Enum.into(examples, %{}, fn example ->
@@ -418,7 +471,7 @@ defmodule Mix.Tasks.Ui.Verify do
     )
   end
 
-  defp concise_record("shadcn/" <> _name, %{"checks" => checks} = record) do
+  defp concise_record(_reference, %{"checks" => checks} = record) do
     Map.put(
       record,
       "checks",
@@ -448,9 +501,8 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp concise_check(check), do: check
 
-  # Prune obsolete targets only within the source this verifier owns. An AI
-  # record is historical data outside this run's scope, even if its component
-  # no longer has a generated port.
+  # Preserve records from the other source during a scoped publication. The
+  # current targets decide which old shadcn records can still be used.
   defp generated?(reference) do
     {source, name} = parse_ref(reference)
 
@@ -497,7 +549,7 @@ defmodule Mix.Tasks.Ui.Verify do
     components
     |> Enum.uniq()
     |> Enum.map(fn {component_source, name} = component ->
-      if source != component_source do
+      if source != nil and source != component_source do
         Mix.raise("#{ref(component_source, name)} does not belong to source #{source}.")
       end
 
@@ -506,14 +558,16 @@ defmodule Mix.Tasks.Ui.Verify do
     |> only_source(source)
   end
 
+  defp only_source(components, nil), do: components
+
   defp only_source(components, source), do: Enum.filter(components, fn {s, _} -> s == source end)
 
-  defp source!(nil), do: "shadcn"
+  defp source!(nil), do: nil
 
-  defp source!("shadcn"), do: "shadcn"
+  defp source!(source) when source in ["shadcn", "ai_elements"], do: source
 
   defp source!(source),
-    do: Mix.raise("verification supports only source shadcn; received #{source}")
+    do: Mix.raise("verification supports shadcn and ai_elements; received #{source}")
 
   defp verify(
          source,
@@ -569,6 +623,11 @@ defmodule Mix.Tasks.Ui.Verify do
             preparation_failure: preparation_failure
           })
       end
+
+    checks =
+      if policy.kind == :authored,
+        do: Map.merge(Map.new(checks), Map.new(not_applicable_upstream_checks(policy))),
+        else: checks
 
     checks =
       Map.new(checks, fn {name, check} ->
@@ -640,6 +699,16 @@ defmodule Mix.Tasks.Ui.Verify do
       upstream_checks(official_comparison?, source, name, key, shared_checks, policy)
   end
 
+  defp upstream_checks(
+         _comparison,
+         _source,
+         _name,
+         _key,
+         _shared_checks,
+         %{kind: :authored} = policy
+       ),
+       do: not_applicable_upstream_checks(policy)
+
   defp upstream_checks(true, source, name, key, shared_checks, _policy),
     do: upstream_results(source, name, key, shared_checks)
 
@@ -697,13 +766,15 @@ defmodule Mix.Tasks.Ui.Verify do
     end
   end
 
-  defp not_applicable_upstream_checks(%{kind: :local_only, reason: reason}) do
+  defp not_applicable_upstream_checks(%{kind: kind, reason: reason})
+       when kind in [:local_only, :authored] do
     for check <- ["parity", "pixel"] do
       {check,
        %{
          "pass" => false,
          "gated" => false,
-         "detail" => "not applicable: local-only policy; #{reason}"
+         "outcome" => "not_applicable",
+         "detail" => "not applicable: #{reason}"
        }}
     end
   end
@@ -756,6 +827,7 @@ defmodule Mix.Tasks.Ui.Verify do
     |> Enum.reduce(
       %{"behavior" => %{}, "accessibility" => %{}, "parity" => %{}, "pixel" => %{}},
       fn {source, name}, checks ->
+        Mix.shell().info("browser #{ref(source, name)}")
         key = example_key(source, name)
         policy = verification_policy(source, name)
 
@@ -802,6 +874,7 @@ defmodule Mix.Tasks.Ui.Verify do
           env:
             env
             |> managed_browser_environment()
+            |> Map.put("PREVIEW_SOURCE", source)
             |> Map.put("PARITY_PREPARED", "1")
             |> Map.put("PLAYWRIGHT_JSON_OUTPUT_FILE", report)
             |> Map.put("LIVE_SHADCN_VERIFY_ENVELOPE", envelope)
@@ -1432,6 +1505,7 @@ defmodule Mix.Tasks.Ui.Verify do
       Path.join([storybook_dir(), "lib", "**", "*.{ex,heex}"]),
       Path.join([repo_root(), "packages", "*", "assets", "**", "*.js"]),
       Path.join([repo_root(), "packages", "*", "priv", "registry", "*.ex"]),
+      Path.join([repo_root(), "packages", "*", "lib", "**", "*.{ex,heex}"]),
       Path.join([repo_root(), "registry", "upstream", "shadcn", "styles", "*.css"])
     ]
     |> Enum.flat_map(&Path.wildcard/1)
@@ -1456,22 +1530,33 @@ defmodule Mix.Tasks.Ui.Verify do
   # publication check above rejects the whole run if any input changed.
   defp run_evidence_digest(source, name) do
     case Process.get(:live_shadcn_verification_identities) do
-      %{} = identities when source == "shadcn" -> Map.fetch!(identities, name)
+      %{} = identities -> Map.fetch!(identities, {source, name})
       nil -> verification_evidence_digest(source, name)
     end
   end
 
   defp generated_check(reference) do
     {source, name} = parse_ref(reference)
-    contract = read_json!(spec_path(source, name))
 
-    if reviewed_contract?(contract) do
-      run_in(tools_dir(), "mix", ["ui.spec", "--check", "--offline", reference])
-    else
-      %{
-        "pass" => false,
-        "detail" => "unresolved official facts: #{Enum.join(unresolved_facts(contract), ", ")}"
-      }
+    cond do
+      not File.regular?(spec_path(source, name)) ->
+        %{"pass" => false, "detail" => "missing reviewed contract for #{reference}"}
+
+      not File.regular?(module_path(source, name)) ->
+        %{"pass" => false, "detail" => "missing component port for #{reference}"}
+
+      true ->
+        contract = read_json!(spec_path(source, name))
+
+        if reviewed_contract?(contract) do
+          run_in(tools_dir(), "mix", ["ui.spec", "--check", "--offline", reference])
+        else
+          %{
+            "pass" => false,
+            "detail" =>
+              "unresolved official facts: #{Enum.join(unresolved_facts(contract), ", ")}"
+          }
+        end
     end
   end
 
@@ -1603,12 +1688,43 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp behavior_check(_source, _name, nil, _policy), do: no_example()
 
+  defp behavior_check("ai_elements" = source, name, key, policy) do
+    case behavior_commands(source, name, key, policy) do
+      {:commands, commands} ->
+        examples = BrowserVerification.examples(previews(), key)
+        expected = expected_examples(key)
+        names = Enum.map(expected, &elem(&1, 1))
+
+        commands
+        |> Enum.map(fn arguments ->
+          report =
+            batch_browser_check(
+              source,
+              name,
+              key,
+              "behavior",
+              arguments,
+              %{"PREVIEW_COMPONENT" => key},
+              fn json -> PlaywrightReport.behavior_results(json, names) end,
+              examples
+            )
+
+          report_example_checks(report, expected, "behavior")
+        end)
+        |> BrowserVerification.merge_checks()
+
+      _ ->
+        %{"pass" => false, "detail" => "no mapped behavior suite for #{ref(source, name)}"}
+    end
+  end
+
   defp behavior_check(source, name, key, policy) do
     case behavior_commands(source, name, key, policy) do
       {:commands, commands} ->
         commands
         |> Enum.map(fn arguments ->
           run_in(browser_dir(), "npx", arguments, %{
+            "PREVIEW_SOURCE" => source,
             "PREVIEW_COMPONENT" => key
           })
           |> BrowserVerification.label("behavior #{key}")
@@ -1682,12 +1798,9 @@ defmodule Mix.Tasks.Ui.Verify do
       |> Map.get(key, %{})
 
     case contract do
-      %{"contract" => "interactive", "spec" => suite}
+      %{"spec" => suite}
       when is_binary(suite) and byte_size(suite) > 0 ->
         if File.exists?(Path.join(browser_dir(), suite)), do: {:suite, suite}, else: :missing
-
-      %{"contract" => reason} when is_binary(reason) ->
-        {:not_applicable, reason}
 
       _ ->
         :missing
@@ -2076,7 +2189,10 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp report(results) do
     for {name, result} <- results do
-      failed = for {check, %{"pass" => false}} <- result["checks"], do: check
+      failed =
+        for {check, %{"pass" => false} = outcome} <- result["checks"],
+            outcome["outcome"] != "not_applicable",
+            do: check
 
       if result["pass"] do
         Mix.shell().info("  ✓ #{name}")

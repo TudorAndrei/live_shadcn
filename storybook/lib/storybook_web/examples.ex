@@ -1835,7 +1835,7 @@ defmodule StorybookWeb.Examples do
         "The assistant's side, with the answer inside it.",
         &ai_message_default/1
       )
-    ]
+    ] ++ contract_examples("ai_elements-message", StorybookWeb.AiChatbotContracts)
   end
 
   def all("drawer") do
@@ -2259,7 +2259,7 @@ defmodule StorybookWeb.Examples do
         "The prompt, the command, and the button.",
         &snippet_default/1
       )
-    ]
+    ] ++ StorybookWeb.AiCodeExamples.all("snippet")
   end
 
   def all("pagination") do
@@ -2598,7 +2598,7 @@ defmodule StorybookWeb.Examples do
           "that are this component's own.",
         &model_selector_default/1
       )
-    ]
+    ] ++ contract_examples("model-selector", StorybookWeb.AiChatbotContracts)
   end
 
   def all("queue") do
@@ -2610,7 +2610,9 @@ defmodule StorybookWeb.Examples do
           "React reads it off a context and HEEx has none.",
         &queue_default/1
       )
-    ]
+    ] ++
+      contract_examples("queue", StorybookWeb.AiChatbotContracts) ++
+      StorybookWeb.AiChatbotExamples.all("queue")
   end
 
   def all("speech-input") do
@@ -2647,7 +2649,7 @@ defmodule StorybookWeb.Examples do
           "command dialog, and these eight are its own.",
         &voice_selector_default/1
       )
-    ]
+    ] ++ contract_examples("voice-selector", StorybookWeb.AiMediaContracts)
   end
 
   # The seven React Flow files that are markup, and the two beside them.
@@ -2679,7 +2681,7 @@ defmodule StorybookWeb.Examples do
           "literal, and so does this.",
         &connection_default/1
       )
-    ]
+    ] ++ contract_examples("connection", StorybookWeb.AiMediaContracts)
   end
 
   def all("controls") do
@@ -2691,7 +2693,7 @@ defmodule StorybookWeb.Examples do
           "adds to React Flow's own control bar.",
         &controls_default/1
       )
-    ]
+    ] ++ contract_examples("controls", StorybookWeb.AiMediaContracts)
   end
 
   def all("edge") do
@@ -2724,7 +2726,7 @@ defmodule StorybookWeb.Examples do
           "the caller's.",
         &jsx_preview_default/1
       )
-    ]
+    ] ++ contract_examples("jsx-preview", StorybookWeb.AiCodeContracts)
   end
 
   def all("node") do
@@ -2736,7 +2738,7 @@ defmodule StorybookWeb.Examples do
           "a handle at either side.",
         &node_default/1
       )
-    ]
+    ] ++ contract_examples("node", StorybookWeb.AiMediaContracts)
   end
 
   def all("panel") do
@@ -2747,7 +2749,7 @@ defmodule StorybookWeb.Examples do
         "Where it floats is React Flow's; the box is the component.",
         &panel_default/1
       )
-    ]
+    ] ++ contract_examples("panel", StorybookWeb.AiMediaContracts)
   end
 
   def all("persona") do
@@ -2759,7 +2761,7 @@ defmodule StorybookWeb.Examples do
           "application's — the same arrangement media-chrome gets.",
         &persona_default/1
       )
-    ]
+    ] ++ StorybookWeb.AiPersonaExamples.all()
   end
 
   def all("toolbar") do
@@ -2771,7 +2773,7 @@ defmodule StorybookWeb.Examples do
           "component.",
         &toolbar_default/1
       )
-    ]
+    ] ++ contract_examples("toolbar", StorybookWeb.AiMediaContracts)
   end
 
   def all("agent") do
@@ -2783,7 +2785,7 @@ defmodule StorybookWeb.Examples do
           "other did.",
         &agent_default/1
       )
-    ]
+    ] ++ contract_examples("agent", StorybookWeb.AiCodeContracts)
   end
 
   def all("audio-player") do
@@ -2794,6 +2796,12 @@ defmodule StorybookWeb.Examples do
         "media-chrome is a set of custom elements, and its React package " <>
           "renders them. A HEEx template writes the same tags, and the " <>
           "browser upgrades them once the application loads the library.",
+        &audio_player_default/1
+      ),
+      one(
+        "remote",
+        "Remote audio",
+        "The pinned remote audio player with a complete control bar.",
         &audio_player_default/1
       )
     ]
@@ -2809,7 +2817,9 @@ defmodule StorybookWeb.Examples do
           "tokens are the caller's to supply.",
         &code_block_default/1
       )
-    ]
+    ] ++
+      contract_examples("code-block", StorybookWeb.AiCodeContracts) ++
+      StorybookWeb.AiCodeExamples.all("code-block")
   end
 
   def all("context") do
@@ -2822,7 +2832,7 @@ defmodule StorybookWeb.Examples do
           "library has neither.",
         &context_default/1
       )
-    ]
+    ] ++ contract_examples("context", StorybookWeb.AiChatbotContracts)
   end
 
   def all("conversation") do
@@ -2848,7 +2858,9 @@ defmodule StorybookWeb.Examples do
           "These thirteen are its own.",
         &prompt_input_default/1
       )
-    ]
+    ] ++
+      contract_examples("prompt-input", StorybookWeb.AiChatbotContracts) ++
+      StorybookWeb.AiChatbotExamples.all("prompt-input")
   end
 
   def all("sandbox") do
@@ -2860,7 +2872,7 @@ defmodule StorybookWeb.Examples do
           "compose `<.collapsible>` and this is what is left.",
         &sandbox_default/1
       )
-    ]
+    ] ++ contract_examples("sandbox", StorybookWeb.AiCodeContracts)
   end
 
   def all("file-tree") do
@@ -2873,7 +2885,7 @@ defmodule StorybookWeb.Examples do
           "chevron out of the accessibility tree.",
         &file_tree_default/1
       )
-    ]
+    ] ++ StorybookWeb.AiCodeExamples.all("file-tree")
   end
 
   def all("schema-display") do
@@ -2885,7 +2897,9 @@ defmodule StorybookWeb.Examples do
           "children — because HEEx has no door for a string of markup.",
         &schema_display_default/1
       )
-    ]
+    ] ++
+      contract_examples("schema-display", StorybookWeb.AiCodeContracts) ++
+      StorybookWeb.AiCodeExamples.all("schema-display")
   end
 
   def all("terminal") do
@@ -2898,7 +2912,9 @@ defmodule StorybookWeb.Examples do
           "chooses what sits behind it.",
         &terminal_default/1
       )
-    ]
+    ] ++
+      contract_examples("terminal", StorybookWeb.AiCodeContracts) ++
+      StorybookWeb.AiCodeExamples.all("terminal")
   end
 
   def all("shimmer") do
@@ -2911,7 +2927,7 @@ defmodule StorybookWeb.Examples do
           "same two keyframes read off `initial` and `animate`.",
         &shimmer_default/1
       )
-    ]
+    ] ++ StorybookWeb.AiChatbotExamples.all("shimmer")
   end
 
   def all("inline-citation") do
@@ -2942,7 +2958,9 @@ defmodule StorybookWeb.Examples do
           "state the client owns, and the trace it copies comes from the caller.",
         &stack_trace_default/1
       )
-    ]
+    ] ++
+      contract_examples("stack-trace", StorybookWeb.AiCodeContracts) ++
+      StorybookWeb.AiCodeExamples.all("stack-trace")
   end
 
   def all("test-results") do
@@ -2954,7 +2972,9 @@ defmodule StorybookWeb.Examples do
           "decimal places, and a percentage with none.",
         &test_results_default/1
       )
-    ]
+    ] ++
+      contract_examples("test-results", StorybookWeb.AiCodeContracts) ++
+      StorybookWeb.AiCodeExamples.all("test-results")
   end
 
   def all("tool") do
@@ -2966,7 +2986,7 @@ defmodule StorybookWeb.Examples do
           "disclosure, so it runs on the client.",
         &tool_default/1
       )
-    ]
+    ] ++ StorybookWeb.AiChatbotExamples.all("tool")
   end
 
   def all("web-preview") do
@@ -2974,8 +2994,7 @@ defmodule StorybookWeb.Examples do
       one(
         "default",
         "A frame with an address bar",
-        "The frame is empty on purpose: a preview that fetched a page would " <>
-          "make the pixel check depend on a network.",
+        "A local release page loads inside the frame. Enter another address to navigate.",
         &web_preview_default/1
       )
     ]
@@ -2990,7 +3009,7 @@ defmodule StorybookWeb.Examples do
           "panel with a header, and re-filing it is the whole of the change.",
         &artifact_default/1
       )
-    ]
+    ] ++ contract_examples("artifact", StorybookWeb.AiCodeContracts)
   end
 
   def all("mic-selector") do
@@ -3061,7 +3080,7 @@ defmodule StorybookWeb.Examples do
         "A label with a rule running off it.",
         &checkpoint_default/1
       )
-    ]
+    ] ++ contract_examples("checkpoint", StorybookWeb.AiChatbotContracts)
   end
 
   def all("field") do
@@ -3100,7 +3119,7 @@ defmodule StorybookWeb.Examples do
         "The icon comes out of a table keyed by the kind of change.",
         &package_info_default/1
       )
-    ]
+    ] ++ contract_examples("package-info", StorybookWeb.AiCodeContracts)
   end
 
   def all("chain-of-thought") do
@@ -3162,7 +3181,7 @@ defmodule StorybookWeb.Examples do
         "The citations a turn produced, folded away until a reader asks.",
         &sources_default/1
       )
-    ]
+    ] ++ StorybookWeb.AiChatbotExamples.all("sources")
   end
 
   def all("suggestion") do
@@ -3173,7 +3192,9 @@ defmodule StorybookWeb.Examples do
         "A row of buttons that scrolls sideways, built on shadcn's button and scroll area.",
         &suggestion_default/1
       )
-    ]
+    ] ++
+      contract_examples("suggestion", StorybookWeb.AiChatbotContracts) ++
+      StorybookWeb.AiChatbotExamples.all("suggestion")
   end
 
   def all("collapsible") do
@@ -3611,6 +3632,19 @@ defmodule StorybookWeb.Examples do
   end
 
   def all(_component), do: []
+
+  defp contract_examples(component, module) do
+    [
+      %{
+        id: "contract",
+        title: "Component contract",
+        description: "An application example with automatic checks for its supported behavior.",
+        render: fn assigns -> module.render_example(assign(assigns, :component, component)) end,
+        snapshot_component: module,
+        snapshot_assigns: [id: "ai-contract", component: component]
+      }
+    ]
+  end
 
   defp one(id, title, description, render),
     do: %{id: id, title: title, description: description, render: render}
@@ -11451,7 +11485,7 @@ defmodule StorybookWeb.Examples do
       <.confirmation approval={%{id: "confirmation-default"}} state="approval-requested">
         <.confirmation_title>
           <.confirmation_request state="approval-requested">
-            This tool wants to delete the file <code class="inline rounded bg-muted px-1.5 py-0.5 text-sm">/tmp/example.txt</code>. Do you approve this action?
+            This tool wants to delete the file <code class="inline rounded bg-muted px-1.5 py-0.5 text-sm text-foreground">/tmp/example.txt</code>. Do you approve this action?
           </.confirmation_request>
           <.confirmation_accepted approval={%{id: "confirmation-default"}} state="approval-requested">
             <LiveShadcn.Icon.icon name="check" class="size-4 text-green-600 dark:text-green-400" />
@@ -11478,7 +11512,7 @@ defmodule StorybookWeb.Examples do
         <.confirmation_title>
           <.confirmation_request state="approval-requested">
             This tool wants to execute a query on the production database:
-            <code class="mt-2 block rounded bg-muted p-2 text-sm">SELECT * FROM users WHERE role = 'admin'</code>
+            <code class="mt-2 block rounded bg-muted p-2 text-sm text-foreground">SELECT * FROM users WHERE role = 'admin'</code>
           </.confirmation_request>
           <.confirmation_accepted approval={%{id: "confirmation-request"}} state="approval-requested">
             <LiveShadcn.Icon.icon name="check" class="size-4 text-green-600 dark:text-green-400" />
@@ -12303,9 +12337,12 @@ defmodule StorybookWeb.Examples do
     ~H"""
     <LiveAiElements.Components.WebPreview.web_preview id="web-preview" class="h-64 max-w-md">
       <LiveAiElements.Components.WebPreview.web_preview_navigation>
-        <LiveAiElements.Components.WebPreview.web_preview_url value="https://example.com" />
+        <LiveAiElements.Components.WebPreview.web_preview_url
+          value="/previews/release.html"
+          aria-label="Preview URL"
+        />
       </LiveAiElements.Components.WebPreview.web_preview_navigation>
-      <LiveAiElements.Components.WebPreview.web_preview_body />
+      <LiveAiElements.Components.WebPreview.web_preview_body src="/previews/release.html" />
     </LiveAiElements.Components.WebPreview.web_preview>
     """
   end
@@ -12344,6 +12381,7 @@ defmodule StorybookWeb.Examples do
         trigger_class="w-full max-w-sm"
       >
         <:option value="built-in" label="Built-in microphone" />
+        <:option value="wireless" label="Wireless microphone (offline)" disabled />
         <:option value="usb" label="USB microphone" />
       </LiveAiElements.Components.MicSelector.mic_selector>
     </div>
@@ -12459,9 +12497,9 @@ defmodule StorybookWeb.Examples do
                 />
               </div>
               <div class="space-y-1 px-0.5">
-                <h4 class="font-semibold text-sm leading-none">
+                <h3 class="font-semibold text-sm leading-none">
                   {Map.get(attachment, :title) || Map.get(attachment, :filename) || "Source"}
-                </h4>
+                </h3>
                 <p
                   :if={Map.get(attachment, :mediaType)}
                   class="font-mono text-muted-foreground text-xs"

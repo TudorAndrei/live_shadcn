@@ -7,9 +7,12 @@ test("the address bar loads the entered URL", async ({ page }) => {
 
   const address = page.locator("input[placeholder='Enter URL...']");
   const frame = page.locator("iframe[title='Preview']");
+  const preview = page.frameLocator("iframe[title='Preview']");
+  await expect(preview.getByRole("heading", { name: "Release notes", level: 1 })).toBeVisible();
 
-  await address.fill("https://example.org/");
+  await address.fill("/previews/release.html?version=next");
   await address.press("Enter");
 
-  await expect(frame).toHaveAttribute("src", "https://example.org/");
+  await expect(frame).toHaveAttribute("src", "/previews/release.html?version=next");
+  await expect(preview.getByRole("heading", { name: "Release notes", level: 1 })).toBeVisible();
 });

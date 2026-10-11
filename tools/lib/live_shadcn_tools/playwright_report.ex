@@ -96,26 +96,8 @@ defmodule LiveShadcnTools.PlaywrightReport do
       when layer in ["accessibility", "parity", "pixel"],
       do: example_results(report, example_names)
 
-  def incremental_example_results(report, "behavior", [example]) do
-    checks =
-      report
-      |> Map.get("suites", [])
-      |> specs([])
-      |> Enum.map(fn {_parents, spec} -> check(spec) end)
-
-    case checks do
-      [] ->
-        %{
-          components: %{
-            example => %{"pass" => false, "detail" => "behavior report has no test result"}
-          },
-          global_failures: []
-        }
-
-      _ ->
-        %{components: %{example => BrowserVerification.merge_checks(checks)}, global_failures: []}
-    end
-  end
+  def incremental_example_results(report, "behavior", [example]),
+    do: behavior_results(report, [example])
 
   def incremental_example_results(_report, "behavior", _example_names) do
     raise ArgumentError,
@@ -124,6 +106,23 @@ defmodule LiveShadcnTools.PlaywrightReport do
 
   def incremental_example_results(_report, layer, _example_names) do
     raise ArgumentError, "unknown incremental verification layer: #{layer}"
+  end
+
+  @doc "Maps a complete component behavior suite to its declared preview scope."
+  def behavior_results(report, example_names) do
+    checks =
+      report
+      |> Map.get("suites", [])
+      |> specs([])
+      |> Enum.map(fn {_parents, spec} -> check(spec) end)
+
+    result =
+      case checks do
+        [] -> %{"pass" => false, "detail" => "behavior report has no test result"}
+        checks -> BrowserVerification.merge_checks(checks)
+      end
+
+    %{components: Map.new(example_names, &{&1, result}), global_failures: []}
   end
 
   @doc false

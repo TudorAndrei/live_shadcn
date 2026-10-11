@@ -13,12 +13,14 @@ defmodule LiveShadcnTools.IncrementalVerification do
   @layers ~w(interaction behavior accessibility parity pixel)
 
   @doc "The browser layers required for every current official example."
-  def layers, do: @layers
+  def layers(source \\ "shadcn")
+  def layers("ai_elements"), do: ~w(behavior accessibility)
+  def layers(_source), do: @layers
 
   @doc "Merges one layer from a completed Playwright batch into current evidence."
   def merge(record, identity, layer, results)
       when is_map(record) and is_map(identity) and is_binary(layer) and is_map(results) do
-    validate_layer!(layer)
+    validate_layer!(layer, identity)
 
     examples = examples(identity)
 
@@ -49,23 +51,22 @@ defmodule LiveShadcnTools.IncrementalVerification do
     evidence = if current?, do: Map.get(record, "examples", %{}), else: %{}
 
     layer_checks =
-      Map.new(@layers, fn layer ->
+      Map.new(layers(Map.get(identity, "source")), fn layer ->
         {layer, layer_check(layer, examples(identity), evidence, current?)}
       end)
 
     browser =
-      BrowserVerification.merge_checks([
-        layer_checks["interaction"],
-        layer_checks["behavior"],
-        layer_checks["accessibility"]
-      ])
+      ~w(interaction behavior accessibility)
+      |> Enum.filter(&Map.has_key?(layer_checks, &1))
+      |> Enum.map(&Map.fetch!(layer_checks, &1))
+      |> BrowserVerification.merge_checks()
 
     checks =
       layer_checks
       |> Map.put("browser", browser)
 
     %{
-      "pass" => Enum.all?([browser, layer_checks["parity"], layer_checks["pixel"]], & &1["pass"]),
+      "pass" => Enum.all?(Map.values(checks), & &1["pass"]),
       "checks" => checks
     }
   end
@@ -105,8 +106,8 @@ defmodule LiveShadcnTools.IncrementalVerification do
     |> Enum.sort()
   end
 
-  defp validate_layer!(layer) do
-    if layer not in @layers do
+  defp validate_layer!(layer, identity) do
+    if layer not in layers(Map.get(identity, "source")) do
       raise ArgumentError, "unknown incremental verification layer: #{layer}"
     end
   end

@@ -74,9 +74,13 @@ Stop development servers on the verification ports. From the repository root:
 ```bash
 cd tools
 mix ui.verify --source shadcn
+mix ui.verify --source ai_elements
 ```
 
 The verifier prepares the pinned React references and shared assets. It owns
 one Storybook server and one reference server, on ports 14101 and 14102 with
 the repository's mise environment. The browser checks use one worker.
 See [the parity guide](../parity/README.md#running-it) for scoped and direct runs.
+
+AI Elements runs authored behavior and local accessibility checks for every
+component. Its verification result does not claim React or Base UI parity.

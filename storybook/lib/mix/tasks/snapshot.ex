@@ -29,6 +29,8 @@ defmodule Mix.Tasks.Snapshot do
   use Mix.Task
 
   alias StorybookWeb.Examples
+  require Phoenix.LiveViewTest
+  @endpoint StorybookWeb.Endpoint
 
   @reference_dates %{
     "calendar" => ~D[2025-06-01],
@@ -101,8 +103,17 @@ defmodule Mix.Tasks.Snapshot do
     end)
   end
 
+  def scoped_components(components, "ai_elements") do
+    Enum.filter(components, fn component ->
+      String.starts_with?(
+        to_string(StorybookWeb.Docs.module(component)),
+        "Elixir.LiveAiElements."
+      )
+    end)
+  end
+
   def scoped_components(_components, source),
-    do: Mix.raise("snapshot source filter supports only shadcn; received #{source}")
+    do: Mix.raise("snapshot source filter supports shadcn or ai_elements; received #{source}")
 
   # Which preview pages exist. The browser suite reads this at collection time,
   # before any server is running, so it cannot ask the application.
@@ -204,11 +215,21 @@ defmodule Mix.Tasks.Snapshot do
     # its list from the page, because the server owns it — so the three places
     # that render an example ask `Examples` for them rather than each seeding
     # its own and drifting.
-    html =
+    assigns =
       %{__changed__: nil}
       |> Map.merge(Examples.page_assigns(reference_date: reference_date(component)))
-      |> example.render.()
-      |> Phoenix.LiveViewTest.rendered_to_string()
+
+    rendered =
+      case example do
+        %{snapshot_component: module, snapshot_assigns: component_assigns} ->
+          Phoenix.LiveViewTest.render_component(module, component_assigns)
+
+        _ ->
+          assigns |> example.render.() |> Phoenix.LiveViewTest.rendered_to_string()
+      end
+
+    html =
+      rendered
       |> Floki.parse_fragment!()
       |> sorted_attributes()
       |> Floki.raw_html(pretty: true)

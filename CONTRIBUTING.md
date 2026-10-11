@@ -97,8 +97,7 @@ behavior.
 8. Run `mix ui.spec --check <source>/<name>`.
 9. Add a Storybook example, a snapshot, browser behavior tests, and React parity
    where it applies.
-10. For shadcn, run `mix ui.verify shadcn/<name>`. For AI Elements, run its
-    package tests.
+10. Run `mix ui.verify <source>/<name>` and the package tests.
 
 The converter accepts an empty fact block for the initial `contract: nil` call.
 It returns the canonical fact block. Later runs require the block, contract, and
@@ -126,10 +125,26 @@ Verification checks contract agreement, snapshots, browser behavior,
 accessibility, upstream geometry, and pixels. Every component also needs an
 example in `storybook/lib/storybook_web/examples.ex`.
 
-This verification pipeline covers shadcn only. AI Elements uses different
-upstream components and icons. Its package tests run separately. Both
-`mix ui.verify` and `npm run verify` select only shadcn checks. Use
-`mix snapshot --check --source shadcn` for the corresponding snapshot check.
+`mix ui.verify` checks both sources. Use `--source shadcn` or
+`--source ai_elements` to select one source. The browser command uses
+`PREVIEW_SOURCE=ai_elements npm run verify` for AI Elements.
+
+All 48 AI Elements components require agent-authored tests. Each component must
+have a spec mapping in `storybook/test/browser/ai-component-audit.json`.
+Test the public behavior, including caller events, state changes, keyboard use,
+and display contracts where applicable. A static component still needs a test
+of its public contract. A missing or skipped suite cannot pass verification.
+
+Add public example variants to Storybook. Declare extra local contract examples
+in `local_only_examples`. Every example needs a snapshot and an accessibility
+check. AI Elements accessibility scans must report no violations. These checks
+run in CI. React semantic and pixel comparisons do not apply to AI Elements.
+Use `mix snapshot --check --source ai_elements` to check its snapshots.
+
+For incremental AI verification, import the complete behavior suite with all
+current examples, then import accessibility batches. The same source identity
+must apply to every batch. Source, hook, fixture, contract, test, or dependency
+changes invalidate earlier results.
 
 If a local port is in use, select isolated browser ports:
 

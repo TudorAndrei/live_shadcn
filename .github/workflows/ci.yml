@@ -109,22 +109,8 @@ jobs:
       - run: mix dialyzer --force-check --format short
         working-directory: ${{ matrix.package }}
 
-  # ── What CI checks, and what it deliberately does not ──
-  #
-  # CI checks that the committed record is internally consistent. It restores
-  # pinned source files for tests and the reader. It does not open a browser.
-  #
-  # The browser suite used to run here and could not have been working: the job
-  # fetched `--only accordion`, `registry/upstream/**` is gitignored, and
-  # `parity/` was never installed at all — so the parity server could not build
-  # 65 of its 66 references. A check that cannot tell "did not run" from
-  # "passed" is worse than no check, and this was one.
-  #
-  # Verification runs on a developer's machine, where upstream is fetched and
-  # the renderer is one known browser. `mix ui.verify` writes its result to
-  # `registry/VERIFY.json`, which is committed — and `mix ui.status --check`
-  # below refuses an inventory whose verification no longer matches the specs on
-  # disk. So CI enforces that somebody verified, without pretending to verify.
+  # Shadcn uses committed browser evidence. AI Elements also runs its authored
+  # browser and accessibility checks in the separate automatic job below.
   inventory:
     name: the committed record is consistent
     runs-on: ubuntu-latest
@@ -148,7 +134,7 @@ jobs:
 
       # This check reads only committed contracts and reviewed ports. It needs
       # no upstream source and no JavaScript parser.
-      - run: mix ui.spec --check --offline --source shadcn
+      - run: mix ui.spec --check --offline
         working-directory: tools
 
       - run: mix deps.get
@@ -156,7 +142,7 @@ jobs:
 
       # The markup a reader gets is committed. A diff here is a change to it,
       # and it renders server-side — no browser, no styling layer, no fetch.
-      - run: mix snapshot --check --source shadcn
+      - run: mix snapshot --check
         working-directory: storybook
 
       # The production bundle, which nothing else here builds. An import the
@@ -187,7 +173,7 @@ jobs:
   # specs it never compared are current. The browser job that used to live here
   # failed exactly that way.
   reader:
-    name: every shadcn spec still matches its source
+    name: every spec still matches its source
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -211,8 +197,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      # Verification covers shadcn ports. AI Elements keeps its package tests.
-      - run: mix ui.spec --check --source shadcn
+      - run: mix ui.spec --check
         working-directory: tools
 
   # These tests read the pinned catalog and the browser models without starting
@@ -250,9 +235,13 @@ jobs:
       - run: npm test
         working-directory: parity
 
+  ai-elements-verification:
+    # Relative workflow calls use this commit. actionlint does not yet accept $/.
+    uses: ./.github/workflows/verify-ai-elements.yml # zizmor: ignore[self-repository]
+
   deploy:
     name: deploy the tested Storybook
-    needs: [test, inventory, reader, static-browser-contracts]
+    needs: [test, inventory, reader, static-browser-contracts, ai-elements-verification]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: storybook

@@ -397,10 +397,8 @@ defmodule StorybookWeb.Docs do
   @spec status(String.t()) ::
           :verified | :failed | :stale | :not_verified | :local_only | :no_dom | :excluded
   def status(component) do
-    case identity(component) do
-      {"ai_elements", _name} -> :excluded
-      {source, name} -> Map.get(@status_by_identity, "#{source}/#{name}", :not_verified)
-    end
+    {source, name} = identity(component)
+    Map.get(@status_by_identity, "#{source}/#{name}", :not_verified)
   end
 
   @doc "Human-readable verification label for a documented component."
@@ -410,11 +408,7 @@ defmodule StorybookWeb.Docs do
   def evaluation(component) do
     {source, name} = identity(component)
 
-    if source == "ai_elements" do
-      LiveShadcnVerification.evaluate(%{}, source, name, @repo_root, nil)
-    else
-      Map.get(@evaluation_by_identity, "#{source}/#{name}", default_evaluation())
-    end
+    Map.get(@evaluation_by_identity, "#{source}/#{name}", default_evaluation())
   end
 
   defp default_evaluation do

@@ -172,7 +172,7 @@ mix ui.spec --check --source ai_elements
 ### `mix ui.verify`
 
 `mix ui.verify --source shadcn` writes `registry/VERIFY.json`. The private
-`tools/verification` Mix project owns shadcn identity and evidence evaluation;
+`tools/verification` Mix project owns verification identity and evidence evaluation;
 tools and Storybook depend on it, but published component packages do not.
 
 The versioned identity includes contracts, reviewed ports and dependencies,
@@ -181,7 +181,7 @@ reference renderers and shims, tracked example images, dependency manifests and
 locks, and verification rules. Paths are repository-relative and sorted.
 Committed digests stand in for fetched files, whose bytes are checked during
 preparation. Generated assets, timestamps, absolute paths, and verification
-results are excluded. Shared inputs conservatively invalidate all shadcn
+results are excluded. Shared inputs conservatively invalidate verification
 records. Prepared and clean-checkout identities must agree.
 
 `--no-browser` is diagnostic and cannot produce Verified. After a complete run,
@@ -189,9 +189,18 @@ records. Prepared and clean-checkout identities must agree.
 `mix ui.status --check --source shadcn --require-verified` requires complete,
 current evidence, not merely matching inventory text.
 
-The verification pipeline covers shadcn ports and documentation families.
-AI Elements is outside this pipeline and keeps its package tests. The source
-filter, browser suite selection, and documentation status use this scope.
+The verification pipeline covers shadcn ports, documentation families, and all
+48 AI Elements components. Shadcn requires React comparison. AI Elements uses
+agent-authored local contracts for behavior and accessibility. Its `authored`
+policy requires generated, snapshot, examples, browser, behavior, and
+accessibility checks. Parity and pixel outcomes are `not_applicable`.
+
+Every AI Elements component maps to a hand-written suite in
+`ai-component-audit.json`. Static components require display contract tests.
+Missing or skipped suites cannot pass. Example coverage includes all official
+HEEx examples and all declared local contract examples. Each AI accessibility
+scan must have no violations. CI runs these tests for each push and pull request.
+Source selection and documentation badges use the same policy.
 The verification identity includes HEEx layouts and excludes generated browser
 reports. A browser batch uses the parent source lease. The verifier holds the
 lease until it publishes the result file with an atomic rename.

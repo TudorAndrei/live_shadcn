@@ -9,8 +9,8 @@ import { hasOfficialReactReference } from "./react-references.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 
-test("verification collects shadcn component and shared check suites", () => {
-  for (const name of ["button", "message", "data-table", "typography", "accessibility", "parity", "pixel"]) {
+test("verification collects both sources and their shared check suites", () => {
+  for (const name of ["button", "message", "data-table", "typography", "accessibility", "parity", "pixel", "ai_elements-message", "voice-selector", "ai-component-audit"]) {
     assert.ok(verificationSpecFiles.includes(`**/${name}.spec.mjs`), name);
   }
   assert.equal(gated("button"), true);

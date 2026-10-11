@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        package: [packages/live_base, packages/live_shadcn, tools/verification, tools]
+        package: [packages/live_base, packages/live_shadcn, packages/live_ai_elements, tools/verification, tools]
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
@@ -74,18 +74,22 @@ jobs:
         working-directory: tools
 
       # This check needs only the committed contracts and reviewed ports.
-      - run: mix ui.spec --check --offline --source shadcn
+      - run: mix ui.spec --check --offline
         working-directory: tools
 
       - run: mix ui.status --check
         working-directory: tools
 
-      - run: mix ui.status --check --source shadcn --require-verified
+      - run: mix ui.status --check --require-verified
         working-directory: tools
+
+  ai-elements-verification:
+    # Relative workflow calls use this commit. actionlint does not yet accept $/.
+    uses: ./.github/workflows/verify-ai-elements.yml # zizmor: ignore[self-repository]
 
   publish:
     name: publish to hex
-    needs: [check, ports]
+    needs: [check, ports, ai-elements-verification]
     runs-on: ubuntu-latest
     environment: hex
     steps:

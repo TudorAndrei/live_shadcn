@@ -46,6 +46,8 @@ defmodule Storybook.MixProject do
       {:phoenix_live_view, "~> 1.2"},
       # live_shadcn keeps the icon set optional. The demo picks the default one.
       {:lucide_icons, "~> 2.3"},
+      # AI message and reasoning examples render Markdown with the optional renderer.
+      {:phoenix_streamdown, "~> 1.0.0-beta"},
       {:bandit, "~> 1.5"},
       {:jason, "~> 1.4"},
       # Not test-only: `mix snapshot` uses it to pretty-print generated markup

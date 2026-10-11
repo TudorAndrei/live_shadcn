@@ -16,5 +16,17 @@
     "kind": "no_dom",
     "reason": "the component only provides direction context and renders no DOM",
     "required_checks": []
+  },
+  "_ai_elements": {
+    "kind": "authored",
+    "reason": "AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+    "required_checks": [
+      "generated",
+      "snapshot",
+      "examples",
+      "browser",
+      "behavior",
+      "accessibility"
+    ]
   }
 }

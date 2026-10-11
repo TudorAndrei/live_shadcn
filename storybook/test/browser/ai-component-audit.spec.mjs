@@ -80,42 +80,17 @@ test("every AI Elements story has pinned upstream and independent checks", () =>
       expect(localOnly, `${component} has no official examples and requires local-only policy`).not.toEqual([]);
     }
 
-    for (const example of local) {
-      const name = component + "." + example;
-      const fixture = join(root, "parity/src/examples", name + ".tsx");
-
-      expect(existsSync(fixture), name + " has no React reference").toBe(true);
-
-      const expected = official.find(({ id }) => id === example);
-
-      if (expected) {
-        expect(readFileSync(fixture, "utf8"), `${name} must load its pinned source`).toContain(
-          'from "@upstream/ai_examples/' + expected.source + '";',
-        );
-      } else {
-        expect(
-          localOnly,
-          name + " is local-only. Add it to local_only_examples; it cannot provide official parity.",
-        ).toContain(example);
-      }
-    }
-
     for (const example of localOnly) {
       const name = component + "." + example;
 
       expect(local, `${name} is local-only but has no HEEx preview`).toContain(example);
-      expect(existsSync(join(root, "parity/src/examples", name + ".tsx")), name + " has no local fixture").toBe(true);
       expect(
         official.some(({ id }) => id === example),
         `${component}.${example} is local-only but has an official pinned example`,
       ).toBe(false);
     }
 
-    if (contract.contract === "interactive") {
-      expect(
-        existsSync(join(here, contract.spec)),
-        `${component} has no behavior test`,
-      ).toBe(true);
-    }
+    expect(contract.spec, `${component} has no authored contract suite`).toMatch(/\.spec\.mjs$/);
+    expect(existsSync(join(here, contract.spec)), `${component} has no contract test`).toBe(true);
   }
 });

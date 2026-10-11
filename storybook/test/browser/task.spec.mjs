@@ -48,6 +48,15 @@ test.describe("a task", () => {
     await expect(panel(page)).toBeHidden();
   });
 
+  test("Enter and Space operate the task from its button", async ({ page }) => {
+    const button = page.getByRole("button", { name: "Searched the registry" });
+    await button.focus();
+    await button.press("Enter");
+    await expect(panel(page)).toBeVisible();
+    await button.press("Space");
+    await expect(panel(page)).toBeHidden();
+  });
+
   test("opening costs no round trip", async ({ page }) => {
     // The whole point of the disclosure recipe. If the fold had dropped the
     // `JS` command and left a `phx-click` that pushes, this is what would catch
@@ -72,9 +81,7 @@ test.describe("a task", () => {
   test("is clean under axe, open and closed", async ({ page }) => {
     const scan = async () => {
       const { violations } = await new AxeBuilder({ page }).analyze();
-      // The official Task trigger is a div with aria-expanded. Axe reports
-      // that upstream contract. This test checks the other behavior rules.
-      return violations.filter(({ id }) => !["color-contrast", "aria-allowed-attr"].includes(id));
+      return violations;
     };
 
     expect(await scan()).toEqual([]);

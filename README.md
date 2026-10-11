@@ -103,8 +103,15 @@ restores the recorded URLs, checks their digests, and preserves the manifest.
 Use plain `mix ui.fetch` only when you intend to update upstream sources.
 
 `mix ui.verify --source shadcn` checks every shadcn port and the data-table,
-date-picker, and typography documentation families. AI Elements is outside this
-verification pipeline. Its normal package tests still run in CI.
+date-picker, and typography documentation families. `mix ui.verify --source
+ai_elements` checks all 48 AI Elements components. `mix ui.verify` checks both
+sources.
+
+AI Elements uses agent-authored behavior and contract tests. Every component
+must pass its generated contract, snapshots, example coverage, browser behavior,
+and local accessibility checks. The suite runs automatically in CI. Base UI
+comparison does not apply. React semantic and pixel parity are recorded as
+`not_applicable`; they do not count as passing comparisons.
 
 After verification, refresh inventory and enforce complete current evidence:
 
@@ -124,7 +131,7 @@ Storybook uses the same evaluation for its index and component-page badges:
 | No DOM | Policy explicitly identifies a component that renders no DOM. |
 
 Component pages expand the per-check results. Hooks, CSS, references, dependency
-locks, and verifier changes invalidate shadcn evidence. `--no-browser` cannot
+locks, and verifier changes invalidate verification evidence. `--no-browser` cannot
 produce Verified. Release badges describe the sources compiled into the image;
 recompile Storybook after writing evidence and rebuild to update a release.
 

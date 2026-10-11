@@ -112,6 +112,30 @@ defmodule LiveShadcnTools.IncrementalVerificationTest do
     end
   end
 
+  test "AI evidence needs authored behavior and accessibility for every example" do
+    identity = identity(~w(default contract)) |> Map.put("source", "ai_elements")
+
+    record =
+      IncrementalVerification.merge(%{}, identity, "behavior", %{
+        "default" => pass(),
+        "contract" => pass()
+      })
+
+    refute IncrementalVerification.aggregate(record, identity)["pass"]
+
+    record =
+      IncrementalVerification.merge(record, identity, "accessibility", %{
+        "default" => pass(),
+        "contract" => pass()
+      })
+
+    assert IncrementalVerification.aggregate(record, identity)["pass"]
+
+    assert_raise ArgumentError, ~r/unknown incremental verification layer/, fn ->
+      IncrementalVerification.merge(record, identity, "parity", %{"default" => pass()})
+    end
+  end
+
   defp identity(examples, evidence \\ "current") do
     %{"evidence" => evidence, "examples" => examples}
   end

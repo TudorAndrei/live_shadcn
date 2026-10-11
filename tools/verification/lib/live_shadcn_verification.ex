@@ -15,10 +15,13 @@ defmodule LiveShadcnVerification do
     "packages/live_base/package.json",
     "packages/live_base/package-lock.json",
     "packages/live_ai_elements/lib/**/*.{ex,heex}",
+    "packages/live_ai_elements/assets/js/*.js",
+    "packages/live_ai_elements/mix.lock",
     "parity/src/official-ai-elements.mjs",
     "registry/VERIFICATION_POLICY.json",
     "registry/snapshot/index.json",
     "registry/spec/shadcn/*.json",
+    "registry/spec/ai_elements/*.json",
     "packages/live_shadcn/priv/registry/*.ex",
     "packages/live_shadcn/lib/**/*.ex",
     "packages/live_base/lib/**/*.ex",
@@ -40,6 +43,7 @@ defmodule LiveShadcnVerification do
     "parity/package-lock.json",
     "storybook/assets/**/*.{css,js,mjs,json}",
     "storybook/priv/static/avatars/**/*",
+    "storybook/priv/static/previews/**/*.html",
     "storybook/lib/**/*.{ex,heex}",
     "storybook/test/browser/*.mjs",
     "storybook/test/browser/package.json",
@@ -90,8 +94,9 @@ defmodule LiveShadcnVerification do
   @external_resource @policy_path
   @policy_data @policy_path |> File.read!() |> Jason.decode!()
   @standard_required_checks get_in(@policy_data, ["_standard", "required_checks"])
+  @ai_policy Map.fetch!(@policy_data, "_ai_elements")
   @policies @policy_data
-            |> Map.delete("_standard")
+            |> Map.drop(["_standard", "_ai_elements"])
             |> Map.new(fn {reference, %{"kind" => kind, "reason" => reason} = entry} ->
               kind =
                 case kind do
@@ -153,7 +158,7 @@ defmodule LiveShadcnVerification do
 
   def policy_status(source, name) do
     case policy_entry(source, name).kind do
-      :standard -> nil
+      kind when kind in [:standard, :authored] -> nil
       kind -> kind
     end
   end
@@ -213,8 +218,10 @@ defmodule LiveShadcnVerification do
 
   def verification_failed?(_result, _current?), do: false
 
-  def verified_checks?("shadcn" = source, policy, checks) when is_map(checks) do
-    policy.kind in [:standard, :docs_only] and policy_checks_complete?(source, policy, checks)
+  def verified_checks?(source, policy, checks)
+      when source in ["shadcn", "ai_elements"] and is_map(checks) do
+    policy.kind in [:standard, :docs_only, :authored] and
+      policy_checks_complete?(source, policy, checks)
   end
 
   def verified_checks?(_source, _policy, _checks), do: false
@@ -232,11 +239,14 @@ defmodule LiveShadcnVerification do
     manifest = root |> registry_path(["UPSTREAM.json"]) |> read_json!()
 
     {
+      @identity_version,
+      file_digest(Path.join(root, "registry/spec/ai_elements/#{name}.json")),
+      collect_shared_inputs(root),
       get_in(manifest, ["sources", "ai_elements", "ref"]),
       get_in(manifest, ["examples", "ai_elements", name]) || [],
       collect_fixtures(root, key),
       collect_snapshots(root, key, local_examples),
-      {local_examples, manifest, collect_pinned_ai_sources(root)},
+      {local_examples, manifest, collect_ai_upstream_digests(root, manifest)},
       collect_storybook_renderers(root),
       collect_verification_rules(root)
     }
@@ -443,11 +453,21 @@ defmodule LiveShadcnVerification do
     end
   end
 
-  def collect_pinned_ai_sources(root) do
-    ["registry/upstream/ai_elements/*.tsx", "registry/upstream/ai_examples/*.tsx"]
-    |> Enum.flat_map(&Path.wildcard(Path.join(root, &1)))
+  # Missing fetched files use their committed digest. This keeps a clean
+  # checkout equal to a restored checkout, while changed local bytes make the
+  # verification record stale.
+  defp collect_ai_upstream_digests(root, manifest) do
+    manifest
+    |> Map.get("files", %{})
+    |> Enum.filter(fn {path, _meta} ->
+      Enum.any?(~w(ai_elements/ ai_shadcn/ ai_examples/), &String.starts_with?(path, &1))
+    end)
     |> Enum.sort()
-    |> Enum.map(&file_entry(root, &1))
+    |> Enum.map(fn {path, %{"sha256" => expected}} ->
+      local = Path.join(root, "registry/upstream/#{path}")
+      actual = if File.regular?(local), do: digest(File.read!(local)), else: expected
+      {path, actual}
+    end)
   end
 
   defp shared_upstream_source?(path) do
@@ -531,15 +551,6 @@ defmodule LiveShadcnVerification do
     end)
   end
 
-  def evaluate(_result, "ai_elements", _name, _root, _spec_path) do
-    %{
-      status: :excluded,
-      label: status_label(:excluded),
-      reason: "AI Elements is outside the shadcn verification pipeline.",
-      checks: []
-    }
-  end
-
   def evaluate(result, source, name, root, spec_path) do
     case policy_status(source, name) do
       status when status in [:local_only, :no_dom] ->
@@ -613,7 +624,7 @@ defmodule LiveShadcnVerification do
   end
 
   def check_outcome(_name, %{"gated" => false}, %{kind: kind})
-      when kind in [:standard, :docs_only],
+      when kind in [:standard, :docs_only, :authored],
       do: :incomplete
 
   def check_outcome(_name, %{"outcome" => "passed", "pass" => true}, _policy), do: :passed
@@ -632,7 +643,8 @@ defmodule LiveShadcnVerification do
   def with_check_outcome(check) when is_map(check) do
     outcome =
       case check do
-        %{"outcome" => outcome} when outcome in ~w(passed failed skipped incomplete not_run) ->
+        %{"outcome" => outcome}
+        when outcome in ~w(passed failed skipped incomplete not_run not_applicable) ->
           outcome
 
         %{"pass" => true, "gated" => false} ->
@@ -735,6 +747,13 @@ defmodule LiveShadcnVerification do
 
   defp effective_policy("shadcn", name, root), do: verification_policy("shadcn", name, root)
   defp effective_policy(source, name, _root), do: policy_entry(source, name)
+
+  defp policy_entry("ai_elements", _name),
+    do: %{
+      kind: :authored,
+      reason: @ai_policy["reason"],
+      required_checks: @ai_policy["required_checks"]
+    }
 
   defp policy_entry(source, name) do
     Map.get(@policies, source <> "/" <> name, %{

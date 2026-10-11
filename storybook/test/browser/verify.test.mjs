@@ -152,6 +152,21 @@ test("the verification wrapper releases the source lease when Playwright fails",
   assert.deepEqual(released, [["/tmp/source-lease", lease]]);
 });
 
+test("an AI Elements run retains its source filter through the browser command", async () => {
+  let selectedSource;
+  await runVerification({
+    arguments: ["attachments.spec.mjs"],
+    environment: { PREVIEW_SOURCE: "ai_elements" },
+    acquire: async () => ({ token: "test" }),
+    release: async () => {},
+    execute: async ({ environment }) => {
+      selectedSource = environment.PREVIEW_SOURCE;
+      return { code: 0, signal: null };
+    },
+  });
+  assert.equal(selectedSource, "ai_elements");
+});
+
 test("embedVerificationReport writes verification metadata into the Playwright JSON report", () => {
   const directory = mkdtempSync(join(tmpdir(), "live-shadcn-verify-"));
   const reportPath = join(directory, "results.json");

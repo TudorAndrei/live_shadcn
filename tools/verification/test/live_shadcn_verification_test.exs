@@ -76,9 +76,9 @@ defmodule LiveShadcnVerificationTest do
       end
     end
 
-    test "shared build manifests and stylesheet source mutations invalidate evidence" do
+    test "shared build, preview, and stylesheet source mutations invalidate evidence" do
       for path <-
-            ~w(tools/mix.exs tools/verification/mix.exs storybook/mix.exs storybook/config/config.exs packages/live_base/mix.exs packages/live_shadcn/mix.exs packages/live_ai_elements/mix.exs packages/live_base/package.json packages/live_base/package-lock.json packages/live_ai_elements/lib/component.ex parity/src/official-ai-elements.mjs) do
+            ~w(tools/mix.exs tools/verification/mix.exs storybook/mix.exs storybook/config/config.exs packages/live_base/mix.exs packages/live_shadcn/mix.exs packages/live_ai_elements/mix.exs packages/live_base/package.json packages/live_base/package-lock.json packages/live_ai_elements/lib/component.ex parity/src/official-ai-elements.mjs storybook/priv/static/previews/release.html) do
         root = fixture_root("build-input-#{Path.basename(path)}")
         bootstrap_identity(root, "button")
         write(root, path, "original")
@@ -340,6 +340,38 @@ defmodule LiveShadcnVerificationTest do
       end
     end
 
+    test "AI restored source identities match clean checkouts and reject changed bytes" do
+      root = fixture_root("ai-upstream-inputs")
+      bootstrap_identity(root, "image")
+
+      sources = %{
+        "ai_elements/image.tsx" => "component",
+        "ai_examples/image.tsx" => "example",
+        "ai_shadcn/button.tsx" => "dependency"
+      }
+
+      files =
+        Map.new(sources, fn {path, bytes} ->
+          {path, %{"sha256" => LiveShadcnVerification.digest(bytes)}}
+        end)
+
+      write(root, "registry/UPSTREAM.json", Jason.encode!(%{"files" => files}))
+      clean = LiveShadcnVerification.evidence_digest("ai_elements", "image", root)
+      for {path, bytes} <- sources, do: write(root, "registry/upstream/" <> path, bytes)
+      assert clean == LiveShadcnVerification.evidence_digest("ai_elements", "image", root)
+
+      for {path, bytes} <- sources do
+        write(root, "registry/upstream/" <> path, bytes <> "changed")
+        refute clean == LiveShadcnVerification.evidence_digest("ai_elements", "image", root)
+
+        assert_raise Mix.Error, ~r/verification inputs changed/, fn ->
+          LiveShadcnVerification.assert_identity_unchanged!(root, "ai_elements", "image", clean)
+        end
+
+        write(root, "registry/upstream/" <> path, bytes)
+      end
+    end
+
     test "rejects pinned upstream bytes that do not match the manifest" do
       root = fixture_root("upstream-pin")
 
@@ -358,19 +390,44 @@ defmodule LiveShadcnVerificationTest do
   end
 
   describe "badge evaluation" do
-    test "AI Elements has an explicit status outside verification" do
-      evaluation =
-        LiveShadcnVerification.evaluate(
-          %{"pass" => true},
-          "ai_elements",
-          "message",
-          @repo_root,
-          nil
+    test "AI authored checks require complete current local evidence" do
+      root = fixture_root("ai-authored-status")
+      bootstrap_identity(root, "message")
+      contract = ~s({"ignored":{}})
+      write(root, "registry/spec/ai_elements/message.json", contract)
+
+      checks =
+        Map.new(
+          ~w(generated snapshot examples browser behavior accessibility),
+          &{&1, %{"pass" => true, "outcome" => "passed"}}
         )
 
-      assert evaluation.status == :excluded
-      assert evaluation.label == "Outside verification"
-      assert evaluation.reason == "AI Elements is outside the shadcn verification pipeline."
+      checks =
+        Map.merge(
+          checks,
+          Map.new(
+            ~w(parity pixel),
+            &{&1, %{"pass" => false, "outcome" => "not_applicable", "gated" => false}}
+          )
+        )
+
+      record = %{
+        "pass" => true,
+        "spec" => LiveShadcnVerification.digest(contract),
+        "evidence" => LiveShadcnVerification.evidence_digest("ai_elements", "message", root),
+        "checks" => checks
+      }
+
+      assert badge_for(root, "ai_elements", "message", record) == :verified
+
+      for name <- ~w(generated snapshot examples browser behavior accessibility),
+          outcome <- ~w(skipped incomplete not_run) do
+        incomplete = put_in(record, ["checks", name], %{"pass" => true, "outcome" => outcome})
+        assert badge_for(root, "ai_elements", "message", incomplete) == :not_verified
+      end
+
+      write(root, "packages/live_ai_elements/assets/js/prompt_input.js", "changed")
+      assert badge_for(root, "ai_elements", "message", record) == :stale
     end
 
     test "explicit passing outcomes cannot override required gating or contradictory pass flags" do

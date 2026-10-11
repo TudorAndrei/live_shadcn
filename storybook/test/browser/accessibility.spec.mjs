@@ -32,6 +32,7 @@ import {
 } from "./visual-states.mjs";
 
 const only = process.env.PREVIEW_COMPONENT;
+const onlySource = process.env.PREVIEW_SOURCE;
 const onlyExample = process.env.PREVIEW_EXAMPLE;
 const selectedExamples = new Set(
   (process.env.PREVIEW_EXAMPLES || "").split(",").filter(Boolean),
@@ -54,7 +55,8 @@ const localOnly = new Set(
 );
 
 const pages = Object.entries(previews)
-  .filter(([component]) => source(component) === "shadcn")
+  .filter(([component]) => ["shadcn", "ai_elements"].includes(source(component)))
+  .filter(([component]) => !onlySource || source(component) === onlySource)
   .filter(([component]) => !only || component === only)
   .filter(([component]) => selected.size === 0 || selected.has(component))
   .flatMap(([component, examples]) => examples.map((example) => ({ component, example })))
@@ -72,7 +74,7 @@ if (pages.length === 0) {
 }
 
 for (const { component, example } of pages) {
-  const hasLocalOnlyPolicy = localOnly.has(`${component}.${example}`);
+  const hasLocalOnlyPolicy = source(component) === "ai_elements" || localOnly.has(`${component}.${example}`);
   const contract = hasLocalOnlyPolicy ? "local accessibility" : "upstream accessibility";
 
   test(`${component} / ${example} has the ${contract} contract`, async (

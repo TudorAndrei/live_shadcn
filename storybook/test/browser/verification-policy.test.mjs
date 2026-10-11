@@ -16,7 +16,10 @@ test("normal components keep React comparison", () => {
   assert.equal(comparisonApplies("shadcn", "button"), true);
 });
 
-test("an approved AI local fixture has no React comparison", () => {
+test("AI components require authored behavior and accessibility evidence", () => {
+  assert.equal(policy("ai_elements", "edge", "animated").kind, "authored");
+  assert.deepEqual(policy("ai_elements", "ai_elements-message", "contract").required_checks,
+    ["generated", "snapshot", "examples", "browser", "behavior", "accessibility"]);
   assert.equal(comparisonApplies("ai_elements", "edge", "animated"), false);
   assert.equal(comparisonApplies("ai_elements", "edge", "default"), false);
   assert.equal(comparisonApplies("ai_elements", "persona", "default"), false);

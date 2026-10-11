@@ -129,9 +129,6 @@ defmodule Mix.Tasks.Ui.Status do
   defp valid_requirement_options!(true, false, _source),
     do: Mix.raise("`--require-verified` is valid only with `--check`.")
 
-  defp valid_requirement_options!(true, _check, "ai_elements"),
-    do: Mix.raise("verification supports only source shadcn")
-
   defp valid_requirement_options!(_required, _check, _source), do: :ok
 
   # A component upstream that nobody has triaged yet must still be visible.

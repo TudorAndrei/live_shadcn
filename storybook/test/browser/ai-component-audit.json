@@ -1,23 +1,38 @@
 {
   "agent": {
     "upstream": "agent",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
+    ],
+    "spec": "agent.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "ai_elements-message": {
     "upstream": "message",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
+    ],
+    "spec": "ai_elements-message.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "artifact": {
     "upstream": "artifact",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
+    ],
+    "spec": "artifact.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "attachments": {
@@ -33,7 +48,11 @@
   "audio-player": {
     "upstream": "audio-player",
     "contract": "interactive",
-    "spec": "audio-player.spec.mjs"
+    "spec": "audio-player.spec.mjs",
+    "component_examples": [
+      "default",
+      "remote"
+    ]
   },
   "chain-of-thought": {
     "upstream": "chain-of-thought",
@@ -45,9 +64,14 @@
   },
   "checkpoint": {
     "upstream": "checkpoint",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
+    ],
+    "spec": "checkpoint.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "code-block": {
@@ -55,7 +79,12 @@
     "contract": "interactive",
     "spec": "code-block.spec.mjs",
     "component_examples": [
-      "default"
+      "default",
+      "contract",
+      "dark"
+    ],
+    "local_only_examples": [
+      "contract"
     ]
   },
   "commit": {
@@ -79,26 +108,41 @@
   },
   "connection": {
     "upstream": "connection",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
     ],
-    "local_only_examples": ["default"]
+    "local_only_examples": [
+      "default",
+      "contract"
+    ],
+    "spec": "connection.spec.mjs"
   },
   "context": {
     "upstream": "context",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
+    ],
+    "spec": "context.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "controls": {
     "upstream": "controls",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
     ],
-    "local_only_examples": ["default"]
+    "local_only_examples": [
+      "default",
+      "contract"
+    ],
+    "spec": "controls.spec.mjs"
   },
   "conversation": {
     "upstream": "conversation",
@@ -116,7 +160,10 @@
       "default",
       "animated"
     ],
-    "local_only_examples": ["default", "animated"]
+    "local_only_examples": [
+      "default",
+      "animated"
+    ]
   },
   "environment-variables": {
     "upstream": "environment-variables",
@@ -131,15 +178,19 @@
     "contract": "interactive",
     "spec": "file-tree.spec.mjs",
     "component_examples": [
-      "default"
+      "default",
+      "basic",
+      "expanded",
+      "selection"
     ]
   },
   "image": {
     "upstream": "image",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
       "default"
-    ]
+    ],
+    "spec": "image.spec.mjs"
   },
   "inline-citation": {
     "upstream": "inline-citation",
@@ -149,13 +200,20 @@
       "carousel",
       "default"
     ],
-    "local_only_examples": ["carousel"]
+    "local_only_examples": [
+      "carousel"
+    ]
   },
   "jsx-preview": {
     "upstream": "jsx-preview",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
+    ],
+    "spec": "jsx-preview.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "mic-selector": {
@@ -168,18 +226,28 @@
   },
   "model-selector": {
     "upstream": "model-selector",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
+    ],
+    "spec": "model-selector.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "node": {
     "upstream": "node",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
     ],
-    "local_only_examples": ["default"]
+    "local_only_examples": [
+      "default",
+      "contract"
+    ],
+    "spec": "node.spec.mjs"
   },
   "open-in-chat": {
     "upstream": "open-in-chat",
@@ -188,27 +256,45 @@
   },
   "package-info": {
     "upstream": "package-info",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
+    ],
+    "spec": "package-info.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "panel": {
     "upstream": "panel",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
     ],
-    "local_only_examples": ["default"]
+    "local_only_examples": [
+      "default",
+      "contract"
+    ],
+    "spec": "panel.spec.mjs"
   },
   "persona": {
     "upstream": "persona",
     "contract": "interactive",
     "spec": "persona.spec.mjs",
     "component_examples": [
-      "default"
+      "default",
+      "command",
+      "glint",
+      "halo",
+      "mana",
+      "obsidian",
+      "opal"
     ],
-    "local_only_examples": ["default"]
+    "local_only_examples": [
+      "default"
+    ]
   },
   "plan": {
     "upstream": "plan",
@@ -223,7 +309,13 @@
     "contract": "interactive",
     "spec": "prompt-input.spec.mjs",
     "component_examples": [
-      "default"
+      "default",
+      "contract",
+      "cursor",
+      "tooltip"
+    ],
+    "local_only_examples": [
+      "contract"
     ]
   },
   "question": {
@@ -239,9 +331,15 @@
   },
   "queue": {
     "upstream": "queue",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract",
+      "prompt-input"
+    ],
+    "spec": "queue.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "reasoning": {
@@ -254,35 +352,59 @@
   },
   "sandbox": {
     "upstream": "sandbox",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
+    ],
+    "spec": "sandbox.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "schema-display": {
     "upstream": "schema-display",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract",
+      "basic",
+      "body",
+      "nested",
+      "params"
+    ],
+    "spec": "schema-display.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "shimmer": {
     "upstream": "shimmer",
     "contract": "interactive",
-    "spec": "shimmer.spec.mjs"
+    "spec": "shimmer.spec.mjs",
+    "component_examples": [
+      "default",
+      "duration",
+      "elements"
+    ]
   },
   "snippet": {
     "upstream": "snippet",
     "contract": "interactive",
     "spec": "snippet.spec.mjs",
     "component_examples": [
-      "default"
+      "default",
+      "plain"
     ]
   },
   "sources": {
     "upstream": "sources",
     "contract": "interactive",
-    "spec": "sources.spec.mjs"
+    "spec": "sources.spec.mjs",
+    "component_examples": [
+      "default",
+      "custom"
+    ]
   },
   "speech-input": {
     "upstream": "speech-input",
@@ -294,14 +416,26 @@
     "contract": "interactive",
     "spec": "stack-trace.spec.mjs",
     "component_examples": [
-      "default"
+      "default",
+      "contract",
+      "collapsed",
+      "no-internal"
+    ],
+    "local_only_examples": [
+      "contract"
     ]
   },
   "suggestion": {
     "upstream": "suggestion",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract",
+      "input"
+    ],
+    "spec": "suggestion.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "task": {
@@ -317,14 +451,29 @@
     "contract": "interactive",
     "spec": "terminal.spec.mjs",
     "component_examples": [
-      "default"
+      "default",
+      "contract",
+      "basic",
+      "clear",
+      "streaming"
+    ],
+    "local_only_examples": [
+      "contract"
     ]
   },
   "test-results": {
     "upstream": "test-results",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract",
+      "basic",
+      "errors",
+      "suites"
+    ],
+    "spec": "test-results.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "tool": {
@@ -332,16 +481,25 @@
     "contract": "interactive",
     "spec": "tool.spec.mjs",
     "component_examples": [
-      "default"
+      "default",
+      "input-available",
+      "input-streaming",
+      "output-available",
+      "output-error"
     ]
   },
   "toolbar": {
     "upstream": "toolbar",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
     ],
-    "local_only_examples": ["default"]
+    "local_only_examples": [
+      "default",
+      "contract"
+    ],
+    "spec": "toolbar.spec.mjs"
   },
   "transcription": {
     "upstream": "transcription",
@@ -350,9 +508,14 @@
   },
   "voice-selector": {
     "upstream": "voice-selector",
-    "contract": "rendered or caller-owned",
+    "contract": "authored",
     "component_examples": [
-      "default"
+      "default",
+      "contract"
+    ],
+    "spec": "voice-selector.spec.mjs",
+    "local_only_examples": [
+      "contract"
     ]
   },
   "web-preview": {

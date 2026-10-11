@@ -3,7 +3,7 @@ defmodule LiveShadcnTools.UiStatusTest do
 
   alias Mix.Tasks.Ui.Status
 
-  test "inventory renders excluded AI components and preserves their evidence" do
+  test "inventory reports stale AI evidence and preserves the stored record" do
     root = Path.join(System.tmp_dir!(), "ui-status-#{System.unique_integer([:positive])}")
     on_exit(fn -> File.rm_rf!(root) end)
     File.mkdir_p!(Path.join(root, "packages"))
@@ -23,6 +23,8 @@ defmodule LiveShadcnTools.UiStatusTest do
 
     File.write!(Path.join(root, "registry/INVENTORY.json"), Jason.encode!(inventory))
     File.write!(Path.join(root, "registry/UPSTREAM.json"), ~s({"files":{}}))
+    File.mkdir_p!(Path.join(root, "registry/snapshot"))
+    File.write!(Path.join(root, "registry/snapshot/index.json"), "{}")
     evidence = ~s({"ai_elements/message":{"pass":true,"evidence":"prior-ai-evidence"}})
     evidence_path = Path.join(root, "registry/VERIFY.json")
     File.write!(evidence_path, evidence)
@@ -30,8 +32,8 @@ defmodule LiveShadcnTools.UiStatusTest do
     File.cd!(root, fn ->
       Status.run([])
       rendered = File.read!(Path.join(root, "docs/INVENTORY.md"))
-      assert rendered =~ "| `excluded` | 1 |"
-      assert rendered =~ "| `message` | 1 | `presentational` | ⬛ excluded |"
+      assert rendered =~ "| `stale` | 1 |"
+      assert rendered =~ "| `message` | 1 | `presentational` | 🟧 stale |"
       assert File.read!(evidence_path) == evidence
       Status.run(["--check", "--source", "shadcn", "--require-verified"])
     end)

@@ -52,8 +52,8 @@ export async function runVerification({
   execute = executeLocalPlaywright,
   prepareEnvelope = directEnvelope,
 } = {}) {
-  if (environment.PREVIEW_SOURCE && environment.PREVIEW_SOURCE !== "shadcn") {
-    throw new Error("verification supports only source shadcn");
+  if (environment.PREVIEW_SOURCE && !["shadcn", "ai_elements"].includes(environment.PREVIEW_SOURCE)) {
+    throw new Error("verification source must be shadcn or ai_elements");
   }
 
   const run = async (token) => {
@@ -67,7 +67,6 @@ export async function runVerification({
       arguments: arguments_,
       environment: {
         ...environment,
-        PREVIEW_SOURCE: "shadcn",
         PLAYWRIGHT_JSON_OUTPUT_FILE: reportPath,
         PARITY_SOURCE_LEASE_TOKEN: token,
         LIVE_SHADCN_BROWSER_VERIFY_WRAPPER: "1",

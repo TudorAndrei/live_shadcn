@@ -328,6 +328,42 @@ defmodule LiveShadcnTools.IdentityTest do
       assert {"shadcn", "message-scroller"} in targets
     end
 
+    test "pinned AI components stay required when their contract or port is missing" do
+      root =
+        Path.join(System.tmp_dir!(), "missing-ai-targets-#{System.unique_integer([:positive])}")
+
+      on_exit(fn -> File.rm_rf!(root) end)
+
+      write(
+        root,
+        "registry/UPSTREAM.json",
+        Jason.encode!(%{
+          "files" => %{
+            "ai_elements/image.tsx" => %{"sha256" => "image"},
+            "ai_elements/agent.tsx" => %{"sha256" => "agent"}
+          }
+        })
+      )
+
+      write(root, "registry/spec/ai_elements/image.json", ~s({"ignored":{}}))
+
+      write(
+        root,
+        "packages/live_ai_elements/lib/live_ai_elements/components/agent.ex",
+        "defmodule Agent do end"
+      )
+
+      assert LiveShadcnTools.verification_targets("ai_elements", root) == [
+               {"ai_elements", "agent"},
+               {"ai_elements", "image"}
+             ]
+
+      assert LiveShadcnTools.verification_requirement_gaps("ai_elements", root) == [
+               "ai_elements/agent",
+               "ai_elements/image"
+             ]
+    end
+
     test "verification requirements use the supplied repository root" do
       root =
         Path.join(System.tmp_dir!(), "verification-targets-#{System.unique_integer([:positive])}")
@@ -342,6 +378,19 @@ defmodule LiveShadcnTools.IdentityTest do
 
       write(root, "registry/spec/shadcn/button.json", ~s({"ignored":{}}))
       write(root, "packages/live_shadcn/priv/registry/button.ex", "defmodule Button do end")
+      write(root, "registry/spec/ai_elements/image.json", ~s({"ignored":{}}))
+
+      write(
+        root,
+        "packages/live_ai_elements/lib/live_ai_elements/components/image.ex",
+        "defmodule Image do end"
+      )
+
+      assert LiveShadcnTools.verification_targets("ai_elements", root) == [
+               {"ai_elements", "image"}
+             ]
+
+      assert {"ai_elements", "image"} in LiveShadcnTools.verification_targets(nil, root)
 
       assert LiveShadcnTools.verification_targets("shadcn", root) == [
                {"shadcn", "button"},
@@ -354,6 +403,7 @@ defmodule LiveShadcnTools.IdentityTest do
              ]
 
       assert LiveShadcnTools.verification_requirement_gaps(nil, root) == [
+               "ai_elements/image",
                "shadcn/button",
                "shadcn/typography"
              ]

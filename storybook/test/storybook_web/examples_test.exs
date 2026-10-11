@@ -1080,15 +1080,6 @@ defmodule StorybookWeb.ExamplesTest do
       end
     end
 
-    test "shows AI Elements outside the verification pipeline", %{conn: conn} do
-      {:ok, _view, html} = live(conn, "/docs/attachments")
-
-      status = StorybookWeb.Docs.status("attachments")
-      assert status == :excluded
-      assert html =~ ~s(data-component-status="#{status}")
-      assert html =~ "Outside verification"
-    end
-
     test "uses the verification result for Sonner", %{conn: conn} do
       {:ok, _view, html} = live(conn, "/docs/sonner")
       {:ok, _view, index_html} = live(conn, "/")
