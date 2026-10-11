@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { enterVisualState, visualStates } from "./visual-states.mjs";
+import { actionControlSelector, enterVisualState, visualStates } from "./visual-states.mjs";
 import { discoverInteractionProbes } from "./interaction-parity.mjs";
 import { referenceReady, slowAnimationFrames, visit } from "./live.mjs";
 import { collect } from "./measure.mjs";
@@ -65,6 +65,54 @@ test("state names use a control's native label", async ({ page }) => {
 });
 
 for (const side of ["Phoenix", "React"]) {
+  test(`sidebar / default finishes initial motion before the header action on ${side}`, async ({ page }, testInfo) => {
+    const selector = "[data-preview='sidebar']";
+    const path = side === "Phoenix"
+      ? "/preview/sidebar/default"
+      : `${testInfo.project.use.parityURL}/preview/sidebar/default`;
+    await page.setViewportSize({ width: 1280, height: 2144 });
+    await visitPreview(page, path);
+    const states = (await visualStates(page, selector))
+      .filter(({ name }) => name === "action:Toggle Sidebar");
+    expect(states.map(({ kind, index }) => ({ kind, index }))).toEqual([
+      { kind: "interactive-action", index: 1 },
+      { kind: "interactive-action", index: 2 },
+    ]);
+    const controls = page.locator(selector).locator(actionControlSelector());
+    await expect(controls.nth(1)).toHaveAttribute("data-slot", "sidebar-rail");
+    await expect(controls.nth(2)).toHaveAttribute("data-slot", "sidebar-trigger");
+
+    // A reload can start finite horizontal motion before the first action.
+    // Keep that motion long enough to exercise native pointer stability retries.
+    await visitPreview(page, path);
+    await enterVisualState(page, selector, { kind: "default" });
+    const trigger = page.locator("[data-slot='sidebar-trigger']");
+    const pointerDown = trigger.evaluate((element) => new Promise((resolve) => {
+      const motion = element.animate(
+        [{ transform: "translateX(4px)" }, { transform: "translateX(0px)" }],
+        { duration: 150 },
+      );
+      element.addEventListener("pointerdown", () => resolve({
+        slot: element.dataset.slot,
+        scrollY,
+        y: element.getBoundingClientRect().y,
+        initialMotion: motion.playState,
+      }), { once: true });
+    }));
+    await enterVisualState(page, selector, states[1]);
+    const entry = await pointerDown;
+    await testInfo.attach("sidebar-header-pointer-entry", {
+      body: JSON.stringify(entry), contentType: "application/json",
+    });
+    expect(entry).toMatchObject({ slot: "sidebar-trigger", scrollY: 0, initialMotion: "finished" });
+    expect(entry.y).toBeGreaterThan(0);
+
+    await expect(trigger).toBeFocused();
+    await expect(page.locator("[data-slot='sidebar']")).toHaveAttribute("data-state", "collapsed");
+    expect(await page.evaluate(() => ({ scrollY, scrollTop: document.scrollingElement.scrollTop })))
+      .toEqual({ scrollY: 0, scrollTop: 0 });
+    expect((await trigger.boundingBox()).y).toBeGreaterThan(0);
+  });
   for (const [example, action] of [["time", "open"], ["natural-language", "typed-open"]]) {
     test(`date-picker / ${example} finishes entry before observation on ${side}`, async ({ page }, testInfo) => {
       const selector = "[data-preview='date-picker']";

@@ -1251,6 +1251,8 @@ export async function enterVisualState(page, selector, state) {
 
   if (state.kind === "interactive-action") {
     const scope = page.locator(selector);
+    // Initial motion can make native pointer retries choose a new scroll alignment.
+    await settleInteraction(page, { waitForTransitions: true });
     await actionControls(scope).nth(state.index).click();
     await settleInteraction(page, { waitForTransitions: true });
     await waitForCarouselMotion(page, selector);
