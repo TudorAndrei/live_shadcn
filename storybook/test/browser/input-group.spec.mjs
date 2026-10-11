@@ -54,6 +54,10 @@ for (const side of ["React", "Phoenix"]) {
     await expect(security).toHaveAttribute("data-slot", "button");
     await expect(security).toHaveAttribute("data-size", "icon-xs");
     await expect(security).toHaveClass(/cn-input-group-button/);
+    await expect(trigger).toHaveAccessibleName("");
+    if (side === "Phoenix") {
+      await expect(security).toHaveAccessibleName("Connection security information");
+    }
     await input.fill("example.com");
     await security.click();
     await expect(popup).toBeVisible();

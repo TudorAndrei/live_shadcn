@@ -13358,7 +13358,7 @@ defmodule StorybookWeb.Examples do
           trigger_wrapper_align="inline-start"
           trigger_wrapper_class="cn-input-group-addon flex cursor-text items-center justify-center select-none cn-input-group-addon-align-inline-start order-first"
           trigger_slot="button"
-          trigger_label="Connection security information"
+          trigger_rest={%{"aria-label" => "Connection security information"}}
           trigger_variant="secondary"
           trigger_data_size="icon-xs"
           trigger_class="cn-input-group-button flex items-center shadow-none cn-input-group-button-size-icon-xs"
