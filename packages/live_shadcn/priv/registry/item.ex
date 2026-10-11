@@ -172,7 +172,7 @@ defmodule LiveShadcn.UI.Item do
     <div
       data-slot={@rest[:"data-slot"] || "item-group"}
       role="list"
-      class={[upstream_fact("jsx/ItemGroup/class/0"), (@class || "")]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/ItemGroup/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

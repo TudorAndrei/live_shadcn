@@ -5304,11 +5304,7 @@ defmodule StorybookWeb.Examples do
             />
           </.item_media>
           <.item_content>
-            <.item_title class="line-clamp-1">
-              {song.title}
-              <!-- --> -<!-- -->
-              {" "}<span class="text-muted-foreground">{song.album}</span>
-            </.item_title>
+            <.item_title class="line-clamp-1" phx-no-format>{song.title}<!-- --> -<!-- -->{" "}<span class="text-muted-foreground">{song.album}</span></.item_title>
             <.item_description>{song.artist}</.item_description>
           </.item_content>
           <.item_content class="flex-none text-center">

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { referenceReady, visit } from "./live.mjs";
 
 test("the link Items preserve their anchor contract", async ({ page }) => {
   await visit(page, "/preview/item/link", "a[data-slot='item']:has-text('Visit our documentation')");
@@ -29,4 +29,35 @@ test("the dropdown exposes each Item in an open menu", async ({ page }) => {
   await expect(popup.getByText("shadcn@vercel.com")).toBeVisible();
   await expect(popup.getByText("maxleiter@vercel.com")).toBeVisible();
   await expect(popup.getByText("evilrabbit@vercel.com")).toBeVisible();
+});
+
+test("caller display classes keep responsive avatars and the Item grid", async ({ page }, testInfo) => {
+  for (const side of ["React", "Phoenix"]) {
+    const open = async (example) => {
+      const path = `/preview/item/${example}`;
+      if (side === "React") {
+        await page.goto(`${testInfo.project.use.parityURL}${path}`);
+        await referenceReady(page);
+      } else await visit(page, path);
+    };
+    await page.setViewportSize({ width: 600, height: 720 });
+    await open("avatar");
+    const responsive = page.locator("[data-slot='avatar'].hidden");
+    await expect(responsive).toHaveCount(2);
+    for (const avatar of await responsive.all()) await expect(avatar).toBeHidden();
+    await page.setViewportSize({ width: 900, height: 720 });
+    for (const avatar of await responsive.all()) {
+      await expect(avatar).toBeVisible();
+      await expect(avatar).toHaveCSS("display", "flex");
+    }
+    await open("header");
+    const group = page.locator("[data-slot='item-group']");
+    await expect(group).toHaveCSS("display", "grid");
+    const boxes = await group.locator("[data-slot='item']").evaluateAll(items =>
+      items.map(item => item.getBoundingClientRect().toJSON()));
+    expect(boxes).toHaveLength(3);
+    expect(boxes.map(box => box.y)).toEqual([boxes[0].y, boxes[0].y, boxes[0].y]);
+    expect(boxes[0].right).toBeLessThan(boxes[1].x);
+    expect(boxes[1].right).toBeLessThan(boxes[2].x);
+  }
 });

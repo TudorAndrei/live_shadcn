@@ -39,10 +39,7 @@ defmodule LiveShadcn.UI.Avatar do
     <span
       data-slot={@rest[:"data-slot"] || "avatar"}
       data-size={@size}
-      class={[
-        upstream_fact("jsx/Avatar/class/0"),
-        (@class || "")
-      ]}
+      class={LiveShadcn.Cn.merge([upstream_fact("jsx/Avatar/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
