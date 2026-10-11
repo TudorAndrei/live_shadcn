@@ -13,12 +13,21 @@ Follow [PLAN.md](PLAN.md). The coordinator owns this file.
 
 | Task | Code | Focused checks | Review | Integration | Final evidence |
 |---|---|---|---|---|---|
-| Menus and modal accessibility | Ready | Pending | Pending | Pending | Pending |
-| Message Scroller and transient capture | Ready | Pending | Pending | Pending | Pending |
-| Chart readiness and hover | Ready | Pending | Pending | Pending | Pending |
-| Input composition | Wait for shared menu files | Pending | Pending | Pending | Pending |
-| Input OTP | Ready for next worker | Pending | Pending | Pending | Pending |
-| Release and consumer installation | Ready | Pending | Pending | Pending | Pending |
+| Menus and modal accessibility | Committed | 125 comparisons; 43 Context/Drawer cases pass | Passed | `11efb19`, `9ed0017` | Pending |
+| Message Scroller and transient capture | Running | Initial/reset distinction under repair; busy capture passes | In progress | Pending | Pending |
+| Chart readiness and hover | Committed | All 8 examples pass; narrow hover passes | Passed | `5ccae15`, `b7f58f1` | Pending |
+| Input composition | Phases 51 and 46 committed; 47 running | Focus and name pass; Copy pixel mismatch open | In progress | In progress | Pending |
+| Input OTP | Running on `codex/factory-chart` | Pending | Pending | Pending | Pending |
+| Release and consumer installation | Install docs and CI repairs committed | Clean consumer passes; tools 167 pass; 398 pinned inputs restored | In progress | In progress | Pending |
+
+## Integration findings
+
+- Input Group Copy has a short-lived pixel mismatch. The transient capture owner
+  will inspect the existing per-host path. Keep timers, states, and limits.
+- The checkpoint CI fetched current upstream source and omitted test inputs.
+  The locked-source restore and dependency setup now pass local checks.
+- Release notes now describe the current 61 ports and complete Base hook setup.
+- Repeat the package proof with final integrated sources before acceptance.
 
 ## Final acceptance
 

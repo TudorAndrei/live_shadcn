@@ -138,6 +138,15 @@ Commits: `fix(release): require current shadcn verification`,
 `docs(installation): document complete consumer setup`, and further scoped
 fixes only when clean-host proof requires them.
 
+The checkpoint CI also found missing test preparation and an unpinned fetch.
+Add `mix ui.fetch --locked` to restore recorded URLs and validate their digests
+without changing the manifest. Use it in CI and release test preparation.
+Install Storybook dependencies before tools integration tests and browser npm
+dependencies before the helper suite. Keep the sync workflow's update mode.
+Prove restoration in an empty temporary checkout and retain all existing tests.
+
+Commit: `fix(ci): restore pinned inputs before verification`.
+
 ## Integration and acceptance
 
 1. Review and integrate code commits. Keep focused results and unresolved
