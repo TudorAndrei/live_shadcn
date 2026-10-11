@@ -328,6 +328,46 @@ defmodule LiveShadcnTools.IdentityTest do
       assert {"shadcn", "message-scroller"} in targets
     end
 
+    test "only explicitly unsupported AI components are outside the required scope" do
+      root =
+        Path.join(System.tmp_dir!(), "ai-supported-scope-#{System.unique_integer([:positive])}")
+
+      on_exit(fn -> File.rm_rf!(root) end)
+
+      write(
+        root,
+        "registry/UPSTREAM.json",
+        Jason.encode!(%{
+          "files" =>
+            Map.new(~w(canvas image new-component), &{"ai_elements/#{&1}.tsx", %{"sha256" => &1}})
+        })
+      )
+
+      write(
+        root,
+        "registry/INVENTORY.json",
+        Jason.encode!(%{
+          "components" => [
+            %{"source" => "ai_elements", "name" => "canvas", "recipe" => "unsupported"},
+            %{"source" => "ai_elements", "name" => "image", "recipe" => "presentational"},
+            %{"source" => "shadcn", "name" => "new-component", "recipe" => "unsupported"}
+          ]
+        })
+      )
+
+      assert LiveShadcnTools.verification_targets("ai_elements", root) == [
+               {"ai_elements", "image"},
+               {"ai_elements", "new-component"}
+             ]
+
+      assert LiveShadcnTools.verification_requirement_gaps("ai_elements", root) == [
+               "ai_elements/image",
+               "ai_elements/new-component"
+             ]
+
+      refute LiveShadcnTools.verification_requirement_met?("ai_elements/canvas", root)
+    end
+
     test "pinned AI components stay required when their contract or port is missing" do
       root =
         Path.join(System.tmp_dir!(), "missing-ai-targets-#{System.unique_integer([:positive])}")

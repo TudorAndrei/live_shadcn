@@ -173,6 +173,43 @@ defmodule LiveShadcnTools.PlaywrightReportTest do
     assert result.components["calendar.rtl"] == %{"pass" => true}
   end
 
+  test "authored behavior evidence requires an actual pass and retains retry failures" do
+    for {status, expected_status, attempts, pass?} <- [
+          {"expected", "passed", ["passed"], true},
+          {"expected", "failed", ["failed"], false},
+          {"expected", "passed", [], false},
+          {"skipped", "skipped", ["skipped"], false},
+          {"flaky", "passed", ["failed", "passed"], false},
+          {"unexpected", "passed", ["failed", "failed"], false}
+        ] do
+      interaction = %{
+        "title" => "selects a microphone with the keyboard",
+        "tests" => [
+          %{
+            "status" => status,
+            "expectedStatus" => expected_status,
+            "results" =>
+              Enum.map(attempts, fn result ->
+                %{
+                  "status" => result,
+                  "errors" =>
+                    if(result == "failed", do: [%{"message" => "no selection"}], else: [])
+                }
+              end)
+          }
+        ]
+      }
+
+      report = %{"suites" => [suite("mic-selector.spec.mjs", [interaction])]}
+      result = PlaywrightReport.behavior_results(report, ["mic-selector.default"])
+      check = result.components["mic-selector.default"]
+
+      assert check["pass"] == pass?, inspect({status, expected_status, attempts})
+
+      if "failed" in attempts, do: assert(check["detail"] =~ "no selection")
+    end
+  end
+
   test "require_example_coverage! rejects reports that omit scoped examples" do
     result = %{components: %{"button.default" => %{"pass" => true}}, global_failures: []}
 

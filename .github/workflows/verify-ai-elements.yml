@@ -49,6 +49,12 @@ jobs:
         run: mix ui.verify --source ai_elements
         working-directory: tools
 
+      - name: Check the full pinned AI catalog
+        run: npm run verify -- ai-component-audit.spec.mjs --project chromium
+        working-directory: storybook/test/browser
+        env:
+          PREVIEW_SOURCE: ai_elements
+
       - name: Require current AI evidence
         run: |
           mix ui.status

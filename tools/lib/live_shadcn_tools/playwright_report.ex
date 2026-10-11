@@ -149,14 +149,14 @@ defmodule LiveShadcnTools.PlaywrightReport do
 
   defp check(spec) do
     tests = spec["tests"] || []
-    pass? = tests != [] and Enum.all?(tests, &(&1["status"] == "expected"))
+    pass? = tests != [] and Enum.all?(tests, &passed?/1)
 
     if pass? do
       %{"pass" => true}
     else
       messages =
         tests
-        |> Enum.reject(&(&1["status"] == "expected"))
+        |> Enum.reject(&passed?/1)
         |> Enum.flat_map(&(&1["results"] || []))
         |> Enum.flat_map(&(&1["errors"] || []))
         |> Enum.map(& &1["message"])
@@ -165,6 +165,11 @@ defmodule LiveShadcnTools.PlaywrightReport do
 
       %{"pass" => false, "detail" => Enum.join([spec["title"] | messages], "\n")}
     end
+  end
+
+  defp passed?(test) do
+    test["status"] == "expected" and
+      match?(%{"status" => "passed"}, List.last(test["results"] || []))
   end
 
   defp component(spec, parents, components) do

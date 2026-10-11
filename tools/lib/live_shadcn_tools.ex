@@ -305,10 +305,23 @@ defmodule LiveShadcnTools do
           []
       end)
 
+    unsupported_ai = unsupported_ai_components(root)
+
     (primitives ++ docs_only ++ pinned_ai)
     |> Enum.uniq()
+    |> Enum.reject(&MapSet.member?(unsupported_ai, &1))
     |> Enum.sort()
     |> only_verification_source(source)
+  end
+
+  defp unsupported_ai_components(root) do
+    path = Path.join(root, "registry/INVENTORY.json")
+    inventory = if File.exists?(path), do: read_json!(path), else: %{}
+
+    for %{"source" => "ai_elements", "name" => name, "recipe" => "unsupported"} <-
+          Map.get(inventory, "components", []),
+        into: MapSet.new(),
+        do: {"ai_elements", name}
   end
 
   @doc false
