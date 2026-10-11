@@ -1455,9 +1455,8 @@ function anchoredScrollHook({
     },
     updateMessageSpacer: Scroller.updateMessageSpacer,
     syncMessageState() {},
-    atMessageEnd() {
-      return this.viewport.scrollHeight - this.viewport.scrollTop - this.viewport.clientHeight <= 8;
-    },
+    messageThreshold: 8,
+    atMessageEnd: Scroller.atMessageEnd,
   };
 
   hook.scrollMessageToElement = Scroller.scrollMessageToElement;
@@ -1812,26 +1811,33 @@ test("Message Scroller reanchors when the Slide Up visual offset finishes", asyn
   });
 
   try {
-    const { hook, item, setVisualOffset } = anchoredScrollHook({
-      contentTail: 100,
-      itemOffset: 480,
-      visualOffset: 2,
-    });
-    let finish;
-    const controls = { finished: new Promise((resolve) => (finish = resolve)) };
+    for (const contract of [
+      { label: "reachable anchor", contentTail: 100, itemOffset: 480,
+        visualOffset: 2, nativeEnd: 500, before: 402, after: 400 },
+      { label: "reachable anchor at native end", contentTail: 2, itemOffset: 480,
+        visualOffset: 2, nativeEnd: 402, before: 402, after: 400 },
+      { label: "upper-clamped anchor", contentTail: 1.25, itemOffset: 470.75,
+        visualOffset: 10, nativeEnd: 392, before: 392, after: 392 },
+    ]) {
+      const { hook, item, setVisualOffset } = anchoredScrollHook(contract);
+      let finish;
+      const controls = { finished: new Promise((resolve) => (finish = resolve)) };
 
-    Scroller.scrollMessageToElement.call(hook, item, {
-      align: "start",
-      keepPreviousPeek: true,
-    });
-    assert.equal(hook.viewport.scrollTop, 402);
+      Scroller.scrollMessageToElement.call(hook, item, {
+        align: "start",
+        keepPreviousPeek: true,
+      });
+      assert.equal(hook.viewport.scrollHeight - hook.viewport.clientHeight,
+        contract.nativeEnd, contract.label);
+      assert.equal(hook.viewport.scrollTop, contract.before, contract.label);
 
-    Scroller.reanchorMessageEntryAfterFinish.call(hook, item, controls);
-    setVisualOffset(0);
-    finish();
-    await Promise.resolve();
+      Scroller.reanchorMessageEntryAfterFinish.call(hook, item, controls);
+      setVisualOffset(0);
+      finish();
+      await Promise.resolve();
 
-    assert.equal(hook.viewport.scrollTop, 400);
+      assert.equal(hook.viewport.scrollTop, contract.after, contract.label);
+    }
   } finally {
     globalThis.getComputedStyle = previous;
   }

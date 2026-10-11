@@ -640,7 +640,12 @@ export const Scroller = {
   },
 
   atMessageEnd() {
-    return this.viewport.scrollHeight - this.viewport.scrollTop - this.viewport.clientHeight <= this.messageThreshold;
+    // Keep the existing native read order. Anchor completion reuses this range.
+    const height = this.viewport.scrollHeight;
+    const top = this.viewport.scrollTop;
+    const clientHeight = this.viewport.clientHeight;
+    this.messageNativeScrollRange = { top, maximum: Math.max(0, height - clientHeight) };
+    return height - top - clientHeight <= this.messageThreshold;
   },
 
   applyMessageOpeningPosition() {
@@ -749,7 +754,33 @@ export const Scroller = {
   reanchorMessageEntryAfterFinish(item, controls) {
     controls?.finished?.then(
       () => {
-        if (this.messageAnchoredItem === item && item.isConnected) this.reanchorMessageItem();
+        if (this.messageAnchoredItem !== item || !item.isConnected) return;
+        const outcome = this.messageEntryAnchorOutcome;
+        if (
+          outcome?.item === item &&
+          outcome.requestedTop > outcome.maximum &&
+          outcome.top === outcome.maximum &&
+          outcome.margin === this.messageMargin + this.messagePreviousPeek &&
+          outcome.generation === this.messageRoot?.getAttribute("data-lb-message-opening-generation")
+        ) {
+          const sameSpacer = () =>
+            outcome.spacer === this.messageSpacer &&
+            outcome.spacerHeight === this.messageSpacerHeight &&
+            outcome.spacerHidden === this.messageSpacer?.hidden &&
+            outcome.spacerStyleHeight === this.messageSpacer?.style?.height &&
+            outcome.spacerMarginTop === this.messageSpacer?.style?.marginTop;
+          if (sameSpacer()) {
+            // Only an actual upper-clamped request needs this new completion read.
+            this.atMessageEnd();
+            const current = this.messageNativeScrollRange;
+            if (
+              sameSpacer() &&
+              current.top === outcome.top &&
+              current.maximum === outcome.maximum
+            ) return;
+          }
+        }
+        this.reanchorMessageItem();
       },
       () => {},
     );
@@ -856,6 +887,20 @@ export const Scroller = {
     this.messageAnchoredItem = keepPreviousPeek ? item : null;
     this.viewport.scrollTo({ top: Math.max(0, top), behavior });
     this.stuck = this.atMessageEnd();
+    const range = this.messageNativeScrollRange;
+    this.messageEntryAnchorOutcome = keepPreviousPeek && range ? {
+      item,
+      requestedTop: Math.max(0, top),
+      top: range.top,
+      maximum: range.maximum,
+      margin,
+      generation: this.messageRoot?.getAttribute("data-lb-message-opening-generation"),
+      spacer: this.messageSpacer,
+      spacerHeight: this.messageSpacerHeight,
+      spacerHidden: this.messageSpacer?.hidden,
+      spacerStyleHeight: this.messageSpacer?.style?.height,
+      spacerMarginTop: this.messageSpacer?.style?.marginTop,
+    } : null;
     this.syncMessageState();
     return true;
   },
