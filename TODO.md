@@ -1,5 +1,9 @@
 # TODO: shadcn parity and verification badges
 
+Active task status: [release completion](docs/plans/release-completion/TODO.md).
+Use that board for parallel assignments and separate code from acceptance.
+The checklist below includes historical state that needs reconciliation.
+
 Follow [PLAN.md](PLAN.md). Phases 6e.6 through 6e.13 are complete.
 Phase 6f is in progress. Complete each phase, run its checks, and make its exact
 commit before starting the next phase.
@@ -535,7 +539,8 @@ commit before starting the next phase.
 - [x] Preserve other pending shared interaction helper repairs.
 - [x] Pass all helper checks and six actual disclosure browser cases.
 - [x] Pass complete Drawer interaction verification after phase 6e.35.
-- [x] Commit: `fix(verification): retain disclosure targets during modal replay` (`c03e126`)
+- [x] Commit: `fix(verification): retain disclosure targets during modal replay`
+  (`c03e126`)
 
 ## Phase 6e.35: use the pinned Drawer opening focus
 
@@ -557,7 +562,8 @@ commit before starting the next phase.
 - [x] Review snapshots and the changed port hash.
 - [x] Pass package and Storybook checks and prove all title class differences resolved.
 - [ ] Finish full Field checks after the radio focus and validation image repairs.
-- [x] Finish full default Drawer checks after modal accessibility and confirmation repairs.
+- [x] Finish full default Drawer checks after modal accessibility and
+  confirmation repairs.
 - [x] Commit: `fix(field): merge title classes in delivery drawer rows` (`8a6b74f`)
 
 ## Phase 6e.37: preserve modal Drawer background accessibility
@@ -577,7 +583,9 @@ commit before starting the next phase.
 - [x] Keep all valid states and retain named pointer, drag, and snap checks.
 - [x] Test dismissal, focus return, and resulting modality on both pages.
 - [x] Pass shared state checks and complete snap-points verification.
-- [x] Commit: `fix(verification): replay compact drawer actions through user controls` (`36fec6c`)
+- [x] Commit:
+  `fix(verification): replay compact drawer actions through user controls`
+  (`36fec6c`)
 
 ## Phase 6e.39: align the responsive Drawer desktop Dialog class
 
@@ -593,7 +601,9 @@ commit before starting the next phase.
 - [x] Apply the tested referenced-label observation draft.
 - [x] Pass real English and Arabic Select observations and helper tests.
 - [x] Pass complete Field default and RTL generic verification.
-- [x] Commit: `fix(verification): preserve labelled control names in observations` (`20369b0`)
+- [x] Commit:
+  `fix(verification): preserve labelled control names in observations`
+  (`20369b0`)
 
 ## Phase 6e.41: keep radio label focus on the visible control
 
@@ -615,7 +625,8 @@ commit before starting the next phase.
 - [x] Preserve deterministic JSON key order for the new snapshot command attribute.
 - [x] Pass two real nested checkbox choices and outside dismissal.
 - [x] Pass hook, package, and direct menu owner checks for this repair.
-- [ ] Pass all remaining complete menu checks after the separate caller and mask repairs.
+- [ ] Pass all remaining complete menu checks after the separate caller and mask
+  repairs.
 - [x] Pass complete complex example semantic and pixel comparison.
 - [x] Prove missing real menu names before the label repair.
 - [x] Preserve root and submenu names and caller label overrides.
@@ -737,7 +748,8 @@ The helper suite passes all 108 tests. Complete Sonner verification passes all
 nine checks. The Bubble notice image check passes at zero pixels.
 
 All seven original repair commits are now on main. The caller-event and
-accessibility time-limit repairs are also on main. The merge preserves all baseline records
+accessibility time-limit repairs are also on main. The merge preserves all
+baseline records
 except the new Sonner result. Main passes 108 browser helper tests, 93 Base
 JavaScript tests, and the shadcn static checks. Complete affected component
 verification remains required where a phase check box is still open.
@@ -756,7 +768,8 @@ verification remains required where a phase check box is still open.
 - [x] Compose caller JS commands and event names with local toggle behavior.
 - [x] Keep disabled triggers noninteractive and emit one click attribute.
 - [x] Pass the existing long-answer regression and package checks.
-- [x] Run complete Collapsible verification and record the remaining phase 22 and 23 failures.
+- [x] Run complete Collapsible verification and record the remaining phase 22
+  and 23 failures.
 - [x] Review the port hash.
 - [x] Commit: `fix(collapsible): run caller commands after toggling`
 
@@ -778,8 +791,10 @@ verification remains required where a phase check box is still open.
 
 ## Phase 6e.58: support checkable controls without an explicit identity
 
-- [x] Repair the confirmed Checkbox and Switch render failure when field, id, and name are absent.
-- [x] Preserve each control pair, label, checked state, focus, submitted value, and caller event.
+- [x] Repair the confirmed Checkbox and Switch render failure when field, id,
+  and name are absent.
+- [x] Preserve each control pair, label, checked state, focus, submitted value,
+  and caller event.
 - [x] Prove multiple unnamed controls remain independent on a real page.
 - [x] Review contracts and affected snapshots and pass package and browser checks.
 - [x] Commit: `fix(checkables): support controls without explicit identities`
@@ -820,7 +835,8 @@ verification remains required where a phase check box is still open.
 - [x] Keep closing popups from replacing the caller's current outside focus.
 - [x] Preserve explicit focus while open and the hook lifecycle.
 - [x] Pass affected modal and package checks and complete comparisons.
-- [x] Commit with the shared owner: `fix(overlay): preserve modal access and focus` (`8262f70`)
+- [x] Commit with the shared owner:
+  `fix(overlay): preserve modal access and focus` (`8262f70`)
 
 ## Phase 6e.63: match nested Drawer mobile direction and handle
 
@@ -859,7 +875,8 @@ verification remains required where a phase check box is still open.
 - [x] Keep the authored expected signs and assert the real fixture directions.
 - [x] Remove the extra popup-direction reversal from the raw offset.
 - [x] Pass Base JavaScript and existing shared popup owner checks.
-- [x] Pass complete Dropdown Menu and Hover Card comparisons after their scoped repairs.
+- [x] Pass complete Dropdown Menu and Hover Card comparisons after their scoped
+  repairs.
 - [x] Isolate Hover Card click faults, then repair them in phase 44.
 - [ ] Pass remaining complete Menubar and Context Menu comparisons.
 - [x] Commit popup test input and readiness corrections separately (`ddba483`).
@@ -886,7 +903,8 @@ verification remains required where a phase check box is still open.
 - [x] Pass repeated exact anchoring and all direct Message Scroller owners.
 - [x] Pass Base tests and static checks.
 - [ ] Pass all 11 complete Message Scroller examples. Preserve the nine saved failures.
-- [x] Commit: `fix(message-scroller): finish anchors and preserve reader input` (`900701c`)
+- [x] Commit: `fix(message-scroller): finish anchors and preserve reader input`
+  (`900701c`)
 
 ## Phase 6e.69: preserve tooltip trigger semantics
 
@@ -950,7 +968,8 @@ verification remains required where a phase check box is still open.
 
 - [x] Extend the existing Commands owner and obtain intended final-opening RED.
   All three runs have stable top 987 and native end 1009 after pending clears.
-- [x] Test only the pending-row CSS rule removal first; keep source scope to one file.
+- [x] Test only the pending-row CSS rule removal first; keep source scope to one
+  file.
 - [x] Obtain three exact Commands GREEN runs.
 - [ ] Pass all four complete semantic cases. Three pass. Previous Context
   still differs in peek-128 and send-busy after its default state passes.

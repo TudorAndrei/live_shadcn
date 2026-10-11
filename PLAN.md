@@ -1,5 +1,9 @@
 # Plan: shadcn parity and verification badges
 
+Active execution: [release completion](docs/plans/release-completion/PLAN.md).
+Use its task board for parallel work. The phase details below remain the
+technical reference. A code commit does not establish current verification.
+
 Status: in progress. Phases 6e.6 through 6e.13 are complete. Phase 6f refreshes
 the full verification evidence and checks release badges.
 Base commit: `f34f1f0`.
@@ -1420,7 +1424,8 @@ adds the visible controlled popup to the preview scope and removes duplicate
 physical controls. Controls below an accessibility-hidden or inert ancestor
 are excluded. Field names, values, states, and focus remain in the comparison.
 
-All 27 tests selected by the Dialog file filter pass, including Alert Dialog. The actual popup regression runs
+All 27 tests selected by the Dialog file filter pass, including Alert Dialog.
+The actual popup regression runs
 on both renderers. It checks two open fields, no closed fields, and a changed
 Username value. All three affected Dialog interaction examples and the Drawer
 Dialog interaction example pass. All 108 verification helper tests pass.
@@ -1545,7 +1550,8 @@ The scoped commit is `5df749a`. All commit checks pass.
   Cancel and Escape dismissal checks.
 - Pass Storybook checks and complete affected semantic and pixel examples.
   Review snapshots before the scoped example commit.
-- Canonical repair passes all four Save cases and all 31 Dialog and Alert Dialog browser tests.
+- Canonical repair passes all four Save cases and all 31 Dialog and Alert Dialog
+  browser tests.
   Storybook passes 80 tests and its static checks. Only the two outer form
   attributes change in reviewed snapshots. The complete default and RTL
   interaction, accessibility, semantic, and pixel run passes all 13 tests
@@ -1774,7 +1780,9 @@ or verification record changed. Commit checks passed. The before and complete
 logs are `/tmp/shadcn-compact-current-browser-red.log` and
 `/tmp/shadcn-compact-current-complete.log`.
 
-**Commit:** `fix(verification): replay compact drawer actions through user controls` (`36fec6c`)
+**Commit:**
+`fix(verification): replay compact drawer actions through user controls`
+(`36fec6c`)
 
 ### Phase 6e.39: align the responsive Drawer desktop Dialog class
 
@@ -1839,9 +1847,12 @@ and Collapsible observation cases. All 13 Field examples pass accessibility,
 interaction, structure, and pixel checks with the phase 6e.45 capture repair.
 The complete Field run has 57 passes in 7.0 minutes, with no skips or unstable
 results. Current reports use `/tmp/shadcn-label-names` and
-`/tmp/shadcn-native-validation`. Storybook passes 80 tests. All 463 Shadcn snapshots are current. Static checks pass with zero errors. No snapshot bytes changed.
+`/tmp/shadcn-native-validation` . Storybook passes 80 tests. All 463 Shadcn
+snapshots are current. Static checks pass with zero errors. No snapshot bytes
+changed.
 
-**Commit:** `fix(verification): preserve labelled control names in observations` (`20369b0`)
+**Commit:** `fix(verification): preserve labelled control names in observations`
+(`20369b0`)
 
 ### Phase 6e.41: keep radio label focus on the visible control
 
@@ -1927,7 +1938,9 @@ The source uses only the public label id and Select `labelledby` input. The
 snapshot review confirms that only `input-form.html` changes. Its one changed
 attribute replaces `form-country-value` with `form-country-label`; all other
 bytes match. The snapshot index, port bodies, facts, and pins remain unchanged.
-Storybook passes 80 tests in 62.0 seconds. All 463 Shadcn snapshots are current. Static checks pass with zero errors. All three test input files have their original bytes. All 48 AI record byte blocks remain unchanged.
+Storybook passes 80 tests in 62.0 seconds. All 463 Shadcn snapshots are current.
+Static checks pass with zero errors. All three test input files have their
+original bytes. All 48 AI record byte blocks remain unchanged.
 
 **Commit:** `fix(input): preserve the country field name` (`bd2ae35`)
 
@@ -2039,7 +2052,8 @@ Message Scroller owner also checks its real native trigger and outline action.
 Its shorter delay is a composition check rather than the primary bug proof.
 
 - Before the repair, the shared hover hook canceled pointer entry on pointerdown.
-  This is intended for Tooltip, but the pinned Hover Card keeps its entry request. A real click
+  This is intended for Tooltip, but the pinned Hover Card keeps its entry
+  request. A real click
   opens the reference card; the port stays closed through 60 animation frames.
 - Give Hover Card triggers an internal gesture marker and preserve their entry
   timer and pointer focus request. Keep Tooltip behavior and caller click actions.
@@ -2113,7 +2127,9 @@ All 13 Field examples pass their complete four-layer checks, with 57 passes
 in 7.0 minutes. Input Form passes complete pixel comparison with four passes
 in 31.0 seconds. No skips, unstable results, state exclusions, or limit changes
 occur. The fresh reports use `/tmp/shadcn-native-validation`. All 48 AI record
-byte blocks remain unchanged. Storybook passes 80 tests. All 463 Shadcn snapshots are current. Static checks pass with zero errors. No snapshot bytes changed.
+byte blocks remain unchanged. Storybook passes 80 tests. All 463 Shadcn
+snapshots are current. Static checks pass with zero errors. No snapshot bytes
+changed.
 
 **Commit:** `fix(verification): settle native validation prompt paint` (`0ae3c40`)
 
@@ -2398,7 +2414,8 @@ fixture mutation before starting a server or a managed verifier in that checkout
 
 The public Checkbox and Switch attributes give `id`, `name`, and `field` nil defaults.
 A real package render with only an accessible label fails in both components.
-The shared toggle command receives a nil input identity and raises a case-clause error.
+The shared toggle command receives a nil input identity and raises a case-clause
+error.
 The saved proof is `/tmp/shadcn-optional-checkable-render-proof.json`.
 Repair the public defaults without requiring a previously optional attribute.
 Use the smallest change that preserves separate control pairs, labels, focus,
@@ -2814,7 +2831,8 @@ Use hover in that existing owner and preserve its visibility and side checks.
 The Menubar reference-readiness change is a test correction. Commit it with
 the Tooltip hover-input correction, apart from production menu and offset
 repairs. Keep the real submenu entry-focus assertion with phase 43. It protects
-keyboard entry before dismissal. Full inherited-document direction remains a separate untested input.
+keyboard entry before dismissal. Full inherited-document direction remains a
+separate untested input.
 
 **Commit:** `fix(floating): preserve raw alignment offsets` (`451f57b`)
 
@@ -3385,7 +3403,8 @@ selection. Add no long-lived cache or weaker input coverage.
 
 Before application, compile the saved pre-change source and candidate source
 as two distinct private modules. Use the same real source filename and unchanged
-live input root. Compare the actual pre-change evaluator with the candidate batch. Save complete evaluation maps, independent and
+live input root. Compare the actual pre-change evaluator with the candidate
+batch. Save complete evaluation maps, independent and
 batch digest maps, elapsed time and reductions. Reject a timeout, changed
 inputs or unequal results. Record measurement order and warm-state limits.
 Then save actual test and dev Docs warm times with comparable preparation.
@@ -3468,7 +3487,8 @@ Before source application, measure the actual saved phase 75 source and the
 private candidate as distinct modules against the same unchanged live root.
 Use the same real source filename. End all input-writing tests, source leases
 and compilers before measurement. Matching endpoint receipts cannot detect
-every transient write that a concurrent test restores. Save raw compile lists, exact shared byte
+every transient write that a concurrent test restores. Save raw compile lists,
+exact shared byte
 list equality, complete evaluations, digest values and input receipts. Include
 added and deleted selected paths in the unchanged-input check. Use a finite
 five-minute shared limit. Reject timeout, input changes or unequal data. Record
