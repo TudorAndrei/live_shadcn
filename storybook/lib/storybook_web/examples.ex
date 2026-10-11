@@ -6009,7 +6009,13 @@ defmodule StorybookWeb.Examples do
     <div class="flex items-center justify-between gap-4">
       <.field orientation="horizontal" class="w-fit">
         <.field_label for="select-rows-per-page-trigger">Rows per page</.field_label>
-        <.select id="select-rows-per-page" value="25" align="start" trigger_class="w-20">
+        <.select
+          id="select-rows-per-page"
+          labelledby="select-rows-per-page-trigger-label"
+          value="25"
+          align="start"
+          trigger_class="w-20"
+        >
           <:option value="10" label="10" />
           <:option value="25" label="25" />
           <:option value="50" label="50" />
@@ -10347,7 +10353,11 @@ defmodule StorybookWeb.Examples do
               <div class="grid grid-cols-3 gap-4">
                 <.field>
                   <.field_label for="checkout-exp-month-ts6-select-trigger">Month</.field_label>
-                  <.select id="checkout-exp-month-ts6-select" placeholder="MM">
+                  <.select
+                    id="checkout-exp-month-ts6-select"
+                    labelledby="checkout-exp-month-ts6-select-trigger-label"
+                    placeholder="MM"
+                  >
                     <:option value="" label="MM" />
                     <:option
                       :for={month <- 1..12}
@@ -10357,7 +10367,11 @@ defmodule StorybookWeb.Examples do
                 </.field>
                 <.field>
                   <.field_label for="checkout-7j9-exp-year-f59-select-trigger">Year</.field_label>
-                  <.select id="checkout-7j9-exp-year-f59-select" placeholder="YYYY">
+                  <.select
+                    id="checkout-7j9-exp-year-f59-select"
+                    labelledby="checkout-7j9-exp-year-f59-select-trigger-label"
+                    placeholder="YYYY"
+                  >
                     <:option value="" label="YYYY" />
                     <:option :for={year <- 2024..2029} value={to_string(year)} />
                   </.select>
