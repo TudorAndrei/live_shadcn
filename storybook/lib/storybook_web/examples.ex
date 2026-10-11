@@ -12847,7 +12847,9 @@ defmodule StorybookWeb.Examples do
       <.menubar_menu id="menubar-default-view" class="w-44" tabindex={-1}>
         <:trigger>View</:trigger>
         <:entry kind="checkbox" value="bookmarks" section="display">Bookmarks Bar</:entry>
-        <:entry kind="checkbox" value="full-urls" section="display" checked>Full URLs</:entry>
+        <:entry kind="checkbox" value="full-urls" section="display" checked controlled>
+          Full URLs
+        </:entry>
         <:entry kind="separator" />
         <:entry kind="item" value="reload" section="reload" inset shortcut="⌘R">Reload</:entry>
         <:entry kind="item" value="force-reload" section="reload" disabled inset shortcut="⇧⌘R">
@@ -12863,6 +12865,7 @@ defmodule StorybookWeb.Examples do
         <:entry
           kind="radio-group"
           group="profile"
+          controlled
           value="benoit"
           items={[
             %{value: "andy", label: "Andy"},
@@ -12885,7 +12888,7 @@ defmodule StorybookWeb.Examples do
       <.menubar_menu id="menubar-checkbox-view" class="w-64" tabindex={0}>
         <:trigger>View</:trigger>
         <:entry kind="checkbox" value="bookmarks">Always Show Bookmarks Bar</:entry>
-        <:entry kind="checkbox" value="full-urls" checked>Always Show Full URLs</:entry>
+        <:entry kind="checkbox" value="full-urls" checked controlled>Always Show Full URLs</:entry>
         <:entry kind="separator" />
         <:entry kind="item" value="reload" inset shortcut="⌘R">Reload</:entry>
         <:entry kind="item" value="force-reload" disabled inset shortcut="⇧⌘R">
@@ -12894,7 +12897,7 @@ defmodule StorybookWeb.Examples do
       </.menubar_menu>
       <.menubar_menu id="menubar-checkbox-format" tabindex={-1}>
         <:trigger>Format</:trigger>
-        <:entry kind="checkbox" value="strikethrough" checked>Strikethrough</:entry>
+        <:entry kind="checkbox" value="strikethrough" checked controlled>Strikethrough</:entry>
         <:entry kind="checkbox" value="code">Code</:entry>
         <:entry kind="checkbox" value="superscript">Superscript</:entry>
       </.menubar_menu>
@@ -13086,7 +13089,7 @@ defmodule StorybookWeb.Examples do
       >
         <:trigger>عرض</:trigger>
         <:entry kind="checkbox" value="bookmarks" section="display">شريط الإشارات المرجعية</:entry>
-        <:entry kind="checkbox" value="full-urls" section="display" checked>
+        <:entry kind="checkbox" value="full-urls" section="display" checked controlled>
           عناوين URL الكاملة
         </:entry>
         <:entry kind="separator" />

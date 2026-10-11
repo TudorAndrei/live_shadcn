@@ -117,6 +117,11 @@ defmodule LiveShadcn.UI.ContextMenu do
 
     attr(:value, :string)
     attr(:checked, :boolean)
+
+    attr(:controlled, :boolean,
+      doc: "The caller owns checked or value. Run its click command without a client state change."
+    )
+
     attr(:group, :string)
     attr(:label, :string)
     attr(:section, :string)
@@ -188,6 +193,7 @@ defmodule LiveShadcn.UI.ContextMenu do
         kind={entry[:kind]}
         value={entry[:value]}
         checked={entry[:checked]}
+        controlled={entry[:controlled]}
         group={entry[:group]}
         label={entry[:label]}
         section={entry[:section]}
