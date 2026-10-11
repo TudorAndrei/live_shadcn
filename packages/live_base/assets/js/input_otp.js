@@ -54,7 +54,9 @@ export function installInputOtpBehavior() {
           ? record.target.closest("[data-input-otp-container]")
           : record.target.parentElement?.closest("[data-input-otp-container]");
       const controller = root && controllers.get(root);
-      if (controller && !controller.writing) updated.add(controller);
+      if (controller && (!controller.writing || !controller.input?.isConnected)) {
+        updated.add(controller);
+      }
     }
 
     for (const controller of updated) controller.updated();
@@ -68,6 +70,84 @@ export function installInputOtpBehavior() {
   });
 }
 
+// Match input-otp's badge detection without replacing the native form input.
+function passwordManagerSpace(root, input) {
+  const original = { width: input.style.width, clipPath: input.style.clipPath };
+  const markers = '[data-lastpass-icon-root], com-1password-button, [data-dashlanecreated], [style$="2147483647 !important;"]';
+  let strategy;
+  let detected = false;
+  let complete = false;
+  let interval;
+  let timers = [];
+
+  const clearDetection = () => {
+    timers.forEach(clearTimeout);
+    timers = [];
+  };
+  const setStyle = (key, value) => {
+    if (input.style[key] !== value) input.style[key] = value;
+  };
+  const availableSpace = () => {
+    const right = root.getBoundingClientRect().right;
+    for (let ancestor = root; ancestor; ancestor = ancestor.parentElement) {
+      if (getComputedStyle(ancestor).overflowX !== "visible") {
+        return ancestor.getBoundingClientRect().left + ancestor.clientLeft + ancestor.clientWidth - right;
+      }
+    }
+    return document.documentElement.clientWidth - right;
+  };
+  const apply = () => {
+    const enabled = ["increase-width", "experimental-no-flickering"].includes(strategy);
+    const reserve = enabled && detected && availableSpace() >= 40;
+    setStyle("width", reserve ? "calc(100% + 40px)" : original.width);
+    setStyle("clipPath", reserve ? "inset(0px 40px 0px 0px)" : original.clipPath);
+  };
+  const detect = () => {
+    if (complete || strategy === "none" || !root.isConnected) return;
+    const box = root.getBoundingClientRect();
+    const hit = document.elementFromPoint(box.left + root.offsetWidth - 18,
+      box.top + root.offsetHeight / 2);
+    if (document.querySelector(markers) || hit !== root) {
+      detected = true;
+      complete = true;
+      clearDetection();
+      apply();
+    }
+  };
+  const focus = () => {
+    clearDetection();
+    if (strategy === "none" || complete) return;
+    timers = [0, 2000, 5000].map(delay => setTimeout(detect, delay));
+    timers.push(setTimeout(() => { complete = true; }, 6000));
+  };
+  const update = () => {
+    const next = root.dataset.inputOtpPasswordManagerStrategy || "increase-width";
+    if (next !== strategy) {
+      clearDetection();
+      clearInterval(interval);
+      strategy = next;
+      if (strategy !== "none") interval = setInterval(apply, 1000);
+      if (document.activeElement === input) focus();
+    }
+    apply();
+  };
+  input.addEventListener("focus", focus);
+  input.addEventListener("blur", clearDetection);
+  update();
+
+  return {
+    update,
+    destroy() {
+      clearDetection();
+      clearInterval(interval);
+      input.removeEventListener("focus", focus);
+      input.removeEventListener("blur", clearDetection);
+      setStyle("width", original.width);
+      setStyle("clipPath", original.clipPath);
+    },
+  };
+}
+
 export const InputOtp = {
   mounted() {
     this.previousSelection = [null, null, "none"];
@@ -75,7 +155,10 @@ export const InputOtp = {
     this.onFocus = () => this.focused();
     this.onBlur = () => this.sync();
     this.onSelectionChange = () => this.selectionChanged();
-    this.onResize = () => this.setRootHeight();
+    this.onResize = () => {
+      this.setRootHeight();
+      this.passwordManager?.update();
+    };
 
     if (!this.bindInput()) return;
 
@@ -91,6 +174,7 @@ export const InputOtp = {
   updated() {
     if (!this.bindInput()) return;
     this.lastValue = this.input.value;
+    this.passwordManager.update();
     this.setRootHeight();
     this.sync();
   },
@@ -104,7 +188,11 @@ export const InputOtp = {
 
   bindInput() {
     const input = this.el.querySelector(":scope > div > input[data-input-otp]");
-    if (!(input instanceof HTMLInputElement)) return false;
+    if (!(input instanceof HTMLInputElement)) {
+      this.unbindInput();
+      this.input = null;
+      return false;
+    }
     if (input === this.input) return true;
 
     this.unbindInput();
@@ -113,10 +201,13 @@ export const InputOtp = {
     input.addEventListener("input", this.onInput);
     input.addEventListener("focus", this.onFocus);
     input.addEventListener("blur", this.onBlur);
+    this.passwordManager = passwordManagerSpace(this.el, input);
     return true;
   },
 
   unbindInput() {
+    this.passwordManager?.destroy();
+    this.passwordManager = null;
     this.input?.removeEventListener("input", this.onInput);
     this.input?.removeEventListener("focus", this.onFocus);
     this.input?.removeEventListener("blur", this.onBlur);

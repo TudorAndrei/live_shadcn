@@ -10,6 +10,7 @@ defmodule LiveShadcn.UI.InputOtpTest do
       render_component(&InputOtp.input_otp/1, %{
         id: "verification-code",
         maxlength: 6,
+        push_password_manager_strategy: "none",
         pattern: "^\\d+$",
         container_class_name: "max-w-48",
         class: "input-class",
@@ -25,6 +26,7 @@ defmodule LiveShadcn.UI.InputOtpTest do
            ]
 
     assert Floki.text([container]) =~ "slots"
+    assert Floki.attribute([container], "data-input-otp-password-manager-strategy") == ["none"]
 
     assert Floki.attribute([input], "class") == [
              "cn-input-otp-input disabled:cursor-not-allowed input-class"
