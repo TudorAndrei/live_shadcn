@@ -1213,7 +1213,7 @@ export async function enterVisualState(page, selector, state) {
     for (const step of action.steps)
       await runDatePickerStep(page, scope, step, context);
     await waitForDatePickerAction(page, scope, action.expect, context);
-    await settleInteraction(page);
+    await settleInteraction(page, { waitForTransitions: true });
     return;
   }
 

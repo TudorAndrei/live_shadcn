@@ -65,6 +65,24 @@ test("state names use a control's native label", async ({ page }) => {
 });
 
 for (const side of ["Phoenix", "React"]) {
+  for (const [example, action] of [["time", "open"], ["natural-language", "typed-open"]]) {
+    test(`date-picker / ${example} finishes entry before observation on ${side}`, async ({ page }, testInfo) => {
+      const selector = "[data-preview='date-picker']";
+      const path = side === "Phoenix"
+        ? `/preview/date-picker/${example}`
+        : `${testInfo.project.use.parityURL}/preview/date-picker/${example}`;
+
+      await visitPreview(page, path);
+      const state = (await visualStates(page, selector)).find(({ name }) => name === `action:${action}`);
+      expect(state).toBeDefined();
+      await enterVisualState(page, selector, state);
+
+      const opacity = await page.locator("[data-slot='popover-content']:visible")
+        .evaluate((element) => getComputedStyle(element).opacity);
+      expect(opacity).toBe("1");
+    });
+  }
+
   test(`popover / default exposes settled closed and expanded states on ${side}`, async ({ page }, testInfo) => {
     const selector = "[data-preview='popover']";
     const path = side === "Phoenix"
