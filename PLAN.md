@@ -4,8 +4,10 @@ Active execution: [release completion](docs/plans/release-completion/PLAN.md).
 Use its task board for parallel work. The phase details below remain the
 technical reference. A code commit does not establish current verification.
 
-Status: in progress. Phases 6e.6 through 6e.13 are complete. Phase 6f refreshes
-the full verification evidence and checks release badges.
+Status: phases through 6e.82 are implemented. The full run at `9f0e798` passed
+53 of 64 component groups. Phase 6e.83 resolves the remaining failures before
+phase 6f can complete. Use the current checklist for acceptance. The detailed
+phases below retain their original diagnosis and measurement history.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -30,9 +32,11 @@ CI checks of committed evidence, and current comparison thresholds. Component
 API redesign, upstream updates, dependency upgrades, and deployment are outside
 this plan. Add specific repair phases if corrected checks expose port bugs.
 
-## Findings to resolve
+## Original review findings
 
-| ID | Current code and problem | Required result |
+Phases 1–5 resolved these findings. This table records the original baseline.
+
+| ID | Original code and problem | Required result |
 |---|---|---|
 | S1 | `LiveShadcnTools.verification_evidence_digest/3` in `tools/lib/live_shadcn_tools.ex` omits hooks, CSS, reference-page code, and shims. | Runtime changes invalidate affected shadcn evidence. |
 | S2 | `Mix.Tasks.Ui.Verify.record_incremental!/3` calculates identity at import time. `PlaywrightReport` omits top-level errors. | Imports prove their test-time identity and complete execution. |
@@ -3664,6 +3668,36 @@ the added copy binding. Keep upstream facts unchanged. Require both complete
 examples in all four layers without comparison exclusions or new limits.
 
 Commit: `fix(navigation-menu): preserve focus and accessibility ownership`.
+
+## Phase 6e.83: resolve remaining integrated comparison failures
+
+The full run at `9f0e798` completed on 2026-10-11. It passed 53 of 64 groups.
+All repairs in the first factory assignments passed this run. The following
+failures still prevent release acceptance. Diagnose each failure against the
+pinned native reference before editing its port or observation code.
+
+| Owner | Group and current failure | Required proof and scoped commit |
+|---|---|---|
+| Coordinator | Hover Card sides has a legacy 11-pixel budget. | Require exact pixels, then set the budget to zero. `fix(hover-card): require exact side placement pixels`. |
+| Menus worker | Label and Pagination inferred control discovery differs. | Compare actual native controls and interactions. `fix(verification): align inferred interaction controls`. |
+| Menus worker | Toggle Group behavior and font-weight layout differ. Its legacy budget is 32 pixels. | Prove controlled choices, caller classes, and exact pixels. `fix(toggle-group): preserve native selection and caller layout`. |
+| Menus worker | Progress control discovery, accessibility, and rendering differ. | Prove controlled updates and native control semantics. `fix(progress): preserve controlled example behavior`. |
+| Message worker | Scroll Area fails five scroll behavior checks. | Prove edge state, thumb movement, local scrolling, horizontal scrolling, and RTL. `fix(scroll-area): preserve native scroll behavior`. |
+| Message worker | Marker notice behavior and pixels differ. | Prove the actual notice after the caller action. `fix(marker): preserve the revert notice`. |
+| Message worker | Toast types adds an aria-hidden-focus failure. | Prove native focus and accessibility through successive notices. `fix(toast): preserve accessibility during replacement`. |
+| Message worker | Sidebar toggle differs by 448 pixels at the trigger. | Prove exact open and closed captures after real interaction. `fix(sidebar): preserve native trigger state`. |
+| Chart worker | Questionnaire Next validation, behavior, and pixels differ. | Prove invalid state and visible feedback for every example. `fix(questionnaire): preserve native validation feedback`. |
+| Chart worker | Item has caller class conflicts and a one-pixel image difference. | Prove Item and composed Avatar class replacement and exact layout. `fix(item): preserve caller layout and native rendering`. |
+
+Use separate worktrees and existing behavior owners. The coordinator owns the
+shared pixel-budget file. Lower a legacy budget only after exact comparison
+passes. Never increase a limit, omit a state, change a pin, or change AI records.
+Keep all failures visible until reviewed repairs and complete scoped checks
+pass. Update the exact commit title if diagnosis changes the repair scope.
+
+The first full run's records are diagnostic evidence. Source repairs invalidate
+that evidence. Repeat all affected verification on the combined source before
+acceptance. Build and test new package archives after the final port changes.
 
 ## Phase 6f: refresh evidence and verify release badges
 
