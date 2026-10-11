@@ -41,6 +41,14 @@ jobs:
       - run: mix deps.get
         working-directory: ${{ matrix.package }}
 
+      - name: Prepare tools integration test inputs
+        if: matrix.package == 'tools'
+        run: |
+          mix ui.fetch --locked
+          cd ../storybook
+          mix deps.get
+        working-directory: tools
+
       - run: mix format --check-formatted
         working-directory: ${{ matrix.package }}
 

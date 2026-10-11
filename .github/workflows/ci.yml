@@ -68,6 +68,14 @@ jobs:
       - run: mix deps.get
         working-directory: ${{ matrix.package }}
 
+      - name: Prepare tools integration test inputs
+        if: matrix.package == 'tools'
+        run: |
+          mix ui.fetch --locked
+          cd ../storybook
+          mix deps.get
+        working-directory: tools
+
       - run: mix format --check-formatted
         working-directory: ${{ matrix.package }}
 
@@ -199,7 +207,7 @@ jobs:
       # `registry/upstream/` is gitignored on purpose: this repository records a
       # digest per upstream file rather than redistributing anybody else's
       # source. So the sources have to be fetched before they can be re-read.
-      - run: mix ui.fetch
+      - run: mix ui.fetch --locked
         working-directory: tools
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -221,6 +229,9 @@ jobs:
           persist-credentials: false
 
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+
+      - run: npm ci
+        working-directory: storybook/test/browser
 
       - run: node --test ./*.test.mjs
         working-directory: storybook/test/browser

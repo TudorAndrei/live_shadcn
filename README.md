@@ -98,6 +98,9 @@ mix ui.fetch  ->  mix ui.spec  ->  mix ui.verify
 
 `mix ui.fetch` stores fetched files in the ignored `registry/upstream/`
 directory. `registry/UPSTREAM.json` commits their SHA-256 digests.
+Use `mix ui.fetch --locked` to prepare an existing checkout or CI run. It
+restores the recorded URLs, checks their digests, and preserves the manifest.
+Use plain `mix ui.fetch` only when you intend to update upstream sources.
 
 `mix ui.verify --source shadcn` checks every shadcn port and the data-table,
 date-picker, and typography documentation families. AI Elements is outside this

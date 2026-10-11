@@ -55,7 +55,7 @@ current CI deployment path. There is no separate `Deploy storybook` workflow.
 
 ## Upstream synchronization
 
-`.github/workflows/sync-upstream.yml` fetches pinned source inputs, synchronizes
+`.github/workflows/sync-upstream.yml` fetches current upstream inputs, synchronizes
 safe facts into reviewed ports, verifies shadcn, and prepares a pull request.
 Structure or behavior changes require manual port review. The old `ui.gen`
 workflow no longer defines component ownership.

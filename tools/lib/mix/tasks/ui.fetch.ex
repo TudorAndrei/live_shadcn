@@ -15,7 +15,8 @@ defmodule Mix.Tasks.Ui.Fetch do
   therefore shows up as a digest diff in the sync pull request, without this
   repository redistributing anybody else's source.
 
-      mix ui.fetch                 # everything
+      mix ui.fetch                 # update from current upstream
+      mix ui.fetch --locked        # restore the committed manifest exactly
       mix ui.fetch --only accordion
       mix ui.fetch --ref a1b2c3d   # pin shadcn to an explicit commit
       mix ui.fetch --ai-ref a1b2c3d # pin AI Elements to an explicit commit
@@ -26,6 +27,11 @@ defmodule Mix.Tasks.Ui.Fetch do
   are on the branch and the sheets their class strings resolve against are not.
   It reads the commit out of the manifest, writes no manifest of its own, and
   asks GitHub for eleven files instead of two hundred.
+
+  `--locked` restores missing or changed files from the manifest's recorded
+  URLs. It checks each digest before writing and leaves the manifest unchanged.
+  Use this mode for CI and existing checkouts. It cannot be combined with the
+  update or partial-fetch options.
   """
   use Mix.Task
 
@@ -109,9 +115,10 @@ defmodule Mix.Tasks.Ui.Fetch do
   def run(argv) do
     Mix.Task.run("app.start")
 
-    {opts, _, _} =
-      OptionParser.parse(argv,
+    {opts, arguments} =
+      OptionParser.parse!(argv,
         strict: [
+          locked: :boolean,
           only: :string,
           ref: :string,
           ai_ref: :string,
@@ -120,11 +127,50 @@ defmodule Mix.Tasks.Ui.Fetch do
         ]
       )
 
+    if arguments != [], do: Mix.raise("ui.fetch does not accept positional arguments")
+
     cond do
+      opts[:locked] -> locked_layer(opts)
       opts[:styles] -> styling_layer(opts[:ref])
       opts[:base_ui] -> base_ui_layer()
       true -> everything(opts)
     end
+  end
+
+  defp locked_layer(opts) do
+    if Keyword.delete(opts, :locked) != [],
+      do: Mix.raise("--locked cannot be combined with other fetch options")
+
+    files = read_json!(registry_path("UPSTREAM.json"))["files"]
+
+    if not is_map(files) or map_size(files) == 0,
+      do: Mix.raise("the manifest has no pinned files")
+
+    upstream = registry_path("upstream")
+
+    for {relative, entry} <- Enum.sort(files) do
+      path = Path.expand(relative, upstream)
+
+      if not String.starts_with?(path, upstream <> "/"),
+        do: Mix.raise("invalid upstream path: #{relative}")
+
+      expected = entry["sha256"]
+
+      unless File.regular?(path) and digest(File.read!(path)) == expected do
+        body =
+          case get(entry["url"]) do
+            {:ok, body} -> body
+            {:error, status} -> Mix.raise("#{relative} returned HTTP #{status}")
+          end
+
+        if digest(body) != expected,
+          do: Mix.raise("#{relative}: downloaded source does not match the pinned digest")
+
+        write!(path, body)
+      end
+    end
+
+    Mix.shell().info("restored #{map_size(files)} pinned upstream file(s); manifest unchanged")
   end
 
   # The styling layer and nothing else, at the commit `registry/UPSTREAM.json`
