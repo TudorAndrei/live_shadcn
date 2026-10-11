@@ -229,6 +229,15 @@ jobs:
 
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
 
+      - run: mix deps.get
+        working-directory: tools
+
+      - name: Restore pinned browser contract inputs
+        run: mix ui.fetch --locked
+        working-directory: tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - run: npm ci
         working-directory: storybook/test/browser
 
