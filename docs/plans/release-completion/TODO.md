@@ -51,19 +51,19 @@ Follow root phase 6e.83 for repair scope and required proof.
 
 | Owner | Groups | Failed checks |
 |---|---|---|
-| Coordinator | Hover Card | Nonzero legacy pixel budget |
-| Menus worker | Label, Pagination, Toggle Group, Progress | Behavior, control discovery, accessibility, layout, and legacy Toggle Group budget |
-| Message worker | Scroll Area, Marker, Toast, Sidebar | Scroll behavior, notice behavior, accessibility, and pixels |
-| Chart worker | Questionnaire, Item | Validation behavior, caller classes, semantic rendering, and pixels |
+| Coordinator | Hover Card | Complete at zero pixels, `dea5c33` |
+| Menus worker | Label, Pagination, Toggle Group, Progress | Select names integrated as `185b361`; Toggle Group integrated as `b3ba6a9` at zero pixels; Progress server reset remains under review |
+| Message worker | Scroll Area, Marker, Toast, Sidebar | Repairs integrated as `b3d91d7`, `8053f16`, and `2a8bcbf`; Sidebar repeats pass without source change |
+| Chart worker | Questionnaire, Item | Item and Avatar integrated as `8d0dbb2`; Questionnaire validation, conditional updates, and reset notice are under repair |
 
 - [ ] Repair and review all 11 groups.
 - [ ] Recheck affected composed callers, including Avatar and Toggle.
-- [ ] Require zero for the two legacy nonzero budgets after exact proof.
+- [x] Require zero for the two legacy nonzero budgets after exact proof.
 - [ ] Repeat full combined verification and final package proof.
 
 ## Final acceptance
 
-- [x] All scoped repairs have reviewed commits.
+- [ ] All scoped repairs have reviewed commits.
 - [x] Base, shadcn, tools, private verification, and Storybook tests pass.
 - [x] AI package checks pass where shared work affects them.
 - [x] Browser helper and parity helper tests pass.

@@ -3678,22 +3678,60 @@ pinned native reference before editing its port or observation code.
 
 | Owner | Group and current failure | Required proof and scoped commit |
 |---|---|---|
-| Coordinator | Hover Card sides has a legacy 11-pixel budget. | Require exact pixels, then set the budget to zero. `fix(hover-card): require exact side placement pixels`. |
-| Menus worker | Label and Pagination inferred control discovery differs. | Compare actual native controls and interactions. `fix(verification): align inferred interaction controls`. |
+| Coordinator | Hover Card sides has a legacy 11-pixel budget. | Require exact pixels, then set the budget to zero. `fix(hover-card): preserve native paragraph text runs`. |
+| Menus worker | Label and Pagination inferred control discovery differs. | Compare actual native controls and interactions. `fix(examples): preserve Select field names`. |
 | Menus worker | Toggle Group behavior and font-weight layout differ. Its legacy budget is 32 pixels. | Prove controlled choices, caller classes, and exact pixels. `fix(toggle-group): preserve native selection and caller layout`. |
 | Menus worker | Progress control discovery, accessibility, and rendering differ. | Prove controlled updates and native control semantics. `fix(progress): preserve controlled example behavior`. |
-| Message worker | Scroll Area fails five scroll behavior checks. | Prove edge state, thumb movement, local scrolling, horizontal scrolling, and RTL. `fix(scroll-area): preserve native scroll behavior`. |
-| Message worker | Marker notice behavior and pixels differ. | Prove the actual notice after the caller action. `fix(marker): preserve the revert notice`. |
-| Message worker | Toast types adds an aria-hidden-focus failure. | Prove native focus and accessibility through successive notices. `fix(toast): preserve accessibility during replacement`. |
-| Message worker | Sidebar toggle differs by 448 pixels at the trigger. | Prove exact open and closed captures after real interaction. `fix(sidebar): preserve native trigger state`. |
-| Chart worker | Questionnaire Next validation, behavior, and pixels differ. | Prove invalid state and visible feedback for every example. `fix(questionnaire): preserve native validation feedback`. |
-| Chart worker | Item has caller class conflicts and a one-pixel image difference. | Prove Item and composed Avatar class replacement and exact layout. `fix(item): preserve caller layout and native rendering`. |
+| Message worker | Scroll Area fails five scroll behavior checks. | Prove edge state, thumb movement, local scrolling, horizontal scrolling, and RTL. `fix(scroll-area): preserve ordinary scroll measurements`. |
+| Message worker | Marker notice behavior and pixels differ. | Prove the actual notice after the caller action. `fix(marker): render the native notice title`. |
+| Message worker | Toast types adds an aria-hidden-focus failure. | Prove native focus, announcements, and cleanup. `fix(toast): preserve urgent notice focus and announcements`. |
+| Message worker | Sidebar toggle differs by 448 pixels at the trigger. | Prove exact open and closed captures after real interaction. No source repair is justified by current repeat results. |
+| Chart worker | Questionnaire Next validation, behavior, and pixels differ. | Prove invalid state and visible feedback for every example. `fix(questionnaire): synchronize invalid answer state`. |
+| Chart worker | Item has caller class conflicts and a one-pixel image difference. | Prove Item and composed Avatar class replacement and exact layout. `fix(item): preserve caller display and text layout`. |
 
 Use separate worktrees and existing behavior owners. The coordinator owns the
 shared pixel-budget file. Lower a legacy budget only after exact comparison
 passes. Never increase a limit, omit a state, change a pin, or change AI records.
 Keep all failures visible until reviewed repairs and complete scoped checks
 pass. Update the exact commit title if diagnosis changes the repair scope.
+
+Diagnosis has also identified composed caller repairs. Avatar and Toggle must
+merge caller classes through the existing `Cn.merge` API. The controlled
+Progress reference exposes two scalar Slider thumbs. Add an explicit optional
+thumb count while keeping the documented one-thumb default and list behavior.
+Both scalar controls must stay operable and update the same value.
+The first candidate retained its last reported scalar value after a server
+reset. A new selection of that value then sent no event. Refresh that baseline
+after a server update and preserve duplicate input/change suppression. The new
+thumb count must also remain operable when its server value changes. Prove
+control binding, caller ownership, and cleanup through an update.
+Commit: `fix(slider): preserve controlled values across updates`.
+
+Hover Card sides has three paragraph text nodes in React and one in Phoenix.
+Native boxes match, but glyph positions differ by 1/64 pixel. Explicit comment
+boundaries remove the measured difference. Keep the paragraph on one line with
+`phx-no-format`; formatter whitespace otherwise changes glyph positions again.
+
+Completed coordinator proof: all three Hover Card examples pass every layer
+at zero pixels after formatting. Commit `dea5c33` contains the text repair,
+reviewed snapshot, and 11-to-zero budget reduction. Scroll Area and Marker
+repairs are integrated as `b3d91d7` and `8053f16` after complete scoped proof.
+
+Select field names are integrated as `185b361`. Toast focus and announcements
+are integrated as `2a8bcbf`; all 25 Toast checks and 15 shared caller checks
+pass. Toggle Group is integrated as `b3ba6a9`, including its 32-to-zero pixel
+limit. Both legacy pixel limits are now zero. Progress remains under review
+for controlled updates after a server reset. Questionnaire needs further
+repairs for conditional descriptions, composed title classes, and its reset
+notice before complete scoped proof can pass.
+Item and Avatar are integrated as `8d0dbb2`; all 21 examples pass all required
+checks. The Item image example has zero pixel difference.
+
+Sidebar's first full-run image failure has not reproduced. One complete run
+and six complete pixel repeats pass. Three measured repeats show equal trigger
+and icon geometry, pointer focus, hover, and focus-visible state during capture.
+No Sidebar source changes are justified. Keep its zero limit and require the
+next full combined run to pass. The original failure remains unexplained.
 
 The first full run's records are diagnostic evidence. Source repairs invalidate
 that evidence. Repeat all affected verification on the combined source before
