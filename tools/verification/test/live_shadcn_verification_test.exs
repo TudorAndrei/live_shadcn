@@ -14,12 +14,25 @@ defmodule LiveShadcnVerificationTest do
 
   test "publication rechecks changed bytes and added or removed shared files" do
     root = fixture_root("identity-batch")
-    bootstrap_identity(root, "button")
+    record = verified_record(root, "button", :standard)
     path = "packages/live_base/assets/js/batch.js"
     write(root, path, "first")
     original = LiveShadcnVerification.evidence_digests(["button"], root)
+    record = Map.put(record, "evidence", Map.fetch!(original, "button"))
+
+    evaluate_badge = fn ->
+      LiveShadcnVerification.evaluate_many(
+        %{"shadcn/button" => record},
+        root,
+        Path.join(root, "registry/spec")
+      )
+      |> Map.fetch!("shadcn/button")
+    end
+
+    assert evaluate_badge.().status == :verified
 
     write(root, path, "other")
+    assert evaluate_badge.().status == :stale
 
     assert_raise Mix.Error, ~r/verification inputs changed/, fn ->
       LiveShadcnVerification.assert_identities_unchanged!(root, original)
@@ -27,14 +40,18 @@ defmodule LiveShadcnVerificationTest do
 
     write(root, path, "first")
     assert :ok = LiveShadcnVerification.assert_identities_unchanged!(root, original)
+    assert evaluate_badge.().status == :verified
     write(root, "packages/live_base/assets/js/added.js", "added")
+    assert evaluate_badge.().status == :stale
 
     assert_raise Mix.Error, ~r/verification inputs changed/, fn ->
       LiveShadcnVerification.assert_identities_unchanged!(root, original)
     end
 
     File.rm!(Path.join(root, "packages/live_base/assets/js/added.js"))
+    assert evaluate_badge.().status == :verified
     File.rm!(Path.join(root, path))
+    assert evaluate_badge.().status == :stale
 
     assert_raise Mix.Error, ~r/verification inputs changed/, fn ->
       LiveShadcnVerification.assert_identities_unchanged!(root, original)

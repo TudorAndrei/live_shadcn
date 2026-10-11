@@ -36,15 +36,7 @@ defmodule StorybookWeb.ProductionImageTest do
 
       compiled = StorybookWeb.Docs.evaluation(name)
 
-      assert compiled.status == pipeline.status
-      assert compiled.label == pipeline.label
-      assert compiled.reason == pipeline.reason
-
-      assert Enum.map(compiled.checks, & &1.name) ==
-               Enum.map(pipeline.checks, & &1.name)
-
-      assert Enum.map(compiled.checks, & &1.outcome) ==
-               Enum.map(pipeline.checks, & &1.outcome)
+      assert compiled == pipeline, identity
     end
   end
 end

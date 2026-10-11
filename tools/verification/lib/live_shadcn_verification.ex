@@ -464,6 +464,12 @@ defmodule LiveShadcnVerification do
 
   def evidence_current?(result, source, name, root, spec_path)
       when source in ["shadcn", "ai_elements"] do
+    evidence_current?(result, source, name, root, spec_path, fn ->
+      evidence_digest(source, name, root)
+    end)
+  end
+
+  defp evidence_current?(result, source, name, root, spec_path, current_evidence) do
     policy = effective_policy(source, name, root)
 
     current_target =
@@ -474,7 +480,7 @@ defmodule LiveShadcnVerification do
           reviewed_contract?(read_json!(spec_path))
       end
 
-    current_target and result["evidence"] == evidence_digest(source, name, root)
+    current_target and result["evidence"] == current_evidence.()
   end
 
   def record_stale?(result, source, name, root, spec_path) do
@@ -492,6 +498,37 @@ defmodule LiveShadcnVerification do
 
   def badge_status(result, source, name, root, spec_path) do
     evaluate(result, source, name, root, spec_path).status
+  end
+
+  # Shared inputs belong to one fresh Docs evaluation call. No digest is kept
+  # between calls, and excluded or absent records need no evidence collection.
+  def evaluate_many(results, root, spec_root) do
+    identities = Enum.uniq(Map.keys(results) ++ Map.keys(policy_status_overrides()))
+
+    names =
+      for "shadcn/" <> name <- identities,
+          policy_status("shadcn", name) not in [:local_only, :no_dom],
+          record_present?(Map.get(results, "shadcn/#{name}", %{})),
+          do: name
+
+    evidence = if names == [], do: %{}, else: evidence_digests(names, root)
+
+    Map.new(identities, fn identity ->
+      [source, name] = String.split(identity, "/", parts: 2)
+      result = Map.get(results, identity, %{})
+      spec_path = Path.join([spec_root, source, "#{name}.json"])
+
+      evaluation =
+        case {source, Map.fetch(evidence, name)} do
+          {"shadcn", {:ok, current}} ->
+            evaluate_record(result, source, name, root, spec_path, fn -> current end)
+
+          _ ->
+            evaluate(result, source, name, root, spec_path)
+        end
+
+      {identity, evaluation}
+    end)
   end
 
   def evaluate(_result, "ai_elements", _name, _root, _spec_path) do
@@ -519,6 +556,12 @@ defmodule LiveShadcnVerification do
   end
 
   def evaluate_record(result, source, name, root, spec_path) do
+    evaluate_record(result, source, name, root, spec_path, fn ->
+      evidence_digest(source, name, root)
+    end)
+  end
+
+  defp evaluate_record(result, source, name, root, spec_path, current_evidence) do
     policy = effective_policy(source, name, root)
     checks = evaluate_checks(source, policy, Map.get(result, "checks", %{}))
 
@@ -526,11 +569,11 @@ defmodule LiveShadcnVerification do
       not record_present?(result) ->
         not_verified_result(checks, "No verification record exists")
 
-      record_stale?(result, source, name, root, spec_path) ->
+      not evidence_current?(result, source, name, root, spec_path, current_evidence) ->
         %{
           status: :stale,
           label: status_label(:stale),
-          reason: stale_reason(result, source, name, root, spec_path),
+          reason: stale_reason(result, source, name, root, spec_path, current_evidence),
           checks: checks
         }
 
@@ -623,11 +666,11 @@ defmodule LiveShadcnVerification do
 
   defp record_present?(result), do: map_size(result) > 0
 
-  defp stale_reason(result, source, name, root, spec_path) do
+  defp stale_reason(result, source, name, root, spec_path, current_evidence) do
     policy = effective_policy(source, name, root)
 
     cond do
-      result["evidence"] != evidence_digest(source, name, root) ->
+      result["evidence"] != current_evidence.() ->
         "Source changed since verification"
 
       policy.kind == :docs_only and not is_nil(result["spec"]) ->

@@ -104,26 +104,11 @@ defmodule StorybookWeb.Docs do
   @no_dom_components for {"shadcn/" <> name, :no_dom} <- @policy_statuses, do: name
   @docs_only_components LiveShadcnVerification.docs_only_shadcn_families(@repo_root)
 
-  @evaluation_by_identity (fn ->
-                             identities =
-                               Enum.uniq(Map.keys(@verification) ++ Map.keys(@policy_statuses))
-
-                             Map.new(identities, fn identity ->
-                               [source, name] = String.split(identity, "/", parts: 2)
-                               spec = Path.join([@spec_root, source, "#{name}.json"])
-
-                               evaluation =
-                                 LiveShadcnVerification.evaluate(
-                                   Map.get(@verification, identity, %{}),
-                                   source,
-                                   name,
-                                   @repo_root,
-                                   spec
-                                 )
-
-                               {identity, evaluation}
-                             end)
-                           end).()
+  @evaluation_by_identity LiveShadcnVerification.evaluate_many(
+                            @verification,
+                            @repo_root,
+                            @spec_root
+                          )
 
   @status_by_identity Map.new(@evaluation_by_identity, fn {identity, evaluation} ->
                         {identity, evaluation.status}
