@@ -8285,6 +8285,7 @@ defmodule StorybookWeb.Examples do
           <.card_content class="flex-1 overflow-hidden p-0">
             <.message_scroller
               id="message-scroller-previous-context"
+              data-lb-message-pre-live-scroll="false"
               scroll_margin={config.scroll_margin}
               scroll_previous_item_peek={config.scroll_previous_item_peek}
               data-lb-message-opening-generation={@generation}

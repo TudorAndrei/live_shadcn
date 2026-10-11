@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { referenceReady, visit } from "./live.mjs";
+import { enterVisualState } from "./visual-states.mjs";
 import {
   waitForMessageScrollerEntryAnimations,
   waitForMessageScrollerFinalLayout,
@@ -313,7 +314,19 @@ test("group chat keeps its marker anchor through Rocky's reply and reset", async
   await expect(content(page).getByText("Rocky has joined the chat", { exact: true })).toBeVisible();
 });
 
-test("previous context uses the exact margin and peek through its busy, reply, and reset flow", async ({ page }) => {
+test("previous context uses the exact margin and peek through its busy, reply, and reset flow", async ({ page }, testInfo) => {
+  const preview = "[data-preview='message-scroller']";
+  await page.goto(`${testInfo.project.use.parityURL}/preview/message-scroller/previous-context`);
+  await referenceReady(page);
+  await waitForMessageScrollerFinalLayout(page, preview);
+  await expectExactEndScroll(viewport(page));
+
+  // A keyed React reset can resolve lazy rows differently from its first mount.
+  // Read its real reset position instead of treating both openings as one state.
+  await enterVisualState(page, preview, { kind: "message-scroller-action", action: "reset" });
+  await waitForMessageScrollerFinalLayout(page, preview);
+  const referenceResetTop = await viewport(page).evaluate((element) => element.scrollTop);
+
   await visit(page, "/preview/message-scroller/previous-context");
   const peek = page.getByLabel("Previous context peek");
   const rows = content(page).locator("[data-slot='message-scroller-item']");
@@ -383,7 +396,8 @@ test("previous context uses the exact margin and peek through its busy, reply, a
   await expect(files).toBeEnabled();
   await expect(page.getByRole("button", { name: "Send" })).toBeEnabled();
   await expect(page.getByRole("button", { name: "Reset context example" })).toBeEnabled();
-  await expect.poll(() => viewport(page).evaluate((element) => element.scrollTop)).toBe(initialTop);
+  await waitForMessageScrollerFinalLayout(page, preview);
+  await expect.poll(() => viewport(page).evaluate((element) => element.scrollTop)).toBe(referenceResetTop);
 });
 
 test("streaming follows the end only until the reader scrolls away", async ({ page }) => {
