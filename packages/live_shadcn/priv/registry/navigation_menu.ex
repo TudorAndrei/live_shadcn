@@ -10,6 +10,8 @@ defmodule LiveShadcn.UI.NavigationMenu do
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
+    "cva/navigationMenuTriggerStyle/base" =>
+      "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none",
     "jsx/NavigationMenu/class/0" =>
       "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
     "jsx/NavigationMenuContent/class/0" =>
@@ -144,6 +146,10 @@ defmodule LiveShadcn.UI.NavigationMenu do
               <% end %>
               <LiveShadcn.Icon.icon name="chevron-down" class={upstream_fact("jsx/NavigationMenuTrigger/class/1")} />
             </button>
+            <span
+              aria-owns={"#{entry.id}-viewport"}
+              style="clip-path: inset(50%); position: fixed; top: 0; left: 0;"
+            />
           </li>
           <li
             :for={link <- @link}
@@ -153,7 +159,7 @@ defmodule LiveShadcn.UI.NavigationMenu do
             <.navigation_menu_link
               href={link.href}
               class={[
-                upstream_fact("port/class/0"),
+                upstream_fact("cva/navigationMenuTriggerStyle/base"),
                 (link[:class] || "")
               ]}
               {link[:attrs] || %{}}
@@ -173,8 +179,7 @@ defmodule LiveShadcn.UI.NavigationMenu do
             data-lb-align={@align}
             data-lb-offset={to_string(@offset)}
             data-lb-fractional
-            data-lb-autofocus
-            phx-click-away={Popover.dismiss(entry.id)}
+            data-lb-dismiss-command={Popover.dismiss(entry.id)}
             phx-mounted={Popover.owned_attributes(:positioner)}
             class={[
               upstream_fact("jsx/NavigationMenuPositioner/class/0"),
@@ -182,7 +187,7 @@ defmodule LiveShadcn.UI.NavigationMenu do
             ]}
             data-lb-measure
           >
-            <nav
+            <div
               id={Popover.popup_id(entry.id)}
               hidden={not entry.open}
               data-lb-popup
@@ -191,7 +196,10 @@ defmodule LiveShadcn.UI.NavigationMenu do
               data-lb-style-target
               data-lb-measure
             >
-              <div class={[upstream_fact("jsx/NavigationMenuPositioner/class/2"), (@viewport_class || "")]}>
+              <div
+                id={"#{entry.id}-viewport"}
+                class={[upstream_fact("jsx/NavigationMenuPositioner/class/2"), (@viewport_class || "")]}
+              >
                 <div
                   data-slot="navigation-menu-content"
                   class={[
@@ -209,7 +217,7 @@ defmodule LiveShadcn.UI.NavigationMenu do
                   <% end %>
                 </div>
               </div>
-            </nav>
+            </div>
           </div>
         </div>
       </nav>
@@ -279,7 +287,9 @@ defmodule LiveShadcn.UI.NavigationMenu do
 
   defp close_all(entries) do
     Enum.reduce(entries, %Phoenix.LiveView.JS{}, fn entry, js ->
-      Popover.close(js, entry.id)
+      js
+      |> Phoenix.LiveView.JS.focus(to: "##{Popover.trigger_id(entry.id)}[aria-expanded=true]")
+      |> Popover.close(entry.id)
     end)
   end
 

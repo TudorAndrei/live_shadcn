@@ -339,25 +339,58 @@ test("table actions expose each menu as a separate render state", async ({ page 
   }
 });
 
-test("navigation menu exposes each content state", async ({ page }, testInfo) => {
-  const selector = "[data-preview='navigation-menu']";
-  const paths = [
-    "/preview/navigation-menu/default",
-    `${testInfo.project.use.parityURL}/preview/navigation-menu/default`,
-  ];
+for (const { example, labels } of [
+  { example: "default", labels: ["Getting started", "Components", "With Icon"] },
+  { example: "rtl", labels: ["البدء", "المكونات", "مع أيقونة"] },
+]) {
+  test(`navigation menu / ${example} preserves native reading order and dismissal`, async ({ page }, testInfo) => {
+    const selector = "[data-preview='navigation-menu']";
+    const paths = [
+      `${testInfo.project.use.parityURL}/preview/navigation-menu/${example}`,
+      `/preview/navigation-menu/${example}`,
+    ];
+    const referenceTrees = new Map();
 
-  for (const path of paths) {
-    await visitPreview(page, path);
-    const states = await visualStates(page, selector);
+    for (const path of paths) {
+      await visitPreview(page, path);
+      const states = await visualStates(page, selector);
+      expect(states.map(({ name }) => name)).toEqual([
+        "default", ...labels.map((label) => `expanded:${label}`),
+      ]);
 
-    expect(states.map(({ name }) => name)).toEqual([
-      "default",
-      "expanded:Getting started",
-      "expanded:Components",
-      "expanded:With Icon",
-    ]);
-  }
-});
+      for (const state of states.slice(1)) {
+        await visitPreview(page, path);
+        await enterVisualState(page, selector, state);
+        const trigger = page.locator("[data-slot='navigation-menu-trigger']").nth(state.path[0].index);
+        const popup = page.locator(".cn-navigation-menu-popup:visible");
+        const tree = await page.locator("[data-slot='navigation-menu']").ariaSnapshot();
+        if (path.startsWith("/")) expect(tree, state.name).toBe(referenceTrees.get(state.name));
+        else referenceTrees.set(state.name, tree);
+        await expect(trigger).toBeFocused();
+
+        await trigger.click();
+        await expect(trigger).toHaveAttribute("aria-expanded", "false");
+        await expect(popup).toBeHidden();
+        await expect(trigger).toBeFocused();
+
+        await trigger.click();
+        await expect(trigger).toHaveAttribute("aria-expanded", "true");
+        await popup.getByRole("link").first().focus();
+        await expect(popup.getByRole("link").first()).toBeFocused();
+        await page.keyboard.press("Escape");
+        await expect(trigger).toHaveAttribute("aria-expanded", "false");
+        await expect(popup).toBeHidden();
+        await expect(trigger).toBeFocused();
+
+        await trigger.click();
+        await expect(trigger).toHaveAttribute("aria-expanded", "true");
+        await page.locator("body").click({ position: { x: 5, y: 5 } });
+        await expect(trigger).toHaveAttribute("aria-expanded", "false");
+        await expect(popup).toBeHidden();
+      }
+    }
+  });
+}
 
 test("toast exposes each action result and the completed Promise", async ({ page }, testInfo) => {
   const selector = "[data-preview='toast']";
