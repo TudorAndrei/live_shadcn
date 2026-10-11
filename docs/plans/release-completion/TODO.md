@@ -2,7 +2,8 @@
 
 Follow [PLAN.md](PLAN.md). The coordinator owns this file.
 Latest full-run source: `c6ba115`. The run passed 62 of 64 groups. Drawer and
-Sidebar failed. Root phases 6e.84 and 6e.85 define the remaining repairs.
+Sidebar failed. Their reviewed repairs are integrated as `005dfe2` and
+`3f6aa19`. The next full run must prove the combined source.
 The previous component repairs pass the full run. Local checks pass:
 Base 42, shadcn 162, Storybook 80, Base hooks 96, browser helpers 107, and parity
 helpers 32. All 61 contracts and 463 snapshots are current. Configured checks
@@ -68,14 +69,20 @@ Follow root phase 6e.83 for repair scope and required proof.
 
 | Assignment | State | Required proof |
 |---|---|---|
-| Menus worker: nested Drawer entry, phase 6e.84 | Review complete, pending integration | Both hosts fail before and pass after; 3 repeated nested comparisons and 416 related browser checks pass |
-| Message worker: initial action entry, phase 6e.85 | Active | Reproduce the exact Sidebar images, prove click-retry scroll, then require a direct regression, full Sidebar comparisons, and independent review |
-| Chart worker: setup documentation | Review complete, pending integration | Setup commands, class contracts, and deployment instructions match current source |
+| Menus worker: nested Drawer entry, phase 6e.84 | Integrated `005dfe2` | Both hosts fail before and pass after; 3 repeated nested comparisons and 416 related browser checks pass |
+| Message worker: initial action entry, phase 6e.85 | Integrated `3f6aa19` | Exact original images and click-retry cause proved; 6 direct regressions, 27 full Sidebar checks, 35 shared checks, and 13 action caller checks pass; independent review passes |
+| Chart worker: setup documentation | Integrated `46b5428` | Setup commands, class contracts, and deployment instructions match current source |
 
-- [ ] Integrate `fix(verification): finish nested dialog entry before capture`.
-- [ ] Integrate `fix(verification): finish initial motion before action entry`.
-- [ ] Integrate `docs(setup): align preparation and deployment instructions`.
-- [ ] Check the combined changes and freeze source for the next full run.
+- [x] Integrate `fix(verification): finish nested dialog entry before capture`.
+- [x] Integrate `fix(verification): finish initial motion before action entry`.
+- [x] Integrate `docs(setup): align preparation and deployment instructions`.
+- [x] Check the combined changes and freeze source for the next full run.
+
+The coordinator's combined run passes all 37 browser checks, including both
+new regressions. All 107 Node helper tests pass. No checks are skipped or flaky.
+All 61 offline and fetched-source contracts and all 463 snapshots pass again.
+Keep source fixed during the next full run. Worker comparison records remain
+supporting proof only; the coordinator owns final acceptance evidence.
 
 ## Final acceptance
 

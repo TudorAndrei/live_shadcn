@@ -5,10 +5,11 @@ Use its task board for parallel work. The phase details below remain the
 technical reference. A code commit does not establish current verification.
 
 Status: the latest full run at `c6ba115` passed 62 of 64 component groups.
-The proved component repairs in phase 6e.83 pass. Drawer and Sidebar need the
-entry repairs in phases 6e.84 and 6e.85 before phase 6f can complete. Use the
-current checklist for acceptance. The detailed phases below retain their
-original diagnosis and measurement history.
+The component repairs in phase 6e.83 pass. Drawer and Sidebar entry repairs
+are reviewed and integrated as `005dfe2` and `3f6aa19`. Repeat the full run on
+the combined source before phase 6f can complete. Use the current checklist
+for acceptance. The detailed phases below retain their original diagnosis
+and measurement history.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -3766,6 +3767,11 @@ on both hosts, repeated nested comparisons, and shared popup caller checks.
 
 **Commit:** `fix(verification): finish nested dialog entry before capture`
 
+Integrated as `005dfe2`. Both direct regressions fail before the repair and
+pass after it. Three complete nested semantic comparisons pass. The related
+browser run passes 416 checks, including 54 example image comparisons at zero
+pixels. All 107 Node helper tests pass. Independent review found no defect.
+
 ## Phase 6e.85: finish initial motion before action entry
 
 The same full run reproduced Sidebar's 448-pixel image difference. Fresh images
@@ -3786,6 +3792,14 @@ states, pins, and zero image limits. Do not reset scroll to hide a difference.
 Require independent review before integration.
 
 **Commit:** `fix(verification): finish initial motion before action entry`
+
+Integrated as `3f6aa19`. All six direct regressions fail before the repair with
+scroll position 64 and pass after it with scroll position zero. Native focus
+and collapsed state pass. Three complete Sidebar sequences pass all four
+layers, 27 checks in total. The shared browser owner and Sidebar direct tests
+pass 35 checks. Carousel and Input Group action callers pass 13 checks across
+all four layers. Independent review found no defect. The full combined run
+remains the acceptance gate.
 
 ## Phase 6f: refresh evidence and verify release badges
 

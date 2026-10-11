@@ -24,16 +24,16 @@ old diagnostic results. Its unchecked items are not the current work queue.
 - [x] Document complete consumer setup and enforce strict release evidence.
 - [x] Review the combined implementation independently.
 - [x] Repair the proved component faults from phase 6e.83.
-- [ ] Complete phase 6e.84,
+- [x] Complete phase 6e.84,
   `fix(verification): finish nested dialog entry before capture`.
-- [ ] Complete phase 6e.85,
+- [x] Complete phase 6e.85,
   `fix(verification): finish initial motion before action entry`.
 
 ## Final acceptance
 
-The full run at `c6ba115` passed 62 of 64 groups. Drawer and Sidebar need the
-entry repairs in phases 6e.84 and 6e.85. Repeat verification on the combined
-source. Focused worker results do not replace final acceptance.
+The full run at `c6ba115` passed 62 of 64 groups. The Drawer and Sidebar entry
+repairs are integrated as `005dfe2` and `3f6aa19`. Repeat verification on the
+combined source. Focused worker results do not replace final acceptance.
 
 - [x] All six Elixir test suites pass; current shadcn suite passes 162 tests.
 - [x] Configured Elixir checks pass.
