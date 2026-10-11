@@ -207,6 +207,65 @@ defmodule Mix.Tasks.Snapshot do
   defp ordered_json(value) when is_list(value), do: Enum.map(value, &ordered_json/1)
   defp ordered_json(value), do: value
 
+  # Streamdown supplies process-specific root IDs when callers omit an ID.
+  # Keep a separate stable ID for each root and rewrite only IDs and their
+  # HTML references. Text, attributes with content, and caller IDs stay intact.
+  @id_references ~w(for headers list form aria-labelledby aria-describedby aria-controls aria-owns aria-activedescendant aria-details aria-errormessage popovertarget commandfor)
+
+  defp stable_streamdown_ids(nodes) do
+    existing_ids = Floki.attribute(nodes, "[id]", "id")
+
+    roots =
+      nodes
+      |> Floki.find(".phoenix-streamdown[id]")
+      |> Enum.map(fn root -> {Floki.attribute([root], "id") |> List.first(), root} end)
+      |> Enum.filter(fn {id, _root} -> Regex.match?(~r/^psd-[0-9]+$/, id) end)
+      |> Enum.uniq_by(&elem(&1, 0))
+
+    replacements =
+      roots
+      |> Enum.with_index(1)
+      |> Enum.reduce(%{}, fn {{id, root}, index}, replacements ->
+        stable = stable_streamdown_root(existing_ids ++ Map.values(replacements), index)
+
+        descendants =
+          root
+          |> List.wrap()
+          |> Floki.attribute("[id]", "id")
+          |> Enum.filter(&Regex.match?(~r/^#{Regex.escape(id)}-block-[0-9]+$/, &1))
+          |> Map.new(&{&1, String.replace_prefix(&1, id, stable)})
+
+        replacements |> Map.merge(descendants) |> Map.put(id, stable)
+      end)
+
+    Floki.traverse_and_update(nodes, fn
+      {tag, attributes, children} ->
+        {tag, Enum.map(attributes, &stable_id_attribute(&1, replacements)), children}
+
+      node ->
+        node
+    end)
+  end
+
+  defp stable_streamdown_root(existing_ids, index) do
+    candidate = "psd-snapshot-#{index}"
+
+    if Enum.any?(existing_ids, &(&1 == candidate or String.starts_with?(&1, candidate <> "-"))),
+      do: stable_streamdown_root(existing_ids, index + 1),
+      else: candidate
+  end
+
+  defp stable_id_attribute({"id", value}, replacements),
+    do: {"id", Map.get(replacements, value, value)}
+
+  defp stable_id_attribute({name, value}, replacements) when name in @id_references,
+    do: {name, Regex.replace(~r/\S+/, value, &Map.get(replacements, &1, &1))}
+
+  defp stable_id_attribute({name, "#" <> id}, replacements) when name in ~w(href xlink:href),
+    do: {name, "#" <> Map.get(replacements, id, id)}
+
+  defp stable_id_attribute(attribute, _replacements), do: attribute
+
   defp render(component, example) do
     # A function component is called with change tracking. Rendering one by
     # hand still has to hand it the same marker.
@@ -231,6 +290,7 @@ defmodule Mix.Tasks.Snapshot do
     html =
       rendered
       |> Floki.parse_fragment!()
+      |> stable_streamdown_ids()
       |> sorted_attributes()
       |> Floki.raw_html(pretty: true)
 

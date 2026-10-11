@@ -29,6 +29,12 @@ defmodule Mix.Tasks.SnapshotTest do
              ["button-old-example"]
   end
 
+  test "Streamdown snapshots remain current across separate generated IDs" do
+    for _run <- 1..2 do
+      assert :ok == Mix.Tasks.Snapshot.run(["ai_elements-message", "reasoning", "--check"])
+    end
+  end
+
   test "sorts object keys inside JSON command attributes" do
     first =
       ~s([["dispatch",{"detail":{"id":"message-7","behavior":"smooth","align":"start","scrollMargin":null},"event":"message-scroller:scroll-to","to":"#messages"}]])
