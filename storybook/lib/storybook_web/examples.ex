@@ -10041,6 +10041,7 @@ defmodule StorybookWeb.Examples do
     """
   end
 
+  # Match the reference text nodes so the browser keeps the same glyph positions.
   defp hover_card_sides(assigns) do
     ~H"""
     <div class="flex flex-wrap justify-center gap-2">
@@ -10055,7 +10056,7 @@ defmodule StorybookWeb.Examples do
         <:trigger>{side}</:trigger>
         <div class="flex flex-col gap-1">
           <h4 class="font-medium">Hover Card</h4>
-          <p>This hover card appears on the {side} side of the trigger.</p>
+          <p phx-no-format>This hover card appears on the <!-- -->{side}<!-- --> side of the trigger.</p>
         </div>
       </.hover_card>
     </div>
