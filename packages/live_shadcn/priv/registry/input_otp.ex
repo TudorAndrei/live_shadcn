@@ -170,7 +170,7 @@ defmodule LiveShadcn.UI.InputOtp do
 
   @doc "The `input-otp-separator` part."
 
-  attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
+  attr(:class, :any, default: nil, doc: "Replaces the default class string when supplied.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
@@ -179,7 +179,7 @@ defmodule LiveShadcn.UI.InputOtp do
     <div
       data-slot={@rest[:"data-slot"] || "input-otp-separator"}
       role="separator"
-      class={LiveShadcn.Cn.merge([upstream_fact("jsx/InputOTPSeparator/class/0"), @class])}
+      class={@class || upstream_fact("jsx/InputOTPSeparator/class/0")}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <LiveShadcn.Icon.icon name="minus" />{render_slot(@inner_block)}
