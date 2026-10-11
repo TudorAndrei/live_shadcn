@@ -117,6 +117,8 @@ defmodule LiveShadcn.UI.Popover do
           id={Popover.trigger_id(@id)}
           data-slot={@trigger_wrapper_slot}
           role="group"
+          tabindex={if(@disabled, do: "-1", else: "0")}
+          aria-disabled={if(@disabled, do: "true")}
           data-lb-input-group-addon
           data-align={@trigger_wrapper_align}
           class={@trigger_wrapper_class}
@@ -232,6 +234,7 @@ defmodule LiveShadcn.UI.Popover do
         data-lb-align-offset={to_string(@align_offset)}
         data-lb-autofocus={flag(@autofocus)}
         data-lb-return-focus-to-trigger={flag(@return_focus_to_trigger)}
+        data-lb-return-focus-to-wrapper={flag(@trigger_target == "wrapper")}
         phx-mounted={Popover.owned_attributes(:positioner)}
         data-open={flag(@open)}
         data-closed={flag(not @open)}

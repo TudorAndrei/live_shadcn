@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { connected, referenceReady, visit } from "./live.mjs";
 
 test.beforeEach(async ({ context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
@@ -20,7 +20,7 @@ test("the button example keeps a nested button in control of its click", async (
   await expect(page.getByPlaceholder("https://x.com/shadcn")).not.toBeFocused();
 });
 
-test("the button example copies, marks a favorite, and dismisses its input group popover", async ({
+test("the button example copies and marks a favorite", async ({
   page,
 }) => {
   await visit(page, "/preview/input-group/button", "#input-group-copy");
@@ -36,29 +36,60 @@ test("the button example copies, marks a favorite, and dismisses its input group
   await expect(star).toHaveAttribute("data-favorite", "false");
   await favorite.click();
   await expect(star).toHaveAttribute("data-favorite", "true");
-
-  const trigger = page.locator("#input-group-security-trigger");
-  const positioner = page.locator("#input-group-security-positioner");
-  const popup = page.locator("#input-group-security-popup");
-  await expect(trigger).toHaveAttribute("aria-haspopup", "dialog");
-  await expect(trigger).toHaveAttribute("aria-expanded", "false");
-  await expect(trigger).toHaveAttribute("data-slot", "popover-trigger");
-  await expect(trigger).toHaveClass(/cn-input-group-addon/);
-  await expect(trigger.locator("button")).toHaveAttribute("data-slot", "button");
-  await expect(trigger.locator("button")).toHaveAttribute("data-size", "icon-xs");
-  await expect(trigger.locator("button")).toHaveClass(/cn-input-group-button/);
-  await trigger.click();
-  await expect(popup).toBeVisible();
-  await expect(trigger).toHaveAttribute("aria-expanded", "true");
-  await expect(positioner).toHaveAttribute("data-lb-anchor", "input-group-security-trigger");
-  await page.keyboard.press("Escape");
-  await expect(popup).toBeHidden();
-
-  await trigger.click();
-  await expect(popup).toBeVisible();
-  await page.locator("body").click({ position: { x: 5, y: 5 } });
-  await expect(popup).toBeHidden();
 });
+
+for (const side of ["React", "Phoenix"]) {
+  test(`the security popover keeps its composed trigger focus on ${side}`, async ({ page }, testInfo) => {
+    const path = "/preview/input-group/button";
+    await page.goto(side === "React" ? `${testInfo.project.use.parityURL}${path}` : path);
+    await (side === "React" ? referenceReady(page) : connected(page));
+    const trigger = page.locator("[data-preview='input-group'] [data-slot='popover-trigger']");
+    const security = trigger.getByRole("button");
+    const popup = page.getByRole("dialog");
+    const input = page.locator("#input-secure-19");
+
+    await expect(trigger).toHaveAttribute("aria-haspopup", "dialog");
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(trigger).toHaveClass(/cn-input-group-addon/);
+    await expect(security).toHaveAttribute("data-slot", "button");
+    await expect(security).toHaveAttribute("data-size", "icon-xs");
+    await expect(security).toHaveClass(/cn-input-group-button/);
+    await input.fill("example.com");
+    await security.click();
+    await expect(popup).toBeVisible();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    if (side === "Phoenix") {
+      await expect(page.locator("#input-group-security-positioner")).toHaveAttribute(
+        "data-lb-anchor", "input-group-security-trigger",
+      );
+    }
+    await expect(popup).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(popup).toBeHidden();
+    await expect(trigger).toBeFocused();
+
+    for (const key of ["Enter", " "]) {
+      await trigger.press(key);
+      await expect(popup).toBeHidden();
+      await expect(trigger).toBeFocused();
+      await page.keyboard.press("Tab");
+      await expect(security).toBeFocused();
+      await security.press(key);
+      await expect(popup).toBeVisible();
+      await expect(popup).toBeFocused();
+      await page.keyboard.press("Escape");
+      await expect(popup).toBeHidden();
+      await expect(trigger).toBeFocused();
+    }
+
+    await security.click();
+    await expect(popup).toBeVisible();
+    await input.click();
+    await expect(popup).toBeHidden();
+    await expect(input).toBeFocused();
+    await expect(input).toHaveValue("example.com");
+  });
+}
 
 test("the dropdown example uses input group buttons as menu triggers", async ({ page }) => {
   await visit(page, "/preview/input-group/dropdown", "#input-group-more-trigger");

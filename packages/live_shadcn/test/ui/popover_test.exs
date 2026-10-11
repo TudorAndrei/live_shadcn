@@ -45,6 +45,25 @@ defmodule LiveShadcn.UI.PopoverTest do
                                        |> String.split())
   end
 
+  test "a disabled wrapper is outside the tab order and disables its child button" do
+    html =
+      render_component(&Popover.popover/1, %{
+        id: "disabled-security",
+        trigger_target: "wrapper",
+        disabled: true,
+        trigger: [slot(:trigger, "Info")],
+        inner_block: [slot(:inner_block, "Details")]
+      })
+
+    document = Floki.parse_fragment!(html)
+    [trigger] = Floki.find(document, "#disabled-security-trigger")
+    [button] = Floki.find([trigger], "button")
+
+    assert Floki.attribute([trigger], "tabindex") == ["-1"]
+    assert Floki.attribute([trigger], "aria-disabled") == ["true"]
+    assert Floki.find([trigger], "button[disabled]") == [button]
+  end
+
   test "a direct trigger has no owner wrapper and accepts trigger data attributes" do
     html =
       render_component(&Popover.popover/1, %{

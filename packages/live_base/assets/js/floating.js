@@ -184,7 +184,10 @@ export const Floating = {
       this.returnTo &&
       this.popup.contains(document.activeElement)
     ) {
-      this.returnTo.focus({ preventScroll: true });
+      const target = this.el.hasAttribute("data-lb-return-focus-to-wrapper")
+        ? this.anchor
+        : this.returnTo;
+      target?.focus({ preventScroll: true });
     }
 
     this.returnTo = null;
