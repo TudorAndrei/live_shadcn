@@ -71,7 +71,7 @@ defmodule LiveShadcn.MixProject do
       # `usage-rules.md` is the condensed contract an LLM reads before writing
       # against this package. It only helps if it ships, which is what this line
       # is for. See https://usage-rules.hexdocs.pm.
-      files: ~w(lib priv .formatter.exs mix.exs README.md CHANGELOG.md LICENSE NOTICE
+      files: ~w(lib priv/registry .formatter.exs mix.exs README.md CHANGELOG.md LICENSE NOTICE
                 usage-rules.md)
     ]
   end
