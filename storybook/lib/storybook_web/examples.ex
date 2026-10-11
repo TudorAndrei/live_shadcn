@@ -1209,8 +1209,8 @@ defmodule StorybookWeb.Examples do
     %{
       id: id,
       type: nil,
-      title: nil,
-      description: "You clicked the revert button"
+      title: "You clicked the revert button",
+      description: nil
     }
   end
 

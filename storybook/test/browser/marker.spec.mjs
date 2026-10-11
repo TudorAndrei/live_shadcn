@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { referenceReady, visit } from "./live.mjs";
 
 test.describe("the official marker link and button example", () => {
   test.beforeEach(async ({ page }) => {
@@ -22,9 +22,21 @@ test.describe("the official marker link and button example", () => {
     );
   });
 
-  test("shows the official notice when the revert button is selected", async ({ page }) => {
-    await page.getByRole("button", { name: "Revert this change" }).click();
+  test("shows the official notice when the revert button is selected", async ({ page }, testInfo) => {
+    for (const path of [
+      `${testInfo.project.use.parityURL}/preview/marker/link-button`,
+      "/preview/marker/link-button",
+    ]) {
+      if (path.startsWith("http")) {
+        await page.goto(path);
+        await referenceReady(page);
+      } else await visit(page, path);
 
-    await expect(page.getByRole("status")).toContainText("You clicked the revert button");
+      await page.getByRole("button", { name: "Revert this change" }).click();
+      const notice = page.locator("[data-sonner-toaster]").getByRole("listitem");
+      await expect(notice).toHaveCount(1);
+      await expect(notice.locator("[data-title]")).toHaveText("You clicked the revert button");
+      await expect(notice.locator("xpath=ancestor::section")).toHaveAttribute("aria-live", "polite");
+    }
   });
 });
