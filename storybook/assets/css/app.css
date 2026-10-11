@@ -18,13 +18,6 @@
   font-family: "Vazirmatn Variable", sans-serif;
 }
 
-/* Keep intrinsic blocks stable during a server-rendered Message Scroller
- * opening. The Scroller hook removes data-pending-scroll after it applies the
- * initial position, so normal content-visibility:auto resumes before paint. */
-[data-lb-message-scroller][data-pending-scroll] [data-slot="message-scroller-item"] {
-  content-visibility: hidden;
-}
-
 /* Tailwind scans these for the utility classes it has to emit. Generated
  * components live in the registry, which is why it is listed. */
 @source "../js";

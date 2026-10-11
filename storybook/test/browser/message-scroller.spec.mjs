@@ -319,10 +319,19 @@ test("previous context uses the exact margin and peek through its busy, reply, a
   const rows = content(page).locator("[data-slot='message-scroller-item']");
   await expect(peek).toBeVisible();
   expect(await messageIds(rows)).toEqual(["msg-1", "msg-2"]);
+  await waitForMessageScrollerEntryAnimations(page, "[data-preview='message-scroller']");
+  await waitForMessageScrollerFinalLayout(page, "[data-preview='message-scroller']");
+  await expectExactEndScroll(viewport(page));
+  await expect(button(page)).toHaveAttribute("data-active", "false");
+  await expect(button(page)).toHaveAttribute("inert", "");
   const initialTop = await viewport(page).evaluate((element) => element.scrollTop);
   await peek.press("End");
   await expect(peek).toHaveValue("128");
   await expect(page.getByText("128px", { exact: true })).toBeVisible();
+  await waitForMessageScrollerFinalLayout(page, "[data-preview='message-scroller']");
+  await expect.poll(() => viewport(page).evaluate((element) => element.scrollTop)).toBe(initialTop);
+  await expect(button(page)).toHaveAttribute("data-active", "false");
+  await expect(button(page)).toHaveAttribute("inert", "");
 
   const files = page.getByRole("button", { name: "Add files" });
   await files.click();
@@ -635,6 +644,17 @@ test("commands render the pinned transcript and jump to each anchored user messa
     viewportPending: true,
     distanceToEnd: 0,
   });
+  await waitForMessageScrollerFinalLayout(page, "[data-preview='message-scroller']");
+  const opening = await viewport(page).evaluate((element) => ({
+    top: element.scrollTop,
+    end: Math.max(0, element.scrollHeight - element.clientHeight),
+    pending: element.hasAttribute("data-pending-scroll"),
+  }));
+  expect(opening.pending).toBe(false);
+  expect(opening.end).toBeGreaterThan(0);
+  expect(opening.top).toBe(opening.end);
+  await expect(button(page)).toHaveAttribute("data-active", "false");
+  await expect(button(page)).toHaveAttribute("inert", "");
   const scroller = root(page);
   const transcript = content(page);
   const rows = transcript.locator("[data-slot='message-scroller-item']");
