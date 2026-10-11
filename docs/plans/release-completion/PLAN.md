@@ -4,6 +4,10 @@ Base: `bccc53e`, pushed to `origin/main` on 2026-10-11.
 Task status: [TODO.md](TODO.md).
 Technical repair details: [root plan](../../../PLAN.md).
 
+Completed: all 64 comparison groups, current badges, clean package installation,
+release-image proof, and CI on the accepted evidence commit pass.
+See [the release record](RELEASE.md) for source identity, hashes, and limits.
+
 ## Goal
 
 Finish current shadcn verification and prepare Base and shadcn for release.

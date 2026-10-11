@@ -4,12 +4,15 @@ Active execution: [release completion](docs/plans/release-completion/PLAN.md).
 Use its task board for parallel work. The phase details below remain the
 technical reference. A code commit does not establish current verification.
 
-Status: the latest full run at `c6ba115` passed 62 of 64 component groups.
-The component repairs in phase 6e.83 pass. Drawer and Sidebar entry repairs
-are reviewed and integrated as `005dfe2` and `3f6aa19`. Repeat the full run on
-the combined source before phase 6f can complete. Use the current checklist
-for acceptance. The detailed phases below retain their original diagnosis
-and measurement history.
+Status: the full run on `826910d` passed all 64 comparison groups. The strict
+status check, preservation check, and all 80 Storybook tests pass. Current
+index and Docs badges show 64 Verified groups and Direction as No DOM.
+The accepted evidence is committed as `7e7b83a`. Clean package installation
+passes. Clean release-image badge proof and CI on the accepted evidence commit
+also pass. Phase 6f is complete. The pull request is ready for review.
+The detailed phases below retain their original diagnosis and measurement
+history. Use [the release record](docs/plans/release-completion/RELEASE.md)
+and the current checklist for acceptance.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -3837,12 +3840,22 @@ example snapshots (task, sources, chain-of-thought, reasoning, snippet,
 attachments ×3, commit, environment-variables, mic-selector, plan, stack-trace,
 tool, code-block, terminal, open-in-chat); these are outside the shadcn refresh.
 
-Integration checks so far: private verification 33 tests, tools 164, Base 42,
+Historical integration checks: private verification 33 tests, tools 164, Base 42,
 shadcn 149, Storybook 80, browser helpers 108, parity helpers 32, and Base hooks
 93 pass. The first Storybook run raced an evidence write; recompilation and a
 stable-record rerun pass. Tools/Storybook/Base Credo, configured formatting, and
-both workflow actionlint checks pass. Final evidence and release checks remain
-unproven until the restarted full browser run and image validation finish.
+both workflow actionlint checks pass. Those results preceded the final full
+run. The current acceptance record below supersedes their pending evidence
+status.
+
+Final local acceptance: all 64 groups pass on `826910d`. Strict status and
+preservation checks pass. All 80 Storybook tests pass after final evidence.
+The current compiled index and seven Docs pages agree with the pipeline.
+A clean Linux ARM64 release image also shows 64 Verified groups and Direction
+as No DOM without repository files or mounts. Package installation passes.
+See [the release record](docs/plans/release-completion/RELEASE.md) for hashes,
+proof, and limits. CI passes on the accepted evidence commit `7e7b83a`.
+The final documentation commit changes no runtime or verification inputs.
 
 **Commit:** `docs(verification): record current shadcn parity and badge results`
 
@@ -3883,7 +3896,8 @@ behavior specified above. Measure full shadcn run time and invalidated target
 counts during implementation. These measurements can guide later performance
 work; they do not relax acceptance criteria.
 
-Historical run 3 had 64 shadcn records, 24 passed and 40 failed. Later repairs
-supersede that result. The latest complete run at `c6ba115` passed 62 of 64.
-Drawer and Sidebar remain open until phases 6e.84 and 6e.85 pass full combined
-verification. All 48 AI record byte blocks remain unchanged.
+Historical run 3 had 64 shadcn records, 24 passed and 40 failed. The later run
+at `c6ba115` passed 62 of 64. The final full run at `826910d` passes all 64,
+including the Drawer and Sidebar entry repairs. All 48 AI record byte blocks
+remain unchanged. The old phase 6e.75 isolated Docs build measurement was not
+saved; no isolated build speedup is claimed.

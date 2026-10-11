@@ -31,9 +31,9 @@ old diagnostic results. Its unchecked items are not the current work queue.
 
 ## Final acceptance
 
-The full run at `c6ba115` passed 62 of 64 groups. The Drawer and Sidebar entry
-repairs are integrated as `005dfe2` and `3f6aa19`. Repeat verification on the
-combined source. Focused worker results do not replace final acceptance.
+The full run at `826910d` passed all 64 groups. The accepted evidence is in
+`7e7b83a`. See [the release record](docs/plans/release-completion/RELEASE.md)
+for source identity, package hashes, proof, and remaining limits.
 
 - [x] All six Elixir test suites pass; current shadcn suite passes 162 tests.
 - [x] Configured Elixir checks pass.
@@ -42,16 +42,17 @@ combined source. Focused worker results do not replace final acceptance.
 - [x] All 61 offline and fetched-source shadcn contracts pass.
 - [x] All 463 shadcn snapshots are current.
 - [x] Clean CI input restoration passes with all 398 pinned file hashes.
-- [ ] Complete `mix ui.verify --source shadcn` on the combined source.
-- [ ] Verify all 64 comparison targets; retain Direction as No DOM.
-- [ ] Refresh inventory and pass the strict shadcn status check.
-- [ ] Prove unchanged AI record bytes, upstream pins, examples, and limits.
-- [ ] Recompile Storybook after final evidence; check index and Docs badges.
-- [ ] Confirm failed, stale, incomplete, and recovery badge tests on final source.
-- [ ] Check current badges in a clean release image without repository files.
-- [ ] Rebuild final archives and repeat clean consumer checks on final source.
-- [ ] Pass GitHub CI, update the release record, and push final scoped commits.
-- [ ] Mark the release pull request ready for review.
+- [x] Complete `mix ui.verify --source shadcn` on the combined source.
+- [x] Verify all 64 comparison targets; retain Direction as No DOM.
+- [x] Refresh inventory and pass the strict shadcn status check.
+- [x] Prove unchanged AI record bytes, upstream pins, examples, and limits.
+- [x] Recompile Storybook after final evidence; check index and Docs badges.
+- [x] Confirm failed, stale, incomplete, and recovery badge tests on final source.
+- [x] Check current badges in a clean release image without repository files.
+- [x] Rebuild final archives and repeat clean consumer checks on final source.
+- [x] Pass GitHub CI on the accepted evidence, update the release record, and
+  push final scoped commits.
+- [x] Mark the release pull request ready for review.
 
 ## Release boundary
 

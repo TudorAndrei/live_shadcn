@@ -1,13 +1,17 @@
 # TODO: complete shadcn and prepare a release
 
 Follow [PLAN.md](PLAN.md). The coordinator owns this file.
-Latest full-run source: `c6ba115`. The run passed 62 of 64 groups. Drawer and
-Sidebar failed. Their reviewed repairs are integrated as `005dfe2` and
-`3f6aa19`. The next full run must prove the combined source.
-The previous component repairs pass the full run. Local checks pass:
-Base 42, shadcn 162, Storybook 80, Base hooks 96, browser helpers 107, and parity
-helpers 32. All 61 contracts and 463 snapshots are current. Configured checks
-and the asset build pass. The next full run must use fixed combined source.
+Latest full-run source: `826910d`. All 64 groups pass, including Drawer and
+Sidebar. The strict inventory check and preservation check pass. Storybook
+passes all 80 tests after final evidence. Its current index and Docs pages
+show 64 Verified groups and Direction as No DOM. Accepted evidence is committed
+as `7e7b83a`. Final package installation and clean release-image badge proof
+pass. CI passes on the accepted evidence commit. The pull request is ready
+for review. See [the release record](RELEASE.md).
+
+Base 42, shadcn 162, Base hooks 96, browser helpers 107, and parity helpers 32
+pass. All 61 contracts and 463 snapshots are current. Configured checks and
+the asset build pass.
 
 ## Checkpoint
 
@@ -20,15 +24,15 @@ and the asset build pass. The next full run must use fixed combined source.
 
 | Assignment | Reviewed integration commits | Focused result | Final proof |
 |---|---|---|---|
-| Menus and modal accessibility | `11efb19`, `9ed0017` | 125 comparisons; 43 Context/Drawer cases pass | Passed the full run at `9f0e798` |
-| Message opening and transient capture | `56c2f72`, `95c3628`, `3541f72` | Direct opening/reset checks and repeated busy/notice captures pass | Passed the full run at `9f0e798` |
-| Chart readiness and hover | `5ccae15`, `b7f58f1` | All 8 examples pass | Passed the full run at `9f0e798` |
-| Input composition and Copy capture | `2c9c71d`, `b6c7530`, `b918809`, `b5d9da7` | Input Group and Popover checks pass after clipboard permission setup | Passed the full run at `9f0e798` |
-| Input OTP | `7e6eacd`, `2f77c1f` | All 10 examples; 12 direct browser cases pass | Passed the full run at `9f0e798` |
-| Select pointer and popup entry | `3af5353`, `605180f` | 33 full comparisons; 88 direct caller checks; 20 Animation checks pass | Passed the full run at `9f0e798` |
-| Command and Date Picker readiness | `88e5228`, `e044858` | All 6 Command and 8 Date Picker examples pass | Passed the full run at `9f0e798` |
-| Navigation Menu | `9f0e798` | 13 comparisons; native focus, dismissal, and accessibility checks pass | Passed the full run at `9f0e798` |
-| CI, packages, and setup | `d0ec6ac`, `3e07a86`, `a60dcf1`, `bb62605`, `bfc1d43`, `1e27f4c` | Clean asset build, locked inputs, and first consumer proof pass | Consumer passed at `9f0e798`; new final archives are required |
+| Menus and modal accessibility | `11efb19`, `9ed0017` | 125 comparisons; 43 Context/Drawer cases pass | Passed the final full run at `826910d` |
+| Message opening and transient capture | `56c2f72`, `95c3628`, `3541f72` | Direct opening/reset checks and repeated busy/notice captures pass | Passed the final full run at `826910d` |
+| Chart readiness and hover | `5ccae15`, `b7f58f1` | All 8 examples pass | Passed the final full run at `826910d` |
+| Input composition and Copy capture | `2c9c71d`, `b6c7530`, `b918809`, `b5d9da7` | Input Group and Popover checks pass after clipboard permission setup | Passed the final full run at `826910d` |
+| Input OTP | `7e6eacd`, `2f77c1f` | All 10 examples; 12 direct browser cases pass | Passed the final full run at `826910d` |
+| Select pointer and popup entry | `3af5353`, `605180f` | 33 full comparisons; 88 direct caller checks; 20 Animation checks pass | Passed the final full run at `826910d` |
+| Command and Date Picker readiness | `88e5228`, `e044858` | All 6 Command and 8 Date Picker examples pass | Passed the final full run at `826910d` |
+| Navigation Menu | `9f0e798` | 13 comparisons; native focus, dismissal, and accessibility checks pass | Passed the final full run at `826910d` |
+| CI, packages, and setup | `d0ec6ac`, `3e07a86`, `a60dcf1`, `bb62605`, `bfc1d43`, `1e27f4c` | Clean asset build, locked inputs, and first consumer proof pass | Final `826910d` archives and clean consumer proof pass |
 
 ## Closed integration findings
 
@@ -49,21 +53,22 @@ and the asset build pass. The next full run must use fixed combined source.
   `637975c`. The menu changes did not introduce this failure. AI completion
   remains outside this assignment.
 
-## Remaining full-run failures
+## Repairs from earlier full-run failures
 
-Follow root phase 6e.83 for repair scope and required proof.
+Root phase 6e.83 records repair scope. All groups in this table pass the final
+full run at `826910d`.
 
 | Owner | Groups | Failed checks |
 |---|---|---|
 | Coordinator | Hover Card | Complete at zero pixels, `dea5c33` |
 | Menus worker | Label, Pagination, Toggle Group, Progress | Select names `185b361`; Toggle Group `b3ba6a9`; Progress/Slider `913f211`, `0622a6b`; all focused checks and independent review pass |
-| Message worker | Scroll Area, Marker, Toast, Sidebar | Repairs integrated as `b3d91d7`, `8053f16`, and `2a8bcbf`; Sidebar failed again and has a proved automation scroll cause |
+| Message worker | Scroll Area, Marker, Toast, Sidebar | Repairs integrated as `b3d91d7`, `8053f16`, and `2a8bcbf`; Sidebar entry repair `3f6aa19` also passes the final full run |
 | Chart worker | Questionnaire, Item | Item and Avatar `8d0dbb2`; Questionnaire `6e88c3c`; all focused checks and independent review pass |
 
 - [x] Review all 11 groups and repair the proved faults.
 - [x] Recheck affected composed callers, including Avatar and Toggle.
 - [x] Require zero for the two legacy nonzero budgets after exact proof.
-- [ ] Repeat full combined verification and final package proof.
+- [x] Repeat full combined verification and final package proof.
 
 ## Entry repairs from the second full run
 
@@ -81,8 +86,9 @@ Follow root phase 6e.83 for repair scope and required proof.
 The coordinator's combined run passes all 37 browser checks, including both
 new regressions. All 107 Node helper tests pass. No checks are skipped or flaky.
 All 61 offline and fetched-source contracts and all 463 snapshots pass again.
-Keep source fixed during the next full run. Worker comparison records remain
-supporting proof only; the coordinator owns final acceptance evidence.
+The combined source stayed fixed through the successful final run. Worker
+comparison records remain supporting proof only; the coordinator published
+the final acceptance evidence.
 
 ## Final acceptance
 
@@ -93,21 +99,21 @@ supporting proof only; the coordinator owns final acceptance evidence.
 - [x] Configured Elixir checks pass; changed workflows pass local checks.
 - [x] Offline and fetched shadcn contracts pass.
 - [x] Shadcn snapshots pass.
-- [ ] All 64 comparison targets have complete current evidence.
-- [ ] Strict shadcn status passes; Direction remains No DOM.
-- [ ] AI evidence bytes, pins, examples, states, and limits are preserved.
-- [ ] Index and Docs badges agree with final evidence.
-- [ ] Temporary stale, failed, incomplete, and recovery checks pass on final source.
-- [ ] Clean release-image badges work without runtime repository files.
-- [ ] Rebuild and check final packages on final source.
+- [x] All 64 comparison targets have complete current evidence.
+- [x] Strict shadcn status passes; Direction remains No DOM.
+- [x] AI evidence bytes, pins, examples, states, and limits are preserved.
+- [x] Index and Docs badges agree with final evidence.
+- [x] Temporary stale, failed, incomplete, and recovery checks pass on final source.
+- [x] Clean release-image badges work without runtime repository files.
+- [x] Rebuild and check final packages on final source.
 - [x] Release workflow requires the strict evidence check.
 - [x] Public setup and release instructions match tested behavior.
-- [ ] GitHub CI passes on the final commit.
-- [ ] Root PLAN and TODO reflect completed acceptance.
-- [ ] Final reviewed commits are pushed and the pull request is ready.
-- [ ] No package publication or deployment was performed by this assignment.
+- [x] GitHub CI passes on the accepted evidence commit `7e7b83a`.
+- [x] Root PLAN and TODO reflect completed acceptance.
+- [x] Final reviewed commits are pushed and the pull request is ready.
+- [x] No package publication or deployment was performed by this assignment.
 
-## Package proof at `9f0e798`
+## Historical package proof at `9f0e798`
 
 The `0.1.0` archives were built from a clean copy of `9f0e798`.
 Every package file matches that commit. The shadcn archive contains all 61 ports
@@ -130,3 +136,15 @@ The first consumer browser session stopped animation progress and lost its
 connection. The fresh session passed with the same bundle. Trace export failed;
 DOM receipts, console results, and a screenshot support the passing checks.
 No valid trace is claimed. The consumer server and browser are stopped.
+
+## Final package proof at `826910d`
+
+Both 0.1.0 archives pass clean signed Hex installation. All 141 payload files
+match source, including all 61 shadcn ports. The repository-pinned browser
+passes the full consumer flow, 15-second idle checks, a second Message append
+at exact bottom, native callbacks, screenshot, and trace. Independent review
+passes. All owned consumer servers and browsers are stopped.
+
+[The release record](RELEASE.md) contains final hashes and the separate
+agent-browser input and frame/capture limits. These replace the earlier package
+results for acceptance; earlier diagnostic results remain available above.
