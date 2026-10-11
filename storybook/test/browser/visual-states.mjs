@@ -1008,8 +1008,7 @@ async function discoverNestedInteractiveStates(
     const triggerElement = await trigger.elementHandle();
 
     if ((await trigger.getAttribute("aria-haspopup")) === "listbox") {
-      await trigger.click();
-      await page.mouse.move(0, 0);
+      await openListboxBeforeClearingHover(page, trigger);
     } else {
       await trigger.evaluate((element) => element.click());
     }
@@ -1122,8 +1121,7 @@ async function discoverExpandedStates(page, scope, path, labels, states) {
     // disclosures can use a DOM click. Base UI listboxes require a real user
     // click, so move the pointer away after they open.
     if ((await trigger.getAttribute("aria-haspopup")) === "listbox") {
-      await trigger.click();
-      await page.mouse.move(0, 0);
+      await openListboxBeforeClearingHover(page, trigger);
     } else {
       await trigger.evaluate((element) => element.click());
     }
@@ -1380,22 +1378,15 @@ export async function enterVisualState(page, selector, state) {
     const trigger = actionableTriggers(scope).nth(step.index);
     const triggerElement = await trigger.elementHandle();
 
-    if ((await trigger.getAttribute("aria-expanded")) !== "true" && path.length === 1) {
-      // A listbox can open under the pointer. Use a DOM click so the expanded
-      // state does not also become an item-hover state. Menus and disclosures
-      // need their real pointer event, followed by a move away from the popup.
+    if ((await trigger.getAttribute("aria-expanded")) !== "true") {
+      // A listbox can open under the pointer. Finish popup entry before
+      // leaving it, so both hosts clear the same option-hover state.
       if ((await trigger.getAttribute("aria-haspopup")) === "listbox") {
-        // Base UI opens editable comboboxes from a real pointer click. Move the
-        // pointer away after the click so the open state does not also include
-        // an item-hover state.
-        await trigger.click();
-        await page.mouse.move(0, 0);
+        await openListboxBeforeClearingHover(page, trigger);
       } else {
         await trigger.click();
-        await page.mouse.move(0, 0);
+        if (path.length === 1) await page.mouse.move(0, 0);
       }
-    } else if ((await trigger.getAttribute("aria-expanded")) !== "true") {
-      await trigger.click();
     }
 
     await waitForElementExpanded(triggerElement, "true");
@@ -1410,6 +1401,16 @@ export async function enterVisualState(page, selector, state) {
   }
 
   await settleInteraction(page, { waitForTransitions: true });
+}
+
+async function openListboxBeforeClearingHover(page, trigger) {
+  await trigger.click();
+  await waitForExpanded(trigger, "true");
+  const controls = await trigger.getAttribute("aria-controls");
+  if (!controls) throw new Error("expanded listbox trigger has no controlled content");
+  await page.locator(`[id=${JSON.stringify(controls)}]`).waitFor({ state: "visible" });
+  await settleInteraction(page, { waitForTransitions: true });
+  await page.mouse.move(0, 0);
 }
 
 async function enterNativeVisualControl(control, kind, value) {
@@ -1442,11 +1443,13 @@ async function enterNestedInteractionPath(page, selector, path) {
     const listbox = (await trigger.getAttribute("aria-haspopup")) === "listbox";
 
     if ((await trigger.getAttribute("aria-expanded")) !== "true") {
-      await trigger.click();
-      // Leaving a nested menu closes the pinned React submenu. Clear root and
-      // listbox hover without cancelling the menu path the next action uses.
-      if (position === 0 || listbox)
-        await page.mouse.move(0, 0);
+      if (listbox) {
+        await openListboxBeforeClearingHover(page, trigger);
+      } else {
+        await trigger.click();
+        // Leaving a nested menu closes the pinned React submenu.
+        if (position === 0) await page.mouse.move(0, 0);
+      }
     }
 
     await waitForElementExpanded(triggerElement, "true");

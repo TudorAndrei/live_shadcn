@@ -144,6 +144,27 @@ test("editable comboboxes use a user click to enter the expanded state", async (
   }
 });
 
+for (const side of ["React", "Phoenix"]) {
+  test(`Select expanded state clears hover after popup entry on slow frames on ${side}`, async ({ page }, testInfo) => {
+    await slowAnimationFrames(page);
+    const path = side === "Phoenix" ? "/preview/select/scrollable"
+      : `${testInfo.project.use.parityURL}/preview/select/scrollable`;
+    const selector = "[data-preview='select']";
+    await visitPreview(page, path);
+    const states = await visualStates(page, selector);
+    const expanded = states.find((state) => state.kind === "expanded");
+    expect(expanded).toBeDefined();
+
+    await visitPreview(page, path);
+    await referenceReady(page);
+    await enterVisualState(page, selector, expanded);
+    const popup = page.locator("[data-slot='select-content']:visible");
+    expect(await popup.locator("[data-highlighted]").allTextContents()).toEqual([]);
+    await expect(popup).toBeFocused();
+    await expect(page.getByRole("combobox")).toContainText("Select a timezone");
+  });
+}
+
 test("disclosure states keep an initially open panel open during replay", async ({ page }, testInfo) => {
   const selector = "[data-preview='accordion']";
   const paths = [
