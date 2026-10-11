@@ -26,6 +26,7 @@ export default {
       "@rive-app/webgl2": require.resolve("@rive-app/webgl2"),
       "embla-carousel": require.resolve("embla-carousel"),
       "embla-carousel-autoplay": require.resolve("embla-carousel-autoplay"),
+      "motion": require.resolve("motion"),
     },
   },
   output: {
