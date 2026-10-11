@@ -165,10 +165,23 @@ mix ui.spec --check --source ai_elements
 
 ### `mix ui.verify`
 
-Verification writes `registry/VERIFY.json`. A result remains valid only while
-its contract digest, official example list, React references, and verification
-rules are unchanged. `--no-browser` is a diagnostic mode. It cannot produce a
-Verified status.
+`mix ui.verify --source shadcn` writes `registry/VERIFY.json`. The private
+`tools/verification` Mix project owns shadcn identity and evidence evaluation;
+tools and Storybook depend on it, but published component packages do not.
+
+The versioned identity includes contracts, reviewed ports and dependencies,
+snapshot names and bytes, official examples, hooks, CSS and build inputs,
+reference renderers and shims, tracked example images, dependency manifests and
+locks, and verification rules. Paths are repository-relative and sorted.
+Committed digests stand in for fetched files, whose bytes are checked during
+preparation. Generated assets, timestamps, absolute paths, and verification
+results are excluded. Shared inputs conservatively invalidate all shadcn
+records. Prepared and clean-checkout identities must agree.
+
+`--no-browser` is diagnostic and cannot produce Verified. After a complete run,
+`mix ui.status` refreshes inventory;
+`mix ui.status --check --source shadcn --require-verified` requires complete,
+current evidence, not merely matching inventory text.
 
 The verification pipeline covers shadcn ports and documentation families.
 AI Elements is outside this pipeline and keeps its package tests. The source
@@ -188,6 +201,35 @@ lease until it publishes the result file with an atomic rename.
 
 The historical key `generated` remains in the verification file to avoid an
 unrelated persistence migration. Its current meaning is contract agreement.
+Documentation families omit this check, not the browser checks.
+
+### Report provenance
+
+Direct and managed browser runs use the same Mix identity implementation.
+Versioned report envelopes capture identity at test start, ownership, example
+scope, layer, required states, and completion. Global Playwright errors, missing
+states, incorrect ownership, diagnostic filtering, and legacy raw reports
+cannot produce complete passing evidence. Complete-example imports accumulate
+only under the verifier lock. Identity is rechecked before publication; edits
+during a run require a rerun rather than an import-time digest substitution.
+
+### Compiled badge data
+
+`StorybookWeb.Docs` uses the shared evaluator during compilation and tracks both
+input bytes and added/deleted inputs for development reload. The index and
+component pages use the same result. Component pages include expandable,
+plain-language per-check reasons.
+
+Freshness takes precedence: historical passes and failures become Stale when
+inputs change. Current required failures show Failed. Missing, partial, skipped,
+or ungated evidence shows Not verified. Only all required gated checks over all
+official examples can show Verified. The explicit direction policy shows No DOM,
+which is not a parity pass.
+
+Docker copies identity inputs into the builder and compiles badges after records
+are present. The runtime contains only the release and needs no repository files
+for status requests. Local evidence changes require recompilation; changing a
+deployed badge requires a new image, not a runtime record edit.
 
 ## A first port
 

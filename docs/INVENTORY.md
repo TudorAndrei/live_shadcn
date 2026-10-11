@@ -7,13 +7,15 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 0 | ························ |
-| `fetched` | 1 | ························ |
+| `fetched` | 0 | ························ |
 | `spec` | 0 | ························ |
-| `generated` | 108 | ███████████████████████· |
+| `generated` | 0 | ························ |
 | `failed` | 0 | ························ |
+| `stale` | 61 | █████████████··········· |
 | `local_only` | 0 | ························ |
 | `no_dom` | 1 | ························ |
-| `verified` | 1 | ························ |
+| `excluded` | 49 | ███████████············· |
+| `verified` | 0 | ························ |
 
 ## Recipes
 
@@ -56,119 +58,119 @@ Only the recipes are written by hand; every component is data.
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `accordion` | 1 | `disclosure` | 🟩 generated |
-| `alert` | 1 | `presentational` | 🟩 generated |
-| `avatar` | 1 | `presentational` | 🟩 generated |
-| `badge` | 1 | `presentational` | 🟩 generated |
-| `button` | 1 | `presentational` | 🟩 generated |
-| `card` | 1 | `presentational` | 🟩 generated |
-| `checkbox` | 1 | `checkbox` | 🟩 generated |
-| `collapsible` | 1 | `disclosure` | 🟩 generated |
-| `dialog` | 1 | `dialog` | 🟩 generated |
-| `dropdown-menu` | 1 | `menu` | 🟩 generated |
-| `input` | 1 | `form-control` | 🟩 generated |
-| `label` | 1 | `form-control` | 🟩 generated |
-| `popover` | 1 | `popover` | 🟩 generated |
-| `select` | 1 | `listbox` | 🟩 generated |
-| `separator` | 1 | `separator` | 🟩 generated |
-| `skeleton` | 1 | `presentational` | 🟩 generated |
-| `spinner` | 1 | `presentational` | 🟩 generated |
-| `switch` | 1 | `switch` | 🟩 generated |
-| `table` | 1 | `presentational` | 🟩 generated |
-| `tabs` | 1 | `tabs` | 🟩 generated |
-| `textarea` | 1 | `form-control` | 🟩 generated |
-| `tooltip` | 1 | `popover` | 🟩 generated |
-| `alert-dialog` | 2 | `dialog` | 🟩 generated |
-| `aspect-ratio` | 2 | `presentational` | 🟩 generated |
-| `attachment` | 2 | `presentational` | 🟩 generated |
-| `breadcrumb` | 2 | `presentational` | 🟩 generated |
-| `bubble` | 2 | `presentational` | 🟩 generated |
-| `button-group` | 2 | `presentational` | 🟩 generated |
-| `combobox` | 2 | `listbox` | 🟩 generated |
-| `command` | 2 | `listbox` | 🟩 generated |
-| `context-menu` | 2 | `menu` | 🟩 generated |
+| `accordion` | 1 | `disclosure` | 🟧 stale |
+| `alert` | 1 | `presentational` | 🟧 stale |
+| `avatar` | 1 | `presentational` | 🟧 stale |
+| `badge` | 1 | `presentational` | 🟧 stale |
+| `button` | 1 | `presentational` | 🟧 stale |
+| `card` | 1 | `presentational` | 🟧 stale |
+| `checkbox` | 1 | `checkbox` | 🟧 stale |
+| `collapsible` | 1 | `disclosure` | 🟧 stale |
+| `dialog` | 1 | `dialog` | 🟧 stale |
+| `dropdown-menu` | 1 | `menu` | 🟧 stale |
+| `input` | 1 | `form-control` | 🟧 stale |
+| `label` | 1 | `form-control` | 🟧 stale |
+| `popover` | 1 | `popover` | 🟧 stale |
+| `select` | 1 | `listbox` | 🟧 stale |
+| `separator` | 1 | `separator` | 🟧 stale |
+| `skeleton` | 1 | `presentational` | 🟧 stale |
+| `spinner` | 1 | `presentational` | 🟧 stale |
+| `switch` | 1 | `switch` | 🟧 stale |
+| `table` | 1 | `presentational` | 🟧 stale |
+| `tabs` | 1 | `tabs` | 🟧 stale |
+| `textarea` | 1 | `form-control` | 🟧 stale |
+| `tooltip` | 1 | `popover` | 🟧 stale |
+| `alert-dialog` | 2 | `dialog` | 🟧 stale |
+| `aspect-ratio` | 2 | `presentational` | 🟧 stale |
+| `attachment` | 2 | `presentational` | 🟧 stale |
+| `breadcrumb` | 2 | `presentational` | 🟧 stale |
+| `bubble` | 2 | `presentational` | 🟧 stale |
+| `button-group` | 2 | `presentational` | 🟧 stale |
+| `combobox` | 2 | `listbox` | 🟧 stale |
+| `command` | 2 | `listbox` | 🟧 stale |
+| `context-menu` | 2 | `menu` | 🟧 stale |
 | `direction` | 2 | `utility` | ⬛ no_dom |
-| `drawer` | 2 | `dialog` | 🟩 generated |
-| `empty` | 2 | `presentational` | 🟩 generated |
-| `field` | 2 | `form-control` | 🟩 generated |
-| `hover-card` | 2 | `popover` | 🟩 generated |
-| `input-group` | 2 | `form-control` | 🟩 generated |
-| `input-otp` | 2 | `form-control` | 🟩 generated |
-| `item` | 2 | `presentational` | 🟩 generated |
-| `kbd` | 2 | `presentational` | 🟩 generated |
-| `marker` | 2 | `presentational` | 🟩 generated |
-| `menubar` | 2 | `presentational` | 🟩 generated |
-| `message` | 2 | `presentational` | 🟩 generated |
-| `message-scroller` | 2 | `scroller` | ✅ verified |
-| `native-select` | 2 | `presentational` | 🟩 generated |
-| `navigation-menu` | 2 | `navigation-menu` | 🟩 generated |
-| `pagination` | 2 | `pagination` | 🟩 generated |
-| `progress` | 2 | `progress` | 🟩 generated |
-| `radio-group` | 2 | `radio-group` | 🟩 generated |
-| `scroll-area` | 2 | `scroller` | 🟩 generated |
-| `sheet` | 2 | `dialog` | 🟩 generated |
-| `sidebar` | 2 | `sidebar` | 🟩 generated |
-| `slider` | 2 | `slider` | 🟩 generated |
-| `sonner` | 2 | `toast` | 🟩 generated |
-| `toast` | 2 | `toast` | 🟩 generated |
-| `toggle` | 2 | `form-control` | 🟩 generated |
-| `toggle-group` | 2 | `toggle-group` | 🟩 generated |
-| `calendar` | 3 | `calendar` | 🟩 generated |
-| `carousel` | 3 | `carousel` | 🟩 generated |
-| `chart` | 3 | `chart` | 🟩 generated |
-| `questionnaire` | 3 | `presentational` | 🟩 generated |
-| `resizable` | 3 | `resizable` | 🟩 generated |
+| `drawer` | 2 | `dialog` | 🟧 stale |
+| `empty` | 2 | `presentational` | 🟧 stale |
+| `field` | 2 | `form-control` | 🟧 stale |
+| `hover-card` | 2 | `popover` | 🟧 stale |
+| `input-group` | 2 | `form-control` | 🟧 stale |
+| `input-otp` | 2 | `form-control` | 🟧 stale |
+| `item` | 2 | `presentational` | 🟧 stale |
+| `kbd` | 2 | `presentational` | 🟧 stale |
+| `marker` | 2 | `presentational` | 🟧 stale |
+| `menubar` | 2 | `presentational` | 🟧 stale |
+| `message` | 2 | `presentational` | 🟧 stale |
+| `message-scroller` | 2 | `scroller` | 🟧 stale |
+| `native-select` | 2 | `presentational` | 🟧 stale |
+| `navigation-menu` | 2 | `navigation-menu` | 🟧 stale |
+| `pagination` | 2 | `pagination` | 🟧 stale |
+| `progress` | 2 | `progress` | 🟧 stale |
+| `radio-group` | 2 | `radio-group` | 🟧 stale |
+| `scroll-area` | 2 | `scroller` | 🟧 stale |
+| `sheet` | 2 | `dialog` | 🟧 stale |
+| `sidebar` | 2 | `sidebar` | 🟧 stale |
+| `slider` | 2 | `slider` | 🟧 stale |
+| `sonner` | 2 | `toast` | 🟧 stale |
+| `toast` | 2 | `toast` | 🟧 stale |
+| `toggle` | 2 | `form-control` | 🟧 stale |
+| `toggle-group` | 2 | `toggle-group` | 🟧 stale |
+| `calendar` | 3 | `calendar` | 🟧 stale |
+| `carousel` | 3 | `carousel` | 🟧 stale |
+| `chart` | 3 | `chart` | 🟧 stale |
+| `questionnaire` | 3 | `presentational` | 🟧 stale |
+| `resizable` | 3 | `resizable` | 🟧 stale |
 
 ## AI Elements
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `chain-of-thought` | 1 | `disclosure` | 🟩 generated |
-| `code-block` | 1 | `clipboard` | 🟩 generated |
-| `context` | 1 | `presentational` | 🟩 generated |
-| `conversation` | 1 | `scroller` | 🟩 generated |
-| `message` | 1 | `presentational` | 🟩 generated |
-| `prompt-input` | 1 | `form-control` | 🟩 generated |
-| `reasoning` | 1 | `disclosure` | 🟩 generated |
-| `shimmer` | 1 | `shimmer` | 🟩 generated |
-| `sources` | 1 | `disclosure` | 🟩 generated |
-| `suggestion` | 1 | `presentational` | 🟩 generated |
-| `task` | 1 | `disclosure` | 🟩 generated |
-| `tool` | 1 | `disclosure` | 🟩 generated |
-| `agent` | 2 | `presentational` | 🟩 generated |
-| `artifact` | 2 | `presentational` | 🟩 generated |
-| `attachments` | 2 | `presentational` | 🟩 generated |
-| `checkpoint` | 2 | `presentational` | 🟩 generated |
-| `commit` | 2 | `clipboard` | 🟩 generated |
-| `confirmation` | 2 | `presentational` | 🟩 generated |
-| `controls` | 2 | `presentational` | 🟩 generated |
-| `environment-variables` | 2 | `clipboard` | 🟩 generated |
-| `file-tree` | 2 | `file-tree` | 🟩 generated |
-| `image` | 2 | `presentational` | 🟩 generated |
-| `inline-citation` | 2 | `presentational` | 🟩 generated |
-| `model-selector` | 2 | `presentational` | 🟩 generated |
-| `open-in-chat` | 2 | `presentational` | 🟩 generated |
-| `package-info` | 2 | `presentational` | 🟩 generated |
-| `panel` | 2 | `presentational` | 🟩 generated |
-| `persona` | 2 | `presentational` | 🟩 generated |
-| `plan` | 2 | `disclosure` | 🟩 generated |
-| `question` | 2 | `presentational` | 🟩 generated |
-| `queue` | 2 | `presentational` | 🟩 generated |
-| `schema-display` | 2 | `presentational` | 🟩 generated |
-| `snippet` | 2 | `clipboard` | 🟩 generated |
-| `stack-trace` | 2 | `clipboard` | 🟩 generated |
-| `test-results` | 2 | `presentational` | 🟩 generated |
-| `toolbar` | 2 | `presentational` | 🟩 generated |
-| `audio-player` | 3 | `presentational` | 🟩 generated |
-| `canvas` | 3 | `unsupported` | 🟦 fetched |
-| `connection` | 3 | `presentational` | 🟩 generated |
-| `edge` | 3 | `presentational` | 🟩 generated |
-| `jsx-preview` | 3 | `presentational` | 🟩 generated |
-| `mic-selector` | 3 | `listbox` | 🟩 generated |
-| `node` | 3 | `presentational` | 🟩 generated |
-| `sandbox` | 3 | `presentational` | 🟩 generated |
-| `speech-input` | 3 | `presentational` | 🟩 generated |
-| `terminal` | 3 | `clipboard` | 🟩 generated |
-| `transcription` | 3 | `presentational` | 🟩 generated |
-| `voice-selector` | 3 | `presentational` | 🟩 generated |
-| `web-preview` | 3 | `presentational` | 🟩 generated |
+| `chain-of-thought` | 1 | `disclosure` | ⬛ excluded |
+| `code-block` | 1 | `clipboard` | ⬛ excluded |
+| `context` | 1 | `presentational` | ⬛ excluded |
+| `conversation` | 1 | `scroller` | ⬛ excluded |
+| `message` | 1 | `presentational` | ⬛ excluded |
+| `prompt-input` | 1 | `form-control` | ⬛ excluded |
+| `reasoning` | 1 | `disclosure` | ⬛ excluded |
+| `shimmer` | 1 | `shimmer` | ⬛ excluded |
+| `sources` | 1 | `disclosure` | ⬛ excluded |
+| `suggestion` | 1 | `presentational` | ⬛ excluded |
+| `task` | 1 | `disclosure` | ⬛ excluded |
+| `tool` | 1 | `disclosure` | ⬛ excluded |
+| `agent` | 2 | `presentational` | ⬛ excluded |
+| `artifact` | 2 | `presentational` | ⬛ excluded |
+| `attachments` | 2 | `presentational` | ⬛ excluded |
+| `checkpoint` | 2 | `presentational` | ⬛ excluded |
+| `commit` | 2 | `clipboard` | ⬛ excluded |
+| `confirmation` | 2 | `presentational` | ⬛ excluded |
+| `controls` | 2 | `presentational` | ⬛ excluded |
+| `environment-variables` | 2 | `clipboard` | ⬛ excluded |
+| `file-tree` | 2 | `file-tree` | ⬛ excluded |
+| `image` | 2 | `presentational` | ⬛ excluded |
+| `inline-citation` | 2 | `presentational` | ⬛ excluded |
+| `model-selector` | 2 | `presentational` | ⬛ excluded |
+| `open-in-chat` | 2 | `presentational` | ⬛ excluded |
+| `package-info` | 2 | `presentational` | ⬛ excluded |
+| `panel` | 2 | `presentational` | ⬛ excluded |
+| `persona` | 2 | `presentational` | ⬛ excluded |
+| `plan` | 2 | `disclosure` | ⬛ excluded |
+| `question` | 2 | `presentational` | ⬛ excluded |
+| `queue` | 2 | `presentational` | ⬛ excluded |
+| `schema-display` | 2 | `presentational` | ⬛ excluded |
+| `snippet` | 2 | `clipboard` | ⬛ excluded |
+| `stack-trace` | 2 | `clipboard` | ⬛ excluded |
+| `test-results` | 2 | `presentational` | ⬛ excluded |
+| `toolbar` | 2 | `presentational` | ⬛ excluded |
+| `audio-player` | 3 | `presentational` | ⬛ excluded |
+| `canvas` | 3 | `unsupported` | ⬛ excluded |
+| `connection` | 3 | `presentational` | ⬛ excluded |
+| `edge` | 3 | `presentational` | ⬛ excluded |
+| `jsx-preview` | 3 | `presentational` | ⬛ excluded |
+| `mic-selector` | 3 | `listbox` | ⬛ excluded |
+| `node` | 3 | `presentational` | ⬛ excluded |
+| `sandbox` | 3 | `presentational` | ⬛ excluded |
+| `speech-input` | 3 | `presentational` | ⬛ excluded |
+| `terminal` | 3 | `clipboard` | ⬛ excluded |
+| `transcription` | 3 | `presentational` | ⬛ excluded |
+| `voice-selector` | 3 | `presentational` | ⬛ excluded |
+| `web-preview` | 3 | `presentational` | ⬛ excluded |

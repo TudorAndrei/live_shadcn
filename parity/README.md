@@ -77,16 +77,75 @@ is therefore a difference that the report assigns to the port.
 
 ## Running it
 
-    cd parity && npm install && npm run dev     # http://127.0.0.1:4102
+```bash
+cd parity && npm ci
+cd ../storybook/test/browser && npm ci && npm run verify:install
+cd ../../../tools
+mix ui.verify --source shadcn
+mix ui.status
+mix ui.status --check --source shadcn --require-verified
+```
 
-Playwright starts it on its own, so `mix ui.verify` needs no separate step. The
-comparison is `parity` in `registry/VERIFY.json`.
+The verifier prepares pinned sources and shared CSS, then owns one Storybook
+server and one reference server for the run. The repository's mise environment
+sets `STORYBOOK_PORT=14101` and `PARITY_PORT=14102`. Stop development servers
+on those ports first. It verifies fetched bytes
+against committed digests; do not advance upstream refs just to rerun checks.
+Tracked Storybook example images are also served by Vite and included in the
+shadcn evidence identity.
+
+For a scoped rerun, use `mix ui.verify shadcn/dialog`. A direct, complete-example
+batch can be run and imported separately after a managed run has prepared
+the sources and shared CSS:
+
+```bash
+cd storybook/test/browser
+STORYBOOK_PORT=14101 PARITY_PORT=14102 PARITY_PREPARED=1 \
+  PREVIEW_SOURCE=shadcn PREVIEW_COMPONENTS=button PREVIEW_EXAMPLES=default \
+  PLAYWRIGHT_JSON_OUTPUT_FILE=/tmp/button-parity.json \
+  npm run verify -- '(?:^|/)parity\.spec\.mjs$' --project chromium
+cd ../../../tools
+mix ui.verify shadcn/button --examples default --record parity=/tmp/button-parity.json
+```
+
+The import records this batch but remains Not verified until all examples and
+required layers are complete. Direct single-component accessibility and pixel
+batches also carry importable metadata. Mixed-layer/component commands and test
+filters are diagnostic, not importable evidence. Direct runs produce reports,
+not persisted badges; the Mix verifier owns publication to `registry/VERIFY.json`.
 
 ## Which registry it gates
 
-Both `shadcn` and AI Elements. A complete registry cannot skip the checks that
-render its upstream source. A known composition difference belongs in a small,
-named normalization rule. It is not a reason to turn off checks for 48 ports.
+The maintained verification workflow gates shadcn, including the data-table,
+date-picker, and typography documentation families. AI Elements reference
+selection and evidence portability are outside this workflow; its policy,
+examples, and stored records are preserved.
+
+Every official shadcn example must be covered. A known composition difference
+belongs in a reviewed, named normalization rule, not a disabled check.
+
+## Report provenance and badges
+
+Managed and direct runs capture the shared versioned identity before testing.
+Version-2 reports carry source/component/example ownership, layer, state
+coverage, completion, and global Playwright errors. The actual comparison loops
+annotate discovered and completed states; the wrapper derives completion from
+those annotations and executed test results, rather than trusting a preset flag.
+Imports reject stale identities, wrong ownership or layers, raw legacy reports,
+and partial states. Complete
+example batches may accumulate, but Verified requires every required batch.
+Validation and publication run under the source lease, with an identity recheck
+before the atomic record write.
+
+`PARITY_DEBUG_STATE` and other diagnostic filters cannot create complete
+evidence. Rerun the unfiltered component when investigating a failure is done.
+Do not replace evidence hashes or relax pixel budgets to make a badge pass.
+
+Storybook and the pipeline share five outcomes: Verified, Failed, Stale,
+Not verified, and No DOM. Freshness is checked before an old failure is
+classified. Component pages show short per-check reasons. Recompile after the
+last evidence write; release badges are compiled data, not runtime repository
+reads.
 
 ## What is compared
 

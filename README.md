@@ -96,8 +96,31 @@ mix ui.fetch  ->  mix ui.spec  ->  mix ui.verify
 `mix ui.fetch` stores fetched files in the ignored `registry/upstream/`
 directory. `registry/UPSTREAM.json` commits their SHA-256 digests.
 
-`mix ui.verify` checks shadcn only. AI Elements is outside this verification
-pipeline. Its normal package tests still run in CI.
+`mix ui.verify --source shadcn` checks every shadcn port and the data-table,
+date-picker, and typography documentation families. AI Elements is outside this
+verification pipeline. Its normal package tests still run in CI.
+
+After verification, refresh inventory and enforce complete current evidence:
+
+```bash
+mix ui.status
+mix ui.status --check --source shadcn --require-verified
+```
+
+Storybook uses the same evaluation for its index and component-page badges:
+
+| Badge | Meaning |
+|---|---|
+| Verified | All required checks and official examples passed for the current inputs. |
+| Failed | A required check or preparation failed for the current inputs. |
+| Stale | Recorded evidence describes older inputs. Rerun verification. |
+| Not verified | Evidence is missing, incomplete, skipped, or diagnostic. |
+| No DOM | Policy explicitly identifies a component that renders no DOM. |
+
+Component pages expand the per-check results. Hooks, CSS, references, dependency
+locks, and verifier changes invalidate shadcn evidence. `--no-browser` cannot
+produce Verified. Release badges describe the sources compiled into the image;
+recompile Storybook after writing evidence and rebuild to update a release.
 
 `mix ui.spec` uses Oxc to extract class literals, CVA values, state reads, and
 a structural fingerprint. It can update only safe facts in the marked block of
@@ -153,14 +176,17 @@ To verify and view the components:
 
 ```bash
 cd storybook && mix setup
-cd test/browser && npm install && npm run verify:install
-cd ../../../tools && mix ui.verify
+cd test/browser && npm ci && npm run verify:install
+cd ../../../parity && npm ci
+cd ../tools && mix ui.verify --source shadcn
 
 cd ../storybook && mix phx.server
 ```
 
-Open <http://localhost:4100>. The demo uses the shadcn style sheets fetched by
-`mix ui.fetch`.
+Open <http://localhost:14101> with the repository's mise environment (otherwise
+port 4100). The demo uses the shadcn style sheets fetched by `mix ui.fetch`.
+The repository's mise environment sets verification ports 14101 and 14102.
+Stop existing development servers on those ports before verification.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for safe updates and the first-port
 process. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for contract details.
