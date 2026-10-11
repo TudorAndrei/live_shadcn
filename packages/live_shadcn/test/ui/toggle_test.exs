@@ -16,6 +16,25 @@ defmodule LiveShadcn.UI.ToggleTest do
            ]
   end
 
+  test "caller layout classes replace the default display and alignment" do
+    html = render_toggle(%{class: "flex items-start justify-end"})
+
+    classes =
+      html
+      |> Floki.parse_fragment!()
+      |> Floki.find("button")
+      |> Floki.attribute("class")
+      |> hd()
+      |> String.split()
+
+    assert "flex" in classes
+    assert "items-start" in classes
+    assert "justify-end" in classes
+    refute "inline-flex" in classes
+    refute "items-center" in classes
+    refute "justify-center" in classes
+  end
+
   defp render_toggle(overrides) do
     assigns =
       Map.merge(

@@ -46,7 +46,12 @@ export const ToggleGroup = {
     const output = document.querySelector(selector);
     if (output) {
       const prefix = this.el.getAttribute("data-lb-output-prefix") || "";
-      output.textContent = selected ? `${prefix}${item.value}` : prefix;
+      // Keep the caller prefix separate from the changing value, as in the
+      // initial render. Text-node boundaries affect fractional glyph positions.
+      output.replaceChildren(
+        document.createTextNode(prefix),
+        document.createTextNode(selected ? item.getAttribute("data-lb-value") || "" : ""),
+      );
     }
   },
 };

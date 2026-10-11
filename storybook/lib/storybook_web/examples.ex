@@ -10950,11 +10950,7 @@ defmodule StorybookWeb.Examples do
           <span class="text-xs text-muted-foreground">Bold</span>
         </:item>
       </.toggle_group>
-      <.field_description>
-        Use
-        <code id="font-weight-output" class="rounded-md bg-muted px-1 py-0.5 font-mono">font-normal</code>
-        to set the font weight.
-      </.field_description>
+      <.field_description phx-no-format>Use<!-- --> <code id="font-weight-output" class="rounded-md bg-muted px-1 py-0.5 font-mono">font-<!-- -->normal</code> <!-- -->to set the font weight.</.field_description>
     </.field>
     """
   end
