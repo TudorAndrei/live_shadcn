@@ -134,6 +134,7 @@ defmodule LiveAiElements.Components.Question do
       class={merged_class([
         Shadcn.button_class(@size, @variant || if(@selected?, do: "default", else: "outline")),
         upstream_fact("jsx/QuestionOption/class/0"),
+        "transition-[box-shadow]",
         @class
       ])}
       {Map.drop(@rest, [:"data-slot"])}
