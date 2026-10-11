@@ -138,12 +138,15 @@ test("every example has a budget or is pending", () => {
 for (const { component, example } of pages) {
   const name = named(component, example);
 
-  test(`${component} / ${example} paints what React paints`, async ({ page, referencePage }, testInfo) => {
+  test(`${component} / ${example} paints what React paints`, async ({ page, referencePage, context }, testInfo) => {
     // Named rather than passed over. A `continue` here left an example out of
     // the run with nothing in the output to say so, and a check that cannot
     // tell "did not run" from "passed" is worse than no check.
     test.skip(!hasOfficialReference(component, example), `no official React reference for ${name}`);
     await installBrowserFixtures(page);
+    const copyExample = component === "input-group" && example === "button";
+    // Use the same clipboard access as the direct Input Group browser owner.
+    if (copyExample) await context.grantPermissions(["clipboard-read", "clipboard-write"]);
 
     const selector = `[data-preview='${component}']`;
     const parity = testInfo.project.use.parityURL;
@@ -166,6 +169,8 @@ for (const { component, example } of pages) {
       reactStates.map((state) => JSON.stringify(visualStateIdentity(state))));
 
     for (const state of reactStates) {
+      const copiedState = copyExample && state.name === "action:Copy";
+      const copyReceipts = {};
       const authoredAction = component === "message-scroller" &&
         state.kind === "message-scroller-action"
         ? messageScrollerActionDefinitions(example).find(({ name }) => name === state.action)
@@ -200,6 +205,7 @@ for (const { component, example } of pages) {
 
       await referencePage.goto(reactURL);
       await enterVisualState(referencePage, selector, state);
+      if (copiedState) copyReceipts.reactEntry = await copyPaintReceipt(referencePage, selector);
       if (historyNoticeContract) noticeFrames.reactEntry = await messageScrollerPaintReceipt(referencePage, selector);
       await settle(referencePage, selector);
       if (historyNoticeContract) noticeFrames.reactBefore = await messageScrollerPaintReceipt(referencePage, selector);
@@ -209,6 +215,7 @@ for (const { component, example } of pages) {
       await page.goto(phoenixURL);
       await connected(page);
       await enterVisualState(page, selector, state);
+      if (copiedState) copyReceipts.phoenixEntry = await copyPaintReceipt(page, selector);
       if (historyNoticeContract) noticeFrames.phoenixEntry = await messageScrollerPaintReceipt(page, selector);
       await settle(page, selector);
       if (historyNoticeContract) noticeFrames.phoenixBefore = await messageScrollerPaintReceipt(page, selector);
@@ -229,7 +236,9 @@ for (const { component, example } of pages) {
       const phoenixBefore = captureContract || historyNoticeContract
         ? await messageScrollerPaintReceipt(page, selector)
         : null;
+      if (copiedState) copyReceipts.phoenixBefore = await copyPaintReceipt(page, selector);
       const phoenix = await shootCurrent(page, selector, clip);
+      if (copiedState) copyReceipts.phoenixAfter = await copyPaintReceipt(page, selector);
       const phoenixAfter = captureContract || historyNoticeContract
         ? await messageScrollerPaintReceipt(page, selector)
         : null;
@@ -241,7 +250,9 @@ for (const { component, example } of pages) {
       const reactBefore = captureContract || historyNoticeContract
         ? await messageScrollerPaintReceipt(referencePage, selector)
         : null;
+      if (copiedState) copyReceipts.reactBefore = await copyPaintReceipt(referencePage, selector);
       const react = await shootCurrent(referencePage, selector, clip);
+      if (copiedState) copyReceipts.reactAfter = await copyPaintReceipt(referencePage, selector);
       const reactAfter = captureContract || historyNoticeContract
         ? await messageScrollerPaintReceipt(referencePage, selector)
         : null;
@@ -263,7 +274,8 @@ for (const { component, example } of pages) {
         phoenixBefore, phoenixAfter, reactBefore, reactAfter,
       ].some((receipt) => receipt.items.length !== captureContract.items ||
         receipt.busy !== captureContract.busy);
-      if (differing > 0 || busyReceiptInvalid || noticeReceiptInvalid) {
+      if (differing > 0 || busyReceiptInvalid || noticeReceiptInvalid ||
+          (copiedState && Object.values(copyReceipts).some(({ copied }) => !copied))) {
         await testInfo.attach(`react-${suffix}.png`, {
           body: PNG.sync.write(react.image),
           contentType: "image/png",
@@ -277,6 +289,16 @@ for (const { component, example } of pages) {
             body: PNG.sync.write(diff),
             contentType: "image/png",
           });
+        }
+      }
+
+      if (copiedState) {
+        await testInfo.attach("copy-capture.json", {
+          body: Buffer.from(JSON.stringify(copyReceipts, null, 2)),
+          contentType: "application/json",
+        });
+        for (const [stage, receipt] of Object.entries(copyReceipts)) {
+          expect(receipt.copied, `${name} / ${state.name} / ${stage}: copied state must be painted`).toBe(true);
         }
       }
 
@@ -451,4 +473,18 @@ function historyNoticeState(receipt) {
     notices: receipt.notices.filter(({ painted }) => painted)
       .map(({ title, description }) => ({ title, description })),
   };
+}
+
+async function copyPaintReceipt(page, selector) {
+  return page.locator(selector).evaluate((root) => {
+    const button = [...root.querySelectorAll("button")].find((element) =>
+      element.getAttribute("aria-label") === "Copy");
+    const check = button?.querySelector(".tabler-icon-check");
+    return {
+      time: performance.now(),
+      focused: document.hasFocus(),
+      visibility: document.visibilityState,
+      copied: Boolean(check?.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })),
+    };
+  });
 }
