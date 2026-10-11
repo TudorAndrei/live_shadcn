@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { visit } from "./live.mjs";
+import { connected, visit } from "./live.mjs";
 
 const examples = [
   ["default", "context-menu-demo"],
@@ -28,9 +28,12 @@ for (const [example, id] of examples) {
     await trigger.click({ button: "right" });
     await expect(popup).toBeVisible();
     await expect(popup).toHaveRole("menu");
+    await expect(page.getByRole("heading", { name: "context-menu", exact: true })).toHaveCount(0);
+    await expect(page.getByRole("menu")).toHaveCount(1);
 
     await page.locator("body").click({ position: { x: 5, y: 5 } });
     await expect(popup).toBeHidden();
+    await expect(page.getByRole("heading", { name: "context-menu", exact: true })).toHaveCount(1);
   });
 }
 
@@ -124,13 +127,47 @@ test("the submenu stays in the root branch and closes outside", async ({ page })
     "destructive",
   );
 
+  await expect(page.getByRole("heading", { name: "context-menu", exact: true })).toHaveCount(0);
+  await expect(page.getByRole("menu")).toHaveCount(2);
+  await submenu.getByRole("menuitem", { name: "Save Page...", exact: true }).click();
+  await expect(root).toBeHidden();
+  await expect(submenu).toBeHidden();
+  await expect(page.getByRole("heading", { name: "context-menu", exact: true })).toHaveCount(1);
+
+  // Keep the existing outside-click contract after the native submenu choice.
+  await page.locator("#context-menu-submenu-trigger").click({ button: "right" });
+  await subTrigger.click();
+  await expect(root).toBeVisible();
+  await expect(submenu).toBeVisible();
   await page.locator("body").click({ position: { x: 5, y: 5 } });
   await expect(root).toBeHidden();
   await expect(submenu).toBeHidden();
+  await expect(page.getByRole("heading", { name: "context-menu", exact: true })).toHaveCount(1);
 });
 
 test("the sides example opens each menu from its own target", async ({ page }) => {
   await visit(page, "/preview/context-menu/sides", "#context-menu-side-top-trigger");
+  // These are native outside caller nodes, as in the shared Overlay owner.
+  await page.evaluate(() => {
+    const visible = document.createElement("aside");
+    visible.id = "context-outside-authored-false";
+    visible.setAttribute("aria-hidden", "false");
+    const control = document.createElement("button");
+    control.type = "button";
+    control.textContent = "Context outside caller";
+    visible.append(control);
+    const hidden = document.createElement("aside");
+    hidden.id = "context-outside-authored-true";
+    hidden.setAttribute("aria-hidden", "true");
+    hidden.textContent = "Context hidden caller";
+    const live = document.createElement("div");
+    live.setAttribute("role", "status");
+    live.setAttribute("aria-live", "polite");
+    live.textContent = "Context live caller";
+    document.body.append(visible, hidden, live);
+  });
+  const authoredFalse = page.locator("#context-outside-authored-false");
+  const authoredTrue = page.locator("#context-outside-authored-true");
 
   for (const side of ["top", "right", "bottom", "left"]) {
     const id = `context-menu-side-${side}`;
@@ -139,8 +176,67 @@ test("the sides example opens each menu from its own target", async ({ page }) =
     const positioner = page.locator(`#${id}-positioner`);
     await expect(positioner).toHaveAttribute("data-lb-side", side);
     await expect(positioner).toHaveAttribute("data-side", /^(top|right|bottom|left)$/);
+    await expect(page.getByRole("heading", { name: "context-menu", exact: true })).toHaveCount(0);
+    await expect(authoredFalse).toHaveAttribute("aria-hidden", "true");
+    await expect(page.getByRole("button", { name: "Context outside caller", exact: true })).toHaveCount(0);
+    await expect(page.getByRole("status").filter({ hasText: "Context live caller" })).toHaveCount(1);
     await page.locator("body").click({ position: { x: 5, y: 5 } });
+    await expect(page.locator(`#${id}-popup`)).toBeHidden();
+    await expect(authoredFalse).toHaveAttribute("aria-hidden", "false");
+    await expect(authoredTrue).toHaveAttribute("aria-hidden", "true");
+    await expect(page.getByRole("button", { name: "Context outside caller", exact: true })).toHaveCount(1);
+    await expect(page.getByRole("heading", { name: "context-menu", exact: true })).toHaveCount(1);
   }
+
+  const firstTrigger = page.locator("#context-menu-side-top-trigger");
+  const secondTrigger = page.locator("#context-menu-side-right-trigger");
+  const firstPopup = page.locator("#context-menu-side-top-popup");
+  const secondPopup = page.locator("#context-menu-side-right-popup");
+  await firstTrigger.click({ button: "right" });
+  await expect(firstPopup).toBeVisible();
+  // A caller can run the same public LiveView.JS command that the gesture hook
+  // reads. It has no outside click, so two controlled roots can overlap.
+  await secondTrigger.evaluate((element) => {
+    window.liveSocket.execJS(element, element.getAttribute("phx-click"));
+  });
+  await expect(firstPopup).toBeVisible();
+  await expect(secondPopup).toBeVisible();
+  await firstTrigger.evaluate((element) => {
+    window.liveSocket.execJS(element, element.getAttribute("phx-click"));
+  });
+  await expect(firstPopup).toBeHidden();
+  await expect(secondPopup).toBeVisible();
+  await expect(authoredFalse).toHaveAttribute("aria-hidden", "true");
+  await expect(page.getByRole("button", { name: "Context outside caller", exact: true })).toHaveCount(0);
+  await page.keyboard.press("Escape");
+  await expect(secondPopup).toBeHidden();
+  await expect(authoredFalse).toHaveAttribute("aria-hidden", "false");
+  await expect(authoredTrue).toHaveAttribute("aria-hidden", "true");
+  await expect(page.getByRole("button", { name: "Context outside caller", exact: true })).toHaveCount(1);
+
+  // The existing Docs navigation replaces the real view and its popup hooks.
+  await visit(page, "/docs/context-menu", "#context-menu-side-top-trigger");
+  await page.evaluate(() => {
+    const outside = document.createElement("aside");
+    outside.id = "context-removal-outside";
+    outside.setAttribute("aria-hidden", "false");
+    const control = document.createElement("button");
+    control.type = "button";
+    control.textContent = "Context removal outside caller";
+    outside.append(control);
+    document.body.append(outside);
+  });
+  await page.locator("#context-menu-side-top-trigger").click({ button: "right" });
+  await expect(page.locator("#context-menu-side-top-popup")).toBeVisible();
+  await expect(page.locator("#context-removal-outside")).toHaveAttribute("aria-hidden", "true");
+  await expect(page.getByRole("button", { name: "Context removal outside caller", exact: true })).toHaveCount(0);
+  await page.locator("a[href='/docs/button']").first().evaluate((element) => element.click());
+  await expect(page).toHaveURL(/\/docs\/button$/);
+  await connected(page);
+  await expect(page.locator("#context-menu-side-top-popup")).toHaveCount(0);
+  await expect(page.locator("#context-removal-outside")).toHaveAttribute("aria-hidden", "false");
+  await expect(page.getByRole("button", { name: "Context removal outside caller", exact: true })).toHaveCount(1);
+  await expect(page.getByRole("heading", { name: "Button", exact: true })).toHaveCount(1);
 });
 
 test("the Arabic root and submenus keep their direction", async ({ page }) => {

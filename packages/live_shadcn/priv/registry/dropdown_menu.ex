@@ -265,6 +265,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
         data-lb-offset={@side_offset}
         data-lb-align-offset={@align_offset}
         data-lb-autofocus
+        data-lb-accessibility={if(@context, do: "modal")}
         data-lb-no-return-focus={flag(not @return_focus)}
         phx-mounted={Popover.owned_attributes(:positioner)}
         data-open={flag(@open)}

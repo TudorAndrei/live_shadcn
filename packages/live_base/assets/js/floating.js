@@ -44,6 +44,7 @@ import {
 } from "@floating-ui/dom";
 
 import { hide, show } from "./transition.js";
+import { accessibilityInside, holdAccessibility, releaseAccessibility } from "./modal_accessibility.js";
 
 const ORIGIN = { top: "bottom", bottom: "top", left: "right", right: "left" };
 const ITEM_ALIGN_MARGIN = 10;
@@ -194,10 +195,15 @@ export const Floating = {
   attach() {
     if (!this.anchor || this.cleanup) return;
     this.cleanup = autoUpdate(this.reference(), this.el, () => this.place());
+    if (this.el.getAttribute("data-lb-accessibility") === "modal") {
+      this.accessibilityLease = holdAccessibility(this.el, () => this.accessibilityInside());
+    }
     if (this.dismissOwner) document.addEventListener("click", this.dismissOutside);
   },
 
   detach() {
+    releaseAccessibility(this.accessibilityLease);
+    this.accessibilityLease = null;
     document.removeEventListener("click", this.dismissOutside);
     this.cleanup?.();
     this.cleanup = null;
@@ -243,6 +249,16 @@ export const Floating = {
     }
 
     return false;
+  },
+
+  accessibilityInside() {
+    const inside = accessibilityInside(this.el);
+    // A menu branch can move to separate body portals. Preserve every logical
+    // child that the existing dismiss owner treats as part of this branch.
+    for (const popup of this.el.ownerDocument.querySelectorAll("[data-lb-popup]")) {
+      if (this.owns(popup)) inside.add(popup);
+    }
+    return inside;
   },
 
   async place() {
