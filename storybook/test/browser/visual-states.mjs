@@ -2025,6 +2025,13 @@ function resolveMessageScrollerContract(contract, context) {
 }
 
 async function discoverChartHoverState(scope, states) {
+  // ResponsiveContainer mounts its plot after the first measured size. Tooltip
+  // anatomy examples have no responsive container and need no plot wait.
+  if (await scope.locator(".recharts-responsive-container").count()) {
+    await scope.locator(".recharts-surface").first().waitFor({ state: "visible" });
+    await scope.locator(".recharts-rectangle:not(.recharts-tooltip-cursor)").first()
+      .waitFor({ state: "visible" });
+  }
   const tooltip = scope.locator(".recharts-tooltip-wrapper");
   const bars = scope.locator(
     ".recharts-rectangle:not(.recharts-tooltip-cursor)",

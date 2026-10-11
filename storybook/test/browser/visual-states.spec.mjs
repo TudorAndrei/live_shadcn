@@ -178,13 +178,25 @@ test("tooltip exposes its hover state", async ({ page }) => {
 
 test("chart tooltip examples expose their hover state", async ({ page }, testInfo) => {
   const selector = "[data-preview='chart']";
+  await page.route(`${testInfo.project.use.parityURL}/preview/chart/**`, async (route) => {
+    const response = await route.fetch();
+    const html = await response.text();
+    await route.fulfill({ response, body: html.replace("<head>",
+      '<head><style id="delayed-chart-size">.recharts-responsive-container { width: 0 !important; }</style>') });
+  });
   const paths = [
     "/preview/chart/example-tooltip",
+    "/preview/chart/example-legend",
+    `${testInfo.project.use.parityURL}/preview/chart/example-legend`,
     `${testInfo.project.use.parityURL}/preview/chart/example-tooltip`,
   ];
 
   for (const path of paths) {
     await visitPreview(page, path);
+    await referenceReady(page);
+    await page.evaluate(() => {
+      setTimeout(() => document.getElementById("delayed-chart-size")?.remove(), 750);
+    });
     const states = await visualStates(page, selector);
 
     expect(states).toEqual([
@@ -192,10 +204,14 @@ test("chart tooltip examples expose their hover state", async ({ page }, testInf
       { name: "chart-hover:first-series", kind: "chart-hover", index: 0 },
     ]);
 
-    await visitPreview(page, path);
     await enterVisualState(page, selector, states[1]);
     await expect(page.locator(".recharts-tooltip-wrapper")).toBeVisible();
   }
+  for (const path of ["/preview/chart/tooltip", `${testInfo.project.use.parityURL}/preview/chart/tooltip`]) {
+    await visitPreview(page, path);
+    expect(await visualStates(page, selector)).toEqual([{ name: "default", kind: "default" }]);
+  }
+
 });
 
 test("context menu exposes its right-click state", async ({ page }) => {
