@@ -3596,6 +3596,33 @@ Message Scroller Animation semantic checks. Keep all limits and states.
 
 Commit: `fix(select): preserve pointer focus and highlight`.
 
+## Phase 6e.79: keep the Command accessibility fixture visible
+
+The grouped Command owner inserts an invalid unrelated preview under the body
+while a modal is open. The modal now correctly hides this late outside node.
+The test therefore cannot observe its intended independent violation.
+
+Insert the same fixture inside the visible dialog and prove it remains
+accessible before the scan. Keep the distinct preview target and the expected
+single `aria-required-children` failure. Preserve production modal behavior.
+Pass the unchanged matcher contracts and complete Command comparisons.
+
+Commit: `test(command): keep the unrelated accessibility fixture visible`.
+
+## Phase 6e.80: wait for Date Picker entry before observation
+
+The dedicated Date Picker action path returns during the native popup entry
+transition. Six native runs measured opacity below one and false contrast
+failures. After the same finite animations ended, all those failures cleared.
+The two hosts use the same weekday text color.
+
+Use the existing finite-transition wait in the Date Picker action path.
+Extend an existing browser owner with a real transition regression before the
+repair. Keep production colors, durations, deadlines, and all comparison
+states. Pass shared helper checks and complete Date Picker comparisons.
+
+Commit: `fix(verification): wait for Date Picker entry transitions`.
+
 ## Phase 6f: refresh evidence and verify release badges
 
 - Finish verifier changes before the final full run. Prepare existing pinned

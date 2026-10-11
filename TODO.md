@@ -1106,6 +1106,22 @@ verification remains required where a phase check box is still open.
 - [ ] Pass direct Select checks, complete comparisons, and repeated Animation checks.
 - [ ] Commit: `fix(select): preserve pointer focus and highlight`.
 
+## Phase 6e.79: keep the Command accessibility fixture visible
+
+- [x] Prove the modal hides the injected body fixture.
+- [ ] Put the same fixture inside the visible dialog and assert accessibility.
+- [ ] Preserve its distinct preview target and single expected violation.
+- [ ] Pass matcher contracts and complete Command comparisons.
+- [ ] Commit: `test(command): keep the unrelated accessibility fixture visible`.
+
+## Phase 6e.80: wait for Date Picker entry before observation
+
+- [x] Prove active entry transitions cause the transient contrast failures.
+- [ ] Extend an existing real browser owner and save the intended failure.
+- [ ] Wait for finite entry transitions without changing colors, timers, or limits.
+- [ ] Pass shared helper checks and complete Date Picker comparisons.
+- [ ] Commit: `fix(verification): wait for Date Picker entry transitions`.
+
 ## Phase 6f: refresh evidence and verify release badges
 
 - [x] Prepare pinned sources without advancing the shadcn or AI ref.
