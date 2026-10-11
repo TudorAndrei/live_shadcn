@@ -6929,15 +6929,21 @@ defmodule StorybookWeb.Examples do
       )
 
     ~H"""
-    <.card
+    <div
+      data-slot="card"
       id="chart-demo"
-      class="w-full max-w-4xl py-0 pb-4"
+      class="flex flex-col gap-6 rounded-xl border bg-card text-card-foreground shadow-sm py-0 pb-4"
       data-chart-demo-series={@chart_demo_series}
     >
-      <.card_header class="flex flex-col items-stretch gap-0 border-b p-0! sm:flex-row">
+      <div
+        data-slot="card-header"
+        class="@container/card-header auto-rows-min grid-rows-[auto_auto] gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6 flex flex-col items-stretch border-b p-0! sm:flex-row"
+      >
         <div class="flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3 sm:py-0!">
-          <.card_title>Bar Chart - Interactive</.card_title>
-          <.card_description>Showing total visitors for the last 3 months</.card_description>
+          <div data-slot="card-title" class="leading-none font-semibold">Bar Chart - Interactive</div>
+          <div data-slot="card-description" class="text-sm text-muted-foreground">
+            Showing total visitors for the last 3 months
+          </div>
         </div>
         <div class="flex">
           <button
@@ -6963,35 +6969,53 @@ defmodule StorybookWeb.Examples do
             <span class="text-lg leading-none font-bold sm:text-3xl">7,250</span>
           </button>
         </div>
-      </.card_header>
-      <.card_content class="px-2 sm:p-6">
-        <.chart_container
-          id="chart-demo-bars"
-          config={%{desktop: %{color: "var(--chart-2)"}, mobile: %{color: "var(--chart-1)"}}}
-          class="aspect-auto h-[250px] w-full"
+      </div>
+      <div data-slot="card-content" class="px-2 sm:p-6">
+        <%!-- This pinned example uses the new-york-v4 Card and Chart shell. The
+        other Chart examples use the base shell. Keep its caller composition. --%>
+        <div
+          data-slot="chart"
+          class="flex justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden aspect-auto h-[250px] w-full"
+          style="--color-desktop: var(--chart-2); --color-mobile: var(--chart-1);"
         >
           <div
+            id="chart-demo-interaction"
+            phx-hook="ChartDemoTooltip"
             class="recharts-wrapper relative h-[250px] w-full"
             data-chart-demo-active={@chart_demo_series}
           >
-            <svg class="recharts-surface size-full" viewBox="0 0 720 250" role="application">
+            <div
+              data-chart-tooltip
+              class="recharts-tooltip-wrapper"
+              style="visibility: hidden; pointer-events: none; position: absolute; top: 0px; left: 0px;"
+            >
+              <.chart_tooltip_content
+                label="Apr 1, 2024"
+                class="gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl w-[150px]"
+              >
+                <:item label="Page Views" color={"var(--color-#{@chart_demo_series})"}>
+                  {if(@chart_demo_series == "mobile", do: 150, else: 222)}
+                </:item>
+              </.chart_tooltip_content>
+            </div>
+            <svg class="recharts-surface size-full" viewBox="0 0 670 250" role="application">
               <g class="recharts-cartesian-grid">
                 <line
-                  :for={y <- [8, 62, 116, 170, 224]}
+                  :for={y <- [220, 165, 110, 55, 0]}
                   class="recharts-cartesian-grid-line"
-                  x1="10"
-                  x2="710"
+                  x1="12"
+                  x2="658"
                   y1={y}
                   y2={y}
                   stroke="#ccc"
                   fill="none"
                 />
               </g>
-              <g class="recharts-layer recharts-cartesian-axis recharts-xAxis xAxis">
+              <g class="recharts-layer recharts-cartesian-axis recharts-xAxis xAxis recharts-cartesian-axis-tick">
                 <text
                   :for={tick <- @chart_demo_ticks}
                   x={tick.x}
-                  y="244"
+                  y="234"
                   class="recharts-text recharts-cartesian-axis-tick-value"
                   text-anchor="middle"
                   fill="#666"
@@ -6999,9 +7023,17 @@ defmodule StorybookWeb.Examples do
                   <tspan x={tick.x} dy="0.71em">{tick.label}</tspan>
                 </text>
               </g>
+              <path
+                data-chart-cursor
+                class="recharts-rectangle recharts-tooltip-cursor"
+                fill="#ccc"
+                stroke="none"
+                style="visibility: hidden;"
+              />
               <g class="recharts-layer recharts-bar">
-                <rect
+                <path
                   :for={bar <- @chart_demo_bars}
+                  data-chart-index={bar.index}
                   data-chart-date={bar.date}
                   data-chart-series={@chart_demo_series}
                   data-chart-value={bar.value}
@@ -7010,16 +7042,16 @@ defmodule StorybookWeb.Examples do
                   y={bar.y}
                   width={bar.width}
                   height={bar.height}
-                  rx="2"
+                  d={"M #{bar.x},#{bar.y} h #{bar.width} v #{bar.height} h -#{bar.width} Z"}
                   fill={"var(--color-#{@chart_demo_series})"}
                 />
               </g>
             </svg>
             <span class="sr-only" data-chart-demo-total={@chart_demo_series}>{@chart_demo_total}</span>
           </div>
-        </.chart_container>
-      </.card_content>
-    </.card>
+        </div>
+      </div>
+    </div>
     """
   end
 
@@ -7028,14 +7060,15 @@ defmodule StorybookWeb.Examples do
     |> Enum.with_index()
     |> Enum.map(fn {{date, desktop, mobile}, index} ->
       value = if(series == "mobile", do: mobile, else: desktop)
-      height = Float.round(value * 216 / 500, 4)
+      height = Float.round(value * 220 / 600, 4)
 
       %{
+        index: index,
         date: date,
         value: value,
-        x: Float.round(10 + index * (700 / 30), 4),
-        y: Float.round(224 - height, 4),
-        width: Float.round(700 / 30 - 3, 4),
+        x: Float.round(12 + (index + 0.1) * (646 / 30), 4),
+        y: Float.round(220 - value * 220 / 600, 4),
+        width: 17,
         height: height
       }
     end)
@@ -7047,11 +7080,11 @@ defmodule StorybookWeb.Examples do
   defp chart_demo_ticks do
     @chart_demo_data
     |> Enum.with_index()
-    |> Enum.filter(fn {_item, index} -> rem(index, 5) == 0 end)
+    |> Enum.filter(fn {_item, index} -> index in [2, 5, 9, 13, 17, 21, 25, 29] end)
     |> Enum.map(fn {{date, _desktop, _mobile}, index} ->
       %{
-        x: Float.round(10 + index * (700 / 30) + 10, 4),
-        label: "Apr #{String.slice(date, -2, 2)}"
+        x: 12 + (index + 0.5) * (646 / 30),
+        label: "Apr #{date |> String.slice(-2, 2) |> String.to_integer()}"
       }
     end)
   end

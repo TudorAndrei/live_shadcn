@@ -1232,7 +1232,7 @@ export async function enterVisualState(page, selector, state) {
 
   if (state.kind === "chart-hover") {
     const scope = page.locator(selector);
-    const hook = scope.locator("[phx-hook='ChartTooltip']");
+    const hook = scope.locator("[phx-hook='ChartTooltip'], [phx-hook='ChartDemoTooltip']");
     if ((await hook.count()) > 0) {
       await hook.waitFor({ state: "attached" });
       await page.waitForFunction(
