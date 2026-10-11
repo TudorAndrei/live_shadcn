@@ -26,6 +26,34 @@ defmodule LiveShadcn.UI.SliderTest do
     assert Floki.find(document, "#previous-context-peek-1") == []
   end
 
+  test "explicit scalar thumbs share one value and retain distinct form controls" do
+    html =
+      render_component(&Slider.slider/1, %{
+        id: "scalar",
+        name: "amount",
+        value: 50,
+        thumb_count: 2
+      })
+
+    inputs = html |> Floki.parse_fragment!() |> Floki.find("input[type=range]")
+
+    assert Floki.attribute(inputs, "id") == ["scalar-0", "scalar-1"]
+    assert Floki.attribute(inputs, "value") == ["50", "50"]
+    assert Floki.attribute(inputs, "name") == ["amount", "amount"]
+  end
+
+  test "thumb_count requires a positive integer and only duplicates scalar values" do
+    for count <- [0, -1, 1.5, "2"] do
+      assert_raise ArgumentError, ~r/thumb_count/, fn ->
+        render_component(&Slider.slider/1, %{id: "scalar", value: 50, thumb_count: count})
+      end
+    end
+
+    assert_raise ArgumentError, ~r/scalar/, fn ->
+      render_component(&Slider.slider/1, %{id: "range", value: [20, 80], thumb_count: 2})
+    end
+  end
+
   test "an on_change event is available to the registered slider hook" do
     html =
       render_component(&Slider.slider/1, %{

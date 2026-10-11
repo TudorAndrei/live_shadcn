@@ -60,6 +60,11 @@ export const Slider = {
   },
 
   clampValue(input) {
+    if (this.el.hasAttribute("data-lb-slider-scalar")) {
+      for (const other of this.inputs) other.value = input.value;
+      return;
+    }
+
     const index = this.inputs.indexOf(input);
     const previous = this.inputs[index - 1];
     const next = this.inputs[index + 1];
@@ -75,12 +80,14 @@ export const Slider = {
     // Do not send the same native value twice when a browser emits its normal
     // `input` followed by `change` pair.
     const value = input.value;
-    if (input.dataset.lbReportedValue === value) return;
+    const scalar = this.el.hasAttribute("data-lb-slider-scalar");
+    if (scalar ? this.reportedScalarValue === value : input.dataset.lbReportedValue === value) return;
 
-    input.dataset.lbReportedValue = value;
+    if (scalar) this.reportedScalarValue = value;
+    else input.dataset.lbReportedValue = value;
     this.pushEvent(change, {
       value,
-      values: this.inputs.map((nestedInput) => nestedInput.value),
+      values: scalar ? [value] : this.inputs.map((nestedInput) => nestedInput.value),
     });
   },
 

@@ -17982,6 +17982,7 @@ defmodule StorybookWeb.Examples do
       <.progress value={to_string(@progress_value)} class="w-full" />
       <.slider
         id="progress-slider"
+        thumb_count={2}
         name="value"
         value={@progress_value}
         min={0}

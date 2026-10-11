@@ -3,7 +3,7 @@ import test from "node:test";
 
 import { Slider } from "./slider.js";
 
-function sliderHook() {
+function sliderHook({ scalar = true } = {}) {
   const listeners = new Map();
   const input = {
     value: "64",
@@ -26,8 +26,8 @@ function sliderHook() {
       getAttribute(name) {
         return name === "data-lb-change-event" ? "message_scroller_peek" : null;
       },
-      hasAttribute() {
-        return true;
+      hasAttribute(name) {
+        return name === "data-lb-slider-scalar" && scalar;
       },
       querySelectorAll(selector) {
         if (selector === "[data-lb-slider-input]") return [input];
@@ -82,7 +82,7 @@ test("Slider sends one event for the browser input and change pair", () => {
 
 test("range input changes stop at the adjacent thumb before reporting values", () => {
   for (const [index, attempted, expected] of [[0, "100", "70"], [1, "0", "20"]]) {
-    const { events, hook, input, listeners } = sliderHook();
+    const { events, hook, input, listeners } = sliderHook({ scalar: false });
     Slider.mounted.call(hook);
     const neighbor = { value: index === 0 ? "70" : "20" };
     input.min = "0";
@@ -98,4 +98,29 @@ test("range input changes stop at the adjacent thumb before reporting values", (
       values: index === 0 ? ["70", "70"] : ["20", "20"],
     }]);
   }
+});
+
+
+test("duplicate scalar inputs report one logical value without losing alternate-thumb changes", () => {
+  const { events, hook, input, listeners } = sliderHook();
+  Slider.mounted.call(hook);
+  const second = { ...input, dataset: {} };
+  hook.inputs.push(second);
+
+  for (const [target, value] of [[input, "96"], [second, "128"], [input, "96"]]) {
+    target.value = value;
+    listeners.get("input")({ target });
+    listeners.get("change")({ target });
+    assert.deepEqual(hook.inputs.map(control => control.value), [value, value]);
+  }
+
+  assert.deepEqual(events.map(event => event.payload), [
+    { value: "96", values: ["96"] },
+    { value: "128", values: ["128"] },
+    { value: "96", values: ["96"] },
+  ]);
+
+  Slider.destroyed.call(hook);
+  assert.equal(listeners.has("input"), false);
+  assert.equal(listeners.has("change"), false);
 });
