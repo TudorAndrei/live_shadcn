@@ -25,6 +25,7 @@ import { gated, source } from "./registries.mjs";
 import {
   enterVisualState,
   installBrowserFixtures,
+  messageScrollerActionDefinitions,
   visualStateIdentity,
   visualStates,
 } from "./visual-states.mjs";
@@ -195,10 +196,42 @@ for (const { component, example } of pages) {
 
       const clip = union(reactPaint, phoenixPaint);
 
-      // Both pages contain the measured state at the final viewport size.
-      // Capture those pages, then reset them on the next state.
+      const authoredAction = component === "message-scroller" &&
+        state.kind === "message-scroller-action"
+        ? messageScrollerActionDefinitions(example).find(({ name }) => name === state.action)
+        : null;
+      const captureContract = authoredAction?.expect.busy === true
+        ? { items: authoredAction.expect.items, busy: String(authoredAction.expect.busy) }
+        : null;
+
+      // Check the actual inventory on each side of each screenshot. A busy
+      // state can expire while the other renderer loads and settles.
+      if (captureContract) {
+        await page.goto(phoenixURL);
+        await connected(page);
+        await enterVisualState(page, selector, state);
+        await settle(page, selector);
+      }
+      const phoenixBefore = captureContract
+        ? await messageScrollerPaintReceipt(page, selector)
+        : null;
       const phoenix = await shootCurrent(page, selector, clip);
+      const phoenixAfter = captureContract
+        ? await messageScrollerPaintReceipt(page, selector)
+        : null;
+      if (captureContract) {
+        await referencePage.goto(reactURL);
+        await enterVisualState(referencePage, selector, state);
+        await settle(referencePage, selector);
+      }
+      const reactBefore = captureContract
+        ? await messageScrollerPaintReceipt(referencePage, selector)
+        : null;
       const react = await shootCurrent(referencePage, selector, clip);
+      const reactAfter = captureContract
+        ? await messageScrollerPaintReceipt(referencePage, selector)
+        : null;
+
 
       const { differing, diff, width } = compare(react.image, phoenix.image);
       const suffix = safeName(state.name);
@@ -220,6 +253,20 @@ for (const { component, example } of pages) {
           contentType: "image/png",
         });
       }
+
+      if (captureContract) {
+        const receipts = { phoenixBefore, phoenixAfter, reactBefore, reactAfter };
+        await testInfo.attach(`capture-${safeName(state.name)}.json`, {
+          body: Buffer.from(JSON.stringify({ state: visualStateIdentity(state), captureContract, receipts }, null, 2)),
+          contentType: "application/json",
+        });
+        for (const [stage, receipt] of Object.entries(receipts)) {
+          expect({ items: receipt.items.length, busy: receipt.busy },
+            `${name} / ${state.name} / ${stage}: the screenshot must contain the authored busy inventory`,
+          ).toEqual(captureContract);
+        }
+      }
+
 
       const hottest =
         differing === 0
@@ -287,3 +334,29 @@ async function statesAt(page, url, selector) {
 }
 
 const safeName = (name) => name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "");
+
+async function messageScrollerPaintReceipt(page, selector) {
+  return page.locator(selector).evaluate((root) => {
+    const viewport = root.querySelector("[data-slot='message-scroller-viewport']");
+    const content = root.querySelector("[data-slot='message-scroller-content']");
+    return {
+      wallTime: Date.now(),
+      pageTime: performance.now(),
+      busy: content?.getAttribute("aria-busy") ?? null,
+      items: [...root.querySelectorAll("[data-slot='message-scroller-item']")].map((item) => ({
+        id: item.getAttribute("data-message-id"),
+        text: item.textContent?.replace(/\s+/g, " ").trim() ?? "",
+        box: item.getBoundingClientRect().toJSON(),
+        entryActive: item.hasAttribute("data-lb-message-entry-active"),
+      })),
+      viewport: viewport ? {
+        scrollTop: viewport.scrollTop,
+        scrollHeight: viewport.scrollHeight,
+        clientHeight: viewport.clientHeight,
+        pending: viewport.hasAttribute("data-pending-scroll"),
+        box: viewport.getBoundingClientRect().toJSON(),
+      } : null,
+      buttonActive: root.querySelector("[data-slot='message-scroller-button']")?.getAttribute("data-active") ?? null,
+    };
+  });
+}
