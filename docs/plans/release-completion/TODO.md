@@ -1,13 +1,12 @@
 # TODO: complete shadcn and prepare a release
 
 Follow [PLAN.md](PLAN.md). The coordinator owns this file.
-Full-run source: `9f0e798`. CI-only repair: `1e27f4c`.
-The completed run passed 53 of 64 groups. Phase 6e.83 repairs the remaining
-11 groups before the next acceptance run.
-All source repairs are now reviewed and combined. Final local checks pass:
+Latest full-run source: `c6ba115`. The run passed 62 of 64 groups. Drawer and
+Sidebar failed. Root phases 6e.84 and 6e.85 define the remaining repairs.
+The previous component repairs pass the full run. Local checks pass:
 Base 42, shadcn 162, Storybook 80, Base hooks 96, browser helpers 107, and parity
 helpers 32. All 61 contracts and 463 snapshots are current. Configured checks
-and the asset build pass. The next full run will use fixed combined source.
+and the asset build pass. The next full run must use fixed combined source.
 
 ## Checkpoint
 
@@ -57,13 +56,26 @@ Follow root phase 6e.83 for repair scope and required proof.
 |---|---|---|
 | Coordinator | Hover Card | Complete at zero pixels, `dea5c33` |
 | Menus worker | Label, Pagination, Toggle Group, Progress | Select names `185b361`; Toggle Group `b3ba6a9`; Progress/Slider `913f211`, `0622a6b`; all focused checks and independent review pass |
-| Message worker | Scroll Area, Marker, Toast, Sidebar | Repairs integrated as `b3d91d7`, `8053f16`, and `2a8bcbf`; Sidebar repeats pass without source change |
+| Message worker | Scroll Area, Marker, Toast, Sidebar | Repairs integrated as `b3d91d7`, `8053f16`, and `2a8bcbf`; Sidebar failed again and has a proved automation scroll cause |
 | Chart worker | Questionnaire, Item | Item and Avatar `8d0dbb2`; Questionnaire `6e88c3c`; all focused checks and independent review pass |
 
 - [x] Review all 11 groups and repair the proved faults.
 - [x] Recheck affected composed callers, including Avatar and Toggle.
 - [x] Require zero for the two legacy nonzero budgets after exact proof.
 - [ ] Repeat full combined verification and final package proof.
+
+## Entry repairs from the second full run
+
+| Assignment | State | Required proof |
+|---|---|---|
+| Menus worker: nested Drawer entry, phase 6e.84 | Review complete, pending integration | Both hosts fail before and pass after; 3 repeated nested comparisons and 416 related browser checks pass |
+| Message worker: initial action entry, phase 6e.85 | Active | Reproduce the exact Sidebar images, prove click-retry scroll, then require a direct regression, full Sidebar comparisons, and independent review |
+| Chart worker: setup documentation | Review complete, pending integration | Setup commands, class contracts, and deployment instructions match current source |
+
+- [ ] Integrate `fix(verification): finish nested dialog entry before capture`.
+- [ ] Integrate `fix(verification): finish initial motion before action entry`.
+- [ ] Integrate `docs(setup): align preparation and deployment instructions`.
+- [ ] Check the combined changes and freeze source for the next full run.
 
 ## Final acceptance
 
@@ -80,7 +92,7 @@ Follow root phase 6e.83 for repair scope and required proof.
 - [ ] Index and Docs badges agree with final evidence.
 - [ ] Temporary stale, failed, incomplete, and recovery checks pass on final source.
 - [ ] Clean release-image badges work without runtime repository files.
-- [ ] Rebuild and check final packages after phase 6e.83.
+- [ ] Rebuild and check final packages on final source.
 - [x] Release workflow requires the strict evidence check.
 - [x] Public setup and release instructions match tested behavior.
 - [ ] GitHub CI passes on the final commit.

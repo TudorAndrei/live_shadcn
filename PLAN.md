@@ -4,10 +4,11 @@ Active execution: [release completion](docs/plans/release-completion/PLAN.md).
 Use its task board for parallel work. The phase details below remain the
 technical reference. A code commit does not establish current verification.
 
-Status: phases through 6e.82 are implemented. The full run at `9f0e798` passed
-53 of 64 component groups. Phase 6e.83 resolves the remaining failures before
-phase 6f can complete. Use the current checklist for acceptance. The detailed
-phases below retain their original diagnosis and measurement history.
+Status: the latest full run at `c6ba115` passed 62 of 64 component groups.
+The proved component repairs in phase 6e.83 pass. Drawer and Sidebar need the
+entry repairs in phases 6e.84 and 6e.85 before phase 6f can complete. Use the
+current checklist for acceptance. The detailed phases below retain their
+original diagnosis and measurement history.
 Base commit: `f34f1f0`.
 Checklist: [TODO.md](TODO.md).
 Previous completed plan: [port synchronization](docs/plans/port-synchronization/PLAN.md).
@@ -3737,15 +3738,54 @@ reset event because LiveView does not send it. The resumed example now shows
 the pinned reset notice. Input updates clear invalid state on the item, its
 choices, and the freeform control.
 
-Sidebar's first full-run image failure has not reproduced. One complete run
-and six complete pixel repeats pass. Three measured repeats show equal trigger
-and icon geometry, pointer focus, hover, and focus-visible state during capture.
-No Sidebar source changes are justified. Keep its zero limit and require the
-next full combined run to pass. The original failure remains unexplained.
+Sidebar passed one complete run and six image repeats after the first failure.
+The next full run at `c6ba115` reproduced the exact 448-pixel failure. Phase
+6e.85 records its proved cause and repair. The repeat passes did not close it.
 
 The first full run's records are diagnostic evidence. Source repairs invalidate
 that evidence. Repeat all affected verification on the combined source before
 acceptance. Build and test new package archives after the final port changes.
+
+## Phase 6e.84: finish nested dialog entry before capture
+
+The full run at `c6ba115` passed 62 of 64 groups. Nested Drawer failed semantic
+comparison because the pointer remained on the next trigger on Phoenix. The
+same pointer position was outside that trigger on React. Their native hover
+backgrounds differed. All other Drawer checks passed.
+
+In `storybook/test/browser/visual-states.mjs`, wait for a controlled dialog to
+be visible and finish finite entry transitions. Then move the pointer outside
+before the next nested click and after the last dialog entry. Apply this to
+expanded replay and nested action replay. Preserve menu and listbox behavior.
+Do not change official states, component source, or comparison limits.
+
+The existing browser owner must prove that nested pointer actions start after
+entry, the unopened fourth trigger has no incidental hover, and the front
+dialog retains focus. Require a failing check before the repair, passing checks
+on both hosts, repeated nested comparisons, and shared popup caller checks.
+
+**Commit:** `fix(verification): finish nested dialog entry before capture`
+
+## Phase 6e.85: finish initial motion before action entry
+
+The same full run reproduced Sidebar's 448-pixel image difference. Fresh images
+match both saved failure images exactly. The failing state is interactive
+action index 2, the header trigger. Index 1 is the rail. React's trigger moves
+during initial entry. Playwright retries the unstable click and cycles its
+scroll alignment. Its fourth attempt scrolls the document by 64 pixels.
+Phoenix's stable trigger needs no retry and the document stays at zero.
+
+Before the shared interactive-action click in `visual-states.mjs`, use the
+existing finite transition wait. Check the real Sidebar action in the existing
+browser owner, with a failing result before the repair and passing results
+after it. Prove native focus, document scroll, and collapsed state. Repeat the
+full Sidebar sequence and check other interactive-action callers.
+
+Preserve Sidebar source, screenshot coordinates, native scrolling, official
+states, pins, and zero image limits. Do not reset scroll to hide a difference.
+Require independent review before integration.
+
+**Commit:** `fix(verification): finish initial motion before action entry`
 
 ## Phase 6f: refresh evidence and verify release badges
 
@@ -3829,6 +3869,7 @@ behavior specified above. Measure full shadcn run time and invalidated target
 counts during implementation. These measurements can guide later performance
 work; they do not relax acceptance criteria.
 
-Run 3 is terminal: 64 shadcn records, 24 passed and 40 failed. All 48 AI
-record byte blocks are unchanged. Save the reviewed snapshot baseline and full
-run evidence, then integrate the repair branch. Original source edits can resume.
+Historical run 3 had 64 shadcn records, 24 passed and 40 failed. Later repairs
+supersede that result. The latest complete run at `c6ba115` passed 62 of 64.
+Drawer and Sidebar remain open until phases 6e.84 and 6e.85 pass full combined
+verification. All 48 AI record byte blocks remain unchanged.
