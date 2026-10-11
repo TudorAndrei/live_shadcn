@@ -54,7 +54,7 @@
     "jsx/VoiceSelectorPreview/class/2": "the generated port does not contain this source literal"
   },
   "name": "voice-selector",
-  "port_body": "82d8156e1f9fdc4c67fb4e77383befd9a75435b95bc84f3542a39493d3d4868a",
+  "port_body": "3ab6d2eeea042f742ea4764dec996817ee1f58f9ae957aa82143be470837ca36",
   "schema_version": 2,
   "source": "ai_elements",
   "source_facts": {

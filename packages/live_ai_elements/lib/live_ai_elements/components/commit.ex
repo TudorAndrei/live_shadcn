@@ -76,7 +76,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_hash(assigns) do
     ~H"""
-    <span phx-no-format class={[upstream_fact("jsx/CommitHash/class/0"), (@class || "")]} {@rest}><LiveShadcn.Icon.icon name="git-commit-horizontal" class={commit_hash_icon_class()} /><span :if={@hash}>{@hash}</span>{render_slot(@inner_block)}</span>
+    <span phx-no-format class={[upstream_fact("jsx/CommitHash/class/0"), @class || ""]} {@rest}><LiveShadcn.Icon.icon name="git-commit-horizontal" class={commit_hash_icon_class()} /><span :if={@hash}>{@hash}</span>{render_slot(@inner_block)}</span>
     """
   end
 
@@ -90,7 +90,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_message(assigns) do
     ~H"""
-    <span class={[upstream_fact("jsx/CommitMessage/class/0"), (@class || "")]} {@rest}>
+    <span class={[upstream_fact("jsx/CommitMessage/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </span>
     """
@@ -104,7 +104,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_metadata(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/CommitMetadata/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/CommitMetadata/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -135,7 +135,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_info(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/CommitInfo/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/CommitInfo/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -149,7 +149,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_author(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/CommitAuthor/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/CommitAuthor/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -176,7 +176,7 @@ defmodule LiveAiElements.Components.Commit do
       <span
         data-slot="avatar-fallback"
         class={[
-          "bg-muted flex size-full items-center justify-center rounded-full",
+          "bg-muted text-foreground flex size-full items-center justify-center rounded-full",
           upstream_fact("jsx/CommitAuthorAvatar/class/1")
         ]}
       >
@@ -196,7 +196,11 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_timestamp(assigns) do
     ~H"""
-    <time datetime={@date} class={[upstream_fact("jsx/CommitAuthorAvatar/class/1"), (@class || "")]} {@rest}>
+    <time
+      datetime={@date}
+      class={[upstream_fact("jsx/CommitAuthorAvatar/class/1"), @class || ""]}
+      {@rest}
+    >
       <%= if @inner_block == [] do %>
         {@formatted}
       <% end %>
@@ -213,7 +217,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_actions(assigns) do
     ~H"""
-    <div role="group" class={[upstream_fact("jsx/CommitActions/class/0"), (@class || "")]} {@rest}>
+    <div role="group" class={[upstream_fact("jsx/CommitActions/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -263,7 +267,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_files(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/CommitFiles/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/CommitFiles/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -297,7 +301,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_file_info(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/CommitFileInfo/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/CommitFileInfo/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -340,7 +344,7 @@ defmodule LiveAiElements.Components.Commit do
     ~H"""
     <LiveShadcn.Icon.icon
       name="file"
-      class={[upstream_fact("jsx/CommitFileIcon/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/CommitFileIcon/class/0"), @class || ""]}
       {@rest}
     />
     """
@@ -354,7 +358,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_file_path(assigns) do
     ~H"""
-    <span class={[upstream_fact("jsx/CommitFilePath/class/0"), (@class || "")]} {@rest}>
+    <span class={[upstream_fact("jsx/CommitFilePath/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </span>
     """
@@ -368,7 +372,7 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_file_changes(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/CommitFileChanges/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/CommitFileChanges/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -382,7 +386,11 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_file_additions(assigns) do
     ~H"""
-    <span :if={!(@count <= 0)} class={[upstream_fact("jsx/CommitFileAdditions/class/0"), (@class || "")]} {@rest}>
+    <span
+      :if={!(@count <= 0)}
+      class={[upstream_fact("jsx/CommitFileAdditions/class/0"), @class || ""]}
+      {@rest}
+    >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon name="plus" class={upstream_fact("jsx/CommitFileAdditions/class/1")} />{@count}
       <% end %>
@@ -399,7 +407,11 @@ defmodule LiveAiElements.Components.Commit do
 
   def commit_file_deletions(assigns) do
     ~H"""
-    <span :if={!(@count <= 0)} class={[upstream_fact("jsx/CommitFileDeletions/class/0"), (@class || "")]} {@rest}>
+    <span
+      :if={!(@count <= 0)}
+      class={[upstream_fact("jsx/CommitFileDeletions/class/0"), @class || ""]}
+      {@rest}
+    >
       <%= if @inner_block == [] do %>
         <LiveShadcn.Icon.icon name="minus" class={upstream_fact("jsx/CommitFileAdditions/class/1")} />{@count}
       <% end %>

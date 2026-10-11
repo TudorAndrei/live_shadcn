@@ -42,10 +42,22 @@ defmodule LiveAiElements.Components.VoiceSelector do
   slot(:inner_block)
 
   def voice_selector_gender(assigns) do
+    icons = %{
+      "male" => "mars",
+      "female" => "venus",
+      "transgender" => "transgender",
+      "androgyne" => "mars-stroke",
+      "non-binary" => "non-binary",
+      "intersex" => "venus-and-mars"
+    }
+
+    assigns =
+      assign(assigns, :gender_icon, assigns.icon || Map.get(icons, assigns.value, "circle-small"))
+
     ~H"""
-    <span class={[upstream_fact("jsx/VoiceSelectorAccent/class/0"), (@class || "")]} {@rest}>
+    <span role={@value && "img"} aria-label={@value} class={[upstream_fact("jsx/VoiceSelectorAccent/class/0"), (@class || "")]} {@rest}>
       <%= if @inner_block == [] do %>
-        {@icon}
+        <LiveShadcn.Icon.icon name={@gender_icon} class="size-4" />
       <% end %>
       {render_slot(@inner_block)}
     </span>
@@ -60,10 +72,45 @@ defmodule LiveAiElements.Components.VoiceSelector do
   slot(:inner_block)
 
   def voice_selector_accent(assigns) do
+    flags = %{
+      "american" => "🇺🇸",
+      "british" => "🇬🇧",
+      "australian" => "🇦🇺",
+      "canadian" => "🇨🇦",
+      "irish" => "🇮🇪",
+      "scottish" => "🏴\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E0074}\u{E007F}",
+      "indian" => "🇮🇳",
+      "south-african" => "🇿🇦",
+      "new-zealand" => "🇳🇿",
+      "french" => "🇫🇷",
+      "german" => "🇩🇪",
+      "italian" => "🇮🇹",
+      "spanish" => "🇪🇸",
+      "portuguese" => "🇵🇹",
+      "brazilian" => "🇧🇷",
+      "mexican" => "🇲🇽",
+      "argentinian" => "🇦🇷",
+      "japanese" => "🇯🇵",
+      "chinese" => "🇨🇳",
+      "korean" => "🇰🇷",
+      "russian" => "🇷🇺",
+      "arabic" => "🇸🇦",
+      "dutch" => "🇳🇱",
+      "swedish" => "🇸🇪",
+      "norwegian" => "🇳🇴",
+      "danish" => "🇩🇰",
+      "finnish" => "🇫🇮",
+      "polish" => "🇵🇱",
+      "turkish" => "🇹🇷",
+      "greek" => "🇬🇷"
+    }
+
+    assigns = assign(assigns, :accent_emoji, assigns.emoji || flags[assigns.value])
+
     ~H"""
-    <span class={[upstream_fact("jsx/VoiceSelectorAccent/class/0"), (@class || "")]} {@rest}>
+    <span role={@value && "img"} aria-label={@value} class={[upstream_fact("jsx/VoiceSelectorAccent/class/0"), (@class || "")]} {@rest}>
       <%= if @inner_block == [] do %>
-        {@emoji}
+        {@accent_emoji}
       <% end %>
       {render_slot(@inner_block)}
     </span>
@@ -153,15 +200,18 @@ defmodule LiveAiElements.Components.VoiceSelector do
   def voice_selector_preview(assigns) do
     ~H"""
     <LiveShadcn.UI.Button.button
-      aria-label={if(@playing, do: "Pause preview", else: "Play preview")}
+      aria-label={@rest[:"aria-label"] || cond do @loading -> "Loading preview"; @playing -> "Pause preview"; true -> "Play preview" end}
       disabled={@loading}
       type="button"
       size={@size}
       variant={@variant}
       class={[upstream_fact("jsx/VoiceSelectorPreview/class/3"), (@class || "")]}
-      {@rest}
+      {Map.delete(@rest, :"aria-label")}
     >
-      <LiveShadcn.Icon.icon name="play" class={upstream_fact("jsx/VoiceSelectorPreview/class/0")} />{render_slot(@inner_block)}
+      <LiveShadcn.Icon.icon
+        name={@icon || cond do @loading -> "loader-circle"; @playing -> "pause"; true -> "play" end}
+        class={[upstream_fact("jsx/VoiceSelectorPreview/class/0"), @loading && "animate-spin"]}
+      />{render_slot(@inner_block)}
     </LiveShadcn.UI.Button.button>
     """
   end

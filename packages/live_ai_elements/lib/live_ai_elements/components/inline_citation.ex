@@ -187,7 +187,7 @@ defmodule LiveAiElements.Components.InlineCitation do
     ~H"""
     <div
       data-lb-carousel-index={if(@inner_block == [], do: "")}
-      class={[upstream_fact("jsx/InlineCitationCarouselIndex/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/InlineCitationCarouselIndex/class/0"), "!text-foreground", (@class || "")]}
       {@rest}
     >
       <%= if @inner_block == [] do %>

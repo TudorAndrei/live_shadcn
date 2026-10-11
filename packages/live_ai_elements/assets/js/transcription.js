@@ -1,7 +1,7 @@
 // Keep a timed transcript and its media element in sync in the browser.
 
 const SEGMENT = "[data-slot='transcription-segment']";
-const STATE_CLASSES = ["text-primary", "text-muted-foreground", "text-muted-foreground/60"];
+const STATE_CLASSES = ["text-primary", "font-semibold", "text-muted-foreground", "text-foreground/80"];
 
 export const Transcription = {
   mounted() {
@@ -49,10 +49,13 @@ export const Transcription = {
       const past = currentTime >= end;
 
       segment.dataset.active = String(active);
+      if (active) segment.setAttribute("aria-current", "true");
+      else segment.removeAttribute("aria-current");
       segment.classList.remove(...STATE_CLASSES);
       segment.classList.add(
-        active ? "text-primary" : past ? "text-muted-foreground" : "text-muted-foreground/60",
+        active ? "text-primary" : past ? "text-foreground/80" : "text-muted-foreground",
       );
+      segment.classList.toggle("font-semibold", active);
     }
   },
 };

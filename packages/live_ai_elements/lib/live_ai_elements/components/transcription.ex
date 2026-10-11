@@ -53,8 +53,8 @@ defmodule LiveAiElements.Components.Transcription do
 
   @doc "The `transcription-segment` part."
   attr(:index, :any, default: nil)
-  attr(:is_active, :string, default: nil)
-  attr(:is_past, :string, default: nil)
+  attr(:is_active, :boolean, default: false)
+  attr(:is_past, :boolean, default: false)
   attr(:segment, :any, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
@@ -65,15 +65,18 @@ defmodule LiveAiElements.Components.Transcription do
     <button
       data-slot={@rest[:"data-slot"] || "transcription-segment"}
       data-active={@is_active}
+      aria-current={@is_active && "true"}
       data-index={@index}
       data-start-second={segment_value(@segment, :start_second)}
       data-end-second={segment_value(@segment, :end_second)}
       type="button"
       class={[
         upstream_fact("jsx/TranscriptionSegment/class/0"),
-        if(@is_active, do: upstream_fact("jsx/TranscriptionSegment/class/1"), else: nil),
-        if(@is_past, do: upstream_fact("jsx/TranscriptionSegment/class/2"), else: nil),
-        if(!(@is_active || @is_past), do: upstream_fact("jsx/TranscriptionSegment/class/3"), else: nil),
+        cond do
+          @is_active -> [upstream_fact("jsx/TranscriptionSegment/class/1"), "font-semibold"]
+          @is_past -> "text-foreground/80"
+          true -> upstream_fact("jsx/TranscriptionSegment/class/2")
+        end,
         upstream_fact("jsx/TranscriptionSegment/class/4"),
         @class
       ]}

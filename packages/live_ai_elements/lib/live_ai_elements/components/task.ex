@@ -73,15 +73,14 @@ defmodule LiveAiElements.Components.Task do
       class={[@class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <div
+      <button
         data-slot="collapsible-trigger"
         id={Disclosure.trigger_id(@id)}
-        tabindex={if(@disabled, do: "-1", else: "0")}
+        type="button"
+        disabled={@disabled}
         aria-expanded={to_string(@open)}
         aria-controls={Disclosure.panel_id(@id)}
         phx-click={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
-        phx-keydown={interactive(@disabled, Disclosure.toggle(item: @id, root: @id, multiple: true))}
-        phx-key="Enter"
         phx-mounted={Disclosure.owned_attributes(:trigger)}
         data-panel-open={flag(@open)}
         class={[
@@ -91,9 +90,9 @@ defmodule LiveAiElements.Components.Task do
         ]}
       >
         <LiveShadcn.Icon.icon name="search" class={upstream_fact("jsx/TaskTrigger/class/2")} />
-        <p class={upstream_fact("jsx/TaskTrigger/class/3")}>
+        <span class={upstream_fact("jsx/TaskTrigger/class/3")}>
           {@title}
-        </p>
+        </span>
         <LiveShadcn.Icon.icon
           name="chevron-down"
           class={[
@@ -101,7 +100,7 @@ defmodule LiveAiElements.Components.Task do
             "group-data-panel-open:rotate-180"
           ]}
         />
-      </div>
+      </button>
       <div
         data-slot="collapsible-content"
         id={Disclosure.panel_id(@id)}

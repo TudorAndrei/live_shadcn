@@ -88,7 +88,8 @@ defmodule LiveAiElements.Components.Message do
     """
   end
 
-  @doc "The `message_action` part."
+  @doc "A message action. Set a stable `id` when a tooltip is present."
+  attr(:id, :string, default: nil)
   attr(:button, :string, default: nil)
   attr(:label, :string, default: nil)
   attr(:size, :string, default: "icon-sm")
@@ -99,9 +100,37 @@ defmodule LiveAiElements.Components.Message do
   slot(:inner_block)
 
   def message_action(assigns) do
+    if assigns.tooltip && is_nil(assigns.id) do
+      raise ArgumentError, "message_action with a tooltip requires an id"
+    end
+
     ~H"""
-    <LiveShadcn.UI.Button.button type="button" size={@size} variant={@variant} {@rest}>
-      {render_slot(@inner_block)}<span class={upstream_fact("jsx/MessageAction/class/0")}>{@label || @tooltip}</span>
+    <LiveShadcn.UI.Tooltip.tooltip
+      :if={@tooltip}
+      id={@id}
+      trigger_variant={@variant}
+      trigger_size={@size}
+      trigger_class={@class}
+      trigger_click={@rest[:"phx-click"]}
+      trigger_attrs={Map.drop(@rest, [:"phx-click", :"data-slot", :disabled])}
+      trigger_slot={@rest[:"data-slot"] || "tooltip-trigger"}
+      disabled={@rest[:disabled] || false}
+    >
+      <:trigger>
+        {render_slot(@inner_block)}<span class={upstream_fact("jsx/MessageAction/class/0")}>{@label || @tooltip}</span>
+      </:trigger>
+      <p>{@tooltip}</p>
+    </LiveShadcn.UI.Tooltip.tooltip>
+    <LiveShadcn.UI.Button.button
+      :if={!@tooltip}
+      id={@id}
+      type="button"
+      size={@size}
+      variant={@variant}
+      class={@class}
+      {@rest}
+    >
+      {render_slot(@inner_block)}<span class={upstream_fact("jsx/MessageAction/class/0")}>{@label}</span>
     </LiveShadcn.UI.Button.button>
     """
   end
@@ -121,8 +150,8 @@ defmodule LiveAiElements.Components.Message do
   end
 
   @doc "The `message_branch_content` part."
-  attr(:children_array, :any, default: nil)
-  attr(:current_branch, :string, default: nil)
+  attr(:children_array, :list, default: [])
+  attr(:current_branch, :integer, default: 0)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -144,7 +173,7 @@ defmodule LiveAiElements.Components.Message do
 
   @doc "The `message_branch_selector` part."
   attr(:orientation, :string, default: "horizontal")
-  attr(:total_branches, :string, default: nil)
+  attr(:total_branches, :integer, default: 0)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -164,7 +193,7 @@ defmodule LiveAiElements.Components.Message do
 
   @doc "The `message_branch_previous` part."
   attr(:size, :string, default: "icon-sm")
-  attr(:total_branches, :string, default: nil)
+  attr(:total_branches, :integer, default: 0)
   attr(:variant, :string, default: "ghost")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
@@ -190,7 +219,7 @@ defmodule LiveAiElements.Components.Message do
 
   @doc "The `message_branch_next` part."
   attr(:size, :string, default: "icon-sm")
-  attr(:total_branches, :string, default: nil)
+  attr(:total_branches, :integer, default: 0)
   attr(:variant, :string, default: "ghost")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot", "type", "value", "name", "formaction", "disabled"])
@@ -215,8 +244,8 @@ defmodule LiveAiElements.Components.Message do
   end
 
   @doc "The `message_branch_page` part."
-  attr(:current_branch, :any, default: nil)
-  attr(:total_branches, :string, default: nil)
+  attr(:current_branch, :integer, default: 0)
+  attr(:total_branches, :integer, default: 0)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -224,7 +253,7 @@ defmodule LiveAiElements.Components.Message do
   def message_branch_page(assigns) do
     ~H"""
     <LiveShadcn.UI.ButtonGroup.button_group_text
-      class={[upstream_fact("jsx/MessageBranchPage/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/MessageBranchPage/class/0"), "!bg-transparent", (@class || "")]}
       {@rest}
     >
       {@current_branch + 1} of {@total_branches}{render_slot(@inner_block)}

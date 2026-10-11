@@ -50,7 +50,7 @@ defmodule LiveAiElements.Components.SchemaDisplay do
 
   def schema_display_header(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/SchemaDisplayHeader/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/SchemaDisplayHeader/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -104,19 +104,27 @@ defmodule LiveAiElements.Components.SchemaDisplay do
   end
 
   @doc "The `schema_display_path` part."
+  attr(:path, :string, default: nil)
   attr(:highlighted_path, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def schema_display_path(assigns) do
+    parts =
+      Regex.split(~r/(\{[^}]+\})/, assigns.path || assigns.highlighted_path || "",
+        include_captures: true
+      )
+      |> Enum.map(fn part -> %{text: part, parameter: String.starts_with?(part, "{")} end)
+
+    assigns = assign(assigns, :path_parts, parts)
+
     ~H"""
-    <span class={[upstream_fact("jsx/SchemaDisplayParameter/class/2"), (@class || "")]} {@rest}>
-      <%= if @inner_block == [] do %>
-        {@highlighted_path}
-      <% end %>
-      {render_slot(@inner_block)}
-    </span>
+    <span
+      phx-no-format
+      class={[upstream_fact("jsx/SchemaDisplayParameter/class/2"), @class || ""]}
+      {@rest}
+    ><%= if @inner_block == [] do %><%= for part <- @path_parts do %><span :if={part.parameter} class="text-blue-600 dark:text-blue-400">{part.text}</span><%= if !part.parameter do %>{part.text}<% end %><% end %><% end %>{render_slot(@inner_block)}</span>
     """
   end
 
@@ -128,7 +136,7 @@ defmodule LiveAiElements.Components.SchemaDisplay do
 
   def schema_display_description(assigns) do
     ~H"""
-    <p class={[upstream_fact("jsx/SchemaDisplayDescription/class/0"), (@class || "")]} {@rest}>
+    <p class={[upstream_fact("jsx/SchemaDisplayDescription/class/0"), @class || ""]} {@rest}>
       <%= if @inner_block == [] do %>
         {@description}
       <% end %>
@@ -145,7 +153,7 @@ defmodule LiveAiElements.Components.SchemaDisplay do
 
   def schema_display_content(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/SchemaDisplayBody/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/SchemaDisplayBody/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -164,15 +172,22 @@ defmodule LiveAiElements.Components.SchemaDisplay do
 
   def schema_display_parameter(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/SchemaDisplayParameter/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/SchemaDisplayParameter/class/0"), @class || ""]} {@rest}>
       <div class={upstream_fact("jsx/SchemaDisplayParameter/class/1")}>
         <span class={upstream_fact("jsx/SchemaDisplayParameter/class/2")}>
           {@name}
         </span>
-        <LiveShadcn.UI.Badge.badge variant={@variant} class={upstream_fact("jsx/SchemaDisplayParameter/class/3")}>
+        <LiveShadcn.UI.Badge.badge
+          variant={@variant}
+          class={upstream_fact("jsx/SchemaDisplayParameter/class/3")}
+        >
           {@type}
         </LiveShadcn.UI.Badge.badge>
-        <LiveShadcn.UI.Badge.badge :if={@location} variant={@variant} class={upstream_fact("jsx/SchemaDisplayParameter/class/3")}>
+        <LiveShadcn.UI.Badge.badge
+          :if={@location}
+          variant={@variant}
+          class={upstream_fact("jsx/SchemaDisplayParameter/class/3")}
+        >
           {@location}
         </LiveShadcn.UI.Badge.badge>
         <LiveShadcn.UI.Badge.badge
@@ -194,10 +209,10 @@ defmodule LiveAiElements.Components.SchemaDisplay do
   @doc "The `schema_display_property` part."
   attr(:depth, :any, default: 0)
   attr(:description, :string, default: nil)
-  attr(:items, :string, default: nil)
+  attr(:items, :map, default: nil)
   attr(:name, :string, default: nil)
   attr(:padding_left, :string, default: nil)
-  attr(:properties, :string, default: nil)
+  attr(:properties, :list, default: [])
   attr(:required, :boolean, default: nil)
   attr(:type, :string, default: nil)
   attr(:variant, :string, default: "outline")
@@ -206,14 +221,53 @@ defmodule LiveAiElements.Components.SchemaDisplay do
   slot(:inner_block)
 
   def schema_display_property(assigns) do
+    assigns =
+      assigns
+      |> assign(:padding_left, assigns.padding_left || "#{40 + assigns.depth * 16}px")
+      |> assign(:nested, assigns.properties not in [nil, []] || not is_nil(assigns.items))
+
     ~H"""
-    <div style={"padding-left: #{@padding_left}"} class={[upstream_fact("jsx/SchemaDisplayProperty/class/7"), (@class || "")]} {@rest}>
+    <details :if={@nested} open={@depth < 2} {@rest}>
+      <summary class={["cursor-pointer py-3", @class]} style={"padding-left: #{@padding_left}"}>
+        <span class={upstream_fact("jsx/SchemaDisplayParameter/class/2")}>{@name}</span>
+        <LiveShadcn.UI.Badge.badge
+          variant={@variant}
+          class={upstream_fact("jsx/SchemaDisplayParameter/class/3")}
+        >
+          {@type}
+        </LiveShadcn.UI.Badge.badge>
+        <LiveShadcn.UI.Badge.badge
+          :if={@required}
+          variant={@variant}
+          class={upstream_fact("jsx/SchemaDisplayParameter/class/5")}
+        >
+          required
+        </LiveShadcn.UI.Badge.badge>
+      </summary>
+      <p :if={@description} class={upstream_fact("jsx/SchemaDisplayProperty/class/13")}>
+        {@description}
+      </p>
+      <div class="divide-y border-t">
+        <.schema_display_property :for={property <- @properties || []} {property} depth={@depth + 1} />
+        <.schema_display_property :if={@items} {@items} name={"#{@name}[]"} depth={@depth + 1} />
+        {render_slot(@inner_block)}
+      </div>
+    </details>
+    <div
+      :if={!@nested}
+      style={"padding-left: #{@padding_left}"}
+      class={[upstream_fact("jsx/SchemaDisplayProperty/class/7"), @class || ""]}
+      {@rest}
+    >
       <div class={upstream_fact("jsx/SchemaDisplayParameter/class/1")}>
         <span class={upstream_fact("jsx/SchemaDisplayProperty/class/9")} />
         <span class={upstream_fact("jsx/SchemaDisplayParameter/class/2")}>
           {@name}
         </span>
-        <LiveShadcn.UI.Badge.badge variant={@variant} class={upstream_fact("jsx/SchemaDisplayParameter/class/3")}>
+        <LiveShadcn.UI.Badge.badge
+          variant={@variant}
+          class={upstream_fact("jsx/SchemaDisplayParameter/class/3")}
+        >
           {@type}
         </LiveShadcn.UI.Badge.badge>
         <LiveShadcn.UI.Badge.badge
@@ -245,16 +299,37 @@ defmodule LiveAiElements.Components.SchemaDisplay do
 
   def schema_display(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/SchemaDisplay/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/SchemaDisplay/class/0"), @class || ""]} {@rest}>
       <%= if @inner_block == [] do %>
         <.schema_display_header>
           <div class={upstream_fact("jsx/SchemaDisplay/class/1")}>
             <.schema_display_method method={@method} />
-            <.schema_display_path />
+            <.schema_display_path path={@path} />
           </div>
         </.schema_display_header>
         <.schema_display_description :if={@description} description={@description} />
-        <.schema_display_content></.schema_display_content>
+        <.schema_display_content>
+          <details :if={@parameters not in [nil, []]} open>
+            <summary class="cursor-pointer px-4 py-3 text-sm font-medium">
+              Parameters <span>{length(@parameters)}</span>
+            </summary>
+            <div class="divide-y border-t">
+              <.schema_display_parameter :for={parameter <- @parameters} {parameter} />
+            </div>
+          </details>
+          <details :if={@request_body not in [nil, []]} open>
+            <summary class="cursor-pointer px-4 py-3 text-sm font-medium">Request Body</summary>
+            <div class="divide-y border-t">
+              <.schema_display_property :for={property <- @request_body} {property} />
+            </div>
+          </details>
+          <details :if={@response_body not in [nil, []]} open>
+            <summary class="cursor-pointer px-4 py-3 text-sm font-medium">Response</summary>
+            <div class="divide-y border-t">
+              <.schema_display_property :for={property <- @response_body} {property} />
+            </div>
+          </details>
+        </.schema_display_content>
       <% end %>
       {render_slot(@inner_block)}
     </div>
@@ -269,7 +344,7 @@ defmodule LiveAiElements.Components.SchemaDisplay do
 
   def schema_display_body(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/SchemaDisplayBody/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/SchemaDisplayBody/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -285,7 +360,7 @@ defmodule LiveAiElements.Components.SchemaDisplay do
     ~H"""
     <pre
       phx-no-format
-      class={[upstream_fact("jsx/SchemaDisplayExample/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/SchemaDisplayExample/class/0"), @class || ""]}
       {@rest}
     >{render_slot(@inner_block)}</pre>
     """

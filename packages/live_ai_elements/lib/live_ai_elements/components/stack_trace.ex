@@ -59,7 +59,7 @@ defmodule LiveAiElements.Components.StackTrace do
     <div
       class={[
         upstream_fact("jsx/anonymous/class/0"),
-        (@class || "")
+        @class || ""
       ]}
       {@rest}
     >
@@ -76,19 +76,14 @@ defmodule LiveAiElements.Components.StackTrace do
 
   def stack_trace_header(assigns) do
     ~H"""
-    <div data-slot="collapsible" data-state="open">
-      <div
-        data-slot="collapsible-trigger"
-        data-state="open"
-        aria-expanded="true"
-        class={[
-          upstream_fact("jsx/anonymous/class/1"),
-          (@class || "")
-        ]}
-        {@rest}
-      >
-        {render_slot(@inner_block)}
-      </div>
+    <div
+      class={[
+        upstream_fact("jsx/anonymous/class/1"),
+        @class || ""
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -101,7 +96,7 @@ defmodule LiveAiElements.Components.StackTrace do
 
   def stack_trace_error(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/anonymous/class/2"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/anonymous/class/2"), @class || ""]} {@rest}>
       <LiveShadcn.Icon.icon name="triangle-alert" class={upstream_fact("jsx/anonymous/class/3")} />{render_slot(
         @inner_block
       )}
@@ -117,7 +112,7 @@ defmodule LiveAiElements.Components.StackTrace do
 
   def stack_trace_error_type(assigns) do
     ~H"""
-    <span class={[upstream_fact("jsx/anonymous/class/4"), (@class || "")]} {@rest}>
+    <span class={[upstream_fact("jsx/anonymous/class/4"), @class || ""]} {@rest}>
       <%= if @inner_block == [] do %>
         {@trace.errorType}
       <% end %>
@@ -134,7 +129,7 @@ defmodule LiveAiElements.Components.StackTrace do
 
   def stack_trace_error_message(assigns) do
     ~H"""
-    <span class={[upstream_fact("jsx/anonymous/class/5"), (@class || "")]} {@rest}>
+    <span class={[upstream_fact("jsx/anonymous/class/5"), @class || ""]} {@rest}>
       <%= if @inner_block == [] do %>
         {@trace.errorMessage}
       <% end %>
@@ -151,7 +146,7 @@ defmodule LiveAiElements.Components.StackTrace do
 
   def stack_trace_actions(assigns) do
     ~H"""
-    <div role="group" class={[upstream_fact("jsx/anonymous/class/6"), (@class || "")]} {@rest}>
+    <div role="group" class={[upstream_fact("jsx/anonymous/class/6"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -177,7 +172,12 @@ defmodule LiveAiElements.Components.StackTrace do
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@raw}
       data-lb-timeout={@timeout}
-      class={[Shadcn.button_class(@size, @variant), upstream_fact("jsx/anonymous/class/7"), "!size-7", @class]}
+      class={[
+        Shadcn.button_class(@size, @variant),
+        upstream_fact("jsx/anonymous/class/7"),
+        "!size-7",
+        @class
+      ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
@@ -196,16 +196,27 @@ defmodule LiveAiElements.Components.StackTrace do
   slot(:inner_block)
 
   def stack_trace_expand_button(assigns) do
+    assigns = assign(assigns, :expanded, assigns.is_open in [true, "true"])
+
     ~H"""
-    <div class={[upstream_fact("jsx/anonymous/class/8"), (@class || "")]} {@rest}>
+    <button
+      type="button"
+      aria-expanded={to_string(@expanded)}
+      aria-label={if @expanded, do: "Hide stack frames", else: "Show stack frames"}
+      class={[upstream_fact("jsx/anonymous/class/8"), @class || ""]}
+      {@rest}
+    >
       <LiveShadcn.Icon.icon
         name="chevron-down"
         class={[
           upstream_fact("jsx/anonymous/class/9"),
-          if(@is_open, do: upstream_fact("jsx/anonymous/class/10"), else: upstream_fact("jsx/anonymous/class/11"))
+          if(@expanded,
+            do: upstream_fact("jsx/anonymous/class/10"),
+            else: upstream_fact("jsx/anonymous/class/11")
+          )
         ]}
       />{render_slot(@inner_block)}
-    </div>
+    </button>
     """
   end
 
@@ -213,18 +224,29 @@ defmodule LiveAiElements.Components.StackTrace do
   attr(:frame, :any, default: nil)
   attr(:frames_to_show, :any, default: nil)
   attr(:show_internal_frames, :boolean, default: true)
+  attr(:on_select, :any, default: nil, doc: "A JS command or event for a selected file location.")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def stack_trace_frames(assigns) do
+    frames =
+      Enum.filter(assigns.frames_to_show || [], fn frame ->
+        assigns.show_internal_frames || !frame.isInternal
+      end)
+
+    assigns = assign(assigns, :visible_frames, frames)
+
     ~H"""
-    <div class={[upstream_fact("jsx/anonymous/class/16"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/anonymous/class/16"), @class || ""]} {@rest}>
       <div
-        :for={frame <- @frames_to_show}
+        :for={frame <- @visible_frames}
         class={[
           upstream_fact("jsx/anonymous/class/17"),
-          if(frame.isInternal, do: upstream_fact("jsx/anonymous/class/18"), else: upstream_fact("jsx/anonymous/class/19"))
+          if(frame.isInternal,
+            do: upstream_fact("jsx/anonymous/class/20"),
+            else: upstream_fact("jsx/anonymous/class/19")
+          )
         ]}
       >
         <span class={upstream_fact("jsx/anonymous/class/20")}>
@@ -233,12 +255,24 @@ defmodule LiveAiElements.Components.StackTrace do
         <span :if={frame.functionName} class={[if(frame.isInternal, do: "", else: "text-foreground")]}>
           {frame.functionName}
         </span>
-        <span :if={frame.filePath} class={upstream_fact("jsx/anonymous/class/20")}>(</span><button
+        <span :if={frame.filePath} class={upstream_fact("jsx/anonymous/class/20")}>(</span><.dynamic_tag
           :if={frame.filePath}
-          type="button"
-          class={[upstream_fact("jsx/anonymous/class/14"), upstream_fact("jsx/anonymous/class/15")]}
-        >{frame.filePath}{if(not is_nil(frame.lineNumber), do: ":#{frame.lineNumber}")}{if(
-          not is_nil(frame.columnNumber), do: ":#{frame.columnNumber}")}</button><span
+          tag_name={if @on_select, do: "button", else: "span"}
+          {%{type: if(@on_select, do: "button")}}
+          phx-click={@on_select}
+          phx-value-path={frame.filePath}
+          phx-value-line={frame.lineNumber}
+          phx-value-column={frame.columnNumber}
+          class={
+            if @on_select,
+              do: [upstream_fact("jsx/anonymous/class/14"), upstream_fact("jsx/anonymous/class/15")]
+          }
+        >
+          {frame.filePath}{if(not is_nil(frame.lineNumber), do: ":#{frame.lineNumber}")}{if(
+            not is_nil(frame.columnNumber),
+            do: ":#{frame.columnNumber}"
+          )}
+        </.dynamic_tag><span
           :if={frame.filePath}
           class={upstream_fact("jsx/anonymous/class/20")}
         >)</span>
@@ -246,7 +280,7 @@ defmodule LiveAiElements.Components.StackTrace do
           {String.replace(frame.raw, ~r/^at\s+/, "", global: false)}
         </span>
       </div>
-      <div :if={length(@frames_to_show) == 0} class={upstream_fact("jsx/anonymous/class/23")}>
+      <div :if={@visible_frames == []} class={upstream_fact("jsx/anonymous/class/23")}>
         No stack frames
       </div>
       {render_slot(@inner_block)}

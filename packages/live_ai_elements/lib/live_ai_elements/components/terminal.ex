@@ -41,7 +41,7 @@ defmodule LiveAiElements.Components.Terminal do
   def terminal_header(assigns) do
     ~H"""
     <div
-      class={[upstream_fact("jsx/TerminalHeader/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/TerminalHeader/class/0"), @class || ""]}
       {@rest}
     >
       {render_slot(@inner_block)}
@@ -57,7 +57,7 @@ defmodule LiveAiElements.Components.Terminal do
 
   def terminal_title(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/TerminalTitle/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/TerminalTitle/class/0"), @class || ""]} {@rest}>
       <LiveShadcn.Icon.icon name="terminal" class={upstream_fact("jsx/TerminalTitle/class/1")} />
       <%= if @inner_block == [] do %>
         Terminal
@@ -75,8 +75,16 @@ defmodule LiveAiElements.Components.Terminal do
 
   def terminal_status(assigns) do
     ~H"""
-    <div :if={@is_streaming} class={[upstream_fact("jsx/TerminalStatus/class/0"), (@class || "")]} {@rest}>
-      {render_slot(@inner_block)}
+    <div
+      :if={@is_streaming}
+      class={[upstream_fact("jsx/TerminalStatus/class/0"), @class || ""]}
+      {@rest}
+    >
+      <%= if @inner_block == [] do %>
+        Running...
+      <% else %>
+        {render_slot(@inner_block)}
+      <% end %>
     </div>
     """
   end
@@ -89,7 +97,7 @@ defmodule LiveAiElements.Components.Terminal do
 
   def terminal_actions(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/Terminal/class/1"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/Terminal/class/1"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -115,7 +123,12 @@ defmodule LiveAiElements.Components.Terminal do
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@output}
       data-lb-timeout={@timeout}
-      class={[Shadcn.button_class(@size, @variant), upstream_fact("jsx/TerminalClearButton/class/0"), "!size-7", @class]}
+      class={[
+        Shadcn.button_class(@size, @variant),
+        upstream_fact("jsx/TerminalClearButton/class/0"),
+        "!size-7",
+        @class
+      ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
@@ -128,6 +141,7 @@ defmodule LiveAiElements.Components.Terminal do
   end
 
   @doc "The `terminal_clear_button` part."
+  attr(:on_clear, :any, default: nil)
   attr(:size, :string, default: "icon")
   attr(:variant, :string, default: "ghost")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -139,7 +153,13 @@ defmodule LiveAiElements.Components.Terminal do
     <button
       data-slot={@rest[:"data-slot"] || "button"}
       type="button"
-      class={[Shadcn.button_class(@size, @variant), upstream_fact("jsx/TerminalClearButton/class/0"), "!size-7", @class]}
+      phx-click={@on_clear}
+      class={[
+        Shadcn.button_class(@size, @variant),
+        upstream_fact("jsx/TerminalClearButton/class/0"),
+        "!size-7",
+        @class
+      ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>
@@ -159,7 +179,12 @@ defmodule LiveAiElements.Components.Terminal do
 
   def terminal_content(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/TerminalContent/class/0"), (@class || "")]} {@rest}>
+    <div
+      data-terminal-content
+      tabindex="0"
+      class={[upstream_fact("jsx/TerminalContent/class/0"), @class || ""]}
+      {@rest}
+    >
       <%= if @inner_block == [] do %>
         <pre phx-no-format class={upstream_fact("jsx/TerminalContent/class/1")}><LiveAiElements.Ansi.ansi content={@output} /><span :if={@is_streaming} class={upstream_fact("jsx/TerminalContent/class/2")} /></pre>
       <% end %>
@@ -170,9 +195,10 @@ defmodule LiveAiElements.Components.Terminal do
 
   @doc "The `terminal` part."
   attr(:auto_scroll, :boolean, default: true)
-  attr(:id, :string, default: nil)
+  attr(:id, :string, required: true, doc: "Identifies the scroll hook and copy button.")
   attr(:is_streaming, :boolean, default: false)
   attr(:output, :string, default: nil)
+  attr(:on_clear, :any, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
@@ -180,7 +206,10 @@ defmodule LiveAiElements.Components.Terminal do
   def terminal(assigns) do
     ~H"""
     <div
-      class={[upstream_fact("jsx/Terminal/class/0"), (@class || "")]}
+      id={@id}
+      phx-hook={if @id, do: "LiveAiElements.Terminal"}
+      data-auto-scroll={to_string(@auto_scroll)}
+      class={[upstream_fact("jsx/Terminal/class/0"), @class || ""]}
       {@rest}
     >
       <%= if @inner_block == [] do %>
@@ -189,8 +218,12 @@ defmodule LiveAiElements.Components.Terminal do
           <div class={upstream_fact("jsx/Terminal/class/1")}>
             <.terminal_status is_streaming={@is_streaming} />
             <.terminal_actions>
-              <.terminal_copy_button id={@id} output={@output} />
-              <.terminal_clear_button />
+              <.terminal_copy_button
+                id={if @id, do: @id <> "-copy"}
+                output={@output}
+                aria-label="Copy output"
+              />
+              <.terminal_clear_button :if={@on_clear} on_clear={@on_clear} aria-label="Clear output" />
             </.terminal_actions>
           </div>
         </.terminal_header>

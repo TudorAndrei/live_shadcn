@@ -55,7 +55,9 @@ defmodule LiveAiElements.Components.Checkpoint do
     """
   end
 
-  @doc "The `checkpoint_trigger` part."
+  @doc "The checkpoint action. Set a stable `id` when a tooltip is present."
+  attr(:id, :string, default: nil)
+  attr(:disabled, :boolean, default: false)
   attr(:align, :string, default: "start")
   attr(:align_offset, :string, default: "0")
   attr(:side, :string, default: "bottom")
@@ -68,41 +70,35 @@ defmodule LiveAiElements.Components.Checkpoint do
   slot(:inner_block)
 
   def checkpoint_trigger(assigns) do
+    if assigns.tooltip && is_nil(assigns.id) do
+      raise ArgumentError, "checkpoint_trigger with a tooltip requires an id"
+    end
+
     ~H"""
-    <button
+    <LiveShadcn.UI.Tooltip.tooltip
       :if={@tooltip}
-      data-slot={@rest[:"data-slot"] || "tooltip-trigger"}
-      type="button"
-      class={[Shadcn.button_class(@size, @variant), "!gap-1.5", @class]}
-      {Map.drop(@rest, [:"data-slot"])}
+      id={@id}
+      align={@align}
+      align_offset={@align_offset}
+      side={@side}
+      side_offset={@side_offset}
+      trigger_variant={@variant}
+      trigger_size={@size}
+      trigger_class={["!gap-1.5", @class]}
+      trigger_click={@rest[:"phx-click"]}
+      trigger_attrs={Map.drop(@rest, [:"phx-click", :"data-slot"])}
+      trigger_slot={@rest[:"data-slot"] || "tooltip-trigger"}
+      disabled={@disabled}
     >
-      {render_slot(@inner_block)}
-    </button>
-    <div :if={@tooltip}>
-      <div
-        align={@align}
-        alignOffset={@align_offset}
-        side={@side}
-        sideOffset={@side_offset}
-        class={upstream_fact("jsx/TooltipContent/class/0")}
-      >
-        <div
-          data-slot={@rest[:"data-slot"] || "tooltip-content"}
-          class={[
-            upstream_fact("jsx/TooltipContent/class/1"),
-            (@class || "")
-          ]}
-          {Map.drop(@rest, [:"data-slot"])}
-        >
-          {@tooltip}
-          <div class={upstream_fact("jsx/TooltipContent/class/2")} />
-        </div>
-      </div>
-    </div>
+      <:trigger>{render_slot(@inner_block)}</:trigger>
+      {@tooltip}
+    </LiveShadcn.UI.Tooltip.tooltip>
     <button
       :if={!@tooltip}
+      id={@id}
       data-slot={@rest[:"data-slot"] || "button"}
       type="button"
+      disabled={@disabled}
       class={[Shadcn.button_class(@size, @variant), "!gap-1.5", @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >

@@ -56,7 +56,7 @@ defmodule LiveAiElements.Components.Context do
           </p>
         </div>
         <div class={upstream_fact("jsx/ContextContentHeader/class/3")}>
-          <LiveShadcn.UI.Progress.progress value={@value} class={upstream_fact("jsx/ContextContentHeader/class/4")} />
+          <LiveShadcn.UI.Progress.progress value={@value} aria-label="Context usage" class={upstream_fact("jsx/ContextContentHeader/class/4")} />
         </div>
       <% end %>
       {render_slot(@inner_block)}
@@ -91,7 +91,7 @@ defmodule LiveAiElements.Components.Context do
       {@rest}
     >
       <%= if @inner_block == [] do %>
-        <span class={upstream_fact("jsx/ContextCacheUsage/class/1")}>Total cost</span><span>{@total_cost}</span>
+        <span class={[upstream_fact("jsx/ContextCacheUsage/class/1"), "!text-foreground"]}>Total cost</span><span>{@total_cost}</span>
       <% end %>
       {render_slot(@inner_block)}
     </div>
@@ -211,8 +211,11 @@ defmodule LiveAiElements.Components.Context do
 
     rounded = Float.round(value, if(abs(value) < 10, do: 1, else: 0))
 
-    if abs(rounded) >= 1000 and suffix != "B",
-      do: compact_parts(round(rounded * 1000)),
-      else: {rounded, suffix}
+    if abs(rounded) >= 1000 and suffix != "B" do
+      next_suffix = Map.fetch!(%{"" => "K", "K" => "M", "M" => "B"}, suffix)
+      {rounded / 1000, next_suffix}
+    else
+      {rounded, suffix}
+    end
   end
 end

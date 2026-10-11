@@ -23,7 +23,7 @@ defmodule LiveAiElements.Components.Node do
   defp upstream_fact(key), do: Map.fetch!(@upstream_facts, key)
 
   @doc "The `node` part."
-  attr(:handles, :any, default: nil)
+  attr(:handles, :map, default: %{target: false, source: false})
   attr(:size, :string, default: "default")
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
@@ -41,8 +41,18 @@ defmodule LiveAiElements.Components.Node do
       ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
-      <div :if={@handles.target} />
-      <div :if={@handles.source} />
+      <span
+        :if={@handles[:target]}
+        data-node-handle="target"
+        aria-hidden="true"
+        class="absolute -left-1 top-1/2 size-2 -translate-y-1/2 rounded-full border bg-primary"
+      />
+      <span
+        :if={@handles[:source]}
+        data-node-handle="source"
+        aria-hidden="true"
+        class="absolute -right-1 top-1/2 size-2 -translate-y-1/2 rounded-full border bg-primary"
+      />
       {render_slot(@inner_block)}
     </div>
     """
@@ -81,7 +91,7 @@ defmodule LiveAiElements.Components.Node do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "card-title"}
-      class={Shadcn.card_class(:title)}
+      class={[Shadcn.card_class(:title), @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -99,7 +109,10 @@ defmodule LiveAiElements.Components.Node do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "card-description"}
-      class={Shadcn.card_class(:description)}
+      class={[
+        String.replace(Shadcn.card_class(:description), "text-muted-foreground", "text-secondary-foreground/80"),
+        @class
+      ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -117,7 +130,7 @@ defmodule LiveAiElements.Components.Node do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "card-action"}
-      class={Shadcn.card_class(:action)}
+      class={[Shadcn.card_class(:action), @class]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}

@@ -85,7 +85,7 @@ defmodule LiveAiElements.Components.FileTree do
   @doc "The `file_tree_folder` part."
   attr(:id, :string, required: true)
   attr(:is_expanded, :string, default: nil)
-  attr(:is_selected, :string, default: nil)
+  attr(:is_selected, :boolean, default: false)
   attr(:name, :string, default: nil)
   attr(:path, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -99,6 +99,7 @@ defmodule LiveAiElements.Components.FileTree do
     <div
       id={@id}
       phx-hook="LiveAiElements.FileTree"
+      data-expanded={to_string(@expanded?)}
       data-slot={@rest[:"data-slot"] || "collapsible"}
       open={@expanded?}
       {Map.drop(@rest, [:"data-slot"])}
@@ -107,6 +108,7 @@ defmodule LiveAiElements.Components.FileTree do
         role="treeitem"
         tabindex={0}
         aria-expanded={to_string(@expanded?)}
+        aria-selected={to_string(@is_selected)}
         class={[@class]}
         {@rest}
       >
@@ -116,6 +118,7 @@ defmodule LiveAiElements.Components.FileTree do
         ]}>
           <button
             data-file-tree-toggle
+            aria-label={"Toggle #{@name}"}
             aria-expanded={to_string(@expanded?)}
             tabindex="-1"
             data-slot={@rest[:"data-slot"] || "collapsible-trigger"}
@@ -172,7 +175,7 @@ defmodule LiveAiElements.Components.FileTree do
   end
 
   @doc "The `file_tree_file` part."
-  attr(:is_selected, :string, default: nil)
+  attr(:is_selected, :boolean, default: false)
   attr(:name, :string, default: nil)
   attr(:path, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
@@ -185,6 +188,7 @@ defmodule LiveAiElements.Components.FileTree do
     <div
       role="treeitem"
       tabindex={0}
+      aria-selected={to_string(@is_selected)}
       class={[
         upstream_fact("jsx/FileTreeFile/class/0"),
         if(@is_selected, do: upstream_fact("jsx/FileTreeFile/class/1"), else: nil),

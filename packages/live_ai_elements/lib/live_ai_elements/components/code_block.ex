@@ -55,7 +55,7 @@ defmodule LiveAiElements.Components.CodeBlock do
       style={"#{@style}; contain-intrinsic-size: auto 200px; content-visibility: auto"}
       class={[
         upstream_fact("jsx/CodeBlockContainer/class/0"),
-        (@class || "")
+        @class || ""
       ]}
       {@rest}
     >
@@ -74,8 +74,12 @@ defmodule LiveAiElements.Components.CodeBlock do
     ~H"""
     <div
       class={[
-        upstream_fact("jsx/CodeBlockHeader/class/0"),
-        (@class || "")
+        String.replace(
+          upstream_fact("jsx/CodeBlockHeader/class/0"),
+          "text-muted-foreground",
+          "text-foreground"
+        ),
+        @class || ""
       ]}
       {@rest}
     >
@@ -92,7 +96,7 @@ defmodule LiveAiElements.Components.CodeBlock do
 
   def code_block_title(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/CodeBlockTitle/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/CodeBlockTitle/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -106,7 +110,7 @@ defmodule LiveAiElements.Components.CodeBlock do
 
   def code_block_filename(assigns) do
     ~H"""
-    <span class={[upstream_fact("jsx/CodeBlockFilename/class/0"), (@class || "")]} {@rest}>
+    <span class={[upstream_fact("jsx/CodeBlockFilename/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </span>
     """
@@ -120,7 +124,7 @@ defmodule LiveAiElements.Components.CodeBlock do
 
   def code_block_actions(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/CodeBlockActions/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/CodeBlockActions/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -139,26 +143,41 @@ defmodule LiveAiElements.Components.CodeBlock do
   slot(:inner_block)
 
   def code_block_content(assigns) do
+    lines =
+      assigns.keyed_lines ||
+        Enum.map(String.split(assigns.code || "", "\n"), fn line ->
+          %{tokens: [%{token: %{content: line}}]}
+        end)
+
+    assigns = assign(assigns, lines: Enum.with_index(lines), line_count: length(lines))
+
     ~H"""
-    <div class={upstream_fact("jsx/CodeBlockContent/class/0")}>
+    <div tabindex="0" class={upstream_fact("jsx/CodeBlockContent/class/0")} {@rest}>
       <pre
         phx-no-format
-        style=""
+        style={@pre_style}
         class={[
           upstream_fact("jsx/anonymous/class/10"),
           @class
         ]}
-      ><code class={[upstream_fact("jsx/anonymous/class/11"), if(@show_line_numbers, do: upstream_fact("jsx/anonymous/class/12"), else: nil)]}>
-      <span :for={keyedLine <- @keyed_lines} class={[if(@show_line_numbers, do: upstream_fact("port/class/0"), else: upstream_fact("jsx/anonymous/class/0"))]}>
-        \n
-        <span :if={!(length(keyedLine.tokens) == 0)} :for={item <- keyedLine.tokens} style={"background-color: #{item.token.bgColor}; color: #{item.token.color}; font-style: #{if(Bitwise.band(item.token.fontStyle || 0, 1) != 0, do: "italic", else: nil)}; font-weight: #{if(Bitwise.band(item.token.fontStyle || 0, 2) != 0, do: "bold", else: nil)}; text-decoration: #{if(Bitwise.band(item.token.fontStyle || 0, 4) != 0, do: "underline", else: nil)}"} class={upstream_fact("jsx/TokenSpan/class/0")}>
-          {item.token.content}
-        </span>
-      </span>
-    </code></pre>
+      ><code class={[upstream_fact("jsx/anonymous/class/11"), if(@show_line_numbers, do: upstream_fact("jsx/anonymous/class/12"), else: nil)]}><span :for={{line, index} <- @lines} class={if(@show_line_numbers, do: upstream_fact("port/class/0"), else: upstream_fact("jsx/anonymous/class/0"))}><span :for={item <- line.tokens} style={token_style(item.token)} class={upstream_fact("jsx/TokenSpan/class/0")}>{item.token.content}</span>{if index < @line_count - 1, do: "\n"}</span></code></pre>
       {render_slot(@inner_block)}
     </div>
     """
+  end
+
+  defp token_style(token) do
+    font_style = Map.get(token, :fontStyle, 0) || 0
+
+    [
+      {"background-color", Map.get(token, :bgColor)},
+      {"color", Map.get(token, :color)},
+      {"font-style", if(Bitwise.band(font_style, 1) != 0, do: "italic")},
+      {"font-weight", if(Bitwise.band(font_style, 2) != 0, do: "bold")},
+      {"text-decoration", if(Bitwise.band(font_style, 4) != 0, do: "underline")}
+    ]
+    |> Enum.reject(fn {_property, value} -> is_nil(value) end)
+    |> Enum.map_join("; ", fn {property, value} -> "#{property}: #{value}" end)
   end
 
   @doc "The `code_block` part."
@@ -198,7 +217,11 @@ defmodule LiveAiElements.Components.CodeBlock do
       phx-mounted={LiveBase.Clipboard.owned_attributes()}
       data-lb-clipboard={@code}
       data-lb-timeout={@timeout}
-      class={[Shadcn.button_class(@size, @variant), upstream_fact("jsx/CodeBlockCopyButton/class/0"), @class]}
+      class={[
+        Shadcn.button_class(@size, @variant),
+        upstream_fact("jsx/CodeBlockCopyButton/class/0"),
+        @class
+      ]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       <%= if @inner_block == [] do %>

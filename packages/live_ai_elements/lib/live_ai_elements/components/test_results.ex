@@ -64,7 +64,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_results_header(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/TestResultsHeader/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/TestResultsHeader/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -78,14 +78,21 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_results_duration(assigns) do
     ~H"""
-    <span :if={@summary.duration} class={[upstream_fact("jsx/TestResultsDuration/class/0"), (@class || "")]} {@rest}>
+    <span
+      :if={@summary && Map.get(@summary, :duration) not in [nil, 0]}
+      class={[upstream_fact("jsx/TestResultsDuration/class/0"), @class || ""]}
+      {@rest}
+    >
       <%= if @inner_block == [] do %>
-        {"#{:erlang.float_to_binary(@summary.duration / 1000 / 1, decimals: 2)}s"}
+        {format_duration(@summary.duration)}
       <% end %>
       {render_slot(@inner_block)}
     </span>
     """
   end
+
+  defp format_duration(duration) when duration < 1000, do: "#{duration}ms"
+  defp format_duration(duration), do: "#{:erlang.float_to_binary(duration / 1000, decimals: 2)}s"
 
   @doc "The `test_results_summary` part."
   attr(:summary, :any, default: nil)
@@ -96,7 +103,11 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_results_summary(assigns) do
     ~H"""
-    <div :if={@summary} class={[upstream_fact("jsx/TestResultsSummary/class/0"), (@class || "")]} {@rest}>
+    <div
+      :if={@summary}
+      class={[upstream_fact("jsx/TestResultsSummary/class/0"), @class || ""]}
+      {@rest}
+    >
       <%= if @inner_block == [] do %>
         <span
           data-slot="badge"
@@ -106,10 +117,13 @@ defmodule LiveAiElements.Components.TestResults do
             "!bg-green-100 !text-green-700 dark:!bg-green-900/30 dark:!text-green-400"
           ]}
         >
-          <LiveShadcn.Icon.icon name="circle-check" class={upstream_fact("jsx/TestResultsSummary/class/2")} />{@summary.passed} passed
+          <LiveShadcn.Icon.icon
+            name="circle-check"
+            class={upstream_fact("jsx/TestResultsSummary/class/2")}
+          />{@summary.passed} passed
         </span>
         <span
-          :if={@summary.failed > 0}
+          :if={Map.get(@summary, :failed, 0) > 0}
           data-slot="badge"
           class={[
             Shadcn.badge_class(@variant),
@@ -117,10 +131,13 @@ defmodule LiveAiElements.Components.TestResults do
             "!bg-red-100 !text-red-700 dark:!bg-red-900/30 dark:!text-red-400"
           ]}
         >
-          <LiveShadcn.Icon.icon name="circle-x" class={upstream_fact("jsx/TestResultsSummary/class/2")} />{@summary.failed} failed
+          <LiveShadcn.Icon.icon
+            name="circle-x"
+            class={upstream_fact("jsx/TestResultsSummary/class/2")}
+          />{@summary.failed} failed
         </span>
         <span
-          :if={@summary.skipped > 0}
+          :if={Map.get(@summary, :skipped, 0) > 0}
           data-slot="badge"
           class={[
             Shadcn.badge_class(@variant),
@@ -137,14 +154,14 @@ defmodule LiveAiElements.Components.TestResults do
   end
 
   @doc "The `test_results` part."
-  attr(:summary, :string, default: nil)
+  attr(:summary, :map, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
   attr(:rest, :global, include: ["data-slot"])
   slot(:inner_block)
 
   def test_results(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/TestResults/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/TestResults/class/0"), @class || ""]} {@rest}>
       <%= if @inner_block == [] do %>
         <.test_results_header :if={@summary}>
           <.test_results_summary summary={@summary} />
@@ -165,16 +182,45 @@ defmodule LiveAiElements.Components.TestResults do
   slot(:inner_block)
 
   def test_results_progress(assigns) do
+    summary = assigns.summary || %{}
+    total = Map.get(summary, :total, 0)
+    percent = fn key -> if total > 0, do: Map.get(summary, key, 0) / total * 100, else: 0 end
+
+    assigns =
+      assigns
+      |> assign(:passed_percent, assigns.passed_percent || percent.(:passed))
+      |> assign(:failed_percent, assigns.failed_percent || percent.(:failed))
+
     ~H"""
-    <div :if={@summary} class={[upstream_fact("jsx/TestResultsProgress/class/0"), (@class || "")]} {@rest}>
+    <div
+      :if={@summary}
+      class={[upstream_fact("jsx/TestResultsProgress/class/0"), @class || ""]}
+      {@rest}
+    >
       <%= if @inner_block == [] do %>
-        <div class={upstream_fact("jsx/TestResultsProgress/class/1")}>
-          <div style={"width: #{"#{@passed_percent}%"}"} class={upstream_fact("jsx/TestResultsProgress/class/2")} />
-          <div style={"width: #{"#{@failed_percent}%"}"} class={upstream_fact("jsx/TestResultsProgress/class/3")} />
+        <div
+          role="progressbar"
+          aria-label="Tests passed"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow={@passed_percent}
+          aria-valuetext={"#{@summary.passed}/#{@summary.total} tests passed"}
+          class={upstream_fact("jsx/TestResultsProgress/class/1")}
+        >
+          <div
+            style={"width: #{"#{@passed_percent}%"}"}
+            class={upstream_fact("jsx/TestResultsProgress/class/2")}
+          />
+          <div
+            style={"width: #{"#{@failed_percent}%"}"}
+            class={upstream_fact("jsx/TestResultsProgress/class/3")}
+          />
         </div>
         <div class={upstream_fact("jsx/TestResultsProgress/class/4")}>
           <span>{@summary.passed}/{@summary.total} tests passed</span><span>{:erlang.float_to_binary(
-            @passed_percent / 1, decimals: 0)}%</span>
+            @passed_percent / 1,
+            decimals: 0
+          )}%</span>
         </div>
       <% end %>
       {render_slot(@inner_block)}
@@ -190,7 +236,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_results_content(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/TestResultsContent/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/TestResultsContent/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -207,7 +253,7 @@ defmodule LiveAiElements.Components.TestResults do
     ~H"""
     <div
       data-slot={@rest[:"data-slot"] || "collapsible"}
-      class={[upstream_fact("jsx/TestSuite/class/0"), (@class || "")]}
+      class={[upstream_fact("jsx/TestSuite/class/0"), @class || ""]}
       {Map.drop(@rest, [:"data-slot"])}
     >
       {render_slot(@inner_block)}
@@ -225,7 +271,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_suite_stats(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/TestSuiteStats/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/TestSuiteStats/class/0"), @class || ""]} {@rest}>
       <%= if @inner_block == [] do %>
         <span :if={@passed > 0} class={upstream_fact("jsx/TestSuiteStats/class/1")}>
           {@passed} passed
@@ -250,7 +296,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_name(assigns) do
     ~H"""
-    <span class={[upstream_fact("jsx/TestName/class/0"), (@class || "")]} {@rest}>
+    <span class={[upstream_fact("jsx/TestName/class/0"), @class || ""]} {@rest}>
       <%= if @inner_block == [] do %>
         {@name}
       <% end %>
@@ -267,7 +313,11 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_duration(assigns) do
     ~H"""
-    <span :if={!is_nil(@duration)} class={[upstream_fact("jsx/TestDuration/class/0"), (@class || "")]} {@rest}>
+    <span
+      :if={!is_nil(@duration)}
+      class={[upstream_fact("jsx/TestDuration/class/0"), @class || ""]}
+      {@rest}
+    >
       <%= if @inner_block == [] do %>
         {"#{@duration}ms"}
       <% end %>
@@ -285,25 +335,39 @@ defmodule LiveAiElements.Components.TestResults do
   def test_status(assigns) do
     ~H"""
     <span
+      role="img"
+      aria-label={@status}
       class={[
         upstream_fact("jsx/TestStatus/class/0"),
         if(@status == "failed", do: upstream_fact("jsx/TestSuiteStats/class/2"), else: nil),
         if(@status == "passed", do: upstream_fact("jsx/TestSuiteStats/class/1"), else: nil),
         if(@status == "running", do: "text-blue-600 dark:text-blue-400", else: nil),
         if(@status == "skipped", do: upstream_fact("jsx/TestSuiteStats/class/3"), else: nil),
-        (@class || "")
+        @class || ""
       ]}
       {@rest}
     >
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon :if={@status == "failed"} name="circle-x" class={upstream_fact("jsx/anonymous/class/0")} />
-        <LiveShadcn.Icon.icon :if={@status == "passed"} name="circle-check" class={upstream_fact("jsx/anonymous/class/0")} />
+        <LiveShadcn.Icon.icon
+          :if={@status == "failed"}
+          name="circle-x"
+          class={upstream_fact("jsx/anonymous/class/0")}
+        />
+        <LiveShadcn.Icon.icon
+          :if={@status == "passed"}
+          name="circle-check"
+          class={upstream_fact("jsx/anonymous/class/0")}
+        />
         <LiveShadcn.Icon.icon
           :if={@status == "running"}
           name="circle-dot"
           class={upstream_fact("jsx/anonymous/class/2")}
         />
-        <LiveShadcn.Icon.icon :if={@status == "skipped"} name="circle" class={upstream_fact("jsx/anonymous/class/0")} />
+        <LiveShadcn.Icon.icon
+          :if={@status == "skipped"}
+          name="circle"
+          class={upstream_fact("jsx/anonymous/class/0")}
+        />
       <% end %>
       {render_slot(@inner_block)}
     </span>
@@ -320,7 +384,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/Test/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/Test/class/0"), @class || ""]} {@rest}>
       <%= if @inner_block == [] do %>
         <.test_status status={@status} />
         <.test_name name={@name} />
@@ -339,7 +403,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_error(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/TestError/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/TestError/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -353,7 +417,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_error_message(assigns) do
     ~H"""
-    <p class={[upstream_fact("jsx/TestErrorMessage/class/0"), (@class || "")]} {@rest}>
+    <p class={[upstream_fact("jsx/TestErrorMessage/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </p>
     """
@@ -369,7 +433,11 @@ defmodule LiveAiElements.Components.TestResults do
     ~H"""
     <pre
       phx-no-format
-      class={[upstream_fact("jsx/TestErrorStack/class/0"), (@class || "")]}
+      tabindex="0"
+      class={[
+        String.replace(upstream_fact("jsx/TestErrorStack/class/0"), "text-red-600", "text-red-700"),
+        @class || ""
+      ]}
       {@rest}
     >{render_slot(@inner_block)}</pre>
     """

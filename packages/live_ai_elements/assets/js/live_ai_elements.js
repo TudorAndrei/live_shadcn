@@ -20,6 +20,7 @@ import { Persona } from "./persona.js";
 import { PromptInput } from "./prompt_input.js";
 import { Question } from "./question.js";
 import { SpeechInput } from "./speech_input.js";
+import { Terminal } from "./terminal.js";
 import { Transcription } from "./transcription.js";
 import { WebPreview } from "./web_preview.js";
 
@@ -33,9 +34,10 @@ export const hooks = {
   "LiveAiElements.PromptInput": PromptInput,
   "LiveAiElements.Question": Question,
   "LiveAiElements.SpeechInput": SpeechInput,
+  "LiveAiElements.Terminal": Terminal,
   "LiveAiElements.Transcription": Transcription,
   "LiveAiElements.WebPreview": WebPreview,
 };
 
-export { Delta, DELTA_EVENT, FileTree, MicSelector, Persona, PromptInput, Question, SpeechInput, Transcription, WebPreview };
+export { Delta, DELTA_EVENT, FileTree, MicSelector, Persona, PromptInput, Question, SpeechInput, Terminal, Transcription, WebPreview };
 export default hooks;

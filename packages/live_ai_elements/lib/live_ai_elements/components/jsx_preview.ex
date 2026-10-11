@@ -2,6 +2,10 @@ defmodule LiveAiElements.Components.JsxPreview do
   @moduledoc """
   Jsx preview.
 
+  Pass compiled HEEx through the content slot. This server component does not
+  evaluate JSX, JavaScript bindings, or React components. The caller compiles
+  its content and passes any compilation error to `jsx_preview_error/1`.
+
   Reviewed from upstream. The marked upstream fact block is synchronized.
   The HEEx body is maintained as a LiveView port.
   """
@@ -32,7 +36,7 @@ defmodule LiveAiElements.Components.JsxPreview do
 
   def jsx_preview(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/anonymous/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/anonymous/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -48,7 +52,7 @@ defmodule LiveAiElements.Components.JsxPreview do
 
   def jsx_preview_content(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/anonymous/class/1"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("jsx/anonymous/class/1"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -65,16 +69,26 @@ defmodule LiveAiElements.Components.JsxPreview do
     <div
       :if={@error}
       class={[
-        upstream_fact("jsx/anonymous/class/2"),
-        (@class || "")
+        String.replace(
+          upstream_fact("jsx/anonymous/class/2"),
+          "text-destructive",
+          "text-red-700 dark:text-red-400"
+        ),
+        @class || ""
       ]}
       {@rest}
     >
-      {render_slot(@inner_block)}
-      <LiveShadcn.Icon.icon :if={!@children} name="circle-alert" class={upstream_fact("jsx/anonymous/class/3")} /><span :if={
-        !@children
-      }>{@error.message}</span>
+      <%= if @inner_block == [] do %>
+        <LiveShadcn.Icon.icon name="circle-alert" class={upstream_fact("jsx/anonymous/class/3")} />
+        <span>{error_message(@error)}</span>
+      <% else %>
+        {render_slot(@inner_block)}
+      <% end %>
     </div>
     """
   end
+
+  defp error_message(%{message: message}), do: message
+  defp error_message(message) when is_binary(message), do: message
+  defp error_message(error), do: inspect(error)
 end

@@ -112,6 +112,7 @@ defmodule LiveAiElements.Components.Queue do
       class={[
         upstream_fact("jsx/QueueItemContent/class/0"),
         if(@completed, do: upstream_fact("jsx/QueueItemContent/class/1"), else: upstream_fact("jsx/QueueItemContent/class/2")),
+        "!text-muted-foreground",
         @class
       ]}
       {@rest}
@@ -133,6 +134,7 @@ defmodule LiveAiElements.Components.Queue do
       class={[
         upstream_fact("jsx/QueueItemDescription/class/0"),
         if(@completed, do: upstream_fact("jsx/QueueItemDescription/class/1"), else: upstream_fact("jsx/QueueItemContent/class/2")),
+        "!text-muted-foreground",
         @class
       ]}
       {@rest}

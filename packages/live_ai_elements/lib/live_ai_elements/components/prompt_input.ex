@@ -4,6 +4,20 @@ defmodule LiveAiElements.Components.PromptInput do
 
   Reviewed from upstream. The marked upstream fact block is synchronized.
   The HEEx body is maintained as a LiveView port.
+
+  The textarea hook manages local attachments. `on_files_change` and `on_error`
+  name optional LiveView events. `on_submit` receives `%{text: text, files: files}`;
+  each file has `type`, `filename`, `mediaType`, and a data URL. A reply with
+  `ok: false` keeps the draft for a retry. Other replies clear the submitted draft.
+  Use `phx-target` on the form to send these events to a LiveComponent.
+
+  The form also emits `live-ai:prompt-files-change` and `live-ai:prompt-error`
+  DOM events. Dispatch `live-ai:prompt-remove` with an attachment `id`, or
+  `live-ai:prompt-clear`, on the form to change its attachment list.
+
+  As in the pinned upstream, `sync_hidden_input` only clears the file picker
+  when the attachment list becomes empty. It does not put files in a native
+  form post. Use `on_submit` to receive attachment data.
   """
 
   use Phoenix.Component
@@ -73,21 +87,26 @@ defmodule LiveAiElements.Components.PromptInput do
 
   def prompt_input_provider(assigns) do
     ~H"""
-    {render_slot(@inner_block)}
+    <div data-ai-prompt-provider data-initial-input={@initial_input} class={["contents", @class]} {@rest}>
+      {render_slot(@inner_block)}
+    </div>
     """
   end
 
   @doc "The `prompt_input` part."
   attr(:accept, :string, default: nil)
   attr(:attachments, :string, default: nil)
-  attr(:global_drop, :boolean, default: nil)
+  attr(:global_drop, :boolean, default: false)
   attr(:inner, :string, default: nil)
-  attr(:max_file_size, :any, default: nil)
-  attr(:max_files, :any, default: nil)
+  attr(:max_file_size, :integer, default: nil)
+  attr(:max_files, :integer, default: nil)
   attr(:multiple, :boolean, default: nil)
-  attr(:sync_hidden_input, :boolean, default: nil)
+  attr(:sync_hidden_input, :boolean, default: false)
   attr(:text_input, :string, default: nil)
   attr(:with_referenced_sources, :string, default: nil)
+  attr(:on_files_change, :string, default: nil)
+  attr(:on_error, :string, default: nil)
+  attr(:on_submit, :string, default: nil)
   attr(:class, :any, default: nil, doc: "Appended to the class string upstream renders.")
 
   attr(:rest, :global,
@@ -98,20 +117,31 @@ defmodule LiveAiElements.Components.PromptInput do
 
   def prompt_input(assigns) do
     ~H"""
-    <input
-      accept={@accept}
-      aria-label="Upload files"
-      multiple={@multiple}
-      title="Upload files"
-      type="file"
-      class={upstream_fact("jsx/PromptInput/class/0")}
-    />
-    <form class={[upstream_fact("jsx/PromptInput/class/1"), (@class || "")]} {@rest}>
+    <form
+      class={[upstream_fact("jsx/PromptInput/class/1"), @class]}
+      data-ai-prompt-form
+      data-max-files={@max_files}
+      data-max-file-size={@max_file_size}
+      data-global-drop={to_string(@global_drop)}
+      data-sync-hidden-input={to_string(@sync_hidden_input)}
+      data-files-change-event={@on_files_change}
+      data-error-event={@on_error}
+      data-submit-event={@on_submit}
+      {@rest}
+    >
+      <input
+        data-ai-prompt-files
+        accept={@accept}
+        aria-label="Upload files"
+        multiple={@multiple}
+        title="Upload files"
+        type="file"
+        class={upstream_fact("jsx/PromptInput/class/0")}
+      />
       <div
         data-slot={@rest[:"data-slot"] || "input-group"}
         role="group"
         class={[Shadcn.input_group_class(), "overflow-hidden"]}
-        {Map.drop(@rest, [:"data-slot"])}
       >
         {render_slot(@inner_block)}
       </div>
@@ -182,6 +212,13 @@ defmodule LiveAiElements.Components.PromptInput do
     <textarea
       phx-no-format
       id={@id}
+      name={@name || "message"}
+      disabled={@disabled}
+      readonly={@readonly}
+      required={@required}
+      aria-invalid={if @errors != [], do: "true"}
+      data-explicit-value={if !is_nil(@value), do: "true"}
+      data-input-value={@value}
       phx-hook="LiveAiElements.PromptInput"
       data-slot={@rest[:"data-slot"] || "input-group-control"}
       placeholder={@placeholder}
@@ -191,7 +228,7 @@ defmodule LiveAiElements.Components.PromptInput do
         (@class || "")
       ]}
       {Map.drop(@rest, [:"data-slot"])}
-    >{render_slot(@inner_block)}</textarea>
+    >{@value || render_slot(@inner_block)}</textarea>
     """
   end
 
@@ -275,7 +312,8 @@ defmodule LiveAiElements.Components.PromptInput do
 
   @doc "The `prompt_input_submit` part."
   attr(:icon, :string, default: nil)
-  attr(:is_generating, :string, default: nil)
+  attr(:is_generating, :boolean, default: false)
+  attr(:on_stop, :any, default: nil, doc: "A caller click command while submitted or streaming.")
 
   attr(:size, :string,
     default: "icon-sm",
@@ -294,21 +332,38 @@ defmodule LiveAiElements.Components.PromptInput do
   slot(:inner_block)
 
   def prompt_input_submit(assigns) do
+    generating = assigns.is_generating || assigns.status in ["submitted", "streaming"]
+
+    icon =
+      assigns.icon ||
+        case assigns.status do
+          "submitted" -> "loader-circle"
+          "streaming" -> "square"
+          "error" -> "x"
+          _ -> "corner-down-left"
+        end
+
+    assigns = assign(assigns, generating: generating, status_icon: icon)
+
     ~H"""
     <button
       data-slot={@rest[:"data-slot"] || "button"}
-      type={@type}
+      type={if @generating && @on_stop, do: "button", else: @type}
       data-size={@size}
-      aria-label={if(@is_generating, do: "Stop", else: "Submit")}
+      aria-label={if(@generating, do: "Stop", else: "Submit")}
+      phx-click={if @generating && @on_stop, do: @on_stop, else: @rest[:"phx-click"]}
       class={[
         Shadcn.button_class(@size, @variant),
         "text-sm !shadow-none flex min-w-0 gap-2 items-center !size-8 !p-0 has-[>svg]:p-0",
         @class
       ]}
-      {Map.drop(@rest, [:"data-slot"])}
+      {Map.drop(@rest, [:"data-slot", :"phx-click"])}
     >
       <%= if @inner_block == [] do %>
-        <LiveShadcn.Icon.icon name="corner-down-left" class={upstream_fact("jsx/PromptInputActionMenuTrigger/class/0")} />
+        <LiveShadcn.Icon.icon
+          name={@status_icon}
+          class={[upstream_fact("jsx/PromptInputActionMenuTrigger/class/0"), if(@status == "submitted", do: "animate-spin")]}
+        />
       <% end %>
       {render_slot(@inner_block)}
     </button>

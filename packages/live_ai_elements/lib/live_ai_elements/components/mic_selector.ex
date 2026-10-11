@@ -72,6 +72,7 @@ defmodule LiveAiElements.Components.MicSelector do
                         )
                     end)
 
+  alias LiveBase.Command
   alias LiveBase.FormControl
   alias LiveBase.Listbox
   alias LiveBase.Popover
@@ -161,6 +162,7 @@ defmodule LiveAiElements.Components.MicSelector do
         data-slot="popover-trigger"
         id={Popover.trigger_id(@id)}
         type="button"
+        disabled={@disabled}
         aria-labelledby={@labelledby}
         aria-haspopup="dialog"
         aria-expanded={to_string(@open)}
@@ -219,6 +221,8 @@ defmodule LiveAiElements.Components.MicSelector do
             data-slot="popover-content"
             id={Popover.popup_id(@id)}
             role="dialog"
+            aria-labelledby={@labelledby}
+            aria-label={if is_nil(@labelledby), do: "Microphones"}
             tabindex="-1"
             hidden={not @open}
             data-lb-popup
@@ -229,13 +233,15 @@ defmodule LiveAiElements.Components.MicSelector do
               upstream_fact("jsx/PopoverContent/class/1"),
               upstream_fact("jsx/MicSelectorContent/class/0"),
               "static! block! flex-row! [gap:normal]! border bg-popover! p-0! text-base! leading-6! ring-0! before:hidden!",
-              (@class || "")
+              @class || ""
             ]}
             data-lb-style-target
             data-lb-measure
             style="width: var(--anchor-width)"
           >
             <div
+              id={@id <> "-command"}
+              phx-hook={Command.hook()}
               data-slot="command"
               class="bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md"
             >
@@ -248,37 +254,41 @@ defmodule LiveAiElements.Components.MicSelector do
                   data-slot="command-input"
                   role="combobox"
                   aria-expanded="true"
+                  aria-autocomplete="list"
+                  aria-controls={@id <> "-list"}
                   aria-label="Search microphones"
                   placeholder="Search microphones..."
                   class="placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </div>
               <div
+                id={@id <> "-list"}
                 data-slot="command-list"
                 role="listbox"
+                aria-label="Microphones"
                 class="max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto"
               >
                 <div
-                  :for={{option, index} <- Enum.with_index(@option)}
+                  :for={option <- @option}
                   id={Listbox.option_id(@id, option[:value])}
                   data-slot="command-item"
                   role="option"
-                  aria-disabled={to_string(option[:disabled] == true)}
-                  aria-selected={to_string(index == 0)}
+                  aria-disabled={to_string(@disabled or @readonly or option[:disabled] == true)}
+                  aria-selected={to_string(option[:value] == @value)}
                   tabindex="-1"
-                  data-selected={to_string(index == 0)}
+                  data-selected={to_string(option[:value] == @value)}
                   phx-click={
-                    if(option[:disabled] != true,
+                    if(not @disabled and not @readonly and option[:disabled] != true,
                       do:
                         Listbox.choose(
                           listbox: @id,
                           value: option[:value],
-                          label: option[:label]
+                          label: option[:label] || option[:value]
                         )
                     )
                   }
                   phx-mounted={Listbox.owned_attributes(:option)}
-                  data-disabled={to_string(option[:disabled] == true)}
+                  data-disabled={to_string(@disabled or @readonly or option[:disabled] == true)}
                   class={[
                     "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
                     @item_class
@@ -288,10 +298,12 @@ defmodule LiveAiElements.Components.MicSelector do
                   {option[:label] || option[:value]}
                 </div>
               </div>
+              <div data-slot="command-empty" role="status" hidden class="py-6 text-center text-sm">
+                No microphones found.
+              </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
     """
