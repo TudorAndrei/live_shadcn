@@ -7,15 +7,15 @@
 | Stage | Components | |
 |---|---:|---|
 | `planned` | 0 | ························ |
-| `fetched` | 0 | ························ |
+| `fetched` | 1 | ························ |
 | `spec` | 0 | ························ |
 | `generated` | 0 | ························ |
 | `failed` | 0 | ························ |
 | `stale` | 0 | ························ |
 | `local_only` | 0 | ························ |
 | `no_dom` | 1 | ························ |
-| `excluded` | 49 | ███████████············· |
-| `verified` | 61 | █████████████··········· |
+| `excluded` | 0 | ························ |
+| `verified` | 109 | ████████████████████████ |
 
 ## Recipes
 
@@ -126,52 +126,52 @@ facts.
 
 | Component | Tier | Recipe | Status |
 |---|---:|---|---|
-| `chain-of-thought` | 1 | `disclosure` | ⬛ excluded |
-| `code-block` | 1 | `clipboard` | ⬛ excluded |
-| `context` | 1 | `presentational` | ⬛ excluded |
-| `conversation` | 1 | `scroller` | ⬛ excluded |
-| `message` | 1 | `presentational` | ⬛ excluded |
-| `prompt-input` | 1 | `form-control` | ⬛ excluded |
-| `reasoning` | 1 | `disclosure` | ⬛ excluded |
-| `shimmer` | 1 | `shimmer` | ⬛ excluded |
-| `sources` | 1 | `disclosure` | ⬛ excluded |
-| `suggestion` | 1 | `presentational` | ⬛ excluded |
-| `task` | 1 | `disclosure` | ⬛ excluded |
-| `tool` | 1 | `disclosure` | ⬛ excluded |
-| `agent` | 2 | `presentational` | ⬛ excluded |
-| `artifact` | 2 | `presentational` | ⬛ excluded |
-| `attachments` | 2 | `presentational` | ⬛ excluded |
-| `checkpoint` | 2 | `presentational` | ⬛ excluded |
-| `commit` | 2 | `clipboard` | ⬛ excluded |
-| `confirmation` | 2 | `presentational` | ⬛ excluded |
-| `controls` | 2 | `presentational` | ⬛ excluded |
-| `environment-variables` | 2 | `clipboard` | ⬛ excluded |
-| `file-tree` | 2 | `file-tree` | ⬛ excluded |
-| `image` | 2 | `presentational` | ⬛ excluded |
-| `inline-citation` | 2 | `presentational` | ⬛ excluded |
-| `model-selector` | 2 | `presentational` | ⬛ excluded |
-| `open-in-chat` | 2 | `presentational` | ⬛ excluded |
-| `package-info` | 2 | `presentational` | ⬛ excluded |
-| `panel` | 2 | `presentational` | ⬛ excluded |
-| `persona` | 2 | `presentational` | ⬛ excluded |
-| `plan` | 2 | `disclosure` | ⬛ excluded |
-| `question` | 2 | `presentational` | ⬛ excluded |
-| `queue` | 2 | `presentational` | ⬛ excluded |
-| `schema-display` | 2 | `presentational` | ⬛ excluded |
-| `snippet` | 2 | `clipboard` | ⬛ excluded |
-| `stack-trace` | 2 | `clipboard` | ⬛ excluded |
-| `test-results` | 2 | `presentational` | ⬛ excluded |
-| `toolbar` | 2 | `presentational` | ⬛ excluded |
-| `audio-player` | 3 | `presentational` | ⬛ excluded |
-| `canvas` | 3 | `unsupported` | ⬛ excluded |
-| `connection` | 3 | `presentational` | ⬛ excluded |
-| `edge` | 3 | `presentational` | ⬛ excluded |
-| `jsx-preview` | 3 | `presentational` | ⬛ excluded |
-| `mic-selector` | 3 | `listbox` | ⬛ excluded |
-| `node` | 3 | `presentational` | ⬛ excluded |
-| `sandbox` | 3 | `presentational` | ⬛ excluded |
-| `speech-input` | 3 | `presentational` | ⬛ excluded |
-| `terminal` | 3 | `clipboard` | ⬛ excluded |
-| `transcription` | 3 | `presentational` | ⬛ excluded |
-| `voice-selector` | 3 | `presentational` | ⬛ excluded |
-| `web-preview` | 3 | `presentational` | ⬛ excluded |
+| `chain-of-thought` | 1 | `disclosure` | ✅ verified |
+| `code-block` | 1 | `clipboard` | ✅ verified |
+| `context` | 1 | `presentational` | ✅ verified |
+| `conversation` | 1 | `scroller` | ✅ verified |
+| `message` | 1 | `presentational` | ✅ verified |
+| `prompt-input` | 1 | `form-control` | ✅ verified |
+| `reasoning` | 1 | `disclosure` | ✅ verified |
+| `shimmer` | 1 | `shimmer` | ✅ verified |
+| `sources` | 1 | `disclosure` | ✅ verified |
+| `suggestion` | 1 | `presentational` | ✅ verified |
+| `task` | 1 | `disclosure` | ✅ verified |
+| `tool` | 1 | `disclosure` | ✅ verified |
+| `agent` | 2 | `presentational` | ✅ verified |
+| `artifact` | 2 | `presentational` | ✅ verified |
+| `attachments` | 2 | `presentational` | ✅ verified |
+| `checkpoint` | 2 | `presentational` | ✅ verified |
+| `commit` | 2 | `clipboard` | ✅ verified |
+| `confirmation` | 2 | `presentational` | ✅ verified |
+| `controls` | 2 | `presentational` | ✅ verified |
+| `environment-variables` | 2 | `clipboard` | ✅ verified |
+| `file-tree` | 2 | `file-tree` | ✅ verified |
+| `image` | 2 | `presentational` | ✅ verified |
+| `inline-citation` | 2 | `presentational` | ✅ verified |
+| `model-selector` | 2 | `presentational` | ✅ verified |
+| `open-in-chat` | 2 | `presentational` | ✅ verified |
+| `package-info` | 2 | `presentational` | ✅ verified |
+| `panel` | 2 | `presentational` | ✅ verified |
+| `persona` | 2 | `presentational` | ✅ verified |
+| `plan` | 2 | `disclosure` | ✅ verified |
+| `question` | 2 | `presentational` | ✅ verified |
+| `queue` | 2 | `presentational` | ✅ verified |
+| `schema-display` | 2 | `presentational` | ✅ verified |
+| `snippet` | 2 | `clipboard` | ✅ verified |
+| `stack-trace` | 2 | `clipboard` | ✅ verified |
+| `test-results` | 2 | `presentational` | ✅ verified |
+| `toolbar` | 2 | `presentational` | ✅ verified |
+| `audio-player` | 3 | `presentational` | ✅ verified |
+| `canvas` | 3 | `unsupported` | 🟦 fetched |
+| `connection` | 3 | `presentational` | ✅ verified |
+| `edge` | 3 | `presentational` | ✅ verified |
+| `jsx-preview` | 3 | `presentational` | ✅ verified |
+| `mic-selector` | 3 | `listbox` | ✅ verified |
+| `node` | 3 | `presentational` | ✅ verified |
+| `sandbox` | 3 | `presentational` | ✅ verified |
+| `speech-input` | 3 | `presentational` | ✅ verified |
+| `terminal` | 3 | `clipboard` | ✅ verified |
+| `transcription` | 3 | `presentational` | ✅ verified |
+| `voice-selector` | 3 | `presentational` | ✅ verified |
+| `web-preview` | 3 | `presentational` | ✅ verified |

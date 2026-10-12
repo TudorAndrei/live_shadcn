@@ -40,29 +40,57 @@
         "pass": true
       }
     },
-    "evidence": "8664e6f8913cbe4e1a6b1dee5a1ff695f960190505acea731449a72b053a5277",
+    "evidence": "0d305755c4747fc0e92340a056e2946c945f00b6662d99250fd021c3f125b943",
     "pass": true,
     "spec": "bd136812bebb47f1c7d76448d7815a8d63e8416e9181b2eda83bfa0c9f34f1e4"
   },
   "ai_elements/open-in-chat": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "9eac17d795f673a7e85954f40fbbe40a38f582576dcaa1ec723ad2a358600c1c",
+    "evidence": "ec9ae3dddbf8e7564965e3a3d896ea443e4cd92fa2c254a4e945443af21abe0b",
     "pass": true,
     "spec": "a825302b77ec3729569be28b8420b90087d80edfd7449de40d720a88eb0132ba"
   },
@@ -107,7 +135,7 @@
         "pass": true
       }
     },
-    "evidence": "262d7d72c902b19632e612813ef8c612be6998891bb224d66c957a93eb9904d2",
+    "evidence": "a4ffd11a2bc4b09a9fb9f079d4c2f1ed17402bb3b4ef3439391790b0f78bf875",
     "pass": true,
     "spec": "3bf7896caaaccb6fd54d59bed15f06b38f18790ecb2e1a8e1581ce173552c7db"
   },
@@ -152,29 +180,57 @@
         "pass": true
       }
     },
-    "evidence": "a14a8c3669fcee4956aa73075f2e38ad910580cb92287c745af498039176a86a",
+    "evidence": "8d558faac1e9cf8bc90e2a90ec40a5164f538a81f91bc398a6d2245271d0feba",
     "pass": true,
     "spec": "109d4fa3135e70ece189d6e81bb8cabfb3e08f9baee64dc2945b977154d86def"
   },
   "ai_elements/shimmer": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "3 of 3 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "8d0b1f3f360b33cd754aed781459ea412ee9c7c7cf1962a38c12b28c1cf219eb",
+    "evidence": "937618970d43d668b3049773b6ae6bac112a3701e367169ce4883c93c6057e7c",
     "pass": true,
     "spec": "a454b18cb117c2f5ace4a45ff1f0018ec8237c37a437713f903af7b1a34c940c"
   },
@@ -219,29 +275,57 @@
         "pass": true
       }
     },
-    "evidence": "dd00224a826301a255555f8eea897b27c20e1cb1ed4dbafe8e5422ffc2471297",
+    "evidence": "39b8a661df078e7fe1ab24ceb4ccb32a86759e3aa1d3fb8a3b8db5f464b9acbd",
     "pass": true,
     "spec": "be5beb913c4b381d2d193f3f8d18b87872970a6cc15c0d61d25d5dba05945711"
   },
   "ai_elements/chain-of-thought": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "ba85291b25c0a3e18af68a65aeff4addbdbe5f5fcca1dec5957d48738ecd6ab8",
+    "evidence": "c589a9a07e4a670a624f4fff61db57e461bc57bacdd61423c75c33f9003ca550",
     "pass": true,
     "spec": "df5d242d9997cf965f5cae392a8f75057e4904c997ce85f1e4f58a9322ebe203"
   },
@@ -286,29 +370,57 @@
         "pass": true
       }
     },
-    "evidence": "5d2733270102d7f18e2d259eaef043919d45d37bbeb5fecf4f6834b3cfe37d27",
+    "evidence": "364dc6b5c5f3045965905c1de3061beeccb1ecaf3ff1cdb0d79ddcc99edbc9b2",
     "pass": true,
     "spec": "29ff1667f3409de785bc6bfa0c2a231e70b1a192751bd4877140e16dbb57f1c0"
   },
   "ai_elements/edge": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "not applicable: 2 local-only HEEx previews; no official comparison",
+        "official_comparison": false,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "63ffae27bb29352920849e1db2fb762d1f54e0578fe149814066568c34e65200",
+    "evidence": "90e3f952ebc49a7173fcdf6ec472fd9a5037b6e859b96ceb20e52c9e5547f01a",
     "pass": true,
     "spec": "6df928c8b53e701ec3fb30aca4453da627c148e819ce3e2caf733eb4f26639d1"
   },
@@ -353,7 +465,7 @@
         "pass": true
       }
     },
-    "evidence": "ac49176573217c5111162e7e1123bba55ead2d6ff0c0e21a5540721c13d8337d",
+    "evidence": "276b9ce9377d0a5a18dc280d65e6ef5b7c1210749970154d08534d435ccfcb3b",
     "pass": true,
     "spec": "91b21f8d569dee71462ad63d1b9807e089523894a829f92c80193553761c2a8f"
   },
@@ -398,51 +510,107 @@
         "pass": true
       }
     },
-    "evidence": "de982d772553d3772910413cb265321fc4070f0d06e917ee2a954f7e2bdbdf8f",
+    "evidence": "8d47a053f5b3df597143babc9adbb05c328b5fc555c134008141c756d431f262",
     "pass": true,
     "spec": "ecf4445873da1bbc2d64d0d90cc27f94c8a74ba586172bbc223ec88d1fe2697c"
   },
   "ai_elements/stack-trace": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "3 of 3 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "b1fc1aaaaef3dacfbf919c6c5574c187d6ef7c1e8e4b5c1af77515d738e800b7",
+    "evidence": "0169a8fd261b84e8530c6c7d6c7736dc02bc7e5410a72f82e2520ddb23561803",
     "pass": true,
-    "spec": "e5e78c68fa21f05dd412fd3d98bc4c7643e37dc056aee4f5ae53e63f81945afe"
+    "spec": "473c31fe04f04217ce83ed5bd7997c5e25c8b049590c666bded31d1958af8299"
   },
   "ai_elements/package-info": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "2397823349a3d61428c978317f7d422a44cb28c84184dc779a15189a4ce81b29",
+    "evidence": "08fa99bb088bae2ad41cb35023491282f2faf74b4dd61aeb8966434be4fccaae",
     "pass": true,
     "spec": "252723568429ac119ec178f144d765af16ad7dc18297a9e1bb01d95509f7b436"
   },
@@ -487,7 +655,7 @@
         "pass": true
       }
     },
-    "evidence": "256be910d36e5c59e3ef590808d603cf4b067db0d0b3325f4c0e6bda4fcda93a",
+    "evidence": "47f66debb7ebec598b4b5c07adfb615d6203e169fadd44ca67a0e2e35aabdfb2",
     "pass": true,
     "spec": "b64bb7607ce1f8dcb6aa1a49ca8146e765887e24535c1b8913c24b8867e4fc0a"
   },
@@ -532,7 +700,7 @@
         "pass": true
       }
     },
-    "evidence": "915a388ba76df883e3a90edbe502f80fe96fe378cd828039048349a7cf652142",
+    "evidence": "868716c6b4bbb73cdc686d7f9ade5a4b7937655e81e0259ea26e28db33e0150d",
     "pass": true,
     "spec": "a678f9fcdc633fa3dec48be77777b35d2138f9ca6b27a9e47cc0fced4bd639e9"
   },
@@ -577,7 +745,7 @@
         "pass": true
       }
     },
-    "evidence": "86110dd1a2084995758874d058c6d25a811d68e52824a8d59d49cf69fa84b7ac",
+    "evidence": "1c0a832bfa8282929c05963741dbf4131775cba8ea75b4d38a0d24103256cd7b",
     "pass": true,
     "spec": "a53972ea9e8c48f2e5c9eff5d2a4f5a9ce62cf746fa437538dffe2a41910b009"
   },
@@ -622,7 +790,7 @@
         "pass": true
       }
     },
-    "evidence": "b4c9bc757b224a6abb25a22a7c29e4099cfd9a7c76eac9b8ee5b5749d8dd1e32",
+    "evidence": "aba110c5a58264dd85a7db10cb46ab58abecb9d595ccff8658c09a432ab7684e",
     "pass": true,
     "spec": "9e15a72b1a67c8f6d72b8022e12ab43f83fd0dcc27dca35f7648505490308af6"
   },
@@ -663,31 +831,59 @@
         "pass": true
       }
     },
-    "evidence": "8dde11ee01c6e12ab3a3ce17f9913030bbca5922174997726b18825c38fdb37e",
+    "evidence": "d02ae654cdc6b4535e8dfd3abb90acb9c2636e011c253ba5546343b448c350c4",
     "pass": true,
     "spec": null
   },
   "ai_elements/task": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "ca5d7e620cdcba0ce40dac87c36e57c3dec1616b579996bfa7b677cad9db5878",
+    "evidence": "e07b462cab59e314d1b088b8c8f400e3987ce2646fef9b2765818d7d19aa0d5a",
     "pass": true,
-    "spec": "f9cf45f267fd7547934c616d479f69e3b03fe70e4ec9806804399b13e2d0eacf"
+    "spec": "fd48c529253cbec32ba656ae074afa0c3a9c8b05a7684675b4078998af4f8d2a"
   },
   "shadcn/bubble": {
     "checks": {
@@ -730,31 +926,59 @@
         "pass": true
       }
     },
-    "evidence": "92348143fd3f3958d3a2c60a90c21c64f382a5c6ffc52899d34d6452c60a4493",
+    "evidence": "6a83f6b4cf6df230dcc95a0b992422849e2a72ca5da591097c27302a9a7f7c61",
     "pass": true,
     "spec": "40e9511253bad8e4e8252354ec90913ef4e7147748d09135df10d88a52a004e6"
   },
   "ai_elements/queue": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "2 of 2 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "05bfc60a1b574fad9fca44ea634f4ecc95574ef14b80965837ce00bbee622535",
+    "evidence": "69dadcf8e85be1fe14a56e7f2ad324f41462a175cd6e8a65ef0b806cc337f62f",
     "pass": true,
-    "spec": "bd677dac72f60054a2f66063b071814862ef1aa6307ae63338eb6cde70a27cba"
+    "spec": "2044f42722c99e4da116e2a2aed0773e28fd640237c3075414b9d709f252f30a"
   },
   "shadcn/sheet": {
     "checks": {
@@ -797,7 +1021,7 @@
         "pass": true
       }
     },
-    "evidence": "ed55f946b43d37890bf723d8e16ddbfee04954ef59216e7a7456fa048a2620d6",
+    "evidence": "8f56536082c68e00db2121a25cd90f640b1042b32414ff2dd8dc6e63b7fa9de4",
     "pass": true,
     "spec": "98ab00824780b355dc0cb080dcbd6c971bbd663d33f688fc1285aee069cf5b52"
   },
@@ -842,56 +1066,107 @@
         "pass": true
       }
     },
-    "evidence": "127458de4f7fb2de53453efe6a2642e8234ccc1458a2ea19d3024d65d6cc54c1",
+    "evidence": "c8499df7464c6049c34e005b14350a9a94d505393caffc2f75f7d5295ad8181e",
     "pass": true,
     "spec": "11e43b8aeff2e3f32d95be1493afd31e821ff2f67d19a79189f09a6b53379fac"
   },
   "ai_elements/attachments": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
         "pass": true
       },
       "examples": {
         "detail": "3 of 3 official examples have HEEx previews",
         "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "624ad9df6a7f37619f37a531eff543266f4629565868878bd562aad04ffdc9c2",
+    "evidence": "7ccdac0147f984c901a9350f4c2a6b67d0323ac9e16e5bb98ab4c855ee7f5215",
     "pass": true,
-    "spec": "0116866b16b1b30a12c4f4e47f330654eb9c9e7b7e6f4c10c39137ade5f263c4"
+    "spec": "11462feaad0a11cf3617e921951d39cd28b361c115a7a6c0bba25c755012fe75"
   },
   "ai_elements/image": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "0b248cf8cbe6a1c3ecc481e9b1fae47966ee7539167968de0622d7c6dc29c58e",
+    "evidence": "58dd7b497af5e6a3945b4237fa6de5d1ca46e73a3aea3d6e916a63dcaf0cb08b",
     "pass": true,
     "spec": "178c82a09c652bc2d523bcb31b08b2d76e6f3ce71539ab91544cd97dab181441"
   },
@@ -936,7 +1211,7 @@
         "pass": true
       }
     },
-    "evidence": "ccbe1dadef5e3b01bbebff44e1609f209fefff5cbc1e70f6c96b22e61fcd2998",
+    "evidence": "cc26470eae42ac4adf562b58fae0fedcf4d0db703f052e55551d908aae871ff0",
     "pass": true,
     "spec": "3268746e32d77ea0372c701bf1dc38b07bf8d43882ad0ea3d06e12717ae001e9"
   },
@@ -981,7 +1256,7 @@
         "pass": true
       }
     },
-    "evidence": "0d577663b8a1b525dba64710391a16cf8ebd1b3735e1f58624d826c961a74a7c",
+    "evidence": "d4807f87c93950985d45f2cb5ca7cf2bf70ff645d32fde60be2fa94e0f1301ce",
     "pass": true,
     "spec": "a649b8330173a0bcf5e0b738ddb06a93127723b085e8dd5162f7140bb3a4f2ad"
   },
@@ -1026,7 +1301,7 @@
         "pass": true
       }
     },
-    "evidence": "c3c0a3ec2dfd784ff179eccbc8321d503a6833ae2aa46f93e588b8f4d1f1c65a",
+    "evidence": "55de39ca02491031d904d91ec16baf5cfff59063fd1fa7acb8b460d3186f5715",
     "pass": true,
     "spec": "f8f2cdc8c8fb1d04a67df4a305be094ee4398ace2eac16164a13c63efd208980"
   },
@@ -1071,7 +1346,7 @@
         "pass": true
       }
     },
-    "evidence": "7f83fa0e32a274c2d881411996f5c43ea237b6a41e6e9bb5ef346fb4664819a1",
+    "evidence": "791cb68c0100bfe0b53ea486169b92bb2e61bf07504dc459200e37fb957d5ea8",
     "pass": true,
     "spec": "2e4905698455c13679294a83741427cd114ed4c206fc28165ebc63d6c9046217"
   },
@@ -1116,31 +1391,59 @@
         "pass": true
       }
     },
-    "evidence": "506221b58039f3bee459db7241bd1c27ec702d61c6b42321d044d0c8b8601557",
+    "evidence": "e9602d397724b7b6a47c3cf9a09978dd0b5515341f836abfe40eea5b4b6eaa46",
     "pass": true,
     "spec": "f9bba03042eb93bfccb458db16a79fd2460993392e9318eac37373076285e056"
   },
   "ai_elements/context": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "02a75c57255cbd9a4fcd95d8e03dee9fa5490817138868562251ca50102a5001",
+    "evidence": "0cbb06d5177f6062d34fc399a504ca0109d7610bb599b8bb918c93af76e3f98a",
     "pass": true,
-    "spec": "4d55a9d56da39a95e4ee22ffa2811b4aa6b0fa0529288ee3eddc7b5310eb122b"
+    "spec": "2a0686f2d5187cb2c020b8fe38ee6298812c012c77f3d56ef00eb36fd0105991"
   },
   "shadcn/input": {
     "checks": {
@@ -1183,7 +1486,7 @@
         "pass": true
       }
     },
-    "evidence": "91a056208ca05a379bb7ea88e20c9e7b22362d3dbb35308c50fb4f646e11a6f2",
+    "evidence": "2252c9fdb374668259f76a369f7923a7b95e825eaffe0dddf2ead7ae302c2f5f",
     "pass": true,
     "spec": "2af5928e8e89ef9c8abc4504f8262b175c76a505cb7d6085e8011ea1eb9c27dc"
   },
@@ -1228,75 +1531,159 @@
         "pass": true
       }
     },
-    "evidence": "f6e90a1fd27a233dbfb22ea70c98575e471852c3f1aedc24c3c55c6bb0c049da",
+    "evidence": "508f9cd2af16b2b6da3df2f19b4808f9472a511eaf6d3f01ae4ce389e556b4ed",
     "pass": true,
     "spec": "9f5d1231244698f859772731e357fd6a4478793f7c15d2ca7433dc69470cc0b7"
   },
   "ai_elements/sandbox": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "a844e6b46c621ac17327b9849f2334951aafabcefaf0a893bcb74d66e8460061",
+    "evidence": "61b1d6380bc9b92be62f77d1d21f29896611b820ff36ed472b46717705d7038d",
     "pass": true,
     "spec": "5807320c4918cb7a3e7d1b1482ca546afbe007cd050ffcee53b72ccca0b8fff1"
   },
   "ai_elements/plan": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "8d265a96253d219b5056901e5b9b744fb5e3d71d371dec5ac39614bcbbbcae4f",
+    "evidence": "2a5e1b7077e71564713186fc4e138dfeb9076503d14f3324ef441f5eecdede2c",
     "pass": true,
     "spec": "8f4a17d6b8413eef64493e1ebfe023dee70d7e62dfe1d2c5b3594b8d510ce5ba"
   },
   "ai_elements/confirmation": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "4 of 4 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "ed8ff1c094414aa521a7d611d5de9ba2768f18ec0f72154721edfc2d2997ba0f",
+    "evidence": "33ec2d21b53bef7ab0858aa16eded8152d93a44f89acc7124477a006a41d7366",
     "pass": true,
-    "spec": "cffa18d889789b3ab12294aba56600e78d903bec3028787b1b92d5eae5dae4a7"
+    "spec": "d696a08138f89f88f5b913dcee729e5bca47883b892c91ba08153bfaeeba4e1c"
   },
   "shadcn/skeleton": {
     "checks": {
@@ -1339,7 +1726,7 @@
         "pass": true
       }
     },
-    "evidence": "1ee8165bc6b1247d42e2562acc1d3f83397d268e7acd17062c236c034fdedcde",
+    "evidence": "65e1013013d6c15b929f6ddbcc4277566cd17fe3a7c60663823b8978ca0e47ad",
     "pass": true,
     "spec": "0c607317ccb650d68306b70db29c4ed6e04482613c0416b70d44edf6c042d1df"
   },
@@ -1384,7 +1771,7 @@
         "pass": true
       }
     },
-    "evidence": "dc1046a1d7ee6c62d365702b5ed66bbad4cfdb300721ba655420ab7cb6b75c78",
+    "evidence": "3cb36455f68cdcc104ab57e94a29a697bf6ac25cd8f16b730451746957429f97",
     "pass": true,
     "spec": "a29b938b9640d54c6e8b1029716375c596a48af7f6201a09966f5a44360bec18"
   },
@@ -1429,31 +1816,59 @@
         "pass": true
       }
     },
-    "evidence": "e10cfeece917eb9a99f1c48ca38770a75f876fcc4b13922686bfe278e016e04e",
+    "evidence": "ed035856f9b191b6d540bfa7b54f419c6a5abdaabfb43ecf193cfae54458d0c9",
     "pass": true,
     "spec": "b0ce3bc5666011d47517943ff12bf960ebec2b84e7ed2f90780a2308cfd91d65"
   },
   "ai_elements/checkpoint": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "a9413c23c8befbb193e1528d9a7e7b5e827ffeb7315407cb4163c83caee296ad",
+    "evidence": "e6ce1fa08ec75eb57030f7dbf7c462a4fa766aa2af5d91f50b056feb8c782514",
     "pass": true,
-    "spec": "9f38d173742fde133ae46070e89d1e4ebf62464c0f22796e7882a8a59802685c"
+    "spec": "4cb974b7bc31a1381c44858b170829c1c4ad020c1febef140a08a56a5dafa999"
   },
   "shadcn/input-group": {
     "checks": {
@@ -1496,7 +1911,7 @@
         "pass": true
       }
     },
-    "evidence": "67ddd7b8c45a57b4e447791ca4d844c19b9d63fefe19da4e23b3a69d1aa406aa",
+    "evidence": "aabcf963ed2f82f5801484158bfb8fd72bb3ca4ecf75d30ffb1c86113422f071",
     "pass": true,
     "spec": "2c0f1052c7686a053d03cc717730cef24b0e40232eec7f893cc6acaa244f180b"
   },
@@ -1537,7 +1952,7 @@
         "pass": true
       }
     },
-    "evidence": "d9dd71adc4ec643fd0a4b76200b9d4f11e23fabcba69f81c1bdb3b90c00f334b",
+    "evidence": "afbaa6964216733bccd14eaeb5e81cd239ae69489d60e299d6337765fdb0a203",
     "pass": true,
     "spec": null
   },
@@ -1582,7 +1997,7 @@
         "pass": true
       }
     },
-    "evidence": "f105631ad7865b6a683b34f8b7499f723eb56772e92d8c0a4ca61fb9fbd95d33",
+    "evidence": "0e6725d7269707ba2f920a264eab27b9dd87d599b945486b6daf66397e976509",
     "pass": true,
     "spec": "ef8bf115048a1d5a36627d1a3d6759e02ceafea50ebf629fc53ec59f39001ebd"
   },
@@ -1627,7 +2042,7 @@
         "pass": true
       }
     },
-    "evidence": "7b9fd6ac6110cdb4380ea482f766957fde9265c4c6f3b8f43ca1823a857fedef",
+    "evidence": "3a3d3ee62a800f63c3404907495135a849401ba2bfb33a533aa12df0a7011549",
     "pass": true,
     "spec": "1313c0fced5c124b15675dcf6b65321afa74dc08524a563814d616ad4aa31c8e"
   },
@@ -1672,7 +2087,7 @@
         "pass": true
       }
     },
-    "evidence": "dcb2f08d2b6ac1cf5bd1422d905421f2a5e47de0770199c52c9bdd9a4a3e5ee8",
+    "evidence": "b1c17d182677a21c41a7f1c97da120a60a03defffbedafb5d658e1e03c003aaf",
     "pass": true,
     "spec": "2b203e5458b6ab4fef4ff2e16b877f07100659c6fda5b29a5a929375a798298e"
   },
@@ -1717,29 +2132,57 @@
         "pass": true
       }
     },
-    "evidence": "11c7ff2a6609012ade5884126c8fe8422d64f4026476598fbb0d20aef2f97487",
+    "evidence": "fc1bf93f3244199cd27d88225783674ed514adb981e59c94014e9e7e181e44de",
     "pass": true,
     "spec": "c167356ada9c0dd540de06055911391093885018bacd915ba236dc00ffb3f4ed"
   },
   "ai_elements/sources": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "2 of 2 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "4e373022670bf7a95709e7f3e4e1719688a5ac9b35329d400ace4a2804ada4d7",
+    "evidence": "4d8b750d52616f36cc4553d585368e02d9de03a5a4f5315edcfe38d39450630d",
     "pass": true,
     "spec": "1a32bd77b8536acf7626f74c195aacac10ea2e8f0190fff9218f784a4a6bf395"
   },
@@ -1784,31 +2227,59 @@
         "pass": true
       }
     },
-    "evidence": "623e01948593065d32e9d8385835413b60dd5a2116619f6e30c8233c35305d62",
+    "evidence": "55e671dbfa4a673e70f0e785d9aa836abefeb5a70aa937ca285d3def7fd73e34",
     "pass": true,
     "spec": "518d04be1101210b7970f9a2f29617a77e4918736e2e0c22f22a473c4739e9d3"
   },
   "ai_elements/test-results": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "4 of 4 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "63e6072d921bef2a98d8047f4fbadd0a0788b1b26931521f8bd813edbb035b02",
+    "evidence": "b24b55e00acb0a9d8a4d508bde4166cd9c9ad704913913bf774db43c6ec4ea94",
     "pass": true,
-    "spec": "a6726e4b2615182c0dfd6ab431463a53868291ff3ca39947c689ae2f7b1283b5"
+    "spec": "28cb433cb6f3191551101316644edbcda95b1cda995f464dc98ed0a8b4ccb769"
   },
   "shadcn/sonner": {
     "checks": {
@@ -1851,51 +2322,107 @@
         "pass": true
       }
     },
-    "evidence": "30ca0c83cb7b7fb09693b6c1a745aece748fe16316738e1ded538543c3af7c41",
+    "evidence": "68b1adbdcbb5c34e7103e783e52414b53d82dd35b69282cec209bc9064d3a622",
     "pass": true,
     "spec": "9ec43549de9fc0e9fa4912157f95a4c1f93f51d025ab6c2ae11bf57f8e8d2429"
   },
   "ai_elements/web-preview": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "ffb85267be86728c6316e146ef13a72b7a3df9bda165804b77a93bce72e78b2d",
+    "evidence": "b9d5213c776423fdee1b62a42b22d5bfc8f90fe864196bf369274487f66252e2",
     "pass": true,
     "spec": "650ecdbb4c07e226b33cdea89c1a25e82c795225d6afa7dde7c656511cbd3775"
   },
   "ai_elements/artifact": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "752a00760d8a97af010aee65ca1952936af74579acadcd8e6645e63c44545ee5",
+    "evidence": "ecca5fe7c105c5967d0f31507c6f2f11489282472d1605b3d8e01d3b330e5138",
     "pass": true,
     "spec": "185e6b1a120e855d2277a31f578c57befee5b7310e9625fe1f685f59fa0cbd9e"
   },
@@ -1940,7 +2467,7 @@
         "pass": true
       }
     },
-    "evidence": "453a4a8f78b1b4afe3ae6992febac691877c493ee3cb479a127d828e54c19994",
+    "evidence": "2f5560092ecf587bfcf7e3f8451a4ef6068415f212d890524a78c8d8b8d29354",
     "pass": true,
     "spec": "585768514a29435dde30fe147e0e0ecfa3174abc7eefb286eaee843f8c0bc4ce"
   },
@@ -1985,7 +2512,7 @@
         "pass": true
       }
     },
-    "evidence": "0bc967ade2043434eb9ecb813bb38d7f2fb898fd3480e56a2d9f2dcfc0cc84e6",
+    "evidence": "44f890a8f5a2c200a9d71f87f546382e4e7962e8df7f5543bfa04916b62aaa99",
     "pass": true,
     "spec": "e54c6726dde9a052c9b44db6e8bccd399ef0e424ab653c9dd266899ba3dc7eaa"
   },
@@ -2030,29 +2557,57 @@
         "pass": true
       }
     },
-    "evidence": "31bdad9825c2d7e131aa5f78a8b958fac46220a13a562e7627fff393e052b23a",
+    "evidence": "ce607b9ed6f9f81f21951283276a3684c668546a476cc25d901116a1632beee8",
     "pass": true,
     "spec": "a93d023c22598e0846b5474b049301502ab2eaf5f10deae23472866759da2aba"
   },
   "ai_elements/reasoning": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "46c0fb28220f71ba34daeeccb08d20d0512e72dddc7bd5963c3b5019a1ddeaba",
+    "evidence": "fba742430cadc562b1ec05d0c6279e8fb3b7a3f887f033c8ad9bc7859c2d30c4",
     "pass": true,
     "spec": "973339159c030c3826669c0bb2587b06f712c99ce155dd283e0a436fdb828c1d"
   },
@@ -2093,7 +2648,7 @@
         "pass": true
       }
     },
-    "evidence": "e27d072da1e27cdb26d70db089ee602e2bf22cfe4cb15a64674f4bd7b1e7dc0c",
+    "evidence": "f6c131a7b264447880c0b9d456666fa1f4d4fcfeef505b95b9f6ae2d76ad5132",
     "pass": true,
     "spec": null
   },
@@ -2138,73 +2693,157 @@
         "pass": true
       }
     },
-    "evidence": "93f0e5a8793c4e076e962dace926560872c69c3f5557d6b7461442c7da193fdb",
+    "evidence": "a4b8c545c0254d482314b67330d62e40d966e8c5cec0bd584ee2df889d9dfd15",
     "pass": true,
     "spec": "745f87b2225c141748904b57749a5701533f1a7a66a2231d12b2cf8ed6f4a263"
   },
   "ai_elements/persona": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "6 of 6 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "e7eaa8557b71de1b1e4fcf8748639f830d76da7a4b8abdcd31bae919156a4551",
+    "evidence": "967d5e9b4de2190916a6307c23397ed7f59f32060c781d1c8dbd9ce8418a1eb8",
     "pass": true,
     "spec": "6aafbfad2aac36c2b9444383a63148f067e6350c9919141c27c75f6d8860c477"
   },
   "ai_elements/tool": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "5 of 5 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "e886e8d63ddcd56495deb9b451bede0937d06ce873258bd151f05b3d5786bf78",
+    "evidence": "1701dcbb0f140827cc3d2a84eb2e355a9e24097d94f36e3b35e01bbfe23a0cd6",
     "pass": true,
     "spec": "001d97afed4ce672052c76acedecc4e3e178e0677ce59454e33cd9f8bf7a1b14"
   },
   "ai_elements/controls": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "not applicable: 2 local-only HEEx previews; no official comparison",
+        "official_comparison": false,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "60187ad538e7e39881a43107550aaf7b08bcc5b9b4425fa0d7a1ef6894106fdb",
+    "evidence": "f0ca82fcbaf5c17d2e5ece36dbda9ced9c64c10cae20ae0836aacc30903e273e",
     "pass": true,
     "spec": "674800e01f15d38488a98e93a50781802dee86af16a9d4d57e6c3b56402197d9"
   },
@@ -2249,73 +2888,157 @@
         "pass": true
       }
     },
-    "evidence": "f526de0513e67f9cea84671338e8cb7b4a1e2622bd5c299487fd65e687279caf",
+    "evidence": "4e3851005e7d15cfa2e4d50968863a5abeeeea576e109d861494705984030115",
     "pass": true,
     "spec": "97d13f4ea3aa35428c9d5033ea00206ef165e1cfc4d30c48cff3c9eaf1246f70"
   },
   "ai_elements/node": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "not applicable: 2 local-only HEEx previews; no official comparison",
+        "official_comparison": false,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "1d6f8c97edcce02c6164319c62574ca688975a32914cde2faab5200fa9ed9e15",
+    "evidence": "1479c39df1d582ff8f3bf1d4a77c7c3d0cd72ae1523f93ab0b89aee13513d208",
     "pass": true,
-    "spec": "0c48ff9ae240a184885b841cc56dbfc77935095829de441275e72da644e2a6a3"
+    "spec": "8ff2b87a8a7ce51bb95ef132b178117f273e8aa96e0b73bd91a54247e1609710"
   },
   "ai_elements/schema-display": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "5 of 5 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "dba97ffeb227ef4a9db6a01134759e6b47ee9d090459f8655c0c0d4aebabc363",
+    "evidence": "8a47e1e4eeaa459961a20052b275ae84f31bc94c5e1a655d2c3550c27232c289",
     "pass": true,
-    "spec": "9219de97af7caa860d95ccb8cd90b5fa697447d28ef638ad71b282d6b20bb224"
+    "spec": "67ae306ea71c3512e255df65dec2e2f1662e68bddc028282d9ae9ece59b21b27"
   },
   "ai_elements/toolbar": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "not applicable: 2 local-only HEEx previews; no official comparison",
+        "official_comparison": false,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "957fc00427b9068e5e4cf0c28d67c9a720d50f67e7640e4fc328e981561470f0",
+    "evidence": "aee33d99cc872f4368de0651727d24ec030c35de8c777b61ba889a9f55495b73",
     "pass": true,
     "spec": "aac966ea8054e7548ef5ed1b51a88f9e399a237217b9c7e13c049058917ab586"
   },
@@ -2360,7 +3083,7 @@
         "pass": true
       }
     },
-    "evidence": "2c1c1076465ccb980b57fd7bd578065ee96d063bc082e0e36668ac14e845ce63",
+    "evidence": "09a297da7ba135c8211e958358889bdf745bfbb44cfc24f9c8ceea62a3f381ab",
     "pass": true,
     "spec": "79c10a96729f686f13bc835947f490e621c93287f21cad4daceab5c8fdedcff6"
   },
@@ -2405,7 +3128,7 @@
         "pass": true
       }
     },
-    "evidence": "f12f4b836920a5483abebdd0905058f066f57e507f7df804fe862dfb74ad6113",
+    "evidence": "9f1b6f7c8278c73298264fcb628ca894da649821e196c4b119f43434d25a1bca",
     "pass": true,
     "spec": "3dbb8c1e55be04759542eb7243005a4bfd28771442da391b43e46858ff0e53d7"
   },
@@ -2450,31 +3173,59 @@
         "pass": true
       }
     },
-    "evidence": "34a6c85bf3a23dfbf9b95c8d03e0c9a981d934b0cd15ae299b885a9d98a5e6a5",
+    "evidence": "3e48d035eb4e261097f76408084930e887e0f41263607045316e83ebe8afe8f5",
     "pass": true,
     "spec": "346963c5e3546d6b1c96e9a3b35bb0a06c216f206ebed696ffe5232c251bf062"
   },
   "ai_elements/terminal": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "4 of 4 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "060fa252199c17f48004bfbd9ca2d629435cacd22856d8a908e30e16675d26a3",
+    "evidence": "a7a9c457ebb13ddc07c06e46a0c52126aa4362b583a417f1c7adfaa4b2d3b8f8",
     "pass": true,
-    "spec": "f1a8d85b9263d82cb097965f8694bb6109103e58b74aaf79eb04f39a629d6635"
+    "spec": "29154d386dffe60fe790757d2d80bd0236161f1b3db970057feb3349304cbc24"
   },
   "shadcn/toast": {
     "checks": {
@@ -2517,95 +3268,207 @@
         "pass": true
       }
     },
-    "evidence": "f031371cece8b7f7625b6fc468d3c3bdcd0928628a915b68a8ccb94c3c71aafe",
+    "evidence": "691f48c089e7dea4d7d4cc5323d21e881519285cea81b2da2f98300bcbb1d3a8",
     "pass": true,
     "spec": "4b076478a83642c0fbe805df81efb2e1fdbac4aaa93c999d9b73e631064af0a8"
   },
   "ai_elements/message": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "015486e29f48672ff7614b93f3f3a2492a8c38795ef1197b12c036dbaf354c3e",
+    "evidence": "f80108112661e3ca1252ee5b479846a10d8847c0a17f5d647d1dd0fac0b58866",
     "pass": true,
-    "spec": "7d5b1e486656c02600b91947f8dfae615f45cd71cea2c386b45cfcbb86bfb58a"
+    "spec": "d83d456464333e8fc970e9241b32af0fb50b3da6a55de514f337b91c0efe5f00"
   },
   "ai_elements/snippet": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "2 of 2 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "e26277d5bc751fdf944e241beae9e7156868b845607cbb362bed0ba0dcd6615d",
+    "evidence": "0cacf2940a64bd542191ebdf6ac33347fd43ab9d8e9d964c6d7a2f2b59618ec5",
     "pass": true,
     "spec": "8319536b0b9835761ed8b36dd9722ad7a32fe9da6339c6ba6f1217ff92e82029"
   },
   "ai_elements/speech-input": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "d2a062c86fc0142e334b78d9bb198db47287fa11d27134606ab93beb52802ee3",
+    "evidence": "e2f97f26871b94707f293a890d2738fd7e28344aaa2c0096c77c4cf5e9885200",
     "pass": true,
     "spec": "71be6b22fb3647ef8e4700af806d930789475033142a2a995c06cf78c1603ddd"
   },
   "ai_elements/environment-variables": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "967dd7015211da4c1d2aceecd19cf7b50f5ee9452a223e5e10ec64af84860432",
+    "evidence": "8ee116ad34fa67fec702e047b7254f4ed3ccbaced3422b02d451c0673ae28d99",
     "pass": true,
     "spec": "7ea9ff7d1085b11cc96955374e10fd62f9f2c8cd9c9744bf148d96d9b85d4057"
   },
@@ -2650,53 +3513,109 @@
         "pass": true
       }
     },
-    "evidence": "f18c4f63d76e5c65ac23d00fa5c0ca83ea414608afea2995f9a25669212ca1f2",
+    "evidence": "cf5d9ed5a27a45fe62a6b556d650c7e427860d0090eae593ebda5913f63bdc2d",
     "pass": true,
     "spec": "25bf3ef1cc377b6cccc4f73ad547963dcb22c4f0c9c82b01891ee56b697e65b0"
   },
   "ai_elements/jsx-preview": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "2bafaf62c0145cf2b3eb9ae349b049970f039d19890d2f8f82e6154228d3c7bc",
+    "evidence": "494771eb3754a91a4390cb4040ff7f93fd0866edfda2aedafe9e67f3c3a2816b",
     "pass": true,
-    "spec": "a4f50a2b7095e635535b2e4f254666f404804ff0b6df72c988cef4321b80a935"
+    "spec": "61a36c5b2eeab24c55bab2d7bd34f0e7d380b391a0d0011c344b7699bd301044"
   },
   "ai_elements/mic-selector": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "c1249c738bb51930a956b1ceaa5f6ff6582cbb0261ef5b5e384ef04ac615f2aa",
+    "evidence": "2e305dbab2e48b7ea40048d4edf9ebada1f16f7faf7f4074fbaa7679f019402b",
     "pass": true,
-    "spec": "786878d977921bacc9d6b4f57b94c2b536f9ca5ce5c18c6f17530eb95a67ccdc"
+    "spec": "06e8421440c1356a70aeecf0717d86f5dfe2b835c6dcce686ae7b06ca0535015"
   },
   "shadcn/label": {
     "checks": {
@@ -2739,7 +3658,7 @@
         "pass": true
       }
     },
-    "evidence": "083c5a509cb21ae9b82677d6bb6b8d8d5d9b6762c38ec8b8b40e4dfa89fc44f0",
+    "evidence": "709f2eacf77dd9e5890f5df98c3a260581eea6a3653e0b970f947f34da2f0728",
     "pass": true,
     "spec": "f7335dd3cb91cab27b38ef14b1165793fa1d1bf1bbc882408af41f41187af1ba"
   },
@@ -2784,31 +3703,59 @@
         "pass": true
       }
     },
-    "evidence": "feacb1c5c460593e0ffd640fd1d19b39a44f809c15f2e66e290e1ff26c7a52ee",
+    "evidence": "c6ef24973b4773a3af9cbfb37f4bdae71705624ca6ccd3be49186a81d2438023",
     "pass": true,
     "spec": "da4df87623d96a4bef151f523f4582eb4bff1bfcdadbec4d6fc982ca1a9e5b7d"
   },
   "ai_elements/voice-selector": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "0fc465861a7ef0f343f27755a1dd54d333b590fbb7d2b987aff5077aa559fe30",
+    "evidence": "f58b4b1d31dfbfcce0b29ca58c576b9fd4de9a293862810fd2127bcbccd85a44",
     "pass": true,
-    "spec": "02c46fc3d90b9e1a9765ce94a0eb19e3e6db71abe86731ee9e5a2ab2fa924ecb"
+    "spec": "1441344cd8bf6ec8a0108f7076e45fffedbc1eec7cfa3007e4671d08bafc0c03"
   },
   "shadcn/item": {
     "checks": {
@@ -2851,7 +3798,7 @@
         "pass": true
       }
     },
-    "evidence": "a30911dc52983a393465b4718e409fac753b711f103e365fd662bb58e8ec187c",
+    "evidence": "d26ed45c0da43e39622c61e33f7e2864e618999a42d050194ea64c77bbe2ca6b",
     "pass": true,
     "spec": "dab094849fa2cb8b816cf8c92bc10ec29bd28bf17403d43eb5d2e7ec5a2b2c1c"
   },
@@ -2896,7 +3843,7 @@
         "pass": true
       }
     },
-    "evidence": "f9f5b50ecb7214bf04f5f0ef64ff1e8f56fbaa8d3023eb2df0bf95fb8bd3ef68",
+    "evidence": "e5448e7fd29ad3310686ebfb49a7de11d00c3bede17ed75b1d0c4dc052ab81de",
     "pass": true,
     "spec": "ec690fd91370b3ab72c844f97d1ba6af1605171cc12f5fc77bc1a7f13629194d"
   },
@@ -2941,7 +3888,7 @@
         "pass": true
       }
     },
-    "evidence": "ebab0f27e27b3a7b504141cf6cde5cd844288a9221d6df38681c5ecae62bf86c",
+    "evidence": "532094f33057a7d2e448335421221f207e2a85733cb3f1d783fc13d46e1be075",
     "pass": true,
     "spec": "5c0aeb5028a4c0f252f1680cc48c355c57ea0499c253a990fb7cf899642ac6b3"
   },
@@ -2986,7 +3933,7 @@
         "pass": true
       }
     },
-    "evidence": "76a4ef1e643ea265fc9e66010afdf65278f076b7ff5dfea1deafefea9eb24e1a",
+    "evidence": "52f2abcf944f9b744918ffbb4304584432f224501197da44a1baca8e6170442c",
     "pass": true,
     "spec": "7be5e84a32cd5d6a5f2f4e222856a99586e9a67253b854506cb9ae6310a0e170"
   },
@@ -3031,7 +3978,7 @@
         "pass": true
       }
     },
-    "evidence": "467a71c318f3fb34c98b179ea2203c3edfc914f872e9a934d78eaed93fe08380",
+    "evidence": "7b29a10c6211acbbd8945eca7efb348907df52cf9a299d73715a948231dd1b7a",
     "pass": true,
     "spec": "7322835b0afc280543d5676a165c823c7761825f100ce9949c881db738a414cf"
   },
@@ -3076,212 +4023,459 @@
         "pass": true
       }
     },
-    "evidence": "8cc36a137ef9db9436002e20a1e9af7948890bc6f3e3b43a54d6ee581c7cb166",
+    "evidence": "ed7650c8ac25632f15241aef6dc5a50f290274d711742d0197fbcd685192628a",
     "pass": true,
     "spec": "5ed5dc0bd2d345168a570e4817612ce9028ff2a7c479acc7996c877a2af934d3"
   },
   "ai_elements/panel": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "not applicable: 2 local-only HEEx previews; no official comparison",
+        "official_comparison": false,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "d462cc4d17591842c358035118dc0a5bef77260f3d6fb63a59e7a1295ab2cfaa",
+    "evidence": "7f28924580e87b3037578584eac08c8a591c88b77b4d175673e5ed75d5bed176",
     "pass": true,
     "spec": "f1b461df5acb13667317a95951d220526e7fa4e712cc9b728e0b1ade0ed38887"
   },
   "ai_elements/inline-citation": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "6c712fe34ee9241300a53e6f0f6e8ede4db7cad2afe6235d4538f54936ebd7a1",
+    "evidence": "2428e92ca7f9c4ef606649ef629ef7325d4bce5d23f3bd80c70827a6351db669",
     "pass": true,
-    "spec": "959ca2094df99a36de396416c469d56f20e5b4c173197623e53d5f077072ac93"
+    "spec": "2c624392a1a88174080a9b904f0294fccacfdbd38fd2ac49d1caad25babb6ddf"
   },
   "ai_elements/model-selector": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "82a59a514aa09495fb3e178c5980365a61c36ad0847de64fd7fe7a9bf0cbbb3d",
+    "evidence": "4f0f96a49032c2d18245e8e17dc9ead4296e77bf2cf933176cdbb39084c3fbfc",
     "pass": true,
     "spec": "08363bc139bb1bbea0ad8cedddeda5c62bfb105f09d76bba31972d12ba9525f3"
   },
   "ai_elements/commit": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "3de86f427760584c6775d6476b5ab8b1d8a45d3db28fd8721af440ed07baeffb",
+    "evidence": "e651ed95ed0645a4517e76c9c07ff331397222055e81048133595a2d24d96fe7",
     "pass": true,
-    "spec": "4ff6c542c04b6d6901831bfe11ec5f71827d19aef58cc60dc81f0dc715c04f76"
+    "spec": "46c1a86be6f97e8a147a4e50fe4e784cc6ee6a1058ef14b6b8d9a2c4f0652246"
   },
   "ai_elements/audio-player": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "2 of 2 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "f48457f45973764ba5f598d907b3869671fc2fb2487813c646136a4a59c1549d",
+    "evidence": "62d23c8f933e695e812118352a9446c354409ddefe852e5625156bef4ef707fd",
     "pass": true,
     "spec": "40c2c3865a9ffe0f53b8973c08f0a89e783880799d5a98299dc7c0936858dee2"
   },
   "ai_elements/suggestion": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "2 of 2 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "745bc2262adfa7d7bfdfb686fbd80d48497fe9facb28d878ea1f376f334c9a19",
+    "evidence": "06ad45bd1c8c622e1224ebe87d5254a582c21e2e0b0e1316a7cbb63feafc547c",
     "pass": true,
     "spec": "cb0da9ff1b63157cfb9c6617c1039288e66caeca685d936c48c32314cb046823"
   },
   "ai_elements/conversation": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "b9946bba83bca9a90042dde84742280d9b1a3a1898cacf8c4bcee04413928f25",
+    "evidence": "5e5164439725f17e6ff5a0d5279c3b476336e69bb6cb364d2fff2dda9dc1996f",
     "pass": true,
     "spec": "e3c33b61aedc11afa6deba578341796ea51b755d2d1d135390723537b9e45dee"
   },
   "ai_elements/question": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
         "pass": true
       },
       "examples": {
         "detail": "4 of 4 official examples have HEEx previews",
         "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "96009544a3dd2f6e9c14c006c89c6cbad5af1fb53f8f5957f43c07671bc0aa6d",
+    "evidence": "3cadb69618489e1b575709f11e2545b605f056b96027d6f209301dc6fd909b30",
     "pass": true,
-    "spec": "263ce748cccfb17e84c92f97099d18c3075954210c1787400b526c13ec0f1ad6"
+    "spec": "e38fd5e1a99380403ca784cddccb23c76cb7d07625d4a613a551c4771830cc85"
   },
   "ai_elements/transcription": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "6b80981e06da11372275c3fe1d17917cddf07e6775c8a9d7d3fdce517ba23c50",
+    "evidence": "b11cf86f96babdb3ae9730e77781f961234e57dceaf46ca71aa1d0a9c9dfd84b",
     "pass": true,
-    "spec": "cee7792f7801c040cba3b02c2bc4d5fd924366f90429ec356eecc04c5c194820"
+    "spec": "e5671d2cc7e9fdfec4f8f33dc6703fa38f871e25cd4aba2017bf79c761b50ccf"
   },
   "shadcn/separator": {
     "checks": {
@@ -3324,7 +4518,7 @@
         "pass": true
       }
     },
-    "evidence": "edbdd84e50a42a62a3d201873019e8025b4672c269714028a9dc66b3b9765e8f",
+    "evidence": "939f44cb2e56903732a8a34e18d2794a36c11633469eb4747966fb10337d97e2",
     "pass": true,
     "spec": "ac85ee6d3dffded7d6db06e6036dbe50de13da6a45bb10b95fa2bc1f3a5f7f46"
   },
@@ -3369,31 +4563,59 @@
         "pass": true
       }
     },
-    "evidence": "796fdcd45a479fc6f1819d94fae8d113adbfe6ebfd240a7ed4d3b3c481d6b528",
+    "evidence": "dbac3ae623d8d1b2ffaaf4ee3f56c76d65967ae4ada772a649bb1c19778499bc",
     "pass": true,
     "spec": "30b3f91ad49b08b37512d2c7ee8156ba28c19003b7fd90b53c3b40a17c048aa4"
   },
   "ai_elements/prompt-input": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "3 of 3 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "a806df9b15fbb99053eadf2eaa98ee58a8b08141de4f873323418c38d0d6b2ee",
+    "evidence": "6cb0715afbcf15d3622a45af576f926663a5bec73a6589d2d76f2a823a508951",
     "pass": true,
-    "spec": "b9e2e2a453e5e052361c94cf69a4a70563e3bbf27b08a8ae3641620170a510b8"
+    "spec": "45a800dfe955c3e1222363dae35b829dd1cb98169401a7ce74c2ef0d6de4cdf0"
   },
   "shadcn/navigation-menu": {
     "checks": {
@@ -3436,7 +4658,7 @@
         "pass": true
       }
     },
-    "evidence": "ce60abd01c31f974dc332ea2819ff7534af01ccd14b1c58b7f28fc418d83ce20",
+    "evidence": "bcd3f907c690f7f7ead6a47f1ee8ea7b487294157102f3f91d53579d6cc25341",
     "pass": true,
     "spec": "651af72a981f05e5256b9247424a832e95369902716fa53339875da128396158"
   },
@@ -3481,51 +4703,107 @@
         "pass": true
       }
     },
-    "evidence": "f603bad7f97716a46c4339475bec65524620ad8a635c342b9633df66b2bc9d40",
+    "evidence": "aa2989ab1c5984e3fbaeccea743e7d8865cdf095bbb2384f8e4a44c658f735a1",
     "pass": true,
     "spec": "c2421b48ff5165ad061a295f1dded89545d729c7714b620b41423994fe0ce809"
   },
   "ai_elements/code-block": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "2 of 2 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "96e8be34ecb452fdad39597c45cfec8a3d82e3d6204c0bcd99c043266b22b5eb",
+    "evidence": "a8ab861725d686496bfc27b86ff9b1d69c8441a637697ee3643d8fac0b857064",
     "pass": true,
-    "spec": "54f3345958b54c8fc3beb4eaf636d4a22b03f3a51369dc6b7a647e1e0ddcaaba"
+    "spec": "6673d1bc6a6fde0a9bd60ca6af7eecb48cc41b1d5a3935a4f4a831c525afab29"
   },
   "ai_elements/agent": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "1 of 1 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "4405dcf8bbea2873eb1714755682e2f0dab609fac685ddf5edfc09799334f558",
+    "evidence": "7fec8828d03f82829a71788a41c2789eee00f9158dd52bf36e234b5b695354df",
     "pass": true,
     "spec": "f2a56bb555f144b1beb9517cb6a111262c6b06ac083e694e1483045d20fb5180"
   },
@@ -3570,7 +4848,7 @@
         "pass": true
       }
     },
-    "evidence": "2bb9349713ce426ecbb6dd8d47ffd21ee30e4f9cf3453fa5f0a0242272e31465",
+    "evidence": "8c4d948431e2d0c423a0feacb9753598bb571b8aa8fb0dce98ad47e96fc49837",
     "pass": true,
     "spec": "eab85a764736082e9f964609f3a6f622069adc9cedd1f68106bbec602d7231d5"
   },
@@ -3615,7 +4893,7 @@
         "pass": true
       }
     },
-    "evidence": "b6f85711a5ae597713c78042fe2f6c0a19e1d75c045f33beea85491dd2efe191",
+    "evidence": "d4fa5d36c55b5dd88f0519f732bc8ac2ff88d20592cca07f4ee1d9fa328c2b05",
     "pass": true,
     "spec": "8f2c1c4d64a90f52488985c6732003e0863ddbf541f4a74bac985e7e14f3c75a"
   },
@@ -3660,31 +4938,59 @@
         "pass": true
       }
     },
-    "evidence": "10e713d89ac6abb5050df0c20ce1d7cf72fcc2fd7ed3493e91a57fceecc986b0",
+    "evidence": "05c5914a81bd764adfd65e992f82d96bd9c6b4d6648a64884be65a949b9407fc",
     "pass": true,
     "spec": "24a36822c6682d80d24b8bc6a6e2211820446f372240e0190d8ae422453f4c8e"
   },
   "ai_elements/file-tree": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "4 of 4 official examples have HEEx previews",
+        "official_comparison": true,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "447d53cce984943f6bcc332d76ce6d209af27a34a024f455754e1c25ca9444ce",
+    "evidence": "78a295c67780c6df642d34d72b0558c43a9a1bf01a30cf865eb16915d2027936",
     "pass": true,
-    "spec": "f16e485db01c941c5fb30a5b0beecb44ec24a0f3cc1302f65ccc7f83c6f9285b"
+    "spec": "2320a4ddf880449b839a5a6bc5962253e3a23842f74803b4f181ca947a1e265c"
   },
   "shadcn/drawer": {
     "checks": {
@@ -3727,29 +5033,57 @@
         "pass": true
       }
     },
-    "evidence": "953f08cda8295e718d4aed18da1478b3dde033a0a4499b02b9e7153c3669611c",
+    "evidence": "b150c10942fd1a733c11c587d96ba2eaaa6d0d0b8826427686c5a74a938e967a",
     "pass": true,
     "spec": "3c1e45e065736277de0ab5cc18ac8b4e9257dda6a5c20634441bb35164332034"
   },
   "ai_elements/connection": {
     "checks": {
+      "accessibility": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "behavior": {
+        "outcome": "passed",
+        "pass": true
+      },
       "browser": {
+        "outcome": "passed",
+        "pass": true
+      },
+      "examples": {
+        "detail": "not applicable: 2 local-only HEEx previews; no official comparison",
+        "official_comparison": false,
+        "outcome": "passed",
         "pass": true
       },
       "generated": {
+        "outcome": "passed",
         "pass": true
       },
       "parity": {
-        "pass": true
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
       },
       "pixel": {
+        "detail": "not applicable: AI Elements uses agent-authored local contract checks. Base UI, React semantic parity, and pixel parity do not apply.",
+        "gated": false,
+        "outcome": "not_applicable",
+        "pass": false
+      },
+      "policy": {
+        "detail": "required checks for authored policy",
+        "outcome": "passed",
         "pass": true
       },
       "snapshot": {
+        "outcome": "passed",
         "pass": true
       }
     },
-    "evidence": "4fc835609c58ab730e67c6cfd3dd0d3e05b20fe9ba05a3cc6c805b0642b67274",
+    "evidence": "073ef958b6784ec7a3d106156676f267624f206a0ff48b5bd1a22e893b80dc84",
     "pass": true,
     "spec": "e2a0fb7e7c68d4294af152e9d5a6d1c0fcdd49fd1ecc95a45df94b20fddf53b2"
   },
@@ -3794,7 +5128,7 @@
         "pass": true
       }
     },
-    "evidence": "aba0b051ca000d1436635aa5bb61ad945a2f6eced228e6bc41edaf628d8f40c3",
+    "evidence": "9630aa24be586a00f15ffe076c398f44c4bc941dcaa214db65e6674183062041",
     "pass": true,
     "spec": "07857005cee5aae4524be16ecadb3b911b0009c599fb243466937aa1d5c80442"
   },
@@ -3839,7 +5173,7 @@
         "pass": true
       }
     },
-    "evidence": "59a30043fc4e93306864310159d479f42626171791afe25bf62de80d751c94a3",
+    "evidence": "9e0fdeec07a346aadd8776b566c53ffbcd45a902c33ad213539b354c8b19507e",
     "pass": true,
     "spec": "6406a9025a436eda3e8da53c7dbede98e14dfc18a5ddf86371cdc63c31eb6b63"
   },
@@ -3884,7 +5218,7 @@
         "pass": true
       }
     },
-    "evidence": "000225c0d0da7e79dfb7e67271f059da46065ef4b116714844bbc3a076663a15",
+    "evidence": "0c4502b2c2931b893325d1dcb9de9c8059d58f8c7c23589c2f754df1b8aa6dbe",
     "pass": true,
     "spec": "c0dc7450063e96c48067e8f564a1dc07f949ca8311d5ab3359f7a81ff1ec6594"
   },
@@ -3929,7 +5263,7 @@
         "pass": true
       }
     },
-    "evidence": "0027a6b8284a2762f8527334e634d5a8e3c07cef691215c527a3890d131276ad",
+    "evidence": "f4e0adfdd7930f5913e30fed0363f0c28db3f8026fe74c3a715748170434d140",
     "pass": true,
     "spec": "101f01cfc4ba8b44975dd15ed5c06606e3e794c96b24992857175a2fa9730a4a"
   }
