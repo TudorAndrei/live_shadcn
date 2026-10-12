@@ -22,12 +22,14 @@ import AxeBuilder from "@axe-core/playwright";
 
 import { regressions, stableViolations } from "./accessibility.mjs";
 import { source } from "./registries.mjs";
-import { connected } from "./live.mjs";
+import { connected, referenceReady } from "./live.mjs";
 import { parityTimeoutMs } from "./parity-timeout.mjs";
 import {
   enterVisualState,
+  installBrowserFixtures,
   visualStateIdentity,
   visualStates,
+  waitForFixtureImages,
   waitForTimedExample,
 } from "./visual-states.mjs";
 
@@ -81,6 +83,7 @@ for (const { component, example } of pages) {
     { page },
     testInfo,
   ) => {
+    await installBrowserFixtures(page);
     const path = `/preview/${component}/${example}`;
     const selector = `[data-preview='${component}']`;
 
@@ -124,6 +127,8 @@ for (const { component, example } of pages) {
 async function statesAt(page, url, selector, live = false) {
   await page.goto(url);
   if (live) await connected(page);
+  await referenceReady(page);
+  await waitForFixtureImages(page);
   return visualStates(page, selector);
 }
 
@@ -135,6 +140,7 @@ async function scan(page, url, selector, state, live = false) {
   await expect(page.locator(selector)).toBeAttached();
   await enterVisualState(page, selector, state);
   await waitForTimedExample(page, selector);
+  await waitForFixtureImages(page);
 
   const result = await new AxeBuilder({ page })
     .include(selector)
