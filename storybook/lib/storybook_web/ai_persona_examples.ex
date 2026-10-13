@@ -21,14 +21,14 @@ defmodule StorybookWeb.AiPersonaExamples do
         description: "The pinned Persona variant with five animation states.",
         render: fn assigns -> render_example(assign(assigns, :variant, variant)) end,
         snapshot_component: __MODULE__,
-        snapshot_assigns: [id: "persona-example", variant: variant]
+        snapshot_assigns: [id: "persona-example-#{variant}", variant: variant]
       }
     end
   end
 
   def render_example(assigns) do
     ~H"""
-    <.live_component module={__MODULE__} id="persona-example" variant={@variant} />
+    <.live_component module={__MODULE__} id={"persona-example-#{@variant}"} variant={@variant} />
     """
   end
 
@@ -44,11 +44,11 @@ defmodule StorybookWeb.AiPersonaExamples do
   def render(assigns) do
     ~H"""
     <div class="flex size-full flex-col items-center justify-center gap-4">
-      <Persona.persona id="persona-demo" class="size-32" variant={@variant} state={@state} />
+      <Persona.persona id={"#{@id}-visual"} class="size-32" variant={@variant} state={@state} />
       <ButtonGroup.button_group orientation="horizontal" aria-label="Persona state">
         <Tooltip.tooltip
           :for={{state, label, icon} <- @states}
-          id={"persona-#{state}-tooltip"}
+          id={"#{@id}-#{state}-tooltip"}
           trigger_size="icon-sm"
           trigger_variant={if(@state == state, do: "default", else: "outline")}
           trigger_label={label}

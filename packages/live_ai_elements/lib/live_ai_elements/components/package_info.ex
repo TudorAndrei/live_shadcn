@@ -221,7 +221,7 @@ defmodule LiveAiElements.Components.PackageInfo do
   def package_info_dependencies(assigns) do
     ~H"""
     <div class={[upstream_fact("jsx/PackageInfoDependencies/class/0"), (@class || "")]} {@rest}>
-      <span class={upstream_fact("jsx/PackageInfoDependencies/class/1")}>
+      <span class={[upstream_fact("jsx/PackageInfoDependencies/class/1"), "block"]}>
         Dependencies
       </span>
       <div class={upstream_fact("jsx/PackageInfoDependencies/class/2")}>

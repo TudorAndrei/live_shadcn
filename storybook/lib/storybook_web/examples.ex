@@ -2780,12 +2780,15 @@ defmodule StorybookWeb.Examples do
     [
       one(
         "default",
-        "A model, and what it may reach for",
-        "The output is a code block, which is why neither generated until the " <>
-          "other did.",
+        "Model and tools",
+        "Show an agent's model, instructions, and tools.",
         &agent_default/1
       )
-    ] ++ contract_examples("agent", StorybookWeb.AiCodeContracts)
+    ] ++
+      contract_examples("agent", StorybookWeb.AiCodeContracts,
+        title: "Code review agent",
+        description: "Expand read_file to inspect the tool input schema."
+      )
   end
 
   def all("audio-player") do
@@ -2802,7 +2805,7 @@ defmodule StorybookWeb.Examples do
         "remote",
         "Remote audio",
         "The pinned remote audio player with a complete control bar.",
-        &audio_player_default/1
+        &audio_player_remote/1
       )
     ]
   end
@@ -3633,12 +3636,17 @@ defmodule StorybookWeb.Examples do
 
   def all(_component), do: []
 
-  defp contract_examples(component, module) do
+  defp contract_examples(component, module, options \\ []) do
     [
       %{
         id: "contract",
-        title: "Component contract",
-        description: "An application example with automatic checks for its supported behavior.",
+        title: Keyword.get(options, :title, "Component contract"),
+        description:
+          Keyword.get(
+            options,
+            :description,
+            "An application example with automatic checks for its supported behavior."
+          ),
         render: fn assigns -> module.render_example(assign(assigns, :component, component)) end,
         snapshot_component: module,
         snapshot_assigns: [id: "ai-contract", component: component]
@@ -11983,6 +11991,8 @@ defmodule StorybookWeb.Examples do
   end
 
   defp audio_player_default(assigns) do
+    assigns = assign_new(assigns, :audio_player_id, fn -> "player" end)
+
     ~H"""
     <%!-- A custom element owns its own DOM: media-chrome writes `mediapaused`,
          `mediavolume` and a dozen more onto the controller once the browser
@@ -11990,7 +12000,10 @@ defmodule StorybookWeb.Examples do
          is what hands the subtree over, and every LiveView that renders a
          custom element needs it. --%>
     <div class="flex size-full items-center justify-center">
-      <LiveAiElements.Components.AudioPlayer.audio_player id="player" phx-update="ignore">
+      <LiveAiElements.Components.AudioPlayer.audio_player
+        id={@audio_player_id}
+        phx-update="ignore"
+      >
         <LiveAiElements.Components.AudioPlayer.audio_player_element
           src="https://ejiidnob33g9ap1r.public.blob.vercel-storage.com/ElevenLabs_2025-11-10T22_07_46_Hayden_pvc_sp108_s50_sb75_se0_b_m2.mp3"
           preload="metadata"
@@ -12009,6 +12022,9 @@ defmodule StorybookWeb.Examples do
     </div>
     """
   end
+
+  defp audio_player_remote(assigns),
+    do: audio_player_default(assign(assigns, :audio_player_id, "player-remote"))
 
   defp context_default(assigns) do
     ~H"""

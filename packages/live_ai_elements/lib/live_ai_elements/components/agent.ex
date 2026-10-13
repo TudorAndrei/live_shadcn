@@ -2,11 +2,8 @@ defmodule LiveAiElements.Components.Agent do
   @moduledoc """
   Agent. Built on `shadcn/accordion`.
 
-  Upstream exports 1 more part, each a thin
-  wrapper around a part of `<.accordion>`. That component is one
-  function here — its parts have to agree about which one they belong to,
-  and an id repeated is an id to mistype — so it is what to compose inside
-  this, and there is nothing for the wrappers to wrap.
+  Compose `LiveShadcn.UI.Accordion` inside `agent_tools`.
+  The tools container supplies the Agent trigger and panel spacing.
 
   Reviewed from upstream. The marked upstream fact block is synchronized.
   The HEEx body is maintained as a LiveView port.
@@ -15,6 +12,7 @@ defmodule LiveAiElements.Components.Agent do
   use Phoenix.Component
 
   alias LiveAiElements.Shadcn
+  alias LiveShadcn.Cn
 
   # live-shadcn: upstream facts start
   @upstream_facts %{
@@ -47,7 +45,7 @@ defmodule LiveAiElements.Components.Agent do
 
   def agent(assigns) do
     ~H"""
-    <div class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/0"), (@class || "")]} {@rest}>
+    <div class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/0"), "min-w-0", @class]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -63,16 +61,16 @@ defmodule LiveAiElements.Components.Agent do
 
   def agent_header(assigns) do
     ~H"""
-    <div class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/1"), (@class || "")]} {@rest}>
-      <div class={upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/2")}>
-        <LiveShadcn.Icon.icon name="bot" class={upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/3")} />
-        <span class={upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/4")}>
+    <div class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/1"), "flex-wrap", @class]} {@rest}>
+      <div class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/2"), "min-w-0 flex-wrap"]}>
+        <LiveShadcn.Icon.icon name="bot" class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/3"), "shrink-0"]} />
+        <span class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/4"), "min-w-0 [overflow-wrap:anywhere]"]}>
           {@name}
         </span>
         <span
           :if={@model}
           data-slot="badge"
-          class={[Shadcn.badge_class(@variant), upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/5")]}
+          class={Cn.merge([Shadcn.badge_class(@variant), upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/5"), "max-w-full whitespace-normal [overflow-wrap:anywhere]"])}
         >
           {@model}
         </span>
@@ -105,7 +103,7 @@ defmodule LiveAiElements.Components.Agent do
   def agent_instructions(assigns) do
     ~H"""
     <div class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/10"), (@class || "")]} {@rest}>
-      <span class={upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/11")}>
+      <span class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/11"), "block"]}>
         Instructions
       </span>
       <div class={upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/9")}>
@@ -126,12 +124,17 @@ defmodule LiveAiElements.Components.Agent do
   def agent_tools(assigns) do
     ~H"""
     <div class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/10"), (@class || "")]}>
-      <span class={upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/11")}>
+      <span class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/11"), "block"]}>
         Tools
       </span>
       <div
         data-slot={@rest[:"data-slot"] || "accordion"}
-        class={upstream_fact("port/class/0")}
+        class={[
+          upstream_fact("port/class/0"),
+          "[&_[data-slot=accordion-trigger]]:gap-4 [&_[data-slot=accordion-trigger]]:px-3 [&_[data-slot=accordion-trigger]]:py-2! [&_[data-slot=accordion-trigger]]:hover:no-underline!",
+          "[&_[data-slot=accordion-content]>div]:px-3 [&_[data-slot=accordion-content]>div]:pb-3!",
+          "[&_[data-slot=accordion-content]_[data-language]]:[content-visibility:visible]!"
+        ]}
         {Map.drop(@rest, [:"data-slot"])}
       >
         {render_slot(@inner_block)}
@@ -149,7 +152,7 @@ defmodule LiveAiElements.Components.Agent do
   def agent_output(assigns) do
     ~H"""
     <div class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/10"), (@class || "")]} {@rest}>
-      <span class={upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/11")}>
+      <span class={[upstream_fact("file/ai_elements/agent.tsx/jsx/anonymous/class/11"), "block"]}>
         Output Schema
       </span>
       <div class={upstream_fact("jsx/anonymous/class/16")}>

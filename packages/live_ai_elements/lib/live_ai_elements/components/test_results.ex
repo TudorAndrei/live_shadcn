@@ -64,7 +64,7 @@ defmodule LiveAiElements.Components.TestResults do
 
   def test_results_header(assigns) do
     ~H"""
-    <div class={[upstream_fact("jsx/TestResultsHeader/class/0"), @class || ""]} {@rest}>
+    <div class={[upstream_fact("jsx/TestResultsHeader/class/0"), "flex-wrap gap-3", @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -105,7 +105,7 @@ defmodule LiveAiElements.Components.TestResults do
     ~H"""
     <div
       :if={@summary}
-      class={[upstream_fact("jsx/TestResultsSummary/class/0"), @class || ""]}
+      class={[upstream_fact("jsx/TestResultsSummary/class/0"), "min-w-0 flex-wrap", @class || ""]}
       {@rest}
     >
       <%= if @inner_block == [] do %>

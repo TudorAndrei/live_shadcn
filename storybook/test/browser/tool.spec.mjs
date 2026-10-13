@@ -36,9 +36,10 @@ for (const [state, label, name, content] of [
   ["output-error", "Error", "api_request", "Connection timeout: The request took longer than 5000ms to complete."],
 ]) {
   test(`tool ${state} shows its status and disclosed payload`, async ({ page }) => {
-    await visit(page, `/preview/tool/${state}`, "#variant-tool");
-    const trigger = page.locator("#variant-tool-trigger");
-    const panel = page.locator("#variant-tool-panel");
+    const id = `ai-variant-tool-${state}-tool`;
+    await visit(page, `/preview/tool/${state}`, `#${id}`);
+    const trigger = page.locator(`#${id}-trigger`);
+    const panel = page.locator(`#${id}-panel`);
     await expect(trigger).toContainText(name);
     await expect(trigger.locator("[data-slot=badge]")).toHaveText(label);
     await expect(panel).toBeHidden();

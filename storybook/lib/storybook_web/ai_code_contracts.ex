@@ -15,7 +15,7 @@ defmodule StorybookWeb.AiCodeContracts do
     TestResults
   }
 
-  alias LiveShadcn.UI.{Accordion, Collapsible, Tabs}
+  alias LiveShadcn.UI.{Accordion, Button, Collapsible, Tabs}
   alias Phoenix.LiveView.JS
 
   def render_example(assigns) do
@@ -183,12 +183,14 @@ defmodule StorybookWeb.AiCodeContracts do
             </Artifact.artifact_header>
             <Artifact.artifact_content>Review content {@artifact_version}</Artifact.artifact_content>
           </Artifact.artifact>
-          <button
+          <Button.button
             :if={!@artifact_open}
+            size="sm"
+            variant="outline"
             type="button"
             phx-click="restore_artifact"
             phx-target={@myself}
-          >Open review</button>
+          >Open review</Button.button>
         <% "code-block" -> %>
           <CodeBlock.code_block id="plain-code" code={@code} language="html" show_line_numbers>
             <CodeBlock.code_block_header>
@@ -216,8 +218,22 @@ defmodule StorybookWeb.AiCodeContracts do
               if @jsx_error, do: %{message: "The closing tag is missing."}
             } />
           </JsxPreview.jsx_preview>
-          <button type="button" phx-click="jsx_error" phx-target={@myself}>Show compilation error</button>
-          <button type="button" phx-click="jsx_recover" phx-target={@myself}>Restore compiled preview</button>
+          <div class="flex flex-wrap gap-2">
+            <Button.button
+              size="sm"
+              variant="outline"
+              type="button"
+              phx-click="jsx_error"
+              phx-target={@myself}
+            >Show compilation error</Button.button>
+            <Button.button
+              size="sm"
+              variant="outline"
+              type="button"
+              phx-click="jsx_recover"
+              phx-target={@myself}
+            >Restore compiled preview</Button.button>
+          </div>
           <JsxPreview.jsx_preview_error id="custom-preview-error" error="Compile failed">
             <p>Custom error details</p>
           </JsxPreview.jsx_preview_error>
@@ -243,7 +259,13 @@ defmodule StorybookWeb.AiCodeContracts do
               </PackageInfo.package_info_dependencies>
             </PackageInfo.package_info_content>
           </PackageInfo.package_info>
-          <button type="button" phx-click="update_package" phx-target={@myself}>Use minor update</button>
+          <Button.button
+            size="sm"
+            variant="outline"
+            type="button"
+            phx-click="update_package"
+            phx-target={@myself}
+          >Use minor update</Button.button>
         <% "sandbox" -> %>
           <Collapsible.collapsible id="code-sandbox" title="Generated application" open>
             <Sandbox.sandbox_tabs_bar>
@@ -293,8 +315,22 @@ defmodule StorybookWeb.AiCodeContracts do
               </TestResults.test_suite>
             </TestResults.test_results_content>
           </TestResults.test_results>
-          <button type="button" phx-click="finish_results" phx-target={@myself}>Finish test run</button>
-          <button type="button" phx-click="empty_results" phx-target={@myself}>Clear test results</button>
+          <div class="flex flex-wrap gap-2">
+            <Button.button
+              size="sm"
+              variant="outline"
+              type="button"
+              phx-click="finish_results"
+              phx-target={@myself}
+            >Finish test run</Button.button>
+            <Button.button
+              size="sm"
+              variant="outline"
+              type="button"
+              phx-click="empty_results"
+              phx-target={@myself}
+            >Clear test results</Button.button>
+          </div>
         <% "stack-trace" -> %>
           <StackTrace.stack_trace>
             <StackTrace.stack_trace_header>
@@ -318,7 +354,13 @@ defmodule StorybookWeb.AiCodeContracts do
               on_select={JS.push("select_frame", target: @myself)}
             />
           </StackTrace.stack_trace>
-          <button type="button" phx-click="show_internal_frames" phx-target={@myself}>Include internal frames</button>
+          <Button.button
+            size="sm"
+            variant="outline"
+            type="button"
+            phx-click="show_internal_frames"
+            phx-target={@myself}
+          >Include internal frames</Button.button>
           <p :if={@frame_selection} role="status">Selected {@frame_selection}</p>
           <StackTrace.stack_trace_frames id="empty-trace" />
         <% "terminal" -> %>
@@ -329,8 +371,22 @@ defmodule StorybookWeb.AiCodeContracts do
             auto_scroll={@terminal_scroll}
             on_clear={JS.push("clear_terminal", target: @myself)}
           />
-          <button type="button" phx-click="append_terminal" phx-target={@myself}>Append output</button>
-          <button type="button" phx-click="disable_terminal_scroll" phx-target={@myself}>Keep scroll position</button>
+          <div class="flex flex-wrap gap-2">
+            <Button.button
+              size="sm"
+              variant="outline"
+              type="button"
+              phx-click="append_terminal"
+              phx-target={@myself}
+            >Append output</Button.button>
+            <Button.button
+              size="sm"
+              variant="outline"
+              type="button"
+              phx-click="disable_terminal_scroll"
+              phx-target={@myself}
+            >Keep scroll position</Button.button>
+          </div>
       <% end %>
     </div>
     """

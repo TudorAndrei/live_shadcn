@@ -139,7 +139,7 @@ test("a streaming prompt action calls Stop without submitting a new message", as
 });
 
 test("prompt tooltips show their text and keyboard shortcuts", async ({ page }) => {
-  await visit(page, "/preview/prompt-input/tooltip", "#variant-message");
+  await visit(page, "/preview/prompt-input/tooltip", 'textarea[aria-label="Message"]');
   for (const [id, text] of [["attach", "Attach files"], ["search", "Search the web ⌘K"], ["voice", "Voice input ⌘M"]]) {
     await page.locator(`#prompt-${id}-tooltip-trigger`).hover();
     await expect(page.locator(`#prompt-${id}-tooltip-popup`)).toHaveText(text);
@@ -153,12 +153,12 @@ test("the cursor prompt adds reference files and selects a model", async ({ page
     contentType: "image/svg+xml",
     body: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"/>',
   }));
-  await visit(page, "/preview/prompt-input/cursor", "#variant-message");
+  await visit(page, "/preview/prompt-input/cursor", 'textarea[aria-label="Message"]');
   await page.locator("#cursor-files-trigger").hover();
   const source = page.locator("#cursor-files-list [role=option]").filter({ hasText: "prompt-input.tsx" });
   await expect(source).toBeVisible();
   await source.click();
-  await expect(page.locator("#variant-attachments")).toContainText("prompt-input.tsx");
+  await expect(page.locator("#ai-variant-prompt-input-cursor-attachments")).toContainText("prompt-input.tsx");
   await page.keyboard.press("Escape");
   await page.locator("#variant-model-trigger").click();
   await page.getByRole("combobox", { name: "Search models" }).fill("Claude 4 Sonnet");

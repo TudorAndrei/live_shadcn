@@ -107,7 +107,7 @@ defmodule StorybookWeb.AiChatbotExamples do
         description: "The pinned AI Elements #{id} example.",
         render: fn assigns -> example(assign(assigns, :kind, kind)) end,
         snapshot_component: __MODULE__,
-        snapshot_assigns: [id: "ai-variant", kind: kind]
+        snapshot_assigns: [id: variant_id(kind), kind: kind]
       }
     end
   end
@@ -116,9 +116,11 @@ defmodule StorybookWeb.AiChatbotExamples do
 
   def example(assigns) do
     ~H"""
-    <.live_component module={__MODULE__} id="ai-variant" kind={@kind} />
+    <.live_component module={__MODULE__} id={variant_id(@kind)} kind={@kind} />
     """
   end
+
+  defp variant_id(kind), do: "ai-variant-" <> String.replace(kind, "/", "-")
 
   @impl true
   def mount(socket) do
@@ -245,12 +247,13 @@ defmodule StorybookWeb.AiChatbotExamples do
       assign(assigns, models: @models, sample_sources: @sources, suggestions: @suggestions)
 
     ~H"""
-    <div id="ai-chatbot-example" class="w-full max-w-2xl space-y-4">
+    <div id={@id} class="w-full max-w-2xl space-y-4">
       <.shimmer_duration :if={@kind == "shimmer/duration"} />
       <.shimmer_elements :if={@kind == "shimmer/elements"} />
       <.custom_sources :if={@kind == "sources/custom"} />
       <.tool_example
         :if={String.starts_with?(@kind, "tool/")}
+        id={"#{@id}-tool"}
         state={String.replace_prefix(@kind, "tool/", "")}
       />
 
@@ -303,7 +306,7 @@ defmodule StorybookWeb.AiChatbotExamples do
           </ul>
         </Queue.queue>
         <PromptInput.prompt_input
-          id="variant-prompt"
+          id={"#{@id}-prompt"}
           global_drop={@kind in ["prompt-input/cursor", "queue/prompt-input"]}
           multiple
           on_files_change="files"
@@ -317,14 +320,14 @@ defmodule StorybookWeb.AiChatbotExamples do
               sample_sources={@sample_sources}
               target={@myself}
             />
-            <Attachments.attachments id="variant-attachments" variant="inline">
+            <Attachments.attachments id={"#{@id}-attachments"} variant="inline">
               <Attachments.attachment
                 :for={file <- @files}
                 data={file}
                 variant="inline"
                 on_remove={
                   JS.dispatch("live-ai:prompt-remove",
-                    to: "#variant-prompt",
+                    to: "##{@id}-prompt",
                     detail: %{id: file["id"]}
                   )
                 }
@@ -338,7 +341,7 @@ defmodule StorybookWeb.AiChatbotExamples do
             </Attachments.attachments>
           </PromptInput.prompt_input_header>
           <PromptInput.prompt_input_textarea
-            id="variant-message"
+            id={"#{@id}-message"}
             value={@text}
             aria-label="Message"
             placeholder={
@@ -358,7 +361,7 @@ defmodule StorybookWeb.AiChatbotExamples do
                 :if={@kind in ["queue/prompt-input", "suggestion/input"]}
                 type="button"
                 aria-label="Attach files"
-                phx-click={JS.dispatch("click", to: "#variant-prompt [data-ai-prompt-files]")}
+                phx-click={JS.dispatch("click", to: "##{@id}-prompt [data-ai-prompt-files]")}
               ><LiveShadcn.Icon.icon name="plus" /></button>
               <button :if={@kind == "suggestion/input"} type="button" aria-label="Voice input"><LiveShadcn.Icon.icon name="mic" /></button>
               <button :if={@kind in ["queue/prompt-input", "suggestion/input"]} type="button"><LiveShadcn.Icon.icon name="globe" />
@@ -391,7 +394,7 @@ defmodule StorybookWeb.AiChatbotExamples do
               :if={@kind == "prompt-input/cursor"}
               type="button"
               aria-label="Attach image"
-              phx-click={JS.dispatch("click", to: "#variant-prompt [data-ai-prompt-files]")}
+              phx-click={JS.dispatch("click", to: "##{@id}-prompt [data-ai-prompt-files]")}
             ><LiveShadcn.Icon.icon name="image" /></button>
             <PromptInput.prompt_input_submit status={@status} on_stop="stop" phx-target={@myself} />
           </PromptInput.prompt_input_footer>
@@ -645,7 +648,7 @@ defmodule StorybookWeb.AiChatbotExamples do
 
     ~H"""
     <div style="height: 500px;">
-      <Tool.tool id="variant-tool" title={@tool.name} state={@state} variant="secondary">
+      <Tool.tool id={@id} title={@tool.name} state={@state} variant="secondary">
         <h3>Parameters</h3>
         <CodeBlock.code_block_content code={Jason.encode!(@tool.input, pretty: true)} language="json" />
         <h3 :if={@tool[:output]}>Result</h3>

@@ -135,10 +135,12 @@ Build error
       </pre>
     </div>
   </div>
-  <button type="button" phx-click="append_terminal" phx-target="-1">
-    Append output
-  </button>
-  <button type="button" phx-click="disable_terminal_scroll" phx-target="-1">
-    Keep scroll position
-  </button>
+  <div class="flex flex-wrap gap-2">
+    <button data-slot="button" type="button" phx-click="append_terminal" phx-target="-1" class="cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 cn-button-variant-outline cn-button-size-sm">
+      Append output
+    </button>
+    <button data-slot="button" type="button" phx-click="disable_terminal_scroll" phx-target="-1" class="cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 cn-button-variant-outline cn-button-size-sm">
+      Keep scroll position
+    </button>
+  </div>
 </div>

@@ -65,7 +65,7 @@
     </p>
     <div class="mt-3 border-t pt-3 ">
       <div class="space-y-2 ">
-        <span class="font-medium text-muted-foreground text-xs uppercase tracking-wide">
+        <span class="font-medium text-muted-foreground text-xs uppercase tracking-wide block">
           Dependencies
         </span>
         <div class="space-y-1">
@@ -89,7 +89,7 @@
       </div>
     </div>
   </div>
-  <button type="button" phx-click="update_package" phx-target="-1">
+  <button data-slot="button" type="button" phx-click="update_package" phx-target="-1" class="cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 cn-button-variant-outline cn-button-size-sm">
     Use minor update
   </button>
 </div>

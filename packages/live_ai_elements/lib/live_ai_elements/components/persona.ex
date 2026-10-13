@@ -50,7 +50,7 @@ defmodule LiveAiElements.Components.Persona do
       class={[upstream_fact("jsx/anonymous/class/0"), @class || ""]}
       {@rest}
     >
-      <canvas data-persona-canvas />
+      <canvas id={"#{@id}-canvas"} data-persona-canvas phx-update="ignore" class="block size-full" />
     </div>
     {render_slot(@inner_block)}
     """

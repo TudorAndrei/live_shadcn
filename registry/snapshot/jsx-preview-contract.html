@@ -12,12 +12,14 @@
       </article>
     </div>
   </div>
-  <button type="button" phx-click="jsx_error" phx-target="-1">
-    Show compilation error
-  </button>
-  <button type="button" phx-click="jsx_recover" phx-target="-1">
-    Restore compiled preview
-  </button>
+  <div class="flex flex-wrap gap-2">
+    <button data-slot="button" type="button" phx-click="jsx_error" phx-target="-1" class="cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 cn-button-variant-outline cn-button-size-sm">
+      Show compilation error
+    </button>
+    <button data-slot="button" type="button" phx-click="jsx_recover" phx-target="-1" class="cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 cn-button-variant-outline cn-button-size-sm">
+      Restore compiled preview
+    </button>
+  </div>
   <div id="custom-preview-error" class="flex items-center gap-2 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-red-700 dark:text-red-400 text-sm ">
     <p>
       Custom error details

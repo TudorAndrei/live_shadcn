@@ -23,7 +23,7 @@ test("queue actions update completion and remove only the selected item", async 
 });
 
 test("the queued prompt removes a task and stops its simulated response", async ({ page }) => {
-  await visit(page, "/preview/queue/prompt-input", "#variant-message");
+  await visit(page, "/preview/queue/prompt-input", 'textarea[aria-label="Message"]');
   await expect(page.getByRole("listitem")).toHaveCount(5);
   await page.locator("#todo-2").hover();
   await page.getByRole("button", { name: "Remove Implement authentication", exact: true }).click();

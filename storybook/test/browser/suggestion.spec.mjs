@@ -12,7 +12,7 @@ test("suggestions send their values with default and custom labels", async ({ pa
 });
 
 test("a suggestion fills the prompt and submits the selected question", async ({ page }) => {
-  await visit(page, "/preview/suggestion/input", "#variant-message");
+  await visit(page, "/preview/suggestion/input", 'textarea[aria-label="Message"]');
   await page.getByRole("button", { name: "Explain quantum computing", exact: true }).click();
   await expect(page.getByRole("textbox", { name: "Message" })).toHaveValue("Explain quantum computing");
   await page.getByRole("button", { name: "Submit", exact: true }).click();
