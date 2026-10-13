@@ -3,6 +3,40 @@
 Part of [live_shadcn](https://github.com/TudorAndrei/live_shadcn). See the
 repository README for the design and the current status.
 
+## Hooks
+
+The package's `hooks` export holds every hook. Register it with your
+LiveSocket:
+
+```js
+import { hooks as liveBase } from "live_base";
+import { hooks as liveAiElements } from "live_ai_elements";
+
+const liveSocket = new LiveSocket("/live", Socket, {
+  hooks: { ...liveBase, ...liveAiElements },
+});
+```
+
+The `LiveAiElements.Persona` hook imports `@rive-app/webgl2`, so this entry
+needs that package. An application that does not render a Persona can import
+each hook it uses from its own subpath. Its bundler then does not resolve Rive:
+
+```js
+import { Delta } from "live_ai_elements/delta";
+import { installAttachmentRemove } from "live_ai_elements/attachment_remove";
+
+installAttachmentRemove();
+
+const liveSocket = new LiveSocket("/live", Socket, {
+  hooks: { ...liveBase, "LiveAiElements.Delta": Delta },
+});
+```
+
+Each hook module has a subpath with its file name: `attachment_remove`,
+`delta`, `file_tree`, `mic_selector`, `persona`, `prompt_input`, `question`,
+`speech_input`, `terminal`, `transcription`, and `web_preview`. The root entry
+calls `installAttachmentRemove()` for you; a subpath import does not.
+
 ## Prompt input
 
 Register the `LiveAiElements.PromptInput` hook through the package's `hooks`
