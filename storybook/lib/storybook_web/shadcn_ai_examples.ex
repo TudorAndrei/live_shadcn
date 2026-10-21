@@ -1,8 +1,8 @@
 defmodule StorybookWeb.ShadcnAiExamples do
   @moduledoc "Native LiveView examples of the pinned shadcn Code Block and Trace parts."
   use Phoenix.LiveComponent
-  alias StorybookWeb.ShadcnCodeBlockExamples, as: CodeExamples
   alias LiveShadcn.UI.{Badge, Bubble, Button, CodeBlock, Dialog, Message, Sheet, Trace}
+  alias StorybookWeb.ShadcnCodeBlockExamples, as: CodeExamples
 
   @variants %{
     "trace" =>
