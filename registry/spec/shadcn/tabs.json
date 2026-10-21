@@ -42,9 +42,9 @@
     "port/class/0": "cn-tabs-trigger relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100"
   },
   "file_fingerprints": {
-    "shadcn/ui/tabs.tsx": "068c4b811810f2f9ca2f1e0d195694cafaade458240410493814ab6fa8f3dfc0"
+    "shadcn/ui/tabs.tsx": "877c33aa7127ad9427dbf7e0b42b7eb1241563173dcd83c19d67d8ccec550dec"
   },
-  "fingerprint": "36e3189ec21dae3e73bed4601c8b04f8d38957bcf17bb5eecbe8f8fdfc8e29d3",
+  "fingerprint": "730f911fbe5a3e8c38f0496fb40c511501699b70eb000bd4e6a4a4f77b07f781",
   "ignored": {},
   "name": "tabs",
   "port_body": "495a484a336832331dd9be7d80071d6ed52a2f24e9ce0647cea4228c70088b7e",
@@ -114,7 +114,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/tabs.tsx": "4a8243afd661180ac9b0a2f60a4e10c54ae856443876f40070605453a98ba862"
+    "shadcn/ui/tabs.tsx": "1eda25325a7aae9184224247d837b94f98f162d4f697740cc2b1bd53bd35cec6"
   },
   "uses": [
     "cva/tabsListVariants/base",

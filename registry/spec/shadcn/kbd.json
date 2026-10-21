@@ -13,9 +13,9 @@
     "jsx/KbdGroup/class/0": "cn-kbd-group inline-flex items-center"
   },
   "file_fingerprints": {
-    "shadcn/ui/kbd.tsx": "9b4e670ffef7713a8861a268b8e633c7dcd9798bf6de5e01cf98a45c30825aa6"
+    "shadcn/ui/kbd.tsx": "a4c3d666bb2f92777cb8ab07b4b6e03d65bf6011ea68cd625d29c2492ba92ff2"
   },
-  "fingerprint": "89f195e84587f1b43b5b946f303c3c6815e9032ba9a19ebb625ef778758a33fe",
+  "fingerprint": "8ad3ada4a148d8e2692cc3816b6bc41c3c820c43949cbc829df8966b665a8bd8",
   "ignored": {},
   "name": "kbd",
   "port_body": "90981edbaf7c610c2940ff72264817fc44a3145438162be0b2fcbaf829fe56cf",
@@ -40,7 +40,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/kbd.tsx": "297f142ed4e6d0e61362b2ce3a5cd3aa455ac008593006bbe4f06214801a9644"
+    "shadcn/ui/kbd.tsx": "f04fe8ce9c10023fa4d9907030ec5e26a4c714e5377e6b3864cb03548bd0a56f"
   },
   "uses": [
     "jsx/Kbd/class/0",

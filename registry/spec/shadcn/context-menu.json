@@ -42,9 +42,9 @@
     "jsx/ContextMenuTrigger/class/0": "cn-context-menu-trigger select-none"
   },
   "file_fingerprints": {
-    "shadcn/ui/context-menu.tsx": "c403b9c30e60b37221fd86d1ca91d7061fc71b10a2a0cf95d7e638bf368fc5b7"
+    "shadcn/ui/context-menu.tsx": "2da3bb72ed8d89c33bd72530e54fd76827a81b695bd5db3341278ff9a598a113"
   },
-  "fingerprint": "1d436494c5161869bada0e9178e7cc82588f78315ef6acc134e9d0bd598159de",
+  "fingerprint": "f446a48e8e61204912b33552a7ea6fd06f892b8c9e4f0208188e1aa45bcb55a1",
   "ignored": {},
   "name": "context-menu",
   "port_body": "5eca7c9f08e76a416709bd8093bf685bbd39ec6710db6e75f2512a26854148f7",
@@ -146,7 +146,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/context-menu.tsx": "4acff009fe0663979cdab0cc44ef20215347d54f505642afe3f60ac7d38b8204"
+    "shadcn/ui/context-menu.tsx": "e4359306eb2242681388aa1b3a541de49dce46c375db1593f8d3362f6bb023ca"
   },
   "uses": [
     "jsx/ContextMenuContent/class/0",

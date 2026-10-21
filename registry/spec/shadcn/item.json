@@ -53,9 +53,9 @@
     "jsx/ItemTitle/class/0": "cn-item-title line-clamp-1 flex w-fit items-center"
   },
   "file_fingerprints": {
-    "shadcn/ui/item.tsx": "379547b26d62f6b51542a20172104a8180d516a723af522e1d551efb59db0899"
+    "shadcn/ui/item.tsx": "f2cb2ab2f8faca7bdba695395443a19c6a502998ce8b855c442c44768ecd1f6a"
   },
-  "fingerprint": "db7a87f8336d54d04935a67995e3f6f23e46a40243f80cb74f4743befda57a6c",
+  "fingerprint": "18eb4db21432ebd8d8ac038bda7a2fa028021ef98860907a4c1a740452c818bb",
   "ignored": {},
   "name": "item",
   "port_body": "98c9fef73453e5b9b3357594a4dfe9cf6b7d0b474a81773f4efc5a1728d701c6",
@@ -111,7 +111,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/item.tsx": "901a5260fa629bdb88bb2b56b7addd3188ca24220c78028c97f6364e8272bd58"
+    "shadcn/ui/item.tsx": "dcc8a3fbb7d58d32413b31b51d5ec636b9573c5ad3ebe258a3b4a03ec23670cc"
   },
   "uses": [
     "cva/itemMediaVariants/base",

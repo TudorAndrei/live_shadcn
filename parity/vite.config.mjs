@@ -70,7 +70,6 @@ export default defineConfig({
   plugins: [react(), referenceSsr()],
   resolve: {
     alias: [
-      { find: /^cn$/, replacement: resolve(here, "src/shim/utils.ts") },
       { find: "next/image", replacement: resolve(here, "src/shim/next-image.tsx") },
       { find: "next/link", replacement: resolve(here, "src/shim/next-link.tsx") },
       { find: "next/font/google", replacement: resolve(here, "src/shim/next-font-google.ts") },
@@ -98,7 +97,15 @@ export default defineConfig({
       // Rendering Streamdown here would compare two markdown renderers, and
       // neither of them is the component. See `src/shim/streamdown.tsx`.
       { find: /^@streamdown\/.*/, replacement: resolve(here, "src/shim/streamdown-plugin.ts") },
-      { find: "streamdown", replacement: resolve(here, "src/shim/streamdown.tsx") },
+      {
+        find: /^streamdown$/,
+        replacement: "streamdown",
+        customResolver(_source, importer) {
+          return importer?.endsWith("/code-block-markdown.tsx")
+            ? resolve(here, "node_modules/streamdown/dist/index.js")
+            : resolve(here, "src/shim/streamdown.tsx");
+        },
+      },
       {
         find: "@/registry/new-york-v4",
         replacement: resolve(upstream, "shadcn_new_york_v4"),

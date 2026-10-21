@@ -29,9 +29,9 @@
     "jsx/AccordionTrigger/class/3": "cn-accordion-trigger-icon pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
   },
   "file_fingerprints": {
-    "shadcn/ui/accordion.tsx": "12770ce66705e077ece1cd561b5e05b9eb97ee5a924066469d7a1cc7a665a1f9"
+    "shadcn/ui/accordion.tsx": "c2636717e4ba400f9a4dbf5dd99d17deef5d816465d2bc817df1a13867af4322"
   },
-  "fingerprint": "80b341b5c1823f08227397e6895a0d38280fcbe0d5558dc3901e7ddb2e3796a6",
+  "fingerprint": "7e0e3ca0e1b76ac52bfd157a3b0ee19a5abec23887781f7419eb647212a992fb",
   "ignored": {},
   "name": "accordion",
   "port_body": "3472469d3ed22dce349f60ff912f7c1661ef2ff75c93bd383a953b9a38d9f5cb",
@@ -92,7 +92,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/accordion.tsx": "3fbd0fd128f90598e5387f55646f66fff0775ba95bc152a7252ddb24a601be5c"
+    "shadcn/ui/accordion.tsx": "2322a35cef124ca359476584e209bb21bc5c4b233b4dfdffc1a2c7a7839cad4f"
   },
   "uses": [
     "jsx/Accordion/class/0",

@@ -1,5 +1,7 @@
+import { expect } from "@playwright/test";
 import { isOfficialInteractiveShadcnComponent } from "./official-interactive-components.mjs";
 import { referenceReady } from "./live.mjs";
+import { waitForCollapsedContent } from "./disclosure-state.mjs";
 import {
   waitForMessageScrollerAnchorGeometry,
   waitForMessageScrollerEntryAnimations,
@@ -1254,6 +1256,7 @@ export async function enterVisualState(page, selector, state) {
     // Initial motion can make native pointer retries choose a new scroll alignment.
     await settleInteraction(page, { waitForTransitions: true });
     await actionControls(scope).nth(state.index).click();
+    await waitForTimedExample(page, selector);
     await settleInteraction(page, { waitForTransitions: true });
     await waitForCarouselMotion(page, selector);
     return;
@@ -2067,6 +2070,16 @@ async function discoverChartHoverState(scope, states) {
 
 /** Wait only when an official example has a deliberate timer. */
 export async function waitForTimedExample(page, selector) {
+  const preview = page.locator(selector);
+  const component = await preview.getAttribute("data-preview");
+  const example = await preview.getAttribute("id");
+  const replay = (component === "shadcn-code-block" && /-(streaming|markdown)$/.test(example ?? "")) || (component === "trace" && example?.endsWith("-default"));
+  const conversation = component === "trace" && /-(thinking|tool-calls)$/.test(example ?? "");
+  if (replay || conversation) {
+    await preview.getByRole("button", { name: replay ? "Replay" : /^(Reset|Send message)$/, exact: true }).waitFor({ state: "visible" });
+    await expect(preview.getByRole("button", { name: replay ? "Replay" : /^(Reset|Send message)$/, exact: true })).toBeEnabled({ timeout: 30_000 });
+  }
+
   const delay = Number(
     (await page.locator(selector).getAttribute("data-visual-settle-ms")) ?? 0,
   );
@@ -2262,7 +2275,7 @@ async function waitForControlledHidden(page, trigger) {
 
   const controlled = page.locator(`[id=${JSON.stringify(controls)}]`);
   if ((await controlled.count()) > 0)
-    await controlled.waitFor({ state: "hidden" });
+    await waitForCollapsedContent(controlled, 30_000);
 }
 
 function specialTriggers(selector, kind) {

@@ -11,9 +11,9 @@
     "jsx/Spinner/class/0": "size-4 animate-spin"
   },
   "file_fingerprints": {
-    "shadcn/ui/spinner.tsx": "9ca372a9d1c507e0751661eabcfbaa1c472eef1e3fae5eb038c6c28a74f928b2"
+    "shadcn/ui/spinner.tsx": "6328b0fa01b6c6ffccb2bae50a526a43bf3b50ae5c9a51a55788b7fb3f47a935"
   },
-  "fingerprint": "6a9429f8fb0b512e3848848121440bc6ba2a92769d8d1dd5105a153290a04025",
+  "fingerprint": "8efdadd8813488873903bbe77f09db8ce90c64de7d88e76ed7ebc2451a763100",
   "ignored": {},
   "name": "spinner",
   "port_body": "22ad78b31231259b3b96435c409ede2d409c709e50793a151fd2b7e591f27913",
@@ -28,7 +28,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/spinner.tsx": "2200e06760fe9f9eb78bcc57f38ed1d4fdf7eb9e8228b33ec0abaf5e55170742"
+    "shadcn/ui/spinner.tsx": "494f71fd2733709d0e43be44e3353d9df215b370137af0195251cbdfdcc9e17b"
   },
   "uses": [
     "jsx/Spinner/class/0"

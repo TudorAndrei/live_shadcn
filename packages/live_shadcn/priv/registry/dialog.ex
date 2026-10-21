@@ -42,6 +42,7 @@ defmodule LiveShadcn.UI.Dialog do
   who loses their place on the page has lost the page.
   """
   attr(:id, :string, required: true, doc: "Every id inside the dialog derives from it.")
+  attr(:portal, :boolean, default: false, doc: "Render the modal layers under the document body.")
   attr(:open, :boolean, default: false, doc: "Whether it starts open.")
   attr(:alert, :boolean, default: false, doc: "An alert dialog interrupts; a dialog does not.")
   attr(:dismissable, :boolean, default: true, doc: "Whether Escape and the backdrop close it.")
@@ -75,7 +76,7 @@ defmodule LiveShadcn.UI.Dialog do
   attr(:trigger_label, :string, default: nil)
   attr(:trigger_slot, :string, default: "dialog-trigger")
 
-  attr(:trigger_variant, :string,
+  attr(:trigger_variant, :any,
     default: nil,
     values: [nil, "default", "destructive", "outline", "secondary", "ghost", "link"]
   )
@@ -123,6 +124,20 @@ defmodule LiveShadcn.UI.Dialog do
       <:title>{render_slot(@title)}</:title>
       <:description>{render_slot(@description)}</:description>
     </.dialog_header>
+    <.portal :if={@portal} id={@id <> "-portal"} target="body" class="contents"><.dialog_layers {assigns} /></.portal>
+    <.dialog_layers :if={not @portal} {assigns} />
+    """
+  end
+
+  attr(:id, :string, required: true)
+  attr(:title_class, :any, default: nil)
+  attr(:description_class, :any, default: nil)
+  attr(:header_class, :any, default: nil)
+  slot(:title)
+  slot(:description)
+
+  defp dialog_layers(assigns) do
+    ~H"""
     <div
       data-slot="dialog-overlay"
       id={Dialog.backdrop_id(@id)}
@@ -191,13 +206,6 @@ defmodule LiveShadcn.UI.Dialog do
     </div>
     """
   end
-
-  attr(:id, :string, required: true)
-  attr(:title_class, :any, default: nil)
-  attr(:description_class, :any, default: nil)
-  attr(:header_class, :any, default: nil)
-  slot(:title)
-  slot(:description)
 
   defp dialog_header(assigns) do
     ~H"""

@@ -16,6 +16,7 @@ import { DatePickerInput } from "./date_picker_input";
 import { DataTableFilter } from "./data_table";
 import { SidebarPopupPlacement } from "./sidebar_popup_placement";
 import { NestedDrawerMedia } from "./nested_drawer_media";
+import { ShadcnCodeStreaming } from "./shadcn_code_streaming";
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
@@ -33,6 +34,7 @@ const liveSocket = new LiveSocket("/live", Socket, {
     NestedDrawerMedia,
     OpeningPosition,
     SidebarPopupPlacement,
+    ShadcnCodeStreaming,
   },
 });
 

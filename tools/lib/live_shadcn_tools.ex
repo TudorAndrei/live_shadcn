@@ -229,6 +229,15 @@ defmodule LiveShadcnTools do
     end
   end
 
+  @doc "Resolves a component name within an explicit source when supplied."
+  def resolve(argument, nil), do: resolve(argument)
+
+  def resolve(argument, source) when source in @sources do
+    if String.contains?(argument, "/"),
+      do: resolve(argument),
+      else: {source, argument}
+  end
+
   @doc """
   The assign a prop is read by, from the name upstream gave it.
 

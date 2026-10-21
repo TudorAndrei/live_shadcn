@@ -37,9 +37,9 @@
     "jsx/CommandShortcut/class/0": "cn-command-shortcut"
   },
   "file_fingerprints": {
-    "shadcn/ui/command.tsx": "4876d54d18bbd2e27a51f1e2a0b4b4e3cc73a783c81650dc81c342ad6740fa6a"
+    "shadcn/ui/command.tsx": "81c809191f37066bdece301a3b9a72bcfa3e766192bf89ef90ffe15ef37c9090"
   },
-  "fingerprint": "89ed874e2578ca5e2f1479701628e3e735c0a22264a3e348e7eec093191936be",
+  "fingerprint": "6d1100842ef81e7134f0ef11a54cacb902da7f29a8e5ce82ce5b78008b1744ba",
   "ignored": {},
   "name": "command",
   "port_body": "32ba1c6d99abef3d43ba2589f61c3c0d489e414fa428a6fb5e0bdfd9bf41c2a8",
@@ -99,7 +99,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/command.tsx": "3ad88a370242987b0981342fc7e87a7aa7908f3e81282b5a6e69b0c9505abdf0"
+    "shadcn/ui/command.tsx": "65c077360299bf07e26db0954e1f2472f0ecc4568e881b4b956634fa65ca6c80"
   },
   "uses": [
     "jsx/Command/class/0",

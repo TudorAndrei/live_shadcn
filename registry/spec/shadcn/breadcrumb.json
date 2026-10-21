@@ -27,9 +27,9 @@
     "jsx/BreadcrumbSeparator/class/1": "cn-rtl-flip"
   },
   "file_fingerprints": {
-    "shadcn/ui/breadcrumb.tsx": "15e65591a7a10456f91dcc8653c0ab75efd1e4736dd7db8a9db3b2f2cb8c2d44"
+    "shadcn/ui/breadcrumb.tsx": "aa6482be1e13c3c8bbec9031b426118d1b0d42a7131647da172ffc95353bc911"
   },
-  "fingerprint": "6a8aa219e5c763a7e6668ad61d6dbce1f6793a7361a841f6ad048022eed7c830",
+  "fingerprint": "e47d91b9930d46ad809344f579322c49444a89ba34fd973b4ec4d7df99a83d2d",
   "ignored": {},
   "name": "breadcrumb",
   "port_body": "02308a8cb1521cdd65eea523ee5663ca0fcd0b23eb67d5927bc339e09783c1a0",
@@ -61,7 +61,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/breadcrumb.tsx": "06ee78c43f8e36fa32cb470c5e8bef969981c27aa25e9e4e4f7ec571b7fe0d6b"
+    "shadcn/ui/breadcrumb.tsx": "006bb74f110ce68ff5a0bc4846616561aada5f1df8dac042a2c8aef80d55ab73"
   },
   "uses": [
     "jsx/Breadcrumb/class/0",

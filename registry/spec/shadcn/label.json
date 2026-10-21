@@ -11,9 +11,9 @@
     "jsx/Label/class/0": "cn-label flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed"
   },
   "file_fingerprints": {
-    "shadcn/ui/label.tsx": "25ce24dd3a3abf3772529dd96e201647e40f1d025f8547f8903282e14f4a8083"
+    "shadcn/ui/label.tsx": "8e1617f50481245ebc878b68c168187fe54ca60d3a38d0e44101684aa197c315"
   },
-  "fingerprint": "013620d9b4cc4f5473f6d87679c0e3e5b5933e87e5bf420a3fed4c75ddbece4d",
+  "fingerprint": "b75c3bf51fab197e0b26db99dc96c59938dd83e01120469536a26cac8687e4f2",
   "ignored": {},
   "name": "label",
   "port_body": "f3f18baad5050a87eadba359c7c1b4d2285611134516dc106e3c628aa193979b",
@@ -37,7 +37,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/label.tsx": "80581ffa241ed57c9b976ebca5bc44c7e98d287c629717fda2dd3135c96ebbc1"
+    "shadcn/ui/label.tsx": "d11f6ddea1304473d829329f36238c164dbee9fe04c038fd169d70d352b75704"
   },
   "uses": [
     "jsx/Label/class/0"

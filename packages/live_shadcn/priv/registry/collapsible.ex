@@ -35,6 +35,7 @@ defmodule LiveShadcn.UI.Collapsible do
   attr(:title, :any, default: nil, doc: "The trigger content when no trigger slot is given.")
   attr(:composed, :boolean, default: false, doc: "Render caller-owned trigger and content parts.")
 
+  attr(:controlled, :boolean, default: false, doc: "Let server assigns own the disclosure state.")
   attr(:open, :boolean,
     default: false,
     doc:
@@ -71,7 +72,7 @@ defmodule LiveShadcn.UI.Collapsible do
       data-open={flag(@open)}
       data-closed={flag(not @open)}
       class={[@class]}
-      phx-mounted={Disclosure.owned_attributes(:item)}
+      phx-mounted={if not @controlled, do: Disclosure.owned_attributes(:item)}
       {Map.drop(@rest, [:"data-slot"])}
     ><%= if @composed do %>{render_slot(@inner_block)}<% else %>
       <.dynamic_tag :if={@wrapper_tag} tag_name={@wrapper_tag} {@wrapper_attrs}>
@@ -87,6 +88,7 @@ defmodule LiveShadcn.UI.Collapsible do
     <.collapsible_trigger
       for={@id}
       open={@open}
+      controlled={@controlled}
       disabled={@disabled}
       class={@trigger_class}
       {@trigger_attrs}
@@ -96,6 +98,7 @@ defmodule LiveShadcn.UI.Collapsible do
     <.collapsible_content
       for={@id}
       open={@open}
+      controlled={@controlled}
       class={@content_class}
     >
       {render_slot(@inner_block)}
@@ -105,6 +108,7 @@ defmodule LiveShadcn.UI.Collapsible do
 
   @doc "The button that opens or closes a composed collapsible."
   attr(:for, :string, required: true, doc: "The id of the collapsible root.")
+  attr(:controlled, :boolean, default: false, doc: "Let server assigns own the disclosure state.")
   attr(:open, :boolean, default: false)
   attr(:disabled, :boolean, default: false)
   attr(:class, :any, default: nil)
@@ -124,12 +128,12 @@ defmodule LiveShadcn.UI.Collapsible do
         interactive(
           @disabled,
           caller_click(
-            Disclosure.toggle(item: @for, root: @for, multiple: true),
+            if(@controlled, do: %JS{}, else: Disclosure.toggle(item: @for, root: @for, multiple: true)),
             @rest[:"phx-click"]
           )
         )
       }
-      phx-mounted={Disclosure.owned_attributes(:trigger)}
+      phx-mounted={if not @controlled, do: Disclosure.owned_attributes(:trigger)}
       data-panel-open={flag(@open)}
       disabled={@disabled}
       class={@class}
@@ -142,6 +146,7 @@ defmodule LiveShadcn.UI.Collapsible do
 
   @doc "The panel that a composed collapsible shows or hides."
   attr(:for, :string, required: true, doc: "The id of the collapsible root.")
+  attr(:controlled, :boolean, default: false, doc: "Let server assigns own the disclosure state.")
   attr(:open, :boolean, default: false)
   attr(:class, :any, default: nil)
   attr(:rest, :global, include: ["data-slot"])
@@ -155,7 +160,7 @@ defmodule LiveShadcn.UI.Collapsible do
       aria-labelledby={Disclosure.trigger_id(@for)}
       hidden={not @open}
       phx-hook={Disclosure.hook()}
-      phx-mounted={Disclosure.owned_attributes(:panel)}
+      phx-mounted={if not @controlled, do: Disclosure.owned_attributes(:panel)}
       data-lb-height-var="--collapsible-panel-height"
       data-lb-width-var="--collapsible-panel-width"
       data-open={flag(@open)}

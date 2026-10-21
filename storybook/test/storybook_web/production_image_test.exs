@@ -34,7 +34,7 @@ defmodule StorybookWeb.ProductionImageTest do
       pipeline =
         LiveShadcnVerification.evaluate(record, source, name, @repo_root, spec)
 
-      compiled = StorybookWeb.Docs.evaluation(name)
+      compiled = StorybookWeb.Docs.evaluation("#{source}-#{name}")
 
       assert compiled == pipeline, identity
     end

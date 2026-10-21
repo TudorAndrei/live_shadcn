@@ -143,6 +143,7 @@ test("a disclosure close waits for its opened popup exit before it samples close
       ),
   };
   const popup = {
+    evaluateAll: async () => false,
     waitFor: async (options) => calls.push(options),
   };
 

@@ -27,9 +27,9 @@
     "jsx/EmptyTitle/class/0": "cn-empty-title cn-font-heading"
   },
   "file_fingerprints": {
-    "shadcn/ui/empty.tsx": "1dacdba3fa79fcc89b8c50e6b4acae30b475fce7d4350de3c33ea455641cb316"
+    "shadcn/ui/empty.tsx": "348ff1ae1dcfcce112fc708cfb5b790e48a12922b5d5e39b57658c9abdef1397"
   },
-  "fingerprint": "0365a9ff6c18f3bd61fb9119cd6763820f4ce93473f62326e2af20152acd169f",
+  "fingerprint": "adeb03b4be4e98ba1bc92c2c32891ac987ad4e2a58ce59d5f2938565bf6139ac",
   "ignored": {},
   "name": "empty",
   "port_body": "a978aef51617673249ca3e0a403a82ad830c45fde6bb35f240a77cadc9bc970b",
@@ -61,7 +61,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/empty.tsx": "f022b2014448c212e3545d12e09a0fbe038ceebdb4dca848e9c3c9b1e1c640aa"
+    "shadcn/ui/empty.tsx": "05c419160ac0226973f6f00d7d8865dc46645a75ea0697138992cdbc736efec4"
   },
   "uses": [
     "cva/emptyMediaVariants/base",

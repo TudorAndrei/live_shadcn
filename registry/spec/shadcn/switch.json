@@ -15,9 +15,9 @@
     "jsx/Switch/class/1": "cn-switch-thumb pointer-events-none block ring-0 transition-transform"
   },
   "file_fingerprints": {
-    "shadcn/ui/switch.tsx": "2f0fa6850247966c015ce77864d6a70ae4abaecc597332c93a4346d36f7fc112"
+    "shadcn/ui/switch.tsx": "b364636cdd2e19ef84ea362c46d18247fd9ce52c9f055e7fac559cde3cdffde7"
   },
-  "fingerprint": "0e62c9c24dc0619e46bf469941de654350c57976f940927eb1c1897a719561ae",
+  "fingerprint": "8acadf9be2cde261bfa1b6be0ee0615d2062c713c7a0935fd97df9f60094509a",
   "ignored": {},
   "name": "switch",
   "port_body": "20ef7510f85c3521308322723b7b2f945918945ab0afc9b432e34e54ce354214",
@@ -77,7 +77,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/switch.tsx": "5bc5e6917b328921a87ee0c25224ed7c19184f2158b1558679a259ab1d0ad938"
+    "shadcn/ui/switch.tsx": "87aaf20b3209fabbcf0a9520c8b34733ddf2c91524c80ec72ed3dd3684f1bca3"
   },
   "uses": [
     "jsx/Switch/class/0",

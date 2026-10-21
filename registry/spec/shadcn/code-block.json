@@ -1,0 +1,132 @@
+{
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "cva/codeBlockLineVariants/*",
+      "cva/codeBlockVariants/*",
+      "jsx/CodeBlockActions/class/0",
+      "jsx/CodeBlockContent/class/0",
+      "jsx/CodeBlockContent/class/1",
+      "jsx/CodeBlockCopyButton/class/0",
+      "jsx/CodeBlockCopyButton/class/1",
+      "jsx/CodeBlockFooter/class/0",
+      "jsx/CodeBlockHeader/class/0",
+      "jsx/CodeBlockLine/class/0",
+      "jsx/CodeBlockTitle/class/0"
+    ],
+    "derived": {}
+  },
+  "css_vars": [],
+  "facts": {
+    "cva/codeBlockLineVariants/base": "cn-code-block-line relative block min-h-lh after:absolute after:top-0 after:select-none in-data-numbered:col-span-2 in-data-numbered:grid in-data-numbered:grid-cols-subgrid in-data-numbered:[counter-increment:line] in-data-numbered:before:content-[counter(line)] in-data-numbered:before:select-none in-data-numbered:supports-[content:counter(line)_/_'']:before:content-[counter(line)_/_'']",
+    "cva/codeBlockLineVariants/default/variant": "default",
+    "cva/codeBlockLineVariants/variant/variant/added": "cn-code-block-line-variant-added",
+    "cva/codeBlockLineVariants/variant/variant/default": "cn-code-block-line-variant-default",
+    "cva/codeBlockLineVariants/variant/variant/highlighted": "cn-code-block-line-variant-highlighted",
+    "cva/codeBlockLineVariants/variant/variant/removed": "cn-code-block-line-variant-removed",
+    "cva/codeBlockVariants/base": "cn-code-block group/code-block relative flex w-full min-w-0 flex-col overflow-hidden",
+    "cva/codeBlockVariants/default/variant": "default",
+    "cva/codeBlockVariants/variant/variant/default": "cn-code-block-variant-default",
+    "cva/codeBlockVariants/variant/variant/destructive": "cn-code-block-variant-destructive",
+    "jsx/CodeBlockActions/class/0": "cn-code-block-actions ms-auto flex shrink-0 items-center [[data-slot=code-block]>&]:absolute [[data-slot=code-block]>&]:z-10 [[data-slot=code-block]>&]:opacity-0 [[data-slot=code-block]>&]:transition-opacity [[data-slot=code-block]>&]:group-focus-within/code-block:opacity-100 [[data-slot=code-block]>&]:group-hover/code-block:opacity-100 [[data-slot=code-block]>&]:pointer-coarse:opacity-100",
+    "jsx/CodeBlockContent/class/0": "cn-code-block-content min-h-0 min-w-0 scroll-fade-x scrollbar-thin overflow-auto text-start font-mono outline-none data-wrap:scroll-fade-y data-wrap:wrap-break-word data-wrap:whitespace-pre-wrap",
+    "jsx/CodeBlockContent/class/1": "cn-code-block-code grid min-h-lh min-w-max content-start in-data-numbered:grid-cols-[auto_1fr] in-data-wrap:min-w-0",
+    "jsx/CodeBlockCopyButton/class/0": "cn-code-block-copy-button",
+    "jsx/CodeBlockCopyButton/class/1": "sr-only",
+    "jsx/CodeBlockFooter/class/0": "cn-code-block-footer flex min-w-0 shrink-0 items-center",
+    "jsx/CodeBlockHeader/class/0": "cn-code-block-header flex min-w-0 shrink-0 items-center *:has-[>[data-slot=code-block-title]]:min-w-0",
+    "jsx/CodeBlockLine/class/0": "min-w-0",
+    "jsx/CodeBlockTitle/class/0": "cn-code-block-title min-w-0 truncate [&_svg]:pointer-events-none [&_svg]:inline-block [&_svg]:align-middle"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/code-block.tsx": "c624c080c4b63caf4a8156f0e63520eb037b8fcebd11639b78e62ec64697d625"
+  },
+  "fingerprint": "7545329be57d90120a60053dc3d625d08c6e3367795223fb8e5577b5df41057f",
+  "ignored": {},
+  "name": "code-block",
+  "port_body": "3cbba248e40f54d6800a7ad249597c866e2f8ffcb320f6cd2980857d01cc2fda",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "cva/codeBlockLineVariants/base": "cn-code-block-line relative block min-h-lh after:absolute after:top-0 after:select-none in-data-numbered:col-span-2 in-data-numbered:grid in-data-numbered:grid-cols-subgrid in-data-numbered:[counter-increment:line] in-data-numbered:before:content-[counter(line)] in-data-numbered:before:select-none in-data-numbered:supports-[content:counter(line)_/_'']:before:content-[counter(line)_/_'']",
+    "cva/codeBlockLineVariants/default/variant": "default",
+    "cva/codeBlockLineVariants/variant/variant/added": "cn-code-block-line-variant-added",
+    "cva/codeBlockLineVariants/variant/variant/default": "cn-code-block-line-variant-default",
+    "cva/codeBlockLineVariants/variant/variant/highlighted": "cn-code-block-line-variant-highlighted",
+    "cva/codeBlockLineVariants/variant/variant/removed": "cn-code-block-line-variant-removed",
+    "cva/codeBlockVariants/base": "cn-code-block group/code-block relative flex w-full min-w-0 flex-col overflow-hidden",
+    "cva/codeBlockVariants/default/variant": "default",
+    "cva/codeBlockVariants/variant/variant/default": "cn-code-block-variant-default",
+    "cva/codeBlockVariants/variant/variant/destructive": "cn-code-block-variant-destructive",
+    "jsx/CodeBlockActions/class/0": "cn-code-block-actions ms-auto flex shrink-0 items-center [[data-slot=code-block]>&]:absolute [[data-slot=code-block]>&]:z-10 [[data-slot=code-block]>&]:opacity-0 [[data-slot=code-block]>&]:transition-opacity [[data-slot=code-block]>&]:group-focus-within/code-block:opacity-100 [[data-slot=code-block]>&]:group-hover/code-block:opacity-100 [[data-slot=code-block]>&]:pointer-coarse:opacity-100",
+    "jsx/CodeBlockContent/class/0": "cn-code-block-content min-h-0 min-w-0 scroll-fade-x scrollbar-thin overflow-auto text-start font-mono outline-none data-wrap:scroll-fade-y data-wrap:wrap-break-word data-wrap:whitespace-pre-wrap",
+    "jsx/CodeBlockContent/class/1": "cn-code-block-code grid min-h-lh min-w-max content-start in-data-numbered:grid-cols-[auto_1fr] in-data-wrap:min-w-0",
+    "jsx/CodeBlockCopyButton/class/0": "cn-code-block-copy-button",
+    "jsx/CodeBlockCopyButton/class/1": "sr-only",
+    "jsx/CodeBlockFooter/class/0": "cn-code-block-footer flex min-w-0 shrink-0 items-center",
+    "jsx/CodeBlockHeader/class/0": "cn-code-block-header flex min-w-0 shrink-0 items-center *:has-[>[data-slot=code-block-title]]:min-w-0",
+    "jsx/CodeBlockLine/class/0": "min-w-0",
+    "jsx/CodeBlockTitle/class/0": "cn-code-block-title min-w-0 truncate [&_svg]:pointer-events-none [&_svg]:inline-block [&_svg]:align-middle"
+  },
+  "state_reads": [
+    {
+      "name": "data-size",
+      "value": "sm"
+    },
+    {
+      "name": "data-slot",
+      "value": "button"
+    },
+    {
+      "name": "data-wrap",
+      "value": null
+    },
+    {
+      "group": "code-block",
+      "name": "data-size",
+      "value": "sm"
+    },
+    {
+      "group": "code-block",
+      "name": "data-variant",
+      "value": "destructive"
+    }
+  ],
+  "styles": {
+    "luma": "d0ef71bf5aee7678d75d7809dc042802d85db819e4482d02006c8e8485ea8066",
+    "lyra": "02e043b4ef3cc83ba6c3cbd04c1935cce8a83d6576f241be2628c47ab6dfed8f",
+    "maia": "e01a90cb727f7812b329ce04d6b6288891ff5da43327197065dcc11eee5a7426",
+    "mira": "28d7b33384c4b15e51ad153213285b50718719d909aa25f6b14c8c02cb2b7196",
+    "nova": "cd5aea04ea1db8c1c188e83e72018a6d35bf3e403dbc7cf363788edd1fb352f1",
+    "rhea": "8a9c89a6b88313e7a7c6eb5d1690c5386578b4376d7fcf8a00b64e9342c29d9f",
+    "sera": "1451aaadf0b59a98d113eb195492eace5a6e8f31dd032f999d99a66e57ae3c9a",
+    "vega": "8eb53a4b98e169d9548765254a529169a76d2ebbcb8026d1626be61a538f6a09"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "shadcn/ui/code-block.tsx": "66ae50e6a08ca54a0ffd8be7f71cb4f60002a0e0cb592910d85e8e2d839cca0a"
+  },
+  "uses": [
+    "cva/codeBlockLineVariants/base",
+    "cva/codeBlockLineVariants/default/variant",
+    "cva/codeBlockLineVariants/variant/variant/added",
+    "cva/codeBlockLineVariants/variant/variant/default",
+    "cva/codeBlockLineVariants/variant/variant/highlighted",
+    "cva/codeBlockLineVariants/variant/variant/removed",
+    "cva/codeBlockVariants/base",
+    "cva/codeBlockVariants/default/variant",
+    "cva/codeBlockVariants/variant/variant/default",
+    "cva/codeBlockVariants/variant/variant/destructive",
+    "jsx/CodeBlockActions/class/0",
+    "jsx/CodeBlockContent/class/0",
+    "jsx/CodeBlockContent/class/1",
+    "jsx/CodeBlockCopyButton/class/0",
+    "jsx/CodeBlockCopyButton/class/1",
+    "jsx/CodeBlockFooter/class/0",
+    "jsx/CodeBlockHeader/class/0",
+    "jsx/CodeBlockLine/class/0",
+    "jsx/CodeBlockTitle/class/0"
+  ]
+}

@@ -19,9 +19,9 @@
     "jsx/RadioGroupItem/class/2": "cn-radio-group-indicator-icon"
   },
   "file_fingerprints": {
-    "shadcn/ui/radio-group.tsx": "35caeb2e44176510e25a5d1b7375cd922a4a455a8585b262786a907f5fb037ea"
+    "shadcn/ui/radio-group.tsx": "11e8bd30823b2b9f24cb840007eebd3cd04b94227a201b317b3dae04fb2f8f43"
   },
-  "fingerprint": "2ec5d0f0557dcdf84f72cd92533eb0cb8287c4881c222843c6cc63ff768203c9",
+  "fingerprint": "ffd0bca98c72b8f9ad11157805a23f41d2001666a8e49862d4576fcb983e505b",
   "ignored": {},
   "name": "radio-group",
   "port_body": "26bb0ee5f0143088ac5bfba3ef30bda530a899306d893069f7cee502159496d2",
@@ -61,7 +61,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/radio-group.tsx": "0023e241c867f90fbd5ebe7e7c6aa9e5be3485557c3ccb396cba207a0ad7337a"
+    "shadcn/ui/radio-group.tsx": "c27fecb49f924d324d8c3d1354434508be0b59f202878d9713b8c1af1ebf5afa"
   },
   "uses": [
     "jsx/RadioGroup/class/0",

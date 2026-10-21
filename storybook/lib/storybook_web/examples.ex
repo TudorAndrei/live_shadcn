@@ -1468,10 +1468,13 @@ defmodule StorybookWeb.Examples do
        agent audio-player code-block context conversation file-tree prompt-input
        sandbox schema-display shimmer terminal
        connection controls edge jsx-preview node panel persona toolbar
-       open-in-chat typography)
+       open-in-chat typography shadcn-code-block trace)
   end
 
   @doc "The examples for a component."
+  def all(component) when component in ["shadcn-code-block", "trace"],
+    do: StorybookWeb.ShadcnAiExamples.all(component)
+
   def all("accordion") do
     [
       one("default", "Default", "The official accordion example.", &accordion_default/1),

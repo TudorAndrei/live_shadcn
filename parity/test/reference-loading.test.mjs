@@ -7,6 +7,7 @@ test("Vite resolves the pinned cn import in server and browser modules", async (
   const entry = "\0cn-test";
   const server = await createServer({
     server: { middlewareMode: true, watch: null },
+    optimizeDeps: { noDiscovery: true, include: [] },
     logLevel: "silent",
     plugins: [{
       name: "cn-test",
@@ -18,7 +19,7 @@ test("Vite resolves the pinned cn import in server and browser modules", async (
     const { cn } = await server.ssrLoadModule(entry);
     assert.equal(cn("p-2", false, ["p-4", "block"]), "p-4 block");
     const transformed = await server.transformRequest(entry);
-    assert.match(transformed.code, /\/src\/shim\/utils\.ts/);
+    assert.match(transformed.code, /\/node_modules\/(?:\.vite\/deps\/cn\.js|cn\/)/);
   } finally {
     await server.close();
   }

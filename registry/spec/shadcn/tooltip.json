@@ -19,9 +19,9 @@
     "jsx/TooltipContent/class/2": "cn-tooltip-arrow cn-tooltip-arrow-logical z-50 bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
   },
   "file_fingerprints": {
-    "shadcn/ui/tooltip.tsx": "ac9b55d7c253adad14872556e7b25b981ce37eb710c0068004f7b863bbd30008"
+    "shadcn/ui/tooltip.tsx": "9d6dc709bf3c66ab602f5f1609ea19cb1f085a823f8bad105b5759d08d96f2eb"
   },
-  "fingerprint": "285bf097534ad8de30f031381b2c7778862012075ac3669dd84fdfccddb8ae37",
+  "fingerprint": "a6718a53778da33ffb04229ced952b4a715cba8fe27019dadc170a0483b57aaf",
   "ignored": {},
   "name": "tooltip",
   "port_body": "b9c96a5d03c3bcf4cd6207e57c6e8028262f19c6fbb06f782c75b26bb72f6c8e",
@@ -88,7 +88,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/tooltip.tsx": "75e66453d7a6301281a0ecd7840d268a90a6972b252b018d2ac2bc34a979968b"
+    "shadcn/ui/tooltip.tsx": "dc5ec917d8276af9d66e7c951b0608d67c149bcb311072166bc8ce67ee2b7488"
   },
   "uses": [
     "jsx/TooltipContent/class/0",

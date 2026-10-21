@@ -31,9 +31,9 @@
     "jsx/PaginationPrevious/class/2": "cn-pagination-previous-text hidden sm:block"
   },
   "file_fingerprints": {
-    "shadcn/ui/pagination.tsx": "63e16d96aa129ed61053946ebe552a0134579841edf7800344f0ecf8837c3392"
+    "shadcn/ui/pagination.tsx": "9050fda3eb0b2f0d295a52abca111d2835b7430ec9b19324c07de95aa852228e"
   },
-  "fingerprint": "1101939661e7f086c6e299f104ac69d87f8ab14eca0c0d73c4ef309e4fb0fc9f",
+  "fingerprint": "0b1fcc39fe3cf02784d3b3b5d5d2c8b91a1b7aaafa8482afc7b8db877676df3a",
   "ignored": {},
   "name": "pagination",
   "port_body": "ca1e2d1e599bb6a1fcbd9a60fd01ef4037937f966bc7e3f9f3e831f0bc0ef5d5",
@@ -67,7 +67,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/pagination.tsx": "7c1c3be5f743e8651300fa4f3d18201d298dde3ab5e28a3aebd688f2d48b86d3"
+    "shadcn/ui/pagination.tsx": "71bc2c0a87e62898ddb261af9b9f66959dbd806dd231704c4b54c7452fc725c7"
   },
   "uses": [
     "jsx/Pagination/class/0",

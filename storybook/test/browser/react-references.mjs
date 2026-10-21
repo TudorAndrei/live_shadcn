@@ -31,10 +31,10 @@ export const officialAiReferences = new Set(
 
 export const officialShadcnReferences = new Set(
   Object.entries(manifest.examples.shadcn).flatMap(([component, sources]) => {
-    const storybook = previews[component]
-      ? component
-      : previews[`shadcn-${component}`]
-        ? `shadcn-${component}`
+    const storybook = previews[`shadcn-${component}`]
+      ? `shadcn-${component}`
+      : previews[component]
+        ? component
         : null;
 
     return storybook ? entries(component, sources).map(({ id }) => `${storybook}.${id}`) : [];

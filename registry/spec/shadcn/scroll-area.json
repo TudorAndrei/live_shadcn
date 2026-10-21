@@ -19,9 +19,9 @@
     "jsx/ScrollBar/class/1": "cn-scroll-area-thumb relative flex-1 bg-border"
   },
   "file_fingerprints": {
-    "shadcn/ui/scroll-area.tsx": "c53af2913150706d117d65ea81bdea4931e4fdfc44aef9e7f389af7a048e1162"
+    "shadcn/ui/scroll-area.tsx": "cd4a6fb2d230a7562ef4bbf34816982096ffaac65ee7c6c0f4d6b34ea2a96115"
   },
-  "fingerprint": "0073f13d0bbf6984dcce325b546c0431e148facccd663d794fbbf1bc7b81e190",
+  "fingerprint": "288782e35c6eae4e4359495f398d370a70d731047f3ee454df3889941c7b0ed7",
   "ignored": {},
   "name": "scroll-area",
   "port_body": "1245b4620c9802c278f068ae409f683ff552bea4eb181d2efed856b679689774",
@@ -57,7 +57,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/scroll-area.tsx": "6fb66a11b278222b7f59b3674b1931daecdefbe5df78e41953c7e7a800fb3e49"
+    "shadcn/ui/scroll-area.tsx": "7e49845827447091a6493473779a05ba45cb8302e3703a6f9e4225dd6315cce2"
   },
   "uses": [
     "jsx/ScrollArea/class/0",

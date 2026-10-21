@@ -18,9 +18,9 @@
   },
   "file_fingerprints": {
     "ai_elements/open-in-chat.tsx": "2b136cd98cf515db80407a0384a613c0dac2e125a3125911f5650ef53ee4ab26",
-    "shadcn/ui/dropdown-menu.tsx": "546f8649071d27697dcda2da09f9eafba280b1dd976d6c27d2e8b62763155498"
+    "shadcn/ui/dropdown-menu.tsx": "1283b20715c162711647a5d31e3ed645a51e8b00ba668efc5110b929423b8b16"
   },
-  "fingerprint": "c6d5428e7d275117a831db5c993f0783cc18285e3093f23b2fbdfb83f87f116a",
+  "fingerprint": "45e27bfe8595e121c7c36be67c257b866a8ca56addf3dd5ccb7a7e7ad5c0262e",
   "ignored": {
     "jsx/OpenInCursor/class/3": "the generated port does not contain this source literal",
     "jsx/OpenInv0/class/1": "the generated port does not contain this source literal",
@@ -110,7 +110,7 @@
   },
   "upstream": {
     "ai_elements/open-in-chat.tsx": "0370a813ed09e9b23857717cff0704a028049d2cf014dbd11e5f56d05db6db33",
-    "shadcn/ui/dropdown-menu.tsx": "dce5089f19f0bcdbb8bd137ccc8167eb51197f9c4f626e3b3c1ec9d31cb0d686"
+    "shadcn/ui/dropdown-menu.tsx": "18c1829679694a9b9850afcabf1158a80ec3624fb5e03d0d4b13339b729e0503"
   },
   "uses": [
     "jsx/OpenInChatGPT/class/0",

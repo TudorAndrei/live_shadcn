@@ -21,9 +21,9 @@
     "jsx/MessageScrollerViewport/class/0": "cn-message-scroller-viewport size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent data-pending-scroll:invisible"
   },
   "file_fingerprints": {
-    "shadcn/ui/message-scroller.tsx": "53cab00f3ad48b082082b72a6c76f917e53ad8d1c4688a38747c58d7dc39fa4f"
+    "shadcn/ui/message-scroller.tsx": "395629f926549da5508d63a875bc6c8d91d0d5661d7a5b933e5034aa34b4a87d"
   },
-  "fingerprint": "695d9553d48db8f328b8593e821818966ca713fbcfab1db6a9bad845d24b68fc",
+  "fingerprint": "5882c1f4b37b9396dd0abfd83400fd246b0e534dc68d795b64c51f82094b362c",
   "ignored": {},
   "name": "message-scroller",
   "port_body": "9ea028c56bad0caf434bab5945fca0ae180fecf56d61ce43d6fda2d5d28be313",
@@ -77,7 +77,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/message-scroller.tsx": "105a91b64c906722926e2d6e4538b245d95a71dcd4f4ca91e575b85b3205a0e3"
+    "shadcn/ui/message-scroller.tsx": "385d9b66036e6fcf4b21997914791121c55749223d4f28f95d72862c4bd724c0"
   },
   "uses": [
     "jsx/MessageScroller/class/0",

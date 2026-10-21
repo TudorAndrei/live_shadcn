@@ -126,6 +126,33 @@
     "visibility",
     "scrollable"
   ],
+  "shadcn-code-block": [
+    "default",
+    "basic",
+    "header",
+    "actions",
+    "floating-actions",
+    "line-numbers",
+    "start-line",
+    "wrap",
+    "highlighted-lines",
+    "diff",
+    "height",
+    "show-more",
+    "show-more-scroll",
+    "size",
+    "destructive",
+    "trace",
+    "tabs",
+    "chat",
+    "typeset",
+    "rtl",
+    "highlighting",
+    "languages",
+    "ansi",
+    "streaming",
+    "markdown"
+  ],
   "prompt-input": [
     "default",
     "contract",
@@ -284,6 +311,24 @@
   "sources": [
     "default",
     "custom"
+  ],
+  "trace": [
+    "default",
+    "static",
+    "status",
+    "description",
+    "collapsible",
+    "open",
+    "link",
+    "dialog",
+    "sheet",
+    "group",
+    "sources",
+    "steps",
+    "commit",
+    "turn",
+    "thinking",
+    "tool-calls"
   ],
   "toolbar": [
     "default",

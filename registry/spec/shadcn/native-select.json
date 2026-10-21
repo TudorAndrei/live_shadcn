@@ -21,9 +21,9 @@
     "jsx/NativeSelectOption/class/0": "bg-[Canvas] text-[CanvasText]"
   },
   "file_fingerprints": {
-    "shadcn/ui/native-select.tsx": "aa8ed4b05779ed812a6551e2978793689c4b341afeb47f9c9545e3ce98151ef0"
+    "shadcn/ui/native-select.tsx": "c78c161d99baa2530377e37cf4d43e033526be17b5121b6d931adb51d5d87685"
   },
-  "fingerprint": "d2df655f3caf69c450aae9176fd752ef60e99ac48f1e2a414733c223bcbd9ca8",
+  "fingerprint": "dbff666f6bf3b2377eced18a4187a831ac9348e022a564573d9e4b65b4b07a06",
   "ignored": {},
   "name": "native-select",
   "port_body": "bc69092638a05f5c6f291e316d514f86332afafd3104ea64929caa9571d8adc7",
@@ -65,7 +65,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/native-select.tsx": "6150b0918261c617cfe2c6186bcf7fff3954b0225187b46bdc0204cfa164347a"
+    "shadcn/ui/native-select.tsx": "a96068a0bf403eac169f8b1e605f314dd268dde7ee2841ed72ff2b41cd944875"
   },
   "uses": [
     "jsx/NativeSelect/class/0",

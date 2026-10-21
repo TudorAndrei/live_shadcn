@@ -44,9 +44,9 @@
     "jsx/SelectValue/class/0": "cn-select-value"
   },
   "file_fingerprints": {
-    "shadcn/ui/select.tsx": "bbacb62a761a02e778e5584e374995e90c39d92bf43dea8ca76cb1014b1c9f6f"
+    "shadcn/ui/select.tsx": "508092caea8a9da4973fe0b67ad0b12f4709cdb2a70e0fc1a89ae2b838561714"
   },
-  "fingerprint": "694de06a7c8ef2a0a69b505a3b9b0e47f33c9afb5f1cd666f1fd48e6cb401fac",
+  "fingerprint": "507f81563ecec626441a2fe4bb156389ae5081896e8faa3e3d109d70c015a880",
   "ignored": {},
   "name": "select",
   "port_body": "2840cf87ccd5dc0a19288d9bf8fdcd1cf5e928b25fabf60c551ede2acafe60bb",
@@ -168,7 +168,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/select.tsx": "2dadd3212c5d3c83d083c81dbca4184d45640086381c7ec4899b8e3996a7716f"
+    "shadcn/ui/select.tsx": "6348d30035b68867d5efffe9b0b1611718226bef9fdeef9554349d6b98252110"
   },
   "uses": [
     "jsx/SelectContent/class/0",

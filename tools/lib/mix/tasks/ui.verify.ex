@@ -544,7 +544,9 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp components_for_verify(names, source) do
     components =
-      if names == [], do: only_source(generated(), source), else: Enum.map(names, &resolve/1)
+      if names == [],
+        do: only_source(generated(), source),
+        else: Enum.map(names, &resolve(&1, source))
 
     components
     |> Enum.uniq()
@@ -1762,13 +1764,16 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   @doc false
-  def behavior_suites("shadcn", name, _key, policy) do
+  def behavior_suites("shadcn", name, key, policy) do
     case VerificationPolicy.behavior("shadcn", name) do
       {:not_applicable, reason} ->
         {:not_applicable, reason}
 
       :required ->
-        named_suite = "#{name}.spec.mjs"
+        named_suite =
+          if File.exists?(Path.join(browser_dir(), "#{key}.spec.mjs")),
+            do: "#{key}.spec.mjs",
+            else: "#{name}.spec.mjs"
 
         cond do
           not upstream_comparison_policy?(policy) ->

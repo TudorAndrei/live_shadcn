@@ -21,9 +21,9 @@
     "jsx/Slider/class/4": "cn-slider-thumb block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50"
   },
   "file_fingerprints": {
-    "shadcn/ui/slider.tsx": "18954e80b3f54fd5d325b65318a8e959dab7165df6c1798032cf2c6ce37654a7"
+    "shadcn/ui/slider.tsx": "e663165fdb68ba41dba162ef64354d1cb0f920a65a595c99c4b6ccba625181ab"
   },
-  "fingerprint": "78fe9f44312acbab3a087f22aa8499f53fc1d753ad3ee837895eb9fd9d56ca86",
+  "fingerprint": "6071bb17734ffdc776d9adc791fe2dd80ac7a8d181cf669740ebbebb9df37dde",
   "ignored": {},
   "name": "slider",
   "port_body": "1f5e2e842651923a5504197ac8dfd4bb03323c52f344e0363bfbbe64e8b9bf1b",
@@ -64,7 +64,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/slider.tsx": "144f4992fbc25de172fc3089101af955e971529f06a5c02ea8a53c5a6479d541"
+    "shadcn/ui/slider.tsx": "0255828e9c4477580d1428ae633f322434d2d652939272720d6980736465d712"
   },
   "uses": [
     "jsx/Slider/class/0",

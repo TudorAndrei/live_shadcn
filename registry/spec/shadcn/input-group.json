@@ -44,9 +44,9 @@
     "jsx/InputGroupTextarea/class/0": "cn-input-group-textarea flex-1 resize-none"
   },
   "file_fingerprints": {
-    "shadcn/ui/input-group.tsx": "628473a39058fc34aea9622204e5f6a34dc9ee82dffa82e16fa19f6813be6900"
+    "shadcn/ui/input-group.tsx": "c16239d7307d1eb4b8f024add357296c31b16e9e91f6695f57734f4e767ffe22"
   },
-  "fingerprint": "a3453ef05e285c29dd89c3267c12e2eec6b8b4d6b986a64b97a9d3f5f8e802db",
+  "fingerprint": "cbea90b8dbf2295b66fefd2e6bc2283c7164e932e9fb4b4a5c7473c5c9c22922",
   "ignored": {},
   "name": "input-group",
   "port_body": "3b5c9e7a7931c89839a4c3bfb948d8f1321e44e26a5db084bc5aa3d794a54760",
@@ -99,7 +99,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/input-group.tsx": "2ee53fb8792b8022ab433ed6d455dc790ed8a5be59fb99d923303665ce3a6dbb"
+    "shadcn/ui/input-group.tsx": "b1ed344e05b4161c240fff21b6e224fcc61cbe35d5a3aaa997de02c8fb25e1fe"
   },
   "uses": [
     "cva/inputGroupAddonVariants/base",

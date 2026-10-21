@@ -50,9 +50,9 @@
     "jsx/ChartTooltipContent/class/9": "items-center"
   },
   "file_fingerprints": {
-    "shadcn/ui/chart.tsx": "497365ec47e2f1559baafb54d1d6ed5ff33aab2054acec15cf5b6f393d99b62b"
+    "shadcn/ui/chart.tsx": "16c9d01eabcc26ba5b7c1e68052463eff558e5453aa97f0c8cba17dbc0f1cfa4"
   },
-  "fingerprint": "f2083e83253ef0d1a28c07b6dfa1c7dbaf8d5e0cbc2f7653777f886ce47582e3",
+  "fingerprint": "86fc80fe00cda7bb19debbca9f8e477c44ccdae6164358cd032ff93b3aebc1a1",
   "ignored": {},
   "name": "chart",
   "port_body": "d6880c625b6a8982a0907a1b09e6326c5328c52c59f9bc07a3a3a4ba7950cf25",
@@ -94,7 +94,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/chart.tsx": "f0ffc739a4fbb40af1a9e7cfc08d0d8d27e1b79b2c6697506655fd5deb07bd52"
+    "shadcn/ui/chart.tsx": "cdaa7c2e82aaf7b233c4764cf506cd9912aa1a49d5a02d4fd2f9a8c134687877"
   },
   "uses": [
     "jsx/ChartContainer/class/0",

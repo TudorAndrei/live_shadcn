@@ -11,9 +11,9 @@
     "jsx/Skeleton/class/0": "cn-skeleton animate-pulse"
   },
   "file_fingerprints": {
-    "shadcn/ui/skeleton.tsx": "bbeb6e9b83f1e51768c54b3335b85382dde5b943bf06644d3ef565abffc32b69"
+    "shadcn/ui/skeleton.tsx": "e292176fe11c0b99f9a6c50a899454c9bba8f4f6f55981ca416f14e9a68c701e"
   },
-  "fingerprint": "7ae85bb54fa9ae6f9368be9ebe1f5a06efa8bc8cf171ea19e0844620d0b5df2e",
+  "fingerprint": "a1113756fa9c5baba8f823c0b142bd66086c49201a155d7e661a36f6d865dc32",
   "ignored": {},
   "name": "skeleton",
   "port_body": "79be479c892ab6247af05a174b4c2fc070693b1c98aa07d5fc75fac05f2a4870",
@@ -37,7 +37,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/skeleton.tsx": "f813fbd2ec0eab4eee518fff9847943929ab3ef2de0aa1330913647311bfb095"
+    "shadcn/ui/skeleton.tsx": "8fcbad84e494a75484a0975221fb40f54c4a7d68f79cfc305cb158d1feb1badf"
   },
   "uses": [
     "jsx/Skeleton/class/0"

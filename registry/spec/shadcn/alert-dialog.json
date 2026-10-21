@@ -31,9 +31,9 @@
     "jsx/AlertDialogTitle/class/0": "cn-alert-dialog-title cn-font-heading"
   },
   "file_fingerprints": {
-    "shadcn/ui/alert-dialog.tsx": "9c0bf81d1efbcd70dea66a3c5187069f951b689e52023519dc7699435ee3a039"
+    "shadcn/ui/alert-dialog.tsx": "78a4b23c32e801173805bce40fe0a2e46d519d14bc469ab435a65e2817bf16fb"
   },
-  "fingerprint": "5732607c7eb3fd052d4e6dcd71cfc697187e6f3108926198554a9b1ed049511b",
+  "fingerprint": "7defef14b455bbed88e9921b9074a35cb6e58d56d4b627a25cf66b8b7a762868",
   "ignored": {},
   "name": "alert-dialog",
   "port_body": "df0063579a513075dedf93bcdda2f9cce22c54a99317677228ba362bddd31fd8",
@@ -92,7 +92,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/alert-dialog.tsx": "48e4538e028be8b5aa1fe040de0f7ea7a6491e4f31bade2a9622a74500d2b1b3"
+    "shadcn/ui/alert-dialog.tsx": "86a20c2cae7d8a686dded2ca61b84f8c0bb4c9e56cd5f423eddac87827469caf"
   },
   "uses": [
     "jsx/AlertDialogAction/class/0",

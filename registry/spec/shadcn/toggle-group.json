@@ -19,9 +19,9 @@
     "jsx/ToggleGroupItem/class/0": "cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t"
   },
   "file_fingerprints": {
-    "shadcn/ui/toggle-group.tsx": "8e239cfaef634b86ebb639cc54493bcaefc3de2841f4773d4c38d7f7385801db"
+    "shadcn/ui/toggle-group.tsx": "22a0c4eba1c4a0efd55e4e204ab1c2bd07245413b8f7adc597a23b088dfa45aa"
   },
-  "fingerprint": "e29c836746e6fcb223670cc0507574196bda2e8b85a7289ff06f122552b8ef20",
+  "fingerprint": "cd1323d82cb3002f96d51c1bf071a1837c1b49bc433e500bd2526eb0f8fd23dc",
   "ignored": {},
   "name": "toggle-group",
   "port_body": "588ab9642e34a0c6e038e3f6bfd5ae66b1e99a8ce95bbab12ec1e0fb22078d36",
@@ -82,7 +82,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/toggle-group.tsx": "806a823d1ec998652e6db0d1a6498016276825ae0edbc8c59cd20164815123f0"
+    "shadcn/ui/toggle-group.tsx": "2562e00c69ad2ad15e4ce9fdbcf4c9cc42223b7ce7340db0ad3d203f23177c21"
   },
   "uses": [
     "jsx/ToggleGroup/class/0",

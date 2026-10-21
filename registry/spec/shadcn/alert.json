@@ -23,9 +23,9 @@
     "jsx/AlertTitle/class/0": "cn-alert-title [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground"
   },
   "file_fingerprints": {
-    "shadcn/ui/alert.tsx": "c019fe02fc4bf4c294cea5274c322abb14f038471d500aaef7d9f9d9b2c27fe5"
+    "shadcn/ui/alert.tsx": "37e87c0e65124d02a3fc7da6c526c3ce3e8e734a5200b616ac332e64ce559acf"
   },
-  "fingerprint": "dbf2e6a6fca86f300b445cda89a753fa6e1846690042d17f4fcd12e510fa6c23",
+  "fingerprint": "480e1a4f28d7901120657860095b7f8cc8834c827af4049d897d0131d27c80aa",
   "ignored": {},
   "name": "alert",
   "port_body": "c5e58d69d8fabb98dc665c840f4050b7a02d30f85b93838edcbb7977cf27055e",
@@ -60,7 +60,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/alert.tsx": "b28974495ba119b6c5bbbdff1bdec6e998537be20fc70f45d899814e4680c408"
+    "shadcn/ui/alert.tsx": "639c846b57885d8af4dbdf7ddab7b15fd4d392c051f7496c67e811154e7861d9"
   },
   "uses": [
     "cva/alertVariants/base",

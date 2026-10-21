@@ -5,7 +5,7 @@
   "description": "The upstream React references for reviewed LiveView ports, at the same pinned commit.",
   "scripts": {
     "upstream": "node upstream.mjs",
-    "test": "node --test test/*.test.mjs",
+    "test": "node --test --test-concurrency=1 test/*.test.mjs",
     "dev": "npm run upstream && vite",
     "dev:prepared": "vite",
     "build": "npm run upstream && vite build",
@@ -27,6 +27,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "cn": "0.2.2",
     "date-fns": "4.1.0",
     "embla-carousel-autoplay": "8.5.2",
     "embla-carousel-react": "^8.6.0",
@@ -46,6 +47,7 @@
     "recharts": "^3.10.1",
     "shiki": "^4.4.3",
     "sonner": "^2.0.8",
+    "streamdown": "2.5.0",
     "tailwind-merge": "^3.4.0",
     "tokenlens": "^1.3.1",
     "use-stick-to-bottom": "^1.1.6",
@@ -55,6 +57,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.1.0",
+    "oxc-parser": "0.146.0",
     "vite": "^7.2.0"
   },
   "allowScripts": {

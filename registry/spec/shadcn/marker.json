@@ -21,9 +21,9 @@
     "jsx/MarkerIcon/class/0": "cn-marker-icon shrink-0"
   },
   "file_fingerprints": {
-    "shadcn/ui/marker.tsx": "fe20dfef38c3921d6671a878f1c8a287f3bbeb9858436b130d5113169230b23f"
+    "shadcn/ui/marker.tsx": "124cce8e242e9a65e1611c3c6c9dc5c755f843f519fa403aef0b52656ea1536e"
   },
-  "fingerprint": "0fdd6b3e43ef164571e124b0ca3702a8c45b36c0c768fd3f78befc94969ccb8f",
+  "fingerprint": "fee72184d70241b60776a6528e270829297471fdce2ab872aa9f93672efcdfb1",
   "ignored": {},
   "name": "marker",
   "port_body": "3c31ed91dcd4d5dfada9043eba3a11f43b6dcb3076b011ef81100f38151e4cd6",
@@ -58,7 +58,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/marker.tsx": "5d39ae04df6ae4d3ea694eac782c66375f38d9968e398ad67020b7ab1a9ce5c2"
+    "shadcn/ui/marker.tsx": "f7daf3c6f9ae5eee31820cd9576d6df3d30b7f348beb9fe4372704812e76384e"
   },
   "uses": [
     "cva/markerVariants/base",

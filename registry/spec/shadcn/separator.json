@@ -13,9 +13,9 @@
     "jsx/Separator/class/0": "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
   },
   "file_fingerprints": {
-    "shadcn/ui/separator.tsx": "86da062bd5dc34697d9f0ac167ee709cf44a4b4f9bd19d18758dacef7dc77990"
+    "shadcn/ui/separator.tsx": "9da9fa99dd754c5ca1df3aa09cde00ff4d3dbb4580eca1472f2e151dfb393eac"
   },
-  "fingerprint": "7604c21c6f986ff34a6e0e02c005622da4565584a522a4bb91c718f39e50c0a3",
+  "fingerprint": "59cb424444495b51ab9c2a08c212ef7a89d1491613e53e4d2640f7b513b263c4",
   "ignored": {},
   "name": "separator",
   "port_body": "9d17ec9ae902118d5f6303952edefcefb639cefebc209d7df6a3c829c51fc253",
@@ -39,7 +39,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/separator.tsx": "a434c0686f283f6c6abd38e33b9b636bf4ee70de211c006cf3fa1b4ab401d157"
+    "shadcn/ui/separator.tsx": "9a80ff8c110e0c55489509f4f82ebcc929c0174b59544047147b7134f86a54e7"
   },
   "uses": [
     "jsx/Separator/class/0"

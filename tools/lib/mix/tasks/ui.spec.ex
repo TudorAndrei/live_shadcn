@@ -60,7 +60,7 @@ defmodule Mix.Tasks.Ui.Spec do
 
   defp components(names, source) do
     names
-    |> Enum.map(&resolve/1)
+    |> Enum.map(&resolve(&1, source))
     |> Enum.map(fn {component_source, name} = component ->
       if source != nil and source != component_source do
         Mix.raise("#{ref(component_source, name)} does not belong to source #{source}.")

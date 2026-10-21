@@ -1,14 +1,70 @@
 import { expect, test } from "@playwright/test";
 
 import { actionControlSelector, enterVisualState, visualStates } from "./visual-states.mjs";
-import { discoverInteractionProbes } from "./interaction-parity.mjs";
+import { discoverInteractionProbes, enterInteractionProbe } from "./interaction-parity.mjs";
 import { referenceReady, slowAnimationFrames, visit } from "./live.mjs";
+import { regressions, stableViolations } from "./accessibility.mjs";
 import { collect } from "./measure.mjs";
 
 async function visitPreview(page, path) {
   if (path.startsWith("/")) await visit(page, path);
   else await page.goto(path);
 }
+
+test("accessibility targets identify the visible tab panel across mount strategies", async ({ page }) => {
+  const scan = async (hidden) => {
+    await page.setContent(`<main data-preview="tabs"><div data-slot="tabs"><div data-slot="tabs-content"><span id="target">request</span></div>${hidden ? '<div data-slot="tabs-content" hidden>Other file</div>' : ''}</div></main>`);
+    return stableViolations(page, [{ id: "color-contrast", nodes: [{ target: ["#target"] }] }], "[data-preview=tabs]");
+  };
+  const upstream = await scan(false);
+  const native = await scan(true);
+  expect(regressions(native, upstream)).toEqual([]);
+});
+
+test("disclosure observations wait for entry and ignore closed panels", async ({ page }) => {
+  test.setTimeout(5000);
+  for (const remove of [false, true]) {
+    await page.setContent('<main data-preview="disclosure"><button aria-controls="panel" aria-expanded="false">Details</button><div id="panel" style="height:0;max-height:120px;width:100px;overflow:hidden">Output</div></main>');
+    await page.locator("button").evaluate((button, remove) => {
+      button.onclick = () => {
+        const open = button.getAttribute("aria-expanded") !== "true";
+        button.setAttribute("aria-expanded", String(open));
+        const panel = document.getElementById("panel");
+        if (!open && remove) panel.remove();
+        else if (open) setTimeout(() => { panel.style.height = "20px"; }, 200);
+        else panel.style.height = "0px";
+      };
+    }, remove);
+    const selector = "[data-preview=disclosure]";
+    const [probe] = await discoverInteractionProbes(page.locator(selector));
+    const result = await enterInteractionProbe(page, selector, probe);
+    expect(result.opened.popup).toMatchObject({ visible: true });
+    expect(result.closed.popup).toBeNull();
+  }
+});
+
+test("a show-more disclosure returns to its visible clipped state", async ({ page }) => {
+  await page.setContent(`<main data-preview="clipped"><button aria-controls="source" aria-expanded="false">Show more</button><pre id="source" style="max-height:20px;overflow-y:hidden">one\ntwo\nthree\nfour</pre></main>`);
+  await page.locator("button").evaluate(button => {
+    button.onclick = () => {
+      const expanded = button.getAttribute("aria-expanded") !== "true";
+      button.setAttribute("aria-expanded", String(expanded));
+      document.getElementById("source").style.maxHeight = expanded ? "none" : "20px";
+    };
+  });
+  const selector = "[data-preview=clipped]";
+  const states = await visualStates(page, selector);
+  expect(states.some(state => state.kind === "expanded")).toBe(true);
+  await expect(page.locator("#source")).toBeVisible();
+  if (await page.locator("button").getAttribute("aria-expanded") === "true") {
+    await page.locator("button").click();
+  }
+  const [probe] = await discoverInteractionProbes(page.locator(selector));
+  const result = await enterInteractionProbe(page, selector, probe);
+  expect(result.opened.target.expanded).toBe("true");
+  expect(result.closed.target.expanded).toBe("false");
+  await expect(page.locator("#source")).toHaveCSS("max-height", "20px");
+});
 
 test("semantic observations follow inherited hidden state", async ({ page }, testInfo) => {
   await page.goto(`${testInfo.project.use.parityURL}/preview/dialog/default`);

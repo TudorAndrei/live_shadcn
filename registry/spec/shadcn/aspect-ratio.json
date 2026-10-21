@@ -13,9 +13,9 @@
     "jsx/AspectRatio/class/0": "relative aspect-(--ratio)"
   },
   "file_fingerprints": {
-    "shadcn/ui/aspect-ratio.tsx": "cb9ee227006db61b45ceefcf8a0230a9bbfcddf738eec88bd699025b6b4728d9"
+    "shadcn/ui/aspect-ratio.tsx": "59f6fd72eaaf11b41e07273833c1561fd403ed8f0bffa09dadddbc055aedc1d8"
   },
-  "fingerprint": "4e74685c0ab4d43832cea4bded235483d30a88fe227b8df5e79c054a994b5976",
+  "fingerprint": "41977885d2337c6cf957b711b17e6c95ea9400c0511700ebca4ed26017349e38",
   "ignored": {},
   "name": "aspect-ratio",
   "port_body": "a1db78a25cced6c1a82083392a249d0ed5bd7ef8bd643a6bb05f73b087eb8a42",
@@ -30,7 +30,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/aspect-ratio.tsx": "6037c112b43482d06a7f102f715c8af03833073f0db69399a21df92050fcdae6"
+    "shadcn/ui/aspect-ratio.tsx": "6df19df6b983c450361081b695dbf3541a6fe4a9d2ec148766991e4eb0bf6473"
   },
   "uses": [
     "jsx/AspectRatio/class/0"

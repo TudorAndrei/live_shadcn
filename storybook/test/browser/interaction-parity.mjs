@@ -4,6 +4,7 @@
 // example. It does not guess what an ordinary application button should do.
 
 import { inScope } from "./preview-scope.mjs";
+import { waitForCollapsedContent } from "./disclosure-state.mjs";
 import { waitForFixtureImages } from "./visual-states.mjs";
 import { referenceLabelNames } from "./reviewed-reference-labels.mjs";
 
@@ -90,7 +91,7 @@ export async function discoverInteractionProbes(scope, options = {}) {
         element.getAttribute("aria-hidden") !== "true" &&
         style.display !== "none" &&
         style.visibility !== "hidden" &&
-        box.width + box.height > 0
+        box.width > 0 && box.height > 0
       );
     };
 
@@ -401,6 +402,7 @@ export async function enterInteractionProbe(
   await waitForAttribute(target, "aria-expanded", "true");
   const popupId = await target.getAttribute("aria-controls");
   const popup = popupId ? page.locator(`#${popupId}`) : null;
+  if (popup) await popup.waitFor({ state: "visible", timeout: 1_000 });
   const opened = await observe();
   if (options.keepOpen) return { opened };
 
@@ -410,6 +412,7 @@ export async function enterInteractionProbe(
     await target.click();
   }
   await waitForDisclosureClosed(target, popup);
+  await settle(page);
   return { opened, closed: await observe() };
 }
 
@@ -487,7 +490,7 @@ async function observeInteraction(scope, target, probe, referenceLabels) {
           !node.hidden &&
           style.display !== "none" &&
           style.visibility !== "hidden" &&
-          box.width + box.height > 0
+          box.width > 0 && box.height > 0
         );
       };
       const visiblePopup = popupSlot
@@ -543,7 +546,7 @@ async function waitForAttribute(locator, name, value) {
 
 export async function waitForDisclosureClosed(target, popup) {
   await waitForAttribute(target, "aria-expanded", "false");
-  if (popup) await popup.waitFor({ state: "hidden", timeout: 1_000 });
+  if (popup) await waitForCollapsedContent(popup);
 }
 
 async function settle(page) {

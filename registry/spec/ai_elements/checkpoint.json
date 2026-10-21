@@ -22,9 +22,9 @@
   },
   "file_fingerprints": {
     "ai_elements/checkpoint.tsx": "b9331f02f92a6c9b21dca9b379ea2145a796c958adc48716952741360a53efc4",
-    "shadcn/ui/tooltip.tsx": "ac9b55d7c253adad14872556e7b25b981ce37eb710c0068004f7b863bbd30008"
+    "shadcn/ui/tooltip.tsx": "9d6dc709bf3c66ab602f5f1609ea19cb1f085a823f8bad105b5759d08d96f2eb"
   },
-  "fingerprint": "2536749270669f383ad7163184795f5e01106b33b9127d7e1516e9797cdcec13",
+  "fingerprint": "18dc91a9e5d3a527ee000651ae6b09a716be480d0560d4dfcd002fafbd9a6291",
   "ignored": {},
   "name": "checkpoint",
   "port_body": "66758aa43e398e262516d85a49d720f56472861c80aeb2592d887472bdfa5244",
@@ -94,7 +94,7 @@
   },
   "upstream": {
     "ai_elements/checkpoint.tsx": "8649b28c7969c6c58bd9a8643279810c13da332198a4fcbc5b8a75000673eb5b",
-    "shadcn/ui/tooltip.tsx": "75e66453d7a6301281a0ecd7840d268a90a6972b252b018d2ac2bc34a979968b"
+    "shadcn/ui/tooltip.tsx": "dc5ec917d8276af9d66e7c951b0608d67c149bcb311072166bc8ce67ee2b7488"
   },
   "uses": [
     "jsx/Checkpoint/class/0",

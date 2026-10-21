@@ -15,9 +15,9 @@
     "jsx/Checkbox/class/1": "cn-checkbox-indicator grid place-content-center text-current transition-none"
   },
   "file_fingerprints": {
-    "shadcn/ui/checkbox.tsx": "ade2248b3a4168d9712ee2b04ee2858a0d98bd2c5e32eddc76b208569186f1ba"
+    "shadcn/ui/checkbox.tsx": "3ca815fd5b9a2038163501bea377be94c5abedd45764b069a098fe82f07b7649"
   },
-  "fingerprint": "a08dc1d1d27698c731d54e82f03e26ee0b0a74e2813d71e0ad6af8c35e3dd174",
+  "fingerprint": "a699edfa17fa9cf6a1b07c1a1a1d0999fe0b032baa268405381b887439c0555d",
   "ignored": {},
   "name": "checkbox",
   "port_body": "0051d67e3a53dda3bf4f02aa14cb4a611806e85b2453d76627c66b38bfce39d2",
@@ -55,7 +55,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/checkbox.tsx": "2e9c7159b275f0fc4906147b155a48640a072b84c32980c63fd4e7a1c3213ed0"
+    "shadcn/ui/checkbox.tsx": "67d7935d6fd74b026cd464acd0c4f60dd8519667364b4ca2c584c0c486c72f3a"
   },
   "uses": [
     "jsx/Checkbox/class/0",

@@ -69,9 +69,9 @@
     "port/class/1": "cn-field-label group/field-label peer/field-label flex w-fit has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col"
   },
   "file_fingerprints": {
-    "shadcn/ui/field.tsx": "a3f1ffa8e41f93f5adb9ab9fc54594a252a988d732616425c6c607d8f71dd3b8"
+    "shadcn/ui/field.tsx": "cb14bd7dcb92b536e0e833aa57c26ba524c81b0cf6aca6b94a139e257dda717b"
   },
-  "fingerprint": "bcba21adc11108d379761402adef73213effb3ba8f989462706b40dbda0f533d",
+  "fingerprint": "4361785cb074caf9b90447bb8270c5c523815c08e093ea4dbe1cecf165088f63",
   "ignored": {},
   "name": "field",
   "port_body": "d3b14d391902f5208e6f77044f89a07e6869b1b9bdd2a97239e2453bb905559f",
@@ -153,7 +153,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/field.tsx": "b965ae608453b047c11c71154df817764dbe5c5e38b5c6bb1a2c6a07c38edd68"
+    "shadcn/ui/field.tsx": "e7305c507a3f777b0193045fdd5ebfb1c58020d3d8e0821cb9e8d19b203576b9"
   },
   "uses": [
     "cva/fieldVariants/base",

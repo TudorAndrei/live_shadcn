@@ -71,6 +71,13 @@ export const Clipboard = {
     for (const branch of this.el.querySelectorAll("[data-lb-state]")) {
       branch.toggleAttribute("hidden", branch.getAttribute("data-lb-state") !== state);
     }
+    if (this.el.hasAttribute("data-lb-copy-label")) {
+      const copied = state === "copied";
+      this.el.setAttribute("aria-label", copied ? "Copied" : "Copy");
+      this.el.toggleAttribute("data-copied", copied);
+      const status = document.getElementById(this.el.getAttribute("data-lb-copy-status"));
+      if (status) status.textContent = copied ? "Copied" : "";
+    }
   },
 
   announce(name, detail) {

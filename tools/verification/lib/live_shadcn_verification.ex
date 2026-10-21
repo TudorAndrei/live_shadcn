@@ -36,6 +36,7 @@ defmodule LiveShadcnVerification do
     "parity/src/reference-loader.mjs",
     "parity/src/official-shadcn.mjs",
     "parity/upstream.mjs",
+    "parity/example-export.mjs",
     "parity/upstream-directories.mjs",
     "parity/source-lease.mjs",
     "parity/vite.config.mjs",
@@ -79,6 +80,7 @@ defmodule LiveShadcnVerification do
     "parity/src/official-shadcn.mjs",
     "parity/source-lease.mjs",
     "parity/upstream.mjs",
+    "parity/example-export.mjs",
     "parity/vite.config.mjs"
   ]
 

@@ -43,6 +43,7 @@ defmodule LiveShadcn.UI.Sheet do
   who loses their place on the page has lost the page.
   """
   attr(:id, :string, required: true, doc: "Every id inside the dialog derives from it.")
+  attr(:portal, :boolean, default: false, doc: "Render the modal layers under the document body.")
   attr(:open, :boolean, default: false, doc: "Whether it starts open.")
   attr(:alert, :boolean, default: false, doc: "An alert dialog interrupts; a dialog does not.")
   attr(:dismissable, :boolean, default: true, doc: "Whether Escape and the backdrop close it.")
@@ -59,7 +60,7 @@ defmodule LiveShadcn.UI.Sheet do
   attr(:description_class, :any, default: nil)
   attr(:title_class, :any, default: nil)
   attr(:trigger_class, :any, default: nil)
-  attr(:trigger_variant, :string, default: "outline")
+  attr(:trigger_variant, :any, default: "outline")
   attr(:trigger_size, :string, default: "default")
   attr(:side, :string, default: "right", values: ["top", "right", "bottom", "left"])
   attr(:rest, :global)
@@ -84,7 +85,7 @@ defmodule LiveShadcn.UI.Sheet do
       data-popup-open={flag(@open)}
       data-disabled={flag(@disabled)}
       aria-disabled={if(@disabled, do: "true")}
-      class={LiveShadcn.Cn.merge([
+      class={if is_nil(@trigger_variant), do: @trigger_class, else: LiveShadcn.Cn.merge([
         LiveShadcn.UI.Button.part_class("button"),
         LiveShadcn.UI.Button.variant_class("buttonVariants", "variant", @trigger_variant),
         LiveShadcn.UI.Button.variant_class("buttonVariants", "size", @trigger_size),
@@ -93,6 +94,13 @@ defmodule LiveShadcn.UI.Sheet do
     >
       {render_slot(@trigger)}
     </button>
+    <.portal :if={@portal} id={@id <> "-portal"} target="body" class="contents"><.sheet_layers {assigns} /></.portal>
+    <.sheet_layers :if={not @portal} {assigns} />
+    """
+  end
+
+  defp sheet_layers(assigns) do
+    ~H"""
     <div
       data-slot="sheet-overlay"
       id={Dialog.backdrop_id(@id)}

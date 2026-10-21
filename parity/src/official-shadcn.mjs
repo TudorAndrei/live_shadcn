@@ -19,7 +19,9 @@ export function entries(component, sources) {
     .map(({ id: explicitId, reference, source }) => {
       const candidate =
         explicitId ??
-        (source === `${component}-demo`
+        (component === "chart" && source === "chart-demo"
+          ? "demo"
+          : source === `${component}-demo`
           ? "default"
           : source.startsWith(`${component}-`)
             ? source.slice(component.length + 1)
