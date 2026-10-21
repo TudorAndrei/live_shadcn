@@ -1,0 +1,64 @@
+name: Prepare component browser checks
+description: Restore exact sources and install the test servers and browser.
+runs:
+  using: composite
+  steps:
+    - name: Resolve compiler versions
+      id: toolchain
+      shell: bash
+      run: |
+        echo "erlang=$(mise current erlang)" >> "$GITHUB_OUTPUT"
+        echo "elixir=$(elixir --short-version)" >> "$GITHUB_OUTPUT"
+
+    - name: Cache browser dependencies and builds
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: |
+          tools/deps
+          tools/_build
+          storybook/deps
+          storybook/_build
+        key: ${{ runner.os }}-${{ runner.arch }}-browser-v1-${{ steps.toolchain.outputs.erlang }}-${{ steps.toolchain.outputs.elixir }}-${{ hashFiles('mise.toml', '**/mix.lock', '**/mix.exs') }}
+
+    - name: Cache exact pinned sources
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: |
+          registry/upstream
+          parity/.upstream
+        key: pinned-upstream-v1-${{ hashFiles('registry/UPSTREAM.json') }}
+
+    - run: mix deps.get
+      shell: bash
+      working-directory: tools
+
+    - run: mix deps.get
+      shell: bash
+      working-directory: storybook
+
+    - run: npm ci
+      shell: bash
+      working-directory: tools
+
+    - name: Restore pinned sources
+      run: mix ui.fetch --locked
+      shell: bash
+      working-directory: tools
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+
+    - run: npm ci
+      shell: bash
+      working-directory: storybook/assets
+
+    - run: npm ci
+      shell: bash
+      working-directory: parity
+
+    - run: npm ci
+      shell: bash
+      working-directory: storybook/test/browser
+
+    - run: npm run verify:install
+      shell: bash
+      working-directory: storybook/test/browser

@@ -10,6 +10,7 @@ defmodule Mix.Tasks.Ui.Verify do
       mix ui.verify shadcn/message    # one component, said unambiguously
       mix ui.verify --source ai_elements # all authored AI component contracts
       mix ui.verify --no-browser      # skip the browser, for a machine without one
+      mix ui.verify --source shadcn --shard 1/8 --batch-size 8 --output shard.json
 
   Shadcn requires React comparison. AI Elements requires authored behavior and
   local accessibility checks. AI parity and pixel outcomes are not applicable.
@@ -54,6 +55,7 @@ defmodule Mix.Tasks.Ui.Verify do
   alias LiveShadcnTools.PlaywrightReport
   alias LiveShadcnTools.ShadcnExamples
   alias LiveShadcnTools.VerificationPolicy
+  alias LiveShadcnTools.VerificationShards
   alias LiveShadcnTools.VerifierLock
   alias LiveShadcnVerification
 
@@ -90,11 +92,27 @@ defmodule Mix.Tasks.Ui.Verify do
 
     {opts, names, invalid} =
       OptionParser.parse(argv,
-        strict: [browser: :boolean, examples: :string, source: :string, record: :keep]
+        strict: [
+          browser: :boolean,
+          examples: :string,
+          source: :string,
+          record: :keep,
+          shard: :string,
+          batch_size: :integer,
+          output: :string,
+          artifacts: :string
+        ]
       )
 
     valid_options!(invalid)
     records = Keyword.get_values(opts, :record)
+
+    if records != [] and
+         Enum.any?([:shard, :batch_size, :output, :artifacts], &Keyword.has_key?(opts, &1)),
+       do:
+         Mix.raise(
+           "--record cannot be combined with --shard, --batch-size, --output, or --artifacts"
+         )
 
     if records != [] do
       record_incremental!(names, opts, records)
@@ -114,6 +132,25 @@ defmodule Mix.Tasks.Ui.Verify do
     browser? = Keyword.get(opts, :browser, true)
     source = source!(Keyword.get(opts, :source))
     components = components_for_verify(names, source)
+    batch_size = Keyword.get(opts, :batch_size, @browser_example_batch_size)
+    if batch_size not in 1..16, do: Mix.raise("--batch-size must be between 1 and 16")
+
+    components =
+      if shard = opts[:shard] do
+        if source == nil or names != [],
+          do: Mix.raise("--shard requires --source and no component names")
+
+        previews = previews()
+
+        VerificationShards.select(
+          components,
+          previews,
+          shard,
+          VerificationShards.costs(previews, repo_root())
+        )
+      else
+        components
+      end
 
     if components == [] do
       Mix.raise("nothing to verify: no reviewed component port exists.")
@@ -121,17 +158,23 @@ defmodule Mix.Tasks.Ui.Verify do
 
     VerifierLock.with_lock(repo_root(), fn token ->
       Process.put(:live_shadcn_source_lease_token, token)
+      Process.put(:live_shadcn_browser_batch_size, batch_size)
+
+      if path = opts[:artifacts],
+        do: Process.put(:live_shadcn_browser_artifacts, Path.expand(path))
 
       try do
-        verify_locked(components, browser?)
+        verify_locked(components, browser?, opts)
       after
+        Process.delete(:live_shadcn_browser_batch_size)
+        Process.delete(:live_shadcn_browser_artifacts)
         Process.delete(:live_shadcn_verification_identities)
         Process.delete(:live_shadcn_source_lease_token)
       end
     end)
   end
 
-  defp verify_locked(components, browser?) do
+  defp verify_locked(components, browser?, opts) do
     shadcn_identities =
       components
       |> Enum.flat_map(fn
@@ -228,6 +271,17 @@ defmodule Mix.Tasks.Ui.Verify do
     end
 
     write_json_atomic!(registry_path("VERIFY.json"), merge(results))
+
+    if output = opts[:output] do
+      write_json_atomic!(Path.expand(output), %{
+        "source" => opts[:source],
+        "shard" => opts[:shard],
+        "components" =>
+          Enum.map(components, fn {source, name} -> ref(source, name) end) |> Enum.sort(),
+        "results" => results
+      })
+    end
+
     report(results)
   end
 
@@ -850,11 +904,20 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   defp batch_browser_check(source, name, key, kind, args, env, parser, examples) do
+    started = System.monotonic_time(:millisecond)
+    label = "#{kind} #{ref(source, name)} [#{Enum.join(examples, ", ")}]"
+    Mix.shell().info("#{label} started")
+
+    artifact_dir = browser_artifact_directory("#{source}-#{name}-#{kind}")
+
     report =
-      Path.join(
-        System.tmp_dir!(),
-        "live-shadcn-#{kind}-#{System.unique_integer([:positive])}.json"
-      )
+      if artifact_dir,
+        do: Path.join(artifact_dir, "report.json"),
+        else:
+          Path.join(
+            System.tmp_dir!(),
+            "live-shadcn-#{kind}-#{System.unique_integer([:positive])}.json"
+          )
 
     envelope = browser_report_envelope(source, name, kind, key, examples) |> Jason.encode!()
 
@@ -863,6 +926,7 @@ defmodule Mix.Tasks.Ui.Verify do
         ["playwright", "test" | rest] -> rest
         rest -> rest
       end
+      |> artifact_arguments(artifact_dir)
 
     verify_script = Path.join(browser_dir(), "verify.mjs")
 
@@ -923,7 +987,8 @@ defmodule Mix.Tasks.Ui.Verify do
           global_failures: ["cannot run Playwright: #{Exception.message(error)}"]
         }
     after
-      File.rm(report)
+      unless artifact_dir, do: File.rm(report)
+      Mix.shell().info("#{label} finished in #{System.monotonic_time(:millisecond) - started} ms")
     end
   end
 
@@ -1728,12 +1793,23 @@ defmodule Mix.Tasks.Ui.Verify do
     case behavior_commands(source, name, key, policy) do
       {:commands, commands} ->
         commands
-        |> Enum.map(fn arguments ->
-          run_in(browser_dir(), "npx", arguments, %{
-            "PREVIEW_SOURCE" => source,
-            "PREVIEW_COMPONENT" => key
-          })
-          |> BrowserVerification.label("behavior #{key}")
+        |> Enum.with_index(1)
+        |> Enum.map(fn {arguments, index} ->
+          started = System.monotonic_time(:millisecond)
+          label = "behavior #{ref(source, name)} batch #{index}/#{length(commands)}"
+          Mix.shell().info("#{label} started")
+
+          result =
+            run_in(browser_dir(), "npx", arguments, %{
+              "PREVIEW_SOURCE" => source,
+              "PREVIEW_COMPONENT" => key
+            })
+
+          Mix.shell().info(
+            "#{label} finished in #{System.monotonic_time(:millisecond) - started} ms"
+          )
+
+          BrowserVerification.label(result, "behavior #{key}")
         end)
         |> BrowserVerification.merge_checks()
 
@@ -1842,7 +1918,7 @@ defmodule Mix.Tasks.Ui.Verify do
     key
     |> official_example_names()
     |> Enum.map(&"#{key} / #{&1} keeps inferred interaction semantics")
-    |> BrowserVerification.batches(@browser_example_batch_size)
+    |> BrowserVerification.batches(browser_example_batch_size(key, "behavior"))
     |> Enum.map(fn titles ->
       [
         "playwright",
@@ -2044,7 +2120,8 @@ defmodule Mix.Tasks.Ui.Verify do
     |> BrowserVerification.batches(browser_example_batch_size(key, kind))
   end
 
-  defp browser_example_batch_size(_key, _kind), do: @browser_example_batch_size
+  defp browser_example_batch_size(_key, _kind),
+    do: Process.get(:live_shadcn_browser_batch_size, @browser_example_batch_size)
 
   defp expected_examples(key) do
     previews()
@@ -2168,6 +2245,15 @@ defmodule Mix.Tasks.Ui.Verify do
   defp previewed, do: previews() |> Map.keys()
 
   defp run_in(dir, command, args, env \\ %{}) do
+    args =
+      if command == "npx" and "playwright" in args,
+        do:
+          artifact_arguments(
+            args,
+            browser_artifact_directory("behavior-#{env["PREVIEW_COMPONENT"]}")
+          ),
+        else: args
+
     env =
       if command == "npx" and "playwright" in args do
         env
@@ -2185,6 +2271,19 @@ defmodule Mix.Tasks.Ui.Verify do
     error in ErlangError ->
       %{"pass" => false, "detail" => "cannot run `#{command}`: #{Exception.message(error)}"}
   end
+
+  defp browser_artifact_directory(label) do
+    if root = Process.get(:live_shadcn_browser_artifacts) do
+      directory = Path.join(root, "#{label}-#{System.unique_integer([:positive])}")
+      File.mkdir_p!(directory)
+      directory
+    end
+  end
+
+  defp artifact_arguments(arguments, nil), do: arguments
+
+  defp artifact_arguments(arguments, directory),
+    do: arguments ++ ["--output", Path.join(directory, "test-results")]
 
   # Enough of the failure to act on, not so much that VERIFY.json stops being
   # reviewable in a diff.

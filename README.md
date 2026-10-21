@@ -107,10 +107,41 @@ date-picker, and typography documentation families. `mix ui.verify --source
 ai_elements` checks all 48 AI Elements components. `mix ui.verify` checks both
 sources.
 
-CI runs the Shadcn checks before the other test jobs. It creates fresh
-verification records, regenerates inventory, and requires complete current
-Shadcn evidence. The inventory appears in the CI job summary. A failure stops
-the dependent jobs from starting.
+CI first checks component contracts, snapshots, and the production JavaScript
+bundle. A failure stops the dependent jobs from starting. Browser checks then
+run in eight Shadcn groups and four AI Elements groups on separate runners.
+The groups are balanced by example count and interactive controls. Each
+component belongs to one group
+and keeps all required examples, visual states, and checks.
+
+Each runner uses one browser worker and batches of up to eight examples.
+Local verification keeps the default batch size of two. CI saves each group's
+records and retains failed browser reports, traces, and screenshots for seven
+days. The final source checks reject missing, repeated, failed, or old results
+before they regenerate inventory. Deployment requires both source checks.
+
+To inspect or run a CI group locally, use:
+
+```bash
+mix ui.verify.plan --source shadcn --shards 8
+mix ui.verify --source shadcn --shard 1/8 --batch-size 8 \
+  --output /tmp/shadcn-1.json --artifacts /tmp/shadcn-browser-1
+```
+
+Use Phoenix component tests for server rendering and events. Use Node tests
+for catalog and contract files. Keep Playwright for browser hooks, focus,
+accessibility, layout, and pixels. Its [CI sharding support](https://playwright.dev/docs/test-sharding)
+fits the existing assertions and reports. [Agent-browser](https://github.com/vercel-labs/agent-browser)
+is useful for an agent's interactive inspection; replacing the test runner
+would still require the same page rendering and comparison work. Phoenix's
+[LiveView tests](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveViewTest.html)
+can check server behavior without a browser, but cannot prove CSS or browser
+hook behavior.
+
+Local samples on 2026-10-21 measured the six-example Alert check at 46.3 seconds
+with batches of two and 38.2 seconds with batches of eight. The file-only AI
+catalog check took 11.4 seconds in Playwright and 0.17 seconds in Node with the
+same assertions. These samples do not predict the total CI duration.
 
 AI Elements uses agent-authored behavior and contract tests. Every component
 must pass its generated contract, snapshots, example coverage, browser behavior,

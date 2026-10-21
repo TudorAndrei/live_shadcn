@@ -1,7 +1,8 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { expect, test } from "@playwright/test";
+import { test } from "node:test";
+import assert from "node:assert/strict";
 
 import {
   entries as aiEntries,
@@ -35,62 +36,57 @@ for (const entry of officialEntries) {
 }
 
 test("every AI Elements story has pinned upstream and independent checks", () => {
-  expect(Object.keys(audit).sort()).toEqual(aiComponents);
-  expect(upstream.sources.ai_elements.ref).toMatch(/^[0-9a-f]{40}$/);
-  expect(officialEntries).toHaveLength(84);
-  expect(aiDiscoveryProblems(upstream), "AI example discovery has an ambiguous pinned relationship").toEqual([]);
-  expect(
+  assert.deepEqual(Object.keys(audit).sort(), aiComponents);
+  assert.match(upstream.sources.ai_elements.ref, /^[0-9a-f]{40}$/);
+  assert.equal(officialEntries.length, 84);
+  assert.deepEqual(aiDiscoveryProblems(upstream), [], "AI example discovery has an ambiguous pinned relationship");
+  assert.deepEqual(
     officialEntries.map(({ component }) => component).filter((component) => !auditedUpstreams.has(component)),
-  ).toEqual([]);
+    [],
+  );
 
   for (const [component, contract] of Object.entries(audit)) {
     const upstreamKey = `ai_elements/${contract.upstream}.tsx`;
-    expect(upstream.files[upstreamKey], `${component} has no pinned source`).toBeTruthy();
-    expect(
-      existsSync(join(root, "registry/upstream", upstreamKey)),
-      `${component} has no local pinned source`,
-    ).toBe(true);
+    assert.ok(upstream.files[upstreamKey], `${component} has no pinned source`);
+    assert.ok(existsSync(join(root, "registry/upstream", upstreamKey)), `${component} has no local pinned source`);
 
     const official = officialByUpstream.get(contract.upstream) || [];
     const local = previews[component] || [];
     const declared = contract.component_examples;
     const missing = official.filter(({ id }) => !local.includes(id));
 
-    expect(
+    assert.deepEqual(
       missing.map(({ id, source: exampleSource }) => `${id} (${exampleSource})`),
-      `${component} is missing HEEx previews for pinned official examples`,
-    ).toEqual([]);
+      [], `${component} is missing HEEx previews for pinned official examples`,
+    );
 
     const localOnly = contract.local_only_examples || [];
 
-    expect(new Set(localOnly).size, `${component} repeats a local-only HEEx name`).toBe(localOnly.length);
+    assert.equal(new Set(localOnly).size, localOnly.length, `${component} repeats a local-only HEEx name`);
 
     if (declared) {
-      expect([...declared].sort(), `${component} component_examples must describe its local HEEx previews`).toEqual(
-        [...local].sort(),
-      );
+      assert.deepEqual([...declared].sort(), [...local].sort(),
+        `${component} component_examples must describe its local HEEx previews`);
     }
 
-    expect(
+    assert.deepEqual(
       local.filter((example) => !official.some(({ id }) => id === example) && !localOnly.includes(example)),
-      `${component} has local HEEx previews without official or local-only policy`,
-    ).toEqual([]);
+      [], `${component} has local HEEx previews without official or local-only policy`,
+    );
 
     if (official.length === 0) {
-      expect(localOnly, `${component} has no official examples and requires local-only policy`).not.toEqual([]);
+      assert.notDeepEqual(localOnly, [], `${component} has no official examples and requires local-only policy`);
     }
 
     for (const example of localOnly) {
       const name = component + "." + example;
 
-      expect(local, `${name} is local-only but has no HEEx preview`).toContain(example);
-      expect(
-        official.some(({ id }) => id === example),
-        `${component}.${example} is local-only but has an official pinned example`,
-      ).toBe(false);
+      assert.ok(local.includes(example), `${name} is local-only but has no HEEx preview`);
+      assert.equal(official.some(({ id }) => id === example), false,
+        `${component}.${example} is local-only but has an official pinned example`);
     }
 
-    expect(contract.spec, `${component} has no authored contract suite`).toMatch(/\.spec\.mjs$/);
-    expect(existsSync(join(here, contract.spec)), `${component} has no contract test`).toBe(true);
+    assert.match(contract.spec, /\.spec\.mjs$/, `${component} has no authored contract suite`);
+    assert.ok(existsSync(join(here, contract.spec)), `${component} has no contract test`);
   }
 });

@@ -110,18 +110,35 @@ jobs:
       - run: mix dialyzer --force-check --format short
         working-directory: ${{ matrix.package }}
 
-  # Check the cheap contracts first, then refresh Shadcn browser evidence.
-  # Other jobs start only after this job proves the current checkout.
+  # Reject broken contracts and snapshots before starting expensive jobs.
   inventory:
-    name: Shadcn verification and inventory
+    name: component contracts and snapshots
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 15
+    outputs:
+      matrix: ${{ steps.shards.outputs.matrix }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+
+      - name: Resolve compiler versions
+        id: toolchain
+        run: |
+          echo "erlang=$(mise current erlang)" >> "$GITHUB_OUTPUT"
+          echo "elixir=$(elixir --short-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache preflight dependencies and builds
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            tools/deps
+            tools/_build
+            storybook/deps
+            storybook/_build
+          key: ${{ runner.os }}-${{ runner.arch }}-preflight-v1-${{ steps.toolchain.outputs.erlang }}-${{ steps.toolchain.outputs.elixir }}-${{ hashFiles('mise.toml', '**/mix.lock', '**/mix.exs') }}
 
       - run: mix deps.get
         working-directory: tools
@@ -150,27 +167,88 @@ jobs:
       - run: npm run build:js -- --minify
         working-directory: storybook/assets
 
-      - run: npm ci
+      - name: Plan balanced Shadcn groups
+        id: shards
+        run: |
+          mix ui.verify.plan --source shadcn --shards 8 --output "$RUNNER_TEMP/shadcn-matrix.json"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          matrix = json.loads((Path(os.environ["RUNNER_TEMP"]) / "shadcn-matrix.json").read_text())
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write("matrix=" + json.dumps(matrix, separators=(",", ":")) + "\n")
+          PY
         working-directory: tools
 
-      - name: Restore pinned sources
-        run: mix ui.fetch --locked
+      - run: node --test .github/scripts/*.test.mjs
+
+  shadcn-verification:
+    name: Shadcn ${{ matrix.shard }}
+    needs: inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: true
+      max-parallel: 8
+      matrix: ${{ fromJSON(needs.inventory.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+
+      - uses: ./.github/actions/setup-browser # zizmor: ignore[self-repository]
+
+      - name: Verify assigned components and every example
+        run: mix ui.verify --source shadcn --shard "$SHARD" --batch-size 8 --output "$RUNNER_TEMP/shadcn-$SHARD_INDEX.json" --artifacts "$RUNNER_TEMP/shadcn-browser-$SHARD_INDEX"
         working-directory: tools
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          SHARD: ${{ matrix.shard }}
+          SHARD_INDEX: ${{ matrix.index }}
 
-      - run: npm ci
-        working-directory: parity
+      - name: Save component verification records
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: shadcn-verification-${{ matrix.index }}
+          path: ${{ runner.temp }}/shadcn-${{ matrix.index }}.json
+          if-no-files-found: error
+          retention-days: 7
 
-      - run: npm ci
-        working-directory: storybook/test/browser
+      - name: Save failed browser reports and screenshots
+        if: ${{ failure() && !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: shadcn-browser-${{ matrix.index }}
+          path: ${{ runner.temp }}/shadcn-browser-${{ matrix.index }}
+          if-no-files-found: ignore
+          retention-days: 7
 
-      - run: npm run verify:install
-        working-directory: storybook/test/browser
+  shadcn-inventory:
+    name: current Shadcn evidence
+    needs: [inventory, shadcn-verification]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-      - name: Verify every Shadcn component and example
-        run: mix ui.verify --source shadcn
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+
+      - run: mix deps.get
         working-directory: tools
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: shadcn-verification-*
+          path: ${{ runner.temp }}/shadcn-records
+          merge-multiple: true
+
+      - name: Merge complete groups without dropping records
+        run: node .github/scripts/merge-verification.mjs "$RUNNER_TEMP/shadcn-records" registry/VERIFY.json
+        env:
+          VERIFICATION_MATRIX: ${{ needs.inventory.outputs.matrix }}
 
       - name: Require current Shadcn evidence
         run: |
@@ -267,7 +345,7 @@ jobs:
 
   deploy:
     name: deploy the tested Storybook
-    needs: [test, inventory, reader, static-browser-contracts, ai-elements-verification]
+    needs: [test, inventory, reader, static-browser-contracts, shadcn-inventory, ai-elements-verification]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: storybook

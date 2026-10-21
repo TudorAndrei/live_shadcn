@@ -52,7 +52,6 @@ const shadcnSuites = selectedSource === "ai_elements" ? [] : [
 ];
 const aiSuites = selectedSource === "shadcn" ? [] : [
   ...Object.values(aiAudit).map(({ spec }) => spec).filter(Boolean),
-  "ai-component-audit.spec.mjs",
 ];
 
 export const verificationSpecFiles = [...new Set([
