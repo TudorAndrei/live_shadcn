@@ -110,7 +110,7 @@ defmodule Mix.Tasks.Ui.VerifyTest do
     assert message =~ "cannot import"
   end
 
-  test "browser preparation updates pinned parity sources once" do
+  test "browser preparation updates sources and compiles the server in development mode" do
     test_pid = self()
 
     runner = fn dir, command, arguments, env ->
@@ -122,6 +122,11 @@ defmodule Mix.Tasks.Ui.VerifyTest do
 
     assert_receive {:command, parity_dir, "npm", ["run", "upstream"], %{}}
     assert Path.basename(parity_dir) == "parity"
+
+    assert_receive {:command, storybook_dir, "mix", ["compile", "--warnings-as-errors"],
+                    %{"MIX_ENV" => "dev"}}
+
+    assert Path.basename(storybook_dir) == "storybook"
 
     refute_receive {:command, ^parity_dir, "npm", ["run", "upstream"], %{}}
   end

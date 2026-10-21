@@ -50,6 +50,7 @@ defmodule Mix.Tasks.Ui.Verify do
   use Mix.Task
 
   alias LiveShadcnTools.AiElementsExamples
+  alias LiveShadcnTools.BrowserServer
   alias LiveShadcnTools.BrowserVerification
   alias LiveShadcnTools.IncrementalVerification
   alias LiveShadcnTools.PlaywrightReport
@@ -84,7 +85,6 @@ defmodule Mix.Tasks.Ui.Verify do
   @full_detail_notice "\nMore detail is in the verification output."
   @managed_browser_servers_env "LIVE_SHADCN_MANAGED_SERVERS"
   @browser_server_ready_timeout 120_000
-  @browser_server_request_timeout 1_000
 
   @impl Mix.Task
   def run(argv) do
@@ -1067,7 +1067,7 @@ defmodule Mix.Tasks.Ui.Verify do
         :storybook,
         storybook_dir(),
         "mix",
-        ["phx.server"],
+        ["phx.server", "--no-compile"],
         %{"PORT" => Integer.to_string(browser_port!("STORYBOOK_PORT", 4101)), "MIX_ENV" => "dev"},
         "/previews.json",
         ~r/"accordion"/
@@ -1132,9 +1132,13 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   defp await_browser_servers!(servers) do
-    Application.ensure_all_started(:inets)
     deadline = System.monotonic_time(:millisecond) + @browser_server_ready_timeout
-    Enum.each(servers, &await_browser_server!(&1, deadline))
+
+    Enum.each(servers, fn server ->
+      BrowserServer.await_ready!(server, deadline,
+        artifacts: Process.get(:live_shadcn_browser_artifacts)
+      )
+    end)
 
     servers = Enum.map(servers, &attach_browser_server_drain/1)
     Process.delete(:live_shadcn_started_browser_servers)
@@ -1167,56 +1171,6 @@ defmodule Mix.Tasks.Ui.Verify do
       {:stop_browser_port_drain, caller} ->
         if Port.info(port) != nil, do: Port.close(port)
         send(caller, {:browser_port_drain_stopped, self()})
-    end
-  end
-
-  defp await_browser_server!(server, deadline) do
-    case browser_server_reply(server) do
-      {:ok, body} when is_binary(body) ->
-        if Regex.match?(server.expected, body) do
-          :ok
-        else
-          wait_for_browser_server!(server, deadline)
-        end
-
-      :not_ready ->
-        wait_for_browser_server!(server, deadline)
-    end
-  end
-
-  defp wait_for_browser_server!(server, deadline) do
-    now = System.monotonic_time(:millisecond)
-
-    cond do
-      Port.info(server.process) == nil ->
-        Mix.raise("#{server.name} browser server stopped before it became ready")
-
-      now >= deadline ->
-        Mix.raise("#{server.name} browser server did not become ready before the timeout")
-
-      true ->
-        process = server.process
-
-        receive do
-          {^process, {:data, _output}} -> :ok
-          {^process, {:exit_status, _status}} -> :ok
-        after
-          min(@browser_server_request_timeout, deadline - now) -> :ok
-        end
-
-        await_browser_server!(server, deadline)
-    end
-  end
-
-  defp browser_server_reply(server) do
-    url =
-      ~c"http://127.0.0.1:" ++ Integer.to_charlist(server.port) ++ String.to_charlist(server.path)
-
-    case :httpc.request(:get, {url, []}, [timeout: @browser_server_request_timeout],
-           body_format: :binary
-         ) do
-      {:ok, {{_version, 200, _reason}, _headers, body}} -> {:ok, body}
-      _ -> :not_ready
     end
   end
 
@@ -1511,7 +1465,24 @@ defmodule Mix.Tasks.Ui.Verify do
   def prepare_browser!(runner) when is_function(runner, 4) do
     prepare_parity_sources!(runner)
     prepare_browser_assets!(runner)
+    prepare_browser_application!(runner)
     :ok
+  end
+
+  defp prepare_browser_application!(runner) do
+    started = System.monotonic_time(:millisecond)
+    Mix.shell().info("Compile the Storybook browser server in development mode")
+
+    case runner.(storybook_dir(), "mix", ["compile", "--warnings-as-errors"], %{
+           "MIX_ENV" => "dev"
+         }) do
+      %{"pass" => true} ->
+        elapsed = System.monotonic_time(:millisecond) - started
+        Mix.shell().info("Storybook browser server compiled in #{elapsed} ms")
+
+      %{"detail" => detail} ->
+        Mix.raise("cannot compile the Storybook browser server:\n#{detail}")
+    end
   end
 
   defp prepare_parity_sources!(runner) do
