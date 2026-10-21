@@ -107,6 +107,11 @@ date-picker, and typography documentation families. `mix ui.verify --source
 ai_elements` checks all 48 AI Elements components. `mix ui.verify` checks both
 sources.
 
+CI runs the Shadcn checks before the other test jobs. It creates fresh
+verification records, regenerates inventory, and requires complete current
+Shadcn evidence. The inventory appears in the CI job summary. A failure stops
+the dependent jobs from starting.
+
 AI Elements uses agent-authored behavior and contract tests. Every component
 must pass its generated contract, snapshots, example coverage, browser behavior,
 and local accessibility checks. The suite runs automatically in CI. Base UI

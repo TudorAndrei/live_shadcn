@@ -19,9 +19,10 @@ permissions:
 jobs:
   test:
     name: ${{ matrix.package }}
+    needs: inventory
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         package:
           - packages/live_base
@@ -109,11 +110,12 @@ jobs:
       - run: mix dialyzer --force-check --format short
         working-directory: ${{ matrix.package }}
 
-  # Shadcn uses committed browser evidence. AI Elements also runs its authored
-  # browser and accessibility checks in the separate automatic job below.
+  # Check the cheap contracts first, then refresh Shadcn browser evidence.
+  # Other jobs start only after this job proves the current checkout.
   inventory:
-    name: the committed record is consistent
+    name: Shadcn verification and inventory
     runs-on: ubuntu-latest
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -122,14 +124,6 @@ jobs:
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
 
       - run: mix deps.get
-        working-directory: tools
-
-      # docs/INVENTORY.md is generated. A stale one is a broken build, and a
-      # component whose spec moved since it was verified demotes here.
-      - run: mix ui.status --check
-        working-directory: tools
-
-      - run: mix ui.status --check --source shadcn --require-verified
         working-directory: tools
 
       # This check reads only committed contracts and reviewed ports. It needs
@@ -156,13 +150,42 @@ jobs:
       - run: npm run build:js -- --minify
         working-directory: storybook/assets
 
+      - run: npm ci
+        working-directory: tools
+
+      - name: Restore pinned sources
+        run: mix ui.fetch --locked
+        working-directory: tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - run: npm ci
+        working-directory: parity
+
+      - run: npm ci
+        working-directory: storybook/test/browser
+
+      - run: npm run verify:install
+        working-directory: storybook/test/browser
+
+      - name: Verify every Shadcn component and example
+        run: mix ui.verify --source shadcn
+        working-directory: tools
+
+      - name: Require current Shadcn evidence
+        run: |
+          mix ui.status
+          mix ui.status --check --source shadcn --require-verified
+        working-directory: tools
+
+      - name: Report the current inventory
+        run: cat docs/INVENTORY.md >> "$GITHUB_STEP_SUMMARY"
+
   # ── The one thing the record cannot check about itself ──
   #
-  # Every gate above compares two committed things: a component with its spec,
-  # the inventory with the verification record, the snapshot with the markup.
-  # None of them re-reads upstream, so a spec can drift from the source it was
-  # built from and all three stay green — which is what happened. 38 shadcn
-  # specs sat stale behind a wholly green build, and one of them was hiding a
+  # Browser comparison does not prove that the source reader captured every
+  # upstream fact. 38 shadcn specs sat stale behind a wholly green build, and
+  # one of them was hiding a
   # component whose attribute type had changed.
   #
   # This job restores the pinned files and parses every shadcn source. The tools
@@ -174,6 +197,7 @@ jobs:
   # failed exactly that way.
   reader:
     name: every spec still matches its source
+    needs: inventory
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -206,6 +230,7 @@ jobs:
   # verification runs.
   static-browser-contracts:
     name: static browser contracts
+    needs: inventory
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -236,6 +261,7 @@ jobs:
         working-directory: parity
 
   ai-elements-verification:
+    needs: inventory
     # Relative workflow calls use this commit. actionlint does not yet accept $/.
     uses: ./.github/workflows/verify-ai-elements.yml # zizmor: ignore[self-repository]
 
