@@ -67,6 +67,7 @@ defmodule LiveShadcnTools.BrowserServer do
     binary_part(output <> data, 0, min(byte_size(output) + byte_size(data), @output_limit))
   end
 
+  @spec fail!(map(), String.t(), String.t(), keyword()) :: no_return()
   defp fail!(server, reason, output, opts) do
     diagnostic =
       output
