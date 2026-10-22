@@ -4628,11 +4628,17 @@ defmodule StorybookWeb.Examples do
       </.bubble>
       <.bubble variant="ghost">
         <.bubble_content>
-          Ghost bubbles work for assistant text, **markdown**, and other content that should not be framed.
-
-          This is perfect for assistant messages that should not have a frame and can take the full width of the container. You can also render `code` in it.
-
-          Ghost bubbles are full width and can take the full width of the container.
+          <div class="space-y-4 whitespace-normal [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 cn-markdown w-full min-w-0 overflow-hidden">
+            <p>
+              Ghost bubbles work for assistant text, <span class="font-semibold">markdown</span>, and other content that should not be framed.
+            </p>
+            <p>
+              This is perfect for assistant messages that should not have a frame and can take the full width of the container. You can also render
+              <code class="rounded-sm bg-muted px-1 py-0.5 font-mono text-[0.9em]">code</code>
+              in it.
+            </p>
+            <p>Ghost bubbles are full width and can take the full width of the container.</p>
+          </div>
         </.bubble_content>
       </.bubble>
     </div>

@@ -50,7 +50,12 @@
         "calendar-booked-dates",
         "calendar-custom-days",
         "calendar-week-numbers",
-        "calendar-rtl"
+        "calendar-rtl",
+        {
+          "id": "multiple",
+          "reference": "shadcn/calendar#CalendarMultiple",
+          "source": "shadcn/examples/calendar-example.tsx#CalendarMultiple"
+        }
       ],
       "resizable": [
         "resizable-demo",
@@ -3848,6 +3853,11 @@
       "bytes": 1043,
       "sha256": "43627fc677ef32387e313ff12a620068b9e18dc77a184a24a5a15d3eea506676",
       "url": "https://raw.githubusercontent.com/shadcn-ui/ui/ba1503c64472b82256d9de95e2e62c5901a38e8b/apps/v4/registry/bases/base/examples/sonner-example.tsx"
+    },
+    "shadcn/examples/calendar-example.tsx": {
+      "bytes": 15811,
+      "sha256": "12e806d3568ee4c3b960766a7bd45f5437967bebe4c32dbcb0d3875bb2355993",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/ba1503c64472b82256d9de95e2e62c5901a38e8b/apps/v4/registry/bases/base/examples/calendar-example.tsx"
     },
     "shadcn/examples/separator-list.tsx": {
       "bytes": 685,

@@ -40,6 +40,7 @@
   "calendar.custom-days": "shadcn_examples/calendar-custom-days.tsx#CalendarCustomDays",
   "calendar.week-numbers": "shadcn_examples/calendar-week-numbers.tsx#CalendarWeekNumbers",
   "calendar.rtl": "shadcn_examples/calendar-rtl.tsx#CalendarRtl",
+  "calendar.multiple": "shadcn/examples/calendar-example.tsx#CalendarMultiple",
   "resizable.default": "shadcn_examples/resizable-demo.tsx#default",
   "resizable.vertical": "shadcn_examples/resizable-vertical.tsx#ResizableVertical",
   "resizable.handle": "shadcn_examples/resizable-handle.tsx#default",
