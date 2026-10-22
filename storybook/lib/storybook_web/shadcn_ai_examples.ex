@@ -199,6 +199,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
     """
   end
 
+  # Empty comments preserve React's text nodes at expression boundaries.
   defp trace_demo_initial(assigns) do
     assigns =
       assign(assigns, :fixture, %{
@@ -228,19 +229,19 @@ defmodule StorybookWeb.ShadcnAiExamples do
         23 =>
           "CI installs with a frozen lockfile, so the install stops when package.json and pnpm-lock.yaml disagree. I should check what the last commit changed, then reproduce the install.",
         24 => "whitespace-pre-wrap",
-        25 => "Ran pnpm --version",
+        25 => "pnpm --version",
         26 => "trace-demo-trace-2",
         27 => "max-h-64",
         28 => "10.18.0",
         29 => "sm",
-        30 => "Ran git diff --stat HEAD~1 -- package.json pnpm-lock.yaml",
+        30 => "git diff --stat HEAD~1 -- package.json pnpm-lock.yaml",
         31 => "trace-demo-trace-3",
         32 => " package.json | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)",
         33 => "lucide lucide-circle-alert",
         34 => "8",
         35 => "12.01",
         36 => "16",
-        37 => "Failed to run pnpm install --frozen-lockfile",
+        37 => "pnpm install --frozen-lockfile",
         38 => "error",
         39 => "trace-demo-trace-4",
         40 =>
@@ -249,7 +250,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
         42 => "lucide lucide-globe",
         43 => "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20",
         44 => "M2 12h20",
-        45 => "Used 2 sources",
+        45 => 2,
         46 => "trace-demo-trace-5",
         47 => "https://pnpm.io/cli/install#--frozen-lockfile",
         48 => "_blank",
@@ -334,7 +335,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       @fixture[20]
                     }>
                     </path></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[25]}</Trace.trace_title>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Ran<!----> <!---->{@fixture[25]}</Trace.trace_title>
                 </Trace.trace_line>
               </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
                 phx-no-format
@@ -365,7 +366,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       @fixture[20]
                     }>
                     </path></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[30]}</Trace.trace_title>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Ran<!----> <!---->{@fixture[30]}</Trace.trace_title>
                 </Trace.trace_line>
               </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
                 phx-no-format
@@ -405,7 +406,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       y2={@fixture[36]}
                     >
                     </line></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[37]}</Trace.trace_title>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Failed to run<!----> <!---->{@fixture[37]}</Trace.trace_title>
                 </Trace.trace_line>
               </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
                 phx-no-format
@@ -436,7 +437,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       @fixture[43]
                     }>
                     </path><path d={@fixture[44]}></path></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[45]}</Trace.trace_title>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Used<!----> <!---->{@fixture[45]}<!----> sources</Trace.trace_title>
                 </Trace.trace_line>
               </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
                 phx-no-format
@@ -604,19 +605,19 @@ defmodule StorybookWeb.ShadcnAiExamples do
         23 =>
           "CI installs with a frozen lockfile, so the install stops when package.json and pnpm-lock.yaml disagree. I should check what the last commit changed, then reproduce the install.",
         24 => "whitespace-pre-wrap",
-        25 => "Ran pnpm --version",
+        25 => "pnpm --version",
         26 => "trace-demo-trace-2",
         27 => "max-h-64",
         28 => "10.18.0",
         29 => "sm",
-        30 => "Ran git diff --stat HEAD~1 -- package.json pnpm-lock.yaml",
+        30 => "git diff --stat HEAD~1 -- package.json pnpm-lock.yaml",
         31 => "trace-demo-trace-3",
         32 => " package.json | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)",
         33 => "lucide lucide-circle-alert",
         34 => "8",
         35 => "12.01",
         36 => "16",
-        37 => "Failed to run pnpm install --frozen-lockfile",
+        37 => "pnpm install --frozen-lockfile",
         38 => "error",
         39 => "trace-demo-trace-4",
         40 =>
@@ -625,7 +626,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
         42 => "lucide lucide-globe",
         43 => "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20",
         44 => "M2 12h20",
-        45 => "Used 2 sources",
+        45 => 2,
         46 => "trace-demo-trace-5",
         47 => "https://pnpm.io/cli/install#--frozen-lockfile",
         48 => "_blank",
@@ -710,7 +711,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       @fixture[20]
                     }>
                     </path></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[25]}</Trace.trace_title>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Ran<!----> <!---->{@fixture[25]}</Trace.trace_title>
                 </Trace.trace_line>
               </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
                 phx-no-format
@@ -741,7 +742,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       @fixture[20]
                     }>
                     </path></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[30]}</Trace.trace_title>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Ran<!----> <!---->{@fixture[30]}</Trace.trace_title>
                 </Trace.trace_line>
               </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
                 phx-no-format
@@ -781,7 +782,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       y2={@fixture[36]}
                     >
                     </line></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[37]}</Trace.trace_title>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Failed to run<!----> <!---->{@fixture[37]}</Trace.trace_title>
                 </Trace.trace_line>
               </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
                 phx-no-format
@@ -812,7 +813,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       @fixture[43]
                     }>
                     </path><path d={@fixture[44]}></path></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[45]}</Trace.trace_title>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Used<!----> <!---->{@fixture[45]}<!----> sources</Trace.trace_title>
                 </Trace.trace_line>
               </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
                 phx-no-format
@@ -1972,7 +1973,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
         16 => "__NEXT__",
         17 => "__DOWNLOAD__",
         18 => "__REPLAY__",
-        19 => "Used 3 sources",
+        19 => 3,
         20 => "trace-sources-trace-1",
         21 => "https://docs.astro.build/en/install-and-setup/",
         22 => "_blank",
@@ -2011,7 +2012,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                 @fixture[12]
               }>
               </path><path d={@fixture[13]}></path></svg>
-            </Trace.trace_icon><Trace.trace_title>{@fixture[19]}</Trace.trace_title>
+            </Trace.trace_icon><Trace.trace_title phx-no-format>Used <!---->{@fixture[19]}<!----> sources</Trace.trace_title>
           </Trace.trace_line>
         </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
           phx-no-format
@@ -2329,13 +2330,13 @@ defmodule StorybookWeb.ShadcnAiExamples do
         23 => "M14 2v5a1 1 0 0 0 1 1h5",
         24 =>
           "M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z",
-        25 => "Edited app/login/page.tsx",
-        26 => "+2 −2",
+        25 => "app/login/page.tsx",
+        26 => 2,
         27 => "font-mono",
         28 => "lucide lucide-chevron-right",
         29 => "m9 18 6-6-6-6",
         30 => "app/login/page.tsx",
-        31 => "2 additions, 2 deletions",
+        31 => 2,
         32 => [
           %{
             "variant" => "default",
@@ -2418,10 +2419,10 @@ defmodule StorybookWeb.ShadcnAiExamples do
           "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
         38 => "M9 15h6",
         39 => "M12 18v-6",
-        40 => "Added lib/auth/redirect.ts",
-        41 => "+7 −0",
+        40 => "lib/auth/redirect.ts",
+        41 => 7,
         42 => "lib/auth/redirect.ts",
-        43 => "7 additions, 0 deletions",
+        43 => 0,
         44 => [
           %{
             "variant" => "default",
@@ -2530,11 +2531,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       @fixture[24]
                     }>
                     </path></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[25]}</Trace.trace_title><Trace.trace_description class={
-                    @fixture[27]
-                  }>
-                    {@fixture[26]}
-                  </Trace.trace_description><Trace.trace_icon>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Edited<!----> <!---->{@fixture[25]}</Trace.trace_title><Trace.trace_description phx-no-format class={@fixture[27]}>+<!---->{@fixture[26]}<!----> −<!---->{@fixture[31]}</Trace.trace_description><Trace.trace_icon>
                     <svg
                       xmlns={@fixture[0]}
                       width={@fixture[1]}
@@ -2550,7 +2547,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                     ><path d={@fixture[29]}></path></svg>
                   </Trace.trace_icon>
                 </Trace.trace_line>
-              </:trigger><:title>{@fixture[30]}</:title><:description>{@fixture[31]}</:description><CodeBlock.code_block class={
+              </:trigger><:title>{@fixture[30]}</:title><:description phx-no-format>{@fixture[26]}<!----> additions, <!---->{@fixture[31]}<!----> deletions</:description><CodeBlock.code_block class={
                 @fixture[33]
               }>
                 <CodeExamples.highlighted_content lines={@fixture[32]} />
@@ -2579,11 +2576,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       @fixture[38]
                     }>
                     </path><path d={@fixture[39]}></path></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[40]}</Trace.trace_title><Trace.trace_description class={
-                    @fixture[27]
-                  }>
-                    {@fixture[41]}
-                  </Trace.trace_description><Trace.trace_icon>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Added<!----> <!---->{@fixture[40]}</Trace.trace_title><Trace.trace_description phx-no-format class={@fixture[27]}>+<!---->{@fixture[41]}<!----> −<!---->{@fixture[43]}</Trace.trace_description><Trace.trace_icon>
                     <svg
                       xmlns={@fixture[0]}
                       width={@fixture[1]}
@@ -2599,7 +2592,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                     ><path d={@fixture[29]}></path></svg>
                   </Trace.trace_icon>
                 </Trace.trace_line>
-              </:trigger><:title>{@fixture[42]}</:title><:description>{@fixture[43]}</:description><CodeBlock.code_block class={
+              </:trigger><:title>{@fixture[42]}</:title><:description phx-no-format>{@fixture[41]}<!----> additions, <!---->{@fixture[43]}<!----> deletions</:description><CodeBlock.code_block class={
                 @fixture[33]
               }>
                 <CodeExamples.highlighted_content lines={@fixture[44]} />
@@ -3098,15 +3091,15 @@ defmodule StorybookWeb.ShadcnAiExamples do
         17 => "true",
         18 => "M12 19h8",
         19 => "m4 17 6-6-6-6",
-        20 => "Ran node --version",
+        20 => "node --version",
         21 => "trace-tool-calls-trace-1",
         22 => "max-h-64",
         23 => "v24.18.0",
         24 => "sm",
-        25 => "Ran npm --version",
+        25 => "npm --version",
         26 => "trace-tool-calls-trace-2",
         27 => "11.6.2",
-        28 => "Failed to run pnpm --version",
+        28 => "pnpm --version",
         29 => "error",
         30 => "trace-tool-calls-trace-3",
         31 => "command not found: pnpm",
@@ -3145,7 +3138,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       class={@fixture[16]}
                       aria-hidden={@fixture[17]}
                     ><path d={@fixture[18]}></path><path d={@fixture[19]}></path></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[20]}</Trace.trace_title>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Ran<!----> <!---->{@fixture[20]}</Trace.trace_title>
                 </Trace.trace_line>
               </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
                 phx-no-format
@@ -3173,7 +3166,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       class={@fixture[16]}
                       aria-hidden={@fixture[17]}
                     ><path d={@fixture[18]}></path><path d={@fixture[19]}></path></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[25]}</Trace.trace_title>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Ran<!----> <!---->{@fixture[25]}</Trace.trace_title>
                 </Trace.trace_line>
               </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
                 phx-no-format
@@ -3201,7 +3194,7 @@ defmodule StorybookWeb.ShadcnAiExamples do
                       class={@fixture[16]}
                       aria-hidden={@fixture[17]}
                     ><path d={@fixture[18]}></path><path d={@fixture[19]}></path></svg>
-                  </Trace.trace_icon><Trace.trace_title>{@fixture[28]}</Trace.trace_title>
+                  </Trace.trace_icon><Trace.trace_title phx-no-format>Failed to run<!----> <!---->{@fixture[28]}</Trace.trace_title>
                 </Trace.trace_line>
               </Trace.trace_collapsible_trigger><Trace.trace_collapsible_content
                 phx-no-format
