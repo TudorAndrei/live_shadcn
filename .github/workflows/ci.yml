@@ -130,6 +130,9 @@ jobs:
           echo "erlang=$(mise current erlang)" >> "$GITHUB_OUTPUT"
           echo "elixir=$(elixir --short-version)" >> "$GITHUB_OUTPUT"
 
+      - name: Check official references and strict pixel decisions
+        run: node --test storybook/test/browser/registries.test.mjs
+
       - name: Cache preflight dependencies and builds
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:

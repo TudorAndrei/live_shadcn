@@ -6,7 +6,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { officialShadcnReferences } from "./react-references.mjs";
+import { officialShadcnReferences } from "./shadcn-references.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 

@@ -5,7 +5,8 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { gated, source, verificationSpecFiles } from "./registries.mjs";
-import { hasOfficialReactReference } from "./react-references.mjs";
+import { officialShadcnReferences } from "./shadcn-references.mjs";
+import { comparisonApplies } from "./verification-policy.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -32,15 +33,21 @@ test("docs-only official families resolve from their official references", () =>
   assert.equal(gated("unknown-docs-family"), false);
 });
 
-test("all Typography examples have strict pixel and official source registration", () => {
+test("all gated examples have official references and strict pixel decisions", () => {
   const snapshots = JSON.parse(readFileSync(join(here, "../../../registry/snapshot/index.json"), "utf8"));
   const budget = JSON.parse(readFileSync(join(here, "pixel-budget.json"), "utf8"));
+  const missing = [];
+  const nonStrict = [];
 
-  assert.equal(snapshots.typography.length, 15);
-
-  for (const example of snapshots.typography) {
-    const name = `typography.${example}`;
-    assert.equal(hasOfficialReactReference("shadcn", name), true, name);
-    assert.equal(budget.budgets[name], 0, name);
+  for (const [component, examples] of Object.entries(snapshots)) {
+    for (const example of examples) {
+      if (!gated(component) || !comparisonApplies(source(component), component, example)) continue;
+      const name = `${component}.${example}`;
+      if (!officialShadcnReferences.has(name)) missing.push(name);
+      if (budget.budgets[name] !== 0 || budget.pending.includes(name) ||
+          Object.hasOwn(budget.skips, name)) nonStrict.push(name);
+    }
   }
+
+  assert.deepEqual({ missing, nonStrict }, { missing: [], nonStrict: [] });
 });

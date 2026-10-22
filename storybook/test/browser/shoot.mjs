@@ -353,6 +353,20 @@ export async function shoot(page, url, selector, height, clip, state) {
  * one renderer load per visual state.
  */
 export async function shootCurrent(page, selector, clip) {
+  // Empty hydration comments split React text runs and change glyph rounding.
+  // Remove only those separators on both settled pages before capture. Keep
+  // text, elements, styles, and the zero-pixel comparison unchanged.
+  await page.evaluate(() => {
+    const comments = document.createTreeWalker(document.body, NodeFilter.SHOW_COMMENT);
+    const separators = [];
+    while (comments.nextNode()) {
+      const node = comments.currentNode;
+      if (!node.data.trim() && node.previousSibling?.nodeType === Node.TEXT_NODE &&
+          node.nextSibling?.nodeType === Node.TEXT_NODE) separators.push(node);
+    }
+    for (const separator of separators) separator.remove();
+    document.body.normalize();
+  });
 
   const measured = await page.evaluate(collect, {
     selector,

@@ -401,7 +401,10 @@ export async function enterInteractionProbe(
 
   await waitForAttribute(target, "aria-expanded", "true");
   const popupId = await target.getAttribute("aria-controls");
-  const popup = popupId ? page.locator(`#${popupId}`) : null;
+  const controlled = popupId ? page.locator(`#${popupId}`) : null;
+  // An inline disclosure can replace text without rendering a content panel.
+  // Base UI still supplies aria-controls in the pinned Bubble example.
+  const popup = controlled && await controlled.count() > 0 ? controlled : null;
   if (popup) await popup.waitFor({ state: "visible", timeout: 1_000 });
   const opened = await observe();
   if (options.keepOpen) return { opened };
