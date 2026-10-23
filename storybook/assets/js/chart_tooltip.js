@@ -65,10 +65,85 @@ export const ChartTooltip = {
   },
 };
 
+function setTickCoordinate(tick, coordinate) {
+  tick.setAttribute("x", coordinate);
+  tick.querySelectorAll("tspan").forEach((span) => span.setAttribute("x", coordinate));
+}
+
+function selectDemoTicks(element) {
+  const group = element.querySelector("g[data-chart-demo-ticks]");
+  if (!group) return;
+  const ticks = [...group.querySelectorAll("text[data-chart-tick-index]")]
+    .sort((a, b) => Number(a.dataset.chartTickIndex) - Number(b.dataset.chartTickIndex));
+  if (!ticks.length) return;
+
+  const coordinates = ticks.map((tick) => Number(tick.dataset.chartTickCoordinate));
+  ticks.forEach((tick, index) => setTickCoordinate(tick, coordinates[index]));
+  const sign = ticks.length >= 2 ? Math.sign(coordinates[1] - coordinates[0]) : 1;
+  const viewBox = group.ownerSVGElement.viewBox.baseVal;
+  const start = sign === 1 ? viewBox.x : viewBox.x + viewBox.width;
+  let end = sign === 1 ? viewBox.x + viewBox.width : viewBox.x;
+
+  // Match Recharts DOMUtils: the body supplies the measurement font family.
+  const measurementSpan = document.createElement("span");
+  measurementSpan.setAttribute("aria-hidden", "true");
+  Object.assign(measurementSpan.style, {
+    position: "absolute",
+    top: "-20000px",
+    left: "0",
+    padding: "0",
+    margin: "0",
+    border: "none",
+    whiteSpace: "pre",
+  });
+  document.body.appendChild(measurementSpan);
+
+  try {
+    for (let index = ticks.length - 1; index >= 0; index--) {
+      const tick = ticks[index];
+      const style = getComputedStyle(tick);
+      measurementSpan.style.fontSize = style.fontSize;
+      measurementSpan.style.letterSpacing = style.letterSpacing;
+      measurementSpan.textContent = tick.textContent.trim();
+      const width = measurementSpan.getBoundingClientRect().width;
+      let coordinate = coordinates[index];
+
+      // Match getTicksEnd: adjust only the final tick at the axis boundary.
+      if (index === ticks.length - 1) {
+        const gap = sign * (coordinate + sign * width / 2 - end);
+        if (gap > 0) coordinate -= gap * sign;
+        setTickCoordinate(tick, coordinate);
+      }
+
+      const visible = sign * coordinate >= sign * start &&
+        sign * coordinate <= sign * end &&
+        sign * (coordinate - sign * width / 2 - start) >= 0 &&
+        sign * (coordinate + sign * width / 2 - end) <= 0;
+      tick.style.display = visible ? "" : "none";
+      if (visible) end = coordinate - sign * (width / 2 + 32);
+    }
+  } finally {
+    measurementSpan.remove();
+  }
+}
+
 // The daily demo has one active series. Read its current server-rendered bars
 // on each event so a connected series change cannot retain old values.
 export const ChartDemoTooltip = {
   mounted() {
+    this.tickUpdate = 0;
+    this.updateTicks = () => {
+      const update = ++this.tickUpdate;
+      delete this.el.dataset.chartReady;
+      Promise.resolve(document.fonts?.ready).then(() => {
+        if (update !== this.tickUpdate) return;
+        selectDemoTicks(this.el);
+        this.el.dataset.chartReady = "true";
+      });
+    };
+    document.fonts?.addEventListener("loading", this.updateTicks);
+    document.fonts?.addEventListener("loadingdone", this.updateTicks);
+
     this.showTooltip = (event) => {
       const bar = event.target.closest("[data-chart-date]");
       const tooltip = this.el.querySelector("[data-chart-tooltip]");
@@ -104,14 +179,18 @@ export const ChartDemoTooltip = {
     };
     this.el.addEventListener("pointermove", this.showTooltip);
     this.el.addEventListener("pointerleave", this.hideTooltip);
-    this.el.dataset.chartReady = "true";
+    this.updateTicks();
   },
 
   updated() {
     this.hideTooltip();
+    this.updateTicks();
   },
 
   destroyed() {
+    this.tickUpdate++;
+    document.fonts?.removeEventListener("loading", this.updateTicks);
+    document.fonts?.removeEventListener("loadingdone", this.updateTicks);
     this.el.removeEventListener("pointermove", this.showTooltip);
     this.el.removeEventListener("pointerleave", this.hideTooltip);
   },

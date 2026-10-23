@@ -7075,14 +7075,20 @@ defmodule StorybookWeb.Examples do
                   fill="none"
                 />
               </g>
-              <g class="recharts-layer recharts-cartesian-axis recharts-xAxis xAxis recharts-cartesian-axis-tick">
+              <g
+                data-chart-demo-ticks
+                class="recharts-layer recharts-cartesian-axis recharts-xAxis xAxis recharts-cartesian-axis-tick"
+              >
                 <text
                   :for={tick <- @chart_demo_ticks}
+                  data-chart-tick-index={tick.index}
+                  data-chart-tick-coordinate={tick.x}
                   x={tick.x}
                   y="234"
                   class="recharts-text recharts-cartesian-axis-tick-value"
                   text-anchor="middle"
                   fill="#666"
+                  style={if(!tick.visible, do: "display: none;")}
                 >
                   <tspan x={tick.x} dy="0.71em">{tick.label}</tspan>
                 </text>
@@ -7144,9 +7150,10 @@ defmodule StorybookWeb.Examples do
   defp chart_demo_ticks do
     @chart_demo_data
     |> Enum.with_index()
-    |> Enum.filter(fn {_item, index} -> index in [2, 5, 9, 13, 17, 21, 25, 29] end)
     |> Enum.map(fn {{date, _desktop, _mobile}, index} ->
       %{
+        index: index,
+        visible: index in [2, 5, 9, 13, 17, 21, 25, 29],
         x: 12 + (index + 0.5) * (646 / 30),
         label: "Apr #{date |> String.slice(-2, 2) |> String.to_integer()}"
       }
