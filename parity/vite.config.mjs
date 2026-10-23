@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { tablerImports } from "./vite-tabler-imports.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repo = resolve(here, "..");
@@ -67,7 +68,10 @@ function referenceSsr() {
 export default defineConfig({
   root: here,
   publicDir: resolve(repo, "storybook/priv/static"),
-  plugins: [react(), referenceSsr()],
+  plugins: [tablerImports(), react(), referenceSsr()],
+  // Dependency scanning runs before transforms. Keep the Tabler barrel out of
+  // the prebundle so named imports can use only the pinned per-icon modules.
+  optimizeDeps: { exclude: ["@tabler/icons-react"] },
   resolve: {
     alias: [
       { find: "next/image", replacement: resolve(here, "src/shim/next-image.tsx") },
