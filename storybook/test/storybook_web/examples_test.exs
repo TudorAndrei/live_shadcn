@@ -258,9 +258,15 @@ defmodule StorybookWeb.ExamplesTest do
 
       {:ok, range_view, _html} = live(conn, "/preview/date-picker/range")
 
-      assert render_hook(range_view, "date_picker_range_select", %{
-               "selected" => "2025-06-01/2025-06-05"
-             }) =~ "Jun 01, 2025 - Jun 05, 2025"
+      render_hook(range_view, "date_picker_range_select", %{
+        "selected" => "2025-06-01/2025-06-05"
+      })
+
+      assert has_element?(
+               range_view,
+               "#date-picker-range-trigger",
+               "Jun 01, 2025 - Jun 05, 2025"
+             )
     end
 
     test "updates every calendar, typed input, and native time control" do
