@@ -16046,9 +16046,7 @@ defmodule StorybookWeb.Examples do
             <.item size="xs" class="p-0">
               <.item_content>
                 <.item_title class="whitespace-nowrap">{country.label}</.item_title>
-                <.item_description>
-                  {country.continent} ({country.code}<span>)</span>
-                </.item_description>
+                <.item_description phx-no-format>{country.continent}<!----> (<!---->{country.code}<!---->)</.item_description>
               </.item_content>
             </.item>
           </.combobox_item>
