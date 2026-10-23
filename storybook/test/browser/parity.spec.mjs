@@ -35,7 +35,7 @@ import {
 import { rejectEvidenceStateFilter } from "./evidence-run.mjs";
 import { beginStateCoverage } from "./report-provenance.mjs";
 import { parityTimeoutMs } from "./parity-timeout.mjs";
-import { connected } from "./live.mjs";
+import { connected, referenceReady } from "./live.mjs";
 import { waitForMessageScrollerFinalLayout } from "./message-scroller-readiness.mjs";
 import { inScope, noScopedPagesMessage, scopeFromEnvironment } from "./preview-scope.mjs";
 import { hasOfficialReactReference } from "./react-references.mjs";
@@ -223,6 +223,10 @@ async function renderState(page, url, selector, state) {
   await page.goto(url);
   if (url.startsWith("/")) await connected(page);
   await enterVisualState(page, selector, state);
+
+  // A native form submission can load a new document.
+  await referenceReady(page);
+  if (url.startsWith("/")) await connected(page);
 
   const animationsBeforeMeasurement =
     process.env.PARITY_DEBUG == null
