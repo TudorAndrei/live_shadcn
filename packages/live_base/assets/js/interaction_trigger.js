@@ -80,6 +80,10 @@ export const InteractionTrigger = {
       this.el.getAttribute("data-slot") === "hover-card-trigger"
     ) return;
     clearTimeout(this.openTimer);
+    if (this.el.hasAttribute("data-popup-open")) {
+      this.executeHoverCommand();
+      this.clearHoverExpanded();
+    }
   },
 
   leavePointer() {
