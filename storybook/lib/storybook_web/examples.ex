@@ -6918,8 +6918,14 @@ defmodule StorybookWeb.Examples do
     ) <> " " <> Integer.to_string(date.day) <> ", " <> Integer.to_string(date.year)
   end
 
-  defp date_picker_range_label(%{from: from, to: to}) when not is_nil(to),
-    do: Calendar.strftime(from, "%b %d, %Y") <> " - " <> Calendar.strftime(to, "%b %d, %Y")
+  defp date_picker_range_label(%{from: from, to: to}) when not is_nil(to) do
+    # Preserve the text nodes in the pinned React range label.
+    [
+      Calendar.strftime(from, "%b %d, %Y"),
+      Phoenix.HTML.raw("<!----> -<!----> <!---->"),
+      Calendar.strftime(to, "%b %d, %Y")
+    ]
+  end
 
   defp date_picker_range_label(%{from: from}), do: Calendar.strftime(from, "%b %d, %Y")
   defp date_picker_range_label(_), do: "Pick a date"
@@ -19132,8 +19138,8 @@ defmodule StorybookWeb.Examples do
       <h2 class="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
         The King's Plan
       </h2>
-      <p class="leading-7 [&:not(:first-child)]:mt-6">
-        The king thought long and hard, and finally came up with <a
+      <p class="leading-7 [&:not(:first-child)]:mt-6" phx-no-format>
+        The king thought long and hard, and finally came up with<!----> <a
           href="#"
           class="font-medium text-primary underline underline-offset-4"
         >a brilliant plan</a>: he would tax the jokes in the kingdom.
@@ -19359,8 +19365,8 @@ defmodule StorybookWeb.Examples do
       <h2 class="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
         خطة الملك
       </h2>
-      <p class="leading-7 [&:not(:first-child)]:mt-6">
-        فكر الملك طويلاً وبجد، وأخيراً توصل إلى <a
+      <p class="leading-7 [&:not(:first-child)]:mt-6" phx-no-format>
+        فكر الملك طويلاً وبجد، وأخيراً توصل إلى<!----> <a
           href="#"
           class="font-medium text-primary underline underline-offset-4"
         >خطة عبقرية</a>: سيفرض ضريبة على النكات في المملكة.
