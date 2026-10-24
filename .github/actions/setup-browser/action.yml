@@ -1,5 +1,28 @@
 name: Prepare component browser checks
-description: Restore exact sources and install the test servers and browser.
+description: Reuse current passed results and prepare browsers only for changed components.
+inputs:
+  source:
+    description: Component source to verify.
+    required: true
+  shard:
+    description: Assigned verification group.
+    required: true
+  cache-slot:
+    description: Stable group index for saved results.
+    required: true
+  force:
+    description: Run checks even when current passed results exist.
+    default: "false"
+outputs:
+  reuse-path:
+    description: Runtime-bound component result cache.
+    value: ${{ steps.results.outputs.cache-path }}
+  cache-key:
+    description: Unique key for this run.
+    value: ${{ steps.restore-results.outputs.cache-primary-key }}
+  browser-needed:
+    description: Whether any assigned component needs browser checks.
+    value: ${{ steps.plan.outputs.browser-needed }}
 runs:
   using: composite
   steps:
@@ -9,6 +32,7 @@ runs:
       run: |
         echo "erlang=$(mise current erlang)" >> "$GITHUB_OUTPUT"
         echo "elixir=$(elixir --short-version)" >> "$GITHUB_OUTPUT"
+        echo "image=$(printf '%s' "$CI_BROWSER_IMAGE" | sha256sum | cut -d ' ' -f 1)" >> "$GITHUB_OUTPUT"
 
     - name: Cache browser dependencies and builds
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -18,9 +42,53 @@ runs:
           tools/_build
           storybook/deps
           storybook/_build
-        key: ${{ runner.os }}-${{ runner.arch }}-browser-v1-${{ steps.toolchain.outputs.erlang }}-${{ steps.toolchain.outputs.elixir }}-${{ hashFiles('mise.toml', '**/mix.lock', '**/mix.exs') }}
+        key: ${{ runner.os }}-${{ runner.arch }}-browser-v2-${{ steps.toolchain.outputs.image }}-${{ steps.toolchain.outputs.erlang }}-${{ steps.toolchain.outputs.elixir }}-${{ hashFiles('mise.toml', '**/mix.lock', '**/mix.exs') }}
+
+    - run: mix deps.get
+      shell: bash
+      working-directory: tools
+
+    - name: Locate saved component results
+      id: results
+      shell: bash
+      env:
+        SOURCE: ${{ inputs.source }}
+        SLOT: ${{ inputs.cache-slot }}
+      run: echo "cache-path=$RUNNER_TEMP/component-results-$SOURCE-$SLOT.json" >> "$GITHUB_OUTPUT"
+
+    - name: Restore passed component results
+      id: restore-results
+      uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ${{ steps.results.outputs.cache-path }}
+        key: component-results-v1-${{ runner.os }}-${{ runner.arch }}-${{ inputs.source }}-${{ inputs.cache-slot }}-${{ github.run_id }}-${{ github.run_attempt }}
+        restore-keys: component-results-v1-${{ runner.os }}-${{ runner.arch }}-${{ inputs.source }}-${{ inputs.cache-slot }}-
+
+    - name: Select components that need browser checks
+      id: plan
+      shell: bash
+      working-directory: tools
+      env:
+        SOURCE: ${{ inputs.source }}
+        SHARD: ${{ inputs.shard }}
+        REUSE_PATH: ${{ steps.results.outputs.cache-path }}
+        FORCE: ${{ inputs.force }}
+      run: |
+        options=()
+        if [[ "$FORCE" == "true" ]]; then options+=(--force); fi
+        mix ui.verify.cache --source "$SOURCE" --shard "$SHARD" --reuse "$REUSE_PATH" --output "$RUNNER_TEMP/reuse-plan.json" "${options[@]}"
+        python3 - <<'PYTHON'
+        import json, os
+        from pathlib import Path
+        plan = json.loads((Path(os.environ["RUNNER_TEMP"]) / "reuse-plan.json").read_text())
+        with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+            output.write("browser-needed=" + str(plan["browser_needed"]).lower() + "\n")
+        with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as summary:
+            summary.write(f"Browser checks: reuse {len(plan['reused'])} passed components; run {len(plan['run'])} components.\n")
+        PYTHON
 
     - name: Cache exact pinned sources
+      if: steps.plan.outputs.browser-needed == 'true'
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: |
@@ -29,18 +97,17 @@ runs:
         key: pinned-upstream-v1-${{ hashFiles('registry/UPSTREAM.json') }}
 
     - run: mix deps.get
-      shell: bash
-      working-directory: tools
-
-    - run: mix deps.get
+      if: steps.plan.outputs.browser-needed == 'true'
       shell: bash
       working-directory: storybook
 
     - run: npm ci
+      if: steps.plan.outputs.browser-needed == 'true'
       shell: bash
       working-directory: tools
 
     - name: Restore pinned sources
+      if: steps.plan.outputs.browser-needed == 'true'
       run: mix ui.fetch --locked
       shell: bash
       working-directory: tools
@@ -48,17 +115,21 @@ runs:
         GITHUB_TOKEN: ${{ github.token }}
 
     - run: npm ci
+      if: steps.plan.outputs.browser-needed == 'true'
       shell: bash
       working-directory: storybook/assets
 
     - run: npm ci
+      if: steps.plan.outputs.browser-needed == 'true'
       shell: bash
       working-directory: parity
 
     - run: npm ci
+      if: steps.plan.outputs.browser-needed == 'true'
       shell: bash
       working-directory: storybook/test/browser
 
-    - run: npm run verify:install
+    - run: ./node_modules/.bin/playwright install chromium
+      if: steps.plan.outputs.browser-needed == 'true'
       shell: bash
       working-directory: storybook/test/browser

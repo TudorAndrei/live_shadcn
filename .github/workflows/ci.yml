@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      full:
+        description: Run every browser check without result reuse
+        type: boolean
+        default: false
 
 env:
   MIX_ENV: test
@@ -69,6 +75,15 @@ jobs:
       - run: mix deps.get
         working-directory: ${{ matrix.package }}
 
+      - name: Cache pinned verification sources
+        if: matrix.package == 'tools'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            registry/upstream
+            parity/.upstream
+          key: pinned-upstream-v1-${{ hashFiles('registry/UPSTREAM.json') }}
+
       - name: Prepare tools integration test inputs
         if: matrix.package == 'tools'
         run: |
@@ -76,6 +91,8 @@ jobs:
           cd ../storybook
           mix deps.get
         working-directory: tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - run: mix format --check-formatted
         working-directory: ${{ matrix.package }}
@@ -173,7 +190,7 @@ jobs:
       - name: Plan balanced Shadcn groups
         id: shards
         run: |
-          mix ui.verify.plan --source shadcn --shards 8 --output "$RUNNER_TEMP/shadcn-matrix.json"
+          mix ui.verify.plan --source shadcn --shards 16 --output "$RUNNER_TEMP/shadcn-matrix.json"
           python3 - <<'PY'
           import json, os
           from pathlib import Path
@@ -189,10 +206,16 @@ jobs:
     name: Shadcn ${{ matrix.shard }}
     needs: inventory
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-noble@sha256:dcc5531e97840b9b5e794f2814476b21571c5124a3fca2267d73041f56e7580e
+      options: --init --shm-size=1g
+    env:
+      CI_BROWSER_IMAGE: mcr.microsoft.com/playwright:v1.62.1-noble@sha256:dcc5531e97840b9b5e794f2814476b21571c5124a3fca2267d73041f56e7580e
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
     timeout-minutes: 60
     strategy:
       fail-fast: true
-      max-parallel: 8
+      max-parallel: 16
       matrix: ${{ fromJSON(needs.inventory.outputs.matrix) }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -200,15 +223,49 @@ jobs:
           persist-credentials: false
 
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          cache_key_prefix: mise-browser-noble-v1
 
       - uses: ./.github/actions/setup-browser # zizmor: ignore[self-repository]
+        id: browser
+        with:
+          source: shadcn
+          shard: ${{ matrix.shard }}
+          cache-slot: ${{ matrix.index }}
+          force: ${{ inputs.full && 'true' || 'false' }}
 
       - name: Verify assigned components and every example
-        run: mix ui.verify --source shadcn --shard "$SHARD" --batch-size 8 --output "$RUNNER_TEMP/shadcn-$SHARD_INDEX.json" --artifacts "$RUNNER_TEMP/shadcn-browser-$SHARD_INDEX"
+        shell: bash
+        run: |
+          options=()
+          if [[ "$FORCE" == "true" ]]; then options+=(--force); fi
+          mix ui.verify --source shadcn --shard "$SHARD" --reuse "$REUSE_PATH" --batch-size 8 --output "$RUNNER_TEMP/shadcn-$SHARD_INDEX.json" --artifacts "$RUNNER_TEMP/shadcn-browser-$SHARD_INDEX" "${options[@]}"
         working-directory: tools
         env:
           SHARD: ${{ matrix.shard }}
           SHARD_INDEX: ${{ matrix.index }}
+          REUSE_PATH: ${{ steps.browser.outputs.reuse-path }}
+          FORCE: ${{ inputs.full && 'true' || 'false' }}
+
+      - name: Check saved results can be reused
+        id: reuse-check
+        if: ${{ !cancelled() }}
+        shell: bash
+        working-directory: tools
+        env:
+          SHARD: ${{ matrix.shard }}
+          SHARD_INDEX: ${{ matrix.index }}
+          REUSE_PATH: ${{ steps.browser.outputs.reuse-path }}
+        run: |
+          mix ui.verify.cache --source shadcn --shard "$SHARD" --reuse "$REUSE_PATH" --output "$RUNNER_TEMP/cache-check.json"
+          node ../.github/scripts/check-cache-plan.mjs "$RUNNER_TEMP/shadcn-$SHARD_INDEX.json" "$RUNNER_TEMP/cache-check.json" "$REUSE_PATH"
+
+      - name: Save passed results for the next run
+        if: ${{ !cancelled() && steps.reuse-check.outcome == 'success' && steps.browser.outputs.browser-needed == 'true' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.browser.outputs.reuse-path }}
+          key: ${{ steps.browser.outputs.cache-key }}
 
       - name: Save component verification records
         if: ${{ !cancelled() }}
@@ -297,6 +354,14 @@ jobs:
       # `registry/upstream/` is gitignored on purpose: this repository records a
       # digest per upstream file rather than redistributing anybody else's
       # source. So the sources have to be fetched before they can be re-read.
+      - name: Cache pinned verification sources
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            registry/upstream
+            parity/.upstream
+          key: pinned-upstream-v1-${{ hashFiles('registry/UPSTREAM.json') }}
+
       - run: mix ui.fetch --locked
         working-directory: tools
         env:
@@ -323,6 +388,14 @@ jobs:
       - run: mix deps.get
         working-directory: tools
 
+      - name: Cache pinned verification sources
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            registry/upstream
+            parity/.upstream
+          key: pinned-upstream-v1-${{ hashFiles('registry/UPSTREAM.json') }}
+
       - name: Restore pinned browser contract inputs
         run: mix ui.fetch --locked
         working-directory: tools
@@ -345,6 +418,8 @@ jobs:
     needs: inventory
     # Relative workflow calls use this commit. actionlint does not yet accept $/.
     uses: ./.github/workflows/verify-ai-elements.yml # zizmor: ignore[self-repository]
+    with:
+      full: ${{ inputs.full || false }}
 
   deploy:
     name: deploy the tested Storybook

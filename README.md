@@ -109,7 +109,7 @@ sources.
 
 CI first checks component contracts, snapshots, and the production JavaScript
 bundle. A failure stops the dependent jobs from starting. Browser checks then
-run in eight Shadcn groups and four AI Elements groups on separate runners.
+run in sixteen Shadcn groups and four AI Elements groups on separate runners.
 The groups are balanced by example count and interactive controls. Each
 component belongs to one group
 and keeps all required examples, visual states, and checks.
@@ -120,11 +120,28 @@ records and retains failed browser reports, traces, and screenshots for seven
 days. The final source checks reject missing, repeated, failed, or old results
 before they regenerate inventory. Deployment requires both source checks.
 
+CI reuses complete passed results from trusted main-branch runs. The source,
+contract, policy, toolchain, pinned browser image, and UTC date must match.
+A group with no changed inputs skips source downloads, browser installation,
+asset builds, and browser tests. A missing or stale result runs again.
+
+A contract change affects its own component. Ports, CSS, JavaScript, renderers,
+upstream references, and browser suites remain shared inputs. Changes to these
+inputs can require a full run. An empty cache or a new UTC date also requires
+fresh checks. The first run after this cache change fills the cache.
+
+Browser jobs use the pinned Playwright image with browser dependencies already
+installed. Reader and integration jobs also cache pinned upstream sources and
+still check their recorded digests.
+
+To force a full CI run, use **Run workflow** with `full` enabled. Local result
+reuse is explicit through `--reuse PATH`; add `--force` to run that scope again.
+
 To inspect or run a CI group locally, use:
 
 ```bash
-mix ui.verify.plan --source shadcn --shards 8
-mix ui.verify --source shadcn --shard 1/8 --batch-size 8 \
+mix ui.verify.plan --source shadcn --shards 16
+mix ui.verify --source shadcn --shard 1/16 --batch-size 8 \
   --output /tmp/shadcn-1.json --artifacts /tmp/shadcn-browser-1
 ```
 
