@@ -9,6 +9,10 @@ config :storybook, StorybookWeb.Endpoint,
 
 config :phoenix, :json_library, Jason
 
+# GitHub's release download can exceed Erlang's HTTP chunk-header limit.
+# The upstream mirror serves the same artifacts with pinned checksum checks.
+config :mdex_native, artifact_source: :cloudflare
+
 config :logger, :console, format: "$time $metadata[$level] $message\n"
 
 import_config "#{config_env()}.exs"
