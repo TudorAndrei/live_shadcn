@@ -36,6 +36,10 @@ WORKDIR /build
 # The whole monorepo: the storybook depends on the packages by path, and the
 # asset build reads the registry beside them.
 COPY mix.exs* ./
+# Verification records include the toolchain and CI setup files. Their bytes
+# must match the tested checkout when Docs compiles the verification badges.
+COPY mise.toml ./
+COPY .github ./.github
 COPY packages ./packages
 COPY registry ./registry
 # The production badge hashes the examples, lockfile, upstream loader and Vite
@@ -58,7 +62,10 @@ COPY storybook ./storybook
 # build that gets rate-limited anyway, and it stays in the builder stage — the
 # runtime image below starts from a fresh FROM and never sees it.
 ARG GITHUB_TOKEN=""
-RUN cd tools && mix deps.get --only prod && mix ui.fetch --styles
+RUN cd tools && mix deps.get --only prod && mix ui.fetch --styles \
+    && mix ui.status \
+    && mix ui.status --check --source shadcn --require-verified \
+    && mix ui.status --check --source ai_elements --require-verified
 
 WORKDIR /build/storybook
 

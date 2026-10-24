@@ -449,6 +449,26 @@ jobs:
         with:
           cache: false
 
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: shadcn-verification-*
+          path: ${{ runner.temp }}/shadcn-records
+          merge-multiple: true
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: ai-verification-*
+          path: ${{ runner.temp }}/ai-records
+          merge-multiple: true
+
+      - name: Restore the complete tested records into the build context
+        run: |
+          VERIFICATION_MATRIX="$SHADCN_MATRIX" node .github/scripts/merge-verification.mjs "$RUNNER_TEMP/shadcn-records" registry/VERIFY.json
+          VERIFICATION_MATRIX="$AI_MATRIX" node .github/scripts/merge-verification.mjs "$RUNNER_TEMP/ai-records" registry/VERIFY.json
+        env:
+          SHADCN_MATRIX: ${{ needs.inventory.outputs.matrix }}
+          AI_MATRIX: ${{ needs.ai-elements-verification.outputs.matrix }}
+
       - name: Deploy
         run: flyctl deploy --remote-only -c storybook/fly.toml .
         env:

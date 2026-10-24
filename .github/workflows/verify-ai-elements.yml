@@ -6,6 +6,10 @@ on:
       full:
         type: boolean
         default: false
+    outputs:
+      matrix:
+        description: Complete assigned scope for the verified AI Elements records
+        value: ${{ jobs.plan.outputs.matrix }}
 
 permissions:
   contents: read
