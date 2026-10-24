@@ -56,33 +56,72 @@ defmodule LiveShadcnTools.VerificationShards do
     end
   end
 
-  @doc "Estimates example work from the controls present in committed snapshots."
+  @doc "Loads reviewed component times, with snapshot estimates for unmeasured components."
   def costs(previews, root) do
-    Map.new(previews, fn {key, examples} ->
-      cost =
-        Enum.reduce(examples, 0, fn example, sum ->
-          path = Path.join([root, "registry", "snapshot", "#{key}-#{example}.html"])
+    estimates =
+      Map.new(previews, fn {key, examples} ->
+        cost =
+          Enum.reduce(examples, 0, fn example, sum ->
+            path = Path.join([root, "registry", "snapshot", "#{key}-#{example}.html"])
 
-          html =
-            case File.read(path) do
-              {:ok, html} -> html
-              {:error, _} -> ""
-            end
+            html =
+              case File.read(path) do
+                {:ok, html} -> html
+                {:error, _} -> ""
+              end
 
-          controls = length(Regex.scan(~r/\saria-(?:expanded|selected|checked|pressed)="/, html))
-          sum + 1 + 3 * min(controls, 8)
-        end)
+            controls =
+              length(Regex.scan(~r/\saria-(?:expanded|selected|checked|pressed)="/, html))
 
-      {key, cost}
-    end)
+            sum + 1 + 3 * min(controls, 8)
+          end)
+
+        {key, cost}
+      end)
+
+    Map.merge(estimates, measured_costs(root))
   end
 
   defp weight({source, name}, previews, costs) do
     key = preview_key(source, name, previews)
     layers = if source == "shadcn", do: 4, else: 2
-    1 + Map.get(costs, key, length(Map.get(previews, key, []))) * layers
+    estimate = 1 + Map.get(costs, key, length(Map.get(previews, key, []))) * layers
+    Map.get(costs, "#{source}/#{name}", estimate)
   end
 
   defp preview_key(source, name, previews),
     do: if(Map.has_key?(previews, "#{source}-#{name}"), do: "#{source}-#{name}", else: name)
+
+  defp measured_costs(root) do
+    path = Path.join(root, "registry/VERIFICATION_TIMINGS.json")
+
+    case File.read(path) do
+      {:error, :enoent} ->
+        %{}
+
+      {:error, reason} ->
+        raise File.Error, reason: reason, action: "read file", path: path
+
+      {:ok, bytes} ->
+        case Jason.decode!(bytes) do
+          %{"version" => 1, "milliseconds_per_weight_unit" => unit, "components_ms" => timings}
+          when is_integer(unit) and unit > 0 and is_map(timings) ->
+            Map.new(timings, &measured_cost(&1, unit))
+
+          _ ->
+            raise ArgumentError, "invalid verification timings in #{path}"
+        end
+    end
+  end
+
+  defp measured_cost({reference, milliseconds}, unit)
+       when is_binary(reference) and is_integer(milliseconds) and milliseconds > 0 do
+    if not Regex.match?(~r/^(shadcn|ai_elements)\/[a-z0-9]+(?:-[a-z0-9]+)*$/, reference),
+      do: raise(ArgumentError, "invalid verification timing reference: #{reference}")
+
+    {reference, max(1, round(milliseconds / unit))}
+  end
+
+  defp measured_cost(_entry, _unit),
+    do: raise(ArgumentError, "verification component times must be positive integer milliseconds")
 end

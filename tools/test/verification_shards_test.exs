@@ -69,4 +69,34 @@ defmodule LiveShadcnTools.VerificationShardsTest do
     assert hd(shards)["components"] == ["shadcn/dialog"]
     assert VerificationShards.select(targets, previews, "1/2", costs) == [{"shadcn", "dialog"}]
   end
+
+  test "measured component times balance groups and retain estimates for new components" do
+    root = Path.join(System.tmp_dir!(), "shard-timing-#{System.unique_integer([:positive])}")
+    File.mkdir_p!(Path.join(root, "registry"))
+    on_exit(fn -> File.rm_rf!(root) end)
+
+    File.write!(
+      Path.join(root, "registry/VERIFICATION_TIMINGS.json"),
+      Jason.encode!(%{
+        "version" => 1,
+        "milliseconds_per_weight_unit" => 1000,
+        "components_ms" => %{
+          "shadcn/alert" => 100_000,
+          "shadcn/dialog" => 20_000,
+          "ai_elements/alert" => 10_000
+        }
+      })
+    )
+
+    previews = Map.new(~w(alert dialog fresh), &{&1, ["default"]})
+    targets = for name <- ~w(alert dialog fresh), do: {"shadcn", name}
+    targets = [{"ai_elements", "alert"} | targets]
+    costs = VerificationShards.costs(previews, root)
+
+    assert [slow, rest] = VerificationShards.plan(targets, previews, 2, costs)
+    assert slow["components"] == ["shadcn/alert"]
+    assert slow["weight"] == 100
+    assert rest["components"] == ~w(ai_elements/alert shadcn/dialog shadcn/fresh)
+    assert rest["weight"] == 35
+  end
 end
