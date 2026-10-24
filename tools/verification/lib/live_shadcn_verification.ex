@@ -8,6 +8,7 @@ defmodule LiveShadcnVerification do
   @shared_input_globs [
     "mise.toml",
     ".github/actions/setup-browser/**/*",
+    "tools/scripts/prepare-native.exs",
     ".github/workflows/{ci,verify-ai-elements}.yml",
     "registry/INVENTORY.json",
     "registry/UPSTREAM.json",

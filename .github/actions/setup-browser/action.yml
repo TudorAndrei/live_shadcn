@@ -101,6 +101,11 @@ runs:
       shell: bash
       working-directory: storybook
 
+    - name: Prepare verified native archives
+      if: steps.plan.outputs.browser-needed == 'true'
+      shell: bash
+      run: elixir tools/scripts/prepare-native.exs storybook
+
     - run: npm ci
       if: steps.plan.outputs.browser-needed == 'true'
       shell: bash

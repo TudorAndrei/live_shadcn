@@ -19,7 +19,9 @@ ARG DEBIAN=bookworm-20260803-slim
 FROM hexpm/elixir:${ELIXIR}-erlang-${OTP}-debian-${DEBIAN} AS builder
 
 ARG DEBIAN
-ENV MIX_ENV=prod
+ENV MIX_ENV=prod \
+    ELIXIR_MAKE_CACHE_DIR=/build/.native/elixir-make \
+    RUSTLER_PRECOMPILED_GLOBAL_CACHE_PATH=/build/.native/rustler
 
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends build-essential git ca-certificates curl \
@@ -60,7 +62,9 @@ RUN cd tools && mix deps.get --only prod && mix ui.fetch --styles
 
 WORKDIR /build/storybook
 
-RUN mix deps.get --only prod && mix deps.compile
+RUN mix deps.get --only prod \
+    && elixir ../tools/scripts/prepare-native.exs . \
+    && mix deps.compile
 RUN cd assets && npm ci
 # Bare imports in the shared hooks resolve from the Base package, not from
 # Storybook's assets directory. Install that package's exact locked versions.

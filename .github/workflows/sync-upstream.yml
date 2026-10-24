@@ -13,6 +13,10 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  ELIXIR_MAKE_CACHE_DIR: /tmp/live-shadcn-native/elixir-make
+  RUSTLER_PRECOMPILED_GLOBAL_CACHE_PATH: /tmp/live-shadcn-native/rustler
+
 jobs:
   sync:
     runs-on: ubuntu-24.04
@@ -45,7 +49,12 @@ jobs:
         working-directory: tools
 
       - name: Redraw the snapshots
-        run: mix setup && mix assets.build && mix snapshot
+        run: |
+          mix deps.get
+          elixir ../tools/scripts/prepare-native.exs .
+          mix assets.setup
+          mix assets.build
+          mix snapshot
         working-directory: storybook
 
       # A port that does not match its contract makes later results unreliable.

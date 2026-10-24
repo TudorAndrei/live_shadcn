@@ -13,6 +13,8 @@ on:
 
 env:
   MIX_ENV: test
+  ELIXIR_MAKE_CACHE_DIR: /tmp/live-shadcn-native/elixir-make
+  RUSTLER_PRECOMPILED_GLOBAL_CACHE_PATH: /tmp/live-shadcn-native/rustler
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -75,6 +77,11 @@ jobs:
       - run: mix deps.get
         working-directory: ${{ matrix.package }}
 
+      - name: Prepare verified native archives
+        run: elixir tools/scripts/prepare-native.exs "$PROJECT"
+        env:
+          PROJECT: ${{ matrix.package }}
+
       - name: Cache pinned verification sources
         if: matrix.package == 'tools'
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -90,6 +97,7 @@ jobs:
           mix ui.fetch --locked
           cd ../storybook
           mix deps.get
+          elixir ../tools/scripts/prepare-native.exs .
         working-directory: tools
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -171,6 +179,9 @@ jobs:
       - run: mix deps.get
         working-directory: storybook
 
+      - name: Prepare verified native archives
+        run: elixir tools/scripts/prepare-native.exs storybook
+
       # The markup a reader gets is committed. A diff here is a change to it,
       # and it renders server-side — no browser, no styling layer, no fetch.
       - run: mix snapshot --check
@@ -201,6 +212,8 @@ jobs:
         working-directory: tools
 
       - run: node --test .github/scripts/*.test.mjs
+
+      - run: elixir tools/scripts/prepare-native.test.exs
 
   shadcn-verification:
     name: Shadcn ${{ matrix.shard }}
