@@ -2113,7 +2113,7 @@ function actionControls(scope) {
   return scope.locator(actionControlSelector());
 }
 
-async function waitForCarouselMotion(page, selector) {
+export async function waitForCarouselMotion(page, selector) {
   await page.evaluate(async (selector) => {
     const tracks = Array.from(
       document.querySelector(selector)?.querySelectorAll("[data-slot='carousel-content'] > div") ?? [],
