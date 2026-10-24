@@ -110,8 +110,9 @@ sources.
 CI first checks component contracts, snapshots, and the production JavaScript
 bundle. A failure stops the dependent jobs from starting. Browser checks then
 run in sixteen Shadcn groups and four AI Elements groups on separate runners.
-The groups are balanced by example count and interactive controls. Each
-component belongs to one group
+The groups use reviewed component times from
+`registry/VERIFICATION_TIMINGS.json`. New components use estimates based on
+example count and interactive controls. Each component belongs to one group
 and keeps all required examples, visual states, and checks.
 
 Each runner uses one browser worker and batches of up to eight examples.
@@ -144,6 +145,19 @@ mix ui.verify.plan --source shadcn --shards 16
 mix ui.verify --source shadcn --shard 1/16 --batch-size 8 \
   --output /tmp/shadcn-1.json --artifacts /tmp/shadcn-browser-1
 ```
+
+The matrix planner, verifier, and cache planner read the same committed timing
+file. To refresh it, use successful full CI runs with the current browser setup.
+For each component, add the milliseconds from its behavior, accessibility,
+parity, and pixel batch logs. Save the mean across runs in `components_ms` and
+record the run URLs and commit IDs. Review and commit the file before use.
+CI does not change the timing file during a run.
+
+`milliseconds_per_weight_unit` converts measured times to planning weights.
+The current value is 2500 milliseconds, near the median time per snapshot-based
+weight in the recorded runs. This keeps estimates for new components on a
+similar scale. The timing file controls group assignment only. It cannot
+supply verification evidence or change the required checks.
 
 Use Phoenix component tests for server rendering and events. Use Node tests
 for catalog and contract files. Keep Playwright for browser hooks, focus,
