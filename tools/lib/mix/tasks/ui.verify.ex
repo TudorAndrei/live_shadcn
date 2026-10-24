@@ -11,6 +11,12 @@ defmodule Mix.Tasks.Ui.Verify do
       mix ui.verify --source ai_elements # all authored AI component contracts
       mix ui.verify --no-browser      # skip the browser, for a machine without one
       mix ui.verify --source shadcn --shard 1/8 --batch-size 8 --output shard.json
+      mix ui.verify --source shadcn --shard 1/8 --reuse cache.json --output shard.json --artifacts artifacts
+
+  `--reuse` accepts only complete passed records with current policy, spec,
+  evidence, runtime, browser image, and UTC date. `--force` runs the complete
+  assigned scope again. Cache reuse cannot be combined with `--record` or
+  `--no-browser`.
 
   Shadcn requires React comparison. AI Elements requires authored behavior and
   local accessibility checks. AI parity and pixel outcomes are not applicable.
@@ -55,6 +61,7 @@ defmodule Mix.Tasks.Ui.Verify do
   alias LiveShadcnTools.IncrementalVerification
   alias LiveShadcnTools.PlaywrightReport
   alias LiveShadcnTools.ShadcnExamples
+  alias LiveShadcnTools.VerificationCache
   alias LiveShadcnTools.VerificationPolicy
   alias LiveShadcnTools.VerificationShards
   alias LiveShadcnTools.VerifierLock
@@ -100,7 +107,9 @@ defmodule Mix.Tasks.Ui.Verify do
           shard: :string,
           batch_size: :integer,
           output: :string,
-          artifacts: :string
+          artifacts: :string,
+          reuse: :string,
+          force: :boolean
         ]
       )
 
@@ -108,11 +117,20 @@ defmodule Mix.Tasks.Ui.Verify do
     records = Keyword.get_values(opts, :record)
 
     if records != [] and
-         Enum.any?([:shard, :batch_size, :output, :artifacts], &Keyword.has_key?(opts, &1)),
+         Enum.any?(
+           [:shard, :batch_size, :output, :artifacts, :reuse, :force],
+           &Keyword.has_key?(opts, &1)
+         ),
        do:
          Mix.raise(
-           "--record cannot be combined with --shard, --batch-size, --output, or --artifacts"
+           "--record cannot be combined with --shard, --batch-size, --output, --artifacts, --reuse, or --force"
          )
+
+    if opts[:reuse] && opts[:browser] == false,
+      do: Mix.raise("--reuse cannot be combined with --no-browser")
+
+    if Keyword.has_key?(opts, :force) and is_nil(opts[:reuse]),
+      do: Mix.raise("--force requires --reuse")
 
     if records != [] do
       record_incremental!(names, opts, records)
@@ -136,20 +154,25 @@ defmodule Mix.Tasks.Ui.Verify do
     if batch_size not in 1..16, do: Mix.raise("--batch-size must be between 1 and 16")
 
     components =
-      if shard = opts[:shard] do
-        if source == nil or names != [],
-          do: Mix.raise("--shard requires --source and no component names")
+      cond do
+        opts[:reuse] ->
+          VerificationCache.scope!(opts, names)
 
-        previews = previews()
+        opts[:shard] ->
+          if source == nil or names != [],
+            do: Mix.raise("--shard requires --source and no component names")
 
-        VerificationShards.select(
-          components,
-          previews,
-          shard,
-          VerificationShards.costs(previews, repo_root())
-        )
-      else
-        components
+          previews = previews()
+
+          VerificationShards.select(
+            components,
+            previews,
+            opts[:shard],
+            VerificationShards.costs(previews, repo_root())
+          )
+
+        true ->
+          components
       end
 
     if components == [] do
@@ -175,6 +198,66 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   defp verify_locked(components, browser?, opts) do
+    root = repo_root()
+
+    if opts[:reuse] && opts[:force],
+      do: VerificationCache.write!(opts[:reuse], VerificationCache.runtime(), %{}, root)
+
+    LiveShadcnVerification.verify_pinned_upstream_files!(root)
+
+    selection =
+      if path = opts[:reuse] do
+        selection = VerificationCache.select(components, path, opts[:force] || false, root)
+        # Retire misses before fresh work. A preparation or publication error
+        # must not leave a previous pass available after a forced run.
+        VerificationCache.write!(path, selection.runtime, selection.reused, root)
+        selection
+      else
+        %{run: components, reused: %{}}
+      end
+
+    fresh = verify_fresh(selection.run, browser?)
+    assert_reused_identities_unchanged!(selection.reused)
+    LiveShadcnVerification.verify_pinned_upstream_files!(root)
+    results = Map.merge(selection.reused, fresh)
+
+    write_json_atomic!(registry_path("VERIFY.json"), merge(results))
+
+    if output = opts[:output] do
+      write_json_atomic!(Path.expand(output), %{
+        "source" => opts[:source],
+        "shard" => opts[:shard],
+        "components" =>
+          Enum.map(components, fn {source, name} -> ref(source, name) end) |> Enum.sort(),
+        "results" => results
+      })
+    end
+
+    if path = opts[:reuse],
+      do: VerificationCache.write!(path, selection.runtime, results, root)
+
+    report(results)
+  end
+
+  defp assert_reused_identities_unchanged!(records) do
+    shadcn = for {"shadcn/" <> name, record} <- records, into: %{}, do: {name, record["evidence"]}
+
+    if map_size(shadcn) > 0,
+      do: LiveShadcnVerification.assert_identities_unchanged!(repo_root(), shadcn)
+
+    for {"ai_elements/" <> name, record} <- records,
+        do:
+          LiveShadcnVerification.assert_identity_unchanged!(
+            repo_root(),
+            "ai_elements",
+            name,
+            record["evidence"]
+          )
+  end
+
+  defp verify_fresh([], _browser?), do: %{}
+
+  defp verify_fresh(components, browser?) do
     shadcn_identities =
       components
       |> Enum.flat_map(fn
@@ -270,19 +353,7 @@ defmodule Mix.Tasks.Ui.Verify do
       )
     end
 
-    write_json_atomic!(registry_path("VERIFY.json"), merge(results))
-
-    if output = opts[:output] do
-      write_json_atomic!(Path.expand(output), %{
-        "source" => opts[:source],
-        "shard" => opts[:shard],
-        "components" =>
-          Enum.map(components, fn {source, name} -> ref(source, name) end) |> Enum.sort(),
-        "results" => results
-      })
-    end
-
-    report(results)
+    results
   end
 
   # Small browser batches are run outside this task to keep their scope and
