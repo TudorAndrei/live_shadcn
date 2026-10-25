@@ -31,7 +31,8 @@ output does not make up for it.
 
 ## Styles
 
-Use the **Theme** control in the header to select **Light** or **Dark**.
+Dark is the default theme. Use the **Theme** control in the header to select
+**Light** or **Dark**.
 The selection stays in the current browser tab during navigation and reloads.
 Add `?theme=dark` or `?theme=light` to a docs or preview URL to set its theme.
 

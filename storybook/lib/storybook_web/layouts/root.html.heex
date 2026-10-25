@@ -11,7 +11,7 @@
         if (theme !== "light" && theme !== "dark") {
           try { theme = sessionStorage.getItem("storybook-theme"); } catch {}
         }
-        theme = theme === "dark" ? "dark" : "light";
+        theme = theme === "light" ? "light" : "dark";
         document.documentElement.classList.toggle("dark", theme === "dark");
         document.documentElement.style.colorScheme = theme;
         try { sessionStorage.setItem("storybook-theme", theme); } catch {}
