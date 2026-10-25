@@ -1,6 +1,11 @@
 // Shared background accessibility for open modal layers. Scroll locking and
 // keyboard focus stay with the component that owns those behaviors.
-const accessibilityDocuments = new WeakMap();
+//
+// Each colocated hook is bundled on its own, so Overlay, Drawer and Floating
+// each carry a copy of this module. The stack lives on `globalThis` so that
+// every copy reads the same one.
+const accessibilityDocuments =
+  (globalThis[Symbol.for("live_base.modal_accessibility")] ??= new WeakMap());
 
 export function accessibilityInside(popup) {
   const document = popup.ownerDocument;

@@ -39,8 +39,9 @@ const FOCUSABLE = [
 
 // Each document has one modal stack. An earlier overlay can close or be
 // destroyed while a later one is still open, so scroll locking and focus
-// belong to the stack rather than to an individual hook.
-const modalDocuments = new WeakMap();
+// belong to the stack rather than to an individual hook. Overlay and Drawer
+// are bundled separately, so the stack lives on `globalThis` to be one stack.
+const modalDocuments = (globalThis[Symbol.for("live_base.modal_stack")] ??= new WeakMap());
 
 function frontModal(state) {
   return state.owners.findLast((owner) => owner.el.isConnected && owner.el.hasAttribute(OPEN));
