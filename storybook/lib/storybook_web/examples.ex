@@ -14055,8 +14055,8 @@ defmodule StorybookWeb.Examples do
       )
 
     ~H"""
-    <.sidebar_provider>
-      <.sidebar id="nav" collapsible="icon" phx-hook="SidebarPopupPlacement">
+    <.sidebar_provider id="nav-provider" phx-hook="SidebarPopupPlacement">
+      <.sidebar id="nav" collapsible="icon">
         <.sidebar_header>
           <.sidebar_menu>
             <.sidebar_menu_item>
