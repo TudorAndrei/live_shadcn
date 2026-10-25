@@ -58,7 +58,7 @@ defmodule LiveBase.MixProject do
     [
       main: "readme",
       source_url: @source_url,
-      source_ref: "v#{@version}",
+      source_ref: "live_base-v#{@version}",
       extras: ["README.md", "CHANGELOG.md"],
       groups_for_modules: [
         Recipes: [
