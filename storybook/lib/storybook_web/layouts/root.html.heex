@@ -4,6 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={Phoenix.Controller.get_csrf_token()} />
+    <script nonce={assigns[:csp_nonce]} phx-no-curly-interpolation>
+      (() => {
+        const requested = new URLSearchParams(window.location.search).get("theme");
+        let theme = requested;
+        if (theme !== "light" && theme !== "dark") {
+          try { theme = sessionStorage.getItem("storybook-theme"); } catch {}
+        }
+        theme = theme === "dark" ? "dark" : "light";
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        document.documentElement.style.colorScheme = theme;
+        try { sessionStorage.setItem("storybook-theme", theme); } catch {}
+      })();
+    </script>
     <.live_title default="live_shadcn">{assigns[:page_title]}</.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>

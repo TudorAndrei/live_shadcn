@@ -31,6 +31,10 @@ output does not make up for it.
 
 ## Styles
 
+Use the **Theme** control in the header to select **Light** or **Dark**.
+The selection stays in the current browser tab during navigation and reloads.
+Add `?theme=dark` or `?theme=light` to a docs or preview URL to set its theme.
+
 Every `cn-` rule upstream publishes is nested inside `.style-<name>`, so the
 style is a class on the document. `vega` is shadcn's first-listed style and the
 one the demo uses; changing it means importing a different sheet in

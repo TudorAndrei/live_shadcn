@@ -20,6 +20,27 @@ import { SidebarPopupPlacement } from "./sidebar_popup_placement";
 import { NestedDrawerMedia } from "./nested_drawer_media";
 import { ShadcnCodeStreaming } from "./shadcn_code_streaming";
 
+const syncThemeControl = () => {
+  const control = document.querySelector("[data-storybook-theme]");
+  if (control) {
+    control.value = document.documentElement.classList.contains("dark") ? "dark" : "light";
+  }
+};
+
+document.addEventListener("change", (event) => {
+  if (!event.target.matches("[data-storybook-theme]")) return;
+  const theme = event.target.value === "dark" ? "dark" : "light";
+  document.documentElement.classList.toggle("dark", theme === "dark");
+  document.documentElement.style.colorScheme = theme;
+  try { sessionStorage.setItem("storybook-theme", theme); } catch {}
+  const url = new URL(window.location.href);
+  url.searchParams.set("theme", theme);
+  window.history.replaceState(window.history.state, "", url);
+});
+
+syncThemeControl();
+window.addEventListener("phx:page-loading-stop", syncThemeControl);
+
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
 const liveSocket = new LiveSocket("/live", Socket, {
