@@ -11,6 +11,14 @@
 //
 // Hook names are namespaced, so `phx-hook="LiveAiElements.Delta"` in generated
 // markup cannot collide with a hook of your own.
+//
+// This entry imports every hook, and `Persona` imports `@rive-app/webgl2`. An
+// application that does not render a Persona imports the hooks it uses from
+// their own subpaths instead, so its bundler never has to resolve Rive:
+//
+//   import { Delta } from "live_ai_elements/delta";
+//
+//   hooks: { ...liveBase, "LiveAiElements.Delta": Delta }
 
 import { Delta, DELTA_EVENT } from "./delta.js";
 import { installAttachmentRemove } from "./attachment_remove.js";

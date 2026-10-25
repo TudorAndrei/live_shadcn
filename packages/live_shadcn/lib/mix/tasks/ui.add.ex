@@ -12,7 +12,9 @@ defmodule Mix.Tasks.Ui.Add do
 
   The default destination is `lib/<your_app>_web/components/ui/`, and the module
   is rewritten to match: `LiveShadcn.UI.Button` becomes
-  `MyAppWeb.Components.UI.Button`.
+  `MyAppWeb.Components.UI.Button`. With `--into`, the namespace follows the path
+  after `lib/`, and a `ui` directory is still `UI`: `--into lib/web/components/ui`
+  gives `Web.Components.UI.Button`.
 
   Every copy is stamped with the registry version it came from and a digest of
   its own body. That stamp is what lets `mix ui.sync` tell an untouched copy
@@ -101,9 +103,14 @@ defmodule Mix.Tasks.Ui.Add do
   defp namespace(opts) do
     case opts[:into] do
       nil -> "#{Macro.camelize("#{Mix.Project.config()[:app]}")}Web.Components.UI"
-      into -> into |> Path.split() |> Enum.drop(1) |> Enum.map_join(".", &Macro.camelize/1)
+      into -> into |> Path.split() |> Enum.drop(1) |> Enum.map_join(".", &namespace_segment/1)
     end
   end
+
+  # `Macro.camelize("ui")` is `Ui`. The default destination says `UI`, and a
+  # copy under `--into` keeps that name.
+  defp namespace_segment("ui"), do: "UI"
+  defp namespace_segment(segment), do: Macro.camelize(segment)
 
   # The registry's own version. A copy that cannot name where it came from
   # cannot be synced.

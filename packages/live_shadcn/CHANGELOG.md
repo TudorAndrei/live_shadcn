@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- `mix ui.add --into` names a `ui` directory `UI` in the module namespace, as
+  the default destination does. `--into lib/web/components/ui` now gives
+  `Web.Components.UI.Button`, not `Web.Components.Ui.Button`.
+
 ## 0.1.0
 
 First release. Includes 61 reviewed shadcn component ports for Phoenix LiveView.
