@@ -112,6 +112,9 @@ Put reusable commands and hooks in `packages/live_base/`. Use a hook only when
 `Phoenix.LiveView.JS` cannot express the work. A hook decides which element to
 use; the `JS` command on that element decides what happens.
 
+Edit hook source in `packages/*/assets/js/`. A component's colocated hook block
+is generated from that source. After a change, run `mix ui.hooks` in `tools/`.
+
 ## Verification
 
 ```bash
@@ -167,6 +170,7 @@ mix check
 cd tools
 mix ui.spec --check --offline
 mix ui.status --check
+mix ui.hooks --check
 
 cd ../storybook
 mix snapshot --check
