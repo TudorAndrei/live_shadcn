@@ -69,6 +69,13 @@ defmodule Storybook.MixProject do
     ]
   end
 
+  # The live_base and live_ai_elements hooks are colocated: compiling them
+  # writes `phoenix-colocated/<app>` under the build path, and the bundler
+  # resolves that import through `NODE_PATH`.
+  defp colocated_node_path(_args) do
+    System.put_env("NODE_PATH", Mix.Project.build_path())
+  end
+
   # The style sheets come from `mix ui.fetch`, which puts them in
   # registry/upstream. A build without them is a build with no shadcn styling,
   # so `assets.build` says so rather than producing a silently bare page.
@@ -76,8 +83,13 @@ defmodule Storybook.MixProject do
     [
       setup: ["deps.get", "assets.setup"],
       "assets.setup": ["cmd --cd assets npm install"],
-      "assets.build": ["cmd --cd assets npm run build"],
-      "assets.deploy": ["cmd --cd assets npm run deploy", "phx.digest"],
+      "assets.build": ["compile", &colocated_node_path/1, "cmd --cd assets npm run build"],
+      "assets.deploy": [
+        "compile",
+        &colocated_node_path/1,
+        "cmd --cd assets npm run deploy",
+        "phx.digest"
+      ],
       # Every check that reads the code without running it. `--config-file`
       # points at the repository root, because five copies of a rule set is five
       # chances for them to disagree.

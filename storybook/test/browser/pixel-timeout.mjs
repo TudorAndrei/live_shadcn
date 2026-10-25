@@ -1,8 +1,9 @@
 // Pixel capture starts two local applications and discovers both render state
 // lists before it can photograph a state. Keep that startup allowance explicit.
 const STARTUP_ALLOWANCE_MS = 20_000;
-// Each state makes five serial navigations and two captures in one constrained
-// renderer. This allowance keeps that bounded work inside the test deadline.
+// A state taller than the minimum viewport makes four serial navigations, six
+// for a busy capture, and two captures in one constrained renderer. This
+// allowance keeps that bounded work inside the test deadline.
 const PER_STATE_ALLOWANCE_MS = 20_000;
 const MIN_TIMEOUT_MS = 120_000;
 

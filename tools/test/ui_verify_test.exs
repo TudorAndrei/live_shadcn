@@ -355,7 +355,7 @@ defmodule Mix.Tasks.Ui.VerifyTest do
     commands =
       Verify.behavior_batch_arguments("shadcn", "native-select", "interaction-parity.spec.mjs")
 
-    assert [_, _, _] = commands
+    assert [_] = commands
 
     assert Enum.all?(commands, fn
              [
@@ -374,7 +374,7 @@ defmodule Mix.Tasks.Ui.VerifyTest do
                  |> String.split("|")
                  |> length()
 
-               String.starts_with?(pattern, "(?:") and title_count in 1..2
+               String.starts_with?(pattern, "(?:") and title_count == 5
 
              _ ->
                false
@@ -441,12 +441,12 @@ defmodule Mix.Tasks.Ui.VerifyTest do
   end
 
   test "semantic parity and pixel batches preserve every example in bounded groups" do
-    examples = ["default", "anchoring", "streaming"]
+    examples = Enum.map(1..9, &"example-#{&1}")
 
     for kind <- ["parity", "pixel"] do
       assert Verify.example_batches("message-scroller", kind, examples) == [
-               ["default", "anchoring"],
-               ["streaming"]
+               Enum.take(examples, 8),
+               ["example-9"]
              ]
     end
 
@@ -455,14 +455,14 @@ defmodule Mix.Tasks.Ui.VerifyTest do
            ]
   end
 
-  test "interaction and accessibility batches contain at most two examples" do
-    examples = ["default", "disabled", "rtl", "scrollable", "invalid"]
+  test "interaction and accessibility batches contain at most eight examples" do
+    examples = Enum.map(1..17, &"example-#{&1}")
 
     for kind <- ["interaction", "accessibility"] do
       assert Verify.example_batches("select", kind, examples) == [
-               ["default", "disabled"],
-               ["rtl", "scrollable"],
-               ["invalid"]
+               Enum.slice(examples, 0..7),
+               Enum.slice(examples, 8..15),
+               ["example-17"]
              ]
     end
   end

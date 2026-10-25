@@ -10,7 +10,7 @@
 //
 // The hook is declared once, on the element that contains the parts:
 //
-//   <div id="conversation" phx-hook="LiveAiElements.Delta" phx-update="stream">
+//   <div id="conversation" phx-hook={LiveAiElements.Delta.hook()} phx-update="stream">
 //
 // and reads three attributes on what is inside it:
 //

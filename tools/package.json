@@ -2,11 +2,12 @@
   "name": "live_shadcn_tools",
   "version": "0.1.0-dev",
   "private": true,
-  "description": "The Oxc parser for upstream TSX facts. Maintainer-only; never published.",
+  "description": "The Oxc parser for upstream TSX facts and the Rolldown bundler for colocated hooks. Maintainer-only; never published.",
   "license": "Apache-2.0",
   "type": "module",
   "dependencies": {
     "oxc-parser": "0.146.0",
-    "oxc-walker": "^1.1.1"
+    "oxc-walker": "^1.1.1",
+    "rolldown": "1.2.15"
   }
 }

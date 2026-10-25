@@ -94,7 +94,8 @@ The components' behavior lives in `live_base`. Follow its
 and register the complete hook map. Preserve existing socket options and hooks:
 
 ```javascript
-import { hooks as liveBase } from "live_base";
+import "live_base";
+import { hooks as liveBase } from "phoenix-colocated/live_base";
 
 const liveSocket = new LiveSocket("/live", Socket, {
   hooks: { ...liveBase },

@@ -26,7 +26,7 @@ defmodule LiveShadcn.UI.HoverCardTest do
     assert attribute(trigger, "data-lb-open-on-hover") == :present
     assert attribute(trigger, "data-lb-open-delay") == "10"
     assert attribute(trigger, "data-lb-close-delay") == "100"
-    assert attribute(trigger, "phx-hook") == "LiveBase.InteractionTrigger"
+    assert attribute(trigger, "phx-hook") == LiveBase.InteractionTrigger.hook()
   end
 
   test "a native composed trigger preserves its class and rest attributes" do

@@ -102,6 +102,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      # Colocated hook blocks are bundled from the packages' assets/js/. A diff
+      # here is a hook source edit that `mix ui.hooks` has not written back.
+      - run: mix ui.hooks --check
+        if: matrix.package == 'tools'
+        working-directory: tools
+
       - run: mix format --check-formatted
         working-directory: ${{ matrix.package }}
 
@@ -195,8 +201,12 @@ jobs:
       - run: npm ci
         working-directory: storybook/assets
 
+      # `mix snapshot --check` compiled the storybook in this job's MIX_ENV,
+      # which wrote the colocated hooks under that build path.
       - run: npm run build:js -- --minify
         working-directory: storybook/assets
+        env:
+          NODE_PATH: ${{ github.workspace }}/storybook/_build/${{ env.MIX_ENV }}
 
       - name: Plan balanced Shadcn groups
         id: shards

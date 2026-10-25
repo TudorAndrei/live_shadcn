@@ -34,10 +34,8 @@ defmodule LiveBase.Menu do
   alias LiveBase.Popover
   alias Phoenix.LiveView.JS
 
-  @hook "LiveBase.Roving"
-
   @doc "The client hook name the menu popup declares in `phx-hook`."
-  def hook, do: @hook
+  def hook, do: LiveBase.Tabs.hook()
 
   @doc "The id of the item at a given value."
   def item_id(menu, value), do: "#{menu}-item-#{value}"

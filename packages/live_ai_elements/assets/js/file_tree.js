@@ -7,10 +7,11 @@ export const FileTree = {
     this.chevron = this.el.querySelector("[data-file-tree-chevron]");
     this.openIcon = this.el.querySelector("[data-file-tree-open-icon]");
     this.closedIcon = this.el.querySelector("[data-file-tree-closed-icon]");
+    this.node = `[phx-hook="${this.el.getAttribute("phx-hook")}"]`;
 
     this.onClick = (event) => {
       const trigger = event.target.closest(TOGGLE);
-      if (!trigger || trigger.closest('[phx-hook="LiveAiElements.FileTree"]') !== this.el) return;
+      if (!trigger || trigger.closest(this.node) !== this.el) return;
       this.draw(this.item?.getAttribute("aria-expanded") !== "true");
     };
 
@@ -44,7 +45,7 @@ export const FileTree = {
     this.expanded = expanded;
     this.item?.setAttribute("aria-expanded", String(expanded));
     this.item?.querySelectorAll(TOGGLE).forEach((trigger) => {
-      if (trigger.closest('[phx-hook="LiveAiElements.FileTree"]') === this.el) {
+      if (trigger.closest(this.node) === this.el) {
         trigger.setAttribute("aria-expanded", String(expanded));
       }
     });

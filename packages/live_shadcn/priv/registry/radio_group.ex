@@ -36,7 +36,7 @@ defmodule LiveShadcn.UI.RadioGroup do
       id={@id}
       data-slot={@rest[:"data-slot"] || "radio-group"}
       role="radiogroup"
-      phx-hook="LiveBase.RadioGroup"
+      phx-hook={LiveBase.RadioGroup.hook()}
       class={LiveShadcn.Cn.merge([upstream_fact("jsx/RadioGroup/class/0"), @class])}
       {Map.drop(@rest, [:"data-slot"])}
     >

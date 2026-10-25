@@ -69,7 +69,7 @@ defmodule Mix.Tasks.Ui.Verify do
 
   import LiveShadcnTools
 
-  @browser_example_batch_size 2
+  @browser_example_batch_size 8
   @message_scroller_behavior_batch_size 1
   @browser_server_stop_timeout 5_000
   @browser_server_stop_poll 50

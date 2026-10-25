@@ -32,7 +32,7 @@ defmodule LiveShadcn.UI.ContextMenuTest do
     document = Floki.parse_fragment!(html)
 
     [trigger] = Floki.find(document, "div[data-slot='context-menu-trigger']")
-    assert Floki.attribute([trigger], "phx-hook") == ["LiveBase.InteractionTrigger"]
+    assert Floki.attribute([trigger], "phx-hook") == [LiveBase.InteractionTrigger.hook()]
 
     assert Floki.attribute([trigger], "data-lb-open-on-context") == [
              "data-lb-open-on-context"

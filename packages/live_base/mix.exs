@@ -10,6 +10,7 @@ defmodule LiveBase.MixProject do
       version: @version,
       elixir: "~> 1.17",
       elixirc_options: [warnings_as_errors: true],
+      compilers: [:phoenix_live_view] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
@@ -32,6 +33,8 @@ defmodule LiveBase.MixProject do
 
   defp deps do
     [
+      # Colocated hooks compile only against Phoenix 1.8 or later.
+      {:phoenix, "~> 1.8"},
       {:phoenix_live_view, "~> 1.2"},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false}
     ] ++ checks()

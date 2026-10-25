@@ -186,7 +186,7 @@ defmodule LiveShadcn.UI.DropdownMenu do
           id={Popover.trigger_id(@id)}
           aria-controls={controls(@id, @open, @transient_controls)}
           aria-disabled={if(@disabled, do: "true")}
-          phx-hook="LiveBase.InteractionTrigger"
+          phx-hook={LiveBase.InteractionTrigger.hook()}
           data-lb-open-on-context
           data-lb-positioner={Popover.positioner_id(@id)}
           phx-click={if(not @disabled, do: toggle_menu(@id, @transient_controls))}

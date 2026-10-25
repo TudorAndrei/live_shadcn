@@ -12,6 +12,8 @@ deps/
 .lexical/
 erl_crash.dump
 cover/
+# ExUnit's `:tmp_dir` tag writes each test's scratch files here.
+packages/*/tmp/
 
 # Fetched upstream sources (regenerate with `mix ui.fetch`)
 registry/upstream/**

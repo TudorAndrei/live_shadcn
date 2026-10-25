@@ -186,37 +186,45 @@ for (const { component, example } of pages) {
             notices: [{ title: "History loaded", description: "Scroll up to see earlier messages." }] }
         : null;
       const noticeFrames = {};
+      const enterReact = async () => {
+        await referencePage.goto(reactURL);
+        await enterVisualState(referencePage, selector, state);
+        if (copiedState) copyReceipts.reactEntry = await copyPaintReceipt(referencePage, selector);
+        if (historyNoticeContract) noticeFrames.reactEntry = await messageScrollerPaintReceipt(referencePage, selector);
+      };
+      const enterPhoenix = async () => {
+        await page.goto(phoenixURL);
+        await connected(page);
+        await enterVisualState(page, selector, state);
+        if (copiedState) copyReceipts.phoenixEntry = await copyPaintReceipt(page, selector);
+        if (historyNoticeContract) noticeFrames.phoenixEntry = await messageScrollerPaintReceipt(page, selector);
+      };
+
       // One viewport for both sides, tall enough for either document in this
-      // state, then one clip rectangle covering what either side paints.
+      // state, then one clip rectangle covering what either side paints. A
+      // state that fits the minimum height keeps the pages it was measured on;
+      // a taller one enters again at the taller viewport.
       await page.setViewportSize({ width: 1280, height: MINIMUM_HEIGHT });
       await referencePage.setViewportSize({ width: 1280, height: MINIMUM_HEIGHT });
-      await referencePage.goto(reactURL);
-      await enterVisualState(referencePage, selector, state);
+      await enterReact();
       const reactHeight = await documentHeight(referencePage);
-      await page.goto(phoenixURL);
-      await connected(page);
-      await enterVisualState(page, selector, state);
+      await enterPhoenix();
       const phoenixHeight = await documentHeight(page);
       const height = Math.max(MINIMUM_HEIGHT, reactHeight, phoenixHeight);
+      const reenter = height > MINIMUM_HEIGHT;
 
-      const viewport = { width: 1280, height };
-      await page.setViewportSize(viewport);
-      await referencePage.setViewportSize(viewport);
-
-      await referencePage.goto(reactURL);
-      await enterVisualState(referencePage, selector, state);
-      if (copiedState) copyReceipts.reactEntry = await copyPaintReceipt(referencePage, selector);
-      if (historyNoticeContract) noticeFrames.reactEntry = await messageScrollerPaintReceipt(referencePage, selector);
+      if (reenter) {
+        const viewport = { width: 1280, height };
+        await page.setViewportSize(viewport);
+        await referencePage.setViewportSize(viewport);
+        await enterReact();
+      }
       await settle(referencePage, selector);
       if (historyNoticeContract) noticeFrames.reactBefore = await messageScrollerPaintReceipt(referencePage, selector);
       const reactPaint = await paintedBox(referencePage, selector);
       if (historyNoticeContract) noticeFrames.reactAfter = await messageScrollerPaintReceipt(referencePage, selector);
 
-      await page.goto(phoenixURL);
-      await connected(page);
-      await enterVisualState(page, selector, state);
-      if (copiedState) copyReceipts.phoenixEntry = await copyPaintReceipt(page, selector);
-      if (historyNoticeContract) noticeFrames.phoenixEntry = await messageScrollerPaintReceipt(page, selector);
+      if (reenter) await enterPhoenix();
       await settle(page, selector);
       if (historyNoticeContract) noticeFrames.phoenixBefore = await messageScrollerPaintReceipt(page, selector);
       const phoenixPaint = await paintedBox(page, selector);

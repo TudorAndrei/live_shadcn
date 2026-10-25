@@ -23,7 +23,7 @@ defmodule LiveShadcn.UI.ComboboxTest do
     assert Floki.find(document, "#framework") == []
 
     [anchor] = Floki.find(document, "#base-ui-_r_0_")
-    assert Floki.attribute([anchor], "phx-hook") == ["LiveBase.Combobox"]
+    assert Floki.attribute([anchor], "phx-hook") == [LiveBase.Combobox.hook()]
     assert Floki.attribute([anchor], "phx-mounted") |> hd() =~ "data-combobox-value"
     assert Floki.attribute([anchor], "phx-mounted") |> hd() =~ "aria-expanded"
     assert Floki.attribute([anchor], "data-combobox-value") == ["next"]
@@ -337,7 +337,7 @@ defmodule LiveShadcn.UI.ComboboxTest do
     assert Floki.find(document, "[data-slot='combobox']") == []
 
     [chips] = Floki.find(document, "#categories-chips")
-    assert Floki.attribute([chips], "phx-hook") == ["LiveBase.Combobox"]
+    assert Floki.attribute([chips], "phx-hook") == [LiveBase.Combobox.hook()]
     assert Floki.attribute([chips], "data-combobox-controller") == ["categories"]
     assert Floki.attribute([chips], "data-combobox-multiple") == [""]
     assert Floki.attribute([chips], "role") == ["toolbar"]
@@ -356,7 +356,7 @@ defmodule LiveShadcn.UI.ComboboxTest do
     document = Floki.parse_fragment!(html)
 
     [trigger] = Floki.find(document, "#base-ui-_r_0_")
-    assert Floki.attribute([trigger], "phx-hook") == ["LiveBase.Combobox"]
+    assert Floki.attribute([trigger], "phx-hook") == [LiveBase.Combobox.hook()]
     assert Floki.attribute([trigger], "data-combobox-controller") == ["country"]
     assert Floki.attribute([trigger], "data-combobox-has-value") == [""]
     assert Floki.attribute([trigger], "role") == ["combobox"]

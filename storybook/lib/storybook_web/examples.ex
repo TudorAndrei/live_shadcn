@@ -12866,7 +12866,7 @@ defmodule StorybookWeb.Examples do
 
   defp drawer_dialog(assigns) do
     ~H"""
-    <div id="drawer-dialog-responsive" phx-hook="LiveBase.ResponsiveDialog" class="contents">
+    <div id="drawer-dialog-responsive" phx-hook={LiveBase.ResponsiveDialog.hook()} class="contents">
       <div data-lb-desktop>
         <.dialog id="drawer-dialog-desktop" trigger_variant="outline" class="sm:max-w-[425px]">
           <:trigger>Edit Profile</:trigger>
@@ -14055,8 +14055,8 @@ defmodule StorybookWeb.Examples do
       )
 
     ~H"""
-    <.sidebar_provider>
-      <.sidebar id="nav" collapsible="icon" phx-hook="SidebarPopupPlacement">
+    <.sidebar_provider id="nav-provider" phx-hook="SidebarPopupPlacement">
+      <.sidebar id="nav" collapsible="icon">
         <.sidebar_header>
           <.sidebar_menu>
             <.sidebar_menu_item>

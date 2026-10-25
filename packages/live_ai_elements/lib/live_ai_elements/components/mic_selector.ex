@@ -151,7 +151,7 @@ defmodule LiveAiElements.Components.MicSelector do
     ~H"""
     <div
       id={@id}
-      phx-hook="LiveAiElements.MicSelector"
+      phx-hook={hook()}
       class="contents"
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
@@ -319,4 +319,31 @@ defmodule LiveAiElements.Components.MicSelector do
 
   defp flag(true), do: ""
   defp flag(_state), do: nil
+
+  @doc "The client hook name the selector root declares in `phx-hook`."
+  def hook, do: "LiveAiElements.Components.MicSelector.MicSelector"
+
+  @doc false
+  def hook_script(assigns) do
+    ~H"""
+    <%!-- colocated-hook mic_selector.js#MicSelector --%>
+    <script :type={Phoenix.LiveView.ColocatedHook} name=".MicSelector">
+      const MicSelector = {
+        mounted() {
+          this.onChange = (event) => {
+            if (event.target !== this.el.querySelector("input[type='hidden']")) return;
+            const value = this.el.querySelector("[data-lb-mic-value]");
+            if (value?.dataset.label) value.textContent = value.dataset.label;
+          };
+          this.el.addEventListener("change", this.onChange);
+        },
+        destroyed() {
+          this.el.removeEventListener("change", this.onChange);
+        }
+      };
+      export default MicSelector;
+    </script>
+    <%!-- /colocated-hook --%>
+    """
+  end
 end

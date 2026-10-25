@@ -21,7 +21,7 @@ defmodule LiveShadcn.UI.QuestionnaireTest do
 
     [root] = Floki.find(Floki.parse_fragment!(html), "[data-slot='questionnaire']")
     assert Floki.attribute([root], "id") == ["questionnaire-contract"]
-    assert Floki.attribute([root], "phx-hook") == ["LiveBase.Questionnaire"]
+    assert Floki.attribute([root], "phx-hook") == [LiveBase.Questionnaire.hook()]
     assert Floki.attribute([root], "data-default-item") == ["scope"]
     assert Floki.attribute([root], "data-item") == ["scope"]
     assert Floki.attribute([root], "data-controlled") == [""]

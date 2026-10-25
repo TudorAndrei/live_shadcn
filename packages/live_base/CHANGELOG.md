@@ -11,7 +11,9 @@ First release.
 - Specialist behavior for Calendar, Carousel, Combobox, Command, Menubar,
   Resizable, Scroller, Sidebar, Slider, Toast, and other controls.
 - Message Scroller anchoring, history, streaming, and animation behavior.
-- Complete hook registration through the exported `hooks` map.
+- Hooks ship as LiveView colocated hooks. Applications register the `hooks`
+  map from `phoenix-colocated/live_base`. Colocated hooks require `phoenix`
+  1.8 or later.
 
 The JavaScript package requires Floating UI, Embla Carousel, Embla Autoplay,
 and Motion. Follow the [installation guide](README.md#installation), including

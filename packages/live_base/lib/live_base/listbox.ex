@@ -28,8 +28,44 @@ defmodule LiveBase.Listbox do
   | option | `data-disabled` | when it refuses to be chosen |
   """
 
+  use Phoenix.Component
+
   alias LiveBase.Popover
   alias Phoenix.LiveView.JS
+
+  @doc "The client hook name the element showing the chosen label declares."
+  def hook, do: "LiveBase.Listbox.ListboxValue"
+
+  @doc false
+  def hook_script(assigns) do
+    ~H"""
+    <%!-- colocated-hook listbox_value.js#ListboxValue --%>
+    <script :type={Phoenix.LiveView.ColocatedHook} name=".ListboxValue">
+      const ListboxValue = {
+        mounted() {
+          this.observer = new MutationObserver(() => this.sync());
+          this.observer.observe(this.el, {
+            attributes: true,
+            attributeFilter: ["data-label"]
+          });
+          this.sync();
+        },
+        updated() {
+          this.sync();
+        },
+        destroyed() {
+          this.observer?.disconnect();
+        },
+        sync() {
+          const label = this.el.getAttribute("data-label");
+          if (label !== null) this.el.textContent = label;
+        }
+      };
+      export default ListboxValue;
+    </script>
+    <%!-- /colocated-hook --%>
+    """
+  end
 
   @doc "The id of the option at a given value."
   def option_id(listbox, value), do: "#{listbox}-option-#{value}"

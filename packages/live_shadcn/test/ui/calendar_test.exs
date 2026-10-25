@@ -34,7 +34,7 @@ defmodule LiveShadcn.UI.CalendarTest do
     document = Floki.parse_fragment!(html)
     [root] = Floki.find(document, "[data-slot='calendar']")
 
-    assert Floki.attribute([root], "phx-hook") == ["LiveBase.Calendar"]
+    assert Floki.attribute([root], "phx-hook") == [LiveBase.Calendar.hook()]
     assert Floki.attribute([root], "data-lb-calendar-mode") == ["range"]
     assert Floki.attribute([root], "data-lb-calendar-selected") == ["2026-01-12/2026-02-11"]
     assert Floki.attribute([root], "data-lb-calendar-number-of-months") == ["2"]

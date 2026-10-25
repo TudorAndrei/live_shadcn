@@ -29,12 +29,184 @@ defmodule LiveBase.Tabs do
   tab itself. The hook decides which, never what.
   """
 
+  use Phoenix.Component
+
   alias Phoenix.LiveView.JS
 
-  @hook "LiveBase.Roving"
+  @hook "LiveBase.Tabs.Roving"
 
   @doc "The client hook name the tab list declares in `phx-hook`."
   def hook, do: @hook
+
+  @doc false
+  def hook_script(assigns) do
+    ~H"""
+    <%!-- colocated-hook roving.js#Roving --%>
+    <script :type={Phoenix.LiveView.ColocatedHook} name=".Roving">
+      const NEXT = {
+        horizontal: "ArrowRight",
+        vertical: "ArrowDown"
+      };
+      const PREVIOUS = {
+        horizontal: "ArrowLeft",
+        vertical: "ArrowUp"
+      };
+      const SUBMENU_POINTER_DELAY = 100;
+      const Roving = {
+        mounted() {
+          this.optionNavigation = this.el.getAttribute("data-lb-roving") === "option";
+          this.pointerNavigation = true;
+          this.onKeydown = (event) => this.keydown(event);
+          this.onPointermove = (event) => this.pointermove(event);
+          this.onPointerout = (event) => this.pointerout(event);
+          this.onPointerleave = () => this.cancelSubmenuOpen();
+          this.onClick = () => this.cancelSubmenuOpen();
+          this.el.addEventListener("keydown", this.onKeydown);
+          this.el.addEventListener("pointermove", this.onPointermove);
+          this.el.addEventListener("pointerout", this.onPointerout);
+          this.el.addEventListener("pointerleave", this.onPointerleave);
+          this.el.addEventListener("click", this.onClick);
+          if (this.optionNavigation) {
+            const positioner = this.el.closest("[data-lb-anchor]");
+            this.anchor = document.getElementById(positioner?.getAttribute("data-lb-anchor"));
+            this.markPointer = () => this.pointerNavigation = true;
+            this.markKeyboard = () => this.pointerNavigation = false;
+            this.anchor?.addEventListener("pointerdown", this.markPointer);
+            this.anchor?.addEventListener("keydown", this.markKeyboard);
+          }
+        },
+        destroyed() {
+          this.cancelSubmenuOpen();
+          this.el.removeEventListener("keydown", this.onKeydown);
+          this.el.removeEventListener("pointermove", this.onPointermove);
+          this.el.removeEventListener("pointerout", this.onPointerout);
+          this.el.removeEventListener("pointerleave", this.onPointerleave);
+          this.el.removeEventListener("click", this.onClick);
+          this.anchor?.removeEventListener("pointerdown", this.markPointer);
+          this.anchor?.removeEventListener("keydown", this.markKeyboard);
+        },
+        items() {
+          return [...this.el.querySelectorAll(this.itemSelector())].filter((item) => item.closest("[data-lb-roving]") === this.el && !item.hasAttribute("data-disabled") && item.offsetParent);
+        },
+        itemSelector() {
+          const role = this.el.getAttribute("data-lb-roving") || "tab";
+          return role === "menuitem" ? "[role^='menuitem']" : `[role='${role}']`;
+        },
+        pointermove(event) {
+          const item = event.target.closest(this.itemSelector());
+          if (this.optionNavigation) {
+            if (event.pointerType === "touch") return;
+            this.pointerNavigation = true;
+            if (!this.items().includes(item)) return;
+            this.highlight(item);
+            item.focus({ preventScroll: true });
+            return;
+          }
+          if (!item || item.closest("[data-lb-roving]") !== this.el) return;
+          this.closeOpenSubmenus(item);
+          if (item.getAttribute("aria-haspopup") !== "menu") return;
+          if (item.getAttribute("aria-expanded") === "true") return;
+          this.cancelSubmenuOpen();
+          this.submenuTimer = setTimeout(() => {
+            if (item.matches(":hover") && item.offsetParent && item.getAttribute("aria-expanded") !== "true") item.click();
+          }, SUBMENU_POINTER_DELAY);
+        },
+        pointerout(event) {
+          if (!this.optionNavigation || !this.pointerNavigation || event.pointerType === "touch") return;
+          const items = this.items();
+          const item = event.target.closest(this.itemSelector());
+          const next = event.relatedTarget?.closest?.(this.itemSelector());
+          if (!items.includes(item) || items.includes(next)) return;
+          this.highlight(null);
+          if (this.el.contains(document.activeElement)) this.el.focus({ preventScroll: true });
+        },
+        highlight(item) {
+          const attribute = this.el.getAttribute("data-lb-highlight");
+          if (!attribute) return;
+          for (const sibling of this.items()) sibling.removeAttribute(attribute);
+          item?.setAttribute(attribute, "");
+        },
+        cancelSubmenuOpen() {
+          clearTimeout(this.submenuTimer);
+          this.submenuTimer = null;
+        },
+        closeOpenSubmenus(except) {
+          for (const trigger of this.items().filter((item) => item !== except && item.getAttribute("aria-haspopup") === "menu" && item.getAttribute("aria-expanded") === "true")) trigger.click();
+        },
+        deepestOpenSubmenuTrigger() {
+          let menu = this.el;
+          let trigger = null;
+          while (menu) {
+            const child = [...menu.querySelectorAll("[aria-haspopup='menu'][aria-expanded='true']")].find((item) => item.closest("[data-lb-roving]") === menu);
+            if (!child) break;
+            trigger = child;
+            menu = document.getElementById(child.getAttribute("aria-controls"));
+          }
+          return trigger;
+        },
+        keydown(event) {
+          this.pointerNavigation = false;
+          this.cancelSubmenuOpen();
+          const active = document.activeElement;
+          if ((event.key === "Enter" || event.key === " ") && this.items().includes(active)) {
+            event.preventDefault();
+            active.click();
+            return;
+          }
+          if (event.key === "ArrowRight" && active?.getAttribute("aria-haspopup") === "menu") {
+            event.preventDefault();
+            const popup = document.getElementById(active.getAttribute("aria-controls"));
+            active.click();
+            requestAnimationFrame(() => {
+              if (active.getAttribute("aria-expanded") === "true") popup?.focus();
+            });
+            return;
+          }
+          let closingTrigger = event.key === "Escape" ? this.deepestOpenSubmenuTrigger() : null;
+          if (!closingTrigger && ["ArrowLeft", "Escape"].includes(event.key) && this.el.hasAttribute("data-lb-submenu")) closingTrigger = document.getElementById(this.el.getAttribute("data-lb-parent-trigger"));
+          if (closingTrigger) {
+            event.preventDefault();
+            event.stopPropagation();
+            closingTrigger.click();
+            closingTrigger.focus();
+            return;
+          }
+          const orientation = this.el.getAttribute("data-lb-orientation") || "horizontal";
+          const items = this.items();
+          const from = items.indexOf(document.activeElement);
+          if (items.length === 0) return;
+          const to = this.target(event.key, orientation, from, items.length);
+          if (to === null) return;
+          event.preventDefault();
+          this.move(items, to);
+        },
+        move(items, to) {
+          this.closeOpenSubmenus(items[to]);
+          this.highlight(items[to]);
+          if (this.el.hasAttribute("data-lb-activate")) items[to].click();
+          items[to].focus();
+        },
+        target(key, orientation, from, count) {
+          const loop = this.el.hasAttribute("data-lb-loop");
+          const step = (by) => {
+            const next = from + by;
+            if (next >= 0 && next < count) return next;
+            return loop ? (next + count) % count : null;
+          };
+          switch (key) {
+            case NEXT[orientation]: return from === -1 ? 0 : step(1);
+            case PREVIOUS[orientation]: return from === -1 ? count - 1 : step(-1);
+            case "Home": return 0;
+            case "End": return count - 1;
+            default: return null;
+          }
+        }
+      };
+      export default Roving;
+    </script>
+    <%!-- /colocated-hook --%>
+    """
+  end
 
   @doc "The id of a tab, given the tab set and the tab's own value."
   def tab_id(tabs, value), do: "#{tabs}-tab-#{value}"
