@@ -1,16 +1,27 @@
 name: Release
 
-# Publishing to hex cannot be taken back after an hour, so nothing here runs on
-# a push. A `v*` tag is the whole trigger, and the checks run again before the
-# publish rather than being trusted from the commit that was tagged.
+# A version in a package's mix.exs that hex does not have yet is a release. Each
+# push to main compares every package with hex and publishes the new versions.
+# Versions with a `-dev` suffix are work in progress and never publish.
 #
-# live_base goes first. live_shadcn depends on it by version under HEX_PUBLISH,
-# so publishing them the other way round would publish a package whose
-# dependency does not exist yet.
+# Publishing to hex cannot be taken back after an hour, so the checks run again
+# before the publish rather than being trusted from CI on the same commit.
+#
+# Packages publish in dependency order: live_base, live_shadcn, then
+# live_ai_elements. Under HEX_PUBLISH each one depends on the one before it by
+# version, so any other order would publish a package whose dependency does not
+# exist yet.
 
 on:
   push:
-    tags: ["v*"]
+    branches: [main]
+    paths: ["packages/*/mix.exs"]
+  workflow_dispatch:
+
+# Two publishes of the same version race each other on hex.
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -20,8 +31,37 @@ env:
   RUSTLER_PRECOMPILED_GLOBAL_CACHE_PATH: /tmp/live-shadcn-native/rustler
 
 jobs:
+  plan:
+    name: find unpublished versions
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.plan.outputs.packages }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - id: plan
+        run: |
+          publish=()
+          for package in live_base live_shadcn live_ai_elements; do
+            version=$(grep -m1 -oE '@version "[^"]+"' "packages/$package/mix.exs" | cut -d'"' -f2)
+            case "$version" in
+              *-dev*) echo "$package $version is a development version"; continue ;;
+            esac
+            status=$(curl -s -o /dev/null -w '%{http_code}' "https://hex.pm/api/packages/$package/releases/$version")
+            case "$status" in
+              200) echo "$package $version is on hex already" ;;
+              404) echo "$package $version will publish"; publish+=("$package") ;;
+              *) echo "::error::hex answered $status for $package $version"; exit 1 ;;
+            esac
+          done
+          echo "packages=${publish[*]}" >> "$GITHUB_OUTPUT"
+
   check:
     name: ${{ matrix.package }}
+    needs: plan
+    if: needs.plan.outputs.packages != ''
     runs-on: ubuntu-latest
     env:
       MIX_ENV: test
@@ -70,6 +110,8 @@ jobs:
 
   ports:
     name: reviewed ports match their contracts
+    needs: plan
+    if: needs.plan.outputs.packages != ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
@@ -94,14 +136,20 @@ jobs:
         working-directory: tools
 
   ai-elements-verification:
+    needs: plan
+    if: needs.plan.outputs.packages != ''
     # Relative workflow calls use this commit. actionlint does not yet accept $/.
     uses: ./.github/workflows/verify-ai-elements.yml # zizmor: ignore[self-repository]
 
   publish:
     name: publish to hex
-    needs: [check, ports, ai-elements-verification]
+    needs: [plan, check, ports, ai-elements-verification]
     runs-on: ubuntu-latest
     environment: hex
+    # Each release gets a `<package>-v<version>` tag, which the docs link to as
+    # their source ref.
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
@@ -111,53 +159,42 @@ jobs:
         with:
           cache: false
 
-      # The tag is the version. A mix.exs that says something else would
-      # publish a release nobody can find from the repository.
-      - name: The tag and mix.exs agree
+      # HEX_PUBLISH swaps each path dependency for a version dependency, because
+      # hex refuses a package that carries a path.
+      #
+      # hex's registry takes a moment to serve a release that was just pushed,
+      # and the next package cannot resolve it until it does, so dependency
+      # resolution retries. A package that still fails leaves the ones before
+      # it published; rerunning the workflow publishes only what is missing.
+      - name: Publish
         env:
-          TAG: ${{ github.ref_name }}
+          HEX_PUBLISH: "1"
+          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          PACKAGES: ${{ needs.plan.outputs.packages }}
         run: |
-          version="${TAG#v}"
-          for package in packages/live_base packages/live_shadcn; do
-            declared=$(grep -m1 -oE '@version "[^"]+"' "$package/mix.exs" | cut -d'"' -f2)
-            if [ "$declared" != "$version" ]; then
-              echo "::error::$package/mix.exs says $declared, the tag says $version"
+          for package in $PACKAGES; do
+            pushd "packages/$package" > /dev/null
+            version=$(grep -m1 -oE '@version "[^"]+"' mix.exs | cut -d'"' -f2)
+
+            resolved=""
+            for attempt in 1 2 3 4 5 6; do
+              if mix deps.get; then resolved=1; break; fi
+              echo "a dependency of $package is not in the registry yet; attempt $attempt of 6"
+              mix hex.registry 2>/dev/null || true
+              sleep 20
+            done
+            if [ -z "$resolved" ]; then
+              echo "::error::$package could not resolve its dependencies. Rerun the workflow."
               exit 1
             fi
-          done
-          echo "both packages are at $version"
 
-      # HEX_PUBLISH swaps live_shadcn's path dependency on live_base for a
-      # version dependency, because hex refuses a package that carries a path.
-      - name: Publish live_base
-        working-directory: packages/live_base
-        env:
-          HEX_PUBLISH: "1"
-          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
-        run: |
-          mix deps.get
-          elixir ../../tools/scripts/prepare-native.exs .
-          mix hex.publish --yes
+            elixir ../../tools/scripts/prepare-native.exs .
+            mix hex.publish --yes
 
-      # hex's registry takes a moment to serve a release that was just pushed,
-      # and live_shadcn cannot resolve live_base until it does. Without the
-      # wait this job publishes one package of two and fails, which is the one
-      # outcome that cannot be undone by rerunning it.
-      - name: Publish live_shadcn
-        working-directory: packages/live_shadcn
-        env:
-          HEX_PUBLISH: "1"
-          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
-        run: |
-          for attempt in 1 2 3 4 5 6; do
-            if mix deps.get; then
-              elixir ../../tools/scripts/prepare-native.exs .
-              mix hex.publish --yes
-              exit 0
-            fi
-            echo "live_base is not in the registry yet; attempt $attempt of 6"
-            mix hex.registry 2>/dev/null || true
-            sleep 20
+            tag="$package-v$version"
+            gh api "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$GITHUB_SHA" > /dev/null \
+              || echo "::warning::$package $version is published, but the tag $tag was not created"
+            echo "published $package $version"
+            popd > /dev/null
           done
-          echo "::error::live_base never appeared in the registry. It is published; rerun this job."
-          exit 1
