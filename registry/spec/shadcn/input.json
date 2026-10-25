@@ -13,9 +13,9 @@
     "jsx/Input/class/0": "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
   },
   "file_fingerprints": {
-    "shadcn/ui/input.tsx": "d9c1e31c39953bd4ed9715dfc0a0522ef4573419445aa5f173d93c0aedb5720f"
+    "shadcn/ui/input.tsx": "f1a69f9cc1083873a8ab32f491318533ea2c0e67a1e2d35d323b92294b46f148"
   },
-  "fingerprint": "7b1a8f088892b39f30d77767ce5bbc05d30473404bc6d0163dc775e86297228c",
+  "fingerprint": "ad26cc23b7f2acc5952281a068c6b353a0f94aa8b4a2babc2f6c4b1b32829cf9",
   "ignored": {},
   "name": "input",
   "port_body": "c8409df4f09bda8bb49f25d7dd2abf2149f401eb426f2029e3db1e900ec74e7a",
@@ -44,7 +44,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/input.tsx": "8e6368337d35d3f2dcf54696d37ece8375d3065f9dc1ee80dc9e33fb1164f95f"
+    "shadcn/ui/input.tsx": "00213ec177e4556e69b6680128c18023d859a8e4eaf4106fbcf6abdc4f2c419b"
   },
   "uses": [
     "jsx/Input/class/0"

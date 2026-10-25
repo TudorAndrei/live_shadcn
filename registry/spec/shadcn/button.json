@@ -33,9 +33,9 @@
     "cva/buttonVariants/variant/variant/secondary": "cn-button-variant-secondary"
   },
   "file_fingerprints": {
-    "shadcn/ui/button.tsx": "0c911259d9cce5dfd13cf06dd8ead680b5a3b67761bc27486503ead411968509"
+    "shadcn/ui/button.tsx": "ace3fb4a598eb607f628a8bddf3b78bc51b432e5461c4e3ff2b582a68e0c6403"
   },
-  "fingerprint": "a84778eaa39406fa6745e53d3b9865316f1ef4dd2712a74d6a33266a08488200",
+  "fingerprint": "ee072333ca7ff6dedceb6873f0c23c2a5735c753236a28b679a3473b2c11d134",
   "ignored": {},
   "name": "button",
   "port_body": "bd429be3e9eb2ccaf8cacb9015fdefde0c9e86401cb48a3be2cd8d54c093641b",
@@ -84,7 +84,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/button.tsx": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12"
+    "shadcn/ui/button.tsx": "74f982d7ad7a764e3c95a519fc063a671e66ad758ea31dc89d747838e20c2487"
   },
   "uses": [
     "cva/buttonVariants/*"

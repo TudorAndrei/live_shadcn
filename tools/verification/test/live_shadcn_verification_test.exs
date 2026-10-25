@@ -58,11 +58,12 @@ defmodule LiveShadcnVerificationTest do
     end
   end
 
-  describe "shadcn identity version 2" do
+  describe "component identity version 4" do
     test "includes version, shared inputs, and component files" do
       inputs = LiveShadcnVerification.collect_shadcn_evidence_inputs(@repo_root, "button")
 
       assert inputs.version == LiveShadcnVerification.identity_version()
+      assert inputs.version == 4
       assert inputs.shared_inputs != []
       assert inputs.upstream_files != []
       assert is_binary(LiveShadcnVerification.evidence_digest("shadcn", "button", @repo_root))
@@ -76,9 +77,107 @@ defmodule LiveShadcnVerificationTest do
       end
     end
 
+    test "a contract edit makes only its source component stale" do
+      components = [
+        {"shadcn", "button"},
+        {"shadcn", "slider"},
+        {"shadcn", "message"},
+        {"ai_elements", "message"}
+      ]
+
+      for {source, name} = owner <- components do
+        root = fixture_root("contract-owner-#{source}-#{name}")
+        records = identity_records(root, components)
+
+        write(root, "registry/spec/#{source}/#{name}.json", ~s({"ignored":{},"facts":{"x":"y"}}))
+
+        for {{other_source, other_name} = component, record} <- records do
+          current = LiveShadcnVerification.evidence_digest(other_source, other_name, root)
+
+          if component == owner do
+            refute current == record["evidence"]
+            assert badge_for(root, other_source, other_name, record) == :stale
+          else
+            assert current == record["evidence"]
+            assert badge_for(root, other_source, other_name, record) == :verified
+          end
+        end
+      end
+    end
+
+    test "browser suites and render dependencies remain shared without a complete ownership map" do
+      for path <- [
+            "storybook/test/browser/button.spec.mjs",
+            "storybook/test/browser/shared-authored.spec.mjs",
+            "storybook/test/browser/unmapped.spec.mjs",
+            "storybook/test/browser/interaction-parity.spec.mjs",
+            "storybook/test/browser/live.mjs",
+            "storybook/assets/css/app.css",
+            "packages/live_shadcn/priv/registry/button.ex",
+            "packages/live_shadcn/priv/registry/input_group.ex",
+            "packages/live_base/assets/js/combobox.js",
+            "packages/live_shadcn/mix.lock",
+            "storybook/lib/storybook_web/examples.ex",
+            "storybook/lib/storybook_web/live/preview_live.ex"
+          ] do
+        root = fixture_root("shared-component-#{Path.basename(path)}")
+
+        write(
+          root,
+          "storybook/test/browser/ai-component-audit.json",
+          Jason.encode!(%{
+            "ai_elements-message" => %{
+              "upstream" => "message",
+              "spec" => "shared-authored.spec.mjs"
+            },
+            "reasoning" => %{"upstream" => "reasoning", "spec" => "shared-authored.spec.mjs"}
+          })
+        )
+
+        write(root, path, "original")
+
+        records =
+          identity_records(root, [
+            {"shadcn", "button"},
+            {"shadcn", "slider"},
+            {"ai_elements", "message"},
+            {"ai_elements", "reasoning"}
+          ])
+
+        write(root, path, "changed")
+
+        for {{source, name}, record} <- records do
+          refute LiveShadcnVerification.evidence_digest(source, name, root) == record["evidence"],
+                 "#{path} must invalidate #{source}/#{name}"
+
+          assert badge_for(root, source, name, record) == :stale
+        end
+      end
+    end
+
+    test "contract additions and deletions update compile inputs and the owning identity" do
+      root = fixture_root("contract-compile-paths")
+      records = identity_records(root, [{"shadcn", "button"}, {"ai_elements", "message"}])
+      captured = LiveShadcnVerification.identity_compile_paths(root)
+
+      for {{source, name}, record} <- records do
+        path = Path.join(root, "registry/spec/#{source}/#{name}.json")
+        bytes = File.read!(path)
+        assert path in captured
+
+        File.rm!(path)
+        refute LiveShadcnVerification.identity_compile_paths(root) == captured
+        refute LiveShadcnVerification.evidence_digest(source, name, root) == record["evidence"]
+
+        write(root, "registry/spec/#{source}/#{name}.json", bytes)
+        assert LiveShadcnVerification.identity_compile_paths(root) == captured
+        assert LiveShadcnVerification.evidence_digest(source, name, root) == record["evidence"]
+      end
+    end
+
     test "shared build, preview, and stylesheet source mutations invalidate evidence" do
       for path <-
-            ~w(tools/mix.exs tools/verification/mix.exs storybook/mix.exs storybook/config/config.exs packages/live_base/mix.exs packages/live_shadcn/mix.exs packages/live_ai_elements/mix.exs packages/live_base/package.json packages/live_base/package-lock.json packages/live_ai_elements/lib/component.ex parity/src/official-ai-elements.mjs storybook/priv/static/previews/release.html) do
+            ~w(mise.toml registry/INVENTORY.json .github/actions/setup-browser/action.yml .github/workflows/ci.yml .github/workflows/verify-ai-elements.yml tools/mix.exs tools/package.json tools/package-lock.json tools/verification/mix.exs tools/lib/mix/tasks/ui.spec.ex tools/lib/mix/tasks/ui.verify.cache.ex storybook/mix.exs storybook/config/config.exs packages/live_base/mix.exs packages/live_shadcn/mix.exs packages/live_ai_elements/mix.exs packages/live_base/package.json packages/live_base/package-lock.json packages/live_ai_elements/package.json packages/live_ai_elements/package-lock.json packages/live_ai_elements/lib/component.ex parity/src/official-ai-elements.mjs parity/vite-tabler-imports.mjs storybook/priv/static/previews/release.html) do
         root = fixture_root("build-input-#{Path.basename(path)}")
         bootstrap_identity(root, "button")
         write(root, path, "original")
@@ -585,6 +684,52 @@ defmodule LiveShadcnVerificationTest do
 
     on_exit(fn -> File.rm_rf!(root) end)
     root
+  end
+
+  defp identity_records(root, components) do
+    contract = ~s({"ignored":{}})
+
+    write(
+      root,
+      "registry/INVENTORY.json",
+      Jason.encode!(%{
+        "components" =>
+          Enum.map(components, fn {source, name} -> %{"source" => source, "name" => name} end)
+      })
+    )
+
+    write(
+      root,
+      "registry/snapshot/index.json",
+      Jason.encode!(
+        Map.new(components, fn {source, name} -> {"#{source}-#{name}", ["default"]} end)
+      )
+    )
+
+    write(root, "registry/UPSTREAM.json", ~s({"files":{},"examples":{}}))
+
+    for {source, name} <- components do
+      write(root, "registry/spec/#{source}/#{name}.json", contract)
+      write(root, "registry/snapshot/#{source}-#{name}-default.html", "<main>#{name}</main>")
+    end
+
+    checks =
+      Map.new(
+        ~w(generated snapshot examples browser behavior accessibility parity pixel),
+        &{&1, %{"pass" => true}}
+      )
+
+    Map.new(components, fn {source, name} = component ->
+      record = %{
+        "pass" => true,
+        "spec" => LiveShadcnVerification.digest(contract),
+        "evidence" => LiveShadcnVerification.evidence_digest(source, name, root),
+        "checks" => checks
+      }
+
+      assert badge_for(root, source, name, record) == :verified
+      {component, record}
+    end)
   end
 
   defp bootstrap_identity(root, name) do

@@ -76,11 +76,11 @@
   "file_fingerprints": {
     "ai_elements/plan.tsx": "2c1074f3b06f2e6bba32172f4325eb3ad09ed927ca482e5b617feeb1f59c2559",
     "ai_elements/shimmer.tsx": "36d23fd36cb16a2dd816730d53c3046dea201a5f8eaaa7b463ceb6b8ad4fc8bc",
-    "shadcn/ui/button.tsx": "0c911259d9cce5dfd13cf06dd8ead680b5a3b67761bc27486503ead411968509",
-    "shadcn/ui/card.tsx": "e0f60e0b1a1c6776aa4a74f24a7948c0b11b1a0db684f41796c97a7f290f8fa9",
+    "shadcn/ui/button.tsx": "ace3fb4a598eb607f628a8bddf3b78bc51b432e5461c4e3ff2b582a68e0c6403",
+    "shadcn/ui/card.tsx": "d01d41eb5bedc2d067a9787bd246d0201762ec3622c3546e373e91d55607f5b3",
     "shadcn/ui/collapsible.tsx": "236edd9fbac18f22a086841a4c7be8ef8de4bf46eefa6809813eca2ae9c496a5"
   },
-  "fingerprint": "d40a002765ff1c1fbfb6b4b87b31efd14f2f5c3d483defd259fb47dd0997353c",
+  "fingerprint": "e688be68a100b60d6db5f3f517dded988de5c5fd701890f09de7cb531b6e328d",
   "ignored": {
     "cva/buttonVariants/default/size": "the generated port does not contain this source literal",
     "cva/buttonVariants/default/variant": "the generated port does not contain this source literal",
@@ -162,8 +162,8 @@
   "upstream": {
     "ai_elements/plan.tsx": "bfa20e90199fa40e5f714be131798406dc07b23051f8c48c590e91c65ade99d8",
     "ai_elements/shimmer.tsx": "89d2284ee165aa57fec960e17c6c71078d22ad3fb3798ca683d7e3d850919a46",
-    "shadcn/ui/button.tsx": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12",
-    "shadcn/ui/card.tsx": "8b3ba229472f266d3c2e49e0feff6c59fb1842282d0842aae470675b0e926665",
+    "shadcn/ui/button.tsx": "74f982d7ad7a764e3c95a519fc063a671e66ad758ea31dc89d747838e20c2487",
+    "shadcn/ui/card.tsx": "0d525c03e086b0047f7c0700850281023359cfc020eb233fdb0d74ec870ebea0",
     "shadcn/ui/collapsible.tsx": "ead4349ff7b01d696ef89294a81d18ee1d3f732321398896462c834ab9b9e065"
   },
   "uses": [

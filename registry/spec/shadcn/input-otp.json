@@ -23,9 +23,9 @@
     "jsx/InputOTPSlot/class/2": "cn-input-otp-caret-line"
   },
   "file_fingerprints": {
-    "shadcn/ui/input-otp.tsx": "92fddb7cb54819bf8cd209e04de8f0486c7eef7a542f0d5303107c9e137c6152"
+    "shadcn/ui/input-otp.tsx": "177eb1227eac9dd0e3b9e049cf015f3ebfec4b6c668aacb63ff68ced5f641c28"
   },
-  "fingerprint": "92c809701f34d6904a19c3470e2fd1ded4a5cec0d179a337531cd666b28639f2",
+  "fingerprint": "ff27acdcf870b871634abedd4a06c13bbc872f85609b541ba8e952b4e0b2e270",
   "ignored": {},
   "name": "input-otp",
   "port_body": "c458989e7bc9486140e401e5e4d8155d947f9f48b14e5ef108f42b4741cd2d66",
@@ -64,7 +64,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/input-otp.tsx": "65e000e7b46d4b5a5c27f28d2468b763482dc8d1a1ae2ce5566ca5e82c65c8f6"
+    "shadcn/ui/input-otp.tsx": "8f540b9de861859602b3fbfffa5af76045877498aad5401aa4d1e8d94e1f8922"
   },
   "uses": [
     "jsx/InputOTP/class/0",

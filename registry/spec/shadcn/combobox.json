@@ -59,9 +59,9 @@
     "jsx/ComboboxTrigger/class/1": "cn-combobox-trigger-icon pointer-events-none"
   },
   "file_fingerprints": {
-    "shadcn/ui/combobox.tsx": "c63e9e398176996f6ee57baf9c83680a5868b8b307e28788955727f4c148601e"
+    "shadcn/ui/combobox.tsx": "4a76bec31cc393c5492024c6eeedd1a236f1f76e7192237436bc541cad489177"
   },
-  "fingerprint": "1f85c997e5ed91139d6d1b69cefb66ffd045200fc3842c50344b29d897fc8c51",
+  "fingerprint": "292a90da51a98712ebbd437c8c563c4bada6ed093a245eff93189800c8761da1",
   "ignored": {},
   "name": "combobox",
   "port_body": "2fef3139f949d399ce92d23e81bd71de5cbbfa7931f5cbc824a350ef5a1d2622",
@@ -191,7 +191,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/combobox.tsx": "a3c833eb2216ca31f2ae306396d2d9a724adaa0047009d202867fafe453b1d9c"
+    "shadcn/ui/combobox.tsx": "214523dfe45facff2d8ddf4e07fe048a963278431bea997387fd5d21466e19fc"
   },
   "uses": [
     "jsx/ComboboxContent/class/0",

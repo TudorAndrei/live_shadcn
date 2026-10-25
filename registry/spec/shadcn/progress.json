@@ -21,9 +21,9 @@
     "jsx/ProgressValue/class/0": "cn-progress-value"
   },
   "file_fingerprints": {
-    "shadcn/ui/progress.tsx": "be4fb1041fffac9eb6c740e319f96c22a2a318a924900769e7bc85d02692d983"
+    "shadcn/ui/progress.tsx": "df0747949ff7ced0f85e52ffe21f9ecaae9c9cf9d3dddda0751a695524598ea4"
   },
-  "fingerprint": "512b17cae3ea4d9ada701a8354573c5d6fff04b35b724aff761ce33b5477dad8",
+  "fingerprint": "065c497d31f6d8cf56053ddacf7d383d0a780e0cb1ca08940e45ef3e57e92613",
   "ignored": {},
   "name": "progress",
   "port_body": "8764bdc127ed9d95caa9bbd7a3de479025adb5718e0abccd2a5faf832304df2a",
@@ -51,7 +51,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/progress.tsx": "01ce565018075d8aca92cbf6bc768b9dbc43b5e9ec1159a5491abe3f0cda0470"
+    "shadcn/ui/progress.tsx": "00afc4c7f319f5f5e78c5e294250abc656e2f7e2839821b9e086555fbd91cd76"
   },
   "uses": [
     "jsx/Progress/class/0",

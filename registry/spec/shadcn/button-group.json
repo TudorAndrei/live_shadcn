@@ -21,9 +21,9 @@
     "jsx/ButtonGroupText/class/0": "cn-button-group-text flex items-center [&_svg]:pointer-events-none"
   },
   "file_fingerprints": {
-    "shadcn/ui/button-group.tsx": "c80c98e8deae2d88238e913f999f0467c2f3ea0b1251df08b04ba23af8f64dcb"
+    "shadcn/ui/button-group.tsx": "3e26eda3eb168b6d69a9eccb605b4002798cb870e65de342810d7c02940ed7ee"
   },
-  "fingerprint": "1cc81c991a3737f778a293c86a50337618c29e7b9779abbc15ecdb33c6242e50",
+  "fingerprint": "086b98728498f2aa271ed297f889ae6530c549298d7007c7dec4a3a9c71dc696",
   "ignored": {},
   "name": "button-group",
   "port_body": "78282fcc88faa14b5c21381d822be3c6c3c2fcf20254e417f221bec1d041f91c",
@@ -77,7 +77,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/button-group.tsx": "477d5a41df71387495797b0a643adf77e678df6dc410e90d6b7446ade9566b92"
+    "shadcn/ui/button-group.tsx": "23c66d61df078fb1604fa7ba3ad8d16550adbb2243af36584bb94d62f014914f"
   },
   "uses": [
     "cva/buttonGroupVariants/base",

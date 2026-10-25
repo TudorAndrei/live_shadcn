@@ -42,9 +42,9 @@
     "port/class/0": "cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2"
   },
   "file_fingerprints": {
-    "shadcn/ui/avatar.tsx": "30b2108ccff93064985c82283ad84624c8568768630f75e82f0008600d77b440"
+    "shadcn/ui/avatar.tsx": "3975087b599f9440ca98f057306be9ef6c70e0fc7388f987c51ebe8a643feb58"
   },
-  "fingerprint": "7be9e13a707a32067c4692f6adcacade4447d982cffda1feb7314c26e41b319f",
+  "fingerprint": "89e5e7ecfbc050ced65ca959702c80445d811799ee3e79d4e7c67b3a910400ab",
   "ignored": {},
   "name": "avatar",
   "port_body": "321a56715f1cb5a79a2a52d4cac132f097eb17f9a41ccb72101a3edf9264f714",
@@ -105,7 +105,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/avatar.tsx": "b159c0a5b7e9ba8a2462c6dddd11c6ab63bd44925203486551eae93250e474bb"
+    "shadcn/ui/avatar.tsx": "d9850dc6f9aaccf9f7aab3c730c3aef62b42ef8cd9404b2d7133f771e14a6cbd"
   },
   "uses": [
     "jsx/Avatar/class/0",

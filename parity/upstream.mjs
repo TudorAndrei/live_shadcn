@@ -15,6 +15,7 @@ import {
   useSourceLease,
 } from "./source-lease.mjs";
 import { entries } from "./src/official-shadcn.mjs";
+import { exampleExport } from "./example-export.mjs";
 import { pinnedSourceDirectories } from "./upstream-directories.mjs";
 
 const run = promisify(execFile);
@@ -139,7 +140,7 @@ await useSourceLease(sourceLeasePath(here), process.env.PARITY_SOURCE_LEASE_TOKE
       .map((path) => path.slice("shadcn/ui/".length, -".tsx".length));
     const officialComponents = new Set(
       [...sourceComponents, ...Object.keys(manifest.examples.shadcn)]
-        .map((name) => previews[name] ? name : previews[`shadcn-${name}`] ? `shadcn-${name}` : null)
+        .map((name) => previews[`shadcn-${name}`] ? `shadcn-${name}` : previews[name] ? name : null)
         .filter(Boolean),
     );
 
@@ -148,10 +149,10 @@ await useSourceLease(sourceLeasePath(here), process.env.PARITY_SOURCE_LEASE_TOKE
 
       if (componentEntries.length === 0) continue;
 
-      const storybook = previews[component]
-        ? component
-        : previews[`shadcn-${component}`]
-          ? `shadcn-${component}`
+      const storybook = previews[`shadcn-${component}`]
+        ? `shadcn-${component}`
+        : previews[component]
+          ? component
           : null;
 
       if (!storybook) {
@@ -183,17 +184,9 @@ await useSourceLease(sourceLeasePath(here), process.env.PARITY_SOURCE_LEASE_TOKE
           loader = `() => import(${JSON.stringify(`../../reference/${module}`)}).then(module => module[${JSON.stringify(exported)}])`;
           officialExamples[key] = source;
         } else {
-          const named = body.match(/export\s+function\s+([A-Za-z_$][A-Za-z0-9_$]*)/);
-
-          if (/export\s+default\s+function/.test(body)) {
-            loader = `() => import(${JSON.stringify(`./${source}`)}).then(module => module.default)`;
-            officialExamples[key] = `shadcn_examples/${source}.tsx#default`;
-          } else if (named) {
-            loader = `() => import(${JSON.stringify(`./${source}`)}).then(module => module[${JSON.stringify(named[1])}])`;
-            officialExamples[key] = `shadcn_examples/${source}.tsx#${named[1]}`;
-          } else {
-            throw new Error(`${source}.tsx has no exported example function`);
-          }
+          const exported = exampleExport(body, `${source}.tsx`);
+          loader = `() => import(${JSON.stringify(`./${source}`)}).then(module => module[${JSON.stringify(exported)}])`;
+          officialExamples[key] = `shadcn_examples/${source}.tsx#${exported}`;
         }
 
         if (/\btoast\s*\(/.test(body) && /from\s+["']sonner["']/.test(body)) {

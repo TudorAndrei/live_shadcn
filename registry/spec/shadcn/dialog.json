@@ -22,12 +22,12 @@
     "jsx/DialogTitle/class/0": "cn-dialog-title cn-font-heading"
   },
   "file_fingerprints": {
-    "shadcn/ui/dialog.tsx": "0112b783664ad3faebca30833f16d6a890131a6746523721df0612617f9e9142"
+    "shadcn/ui/dialog.tsx": "ada2824c1fe94dcea8c0e25735d6efbb5aefcb62675d5ad701f0ca97767e20ca"
   },
-  "fingerprint": "01103ba8c809593791e143a5c9585d17a6295f80c477f7b47ce98935473668b4",
+  "fingerprint": "77744323b07e84b0c46ce678415c796c5aedbe5f62c8951ea910e87b1269bcea",
   "ignored": {},
   "name": "dialog",
-  "port_body": "48d347846941a1764f0f2294fabac1e30c2226fd19d71c54c72b477045a19f8c",
+  "port_body": "20482571be8d58d88be2064b67dfc4c9b7d6a0698d1ca59313462255430efb9d",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -64,7 +64,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/dialog.tsx": "85f9a33d1a8c495b0faecd066dae1581b8feb5d27f912ecf65f814386f6da3a9"
+    "shadcn/ui/dialog.tsx": "aba6df6cbf51a1edcc22e415a3a46a666fc8cb66729e47b3ed2ecd97f166adff"
   },
   "uses": [
     "jsx/*"

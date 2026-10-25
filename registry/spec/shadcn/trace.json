@@ -1,0 +1,113 @@
+{
+  "base_ui": {},
+  "bindings": {
+    "copy": [
+      "jsx/Trace/class/0",
+      "jsx/TraceCollapsible/class/0",
+      "jsx/TraceCollapsibleContent/class/0",
+      "jsx/TraceCollapsibleContent/class/1",
+      "jsx/TraceCollapsibleTrigger/class/0",
+      "jsx/TraceCollapsibleTrigger/class/1",
+      "jsx/TraceDescription/class/0",
+      "jsx/TraceIcon/class/0",
+      "jsx/TraceLine/class/0",
+      "jsx/TraceTitle/class/0"
+    ],
+    "derived": {}
+  },
+  "css_vars": [
+    "--collapsible-panel-height"
+  ],
+  "facts": {
+    "jsx/Trace/class/0": "cn-trace flex w-full min-w-0 flex-col *:has-[>[data-slot=trace-line]]:flex *:has-[>[data-slot=trace-line]]:w-fit *:has-[>[data-slot=trace-line]]:max-w-full *:has-[>[data-slot=trace-line]]:min-w-0 *:has-[>[data-slot=trace-line]]:text-left *:has-[>[data-slot=trace-line]]:outline-none",
+    "jsx/TraceCollapsible/class/0": "cn-trace-collapsible flex w-full min-w-0 flex-col",
+    "jsx/TraceCollapsibleContent/class/0": "cn-trace-collapsible-content h-(--collapsible-panel-height) min-w-0 overflow-hidden transition-[height] data-ending-style:h-0 data-starting-style:h-0",
+    "jsx/TraceCollapsibleContent/class/1": "cn-trace-collapsible-content-inner min-w-0 wrap-break-word text-muted-foreground",
+    "jsx/TraceCollapsibleTrigger/class/0": "cn-trace-collapsible-trigger group/trace-collapsible-trigger flex w-fit max-w-full min-w-0 cursor-pointer items-center text-left text-muted-foreground transition-colors outline-none hover:text-foreground has-[[data-status=error]]:text-destructive",
+    "jsx/TraceCollapsibleTrigger/class/1": "transition-transform group-aria-expanded/trace-collapsible-trigger:rotate-90",
+    "jsx/TraceDescription/class/0": "cn-trace-description shrink-0 text-muted-foreground/70 tabular-nums",
+    "jsx/TraceIcon/class/0": "cn-trace-icon flex shrink-0 items-center justify-center [&_svg]:pointer-events-none",
+    "jsx/TraceLine/class/0": "cn-trace-line flex w-fit max-w-full min-w-0 items-center text-muted-foreground transition-colors in-[a,button]:cursor-pointer in-[a:hover,button:hover]:text-foreground data-[status=error]:text-destructive data-[status=error]:in-[a:hover,button:hover]:text-destructive data-[status=pending]:opacity-60 data-[status=running]:*:data-[slot=trace-title]:shimmer",
+    "jsx/TraceTitle/class/0": "cn-trace-title min-w-0 truncate motion-reduce:shimmer-none"
+  },
+  "file_fingerprints": {
+    "shadcn/ui/trace.tsx": "8b58c7563e2e9eb9c19eec8a7b3bff38a14410f2b245ea3ac8b39cc059ddf621"
+  },
+  "fingerprint": "e7dcd8c0c69032183aac93f59e907a308941417d544de7b8dfe1c7fd9d0c712b",
+  "ignored": {},
+  "name": "trace",
+  "port_body": "c03aecaa8b4134167420dea1873c3f0fa413be29ceb0a529af9a2056b6fcfa9c",
+  "schema_version": 2,
+  "source": "shadcn",
+  "source_facts": {
+    "jsx/Trace/class/0": "cn-trace flex w-full min-w-0 flex-col *:has-[>[data-slot=trace-line]]:flex *:has-[>[data-slot=trace-line]]:w-fit *:has-[>[data-slot=trace-line]]:max-w-full *:has-[>[data-slot=trace-line]]:min-w-0 *:has-[>[data-slot=trace-line]]:text-left *:has-[>[data-slot=trace-line]]:outline-none",
+    "jsx/TraceCollapsible/class/0": "cn-trace-collapsible flex w-full min-w-0 flex-col",
+    "jsx/TraceCollapsibleContent/class/0": "cn-trace-collapsible-content h-(--collapsible-panel-height) min-w-0 overflow-hidden transition-[height] data-ending-style:h-0 data-starting-style:h-0",
+    "jsx/TraceCollapsibleContent/class/1": "cn-trace-collapsible-content-inner min-w-0 wrap-break-word text-muted-foreground",
+    "jsx/TraceCollapsibleTrigger/class/0": "cn-trace-collapsible-trigger group/trace-collapsible-trigger flex w-fit max-w-full min-w-0 cursor-pointer items-center text-left text-muted-foreground transition-colors outline-none hover:text-foreground has-[[data-status=error]]:text-destructive",
+    "jsx/TraceCollapsibleTrigger/class/1": "transition-transform group-aria-expanded/trace-collapsible-trigger:rotate-90",
+    "jsx/TraceDescription/class/0": "cn-trace-description shrink-0 text-muted-foreground/70 tabular-nums",
+    "jsx/TraceIcon/class/0": "cn-trace-icon flex shrink-0 items-center justify-center [&_svg]:pointer-events-none",
+    "jsx/TraceLine/class/0": "cn-trace-line flex w-fit max-w-full min-w-0 items-center text-muted-foreground transition-colors in-[a,button]:cursor-pointer in-[a:hover,button:hover]:text-foreground data-[status=error]:text-destructive data-[status=error]:in-[a:hover,button:hover]:text-destructive data-[status=pending]:opacity-60 data-[status=running]:*:data-[slot=trace-title]:shimmer",
+    "jsx/TraceTitle/class/0": "cn-trace-title min-w-0 truncate motion-reduce:shimmer-none"
+  },
+  "state_reads": [
+    {
+      "name": "data-ending-style",
+      "value": null
+    },
+    {
+      "name": "data-slot",
+      "value": "trace-title"
+    },
+    {
+      "name": "data-starting-style",
+      "value": null
+    },
+    {
+      "name": "data-status",
+      "value": "error"
+    },
+    {
+      "name": "data-status",
+      "value": "pending"
+    },
+    {
+      "name": "data-status",
+      "value": "running"
+    },
+    {
+      "group": "trace-collapsible-trigger",
+      "name": "aria-expanded",
+      "value": null
+    }
+  ],
+  "styles": {
+    "luma": "a1b8f9ae6b21162d66700ad992a191a0de2dee6c2a15c302d60018959371cd25",
+    "lyra": "0f8a3413205956bd0fc82655827e460aa39d85eb374b540a182706811e7146ec",
+    "maia": "fb1150eff3bd57c52e95034afe3187a53cfe6fb204ee2a7d12f91580fa7498a2",
+    "mira": "77325a55bc58d7c5a72ede55e90820241c344bd5032dd5514311ed89d01e8804",
+    "nova": "1b47b5a7f9774b40c609018f502f38978f14ce80725773a799c5652d456b7cfa",
+    "rhea": "461f3666d28e0f1e3e8a55bfd14c7673cd28e17c59cefc27f5440a2b34683941",
+    "sera": "2dfbaea01fc0b95b5849688373447cf280e31b9ead60dd75aced935fbdc8fd16",
+    "vega": "1b47b5a7f9774b40c609018f502f38978f14ce80725773a799c5652d456b7cfa"
+  },
+  "toolchain": {
+    "oxc-parser": "0.146.0"
+  },
+  "upstream": {
+    "shadcn/ui/trace.tsx": "39aa939c4845029793d98bb9f4d9814686be0198ccee257cc198da276294ca79"
+  },
+  "uses": [
+    "jsx/Trace/class/0",
+    "jsx/TraceCollapsible/class/0",
+    "jsx/TraceCollapsibleContent/class/0",
+    "jsx/TraceCollapsibleContent/class/1",
+    "jsx/TraceCollapsibleTrigger/class/0",
+    "jsx/TraceCollapsibleTrigger/class/1",
+    "jsx/TraceDescription/class/0",
+    "jsx/TraceIcon/class/0",
+    "jsx/TraceLine/class/0",
+    "jsx/TraceTitle/class/0"
+  ]
+}

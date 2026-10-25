@@ -31,10 +31,12 @@ export const Roving = {
     this.onPointermove = (event) => this.pointermove(event);
     this.onPointerout = (event) => this.pointerout(event);
     this.onPointerleave = () => this.cancelSubmenuOpen();
+    this.onClick = () => this.cancelSubmenuOpen();
     this.el.addEventListener("keydown", this.onKeydown);
     this.el.addEventListener("pointermove", this.onPointermove);
     this.el.addEventListener("pointerout", this.onPointerout);
     this.el.addEventListener("pointerleave", this.onPointerleave);
+    this.el.addEventListener("click", this.onClick);
 
     if (this.optionNavigation) {
       const positioner = this.el.closest("[data-lb-anchor]");
@@ -52,6 +54,7 @@ export const Roving = {
     this.el.removeEventListener("pointermove", this.onPointermove);
     this.el.removeEventListener("pointerout", this.onPointerout);
     this.el.removeEventListener("pointerleave", this.onPointerleave);
+    this.el.removeEventListener("click", this.onClick);
     this.anchor?.removeEventListener("pointerdown", this.markPointer);
     this.anchor?.removeEventListener("keydown", this.markKeyboard);
   },

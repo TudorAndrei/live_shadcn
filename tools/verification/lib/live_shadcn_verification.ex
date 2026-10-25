@@ -1,13 +1,19 @@
 defmodule LiveShadcnVerification do
   @moduledoc false
 
-  @identity_version 3
+  @identity_version 4
 
   @docs_only_required_checks ~w(snapshot examples browser behavior accessibility parity pixel)
 
   @shared_input_globs [
+    "mise.toml",
+    ".github/actions/setup-browser/**/*",
+    "tools/scripts/prepare-native.exs",
+    ".github/workflows/{ci,verify-ai-elements}.yml",
+    "registry/INVENTORY.json",
     "registry/UPSTREAM.json",
     "tools/mix.exs",
+    "tools/package{,-lock}.json",
     "tools/verification/mix.exs",
     "storybook/mix.exs",
     "storybook/config/*.exs",
@@ -16,12 +22,11 @@ defmodule LiveShadcnVerification do
     "packages/live_base/package-lock.json",
     "packages/live_ai_elements/lib/**/*.{ex,heex}",
     "packages/live_ai_elements/assets/js/*.js",
+    "packages/live_ai_elements/package{,-lock}.json",
     "packages/live_ai_elements/mix.lock",
     "parity/src/official-ai-elements.mjs",
     "registry/VERIFICATION_POLICY.json",
     "registry/snapshot/index.json",
-    "registry/spec/shadcn/*.json",
-    "registry/spec/ai_elements/*.json",
     "packages/live_shadcn/priv/registry/*.ex",
     "packages/live_shadcn/lib/**/*.ex",
     "packages/live_base/lib/**/*.ex",
@@ -36,9 +41,10 @@ defmodule LiveShadcnVerification do
     "parity/src/reference-loader.mjs",
     "parity/src/official-shadcn.mjs",
     "parity/upstream.mjs",
+    "parity/example-export.mjs",
     "parity/upstream-directories.mjs",
     "parity/source-lease.mjs",
-    "parity/vite.config.mjs",
+    "parity/vite*.mjs",
     "parity/package.json",
     "parity/package-lock.json",
     "storybook/assets/**/*.{css,js,mjs,json}",
@@ -49,7 +55,8 @@ defmodule LiveShadcnVerification do
     "storybook/test/browser/package.json",
     "storybook/test/browser/package-lock.json",
     "tools/lib/live_shadcn_tools/**/*.ex",
-    "tools/lib/mix/tasks/ui.verify.ex",
+    "tools/lib/mix/tasks/ui.verify*.ex",
+    "tools/lib/mix/tasks/ui.spec.ex",
     "tools/verification/lib/**/*.ex",
     "tools/mix.lock",
     "tools/verification/mix.lock",
@@ -58,8 +65,16 @@ defmodule LiveShadcnVerification do
     "packages/live_shadcn/mix.lock"
   ]
 
+  # Each identity hashes its own contract. Docs compilation must still track
+  # every contract, including new and removed paths.
+  @contract_input_globs [
+    "registry/spec/shadcn/*.json",
+    "registry/spec/ai_elements/*.json"
+  ]
+
   @verification_rule_globs [
-    "tools/lib/mix/tasks/ui.verify.ex",
+    "tools/lib/mix/tasks/ui.verify*.ex",
+    "tools/lib/mix/tasks/ui.spec.ex",
     "tools/lib/live_shadcn_tools.ex",
     "tools/lib/live_shadcn_tools/browser_verification.ex",
     "tools/lib/live_shadcn_tools/incremental_verification.ex",
@@ -79,7 +94,8 @@ defmodule LiveShadcnVerification do
     "parity/src/official-shadcn.mjs",
     "parity/source-lease.mjs",
     "parity/upstream.mjs",
-    "parity/vite.config.mjs"
+    "parity/example-export.mjs",
+    "parity/vite*.mjs"
   ]
 
   @unresolved_reason "the generated port does not contain this source literal"
@@ -346,7 +362,7 @@ defmodule LiveShadcnVerification do
   end
 
   def compile_path_globs(root) do
-    (@shared_input_globs ++ @verification_rule_globs)
+    (@shared_input_globs ++ @verification_rule_globs ++ @contract_input_globs)
     |> Enum.flat_map(fn pattern -> input_wildcard(Path.join(root, pattern)) end)
     |> Enum.filter(&File.regular?/1)
     |> Enum.reject(&generated_path?/1)

@@ -40,9 +40,9 @@
     "jsx/MenubarTrigger/class/0": "cn-menubar-trigger flex items-center outline-hidden select-none"
   },
   "file_fingerprints": {
-    "shadcn/ui/menubar.tsx": "5cd4ccb4da5b7c7b7bc0023c4de4d6876ec338d27d753b8d105af4052c0685ef"
+    "shadcn/ui/menubar.tsx": "c347c618df397777d0d71a3582253e8b9d553a24dc3c5287aa2911a622e4eaa8"
   },
-  "fingerprint": "badbcaf5fa87a08a95f24bc1f3b4bb536a146877fccd6ed602ef73b2b486a025",
+  "fingerprint": "d8a9295e410b1e684c8d70e5982dc0ef0c47cc5c25d2c0774b9e59491339bd19",
   "ignored": {},
   "name": "menubar",
   "port_body": "f48a1b378244acbd92cbb796b16553c531ff51c4d6e1a6bedef0296d177eb7bb",
@@ -143,7 +143,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/menubar.tsx": "a407a77ebee8636f3dccf62a0cd95899a61f84d172517fa2191cd8374698cef3"
+    "shadcn/ui/menubar.tsx": "0abe1b7b30525404044f1bf693e2a31f624260aec61a6d19271ac1c21f9cc26d"
   },
   "uses": [
     "jsx/Menubar/class/0",

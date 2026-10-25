@@ -27,9 +27,9 @@
     "jsx/TableRow/class/0": "cn-table-row has-aria-expanded:bg-muted/50"
   },
   "file_fingerprints": {
-    "shadcn/ui/table.tsx": "a1ecdafc8693a21e323dce5646cb63aafba42f38a327ce13c7ac01f1fec7fb7b"
+    "shadcn/ui/table.tsx": "662b7567aadcc52e082f8931c1e319cdb9ed7e2ea9e51019bdfbd3d092a53efc"
   },
-  "fingerprint": "389230feac3d28f493879adc299fad923204bb7f7615fb37765e0d66cd994940",
+  "fingerprint": "4ade77a3292789bc84e4ef4264316c065adf3dbfdc1f41aa9448f061c712ddd4",
   "ignored": {},
   "name": "table",
   "port_body": "542be8cda54b5dbc58e07bd71e79646c80ecba828d0e52aa00d42dd3cd47e0f7",
@@ -66,7 +66,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/table.tsx": "4e90502c6dd7478e2baa19a4010e52718c2fd958ead136d31b18eacd5b3cd1fb"
+    "shadcn/ui/table.tsx": "77d15e11fcf1fb2f5e1b814aa64868e7644bb59c5e1498ecb93bcbdca1c7a070"
   },
   "uses": [
     "jsx/Table/class/0",

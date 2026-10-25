@@ -64,10 +64,10 @@
   "file_fingerprints": {
     "ai_elements/code-block.tsx": "0c49280b41a638076163ba961b7bc1f1e1fabae82ea776c55e4f4e182e6cda60",
     "ai_elements/tool.tsx": "0ea1d9e39bcbb6976d86768edf2b78a727cbdbb251cdd5f754a7064d4709de7a",
-    "shadcn/ui/badge.tsx": "e8f70a77dc9b37d8bc33c05c480eb7d20005ebbc56c474879cf26ae18f86e925",
+    "shadcn/ui/badge.tsx": "1b7a3e49cd0a694d10871df959ab8a23bd59c0dd11739692b6151ea010a2cef5",
     "shadcn/ui/collapsible.tsx": "236edd9fbac18f22a086841a4c7be8ef8de4bf46eefa6809813eca2ae9c496a5"
   },
-  "fingerprint": "c65833e1a36b8ce8d5089bf96d2df2f97978bc259b9a97ccc3967b48ab798046",
+  "fingerprint": "a1aa5059501f1fb641ee33e994c3e2d4c9dae71fbc9475b43a61de9faee79333",
   "ignored": {
     "cva/badgeVariants/default/variant": "the generated port does not contain this source literal",
     "file/ai_elements/code-block.tsx/jsx/anonymous/class/0": "the generated port does not contain this source literal",
@@ -190,7 +190,7 @@
   "upstream": {
     "ai_elements/code-block.tsx": "5c7285171c5aa741749a1642a85f492a9b5e80dc4ccb704b5c3f58c45efebd04",
     "ai_elements/tool.tsx": "5b520e0c33792cba0ceb04e1cb18c69b212cffacdb52d7297e292c7af568dda4",
-    "shadcn/ui/badge.tsx": "ba9be2fcd4eac13c482f77663f4cca797553e53d2efb9c6dc52eb1e3af9a0d2f",
+    "shadcn/ui/badge.tsx": "cad65ac68df79093dc7e9655a94cc60011a2f82b45fc42a0ad74a6e6323c4389",
     "shadcn/ui/collapsible.tsx": "ead4349ff7b01d696ef89294a81d18ee1d3f732321398896462c834ab9b9e065"
   },
   "uses": [

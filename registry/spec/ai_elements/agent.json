@@ -46,9 +46,9 @@
   "file_fingerprints": {
     "ai_elements/agent.tsx": "edd5782724dae399f2de73dc3c5120da9be6a8e27a9268c352d96e8df28068f5",
     "ai_elements/code-block.tsx": "0c49280b41a638076163ba961b7bc1f1e1fabae82ea776c55e4f4e182e6cda60",
-    "shadcn/ui/accordion.tsx": "12770ce66705e077ece1cd561b5e05b9eb97ee5a924066469d7a1cc7a665a1f9"
+    "shadcn/ui/accordion.tsx": "c2636717e4ba400f9a4dbf5dd99d17deef5d816465d2bc817df1a13867af4322"
   },
-  "fingerprint": "a7e78cf3e826f8bf624d3fb49259ba62417e05f67eeac87315563720951e66b8",
+  "fingerprint": "1f711502ae3d992527d47b98ba4673e73fe86789191c02b6f23afbd2242397b6",
   "ignored": {
     "jsx/CodeBlockHeader/class/0": "the generated port does not contain this source literal",
     "file/ai_elements/code-block.tsx/jsx/anonymous/class/4": "the generated port does not contain this source literal",
@@ -157,7 +157,7 @@
   "upstream": {
     "ai_elements/agent.tsx": "7d96005ace889eaa790b293ae75883d62546b6c7983aec3e7e6784c0392e30c7",
     "ai_elements/code-block.tsx": "5c7285171c5aa741749a1642a85f492a9b5e80dc4ccb704b5c3f58c45efebd04",
-    "shadcn/ui/accordion.tsx": "3fbd0fd128f90598e5387f55646f66fff0775ba95bc152a7252ddb24a601be5c"
+    "shadcn/ui/accordion.tsx": "2322a35cef124ca359476584e209bb21bc5c4b233b4dfdffc1a2c7a7839cad4f"
   },
   "uses": [
     "file/ai_elements/agent.tsx/jsx/anonymous/class/0",

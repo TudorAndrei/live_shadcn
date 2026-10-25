@@ -312,6 +312,7 @@ test("snap points move between compact and full states", async ({ page }) => {
   await dragBy(page, handle, 0, 160);
   await expect.poll(() => snapOffset(popup)).toBeGreaterThan(0);
   await expect(popup).toBeVisible();
+  await popupEntryFinished(popup);
 
   await dragBy(page, handle, 0, 240);
   await expect(popup).toBeHidden();

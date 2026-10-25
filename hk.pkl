@@ -18,9 +18,9 @@ local linters = new Mapping<String, Step | Group> {
     // ── tier 1: gatekeepers. They never change a file. ──
     ["check-merge-conflict"] = Builtins.check_merge_conflict
     ["check-added-large-files"] = (Builtins.check_added_large_files) {
-        // This tracked source holds the official HEEx examples. The secret and
-        // private-key checks still scan it.
-        exclude = List("storybook/lib/storybook_web/examples.ex")
+        // Official examples and the generated npm lock file can exceed the
+        // size limit. Secret and private-key checks still scan these files.
+        exclude = List("storybook/lib/storybook_web/examples.ex", "parity/package-lock.json")
     }
     ["detect-private-key"] = Builtins.detect_private_key
     ["gitleaks"] = Builtins.gitleaks

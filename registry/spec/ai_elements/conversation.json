@@ -14,9 +14,9 @@
   },
   "file_fingerprints": {
     "ai_elements/conversation.tsx": "719d781ddf6cec60a7a76aec4e30b48bb238f59ce50821ca0c06b05159e92d1e",
-    "shadcn/ui/button.tsx": "0c911259d9cce5dfd13cf06dd8ead680b5a3b67761bc27486503ead411968509"
+    "shadcn/ui/button.tsx": "ace3fb4a598eb607f628a8bddf3b78bc51b432e5461c4e3ff2b582a68e0c6403"
   },
-  "fingerprint": "3ae13660489d4e35611c54e83cf22ac74b65a0bd1289d7d20edacdc940cb2df3",
+  "fingerprint": "15159116f858342c4d4dbd7cc46c858be368bc003299f75be5d13c3151a4be6f",
   "ignored": {
     "cva/buttonVariants/base": "the generated port does not contain this source literal",
     "cva/buttonVariants/default/size": "the generated port does not contain this source literal",
@@ -86,7 +86,7 @@
   },
   "upstream": {
     "ai_elements/conversation.tsx": "d7ac46f1e7bc8e46bc49f67c768fc93aebdf17d816397cb35a40deff7173e875",
-    "shadcn/ui/button.tsx": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12"
+    "shadcn/ui/button.tsx": "74f982d7ad7a764e3c95a519fc063a671e66ad758ea31dc89d747838e20c2487"
   },
   "uses": [
     "jsx/Conversation/class/0",

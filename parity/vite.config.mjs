@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { tablerImports } from "./vite-tabler-imports.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repo = resolve(here, "..");
@@ -67,10 +68,12 @@ function referenceSsr() {
 export default defineConfig({
   root: here,
   publicDir: resolve(repo, "storybook/priv/static"),
-  plugins: [react(), referenceSsr()],
+  plugins: [tablerImports(), react(), referenceSsr()],
+  // Dependency scanning runs before transforms. Keep the Tabler barrel out of
+  // the prebundle so named imports can use only the pinned per-icon modules.
+  optimizeDeps: { exclude: ["@tabler/icons-react"] },
   resolve: {
     alias: [
-      { find: /^cn$/, replacement: resolve(here, "src/shim/utils.ts") },
       { find: "next/image", replacement: resolve(here, "src/shim/next-image.tsx") },
       { find: "next/link", replacement: resolve(here, "src/shim/next-link.tsx") },
       { find: "next/font/google", replacement: resolve(here, "src/shim/next-font-google.ts") },
@@ -98,7 +101,15 @@ export default defineConfig({
       // Rendering Streamdown here would compare two markdown renderers, and
       // neither of them is the component. See `src/shim/streamdown.tsx`.
       { find: /^@streamdown\/.*/, replacement: resolve(here, "src/shim/streamdown-plugin.ts") },
-      { find: "streamdown", replacement: resolve(here, "src/shim/streamdown.tsx") },
+      {
+        find: /^streamdown$/,
+        replacement: "streamdown",
+        customResolver(_source, importer) {
+          return importer?.endsWith("/code-block-markdown.tsx")
+            ? resolve(here, "node_modules/streamdown/dist/index.js")
+            : resolve(here, "src/shim/streamdown.tsx");
+        },
+      },
       {
         find: "@/registry/new-york-v4",
         replacement: resolve(upstream, "shadcn_new_york_v4"),

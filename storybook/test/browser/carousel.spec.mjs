@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { connected } from "./live.mjs";
+import { waitForCarouselMotion } from "./visual-states.mjs";
 
 const sides = [
   { name: "official React", live: false },
@@ -131,8 +132,9 @@ for (const side of sides) {
         .poll(async () => (await transformPosition(track(page))).x, { timeout: 3000 })
         .not.toBe(initial.x);
 
-      await page.waitForTimeout(500);
       await root(page).hover();
+      // Autoplay stops the next timer, while the current slide keeps moving.
+      await waitForCarouselMotion(page, "[data-slot='carousel']");
       const paused = await transformPosition(track(page));
       await page.waitForTimeout(2200);
       const afterPause = await transformPosition(track(page));

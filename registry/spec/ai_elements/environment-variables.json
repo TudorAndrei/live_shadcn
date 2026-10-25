@@ -38,9 +38,9 @@
   },
   "file_fingerprints": {
     "ai_elements/environment-variables.tsx": "705dc9edf452101df86e3f028bf11c24fb3c2c2fed2f96b0d02dba9ff7f39ea2",
-    "shadcn/ui/switch.tsx": "2f0fa6850247966c015ce77864d6a70ae4abaecc597332c93a4346d36f7fc112"
+    "shadcn/ui/switch.tsx": "b364636cdd2e19ef84ea362c46d18247fd9ce52c9f055e7fac559cde3cdffde7"
   },
-  "fingerprint": "4e4a162bf9a7b1cbd806b3df2bf72931aeb8b791194b92055b0a5c1d226d9ebd",
+  "fingerprint": "8af9a48b2ad83da492bd7829cf3123f43807ef24a0f262d42191bea9c639d7fb",
   "ignored": {
     "jsx/EnvironmentVariableGroup/class/0": "the generated port does not contain this source literal",
     "jsx/EnvironmentVariablesToggle/class/0": "the generated port does not contain this source literal"
@@ -118,7 +118,7 @@
   },
   "upstream": {
     "ai_elements/environment-variables.tsx": "6b685aacb47e7bcb62e15b74b4e0b0bd7beffb892f3769ad7fc3580e00aae88b",
-    "shadcn/ui/switch.tsx": "5bc5e6917b328921a87ee0c25224ed7c19184f2158b1558679a259ab1d0ad938"
+    "shadcn/ui/switch.tsx": "87aaf20b3209fabbcf0a9520c8b34733ddf2c91524c80ec72ed3dd3684f1bca3"
   },
   "uses": [
     "jsx/EnvironmentVariable/class/0",

@@ -110,7 +110,7 @@ async function stableTarget(page, target, selector) {
             )
             : current.parentElement
               ? [...current.parentElement.children].filter(
-                (candidate) => candidate.getAttribute("data-slot") === slot,
+                (candidate) => candidate.getAttribute("data-slot") === slot && candidate.getClientRects().length > 0,
               )
               : [current];
           const occurrence = peers.length > 1

@@ -15,6 +15,10 @@ on:
 permissions:
   contents: read
 
+env:
+  ELIXIR_MAKE_CACHE_DIR: /tmp/live-shadcn-native/elixir-make
+  RUSTLER_PRECOMPILED_GLOBAL_CACHE_PATH: /tmp/live-shadcn-native/rustler
+
 jobs:
   check:
     name: ${{ matrix.package }}
@@ -41,12 +45,18 @@ jobs:
       - run: mix deps.get
         working-directory: ${{ matrix.package }}
 
+      - name: Prepare verified native archives
+        run: elixir tools/scripts/prepare-native.exs "$PROJECT"
+        env:
+          PROJECT: ${{ matrix.package }}
+
       - name: Prepare tools integration test inputs
         if: matrix.package == 'tools'
         run: |
           mix ui.fetch --locked
           cd ../storybook
           mix deps.get
+          elixir ../tools/scripts/prepare-native.exs .
         working-directory: tools
 
       - run: mix format --check-formatted
@@ -126,6 +136,7 @@ jobs:
           HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
         run: |
           mix deps.get
+          elixir ../../tools/scripts/prepare-native.exs .
           mix hex.publish --yes
 
       # hex's registry takes a moment to serve a release that was just pushed,
@@ -140,6 +151,7 @@ jobs:
         run: |
           for attempt in 1 2 3 4 5 6; do
             if mix deps.get; then
+              elixir ../../tools/scripts/prepare-native.exs .
               mix hex.publish --yes
               exit 0
             fi

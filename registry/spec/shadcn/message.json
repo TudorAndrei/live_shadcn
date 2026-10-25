@@ -21,9 +21,9 @@
     "jsx/MessageHeader/class/0": "cn-message-header flex max-w-full min-w-0 items-center"
   },
   "file_fingerprints": {
-    "shadcn/ui/message.tsx": "b6da486a1bcb5e7696fa5e9c459f2b3c4d92d95ecd5f5c7313085bbb240e0733"
+    "shadcn/ui/message.tsx": "26f8fd303a7576fd6534884e9c1aafd07c94e237ea3133898440a52b344c5855"
   },
-  "fingerprint": "f57e9838ae011510d13e342ccce69f885c15ad28659df3042ba49a6a47106b95",
+  "fingerprint": "509f12db65f18903a40373d0811998f34ed4ceacdcfa234df8e4e2b37dbbb23e",
   "ignored": {},
   "name": "message",
   "port_body": "9804cda23415b4de6983809acf88bdfe29bb7d9fc1ba4b296e2ec0760780370d",
@@ -66,7 +66,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/message.tsx": "197803d433247e93f9b457f66e2c2e94c3bd30280e3079ff342753bba430edc8"
+    "shadcn/ui/message.tsx": "b57f3c9921ceb0695cb8164c7be8ce229519f2b485b95923bb980a5e39e11c72"
   },
   "uses": [
     "jsx/Message/class/0",

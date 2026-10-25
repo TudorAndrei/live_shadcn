@@ -107,6 +107,73 @@ date-picker, and typography documentation families. `mix ui.verify --source
 ai_elements` checks all 48 AI Elements components. `mix ui.verify` checks both
 sources.
 
+CI first checks component contracts, snapshots, and the production JavaScript
+bundle. A failure stops the dependent jobs from starting. Browser checks then
+run in sixteen Shadcn groups and four AI Elements groups on separate runners.
+The groups use reviewed component times from
+`registry/VERIFICATION_TIMINGS.json`. New components use estimates based on
+example count and interactive controls. Each component belongs to one group
+and keeps all required examples, visual states, and checks.
+
+Each runner uses one browser worker and batches of up to eight examples.
+Local verification keeps the default batch size of two. CI saves each group's
+records and retains failed browser reports, traces, and screenshots for seven
+days. The final source checks reject missing, repeated, failed, or old results
+before they regenerate inventory. Deployment requires both source checks.
+
+CI reuses complete passed results from trusted main-branch runs. The source,
+contract, policy, toolchain, pinned browser image, and UTC date must match.
+A group with no changed inputs skips source downloads, browser installation,
+asset builds, and browser tests. A missing or stale result runs again.
+
+A contract change affects its own component. Ports, CSS, JavaScript, renderers,
+upstream references, and browser suites remain shared inputs. Changes to these
+inputs can require a full run. An empty cache or a new UTC date also requires
+fresh checks. The first run after this cache change fills the cache.
+
+Browser jobs use the pinned Playwright image with browser dependencies already
+installed. Reader and integration jobs also cache pinned upstream sources and
+still check their recorded digests.
+
+To force a full CI run, use **Run workflow** with `full` enabled. Local result
+reuse is explicit through `--reuse PATH`; add `--force` to run that scope again.
+
+To inspect or run a CI group locally, use:
+
+```bash
+mix ui.verify.plan --source shadcn --shards 16
+mix ui.verify --source shadcn --shard 1/16 --batch-size 8 \
+  --output /tmp/shadcn-1.json --artifacts /tmp/shadcn-browser-1
+```
+
+The matrix planner, verifier, and cache planner read the same committed timing
+file. To refresh it, use successful full CI runs with the current browser setup.
+For each component, add the milliseconds from its behavior, accessibility,
+parity, and pixel batch logs. Save the mean across runs in `components_ms` and
+record the run URLs and commit IDs. Review and commit the file before use.
+CI does not change the timing file during a run.
+
+`milliseconds_per_weight_unit` converts measured times to planning weights.
+The current value is 2500 milliseconds, near the median time per snapshot-based
+weight in the recorded runs. This keeps estimates for new components on a
+similar scale. The timing file controls group assignment only. It cannot
+supply verification evidence or change the required checks.
+
+Use Phoenix component tests for server rendering and events. Use Node tests
+for catalog and contract files. Keep Playwright for browser hooks, focus,
+accessibility, layout, and pixels. Its [CI sharding support](https://playwright.dev/docs/test-sharding)
+fits the existing assertions and reports. [Agent-browser](https://github.com/vercel-labs/agent-browser)
+is useful for an agent's interactive inspection; replacing the test runner
+would still require the same page rendering and comparison work. Phoenix's
+[LiveView tests](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveViewTest.html)
+can check server behavior without a browser, but cannot prove CSS or browser
+hook behavior.
+
+Local samples on 2026-10-21 measured the six-example Alert check at 46.3 seconds
+with batches of two and 38.2 seconds with batches of eight. The file-only AI
+catalog check took 11.4 seconds in Playwright and 0.17 seconds in Node with the
+same assertions. These samples do not predict the total CI duration.
+
 AI Elements uses agent-authored behavior and contract tests. Every component
 must pass its generated contract, snapshots, example coverage, browser behavior,
 and local accessibility checks. The suite runs automatically in CI. Base UI

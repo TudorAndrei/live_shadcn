@@ -1468,10 +1468,13 @@ defmodule StorybookWeb.Examples do
        agent audio-player code-block context conversation file-tree prompt-input
        sandbox schema-display shimmer terminal
        connection controls edge jsx-preview node panel persona toolbar
-       open-in-chat typography)
+       open-in-chat typography shadcn-code-block trace)
   end
 
   @doc "The examples for a component."
+  def all(component) when component in ["shadcn-code-block", "trace"],
+    do: StorybookWeb.ShadcnAiExamples.all(component)
+
   def all("accordion") do
     [
       one("default", "Default", "The official accordion example.", &accordion_default/1),
@@ -4625,11 +4628,17 @@ defmodule StorybookWeb.Examples do
       </.bubble>
       <.bubble variant="ghost">
         <.bubble_content>
-          Ghost bubbles work for assistant text, **markdown**, and other content that should not be framed.
-
-          This is perfect for assistant messages that should not have a frame and can take the full width of the container. You can also render `code` in it.
-
-          Ghost bubbles are full width and can take the full width of the container.
+          <div class="space-y-4 whitespace-normal [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 cn-markdown w-full min-w-0 overflow-hidden">
+            <p>
+              Ghost bubbles work for assistant text, <span class="font-semibold">markdown</span>, and other content that should not be framed.
+            </p>
+            <p>
+              This is perfect for assistant messages that should not have a frame and can take the full width of the container. You can also render
+              <code class="rounded-sm bg-muted px-1 py-0.5 font-mono text-[0.9em]">code</code>
+              in it.
+            </p>
+            <p>Ghost bubbles are full width and can take the full width of the container.</p>
+          </div>
         </.bubble_content>
       </.bubble>
     </div>
@@ -6909,8 +6918,14 @@ defmodule StorybookWeb.Examples do
     ) <> " " <> Integer.to_string(date.day) <> ", " <> Integer.to_string(date.year)
   end
 
-  defp date_picker_range_label(%{from: from, to: to}) when not is_nil(to),
-    do: Calendar.strftime(from, "%b %d, %Y") <> " - " <> Calendar.strftime(to, "%b %d, %Y")
+  defp date_picker_range_label(%{from: from, to: to}) when not is_nil(to) do
+    # Preserve the text nodes in the pinned React range label.
+    [
+      Calendar.strftime(from, "%b %d, %Y"),
+      Phoenix.HTML.raw("<!----> -<!----> <!---->"),
+      Calendar.strftime(to, "%b %d, %Y")
+    ]
+  end
 
   defp date_picker_range_label(%{from: from}), do: Calendar.strftime(from, "%b %d, %Y")
   defp date_picker_range_label(_), do: "Pick a date"
@@ -7060,14 +7075,20 @@ defmodule StorybookWeb.Examples do
                   fill="none"
                 />
               </g>
-              <g class="recharts-layer recharts-cartesian-axis recharts-xAxis xAxis recharts-cartesian-axis-tick">
+              <g
+                data-chart-demo-ticks
+                class="recharts-layer recharts-cartesian-axis recharts-xAxis xAxis recharts-cartesian-axis-tick"
+              >
                 <text
                   :for={tick <- @chart_demo_ticks}
+                  data-chart-tick-index={tick.index}
+                  data-chart-tick-coordinate={tick.x}
                   x={tick.x}
                   y="234"
                   class="recharts-text recharts-cartesian-axis-tick-value"
                   text-anchor="middle"
                   fill="#666"
+                  style={if(!tick.visible, do: "display: none;")}
                 >
                   <tspan x={tick.x} dy="0.71em">{tick.label}</tspan>
                 </text>
@@ -7129,9 +7150,10 @@ defmodule StorybookWeb.Examples do
   defp chart_demo_ticks do
     @chart_demo_data
     |> Enum.with_index()
-    |> Enum.filter(fn {_item, index} -> index in [2, 5, 9, 13, 17, 21, 25, 29] end)
     |> Enum.map(fn {{date, _desktop, _mobile}, index} ->
       %{
+        index: index,
+        visible: index in [2, 5, 9, 13, 17, 21, 25, 29],
         x: 12 + (index + 0.5) * (646 / 30),
         label: "Apr #{date |> String.slice(-2, 2) |> String.to_integer()}"
       }
@@ -16037,9 +16059,7 @@ defmodule StorybookWeb.Examples do
             <.item size="xs" class="p-0">
               <.item_content>
                 <.item_title class="whitespace-nowrap">{country.label}</.item_title>
-                <.item_description>
-                  {country.continent} ({country.code}<span>)</span>
-                </.item_description>
+                <.item_description phx-no-format>{country.continent}<!----> (<!---->{country.code}<!---->)</.item_description>
               </.item_content>
             </.item>
           </.combobox_item>
@@ -19125,8 +19145,8 @@ defmodule StorybookWeb.Examples do
       <h2 class="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
         The King's Plan
       </h2>
-      <p class="leading-7 [&:not(:first-child)]:mt-6">
-        The king thought long and hard, and finally came up with <a
+      <p class="leading-7 [&:not(:first-child)]:mt-6" phx-no-format>
+        The king thought long and hard, and finally came up with<!----> <a
           href="#"
           class="font-medium text-primary underline underline-offset-4"
         >a brilliant plan</a>: he would tax the jokes in the kingdom.
@@ -19352,8 +19372,8 @@ defmodule StorybookWeb.Examples do
       <h2 class="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
         خطة الملك
       </h2>
-      <p class="leading-7 [&:not(:first-child)]:mt-6">
-        فكر الملك طويلاً وبجد، وأخيراً توصل إلى <a
+      <p class="leading-7 [&:not(:first-child)]:mt-6" phx-no-format>
+        فكر الملك طويلاً وبجد، وأخيراً توصل إلى<!----> <a
           href="#"
           class="font-medium text-primary underline underline-offset-4"
         >خطة عبقرية</a>: سيفرض ضريبة على النكات في المملكة.

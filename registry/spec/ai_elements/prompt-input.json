@@ -99,10 +99,10 @@
   },
   "file_fingerprints": {
     "ai_elements/prompt-input.tsx": "0a7607faed2045e5f0c83e31cb921c45761c51346ce97d1b22a9121eeac0d38b",
-    "shadcn/ui/input-group.tsx": "628473a39058fc34aea9622204e5f6a34dc9ee82dffa82e16fa19f6813be6900",
-    "shadcn/ui/textarea.tsx": "c091a118245bbe7f4ae6cc2e9de306e42bbdc6577733f983f6e7fb4b540452a9"
+    "shadcn/ui/input-group.tsx": "c16239d7307d1eb4b8f024add357296c31b16e9e91f6695f57734f4e767ffe22",
+    "shadcn/ui/textarea.tsx": "eec983042eef20ee5abedf4349346899b4dfd251c25f134f0b41e7f9e61c9941"
   },
-  "fingerprint": "b703140ac1fdbde5f7c06957722dcc027956efa3b5a941d4509b353ba439bfca",
+  "fingerprint": "67384ae1c184900470a5ce8166594e20bab93e8a95d5ab6901a353d7782a5bfb",
   "ignored": {
     "cva/inputGroupAddonVariants/default/align": "the generated port does not contain this source literal",
     "cva/inputGroupButtonVariants/default/size": "the generated port does not contain this source literal",
@@ -190,8 +190,8 @@
   },
   "upstream": {
     "ai_elements/prompt-input.tsx": "cf43baf5baa444b4ae06d250643b3fb2efd329c85f9b31a43e3aaf481dd27305",
-    "shadcn/ui/input-group.tsx": "2ee53fb8792b8022ab433ed6d455dc790ed8a5be59fb99d923303665ce3a6dbb",
-    "shadcn/ui/textarea.tsx": "b6948bf2916d1cf5487c24f3755cd3f90981680c06f51481545634276317c691"
+    "shadcn/ui/input-group.tsx": "b1ed344e05b4161c240fff21b6e224fcc61cbe35d5a3aaa997de02c8fb25e1fe",
+    "shadcn/ui/textarea.tsx": "8f527c89dec40a9b372376dc93d2ebb149bfd82f209856d110ead1aabec19c6a"
   },
   "uses": [
     "cva/inputGroupAddonVariants/variant/align/block-end",

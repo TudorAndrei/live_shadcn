@@ -55,9 +55,9 @@
     "port/class/0": "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none group"
   },
   "file_fingerprints": {
-    "shadcn/ui/navigation-menu.tsx": "fa5b8798d28af5fce5e892908e4df05358a0f21b5cc3785389ada1106ab588e4"
+    "shadcn/ui/navigation-menu.tsx": "f65f7eddfc121a6b210d628b1b57bac634d05706cc3c9ea888d85df8e5d102bc"
   },
-  "fingerprint": "fb7d168d17edeab7e3be313598e9b9ef60534456b2373fc7ee1ed5fafc71ba5e",
+  "fingerprint": "287c5772c73db06dcacfa2f661040f78b474d1217c48e0087bff80252759977e",
   "ignored": {},
   "name": "navigation-menu",
   "port_body": "428945f71ebf47ab4abfc12cd03d0e974d3559b01b2c7430cf7ae8c14d3105b7",
@@ -189,7 +189,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/navigation-menu.tsx": "40629a60998e13c173c141a604dd47ee3766f1fee580cceb92c4ba0f5af3a6f5"
+    "shadcn/ui/navigation-menu.tsx": "37074909a349319adc1f90ab122c46730103b5bf752915de27fb10ab25b90f65"
   },
   "uses": [
     "jsx/NavigationMenu/class/0",

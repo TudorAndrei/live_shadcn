@@ -25,9 +25,9 @@
     "cva/badgeVariants/variant/variant/secondary": "cn-badge-variant-secondary"
   },
   "file_fingerprints": {
-    "shadcn/ui/badge.tsx": "e8f70a77dc9b37d8bc33c05c480eb7d20005ebbc56c474879cf26ae18f86e925"
+    "shadcn/ui/badge.tsx": "1b7a3e49cd0a694d10871df959ab8a23bd59c0dd11739692b6151ea010a2cef5"
   },
-  "fingerprint": "6c4ca241e550ba0d6b9f87dc1bef6649866ed3a43da47856d2fcdc3f49cba677",
+  "fingerprint": "8ba169d800c925cac6b966a3b68360ef6f24a18200e6c851415b3c0afe71533f",
   "ignored": {},
   "name": "badge",
   "port_body": "52122a9b60b0d8c52196bfa58e799e44bd5ffdb7689baf9aeba1320467b48fc2",
@@ -63,7 +63,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/badge.tsx": "ba9be2fcd4eac13c482f77663f4cca797553e53d2efb9c6dc52eb1e3af9a0d2f"
+    "shadcn/ui/badge.tsx": "cad65ac68df79093dc7e9655a94cc60011a2f82b45fc42a0ad74a6e6323c4389"
   },
   "uses": [
     "cva/badgeVariants/base",

@@ -35,10 +35,10 @@
   },
   "file_fingerprints": {
     "ai_elements/chain-of-thought.tsx": "61068cf384de7c23fb43d1e7f76a8c6d12ad8b48967368a3fc7e684089299679",
-    "shadcn/ui/badge.tsx": "e8f70a77dc9b37d8bc33c05c480eb7d20005ebbc56c474879cf26ae18f86e925",
+    "shadcn/ui/badge.tsx": "1b7a3e49cd0a694d10871df959ab8a23bd59c0dd11739692b6151ea010a2cef5",
     "shadcn/ui/collapsible.tsx": "236edd9fbac18f22a086841a4c7be8ef8de4bf46eefa6809813eca2ae9c496a5"
   },
-  "fingerprint": "06c954736113f8c502478feeecb28251ae868949f63ec1db58b0314e6df8a1a6",
+  "fingerprint": "fbff6ce95a216e9dc0171a504cf8a0674d38c5f283a85f8fe2972637409543a2",
   "ignored": {
     "cva/badgeVariants/base": "the generated port does not contain this source literal",
     "cva/badgeVariants/default/variant": "the generated port does not contain this source literal",
@@ -113,7 +113,7 @@
   },
   "upstream": {
     "ai_elements/chain-of-thought.tsx": "ddc63b036299d636483b2041599248226e05ef01afd9c5e32724e3a849def8c4",
-    "shadcn/ui/badge.tsx": "ba9be2fcd4eac13c482f77663f4cca797553e53d2efb9c6dc52eb1e3af9a0d2f",
+    "shadcn/ui/badge.tsx": "cad65ac68df79093dc7e9655a94cc60011a2f82b45fc42a0ad74a6e6323c4389",
     "shadcn/ui/collapsible.tsx": "ead4349ff7b01d696ef89294a81d18ee1d3f732321398896462c834ab9b9e065"
   },
   "uses": [

@@ -15,9 +15,9 @@
     "jsx/ResizablePanelGroup/class/0": "cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col"
   },
   "file_fingerprints": {
-    "shadcn/ui/resizable.tsx": "b75cd1201723c1ea9423fec1193088160c681d69065791dc4d8cf2e9b8663495"
+    "shadcn/ui/resizable.tsx": "65eb16cacda11ca62708d10fd71e0c148cd2665be99d6b66de31c40ed3d8751b"
   },
-  "fingerprint": "3fe4da093fe3b204f5d3e33dd37219f51caa25eaf2c6ad859d8778e343a6e789",
+  "fingerprint": "89257c21af5bf19118d4cdef19177bdcee4ac9c1901295c8da4ab9251fa7dce2",
   "ignored": {},
   "name": "resizable",
   "port_body": "a91eb052ff955e209c09754b78f8760435c8c5e68ccafd44d54b5086d2868fb2",
@@ -52,7 +52,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/resizable.tsx": "ce02b1176c769c44b21e267492fae1cba081a7917ee9f9d5b6c1749a90e4be0d"
+    "shadcn/ui/resizable.tsx": "7971b48619d5e322ca95e29b2a2ff72eacb95b730d1fcbdead94511dae056e83"
   },
   "uses": [
     "jsx/ResizableHandle/class/0",

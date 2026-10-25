@@ -4,9 +4,17 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      full:
+        description: Run every browser check without result reuse
+        type: boolean
+        default: false
 
 env:
   MIX_ENV: test
+  ELIXIR_MAKE_CACHE_DIR: /tmp/live-shadcn-native/elixir-make
+  RUSTLER_PRECOMPILED_GLOBAL_CACHE_PATH: /tmp/live-shadcn-native/rustler
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -19,9 +27,10 @@ permissions:
 jobs:
   test:
     name: ${{ matrix.package }}
+    needs: inventory
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         package:
           - packages/live_base
@@ -68,13 +77,30 @@ jobs:
       - run: mix deps.get
         working-directory: ${{ matrix.package }}
 
+      - name: Prepare verified native archives
+        run: elixir tools/scripts/prepare-native.exs "$PROJECT"
+        env:
+          PROJECT: ${{ matrix.package }}
+
+      - name: Cache pinned verification sources
+        if: matrix.package == 'tools'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            registry/upstream
+            parity/.upstream
+          key: pinned-upstream-v1-${{ hashFiles('registry/UPSTREAM.json') }}
+
       - name: Prepare tools integration test inputs
         if: matrix.package == 'tools'
         run: |
           mix ui.fetch --locked
           cd ../storybook
           mix deps.get
+          elixir ../tools/scripts/prepare-native.exs .
         working-directory: tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - run: mix format --check-formatted
         working-directory: ${{ matrix.package }}
@@ -109,11 +135,13 @@ jobs:
       - run: mix dialyzer --force-check --format short
         working-directory: ${{ matrix.package }}
 
-  # Shadcn uses committed browser evidence. AI Elements also runs its authored
-  # browser and accessibility checks in the separate automatic job below.
+  # Reject broken contracts and snapshots before starting expensive jobs.
   inventory:
-    name: the committed record is consistent
+    name: component contracts and snapshots
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      matrix: ${{ steps.shards.outputs.matrix }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -121,15 +149,26 @@ jobs:
 
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
 
+      - name: Resolve compiler versions
+        id: toolchain
+        run: |
+          echo "erlang=$(mise current erlang)" >> "$GITHUB_OUTPUT"
+          echo "elixir=$(elixir --short-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Check official references and strict pixel decisions
+        run: node --test storybook/test/browser/registries.test.mjs
+
+      - name: Cache preflight dependencies and builds
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            tools/deps
+            tools/_build
+            storybook/deps
+            storybook/_build
+          key: ${{ runner.os }}-${{ runner.arch }}-preflight-v1-${{ steps.toolchain.outputs.erlang }}-${{ steps.toolchain.outputs.elixir }}-${{ hashFiles('mise.toml', '**/mix.lock', '**/mix.exs') }}
+
       - run: mix deps.get
-        working-directory: tools
-
-      # docs/INVENTORY.md is generated. A stale one is a broken build, and a
-      # component whose spec moved since it was verified demotes here.
-      - run: mix ui.status --check
-        working-directory: tools
-
-      - run: mix ui.status --check --source shadcn --require-verified
         working-directory: tools
 
       # This check reads only committed contracts and reviewed ports. It needs
@@ -139,6 +178,9 @@ jobs:
 
       - run: mix deps.get
         working-directory: storybook
+
+      - name: Prepare verified native archives
+        run: elixir tools/scripts/prepare-native.exs storybook
 
       # The markup a reader gets is committed. A diff here is a change to it,
       # and it renders server-side — no browser, no styling layer, no fetch.
@@ -156,13 +198,145 @@ jobs:
       - run: npm run build:js -- --minify
         working-directory: storybook/assets
 
+      - name: Plan balanced Shadcn groups
+        id: shards
+        run: |
+          mix ui.verify.plan --source shadcn --shards 16 --output "$RUNNER_TEMP/shadcn-matrix.json"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          matrix = json.loads((Path(os.environ["RUNNER_TEMP"]) / "shadcn-matrix.json").read_text())
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write("matrix=" + json.dumps(matrix, separators=(",", ":")) + "\n")
+          PY
+        working-directory: tools
+
+      - run: node --test .github/scripts/*.test.mjs
+
+      - run: elixir tools/scripts/prepare-native.test.exs
+
+  shadcn-verification:
+    name: Shadcn ${{ matrix.shard }}
+    needs: inventory
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-noble@sha256:dcc5531e97840b9b5e794f2814476b21571c5124a3fca2267d73041f56e7580e
+      options: --init --shm-size=1g
+    env:
+      CI_BROWSER_IMAGE: mcr.microsoft.com/playwright:v1.62.1-noble@sha256:dcc5531e97840b9b5e794f2814476b21571c5124a3fca2267d73041f56e7580e
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+    timeout-minutes: 60
+    strategy:
+      fail-fast: true
+      max-parallel: 16
+      matrix: ${{ fromJSON(needs.inventory.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          cache_key_prefix: mise-browser-noble-v1
+
+      - uses: ./.github/actions/setup-browser # zizmor: ignore[self-repository]
+        id: browser
+        with:
+          source: shadcn
+          shard: ${{ matrix.shard }}
+          cache-slot: ${{ matrix.index }}
+          force: ${{ inputs.full && 'true' || 'false' }}
+
+      - name: Verify assigned components and every example
+        shell: bash
+        run: |
+          options=()
+          if [[ "$FORCE" == "true" ]]; then options+=(--force); fi
+          mix ui.verify --source shadcn --shard "$SHARD" --reuse "$REUSE_PATH" --batch-size 8 --output "$RUNNER_TEMP/shadcn-$SHARD_INDEX.json" --artifacts "$RUNNER_TEMP/shadcn-browser-$SHARD_INDEX" "${options[@]}"
+        working-directory: tools
+        env:
+          SHARD: ${{ matrix.shard }}
+          SHARD_INDEX: ${{ matrix.index }}
+          REUSE_PATH: ${{ steps.browser.outputs.reuse-path }}
+          FORCE: ${{ inputs.full && 'true' || 'false' }}
+
+      - name: Check saved results can be reused
+        id: reuse-check
+        if: ${{ !cancelled() }}
+        shell: bash
+        working-directory: tools
+        env:
+          SHARD: ${{ matrix.shard }}
+          SHARD_INDEX: ${{ matrix.index }}
+          REUSE_PATH: ${{ steps.browser.outputs.reuse-path }}
+        run: |
+          mix ui.verify.cache --source shadcn --shard "$SHARD" --reuse "$REUSE_PATH" --output "$RUNNER_TEMP/cache-check.json"
+          node ../.github/scripts/check-cache-plan.mjs "$RUNNER_TEMP/shadcn-$SHARD_INDEX.json" "$RUNNER_TEMP/cache-check.json" "$REUSE_PATH"
+
+      - name: Save passed results for the next run
+        if: ${{ !cancelled() && steps.reuse-check.outcome == 'success' && steps.browser.outputs.browser-needed == 'true' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.browser.outputs.reuse-path }}
+          key: ${{ steps.browser.outputs.cache-key }}
+
+      - name: Save component verification records
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: shadcn-verification-${{ matrix.index }}
+          path: ${{ runner.temp }}/shadcn-${{ matrix.index }}.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Save failed browser reports and screenshots
+        if: ${{ failure() && !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: shadcn-browser-${{ matrix.index }}
+          path: ${{ runner.temp }}/shadcn-browser-${{ matrix.index }}
+          if-no-files-found: ignore
+          retention-days: 7
+
+  shadcn-inventory:
+    name: current Shadcn evidence
+    needs: [inventory, shadcn-verification]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+
+      - run: mix deps.get
+        working-directory: tools
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: shadcn-verification-*
+          path: ${{ runner.temp }}/shadcn-records
+          merge-multiple: true
+
+      - name: Merge complete groups without dropping records
+        run: node .github/scripts/merge-verification.mjs "$RUNNER_TEMP/shadcn-records" registry/VERIFY.json
+        env:
+          VERIFICATION_MATRIX: ${{ needs.inventory.outputs.matrix }}
+
+      - name: Require current Shadcn evidence
+        run: |
+          mix ui.status
+          mix ui.status --check --source shadcn --require-verified
+        working-directory: tools
+
+      - name: Report the current inventory
+        run: cat docs/INVENTORY.md >> "$GITHUB_STEP_SUMMARY"
+
   # ── The one thing the record cannot check about itself ──
   #
-  # Every gate above compares two committed things: a component with its spec,
-  # the inventory with the verification record, the snapshot with the markup.
-  # None of them re-reads upstream, so a spec can drift from the source it was
-  # built from and all three stay green — which is what happened. 38 shadcn
-  # specs sat stale behind a wholly green build, and one of them was hiding a
+  # Browser comparison does not prove that the source reader captured every
+  # upstream fact. 38 shadcn specs sat stale behind a wholly green build, and
+  # one of them was hiding a
   # component whose attribute type had changed.
   #
   # This job restores the pinned files and parses every shadcn source. The tools
@@ -174,6 +348,7 @@ jobs:
   # failed exactly that way.
   reader:
     name: every spec still matches its source
+    needs: inventory
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -192,6 +367,14 @@ jobs:
       # `registry/upstream/` is gitignored on purpose: this repository records a
       # digest per upstream file rather than redistributing anybody else's
       # source. So the sources have to be fetched before they can be re-read.
+      - name: Cache pinned verification sources
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            registry/upstream
+            parity/.upstream
+          key: pinned-upstream-v1-${{ hashFiles('registry/UPSTREAM.json') }}
+
       - run: mix ui.fetch --locked
         working-directory: tools
         env:
@@ -206,6 +389,7 @@ jobs:
   # verification runs.
   static-browser-contracts:
     name: static browser contracts
+    needs: inventory
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -216,6 +400,14 @@ jobs:
 
       - run: mix deps.get
         working-directory: tools
+
+      - name: Cache pinned verification sources
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            registry/upstream
+            parity/.upstream
+          key: pinned-upstream-v1-${{ hashFiles('registry/UPSTREAM.json') }}
 
       - name: Restore pinned browser contract inputs
         run: mix ui.fetch --locked
@@ -236,12 +428,15 @@ jobs:
         working-directory: parity
 
   ai-elements-verification:
+    needs: inventory
     # Relative workflow calls use this commit. actionlint does not yet accept $/.
     uses: ./.github/workflows/verify-ai-elements.yml # zizmor: ignore[self-repository]
+    with:
+      full: ${{ inputs.full || false }}
 
   deploy:
     name: deploy the tested Storybook
-    needs: [test, inventory, reader, static-browser-contracts, ai-elements-verification]
+    needs: [test, inventory, reader, static-browser-contracts, shadcn-inventory, ai-elements-verification]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: storybook
@@ -253,6 +448,26 @@ jobs:
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
           cache: false
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: shadcn-verification-*
+          path: ${{ runner.temp }}/shadcn-records
+          merge-multiple: true
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: ai-verification-*
+          path: ${{ runner.temp }}/ai-records
+          merge-multiple: true
+
+      - name: Restore the complete tested records into the build context
+        run: |
+          VERIFICATION_MATRIX="$SHADCN_MATRIX" node .github/scripts/merge-verification.mjs "$RUNNER_TEMP/shadcn-records" registry/VERIFY.json
+          VERIFICATION_MATRIX="$AI_MATRIX" node .github/scripts/merge-verification.mjs "$RUNNER_TEMP/ai-records" registry/VERIFY.json
+        env:
+          SHADCN_MATRIX: ${{ needs.inventory.outputs.matrix }}
+          AI_MATRIX: ${{ needs.ai-elements-verification.outputs.matrix }}
 
       - name: Deploy
         run: flyctl deploy --remote-only -c storybook/fly.toml .

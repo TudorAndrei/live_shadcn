@@ -7,6 +7,16 @@ test.beforeEach(async ({ page }) => {
   await connected(page);
 });
 
+test("pressing a hover-open tooltip trigger closes the popup", async ({ page }) => {
+  const trigger = page.locator("#tooltip-default-trigger");
+  const popup = page.locator("#tooltip-default-popup");
+
+  await trigger.hover();
+  await popup.waitFor({ state: "visible" });
+  await trigger.click();
+  await expect(popup).toBeHidden();
+});
+
 test("hover opens a positioned tooltip without disclosure state", async ({ page }, testInfo) => {
   const trigger = page.locator("#tooltip-default-trigger");
   const positioner = page.locator("#tooltip-default-positioner");

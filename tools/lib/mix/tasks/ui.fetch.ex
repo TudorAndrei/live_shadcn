@@ -74,12 +74,20 @@ defmodule Mix.Tasks.Ui.Fetch do
   @base_ui_host "https://base-ui.com/"
 
   # Most public examples are listed by ComponentPreview in a component MDX
-  # page. Sonner has no such page at this pin, but its registry contains the
-  # public examples that the pinned source renders. This small declarative list
-  # makes that source part of normal example evidence. It also gives a future
-  # component the same route without treating every registry test fixture as a
-  # public example.
+  # page. Calendar and Sonner also have public fixtures in their registry
+  # examples. This list includes those fixtures in normal example evidence.
   @shadcn_example_supplements %{
+    "calendar" => %{
+      "path" => "apps/v4/registry/bases/base/examples/calendar-example.tsx",
+      "target" => "shadcn/examples/calendar-example.tsx",
+      "examples" => [
+        %{
+          "id" => "multiple",
+          "source" => "shadcn/examples/calendar-example.tsx#CalendarMultiple",
+          "reference" => "shadcn/calendar#CalendarMultiple"
+        }
+      ]
+    },
     "sonner" => %{
       "path" => "apps/v4/registry/bases/base/examples/sonner-example.tsx",
       "target" => "shadcn/examples/sonner-example.tsx",

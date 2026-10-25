@@ -22,6 +22,13 @@ export async function loadReferencePage(pathname: string) {
     examples,
   });
   const [, , component, id] = pathname.split("/");
+  // Highlighting is part of the official example's first complete paint.
+  // Load its lazy grammars before reporting that the reference is ready.
+  if (component === "shadcn-code-block") {
+    const { loadHighlighter } = await import("../.upstream/shadcn-ui/apps/v4/registry/bases/base/lib/highlighter");
+    await Promise.all(["ts", "tsx", "json", "css", "python", "text", "ansi", "bash"].map(loadHighlighter));
+  }
+
   const ToastToaster = Example && component === "toast"
     ? (await import("./upstream/shadcn/ui/toast")).Toaster
     : undefined;
@@ -46,8 +53,10 @@ export function ReferencePage({
   ThemeProvider,
 }: Awaited<ReturnType<typeof loadReferencePage>>) {
   useEffect(() => {
-    document.documentElement.dataset.referenceReady = "true";
-    return () => { delete document.documentElement.dataset.referenceReady; };
+    const frame = requestAnimationFrame(() => {
+      document.documentElement.dataset.referenceReady = "true";
+    });
+    return () => { cancelAnimationFrame(frame); delete document.documentElement.dataset.referenceReady; };
   }, []);
   const [, , component, id] = pathname.split("/");
 

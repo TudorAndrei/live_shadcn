@@ -35,9 +35,9 @@
   },
   "file_fingerprints": {
     "ai_elements/question.tsx": "bc4e935ad74a4e262fc44a7b8b316cfbe717afd3c993f02e366b141771e59148",
-    "shadcn/ui/textarea.tsx": "c091a118245bbe7f4ae6cc2e9de306e42bbdc6577733f983f6e7fb4b540452a9"
+    "shadcn/ui/textarea.tsx": "eec983042eef20ee5abedf4349346899b4dfd251c25f134f0b41e7f9e61c9941"
   },
-  "fingerprint": "359d1198cd2aee8a96d6fbb5608978660055d7f16815bbe99480434fffee7a9c",
+  "fingerprint": "b5c4c93b5b9a12249afd6ce3d17bf4aab677a06425a0e6d48c611ebc3908b219",
   "ignored": {},
   "name": "question",
   "port_body": "409b285538107fd7a50b28f8ece8dab40d92523ba352b38cde9cd168c3127ee3",
@@ -74,7 +74,7 @@
   },
   "upstream": {
     "ai_elements/question.tsx": "47c69ba8f555734209bc9eae5d62d419fbd0cbe6089ec26c97d2ebcc9114fde3",
-    "shadcn/ui/textarea.tsx": "b6948bf2916d1cf5487c24f3755cd3f90981680c06f51481545634276317c691"
+    "shadcn/ui/textarea.tsx": "8f527c89dec40a9b372376dc93d2ebb149bfd82f209856d110ead1aabec19c6a"
   },
   "uses": [
     "jsx/Question/class/0",

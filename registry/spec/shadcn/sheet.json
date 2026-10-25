@@ -28,12 +28,12 @@
     "jsx/SheetTitle/class/0": "cn-sheet-title cn-font-heading"
   },
   "file_fingerprints": {
-    "shadcn/ui/sheet.tsx": "07038b62291b3f220a41b18dc92ed3b93bb9d3c91293f734c906ab9c06021365"
+    "shadcn/ui/sheet.tsx": "a914a251b9a3d3f5860c0184c270ad18aa8a2dcf625fc69e9dd934683a22f94c"
   },
-  "fingerprint": "fd49e6dbb5d63f1a8eed090423978d8a67dadc023f6b61ed4a1e00d6c56a8a29",
+  "fingerprint": "fb3240404c82ef97294cdc635ade4b0c5783bbb7120ec0443e8a84a1a4ddca81",
   "ignored": {},
   "name": "sheet",
-  "port_body": "24b185942f8a8282b72512f6a18789a1f5f5b34e947ea786a2b63a804ac29dc1",
+  "port_body": "221cd0b89256d1e35479e5395ccfb78b1b5389652deb85f126692250be55848f",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {
@@ -86,7 +86,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/sheet.tsx": "ce6edeeee08e0002be607f0014013063290fca2ccddace9c6457c5a8fec8c0eb"
+    "shadcn/ui/sheet.tsx": "5816119da5f3468b0b91d2c65bcf6befe1d769b7867e236b9f18db83908581cb"
   },
   "uses": [
     "jsx/SheetContent/class/0",

@@ -42,9 +42,9 @@
     "jsx/DropdownMenuSubTrigger/class/1": "cn-rtl-flip ml-auto"
   },
   "file_fingerprints": {
-    "shadcn/ui/dropdown-menu.tsx": "546f8649071d27697dcda2da09f9eafba280b1dd976d6c27d2e8b62763155498"
+    "shadcn/ui/dropdown-menu.tsx": "1283b20715c162711647a5d31e3ed645a51e8b00ba668efc5110b929423b8b16"
   },
-  "fingerprint": "1e97113b4a83f5afd175208e4d7ce6c716dfb6cfc5803d413411c5867d75e0d8",
+  "fingerprint": "489133cabaec58d882dec2cfa92262b3fbbfdf848b6efbc98741e952ee95bab6",
   "ignored": {},
   "name": "dropdown-menu",
   "port_body": "d35d77651b7f7744ea9769f587b69f62331163bcba900dad6d86540bca251e3e",
@@ -149,7 +149,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/dropdown-menu.tsx": "dce5089f19f0bcdbb8bd137ccc8167eb51197f9c4f626e3b3c1ec9d31cb0d686"
+    "shadcn/ui/dropdown-menu.tsx": "18c1829679694a9b9850afcabf1158a80ec3624fb5e03d0d4b13339b729e0503"
   },
   "uses": [
     "jsx/DropdownMenuContent/class/0",

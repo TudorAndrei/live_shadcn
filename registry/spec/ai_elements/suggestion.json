@@ -45,9 +45,9 @@
   },
   "file_fingerprints": {
     "ai_elements/suggestion.tsx": "c6893dbf079c33205225cee0b2c896c338287a109d33c67ba2aebcff8bdf2a8d",
-    "shadcn/ui/scroll-area.tsx": "c53af2913150706d117d65ea81bdea4931e4fdfc44aef9e7f389af7a048e1162"
+    "shadcn/ui/scroll-area.tsx": "cd4a6fb2d230a7562ef4bbf34816982096ffaac65ee7c6c0f4d6b34ea2a96115"
   },
-  "fingerprint": "0afb7186dd1d110930d32a04fbe276f117d6e422505ab2398a968d2ed6e16d0f",
+  "fingerprint": "ec5bfdd3c1758eaa2a56b767d2114956affca876410f31aa8e5dcb32e4756f9e",
   "ignored": {},
   "name": "suggestion",
   "port_body": "c804a9a8e13e499c5799950cb3a13cec3b7e5fba433866281826eeca27cfa0eb",
@@ -88,7 +88,7 @@
   },
   "upstream": {
     "ai_elements/suggestion.tsx": "0703d777b4153ae20e93514acb9e8327eb03dd2ed2fd0230e03cf22271c7a249",
-    "shadcn/ui/scroll-area.tsx": "6fb66a11b278222b7f59b3674b1931daecdefbe5df78e41953c7e7a800fb3e49"
+    "shadcn/ui/scroll-area.tsx": "7e49845827447091a6493473779a05ba45cb8302e3703a6f9e4225dd6315cce2"
   },
   "uses": [
     "jsx/ScrollArea/class/1",

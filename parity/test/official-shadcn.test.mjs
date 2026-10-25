@@ -13,10 +13,10 @@ function pinnedExamples() {
   let count = 0;
 
   for (const [component, sources] of Object.entries(upstream.examples.shadcn)) {
-    const storybook = previews[component]
-      ? component
-      : previews[`shadcn-${component}`]
-        ? `shadcn-${component}`
+    const storybook = previews[`shadcn-${component}`]
+      ? `shadcn-${component}`
+      : previews[component]
+        ? component
         : null;
 
     for (const { id, source } of entries(component, sources)) {
@@ -41,7 +41,7 @@ test("official ids match the verifier and stay unique", () => {
 });
 
 test("keeps the Base interactive Chart preview as chart.demo", () => {
-  assert.deepEqual(entries("chart", [{ id: "demo", source: "chart-demo" }]), [
+  assert.deepEqual(entries("chart", ["chart-demo"]), [
     { id: "demo", source: "chart-demo" },
   ]);
 });

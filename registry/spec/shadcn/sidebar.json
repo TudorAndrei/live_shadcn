@@ -145,9 +145,9 @@
     "cva/sidebarMenuButtonVariants/variant/variant/outline": "cn-sidebar-menu-button-variant-outline"
   },
   "file_fingerprints": {
-    "shadcn/ui/sidebar.tsx": "533722807728c430fabe0506111669d6fc43aa5f5d8fe020c666030835b55035"
+    "shadcn/ui/sidebar.tsx": "f5733e3e275f50e7988a0ac8b89cfe3392193cd6296e02d7369e18c6f6da9d69"
   },
-  "fingerprint": "843c6c0f4c2338ef0f642d6ae3d07837a68562b72d2a2243e912141d854bcf77",
+  "fingerprint": "6029f15de5c99d7d21276d6652781fb694c136952786cbf73f282236689409a7",
   "ignored": {},
   "name": "sidebar",
   "port_body": "b3d7f503a2031412419dd66a01328f8f721afebe8b6de08342364cf6682c63b0",
@@ -256,7 +256,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/sidebar.tsx": "c64077d7b51830fe7d4fc4697eb1396d4e1d16c62c1a0c857fa56dfc7d2928f3"
+    "shadcn/ui/sidebar.tsx": "f0f4c21b8fa1b4750711711ac7a6833c713cf93a23f1d2143cf5ec26f1661d56"
   },
   "uses": [
     "cva/sidebarMenuButtonVariants/base",

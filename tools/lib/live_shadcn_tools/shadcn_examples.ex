@@ -67,6 +67,9 @@ defmodule LiveShadcnTools.ShadcnExamples do
     end
   end
 
+  # The Chart page reserves `default` for its local chart overview.
+  defp example_id("chart", "chart-demo"), do: "demo"
+
   defp example_id(component, source) do
     cond do
       source == component <> "-demo" ->

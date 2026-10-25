@@ -10,6 +10,13 @@ defmodule Mix.Tasks.Ui.Verify do
       mix ui.verify shadcn/message    # one component, said unambiguously
       mix ui.verify --source ai_elements # all authored AI component contracts
       mix ui.verify --no-browser      # skip the browser, for a machine without one
+      mix ui.verify --source shadcn --shard 1/8 --batch-size 8 --output shard.json
+      mix ui.verify --source shadcn --shard 1/8 --reuse cache.json --output shard.json --artifacts artifacts
+
+  `--reuse` accepts only complete passed records with current policy, spec,
+  evidence, runtime, browser image, and UTC date. `--force` runs the complete
+  assigned scope again. Cache reuse cannot be combined with `--record` or
+  `--no-browser`.
 
   Shadcn requires React comparison. AI Elements requires authored behavior and
   local accessibility checks. AI parity and pixel outcomes are not applicable.
@@ -49,11 +56,14 @@ defmodule Mix.Tasks.Ui.Verify do
   use Mix.Task
 
   alias LiveShadcnTools.AiElementsExamples
+  alias LiveShadcnTools.BrowserServer
   alias LiveShadcnTools.BrowserVerification
   alias LiveShadcnTools.IncrementalVerification
   alias LiveShadcnTools.PlaywrightReport
   alias LiveShadcnTools.ShadcnExamples
+  alias LiveShadcnTools.VerificationCache
   alias LiveShadcnTools.VerificationPolicy
+  alias LiveShadcnTools.VerificationShards
   alias LiveShadcnTools.VerifierLock
   alias LiveShadcnVerification
 
@@ -82,7 +92,6 @@ defmodule Mix.Tasks.Ui.Verify do
   @full_detail_notice "\nMore detail is in the verification output."
   @managed_browser_servers_env "LIVE_SHADCN_MANAGED_SERVERS"
   @browser_server_ready_timeout 120_000
-  @browser_server_request_timeout 1_000
 
   @impl Mix.Task
   def run(argv) do
@@ -90,11 +99,38 @@ defmodule Mix.Tasks.Ui.Verify do
 
     {opts, names, invalid} =
       OptionParser.parse(argv,
-        strict: [browser: :boolean, examples: :string, source: :string, record: :keep]
+        strict: [
+          browser: :boolean,
+          examples: :string,
+          source: :string,
+          record: :keep,
+          shard: :string,
+          batch_size: :integer,
+          output: :string,
+          artifacts: :string,
+          reuse: :string,
+          force: :boolean
+        ]
       )
 
     valid_options!(invalid)
     records = Keyword.get_values(opts, :record)
+
+    if records != [] and
+         Enum.any?(
+           [:shard, :batch_size, :output, :artifacts, :reuse, :force],
+           &Keyword.has_key?(opts, &1)
+         ),
+       do:
+         Mix.raise(
+           "--record cannot be combined with --shard, --batch-size, --output, --artifacts, --reuse, or --force"
+         )
+
+    if opts[:reuse] && opts[:browser] == false,
+      do: Mix.raise("--reuse cannot be combined with --no-browser")
+
+    if Keyword.has_key?(opts, :force) and is_nil(opts[:reuse]),
+      do: Mix.raise("--force requires --reuse")
 
     if records != [] do
       record_incremental!(names, opts, records)
@@ -114,6 +150,30 @@ defmodule Mix.Tasks.Ui.Verify do
     browser? = Keyword.get(opts, :browser, true)
     source = source!(Keyword.get(opts, :source))
     components = components_for_verify(names, source)
+    batch_size = Keyword.get(opts, :batch_size, @browser_example_batch_size)
+    if batch_size not in 1..16, do: Mix.raise("--batch-size must be between 1 and 16")
+
+    components =
+      cond do
+        opts[:reuse] ->
+          VerificationCache.scope!(opts, names)
+
+        opts[:shard] ->
+          if source == nil or names != [],
+            do: Mix.raise("--shard requires --source and no component names")
+
+          previews = previews()
+
+          VerificationShards.select(
+            components,
+            previews,
+            opts[:shard],
+            VerificationShards.costs(previews, repo_root())
+          )
+
+        true ->
+          components
+      end
 
     if components == [] do
       Mix.raise("nothing to verify: no reviewed component port exists.")
@@ -121,17 +181,83 @@ defmodule Mix.Tasks.Ui.Verify do
 
     VerifierLock.with_lock(repo_root(), fn token ->
       Process.put(:live_shadcn_source_lease_token, token)
+      Process.put(:live_shadcn_browser_batch_size, batch_size)
+
+      if path = opts[:artifacts],
+        do: Process.put(:live_shadcn_browser_artifacts, Path.expand(path))
 
       try do
-        verify_locked(components, browser?)
+        verify_locked(components, browser?, opts)
       after
+        Process.delete(:live_shadcn_browser_batch_size)
+        Process.delete(:live_shadcn_browser_artifacts)
         Process.delete(:live_shadcn_verification_identities)
         Process.delete(:live_shadcn_source_lease_token)
       end
     end)
   end
 
-  defp verify_locked(components, browser?) do
+  defp verify_locked(components, browser?, opts) do
+    root = repo_root()
+
+    if opts[:reuse] && opts[:force],
+      do: VerificationCache.write!(opts[:reuse], VerificationCache.runtime(), %{}, root)
+
+    LiveShadcnVerification.verify_pinned_upstream_files!(root)
+
+    selection =
+      if path = opts[:reuse] do
+        selection = VerificationCache.select(components, path, opts[:force] || false, root)
+        # Retire misses before fresh work. A preparation or publication error
+        # must not leave a previous pass available after a forced run.
+        VerificationCache.write!(path, selection.runtime, selection.reused, root)
+        selection
+      else
+        %{run: components, reused: %{}}
+      end
+
+    fresh = verify_fresh(selection.run, browser?)
+    assert_reused_identities_unchanged!(selection.reused)
+    LiveShadcnVerification.verify_pinned_upstream_files!(root)
+    results = Map.merge(selection.reused, fresh)
+
+    write_json_atomic!(registry_path("VERIFY.json"), merge(results))
+
+    if output = opts[:output] do
+      write_json_atomic!(Path.expand(output), %{
+        "source" => opts[:source],
+        "shard" => opts[:shard],
+        "components" =>
+          Enum.map(components, fn {source, name} -> ref(source, name) end) |> Enum.sort(),
+        "results" => results
+      })
+    end
+
+    if path = opts[:reuse],
+      do: VerificationCache.write!(path, selection.runtime, results, root)
+
+    report(results)
+  end
+
+  defp assert_reused_identities_unchanged!(records) do
+    shadcn = for {"shadcn/" <> name, record} <- records, into: %{}, do: {name, record["evidence"]}
+
+    if map_size(shadcn) > 0,
+      do: LiveShadcnVerification.assert_identities_unchanged!(repo_root(), shadcn)
+
+    for {"ai_elements/" <> name, record} <- records,
+        do:
+          LiveShadcnVerification.assert_identity_unchanged!(
+            repo_root(),
+            "ai_elements",
+            name,
+            record["evidence"]
+          )
+  end
+
+  defp verify_fresh([], _browser?), do: %{}
+
+  defp verify_fresh(components, browser?) do
     shadcn_identities =
       components
       |> Enum.flat_map(fn
@@ -227,8 +353,7 @@ defmodule Mix.Tasks.Ui.Verify do
       )
     end
 
-    write_json_atomic!(registry_path("VERIFY.json"), merge(results))
-    report(results)
+    results
   end
 
   # Small browser batches are run outside this task to keep their scope and
@@ -544,7 +669,9 @@ defmodule Mix.Tasks.Ui.Verify do
 
   defp components_for_verify(names, source) do
     components =
-      if names == [], do: only_source(generated(), source), else: Enum.map(names, &resolve/1)
+      if names == [],
+        do: only_source(generated(), source),
+        else: Enum.map(names, &resolve(&1, source))
 
     components
     |> Enum.uniq()
@@ -848,11 +975,20 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   defp batch_browser_check(source, name, key, kind, args, env, parser, examples) do
+    started = System.monotonic_time(:millisecond)
+    label = "#{kind} #{ref(source, name)} [#{Enum.join(examples, ", ")}]"
+    Mix.shell().info("#{label} started")
+
+    artifact_dir = browser_artifact_directory("#{source}-#{name}-#{kind}")
+
     report =
-      Path.join(
-        System.tmp_dir!(),
-        "live-shadcn-#{kind}-#{System.unique_integer([:positive])}.json"
-      )
+      if artifact_dir,
+        do: Path.join(artifact_dir, "report.json"),
+        else:
+          Path.join(
+            System.tmp_dir!(),
+            "live-shadcn-#{kind}-#{System.unique_integer([:positive])}.json"
+          )
 
     envelope = browser_report_envelope(source, name, kind, key, examples) |> Jason.encode!()
 
@@ -861,6 +997,7 @@ defmodule Mix.Tasks.Ui.Verify do
         ["playwright", "test" | rest] -> rest
         rest -> rest
       end
+      |> artifact_arguments(artifact_dir)
 
     verify_script = Path.join(browser_dir(), "verify.mjs")
 
@@ -921,7 +1058,8 @@ defmodule Mix.Tasks.Ui.Verify do
           global_failures: ["cannot run Playwright: #{Exception.message(error)}"]
         }
     after
-      File.rm(report)
+      unless artifact_dir, do: File.rm(report)
+      Mix.shell().info("#{label} finished in #{System.monotonic_time(:millisecond) - started} ms")
     end
   end
 
@@ -1000,7 +1138,7 @@ defmodule Mix.Tasks.Ui.Verify do
         :storybook,
         storybook_dir(),
         "mix",
-        ["phx.server"],
+        ["phx.server", "--no-compile"],
         %{"PORT" => Integer.to_string(browser_port!("STORYBOOK_PORT", 4101)), "MIX_ENV" => "dev"},
         "/previews.json",
         ~r/"accordion"/
@@ -1065,9 +1203,13 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   defp await_browser_servers!(servers) do
-    Application.ensure_all_started(:inets)
     deadline = System.monotonic_time(:millisecond) + @browser_server_ready_timeout
-    Enum.each(servers, &await_browser_server!(&1, deadline))
+
+    Enum.each(servers, fn server ->
+      BrowserServer.await_ready!(server, deadline,
+        artifacts: Process.get(:live_shadcn_browser_artifacts)
+      )
+    end)
 
     servers = Enum.map(servers, &attach_browser_server_drain/1)
     Process.delete(:live_shadcn_started_browser_servers)
@@ -1100,56 +1242,6 @@ defmodule Mix.Tasks.Ui.Verify do
       {:stop_browser_port_drain, caller} ->
         if Port.info(port) != nil, do: Port.close(port)
         send(caller, {:browser_port_drain_stopped, self()})
-    end
-  end
-
-  defp await_browser_server!(server, deadline) do
-    case browser_server_reply(server) do
-      {:ok, body} when is_binary(body) ->
-        if Regex.match?(server.expected, body) do
-          :ok
-        else
-          wait_for_browser_server!(server, deadline)
-        end
-
-      :not_ready ->
-        wait_for_browser_server!(server, deadline)
-    end
-  end
-
-  defp wait_for_browser_server!(server, deadline) do
-    now = System.monotonic_time(:millisecond)
-
-    cond do
-      Port.info(server.process) == nil ->
-        Mix.raise("#{server.name} browser server stopped before it became ready")
-
-      now >= deadline ->
-        Mix.raise("#{server.name} browser server did not become ready before the timeout")
-
-      true ->
-        process = server.process
-
-        receive do
-          {^process, {:data, _output}} -> :ok
-          {^process, {:exit_status, _status}} -> :ok
-        after
-          min(@browser_server_request_timeout, deadline - now) -> :ok
-        end
-
-        await_browser_server!(server, deadline)
-    end
-  end
-
-  defp browser_server_reply(server) do
-    url =
-      ~c"http://127.0.0.1:" ++ Integer.to_charlist(server.port) ++ String.to_charlist(server.path)
-
-    case :httpc.request(:get, {url, []}, [timeout: @browser_server_request_timeout],
-           body_format: :binary
-         ) do
-      {:ok, {{_version, 200, _reason}, _headers, body}} -> {:ok, body}
-      _ -> :not_ready
     end
   end
 
@@ -1444,7 +1536,24 @@ defmodule Mix.Tasks.Ui.Verify do
   def prepare_browser!(runner) when is_function(runner, 4) do
     prepare_parity_sources!(runner)
     prepare_browser_assets!(runner)
+    prepare_browser_application!(runner)
     :ok
+  end
+
+  defp prepare_browser_application!(runner) do
+    started = System.monotonic_time(:millisecond)
+    Mix.shell().info("Compile the Storybook browser server in development mode")
+
+    case runner.(storybook_dir(), "mix", ["compile", "--warnings-as-errors"], %{
+           "MIX_ENV" => "dev"
+         }) do
+      %{"pass" => true} ->
+        elapsed = System.monotonic_time(:millisecond) - started
+        Mix.shell().info("Storybook browser server compiled in #{elapsed} ms")
+
+      %{"detail" => detail} ->
+        Mix.raise("cannot compile the Storybook browser server:\n#{detail}")
+    end
   end
 
   defp prepare_parity_sources!(runner) do
@@ -1726,12 +1835,23 @@ defmodule Mix.Tasks.Ui.Verify do
     case behavior_commands(source, name, key, policy) do
       {:commands, commands} ->
         commands
-        |> Enum.map(fn arguments ->
-          run_in(browser_dir(), "npx", arguments, %{
-            "PREVIEW_SOURCE" => source,
-            "PREVIEW_COMPONENT" => key
-          })
-          |> BrowserVerification.label("behavior #{key}")
+        |> Enum.with_index(1)
+        |> Enum.map(fn {arguments, index} ->
+          started = System.monotonic_time(:millisecond)
+          label = "behavior #{ref(source, name)} batch #{index}/#{length(commands)}"
+          Mix.shell().info("#{label} started")
+
+          result =
+            run_in(browser_dir(), "npx", arguments, %{
+              "PREVIEW_SOURCE" => source,
+              "PREVIEW_COMPONENT" => key
+            })
+
+          Mix.shell().info(
+            "#{label} finished in #{System.monotonic_time(:millisecond) - started} ms"
+          )
+
+          BrowserVerification.label(result, "behavior #{key}")
         end)
         |> BrowserVerification.merge_checks()
 
@@ -1762,13 +1882,16 @@ defmodule Mix.Tasks.Ui.Verify do
   end
 
   @doc false
-  def behavior_suites("shadcn", name, _key, policy) do
+  def behavior_suites("shadcn", name, key, policy) do
     case VerificationPolicy.behavior("shadcn", name) do
       {:not_applicable, reason} ->
         {:not_applicable, reason}
 
       :required ->
-        named_suite = "#{name}.spec.mjs"
+        named_suite =
+          if File.exists?(Path.join(browser_dir(), "#{key}.spec.mjs")),
+            do: "#{key}.spec.mjs",
+            else: "#{name}.spec.mjs"
 
         cond do
           not upstream_comparison_policy?(policy) ->
@@ -1837,7 +1960,7 @@ defmodule Mix.Tasks.Ui.Verify do
     key
     |> official_example_names()
     |> Enum.map(&"#{key} / #{&1} keeps inferred interaction semantics")
-    |> BrowserVerification.batches(@browser_example_batch_size)
+    |> BrowserVerification.batches(browser_example_batch_size(key, "behavior"))
     |> Enum.map(fn titles ->
       [
         "playwright",
@@ -2039,7 +2162,8 @@ defmodule Mix.Tasks.Ui.Verify do
     |> BrowserVerification.batches(browser_example_batch_size(key, kind))
   end
 
-  defp browser_example_batch_size(_key, _kind), do: @browser_example_batch_size
+  defp browser_example_batch_size(_key, _kind),
+    do: Process.get(:live_shadcn_browser_batch_size, @browser_example_batch_size)
 
   defp expected_examples(key) do
     previews()
@@ -2163,6 +2287,15 @@ defmodule Mix.Tasks.Ui.Verify do
   defp previewed, do: previews() |> Map.keys()
 
   defp run_in(dir, command, args, env \\ %{}) do
+    args =
+      if command == "npx" and "playwright" in args,
+        do:
+          artifact_arguments(
+            args,
+            browser_artifact_directory("behavior-#{env["PREVIEW_COMPONENT"]}")
+          ),
+        else: args
+
     env =
       if command == "npx" and "playwright" in args do
         env
@@ -2180,6 +2313,19 @@ defmodule Mix.Tasks.Ui.Verify do
     error in ErlangError ->
       %{"pass" => false, "detail" => "cannot run `#{command}`: #{Exception.message(error)}"}
   end
+
+  defp browser_artifact_directory(label) do
+    if root = Process.get(:live_shadcn_browser_artifacts) do
+      directory = Path.join(root, "#{label}-#{System.unique_integer([:positive])}")
+      File.mkdir_p!(directory)
+      directory
+    end
+  end
+
+  defp artifact_arguments(arguments, nil), do: arguments
+
+  defp artifact_arguments(arguments, directory),
+    do: arguments ++ ["--output", Path.join(directory, "test-results")]
 
   # Enough of the failure to act on, not so much that VERIFY.json stops being
   # reviewable in a diff.

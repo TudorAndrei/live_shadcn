@@ -87,9 +87,7 @@ defmodule LiveShadcnTools.ShadcnExamplesTest do
     end
 
     test "keeps the interactive Chart source under its published demo id" do
-      assert ShadcnExamples.from_sources("chart", [
-               %{"id" => "demo", "source" => "chart-demo"}
-             ]) == [
+      assert ShadcnExamples.parse("chart", ~s(<ComponentPreview name="chart-demo" />)) == [
                %{"id" => "demo", "source" => "chart-demo"}
              ]
     end

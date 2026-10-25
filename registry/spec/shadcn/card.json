@@ -26,9 +26,9 @@
     "jsx/CardTitle/class/0": "cn-card-title cn-font-heading"
   },
   "file_fingerprints": {
-    "shadcn/ui/card.tsx": "e0f60e0b1a1c6776aa4a74f24a7948c0b11b1a0db684f41796c97a7f290f8fa9"
+    "shadcn/ui/card.tsx": "d01d41eb5bedc2d067a9787bd246d0201762ec3622c3546e373e91d55607f5b3"
   },
-  "fingerprint": "43b2fec74882686e26cec5d8a7e0f8185249f118de274e657661e9dfd537ba42",
+  "fingerprint": "3d56696e9e7a67632f09c6367c4cd8c81ea5edfdf4b9fe9f38a6e12035d92b07",
   "ignored": {},
   "name": "card",
   "port_body": "9d385655f8e19ea01f7474805ed8fdf143d3e05cfb65f7b7272887a1b127baf6",
@@ -68,7 +68,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/card.tsx": "8b3ba229472f266d3c2e49e0feff6c59fb1842282d0842aae470675b0e926665"
+    "shadcn/ui/card.tsx": "0d525c03e086b0047f7c0700850281023359cfc020eb233fdb0d74ec870ebea0"
   },
   "uses": [
     "jsx/Card/class/0",

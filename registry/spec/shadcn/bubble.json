@@ -50,9 +50,9 @@
     "jsx/BubbleGroup/class/0": "cn-bubble-group flex min-w-0 flex-col"
   },
   "file_fingerprints": {
-    "shadcn/ui/bubble.tsx": "1ebc34f8f948ed48d1b8ae6a7d183fc67f6a189bed84051353ceb0ca3bd9794f"
+    "shadcn/ui/bubble.tsx": "e2b5fac62db48b72ca2e98bb477e860a0a568cb83038db3a8595788f199c10e3"
   },
-  "fingerprint": "6f8da8f93305cf66d1d8ba2a7149e8e53149076d68ff97bd186882458ed23bd6",
+  "fingerprint": "6fbf44ddd53d7315c1cdeca32374bdb364e345936ca246469b8770d8aa28a24a",
   "ignored": {},
   "name": "bubble",
   "port_body": "1780ab1fcc0bd558780ac952c13fe6ce96c17f1df7983c77592e5b0ec07754b9",
@@ -116,7 +116,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/bubble.tsx": "517a773cbfd441159439ee5019cb913b0b8aa0750a11ccbafba488cc5c5fac21"
+    "shadcn/ui/bubble.tsx": "7b997c07146c49b4d3371272b937bc4f1b9852b3c47150de1537997de0ea85a0"
   },
   "uses": [
     "cva/bubbleReactionsVariants/base",

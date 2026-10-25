@@ -39,12 +39,20 @@ export const Disclosure = {
     // is missing, and an animation on mount would be a flash, not a transition.
     if (this.open) this.measure();
 
+    const content = this.el.querySelector("[data-lb-resize-target]");
+    if (content) {
+      this.resizeObserver = new ResizeObserver(() => {
+        if (this.open) this.measure();
+      });
+      this.resizeObserver.observe(content);
+    }
     this.observer = new MutationObserver(() => this.stateChanged());
     this.observer.observe(this.el, { attributes: true, attributeFilter: [OPEN] });
   },
 
   destroyed() {
     this.observer?.disconnect();
+    this.resizeObserver?.disconnect();
     clearTimeout(this.timer);
   },
 
@@ -95,7 +103,7 @@ export const Disclosure = {
     if (this.heightVar) style.setProperty(this.heightVar, "auto");
     if (this.widthVar) style.setProperty(this.widthVar, "auto");
 
-    const height = target.scrollHeight;
+    const height = this.resizeObserver ? target.getBoundingClientRect().height : target.scrollHeight;
     const width = target.scrollWidth;
 
     if (this.heightVar) style.setProperty(this.heightVar, `${height}px`);

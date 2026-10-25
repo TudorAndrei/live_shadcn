@@ -29,9 +29,9 @@
     "cva/toggleVariants/variant/variant/outline": "cn-toggle-variant-outline"
   },
   "file_fingerprints": {
-    "shadcn/ui/toggle.tsx": "8a442351139a463566ad1b97da05768f5843be83811083ece2190410cb4173cb"
+    "shadcn/ui/toggle.tsx": "f4bf67d45b69135d98d2510b1cc6f3485c46d0ff5f14c5e42fc47047e71eeb69"
   },
-  "fingerprint": "8951bd48e500bf9259062a9ad14530322d3bfa08a2eeda683f166917255bbe0b",
+  "fingerprint": "88fa3495a58bd844ed6c48798c1d4b44ea4d4533ee053f4f075c3be874b1594a",
   "ignored": {},
   "name": "toggle",
   "port_body": "cb5da7ed2774ad777f3f9a03a318103e2321c09afe684b48f6b32228c944f980",
@@ -75,7 +75,7 @@
     "oxc-parser": "0.146.0"
   },
   "upstream": {
-    "shadcn/ui/toggle.tsx": "3ebc898aff16f6c119158abaae18fd749789ccded65c678fdc15994fd403b006"
+    "shadcn/ui/toggle.tsx": "b53df3a8d6ad7ae3853a5e72f8bbf11e39daababfc8b0e369347b355eb9af120"
   },
   "uses": [
     "cva/toggleVariants/base",

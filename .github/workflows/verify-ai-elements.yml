@@ -2,61 +2,150 @@ name: Verify AI Elements
 
 on:
   workflow_call:
+    inputs:
+      full:
+        type: boolean
+        default: false
+    outputs:
+      matrix:
+        description: Complete assigned scope for the verified AI Elements records
+        value: ${{ jobs.plan.outputs.matrix }}
 
 permissions:
   contents: read
 
+env:
+  MIX_ENV: test
+  ELIXIR_MAKE_CACHE_DIR: /tmp/live-shadcn-native/elixir-make
+  RUSTLER_PRECOMPILED_GLOBAL_CACHE_PATH: /tmp/live-shadcn-native/rustler
+
 jobs:
-  verify:
-    name: all AI Elements authored checks
+  plan:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    outputs:
+      matrix: ${{ steps.shards.outputs.matrix }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-
       - run: mix deps.get
         working-directory: tools
-
-      - run: npm ci
+      - name: Plan AI component groups
+        id: shards
+        run: |
+          mix ui.verify.plan --source ai_elements --shards 4 --output "$RUNNER_TEMP/ai-matrix.json"
+          python3 - <<'PYTHON'
+          import json, os
+          from pathlib import Path
+          matrix = json.loads((Path(os.environ["RUNNER_TEMP"]) / "ai-matrix.json").read_text())
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write("matrix=" + json.dumps(matrix, separators=(",", ":")) + "\n")
+          PYTHON
         working-directory: tools
 
-      - name: Restore pinned sources
-        run: mix ui.fetch --locked
+  verify:
+    name: AI Elements ${{ matrix.shard }}
+    needs: plan
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-noble@sha256:dcc5531e97840b9b5e794f2814476b21571c5124a3fca2267d73041f56e7580e
+      options: --init --shm-size=1g
+    env:
+      CI_BROWSER_IMAGE: mcr.microsoft.com/playwright:v1.62.1-noble@sha256:dcc5531e97840b9b5e794f2814476b21571c5124a3fca2267d73041f56e7580e
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+    timeout-minutes: 60
+    strategy:
+      fail-fast: true
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          cache_key_prefix: mise-browser-noble-v1
+      - uses: ./.github/actions/setup-browser # zizmor: ignore[self-repository]
+        id: browser
+        with:
+          source: ai_elements
+          shard: ${{ matrix.shard }}
+          cache-slot: ${{ matrix.index }}
+          force: ${{ inputs.full && 'true' || 'false' }}
+      - name: Run assigned authored component checks
+        shell: bash
+        run: |
+          options=()
+          if [[ "$FORCE" == "true" ]]; then options+=(--force); fi
+          mix ui.verify --source ai_elements --shard "$SHARD" --reuse "$REUSE_PATH" --batch-size 8 --output "$RUNNER_TEMP/ai-$SHARD_INDEX.json" --artifacts "$RUNNER_TEMP/ai-browser-$SHARD_INDEX" "${options[@]}"
         working-directory: tools
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          SHARD: ${{ matrix.shard }}
+          SHARD_INDEX: ${{ matrix.index }}
+          REUSE_PATH: ${{ steps.browser.outputs.reuse-path }}
+          FORCE: ${{ inputs.full && 'true' || 'false' }}
+      - name: Check saved results can be reused
+        id: reuse-check
+        if: ${{ !cancelled() }}
+        shell: bash
+        working-directory: tools
+        env:
+          SHARD: ${{ matrix.shard }}
+          SHARD_INDEX: ${{ matrix.index }}
+          REUSE_PATH: ${{ steps.browser.outputs.reuse-path }}
+        run: |
+          mix ui.verify.cache --source ai_elements --shard "$SHARD" --reuse "$REUSE_PATH" --output "$RUNNER_TEMP/cache-check.json"
+          node ../.github/scripts/check-cache-plan.mjs "$RUNNER_TEMP/ai-$SHARD_INDEX.json" "$RUNNER_TEMP/cache-check.json" "$REUSE_PATH"
 
+      - name: Save passed results for the next run
+        if: ${{ !cancelled() && steps.reuse-check.outcome == 'success' && steps.browser.outputs.browser-needed == 'true' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.browser.outputs.reuse-path }}
+          key: ${{ steps.browser.outputs.cache-key }}
+
+      - name: Save component verification records
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ai-verification-${{ matrix.index }}
+          path: ${{ runner.temp }}/ai-${{ matrix.index }}.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Save failed browser reports and screenshots
+        if: ${{ failure() && !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ai-browser-${{ matrix.index }}
+          path: ${{ runner.temp }}/ai-browser-${{ matrix.index }}
+          if-no-files-found: ignore
+          retention-days: 7
+
+  inventory:
+    name: current AI Elements evidence
+    needs: [plan, verify]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
       - run: mix deps.get
-        working-directory: storybook
-
-      - run: npm ci
-        working-directory: storybook/assets
-
-      - run: npm ci
-        working-directory: parity
-
-      - run: npm ci
-        working-directory: storybook/test/browser
-
-      - run: npm run verify:install
-        working-directory: storybook/test/browser
-
-      - name: Run every authored component check
-        run: mix ui.verify --source ai_elements
         working-directory: tools
-
-      - name: Check the full pinned AI catalog
-        run: npm run verify -- ai-component-audit.spec.mjs --project chromium
-        working-directory: storybook/test/browser
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: ai-verification-*
+          path: ${{ runner.temp }}/ai-records
+          merge-multiple: true
+      - name: Merge all assigned records
+        run: node .github/scripts/merge-verification.mjs "$RUNNER_TEMP/ai-records" registry/VERIFY.json
         env:
-          PREVIEW_SOURCE: ai_elements
-
+          VERIFICATION_MATRIX: ${{ needs.plan.outputs.matrix }}
       - name: Require current AI evidence
         run: |
           mix ui.status
           mix ui.status --check --source ai_elements --require-verified
         working-directory: tools
+      - run: cat docs/INVENTORY.md >> "$GITHUB_STEP_SUMMARY"

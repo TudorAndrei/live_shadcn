@@ -692,6 +692,18 @@
       "source": "shadcn",
       "recipe": "popover",
       "tier": 1
+    },
+    {
+      "name": "code-block",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
+    },
+    {
+      "name": "trace",
+      "source": "shadcn",
+      "recipe": "presentational",
+      "tier": 2
     }
   ]
 }

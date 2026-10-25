@@ -6,7 +6,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { officialShadcnReferences } from "./react-references.mjs";
+import { officialShadcnReferences } from "./shadcn-references.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -31,6 +31,7 @@ const officialShadcnComponents = new Set(
 
 /** The registry a storybook component belongs to, or null. */
 export function source(component) {
+  if (component === "code-block") return "ai_elements";
   if (component.startsWith("shadcn-")) return "shadcn";
   if (component.startsWith("ai_elements-")) return "ai_elements";
 
@@ -46,12 +47,11 @@ export const gated = (component) => source(component) === "shadcn";
 const selectedSource = process.env.PREVIEW_SOURCE;
 const shadcnSuites = selectedSource === "ai_elements" ? [] : [
   ...inventory.components.filter(({ source }) => source === "shadcn").map(({ name }) => `${name}.spec.mjs`),
-  ...[...officialShadcnComponents].map((name) => `${name.replace(/^shadcn-/, "")}.spec.mjs`),
+  ...[...officialShadcnComponents].flatMap((name) => [`${name}.spec.mjs`, `${name.replace(/^shadcn-/, "")}.spec.mjs`]),
   ...["interaction-parity", "parity", "pixel", "rendered-output", "visual-states", "navigation"].map((name) => `${name}.spec.mjs`),
 ];
 const aiSuites = selectedSource === "shadcn" ? [] : [
   ...Object.values(aiAudit).map(({ spec }) => spec).filter(Boolean),
-  "ai-component-audit.spec.mjs",
 ];
 
 export const verificationSpecFiles = [...new Set([

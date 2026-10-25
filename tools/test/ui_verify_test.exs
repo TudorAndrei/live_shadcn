@@ -5,6 +5,26 @@ defmodule Mix.Tasks.Ui.VerifyTest do
   alias LiveShadcnVerification
   alias Mix.Tasks.Ui.Verify
 
+  test "CI options reject invalid scope and batch limits before starting a browser" do
+    for value <- ["0", "17"] do
+      assert_raise Mix.Error, ~r/--batch-size must be between/, fn ->
+        Verify.run(["--source", "shadcn", "--batch-size", value])
+      end
+    end
+
+    assert_raise Mix.Error, ~r/--shard requires --source and no component names/, fn ->
+      Verify.run(["--source", "shadcn", "button", "--shard", "1/8"])
+    end
+
+    assert_raise ArgumentError, ~r/shard must name nonempty work/, fn ->
+      Verify.run(["--source", "shadcn", "--shard", "9/8"])
+    end
+
+    assert_raise Mix.Error, ~r/--record cannot be combined/, fn ->
+      Verify.run(["--record", "pixel=report.json", "--batch-size", "8"])
+    end
+  end
+
   test "shadcn publication preserves out-of-scope records, even without a generated port" do
     ai_record = %{
       "pass" => true,
@@ -90,7 +110,7 @@ defmodule Mix.Tasks.Ui.VerifyTest do
     assert message =~ "cannot import"
   end
 
-  test "browser preparation updates pinned parity sources once" do
+  test "browser preparation updates sources and compiles the server in development mode" do
     test_pid = self()
 
     runner = fn dir, command, arguments, env ->
@@ -102,6 +122,11 @@ defmodule Mix.Tasks.Ui.VerifyTest do
 
     assert_receive {:command, parity_dir, "npm", ["run", "upstream"], %{}}
     assert Path.basename(parity_dir) == "parity"
+
+    assert_receive {:command, storybook_dir, "mix", ["compile", "--warnings-as-errors"],
+                    %{"MIX_ENV" => "dev"}}
+
+    assert Path.basename(storybook_dir) == "storybook"
 
     refute_receive {:command, ^parity_dir, "npm", ["run", "upstream"], %{}}
   end

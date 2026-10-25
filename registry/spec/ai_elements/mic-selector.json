@@ -79,12 +79,12 @@
   },
   "file_fingerprints": {
     "ai_elements/mic-selector.tsx": "7aeeba9a1dade161cc4ebfba13ace77ec668fa7d624ddb3ffe4f9adbea9b2353",
-    "shadcn/ui/button.tsx": "0c911259d9cce5dfd13cf06dd8ead680b5a3b67761bc27486503ead411968509",
-    "shadcn/ui/command.tsx": "4876d54d18bbd2e27a51f1e2a0b4b4e3cc73a783c81650dc81c342ad6740fa6a",
-    "shadcn/ui/input-group.tsx": "628473a39058fc34aea9622204e5f6a34dc9ee82dffa82e16fa19f6813be6900",
-    "shadcn/ui/popover.tsx": "1b6e4a1c5988d3f741d87b7b955335351e715b1121a1d5f342e26815d9cc21fe"
+    "shadcn/ui/button.tsx": "ace3fb4a598eb607f628a8bddf3b78bc51b432e5461c4e3ff2b582a68e0c6403",
+    "shadcn/ui/command.tsx": "81c809191f37066bdece301a3b9a72bcfa3e766192bf89ef90ffe15ef37c9090",
+    "shadcn/ui/input-group.tsx": "c16239d7307d1eb4b8f024add357296c31b16e9e91f6695f57734f4e767ffe22",
+    "shadcn/ui/popover.tsx": "6aefb6bcb72bcfb5b42238343dc6df1116e36f7c37bf265aa4cb20ced9863387"
   },
-  "fingerprint": "195b021eb2ca61bb85f3673dc1baad53aec45438ae0461e53a4bc23b3e7c3aee",
+  "fingerprint": "52155297e60b99a7c8492535209507532ba82d7cb272cee767e0844f8d6b3b42",
   "ignored": {
     "cva/buttonVariants/default/variant": "the generated port does not contain this source literal",
     "cva/inputGroupAddonVariants/base": "the generated port does not contain this source literal",
@@ -246,10 +246,10 @@
   },
   "upstream": {
     "ai_elements/mic-selector.tsx": "3b69b527315f81114fb99518f5078a183092f16ad4cf4105ef94861da1724dce",
-    "shadcn/ui/button.tsx": "97bfee456444f0495deee6a321933c24267477645b0bf4bfea67c3c62d425a12",
-    "shadcn/ui/command.tsx": "3ad88a370242987b0981342fc7e87a7aa7908f3e81282b5a6e69b0c9505abdf0",
-    "shadcn/ui/input-group.tsx": "2ee53fb8792b8022ab433ed6d455dc790ed8a5be59fb99d923303665ce3a6dbb",
-    "shadcn/ui/popover.tsx": "27b854b12d7c7c0d531d2ee928b0d2b882bbb2081938c510d237c22cb819d25f"
+    "shadcn/ui/button.tsx": "74f982d7ad7a764e3c95a519fc063a671e66ad758ea31dc89d747838e20c2487",
+    "shadcn/ui/command.tsx": "65c077360299bf07e26db0954e1f2472f0ecc4568e881b4b956634fa65ca6c80",
+    "shadcn/ui/input-group.tsx": "b1ed344e05b4161c240fff21b6e224fcc61cbe35d5a3aaa997de02c8fb25e1fe",
+    "shadcn/ui/popover.tsx": "935bab728b60fd867384ebc6097d6a46c937423e015503e0251999b686f38bb7"
   },
   "uses": [
     "cva/buttonVariants/base",

@@ -208,6 +208,7 @@ defmodule StorybookWeb.Docs do
   def module(component) do
     {namespaces, base} =
       case component do
+        "code-block" -> {[LiveAiElements.Components], "code-block"}
         "shadcn-" <> rest -> {[LiveShadcn.UI], rest}
         "ai_elements-" <> rest -> {[LiveAiElements.Components], rest}
         name -> {[LiveShadcn.UI, LiveAiElements.Components], name}
