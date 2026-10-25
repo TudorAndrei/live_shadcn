@@ -27,11 +27,58 @@ defmodule LiveAiElements.Delta do
   contract uses, for the same reason `live_base` uses `data-lb-`.
   """
 
-  @hook "LiveAiElements.Delta"
+  use Phoenix.Component
+
+  @hook "LiveAiElements.Delta.Delta"
 
   @doc "The client hook name the container declares in `phx-hook`."
   @spec hook() :: String.t()
   def hook, do: @hook
+
+  @doc false
+  def hook_script(assigns) do
+    ~H"""
+    <%!-- colocated-hook delta.js#Delta --%>
+    <script :type={Phoenix.LiveView.ColocatedHook} name=".Delta">
+      const PART = "data-lae-part";
+      const STREAM = "data-lae-stream";
+      const TEXT = "data-lae-text";
+      const DELTA_EVENT = "live_ai_elements:delta";
+      const Delta = {
+        mounted() {
+          this.buffers = new Map();
+          this.handleEvent(DELTA_EVENT, ({ id, chunk }) => {
+            if (!id || !chunk) return;
+            const buffer = (this.buffers.get(id) || "") + chunk;
+            this.buffers.set(id, buffer);
+            this.write(id, buffer);
+          });
+        },
+        updated() {
+          for (const [id, buffer] of this.buffers) {
+            const part = this.part(id);
+            if (!part || !part.hasAttribute(STREAM)) this.buffers.delete(id);
+            else this.write(id, buffer);
+          }
+        },
+        destroyed() {
+          this.buffers?.clear();
+        },
+        part(id) {
+          return this.el.querySelector(`[${PART}="${CSS.escape(id)}"]`);
+        },
+        write(id, buffer) {
+          const part = this.part(id);
+          if (!part) return;
+          const sink = part.matches(`[${TEXT}]`) ? part : part.querySelector(`[${TEXT}]`);
+          if (sink) sink.textContent = buffer;
+        }
+      };
+      export default Delta;
+    </script>
+    <%!-- /colocated-hook --%>
+    """
+  end
 
   @doc "Carries the part id the server addresses a delta to."
   @spec part_attr() :: String.t()

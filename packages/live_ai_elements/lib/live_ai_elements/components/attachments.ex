@@ -115,7 +115,7 @@ defmodule LiveAiElements.Components.Attachments do
       aria-controls={@hover_card[:popup_id]}
       phx-window-keydown={@hover_card[:close]}
       phx-key={if @hover_card == %{}, do: nil, else: "Escape"}
-      phx-hook={if @hover_card == %{}, do: nil, else: "LiveBase.InteractionTrigger"}
+      phx-hook={if @hover_card == %{}, do: nil, else: LiveBase.InteractionTrigger.hook()}
       data-lb-anchor={@hover_card[:trigger_id]}
       data-lb-positioner={@hover_card[:positioner_id]}
       data-lb-open-on-hover={if @hover_card == %{}, do: nil, else: ""}

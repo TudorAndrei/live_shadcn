@@ -151,7 +151,7 @@ defmodule LiveShadcn.UI.DropdownMenuTest do
       |> Floki.parse_fragment!()
       |> Floki.find("#payments-item-copy-payment-id")
 
-    assert Floki.attribute([item], "phx-hook") == ["LiveBase.Clipboard"]
+    assert Floki.attribute([item], "phx-hook") == [LiveBase.Clipboard.hook()]
     assert Floki.attribute([item], "data-lb-clipboard") == ["pay_123"]
 
     mounted = Floki.attribute([item], "phx-mounted") |> hd()

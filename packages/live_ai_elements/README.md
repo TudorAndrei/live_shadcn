@@ -3,44 +3,48 @@
 Part of [live_shadcn](https://github.com/TudorAndrei/live_shadcn). See the
 repository README for the design and the current status.
 
+It requires `phoenix_live_view` 1.2 or later and `phoenix` 1.8 or later.
+LiveView compiles colocated hooks only with Phoenix 1.8 or later.
+
 ## Hooks
 
-The package's `hooks` export holds every hook. Register it with your
-LiveSocket:
+The hooks are LiveView colocated hooks. When Mix compiles `live_ai_elements`,
+LiveView writes them to `phoenix-colocated/live_ai_elements` in
+`Mix.Project.build_path()`. Install `live_base` and its npm peers as the
+`live_base` README shows. Put both `Mix.Project.build_path()` and
+`assets/node_modules` in the esbuild `NODE_PATH`, and run `mix compile` before
+esbuild.
+
+Import the package for its document-level behavior, and register the hooks
+with your LiveSocket, alongside the `live_base` hooks:
 
 ```js
-import { hooks as liveBase } from "live_base";
-import { hooks as liveAiElements } from "live_ai_elements";
+import "live_base";
+import "live_ai_elements";
+import { hooks as liveBase } from "phoenix-colocated/live_base";
+import { hooks as liveAiElements } from "phoenix-colocated/live_ai_elements";
 
 const liveSocket = new LiveSocket("/live", Socket, {
   hooks: { ...liveBase, ...liveAiElements },
 });
 ```
 
-The `LiveAiElements.Persona` hook imports `@rive-app/webgl2`, so this entry
-needs that package. An application that does not render a Persona can import
-each hook it uses from its own subpath. Its bundler then does not resolve Rive:
+Markup gets each hook name from its module, as in
+`phx-hook={LiveAiElements.Delta.hook()}`.
 
-```js
-import { Delta } from "live_ai_elements/delta";
-import { installAttachmentRemove } from "live_ai_elements/attachment_remove";
+The hooks manifest includes the Persona hook, which imports `@rive-app/webgl2`.
+Install that package in `assets/node_modules`, even when no page renders a
+Persona:
 
-installAttachmentRemove();
-
-const liveSocket = new LiveSocket("/live", Socket, {
-  hooks: { ...liveBase, "LiveAiElements.Delta": Delta },
-});
+```bash
+cd assets
+npm install --install-links ../deps/live_ai_elements @rive-app/webgl2@2.34.1
 ```
-
-Each hook module has a subpath with its file name: `attachment_remove`,
-`delta`, `file_tree`, `mic_selector`, `persona`, `prompt_input`, `question`,
-`speech_input`, `terminal`, `transcription`, and `web_preview`. The root entry
-calls `installAttachmentRemove()` for you; a subpath import does not.
 
 ## Prompt input
 
-Register the `LiveAiElements.PromptInput` hook through the package's `hooks`
-export. Compose a prompt form with a textarea. The textarea needs a stable ID.
+Register the hooks as shown above. Compose a prompt form with a textarea. The
+textarea needs a stable ID.
 
 ```heex
 <PromptInput.prompt_input_provider initial_input="Review these files">

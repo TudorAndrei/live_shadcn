@@ -191,7 +191,7 @@ defmodule LiveShadcn.UI.AccordionTest do
     test "the panel declares the hook and the variable it has to measure into" do
       panel = slot(render(%{}), "accordion-content")
 
-      assert attribute(panel, "phx-hook") == "LiveBase.Disclosure"
+      assert attribute(panel, "phx-hook") == LiveBase.Disclosure.hook()
       assert attribute(panel, "data-lb-height-var") == "--accordion-panel-height"
       assert attribute(panel, "data-lb-width-var") == "--accordion-panel-width"
     end

@@ -9,8 +9,9 @@ that flip a component's state on the client, and hooks for the things
 no command can express.
 
 It is the behavior layer under
-[live_shadcn](https://github.com/TudorAndrei/live_shadcn), and it has exactly
-one dependency: `phoenix_live_view`.
+[live_shadcn](https://github.com/TudorAndrei/live_shadcn), and it has two
+dependencies: `phoenix_live_view` 1.2 or later, and `phoenix` 1.8 or later.
+LiveView compiles colocated hooks only with Phoenix 1.8 or later.
 
 ## Installation
 
@@ -46,24 +47,33 @@ env: %{
 }
 ```
 
-Phoenix also resolves JavaScript from Mix dependencies. This path lets esbuild
-find the npm peers when it loads a hook from `deps/live_base`.
+The hooks are LiveView colocated hooks. When Mix compiles `live_base`, LiveView
+writes them to `phoenix-colocated/live_base` in `Mix.Project.build_path()`.
+The build path in `NODE_PATH` lets esbuild find that directory. The
+`assets/node_modules` path lets esbuild find the npm peers that the extracted
+hooks import.
 
-Register the hooks with your existing `LiveSocket`. Preserve other hooks and
-socket options:
+Run `mix compile` before esbuild. The Phoenix `assets.build` and
+`assets.deploy` aliases do this first.
+
+Import the package for its document-level behavior, and register the hooks with
+your existing `LiveSocket`. Preserve other hooks and socket options:
 
 ```javascript
-import { hooks as liveBase } from "live_base";
+import "live_base";
+import { hooks as liveBase } from "phoenix-colocated/live_base";
 
 const liveSocket = new LiveSocket("/live", Socket, {
   hooks: { ...liveBase },
 });
 ```
 
-Hook names are namespaced, such as `LiveBase.Overlay` and `LiveBase.Floating`.
-They cannot collide with hooks of your own.
+LiveView prefixes each hook name with the module that defines it, such as
+`LiveBase.Dialog.Overlay` and `LiveBase.Popover.Floating`. Markup gets the name
+from the module, as in `phx-hook={LiveBase.Popover.hook()}`. The names cannot
+collide with hooks of your own.
 
-The standard import includes all hooks. Floating uses `@floating-ui/dom`,
+The hooks manifest includes all hooks. Floating uses `@floating-ui/dom`,
 Carousel uses Embla, and Message Scroller animation uses Motion. These imports
 require all listed peers, even when a page uses only one component.
 

@@ -42,11 +42,16 @@ Opening a dialog, positioning a popover, measuring a scrollbar and stacking
 toasts are client behaviour. Without the hooks the markup renders and does
 nothing.
 
-Install the Base JavaScript package and all peers as described in its README.
-The complete hook import requires Floating UI, Embla, Embla Autoplay, and Motion.
+Install the Base JavaScript package and all peers in `assets/node_modules`, as
+described in its README. The hooks are LiveView colocated hooks: `mix compile`
+writes them to `phoenix-colocated/live_base` in `Mix.Project.build_path()`. The
+hooks manifest imports `@floating-ui/dom`, `embla-carousel`,
+`embla-carousel-autoplay` and `motion`. Esbuild's `NODE_PATH` must contain both
+`Mix.Project.build_path()` and `assets/node_modules`.
 
 ```javascript
-import { hooks as liveBase } from "live_base";
+import "live_base";
+import { hooks as liveBase } from "phoenix-colocated/live_base";
 
 const liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },

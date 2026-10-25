@@ -30,7 +30,7 @@ defmodule LiveShadcn.UI.DrawerTest do
 
     [popup] = Floki.find(document, "#delivery-popup")
     assert Floki.attribute([popup], "role") == ["dialog"]
-    assert Floki.attribute([popup], "phx-hook") == ["LiveBase.Drawer"]
+    assert Floki.attribute([popup], "phx-hook") == [LiveBase.Drawer.hook()]
     assert Floki.attribute([popup], "data-lb-dismissible") == [""]
     assert Floki.attribute([popup], "data-lb-snap-points") == ["[\"31rem\",1]"]
 

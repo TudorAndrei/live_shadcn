@@ -20,7 +20,7 @@ async function placeWithOffset(page, { side, align, offset, dir = "ltr" }) {
     async (positioner, options) => {
       const hook = window.liveSocket.owner(positioner)?.getHook(positioner);
 
-      if (!hook) throw new Error("LiveBase.Floating hook was not found");
+      if (!hook) throw new Error("LiveBase.Popover.Floating hook was not found");
 
       positioner.setAttribute("data-lb-side", options.side);
       positioner.setAttribute("data-lb-align", options.align);

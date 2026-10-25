@@ -207,7 +207,7 @@ defmodule LiveAiElements.Components.Terminal do
     ~H"""
     <div
       id={@id}
-      phx-hook={if @id, do: "LiveAiElements.Terminal"}
+      phx-hook={if @id, do: hook()}
       data-auto-scroll={to_string(@auto_scroll)}
       class={[upstream_fact("jsx/Terminal/class/0"), @class || ""]}
       {@rest}
@@ -231,6 +231,33 @@ defmodule LiveAiElements.Components.Terminal do
       <% end %>
       {render_slot(@inner_block)}
     </div>
+    """
+  end
+
+  @doc "The client hook name the terminal root declares in `phx-hook`."
+  def hook, do: "LiveAiElements.Components.Terminal.Terminal"
+
+  @doc false
+  def hook_script(assigns) do
+    ~H"""
+    <%!-- colocated-hook terminal.js#Terminal --%>
+    <script :type={Phoenix.LiveView.ColocatedHook} name=".Terminal">
+      const Terminal = {
+        mounted() {
+          this.scrollToOutput();
+        },
+        updated() {
+          this.scrollToOutput();
+        },
+        scrollToOutput() {
+          if (this.el.dataset.autoScroll === "false") return;
+          const content = this.el.querySelector("[data-terminal-content]");
+          if (content) content.scrollTop = content.scrollHeight;
+        }
+      };
+      export default Terminal;
+    </script>
+    <%!-- /colocated-hook --%>
     """
   end
 end

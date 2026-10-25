@@ -102,7 +102,7 @@ defmodule LiveShadcn.UI.Tooltip do
       aria-controls={Popover.popup_id(@id)}
       phx-window-keydown={close_command(@id, @hover_expanded)}
       phx-key="Escape"
-      phx-hook="LiveBase.InteractionTrigger"
+      phx-hook={LiveBase.InteractionTrigger.hook()}
       data-lb-open-on-hover
       data-lb-hover-command={hover_command(@trigger_click, @disabled, @id, @hover_expanded)}
       data-lb-caller-click={caller_click?(@trigger_click, @disabled)}
@@ -123,7 +123,7 @@ defmodule LiveShadcn.UI.Tooltip do
       aria-controls={Popover.popup_id(@id)}
       phx-window-keydown={close_command(@id, @hover_expanded)}
       phx-key="Escape"
-      phx-hook="LiveBase.InteractionTrigger"
+      phx-hook={LiveBase.InteractionTrigger.hook()}
       data-lb-open-on-hover
       data-lb-hover-command={hover_command(@trigger_click, @disabled, @id, @hover_expanded)}
       data-lb-caller-click={caller_click?(@trigger_click, @disabled)}
@@ -147,7 +147,7 @@ defmodule LiveShadcn.UI.Tooltip do
       aria-controls={Popover.popup_id(@id)}
       phx-window-keydown={close_command(@id, @hover_expanded)}
       phx-key="Escape"
-      phx-hook="LiveBase.InteractionTrigger"
+      phx-hook={LiveBase.InteractionTrigger.hook()}
       data-lb-open-on-hover
       data-lb-hover-command={hover_command(@trigger_click, @disabled, @id, @hover_expanded)}
       data-lb-caller-click={caller_click?(@trigger_click, @disabled)}

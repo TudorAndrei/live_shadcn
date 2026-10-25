@@ -171,7 +171,7 @@ defmodule LiveShadcn.UI.Select do
         id={Listbox.value_id(@id)}
         data-label={@selected_label}
         data-placeholder={flag(@value in [nil, ""])}
-        phx-hook="LiveBase.ListboxValue"
+        phx-hook={Listbox.hook()}
         phx-mounted={Listbox.owned_attributes(:value)}
         class={if(@value_as_text, do: "contents", else: [upstream_fact("jsx/SelectValue/class/0"), @value_class])}
       >
@@ -215,7 +215,7 @@ defmodule LiveShadcn.UI.Select do
           tabindex="0"
           hidden={not @open}
           data-lb-popup
-          phx-hook="LiveBase.Roving"
+          phx-hook={LiveBase.Menu.hook()}
           data-lb-roving="option"
           data-lb-orientation="vertical"
           data-lb-highlight="data-highlighted"

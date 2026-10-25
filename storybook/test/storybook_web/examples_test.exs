@@ -1033,7 +1033,11 @@ defmodule StorybookWeb.ExamplesTest do
         {:ok, _view, html} = live(conn, "/preview/calendar/#{example.id}")
         document = Floki.parse_fragment!(html)
 
-        assert [_] = Floki.find(document, "#calendar-#{example.id}[phx-hook='LiveBase.Calendar']")
+        assert [_] =
+                 Floki.find(
+                   document,
+                   "#calendar-#{example.id}[phx-hook='#{LiveBase.Calendar.hook()}']"
+                 )
       end
     end
 
@@ -1279,7 +1283,10 @@ defmodule StorybookWeb.ExamplesTest do
           document = Floki.parse_fragment!(html)
 
           [root] =
-            Floki.find(document, "[data-slot='questionnaire'][phx-hook='LiveBase.Questionnaire']")
+            Floki.find(
+              document,
+              "[data-slot='questionnaire'][phx-hook='#{LiveBase.Questionnaire.hook()}']"
+            )
 
           [id] = Floki.attribute([root], "id")
           assert id == "questionnaire-#{example.id}"
@@ -1410,7 +1417,12 @@ defmodule StorybookWeb.ExamplesTest do
         {:ok, _view, html} = live(conn, "/preview/combobox/#{example.id}")
         document = Floki.parse_fragment!(html)
 
-        assert [_] = Floki.find(document, "[data-lb-combobox][phx-hook='LiveBase.Combobox']")
+        assert [_] =
+                 Floki.find(
+                   document,
+                   "[data-lb-combobox][phx-hook='#{LiveBase.Combobox.hook()}']"
+                 )
+
         assert [_] = Floki.find(document, "[data-slot='combobox-content']")
         assert [_] = Floki.find(document, "[role='listbox']")
       end

@@ -3,10 +3,6 @@ defmodule LiveBase.ComboboxTest do
 
   alias LiveBase.Combobox
 
-  test "exposes the stable client hook name" do
-    assert Combobox.hook() == "LiveBase.Combobox"
-  end
-
   test "keeps trigger, addon, chip, and clear state through LiveView patches" do
     assert [["ignore_attrs", %{attrs: trigger_attributes}]] =
              Combobox.owned_attributes(:trigger).ops

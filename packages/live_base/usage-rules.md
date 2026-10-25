@@ -1,16 +1,25 @@
 # live_base usage rules
 
 The headless half of `live_shadcn`: the client hooks and the `Phoenix.LiveView.JS`
-commands the reviewed ports use. One dependency,
-`phoenix_live_view`, and no framework of its own.
+commands the reviewed ports use. It depends on `phoenix_live_view` 1.2 or
+later and `phoenix` 1.8 or later, which colocated hooks require, and has no
+framework of its own.
 
 Most applications never call this directly — they use `live_shadcn` and register
 the hooks. Read this if you are writing a component against the same contract.
 
-## Register the hooks under their own names
+## Register the colocated hooks under their own names
+
+The hooks are LiveView colocated hooks. `mix compile` writes them to
+`phoenix-colocated/live_base` in `Mix.Project.build_path()`. The extracted hooks
+import the npm peers `@floating-ui/dom`, `embla-carousel`,
+`embla-carousel-autoplay` and `motion`, so install them in `assets/node_modules`
+and put both `Mix.Project.build_path()` and `assets/node_modules` in the esbuild
+`NODE_PATH`.
 
 ```javascript
-import { hooks as liveBase } from "live_base";
+import "live_base";
+import { hooks as liveBase } from "phoenix-colocated/live_base";
 
 const liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
@@ -18,9 +27,10 @@ const liveSocket = new LiveSocket("/live", Socket, {
 });
 ```
 
-Hook names are namespaced — `LiveBase.Disclosure`, `LiveBase.Floating` — so they
-cannot collide with a hook of your own. Do not rename them; the port markup
-writes those exact strings into `phx-hook`.
+LiveView prefixes each hook name with the module that defines it —
+`LiveBase.Disclosure.Disclosure`, `LiveBase.Popover.Floating` — so the names
+cannot collide with a hook of your own. Do not write the string in markup. Call
+the module: `phx-hook={LiveBase.Popover.hook()}`.
 
 ## A hook decides *which* element, never *what happens to it*
 

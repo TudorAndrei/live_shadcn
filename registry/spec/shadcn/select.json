@@ -49,7 +49,7 @@
   "fingerprint": "507f81563ecec626441a2fe4bb156389ae5081896e8faa3e3d109d70c015a880",
   "ignored": {},
   "name": "select",
-  "port_body": "2840cf87ccd5dc0a19288d9bf8fdcd1cf5e928b25fabf60c551ede2acafe60bb",
+  "port_body": "52f1e55fd879ac88160cec3df51f5b23232a77d7fa2b30980135ba85cf3d27a1",
   "schema_version": 2,
   "source": "shadcn",
   "source_facts": {

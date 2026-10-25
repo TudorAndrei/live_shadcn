@@ -73,9 +73,10 @@ RUN mix deps.get --only prod \
     && elixir ../tools/scripts/prepare-native.exs . \
     && mix deps.compile
 RUN cd assets && npm ci
-# Bare imports in the shared hooks resolve from the Base package, not from
-# Storybook's assets directory. Install that package's exact locked versions.
-RUN cd /build/packages/live_base && npm ci
+# `assets.deploy` compiles first, which writes the colocated hooks to
+# `_build/prod/phoenix-colocated`, and passes that path to the bundler as
+# `NODE_PATH`. The npm peers the hooks import resolve from `assets/node_modules`
+# through the aliases in `assets/rolldown.config.mjs`.
 RUN mix assets.deploy
 RUN mix compile
 RUN mix release

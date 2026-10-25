@@ -67,7 +67,7 @@ defmodule LiveShadcn.UI.SliderTest do
     document = Floki.parse_fragment!(html)
     [slider] = Floki.find(document, "#previous-context-peek")
 
-    assert Floki.attribute([slider], "phx-hook") == ["LiveBase.Slider"]
+    assert Floki.attribute([slider], "phx-hook") == [LiveBase.Slider.hook()]
     assert Floki.attribute([slider], "data-lb-change-event") == ["message_scroller_peek"]
   end
 

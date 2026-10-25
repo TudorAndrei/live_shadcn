@@ -23,10 +23,16 @@ defmodule Mix.Tasks.Ui.Add do
 
   ## Behavior and styling
 
-  A component's behavior lives in `live_base`, which stays a dependency. Add its
+  A component's behavior lives in `live_base`, which stays a dependency. Its
+  hooks are LiveView colocated hooks: `mix compile` writes them to
+  `phoenix-colocated/live_base` in `Mix.Project.build_path()`. The hooks import
+  the npm peers `@floating-ui/dom`, `embla-carousel`, `embla-carousel-autoplay`
+  and `motion`, so install them in `assets/node_modules`. Esbuild's `NODE_PATH`
+  must contain both `Mix.Project.build_path()` and `assets/node_modules`. Add the
   hooks to your `LiveSocket`:
 
-      import { hooks as liveBase } from "live_base"
+      import "live_base"
+      import { hooks as liveBase } from "phoenix-colocated/live_base"
       new LiveSocket("/live", Socket, { hooks: { ...liveBase } })
   """
   use Mix.Task

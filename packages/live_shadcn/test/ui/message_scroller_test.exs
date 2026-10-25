@@ -62,7 +62,7 @@ defmodule LiveShadcn.UI.MessageScrollerTest do
 
     assert Floki.attribute([viewport], "data-lb-message-controller") == ["messages"]
     assert Floki.attribute([viewport], "aria-label") == ["Messages"]
-    assert Floki.attribute([viewport], "phx-hook") == ["LiveBase.Scroller"]
+    assert Floki.attribute([viewport], "phx-hook") == [LiveBase.Scroller.hook()]
     assert Floki.attribute([viewport], "phx-mounted") |> hd() =~ "data-current-anchor-id"
     assert Floki.attribute([viewport], "phx-mounted") |> hd() =~ "data-pending-scroll"
     assert Floki.attribute([viewport], "data-pending-scroll") == []

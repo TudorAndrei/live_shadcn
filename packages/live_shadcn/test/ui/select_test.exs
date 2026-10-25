@@ -86,7 +86,7 @@ defmodule LiveShadcn.UI.SelectTest do
     [trigger] = Floki.find(Floki.parse_fragment!(html), "[data-slot='select-trigger']")
 
     assert Floki.attribute([value], "data-label") == ["Pro"]
-    assert Floki.attribute([value], "phx-hook") == ["LiveBase.ListboxValue"]
+    assert Floki.attribute([value], "phx-hook") == [LiveBase.Listbox.hook()]
     assert Floki.attribute([value], "phx-mounted") |> hd() =~ "data-label"
     assert Floki.attribute([trigger], "aria-labelledby") == ["plan-label"]
   end
@@ -106,7 +106,7 @@ defmodule LiveShadcn.UI.SelectTest do
 
     [value] = Floki.find(document, "#currency-value")
     assert Floki.attribute([value], "class") == ["contents"]
-    assert Floki.attribute([value], "phx-hook") == ["LiveBase.ListboxValue"]
+    assert Floki.attribute([value], "phx-hook") == [LiveBase.Listbox.hook()]
     assert Floki.attribute([value], "phx-mounted") |> hd() =~ "data-label"
   end
 

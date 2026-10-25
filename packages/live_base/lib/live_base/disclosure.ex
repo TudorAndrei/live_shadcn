@@ -54,12 +54,105 @@ defmodule LiveBase.Disclosure do
 
   """
 
+  use Phoenix.Component
+
   alias Phoenix.LiveView.JS
 
-  @hook "LiveBase.Disclosure"
+  @hook "LiveBase.Disclosure.Disclosure"
 
   @doc "The client hook name a panel element declares in `phx-hook`."
   def hook, do: @hook
+
+  @doc false
+  def hook_script(assigns) do
+    ~H"""
+    <%!-- colocated-hook disclosure.js#Disclosure --%>
+    <script :type={Phoenix.LiveView.ColocatedHook} name=".Disclosure">
+      const OPEN = "data-open";
+      const CLOSED = "data-closed";
+      const STARTING = "data-starting-style";
+      const ENDING = "data-ending-style";
+      const Disclosure = {
+        mounted() {
+          this.heightVar = this.el.getAttribute("data-lb-height-var");
+          this.widthVar = this.el.getAttribute("data-lb-width-var");
+          this.open = this.el.hasAttribute(OPEN);
+          if (this.open) this.measure();
+          const content = this.el.querySelector("[data-lb-resize-target]");
+          if (content) {
+            this.resizeObserver = new ResizeObserver(() => {
+              if (this.open) this.measure();
+            });
+            this.resizeObserver.observe(content);
+          }
+          this.observer = new MutationObserver(() => this.stateChanged());
+          this.observer.observe(this.el, {
+            attributes: true,
+            attributeFilter: [OPEN]
+          });
+        },
+        destroyed() {
+          this.observer?.disconnect();
+          this.resizeObserver?.disconnect();
+          clearTimeout(this.timer);
+        },
+        stateChanged() {
+          const open = this.el.hasAttribute(OPEN);
+          if (open === this.open) return;
+          this.open = open;
+          this.el.toggleAttribute(CLOSED, !open);
+          open ? this.enter() : this.leave();
+        },
+        enter() {
+          clearTimeout(this.timer);
+          this.el.removeAttribute(ENDING);
+          this.el.hidden = false;
+          this.measure();
+          this.mark(STARTING);
+          this.el.offsetHeight;
+          this.unmark(STARTING);
+        },
+        leave() {
+          clearTimeout(this.timer);
+          this.measure();
+          this.mark(ENDING);
+          this.timer = setTimeout(() => {
+            this.unmark(ENDING);
+            this.el.hidden = true;
+          }, this.duration());
+        },
+        measure() {
+          const target = this.el.querySelector("[data-lb-measure]") || this.el;
+          const style = this.el.style;
+          if (this.heightVar) style.setProperty(this.heightVar, "auto");
+          if (this.widthVar) style.setProperty(this.widthVar, "auto");
+          const height = this.resizeObserver ? target.getBoundingClientRect().height : target.scrollHeight;
+          const width = target.scrollWidth;
+          if (this.heightVar) style.setProperty(this.heightVar, `${height}px`);
+          if (this.widthVar) style.setProperty(this.widthVar, `${width}px`);
+        },
+        targets() {
+          return [this.el, ...this.el.querySelectorAll("[data-lb-style-target]")];
+        },
+        mark(attribute) {
+          for (const el of this.targets()) el.setAttribute(attribute, "");
+        },
+        unmark(attribute) {
+          for (const el of this.targets()) el.removeAttribute(attribute);
+        },
+        duration() {
+          const style = getComputedStyle(this.el.querySelector("[data-lb-measure]") || this.el);
+          return (seconds(style.transitionDuration) + seconds(style.transitionDelay)) * 1e3;
+        }
+      };
+      function seconds(list) {
+        return Math.max(0, ...list.split(",").map((value) => parseFloat(value) || 0));
+      }
+      export default Disclosure;
+    </script>
+    <%!-- /colocated-hook --%>
+    """
+  end
 
   @doc "The heading id of an item."
   def header_id(item), do: "#{item}-header"

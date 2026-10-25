@@ -50,6 +50,18 @@ A hook decides which element to use. The `JS` command on the element decides
 what happens. This keeps application actions on the server-declared component
 API and keeps browser-only work in the browser.
 
+Each hook is a LiveView colocated hook. The JavaScript in
+`packages/*/assets/js/` is the source. `mix ui.hooks` bundles each hook into a
+`<script :type={Phoenix.LiveView.ColocatedHook}>` block in the module that owns
+it. LiveView prefixes the hook name with that module, such as
+`LiveBase.Popover.Floating`, and the module's `hook/0` returns the name. Markup
+calls `hook/0` and never writes the string. Applications register the hooks
+from `phoenix-colocated/live_base` and `phoenix-colocated/live_ai_elements`.
+`mix compile` writes those directories to `Mix.Project.build_path()`, and the
+hooks import npm peers from the application's `assets/node_modules`, so the
+application's esbuild `NODE_PATH` contains both paths. Colocated hooks require
+Phoenix 1.8 or later.
+
 Hooks read configuration from `data-lb-*` attributes. These names are internal
 to `live_base`; shadcn class strings do not use them.
 

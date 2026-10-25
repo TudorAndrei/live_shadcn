@@ -9,16 +9,7 @@
   "exports": {
     ".": "./assets/js/live_ai_elements.js",
     "./attachment_remove": "./assets/js/attachment_remove.js",
-    "./delta": "./assets/js/delta.js",
-    "./file_tree": "./assets/js/file_tree.js",
-    "./mic_selector": "./assets/js/mic_selector.js",
-    "./persona": "./assets/js/persona.js",
-    "./prompt_input": "./assets/js/prompt_input.js",
-    "./question": "./assets/js/question.js",
-    "./speech_input": "./assets/js/speech_input.js",
-    "./terminal": "./assets/js/terminal.js",
-    "./transcription": "./assets/js/transcription.js",
-    "./web_preview": "./assets/js/web_preview.js"
+    "./delta": "./assets/js/delta.js"
   },
   "dependencies": {
     "@rive-app/webgl2": "2.34.1"

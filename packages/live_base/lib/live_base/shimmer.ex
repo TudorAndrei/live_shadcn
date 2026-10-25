@@ -31,8 +31,57 @@ defmodule LiveBase.Shimmer do
   A reader who has asked for less motion gets the gradient and no movement.
   """
 
-  @hook "LiveBase.Shimmer"
+  use Phoenix.Component
+
+  @hook "LiveBase.Shimmer.Shimmer"
 
   @doc "The client hook name the element declares in `phx-hook`."
   def hook, do: @hook
+
+  @doc false
+  def hook_script(assigns) do
+    ~H"""
+    <%!-- colocated-hook shimmer.js#Shimmer --%>
+    <script :type={Phoenix.LiveView.ColocatedHook} name=".Shimmer">
+      const DURATION = 2e3;
+      const Shimmer = {
+        mounted() {
+          this.setSpread();
+          this.start();
+        },
+        updated() {
+          this.setSpread();
+          if (this.frames !== this.el.getAttribute("data-lb-shimmer")) this.start();
+        },
+        destroyed() {
+          this.animation?.cancel();
+        },
+        start() {
+          this.animation?.cancel();
+          this.frames = this.el.getAttribute("data-lb-shimmer");
+          const [from, to] = (this.frames ?? "").split(",");
+          if (!from || !to) return;
+          if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+            this.el.style.backgroundPosition = to.trim();
+            return;
+          }
+          this.animation = this.el.animate([{ backgroundPosition: from.trim() }, { backgroundPosition: to.trim() }], {
+            duration: this.duration(),
+            easing: "linear",
+            iterations: Number.POSITIVE_INFINITY
+          });
+        },
+        duration() {
+          return Number(this.el.getAttribute("data-lb-duration")) || DURATION;
+        },
+        setSpread() {
+          const spread = Number(this.el.getAttribute("data-lb-spread")) || 2;
+          this.el.style.setProperty("--spread", `${this.el.textContent.trim().length * spread}px`);
+        }
+      };
+      export default Shimmer;
+    </script>
+    <%!-- /colocated-hook --%>
+    """
+  end
 end

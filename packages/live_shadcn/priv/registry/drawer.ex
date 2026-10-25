@@ -172,7 +172,7 @@ defmodule LiveShadcn.UI.Drawer do
         aria-describedby={if(@description != [], do: Dialog.description_id(@id))}
         tabindex="-1"
         hidden={not @open}
-        phx-hook="LiveBase.Drawer"
+        phx-hook={LiveBase.Drawer.hook()}
         data-lb-backdrop={if(@modal and not @nested, do: Dialog.backdrop_id(@id))}
         data-lb-dismissible={flag(@dismissable)}
         data-lb-modal={flag(@modal)}

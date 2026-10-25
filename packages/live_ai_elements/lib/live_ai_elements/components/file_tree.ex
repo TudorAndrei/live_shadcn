@@ -98,7 +98,7 @@ defmodule LiveAiElements.Components.FileTree do
     ~H"""
     <div
       id={@id}
-      phx-hook="LiveAiElements.FileTree"
+      phx-hook={hook()}
       data-expanded={to_string(@expanded?)}
       data-slot={@rest[:"data-slot"] || "collapsible"}
       open={@expanded?}
@@ -224,6 +224,74 @@ defmodule LiveAiElements.Components.FileTree do
     <div role="group" class={[upstream_fact("jsx/FileTreeActions/class/0"), @class || ""]} {@rest}>
       {render_slot(@inner_block)}
     </div>
+    """
+  end
+
+  @doc "The client hook name the tree root declares in `phx-hook`."
+  def hook, do: "LiveAiElements.Components.FileTree.FileTree"
+
+  @doc false
+  def hook_script(assigns) do
+    ~H"""
+    <%!-- colocated-hook file_tree.js#FileTree --%>
+    <script :type={Phoenix.LiveView.ColocatedHook} name=".FileTree">
+      const TOGGLE = "[data-file-tree-toggle]";
+      const FileTree = {
+        mounted() {
+          this.item = this.el.querySelector("[role='treeitem']");
+          this.content = this.el.querySelector("[data-file-tree-content]");
+          this.chevron = this.el.querySelector("[data-file-tree-chevron]");
+          this.openIcon = this.el.querySelector("[data-file-tree-open-icon]");
+          this.closedIcon = this.el.querySelector("[data-file-tree-closed-icon]");
+          this.node = `[phx-hook="${this.el.getAttribute("phx-hook")}"]`;
+          this.onClick = (event) => {
+            const trigger = event.target.closest(TOGGLE);
+            if (!trigger || trigger.closest(this.node) !== this.el) return;
+            this.draw(this.item?.getAttribute("aria-expanded") !== "true");
+          };
+          this.onKeyDown = (event) => {
+            if (event.target.closest("[role='treeitem']") !== this.item) return;
+            const expanded = this.item.getAttribute("aria-expanded") === "true";
+            if ([
+              "ArrowRight",
+              "ArrowLeft",
+              "Enter",
+              " "
+            ].includes(event.key)) {
+              event.preventDefault();
+              this.draw(event.key === "ArrowRight" || event.key !== "ArrowLeft" && !expanded);
+            }
+          };
+          this.el.addEventListener("click", this.onClick);
+          this.el.addEventListener("keydown", this.onKeyDown);
+          this.serverExpanded = this.el.dataset.expanded;
+          this.draw(this.item?.getAttribute("aria-expanded") === "true");
+        },
+        updated() {
+          const requested = this.el.dataset.expanded;
+          this.draw(requested === this.serverExpanded ? this.expanded : requested === "true");
+          this.serverExpanded = requested;
+        },
+        destroyed() {
+          this.el.removeEventListener("click", this.onClick);
+          this.el.removeEventListener("keydown", this.onKeyDown);
+        },
+        draw(expanded) {
+          this.expanded = expanded;
+          this.item?.setAttribute("aria-expanded", String(expanded));
+          this.item?.querySelectorAll(TOGGLE).forEach((trigger) => {
+            if (trigger.closest(this.node) === this.el) trigger.setAttribute("aria-expanded", String(expanded));
+          });
+          this.el.toggleAttribute("open", expanded);
+          if (this.content) this.content.hidden = !expanded;
+          this.chevron?.classList.toggle("rotate-90", expanded);
+          if (this.openIcon) this.openIcon.hidden = !expanded;
+          if (this.closedIcon) this.closedIcon.hidden = expanded;
+        }
+      };
+      export default FileTree;
+    </script>
+    <%!-- /colocated-hook --%>
     """
   end
 end

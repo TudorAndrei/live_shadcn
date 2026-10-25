@@ -85,7 +85,10 @@ A hook decides which element to use. The `JS` command on that element decides
 what happens.
 
 Specialist hooks also handle controls such as Calendar, Carousel, Scroller,
-Slider, and Toast. Register the complete `live_base` hook map in applications.
+Slider, and Toast. The hooks are LiveView colocated hooks. Applications register
+the complete map from `phoenix-colocated/live_base`. The application's esbuild
+`NODE_PATH` must contain both `Mix.Project.build_path()` and its
+`assets/node_modules`, where the npm peers are installed.
 
 ## Maintainer workflow
 

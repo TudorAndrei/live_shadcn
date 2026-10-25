@@ -78,7 +78,7 @@ defmodule LiveShadcn.UI.HoverCard do
       aria-controls={Popover.popup_id(@id)}
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
-      phx-hook="LiveBase.InteractionTrigger"
+      phx-hook={LiveBase.InteractionTrigger.hook()}
       data-lb-open-on-hover
       data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}
@@ -99,7 +99,7 @@ defmodule LiveShadcn.UI.HoverCard do
       aria-controls={Popover.popup_id(@id)}
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
-      phx-hook="LiveBase.InteractionTrigger"
+      phx-hook={LiveBase.InteractionTrigger.hook()}
       data-lb-open-on-hover
       data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}
@@ -118,7 +118,7 @@ defmodule LiveShadcn.UI.HoverCard do
       aria-controls={Popover.popup_id(@id)}
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
-      phx-hook="LiveBase.InteractionTrigger"
+      phx-hook={LiveBase.InteractionTrigger.hook()}
       data-lb-open-on-hover
       data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}
@@ -194,7 +194,7 @@ defmodule LiveShadcn.UI.HoverCard do
       aria-controls={Popover.popup_id(@id)}
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
-      phx-hook="LiveBase.InteractionTrigger"
+      phx-hook={LiveBase.InteractionTrigger.hook()}
       data-lb-open-on-hover
       data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}
@@ -216,7 +216,7 @@ defmodule LiveShadcn.UI.HoverCard do
       aria-controls={Popover.popup_id(@id)}
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
-      phx-hook="LiveBase.InteractionTrigger"
+      phx-hook={LiveBase.InteractionTrigger.hook()}
       data-lb-open-on-hover
       data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}
@@ -236,7 +236,7 @@ defmodule LiveShadcn.UI.HoverCard do
       aria-controls={Popover.popup_id(@id)}
       phx-window-keydown={Popover.close(@id)}
       phx-key="Escape"
-      phx-hook="LiveBase.InteractionTrigger"
+      phx-hook={LiveBase.InteractionTrigger.hook()}
       data-lb-open-on-hover
       data-lb-hover-card
       data-lb-open-delay={to_string(@delay)}

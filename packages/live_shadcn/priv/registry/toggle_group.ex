@@ -50,7 +50,7 @@ defmodule LiveShadcn.UI.ToggleGroup do
       id={@id}
       data-slot={@rest[:"data-slot"] || "toggle-group"}
       role="group"
-      phx-hook="LiveBase.ToggleGroup"
+      phx-hook={LiveBase.ToggleGroup.hook()}
       data-variant={@variant}
       data-size={@size}
       data-spacing={@spacing}

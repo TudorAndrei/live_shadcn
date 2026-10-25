@@ -10,6 +10,7 @@ defmodule LiveAiElements.MixProject do
       version: @version,
       elixir: "~> 1.17",
       elixirc_options: [warnings_as_errors: true],
+      compilers: [:phoenix_live_view] ++ Mix.compilers(),
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       # A recorded stream and its golden are data, not a suite to run.
@@ -39,6 +40,8 @@ defmodule LiveAiElements.MixProject do
   defp deps do
     [
       {:live_shadcn, dep_spec("live_shadcn", "~> 0.1")},
+      # Colocated hooks compile only against Phoenix 1.8 or later.
+      {:phoenix, "~> 1.8"},
       {:phoenix_live_view, "~> 1.2"},
       # AI Elements renders assistant prose with Streamdown, a markdown renderer
       # built for text that is still arriving. Elixir has that already, so this
