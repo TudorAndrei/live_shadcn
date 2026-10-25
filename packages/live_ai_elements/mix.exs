@@ -1,7 +1,7 @@
 defmodule LiveAiElements.MixProject do
   use Mix.Project
 
-  @version "0.1.0-dev"
+  @version "0.1.0"
   @source_url "https://github.com/TudorAndrei/live_shadcn"
 
   def project do
@@ -66,11 +66,18 @@ defmodule LiveAiElements.MixProject do
     [
       licenses: ["Apache-2.0"],
       links: %{"GitHub" => @source_url},
-      files: ~w(lib assets .formatter.exs mix.exs README.md package.json)
+      files: ~w(lib assets .formatter.exs mix.exs README.md package.json LICENSE NOTICE)
     ]
   end
 
-  defp docs, do: [main: "readme", source_url: @source_url, extras: ["README.md"]]
+  defp docs do
+    [
+      main: "readme",
+      source_url: @source_url,
+      source_ref: "live_ai_elements-v#{@version}",
+      extras: ["README.md"]
+    ]
+  end
 
   # Static analysis. None of it ships — every entry is `runtime: false` and
   # scoped to dev and test, so an application that depends on this package gets
