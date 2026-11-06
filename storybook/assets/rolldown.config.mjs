@@ -20,8 +20,10 @@
 
 import { createRequire } from "node:module";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
+const here = path.dirname(fileURLToPath(import.meta.url));
 
 if (!process.env.NODE_PATH) {
   throw new Error(
@@ -40,6 +42,11 @@ export default {
   resolve: {
     modules: ["node_modules", ...buildPath],
     alias: {
+      // Mix owns the Phoenix client versions. Resolve them from its locked
+      // dependencies, without npm file links to uncommitted deps/ directories.
+      phoenix: path.resolve(here, "../deps/phoenix/priv/static/phoenix.mjs"),
+      phoenix_html: path.resolve(here, "../deps/phoenix_html/priv/static/phoenix_html.js"),
+      phoenix_live_view: path.resolve(here, "../deps/phoenix_live_view/priv/static/phoenix_live_view.esm.js"),
       "@floating-ui/dom": require.resolve("@floating-ui/dom"),
       "@rive-app/webgl2": require.resolve("@rive-app/webgl2"),
       "embla-carousel": require.resolve("embla-carousel"),
