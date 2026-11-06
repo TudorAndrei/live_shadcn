@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 const textMetrics = (page, selector) =>
   page.locator(selector).first().evaluate((element) => {

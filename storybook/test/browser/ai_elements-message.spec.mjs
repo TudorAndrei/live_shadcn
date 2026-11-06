@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { visit } from "./live.mjs";
 
 test("message branches show one answer, return the current page, and wrap in either direction", async ({ page }) => {

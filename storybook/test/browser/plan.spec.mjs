@@ -11,7 +11,7 @@
 // plus the one about nesting.
 
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { visit } from "./live.mjs";
 

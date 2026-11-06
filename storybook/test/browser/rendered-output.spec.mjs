@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { collect, compare, PROPERTIES, SEMANTIC_ATTRIBUTES } from "./measure.mjs";
 

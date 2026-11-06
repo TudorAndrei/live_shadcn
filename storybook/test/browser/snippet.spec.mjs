@@ -10,7 +10,7 @@
 // what that swap actually does is only visible here.
 
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { visit } from "./live.mjs";
 

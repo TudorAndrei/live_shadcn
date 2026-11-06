@@ -15,7 +15,7 @@
 // `tabindex` and no `aria-checked` — which axe reports and is right to.
 
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { visit } from "./live.mjs";
 

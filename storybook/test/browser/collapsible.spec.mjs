@@ -1,6 +1,6 @@
 // Browser behavior for the shadcn Collapsible examples.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { connected, referenceReady, visit } from "./live.mjs";
 import { reviewedReferenceLabels } from "./reviewed-reference-labels.mjs";

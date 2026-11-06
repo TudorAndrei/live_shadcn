@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { actionControlSelector, enterVisualState, visualStates } from "./visual-states.mjs";
 import { discoverInteractionProbes, enterInteractionProbe } from "./interaction-parity.mjs";

@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { visit } from "./live.mjs";
 
 test("an image decodes the supplied base64 data and exposes its alternative text", async ({ page }) => {

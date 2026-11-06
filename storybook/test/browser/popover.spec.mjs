@@ -5,7 +5,7 @@
 // actually landed on, which is not knowable until it is on the page and the
 // browser has said how much room was left.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { visit } from "./live.mjs";
 

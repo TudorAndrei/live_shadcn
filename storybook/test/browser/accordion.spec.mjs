@@ -9,7 +9,7 @@
 // is that opening a panel is a client behaviour. Nothing here reaches the
 // server, so nothing here can be verified by rendering.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { visit } from "./live.mjs";
 import AxeBuilder from "@axe-core/playwright";

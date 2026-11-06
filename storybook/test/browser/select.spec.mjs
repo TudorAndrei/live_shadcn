@@ -5,7 +5,7 @@
 // what a form would submit — and only the last of those is visible to the
 // server. A browser is the only place all four can be checked together.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { connected, referenceReady, visit } from "./live.mjs";
 import { discoverInteractionProbes, enterInteractionProbe } from "./interaction-parity.mjs";

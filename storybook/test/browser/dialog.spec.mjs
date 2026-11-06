@@ -5,7 +5,7 @@
 // happens to Tab, whether the page behind still scrolls — and none of it can be
 // checked by looking at markup.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { discoverInteractionProbes, enterInteractionProbe } from "./interaction-parity.mjs";
 import { connected, referenceReady, visit } from "./live.mjs";

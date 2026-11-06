@@ -9,7 +9,7 @@
 // Nothing here reaches the server, which is why it is a browser check rather
 // than a rendering one.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { connected } from "./live.mjs";
 
@@ -88,5 +88,29 @@ test.describe("the documentation sidebar", () => {
 
     await expect(page.locator(NAV)).toHaveAttribute("data-state", "expanded");
     await expect(page.locator(TRIGGER).first()).toHaveAttribute("aria-expanded", "true");
+  });
+});
+
+test.describe("the reader theme", () => {
+  test.use({ storybookTheme: null });
+
+  test("defaults to dark and keeps an explicit reader choice across page loads", async ({ page }) => {
+    await page.goto("/docs/badge");
+    await connected(page);
+    const html = page.locator("html");
+    await expect(html).toHaveClass(/\bdark\b/);
+
+    await page.locator("[data-storybook-theme]").selectOption("light");
+    await expect(html).not.toHaveClass(/\bdark\b/);
+    await page.goto("/preview/badge/variants");
+    await expect(html).not.toHaveClass(/\bdark\b/);
+    await page.reload();
+    await expect(html).not.toHaveClass(/\bdark\b/);
+
+    await page.goto("/preview/badge/variants?theme=dark");
+    await expect(html).toHaveClass(/\bdark\b/);
+    await page.goto("/docs/badge");
+    await connected(page);
+    await expect(page.locator("[data-storybook-theme]")).toHaveValue("dark");
   });
 });

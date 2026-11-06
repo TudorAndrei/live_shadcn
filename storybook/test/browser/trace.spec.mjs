@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { visit } from "./live.mjs";
 
 test("Trace opens nested command output and keeps a controlled trigger in sync", async ({ page }) => {

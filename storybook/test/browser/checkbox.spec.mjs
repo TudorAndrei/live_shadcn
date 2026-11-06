@@ -8,7 +8,7 @@
 // and submits nothing is worse than one that looks wrong, and only a browser
 // can tell you which you have.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { connected, referenceReady, visit } from "./live.mjs";
 import { startCheckableFixture } from "./checkable-fixture.mjs";

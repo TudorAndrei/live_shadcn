@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { visit } from "./live.mjs";
 
 test("Code Block copies exact source, announces success, and restores its label", async ({ page, context }) => {

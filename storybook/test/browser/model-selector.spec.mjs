@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { visit } from "./live.mjs";
 
 test("model selector filters a composed dialog and sends the selected model to its caller", async ({ page }) => {

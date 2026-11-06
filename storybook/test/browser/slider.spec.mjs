@@ -5,7 +5,7 @@
 // the half this project wrote: whether the thumb a reader sees ends up where
 // the input a reader operates says it is.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { referenceReady, visit } from "./live.mjs";
 
