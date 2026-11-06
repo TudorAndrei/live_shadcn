@@ -18,7 +18,7 @@ import { readFileSync } from "node:fs";
 import { beginStateCoverage } from "./report-provenance.mjs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { expect, test as base } from "@playwright/test";
+import { expect, test as base } from "./test.mjs";
 import { PNG } from "pngjs";
 
 import { gated, source } from "./registries.mjs";

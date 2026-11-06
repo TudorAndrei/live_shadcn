@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { connected } from "./live.mjs";
 import { waitForCarouselMotion } from "./visual-states.mjs";

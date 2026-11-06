@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { visit } from "./live.mjs";
 
 test("the panel preserves its accessible region and caller-owned content", async ({ page }) => {

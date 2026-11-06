@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { visit } from "./live.mjs";
 
 test("checkpoint tooltip explains its action and restore reaches the caller once", async ({ page }) => {

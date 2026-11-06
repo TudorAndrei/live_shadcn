@@ -5,7 +5,7 @@
 // End go to its ends, and exactly one tab is in the page's tab order at a time
 // so Tab moves past the whole set rather than through it.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { visit } from "./live.mjs";
 

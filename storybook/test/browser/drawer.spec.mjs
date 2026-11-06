@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { discoverInteractionProbes, enterInteractionProbe } from "./interaction-parity.mjs";
 import { connected, referenceReady, slowAnimationFrames, visit } from "./live.mjs";

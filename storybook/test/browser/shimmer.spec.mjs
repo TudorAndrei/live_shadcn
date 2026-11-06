@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { visit } from "./live.mjs";
 
 test("shimmer moves its gradient across the text in a two second cycle", async ({ page }) => {

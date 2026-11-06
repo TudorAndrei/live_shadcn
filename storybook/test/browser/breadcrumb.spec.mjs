@@ -1,6 +1,6 @@
 // Browser behavior for the interactive shadcn Breadcrumb examples.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { visit } from "./live.mjs";
 

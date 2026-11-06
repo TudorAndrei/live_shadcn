@@ -15,6 +15,9 @@ The styling comes from the pinned sheets in `registry/upstream/`.
 `npm run upstream` in `assets/` copies them into the asset pipeline so Tailwind
 can resolve their package imports.
 
+The asset builder reads Phoenix JavaScript clients from the locked Mix
+dependencies in `deps/`. npm does not manage a second copy of those clients.
+
 ## What is where
 
 | Path | What it is |
@@ -35,6 +38,8 @@ Dark is the default theme. Use the **Theme** control in the header to select
 **Light** or **Dark**.
 The selection stays in the current browser tab during navigation and reloads.
 Add `?theme=dark` or `?theme=light` to a docs or preview URL to set its theme.
+The browser tests select Light before page scripts run to match the React
+references. Tests of the reader theme use a fresh tab without this preference.
 
 Every `cn-` rule upstream publishes is nested inside `.style-<name>`, so the
 style is a class on the document. `vega` is shadcn's first-listed style and the

@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { visit } from "./live.mjs";
 
 test("a caller can replace compiled content with an error and recover", async ({ page }) => {

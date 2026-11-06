@@ -5,7 +5,7 @@
 // makes all of them. So this suite asks the one question the snapshot cannot:
 // after the page is live, does the browser agree there is something to scroll.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { referenceReady, visit } from "./live.mjs";
 

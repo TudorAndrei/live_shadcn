@@ -11,7 +11,7 @@
 // ones the collapsible is held to — the Base UI attribute contract, and a panel
 // that opens without a round trip — asked of the folded copy.
 
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { visit } from "./live.mjs";
 import AxeBuilder from "@axe-core/playwright";

@@ -17,7 +17,7 @@ import { readFileSync } from "node:fs";
 import { beginStateCoverage } from "./report-provenance.mjs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import AxeBuilder from "@axe-core/playwright";
 
 import { regressions, stableViolations } from "./accessibility.mjs";

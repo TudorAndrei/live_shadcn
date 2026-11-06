@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { visit } from "./live.mjs";
 
 test("voice metadata and preview controls reflect caller state", async ({ page }) => {

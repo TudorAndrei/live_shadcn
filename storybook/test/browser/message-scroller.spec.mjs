@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 
 import { referenceReady, visit } from "./live.mjs";
 import { enterVisualState } from "./visual-states.mjs";

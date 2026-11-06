@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const rootLayout = readFileSync(join(here, "../../lib/storybook_web/layouts/root.html.heex"), "utf8");
 const inlineOpeningScript = rootLayout.match(
-  /<script nonce=\{assigns\[:csp_nonce\]\} phx-no-curly-interpolation>\s*([\s\S]*?)\s*<\/script>/,
+  /<body\b[\s\S]*?<script nonce=\{assigns\[:csp_nonce\]\} phx-no-curly-interpolation>\s*([\s\S]*?)\s*<\/script>/,
 )?.[1];
 
 class FakeElement {

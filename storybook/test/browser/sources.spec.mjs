@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { disclosureContract } from "./ai-contracts.mjs";
 import { visit } from "./live.mjs";
 

@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./test.mjs";
 import { PNG } from "pngjs";
 
 import { compare, paintedBox, settle, shootCurrent, union } from "./shoot.mjs";
