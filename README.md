@@ -25,6 +25,9 @@ The synchronization inputs are machine-readable:
 
 A scheduled workflow fetches these sources and opens a pull request when safe
 facts change. Structural or behavior drift stops the workflow for review.
+The workflow runs weekly. A failure on the default branch disables further
+runs until you correct the cause and enable the workflow again. See
+[Sync workflow](docs/ARCHITECTURE.md#sync-workflow) for the steps to resume.
 
 ## The key idea
 

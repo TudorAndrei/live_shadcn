@@ -9,9 +9,12 @@ on:
     - cron: "0 6 * * 1" # Mondays, 06:00 UTC
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
+# Runs share one update branch. Let the current run finish before another starts.
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+permissions: {}
 
 env:
   ELIXIR_MAKE_CACHE_DIR: /tmp/live-shadcn-native/elixir-make
@@ -20,6 +23,9 @@ env:
 jobs:
   sync:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -110,3 +116,27 @@ jobs:
           title: "chore(registry): ${{ steps.drift.outputs.title }}"
           body: ${{ steps.drift.outputs.body }}
           commit-message: "chore(registry): sync upstream"
+
+  pause-on-failure:
+    name: Stop scheduled updates after a failure
+    needs: sync
+    if: ${{ failure() && needs.sync.result == 'failure' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: write
+    steps:
+      - name: Disable this workflow until the failure is corrected
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh workflow disable sync-upstream.yml
+          cat >> "$GITHUB_STEP_SUMMARY" <<'SUMMARY'
+          ## Upstream updates are stopped
+
+          The sync job failed. This workflow is disabled to prevent repeated scheduled failures.
+          Read the failed step and correct the cause before you resume updates.
+
+          To resume, enable **Sync upstream** in GitHub Actions, then select **Run workflow** on the default branch.
+          A failed sync will disable the workflow again.
+          SUMMARY
