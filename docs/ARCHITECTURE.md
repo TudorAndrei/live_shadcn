@@ -281,5 +281,24 @@ The scheduled workflow runs fetch, port synchronization, snapshots, offline
 contract checks, and browser verification. Safe fact changes can open a pull
 request. Manual structural drift stops before port or contract writes.
 
+The schedule runs each Monday at 06:00 UTC. Runs use one concurrency group
+because they share the `sync/upstream` branch. A failed sync on the default
+branch disables this workflow. This stops scheduled retries until the cause
+is corrected. The failure job has `actions: write` permission so it can disable
+the workflow; the sync job does not have this permission.
+
+To resume after a correction, enable **Sync upstream** in GitHub Actions, then
+select **Run workflow** on the default branch. You can also use these commands:
+
+```sh
+gh workflow enable sync-upstream.yml
+gh workflow run sync-upstream.yml
+```
+
+If that run fails, the workflow is disabled again. Cancellation does not disable
+the workflow. Failures on other branches do not disable the default branch's
+schedule. A temporary network failure also stops the schedule and needs a
+manual check before updates resume.
+
 In a user's application, `mix ui.sync` compares installed copies with the
 package registry. It does not overwrite an edited copy.
